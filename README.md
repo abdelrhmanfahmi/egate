@@ -1,4 +1,4 @@
-# user-vue
+# humhum
 
 ## Project setup
 ```
