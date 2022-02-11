@@ -15,7 +15,7 @@ export default {
       auth.getAllCountires().then((res) => {
         console.log(res);
       }).catch((err) => {
-          console.error(err);
+          console.log(err);
       });
     },
   },

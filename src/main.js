@@ -1,5 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
+// Dot ENV
+require('dotenv').config()
+
 import router from "./router";
 import store from "./store";
 

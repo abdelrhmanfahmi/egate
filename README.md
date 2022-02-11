@@ -3,6 +3,12 @@
 ## Project setup
 ```
 npm install
+
+```
+
+### Copy To Env File
+```
+cp .env-example .env
 ```
 
 ### Compiles and hot-reloads for development
