@@ -20,3 +20,7 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+
+// Styles: SCSS
+import './assets/scss/main.scss'
