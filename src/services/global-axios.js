@@ -11,6 +11,7 @@ const globalAxios = axios.create({
     "Content-Type": "multipart/form-data",
     Authorization: hasToken ? `Bearer ${hasToken.api_token}` : "",
     "Accept-Language": "en",
+    "Access-Control-Allow-Origin" :"*"
   },
 });
 
