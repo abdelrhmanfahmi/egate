@@ -94,12 +94,7 @@ export default {
     flex: row;
     padding: 12px 0;
     transition: 0.5s all ease-in-out;
-    width: 90%;
     margin: 0 auto;
-    // @media (min-width: 1140px) {
-    //   max-width: 1140px;
-    // }
-
     ul li {
       text-transform: uppercase;
       padding: 12px;
