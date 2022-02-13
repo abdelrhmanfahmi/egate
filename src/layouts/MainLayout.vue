@@ -1,14 +1,19 @@
 <template>
   <div class="main-layout">
-    <AppHeader />
+    <TopHeader />
+    <Nav />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHeader from "@/components/layouts/AppHeader";
+import TopHeader from "@/components/layouts/TopHeader";
+import Nav from "@/components/layouts/nav";
+
 export default {
   components: {
-    AppHeader,
+    TopHeader,
+    Nav,
   },
 };
 </script>

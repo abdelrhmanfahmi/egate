@@ -3,6 +3,15 @@ import App from "./App.vue";
 // Dot ENV
 require('dotenv').config()
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(fas)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 import router from "./router";
 import store from "./store";
 
@@ -13,6 +22,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
+
 
 Vue.config.productionTip = false;
 new Vue({
