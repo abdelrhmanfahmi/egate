@@ -20,6 +20,7 @@
       </div>
       <transition name="mobile-nav">
         <b-sidebar
+          v-if="mobileNav"
           lazy
           @hidden="closeSideBar"
           id="sidebar-1"
@@ -27,7 +28,7 @@
           width="300px"
           shadow
         >
-          <ul class="drop-down" v-show="mobileNav">
+          <ul class="drop-down">
             <li v-for="(link, index) in links" :key="index">
               <router-link class="link" :to="link.to">{{
                 link.name

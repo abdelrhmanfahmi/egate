@@ -6,7 +6,11 @@ body {
   color: #676565;
   font-style: normal;
 }
-
+*{
+  &:focus{
+    outline: none;
+}
+}
 .img {
   max-width: 100%;
   transition: all 0.3s ease-out 0s;
