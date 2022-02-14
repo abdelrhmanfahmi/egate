@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap');
+
 body {
   font-family: "Almarai", sans-serif;
   font-weight: 400;
@@ -6,15 +8,33 @@ body {
   color: #676565;
   font-style: normal;
 }
-
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+}
 .img {
   max-width: 100%;
   transition: all 0.3s ease-out 0s;
 }
 ul {
   list-style: none;
-  
 }
 a {
- text-decoration: none;
+  text-decoration: none;
+}
+
+/* Start Container  */
+@media (min-width: 1200px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 90%;
+  }
 }
