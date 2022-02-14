@@ -20,8 +20,9 @@
       </div>
       <transition name="mobile-nav">
         <b-sidebar
+            right
           v-if="mobileNav"
-          lazy
+          
           @hidden="closeSideBar"
           id="sidebar-1"
           backdrop
@@ -50,7 +51,7 @@ export default {
       mobileNav: null,
       windowWidth: null,
       links: [
-        { name: "home", to: "/" },
+        { name: "الرئيسية", to: "/" },
         { name: "suppliers", to: "/suppliers" },
         { name: "about", to: "/about" },
         { name: "corporat", to: "/corporat" },
@@ -87,7 +88,6 @@ export default {
 .main-nav {
   width: 100%;
   transition: 0.5s all ease-in-out;
-  color: #565656;
   nav {
     position: relative;
     display: flex;
@@ -103,6 +103,7 @@ export default {
         transition: 0.5s all ease-in-out;
         padding-bottom: 4px;
         border-bottom: 1px solid transparent;
+        color: $text-color;
         &:hover {
           color: #000;
           border-color: red;

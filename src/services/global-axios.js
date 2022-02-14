@@ -8,10 +8,9 @@ if (process.client) {
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {
-    "Content-Type": "multipart/form-data",
+    "Content-Type": "application/json",
     Authorization: hasToken ? `Bearer ${hasToken.api_token}` : "",
     "Accept-Language": "en",
-    "Access-Control-Allow-Origin" :"*"
   },
 });
 
