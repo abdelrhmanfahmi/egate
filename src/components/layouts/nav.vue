@@ -20,9 +20,7 @@
       </div>
       <transition name="mobile-nav">
         <b-sidebar
-            right
           v-if="mobileNav"
-          
           @hidden="closeSideBar"
           id="sidebar-1"
           backdrop
