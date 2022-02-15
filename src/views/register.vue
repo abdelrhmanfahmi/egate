@@ -62,10 +62,9 @@
                 </b-col>
                 <!-- Confirm Password -->
                 <b-col lg="6">
-                  <b-form-group
-                    label="confirm password"
-                    label-for="confirmPassword"
-                  >
+                  <b-form-group>
+                    <label for="confirmPassword">confirm password</label>
+                    <span class="requried">*</span>
                     <b-form-input
                       id="confirmPassword"
                       v-model="form.confirmPassword"
@@ -74,21 +73,21 @@
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
-                <b-col lg="2" cols="4">
+                <b-col lg="3" cols="4">
                   <b-form-group>
                     <label for="countryCode">country code</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="countryCode"
-                      v-model="form.countryCode"
-                      required
-                    />
+                    <b-form-select v-model="form.selected">
+                      <b-form-select-option value="C"
+                        >Option C</b-form-select-option
+                      >
+                    </b-form-select>
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col lg="10" cols="8">
+                <b-col lg="9" cols="8">
                   <b-form-group>
-                    <label for="phone">phone </label>
+                    <label for="phone">phone</label>
                     <span class="requried">*</span>
                     <b-form-input
                       id="phone"
@@ -106,6 +105,7 @@
   </section>
 </template>
 <script>
+import auth from "@/services/auth";
 export default {
   data() {
     return {
@@ -116,8 +116,24 @@ export default {
         password: "",
         confirmPassword: "",
         countryCode: "",
+        selected: "",
       },
     };
+  },
+  mounted() {
+    this.getAllCountires();
+  },
+  methods: {
+    getAllCountires() {
+      auth
+        .getAllCountires()
+        .then((res) => {
+         this.countries = res 
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
@@ -125,6 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-register {
+  height: 1200px;
   .main-title {
     text-align: center;
     padding: 30px 0;
@@ -142,6 +159,9 @@ export default {
           color: $main-color;
         }
       }
+    }
+    .custom-select {
+      height: 3.2rem;
     }
   }
 }
