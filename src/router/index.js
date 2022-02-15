@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue"; 
+import Register from "../views/register.vue";
+
 
 
 Vue.use(VueRouter);
@@ -35,6 +37,11 @@ const routes = [
     path: "/contact-us",
     name: "ContactUs",
     component: ContactUs,
+  },
+  {
+    path: "/user-register",
+    name: "Register",
+    component: Register,
   },
 ];
 

@@ -2,6 +2,7 @@
   display: inline-block;
   position: relative;
   padding: 0 30px;
+  margin-bottom: 15px;
 }
 .sub-title::before,
 .sub-title::after {
@@ -20,4 +21,9 @@
 .main-header {
   color: $header-color;
   font-weight: 600;
+  text-transform: capitalize;
+}
+.requried {
+  color: $main-color;
+  padding: 0 2px;
 }

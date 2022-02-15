@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
 
 body {
-  font-family: "Almarai", sans-serif;
+  font-family: $default-font-family, sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -25,7 +25,19 @@ ul {
   list-style: none;
 }
 a {
-  text-decoration: none;
+  text-decoration: none !important;
+  transition: all 0.5s ease-in-out !important;
+  // display: inline-block !important;
+}
+span {
+  display: inline-block !important;
+}
+.form-control {
+  padding: 1.5rem 0.75rem;
+  border-radius: 0;
+}
+label {
+  text-transform: capitalize;
 }
 
 /* Start Container  */
