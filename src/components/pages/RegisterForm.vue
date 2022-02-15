@@ -47,7 +47,6 @@
                     <span class="requried">*</span>
                     <b-form-input id="email" v-model="form.email" required />
                   </b-form-group>
-                  <span class="err">asdas</span>
                 </b-col>
                 <!-- Password -->
                 <b-col lg="6">
@@ -99,6 +98,13 @@
                       v-model="form.mobile_number"
                       required
                     />
+                    <div
+                      class="err"
+                      v-for="(x, index) in errors.mobile_number"
+                      :key="index"
+                    >
+                      {{ x }}
+                    </div>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -126,11 +132,14 @@
                 to complete the registration process
               </b-form-checkbox>
 
-              <b-form-checkbox v-model="form.register_mailing_list" class="py-3">
+              <b-form-checkbox
+                v-model="form.register_mailing_list"
+                class="py-3"
+              >
                 Subscribe to the newsletter
               </b-form-checkbox>
 
-              <input type="submit" value="Ok" :disabled="!terms">
+              <input type="submit" value="Ok" :disabled="!terms" />
             </form>
           </b-col>
         </b-row>
@@ -150,11 +159,12 @@ export default {
         password: "",
         password_confirmation: "",
         country_code: "",
-        mobile_number:"",
+        mobile_number: "",
         active_with: "",
-        register_mailing_list: ""
+        register_mailing_list: "",
       },
-      terms:"",
+      errors: {},
+      terms: "",
       connects: [
         { name: "Phone number", value: "sms" },
         { name: "Email", value: "email" },
@@ -177,10 +187,16 @@ export default {
         });
     },
     register() {
-      auth.register(this.form).then((res) => {
-        console.log(res)
-      })
-    }
+      auth
+        .register(this.form)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+        });
+    },
   },
 };
 </script>
@@ -214,6 +230,9 @@ export default {
       text-decoration: underline !important;
       display: inline-block;
     }
+  }
+  .err {
+    color: red;
   }
 }
 </style>
