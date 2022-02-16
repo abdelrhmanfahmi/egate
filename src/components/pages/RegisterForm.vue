@@ -21,11 +21,14 @@
                   <b-form-group>
                     <label for="f-name">first name</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="f-name"
-                      v-model="form.first_name"
-                      required
-                    />
+                    <b-form-input id="f-name" v-model="form.first_name" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.first_name"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Last Name -->
@@ -33,11 +36,14 @@
                   <b-form-group>
                     <label for="l-name">last name</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="l-name"
-                      v-model="form.last_name"
-                      required
-                    />
+                    <b-form-input id="l-name" v-model="form.last_name" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.last_name"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
@@ -45,7 +51,14 @@
                   <b-form-group>
                     <label for="email">email</label>
                     <span class="requried">*</span>
-                    <b-form-input id="email" v-model="form.email" required />
+                    <b-form-input id="email" v-model="form.email" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.email"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
@@ -53,11 +66,14 @@
                   <b-form-group>
                     <label for="password">password</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="password"
-                      v-model="form.password"
-                      required
-                    />
+                    <b-form-input id="password" v-model="form.password" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Confirm Password -->
@@ -68,8 +84,14 @@
                     <b-form-input
                       id="confirmPassword"
                       v-model="form.password_confirmation"
-                      required
                     />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password_confirmation"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
@@ -86,6 +108,13 @@
                         {{ country.phone_prefix }}</b-form-select-option
                       >
                     </b-form-select>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.country_code"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
@@ -96,14 +125,14 @@
                     <b-form-input
                       id="phone"
                       v-model="form.mobile_number"
-                      required
+                      type="number"
                     />
                     <div
-                      class="err"
-                      v-for="(x, index) in errors.mobile_number"
+                      class="error"
+                      v-for="(error, index) in errors.mobile_number"
                       :key="index"
                     >
-                      {{ x }}
+                      {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
@@ -122,6 +151,13 @@
                   :value="connect.value"
                   >{{ connect.name }}</b-form-radio
                 >
+                <!-- <div
+                  class="error"
+                  v-for="(error, indx) in errors.active_with"
+                  :key="indx"
+                >
+                  {{ error }}
+                </div> -->
               </b-form-group>
 
               <b-form-checkbox v-model="terms">
@@ -138,11 +174,20 @@
               >
                 Subscribe to the newsletter
               </b-form-checkbox>
-
-              <input type="submit" value="Ok" :disabled="!terms" />
+              <div class="submition-box">
+                <b-button type="submit" :disabled="!terms" variant="danger"
+                  >Submit</b-button
+                >
+              </div>
             </form>
           </b-col>
         </b-row>
+        <div class="help py-5">
+          <h6 class="main-header">
+            If you are unable to register, please contact us for assistance
+          </h6>
+          <a class="tel" href="tel:+4733378901">+47 333 78 901</a>
+        </div>
       </div>
     </b-container>
   </section>
@@ -161,7 +206,7 @@ export default {
         country_code: "",
         mobile_number: "",
         active_with: "",
-        register_mailing_list: "",
+        register_mailing_list: false,
       },
       errors: {},
       terms: "",
@@ -188,7 +233,7 @@ export default {
     },
     register() {
       auth
-        .register(this.form)
+        .register("b2c",this.form)
         .then((res) => {
           console.log(res);
         })
@@ -230,8 +275,28 @@ export default {
       text-decoration: underline !important;
       display: inline-block;
     }
+    .submition-box {
+      text-align: center;
+      border: 1px solid rgba(204, 204, 204, 0.251);
+      border-radius: 4px;
+      background-color: rgba(216, 220, 221, 0.251);
+      padding: 40px 30px;
+    }
+    .help {
+      text-align: center;
+      .main-header {
+        text-transform: uppercase;
+      }
+      .tel {
+        background-color: #3b5998;
+        padding: 20px;
+        margin: 10px 0;
+        color: #fff;
+        display: inline-block;
+      }
+    }
   }
-  .err {
+  .error {
     color: red;
   }
 }

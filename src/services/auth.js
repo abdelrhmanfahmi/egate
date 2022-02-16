@@ -1,7 +1,7 @@
 import globalAxios from "./global-axios";
 class authManageServices {
-  static register(payload) {
-    return globalAxios.post("auth/b2c/register" , payload);
+  static register(type, payload) {
+    return globalAxios.post(`auth/${type}/register`, payload);
   }
   // login services
   static getAllCountires() {
