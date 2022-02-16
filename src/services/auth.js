@@ -1,8 +1,17 @@
 import globalAxios from "./global-axios";
-class authManageServices {
-  // login services
-  static getAllCountires() {
+
+export default {
+  // register
+  register(type, payload) {
+    return globalAxios.post(`auth/${type}/register`, payload);
+  },
+  getAllCountires() {
     return globalAxios.get("lists/countries");
+  },
+  verificationMobile(payload) {
+    return globalAxios.patch("checkpoint/active-mobile" , payload);
+  },
+  resendCodeMobile() {
+    return globalAxios.get("checkpoint/resend-active-email");
   }
-}
-export default authManageServices;
+};
