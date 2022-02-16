@@ -236,13 +236,13 @@ export default {
           console.log(err);
         });
     },
-    register() {
+     register() {
       auth
         .register("b2c", this.form)
-        .then((res) => {
-          localStorage.setItem("token", res.data.items.access_token);
+        .then(async(res) => {
+          await localStorage.setItem("token", res.data.items.access_token);
           if (res.data.items.item.verify_mobile_required) {
-            console.log("yes")
+            this.$router.push("/ota-verification");
           }
         })
         .catch((error) => {

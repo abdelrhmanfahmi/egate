@@ -8,4 +8,7 @@ export default {
   getAllCountires() {
     return globalAxios.get("lists/countries");
   },
+  verificationMobile(payload) {
+    return globalAxios.patch("checkpoint/active-mobile" , payload);
+  }
 };

@@ -2,9 +2,8 @@ import axios from "axios";
 
 let hasToken = null;
 
-if (process.client) {
-  hasToken = JSON.parse(localStorage.getItem("token"));
-}
+hasToken = localStorage.getItem("token");
+
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {

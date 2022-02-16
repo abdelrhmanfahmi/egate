@@ -5,7 +5,7 @@ import Suppliers from "../views/Suppliers.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue"; 
 import Register from "../views/auth/register.vue";
-
+import OtaVerification from "../views/auth/OtpVerification.vue"
 
 
 Vue.use(VueRouter);
@@ -42,6 +42,11 @@ const routes = [
     path: "/user-register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/ota-verification",
+    name: "OtaVerification",
+    component: OtaVerification,
   },
 ];
 
