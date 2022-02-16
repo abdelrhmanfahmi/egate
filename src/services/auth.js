@@ -1,11 +1,11 @@
 import globalAxios from "./global-axios";
-class authManageServices {
-  static register(type, payload) {
+
+export default {
+  // register
+  register(type, payload) {
     return globalAxios.post(`auth/${type}/register`, payload);
-  }
-  // login services
-  static getAllCountires() {
+  },
+  getAllCountires() {
     return globalAxios.get("lists/countries");
-  }
-}
-export default authManageServices;
+  },
+};

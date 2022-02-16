@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue"; 
-import Register from "../views/register.vue";
+import Register from "../views/auth/register.vue";
 
 
 

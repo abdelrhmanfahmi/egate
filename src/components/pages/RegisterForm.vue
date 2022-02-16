@@ -66,7 +66,11 @@
                   <b-form-group>
                     <label for="password">password</label>
                     <span class="requried">*</span>
-                    <b-form-input id="password" v-model="form.password" />
+                    <b-form-input
+                      id="password"
+                      v-model="form.password"
+                      type="password"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.password"
@@ -82,6 +86,7 @@
                     <label for="confirmPassword">confirm password</label>
                     <span class="requried">*</span>
                     <b-form-input
+                      type="password"
                       id="confirmPassword"
                       v-model="form.password_confirmation"
                     />
@@ -233,9 +238,12 @@ export default {
     },
     register() {
       auth
-        .register("b2c",this.form)
+        .register("b2c", this.form)
         .then((res) => {
-          console.log(res);
+          localStorage.setItem("token", res.data.items.access_token);
+          if (res.data.items.item.verify_mobile_required) {
+            console.log("yes")
+          }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
