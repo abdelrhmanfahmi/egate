@@ -10,5 +10,8 @@ export default {
   },
   verificationMobile(payload) {
     return globalAxios.patch("checkpoint/active-mobile" , payload);
+  },
+  resendCodeMobile() {
+    return globalAxios.get("checkpoint/resend-active-email");
   }
 };

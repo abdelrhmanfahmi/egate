@@ -1,6 +1,8 @@
 <template>
   <section class="otp-verification">
-    <b-alert variant="danger" show v-if="massageErr"> {{massageErr}} </b-alert>
+    <b-alert variant="danger" show v-if="massageErr">
+      {{ massageErr }}
+    </b-alert>
     <b-row class="justify-content-center">
       <b-col lg="4" md="5" cols="10">
         <h1>welcome</h1>
@@ -13,8 +15,13 @@
             <span class="requried">*</span>
             <b-form-input id="l-name" v-model="form.code" required />
           </b-form-group>
-          <b-button type="submit" variant="danger"><font-awesome-icon icon="fas fa-lock" /> Verification </b-button>
+          <b-button type="submit" variant="danger"
+            ><font-awesome-icon icon="fas fa-lock" /> Verification
+          </b-button>
         </form>
+        <div class="my-3 resend" @click="resendCode()">
+          not arrived ? Resend
+        </div>
       </b-col>
     </b-row>
   </section>
@@ -29,7 +36,7 @@ export default {
       form: {
         code: "",
       },
-      massageErr:""
+      massageErr: "",
     };
   },
   mounted() {},
@@ -37,12 +44,32 @@ export default {
     otpVerification() {
       auth
         .verificationMobile(this.form)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          // console.log(res);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data.message;
-          this.massageErr = err
+          this.massageErr = err;
+        });
+    },
+    resendCode() {
+      auth
+        .resendCodeMobile()
+        .then((res) => {
+          console.log(res.data);
+          this.$bvToast.toast(res.data.massage, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data.message;
+          this.$bvToast.toast(err, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
         });
     },
   },
@@ -61,6 +88,13 @@ export default {
     padding: 12px;
     color: white;
     display: inline-block;
+  }
+  .resend {
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      color: $main-color;
+    }
   }
 }
 </style>
