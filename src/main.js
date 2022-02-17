@@ -4,6 +4,7 @@ import App from "./App.vue";
 // Dot ENV
 require("dotenv").config();
 
+
 // i18n
 import i18n from "./i18n/i18n";
 
@@ -13,7 +14,12 @@ import router from "./router";
 // store
 import store from "./store";
 
-
+let lang = null;
+lang = localStorage.getItem("lang") || "en";
+document.documentElement.lang = lang;
+if (lang === "ar") {
+  document.documentElement.dir = "rtl";
+}
 
 // fortawesome
 import { library } from "@fortawesome/fontawesome-svg-core";

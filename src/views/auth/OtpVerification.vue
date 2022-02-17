@@ -56,8 +56,8 @@ export default {
       auth
         .resendCodeMobile()
         .then((res) => {
-          console.log(res.data);
-          this.$bvToast.toast(res.data.massage, {
+        
+          this.$bvToast.toast(res.data.message, {
             variant: "success",
             title: "success",
             autoHideDelay: 5000,

@@ -19,7 +19,7 @@
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
                 <!-- First Name -->
-                <b-col lg="6">
+                <b-col lg="12">
                   <b-form-group>
                     <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
@@ -34,7 +34,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Last Name -->
-                <b-col lg="6">
+                <b-col lg="12">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.lastName") }}</label>
                     <span class="requried">*</span>

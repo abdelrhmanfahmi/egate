@@ -12,6 +12,6 @@ export default {
     return globalAxios.patch("checkpoint/active-mobile" , payload);
   },
   resendCodeMobile() {
-    return globalAxios.get("checkpoint/resend-active-email");
+    return globalAxios.get("checkpoint/resend-active-mobile");
   }
 };

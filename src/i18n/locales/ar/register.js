@@ -1,6 +1,19 @@
 export default {
+  createCustomerAccount: "تسجيل حساب عملاء",
+  mainInformation: "المعلومات الاساسية",
+  alreadyHaveAccount: "لدي حساب تسجيل الدخول",
   firstName: "الاسم الاول",
-  lastName:"اسم العائله",
-  email:"البريد الالكترونى",
-  
+  lastName: "اسم العائله",
+  email: "البريد الالكترونى",
+  password: "كلمه المرور",
+  confirmPassword: "تاكيد كلمه المرور الجديده",
+  countryCode: "كود الدوله",
+  phone: "رقم التلفون",
+  chooseOneOfTheWays: "اختار احد الطرق لتفعيل حسابك",
+  PleaseReview: "رجي الاطلاع والموافقة علي",
+  termsConditions: "الشروط و الأحكام",
+  toCompleteTheRegistration: "لاتمام عملية التسجيل",
+  subscribeTheNewsletter: "الاشتراك بالنشره الدوريه",
+  submit: "تسجيل",
+  unableRegister: "في حالة تعذر التسجيل يرجي الاتصال بنا للمساعدة",
 };
