@@ -19,7 +19,7 @@
                 <!-- First Name -->
                 <b-col lg="6">
                   <b-form-group>
-                    <label for="f-name">first name</label>
+                    <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="f-name" v-model="form.first_name" />
                     <div
@@ -34,7 +34,7 @@
                 <!-- Last Name -->
                 <b-col lg="6">
                   <b-form-group>
-                    <label for="l-name">last name</label>
+                    <label for="l-name">{{ $t("register.lastName") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="l-name" v-model="form.last_name" />
                     <div
@@ -236,10 +236,10 @@ export default {
           console.log(err);
         });
     },
-     register() {
+    register() {
       auth
         .register("b2c", this.form)
-        .then(async(res) => {
+        .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
           if (res.data.items.item.verify_mobile_required) {
             this.$router.push("/ota-verification");
@@ -256,7 +256,6 @@ export default {
 
 <style lang="scss" scoped>
 .user-register {
-  height: 1200px;
   .main-title {
     text-align: center;
     padding: 30px 0;
@@ -306,6 +305,14 @@ export default {
   }
   .error {
     color: red;
+  }
+}
+
+html:lang(ar) {
+  .user-register {
+    .user-register-form {
+      text-align: right;
+    }
   }
 }
 </style>
