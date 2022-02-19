@@ -151,7 +151,7 @@
               <!-- active_with -->
               <b-form-group
                 class="my-4"
-                :label="this.$t('register.chooseOneOfTheWays')"
+                :label="$t('register.chooseOneOfTheWays')"
               >
                 <b-form-radio
                   class="pt-2"

@@ -49,11 +49,11 @@ export default {
       mobileNav: null,
       windowWidth: null,
       links: [
-        { name: "الرئيسية", to: "/" },
-        { name: "suppliers", to: "/suppliers" },
-        { name: "about", to: "/about" },
-        { name: "corporat", to: "/corporat" },
-        { name: "contact us", to: "/contact-us" },
+        { name: this.$t("home.home"), to: "/" },
+        { name: this.$t("home.suppliers"), to: "/suppliers" },
+        { name: this.$t("home.about"), to: "/about" },
+        { name: this.$t("home.corporat"), to: "/corporat" },
+        { name: this.$t("home.contactUs"), to: "/contact-us" },
       ],
     };
   },

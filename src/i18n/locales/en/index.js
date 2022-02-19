@@ -1,5 +1,7 @@
-import register from './register'
+import register from "./register";
+import home from "./home";
 
 export default {
   register,
-}
+  home,
+};
