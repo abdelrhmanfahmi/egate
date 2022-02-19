@@ -40,6 +40,7 @@ label {
   text-transform: capitalize;
 }
 
+
 /* Start Container  */
 @media (min-width: 1200px) {
   .container,
@@ -48,5 +49,16 @@ label {
   .container-lg,
   .container-xl {
     max-width: 90%;
+  }
+}
+
+// arabic style
+html:lang(ar) {
+  .b-sidebar.b-sidebar-right > .b-sidebar-header .close {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .b-sidebar > .b-sidebar-body {
+    text-align: right;
   }
 }

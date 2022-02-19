@@ -20,6 +20,7 @@
       </div>
       <transition name="mobile-nav">
         <b-sidebar
+          :right="getDir === 'rtl'"
           v-if="mobileNav"
           @hidden="closeSideBar"
           id="sidebar-1"
@@ -132,6 +133,19 @@ export default {
     .icon-active {
       transform: rotate(180deg);
     }
+  }
+}
+
+// style arabic
+html:lang(ar) {
+  .main-nav {
+    .icon {
+      left: 24px;
+      right: auto;
+    }
+  }
+  .b-sidebar-header {
+    text-align: right !important;
   }
 }
 </style>

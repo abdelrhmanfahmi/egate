@@ -14,12 +14,15 @@ import router from "./router";
 // store
 import store from "./store";
 
+// forLang
 let lang = null;
 lang = localStorage.getItem("lang") || "en";
 document.documentElement.lang = lang;
 if (lang === "ar") {
   document.documentElement.dir = "rtl";
 }
+
+
 
 // fortawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -33,6 +36,8 @@ import { BootstrapVue } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
+
+import './mixins'
 
 Vue.config.productionTip = false;
 new Vue({
