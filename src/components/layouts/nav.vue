@@ -9,6 +9,20 @@
           <router-link class="link" :to="link.to">{{ link.name }}</router-link>
         </li>
       </ul>
+      <div class="login">
+        <!-- <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" /> -->
+
+        <b-sidebar
+          id="login"
+          backdrop
+          width="450px"
+          :right="getDir === 'rtl'"
+          shadow
+          z-index="5"
+        >
+          <Login />
+        </b-sidebar>
+      </div>
       <div class="icon">
         <font-awesome-icon
           v-b-toggle.sidebar-1
@@ -27,14 +41,9 @@
           backdrop
           width="300px"
           shadow
+          z-index="3"
         >
-          <ul class="drop-down">
-            <li v-for="(link, index) in links" :key="index">
-              <router-link class="link" :to="link.to">{{
-                link.name
-              }}</router-link>
-            </li>
-          </ul>
+          <MobileNav />
         </b-sidebar>
       </transition>
     </nav>
@@ -42,6 +51,9 @@
 </template>
 
 <script>
+import Login from "./login.vue";
+import MobileNav from "./MobileNav.vue";
+
 export default {
   data() {
     return {
@@ -57,6 +69,10 @@ export default {
         { name: this.$t("home.contactUs"), to: "/contact-us" },
       ],
     };
+  },
+  components: {
+    Login,
+    MobileNav,
   },
   created() {
     window.addEventListener("resize", this.checkScreen);
@@ -109,14 +125,16 @@ export default {
         }
       }
     }
-    .branding {
-      display: flex;
-      align-items: center;
-    }
+
     .navigation {
       display: flex;
       align-items: center;
     }
+    .login {
+      margin-left: auto;
+      margin-right: 30px;
+    }
+
     .icon {
       display: flex;
       align-items: center;
@@ -143,9 +161,6 @@ html:lang(ar) {
       left: 24px;
       right: auto;
     }
-  }
-  .b-sidebar-header {
-    text-align: right !important;
   }
 }
 </style>
