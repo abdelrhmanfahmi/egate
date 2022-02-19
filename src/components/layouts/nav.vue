@@ -11,17 +11,7 @@
       </ul>
       <div class="login">
         <!-- <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" /> -->
-
-        <b-sidebar
-          id="login"
-          backdrop
-          width="450px"
-          :right="getDir === 'rtl'"
-          shadow
-          z-index="5"
-        >
-          <Login />
-        </b-sidebar>
+        <Login />
       </div>
       <div class="icon">
         <font-awesome-icon
