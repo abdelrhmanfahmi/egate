@@ -3,7 +3,7 @@
     <b-container>
       <div class="main-title">
         <span class="sub-title"></span>
-        <h2 class="main-header">{{ $t("register.createCustomerAccount") }}</h2>
+        <h3 class="main-header">{{ $t("register.registrationCompany") }}</h3>
       </div>
       <div class="user-register-form">
         <b-row class="justify-content-center">
@@ -149,29 +149,8 @@
                 </b-col>
               </b-row>
               <!-- active_with -->
-              <b-form-group
-                class="my-4"
-                :label="this.$t('register.chooseOneOfTheWays')"
-              >
-                <b-form-radio
-                  class="pt-2"
-                  v-for="(connect, index) in connects"
-                  :key="index"
-                  v-model="form.active_with"
-                  name="some-radios"
-                  :value="connect.value"
-                  >{{ connect.name }}</b-form-radio
-                >
-                <!-- <div
-                  class="error"
-                  v-for="(error, indx) in errors.active_with"
-                  :key="indx"
-                >
-                  {{ error }}
-                </div> -->
-              </b-form-group>
 
-              <b-form-checkbox v-model="terms" class="terms">
+              <b-form-checkbox v-model="terms" class="terms my-5">
                 {{ $t("register.PleaseReview") }}
                 <router-link to="/">
                   {{ $t("register.termsConditions") }}</router-link
@@ -179,12 +158,6 @@
                 {{ $t("register.toCompleteTheRegistration") }}
               </b-form-checkbox>
 
-              <b-form-checkbox
-                v-model="form.register_mailing_list"
-                class="py-3"
-              >
-                {{ $t("register.subscribeTheNewsletter") }}
-              </b-form-checkbox>
               <div class="submition-box">
                 <b-button type="submit" :disabled="!terms" variant="danger">
                   {{ $t("register.submit") }}
@@ -216,7 +189,6 @@ export default {
         password_confirmation: "",
         country_code: "",
         mobile_number: "",
-        active_with: "",
         register_mailing_list: false,
       },
       errors: {},
@@ -244,13 +216,10 @@ export default {
     },
     register() {
       auth
-        .register("b2c", this.form)
+        .register("buyer", this.form)
         .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
-          if (res.data.items.item.verify_mobile_required) {
-            this.$router.push("/ota-verification");
-            location.reload();
-          }
+          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

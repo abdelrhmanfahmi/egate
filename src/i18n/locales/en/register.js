@@ -17,4 +17,6 @@ export default {
   submit: "Submit",
   unableRegister:
     " If you are unable to register, please contact us for assistance",
+  registrationCompany:
+    "registration for the accounts of restaurants, hotels and companies wholesale purchase",
 };

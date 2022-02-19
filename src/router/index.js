@@ -52,7 +52,7 @@ const routes = [
     component: OtaVerification,
   },
   {
-    path: "/b2bRegister",
+    path: "/b2b-register",
     name: "B2bRegister",
     component: b2bRegister,
   },
