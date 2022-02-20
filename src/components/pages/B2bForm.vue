@@ -10,7 +10,7 @@
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <router-link to="/" class="back">
+              <router-link to="/b2b-login" class="back">
                 <span>
                   &#60; {{ $t("register.alreadyHaveAccount") }}</span
                 ></router-link

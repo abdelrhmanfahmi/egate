@@ -11,8 +11,8 @@
       bg-variant="#fff"
     >
       <div class="user-login-form">
-        <h6 class="title">Login</h6>
-        <p class="mb-2">Welcome again</p>
+        <h6 class="title">{{ $t("login.login") }}</h6>
+        <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p> 
         <p class="error">{{ errorMsg }}</p>
         <form @submit.prevent="loginB2c()">
           <b-form-input
@@ -28,7 +28,9 @@
             type="password"
             placeholder="password"
           />
-          <b-button type="submit" class="login-button"> Login </b-button>
+          <b-button type="submit" class="login-button">
+            {{ $t("login.login") }}
+          </b-button>
         </form>
       </div>
       <div class="social-login">
