@@ -2,3 +2,22 @@
  .sidebar-login {
     padding: 30px;
 }
+.b-sidebar {
+  background-color: #fff;
+}
+.login-button {
+  display: block;
+  color: #ffffff;
+  background-color: #ff0e00;
+  padding: 15px;
+  border: 0;
+  width: 100%;
+  margin: 40px 0px;
+  border-radius: 0;
+  &:hover{
+    background-color: #e73d33;
+  }
+  &:focus {
+    background-color: #e73d33;
+  }
+}

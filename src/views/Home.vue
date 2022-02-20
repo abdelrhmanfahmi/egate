@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>login with social</h1>
+    <h1>is login {{isLoggined}}</h1>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     makeLoginSocail() {
       if (this.$route.query.code) {
         const payload = {
-          redirect: "http://localhost:8080",
+          redirect: "http://localhost:8081/",
           code: this.$route.query.code,
         };
         auth

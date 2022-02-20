@@ -4,5 +4,12 @@ Vue.mixin({
     getDir() {
       return document.documentElement.dir;
     },
+    isLoggined() {
+      if (localStorage.getItem("token")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 });

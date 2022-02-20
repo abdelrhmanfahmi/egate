@@ -5,7 +5,9 @@
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
     </ul>
-    <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" />
+    <a v-b-toggle.login >
+      login
+    </a>
   </div>
 </template>
 

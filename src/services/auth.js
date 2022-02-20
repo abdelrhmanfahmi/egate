@@ -22,4 +22,7 @@ export default {
   makeLoginSocail(type, provider, payload) {
     return globalAxios.post(`auth/${type}/${provider}/login`, payload);
   },
+  login(type, payload) {
+    return globalAxios.post(`auth/${type}/login`, payload);
+  },
 };

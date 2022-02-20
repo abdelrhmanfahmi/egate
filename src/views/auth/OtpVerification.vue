@@ -42,7 +42,7 @@ export default {
       auth
         .verificationMobile(this.form)
         .then(() => {
-          // console.log(res);
+          this.$router.push("/");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data.message;

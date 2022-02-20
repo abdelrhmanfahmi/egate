@@ -39,7 +39,9 @@ span {
 label {
   text-transform: capitalize;
 }
-
+.error {
+  color: red;
+}
 
 /* Start Container  */
 @media (min-width: 1200px) {

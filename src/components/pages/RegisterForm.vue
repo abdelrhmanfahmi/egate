@@ -218,6 +218,7 @@ export default {
         mobile_number: "",
         active_with: "",
         register_mailing_list: false,
+        callback_url:"http://localhost:8081"
       },
       errors: {},
       terms: "",
@@ -312,9 +313,7 @@ export default {
       }
     }
   }
-  .error {
-    color: red;
-  }
+
 }
 
 // style arabic
