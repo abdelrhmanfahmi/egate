@@ -8,6 +8,9 @@
         <li v-for="(link, index) in links" :key="index">
           <router-link class="link" :to="link.to">{{ link.name }}</router-link>
         </li>
+        <li>
+          <a v-b-toggle.login v-if="!isLoggined" class="link"> login </a>
+        </li>
       </ul>
       <div class="login">
         <!-- <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" /> -->

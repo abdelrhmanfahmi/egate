@@ -15,8 +15,14 @@
         <p class="mb-2">Welcome again</p>
         <p class="error">{{ errorMsg }}</p>
         <form @submit.prevent="loginB2c()">
-          <b-form-input v-model="form.email" type="email" placeholder="Email" />
           <b-form-input
+            v-model="form.email"
+            type="email"
+            placeholder="email"
+            required
+          />
+          <b-form-input
+            required
             class="my-2"
             v-model="form.password"
             type="password"
@@ -25,10 +31,20 @@
           <b-button type="submit" class="login-button"> Login </b-button>
         </form>
       </div>
-      <button @click="getLink('facebook')" class="yes">facebook</button>
-      <button @click="getLink('google')" class="yes">google</button>
-      <button @click="getLink('azure')" class="yes">microsoft</button>
-      <button @click="getLink('apple')" class="yes">apple</button>
+      <div class="social-login">
+        <button @click="getLink('facebook')" class="yes">facebook</button>
+        <button @click="getLink('google')" class="yes">google</button>
+        <button @click="getLink('azure')" class="yes">microsoft</button>
+        <button @click="getLink('apple')" class="yes">apple</button>
+      </div>
+
+      <div class="user-login-form">
+        <p class="title">Don't have account ?</p>
+
+        <b-button to="/user-register" class="login-button my-2">
+          Create account
+        </b-button>
+      </div>
     </b-sidebar>
   </div>
 </template>
@@ -49,8 +65,10 @@ export default {
     loginB2c() {
       auth
         .login("b2c", this.form)
-        .then((res) => {
-          console.log(res);
+        .then(async (res) => {
+          await localStorage.setItem("token", res.data.items.access_token);
+          this.$router.push("/");
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -95,9 +113,11 @@ export default {
       }
     }
   }
+  .social-login {
+    display: flex;
+  }
   .yes {
-    display: block;
-    margin: 10px 0;
+    margin: 20px 5px;
     padding: 20px;
   }
 }

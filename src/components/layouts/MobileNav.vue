@@ -5,7 +5,7 @@
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
     </ul>
-    <a v-b-toggle.login >
+    <a v-b-toggle.login v-if="!isLoggined">
       login
     </a>
   </div>
