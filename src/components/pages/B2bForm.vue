@@ -33,12 +33,12 @@
                     </div>
                   </b-form-group>
                 </b-col>
-                <!-- Last Name -->
+                <!-- job title -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="l-name">{{ $t("register.lastName") }}</label>
+                    <label for="l-name">{{ $t("register.jobTitle") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="l-name" v-model="form.last_name" />
+                    <b-form-input id="l-name" v-model="form.job_title" />
                     <div
                       class="error"
                       v-for="(error, index) in errors.last_name"
@@ -183,13 +183,14 @@ export default {
     return {
       form: {
         first_name: "",
-        last_name: "",
+        job_title: "",
         email: "",
         password: "",
         password_confirmation: "",
         country_code: "",
         mobile_number: "",
         register_mailing_list: false,
+        callback_url: "http://localhost:8081/ota-verification",
       },
       errors: {},
       terms: "",

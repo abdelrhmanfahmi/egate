@@ -3,13 +3,10 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
 import Corporat from "../views/Corporat.vue";
-import ContactUs from "../views/Contact-Us.vue"; 
+import ContactUs from "../views/Contact-Us.vue";
 import Register from "../views/auth/register.vue";
-import OtaVerification from "../views/auth/OtpVerification.vue"
-import b2bRegister from "../views/auth/b2bRegister.vue"
-
-
-
+import OtaVerification from "../views/auth/OtpVerification.vue";
+import b2bRegister from "../views/auth/b2bRegister.vue";
 
 Vue.use(VueRouter);
 

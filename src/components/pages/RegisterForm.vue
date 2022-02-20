@@ -10,10 +10,10 @@
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <router-link to="/" class="back">
+              <a v-b-toggle.login class="back">
                 <span>
                   &#60; {{ $t("register.alreadyHaveAccount") }}</span
-                ></router-link
+                ></a
               >
             </div>
             <form @submit.prevent="register()">

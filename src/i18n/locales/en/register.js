@@ -19,4 +19,5 @@ export default {
     " If you are unable to register, please contact us for assistance",
   registrationCompany:
     "registration for the accounts of restaurants, hotels and companies wholesale purchase",
+    jobTitle:"job title"
 };
