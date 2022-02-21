@@ -1,13 +1,18 @@
 <template>
-  <div>
+  <div class="mobile-nav">
+    <div class="branding">
+      <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
+    </div>
     <ul class="drop-down">
       <li v-for="(link, index) in links" :key="index">
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
+      <li>
+        <a v-b-toggle.login class="link" v-if="!isLoggined">
+          {{ $t("login.loginNav") }}
+        </a>
+      </li>
     </ul>
-    <a v-b-toggle.login v-if="!isLoggined">
-      login
-    </a>
   </div>
 </template>
 
@@ -26,3 +31,32 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.mobile-nav {
+  .branding {
+    text-align: center;
+  }
+  .drop-down {
+    li {
+      a {
+        line-height: 24px;
+        padding: 10px 25px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #312620;
+        display: block;
+        text-transform: capitalize;
+        border-top: 1px solid rgb(0 0 0 / 10%);
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          color: #ed2124;
+        }
+      }
+      &:last-child a {
+        border-bottom: 1px solid rgb(0 0 0 / 10%);
+      }
+    }
+  }
+}
+</style>

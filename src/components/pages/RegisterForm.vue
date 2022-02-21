@@ -11,9 +11,7 @@
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <a v-b-toggle.login class="back">
-                <span>
-                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
-                ></a
+                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
               >
             </div>
             <form @submit.prevent="register()">
@@ -68,11 +66,25 @@
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="password"
-                      v-model="form.password"
-                      type="password"
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="error"
                       v-for="(error, index) in errors.password"
@@ -89,11 +101,25 @@
                       $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      type="password"
-                      id="confirmPassword"
-                      v-model="form.password_confirmation"
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        :type="fieldType"
+                        id="confirmPassword"
+                        v-model="form.password_confirmation"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="error"
                       v-for="(error, index) in errors.password_confirmation"
@@ -218,7 +244,7 @@ export default {
         mobile_number: "",
         active_with: "",
         register_mailing_list: false,
-        callback_url:"http://localhost:8081"
+        callback_url: "http://localhost:8081",
       },
       errors: {},
       terms: "",
@@ -227,6 +253,7 @@ export default {
         { name: this.$t("register.email"), value: "email" },
       ],
       countries: [],
+      fieldType: "password",
     };
   },
   mounted() {
@@ -257,6 +284,9 @@ export default {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
         });
+    },
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
   },
 };
@@ -313,7 +343,6 @@ export default {
       }
     }
   }
-
 }
 
 // style arabic

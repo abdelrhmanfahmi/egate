@@ -4,4 +4,6 @@ export default {
   fogetPassword: "نسيت كلمة المرور ؟",
   DontHave: "ليس لديك حساب ؟",
   createAccount: "تسجيل حساب",
+  LoginSocial: "الدخول للاشخاص",
+  loginNav: "تسجيل الدخول",
 };

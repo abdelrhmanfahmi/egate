@@ -30,8 +30,16 @@
               :placeholder="$t('register.password')"
             />
             <div class="icon-passowrd" @click="switchField()">
-              <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'"  size="lg"/>
-              <font-awesome-icon icon="fa-solid fa-eye-slash" v-else  size="lg"/>
+              <font-awesome-icon
+                icon="fa-solid fa-eye"
+                v-if="fieldType === 'password'"
+                size="lg"
+              />
+              <font-awesome-icon
+                icon="fa-solid fa-eye-slash"
+                v-else
+                size="lg"
+              />
             </div>
           </div>
 
@@ -41,18 +49,29 @@
           </b-button>
         </form>
       </div>
+      <!-- social login -->
       <div class="social-login">
-        <button @click="getLink('facebook')" class="yes">facebook</button>
-        <button @click="getLink('google')" class="yes">google</button>
-        <button @click="getLink('azure')" class="yes">microsoft</button>
-        <button @click="getLink('apple')" class="yes">apple</button>
+        <p>{{ $t("login.LoginSocial") }}</p>
+        <div class="social-icons">
+          <button @click="getLink('facebook')" class="button-social">
+            <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
+          </button>
+          <button @click="getLink('google')" class="button-social">
+            <font-awesome-icon icon="fa-brands fa-google" size="lg" />
+          </button>
+          <button @click="getLink('azure')" class="button-social">
+            <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
+          </button>
+          <button @click="getLink('apple')" class="button-social">
+            <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
+          </button>
+        </div>
       </div>
 
       <div class="user-login-form">
-        <p class="title">Don't have account ?</p>
-
+        <p class="title"> {{ $t("login.DontHave") }} </p>
         <b-button to="/user-register" class="login-button my-2">
-          Create account
+          {{ $t("login.createAccount") }}
         </b-button>
       </div>
     </b-sidebar>
@@ -135,11 +154,31 @@ export default {
     }
   }
   .social-login {
-    display: flex;
+    padding: 20px 0;
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
-  .yes {
-    margin: 20px 5px;
-    padding: 20px;
+  .button-social {
+    padding: 20px 30px;
+    margin: 0 5px;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    &:first-child {
+      background-color: #3b5998;
+    }
+    &:nth-child(2) {
+      background-color: #c5221f;
+    }
+    &:nth-child(3) {
+      background-color: #3b5998;
+    }
+    &:last-child {
+      background-color: #c5221f;
+    }
   }
 }
 </style>

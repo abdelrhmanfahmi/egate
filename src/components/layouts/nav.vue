@@ -103,6 +103,9 @@ export default {
     padding: 12px 0;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
+    .branding {
+      text-align: center;
+    }
     ul li {
       text-transform: uppercase;
       padding: 12px;
