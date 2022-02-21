@@ -39,7 +39,6 @@
           <font-awesome-icon
             icon="fa-solid fa-user"
             v-b-toggle.login
-            
             size="2x"
           />
           <p>{{ $t("login.login") }}</p>
