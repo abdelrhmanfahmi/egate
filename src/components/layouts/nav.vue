@@ -8,9 +8,9 @@
         <li v-for="(link, index) in links" :key="index">
           <router-link class="link" :to="link.to">{{ link.name }}</router-link>
         </li>
-        <li>
+        <!-- <li>
           <a v-b-toggle.login v-if="!isLoggined" class="link"> login </a>
-        </li>
+        </li> -->
       </ul>
       <div class="login">
         <!-- <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" /> -->
@@ -97,6 +97,7 @@ export default {
   width: 100%;
   transition: 0.5s all ease-in-out;
   nav {
+    font-size: 14px;
     position: relative;
     display: flex;
     flex: row;
@@ -108,16 +109,16 @@ export default {
     }
     ul li {
       text-transform: uppercase;
-      padding: 12px;
+      padding: 10px;
       .link {
         text-decoration: none;
         transition: 0.5s all ease-in-out;
-        padding-bottom: 4px;
-        border-bottom: 1px solid transparent;
+        padding: 0 10px 10px;
+        border-bottom: 2px solid transparent;
         color: $text-color;
         &:hover {
-          color: #000;
-          border-color: red;
+          color: $main-color;
+          border-color: $main-color;
         }
       }
     }

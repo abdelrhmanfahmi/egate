@@ -7,8 +7,8 @@
       <li v-for="(link, index) in links" :key="index">
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
-      <li>
-        <a v-b-toggle.login class="link" v-if="!isLoggined">
+      <li v-if="!isLoggined">
+        <a v-b-toggle.login class="link" >
           {{ $t("login.loginNav") }}
         </a>
       </li>
