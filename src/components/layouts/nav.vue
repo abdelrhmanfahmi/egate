@@ -1,45 +1,78 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
-    <nav>
-      <div class="branding">
-        <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
-      </div>
-      <ul v-show="!mobile" class="navigation">
-        <li v-for="(link, index) in links" :key="index">
-          <router-link class="link" :to="link.to">{{ link.name }}</router-link>
-        </li>
-        <!-- <li>
-          <a v-b-toggle.login v-if="!isLoggined" class="link"> login </a>
-        </li> -->
-      </ul>
-      <div class="login">
-        <!-- <font-awesome-icon v-b-toggle.login icon="fa-solid fa-bars" /> -->
-        <Login />
-      </div>
-      <div class="icon">
-        <font-awesome-icon
-          v-b-toggle.sidebar-1
-          @click="toggleMobileNav"
-          v-show="mobile"
-          icon="fa-solid fa-bars"
-          :class="{ 'icon-active': mobileNav }"
-        />
-      </div>
-      <transition name="mobile-nav">
-        <b-sidebar
-          :right="getDir === 'rtl'"
-          v-if="mobileNav"
-          @hidden="closeSideBar"
-          id="sidebar-1"
-          backdrop
-          width="300px"
-          shadow
-          z-index="3"
-        >
-          <MobileNav />
-        </b-sidebar>
-      </transition>
-    </nav>
+    <b-container>
+      <nav>
+        <div class="d-flex">
+          <div class="branding">
+            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
+          </div>
+          <ul v-show="!mobile" class="navigation">
+            <li>
+              <router-link class="link" to="/">{{
+                $t("home.home")
+              }}</router-link>
+            </li>
+            <li>
+              <router-link class="link" to="/suppliers">{{
+                $t("home.suppliers")
+              }}</router-link>
+            </li>
+            <li>
+              <router-link class="link" to="/about">{{
+                $t("home.about")
+              }}</router-link>
+            </li>
+            <li>
+              <router-link class="link corporat-dropdown" to="/b2b-register">{{
+                $t("home.corporat")
+              }}</router-link>
+            </li>
+            <li>
+              <router-link class="link" to="/contactUs">{{
+                $t("home.contactUs")
+              }}</router-link>
+            </li>
+          </ul>
+        </div>
+
+        <div class="login" v-show="!mobile && !isLoggined">
+          <font-awesome-icon
+            icon="fa-solid fa-user"
+            v-b-toggle.login
+            
+            size="2x"
+          />
+          <p>{{ $t("login.login") }}</p>
+          <Login />
+        </div>
+
+        <!--Start Mbile Nav -->
+        <div class="icon">
+          <font-awesome-icon
+            v-b-toggle.sidebar-1
+            @click="toggleMobileNav"
+            v-show="mobile"
+            icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }"
+          />
+        </div>
+        <transition name="mobile-nav">
+          <b-sidebar
+            :right="getDir === 'rtl'"
+            v-if="mobileNav"
+            @hidden="closeSideBar"
+            id="sidebar-1"
+            backdrop
+            width="300px"
+            shadow
+            z-index="3"
+          >
+            <MobileNav />
+          </b-sidebar>
+        </transition>
+        <!--End Mbile Nav -->
+      </nav>
+    </b-container>
   </header>
 </template>
 
@@ -54,13 +87,13 @@ export default {
       mobile: null,
       mobileNav: null,
       windowWidth: null,
-      links: [
-        { name: this.$t("home.home"), to: "/" },
-        { name: this.$t("home.suppliers"), to: "/suppliers" },
-        { name: this.$t("home.about"), to: "/about" },
-        { name: this.$t("home.corporat"), to: "/corporat" },
-        { name: this.$t("home.contactUs"), to: "/contact-us" },
-      ],
+      // links: [
+      //   { name: this.$t("home.home"), to: "/" },
+      //   { name: this.$t("home.suppliers"), to: "/suppliers" },
+      //   { name: this.$t("home.about"), to: "/about" },
+      //   { name: this.$t("home.corporat"), to: "/corporat" },
+      //   { name: this.$t("home.contactUs"), to: "/contact-us" },
+      // ],
     };
   },
   components: {
@@ -97,10 +130,12 @@ export default {
   width: 100%;
   transition: 0.5s all ease-in-out;
   nav {
+    align-items: center;
     font-size: 14px;
     position: relative;
     display: flex;
     flex: row;
+    justify-content: space-between;
     padding: 12px 0;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
@@ -114,7 +149,7 @@ export default {
         text-decoration: none;
         transition: 0.5s all ease-in-out;
         padding: 0 10px 10px;
-        border-bottom: 2px solid transparent;
+        border-bottom: 1px solid transparent;
         color: $text-color;
         &:hover {
           color: $main-color;
@@ -128,8 +163,7 @@ export default {
       align-items: center;
     }
     .login {
-      margin-left: auto;
-      margin-right: 30px;
+      padding: 0 15px;
     }
 
     .icon {
@@ -149,6 +183,14 @@ export default {
       transform: rotate(180deg);
     }
   }
+}
+.submenu {
+  opacity: 0;
+}
+.corporat-dropdown:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
 // style arabic
