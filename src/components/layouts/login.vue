@@ -12,22 +12,30 @@
     >
       <div class="user-login-form">
         <h6 class="title">{{ $t("login.login") }}</h6>
-        <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p> 
+        <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
         <p class="error">{{ errorMsg }}</p>
         <form @submit.prevent="loginB2c()">
           <b-form-input
             v-model="form.email"
             type="email"
-            placeholder="email"
+            :placeholder="$t('register.email')"
             required
           />
-          <b-form-input
-            required
-            class="my-2"
-            v-model="form.password"
-            type="password"
-            placeholder="password"
-          />
+          <div class="show-password">
+            <b-form-input
+              required
+              class="my-2"
+              v-model="form.password"
+              :type="fieldType"
+              :placeholder="$t('register.password')"
+            />
+            <div class="icon-passowrd" @click="switchField()">
+              <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'"  size="lg"/>
+              <font-awesome-icon icon="fa-solid fa-eye-slash" v-else  size="lg"/>
+            </div>
+          </div>
+
+          <a class="forget-password">{{ $t("login.fogetPassword") }}</a>
           <b-button type="submit" class="login-button">
             {{ $t("login.login") }}
           </b-button>
@@ -61,6 +69,7 @@ export default {
         password: "",
       },
       errorMsg: "",
+      fieldType: "password",
     };
   },
   methods: {
@@ -87,6 +96,9 @@ export default {
           console.log(err);
         });
     },
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
   },
 };
 </script>
@@ -98,7 +110,7 @@ export default {
     border: 1px solid rgba(204, 204, 204, 0.251);
     border-radius: 4px;
     background-color: rgba(216, 220, 221, 0.251);
-    padding: 40px 30px;
+    padding: 40px 30px 20px;
     .title {
       padding-bottom: 10px;
       position: relative;
@@ -112,6 +124,13 @@ export default {
         width: 20px;
         height: 3px;
         background: #ed2124;
+      }
+    }
+    .forget-password {
+      font-weight: 500;
+      color: $header-color;
+      &:hover {
+        color: $main-color;
       }
     }
   }

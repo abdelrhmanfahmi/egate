@@ -27,3 +27,12 @@
   color: $main-color;
   padding: 0 2px;
 }
+
+.show-password {
+  position: relative;
+  .icon-passowrd {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+  }
+}
