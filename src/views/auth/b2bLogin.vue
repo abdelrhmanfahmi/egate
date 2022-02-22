@@ -18,8 +18,12 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input type="email" id="email" v-model="form.email" required />
-     
+                    <b-form-input
+                      type="email"
+                      id="email"
+                      v-model="form.email"
+                      required
+                    />
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
@@ -33,7 +37,6 @@
                       type="password"
                       required
                     />
-  
                   </b-form-group>
                 </b-col>
               </b-row>

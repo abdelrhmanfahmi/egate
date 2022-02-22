@@ -2,10 +2,10 @@
   <div>
     <b-container>
       <b-row>
-        <b-col lg="4">
+        <b-col lg="3">
           <SideMenu />
         </b-col>
-        <b-col lg="8">
+        <b-col lg="9">
           <router-view></router-view>
         </b-col>
       </b-row>
