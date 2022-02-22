@@ -134,7 +134,7 @@ export default {
     display: flex;
     flex: row;
     justify-content: space-between;
-    padding: 12px 0;
+    padding-top: 12px ;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
     .branding {

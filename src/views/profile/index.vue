@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="profile">
     <b-container>
       <b-row>
-        <b-col lg="3">
+        <b-col lg="3" md="5">
           <SideMenu />
         </b-col>
-        <b-col lg="9">
+        <b-col lg="9"  md="7">
           <router-view></router-view>
         </b-col>
       </b-row>
@@ -23,7 +23,9 @@ export default {
 </script>
 
 <style>
-.texst {
-  display: block;
+.profile {
+
+  padding: 3rem 0;
+  background: #f9f8f5;
 }
 </style>
