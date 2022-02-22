@@ -244,7 +244,7 @@ export default {
         mobile_number: "",
         active_with: "",
         register_mailing_list: false,
-        callback_url: "http://localhost:8081",
+        callback_url: "http://localhost:8080",
       },
       errors: {},
       terms: "",

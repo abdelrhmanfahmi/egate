@@ -42,9 +42,8 @@
             size="2x"
           />
           <p>{{ $t("login.login") }}</p>
-          <Login />
         </div>
-
+        <Login />
         <!--Start Mbile Nav -->
         <div class="icon">
           <font-awesome-icon

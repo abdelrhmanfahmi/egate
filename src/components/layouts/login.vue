@@ -107,7 +107,7 @@ export default {
     },
     getLink(provider) {
       auth
-        .getSocialLink("b2c", provider, "http://localhost:8081")
+        .getSocialLink("b2c", provider, "http://localhost:8080")
         .then((res) => {
           window.location.href = res.data.items.url;
         })

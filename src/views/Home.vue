@@ -18,7 +18,7 @@ export default {
     makeLoginSocail() {
       if (this.$route.query.code) {
         const payload = {
-          redirect: "http://localhost:8081",
+          redirect: "http://localhost:8080",
           code: this.$route.query.code,
         };
         auth
