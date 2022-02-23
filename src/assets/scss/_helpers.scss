@@ -27,3 +27,23 @@
   color: $main-color;
   padding: 0 2px;
 }
+
+.show-password {
+  position: relative;
+  cursor: pointer;
+  .icon-passowrd {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+  }
+}
+
+// style arabic
+html:lang(ar) {
+  .show-password {
+    .icon-passowrd {
+      left: 30px;
+      right: auto;
+    }
+  }
+}

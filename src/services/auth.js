@@ -9,9 +9,20 @@ export default {
     return globalAxios.get("lists/countries");
   },
   verificationMobile(payload) {
-    return globalAxios.patch("checkpoint/active-mobile" , payload);
+    return globalAxios.patch("checkpoint/active-mobile", payload);
   },
   resendCodeMobile() {
-    return globalAxios.get("checkpoint/resend-active-email");
-  }
+    return globalAxios.get("checkpoint/resend-active-mobile");
+  },
+  getSocialLink(type, provider, redirect) {
+    return globalAxios.get(
+      `auth/${type}/${provider}/redirect?redirect=${redirect}`
+    );
+  },
+  makeLoginSocail(type, provider, payload) {
+    return globalAxios.post(`auth/${type}/${provider}/login`, payload);
+  },
+  login(type, payload) {
+    return globalAxios.post(`auth/${type}/login`, payload);
+  },
 };

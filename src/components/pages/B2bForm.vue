@@ -3,21 +3,23 @@
     <b-container>
       <div class="main-title">
         <span class="sub-title"></span>
-        <h2 class="main-header">{{ $t("register.createCustomerAccount") }}</h2>
+        <h3 class="main-header">{{ $t("register.registrationCompany") }}</h3>
       </div>
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <a v-b-toggle.login class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
+              <router-link to="/b2b-login" class="back">
+                <span>
+                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
+                ></router-link
               >
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
                 <!-- First Name -->
-                <b-col lg="6">
+                <b-col lg="12">
                   <b-form-group>
                     <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
@@ -31,12 +33,12 @@
                     </div>
                   </b-form-group>
                 </b-col>
-                <!-- Last Name -->
-                <b-col lg="6">
+                <!-- job title -->
+                <b-col lg="12">
                   <b-form-group>
-                    <label for="l-name">{{ $t("register.lastName") }}</label>
+                    <label for="l-name">{{ $t("register.jobTitle") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="l-name" v-model="form.last_name" />
+                    <b-form-input id="l-name" v-model="form.job_title" />
                     <div
                       class="error"
                       v-for="(error, index) in errors.last_name"
@@ -66,25 +68,11 @@
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
-                    <div class="show-password">
-                      <b-form-input
-                        id="password"
-                        v-model="form.password"
-                        :type="fieldType"
-                      />
-                      <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
-                      </div>
-                    </div>
+                    <b-form-input
+                      id="password"
+                      v-model="form.password"
+                      type="password"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.password"
@@ -101,25 +89,11 @@
                       $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
-                    <div class="show-password">
-                      <b-form-input
-                        :type="fieldType"
-                        id="confirmPassword"
-                        v-model="form.password_confirmation"
-                      />
-                      <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
-                      </div>
-                    </div>
+                    <b-form-input
+                      type="password"
+                      id="confirmPassword"
+                      v-model="form.password_confirmation"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.password_confirmation"
@@ -175,29 +149,8 @@
                 </b-col>
               </b-row>
               <!-- active_with -->
-              <b-form-group
-                class="my-4"
-                :label="$t('register.chooseOneOfTheWays')"
-              >
-                <b-form-radio
-                  class="pt-2"
-                  v-for="(connect, index) in connects"
-                  :key="index"
-                  v-model="form.active_with"
-                  name="some-radios"
-                  :value="connect.value"
-                  >{{ connect.name }}</b-form-radio
-                >
-                <!-- <div
-                  class="error"
-                  v-for="(error, indx) in errors.active_with"
-                  :key="indx"
-                >
-                  {{ error }}
-                </div> -->
-              </b-form-group>
 
-              <b-form-checkbox v-model="terms" class="terms">
+              <b-form-checkbox v-model="terms" class="terms my-5">
                 {{ $t("register.PleaseReview") }}
                 <router-link to="/">
                   {{ $t("register.termsConditions") }}</router-link
@@ -205,12 +158,6 @@
                 {{ $t("register.toCompleteTheRegistration") }}
               </b-form-checkbox>
 
-              <b-form-checkbox
-                v-model="form.register_mailing_list"
-                class="py-3"
-              >
-                {{ $t("register.subscribeTheNewsletter") }}
-              </b-form-checkbox>
               <div class="submition-box">
                 <b-button type="submit" :disabled="!terms" variant="danger">
                   {{ $t("register.submit") }}
@@ -236,15 +183,14 @@ export default {
     return {
       form: {
         first_name: "",
-        last_name: "",
+        job_title: "",
         email: "",
         password: "",
         password_confirmation: "",
         country_code: "",
         mobile_number: "",
-        active_with: "",
         register_mailing_list: false,
-        callback_url: "http://localhost:8080",
+        callback_url: "http://localhost:8081/ota-verification",
       },
       errors: {},
       terms: "",
@@ -253,7 +199,6 @@ export default {
         { name: this.$t("register.email"), value: "email" },
       ],
       countries: [],
-      fieldType: "password",
     };
   },
   mounted() {
@@ -272,21 +217,15 @@ export default {
     },
     register() {
       auth
-        .register("b2c", this.form)
+        .register("buyer", this.form)
         .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
-          if (res.data.items.item.verify_mobile_required) {
-            this.$router.push("/ota-verification");
-            location.reload();
-          }
+          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
         });
-    },
-    switchField() {
-      this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
   },
 };
@@ -342,6 +281,9 @@ export default {
         display: inline-block;
       }
     }
+  }
+  .error {
+    color: red;
   }
 }
 

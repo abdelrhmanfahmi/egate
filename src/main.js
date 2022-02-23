@@ -1,36 +1,52 @@
 import Vue from "vue";
 import App from "./App.vue";
+
 // Dot ENV
-require('dotenv').config()
+require("dotenv").config();
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+// i18n
+import i18n from "./i18n/i18n";
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(fas)
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+// router
 import router from "./router";
+
+// store
 import store from "./store";
+
+// forLang
+let lang = null;
+lang = localStorage.getItem("lang") || "en";
+document.documentElement.lang = lang;
+if (lang === "ar") {
+  document.documentElement.dir = "rtl";
+}
+
+/* add fontawesome core */
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+/* add some free styles */
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(fas, fab);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 //------ BootstrapVue -------------------
 import { BootstrapVue } from "bootstrap-vue";
-// Import Bootstrap an BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-// Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 
+import "./mixins";
 
 Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  i18n,
   render: (h) => h(App),
 }).$mount("#app");
-
-
 // Styles: SCSS
-import './assets/scss/main.scss'
+import "./assets/scss/main.scss";

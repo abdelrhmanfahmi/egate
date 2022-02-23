@@ -12,11 +12,14 @@ export default {
   },
   methods: {
     getAllCountires() {
-      auth.getAllCountires().then((res) => {
-        console.log(res);
-      }).catch((err) => {
+      auth
+        .getAllCountires()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
           console.log(err);
-      });
+        });
     },
   },
 };
