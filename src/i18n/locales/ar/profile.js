@@ -11,5 +11,15 @@ export default {
   quantity: "الكمية",
   price: "السعر",
   product: "المنتج",
-  // Account Information
+  // Subscribe Newsletter
+  subscribeNewsletter: "الاشتراك بالنشره الدوريه",
+  exclusiveOffers: "كن أول من يعرض على العروض الحصرية والقسائم",
+  notSubscribed: "لست مشترك في النشرة",
+  subscribe: "اشتراك",
+  // favorite
+  favorite: "المفضلة",
+  // changePassword
+  changePassword: "تغير كلمه السر",
+  currentPassword: "كلمه المرور الحاليه",
+  NewPassword: "كلمه المرور الجديده",
 };

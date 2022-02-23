@@ -1,16 +1,16 @@
 <template>
   <div class="change-password py-4">
-    <h3>change password</h3>
+    <h4 class="main-header">{{ $t("profile.changePassword") }}</h4>
     <form class="py-3">
       <!-- Password -->
       <b-col lg="6">
         <b-form-group>
-          <label for="password">{{ $t("register.password") }}</label>
+          <label for="password">{{ $t("profile.currentPassword") }}</label>
           <span class="requried">*</span>
           <div class="show-password">
             <b-form-input
               id="password"
-              v-model="form.password"
+              v-model="form.old_password"
               :type="fieldType"
             />
             <div class="icon-passowrd" @click="switchField()">
@@ -38,18 +38,18 @@
       <!-- Password -->
       <b-col lg="6">
         <b-form-group>
-          <label for="password">{{ $t("register.password") }}</label>
+          <label for="password">{{ $t("profile.NewPassword") }}</label>
           <span class="requried">*</span>
           <div class="show-password">
             <b-form-input
               id="password"
               v-model="form.password"
-              :type="fieldType"
+              :type="fieldTypeNew"
             />
-            <div class="icon-passowrd" @click="switchField()">
+            <div class="icon-passowrd" @click.stop="switchFieldNew()">
               <font-awesome-icon
                 icon="fa-solid fa-eye"
-                v-if="fieldType === 'password'"
+                v-if="fieldTypeNew === 'password'"
                 size="lg"
               />
               <font-awesome-icon
@@ -77,14 +77,14 @@
           <span class="requried">*</span>
           <div class="show-password">
             <b-form-input
-              :type="fieldType"
+              :type="fieldTypeConfirm"
               id="confirmPassword"
               v-model="form.password_confirmation"
             />
-            <div class="icon-passowrd" @click="switchField()">
+            <div class="icon-passowrd" @click.stop="switchFieldConfirm()">
               <font-awesome-icon
                 icon="fa-solid fa-eye"
-                v-if="fieldType === 'password'"
+                v-if="fieldTypeConfirm === 'password'"
                 size="lg"
               />
               <font-awesome-icon
@@ -104,7 +104,7 @@
         </b-form-group>
       </b-col>
       <b-button type="submit" class="login-button">
-        {{ $t("login.login") }}
+        {{ $t("register.submit") }}
       </b-button>
     </form>
   </div>
@@ -115,9 +115,14 @@ export default {
   data() {
     return {
       form: {
+        old_password: "",
         password: "",
+        password_confirmation: "",
       },
       fieldType: "password",
+      fieldTypeNew: "password",
+      fieldTypeConfirm: "password",
+
       errors: {},
     };
   },
@@ -125,15 +130,29 @@ export default {
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
+    switchFieldNew() {
+      this.fieldTypeNew =
+        this.fieldTypeNew === "password" ? "text" : "password";
+    },
+    switchFieldConfirm() {
+      this.fieldTypeConfirm =
+        this.fieldTypeConfirm === "password" ? "text" : "password";
+    },
   },
 };
 </script>
 
 <style lang="scss" >
 .change-password {
-  .login-button{
-    margin:30px 15px;
+  .login-button {
+    margin: 30px 15px;
     width: 20%;
+  }
+}
+
+html:lang(ar) {
+  .change-password {
+    text-align: right;
   }
 }
 </style>
