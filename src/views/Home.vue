@@ -1,16 +1,18 @@
 <template>
   <div class="home">
-    <h1>is login {{ isLoggined }}</h1>
+    <ProductSilder />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import auth from "@/services/auth";
-
+import ProductSilder from "@/components/pages/home/ProductSilder"
 export default {
   name: "Home",
-  components: {},
+  components: {
+    ProductSilder
+  },
   mounted() {
     this.makeLoginSocail();
   },

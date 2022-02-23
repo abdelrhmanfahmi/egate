@@ -25,3 +25,7 @@
 .custom-select {
   height: 3.2rem;
 }
+
+button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+  display:none !important;
+}
