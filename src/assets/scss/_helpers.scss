@@ -1,0 +1,49 @@
+.sub-title {
+  display: inline-block;
+  position: relative;
+  padding: 0 30px;
+  margin-bottom: 15px;
+}
+.sub-title::before,
+.sub-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: $main-color;
+}
+.sub-title::after {
+  left: auto;
+  right: 0;
+}
+//  headers
+.main-header {
+  color: $header-color;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.requried {
+  color: $main-color;
+  padding: 0 2px;
+}
+
+.show-password {
+  position: relative;
+  cursor: pointer;
+  .icon-passowrd {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+  }
+}
+
+// style arabic
+html:lang(ar) {
+  .show-password {
+    .icon-passowrd {
+      left: 30px;
+      right: auto;
+    }
+  }
+}
