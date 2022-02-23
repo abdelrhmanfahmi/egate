@@ -103,6 +103,9 @@
           </div>
         </b-form-group>
       </b-col>
+      <b-button type="submit" class="login-button">
+        {{ $t("login.login") }}
+      </b-button>
     </form>
   </div>
 </template>
@@ -126,5 +129,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" >
+.change-password {
+  .login-button{
+    margin:30px 15px;
+    width: 20%;
+  }
+
+}
 </style>
