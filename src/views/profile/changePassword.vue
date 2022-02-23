@@ -135,6 +135,5 @@ export default {
     margin:30px 15px;
     width: 20%;
   }
-
 }
 </style>

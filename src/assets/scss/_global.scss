@@ -39,8 +39,8 @@ span {
   padding: 1.5rem 0.75rem;
   border-radius: 0;
 }
-label {
-  text-transform: capitalize;
+label , .table.b-table.b-table-stacked-lg > tbody > tr , .table thead th {
+  text-transform: capitalize !important;
 }
 .error {
   color: red;

@@ -18,7 +18,21 @@ export default {
   data() {
     return {
       links: [
-        { to: "/profile/categories", name: "shop", iconName: "shop" },
+        {
+          to: "/profile/categories",
+          name: this.$t("profile.shop"),
+          iconName: "shop",
+        },
+        {
+          to: "/profile/shopping-cart",
+          name: this.$t("profile.shoppingCart"),
+          iconName: "cart-shopping",
+        },
+        {
+          to: "/profile/account-information",
+          name: this.$t("profile.accountInformation"),
+          iconName: "circle-info",
+        },
         {
           to: "/profile/change-password",
           name: "change Password",
@@ -48,6 +62,7 @@ export default {
         }
         span {
           padding: 0 10px;
+          text-transform: capitalize;
         }
       }
     }
