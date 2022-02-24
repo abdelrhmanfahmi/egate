@@ -1,7 +1,7 @@
 <template>
   <div class="profile-categories">
     <div class="categories-info">
-      <small>{{ $t("profile.welcomeAgain") }} </small>
+     
       <h4 class="main-header">{{ $t("profile.categories") }}</h4>
     </div>
     <b-row>

@@ -7,7 +7,7 @@
     </VueSlickCarousel>
 
     <VueSlickCarousel v-bind="settings">
-      <div v-for="(x, index) in 10" :key="index">
+      <div v-for="(x, index) in 10" :key="index" class="px-5">
         <b-img
           class="img-suplier"
           src="https://humhum.work/user-interface/public/assets/img/brand/su2.png"
@@ -38,6 +38,7 @@ export default {
         slidesToScroll: 1,
         swipeToSlide: true,
         autoplay: true,
+        
         responsive: [
           {
             breakpoint: 1191,
