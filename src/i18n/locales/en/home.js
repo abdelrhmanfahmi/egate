@@ -4,5 +4,7 @@ export default {
   suppliers:"suppliers",
   about:"about",
   corporat:"corporat",
-  contactUs:"contact us"
+  contactUs:"contact us",
+  mySupply:"MySupply",
+  allRightsReserved:"All Rights Reserved"
 };
