@@ -71,11 +71,14 @@ export default {
 .product-silder {
   background-color: #f9f8f5;
   text-align: center;
-  margin: 0 10px;
+ 
+  padding: 20px 5px;
   .img-suplier {
     opacity: 0.75;
     cursor: pointer;
     transition: all 0.5s ease-in-out;
+    display: block;
+    text-align: center;
     &:hover {
       opacity: 1;
     }

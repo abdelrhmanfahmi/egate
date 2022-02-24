@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <CatrgoriesHome />
     <ProductSilder />
   </div>
 </template>
@@ -7,11 +8,14 @@
 <script>
 // @ is an alias to /src
 import auth from "@/services/auth";
-import ProductSilder from "@/components/pages/home/ProductSilder"
+import ProductSilder from "@/components/pages/home/ProductSilder";
+import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
+
 export default {
   name: "Home",
   components: {
-    ProductSilder
+    ProductSilder,
+    CatrgoriesHome,
   },
   mounted() {
     this.makeLoginSocail();
