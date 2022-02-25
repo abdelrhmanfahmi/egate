@@ -1,5 +1,6 @@
 export default {
   // side Menu
+  myProfile:"حسابي",
   shop: "المتجر",
   shoppingCart: "السله",
   accountInformation: "معلومات الحساب ",
@@ -22,4 +23,17 @@ export default {
   changePassword: "تغير كلمه السر",
   currentPassword: "كلمه المرور الحاليه",
   NewPassword: "كلمه المرور الجديده",
+  // adress book
+  addressBook: "سجل العناوين",
+  shippingAddress: "بيانات التوصيل",
+  newAddress: "عنوان جديد",
+  country: "البلد",
+  state: "المدينه",
+  district: "الحى",
+  streetNumber: "رقم الشارع",
+  homeNumber: "رقم المنزل",
+  floor: "الدور",
+  blockNumber: "شقه",
+  postCode: "لرمز البريدى",
+  note: "ملاحظات",
 };

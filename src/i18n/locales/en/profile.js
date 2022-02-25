@@ -1,5 +1,6 @@
 export default {
   // side Menu
+  myProfile:"My profile",
   shop: "shop",
   shoppingCart: "shopping cart",
   accountInformation: "account information",
@@ -23,6 +24,9 @@ export default {
   currentPassword  :"current password",
   NewPassword:"new password",
   // adress book
+  addressBook :"address book",
+  shippingAddress:"shipping address",
+  newAddress:"New address",
   country :"country",
   state:"state",
   district:"district",
@@ -30,5 +34,6 @@ export default {
   homeNumber:"home number",
   floor:"floor",
   blockNumber:"block number",
+  postCode:"post code",
   note :"note"
 };
