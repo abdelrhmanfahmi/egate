@@ -1,5 +1,9 @@
 <template>
-  <div class="product-silder">
+<div class="container">
+    <div class="product-silder">
+       <div class="product-info">
+        <p class="text-left">{{ $t("home.bestDeal") }}</p>
+      </div>
     <VueSlickCarousel v-bind="settings" class="my-2">
       <div v-for="(x, index) in 20" :key="index">
         <div>
@@ -11,6 +15,7 @@
       </div>
     </VueSlickCarousel>
   </div>
+</div>
 </template>
 
 <script>
