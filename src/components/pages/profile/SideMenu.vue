@@ -1,6 +1,6 @@
 <template>
   <div class="profile-menu">
-    <h2>My profile</h2>
+    <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">Beshoy Maowed</h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
@@ -35,8 +35,8 @@ export default {
         },
         {
           to: "/profile/adress-book",
-          name: this.$t("profile.adressBook"),
-          iconName: "circle-info",
+          name: this.$t("profile.addressBook"),
+          iconName: "location-dot",
         },
         {
           to: "/profile/subscribe-newsletter",
