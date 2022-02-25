@@ -5,7 +5,7 @@
       <h4 class="main-header">{{ $t("profile.categories") }}</h4>
     </div>
     <b-row>
-      <b-col v-for="(x, index) in 12" :key="index" lg="3" class="custum-padding">
+      <b-col v-for="(x, index) in 12" :key="index" lg="3" md="6" class="custum-padding">
         <CategoryCard :card="{ type: 'لحوم' }" />
       </b-col>
     </b-row>

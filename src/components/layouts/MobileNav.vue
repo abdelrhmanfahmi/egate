@@ -8,7 +8,7 @@
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
       <li v-if="!isLoggined">
-        <a v-b-toggle.login class="link" >
+        <a v-b-toggle.login class="link">
           {{ $t("login.loginNav") }}
         </a>
       </li>
