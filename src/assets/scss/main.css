@@ -128,7 +128,7 @@ html:lang(ar) .b-sidebar > .b-sidebar-body {
   height: 3.2rem;
 }
 
-button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+.product-silder button:not(:disabled), .product-silder [type="button"]:not(:disabled), .product-silder [type="reset"]:not(:disabled), .product-silder [type="submit"]:not(:disabled) {
   display: none !important;
 }
 
