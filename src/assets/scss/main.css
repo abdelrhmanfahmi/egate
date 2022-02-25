@@ -1,0 +1,183 @@
+/*=========================================================================================
+  File Name: main.scss
+  Description: Main scss file. Imports other scss partials 
+  ----------------------------------------------------------------------------------------
+==========================================================================================*/
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
+body {
+  font-family: "Almarai", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #676565;
+  font-style: normal;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+  -webkit-transition: all 0.5s ease-in-out !important;
+  transition: all 0.5s ease-in-out !important;
+  cursor: pointer !important;
+}
+
+span {
+  display: inline-block !important;
+}
+
+.form-control {
+  padding: 1.5rem 0.75rem;
+  border-radius: 0;
+}
+
+label, .table.b-table.b-table-stacked-lg > tbody > tr, .table thead th {
+  text-transform: capitalize !important;
+}
+
+.error {
+  color: red;
+}
+
+::-webkit-input-placeholder {
+  text-transform: capitalize;
+}
+
+:-ms-input-placeholder {
+  text-transform: capitalize;
+}
+
+::-ms-input-placeholder {
+  text-transform: capitalize;
+}
+
+::placeholder {
+  text-transform: capitalize;
+}
+
+/* Start Container  */
+@media (min-width: 1200px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 90%;
+  }
+}
+
+html:lang(ar) .b-sidebar.b-sidebar-right > .b-sidebar-header .close {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+html:lang(ar) .b-sidebar > .b-sidebar-body {
+  text-align: right;
+}
+
+.sidebar-login {
+  padding: 30px;
+}
+
+.b-sidebar {
+  background-color: #fff !important;
+}
+
+.login-button {
+  display: block;
+  color: #ffffff;
+  background-color: #ff0e00;
+  padding: 15px;
+  border: 0;
+  width: 100%;
+  margin: 25px 0px;
+  border-radius: 0;
+}
+
+.login-button:hover {
+  background-color: #e73d33;
+}
+
+.login-button:focus {
+  background-color: #e73d33;
+}
+
+.custom-select {
+  height: 3.2rem;
+}
+
+.product-silder button:not(:disabled), .product-silder [type="button"]:not(:disabled), .product-silder [type="reset"]:not(:disabled), .product-silder [type="submit"]:not(:disabled) {
+  display: none !important;
+}
+
+.sub-title {
+  display: inline-block;
+  position: relative;
+  padding: 0 30px;
+  margin-bottom: 15px;
+}
+
+.sub-title::before,
+.sub-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: red;
+}
+
+.sub-title::after {
+  left: auto;
+  right: 0;
+}
+
+.main-header {
+  color: #312620;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.requried {
+  color: red;
+  padding: 0 2px;
+}
+
+.show-password {
+  position: relative;
+  cursor: pointer;
+}
+
+.show-password .icon-passowrd {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+}
+
+html:lang(ar) .show-password .icon-passowrd {
+  left: 30px;
+  right: auto;
+}
+/*# sourceMappingURL=main.css.map */
