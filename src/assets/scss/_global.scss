@@ -49,7 +49,71 @@ label , .table.b-table.b-table-stacked-lg > tbody > tr , .table thead th {
 ::placeholder {
   text-transform: capitalize;
 }
-
+.select-currency{
+  width: auto;
+  .custom-select{
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 0;
+    &:focus{
+      box-shadow: 0 0 0 0;
+    }
+    option{
+      color: #000;
+      font-size: 16px;
+      &:hover{
+        color: #2B96CC;
+      }
+    }
+  }
+}
+#modal-1{
+  background: rgba(23,26,33,.95);
+  .modal-dialog{
+    min-width: 700px;
+    transform: translate(0%,50%);
+  }
+  #modal-1___BV_modal_content_{
+    background: transparent;
+    border: none;
+    #modal-1___BV_modal_header_ , #modal-1___BV_modal_footer_{
+      display: none;
+    }
+    #modal-1___BV_modal_body_{
+      background: transparent;
+    }
+  }
+  .form-control{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid rgba(255,255,255,.1);
+    font-size: 36px;
+    &:focus {
+      box-shadow: 0 0 0 0;
+    }
+  }
+  .input-group-append{
+    background: transparent;
+  }
+  .input-group-text{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid rgba(255,255,255,.1);
+    border-radius: 0;
+    color: #ed2124;
+    font-size: 35px;
+  }
+}
+.select-country{
+  .title{
+    color: #fff;
+  }
+  img{
+    width: 25px;
+    margin: 0px 5px;
+  }
+}
 /* Start Container  */
 @media (min-width: 1200px) {
   .container,

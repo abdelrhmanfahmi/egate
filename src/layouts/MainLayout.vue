@@ -3,17 +3,20 @@
     <TopHeader />
     <Nav />
     <router-view></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
+import Footer from "@/components/layouts/footer";
 
 export default {
   components: {
     TopHeader,
     Nav,
+    Footer
   },
 };
 </script>
