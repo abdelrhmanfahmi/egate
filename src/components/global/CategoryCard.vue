@@ -30,6 +30,9 @@ export default {
   color: #fff;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  img {
+    width: 100%;
+  }
 
   .card-footer {
     text-align: center;

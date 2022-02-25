@@ -1,14 +1,21 @@
 <template>
   <div class="profile-categories">
-    <div class="categories-info">
-     
-      <h4 class="main-header">{{ $t("profile.categories") }}</h4>
-    </div>
-    <b-row>
-      <b-col v-for="(x, index) in 12" :key="index" lg="3" class="custum-padding">
-        <CategoryCard :card="{ type: 'لحوم' }" />
-      </b-col>
-    </b-row>
+    <b-container>
+      <div class="categories-info">
+        <h4 class="main-header">{{ $t("profile.categories") }}</h4>
+      </div>
+      <b-row>
+        <b-col
+          v-for="(x, index) in 12"
+          :key="index"
+          lg="3"
+          sm="6"
+          class="custum-padding"
+        >
+          <CategoryCard :card="{ type: 'لحوم' }" />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 

@@ -2,6 +2,7 @@ import profile from "../views/profile";
 import Categories from "../views/profile/Categories";
 import ShoppingCart from "../views/profile/ShoppingCart";
 import AccountInformation from "../views/profile/AccountInformation";
+import AdressBook from "../views/profile/AdressBook";
 import SubscribeNewsletter from "../views/profile/SubscribeNewsletter";
 import Favorite from "../views/profile/Favorite";
 import changePassword from "../views/profile/changePassword";
@@ -21,6 +22,11 @@ export default {
       path: "/profile/account-information",
       name: "AccountInformation",
       component: AccountInformation,
+    },
+    {
+      path: "/profile/adress-book",
+      name: "AdressBook",
+      component: AdressBook,
     },
     {
       path: "/profile/subscribe-newsletter",

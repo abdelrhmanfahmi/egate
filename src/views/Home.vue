@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <ProgressSlider />
     <CatrgoriesHome />
     <ProductSilder />
   </div>
@@ -8,12 +9,14 @@
 <script>
 // @ is an alias to /src
 import auth from "@/services/auth";
+import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
 export default {
   name: "Home",
   components: {
+    ProgressSlider,
     ProductSilder,
     CatrgoriesHome,
   },
