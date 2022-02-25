@@ -21,5 +21,14 @@ export default {
   // changePassword
   changePassword:"change Password",
   currentPassword  :"current password",
-  NewPassword:"new password"
+  NewPassword:"new password",
+  // adress book
+  country :"country",
+  state:"state",
+  district:"district",
+  streetNumber :"street Number",
+  homeNumber:"home number",
+  floor:"floor",
+  blockNumber:"block number",
+  note :"note"
 };

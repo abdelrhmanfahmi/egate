@@ -34,6 +34,11 @@ export default {
           iconName: "circle-info",
         },
         {
+          to: "/profile/adress-book",
+          name: this.$t("profile.adressBook"),
+          iconName: "circle-info",
+        },
+        {
           to: "/profile/subscribe-newsletter",
           name: this.$t("profile.subscribeNewsletter"),
           iconName: "newspaper",

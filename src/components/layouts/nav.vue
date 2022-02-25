@@ -68,6 +68,9 @@
               <small>{{ $t("login.login") }}</small>
             </h5>
           </div>
+          <div v-else>
+            profile
+          </div>
           <!-- user Profile and name when login -->
           <Login v-if="!isLoggined" />
         </div>
