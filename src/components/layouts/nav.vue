@@ -29,7 +29,7 @@
               }}</router-link>
             </li>
             <li>
-              <router-link class="link" to="/contactUs">{{
+              <router-link class="link" to="/contact-us">{{
                 $t("home.contactUs")
               }}</router-link>
             </li>
@@ -70,22 +70,24 @@
           </div>
           <div v-if="!mobile && isLoggined">
             <div class="user-profile">
-                <b-dropdown
-                  id="dropdown-1"
-                >
-                  <template #button-content>
-                      <span>
-                         <font-awesome-icon icon="fa-solid fa-user" size="2x" />
-                       <p>Beshoy Test</p>
-                      </span>
-                  </template>
-                  <b-dropdown-item>
-                    <p> <router-link to="/profile">My Profile</router-link></p>
-                  </b-dropdown-item>
-                      <b-dropdown-item>
-                    <p class="logout" @click="logout()">Logout</p>
-                  </b-dropdown-item>
-                </b-dropdown>
+              <b-dropdown id="dropdown-1">
+                <template #button-content>
+                  <span>
+                    <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+                    <p>{{ $t("login.welcome") }} , Beshoy test</p>
+                  </span>
+                </template>
+                <b-dropdown-item>
+                  <router-link to="/profile/categories">{{
+                    $t("profile.myProfile")
+                  }}</router-link>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <a class="logout" @click="logout()">
+                    {{ $t("login.logout") }}
+                  </a>
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
           <!-- user Profile and name when login -->
@@ -159,11 +161,12 @@ export default {
       this.mobileNav = false;
       return;
     },
-    logout(){
+    logout() {
       localStorage.removeItem("token");
+      localStorage.removeItem("provider");
       this.$router.push("/");
       location.reload();
-    }
+    },
   },
 };
 </script>
@@ -243,22 +246,6 @@ export default {
           }
         }
       }
-      .icon {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        height: 100%;
-        right: 24px;
-        svg {
-          cursor: pointer;
-          transition: 0.8s all ease-in-out;
-          font-size: 25px;
-        }
-      }
-      .icon-active {
-        transform: rotate(180deg);
-      }
     }
   }
 }
@@ -269,5 +256,22 @@ export default {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+.icon {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  right: 24px;
+  svg {
+    cursor: pointer;
+    transition: 0.8s all ease-in-out;
+    font-size: 25px;
+  }
+
+  .icon-active {
+    transform: rotate(180deg);
+  }
 }
 </style>

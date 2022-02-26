@@ -50,19 +50,20 @@ label,
 ::placeholder {
   text-transform: capitalize;
 }
+
 .select-currency {
   width: auto;
   .custom-select {
     background: transparent;
     color: #fff;
     border: none;
-    padding: 0;
     &:focus {
       box-shadow: 0 0 0 0;
     }
     option {
       color: #000;
       font-size: 16px;
+      padding: 10px;
       &:hover {
         color: #2b96cc;
       }
@@ -134,37 +135,35 @@ label,
       svg {
         font-size: 22px;
       }
-     p{
-       margin: 0;
-     }
+      p {
+        margin: 0;
+      }
     }
   }
-  .dropdown-menu{
+  .dropdown-menu {
     padding: 0;
-    li{
+    li {
       padding: 0 !important;
     }
-    p{
+    a {
       margin: 0;
       color: #000;
       text-transform: capitalize;
-      padding-bottom: 5px;
-    margin-left: 5px !important;
-    font-size: 17px;
-    a{
+      padding-bottom: 3px;
+      display: block;
+      font-size: 17px;
       color: #000;
-    }
     }
   }
 }
-.vuejs-countdown{
+.vuejs-countdown {
   color: #ed2124;
-     font-weight: 700;
-   font-family: 'Almarai', sans-serif;
-  .digit{
+  font-weight: 700;
+  font-family: "Almarai", sans-serif;
+  .digit {
     font-size: 16px !important;
-   font-weight: 700 !important;
-   font-family: 'Almarai', sans-serif;
+    font-weight: 700 !important;
+    font-family: "Almarai", sans-serif;
   }
 }
 /* Start Container  */

@@ -1,21 +1,19 @@
 <template>
-<div class="container">
-    <div class="product-silder">
-       <div class="product-info">
-        <p class="text-left">{{ $t("home.bestDeal") }}</p>
-      </div>
-    <VueSlickCarousel v-bind="settings" class="my-2">
-      <div v-for="(x, index) in 20" :key="index">
-        <div>
+  <div class="product-silder">
+    <b-container>
+      <p>{{ $t("home.bestDeal") }}</p>
+
+      <VueSlickCarousel v-bind="settings" class="my-2">
+        <div v-for="(x, index) in 20" :key="index" class="text-center">
           <b-img
             src="https://humhum.work/user-interface/public/assets/img/product/ins2.png"
           >
           </b-img>
+          <h6 class="main-header">product</h6>
         </div>
-      </div>
-    </VueSlickCarousel>
+      </VueSlickCarousel>
+    </b-container>
   </div>
-</div>
 </template>
 
 <script>
@@ -68,11 +66,17 @@ export default {
 
 <style lang="scss" scoped>
 .product-silder {
-  text-align: center;
-  padding: 20px 5px;
+  padding: 20px 10px;
   img {
-      border: 2px solid $main-color;
-      border-radius: 50%;
+    border: 2px solid $main-color;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+
+html:lang(ar) {
+  .product-silder {
+    text-align: right;
   }
 }
 </style>

@@ -105,9 +105,10 @@ export default {
           this.errorMsg = err.message;
         });
     },
-    getLink(provider) {
+    async getLink(provider) {
+      await localStorage.setItem("provider", provider);
       auth
-        .getSocialLink("b2c", provider, "http://localhost:8080")
+        .getSocialLink("b2c", provider, this.mainDoamin)
         .then((res) => {
           window.location.href = res.data.items.url;
         })

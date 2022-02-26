@@ -244,7 +244,7 @@ export default {
         mobile_number: "",
         active_with: "",
         register_mailing_list: false,
-        callback_url: "http://localhost:8080",
+        callback_url:this.mainDoamin,
       },
       errors: {},
       terms: "",
@@ -276,7 +276,7 @@ export default {
         .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
           if (res.data.items.item.verify_mobile_required) {
-            this.$router.push("/ota-verification");
+            this.$router.push("/otp-verification");
             location.reload();
           }
         })

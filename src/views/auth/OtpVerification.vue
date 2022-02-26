@@ -5,10 +5,12 @@
     </b-alert>
 
     <div class="otp-form">
-      <h1>welcome</h1>
-      <h4>Please Verification Account</h4>
-      <h5>The verification code has been sent to your phone</h5>
-      <div class="block-header my-3">Verification Account</div>
+      <h1>{{ $t("login.welcome") }}</h1>
+      <h4>{{ $t("register.pleaseVerification") }}</h4>
+      <h5>{{ $t("register.codeSent") }}</h5>
+      <div class="block-header my-3">
+        {{ $t("register.verificationAccount") }}
+      </div>
       <form @submit.prevent="otpVerification()">
         <b-form-group>
           <label for="l-name">otp</label>
@@ -16,10 +18,13 @@
           <b-form-input id="l-name" v-model="form.code" required />
         </b-form-group>
         <b-button type="submit" variant="danger"
-          ><font-awesome-icon icon="fas fa-lock" /> Verification
+          ><font-awesome-icon icon="fas fa-lock" />
+          {{ $t("register.verification") }}
         </b-button>
       </form>
-      <div class="my-3 resend" @click="resendCode()">not arrived ? Resend</div>
+      <div class="my-3 resend" @click="resendCode()">
+        {{ $t("register.notArrive") }}
+      </div>
     </div>
   </section>
 </template>
