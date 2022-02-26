@@ -1,9 +1,9 @@
 <template>
   <div class="profile-categories">
     <b-container>
-      <div class="categories-info">
+      <span class="categories-info">
         <h4 class="main-header">{{ $t("profile.categories") }}</h4>
-      </div>
+      </span>
       <b-row>
         <b-col
           v-for="(x, index) in 12"
@@ -43,6 +43,21 @@ export default {
     }
     .main-header {
       text-transform: uppercase;
+      position: relative;
+        &::before , &::after{
+          content: "";
+          position: absolute;
+          left: -30px;
+          top: 60%;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 2px;
+              background: #ed2124;
+        }
+        &::after{
+          left: auto;
+        right: -30px;
+        }
     }
   }
   .custum-padding {

@@ -1,11 +1,17 @@
 <template>
   <div class="product-silder">
+          <span class="product-info">
+        <h4 class="main-header">{{ $t("home.suppliers") }}</h4>
+      </span>
+    <Countdown deadline="August 22, 2022"></Countdown>
     <VueSlickCarousel v-bind="settings" class="my-5">
       <div v-for="(x, index) in 10" :key="index">
         <ProductCard />
       </div>
     </VueSlickCarousel>
-
+      <span class="product-info">
+        <h4 class="main-header">{{ $t("home.suppliers") }}</h4>
+      </span>
     <VueSlickCarousel v-bind="settings">
       <div v-for="(x, index) in 10" :key="index" class="px-5">
         <b-img
@@ -20,13 +26,14 @@
 
 <script>
 import VueSlickCarousel from "vue-slick-carousel";
-
+import Countdown from 'vuejs-countdown'
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 export default {
   components: {
     ProductCard,
     VueSlickCarousel,
+    Countdown 
   },
   data() {
     return {
@@ -72,7 +79,32 @@ export default {
 .product-silder {
   background-color: #f9f8f5;
   text-align: center;
- 
+   .product-info {
+    padding-bottom: 30px;
+    small {
+      color: $main-color;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .main-header {
+      text-transform: uppercase;
+      position: relative;
+        &::before , &::after{
+          content: "";
+          position: absolute;
+          left: -30px;
+          top: 60%;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 2px;
+              background: #ed2124;
+        }
+        &::after{
+          left: auto;
+        right: -30px;
+        }
+    }
+  }
   padding: 20px 5px;
   .img-suplier {
     opacity: 0.75;

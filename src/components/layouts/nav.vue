@@ -68,8 +68,25 @@
               <small>{{ $t("login.login") }}</small>
             </h5>
           </div>
-          <div v-else>
-            profile
+          <div v-if="!mobile && isLoggined">
+            <div class="user-profile">
+                <b-dropdown
+                  id="dropdown-1"
+                >
+                  <template #button-content>
+                      <span>
+                         <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+                       <p>Beshoy Test</p>
+                      </span>
+                  </template>
+                  <b-dropdown-item>
+                    <p> <router-link to="/profile">My Profile</router-link></p>
+                  </b-dropdown-item>
+                      <b-dropdown-item>
+                    <p class="logout" @click="logout()">Logout</p>
+                  </b-dropdown-item>
+                </b-dropdown>
+            </div>
           </div>
           <!-- user Profile and name when login -->
           <Login v-if="!isLoggined" />
@@ -142,6 +159,11 @@ export default {
       this.mobileNav = false;
       return;
     },
+    logout(){
+      localStorage.removeItem("token");
+      this.$router.push("/");
+      location.reload();
+    }
   },
 };
 </script>

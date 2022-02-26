@@ -17,22 +17,22 @@
                             <div class="footer-link-wrap">
                                 <nav class="menu-links">
                                     <ul>
-                                        <li><a href="about-us.html"> {{ $t("home.about") }}</a></li>
-                                        <li><a href="contact.html">{{ $t("home.contactUs") }}</a></li>
-                                        <li><a href="supplier.html">{{ $t("home.suppliers") }}</a></li>
-                                        <li><a href="supplier.html">{{ $t("home.suppliers") }}</a></li>
-                                        <li><a href="supplier.html">{{ $t("home.suppliers") }}</a></li>
-                                        <li><a href="supplier.html">{{ $t("home.suppliers") }}</a></li>
+                                        <li><router-link to="">{{ $t("home.about") }}</router-link></li>
+                                        <li><router-link to="">{{ $t("home.contactUs") }}</router-link></li>
+                                        <li><router-link to="">{{ $t("home.suppliers") }}</router-link></li>
+                                        <li><router-link to="">{{ $t("home.suppliers") }}</router-link></li>
+                                        <li><router-link to="">{{ $t("home.suppliers") }}</router-link></li>
+                                        <li><router-link to="">{{ $t("home.suppliers") }}</router-link></li>
                                     </ul>
                                 </nav>
                                 <div class="footer-social">
                                     <ul>
-                                        <li><a href="#"><i class=""></i></a></li>
-                                        <li><a href="#"><img src="https://humhum.work/user-interface/public/assets/img/images/f.png" alt=""></a></li>                                        
-                                        <li><a href="#"><img src="https://humhum.work/user-interface/public/assets/img/images/t.png" alt=""></a></li>                                        
-                                        <li><a href="#"><img src="https://humhum.work/user-interface/public/assets/img/images/y.png" alt=""></a></li>                                        
-                                        <li><a href="#"><img src="https://humhum.work/user-interface/public/assets/img/images/i.png" alt=""></a></li>                                        
-                                        <li><a href="#"><img src="https://humhum.work/user-interface/public/assets/img/images/l.png" alt=""></a></li>                                        
+                                        <li><router-link to=""><i class=""></i></router-link></li>
+                                        <li><router-link to=""><img src="https://humhum.work/user-interface/public/assets/img/images/f.png" alt=""></router-link></li>                                        
+                                        <li><router-link to=""><img src="https://humhum.work/user-interface/public/assets/img/images/t.png" alt=""></router-link></li>                                        
+                                        <li><router-link to=""><img src="https://humhum.work/user-interface/public/assets/img/images/y.png" alt=""></router-link></li>                                        
+                                        <li><router-link to=""><img src="https://humhum.work/user-interface/public/assets/img/images/i.png" alt=""></router-link></li>                                        
+                                        <li><router-link to=""><img src="https://humhum.work/user-interface/public/assets/img/images/l.png" alt=""></router-link></li>                                        
                                     </ul>
                                 </div>
                             </div>
