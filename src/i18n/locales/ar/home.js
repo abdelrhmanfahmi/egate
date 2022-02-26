@@ -6,5 +6,6 @@ export default {
   corporat: "تسجيل الشركات",
   contactUs: "اتصل بنا",
   mySupply: "ماي سبلاي",
-  allRightsReserved: " جميع الحقوق محفوظة"
+  allRightsReserved: " جميع الحقوق محفوظة",
+  bestDeal:"أفضل الصفقات"
 };

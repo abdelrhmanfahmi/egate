@@ -6,5 +6,6 @@ export default {
   corporat:"corporat",
   contactUs:"contact us",
   mySupply:"MySupply",
-  allRightsReserved:"All Rights Reserved"
+  allRightsReserved:"All Rights Reserved",
+  bestDeal:"Best Deal"
 };
