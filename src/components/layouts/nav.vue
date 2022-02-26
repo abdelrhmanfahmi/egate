@@ -163,6 +163,7 @@ export default {
     },
     logout() {
       localStorage.removeItem("token");
+      localStorage.removeItem("provider");
       this.$router.push("/");
       location.reload();
     },
