@@ -20,6 +20,11 @@ export default {
     ProductSilder,
     CatrgoriesHome,
   },
+  data() {
+    return {
+      provider: localStorage.getItem("provider"),
+    };
+  },
   mounted() {
     this.makeLoginSocail();
   },
@@ -31,7 +36,7 @@ export default {
           code: this.$route.query.code,
         };
         auth
-          .makeLoginSocail("b2c", "google", payload)
+          .makeLoginSocail("b2c", this.provider, payload)
           .then(async (res) => {
             await localStorage.setItem("token", res.data.items.access_token);
             location.reload();

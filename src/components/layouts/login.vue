@@ -105,7 +105,8 @@ export default {
           this.errorMsg = err.message;
         });
     },
-    getLink(provider) {
+    async getLink(provider) {
+      await localStorage.setItem("provider", provider);
       auth
         .getSocialLink("b2c", provider, this.mainDoamin)
         .then((res) => {
