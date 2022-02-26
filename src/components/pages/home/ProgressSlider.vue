@@ -33,7 +33,7 @@ export default {
         slidesToShow: 12,
         slidesToScroll: 1,
         swipeToSlide: true,
-        autoplay: false,
+        autoplay: true,
 
         responsive: [
           {

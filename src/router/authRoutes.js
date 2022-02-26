@@ -10,7 +10,7 @@ export default [
     component: Register,
   },
   {
-    path: "/ota-verification",
+    path: "/otp-verification",
     name: "OtaVerification",
     component: OtaVerification,
   },

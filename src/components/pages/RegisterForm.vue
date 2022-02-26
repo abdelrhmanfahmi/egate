@@ -276,7 +276,7 @@ export default {
         .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
           if (res.data.items.item.verify_mobile_required) {
-            this.$router.push("/ota-verification");
+            this.$router.push("/otp-verification");
             location.reload();
           }
         })

@@ -190,7 +190,7 @@ export default {
         country_code: "",
         mobile_number: "",
         register_mailing_list: false,
-        callback_url: "http://localhost:8081/ota-verification",
+        callback_url: "http://localhost:8081/otp-verification",
       },
       errors: {},
       terms: "",
