@@ -2,7 +2,7 @@
   <div class="profile-categories">
     <b-container>
       <span class="categories-info">
-        <h4 class="main-header">{{ $t("profile.categories") }}</h4>
+        <h4 class="top-header">{{ $t("profile.categories") }}</h4>
       </span>
       <b-row>
         <b-col
@@ -25,39 +25,19 @@ export default {
   components: {
     CategoryCard,
   },
-  mounted() {},
-  methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
 .profile-categories {
   text-align: center;
-
+  padding-bottom: 30px;
   .categories-info {
     padding-bottom: 30px;
     small {
       color: $main-color;
       font-size: 12px;
       text-transform: uppercase;
-    }
-    .main-header {
-      text-transform: uppercase;
-      position: relative;
-        &::before , &::after{
-          content: "";
-          position: absolute;
-          left: -30px;
-          top: 60%;
-          transform: translateY(-50%);
-          width: 20px;
-          height: 2px;
-              background: #ed2124;
-        }
-        &::after{
-          left: auto;
-        right: -30px;
-        }
     }
   }
   .custum-padding {

@@ -67,12 +67,12 @@ export default {
   ul {
     li {
       padding: 10px 0;
+      .router-link-exact-active {
+        color: red;
+      }
       a {
         display: inline-block;
         color: #fff;
-        &:hover {
-          color: red;
-        }
         span {
           padding: 0 10px;
           text-transform: capitalize;

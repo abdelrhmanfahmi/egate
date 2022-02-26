@@ -4,13 +4,12 @@
       <p>{{ $t("home.bestDeal") }}</p>
 
       <VueSlickCarousel v-bind="settings" class="my-2">
-        <div v-for="(x, index) in 20" :key="index">
-          <div>
-            <b-img
-              src="https://humhum.work/user-interface/public/assets/img/product/ins2.png"
-            >
-            </b-img>
-          </div>
+        <div v-for="(x, index) in 20" :key="index" class="text-center">
+          <b-img
+            src="https://humhum.work/user-interface/public/assets/img/product/ins2.png"
+          >
+          </b-img>
+          <h6 class="main-header">product</h6>
         </div>
       </VueSlickCarousel>
     </b-container>
@@ -34,7 +33,7 @@ export default {
         slidesToShow: 12,
         slidesToScroll: 1,
         swipeToSlide: true,
-        autoplay: true,
+        autoplay: false,
 
         responsive: [
           {
@@ -71,6 +70,7 @@ export default {
   img {
     border: 2px solid $main-color;
     border-radius: 50%;
+    display: inline-block;
   }
 }
 
