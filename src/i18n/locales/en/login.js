@@ -6,4 +6,6 @@ export default {
   createAccount: "Create account",
   LoginSocial :"Login by social media",
   loginNav: "login",
+  welcome:"welcome",
+  logout:"Logout"
 };

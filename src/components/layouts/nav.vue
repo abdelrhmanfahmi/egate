@@ -70,22 +70,20 @@
           </div>
           <div v-if="!mobile && isLoggined">
             <div class="user-profile">
-                <b-dropdown
-                  id="dropdown-1"
-                >
-                  <template #button-content>
-                      <span>
-                         <font-awesome-icon icon="fa-solid fa-user" size="2x" />
-                       <p>Beshoy Test</p>
-                      </span>
-                  </template>
-                  <b-dropdown-item>
-                    <p> <router-link to="/profile">My Profile</router-link></p>
-                  </b-dropdown-item>
-                      <b-dropdown-item>
-                    <p class="logout" @click="logout()">Logout</p>
-                  </b-dropdown-item>
-                </b-dropdown>
+              <b-dropdown id="dropdown-1">
+                <template #button-content>
+                  <span>
+                    <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+                    <p>{{ $t("login.welcome") }} , Beshoy test</p>
+                  </span>
+                </template>
+                <b-dropdown-item>
+                  <p><router-link to="/profile">{{ $t("profile.myProfile") }}</router-link></p>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <p class="logout" @click="logout()">{{ $t("login.logout") }}</p>
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
           <!-- user Profile and name when login -->
@@ -159,11 +157,11 @@ export default {
       this.mobileNav = false;
       return;
     },
-    logout(){
+    logout() {
       localStorage.removeItem("token");
       this.$router.push("/");
       location.reload();
-    }
+    },
   },
 };
 </script>
