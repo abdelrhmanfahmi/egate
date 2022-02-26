@@ -1,5 +1,6 @@
 import Vue from "vue";
 Vue.mixin({
+
   computed: {
     getDir() {
       return document.documentElement.dir;
@@ -13,6 +14,10 @@ Vue.mixin({
     },
     mainDoamin() {
       return process.env.VUE_APP_DOMAIN_NAME
+    },
+    massgeOfVerify() {
+      return localStorage.getItem("massege")
     }
+      
   },
 });

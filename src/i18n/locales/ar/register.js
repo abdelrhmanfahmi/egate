@@ -23,4 +23,5 @@ export default {
   verificationAccount: "حساب التحقق",
   verification: "تحقق",
   notArrive: "لم يصل ؟ إعادة إرسال",
+  openEmail:"يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول"
 };

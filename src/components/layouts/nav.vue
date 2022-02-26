@@ -164,6 +164,7 @@ export default {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("provider");
+      localStorage.removeItem("massege");
       this.$router.push("/");
       location.reload();
     },

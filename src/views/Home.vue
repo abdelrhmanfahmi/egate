@@ -27,10 +27,11 @@ export default {
   },
   mounted() {
     this.makeLoginSocail();
+    this.emailVerify();
   },
   methods: {
     makeLoginSocail() {
-      if (this.$route.query.code) {
+      if (this.$route.query.code && !this.$route.query.uuid) {
         const payload = {
           redirect: this.mainDoamin,
           code: this.$route.query.code,
@@ -40,6 +41,29 @@ export default {
           .then(async (res) => {
             await localStorage.setItem("token", res.data.items.access_token);
             location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+
+    emailVerify() {
+      if (this.$route.query.uuid) {
+        const payload = {
+          uuid: this.$route.query.uuid,
+          email: this.$route.query.email,
+          code: this.$route.query.code,
+        };
+        auth
+          .emailVerify(payload)
+          .then((res) => {
+            this.$bvToast.toast(res.data.message, {
+              variant: "success",
+              title: "success",
+              autoHideDelay: 5000,
+            });
+            localStorage.removeItem("massege");
           })
           .catch((err) => {
             console.log(err);

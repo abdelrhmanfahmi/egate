@@ -190,7 +190,6 @@ export default {
         country_code: "",
         mobile_number: "",
         register_mailing_list: false,
-        callback_url: `${this.mainDoamin}/otp-verification`,
       },
       errors: {},
       terms: "",
@@ -216,11 +215,14 @@ export default {
         });
     },
     register() {
+      this.form.callback_url = `${this.mainDoamin}/otp-verification`;
       auth
         .register("buyer", this.form)
         .then(async (res) => {
           await localStorage.setItem("token", res.data.items.access_token);
-          // location.reload();
+          await localStorage.setItem("massege", this.$t("register.openEmail"));
+          this.$router.push("/");
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
