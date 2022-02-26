@@ -78,10 +78,16 @@
                   </span>
                 </template>
                 <b-dropdown-item>
-                  <p><router-link to="/profile">{{ $t("profile.myProfile") }}</router-link></p>
+                  <p>
+                    <router-link to="/profile/categories">{{
+                      $t("profile.myProfile")
+                    }}</router-link>
+                  </p>
                 </b-dropdown-item>
                 <b-dropdown-item>
-                  <p class="logout" @click="logout()">{{ $t("login.logout") }}</p>
+                  <p class="logout" @click="logout()">
+                    {{ $t("login.logout") }}
+                  </p>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -241,22 +247,6 @@ export default {
           }
         }
       }
-      .icon {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        height: 100%;
-        right: 24px;
-        svg {
-          cursor: pointer;
-          transition: 0.8s all ease-in-out;
-          font-size: 25px;
-        }
-      }
-      .icon-active {
-        transform: rotate(180deg);
-      }
     }
   }
 }
@@ -267,5 +257,22 @@ export default {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+.icon {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  right: 24px;
+  svg {
+    cursor: pointer;
+    transition: 0.8s all ease-in-out;
+    font-size: 25px;
+  }
+
+  .icon-active {
+    transform: rotate(180deg);
+  }
 }
 </style>
