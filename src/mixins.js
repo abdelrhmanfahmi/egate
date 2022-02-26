@@ -10,6 +10,9 @@ Vue.mixin({
       } else {
         return false;
       }
+    },
+    mainDoamin() {
+      return process.env.VUE_APP_DOMAIN_NAME
     }
   },
 });
