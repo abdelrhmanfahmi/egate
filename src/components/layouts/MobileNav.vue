@@ -12,6 +12,11 @@
           {{ $t("login.loginNav") }}
         </a>
       </li>
+      <li v-else>
+        <router-link to="/profile/categories" class="link">
+          {{ $t("profile.myProfile") }}
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,7 +29,7 @@ export default {
         { name: this.$t("home.home"), to: "/" },
         { name: this.$t("home.suppliers"), to: "/suppliers" },
         { name: this.$t("home.about"), to: "/about" },
-        { name: this.$t("home.corporat"), to: "/corporat" },
+        { name: this.$t("home.corporat"), to: "/b2b-register" },
         { name: this.$t("home.contactUs"), to: "/contact-us" },
       ],
     };

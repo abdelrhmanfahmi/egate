@@ -29,7 +29,7 @@
               }}</router-link>
             </li>
             <li>
-              <router-link class="link" to="/contactUs">{{
+              <router-link class="link" to="/contact-us">{{
                 $t("home.contactUs")
               }}</router-link>
             </li>
@@ -78,16 +78,14 @@
                   </span>
                 </template>
                 <b-dropdown-item>
-                  <p>
-                    <router-link to="/profile/categories">{{
-                      $t("profile.myProfile")
-                    }}</router-link>
-                  </p>
+                  <router-link to="/profile/categories">{{
+                    $t("profile.myProfile")
+                  }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
-                  <p class="logout" @click="logout()">
+                  <a class="logout" @click="logout()">
                     {{ $t("login.logout") }}
-                  </p>
+                  </a>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
