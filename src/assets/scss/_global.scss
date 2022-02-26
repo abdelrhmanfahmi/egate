@@ -50,19 +50,20 @@ label,
 ::placeholder {
   text-transform: capitalize;
 }
+
 .select-currency {
   width: auto;
   .custom-select {
     background: transparent;
     color: #fff;
     border: none;
-    padding: 0;
     &:focus {
       box-shadow: 0 0 0 0;
     }
     option {
       color: #000;
       font-size: 16px;
+      padding: 10px;
       &:hover {
         color: #2b96cc;
       }
