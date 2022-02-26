@@ -1,6 +1,8 @@
 
 module.exports = {
-  publicPath: "./",
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/humhum-user/'
+    : '/',
   css: {
     loaderOptions: {
       sass: {
