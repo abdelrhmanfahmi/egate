@@ -2,11 +2,12 @@
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
     <b-container>
       <nav>
+        <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
             <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
           </div>
-          <ul v-show="!mobile" class="navigation">
+          <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
                 $t("home.home")
@@ -35,21 +36,50 @@
           </ul>
         </div>
 
-        <div class="login" v-show="!mobile && !isLoggined">
-          <font-awesome-icon
-            icon="fa-solid fa-user"
-            v-b-toggle.login
-            size="2x"
-          />
-          <p>{{ $t("login.login") }}</p>
+        <!-- Right Side have user login and search   -->
+        <div class="right-side d-flex">
+          <!-- Search Icon -->
+          <div class="search-icon" v-if="!mobile">
+            <b-button v-b-modal.modal-1 class="icon-search" size="md">
+              <font-awesome-icon
+                v-b-toggle.sidebar-1
+                icon="fa-solid fa-search"
+              />
+            </b-button>
+            <b-modal id="modal-1" class="search">
+              <!-- Using slots -->
+              <b-input-group class="mt-3">
+                <template #append>
+                  <b-input-group-text>
+                    <strong>
+                      <font-awesome-icon
+                        v-b-toggle.sidebar-1
+                        icon="fa-solid fa-search" /></strong
+                  ></b-input-group-text>
+                </template>
+                <b-form-input placeholder="Search"></b-form-input>
+              </b-input-group>
+            </b-modal>
+          </div>
+          <!-- user sign in -->
+          <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
+            <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+            <h5>
+              <small>{{ $t("login.login") }}</small>
+            </h5>
+          </div>
+          <div v-else>
+            profile
+          </div>
+          <!-- user Profile and name when login -->
+          <Login v-if="!isLoggined" />
         </div>
-        <Login />
+
         <!--Start Mbile Nav -->
-        <div class="icon">
+        <div class="icon" v-if="mobile">
           <font-awesome-icon
             v-b-toggle.sidebar-1
             @click="toggleMobileNav"
-            v-show="mobile"
             icon="fa-solid fa-bars"
             :class="{ 'icon-active': mobileNav }"
           />
@@ -85,13 +115,6 @@ export default {
       mobile: null,
       mobileNav: null,
       windowWidth: null,
-      // links: [
-      //   { name: this.$t("home.home"), to: "/" },
-      //   { name: this.$t("home.suppliers"), to: "/suppliers" },
-      //   { name: this.$t("home.about"), to: "/about" },
-      //   { name: this.$t("home.corporat"), to: "/corporat" },
-      //   { name: this.$t("home.contactUs"), to: "/contact-us" },
-      // ],
     };
   },
   components: {
@@ -134,7 +157,7 @@ export default {
     display: flex;
     flex: row;
     justify-content: space-between;
-    padding-top: 12px ;
+    padding-top: 12px;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
     .branding {
@@ -143,15 +166,33 @@ export default {
     ul li {
       text-transform: uppercase;
       padding: 10px;
+      position: relative;
       .link {
         text-decoration: none;
         transition: 0.5s all ease-in-out;
         padding: 0 10px 10px;
         border-bottom: 1px solid transparent;
         color: $text-color;
-        &:hover {
-          color: $main-color;
-          border-color: $main-color;
+        font-weight: 700;
+        font-size: 16px;
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 80%;
+          transform: translateY(-50%);
+          height: 1px;
+          width: 0%;
+          margin: 0 auto;
+          transition: 0.3s linear;
+          background: #ed2124;
+          width: 0%;
+        }
+      }
+      &:hover {
+        .link::before {
+          width: 70%;
         }
       }
     }
@@ -160,25 +201,42 @@ export default {
       display: flex;
       align-items: center;
     }
-    .login {
-      padding: 0 15px;
-    }
 
-    .icon {
-      display: flex;
+    .right-side {
       align-items: center;
-      position: absolute;
-      top: 0;
-      height: 100%;
-      right: 24px;
-      svg {
-        cursor: pointer;
-        transition: 0.8s all ease-in-out;
-        font-size: 25px;
+      .login {
+        padding: 0 0 0 15px;
+        text-align: center;
       }
-    }
-    .icon-active {
-      transform: rotate(180deg);
+      .search-icon {
+        .modal-header {
+          display: none;
+        }
+        .icon-search {
+          color: #212529;
+          background-color: transparent;
+          border-color: transparent;
+          &:focus {
+            box-shadow: 0 0 0 0;
+          }
+        }
+      }
+      .icon {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        right: 24px;
+        svg {
+          cursor: pointer;
+          transition: 0.8s all ease-in-out;
+          font-size: 25px;
+        }
+      }
+      .icon-active {
+        transform: rotate(180deg);
+      }
     }
   }
 }
@@ -189,15 +247,5 @@ export default {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
-}
-
-// style arabic
-html:lang(ar) {
-  .main-nav {
-    .icon {
-      left: 24px;
-      right: auto;
-    }
-  }
 }
 </style>

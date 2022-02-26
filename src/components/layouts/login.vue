@@ -69,7 +69,7 @@
       </div>
 
       <div class="user-login-form">
-        <p class="title"> {{ $t("login.DontHave") }} </p>
+        <p class="title">{{ $t("login.DontHave") }}</p>
         <b-button to="/user-register" class="login-button my-2">
           {{ $t("login.createAccount") }}
         </b-button>

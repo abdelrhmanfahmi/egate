@@ -1,16 +1,25 @@
 <template>
   <div class="home">
-    <h1>is login {{ isLoggined }}</h1>
+    <ProgressSlider />
+    <CatrgoriesHome />
+    <ProductSilder />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import auth from "@/services/auth";
+import ProgressSlider from "@/components/pages/home/ProgressSlider";
+import ProductSilder from "@/components/pages/home/ProductSilder";
+import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
 export default {
   name: "Home",
-  components: {},
+  components: {
+    ProgressSlider,
+    ProductSilder,
+    CatrgoriesHome,
+  },
   mounted() {
     this.makeLoginSocail();
   },

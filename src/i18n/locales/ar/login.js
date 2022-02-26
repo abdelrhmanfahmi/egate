@@ -1,5 +1,5 @@
 export default {
-  login: "دخول",
+  login: "تسجيل الدخول",
   WelcomeAgain: "مرحبا بك مجددا ",
   fogetPassword: "نسيت كلمة المرور ؟",
   DontHave: "ليس لديك حساب ؟",

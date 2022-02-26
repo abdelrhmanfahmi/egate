@@ -21,3 +21,12 @@
     background-color: #e73d33;
   }
 }
+
+.custom-select {
+  height: 3.2rem;
+}
+.product-silder {
+  button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+    display:none !important;
+  }
+}

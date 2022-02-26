@@ -1,6 +1,6 @@
 <template>
   <div class="profile-menu">
-    <h2>My profile</h2>
+    <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">Beshoy Maowed</h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
@@ -18,14 +18,41 @@ export default {
   data() {
     return {
       links: [
-        { to: "/profile/categories", name: "shop", iconName: "shop" },
+        {
+          to: "/profile/categories",
+          name: this.$t("profile.shop"),
+          iconName: "shop",
+        },
+        {
+          to: "/profile/shopping-cart",
+          name: this.$t("profile.shoppingCart"),
+          iconName: "cart-shopping",
+        },
+        {
+          to: "/profile/account-information",
+          name: this.$t("profile.accountInformation"),
+          iconName: "circle-info",
+        },
+        {
+          to: "/profile/adress-book",
+          name: this.$t("profile.addressBook"),
+          iconName: "location-dot",
+        },
+        {
+          to: "/profile/subscribe-newsletter",
+          name: this.$t("profile.subscribeNewsletter"),
+          iconName: "newspaper",
+        },
+        {
+          to: "/profile/favorite",
+          name: this.$t("profile.favorite"),
+          iconName: "heart",
+        },
         {
           to: "/profile/change-password",
-          name: "change Password",
+          name: this.$t("profile.changePassword"),
           iconName: "star",
         },
-        { to: "/profile/categories", name: "shop", iconName: "shop" },
-        { to: "/profile/categories", name: "change", iconName: "star" },
       ],
     };
   },
@@ -34,7 +61,7 @@ export default {
 
 <style lang="scss">
 .profile-menu {
-  padding: 60px 45px;
+  padding: 60px 0px 60px 25px;
   background-color: #303030;
   color: #fff;
   ul {
@@ -48,6 +75,7 @@ export default {
         }
         span {
           padding: 0 10px;
+          text-transform: capitalize;
         }
       }
     }
@@ -57,6 +85,7 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
+    padding: 60px 60px 60px 0px;
     text-align: right;
   }
 }

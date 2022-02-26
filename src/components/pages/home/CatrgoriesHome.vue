@@ -1,34 +1,32 @@
 <template>
   <div class="profile-categories">
-    <div class="categories-info">
-      <small>{{ $t("profile.welcomeAgain") }} </small>
-      <h4 class="main-header">{{ $t("profile.categories") }}</h4>
-    </div>
-    <b-row>
-      <b-col v-for="(x, index) in 5" :key="index" lg="4" class="custum-padding">
-        <CategoryCard :card="{ type: 'لحوم' }" />
-      </b-col>
-    </b-row>
+    <b-container>
+      <div class="categories-info">
+        <h4 class="main-header">{{ $t("profile.categories") }}</h4>
+      </div>
+      <b-row>
+        <b-col
+          v-for="(x, index) in 12"
+          :key="index"
+          lg="3"
+          sm="6"
+          class="custum-padding"
+        >
+          <CategoryCard :card="{ type: 'لحوم' }" />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-import profileApi from "@/services/profile";
 import CategoryCard from "@/components/global/CategoryCard.vue";
 export default {
   components: {
     CategoryCard,
   },
-  mounted() {
-    this.getCategories();
-  },
-  methods: {
-    getCategories() {
-      profileApi.getCategories().then((res) => {
-        console.log(res);
-      });
-    },
-  },
+  mounted() {},
+  methods: {},
 };
 </script>
 

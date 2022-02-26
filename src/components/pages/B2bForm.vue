@@ -251,9 +251,7 @@ export default {
         }
       }
     }
-    .custom-select {
-      height: 3.2rem;
-    }
+
     .terms {
       a {
         color: $main-color;
