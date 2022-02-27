@@ -41,8 +41,33 @@ export default {
       massageErr: "",
     };
   },
-  mounted() {},
+  mounted() {
+    this.emailVerify();
+  },
   methods: {
+    emailVerify() {
+      if (this.$route.query.uuid) {
+        const payload = {
+          uuid: this.$route.query.uuid,
+          email: this.$route.query.email,
+          code: this.$route.query.code,
+        };
+        auth
+          .emailVerify(payload)
+          .then((res) => {
+            this.$bvToast.toast(res.data.message, {
+              variant: "success",
+              title: "success",
+              autoHideDelay: 5000,
+            });
+            localStorage.removeItem("massege");
+            location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
     otpVerification() {
       auth
         .verificationMobile(this.form)

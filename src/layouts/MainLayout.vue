@@ -2,6 +2,9 @@
   <div class="main-layout">
     <TopHeader />
     <Nav />
+    <b-alert variant="danger" show v-if="massgeOfVerify">
+      {{ massgeOfVerify }}
+    </b-alert>
     <router-view></router-view>
     <Footer />
   </div>
@@ -16,7 +19,7 @@ export default {
   components: {
     TopHeader,
     Nav,
-    Footer
+    Footer,
   },
 };
 </script>

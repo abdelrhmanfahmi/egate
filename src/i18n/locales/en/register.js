@@ -25,4 +25,5 @@ export default {
   verificationAccount: "Verification Account",
   verification: "Verification",
   notArrive: "not arrived ? Resend",
+  openEmail:"Please open your email to verify your account to can login"
 };
