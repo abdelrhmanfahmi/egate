@@ -26,6 +26,6 @@ export default {
     return globalAxios.post(`auth/${type}/login`, payload);
   },
   emailVerify(payload) {
-    return globalAxios.patch("checkpoint/active-email-guest", payload);
+    return globalAxios.put("checkpoint/active-email-guest", payload);
   },
 };

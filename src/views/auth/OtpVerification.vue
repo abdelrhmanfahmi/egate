@@ -61,6 +61,7 @@ export default {
               autoHideDelay: 5000,
             });
             localStorage.removeItem("massege");
+            location.reload();
           })
           .catch((err) => {
             console.log(err);
