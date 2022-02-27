@@ -64,8 +64,8 @@ export default {
       ],
       lang: localStorage.getItem("lang") || "en",
       countryImg:
-        "https://humhum.work/user-interface/public/assets/flags/EG.png",
-      countryName: "جمهوريه مصر العربيه",
+        "https://humhum.work/user-interface/public/assets/flags/KW.png",
+      countryName: "الكويت",
     };
   },
   methods: {
