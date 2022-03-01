@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="footer-logo">
-                                <a href="https://humhum.work/user-interface/public/en_kw"><img src="https://humhum.work/user-interface/public/assets/img/logo/w_logo.png" alt=""></a>
+                                <a href="https://humhum.work/user-interface/public/en_kw"><img src="@/assets/images/mysupply-logo.png" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -98,8 +98,8 @@ export default {
 .footer-logo {
     text-align: center;
     img{
-        height: auto;
-        width: auto;
+       height: 75px;
+    width: 75px;
     }
 }
 .footer-link-wrap {
