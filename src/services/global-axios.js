@@ -4,14 +4,14 @@ import axios from "axios";
 let hasToken = null,
   lang = null;
 
-hasToken = localStorage.getItem("token");
+hasToken =  JSON.parse(localStorage.getItem("userInfo"));
 lang = localStorage.getItem("lang") || "en";
 
 
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {
-    Authorization: hasToken ? `Bearer ${hasToken}` : "",
+    Authorization: hasToken ? `Bearer ${hasToken.access_token}` : "",
     "Accept-Language": lang
   },
 });

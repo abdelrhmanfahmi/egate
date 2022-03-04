@@ -167,7 +167,7 @@ export default {
       return;
     },
     logout() {
-      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
       localStorage.removeItem("provider");
       localStorage.removeItem("massege");
       this.$router.push("/");

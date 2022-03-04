@@ -6,7 +6,7 @@ Vue.mixin({
       return document.documentElement.dir;
     },
     isLoggined() {
-      if (localStorage.getItem("token")) {
+      if (localStorage.getItem("userInfo")) {
         return true;
       } else {
         return false;

@@ -70,7 +70,10 @@ export default {
       auth
         .login("buyer", this.form)
         .then(async (res) => {
-          await localStorage.setItem("token", res.data.items.access_token);
+          await localStorage.setItem(
+            "userInfo",
+            JSON.stringify(res.data.items)
+          );
           this.$router.push("/");
           location.reload();
         })

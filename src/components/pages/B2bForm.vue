@@ -219,7 +219,7 @@ export default {
       auth
         .register("buyer", this.form)
         .then(async (res) => {
-          await localStorage.setItem("token", res.data.items.access_token);
+          await localStorage.setItem("userInfo",JSON.stringify(res.data.items));
           await localStorage.setItem("massege", this.$t("register.openEmail"));
           this.$router.push("/");
           location.reload();
