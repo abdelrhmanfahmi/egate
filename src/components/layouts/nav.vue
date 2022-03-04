@@ -5,7 +5,12 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
+            <img
+              src="@/assets/images/logo.png"
+              class="img-fluid"
+              alt="logo"
+              @click="goToHome()"
+            />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
@@ -168,6 +173,9 @@ export default {
       this.$router.push("/");
       location.reload();
     },
+    goToHome() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -188,6 +196,9 @@ export default {
     margin: 0 auto;
     .branding {
       text-align: center;
+      img {
+        cursor: pointer;
+      }
     }
     ul li {
       text-transform: uppercase;

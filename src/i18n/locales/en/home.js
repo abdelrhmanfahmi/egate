@@ -14,5 +14,6 @@ export default {
   registerForTheNewsletter:"Register for the newsletter",
   beTheFirstToGetExclusiveOffersAndCoupons:"Be the first to get exclusive offers and coupons",
   subscribe:"Subscribe",
-  email:"Email Address"
+  email:"Email Address",
+  kuwait:"kuwait"
 };

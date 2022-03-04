@@ -109,7 +109,7 @@ export default {
         first_name: "",
         last_name: "",
         email: "",
-        country_code: "",
+        country_code: "KW",
         mobile_number: "",
       },
       countries: [],

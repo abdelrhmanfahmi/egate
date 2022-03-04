@@ -51,7 +51,7 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="email" v-model="form.email" />
+                    <b-form-input id="email" v-model="form.email"  maxlength="100"/>
                     <div
                       class="error"
                       v-for="(error, index) in errors.email"
@@ -240,9 +240,9 @@ export default {
         email: "",
         password: "",
         password_confirmation: "",
-        country_code: "",
+        country_code: "KW",
         mobile_number: "",
-        active_with: "",
+        active_with: "sms",
         register_mailing_list: false,
       },
       errors: {},

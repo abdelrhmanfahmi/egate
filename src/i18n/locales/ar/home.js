@@ -14,5 +14,6 @@ export default {
   registerForTheNewsletter:"التسجيل في النشرة الإخبارية",
   beTheFirstToGetExclusiveOffersAndCoupons:"كن أول من يحصل على عروض وكوبونات حصرية",
   subscribe:"الإشتراك",
-  email:"عنوان بريد الكتروني"
+  email:"عنوان بريد الكتروني",
+  kuwait:"الكويت"
 };

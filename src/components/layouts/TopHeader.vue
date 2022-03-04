@@ -19,11 +19,11 @@
             </template>
             <b-dropdown-item
               v-for="country in countries"
-              :key="country.value"
+              :key="country.id"
               @click="onHandelCountry(country)"
             >
-              <span>{{ country.text }}</span>
-              <img :src="country.image" :alt="country.value" />
+              <span>{{ country.title }}</span>
+              <img :src="country.flag" :alt="country.title" />
             </b-dropdown-item>
           </b-dropdown>
         </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import auth from "@/services/auth";
 export default {
   data() {
     return {
@@ -48,27 +49,27 @@ export default {
         { value: "الدينار الكويتي", text: "الدينار الكويتي" },
         { value: "جنية مصري", text: "جنية مصري" },
       ],
-      countries: [
-        {
-          value: "EG",
-          text: "جمهوريه مصر العربيه",
-          image:
-            "https://humhum.work/user-interface/public/assets/flags/EG.png",
-        },
-        {
-          value: "KW",
-          text: "الكويت",
-          image:
-            "https://humhum.work/user-interface/public/assets/flags/KW.png",
-        },
-      ],
+      countries: [],
       lang: localStorage.getItem("lang") || "en",
       countryImg:
         "https://humhum.work/user-interface/public/assets/flags/KW.png",
-      countryName: "الكويت",
+      countryName:this.$t("home.kuwait"),
     };
   },
+  mounted() {
+    this.getAllCountires();
+  },
   methods: {
+    getAllCountires() {
+      auth
+        .getAllCountires()
+        .then((res) => {
+          this.countries = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     switchLang() {
       if (this.lang === "en") {
         this.lang = "ar";
@@ -79,8 +80,8 @@ export default {
       window.location.reload();
     },
     onHandelCountry(data) {
-      this.countryImg = data.image;
-      this.countryName = data.text;
+      this.countryImg = data.flag;
+      this.countryName = data.title;
     },
   },
 };

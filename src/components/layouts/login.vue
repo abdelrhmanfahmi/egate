@@ -10,70 +10,73 @@
       body-class="sidebar-login"
       bg-variant="#fff"
     >
-      <div class="user-login-form">
-        <h6 class="title">{{ $t("login.login") }}</h6>
-        <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
-        <p class="error">{{ errorMsg }}</p>
-        <form @submit.prevent="loginB2c()">
-          <b-form-input
-            v-model="form.email"
-            type="email"
-            :placeholder="$t('register.email')"
-            required
-          />
-          <div class="show-password">
+      <template #default="{ hide }">
+        <div class="user-login-form">
+          <h6 class="title">{{ $t("login.login") }}</h6>
+          <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
+          <p class="error">{{ errorMsg }}</p>
+          <form @submit.prevent="loginB2c()">
             <b-form-input
+              v-model="form.email"
+              type="email"
+              :placeholder="$t('register.email')"
               required
-              class="my-2"
-              v-model="form.password"
-              :type="fieldType"
-              :placeholder="$t('register.password')"
             />
-            <div class="icon-passowrd" @click="switchField()">
-              <font-awesome-icon
-                icon="fa-solid fa-eye"
-                v-if="fieldType === 'password'"
-                size="lg"
+            <div class="show-password">
+              <b-form-input
+                required
+                class="my-2"
+                v-model="form.password"
+                :type="fieldType"
+                :placeholder="$t('register.password')"
               />
-              <font-awesome-icon
-                icon="fa-solid fa-eye-slash"
-                v-else
-                size="lg"
-              />
+              <div class="icon-passowrd" @click="switchField()">
+                <font-awesome-icon
+                  icon="fa-solid fa-eye"
+                  v-if="fieldType === 'password'"
+                  size="lg"
+                />
+                <font-awesome-icon
+                  icon="fa-solid fa-eye-slash"
+                  v-else
+                  size="lg"
+                />
+              </div>
             </div>
-          </div>
 
-          <a class="forget-password">{{ $t("login.fogetPassword") }}</a>
-          <b-button type="submit" class="login-button">
-            {{ $t("login.login") }}
-          </b-button>
-        </form>
-      </div>
-      <!-- social login -->
-      <div class="social-login">
-        <p>{{ $t("login.LoginSocial") }}</p>
-        <div class="social-icons">
-          <button @click="getLink('facebook')" class="button-social">
-            <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
-          </button>
-          <button @click="getLink('google')" class="button-social">
-            <font-awesome-icon icon="fa-brands fa-google" size="lg" />
-          </button>
-          <button @click="getLink('azure')" class="button-social">
-            <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-          </button>
-          <button @click="getLink('apple')" class="button-social">
-            <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
-          </button>
+            <a class="forget-password">{{ $t("login.fogetPassword") }}</a>
+            <b-button type="submit" class="login-button">
+              {{ $t("login.login") }}
+            </b-button>
+          </form>
         </div>
-      </div>
+        <!-- social login -->
+        <div class="social-login">
+          <p>{{ $t("login.LoginSocial") }}</p>
+          <div class="social-icons">
+            <button @click="getLink('facebook')" class="button-social">
+              <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
+            </button>
+            <button @click="getLink('google')" class="button-social">
+              <font-awesome-icon icon="fa-brands fa-google" size="lg" />
+            </button>
+            <button @click="getLink('azure')" class="button-social">
+              <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
+            </button>
+            <button @click="getLink('apple')" class="button-social">
+              <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
+            </button>
+          </div>
+        </div>
 
-      <div class="user-login-form">
-        <p class="title">{{ $t("login.DontHave") }}</p>
-        <b-button to="/user-register" class="login-button my-2">
-          {{ $t("login.createAccount") }}
-        </b-button>
-      </div>
+        <div class="user-login-form">
+          <p class="title">{{ $t("login.DontHave") }}</p>
+
+          <b-button to="/user-register" class="login-button my-2" @click="hide">
+            {{ $t("login.createAccount") }}
+          </b-button>
+        </div>
+      </template>
     </b-sidebar>
   </div>
 </template>

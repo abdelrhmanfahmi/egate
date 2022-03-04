@@ -187,7 +187,7 @@ export default {
         email: "",
         password: "",
         password_confirmation: "",
-        country_code: "",
+        country_code: "KW",
         mobile_number: "",
         register_mailing_list: false,
       },
