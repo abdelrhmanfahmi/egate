@@ -149,7 +149,6 @@ export default {
     MobileNav,
   },
   created() {
-    console.log(this.userInfo);
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
   },
