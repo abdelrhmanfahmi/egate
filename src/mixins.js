@@ -17,7 +17,10 @@ Vue.mixin({
     },
     massgeOfVerify() {
       return localStorage.getItem("massege")
+    },
+    userInfo() {
+      return this.$store.getters.userInfo
     }
-      
+
   },
 });

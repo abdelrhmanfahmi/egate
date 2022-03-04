@@ -79,7 +79,10 @@
                 <template #button-content>
                   <span>
                     <font-awesome-icon icon="fa-solid fa-user" size="2x" />
-                    <p>{{ $t("login.welcome") }} , Beshoy test</p>
+                    <p>
+                      {{ $t("login.welcome") }} ,
+                      {{ userInfo.item.first_name }}
+                    </p>
                   </span>
                 </template>
                 <b-dropdown-item>
@@ -146,6 +149,7 @@ export default {
     MobileNav,
   },
   created() {
+    console.log(this.userInfo);
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
   },
