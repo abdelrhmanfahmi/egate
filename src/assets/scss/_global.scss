@@ -23,7 +23,7 @@ img {
   object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
 }
-ul {
+ul {text-align: center;
   list-style: none;
 }
 a {
@@ -43,6 +43,7 @@ label,
 .table.b-table.b-table-stacked-lg > tbody > tr,
 .table thead th {
   text-transform: capitalize !important;
+  text-align: center;
 }
 .error {
   color: red;

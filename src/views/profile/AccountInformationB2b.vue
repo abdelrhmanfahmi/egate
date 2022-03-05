@@ -108,9 +108,14 @@
           <!-- Registration number -->
           <b-col lg="6">
             <b-form-group>
-              <label for="RegistrationNumber">{{ $t("profile.RegistrationNumber") }}</label>
+              <label for="RegistrationNumber">{{
+                $t("profile.RegistrationNumber")
+              }}</label>
               <span class="requried">*</span>
-              <b-form-input id="RegistrationNumber" v-model="form.RegistrationNumber" />
+              <b-form-input
+                id="RegistrationNumber"
+                v-model="form.RegistrationNumber"
+              />
               <div
                 class="error"
                 v-for="(error, index) in errors.RegistrationNumber"
@@ -144,7 +149,7 @@ export default {
         mobile_number: "",
         Job_title: "",
         companyName: "",
-        RegistrationNumber:""
+        RegistrationNumber: "",
       },
       countries: [],
       errors: {},

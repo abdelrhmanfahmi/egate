@@ -40,9 +40,9 @@ export default {
           iconName: "location-dot",
         },
         {
-          to: "/profile/adress-book",
-          name: this.$t("profile.addressBook"),
-          iconName: "location-dot",
+          to: "/profile/product-reviews-b2b",
+          name: this.$t("profile.productReviews"),
+          iconName: "cubes",
         },
       ],
     };

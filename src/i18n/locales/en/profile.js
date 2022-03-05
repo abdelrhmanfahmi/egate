@@ -38,5 +38,9 @@ export default {
   note: "note",
   businessInformation: "business information",
   RegistrationNumber:"registration number",
-  productReviews :"product reviews"
+  productReviews :"product reviews",
+  construction:"construction",
+  productName:"product name",
+  evaluation:"evaluation",
+  review:"review"
 };

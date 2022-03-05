@@ -38,6 +38,9 @@ export default {
   note: "ملاحظات",
   // b2b
   businessInformation: "معلومات العمل",
-  RegistrationNumber:"رقم التسجيل",
-  productReviews :"مراجعات منتجاتي"
+  RegistrationNumber: "رقم التسجيل",
+  productReviews: "مراجعات منتجاتي",
+  construction: "إنشاء",
+  evaluation: "تقييم",
+  review:"مراجعة"
 };

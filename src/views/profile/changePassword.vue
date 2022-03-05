@@ -142,7 +142,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .change-password {
   .login-button {
     margin: 30px 15px;
