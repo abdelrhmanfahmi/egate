@@ -7,6 +7,10 @@ import SubscribeNewsletter from "../views/profile/SubscribeNewsletter";
 import Favorite from "../views/profile/Favorite";
 import changePassword from "../views/profile/changePassword";
 
+// b2bProfile
+import AccountInformationB2b from "../views/profile/AccountInformationB2b";
+
+
 export default {
   path: "/profile",
   name: "Profile",
@@ -42,6 +46,10 @@ export default {
       path: "/profile/change-password",
       name: "changePassword",
       component: changePassword,
+    },    {
+      path: "/profile/account-information-b2b",
+      name: "AccountInformationB2b",
+      component: AccountInformationB2b,
     },
   ],
 };

@@ -21,7 +21,7 @@
                 <!-- First Name -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="f-name">{{ $t("register.firstName") }}</label>
+                    <label for="f-name">{{ $t("register.companyName") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="f-name" v-model="form.first_name" />
                     <div

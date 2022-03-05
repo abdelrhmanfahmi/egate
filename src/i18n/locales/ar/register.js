@@ -17,6 +17,7 @@ export default {
   submit: "تسجيل",
   unableRegister: "في حالة تعذر التسجيل يرجي الاتصال بنا للمساعدة",
   registrationCompany: "تسجيل لحسابات المطاعم و الفنادق و الشركات شراء بالجملة",
+  companyName:"اسم الشركة",
   jobTitle: "الوظيفة",
   pleaseVerification: "يرجى التحقق من الحساب",
   codeSent: "تم إرسال رمز التحقق إلى هاتفك",

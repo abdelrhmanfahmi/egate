@@ -1,6 +1,6 @@
 export default {
   // side Menu
-  myProfile:"حسابي",
+  myProfile: "حسابي",
   shop: "المتجر",
   shoppingCart: "السله",
   accountInformation: "معلومات الحساب ",
@@ -36,4 +36,8 @@ export default {
   blockNumber: "شقه",
   postCode: "لرمز البريدى",
   note: "ملاحظات",
+  // b2b
+  businessInformation: "معلومات العمل",
+  RegistrationNumber:"رقم التسجيل",
+  productReviews :"مراجعات منتجاتي"
 };
