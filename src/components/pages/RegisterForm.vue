@@ -344,6 +344,7 @@ export default {
         margin: 10px 0;
         color: #fff;
         display: inline-block;
+        direction: ltr;
       }
     }
   }
