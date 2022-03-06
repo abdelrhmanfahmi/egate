@@ -7,7 +7,9 @@
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></router-link
+                <span>
+                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
+                ></router-link
               >
             </div>
             <p class="error">{{ errorMsg }}</p>
@@ -74,6 +76,13 @@ export default {
             "userInfo",
             JSON.stringify(res.data.items)
           );
+          if (res.data.items.item.verify_email_required) {
+            await localStorage.setItem(
+              "massege",
+              this.$t("register.openEmail")
+            );
+          }
+          console.log(res.data.items.item.verify_email_required)
           this.$router.push("/");
           location.reload();
         })

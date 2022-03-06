@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .profile-menu {
   padding: 60px 0px 60px 25px;
   background-color: #303030;
@@ -89,9 +89,9 @@ html:lang(ar) {
   .profile-menu {
     padding: 60px 60px 60px 0px;
     text-align: right;
-  }
-  ul {
-    text-align: right;
+    ul {
+      text-align: right;
+    }
   }
 }
 </style>
