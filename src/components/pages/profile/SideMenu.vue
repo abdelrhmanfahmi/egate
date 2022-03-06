@@ -1,7 +1,9 @@
 <template>
   <div class="profile-menu">
     <h2>{{ $t("profile.myProfile") }}</h2>
-    <h5 class="my-3">{{ userInfo.item.first_name }} {{ userInfo.item.last_name }}</h5>
+    <h5 class="my-3">
+      {{ userInfo.item.first_name }} {{ userInfo.item.last_name }}
+    </h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
         <router-link :to="link.to">
@@ -86,6 +88,9 @@ export default {
 html:lang(ar) {
   .profile-menu {
     padding: 60px 60px 60px 0px;
+    text-align: right;
+  }
+  ul {
     text-align: right;
   }
 }

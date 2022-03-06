@@ -44,6 +44,16 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
+        {
+          to: "/profile/subscribe-newsletter",
+          name: this.$t("profile.subscribeNewsletter"),
+          iconName: "newspaper",
+        },
+                {
+          to: "/profile/favorite",
+          name: this.$t("profile.favorite"),
+          iconName: "heart",
+        },
       ],
     };
   },

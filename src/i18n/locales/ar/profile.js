@@ -42,5 +42,7 @@ export default {
   productReviews: "مراجعات منتجاتي",
   construction: "إنشاء",
   evaluation: "تقييم",
-  review:"مراجعة"
+  review:"مراجعة",
+  actions:"احداث",
+  viewDetails:"عرض التفاصيل"
 };

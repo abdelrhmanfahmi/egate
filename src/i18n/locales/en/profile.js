@@ -42,5 +42,7 @@ export default {
   construction:"construction",
   productName:"product name",
   evaluation:"evaluation",
-  review:"review"
+  review:"review",
+  actions:"actions",
+  viewDetails:"View details"
 };

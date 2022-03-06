@@ -23,7 +23,7 @@ img {
   object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
 }
-ul {text-align: center;
+ul {
   list-style: none;
 }
 a {
@@ -44,6 +44,9 @@ label,
 .table thead th {
   text-transform: capitalize !important;
   text-align: center;
+}
+.table th, .table td {
+  vertical-align: baseline;
 }
 .error {
   color: red;
