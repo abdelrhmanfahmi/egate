@@ -28,10 +28,22 @@
                 $t("home.about")
               }}</router-link>
             </li>
-            <li>
-              <router-link class="link corporat-dropdown" to="/b2b-register">{{
-                $t("home.corporat")
-              }}</router-link>
+            <li class="humhum-dropdown">
+              <router-link class="link" to="/b2b-register">
+                {{ $t("home.corporat") }}
+                <ul class="submenu">
+                  <li>
+                    <a href="supplier/signin.html" target="_blank">{{
+                      $t("home.suppliers")
+                    }}</a>
+                  </li>
+                  <li>
+                    <a href="B2Cbuyer.html" target="_blank">{{
+                      $t("home.buyer")
+                    }}</a>
+                  </li>
+                </ul>
+              </router-link>
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
@@ -264,14 +276,7 @@ export default {
     }
   }
 }
-.submenu {
-  opacity: 0;
-}
-.corporat-dropdown:hover .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
+
 .icon {
   display: flex;
   align-items: center;
