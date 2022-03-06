@@ -1,8 +1,7 @@
 <template>
   <div class="profile-menu">
-    <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">
-      {{ userInfo.item.first_name }} {{ userInfo.item.last_name }}
+      {{ userInfo.item.company_name }}
     </h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
@@ -31,7 +30,7 @@ export default {
           iconName: "cart-shopping",
         },
         {
-          to: "/profile/account-information",
+          to: "/profile/account-information-b2b",
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
@@ -41,19 +40,19 @@ export default {
           iconName: "location-dot",
         },
         {
+          to: "/profile/product-reviews-b2b",
+          name: this.$t("profile.productReviews"),
+          iconName: "cubes",
+        },
+        {
           to: "/profile/subscribe-newsletter",
           name: this.$t("profile.subscribeNewsletter"),
           iconName: "newspaper",
         },
-        {
+                {
           to: "/profile/favorite",
           name: this.$t("profile.favorite"),
           iconName: "heart",
-        },
-        {
-          to: "/profile/change-password",
-          name: this.$t("profile.changePassword"),
-          iconName: "star",
         },
       ],
     };
@@ -88,9 +87,6 @@ export default {
 html:lang(ar) {
   .profile-menu {
     padding: 60px 60px 60px 0px;
-    text-align: right;
-  }
-  ul {
     text-align: right;
   }
 }

@@ -43,6 +43,10 @@ label,
 .table.b-table.b-table-stacked-lg > tbody > tr,
 .table thead th {
   text-transform: capitalize !important;
+  text-align: center;
+}
+.table th, .table td {
+  vertical-align: baseline;
 }
 .error {
   color: red;
