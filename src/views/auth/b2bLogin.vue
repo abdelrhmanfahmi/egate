@@ -1,13 +1,15 @@
 <template>
-  <section class="user-register">
+  <section class="user-register my-5">
     <b-container>
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <a v-b-toggle.login class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
+              <router-link to="/b2b-register" class="back">
+                <span>
+                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
+                ></router-link
               >
             </div>
             <p class="error">{{ errorMsg }}</p>
@@ -74,6 +76,13 @@ export default {
             "userInfo",
             JSON.stringify(res.data.items)
           );
+          if (res.data.items.item.verify_email_required) {
+            await localStorage.setItem(
+              "massege",
+              this.$t("register.openEmail")
+            );
+          }
+          console.log(res.data.items.item.verify_email_required)
           this.$router.push("/");
           location.reload();
         })
@@ -112,7 +121,7 @@ export default {
       border: 1px solid rgba(204, 204, 204, 0.251);
       border-radius: 4px;
       background-color: rgba(216, 220, 221, 0.251);
-      padding: 40px 30px;
+      padding: 20px;
     }
   }
 }

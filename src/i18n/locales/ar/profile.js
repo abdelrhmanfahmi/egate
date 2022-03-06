@@ -44,5 +44,6 @@ export default {
   evaluation: "تقييم",
   review:"مراجعة",
   actions:"احداث",
-  viewDetails:"عرض التفاصيل"
+  viewDetails:"عرض التفاصيل",
+  productName:"اسم المنتج"
 };
