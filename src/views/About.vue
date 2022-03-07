@@ -131,14 +131,17 @@
               <div class="newsletter-title mb-65">
                 <h2 class="title">{{ $t("home.registerForTheNewsletter") }}</h2>
                 <h6 class="sub-title">
-                 {{ $t("home.beTheFirstToGetExclusiveOffersAndCoupons") }}
+                  {{ $t("home.beTheFirstToGetExclusiveOffersAndCoupons") }}
                 </h6>
               </div>
               <form action="#" class="newsletter-form">
-                <input type="email" :placeholder='$t("home.email")' />
+                <input type="email" :placeholder="$t('home.email')" />
                 <button>
                   <span>{{ $t("home.subscribe") }}</span>
-                  <font-awesome-icon class="mx-2" icon="fa-solid fa-circle-arrow-right" />
+                  <font-awesome-icon
+                    class="mx-2"
+                    icon="fa-solid fa-circle-arrow-right"
+                  />
                   <i class="far fa-arrow-alt-circle-right"></i>
                 </button>
               </form>
@@ -247,10 +250,10 @@ export default {
 
     /* 15. Newsletter */
     .mb-65 {
-        margin-bottom: 65px;
+      margin-bottom: 65px;
     }
     .pb-100 {
-        padding-bottom: 100px;
+      padding-bottom: 100px;
     }
     .newsletter-bg {
       text-align: center;
@@ -323,7 +326,7 @@ export default {
       font-size: 16px;
       font-weight: 500;
       font-family: "Almarai", sans-serif;
-      svg{
+      svg {
         transform: rotate(0deg);
       }
     }
@@ -346,10 +349,8 @@ export default {
 
 // style arabic
 html:lang(ar) {
-     .newsletter-form input {
-     text-align: left;
-    }
-
+  .newsletter-form input {
+    text-align: left;
+  }
 }
-
 </style>
