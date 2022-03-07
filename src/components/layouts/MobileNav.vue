@@ -31,6 +31,7 @@ export default {
         { name: this.$t("home.about"), to: "/about" },
         { name: this.$t("home.corporat"), to: "/b2b-register" },
         { name: this.$t("home.contactUs"), to: "/contact-us" },
+        { name: this.$t("home.cart"), to: "/" },
       ],
     };
   },

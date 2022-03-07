@@ -16,5 +16,6 @@ export default {
   beTheFirstToGetExclusiveOffersAndCoupons: "Be the first to get exclusive offers and coupons",
   subscribe: "Subscribe",
   email: "Email Address",
-  kuwait: "kuwait"
+  kuwait: "kuwait",
+  cart: "cart",
 };

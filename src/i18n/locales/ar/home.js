@@ -16,5 +16,6 @@ export default {
   beTheFirstToGetExclusiveOffersAndCoupons: "كن أول من يحصل على عروض وكوبونات حصرية",
   subscribe: "الإشتراك",
   email: "عنوان بريد الكتروني",
-  kuwait: "الكويت"
+  kuwait: "الكويت",
+  cart: "سلة المشتريات"
 };
