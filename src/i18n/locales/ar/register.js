@@ -17,12 +17,13 @@ export default {
   submit: "تسجيل",
   unableRegister: "في حالة تعذر التسجيل يرجي الاتصال بنا للمساعدة",
   registrationCompany: "تسجيل لحسابات المطاعم و الفنادق و الشركات شراء بالجملة",
-  companyName:"اسم الشركة",
+  companyName: "اسم الشركة",
   jobTitle: "الوظيفة",
   pleaseVerification: "يرجى التحقق من الحساب",
   codeSent: "تم إرسال رمز التحقق إلى هاتفك",
   verificationAccount: "حساب التحقق",
   verification: "تحقق",
   notArrive: "لم يصل ؟ إعادة إرسال",
-  openEmail:"يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول"
+  openEmail: "يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول",
+  haveNotAccount: "ليس لدي حساب تسجيل حساب جديد"
 };
