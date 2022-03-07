@@ -21,7 +21,7 @@
         <div class="row">
           <div
             class="col-12 col-sm-6 col-lg-3"
-            v-for="item in 30"
+            v-for="item in 10"
             :key="item.message"
           >
             <Product :data="product"></Product>
