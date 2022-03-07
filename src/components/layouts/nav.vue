@@ -80,6 +80,12 @@
               </b-input-group>
             </b-modal>
           </div>
+          <div v-if="!mobile" class="cart">
+            <span class="cart-icon">
+              <b-icon-minecart-loaded></b-icon-minecart-loaded>
+            </span>
+            <Cart class="cart-body"></Cart>
+          </div>
           <!-- user sign in -->
           <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
             <font-awesome-icon icon="fa-solid fa-user" size="2x" />
@@ -148,6 +154,8 @@
 <script>
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
+import Cart from "../cart/Cart.vue";
+import { BIconMinecartLoaded } from "bootstrap-vue";
 
 export default {
   data() {
@@ -159,6 +167,8 @@ export default {
     };
   },
   components: {
+    Cart,
+    BIconMinecartLoaded,
     Login,
     MobileNav,
   },
@@ -211,6 +221,36 @@ export default {
     padding-top: 12px;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
+    .cart {
+      padding: 0 1rem;
+      position: relative;
+      .cart-icon {
+        color: #000000;
+        font-size: 12pt;
+        cursor: pointer;
+      }
+      .cart-body {
+        background: #fff;
+        opacity: 0;
+        padding: 1.5rem;
+        position: absolute;
+        top: 2rem;
+        transition: all 0.5s ease 0s;
+        z-index: 9;
+        box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
+        visibility: hidden;
+        transform: translateY(10px);
+        width: 23rem;
+      }
+      &:hover {
+        .cart-body {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0px);
+          z-index: 9;
+        }
+      }
+    }
     .branding {
       text-align: center;
       img {
@@ -250,12 +290,10 @@ export default {
         }
       }
     }
-
     .navigation {
       display: flex;
       align-items: center;
     }
-
     .right-side {
       align-items: center;
       .login {
@@ -276,6 +314,16 @@ export default {
         }
       }
     }
+  }
+}
+html:lang(en) {
+  .cart-body {
+    right: 0;
+  }
+}
+html:lang(ar) {
+  .cart-body {
+    left: 0;
   }
 }
 

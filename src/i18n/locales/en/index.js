@@ -3,6 +3,7 @@ import home from "./home";
 import login from "./login";
 import profile from "./profile";
 import contactUs from "./contactUs";
+import cart from "./cart";
 import supplier from "./supplier";
 
 export default {
@@ -11,5 +12,6 @@ export default {
   login,
   profile,
   contactUs,
+  cart,
   supplier,
 };

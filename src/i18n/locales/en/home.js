@@ -17,7 +17,8 @@ export default {
   subscribe: "Subscribe",
   email: "Email Address",
   kuwait: "kuwait",
-  KWD:"KWD",
-  EGP:"EGP",
-  showAll:"show all"
+  cart: "cart",
+  KWD: "KWD",
+  EGP: "EGP",
+  showAll: "show all"
 };
