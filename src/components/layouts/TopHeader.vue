@@ -4,7 +4,9 @@
       <div class="top-nav">
         <div class="lang">
           <button @click="switchLang()" v-if="lang == 'ar'">English</button>
-          <button @click="switchLang()" v-if="lang == 'en'">العربية</button>
+          <button @click="switchLang()" v-if="lang == 'en'">
+            اللغة العربية
+          </button>
         </div>
         <div class="select-country">
           <b-dropdown
@@ -44,16 +46,16 @@ import auth from "@/services/auth";
 export default {
   data() {
     return {
-      currencyValue: "الدينار الكويتي",
+      currencyValue: "KWD",
       currencies: [
-        { value: "الدينار الكويتي", text: "الدينار الكويتي" },
-        { value: "جنية مصري", text: "جنية مصري" },
+        { value: "KWD", text: this.$t("home.KWD") },
+        { value: "EGP", text: this.$t("home.EGP") },
       ],
       countries: [],
       lang: localStorage.getItem("lang") || "en",
       countryImg:
         "https://humhum.work/user-interface/public/assets/flags/KW.png",
-      countryName:this.$t("home.kuwait"),
+      countryName: this.$t("home.kuwait"),
     };
   },
   mounted() {

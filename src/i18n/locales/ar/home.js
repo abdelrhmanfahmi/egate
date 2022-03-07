@@ -16,5 +16,8 @@ export default {
   beTheFirstToGetExclusiveOffersAndCoupons: "كن أول من يحصل على عروض وكوبونات حصرية",
   subscribe: "الإشتراك",
   email: "عنوان بريد الكتروني",
-  kuwait: "الكويت"
+  kuwait: "الكويت",
+  KWD: "الدينار الكويتي",
+  EGP: "الجنيه المصري",
+  showAll: "عرض الكل"
 };
