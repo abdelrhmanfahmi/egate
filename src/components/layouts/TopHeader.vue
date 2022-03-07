@@ -29,7 +29,7 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <div class="select-currency">
+        <div class="select-currency" @change="handleCurrency($event)">
           <b-form-select
             v-model="currencyValue"
             :options="currencies"
@@ -46,16 +46,21 @@ import auth from "@/services/auth";
 export default {
   data() {
     return {
-      currencyValue: "KWD",
+      currencyValue: localStorage.getItem("currency") || "KWD",
       currencies: [
         { value: "KWD", text: this.$t("home.KWD") },
         { value: "EGP", text: this.$t("home.EGP") },
       ],
       countries: [],
       lang: localStorage.getItem("lang") || "en",
-      countryImg:
-        "https://humhum.work/user-interface/public/assets/flags/KW.png",
-      countryName: this.$t("home.kuwait"),
+
+      countryImg: JSON.parse(localStorage.getItem("country"))
+        ? JSON.parse(localStorage.getItem("country")).flag
+        : "https://humhum.work/user-interface/public/assets/flags/KW.png",
+        
+      countryName: JSON.parse(localStorage.getItem("country"))
+        ? JSON.parse(localStorage.getItem("country")).title
+        : this.$t("home.kuwait"),
     };
   },
   mounted() {
@@ -84,6 +89,12 @@ export default {
     onHandelCountry(data) {
       this.countryImg = data.flag;
       this.countryName = data.title;
+      localStorage.setItem("country", JSON.stringify(data));
+      window.location.reload();
+    },
+    handleCurrency(event) {
+      localStorage.setItem("currency", event.target.value);
+      window.location.reload();
     },
   },
 };
