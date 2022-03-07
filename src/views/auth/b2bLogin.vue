@@ -8,7 +8,7 @@
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
                 <span>
-                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
+                  &#60; {{ $t("register.haveNotAccount") }}</span
                 ></router-link
               >
             </div>

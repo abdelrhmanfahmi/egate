@@ -1,7 +1,10 @@
 <template>
   <div class="product-silder">
     <b-container>
-      <p>{{ $t("home.bestDeal") }}</p>
+      <div class="info">
+        <p>{{ $t("home.bestDeal") }}</p>
+        <router-link to="/">{{ $t("home.showAll") }}</router-link>
+      </div>
 
       <VueSlickCarousel v-bind="settings" class="my-2">
         <div v-for="(x, index) in 20" :key="index" class="text-center">
@@ -67,6 +70,13 @@ export default {
 <style lang="scss" scoped>
 .product-silder {
   padding: 20px 10px;
+  .info {
+    display: flex;
+    justify-content: space-between;
+    a {
+      text-transform:capitalize;
+    }
+  }
   img {
     border: 2px solid $main-color;
     border-radius: 50%;

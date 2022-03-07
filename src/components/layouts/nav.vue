@@ -29,21 +29,23 @@
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
-              <router-link class="link" to="/b2b-register">
+              <a class="link">
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a href="supplier/signin.html" target="_blank">{{
-                      $t("home.suppliers")
-                    }}</a>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                      target="_blank"
+                      >{{ $t("home.suppliers") }}</a
+                    >
                   </li>
                   <li>
-                    <a href="B2Cbuyer.html" target="_blank">{{
+                    <router-link to="/b2b-register">{{
                       $t("home.buyer")
-                    }}</a>
+                    }}</router-link>
                   </li>
                 </ul>
-              </router-link>
+              </a>
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
