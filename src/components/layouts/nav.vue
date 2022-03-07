@@ -230,6 +230,7 @@ export default {
         cursor: pointer;
       }
       .cart-body {
+        right: 0;
         background: #fff;
         opacity: 0;
         padding: 1.5rem;
@@ -316,14 +317,13 @@ export default {
     }
   }
 }
-html:lang(en) {
-  .cart-body {
-    right: 0;
-  }
-}
+
 html:lang(ar) {
-  .cart-body {
-    left: 0;
+  .main-nav {
+    .cart-body {
+      right: auto;
+      left: 0;
+    }
   }
 }
 
