@@ -90,11 +90,11 @@ export default {
       this.countryImg = data.flag;
       this.countryName = data.title;
       localStorage.setItem("country", JSON.stringify(data));
-      window.location.reload();
+    
     },
     handleCurrency(event) {
       localStorage.setItem("currency", event.target.value);
-      window.location.reload();
+    
     },
   },
 };
