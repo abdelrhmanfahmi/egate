@@ -17,6 +17,11 @@
           {{ $t("profile.myProfile") }}
         </router-link>
       </li>
+      <li v-if="isLoggined">
+        <a v-b-toggle.login @click="logout()" class="link text-danger">
+          {{ $t("login.logout") }}
+        </a>
+      </li>
     </ul>
   </div>
 </template>
@@ -33,6 +38,15 @@ export default {
         { name: this.$t("home.contactUs"), to: "/contact-us" },
       ],
     };
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("provider");
+      localStorage.removeItem("massege");
+      this.$router.push("/");
+      location.reload();
+    },
   },
 };
 </script>
