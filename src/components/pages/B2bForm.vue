@@ -68,11 +68,25 @@
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="password"
-                      v-model="form.password"
-                      type="password"
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="error"
                       v-for="(error, index) in errors.password"
@@ -89,11 +103,25 @@
                       $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      type="password"
-                      id="confirmPassword"
-                      v-model="form.password_confirmation"
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        :type="fieldType"
+                        id="confirmPassword"
+                        v-model="form.password_confirmation"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="error"
                       v-for="(error, index) in errors.password_confirmation"
@@ -198,12 +226,16 @@ export default {
         { name: this.$t("register.email"), value: "email" },
       ],
       countries: [],
+      fieldType: "password",
     };
   },
   mounted() {
     this.getAllCountires();
   },
   methods: {
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
     getAllCountires() {
       auth
         .getAllCountires()

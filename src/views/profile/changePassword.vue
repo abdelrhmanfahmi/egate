@@ -133,7 +133,11 @@ export default {
       auth
         .changePassword(this.form)
         .then((res) => {
-          console.log(res);
+          this.$bvToast.toast(res.data.message, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

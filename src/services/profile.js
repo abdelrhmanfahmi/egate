@@ -5,4 +5,8 @@ export default {
   getCategories() {
     return globalAxios.get("members/profile/categories");
   },
+  getAllAdresses() {
+    return globalAxios.get("members/profile/shipping-info");
+
+  }
 };

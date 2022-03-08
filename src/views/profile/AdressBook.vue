@@ -1,8 +1,14 @@
 <template>
   <div class="address-book">
     <h4 class="main-header">{{ $t("profile.shippingAddress") }}</h4>
-    <p class="add-address" @click="showForm = !showForm"><span>+ </span>{{ $t("profile.newAddress") }}</p>
-    <form @submit.prevent="updateProfile()" class="account-information-form" v-if="showForm">
+    <p class="add-address" @click="showForm = !showForm">
+      <span>+ </span>{{ $t("profile.newAddress") }}
+    </p>
+    <form
+      @submit.prevent="updateProfile()"
+      class="account-information-form"
+      v-if="showForm"
+    >
       <b-row class="justify-content-center">
         <!-- country  -->
         <b-col lg="12">
@@ -168,12 +174,19 @@
         {{ $t("register.submit") }}
       </b-button>
     </form>
-    <b-table hover :items="items" :fields="fields" stacked="lg" class="my-4"></b-table>
+    <b-table
+      hover
+      :items="items"
+      :fields="fields"
+      stacked="lg"
+      class="my-4"
+    ></b-table>
   </div>
 </template>
 
 <script>
 import auth from "@/services/auth";
+import profile from "@/services/profile";
 
 export default {
   data() {
@@ -190,7 +203,7 @@ export default {
       },
       countries: [],
       errors: {},
-      showForm:false,
+      showForm: false,
       fields: [
         {
           key: "age",
@@ -255,8 +268,14 @@ export default {
   },
   mounted() {
     this.getAllCountires();
+    this.getAllAdresses();
   },
   methods: {
+    getAllAdresses() {
+      profile.getAllAdresses().then((res) => {
+        console.log(res.data);
+      });
+    },
     getAllCountires() {
       auth
         .getAllCountires()

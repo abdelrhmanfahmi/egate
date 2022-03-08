@@ -12,7 +12,6 @@
                 ></router-link
               >
             </div>
-            <p class="error">{{ errorMsg }}</p>
             <form @submit.prevent="login()">
               <b-row class="justify-content-center">
                 <!-- Email -->
@@ -24,16 +23,15 @@
                       type="email"
                       id="email"
                       v-model="form.email"
-                      required
                     />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.email"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
-                  <div
-                    class="error"
-                    v-for="(error, index) in errors.email"
-                    :key="index"
-                  >
-                    {{ error }}
-                  </div>
                 </b-col>
                 <!-- Password -->
                 <b-col lg="12">
@@ -46,12 +44,12 @@
                       <b-form-input
                         id="password"
                         v-model="form.password"
-                        :type="fieldTypeNew"
+                        :type="fieldType"
                       />
                       <div class="icon-passowrd" @click.stop="switchField()">
                         <font-awesome-icon
                           icon="fa-solid fa-eye"
-                          v-if="fieldTypeNew === 'password'"
+                          v-if="fieldType === 'password'"
                           size="lg"
                         />
                         <font-awesome-icon
@@ -94,7 +92,7 @@ export default {
         password: "",
       },
       errorMsg: "",
-      fieldTypeNew: "password",
+      fieldType: "password",
       errors: {},
     };
   },
@@ -113,7 +111,6 @@ export default {
               this.$t("register.openEmail")
             );
           }
-          console.log(res.data.items.item.verify_email_required);
           this.$router.push("/");
           location.reload();
         })
@@ -121,7 +118,11 @@ export default {
           const err = Object.values(error)[2].data;
 
           this.errors = err.items;
-          this.errorMsg = err.message;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
         });
     },
     //
