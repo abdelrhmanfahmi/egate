@@ -7,6 +7,14 @@
       <li v-for="(link, index) in links" :key="index">
         <router-link class="link" :to="link.to">{{ link.name }}</router-link>
       </li>
+      <li>
+        <a
+          href="https://staging2.fabrica-dev.com/humhum-supplier/"
+          class="link"
+        >
+          {{ $t("home.corporat") }} {{ $t("home.suppliers") }}
+        </a>
+      </li>
       <li v-if="!isLoggined">
         <a v-b-toggle.login class="link">
           {{ $t("login.loginNav") }}
@@ -18,7 +26,7 @@
         </router-link>
       </li>
       <li v-if="isLoggined">
-        <a v-b-toggle.login @click="logout()" class="link text-danger">
+        <a @click="logout()" class="link text-danger">
           {{ $t("login.logout") }}
         </a>
       </li>
@@ -34,21 +42,18 @@ export default {
         { name: this.$t("home.home"), to: "/" },
         { name: this.$t("home.suppliers"), to: "/suppliers" },
         { name: this.$t("home.about"), to: "/about" },
-        { name: this.$t("home.corporat"), to: "/b2b-register" },
+
         { name: this.$t("home.contactUs"), to: "/contact-us" },
+
         { name: this.$t("home.cart"), to: "/" },
+        {
+          name: `${this.$t("home.corporat")} - ${this.$t("home.buyer")}`,
+          to: "/b2b-register",
+        },
       ],
     };
   },
-  methods: {
-    logout() {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("provider");
-      localStorage.removeItem("massege");
-      this.$router.push("/");
-      location.reload();
-    },
-  },
+  methods: {},
 };
 </script>
 

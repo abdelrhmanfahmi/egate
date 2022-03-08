@@ -193,13 +193,6 @@ export default {
       this.mobileNav = false;
       return;
     },
-    logout() {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("provider");
-      localStorage.removeItem("massege");
-      this.$router.push("/");
-      location.reload();
-    },
     goToHome() {
       this.$router.push("/");
     },
