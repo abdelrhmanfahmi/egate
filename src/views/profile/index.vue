@@ -1,9 +1,6 @@
 <template>
   <div class="main-profile">
     <div v-if="userInfo.item.type === 'buyer'" >
-      <b-container>
-          yes  
-     </b-container>
     </div>
     <div class="profile">
       <b-container>
