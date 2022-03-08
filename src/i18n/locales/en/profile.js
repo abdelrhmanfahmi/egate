@@ -44,5 +44,6 @@ export default {
   evaluation:"evaluation",
   review:"review",
   actions:"actions",
-  viewDetails:"View details"
+  viewDetails:"View details",
+  save:"save"
 };

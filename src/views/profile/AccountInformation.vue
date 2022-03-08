@@ -38,7 +38,7 @@
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="email" v-model="form.email" />
+            <b-form-input id="email" v-model="form.email" disabled />
             <div
               class="error"
               v-for="(error, index) in errors.email"
@@ -53,7 +53,7 @@
           <b-form-group>
             <label for="countryCode">{{ $t("register.countryCode") }}</label>
             <span class="requried">*</span>
-            <b-form-select v-model="form.country_code">
+            <b-form-select v-model="form.country_code" disabled>
               <b-form-select-option
                 v-for="country in countries"
                 :key="country.id"
@@ -76,11 +76,7 @@
           <b-form-group>
             <label for="phone">{{ $t("register.phone") }}</label>
             <span class="requried">*</span>
-            <b-form-input
-              id="phone"
-              v-model="form.mobile_number"
-              type="number"
-            />
+            <b-form-input disabled id="phone" v-model="form.mobile_number" />
             <div
               class="error"
               v-for="(error, index) in errors.mobile_number"
@@ -93,7 +89,7 @@
       </b-row>
 
       <b-button type="submit" class="login-button">
-        {{ $t("register.submit") }}
+        {{ $t("profile.save") }}
       </b-button>
     </form>
   </div>
@@ -118,8 +114,14 @@ export default {
   },
   mounted() {
     this.getAllCountires();
+    this.assignFormToValues();
   },
   methods: {
+    assignFormToValues() {
+      auth.getUserInfo().then((res) => {
+        this.form = res.data.items;
+      });
+    },
     getAllCountires() {
       auth
         .getAllCountires()
@@ -130,8 +132,30 @@ export default {
           console.log(err);
         });
     },
+    // Update Profile
     updateProfile() {
-      console.log("yes");
+      const payload = {
+        first_name: this.form.first_name,
+        last_name: this.form.last_name,
+      };
+      auth
+        .storeInfo(payload)
+        .then((res) => {
+          this.$bvToast.toast(res.data.message, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
+        });
     },
   },
 };

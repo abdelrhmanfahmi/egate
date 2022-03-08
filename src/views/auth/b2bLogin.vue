@@ -27,18 +27,47 @@
                       required
                     />
                   </b-form-group>
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.email"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
                 </b-col>
                 <!-- Password -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{ $t("register.password") }}</label>
+                    <label for="password">{{
+                      $t("profile.NewPassword")
+                    }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="password"
-                      v-model="form.password"
-                      type="password"
-                      required
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldTypeNew"
+                      />
+                      <div class="icon-passowrd" @click.stop="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldTypeNew === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -65,6 +94,8 @@ export default {
         password: "",
       },
       errorMsg: "",
+      fieldTypeNew: "password",
+      errors: {},
     };
   },
   methods: {
@@ -82,15 +113,20 @@ export default {
               this.$t("register.openEmail")
             );
           }
-          console.log(res.data.items.item.verify_email_required)
+          console.log(res.data.items.item.verify_email_required);
           this.$router.push("/");
           location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
 
+          this.errors = err.items;
           this.errorMsg = err.message;
         });
+    },
+    //
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
   },
 };
