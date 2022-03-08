@@ -12,7 +12,7 @@
           href="https://staging2.fabrica-dev.com/humhum-supplier/"
           class="link"
         >
-          {{ $t("home.corporat") }} {{ $t("home.suppliers") }}
+          {{ $t("home.corporat") }} - {{ $t("home.suppliers") }}
         </a>
       </li>
       <li v-if="!isLoggined">
