@@ -41,7 +41,9 @@ export default {
     return globalAxios.post("auth/forgot-password/generate-token", payload);
   },
   checkEmailForgetPassWord(payload) {
-    return globalAxios.get("auth/forgot-password/check-reset-token" , payload);
-
+    return globalAxios.get("auth/forgot-password/check-reset-token", payload);
+  },
+  forgetPassWord(payload) {
+    return globalAxios.post("auth/forgot-password/reset", payload);
   }
 };

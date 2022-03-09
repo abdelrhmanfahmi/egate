@@ -80,7 +80,7 @@ export default {
       if (this.$route.query.email && this.$route.query.token) {
         const payload = {
           email: this.$route.query.email,
-          code: this.$route.query.token,
+          token: this.$route.query.token,
         };
         auth
           .checkEmailForgetPassWord(payload)
@@ -90,7 +90,7 @@ export default {
               title: "success",
               autoHideDelay: 5000,
             });
-          this.$router.push("/Forget-Password")
+            this.$router.push("/Forget-Password");
           })
           .catch((err) => {
             console.log(err);

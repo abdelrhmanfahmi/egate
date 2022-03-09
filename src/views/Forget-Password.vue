@@ -8,22 +8,76 @@
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <b-col lg="10">
-            <form>
+            <form @submit.prevent="forgetPassWord()">
               <b-row class="justify-content-center">
                 <!-- password -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{ $t("register.password") }}</label>
-                    <b-form-input id="password" type="password" />
+                    <label for="password">{{
+                      $t("profile.NewPassword")
+                    }}</label>
+                    <span class="requried">*</span>
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
-                <!--passwordConfirmation -->
+                <!--password_confirmation -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="passwordConfirmation">{{
-                      $t("register.passwordConfirmation")
+                    <label for="password">{{
+                      $t("profile.NewPassword")
                     }}</label>
-                    <b-form-input id="passwordConfirmation" type="password" />
+                    <span class="requried">*</span>
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password_confirmation"
+                        :type="fieldType"
+                      />
+                      <div class="icon-passowrd" @click="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password_confirmation"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -43,15 +97,26 @@
 import auth from "@/services/auth";
 export default {
   data() {
-    return {};
+    return {
+      form: {
+        password: "",
+        password_confirmation: "",
+      },
+      errors: {},
+      fieldType: "password",
+    };
   },
   methods: {
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
     // Step 3 forget Password
     forgetPassWord() {
       if (this.$route.query.email && this.$route.query.token) {
         const payload = {
           email: this.$route.query.email,
-          code: this.$route.query.token,
+          token: this.$route.query.token,
+          ...this.form,
         };
         auth
           .forgetPassWord(payload)
@@ -61,9 +126,18 @@ export default {
               title: "success",
               autoHideDelay: 5000,
             });
+            setTimeout(() => {
+              this.$router.push("/");
+            }, 1000);
           })
-          .catch((err) => {
-            console.log(err);
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.$bvToast.toast(err.message, {
+              variant: "danger",
+              title: "Error",
+              autoHideDelay: 5000,
+            });
           });
       }
     },
