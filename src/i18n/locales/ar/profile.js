@@ -42,9 +42,22 @@ export default {
   productReviews: "مراجعات منتجاتي",
   construction: "إنشاء",
   evaluation: "تقييم",
-  review:"مراجعة",
-  actions:"احداث",
-  viewDetails:"عرض التفاصيل",
-  productName:"اسم المنتج",
-  save:"حفظ"
+  review: "مراجعة",
+  actions: "احداث",
+  viewDetails: "عرض التفاصيل",
+  productName: "اسم المنتج",
+  save: "حفظ",
+  // Documents
+  documents: "المستندات",
+  companyDocuments: "مستندات الشركة",
+  saveData: "حفظ البيانات",
+  commercialLicense: "الترخيص التجاري للشركة",
+  signatureAccreditation: "إعتماد التوقيع",
+  commissionerCard: "البطاقة المدنية للمفوض بالتوقيع",
+  establishmentContract: "عقد التأسيس",
+  certificateAdministration: "شهادة صاحب الحق في الإدارة من وزارة التجارة",
+  ibanCertificate: "IBAN شهادة برقم",
+  letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
+
+
 };
