@@ -15,7 +15,6 @@ body {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 
-
 	&:focus {
 		outline: none;
 	}
@@ -238,6 +237,13 @@ label,
 			color: #ed2124;
 		}
 	}
+}
+.login-email-label {
+	text-align: start;
+}
+.modal-header .close {
+	padding: 0;
+	margin: 0;
 }
 // arabic style
 html:lang(ar) {

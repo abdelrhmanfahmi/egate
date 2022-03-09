@@ -4,8 +4,13 @@ export default {
   fogetPassword: "Forgot Password ?",
   DontHave: "Don't have account ?",
   createAccount: "Create account",
-  LoginSocial :"Login by social media",
+  LoginSocial: "Login by social media",
   loginNav: "login",
-  welcome:"welcome",
-  logout:"Logout"
+  welcome: "welcome",
+  logout: "Logout",
+  reset: "reset",
+  yourEmail: "Enter your email",
+  thankYou: "Thank you",
+  invalidEmail: "Invalid Email",
+  resetPassword: "Reset Password",
 };

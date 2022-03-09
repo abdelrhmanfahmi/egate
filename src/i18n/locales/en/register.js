@@ -27,5 +27,8 @@ export default {
   verification: "Verification",
   notArrive: "not arrived ? Resend",
   openEmail: "Please open your email to verify your account to can login",
-  haveNotAccount : "Don't have account ? Create new account"
+  haveNotAccount: "Don't have account ? Create new account",
+  resetPassword: "Type New Password",
+  passwordConfirmation: "Password Confirmation",
+  save: "Save",
 };

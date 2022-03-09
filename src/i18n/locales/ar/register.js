@@ -25,5 +25,8 @@ export default {
   verification: "تحقق",
   notArrive: "لم يصل ؟ إعادة إرسال",
   openEmail: "يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول",
-  haveNotAccount: "ليس لدي حساب تسجيل حساب جديد"
+  haveNotAccount: "ليس لدي حساب تسجيل حساب جديد",
+  resetPassword: "يرجى كتابة كلمة المرور الجديدة",
+  passwordConfirmation: "إعادة كلمة المرور",
+  save: "حفظ",
 };

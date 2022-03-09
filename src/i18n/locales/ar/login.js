@@ -6,6 +6,12 @@ export default {
   createAccount: "تسجيل حساب",
   LoginSocial: "الدخول للاشخاص",
   loginNav: "تسجيل الدخول",
-  welcome:"مرحبا",
-  logout:"تسجيل خروج"
+  welcome: "مرحبا",
+  logout: "تسجيل خروج",
+  reset: "إعادة كلمة المرور",
+  yourEmail: "بريدك الإلكتروني",
+  thankYou: "شكراً لك",
+  invalidEmail: "بريد خاطئ",
+  resetPassword: "إعادة كلمة المرور",
+
 };

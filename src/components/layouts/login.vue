@@ -44,7 +44,9 @@
               </div>
             </div>
 
-            <a class="forget-password">{{ $t("login.fogetPassword") }}</a>
+            <b-button class="forget-password" v-b-modal.ForgetPassword>
+              {{ $t("login.fogetPassword") }}
+            </b-button>
             <b-button type="submit" class="login-button">
               {{ $t("login.login") }}
             </b-button>
@@ -78,6 +80,30 @@
         </div>
       </template>
     </b-sidebar>
+    <b-modal
+      id="ForgetPassword"
+      :title="$t('login.resetPassword')"
+      no-close-on-backdrop
+      no-close-on-esc
+    >
+      <form>
+        <b-form-group
+          id="emailLabel"
+          :label="$t('login.yourEmail')"
+          label-for="email"
+          :valid-feedback="$t('login.thankYou')"
+          :invalid-feedback="$t('login.invalidEmail')"
+          label-class="login-email-label"
+        >
+          <b-form-input id="email" trim></b-form-input>
+        </b-form-group>
+      </form>
+      <div slot="modal-footer" class="d-flex">
+        <a href="./Forget-Password" class="reset-Link">{{
+          $t("login.reset")
+        }}</a>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -99,7 +125,10 @@ export default {
       auth
         .login("b2c", this.form)
         .then(async (res) => {
-          await localStorage.setItem("userInfo",JSON.stringify(res.data.items));
+          await localStorage.setItem(
+            "userInfo",
+            JSON.stringify(res.data.items)
+          );
           this.$router.push("/");
           location.reload();
         })
@@ -152,6 +181,8 @@ export default {
     .forget-password {
       font-weight: 500;
       color: $header-color;
+      background-color: transparent;
+      border: none;
       &:hover {
         color: $main-color;
       }
@@ -184,5 +215,11 @@ export default {
       background-color: #c5221f;
     }
   }
+}
+.reset-Link {
+  color: #ffffff;
+  background-color: #ff0e00;
+  padding: 0.5rem 1.3rem;
+  width: 100%;
 }
 </style>
