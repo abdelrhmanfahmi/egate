@@ -1,4 +1,9 @@
 export default {
+  //Header
+  completeAccount: "Complete your account",
+  completeMessage: "Please complete the registration by downloading the required documents, now you can only insert your products.",
+  completeLink: "Click here to complete the registration",
+  completeRate: "Completion rate of registration data",
   // side Menu
   myProfile: "My profile",
   shop: "shop",

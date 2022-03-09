@@ -1,7 +1,27 @@
 <template>
-  <div class="main-profile">
-    <div v-if="userInfo.item.type === 'buyer'" >
-    </div>
+  <div class="profile-body">
+    <b-container v-if="userInfo.item.type === 'buyer'">
+      <div class="row profile-header">
+        <div class="col-12 col-sm-8 continue-registration">
+          <h5>{{ $t("profile.completeAccount") }}</h5>
+          <p>
+            {{ $t("profile.completeMessage") }}
+            <a href="#">{{ $t("profile.completeLink") }}</a>
+          </p>
+        </div>
+        <div class="rate col-12 col-sm-4">
+          <h5>{{ $t("profile.completeRate") }}</h5>
+          <b-progress
+            class="progress-rate"
+            value="45"
+            max="100"
+            show-progress
+            animated
+            variant="danger"
+          ></b-progress>
+        </div>
+      </div>
+    </b-container>
     <div class="profile">
       <b-container>
         <b-row>
@@ -29,8 +49,38 @@ export default {
   },
 };
 </script>
-
-<style>
+<style lang="scss">
+.profile-header {
+  padding: 4rem 0;
+  text-align: start;
+  .continue-registration {
+    color: #000;
+    h5 {
+      color: #312620;
+      font-weight: 600;
+      font-size: 18pt;
+      margin-bottom: 0.6rem;
+    }
+    p {
+      font-size: 11pt;
+      color: #676565;
+      margin-bottom: 1rem;
+      a {
+        color: #1696e7;
+      }
+    }
+  }
+  .rate {
+    h5 {
+      color: #312620;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .progress-rate {
+      height: 1.6rem;
+    }
+  }
+}
 .profile {
   padding: 3rem 0;
   background: #f9f8f5;
