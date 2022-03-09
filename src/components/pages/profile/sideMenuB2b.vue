@@ -10,6 +10,12 @@
           <span>{{ link.name }}</span></router-link
         >
       </li>
+      <li v-if="!userInfo.item.is_social_account">
+        <router-link to="/profile/change-password">
+          <font-awesome-icon :icon="`fa-solid fa-star`" />
+          <span>{{ $t("profile.changePassword"), }}</span></router-link
+        >
+      </li>
     </ul>
   </div>
 </template>
@@ -49,7 +55,7 @@ export default {
           name: this.$t("profile.subscribeNewsletter"),
           iconName: "newspaper",
         },
-                {
+        {
           to: "/profile/favorite",
           name: this.$t("profile.favorite"),
           iconName: "heart",
