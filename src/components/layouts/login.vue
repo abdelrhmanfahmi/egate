@@ -87,19 +87,21 @@
       no-close-on-esc
     >
       <form>
-        <b-form-group
-          id="emailLabel"
-          :label="$t('login.yourEmail')"
-          label-for="email"
-          :valid-feedback="$t('login.thankYou')"
-          :invalid-feedback="$t('login.invalidEmail')"
-          label-class="login-email-label"
-        >
-          <b-form-input id="email" trim></b-form-input>
+        <b-form-group>
+          <label for="email">{{ $t("register.email") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="email" v-model="emailForget" maxlength="100" />
+          <div
+            class="error"
+            v-for="(error, index) in errors.email"
+            :key="index"
+          >
+            {{ error }}
+          </div>
         </b-form-group>
       </form>
       <div slot="modal-footer" class="d-flex">
-        <a href="./Forget-Password" class="reset-Link">{{
+        <a @click="sendEmail()" class="reset-Link" type="submit">{{
           $t("login.reset")
         }}</a>
       </div>
@@ -118,6 +120,8 @@ export default {
       },
       errorMsg: "",
       fieldType: "password",
+      emailForget: "",
+      errors: {},
     };
   },
   methods: {
@@ -150,6 +154,32 @@ export default {
     },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
+    // step One forget Password
+    sendEmail() {
+      const payload = {
+        email: this.emailForget,
+        callback_url: `http://localhost:8081/humhum-user/Forget-Password`,
+      };
+      auth
+        .sendEmail(payload)
+        .then((res) => {
+          this.$bvToast.toast(res.data.message, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
+          this.$bvModal.hide("ForgetPassword")
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
+        });
     },
   },
 };

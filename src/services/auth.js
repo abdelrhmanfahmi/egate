@@ -37,5 +37,11 @@ export default {
   changePassword(payload) {
     return globalAxios.post("members/profile/info/change_password", payload);
   },
- 
+  sendEmail(payload) {
+    return globalAxios.post("auth/forgot-password/generate-token", payload);
+  },
+  checkEmailForgetPassWord(payload) {
+    return globalAxios.get("auth/forgot-password/check-reset-token" , payload);
+
+  }
 };

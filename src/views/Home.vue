@@ -28,6 +28,7 @@ export default {
   mounted() {
     this.makeLoginSocail();
     this.emailVerify();
+    // this.checkEmailForgetPassWord()
   },
   methods: {
     makeLoginSocail() {
@@ -68,6 +69,28 @@ export default {
             });
             localStorage.removeItem("massege");
             location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    // Step 2 forget Password
+    checkEmailForgetPassWord() {
+      if (this.$route.query.email && this.$route.query.token) {
+        const payload = {
+          email: this.$route.query.email,
+          code: this.$route.query.token,
+        };
+        auth
+          .checkEmailForgetPassWord(payload)
+          .then((res) => {
+            this.$bvToast.toast(res.data.message, {
+              variant: "success",
+              title: "success",
+              autoHideDelay: 5000,
+            });
+          this.$router.push("/Forget-Password")
           })
           .catch((err) => {
             console.log(err);
