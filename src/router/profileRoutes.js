@@ -9,7 +9,8 @@ import changePassword from "../views/profile/changePassword";
 
 // b2bProfile
 import AccountInformationB2b from "../views/profile/AccountInformationB2b";
-import productReviews  from "../views/profile/productReviewsB2b";
+import productReviews from "../views/profile/productReviewsB2b";
+import DocumentsB2b from "../views/profile/DocumentsB2b.vue";
 
 
 export default {
@@ -18,6 +19,7 @@ export default {
   component: profile,
   children: [
     { path: "/profile/categories", name: "Categories", component: Categories },
+    { path: "/profile/documents", name: "Documents", component: DocumentsB2b },
     {
       path: "/profile/shopping-cart",
       name: "ShoppingCart",

@@ -31,6 +31,11 @@ export default {
           iconName: "shop",
         },
         {
+          to: "/profile/documents",
+          name: this.$t("profile.documents"),
+          iconName: "file",
+        },
+        {
           to: "/profile/shopping-cart",
           name: this.$t("profile.shoppingCart"),
           iconName: "cart-shopping",
