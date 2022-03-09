@@ -28,10 +28,24 @@
                 $t("home.about")
               }}</router-link>
             </li>
-            <li>
-              <router-link class="link corporat-dropdown" to="/b2b-register">{{
-                $t("home.corporat")
-              }}</router-link>
+            <li class="humhum-dropdown">
+              <a class="link">
+                {{ $t("home.corporat") }}
+                <ul class="submenu">
+                  <li>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                      target="_blank"
+                      >{{ $t("home.suppliers") }}</a
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/b2b-register">{{
+                      $t("home.buyer")
+                    }}</router-link>
+                  </li>
+                </ul>
+              </a>
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
@@ -65,6 +79,12 @@
                 <b-form-input placeholder="Search"></b-form-input>
               </b-input-group>
             </b-modal>
+          </div>
+          <div v-if="!mobile" class="cart">
+            <span class="cart-icon">
+              <b-icon-minecart-loaded></b-icon-minecart-loaded>
+            </span>
+            <Cart class="cart-body"></Cart>
           </div>
           <!-- user sign in -->
           <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
@@ -134,6 +154,8 @@
 <script>
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
+import Cart from "../cart/Cart.vue";
+import { BIconMinecartLoaded } from "bootstrap-vue";
 
 export default {
   data() {
@@ -145,6 +167,8 @@ export default {
     };
   },
   components: {
+    Cart,
+    BIconMinecartLoaded,
     Login,
     MobileNav,
   },
@@ -169,13 +193,6 @@ export default {
       this.mobileNav = false;
       return;
     },
-    logout() {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("provider");
-      localStorage.removeItem("massege");
-      this.$router.push("/");
-      location.reload();
-    },
     goToHome() {
       this.$router.push("/");
     },
@@ -197,6 +214,37 @@ export default {
     padding-top: 12px;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
+    .cart {
+      padding: 0 1rem;
+      position: relative;
+      .cart-icon {
+        color: #000000;
+        font-size: 12pt;
+        cursor: pointer;
+      }
+      .cart-body {
+        right: 0;
+        background: #fff;
+        opacity: 0;
+        padding: 1.5rem;
+        position: absolute;
+        top: 2rem;
+        transition: all 0.5s ease 0s;
+        z-index: 9;
+        box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
+        visibility: hidden;
+        transform: translateY(10px);
+        width: 23rem;
+      }
+      &:hover {
+        .cart-body {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0px);
+          z-index: 9;
+        }
+      }
+    }
     .branding {
       text-align: center;
       img {
@@ -236,12 +284,10 @@ export default {
         }
       }
     }
-
     .navigation {
       display: flex;
       align-items: center;
     }
-
     .right-side {
       align-items: center;
       .login {
@@ -264,14 +310,16 @@ export default {
     }
   }
 }
-.submenu {
-  opacity: 0;
+
+html:lang(ar) {
+  .main-nav {
+    .cart-body {
+      right: auto;
+      left: 0;
+    }
+  }
 }
-.corporat-dropdown:hover .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
+
 .icon {
   display: flex;
   align-items: center;

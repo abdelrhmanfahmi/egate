@@ -19,11 +19,13 @@ export default {
     " If you are unable to register, please contact us for assistance",
   registrationCompany:
     "registration for the accounts of restaurants, hotels and companies wholesale purchase",
+  companyName: "company name",
   jobTitle: "job title",
   pleaseVerification: "Please Verification Account",
   codeSent: "The verification code has been sent to your phone",
   verificationAccount: "Verification Account",
   verification: "Verification",
   notArrive: "not arrived ? Resend",
-  openEmail:"Please open your email to verify your account to can login"
+  openEmail: "Please open your email to verify your account to can login",
+  haveNotAccount : "Don't have account ? Create new account"
 };

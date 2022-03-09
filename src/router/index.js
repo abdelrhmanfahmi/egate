@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
+import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue";
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/suppliers",
     name: "Suppliers",
     component: Suppliers,
+  },
+  {
+    path: "/supplier",
+    name: "Supplier",
+    component: Supplier,
   },
   {
     path: "/about",

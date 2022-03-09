@@ -1,7 +1,7 @@
 <template>
   <div class="change-password py-4">
     <h4 class="main-header">{{ $t("profile.changePassword") }}</h4>
-    <form class="py-3">
+    <form class="py-3" @submit.prevent="changePassword()">
       <!-- Password -->
       <b-col lg="6">
         <b-form-group>
@@ -104,13 +104,15 @@
         </b-form-group>
       </b-col>
       <b-button type="submit" class="login-button">
-        {{ $t("register.submit") }}
+        {{ $t("profile.save") }}
       </b-button>
     </form>
   </div>
 </template>
 
 <script>
+import auth from "@/services/auth";
+
 export default {
   data() {
     return {
@@ -127,6 +129,26 @@ export default {
     };
   },
   methods: {
+    changePassword() {
+      auth
+        .changePassword(this.form)
+        .then((res) => {
+          this.$bvToast.toast(res.data.message, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
+        });
+    },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
@@ -142,7 +164,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .change-password {
   .login-button {
     margin: 30px 15px;

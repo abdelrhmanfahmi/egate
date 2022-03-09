@@ -1,8 +1,7 @@
 <template>
   <div class="profile-menu">
-    <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">
-      {{ userInfo.item.first_name }} {{ userInfo.item.last_name }}
+      {{ userInfo.item.company_name }}
     </h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
@@ -32,12 +31,17 @@ export default {
           iconName: "shop",
         },
         {
+          to: "/profile/documents",
+          name: this.$t("profile.documents"),
+          iconName: "file",
+        },
+        {
           to: "/profile/shopping-cart",
           name: this.$t("profile.shoppingCart"),
           iconName: "cart-shopping",
         },
         {
-          to: "/profile/account-information",
+          to: "/profile/account-information-b2b",
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
@@ -45,6 +49,11 @@ export default {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
           iconName: "location-dot",
+        },
+        {
+          to: "/profile/product-reviews-b2b",
+          name: this.$t("profile.productReviews"),
+          iconName: "cubes",
         },
         {
           to: "/profile/subscribe-newsletter",
@@ -62,7 +71,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .profile-menu {
   padding: 60px 0px 60px 25px;
   background-color: #303030;
@@ -90,9 +99,6 @@ html:lang(ar) {
   .profile-menu {
     padding: 60px 60px 60px 0px;
     text-align: right;
-    ul {
-      text-align: right;
-    }
   }
 }
 </style>

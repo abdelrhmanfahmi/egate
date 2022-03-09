@@ -28,4 +28,14 @@ export default {
   emailVerify(payload) {
     return globalAxios.put("checkpoint/active-email-guest", payload);
   },
+  getUserInfo() {
+    return globalAxios.get("members/profile/info");
+  },
+  storeInfo(payload) {
+    return globalAxios.post("members/profile/info", payload);
+  },
+  changePassword(payload) {
+    return globalAxios.post("members/profile/info/change_password", payload);
+  },
+ 
 };

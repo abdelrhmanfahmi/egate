@@ -4,7 +4,9 @@
       <div class="top-nav">
         <div class="lang">
           <button @click="switchLang()" v-if="lang == 'ar'">English</button>
-          <button @click="switchLang()" v-if="lang == 'en'">العربية</button>
+          <button @click="switchLang()" v-if="lang == 'en'">
+            اللغة العربية
+          </button>
         </div>
         <div class="select-country">
           <b-dropdown
@@ -27,7 +29,7 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <div class="select-currency">
+        <div class="select-currency" @change="handleCurrency($event)">
           <b-form-select
             v-model="currencyValue"
             :options="currencies"
@@ -44,16 +46,21 @@ import auth from "@/services/auth";
 export default {
   data() {
     return {
-      currencyValue: "الدينار الكويتي",
+      currencyValue: localStorage.getItem("currency") || "KWD",
       currencies: [
-        { value: "الدينار الكويتي", text: "الدينار الكويتي" },
-        { value: "جنية مصري", text: "جنية مصري" },
+        { value: "KWD", text: this.$t("home.KWD") },
+        { value: "EGP", text: this.$t("home.EGP") },
       ],
       countries: [],
       lang: localStorage.getItem("lang") || "en",
-      countryImg:
-        "https://humhum.work/user-interface/public/assets/flags/KW.png",
-      countryName:this.$t("home.kuwait"),
+
+      countryImg: JSON.parse(localStorage.getItem("country"))
+        ? JSON.parse(localStorage.getItem("country")).flag
+        : "https://humhum.work/user-interface/public/assets/flags/KW.png",
+        
+      countryName: JSON.parse(localStorage.getItem("country"))
+        ? JSON.parse(localStorage.getItem("country")).title
+        : this.$t("home.kuwait"),
     };
   },
   mounted() {
@@ -82,6 +89,12 @@ export default {
     onHandelCountry(data) {
       this.countryImg = data.flag;
       this.countryName = data.title;
+      localStorage.setItem("country", JSON.stringify(data));
+    
+    },
+    handleCurrency(event) {
+      localStorage.setItem("currency", event.target.value);
+    
     },
   },
 };

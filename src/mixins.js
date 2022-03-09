@@ -23,4 +23,13 @@ Vue.mixin({
     }
 
   },
+  methods: {
+    logout() {
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("provider");
+      localStorage.removeItem("massege");
+      this.$router.push("/");
+      location.reload();
+    },
+  }
 });

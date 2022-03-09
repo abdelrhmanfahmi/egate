@@ -1,16 +1,17 @@
 <template>
-  <section class="user-register">
+  <section class="user-register my-5">
     <b-container>
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <a v-b-toggle.login class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
+              <router-link to="/b2b-register" class="back">
+                <span>
+                  &#60; {{ $t("register.haveNotAccount") }}</span
+                ></router-link
               >
             </div>
-            <p class="error">{{ errorMsg }}</p>
             <form @submit.prevent="login()">
               <b-row class="justify-content-center">
                 <!-- Email -->
@@ -22,21 +23,49 @@
                       type="email"
                       id="email"
                       v-model="form.email"
-                      required
                     />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.email"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{ $t("register.password") }}</label>
+                    <label for="password">{{
+                      $t("profile.NewPassword")
+                    }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="password"
-                      v-model="form.password"
-                      type="password"
-                      required
-                    />
+                    <div class="show-password">
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
+                      <div class="icon-passowrd" @click.stop="switchField()">
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -63,6 +92,8 @@ export default {
         password: "",
       },
       errorMsg: "",
+      fieldType: "password",
+      errors: {},
     };
   },
   methods: {
@@ -74,14 +105,29 @@ export default {
             "userInfo",
             JSON.stringify(res.data.items)
           );
+          if (res.data.items.item.verify_email_required) {
+            await localStorage.setItem(
+              "massege",
+              this.$t("register.openEmail")
+            );
+          }
           this.$router.push("/");
           location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
 
-          this.errorMsg = err.message;
+          this.errors = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
         });
+    },
+    //
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
   },
 };
@@ -112,7 +158,7 @@ export default {
       border: 1px solid rgba(204, 204, 204, 0.251);
       border-radius: 4px;
       background-color: rgba(216, 220, 221, 0.251);
-      padding: 40px 30px;
+      padding: 20px;
     }
   }
 }

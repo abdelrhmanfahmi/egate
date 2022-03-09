@@ -2,7 +2,7 @@
   <div class="account-information">
     <h4 class="main-header">{{ $t("profile.accountInformation") }}</h4>
     <form @submit.prevent="updateProfile()" class="account-information-form">
-      <b-row class="justify-content-center">
+      <b-row>
         <!-- First Name -->
         <b-col lg="6">
           <b-form-group>
@@ -34,11 +34,11 @@
           </b-form-group>
         </b-col>
         <!-- Email -->
-        <b-col lg="12">
+        <b-col lg="6">
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="email" v-model="form.email" disabled />
+            <b-form-input id="email" v-model="form.email" />
             <div
               class="error"
               v-for="(error, index) in errors.email"
@@ -48,35 +48,16 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- country code -->
-        <b-col lg="4" cols="12">
-          <b-form-group>
-            <label for="countryCode">{{ $t("register.countryCode") }}</label>
-            <span class="requried">*</span>
-            <b-form-select v-model="form.country_code" disabled>
-              <b-form-select-option
-                v-for="country in countries"
-                :key="country.id"
-                :value="country.iso"
-                >{{ country.title }}
-                {{ country.phone_prefix }}</b-form-select-option
-              >
-            </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.country_code"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
         <!-- phone -->
-        <b-col lg="8" cols="12">
+        <b-col lg="6">
           <b-form-group>
             <label for="phone">{{ $t("register.phone") }}</label>
             <span class="requried">*</span>
-            <b-form-input disabled id="phone" v-model="form.mobile_number" />
+            <b-form-input
+              id="phone"
+              v-model="form.mobile_number"
+              type="number"
+            />
             <div
               class="error"
               v-for="(error, index) in errors.mobile_number"
@@ -86,10 +67,69 @@
             </div>
           </b-form-group>
         </b-col>
+
+        <!-- Job_title -->
+        <b-col lg="6">
+          <b-form-group>
+            <label for="jobTitle">{{ $t("register.jobTitle") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="jobTitle" v-model="form.Job_title" />
+            <div
+              class="error"
+              v-for="(error, index) in errors.Job_title"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
       </b-row>
 
+      <div class="work-info my-5">
+        <h4 class="main-header my-4">
+          {{ $t("profile.businessInformation") }}
+        </h4>
+        <b-row>
+          <!-- Company Name -->
+          <b-col lg="6">
+            <b-form-group>
+              <label for="companyName">{{ $t("register.companyName") }}</label>
+              <span class="requried">*</span>
+              <b-form-input id="companyName" v-model="form.companyName" />
+              <div
+                class="error"
+                v-for="(error, index) in errors.companyName"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </b-form-group>
+          </b-col>
+          <!-- Registration number -->
+          <b-col lg="6">
+            <b-form-group>
+              <label for="RegistrationNumber">{{
+                $t("profile.RegistrationNumber")
+              }}</label>
+              <span class="requried">*</span>
+              <b-form-input
+                id="RegistrationNumber"
+                v-model="form.RegistrationNumber"
+              />
+              <div
+                class="error"
+                v-for="(error, index) in errors.RegistrationNumber"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </div>
+
       <b-button type="submit" class="login-button">
-        {{ $t("profile.save") }}
+        {{ $t("register.submit") }}
       </b-button>
     </form>
   </div>
@@ -107,6 +147,9 @@ export default {
         email: "",
         country_code: "KW",
         mobile_number: "",
+        Job_title: "",
+        companyName: "",
+        RegistrationNumber: "",
       },
       countries: [],
       errors: {},
@@ -114,14 +157,8 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.assignFormToValues();
   },
   methods: {
-    assignFormToValues() {
-      auth.getUserInfo().then((res) => {
-        this.form = res.data.items;
-      });
-    },
     getAllCountires() {
       auth
         .getAllCountires()
@@ -132,30 +169,8 @@ export default {
           console.log(err);
         });
     },
-    // Update Profile
     updateProfile() {
-      const payload = {
-        first_name: this.form.first_name,
-        last_name: this.form.last_name,
-      };
-      auth
-        .storeInfo(payload)
-        .then((res) => {
-          this.$bvToast.toast(res.data.message, {
-            variant: "success",
-            title: "success",
-            autoHideDelay: 5000,
-          });
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.$bvToast.toast(err.message, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
-        });
+      console.log("yes");
     },
   },
 };

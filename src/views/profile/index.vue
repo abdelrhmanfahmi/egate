@@ -1,6 +1,6 @@
 <template>
   <div class="profile-body">
-    <b-container>
+    <b-container v-if="userInfo.item.type === 'buyer'">
       <div class="row profile-header">
         <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
@@ -26,7 +26,8 @@
       <b-container>
         <b-row>
           <b-col lg="3" md="5">
-            <SideMenu />
+            <SideMenu v-if="userInfo.item.type === 'b2c'" />
+            <sideMenuB2b v-else />
           </b-col>
           <b-col lg="9" md="7">
             <router-view></router-view>
@@ -39,9 +40,12 @@
 
 <script>
 import SideMenu from "@/components/pages/profile/SideMenu.vue";
+import sideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
+
 export default {
   components: {
     SideMenu,
+    sideMenuB2b,
   },
 };
 </script>

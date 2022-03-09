@@ -12,6 +12,11 @@
     <span class="product-info">
       <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
     </span>
+    <div class="container">
+      <div class="d-flex justify-content-end">
+        <router-link to="/suppliers"> Show All </router-link>
+      </div>
+    </div>
     <VueSlickCarousel v-bind="settings">
       <div v-for="(x, index) in 10" :key="index" class="px-5">
         <b-img
