@@ -1,6 +1,11 @@
 export default {
+  //Header
+  completeAccount: "اكمل حسابك",
+  completeMessage: "جى إكمال التسجيل عن طريق تحميل المستندات المطلوبة ، الان يمكنك فقط إدراج منتجاتك.",
+  completeLink: "انقر هنا لإكمال التسجيل",
+  completeRate: "نسبة اكتمال بيانات التسجيل",
   // side Menu
-  myProfile:"حسابي",
+  myProfile: "حسابي",
   shop: "المتجر",
   shoppingCart: "السله",
   accountInformation: "معلومات الحساب ",
