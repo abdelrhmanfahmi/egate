@@ -7,7 +7,7 @@ export default {
   // side Menu
   myProfile: "حسابي",
   shop: "المتجر",
-  shoppingCart: "السله",
+  shoppingCart: "السلة",
   accountInformation: "معلومات الحساب ",
   // categories
   welcomeAgain: "مرحبا بك مجددا",
@@ -18,7 +18,7 @@ export default {
   price: "السعر",
   product: "المنتج",
   // Subscribe Newsletter
-  subscribeNewsletter: "الاشتراك بالنشره الدوريه",
+  subscribeNewsletter: "الاشتراك بالنشرة الدورية",
   exclusiveOffers: "كن أول من يعرض على العروض الحصرية والقسائم",
   notSubscribed: "لست مشترك في النشرة",
   subscribe: "اشتراك",
@@ -26,8 +26,8 @@ export default {
   favorite: "المفضلة",
   // changePassword
   changePassword: "تغير كلمه السر",
-  currentPassword: "كلمه المرور الحاليه",
-  NewPassword: "كلمه المرور الجديده",
+  currentPassword: "كلمة المرور الحالية",
+  NewPassword: "كلمة المرور الجديدة",
   // adress book
   addressBook: "سجل العناوين",
   shippingAddress: "بيانات التوصيل",
@@ -39,7 +39,7 @@ export default {
   homeNumber: "رقم المنزل",
   floor: "الدور",
   blockNumber: "شقه",
-  postCode: "لرمز البريدى",
+  postCode: "الرمز البريدى",
   note: "ملاحظات",
   // b2b
   businessInformation: "معلومات العمل",
