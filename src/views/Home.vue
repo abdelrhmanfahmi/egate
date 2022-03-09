@@ -39,7 +39,10 @@ export default {
         auth
           .makeLoginSocail("b2c", this.provider, payload)
           .then(async (res) => {
-            await localStorage.setItem("userInfo",JSON.stringify(res.data.items));
+            await localStorage.setItem(
+              "userInfo",
+              JSON.stringify(res.data.items)
+            );
             location.reload();
           })
           .catch((err) => {

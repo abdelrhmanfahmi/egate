@@ -15,7 +15,6 @@ body {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 
-
 	&:focus {
 		outline: none;
 	}
@@ -254,5 +253,9 @@ html:lang(ar) {
 	}
 	.breadcrumb-item + .breadcrumb-item {
 		padding-left: unset;
+	}
+	.custom-control-label::before {
+		left: unset;
+		right: -1.5rem;
 	}
 }
