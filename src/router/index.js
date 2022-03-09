@@ -5,6 +5,7 @@ import Suppliers from "../views/Suppliers.vue";
 import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue";
+import ForgetPassword from "../views/Forget-Password.vue";
 
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
@@ -43,6 +44,11 @@ const routes = [
     path: "/contact-us",
     name: "ContactUs",
     component: ContactUs,
+  },
+  {
+    path: "/forget-password",
+    name: "ForgetPassword",
+    component: ForgetPassword,
   },
   ...auth,
   profileRoutes

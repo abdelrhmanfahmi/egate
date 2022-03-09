@@ -238,6 +238,13 @@ label,
 		}
 	}
 }
+.login-email-label {
+	text-align: start;
+}
+.modal-header .close {
+	padding: 0;
+	margin: 0;
+}
 // arabic style
 html:lang(ar) {
 	.b-sidebar.b-sidebar-right > .b-sidebar-header .close {
