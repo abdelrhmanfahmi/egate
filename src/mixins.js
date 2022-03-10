@@ -29,6 +29,7 @@ Vue.mixin({
   methods: {
     logout() {
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("userData");
       localStorage.removeItem("provider");
       localStorage.removeItem("massege");
       this.$router.push("/");

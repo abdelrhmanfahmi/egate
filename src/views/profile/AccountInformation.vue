@@ -114,14 +114,9 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.assignFormToValues();
+    this.form = this.userData;
   },
   methods: {
-    assignFormToValues() {
-      auth.getUserInfo().then((res) => {
-        this.form = res.data.items;
-      });
-    },
     getAllCountires() {
       auth
         .getAllCountires()
@@ -146,6 +141,10 @@ export default {
             title: "success",
             autoHideDelay: 5000,
           });
+          this.errors = {};
+
+          this.$router.push("/profile/categories");
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
