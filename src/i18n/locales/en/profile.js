@@ -62,4 +62,5 @@ export default {
   certificateAdministration: "Certificate of the right to administration from the Ministry of Commerce",
   ibanCertificate: "IBAN Certificate No",
   letterAuthorization: "Letter of authorization for users - and determine the role of each of them",
+  company:"company"
 };

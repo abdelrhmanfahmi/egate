@@ -1,6 +1,6 @@
 <template>
   <div class="profile-menu">
-    <h5 class="my-3">{{ userData.first_name }} {{ userData.last_name }}</h5>
+    <h5 class="my-3">{{ $t("profile.company") }} {{ userData.company_name }} </h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
         <router-link :to="link.to">

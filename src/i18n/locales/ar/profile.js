@@ -63,6 +63,6 @@ export default {
   certificateAdministration: "شهادة صاحب الحق في الإدارة من وزارة التجارة",
   ibanCertificate: "IBAN شهادة برقم",
   letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
-
+  company:"شركة"
 
 };
