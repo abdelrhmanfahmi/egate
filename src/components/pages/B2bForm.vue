@@ -41,7 +41,7 @@
                     <b-form-input id="l-name" v-model="form.job_title" />
                     <div
                       class="error"
-                      v-for="(error, index) in errors.last_name"
+                      v-for="(error, index) in errors.job_title"
                       :key="index"
                     >
                       {{ error }}

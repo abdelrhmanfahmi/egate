@@ -138,6 +138,7 @@ export default {
             title: "success",
             autoHideDelay: 5000,
           });
+          this.errors ={}
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

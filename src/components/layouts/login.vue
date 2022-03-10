@@ -20,16 +20,28 @@
               v-model="form.email"
               type="email"
               :placeholder="$t('register.email')"
-              required
             />
+            <div
+              class="error text-start"
+              v-for="(error, index) in errorsLogin.email"
+              :key="index"
+            >
+              {{ error }}
+            </div>
             <div class="show-password">
               <b-form-input
-                required
                 class="my-2"
                 v-model="form.password"
                 :type="fieldType"
                 :placeholder="$t('register.password')"
               />
+              <div
+                class="error text-start"
+                v-for="(error, index) in errorsLogin.password"
+                :key="index"
+              >
+                {{ error }}
+              </div>
               <div class="icon-passowrd" @click="switchField()">
                 <font-awesome-icon
                   icon="fa-solid fa-eye"
@@ -121,7 +133,8 @@ export default {
       errorMsg: "",
       fieldType: "password",
       emailForget: "",
-      errors: {},
+      errorsLogin: {},
+      errors:{}
     };
   },
   methods: {
@@ -136,12 +149,14 @@ export default {
           this.$router.push("/");
           location.reload();
         })
-        .then(() => {
-          this.$store.dispatch("getUserInfo");
-        })
         .catch((error) => {
           const err = Object.values(error)[2].data;
-          this.errorMsg = err.message;
+          this.errorsLogin = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
         });
     },
     async getLink(provider) {
@@ -255,4 +270,6 @@ export default {
   padding: 0.5rem 1.3rem;
   width: 100%;
 }
+.text-start {
+text-align: start;}
 </style>
