@@ -13,66 +13,70 @@
         <!-- country  -->
         <b-col lg="12">
           <b-form-group>
-            <label for="countryCode">{{ $t("profile.country") }}</label>
+            <label>{{ $t("profile.country") }}</label>
             <span class="requried">*</span>
-            <b-form-select v-model="form.country">
+            <b-form-select v-model="form.country_id" @input="getAllRegions">
               <b-form-select-option
                 v-for="country in countries"
                 :key="country.id"
-                :value="country.iso"
+                :value="country.id"
                 >{{ country.title }}
-                {{ country.phone_prefix }}</b-form-select-option
-              >
+              </b-form-select-option>
             </b-form-select>
             <div
               class="error"
-              v-for="(error, index) in errors.country_code"
+              v-for="(error, index) in errors.country_id"
               :key="index"
             >
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
-        <!-- State -->
+        <!-- cities -->
         <b-col lg="6">
           <b-form-group>
-            <label for="countryCode">{{ $t("profile.state") }}</label>
+            <label>{{ $t("profile.state") }}</label>
             <span class="requried">*</span>
-            <b-form-select v-model="form.state">
+            <b-form-select
+              v-model="form.region_id"
+              :disabled="!form.country_id"
+              @input="getAllCities"
+            >
               <b-form-select-option
-                v-for="country in countries"
-                :key="country.id"
-                :value="country.iso"
-                >{{ country.title }}
-                {{ country.phone_prefix }}</b-form-select-option
-              >
+                v-for="region in regions"
+                :key="region.id"
+                :value="region.id"
+                >{{ region.title }}
+              </b-form-select-option>
             </b-form-select>
             <div
               class="error"
-              v-for="(error, index) in errors.country_code"
+              v-for="(error, index) in errors.region_id"
               :key="index"
             >
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
-        <!-- District -->
+        <!-- regions -->
         <b-col lg="6">
           <b-form-group>
-            <label for="countryCode">{{ $t("profile.district") }}</label>
+            <label>{{ $t("profile.district") }}</label>
             <span class="requried">*</span>
-            <b-form-select v-model="form.district">
+            <b-form-select
+              v-model="form.city_id"
+              :disabled="!form.country_id || !form.region_id"
+            >
               <b-form-select-option
-                v-for="country in countries"
-                :key="country.id"
-                :value="country.iso"
-                >{{ country.title }}
-                {{ country.phone_prefix }}</b-form-select-option
-              >
+                v-for="city in cities"
+                :key="city.id"
+                :value="city.id"
+                >{{ city.title }}
+              </b-form-select-option>
             </b-form-select>
             <div
               class="error"
-              v-for="(error, index) in errors.country_code"
+              v-for="(error, index) in errors.city_id"
               :key="index"
             >
               {{ error }}
@@ -192,9 +196,9 @@ export default {
   data() {
     return {
       form: {
-        country: "",
-        state: "",
-        district: "",
+        country_id: "",
+        city_id: "",
+        region_id: "",
         streetNumber: "",
         homeNumber: "",
         floor: "",
@@ -202,6 +206,8 @@ export default {
         postCode: "",
       },
       countries: [],
+      cities: [],
+      regions: [],
       errors: {},
       showForm: false,
       fields: [
@@ -269,6 +275,8 @@ export default {
   mounted() {
     this.getAllCountires();
     this.getAllAdresses();
+    this.getAllCountries();
+    this.getAllRegions();
   },
   methods: {
     getAllAdresses() {
@@ -276,16 +284,25 @@ export default {
         console.log(res.data);
       });
     },
+    // Countires
     getAllCountires() {
-      auth
-        .getAllCountires()
-        .then((res) => {
-          this.countries = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      auth.getAllCountires().then((res) => {
+        this.countries = res.data.items;
+      });
     },
+    // getAllRegions
+    getAllRegions() {
+      profile.getAllRegions(this.form.country_id).then((res) => {
+        this.regions = res.data.items;
+      });
+    },
+    // Cities
+    getAllCities() {
+      profile.getAllCities(this.form.region_id).then((res) => {
+        this.cities = res.data.items;
+      });
+    },
+
     updateProfile() {
       console.log("yes");
     },

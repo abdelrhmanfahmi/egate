@@ -7,6 +7,12 @@ export default {
   },
   getAllAdresses() {
     return globalAxios.get("members/profile/shipping-info");
-
+  },
+  getAllCities(countryId) {
+    return globalAxios.get(`lists/cities/${countryId}`);
+  },
+  getAllRegions(cityId) {
+    return globalAxios.get(`lists/regions/${cityId}`);
   }
-};
+}; 
+
