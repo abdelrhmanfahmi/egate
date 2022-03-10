@@ -38,7 +38,7 @@
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="email" v-model="form.email" />
+            <b-form-input id="email" v-model="form.email" disabled />
             <div
               class="error"
               v-for="(error, index) in errors.email"
@@ -53,11 +53,7 @@
           <b-form-group>
             <label for="phone">{{ $t("register.phone") }}</label>
             <span class="requried">*</span>
-            <b-form-input
-              id="phone"
-              v-model="form.mobile_number"
-              type="number"
-            />
+            <b-form-input id="phone" v-model="form.mobile_number" disabled />
             <div
               class="error"
               v-for="(error, index) in errors.mobile_number"
@@ -73,10 +69,10 @@
           <b-form-group>
             <label for="jobTitle">{{ $t("register.jobTitle") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="jobTitle" v-model="form.Job_title" />
+            <b-form-input id="jobTitle" v-model="form.job_title" />
             <div
               class="error"
-              v-for="(error, index) in errors.Job_title"
+              v-for="(error, index) in errors.job_title"
               :key="index"
             >
               {{ error }}
@@ -95,10 +91,14 @@
             <b-form-group>
               <label for="companyName">{{ $t("register.companyName") }}</label>
               <span class="requried">*</span>
-              <b-form-input id="companyName" v-model="form.companyName" />
+              <b-form-input
+                id="companyName"
+                v-model="form.company_name"
+                disabled
+              />
               <div
                 class="error"
-                v-for="(error, index) in errors.companyName"
+                v-for="(error, index) in errors.company_name"
                 :key="index"
               >
                 {{ error }}
@@ -112,13 +112,10 @@
                 $t("profile.RegistrationNumber")
               }}</label>
               <span class="requried">*</span>
-              <b-form-input
-                id="RegistrationNumber"
-                v-model="form.RegistrationNumber"
-              />
+              <b-form-input id="RegistrationNumber" v-model="form.reg_number" />
               <div
                 class="error"
-                v-for="(error, index) in errors.RegistrationNumber"
+                v-for="(error, index) in errors.reg_number"
                 :key="index"
               >
                 {{ error }}
@@ -145,11 +142,10 @@ export default {
         first_name: "",
         last_name: "",
         email: "",
-        country_code: "KW",
         mobile_number: "",
-        Job_title: "",
-        companyName: "",
-        RegistrationNumber: "",
+        job_title: "",
+        company_name: "",
+        reg_number: "",
       },
       countries: [],
       errors: {},
@@ -157,6 +153,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
+    this.form = this.userData;
   },
   methods: {
     getAllCountires() {
@@ -169,8 +166,36 @@ export default {
           console.log(err);
         });
     },
+    // Update Profile
     updateProfile() {
-      console.log("yes");
+      const payload = {
+        first_name: this.form.first_name,
+        last_name: this.form.last_name,
+        job_title: this.form.job_title,
+        reg_number: this.form.reg_number,
+      };
+      auth
+        .storeInfo(payload)
+        .then((res) => {
+          this.$bvToast.toast(res.data.message, {
+            variant: "success",
+            title: "success",
+            autoHideDelay: 5000,
+          });
+          this.errors = {};
+
+          this.$router.push("/profile/categories");
+          location.reload();
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.$bvToast.toast(err.message, {
+            variant: "danger",
+            title: "Error",
+            autoHideDelay: 5000,
+          });
+        });
     },
   },
 };

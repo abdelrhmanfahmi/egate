@@ -16,6 +16,7 @@ import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
 
 export default {
+
   components: {
     TopHeader,
     Nav,

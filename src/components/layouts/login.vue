@@ -136,6 +136,9 @@ export default {
           this.$router.push("/");
           location.reload();
         })
+        .then(() => {
+          this.$store.dispatch("getUserInfo");
+        })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errorMsg = err.message;
@@ -169,7 +172,7 @@ export default {
             title: "success",
             autoHideDelay: 5000,
           });
-          this.$bvModal.hide("ForgetPassword")
+          this.$bvModal.hide("ForgetPassword");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

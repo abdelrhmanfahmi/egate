@@ -101,7 +101,7 @@
                     <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                     <p>
                       {{ $t("login.welcome") }} ,
-                      {{ userInfo.item.first_name }}
+                      {{ userData.first_name }}
                     </p>
                   </span>
                 </template>

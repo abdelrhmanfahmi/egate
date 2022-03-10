@@ -20,6 +20,9 @@ Vue.mixin({
     },
     userInfo() {
       return this.$store.getters.userInfo
+    },
+    userData() {
+      return this.$store.getters.userData
     }
 
   },
