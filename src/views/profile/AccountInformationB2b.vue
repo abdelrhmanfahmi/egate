@@ -126,7 +126,7 @@
       </div>
 
       <b-button type="submit" class="login-button">
-        {{ $t("register.submit") }}
+        {{ $t("profile.save") }}
       </b-button>
     </form>
   </div>
