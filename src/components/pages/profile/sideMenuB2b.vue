@@ -1,6 +1,8 @@
 <template>
   <div class="profile-menu">
-    <h5 class="my-3">{{ $t("profile.company") }} {{ userData.company_name }} </h5>
+    <h5 class="my-3">
+      {{ $t("profile.company") }} {{ userData.company_name }}
+    </h5>
     <ul>
       <li v-for="(link, index) in links" :key="index">
         <router-link :to="link.to">
@@ -27,11 +29,6 @@ export default {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
           iconName: "shop",
-        },
-        {
-          to: "/profile/documents",
-          name: this.$t("profile.documents"),
-          iconName: "file",
         },
         {
           to: "/profile/shopping-cart",
@@ -62,6 +59,26 @@ export default {
           to: "/profile/favorite",
           name: this.$t("profile.favorite"),
           iconName: "heart",
+        },
+        {
+          to: "/profile/documents",
+          name: this.$t("profile.documents"),
+          iconName: "file",
+        },
+        {
+          to: "/profile/BankNotificationsB2b",
+          name: this.$t("profile.bankNotifications"),
+          iconName: "list",
+        },
+        {
+          to: "/profile/QuotationsB2b",
+          name: this.$t("profile.quotations"),
+          iconName: "list",
+        },
+        {
+          to: "/profile/supplierRatingB2b",
+          name: this.$t("profile.supplierRatings"),
+          iconName: "star",
         },
       ],
     };

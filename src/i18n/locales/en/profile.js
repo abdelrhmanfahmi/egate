@@ -62,5 +62,27 @@ export default {
   certificateAdministration: "Certificate of the right to administration from the Ministry of Commerce",
   ibanCertificate: "IBAN Certificate No",
   letterAuthorization: "Letter of authorization for users - and determine the role of each of them",
-  company:"company"
+  company: "company",
+  // Supplier Rating
+  supplierRatings: "My supplier ratings",
+  supplierRatingsEmpty: "You have not added any reviews",
+  Construction: "Construction",
+  Review: "Review",
+  // Quotations
+  quotations: "Quotations",
+  definition: "Definition",
+  displayName: "Display name",
+  createdBy: "Created by",
+  status: "Status",
+  lastUpdate: "Last update",
+  procedure: "Procedure",
+  quotationsRatingsEmpty: "No records were found.",
+  // BankNotifications
+  bankNotifications: "Paid bank transfer notifications",
+  bankNotificationsHeader: "Capture my payment by bank transfer",
+  orderNumber: "order number",
+  batch: "Batch",
+  details: "Details",
+  bankNotificationEmpty: "No request is sent to record payment",
+
 };

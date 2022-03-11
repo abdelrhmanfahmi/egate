@@ -63,6 +63,25 @@ export default {
   certificateAdministration: "شهادة صاحب الحق في الإدارة من وزارة التجارة",
   ibanCertificate: "IBAN شهادة برقم",
   letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
-  company: "شركة"
+  company: "شركة",
+  // Supplier Rating
+  supplierRatings: "تقييمات المورد الخاص بي",
+  supplierRatingsEmpty: "لم تقم بإضافة اي مراجعات",
+  // Quotations
+  quotations: "عروض الاسعار",
+  definition: "التعريف",
+  displayName: "اسم العرض",
+  createdBy: "انشئ بواسطة",
+  status: "الحاله",
+  lastUpdate: "اخر تعديل",
+  procedure: "إجراء",
+  quotationsRatingsEmpty: "لم يتم العثور على أي سجلات",
+  // BankNotifications
+  bankNotifications: "إشعارات التحويلات البنكية المدفوعة",
+  bankNotificationsHeader: "التقاط دفعتي بالتحويل المصرفي",
+  orderNumber: "رقم الطلب",
+  batch: "الدفعة",
+  details: "التفاصيل",
+  bankNotificationEmpty: "لم ترسل أي طلب لتسجيل الدفع",
 
 };

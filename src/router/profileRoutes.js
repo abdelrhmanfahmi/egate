@@ -11,6 +11,9 @@ import changePassword from "../views/profile/changePassword";
 import AccountInformationB2b from "../views/profile/AccountInformationB2b";
 import productReviews from "../views/profile/productReviewsB2b";
 import DocumentsB2b from "../views/profile/DocumentsB2b.vue";
+import SupplierRatingB2b from "../views/profile/SupplierRatingB2b.vue";
+import QuotationsB2b from "../views/profile/QuotationsB2b.vue";
+import BankNotificationsB2b from "../views/profile/BankNotificationsB2b.vue";
 
 
 export default {
@@ -20,6 +23,9 @@ export default {
   children: [
     { path: "/profile/categories", name: "Categories", component: Categories },
     { path: "/profile/documents", name: "Documents", component: DocumentsB2b },
+    { path: "/profile/supplierRatingB2b", name: "SupplierRatingB2b", component: SupplierRatingB2b },
+    { path: "/profile/quotationsB2b", name: "QuotationsB2b", component: QuotationsB2b },
+    { path: "/profile/BankNotificationsB2b", name: "BankNotificationsB2b", component: BankNotificationsB2b },
     {
       path: "/profile/shopping-cart",
       name: "ShoppingCart",
