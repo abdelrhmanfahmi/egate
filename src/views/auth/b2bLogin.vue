@@ -103,23 +103,16 @@ export default {
     login() {
       auth
         .login("buyer", this.form)
-        .then(async (res) => {
-          await localStorage.setItem(
-            "userInfo",
-            JSON.stringify(res.data.items)
-          );
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_email_required) {
-            await localStorage.setItem(
-              "massege",
-              this.$t("register.openEmail")
-            );
+            localStorage.setItem("massege", this.$t("register.openEmail"));
           }
           this.$router.push("/");
           location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
-
           this.errors = err.items;
           this.$bvToast.toast(err.message, {
             variant: "danger",
