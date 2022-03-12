@@ -177,7 +177,7 @@ export default {
     sendEmail() {
       const payload = {
         email: this.emailForget,
-        callback_url: `${this.mainDoamin}/Forget-Password`,
+        callback_url: `${this.mainDoamin}Forget-Password`,
       };
       auth
         .sendEmail(payload)
