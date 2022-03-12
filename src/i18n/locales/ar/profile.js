@@ -83,5 +83,7 @@ export default {
   batch: "الدفعة",
   details: "التفاصيل",
   bankNotificationEmpty: "لم ترسل أي طلب لتسجيل الدفع",
-  cancelSubscribe: "إلغاء الاشتراك"
+  cancelSubscribe: "إلغاء الاشتراك",
+  delete: "مسح",
+  makeDefultAdress: "اجعل العنوان الافتراضي"
 };

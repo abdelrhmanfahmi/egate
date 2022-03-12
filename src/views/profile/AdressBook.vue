@@ -183,10 +183,24 @@
     </form>
     <b-table hover :items="adresses" :fields="fields" stacked="lg" class="my-4">
       <template #cell(actions)="row">
-        <font-awesome-icon
-          icon="fa-solid fa-trash-can"
-          @click="deleteAdress(row)"
-        /> </template
+        <div class="actions">
+          <b-button
+            v-b-tooltip.hover
+            :title="$t('profile.delete')"
+            @click="deleteAdress(row)"
+          >
+            <font-awesome-icon icon="fa-solid fa-trash-can" />
+          </b-button>
+
+          <b-button
+            v-if="!row.item.is_default"
+            v-b-tooltip.hover
+            :title="$t('profile.makeDefultAdress')"
+            @click="makeDefultAdress(row)"
+          >
+            <font-awesome-icon icon="fa-solid fa-address-book" />
+          </b-button>
+        </div> </template
     ></b-table>
   </div>
 </template>
@@ -292,11 +306,23 @@ export default {
           this.errMsg(err.message);
         });
     },
-    
+
     // deleteAdress
     deleteAdress(row) {
       profile
         .deleteAdress(row.item.uuid)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.getAllAdresses();
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errMsg(err.message);
+        });
+    },
+    makeDefultAdress(row) {
+      profile
+        .makeDefultAdress(row.item.uuid)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.getAllAdresses();
@@ -337,10 +363,18 @@ export default {
       width: 20%;
     }
   }
-  svg {
-    font-size: 1.2rem;
-    color: red;
-    cursor: pointer;
+  .actions {
+    text-align: center;
+    button {
+      color: #000 !important;
+      background-color: transparent !important;
+      border: 0 !important;
+    }
+    svg {
+      font-size: 1.2rem;
+      margin: 0 5px;
+      cursor: pointer;
+    }
   }
 }
 

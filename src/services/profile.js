@@ -28,6 +28,9 @@ export default {
   },
   deleteAdress(id) {
     return globalAxios.delete(`members/profile/shipping-info/${id}`);
+  },
+  makeDefultAdress(id) {
+    return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
   }
  
 };

@@ -84,6 +84,8 @@ export default {
   batch: "Batch",
   details: "Details",
   bankNotificationEmpty: "No request is sent to record payment",
-  cancelSubscribe:"cancel subscribe"
+  cancelSubscribe:"cancel subscribe",
+  delete:"delete",
+  makeDefultAdress:"make defult adress"
 
 };
