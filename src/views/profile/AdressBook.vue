@@ -208,7 +208,6 @@
 <script>
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-
 export default {
   data() {
     return {
