@@ -178,12 +178,19 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox v-model="terms" class="terms my-5">
+              <b-form-checkbox v-model="terms" class="terms my-1">
                 {{ $t("register.PleaseReview") }}
                 <router-link to="/">
                   {{ $t("register.termsConditions") }}</router-link
                 >
                 {{ $t("register.toCompleteTheRegistration") }}
+              </b-form-checkbox>
+
+              <b-form-checkbox
+                v-model="form.register_mailing_list"
+                class="py-3 my-1"
+              >
+                {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
 
               <div class="submition-box">
