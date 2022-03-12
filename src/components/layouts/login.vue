@@ -142,6 +142,9 @@ export default {
       auth
         .login("b2c", this.form)
         .then((res) => {
+          if (res.data.items.item.verify_email_required) {
+            localStorage.setItem("massege", this.$t("register.openEmail"));
+          }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           this.$router.push("/");
           location.reload();

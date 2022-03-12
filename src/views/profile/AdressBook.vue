@@ -1,6 +1,6 @@
 <template>
   <div class="address-book">
-    <h4 class="main-header">{{ $t("profile.shippingAddress") }}</h4>
+    <h4 class="main-header">{{ $t("profile.addressBook") }}</h4>
     <p class="add-address" @click="showForm = !showForm">
       <span>+ </span>{{ $t("profile.newAddress") }}
     </p>
@@ -181,12 +181,12 @@
         {{ $t("register.submit") }}
       </b-button>
     </form>
-    <b-table
-      hover
-      :items="adresses"
-      :fields="fields"
-      stacked="lg"
-      class="my-4"
+    <b-table hover :items="adresses" :fields="fields" stacked="lg" class="my-4">
+      <template #cell(actions)="row">
+        <font-awesome-icon
+          icon="fa-solid fa-trash-can"
+          @click="deleteAdress(row)"
+        /> </template
     ></b-table>
   </div>
 </template>
@@ -235,6 +235,10 @@ export default {
           key: "country.title",
           label: this.$t("profile.country"),
         },
+        {
+          key: "actions",
+          label: "",
+        },
       ],
       adresses: [],
     };
@@ -279,12 +283,26 @@ export default {
           this.sucessMsg(res.data.message);
           this.errors = {};
           this.getAllAdresses();
-          this.showForm =false
-          this.form = {}
+          this.showForm = false;
+          this.form = {};
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    
+    // deleteAdress
+    deleteAdress(row) {
+      profile
+        .deleteAdress(row.item.uuid)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.getAllAdresses();
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
           this.errMsg(err.message);
         });
     },
@@ -318,6 +336,11 @@ export default {
       margin: 30px 0px;
       width: 20%;
     }
+  }
+  svg {
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
   }
 }
 

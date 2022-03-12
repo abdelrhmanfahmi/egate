@@ -26,6 +26,9 @@ export default {
   createAdress(payload) {
     return globalAxios.post("members/profile/shipping-info", payload);
   },
+  deleteAdress(id) {
+    return globalAxios.delete(`members/profile/shipping-info/${id}`);
+  }
  
 };
 
