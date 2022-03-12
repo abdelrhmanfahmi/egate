@@ -28,7 +28,7 @@
           </div>
           <div
             class="error"
-            v-for="(error, index) in errors.password"
+            v-for="(error, index) in errors.old_password"
             :key="index"
           >
             {{ error }}
