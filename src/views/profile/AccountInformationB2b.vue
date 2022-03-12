@@ -177,11 +177,7 @@ export default {
       auth
         .storeInfo(payload)
         .then((res) => {
-          this.$bvToast.toast(res.data.message, {
-            variant: "success",
-            title: "success",
-            autoHideDelay: 5000,
-          });
+          this.sucessMsg(res.data.message);
           this.errors = {};
           // this.$store.commit("SET_USER_DATA_INFO", res.data.items);
           this.$store.dispatch("getUserInfo");
@@ -189,11 +185,7 @@ export default {
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
-          this.$bvToast.toast(err.message, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
+          this.errMsg(err.message);
         });
     },
   },

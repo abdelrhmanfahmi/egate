@@ -55,11 +55,7 @@ export default {
         auth
           .emailVerify(payload)
           .then((res) => {
-            this.$bvToast.toast(res.data.message, {
-              variant: "success",
-              title: "success",
-              autoHideDelay: 5000,
-            });
+            this.sucessMsg(res.data.message);
             localStorage.removeItem("massege");
             location.reload();
           })
@@ -84,19 +80,11 @@ export default {
       auth
         .resendCodeMobile()
         .then((res) => {
-          this.$bvToast.toast(res.data.message, {
-            variant: "success",
-            title: "success",
-            autoHideDelay: 5000,
-          });
+          this.sucessMsg(res.data.message);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data.message;
-          this.$bvToast.toast(err, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
+          this.errMsg(err.message);
         });
     },
   },

@@ -114,11 +114,7 @@ export default {
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
-          this.$bvToast.toast(err.message, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
+          this.errMsg(err.message);
         });
     },
     //
