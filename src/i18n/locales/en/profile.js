@@ -35,7 +35,7 @@ export default {
   country: "country",
   state: "state",
   district: "district",
-  streetNumber: "street Number",
+  streetNumber: "street",
   homeNumber: "home number",
   floor: "floor",
   blockNumber: "block number",

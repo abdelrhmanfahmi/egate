@@ -5,7 +5,7 @@
       <span>+ </span>{{ $t("profile.newAddress") }}
     </p>
     <form
-      @submit.prevent="updateProfile()"
+      @submit.prevent="createAdress()"
       class="account-information-form"
       v-if="showForm"
     >
@@ -32,7 +32,7 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- cities -->
+        <!-- regions -->
         <b-col lg="6">
           <b-form-group>
             <label>{{ $t("profile.state") }}</label>
@@ -58,7 +58,7 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- regions -->
+        <!-- cities -->
         <b-col lg="6">
           <b-form-group>
             <label>{{ $t("profile.district") }}</label>
@@ -103,10 +103,10 @@
           <b-form-group>
             <label for="homeNumber">{{ $t("profile.homeNumber") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="homeNumber" v-model="form.homeNumber" />
+            <b-form-input id="homeNumber" v-model="form.building_number" />
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.building_number"
               :key="index"
             >
               {{ error }}
@@ -121,7 +121,7 @@
             <b-form-input id="floor" v-model="form.floor" />
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.floor"
               :key="index"
             >
               {{ error }}
@@ -133,10 +133,10 @@
           <b-form-group>
             <label for="blockNumber">{{ $t("profile.blockNumber") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="blockNumber" v-model="form.blockNumber" />
+            <b-form-input id="blockNumber" v-model="form.apartment" />
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.apartment"
               :key="index"
             >
               {{ error }}
@@ -147,11 +147,10 @@
         <b-col lg="6">
           <b-form-group>
             <label for="postCode">{{ $t("profile.postCode") }}</label>
-            <span class="requried">*</span>
-            <b-form-input id="postCode" v-model="form.postCode" />
+            <b-form-input id="postCode" v-model="form.pin_code" />
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.pin_code"
               :key="index"
             >
               {{ error }}
@@ -162,10 +161,14 @@
         <b-col lg="12">
           <b-form-group>
             <label for="textarea">{{ $t("profile.note") }}</label>
-            <b-form-textarea id="textarea" size="lg"></b-form-textarea>
+            <b-form-textarea
+              id="textarea"
+              size="lg"
+              v-model="form.notes"
+            ></b-form-textarea>
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.notes"
               :key="index"
             >
               {{ error }}
@@ -180,7 +183,7 @@
     </form>
     <b-table
       hover
-      :items="items"
+      :items="adresses"
       :fields="fields"
       stacked="lg"
       class="my-4"
@@ -199,12 +202,12 @@ export default {
         country_id: "",
         region_id: "",
         city_id: "",
-
-        streetNumber: "",
-        homeNumber: "",
+        building_number: "",
         floor: "",
-        blockNumber: "",
-        postCode: "",
+        apartment: "",
+        pin_code: "",
+        notes: "",
+        is_sale_point: false,
       },
       countries: [],
       cities: [],
@@ -213,76 +216,37 @@ export default {
       showForm: false,
       fields: [
         {
-          key: "age",
+          key: "building_number",
           label: this.$t("profile.homeNumber"),
         },
         {
-          key: "first_name",
+          key: "address_line_1",
           label: this.$t("profile.streetNumber"),
         },
         {
-          key: "last_name",
+          key: "city.title",
           label: this.$t("profile.district"),
         },
         {
-          key: "product",
+          key: "region.title",
           label: this.$t("profile.state"),
         },
         {
-          key: "country",
+          key: "country.title",
           label: this.$t("profile.country"),
         },
-        {
-          key: "id",
-          label: "#",
-        },
       ],
-      items: [
-        {
-          age: 40,
-          first_name: "Dickerson",
-          last_name: "Macdonald",
-          product: "Macdonald",
-          country: "Egypt",
-          id: "1",
-        },
-        {
-          age: 21,
-          first_name: "Larsen",
-          last_name: "Shaw",
-          product: "Macdonald",
-          country: "Egypt",
-          id: "1",
-        },
-        {
-          age: 89,
-          first_name: "Geneva",
-          last_name: "Wilson",
-          product: "Macdonald",
-          country: "Egypt",
-          id: "1",
-        },
-        {
-          age: 38,
-          first_name: "Jami",
-          last_name: "Carney",
-          product: "Macdonald",
-          country: "Egypt",
-          id: "1",
-        },
-      ],
+      adresses: [],
     };
   },
   mounted() {
     this.getAllCountires();
     this.getAllAdresses();
-    this.getAllCountries();
-    this.getAllRegions();
   },
   methods: {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
-        console.log(res.data);
+        this.adresses = res.data.items;
       });
     },
     // Countires
@@ -307,8 +271,22 @@ export default {
       });
     },
 
-    updateProfile() {
-      console.log("yes");
+    // createAdress
+    createAdress() {
+      profile
+        .createAdress(this.form)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.errors = {};
+          this.getAllAdresses();
+          this.showForm =false
+          this.form = {}
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
     },
   },
 };

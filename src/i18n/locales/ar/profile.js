@@ -35,7 +35,7 @@ export default {
   country: "البلد",
   state: "المدينه",
   district: "الحى",
-  streetNumber: "رقم الشارع",
+  streetNumber: "الشارع",
   homeNumber: "رقم المنزل",
   floor: "الدور",
   blockNumber: "شقه",

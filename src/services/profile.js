@@ -22,6 +22,10 @@ export default {
   },
   cancelSubscribe() {
     return globalAxios.put("members/profile/subscriptions/cancel");
-  }
+  },
+  createAdress(payload) {
+    return globalAxios.post("members/profile/shipping-info", payload);
+  },
+ 
 };
 
