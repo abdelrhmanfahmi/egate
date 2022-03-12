@@ -88,10 +88,10 @@
           <b-form-group>
             <label for="streetNumber">{{ $t("profile.streetNumber") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="streetNumber" v-model="form.streetNumber" />
+            <b-form-input id="streetNumber" v-model="form.address_line_1" />
             <div
               class="error"
-              v-for="(error, index) in errors.first_name"
+              v-for="(error, index) in errors.address_line_1"
               :key="index"
             >
               {{ error }}

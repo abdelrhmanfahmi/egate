@@ -83,5 +83,5 @@ export default {
   batch: "الدفعة",
   details: "التفاصيل",
   bankNotificationEmpty: "لم ترسل أي طلب لتسجيل الدفع",
-
+  cancelSubscribe: "إلغاء الاشتراك"
 };

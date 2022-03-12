@@ -84,5 +84,6 @@ export default {
   batch: "Batch",
   details: "Details",
   bankNotificationEmpty: "No request is sent to record payment",
+  cancelSubscribe:"cancel subscribe"
 
 };

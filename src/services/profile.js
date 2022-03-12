@@ -13,6 +13,15 @@ export default {
   },
   getAllRegions(cityId) {
     return globalAxios.get(`lists/regions/${cityId}`);
+  },
+  getSubscriptions() {
+    return globalAxios.get("members/profile/subscriptions");
+  },
+  makeSubscribe(payload) {
+    return globalAxios.post("members/profile/subscriptions", payload);
+  },
+  cancelSubscribe() {
+    return globalAxios.put("members/profile/subscriptions/cancel");
   }
-}; 
+};
 
