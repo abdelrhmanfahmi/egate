@@ -35,5 +35,7 @@ Vue.mixin({
       this.$router.push("/");
       location.reload();
     },
+
+    
   }
 });

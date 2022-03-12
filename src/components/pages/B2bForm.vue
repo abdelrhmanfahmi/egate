@@ -254,7 +254,7 @@ export default {
         });
     },
     register() {
-      this.form.callback_url = `http://localhost:8080/humhum-user/otp-verification`;
+      this.form.callback_url = `${this.mainDoamin}otp-verification`;
       auth
         .register("buyer", this.form)
         .then((res) => {

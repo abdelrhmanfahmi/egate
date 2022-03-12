@@ -69,6 +69,9 @@
                   </b-form-group>
                 </b-col>
               </b-row>
+              <b class="forget-password my-3" v-b-modal.ForgetPassword>
+                {{ $t("login.fogetPassword") }}
+              </b>
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
@@ -163,6 +166,16 @@ export default {
   }
 }
 
+.forget-password {
+  display: block;
+  font-weight: 500;
+  color: $header-color;
+  background-color: transparent;
+  border: none;
+  &:hover {
+    color: $main-color;
+  }
+}
 // style arabic
 html:lang(ar) {
   .user-register {
