@@ -114,7 +114,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.form = this.userData;
+    this.form = { ...this.userData };
   },
   methods: {
     getAllCountires() {
@@ -142,9 +142,7 @@ export default {
             autoHideDelay: 5000,
           });
           this.errors = {};
-
-          this.$router.push("/profile/categories");
-          location.reload();
+          this.$store.commit("SET_USER_DATA_INFO", res.data.items);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

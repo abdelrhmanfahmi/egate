@@ -73,6 +73,7 @@ export default {
         .verificationMobile(this.form)
         .then(() => {
           this.$router.push("/");
+          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data.message;

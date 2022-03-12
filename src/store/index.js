@@ -6,6 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : "",
+
+
+    
     userData: localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : "",
   },
   getters: {
