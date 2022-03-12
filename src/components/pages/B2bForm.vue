@@ -254,17 +254,14 @@ export default {
         });
     },
     register() {
-      this.form.callback_url = `${this.mainDoamin}otp-verification`;
+      this.form.callback_url = `http://localhost:8080/humhum-user/otp-verification`;
       auth
         .register("buyer", this.form)
-        .then(async (res) => {
-          await localStorage.setItem(
-            "userInfo",
-            JSON.stringify(res.data.items)
-          );
-          await localStorage.setItem("massege", this.$t("register.openEmail"));
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          localStorage.setItem("massege", this.$t("register.openEmail"));
           this.$router.push("/");
-          location.reload();
+          location.reload()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

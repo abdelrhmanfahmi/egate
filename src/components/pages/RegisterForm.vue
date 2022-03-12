@@ -274,7 +274,7 @@ export default {
         });
     },
     register() {
-      this.form.callback_url = this.mainDoamin;
+      this.form.callback_url = "http://localhost:8080/humhum-user/";
       auth
         .register("b2c", this.form)
         .then((res) => {

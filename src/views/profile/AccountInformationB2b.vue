@@ -183,7 +183,8 @@ export default {
             autoHideDelay: 5000,
           });
           this.errors = {};
-          this.$store.commit("SET_USER_DATA_INFO", res.data.items);
+          // this.$store.commit("SET_USER_DATA_INFO", res.data.items);
+          this.$store.dispatch("getUserInfo");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

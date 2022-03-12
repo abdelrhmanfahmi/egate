@@ -13,7 +13,7 @@
           <h5>{{ $t("profile.completeRate") }}</h5>
           <b-progress
             class="progress-rate"
-            value="45"
+            :value="userData.profile_percentage"
             max="100"
             show-progress
             animated
