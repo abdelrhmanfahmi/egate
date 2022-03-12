@@ -291,6 +291,7 @@ export default {
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
+          this.errMsg(err.message);
         });
     },
     switchField() {
