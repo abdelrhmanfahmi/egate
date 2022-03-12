@@ -200,14 +200,16 @@
           >
             <font-awesome-icon icon="fa-solid fa-address-book" />
           </b-button>
-        </div> </template
-    ></b-table>
+        </div>
+      </template>
+    </b-table>
   </div>
 </template>
 
 <script>
 import auth from "@/services/auth";
 import profile from "@/services/profile";
+
 export default {
   data() {
     return {
