@@ -222,7 +222,6 @@ export default {
         apartment: "",
         pin_code: "",
         notes: "",
-        is_sale_point: false,
       },
       countries: [],
       cities: [],
@@ -292,20 +291,21 @@ export default {
 
     // createAdress
     createAdress() {
-      profile
-        .createAdress(this.form)
-        .then((res) => {
-          this.sucessMsg(res.data.message);
-          this.errors = {};
-          this.getAllAdresses();
-          this.showForm = false;
-          this.form = {};
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        });
+      (this.form.is_sale_point = false),
+        profile
+          .createAdress(this.form)
+          .then((res) => {
+            this.sucessMsg(res.data.message);
+            this.errors = {};
+            this.getAllAdresses();
+            this.showForm = false;
+            this.form = {};
+          })
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          });
     },
 
     // deleteAdress
