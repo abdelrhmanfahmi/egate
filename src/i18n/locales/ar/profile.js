@@ -88,5 +88,7 @@ export default {
   invoiceNo: "رقم الفاتورة",
   supplier: "اسم المورد",
   residentsEmpty: "لا توجد مرتجعات",
-
+  //SupplierCorrespondence 
+  supplierCorrespondence: "مراسلات المورد",
+  supplierCorrespondenceEmpty: "لا توجد اتصالات",
 };

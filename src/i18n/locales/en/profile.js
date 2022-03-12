@@ -89,4 +89,7 @@ export default {
   invoiceNo: "Invoice Number",
   supplier: "Supplier",
   residentsEmpty: "There are no residents",
+  //SupplierCorrespondence 
+  supplierCorrespondence: "Supplier Correspondence",
+  supplierCorrespondenceEmpty: "There are no contacts",
 };

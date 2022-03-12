@@ -51,8 +51,18 @@ export default {
           iconName: "cubes",
         },
         {
+          to: "/profile/documents",
+          name: this.$t("profile.documents"),
+          iconName: "file",
+        },
+        {
           to: "/profile/subscribe-newsletter",
           name: this.$t("profile.subscribeNewsletter"),
+          iconName: "newspaper",
+        },
+        {
+          to: "/profile/SupplierCorrespondenceB2b",
+          name: this.$t("profile.supplierCorrespondence"),
           iconName: "newspaper",
         },
         {
@@ -60,11 +70,7 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-        {
-          to: "/profile/documents",
-          name: this.$t("profile.documents"),
-          iconName: "file",
-        },
+
         {
           to: "/profile/ResidentsB2b",
           name: this.$t("profile.residents"),
