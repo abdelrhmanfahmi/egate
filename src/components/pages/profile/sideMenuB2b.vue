@@ -66,6 +66,11 @@ export default {
           iconName: "file",
         },
         {
+          to: "/profile/ResidentsB2b",
+          name: this.$t("profile.residents"),
+          iconName: "list",
+        },
+        {
           to: "/profile/BankNotificationsB2b",
           name: this.$t("profile.bankNotifications"),
           iconName: "list",

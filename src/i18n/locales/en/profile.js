@@ -84,5 +84,9 @@ export default {
   batch: "Batch",
   details: "Details",
   bankNotificationEmpty: "No request is sent to record payment",
-
+  //Residents
+  residents: "Residents",
+  invoiceNo: "Invoice Number",
+  supplier: "Supplier",
+  residentsEmpty: "There are no residents",
 };

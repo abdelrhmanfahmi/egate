@@ -83,5 +83,10 @@ export default {
   batch: "الدفعة",
   details: "التفاصيل",
   bankNotificationEmpty: "لم ترسل أي طلب لتسجيل الدفع",
+  //Residents
+  residents: "مرتجعاتي",
+  invoiceNo: "رقم الفاتورة",
+  supplier: "اسم المورد",
+  residentsEmpty: "لا توجد مرتجعات",
 
 };
