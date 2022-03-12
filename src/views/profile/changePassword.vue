@@ -124,7 +124,6 @@ export default {
       fieldType: "password",
       fieldTypeNew: "password",
       fieldTypeConfirm: "password",
-
       errors: {},
     };
   },
@@ -138,7 +137,7 @@ export default {
             title: "success",
             autoHideDelay: 5000,
           });
-          this.errors ={}
+          this.errors = {};
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
