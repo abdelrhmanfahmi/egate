@@ -11,6 +11,7 @@ import MainLayout from "@/layouts/MainLayout.vue";
 export default {
   name: "Home",
   mounted() {
+    
     this.$store.dispatch("getUserInfo");
   },
   components: {

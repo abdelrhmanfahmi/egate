@@ -121,11 +121,7 @@ export default {
         auth
           .forgetPassWord(payload)
           .then((res) => {
-            this.$bvToast.toast(res.data.message, {
-              variant: "success",
-              title: "success",
-              autoHideDelay: 5000,
-            });
+            this.sucessMsg(res.data.message);
             setTimeout(() => {
               this.$router.push("/");
             }, 1000);
@@ -133,11 +129,7 @@ export default {
           .catch((error) => {
             const err = Object.values(error)[2].data;
             this.errors = err.items;
-            this.$bvToast.toast(err.message, {
-              variant: "danger",
-              title: "Error",
-              autoHideDelay: 5000,
-            });
+            this.errMsg(err.message);
           });
       }
     },

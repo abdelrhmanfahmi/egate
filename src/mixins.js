@@ -23,7 +23,7 @@ Vue.mixin({
     },
     userData() {
       return this.$store.getters.userData
-    }
+    },
 
   },
   methods: {
@@ -35,7 +35,27 @@ Vue.mixin({
       this.$router.push("/");
       location.reload();
     },
-
-    
+    sucessMsg(text, icon = 'success') {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        icon: icon,
+        title: text,
+      })
+    },
+    errMsg(text, icon = 'error') {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        icon: icon,
+        title: text,
+      })
+    }
   }
 });

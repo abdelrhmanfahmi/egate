@@ -39,11 +39,8 @@ export default {
         };
         auth
           .makeLoginSocail("b2c", this.provider, payload)
-          .then( (res) => {
-             localStorage.setItem(
-              "userInfo",
-              JSON.stringify(res.data.items)
-            );
+          .then((res) => {
+            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
             location.reload();
           })
           .catch((err) => {
@@ -62,11 +59,7 @@ export default {
         auth
           .emailVerify(payload)
           .then((res) => {
-            this.$bvToast.toast(res.data.message, {
-              variant: "success",
-              title: "success",
-              autoHideDelay: 5000,
-            });
+            this.sucessMsg(res.data.message);
             localStorage.removeItem("massege");
             location.reload();
           })
@@ -85,11 +78,7 @@ export default {
         auth
           .checkEmailForgetPassWord(payload)
           .then((res) => {
-            this.$bvToast.toast(res.data.message, {
-              variant: "success",
-              title: "success",
-              autoHideDelay: 5000,
-            });
+            this.sucessMsg(res.data.message);
             this.$router.push("/Forget-Password");
           })
           .catch((err) => {

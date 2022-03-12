@@ -134,29 +134,22 @@ export default {
       fieldType: "password",
       emailForget: "",
       errorsLogin: {},
-      errors:{}
+      errors: {},
     };
   },
   methods: {
     loginB2c() {
       auth
         .login("b2c", this.form)
-        .then( (res) => {
-           localStorage.setItem(
-            "userInfo",
-            JSON.stringify(res.data.items)
-          );
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           this.$router.push("/");
           location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errorsLogin = err.items;
-          this.$bvToast.toast(err.message, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
+          this.errMsg(err.message);
         });
     },
     async getLink(provider) {
@@ -182,21 +175,13 @@ export default {
       auth
         .sendEmail(payload)
         .then((res) => {
-          this.$bvToast.toast(res.data.message, {
-            variant: "success",
-            title: "success",
-            autoHideDelay: 5000,
-          });
+          this.sucessMsg(res.data.message);
           this.$bvModal.hide("ForgetPassword");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
-          this.$bvToast.toast(err.message, {
-            variant: "danger",
-            title: "Error",
-            autoHideDelay: 5000,
-          });
+          this.errMsg(err.message);
         });
     },
   },
@@ -271,5 +256,6 @@ export default {
   width: 100%;
 }
 .text-start {
-text-align: start;}
+  text-align: start;
+}
 </style>
