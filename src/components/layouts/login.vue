@@ -141,8 +141,8 @@ export default {
     loginB2c() {
       auth
         .login("b2c", this.form)
-        .then(async (res) => {
-          await localStorage.setItem(
+        .then( (res) => {
+           localStorage.setItem(
             "userInfo",
             JSON.stringify(res.data.items)
           );

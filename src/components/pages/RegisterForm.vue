@@ -51,7 +51,11 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="email" v-model="form.email"  maxlength="100"/>
+                    <b-form-input
+                      id="email"
+                      v-model="form.email"
+                      maxlength="100"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.email"
@@ -273,16 +277,13 @@ export default {
       this.form.callback_url = this.mainDoamin;
       auth
         .register("b2c", this.form)
-        .then(async (res) => {
-          await localStorage.setItem("userInfo",JSON.stringify(res.data.items));
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_mobile_required) {
             this.$router.push("/otp-verification");
             location.reload();
           } else {
-            await localStorage.setItem(
-              "massege",
-              this.$t("register.openEmail")
-            );
+            localStorage.setItem("massege", this.$t("register.openEmail"));
             this.$router.push("/");
             location.reload();
           }

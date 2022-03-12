@@ -1,5 +1,5 @@
 import globalAxios from "./global-axios";
-import { getToken } from "./global-axios"
+
 
 export default {
   // register
@@ -10,7 +10,6 @@ export default {
     return globalAxios.get("lists/countries");
   },
   verificationMobile(payload) {
-    getToken()
     return globalAxios.patch("checkpoint/active-mobile", payload);
   },
   resendCodeMobile() {
