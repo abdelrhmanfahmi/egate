@@ -31,7 +31,14 @@ export default {
   },
   makeDefultAdress(id) {
     return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
-  }
- 
+  },
+  buissnessinfoUpload(payload) {
+    return globalAxios.post(`members/profile/business-info`,payload);
+  },
+  suppDocUpload(payload) {
+    return globalAxios.post(`members/profile/documents`,payload);
+  },
+  ibanUpload(payload) {
+    return globalAxios.post(`members/profile/bank-info`,payload);
+  },
 };
-
