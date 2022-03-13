@@ -55,13 +55,17 @@ export default {
   documents: "document",
   companyDocuments: "Company documents",
   saveData: "Save data",
+  
   commercialLicense: "Commercial license of the company",
-  signatureAccreditation: "Signature accreditation",
-  commissionerCard: "The commissioner's civil card is signed",
-  establishmentContract: "Establishment contract",
-  certificateAdministration: "Certificate of the right to administration from the Ministry of Commerce",
+  signatureAccreditation: "Civi Id copy of authorized  Signature",
+  commissionerCard: "Certified signatory Certificate",
+  certificateAdministration: "Right of Managment certification - MOC",
+
+  establishmentContract: "Memorandum Of Association",
+  letterAuthorization: "Signature Authority Document",
+
   ibanCertificate: "IBAN Certificate No",
-  letterAuthorization: "Letter of authorization for users - and determine the role of each of them",
+
   company: "company",
   // Supplier Rating
   supplierRatings: "My supplier ratings",
