@@ -203,11 +203,22 @@
 
               <b-form-checkbox v-model="terms" class="terms">
                 {{ $t("register.PleaseReview") }}
-                <router-link to="/">
-                  {{ $t("register.termsConditions") }}</router-link
+                <a v-b-modal.terms&condation>
+                  {{ $t("register.termsConditions") }}</a
                 >
                 {{ $t("register.toCompleteTheRegistration") }}
               </b-form-checkbox>
+
+              <b-modal
+                size="lg"
+                id="terms&condation"
+                :title="condations.title"
+                ok-only
+              >
+                <p v-html="condations.description">
+                  {{ condations.description }}
+                </p>
+              </b-modal>
 
               <b-form-checkbox
                 v-model="form.register_mailing_list"
@@ -257,9 +268,11 @@ export default {
       ],
       countries: [],
       fieldType: "password",
+      condations: {},
     };
   },
   mounted() {
+    this.getTerms();
     this.getAllCountires();
   },
   methods: {
@@ -274,7 +287,7 @@ export default {
         });
     },
     register() {
-      this.form.callback_url = "http://localhost:8080/humhum-user/";
+      this.form.callback_url = `${this.mainDoamin}`;
       auth
         .register("b2c", this.form)
         .then((res) => {
@@ -296,6 +309,11 @@ export default {
     },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
+    getTerms() {
+      auth.termsAndCondations().then((res) => {
+        this.condations = res.data.items;
+      });
     },
   },
 };

@@ -23,10 +23,10 @@
                   <b-form-group>
                     <label for="f-name">{{ $t("register.companyName") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="f-name" v-model="form.first_name" />
+                    <b-form-input id="f-name" v-model="form.company_name" />
                     <div
                       class="error"
-                      v-for="(error, index) in errors.first_name"
+                      v-for="(error, index) in errors.company_name"
                       :key="index"
                     >
                       {{ error }}
@@ -180,11 +180,22 @@
 
               <b-form-checkbox v-model="terms" class="terms my-1">
                 {{ $t("register.PleaseReview") }}
-                <router-link to="/">
-                  {{ $t("register.termsConditions") }}</router-link
+                <a v-b-modal.terms&condation>
+                  {{ $t("register.termsConditions") }}</a
                 >
                 {{ $t("register.toCompleteTheRegistration") }}
               </b-form-checkbox>
+
+              <b-modal
+                size="lg"
+                id="terms&condation"
+                :title="condations.title"
+                ok-only
+              >
+                <p v-html="condations.description">
+                  {{ condations.description }}
+                </p>
+              </b-modal>
 
               <b-form-checkbox
                 v-model="form.register_mailing_list"
@@ -234,9 +245,11 @@ export default {
       ],
       countries: [],
       fieldType: "password",
+      condations:{}
     };
   },
   mounted() {
+    this.getTerms();
     this.getAllCountires();
   },
   methods: {
@@ -268,6 +281,11 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+    },
+    getTerms() {
+      auth.termsAndCondations().then((res) => {
+        this.condations = res.data.items;
+      });
     },
   },
 };
