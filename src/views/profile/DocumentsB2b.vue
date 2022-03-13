@@ -77,7 +77,7 @@
           </div>
         </div>
         <b-button type="submit" class="login-button">
-          {{ $t("submit") }}
+          {{ $t("save") }}
         </b-button>
       </form>
       <form class="suppDoc" @submit.prevent="suppDocUpload">
@@ -104,7 +104,7 @@
           </div>
         </div>
         <b-button type="submit" class="login-button">
-          {{ $t("submit") }}
+          {{ $t("save") }}
         </b-button>
       </form>
       <form lass="suppDoc" @submit.prevent="suppDocUpload">
@@ -122,7 +122,7 @@
           </div>
         </div>
         <b-button type="submit" class="login-button">
-          {{ $t("submit") }}
+          {{ $t("save") }}
         </b-button>
       </form>
     </div>
