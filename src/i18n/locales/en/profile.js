@@ -106,4 +106,8 @@ export default {
   products: "Products",
   finalActivity: "Final activity",
   ordersListsEmpty: "There are no orders lists",
+  //Gift Card
+  giftCard: "Gift Card",
+  giftCardCoupon: "Enter a gift coupon",
+  giftCardCheck: "Check the status and balance",
 };

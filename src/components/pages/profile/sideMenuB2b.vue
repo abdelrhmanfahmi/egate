@@ -76,6 +76,11 @@ export default {
           iconName: "heart",
         },
         {
+          to: "/profile/giftCardB2b",
+          name: this.$t("profile.giftCard"),
+          iconName: "heart",
+        },
+        {
           to: "/profile/ResidentsB2b",
           name: this.$t("profile.residents"),
           iconName: "list",

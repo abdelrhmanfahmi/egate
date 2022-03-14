@@ -101,4 +101,8 @@ export default {
   products: "المنتجات",
   finalActivity: "النشاط الاخير",
   ordersListsEmpty: "لا يوجد أي قوائم طلبات",
+  //Gift Card
+  giftCard: "بطاقة هدية",
+  giftCardCoupon: "ادخال رقم كوبون الاهداء",
+  giftCardCheck: "تحقق من الحالة والتوازن",
 };
