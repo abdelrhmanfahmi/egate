@@ -35,7 +35,7 @@ export default {
   country: "country",
   state: "state",
   district: "district",
-  streetNumber: "street Number",
+  streetNumber: "street",
   homeNumber: "home number",
   floor: "floor",
   blockNumber: "block number",
@@ -92,4 +92,8 @@ export default {
   //SupplierCorrespondence 
   supplierCorrespondence: "Supplier Correspondence",
   supplierCorrespondenceEmpty: "There are no contacts",
+  cancelSubscribe: "cancel subscribe",
+  delete: "delete",
+  makeDefaultAddress: "make default address"
+
 };

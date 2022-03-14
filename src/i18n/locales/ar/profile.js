@@ -35,7 +35,7 @@ export default {
   country: "البلد",
   state: "المدينه",
   district: "الحى",
-  streetNumber: "رقم الشارع",
+  streetNumber: "الشارع",
   homeNumber: "رقم المنزل",
   floor: "الدور",
   blockNumber: "شقه",
@@ -91,4 +91,7 @@ export default {
   //SupplierCorrespondence 
   supplierCorrespondence: "مراسلات المورد",
   supplierCorrespondenceEmpty: "لا توجد اتصالات",
+  cancelSubscribe: "إلغاء الاشتراك",
+  delete: "مسح",
+  makeDefaultAddress: "اجعل العنوان الافتراضي"
 };

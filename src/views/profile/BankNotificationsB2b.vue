@@ -30,7 +30,7 @@ export default {
         },
         {
           key: "batch",
-          label: this.$t("profile.Batch"),
+          label: this.$t("profile.batch"),
         },
         {
           key: "status",

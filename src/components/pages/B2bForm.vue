@@ -261,11 +261,12 @@ export default {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           localStorage.setItem("massege", this.$t("register.openEmail"));
           this.$router.push("/");
-          location.reload()
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
+          this.errMsg(err.message);
         });
     },
   },

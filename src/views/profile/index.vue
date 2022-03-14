@@ -6,7 +6,7 @@
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
-            <a href="#">{{ $t("profile.completeLink") }}</a>
+            <router-link to="/profile/account-information-b2b">{{ $t("profile.completeLink") }}</router-link>
           </p>
         </div>
         <div class="rate col-12 col-sm-4">

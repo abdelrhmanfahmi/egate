@@ -13,6 +13,25 @@ export default {
   },
   getAllRegions(cityId) {
     return globalAxios.get(`lists/regions/${cityId}`);
+  },
+  getSubscriptions() {
+    return globalAxios.get("members/profile/subscriptions");
+  },
+  makeSubscribe(payload) {
+    return globalAxios.post("members/profile/subscriptions", payload);
+  },
+  cancelSubscribe() {
+    return globalAxios.put("members/profile/subscriptions/cancel");
+  },
+  createAdress(payload) {
+    return globalAxios.post("members/profile/shipping-info", payload);
+  },
+  deleteAdress(id) {
+    return globalAxios.delete(`members/profile/shipping-info/${id}`);
+  },
+  makeDefaultAddress(id) {
+    return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
   }
-}; 
+
+};
 

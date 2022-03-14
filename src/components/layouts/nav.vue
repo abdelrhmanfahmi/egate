@@ -105,7 +105,9 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item>
+                <b-dropdown-item
+                  v-if="userInfo.is_verified || userData.is_verified"
+                >
                   <router-link to="/profile/categories">{{
                     $t("profile.myProfile")
                   }}</router-link>
