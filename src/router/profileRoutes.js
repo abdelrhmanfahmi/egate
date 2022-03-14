@@ -16,6 +16,7 @@ import QuotationsB2b from "../views/profile/QuotationsB2b.vue";
 import BankNotificationsB2b from "../views/profile/BankNotificationsB2b.vue";
 import ResidentsB2b from "../views/profile/ResidentsB2b.vue";
 import SupplierCorrespondenceB2b from "../views/profile/SupplierCorrespondenceB2b.vue";
+import OrdersListsB2b from "../views/profile/OrdersListsB2b.vue";
 
 
 export default {
@@ -30,6 +31,7 @@ export default {
     { path: "/profile/BankNotificationsB2b", name: "BankNotificationsB2b", component: BankNotificationsB2b },
     { path: "/profile/ResidentsB2b", name: "ResidentsB2b", component: ResidentsB2b },
     { path: "/profile/SupplierCorrespondenceB2b", name: "SupplierCorrespondenceB2b", component: SupplierCorrespondenceB2b },
+    { path: "/profile/OrdersListsB2b", name: "OrdersListsB2b", component: OrdersListsB2b },
     {
       path: "/profile/shopping-cart",
       name: "ShoppingCart",

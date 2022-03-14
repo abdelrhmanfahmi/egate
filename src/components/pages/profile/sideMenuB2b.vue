@@ -70,7 +70,11 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-
+        {
+          to: "/profile/ordersListsB2b",
+          name: this.$t("profile.ordersLists"),
+          iconName: "heart",
+        },
         {
           to: "/profile/ResidentsB2b",
           name: this.$t("profile.residents"),

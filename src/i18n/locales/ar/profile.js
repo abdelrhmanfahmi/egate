@@ -34,7 +34,7 @@ export default {
   newAddress: "عنوان جديد",
   country: "البلد",
   region: "المدينه",
-  city : "الحى",
+  city: "الحى",
   streetNumber: "الشارع",
   homeNumber: "رقم المنزل",
   floor: "الدور",
@@ -93,5 +93,12 @@ export default {
   supplierCorrespondenceEmpty: "لا توجد اتصالات",
   cancelSubscribe: "إلغاء الاشتراك",
   delete: "مسح",
-  makeDefaultAddress: "اجعل العنوان الافتراضي"
+  makeDefaultAddress: "اجعل العنوان الافتراضي",
+  //Orders Lists
+  ordersLists: "قوائم الطلبات",
+  ordersListsNew: "إنشاء قائمة طلبات جديدة",
+  nameDescription: "الاسم والوصف",
+  products: "المنتجات",
+  finalActivity: "النشاط الاخير",
+  ordersListsEmpty: "لا يوجد أي قوائم طلبات",
 };
