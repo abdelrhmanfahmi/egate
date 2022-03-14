@@ -51,9 +51,19 @@ export default {
           iconName: "cubes",
         },
         {
+          to: "/profile/documents",
+          name: this.$t("profile.documents"),
+          iconName: "file",
+        },
+        {
           to: "/profile/subscribe-newsletter",
           name: this.$t("profile.subscribeNewsletter"),
           iconName: "newspaper",
+        },
+        {
+          to: "/profile/SupplierCorrespondenceB2b",
+          name: this.$t("profile.supplierCorrespondence"),
+          iconName: "comments",
         },
         {
           to: "/profile/favorite",
@@ -61,19 +71,29 @@ export default {
           iconName: "heart",
         },
         {
-          to: "/profile/documents",
-          name: this.$t("profile.documents"),
-          iconName: "file",
+          to: "/profile/ordersListsB2b",
+          name: this.$t("profile.ordersLists"),
+          iconName: "clipboard-list",
+        },
+        {
+          to: "/profile/giftCardB2b",
+          name: this.$t("profile.giftCard"),
+          iconName: "gift",
+        },
+        {
+          to: "/profile/ResidentsB2b",
+          name: this.$t("profile.residents"),
+          iconName: "receipt",
         },
         {
           to: "/profile/BankNotificationsB2b",
           name: this.$t("profile.bankNotifications"),
-          iconName: "list",
+          iconName: "money-bill-wave",
         },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
-          iconName: "list",
+          iconName: "list-ol",
         },
         {
           to: "/profile/supplierRatingB2b",

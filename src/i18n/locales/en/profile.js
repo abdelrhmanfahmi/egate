@@ -34,7 +34,7 @@ export default {
   newAddress: "New address",
   country: "country",
   region: "region",
-  city : "city ",
+  city: "city ",
   streetNumber: "street",
   homeNumber: "home number",
   floor: "floor",
@@ -55,7 +55,7 @@ export default {
   documents: "document",
   companyDocuments: "Company documents",
   saveData: "Save data",
-  
+
   commercialLicense: "Commercial license of the company",
   signatureAccreditation: "Civi Id copy of authorized  Signature",
   commissionerCard: "Certified signatory Certificate",
@@ -88,8 +88,26 @@ export default {
   batch: "Batch",
   details: "Details",
   bankNotificationEmpty: "No request is sent to record payment",
-  cancelSubscribe:"cancel subscribe",
-  delete:"delete",
-  makeDefultAdress:"make defult adress"
-
+  //Residents
+  residents: "Residents",
+  invoiceNo: "Invoice Number",
+  supplier: "Supplier",
+  residentsEmpty: "There are no residents",
+  //SupplierCorrespondence 
+  supplierCorrespondence: "Supplier Correspondence",
+  supplierCorrespondenceEmpty: "There are no contacts",
+  cancelSubscribe: "cancel subscribe",
+  delete: "delete",
+  makeDefaultAddress: "make default address",
+  //Orders Lists
+  ordersLists: "Orders Lists",
+  ordersListsNew: "New Orders list",
+  nameDescription: "Name and description",
+  products: "Products",
+  finalActivity: "Final activity",
+  ordersListsEmpty: "There are no orders lists",
+  //Gift Card
+  giftCard: "Gift Card",
+  giftCardCoupon: "Enter a gift coupon",
+  giftCardCheck: "Check the status and balance",
 };

@@ -71,12 +71,6 @@ export default {
   .main-header {
     text-transform: uppercase;
   }
-  .login-button {
-    margin: 0;
-    background: #fff;
-    color: #1696e7;
-    box-shadow: 0px 3px 27px 0px rgb(0 0 0 / 17%);
-  }
 }
 html:lang(ar) {
   .product-reviews {

@@ -195,8 +195,8 @@
           <b-button
             v-if="!row.item.is_default"
             v-b-tooltip.hover
-            :title="$t('profile.makeDefultAdress')"
-            @click="makeDefultAdress(row)"
+            :title="$t('profile.makeDefaultAddress')"
+            @click="makeDefaultAddress(row)"
           >
             <font-awesome-icon icon="fa-solid fa-address-book" />
           </b-button>
@@ -321,9 +321,9 @@ export default {
           this.errMsg(err.message);
         });
     },
-    makeDefultAdress(row) {
+    makeDefaultAddress(row) {
       profile
-        .makeDefultAdress(row.item.uuid)
+        .makeDefaultAddress(row.item.uuid)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.getAllAdresses();

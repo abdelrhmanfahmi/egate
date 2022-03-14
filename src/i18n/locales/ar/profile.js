@@ -34,7 +34,7 @@ export default {
   newAddress: "عنوان جديد",
   country: "البلد",
   region: "المدينه",
-  city : "الحى",
+  city: "الحى",
   streetNumber: "الشارع",
   homeNumber: "رقم المنزل",
   floor: "الدور",
@@ -83,7 +83,26 @@ export default {
   batch: "الدفعة",
   details: "التفاصيل",
   bankNotificationEmpty: "لم ترسل أي طلب لتسجيل الدفع",
+  //Residents
+  residents: "مرتجعاتي",
+  invoiceNo: "رقم الفاتورة",
+  supplier: "اسم المورد",
+  residentsEmpty: "لا توجد مرتجعات",
+  //SupplierCorrespondence 
+  supplierCorrespondence: "مراسلات المورد",
+  supplierCorrespondenceEmpty: "لا توجد اتصالات",
   cancelSubscribe: "إلغاء الاشتراك",
   delete: "مسح",
-  makeDefultAdress: "اجعل العنوان الافتراضي"
+  makeDefaultAddress: "اجعل العنوان الافتراضي",
+  //Orders Lists
+  ordersLists: "قوائم الطلبات",
+  ordersListsNew: "إنشاء قائمة طلبات جديدة",
+  nameDescription: "الاسم والوصف",
+  products: "المنتجات",
+  finalActivity: "النشاط الاخير",
+  ordersListsEmpty: "لا يوجد أي قوائم طلبات",
+  //Gift Card
+  giftCard: "بطاقة هدية",
+  giftCardCoupon: "ادخال رقم كوبون الاهداء",
+  giftCardCheck: "تحقق من الحالة والتوازن",
 };
