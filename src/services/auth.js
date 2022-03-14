@@ -46,5 +46,8 @@ export default {
   },
   forgetPassWord(payload) {
     return globalAxios.post("auth/forgot-password/reset", payload);
+  },
+  termsAndCondations () {
+    return globalAxios.get("statics/user-terms-and-conditions");
   }
 };

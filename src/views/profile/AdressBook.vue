@@ -35,7 +35,7 @@
         <!-- regions -->
         <b-col lg="6">
           <b-form-group>
-            <label>{{ $t("profile.state") }}</label>
+            <label>{{ $t("profile.region") }}</label>
             <span class="requried">*</span>
             <b-form-select
               v-model="form.region_id"
@@ -61,7 +61,7 @@
         <!-- cities -->
         <b-col lg="6">
           <b-form-group>
-            <label>{{ $t("profile.district") }}</label>
+            <label>{{ $t("profile.city") }}</label>
             <span class="requried">*</span>
             <b-form-select
               v-model="form.city_id"
@@ -239,11 +239,11 @@ export default {
         },
         {
           key: "city.title",
-          label: this.$t("profile.district"),
+          label: this.$t("profile.city"),
         },
         {
           key: "region.title",
-          label: this.$t("profile.state"),
+          label: this.$t("profile.region"),
         },
         {
           key: "country.title",
