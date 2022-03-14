@@ -63,7 +63,7 @@ export default {
         {
           to: "/profile/SupplierCorrespondenceB2b",
           name: this.$t("profile.supplierCorrespondence"),
-          iconName: "newspaper",
+          iconName: "comments",
         },
         {
           to: "/profile/favorite",
@@ -73,27 +73,27 @@ export default {
         {
           to: "/profile/ordersListsB2b",
           name: this.$t("profile.ordersLists"),
-          iconName: "heart",
+          iconName: "clipboard-list",
         },
         {
           to: "/profile/giftCardB2b",
           name: this.$t("profile.giftCard"),
-          iconName: "heart",
+          iconName: "gift",
         },
         {
           to: "/profile/ResidentsB2b",
           name: this.$t("profile.residents"),
-          iconName: "list",
+          iconName: "receipt",
         },
         {
           to: "/profile/BankNotificationsB2b",
           name: this.$t("profile.bankNotifications"),
-          iconName: "list",
+          iconName: "money-bill-wave",
         },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
-          iconName: "list",
+          iconName: "list-ol",
         },
         {
           to: "/profile/supplierRatingB2b",
