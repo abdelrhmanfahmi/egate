@@ -3,7 +3,9 @@
     <TopHeader />
     <Nav />
     <b-alert variant="danger" show v-if="massgeOfVerify">
-      {{ massgeOfVerify }}
+      <b-container>
+        {{ massgeOfVerify }}
+      </b-container>
     </b-alert>
     <router-view></router-view>
     <Footer />
@@ -16,7 +18,6 @@ import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
 
 export default {
-
   components: {
     TopHeader,
     Nav,
