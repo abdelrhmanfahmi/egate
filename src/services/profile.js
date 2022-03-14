@@ -35,6 +35,9 @@ export default {
   buissnessinfoUpload(payload) {
     return globalAxios.post(`members/profile/business-info`, payload);
   },
+  getBuissnessinfodata() {
+    return globalAxios.get(`members/profile/business-info`);
+  },
   suppDocUpload(payload) {
     return globalAxios.post(`members/profile/documents`, payload);
   },
