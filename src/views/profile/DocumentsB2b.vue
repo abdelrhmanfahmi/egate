@@ -23,37 +23,6 @@
               id="CommercialLicense"
               required
             />
-
-            <!-- <img
-              src=""
-              alt=""
-              v-b-modal.modal-center
-              v-if="buissnessinfo.ccl"
-            /> -->
-
-            <!-- <b-modal id="modal-center" centered title="BootstrapVue">
-              <img
-                src=""
-                alt=""
-                v-if="buissnessinfo.ccl.image"
-                @click="openMyModal"
-              />
-            </b-modal> -->
-
-            <!-- <b-button
-              class="btn login-button btn-secondary btn-sm"
-              v
-              @click="downloadFile()"
-            >
-              {{ $t("download") }}
-            </b-button> -->
-
-            <!-- <a
-              :href="buissnessinfo.ccl.url"
-              v-if="buissnessinfo.ccl.document"
-              download
-              >Download</a
-            > -->
           </div>
           <div
             class="error text-start"
@@ -167,10 +136,14 @@
         </div>
         <b-button type="submit" class="login-button">
           {{ $t("save") }}
+          <span class="loading-span" v-if="buissnessinfoUploadLoading"
+            >...</span
+          >
         </b-button>
       </form>
 
       <!-- suppDocUpload? -->
+
       <form class="suppDoc" @submit.prevent="suppDocUploadForm">
         <div class="form-input mb-4">
           <label for="CertificateAdministration">
@@ -181,9 +154,57 @@
               type="file"
               @change="suppDocUploadMoa"
               id="CertificateAdministration"
+              required
             />
-            <img src="" alt="" />
+            <div class="d-flex" v-if="suppData">
+              <img
+                v-b-modal.moaModal
+                :src="suppData.moa_path"
+                alt="moa-image"
+                v-if="suppData.moa_path"
+              />
+
+              <b-modal
+                id="moaModal"
+                :title="$t('profile.certificateAdministration')"
+              >
+                <template #modal-header="{ close }">
+                  <!-- Emulate built in modal header close button action -->
+                  <h5>
+                    {{ $t("profile.certificateAdministration") }}
+                  </h5>
+
+                  <b-button size="sm" variant="outline-danger" @click="close()">
+                    x
+                  </b-button>
+                </template>
+
+                <template>
+                  <img
+                    :src="suppData.moa_path"
+                    alt="moa-image"
+                    v-if="suppData.moa_path"
+                    class="img-fluid w-100"
+                  />
+                </template>
+
+                <template #modal-footer>
+                  <!-- Emulate built in modal footer ok and cancel button actions -->
+                  <b-button
+                    class="btn-block"
+                    variant="info"
+                    @click="downloadImage(suppData.moa_path)"
+                  >
+                    {{ $t("Download") }}
+                    <span class="loading-span" v-if="suppDataLoading">
+                      ...</span
+                    >
+                  </b-button>
+                </template>
+              </b-modal>
+            </div>
           </div>
+
           <div
             class="error text-start"
             v-for="(error, index) in uploadErrors.moa"
@@ -194,16 +215,62 @@
         </div>
         <div class="form-input mb-4">
           <label for="IbanCertificate">
-            {{ $t("profile.ibanCertificate") }}
+            {{ $t("profile.establishmentContract") }}
           </label>
+
           <div class="input-img d-flex">
             <input
               type="file"
               @change="suppDocUploadSad"
-              id="IbanCertificate"
+              id="CertificateAdministration"
+              required
             />
-            <img src="" alt="" />
+            <div class="d-flex" v-if="suppData">
+              <img
+                v-b-modal.sadModal
+                :src="suppData.sad_path"
+                alt="moa-image"
+                v-if="suppData.sad_path"
+              />
+
+              <b-modal
+                id="sadModal"
+                :title="$t('profile.establishmentContract')"
+              >
+                <template #modal-header="{ close }">
+                  <!-- Emulate built in modal header close button action -->
+                  <h5>
+                    {{ $t("profile.establishmentContract") }}
+                  </h5>
+
+                  <b-button size="sm" variant="outline-danger" @click="close()">
+                    x
+                  </b-button>
+                </template>
+
+                <template>
+                  <img
+                    :src="suppData.sad_path"
+                    alt="moa-image"
+                    v-if="suppData.sad_path"
+                    class="img-fluid w-100"
+                  />
+                </template>
+
+                <template #modal-footer>
+                  <!-- Emulate built in modal footer ok and cancel button actions -->
+                  <b-button
+                    class="btn-block"
+                    variant="info"
+                    @click="downloadImage(suppData.sad_path)"
+                  >
+                    {{ $t("Download") }}
+                  </b-button>
+                </template>
+              </b-modal>
+            </div>
           </div>
+
           <div
             class="error text-start"
             v-for="(error, index) in uploadErrors.sad"
@@ -217,18 +284,19 @@
         </b-button>
       </form>
 
-      <!-- suppDocUpload -->
+      <!-- bank iban  -->
 
-      <form lass="suppDoc" @submit.prevent="suppDocUpload">
+      <form lass="suppDoc" @submit.prevent="ibanUpload">
         <div class="form-input mb-4">
           <label for="LetterAuthorization">
-            {{ $t("profile.letterAuthorization") }}
+            {{ $t("profile.ibanCertificatex") }}
           </label>
           <div class="input-img d-flex">
             <input
               type="file"
               @change="bankIbanUpload"
               id="LetterAuthorization"
+              required
             />
             <!-- <img src="" alt="" /> -->
           </div>
@@ -242,6 +310,8 @@
         </div>
         <b-button type="submit" class="login-button">
           {{ $t("save") }}
+
+          <span class="loader" v-if="ibanUploadLoading"></span>
         </b-button>
 
         <!-- <img src="" alt="" /> -->
@@ -251,13 +321,30 @@
 </template>
 <script>
 // import { BIconArrowRight } from "bootstrap-vue";
-
+import axios from "axios";
 import profile from "@/services/profile";
 export default {
   components: {
     // BIconArrowRight,
   },
   methods: {
+    downloadImage(url) {
+      axios({
+        url: url, // File URL Goes Here
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement("a");
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", "image.png");
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      });
+      alert("clicked");
+    },
     uploadPicture(e) {
       // e.target.nextElementSibling.style.display = "flex";
       // e.target.nextElementSibling.src = URL.createObjectURL(e.target.files[0]);
@@ -311,72 +398,17 @@ export default {
     },
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
-      // this.buissnessinfo.auth_civil_copy.value = e.target.files[0];
-      // if (e.target.files[0].type.split("/")[0] === "image") {
-      //   this.buissnessinfo.auth_civil_copy.image = true;
-      //   this.buissnessinfo.auth_civil_copy.document = false;
-
-      //   setTimeout(() => {
-      //     e.target.nextElementSibling.style.display = "flex";
-      //     e.target.nextElementSibling.src = URL.createObjectURL(
-      //       e.target.files[0]
-      //     );
-      //   }, 300);
-
-      //   console.log("image");
-      // } else if (e.target.files[0].type.split("/")[0] === "application") {
-      //   this.buissnessinfo.auth_civil_copy.image = false;
-      //   this.buissnessinfo.auth_civil_copy.document = true;
-      //   this.buissnessinfo.auth_civil_copy.url =
-      //     e.target.files[0].auth_civil_copy;
-      // }
     },
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
-      // this.buissnessinfo.ccs.value = e.target.files[0];
-      // if (e.target.files[0].type.split("/")[0] === "image") {
-      //   this.buissnessinfo.ccs.image = true;
-      //   this.buissnessinfo.ccs.document = false;
-
-      //   setTimeout(() => {
-      //     e.target.nextElementSibling.style.display = "flex";
-      //     e.target.nextElementSibling.src = URL.createObjectURL(
-      //       e.target.files[0]
-      //     );
-      //   }, 300);
-
-      //   console.log("image");
-      // } else if (e.target.files[0].type.split("/")[0] === "application") {
-      //   this.buissnessinfo.ccs.image = false;
-      //   this.buissnessinfo.ccs.document = true;
-      //   this.buissnessinfo.ccs.url = e.target.files[0].ccs;
-      // }
     },
     certificateAdministration(e) {
       this.buissnessinfo.rmcm = e.target.files[0];
-      // this.buissnessinfo.rmcm.value = e.target.files[0];
-      // if (e.target.files[0].type.split("/")[0] === "image") {
-      //   this.buissnessinfo.rmcm.image = true;
-      //   this.buissnessinfo.rmcm.document = false;
-
-      //   setTimeout(() => {
-      //     e.target.nextElementSibling.style.display = "flex";
-      //     e.target.nextElementSibling.src = URL.createObjectURL(
-      //       e.target.files[0]
-      //     );
-      //   }, 300);
-
-      //   console.log("image");
-      // } else if (e.target.files[0].type.split("/")[0] === "application") {
-      //   this.buissnessinfo.rmcm.image = false;
-      //   this.buissnessinfo.rmcm.document = true;
-      //   this.buissnessinfo.rmcm.url = e.target.files[0].rmcm;
-      // }
     },
 
-    // buisness info upload functions
-
+    // buisness info upload function
     async buissnessinfoUpload() {
+      this.buissnessinfoUploadLoading = true;
       const formData = new FormData();
       formData.append("ccl", this.buissnessinfo.ccl);
       formData.append("auth_civil_copy", this.buissnessinfo.auth_civil_copy);
@@ -387,24 +419,26 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.buissnessinfodata();
+            this.getBuissnessinfodata();
           }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.uploadErrors = err.items;
           this.errMsg(err.message);
+        })
+        .finally(() => {
+          this.buissnessinfoUploadLoading = false;
         });
-
-      console.log(formData);
     },
 
-    async buissnessinfodata() {
+    // buisness info get data function
+    async getBuissnessinfodata() {
       await profile
         .getBuissnessinfodata()
         .then((res) => {
           console.log(res);
-          this.sucessMsg(res.data.message);
+          this.sucessMsg(res.data.data.message);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -416,28 +450,40 @@ export default {
     // suppDocUpload change functions
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
-      console.log(URL.createObjectURL(event.target.files[0]));
     },
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
-      console.log(URL.createObjectURL(event.target.files[0]));
     },
-    // checkURL(url) {
-    //   return url.match(/.(jpeg|jpg|gif|png)$/) != null;
-    // },
 
-    // suppDocUpload change functions
-
-    bankIbanUpload(event) {
-      this.bankIban.iban = event.target.files[0];
-    },
+    // suppDocUpload upload function
 
     async suppDocUploadForm() {
+      this.suppDataLoading = true;
       const formData = new FormData();
       formData.append("iban", this.bankIban.iban);
       await profile
-        .ibanUpload(formData)
+        .suppDocUpload(formData)
         .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.suppData = res.data.items;
+          console.log(res);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.uploadErrors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          this.suppDataLoading = false;
+        });
+    },
+
+    // suppDocUpload get data function
+    async getSuppDocUploadData() {
+      await profile
+        .getSuppDocUploadData()
+        .then((res) => {
+          console.log(res);
           this.sucessMsg(res.data.message);
         })
         .catch((error) => {
@@ -445,14 +491,64 @@ export default {
           this.uploadErrors = err.items;
           this.errMsg(err.message);
         });
-
-      console.log(this.suppDocUploadInfo);
     },
+
+    // bankIbanUpload change function
+    bankIbanUpload(event) {
+      this.bankIban.iban = event.target.files[0];
+    },
+
+    // bankIbanUpload upload function
+    async ibanUpload() {
+      this.ibanUploadLoading = true;
+      const formData = new FormData();
+      formData.append("iban", this.bankIban.iban);
+      await profile
+        .ibanUpload(formData)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            this.getibanUploadData();
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.uploadErrors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          this.ibanUploadLoading = false;
+        });
+    },
+
+    // buisness info get data function
+    async getibanUploadData() {
+      await profile
+        .getibanUploadData()
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.uploadErrors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+
+    // checkURL(url) {
+    //   return url.match(/.(jpeg|jpg|gif|png)$/) != null;
+    // },
+
+    // suppDocUpload change functionsF
   },
   data() {
     return {
       uploadErrors: {},
       errors: {},
+      buissnessinfoUploadLoading: false,
+      suppDataLoading: false,
+      ibanUploadLoading: false,
       buissnessinfo: {
         ccl: null,
         auth_civil_copy: null,
@@ -466,7 +562,23 @@ export default {
       bankIban: {
         iban: null,
       },
+      // represent data
+      suppData: null,
+      buisnessData: null,
+      ibanData: null,
     };
+  },
+  mounted() {
+    profile.getSuppDocUploadData().then((res) => {
+      this.suppData = res.data.items;
+    });
+    profile.getBuissnessinfodata().then((res) => {
+      this.buisnessData = res.data.items;
+      console.log("buisnessData", res.data);
+    });
+    profile.getibanUploadData().then((res) => {
+      this.ibanData = res.data.items;
+    });
   },
 };
 </script>
@@ -502,7 +614,7 @@ export default {
         }
         img {
           width: 10rem;
-          display: none;
+          // display: none;
         }
         .input-img {
           height: 4.5rem;
@@ -514,6 +626,35 @@ export default {
 html:lang(ar) {
   .save-icon {
     transform: rotateZ(180deg);
+  }
+}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid blue;
+  border-bottom: 4px solid blue;
+  width: 20px;
+  height: 20px;
+  margin: -4px 4px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
