@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .cover-data {
+  //local now
   background: url("../../assets/images/cover.png") no-repeat center;
 }
 </style>
