@@ -12,52 +12,71 @@ import profileRoutes from "./profileRoutes";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/suppliers",
-    name: "Suppliers",
-    component: Suppliers,
-  },
-  {
-    path: "/supplier",
-    name: "Supplier",
-    component: Supplier,
-  },
-  {
-    path: "/about",
-    name: "About",
+const routes = [{
+        path: "/",
+        name: "Home",
+        component: Home,
+    },
+    {
+        path: "/suppliers",
+        name: "Suppliers",
+        component: Suppliers,
+    },
+    {
+        path: "/supplier",
+        name: "Supplier",
+        component: Supplier,
+    },
+    {
+        path: "/about",
+        name: "About",
 
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-  {
-    path: "/corporat",
-    name: "Corporat",
-    component: Corporat,
-  },
-  {
-    path: "/contact-us",
-    name: "ContactUs",
-    component: ContactUs,
-  },
-  {
-    path: "/forget-password",
-    name: "ForgetPassword",
-    component: ForgetPassword,
-  },
-  ...auth,
-  profileRoutes
+        component: () =>
+            import ( /* webpackChunkName: "about" */ "../views/About.vue"),
+    },
+    {
+        path: "/corporat",
+        name: "Corporat",
+        component: Corporat,
+    },
+    {
+        path: "/contact-us",
+        name: "ContactUs",
+        component: ContactUs,
+    },
+    {
+        path: "/forget-password",
+        name: "ForgetPassword",
+        component: ForgetPassword,
+    },
+    // {
+    //   path: "/categories",
+    //   name: "categories",
+    //   component: () =>
+    //     import(/* webpackChunkName: "about" */ "../views/categories.vue"),
+    //   children: [
+    //     {
+    //       path: "/categories/:_slug",
+    //       name: "subCategory",
+    //       component: () =>
+    //         import(/* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
+    //     },
+    //   ],
+    // },
+    {
+        path: "/categories/:slug",
+        name: "subCategory",
+        component: () =>
+            import ( /* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
+    },
+    ...auth,
+    profileRoutes,
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
 });
 
 export default router;

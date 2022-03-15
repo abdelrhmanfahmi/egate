@@ -2,7 +2,7 @@
   <div class="category-card">
     <div>
       <b-img
-        src="https://humhum.work/user-interface/public/assets/img/slider/ni1111.png"
+        :src="image"
       ></b-img>
     </div>
 
@@ -21,6 +21,9 @@ export default {
         return {};
       },
     },
+    image:{
+      type:Object
+    }
   },
 };
 </script>
