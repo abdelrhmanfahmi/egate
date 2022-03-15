@@ -18,7 +18,7 @@ let lang = null;
 lang = localStorage.getItem("lang") || "en";
 document.documentElement.lang = lang;
 if (lang === "ar") {
-  document.documentElement.dir = "rtl";
+    document.documentElement.dir = "rtl";
 }
 
 /* add fontawesome core */
@@ -47,14 +47,18 @@ Vue.use(VueSweetalert2);
 
 import "./mixins";
 
+// Import the component
+import VueSkeletonLoader from 'skeleton-loader-vue';
 
+// Register the component globally
+Vue.component('vue-skeleton-loader', VueSkeletonLoader);
 
 Vue.config.productionTip = false;
 new Vue({
-  router,
-  store,
-  i18n,
-  render: (h) => h(App),
+    router,
+    store,
+    i18n,
+    render: (h) => h(App),
 }).$mount("#app");
 // Styles: SCSS
 import "./assets/scss/main.scss";
