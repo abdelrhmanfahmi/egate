@@ -37,7 +37,7 @@
                 <b-col lg="12">
                   <b-form-group>
                     <label for="password">{{
-                      $t("profile.NewPassword")
+                      $t("register.password")
                     }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
