@@ -40,7 +40,9 @@ export default {
         auth
           .makeLoginSocail("b2c", this.provider, payload)
           .then((res) => {
+            console.log(res);
             localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+            this.$router.replace('/')
             location.reload();
           })
           .catch((err) => {
