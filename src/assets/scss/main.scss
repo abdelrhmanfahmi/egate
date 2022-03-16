@@ -3,9 +3,10 @@
   Description: Main scss file. Imports other scss partials 
   ----------------------------------------------------------------------------------------
 ==========================================================================================*/
+
 @import './variables';
 @import './global';
 @import './component';
 @import './mixins';
 @import './helpers';
-
+@import'./_tabs.scss';
