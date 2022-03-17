@@ -5,6 +5,7 @@ import profile from "./profile";
 import contactUs from "./contactUs";
 import cart from "./cart";
 import supplier from "./supplier";
+import items from "./items";
 
 export default {
   register,
@@ -14,4 +15,5 @@ export default {
   contactUs,
   cart,
   supplier,
+  items,
 };

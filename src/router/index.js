@@ -6,13 +6,15 @@ import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue";
 import ForgetPassword from "../views/Forget-Password.vue";
+import Items from "../views/Items.vue";
 
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: "/",
         name: "Home",
         component: Home,
@@ -32,7 +34,7 @@ const routes = [{
         name: "About",
 
         component: () =>
-            import ( /* webpackChunkName: "about" */ "../views/About.vue"),
+            import(/* webpackChunkName: "about" */ "../views/About.vue"),
     },
     {
         path: "/corporat",
@@ -48,6 +50,11 @@ const routes = [{
         path: "/forget-password",
         name: "ForgetPassword",
         component: ForgetPassword,
+    },
+    {
+        path: "/items",
+        name: "Items",
+        component: Items,
     },
     // {
     //   path: "/categories",
@@ -67,7 +74,7 @@ const routes = [{
         path: "/categories/:slug",
         name: "subCategory",
         component: () =>
-            import ( /* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
+            import(/* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
     },
     ...auth,
     profileRoutes,

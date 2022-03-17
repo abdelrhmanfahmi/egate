@@ -7,6 +7,7 @@
         {{ massgeOfVerify }}
       </b-container>
     </b-alert>
+
     <router-view></router-view>
     <Footer />
   </div>
