@@ -1,4 +1,7 @@
 export default {
+  needEmailContact: "لتغير البريد الالكتروني اتصل بنا.",
+  needPhoneContact: "لتغير الهاتف اتصل بنا.",
+  needCompanyContact: "لتغير الشركة اتصل بنا.",
   //Header
   completeAccount: "اكمل حسابك",
   completeMessage: "جى إكمال التسجيل عن طريق تحميل المستندات المطلوبة ، الان يمكنك فقط إدراج منتجاتك.",
