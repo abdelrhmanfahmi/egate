@@ -27,6 +27,16 @@ export default {
       countValue: 1,
     };
   },
+  props: {
+    quantity: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+  },
+  mounted() {
+    this.countValue = this.quantity;
+  },
   methods: {
     incrementQuantity() {
       this.countValue += 1;
@@ -70,6 +80,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
   }
 }
 </style>

@@ -21,6 +21,12 @@
         <a href="#" class="name">{{ data.name }}</a>
         <span class="price">{{ data.price }}</span>
       </div>
+      <span class="discount d-block text-white" v-if="data.discount">
+        - {{ data.discount }} %
+      </span>
+      <span class="new d-block text-white" v-if="data.new">{{
+        $t("items.new")
+      }}</span>
     </div>
   </div>
 </template>
@@ -102,6 +108,16 @@ export default {
         color: #544842;
         font-family: "Almarai", sans-serif;
       }
+    }
+    .new,
+    .discount {
+      margin: 0.2rem 0;
+    }
+    .new {
+      background: red;
+    }
+    .discount {
+      background: #ca84ac;
     }
   }
 }
