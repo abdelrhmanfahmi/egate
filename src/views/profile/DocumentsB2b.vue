@@ -313,6 +313,7 @@
 </template>
 <script>
 // import { BIconArrowRight } from "bootstrap-vue";
+// import { BIconArrowRight } from "bootstrap-vue";
 import axios from "axios";
 import profile from "@/services/profile";
 export default {
