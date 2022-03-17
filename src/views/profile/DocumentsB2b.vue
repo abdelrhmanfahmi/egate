@@ -21,7 +21,6 @@
               type="file"
               @change="CommercialLicense"
               id="CommercialLicense"
-              
             />
           </div>
           <div
@@ -42,7 +41,6 @@
               type="file"
               @change="signatureAccreditation"
               id="CommissionerCard"
-              
             />
             <!-- <img
               src=""
@@ -76,7 +74,6 @@
               type="file"
               @change="commissionerCard"
               id="SignatureAccreditation"
-              
             />
             <!-- <img
               src=""
@@ -110,7 +107,6 @@
               type="file"
               @change="certificateAdministration"
               id="certificateAdministration"
-              
             />
             <!-- <img
               src=""
@@ -152,7 +148,6 @@
               type="file"
               @change="suppDocUploadMoa"
               id="establishmentContract"
-              
             />
             <div class="d-flex" v-if="suppData">
               <img
@@ -221,7 +216,6 @@
               type="file"
               @change="suppDocUploadSad"
               id="CertificateAdministration"
-              
             />
             <div class="d-flex" v-if="suppData">
               <img
@@ -295,13 +289,12 @@
               type="file"
               @change="bankIbanUpload"
               id="LetterAuthorization"
-              
             />
             <!-- <img src="" alt="" /> -->
           </div>
           <div
             class="error text-start"
-            v-for="(error, index) in uploadErrors.iban"
+            v-for="(error, index) in uploadErrors.iban_code"
             :key="index"
           >
             {{ error }}
@@ -325,6 +318,47 @@ import profile from "@/services/profile";
 export default {
   components: {
     // BIconArrowRight,
+  },
+  data() {
+    return {
+      uploadErrors: {},
+      errors: {},
+      buissnessinfoUploadLoading: false,
+      suppDataLoading: false,
+      ibanUploadLoading: false,
+      btn1Disabled: false,
+      btn2Disabled: false,
+      btn3Disabled: false,
+      buissnessinfo: {
+        ccl: null,
+        auth_civil_copy: null,
+        ccs: null,
+        rmcm: null,
+      },
+      suppDocUploadInfo: {
+        moa: null,
+        sad: null,
+      },
+      bankIban: {
+        iban: null,
+      },
+      // represent data
+      suppData: null,
+      buisnessData: null,
+      ibanData: null,
+    };
+  },
+  mounted() {
+    profile.getSuppDocUploadData().then((res) => {
+      this.suppData = res.data.items;
+    });
+    profile.getBuissnessinfodata().then((res) => {
+      this.buisnessData = res.data.items;
+      console.log("buisnessData", res.data);
+    });
+    profile.getibanUploadData().then((res) => {
+      this.ibanData = res.data.items;
+    });
   },
   methods: {
     downloadImage(url) {
@@ -398,25 +432,34 @@ export default {
     },
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
-      this.checkBtn1();
+      // this.checkBtn1();
     },
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
-      this.checkBtn1();
+      // this.checkBtn1();
     },
     certificateAdministration(e) {
       this.buissnessinfo.rmcm = e.target.files[0];
-      this.checkBtn1();
+      // this.checkBtn1();
     },
 
     // buisness info upload function
     async buissnessinfoUpload() {
       this.buissnessinfoUploadLoading = true;
+      this.btn1Disabled = true;
       const formData = new FormData();
-      formData.append("ccl", this.buissnessinfo.ccl);
-      formData.append("auth_civil_copy", this.buissnessinfo.auth_civil_copy);
-      formData.append("ccs", this.buissnessinfo.ccs);
-      formData.append("rmcm", this.buissnessinfo.rmcm);
+      if (this.buissnessinfo.ccl !== null) {
+        formData.append("ccl", this.buissnessinfo.ccl);
+      }
+      if (this.buissnessinfo.auth_civil_copy !== null) {
+        formData.append("auth_civil_copy", this.buissnessinfo.auth_civil_copy);
+      }
+      if (this.buissnessinfo.ccs !== null) {
+        formData.append("ccs", this.buissnessinfo.ccs);
+      }
+      if (this.buissnessinfo.rmcm !== null) {
+        formData.append("rmcm", this.buissnessinfo.rmcm);
+      }
 
       await profile
         .buissnessinfoUpload(formData)
@@ -433,6 +476,7 @@ export default {
         })
         .finally(() => {
           this.buissnessinfoUploadLoading = false;
+          this.btn1Disabled = false;
         });
     },
 
@@ -454,19 +498,27 @@ export default {
     // suppDocUpload change functions
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
-      this.checkBtn2()
+      this.checkBtn2();
     },
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
-      this.checkBtn2()
+      this.checkBtn2();
     },
 
     // suppDocUpload upload function
 
     async suppDocUploadForm() {
       this.suppDataLoading = true;
+      this.btn2Disabled = true;
       const formData = new FormData();
-      formData.append("iban", this.bankIban.iban);
+      
+      if (this.suppDocUploadInfo.moa !== null) {
+        formData.append("moa", this.suppDocUploadInfo.moa);
+      }
+      if (this.suppDocUploadInfo.sad !== null) {
+        formData.append("sad", this.suppDocUploadInfo.sad);
+      }
+
       await profile
         .suppDocUpload(formData)
         .then((res) => {
@@ -481,7 +533,9 @@ export default {
         })
         .finally(() => {
           this.suppDataLoading = false;
+          this.btn2Disabled = false;
         });
+        console.log(formData);
     },
 
     // suppDocUpload get data function
@@ -502,14 +556,17 @@ export default {
     // bankIbanUpload change function
     bankIbanUpload(event) {
       this.bankIban.iban = event.target.files[0];
-      this.checkBtn3()
+      this.checkBtn3();
     },
 
     // bankIbanUpload upload function
     async ibanUpload() {
       this.ibanUploadLoading = true;
+      this.btn3Disabled = true;
       const formData = new FormData();
-      formData.append("iban", this.bankIban.iban);
+      if (this.bankIban.iban !== null) {
+        formData.append("iban_code", this.bankIban.iban);
+      }
       await profile
         .ibanUpload(formData)
         .then((res) => {
@@ -526,6 +583,7 @@ export default {
         })
         .finally(() => {
           this.ibanUploadLoading = false;
+          this.btn3Disabled = false;
         });
     },
 
@@ -545,7 +603,6 @@ export default {
     },
     //btn 1 check
     checkBtn1() {
-      
       if (
         this.buissnessinfo.ccc !== null &&
         this.buissnessinfo.auth_civil_copy !== null &&
@@ -557,7 +614,6 @@ export default {
     },
     //btn 2 check
     checkBtn2() {
-      
       if (
         this.suppDocUploadInfo.moa !== null &&
         this.suppDocUploadInfo.sad !== null
@@ -567,10 +623,7 @@ export default {
     },
     //btn 3 check
     checkBtn3() {
-      
-      if (
-        this.bankIban.iban !== null 
-      ) {
+      if (this.bankIban.iban !== null) {
         this.btn3Disabled = false;
       }
     },
@@ -580,47 +633,6 @@ export default {
     // },
 
     // suppDocUpload change functionsF
-  },
-  data() {
-    return {
-      uploadErrors: {},
-      errors: {},
-      buissnessinfoUploadLoading: false,
-      suppDataLoading: false,
-      ibanUploadLoading: false,
-      btn1Disabled: true,
-      btn2Disabled: true,
-      btn3Disabled: true,
-      buissnessinfo: {
-        ccl: null,
-        auth_civil_copy: null,
-        ccs: null,
-        rmcm: null,
-      },
-      suppDocUploadInfo: {
-        moa: null,
-        sad: null,
-      },
-      bankIban: {
-        iban: null,
-      },
-      // represent data
-      suppData: null,
-      buisnessData: null,
-      ibanData: null,
-    };
-  },
-  mounted() {
-    profile.getSuppDocUploadData().then((res) => {
-      this.suppData = res.data.items;
-    });
-    profile.getBuissnessinfodata().then((res) => {
-      this.buisnessData = res.data.items;
-      console.log("buisnessData", res.data);
-    });
-    profile.getibanUploadData().then((res) => {
-      this.ibanData = res.data.items;
-    });
   },
 };
 </script>
@@ -698,5 +710,8 @@ html:lang(ar) {
   100% {
     transform: rotate(360deg);
   }
+}
+button:disabled {
+  cursor: no-drop;
 }
 </style>
