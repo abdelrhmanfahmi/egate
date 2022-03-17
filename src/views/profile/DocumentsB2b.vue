@@ -21,7 +21,7 @@
               type="file"
               @change="CommercialLicense"
               id="CommercialLicense"
-              required
+              
             />
           </div>
           <div
@@ -42,7 +42,7 @@
               type="file"
               @change="signatureAccreditation"
               id="CommissionerCard"
-              required
+              
             />
             <!-- <img
               src=""
@@ -76,7 +76,7 @@
               type="file"
               @change="commissionerCard"
               id="SignatureAccreditation"
-              required
+              
             />
             <!-- <img
               src=""
@@ -110,7 +110,7 @@
               type="file"
               @change="certificateAdministration"
               id="certificateAdministration"
-              required
+              
             />
             <!-- <img
               src=""
@@ -136,9 +136,7 @@
         </div>
         <b-button type="submit" class="login-button" :disabled="btn1Disabled">
           {{ $t("profile.save") }}
-          <span class="loading-span" v-if="buissnessinfoUploadLoading"
-            >...</span
-          >
+          <span class="loader" v-if="buissnessinfoUploadLoading"></span>
         </b-button>
       </form>
 
@@ -154,7 +152,7 @@
               type="file"
               @change="suppDocUploadMoa"
               id="CertificateAdministration"
-              required
+              
             />
             <div class="d-flex" v-if="suppData">
               <img
@@ -195,7 +193,7 @@
                     variant="info"
                     @click="downloadImage(suppData.moa_path)"
                   >
-                    {{ $t("Download") }}
+                    {{ $t("profile.download") }}
                     <span class="loading-span" v-if="suppDataLoading">
                       ...</span
                     >
@@ -223,7 +221,7 @@
               type="file"
               @change="suppDocUploadSad"
               id="CertificateAdministration"
-              required
+              
             />
             <div class="d-flex" v-if="suppData">
               <img
@@ -264,7 +262,7 @@
                     variant="info"
                     @click="downloadImage(suppData.sad_path)"
                   >
-                    {{ $t("Download") }}
+                    {{ $t("profile.download") }}
                   </b-button>
                 </template>
               </b-modal>
@@ -281,6 +279,7 @@
         </div>
         <b-button type="submit" class="login-button" :disabled="btn2Disabled">
           {{ $t("profile.save") }}
+          <span class="loader" v-if="suppDataLoading"></span>
         </b-button>
       </form>
 
@@ -296,7 +295,7 @@
               type="file"
               @change="bankIbanUpload"
               id="LetterAuthorization"
-              required
+              
             />
             <!-- <img src="" alt="" /> -->
           </div>
@@ -523,6 +522,7 @@ export default {
           const err = Object.values(error)[2].data;
           this.uploadErrors = err.items;
           this.errMsg(err.message);
+          console.log(error);
         })
         .finally(() => {
           this.ibanUploadLoading = false;

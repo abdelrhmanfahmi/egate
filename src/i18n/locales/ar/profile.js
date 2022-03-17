@@ -61,9 +61,10 @@ export default {
   commissionerCard: "البطاقة المدنية للمفوض بالتوقيع",
   establishmentContract: "عقد التأسيس",
   certificateAdministration: "شهادة صاحب الحق في الإدارة من وزارة التجارة",
-  ibanCertificate: "IBAN شهادة برقم",
+  ibanCertificate: "رقم الحساب المصرفى",
   letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
   company: "شركة",
+  download:'تحميل',
   // Supplier Rating
   supplierRatings: "تقييمات المورد الخاص بي",
   supplierRatingsEmpty: "لم تقم بإضافة اي مراجعات",

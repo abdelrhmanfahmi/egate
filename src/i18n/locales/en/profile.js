@@ -67,6 +67,7 @@ export default {
   ibanCertificate: "IBAN Certificate No",
 
   company: "company",
+  download:'Download',
   // Supplier Rating
   supplierRatings: "My supplier ratings",
   supplierRatingsEmpty: "You have not added any reviews",
