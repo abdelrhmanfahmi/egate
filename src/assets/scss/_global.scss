@@ -285,4 +285,8 @@ html:lang(ar) {
 		left: unset;
 		right: -1.5rem;
 	}
+	.custom-control-label::after {
+		left: unset;
+		right: -1.5rem;
+	}
 }
