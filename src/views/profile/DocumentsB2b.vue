@@ -134,8 +134,8 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" class="login-button">
-          {{ $t("save") }}
+        <b-button type="submit" class="login-button" :disabled="btn1Disabled">
+          {{ $t("profile.save") }}
           <span class="loading-span" v-if="buissnessinfoUploadLoading"
             >...</span
           >
@@ -279,8 +279,8 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" class="login-button">
-          {{ $t("save") }}
+        <b-button type="submit" class="login-button" :disabled="btn2Disabled">
+          {{ $t("profile.save") }}
         </b-button>
       </form>
 
@@ -289,7 +289,7 @@
       <form lass="suppDoc" @submit.prevent="ibanUpload">
         <div class="form-input mb-4">
           <label for="LetterAuthorization">
-            {{ $t("profile.ibanCertificatex") }}
+            {{ $t("profile.ibanCertificate") }}
           </label>
           <div class="input-img d-flex">
             <input
@@ -308,8 +308,8 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" class="login-button">
-          {{ $t("save") }}
+        <b-button type="submit" class="login-button" :disabled="btn3Disabled">
+          {{ $t("profile.save") }}
 
           <span class="loader" v-if="ibanUploadLoading"></span>
         </b-button>
@@ -395,15 +395,19 @@ export default {
       //   this.buissnessinfo.ccl.document = true;
       //   this.buissnessinfo.ccl.url = e.target.files[0].ccl;
       // }
+      this.checkBtn1();
     },
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
+      this.checkBtn1();
     },
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
+      this.checkBtn1();
     },
     certificateAdministration(e) {
       this.buissnessinfo.rmcm = e.target.files[0];
+      this.checkBtn1();
     },
 
     // buisness info upload function
@@ -414,6 +418,7 @@ export default {
       formData.append("auth_civil_copy", this.buissnessinfo.auth_civil_copy);
       formData.append("ccs", this.buissnessinfo.ccs);
       formData.append("rmcm", this.buissnessinfo.rmcm);
+
       await profile
         .buissnessinfoUpload(formData)
         .then((res) => {
@@ -450,9 +455,11 @@ export default {
     // suppDocUpload change functions
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
+      this.checkBtn2()
     },
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
+      this.checkBtn2()
     },
 
     // suppDocUpload upload function
@@ -496,6 +503,7 @@ export default {
     // bankIbanUpload change function
     bankIbanUpload(event) {
       this.bankIban.iban = event.target.files[0];
+      this.checkBtn3()
     },
 
     // bankIbanUpload upload function
@@ -535,6 +543,37 @@ export default {
           this.errMsg(err.message);
         });
     },
+    //btn 1 check
+    checkBtn1() {
+      
+      if (
+        this.buissnessinfo.ccc !== null &&
+        this.buissnessinfo.auth_civil_copy !== null &&
+        this.buissnessinfo.ccs !== null &&
+        this.buissnessinfo.rmcm !== null
+      ) {
+        this.btn1Disabled = false;
+      }
+    },
+    //btn 2 check
+    checkBtn2() {
+      
+      if (
+        this.suppDocUploadInfo.moa !== null &&
+        this.suppDocUploadInfo.sad !== null
+      ) {
+        this.btn2Disabled = false;
+      }
+    },
+    //btn 3 check
+    checkBtn3() {
+      
+      if (
+        this.bankIban.iban !== null 
+      ) {
+        this.btn3Disabled = false;
+      }
+    },
 
     // checkURL(url) {
     //   return url.match(/.(jpeg|jpg|gif|png)$/) != null;
@@ -549,6 +588,9 @@ export default {
       buissnessinfoUploadLoading: false,
       suppDataLoading: false,
       ibanUploadLoading: false,
+      btn1Disabled: true,
+      btn2Disabled: true,
+      btn3Disabled: true,
       buissnessinfo: {
         ccl: null,
         auth_civil_copy: null,
