@@ -252,6 +252,19 @@ label,
 	margin: 1.5rem 0;
 	margin-inline-start: 3rem;
 }
+.navigation {
+	.prev,
+	.next {
+		font-size: 11pt;
+		color: #403a37;
+	}
+	.prev span {
+		margin-inline-end: 0.2rem;
+	}
+	.next span {
+		margin-inline-start: 0.2rem;
+	}
+}
 // arabic style
 html:lang(ar) {
 	.b-sidebar.b-sidebar-right > .b-sidebar-header .close {
