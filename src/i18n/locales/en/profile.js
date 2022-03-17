@@ -1,4 +1,7 @@
 export default {
+  needEmailContact: "To change email, contact us.",
+  needPhoneContact: "To change the phone, contact us.",
+  needCompanyContact: "To change company, contact us.",
   //Header
   completeAccount: "Complete your account",
   completeMessage: "Please complete the registration by downloading the required documents, now you can only insert your products.",

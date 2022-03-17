@@ -38,6 +38,9 @@
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
+            <router-link to="/contact-us" class="mx-1 text-lowercase">
+              {{ $t("profile.needEmailContact") }}
+            </router-link>
             <b-form-input id="email" v-model="form.email" disabled />
             <div
               class="error"
@@ -53,6 +56,9 @@
           <b-form-group>
             <label for="phone">{{ $t("register.phone") }}</label>
             <span class="requried">*</span>
+            <router-link to="/contact-us" class="mx-1 text-lowercase">
+              {{ $t("profile.needPhoneContact") }}
+            </router-link>
             <b-form-input id="phone" v-model="form.mobile_number" disabled />
             <div
               class="error"
@@ -91,6 +97,9 @@
             <b-form-group>
               <label for="companyName">{{ $t("register.companyName") }}</label>
               <span class="requried">*</span>
+              <router-link to="/contact-us" class="mx-1 text-lowercase">
+                {{ $t("profile.needCompanyContact") }}
+              </router-link>
               <b-form-input
                 id="companyName"
                 v-model="form.company_name"
