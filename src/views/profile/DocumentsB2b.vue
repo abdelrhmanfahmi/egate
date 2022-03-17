@@ -144,14 +144,14 @@
 
       <form class="suppDoc" @submit.prevent="suppDocUploadForm">
         <div class="form-input mb-4">
-          <label for="CertificateAdministration">
-            {{ $t("profile.certificateAdministration") }}
+          <label for="establishmentContract">
+            {{ $t("profile.establishmentContract") }}
           </label>
           <div class="input-img d-flex">
             <input
               type="file"
               @change="suppDocUploadMoa"
-              id="CertificateAdministration"
+              id="establishmentContract"
               
             />
             <div class="d-flex" v-if="suppData">
