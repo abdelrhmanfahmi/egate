@@ -2,11 +2,12 @@
   <div class="main-layout">
     <TopHeader />
     <Nav />
-    <!-- <b-alert variant="danger" show v-if="massgeOfVerify">
+    <b-alert variant="danger" show v-if="massgeOfVerify">
       <b-container>
         {{ massgeOfVerify }}
       </b-container>
-    </b-alert> -->
+    </b-alert>
+
     <router-view></router-view>
     <Footer />
   </div>
