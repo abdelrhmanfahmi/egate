@@ -142,7 +142,7 @@ export default {
       auth
         .login("b2c", this.form)
         .then((res) => {
-          if (res.data.items.item.verify_email_required) {
+          if (!res.data.items.item.verify_email_required) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
           }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
@@ -156,9 +156,10 @@ export default {
         });
     },
     async getLink(provider) {
-      await localStorage.setItem("provider", provider);
+      const backUrl = `${this.mainDoamin}complete-social-profile`
+      await localStorage.setItem("provider", provider , backUrl);
       auth
-        .getSocialLink("b2c", provider, this.mainDoamin)
+        .getSocialLink("b2c", provider, )
         .then((res) => {
           window.location.href = res.data.items.url;
         })
