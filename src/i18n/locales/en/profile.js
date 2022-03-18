@@ -114,4 +114,5 @@ export default {
   giftCard: "Gift Card",
   giftCardCoupon: "Enter a gift coupon",
   giftCardCheck: "Check the status and balance",
+  profileData : "Your data is completed"
 };

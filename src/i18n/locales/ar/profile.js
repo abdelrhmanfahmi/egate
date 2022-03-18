@@ -109,4 +109,5 @@ export default {
   giftCard: "بطاقة هدية",
   giftCardCoupon: "ادخال رقم كوبون الاهداء",
   giftCardCheck: "تحقق من الحالة والتوازن",
+  profileData : "الملف الشحضي كامل من حيث البيانات"
 };

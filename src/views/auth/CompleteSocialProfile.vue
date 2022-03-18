@@ -4,9 +4,9 @@
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <div v-if="userInfo.item.email && userInfo.item.mobile_number">
-            <h1>Your data is completed</h1>
+            <h1>{{ $t("profile.profileData") }}</h1>
           </div>
-          <b-col lg="10">
+          <b-col lg="10" v-else>
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
             </div>
