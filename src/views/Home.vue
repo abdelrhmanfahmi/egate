@@ -34,7 +34,7 @@ export default {
     makeLoginSocail() {
       if (this.$route.query.code && !this.$route.query.uuid) {
         const payload = {
-          redirect: this.mainDoamin,
+          redirect: `${this.mainDoamin}complete-social-profile`,
           code: this.$route.query.code,
         };
         auth
