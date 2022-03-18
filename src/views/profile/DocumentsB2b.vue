@@ -355,7 +355,6 @@ export default {
     });
     profile.getBuissnessinfodata().then((res) => {
       this.buisnessData = res.data.items;
-      console.log("buisnessData", res.data);
     });
     profile.getibanUploadData().then((res) => {
       this.ibanData = res.data.items;
@@ -486,7 +485,6 @@ export default {
       await profile
         .getBuissnessinfodata()
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.data.message);
         })
         .catch((error) => {
@@ -544,7 +542,6 @@ export default {
       await profile
         .getSuppDocUploadData()
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
         })
         .catch((error) => {
@@ -580,7 +577,6 @@ export default {
           const err = Object.values(error)[2].data;
           this.uploadErrors = err.items;
           this.errMsg(err.message);
-          console.log(error);
         })
         .finally(() => {
           this.ibanUploadLoading = false;
@@ -593,7 +589,7 @@ export default {
       await profile
         .getibanUploadData()
         .then((res) => {
-          console.log(res);
+         
           this.sucessMsg(res.data.message);
         })
         .catch((error) => {

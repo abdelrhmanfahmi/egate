@@ -9,7 +9,6 @@ lang = localStorage.getItem("lang") || "en";
 const getToken = function () {
   if (localStorage.getItem("userInfo") && localStorage.getItem("userInfo") != 'undefined' 
     && localStorage.getItem("userInfo") != undefined) {
-    console.log(localStorage.getItem("userInfo"));
     let hasToken = JSON.parse(localStorage.getItem("userInfo"));
     return hasToken ? `Bearer ${hasToken.access_token}` : ""
   }

@@ -55,7 +55,6 @@ export default {
       await categories
         .getCategories("lists/categories")
         .then((resp) => {
-          console.log(resp);
           this.categories = resp.data.items;
         })
         .catch((err) => {
