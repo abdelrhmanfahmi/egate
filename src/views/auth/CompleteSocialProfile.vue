@@ -137,7 +137,7 @@ export default {
       countries: [],
     };
   },
-  async mounted() {
+  async created() {
     await this.makeLoginSocail();
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
