@@ -31,24 +31,7 @@ export default {
     // this.checkEmailForgetPassWord()
   },
   methods: {
-    makeLoginSocail() {
-      if (this.$route.query.code && !this.$route.query.uuid) {
-        const payload = {
-          redirect: `${this.mainDoamin}complete-social-profile`,
-          code: this.$route.query.code,
-        };
-        auth
-          .makeLoginSocail("b2c", this.provider, payload)
-          .then((res) => {
-            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-            this.$router.replace('/')
-            location.reload();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
+
 
     emailVerify() {
       if (this.$route.query.uuid) {

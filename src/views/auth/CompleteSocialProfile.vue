@@ -81,13 +81,16 @@ export default {
     };
   },
   created() {
+    makeLoginSocail();
+  },
+  mounted() {
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
     }
   },
   methods: {
     makeLoginSocail() {
-      if (this.$route.query.code && !this.$route.query.uuid) {
+      if (this.$route.query.code) {
         const payload = {
           redirect: `${this.mainDoamin}complete-social-profile`,
           code: this.$route.query.code,
