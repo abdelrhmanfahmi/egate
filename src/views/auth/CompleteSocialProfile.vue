@@ -134,6 +134,7 @@ export default {
       errorMsg: "",
       errors: {},
       provider: localStorage.getItem("provider"),
+      countries: [],
     };
   },
   async mounted() {
