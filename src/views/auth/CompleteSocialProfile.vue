@@ -13,7 +13,7 @@
             <form @submit.prevent="completeProfile()">
               <b-row class="justify-content-center">
                 <!-- Email -->
-                <b-col lg="12" v-if="userInfo.item.email">
+                <b-col lg="12" v-if="!userInfo.item.email">
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
@@ -31,18 +31,41 @@
                     </div>
                   </b-form-group>
                 </b-col>
-                <!-- Password -->
-                <b-col lg="12" v-if="userInfo.item.mobile_number">
+                <!-- country code -->
+                <b-col lg="3" cols="4" v-if="!userInfo.item.mobile_number">
                   <b-form-group>
-                    <label for="password">{{ $t("register.phone") }}</label>
+                    <label for="countryCode">{{
+                      $t("register.countryCode")
+                    }}</label>
                     <span class="requried">*</span>
-                    <div class="show-password">
-                      <b-form-input
-                        id="password"
-                        v-model="form.mobile_number"
-                        type="text"
-                      />
+                    <b-form-select v-model="form.country_code">
+                      <b-form-select-option
+                        v-for="country in countries"
+                        :key="country.id"
+                        :value="country.iso"
+                        >{{ country.title }}
+                        {{ country.phone_prefix }}</b-form-select-option
+                      >
+                    </b-form-select>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.country_code"
+                      :key="index"
+                    >
+                      {{ error }}
                     </div>
+                  </b-form-group>
+                </b-col>
+                <!-- phone -->
+                <b-col lg="9" cols="8" v-if="!userInfo.item.mobile_number">
+                  <b-form-group>
+                    <label for="phone">{{ $t("register.phone") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input
+                      id="phone"
+                      v-model="form.mobile_number"
+                      type="number"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.mobile_number"
@@ -53,6 +76,30 @@
                   </b-form-group>
                 </b-col>
               </b-row>
+
+              <!-- active_with -->
+              <b-form-group
+                class="my-4"
+                :label="$t('register.chooseOneOfTheWays')"
+                v-if="!userInfo.item.mobile_number && !userInfo.item.email"
+              >
+                <b-form-radio
+                  class="pt-2"
+                  v-for="(connect, index) in connects"
+                  :key="index"
+                  v-model="form.active_with"
+                  name="some-radios"
+                  :value="connect.value"
+                  >{{ connect.name }}</b-form-radio
+                >
+                <!-- <div
+                  class="error"
+                  v-for="(error, indx) in errors.active_with"
+                  :key="indx"
+                >
+                  {{ error }}
+                </div> -->
+              </b-form-group>
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
@@ -75,16 +122,20 @@ export default {
       form: {
         email: "",
         mobile_number: "",
+        country_code: "",
+        active_with: "sms",
       },
+      connects: [
+        { name: this.$t("register.phone"), value: "sms" },
+        { name: this.$t("register.email"), value: "email" },
+      ],
       errorMsg: "",
       errors: {},
       provider: localStorage.getItem("provider"),
     };
   },
-  created() {
-    this.makeLoginSocail();
-  },
-  mounted() {
+  async mounted() {
+    await this.makeLoginSocail();
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
     }
