@@ -155,7 +155,7 @@ export default {
     },
     makeLoginSocail() {
       if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
-        this.$router.push("/");
+        this.$router.replace("/");
         return;
       }
       if (this.$route.query.code) {
