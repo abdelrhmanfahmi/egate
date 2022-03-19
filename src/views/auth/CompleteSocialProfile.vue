@@ -151,7 +151,7 @@ export default {
           .makeLoginSocail("b2c", this.provider, payload)
           .then((res) => {
             localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-            this.$router.replace("/");
+            this.$router.replace("/complete-social-profile");
             location.reload();
           })
           .catch((err) => {
