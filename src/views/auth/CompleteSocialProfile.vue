@@ -177,6 +177,8 @@ export default {
         .completeProfile(this.form)
         .then((res) => {
           this.sucessMsg(res.data.message);
+          this.$router.replace("/");
+           location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
