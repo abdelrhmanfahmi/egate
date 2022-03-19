@@ -178,7 +178,7 @@ export default {
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.$router.replace("/");
-           location.reload();
+          this.$store.dispatch("getUserInfo");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
