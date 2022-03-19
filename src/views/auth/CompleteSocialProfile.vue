@@ -78,14 +78,36 @@ export default {
       },
       errorMsg: "",
       errors: {},
+      provider: localStorage.getItem("provider"),
     };
   },
   created() {
+    this.makeLoginSocail();
+  },
+  mounted() {
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
     }
   },
   methods: {
+    makeLoginSocail() {
+      if (this.$route.query.code) {
+        const payload = {
+          redirect: `${this.mainDoamin}complete-social-profile`,
+          code: this.$route.query.code,
+        };
+        auth
+          .makeLoginSocail("b2c", this.provider, payload)
+          .then((res) => {
+            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+            this.$router.replace("/");
+            location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
     completeProfile() {
       auth
         .completeProfile(this.form)
