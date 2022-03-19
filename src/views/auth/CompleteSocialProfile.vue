@@ -137,9 +137,11 @@ export default {
       countries: [],
     };
   },
-  created() {
-    this.makeLoginSocail();
-
+  async created() {
+    await this.makeLoginSocail();
+    if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
+      this.$router.push("/");
+    }
     this.getAllCountires();
   },
   methods: {
@@ -154,11 +156,6 @@ export default {
         });
     },
     makeLoginSocail() {
-      if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
-        this.$router.replace("/");
-        location.reload();
-        return;
-      }
       if (this.$route.query.code) {
         const payload = {
           redirect: `${this.mainDoamin}complete-social-profile`,
