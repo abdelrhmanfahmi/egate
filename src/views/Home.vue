@@ -26,13 +26,10 @@ export default {
     };
   },
   mounted() {
-    this.makeLoginSocail();
     this.emailVerify();
     // this.checkEmailForgetPassWord()
   },
   methods: {
-
-
     emailVerify() {
       if (this.$route.query.uuid) {
         const payload = {

@@ -81,7 +81,7 @@ export default {
     };
   },
   created() {
-    makeLoginSocail();
+    this.makeLoginSocail();
   },
   mounted() {
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
