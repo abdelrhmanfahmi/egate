@@ -8,7 +8,9 @@
           </div>
           <b-col lg="10" v-else>
             <div class="register-info">
-              <h4 class="main-header">{{ $t("profile.completeInformation") }}</h4>
+              <h4 class="main-header">
+                {{ $t("profile.completeInformation") }}
+              </h4>
             </div>
             <form @submit.prevent="completeProfile()">
               <b-row class="justify-content-center">
@@ -122,7 +124,7 @@ export default {
       form: {
         email: "",
         mobile_number: "",
-        country_code: "",
+        country_code: "KW",
         active_with: "sms",
       },
       connects: [
@@ -139,8 +141,19 @@ export default {
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
     }
+    this.getAllCountires();
   },
   methods: {
+    getAllCountires() {
+      auth
+        .getAllCountires()
+        .then((res) => {
+          this.countries = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     makeLoginSocail() {
       if (this.$route.query.code) {
         const payload = {
