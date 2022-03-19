@@ -8,7 +8,7 @@
           </div>
           <b-col lg="10" v-else>
             <div class="register-info">
-              <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
+              <h4 class="main-header">{{ $t("profile.completeInformation") }}</h4>
             </div>
             <form @submit.prevent="completeProfile()">
               <b-row class="justify-content-center">
