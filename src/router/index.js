@@ -7,7 +7,7 @@ import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue";
 import ForgetPassword from "../views/Forget-Password.vue";
 import Items from "../views/Items.vue";
-
+import SingleProduct from "../views/single-Product/Single-Product.vue";
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
 
@@ -55,6 +55,11 @@ const routes = [
         path: "/items",
         name: "Items",
         component: Items,
+    },
+    {
+        path: "/details",
+        name: "Details",
+        component: SingleProduct,
     },
     // {
     //   path: "/categories",
