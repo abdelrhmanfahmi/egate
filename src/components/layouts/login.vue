@@ -157,9 +157,9 @@ export default {
     },
     async getLink(provider) {
       const backUrl = `${this.mainDoamin}complete-social-profile`
-      await localStorage.setItem("provider", provider , backUrl);
+      await localStorage.setItem("provider", provider);
       auth
-        .getSocialLink("b2c", provider, )
+        .getSocialLink("b2c", provider, backUrl)
         .then((res) => {
           window.location.href = res.data.items.url;
         })
