@@ -78,6 +78,7 @@ export default {
       },
       errorMsg: "",
       errors: {},
+      provider: localStorage.getItem("provider"),
     };
   },
   created() {

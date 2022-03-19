@@ -20,11 +20,7 @@ export default {
     ProductSilder,
     CatrgoriesHome,
   },
-  data() {
-    return {
-      provider: localStorage.getItem("provider"),
-    };
-  },
+
   mounted() {
     this.emailVerify();
     // this.checkEmailForgetPassWord()
