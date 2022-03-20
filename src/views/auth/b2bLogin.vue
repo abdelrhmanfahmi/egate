@@ -105,7 +105,9 @@ export default {
         .login("buyer", this.form)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          if (res.data.items.item.verify_email_required) {
+          console.log("yes" , res.data.items.item.verify_email_required)
+
+          if (!res.data.items.item.verify_email_required) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
           }
           this.$router.push("/");

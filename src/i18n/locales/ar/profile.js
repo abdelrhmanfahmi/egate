@@ -67,7 +67,7 @@ export default {
   ibanCertificate: "رقم الحساب المصرفى",
   letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
   company: "شركة",
-  download:'تحميل',
+  download: 'تحميل',
   // Supplier Rating
   supplierRatings: "تقييمات المورد الخاص بي",
   supplierRatingsEmpty: "لم تقم بإضافة اي مراجعات",
@@ -109,4 +109,6 @@ export default {
   giftCard: "بطاقة هدية",
   giftCardCoupon: "ادخال رقم كوبون الاهداء",
   giftCardCheck: "تحقق من الحالة والتوازن",
+  profileData: "الملف الشحضي كامل من حيث البيانات",
+  completeInformation: "من فضلك اكمل بيناتك"
 };

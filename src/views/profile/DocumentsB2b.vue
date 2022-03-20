@@ -315,8 +315,7 @@
   </div>
 </template>
 <script>
-// import { BIconArrowRight } from "bootstrap-vue";
-// import { BIconArrowRight } from "bootstrap-vue";
+
 import axios from "axios";
 import profile from "@/services/profile";
 export default {
@@ -355,16 +354,16 @@ export default {
   },
   mounted() {
     profile.getSuppDocUploadData().then((res) => {
-      console.log("second", res.data);
+      // console.log("second", res.data);
       this.suppData = res.data.items;
     });
     profile.getBuissnessinfodata().then((res) => {
       this.buisnessData = res.data.items;
-      console.log("first", res.data);
+      // console.log("first", res.data);
     });
     profile.getibanUploadData().then((res) => {
       console.log("third", res.data);
-      this.ibanData = res.data.items;
+      // this.ibanData = res.data.items;
     });
   },
   methods: {
@@ -492,7 +491,6 @@ export default {
       await profile
         .getBuissnessinfodata()
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.data.message);
         })
         .catch((error) => {
@@ -550,7 +548,6 @@ export default {
       await profile
         .getSuppDocUploadData()
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
         })
         .catch((error) => {
@@ -606,7 +603,7 @@ export default {
       await profile
         .getibanUploadData()
         .then((res) => {
-          console.log(res);
+         
           this.sucessMsg(res.data.message);
         })
         .catch((error) => {
