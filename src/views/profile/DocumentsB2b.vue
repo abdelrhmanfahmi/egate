@@ -299,6 +299,9 @@
           >
             {{ error }}
           </div>
+          <div class="error text-start" v-if="unOuthMesssage">
+            {{unOuthMesssage}}
+          </div>
         </div>
         <b-button type="submit" class="login-button" :disabled="btn3Disabled">
           {{ $t("profile.save") }}
@@ -346,17 +349,21 @@ export default {
       suppData: null,
       buisnessData: null,
       ibanData: null,
+      unOuthMesssage:null
     };
   },
   mounted() {
     profile.getSuppDocUploadData().then((res) => {
+      // console.log("second", res.data);
       this.suppData = res.data.items;
     });
     profile.getBuissnessinfodata().then((res) => {
       this.buisnessData = res.data.items;
+      // console.log("first", res.data);
     });
     profile.getibanUploadData().then((res) => {
-      this.ibanData = res.data.items;
+      console.log("third", res.data);
+      // this.ibanData = res.data.items;
     });
   },
   methods: {
@@ -571,11 +578,19 @@ export default {
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
           }
+          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.uploadErrors = err.items;
           this.errMsg(err.message);
+          if(error.response.status == 401){
+            this.unOuthMesssage = error.response.data.message;
+            setTimeout(() => {
+              localStorage.clear();
+              window.location.push('/')
+            }, 1500);
+          }
         })
         .finally(() => {
           this.ibanUploadLoading = false;

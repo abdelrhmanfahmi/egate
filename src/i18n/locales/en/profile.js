@@ -59,10 +59,10 @@ export default {
   companyDocuments: "Company documents",
   saveData: "Save data",
 
-  commercialLicense: "Commercial license of the company",
-  signatureAccreditation: "Civi Id copy of authorized  Signature",
-  commissionerCard: "Certified signatory Certificate",
-  certificateAdministration: "Right of Managment certification - MOC",
+  commercialLicense: "Company commercial license",
+  signatureAccreditation: "Civi Id of authorized Signature",
+  commissionerCard: "Certificate of Certified signatory ",
+  certificateAdministration: "Right of Managment certification MOC",
 
   establishmentContract: "Memorandum Of Association",
   letterAuthorization: "Signature Authority Document",
