@@ -362,8 +362,8 @@ export default {
       // console.log("first", res.data);
     });
     profile.getibanUploadData().then((res) => {
-      console.log("third", res.data);
-      // this.ibanData = res.data.items;
+      // console.log("third", res.data);
+      this.ibanData = res.data.items;
     });
   },
   methods: {
