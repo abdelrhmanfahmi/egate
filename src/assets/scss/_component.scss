@@ -43,3 +43,45 @@
 		display: none !important;
 	}
 }
+.humhum-tabs {
+	color: #000;
+	.tabs {
+		color: #000;
+		.nav-tabs {
+			justify-content: center;
+			border-width: 1px 0 0 0;
+			.nav-item {
+				color: #000;
+				.nav-link {
+					border-width: 1px 0 0 0;
+					border-radius: 0;
+					font-size: 11pt;
+					color: #786c65;
+					padding: 0.7rem 1.5rem;
+					&.active {
+						border-color: #59514c;
+					}
+				}
+			}
+		}
+	}
+	.tab-content {
+		background: #f2f5f6;
+		padding: 3rem;
+		.tab-pane {
+			&.active {
+				animation: slide-down 0.3s ease-out;
+			}
+		}
+	}
+}
+@keyframes slide-down {
+	0% {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

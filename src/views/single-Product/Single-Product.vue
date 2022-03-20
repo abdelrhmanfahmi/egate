@@ -8,9 +8,15 @@
         <Slider></Slider>
       </b-col>
     </b-row>
-    <div class="test">
-      <Rating></Rating>
-      <Specs v-if="false"></Specs>
+    <div class="humhum-tabs">
+      <b-tabs content-class="mt-3">
+        <b-tab title="Specs" active>
+          <Specs></Specs>
+        </b-tab>
+        <b-tab title="Rating">
+          <Rating></Rating>
+        </b-tab>
+      </b-tabs>
     </div>
   </div>
 </template>
@@ -31,9 +37,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.test {
-  background: #f2f5f6;
+<style lang="scss">
+.humhum-tabs {
   padding: 4rem;
   margin: 3rem 0;
 }
