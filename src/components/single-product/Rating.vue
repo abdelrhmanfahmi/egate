@@ -16,10 +16,10 @@
             <label for="review">Your review*</label>
             <textarea id="review" name="review" rows="4"></textarea>
           </div>
-          <div class="form-group mb-4 col-6">
+          <div class="form-group mb-4 col-12 col-md-6">
             <input type="text" placeholder="Your Name*" />
           </div>
-          <div class="form-group mb-4 col-6">
+          <div class="form-group mb-4 col-12 col-md-6">
             <input type="text" placeholder="Your Email*" />
           </div>
           <div class="col-12 custom-control custom-checkbox">

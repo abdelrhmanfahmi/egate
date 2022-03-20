@@ -44,7 +44,7 @@
           </a>
         </div>
         <a href="#" class="add-cart">Add to Cart</a>
-        <Counter class="my-3"></Counter>
+        <Counter :quantity="1" class="my-3"></Counter>
       </div>
       <hr />
       <div class="share-social d-flex align-items-center">
