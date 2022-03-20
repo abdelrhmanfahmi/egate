@@ -115,5 +115,6 @@ export default {
   giftCardCoupon: "Enter a gift coupon",
   giftCardCheck: "Check the status and balance",
   profileData : "Your data is completed",
-  completeInformation:"please complete your profile"
+  completeInformation:"please complete your profile",
+  filePlaceHolder:'Please Choose File'
 };

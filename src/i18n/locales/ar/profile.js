@@ -110,5 +110,6 @@ export default {
   giftCardCoupon: "ادخال رقم كوبون الاهداء",
   giftCardCheck: "تحقق من الحالة والتوازن",
   profileData: "الملف الشحضي كامل من حيث البيانات",
-  completeInformation: "من فضلك اكمل بيناتك"
+  completeInformation: "من فضلك اكمل بيناتك",
+  filePlaceHolder:'قم باختيار الملف'
 };
