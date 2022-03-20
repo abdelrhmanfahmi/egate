@@ -39,6 +39,11 @@ export default {
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
+        // {
+        //   to: "/profile/documents",
+        //   name: this.$t("profile.documents"),
+        //   iconName: "file"
+        // },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
