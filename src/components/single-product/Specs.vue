@@ -1,32 +1,36 @@
 <template>
   <div class="specs">
     <div class="content">
-      <h5 class="header d-inline-block font-weight-bold mb-3">Info:</h5>
+      <h5 class="header d-inline-block font-weight-bold mb-3">
+        {{ $t("singleProduct.specsHeader") }}:
+      </h5>
       <p class="description">
-        Apple features its high content of antioxidants, flavonoid, and some
-        types of vitamins, making it a very useful diet.
+        {{ $t("singleProduct.specsDescription") }}
       </p>
       <div class="side-data">
-        <span>Origin: American</span>
-        <span>Importer: عالم الفرضة</span>
+        <span
+          >{{ $t("singleProduct.origin") }}:
+          {{ $t("singleProduct.originData") }}</span
+        >
+        <span>{{ $t("singleProduct.importer") }}: عالم الفرضة</span>
       </div>
       <div class="product-info">
         <table class="table table-bordered m-0">
           <tr>
-            <th>Supplier Name:</th>
+            <th>{{ $t("singleProduct.supplierName") }}:</th>
             <td>عالم الفرضة</td>
           </tr>
           <tr>
-            <th>Country:</th>
-            <td>Kuwait</td>
+            <th>{{ $t("singleProduct.country") }}:</th>
+            <td>{{ $t("singleProduct.kuwait") }}</td>
           </tr>
           <tr>
-            <th>Delivery time:</th>
-            <td>Within 24 hours</td>
+            <th>{{ $t("singleProduct.deliveryTime") }}:</th>
+            <td>{{ $t("singleProduct.deliveryTimeData") }}</td>
           </tr>
           <tr>
-            <th>Delivery by:</th>
-            <td>Supplier (free inside Kuwait)</td>
+            <th>{{ $t("singleProduct.deliveryBy") }}:</th>
+            <td>{{ $t("singleProduct.deliveryByData") }}</td>
           </tr>
         </table>
       </div>

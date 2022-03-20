@@ -6,6 +6,7 @@ import contactUs from "./contactUs";
 import cart from "./cart";
 import supplier from "./supplier";
 import items from "./items";
+import singleProduct from "./singleProduct";
 
 
 export default {
@@ -16,5 +17,6 @@ export default {
   contactUs,
   cart,
   supplier,
-  items
+  items,
+  singleProduct,
 };

@@ -1,54 +1,57 @@
 <template>
   <div class="product-info">
     <div class="content">
-      <a href="#" class="category">Fruit</a>
-      <h4 class="name">Apple</h4>
+      <a href="#" class="category">{{ $t("singleProduct.category") }}</a>
+      <h4 class="name">{{ $t("singleProduct.fruitName") }}</h4>
       <b-form-rating></b-form-rating>
       <p class="serial">SKU : WI56OMTJ</p>
-      <p class="price">Price : 1.500 KD</p>
+      <p class="price">
+        {{ $t("singleProduct.price") }} : 1.500
+        {{ $t("singleProduct.priceUnit") }}
+      </p>
       <hr />
       <p class="supplier">
-        Supplier
+        {{ $t("singleProduct.supplier") }}
         <a href="#">عالم الفرضة</a>
       </p>
       <div class="weight">
-        <p class="title">Weight</p>
+        <p class="title">{{ $t("singleProduct.weight") }}</p>
         <div class="available-weight d-flex justify-content-end">
           <span>500</span>
           <span>1500</span>
         </div>
       </div>
-      <span class="is-available">Available</span>
+      <span class="is-available">{{ $t("singleProduct.available") }}</span>
       <hr />
       <div
         class="product-actions d-flex flex-wrap justify-content-between align-items-center"
       >
         <div class="short-links">
           <a href="#">
-            Bid request
+            {{ $t("singleProduct.bidRequest") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-list" />
             </span>
           </a>
           <a href="#">
-            Add to favorites
+            {{ $t("singleProduct.addFavorites") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-heart" />
             </span>
           </a>
           <a href="#">
-            Add to purchase lists
+            {{ $t("singleProduct.addPurchase") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-repeat" />
             </span>
           </a>
         </div>
-        <a href="#" class="add-cart">Add to Cart</a>
+        <a href="#" class="add-cart">{{ $t("singleProduct.addCart") }}</a>
         <Counter :quantity="1" class="my-3"></Counter>
       </div>
       <hr />
       <div class="share-social d-flex align-items-center">
-        <span>Sharing</span>
+        <span>{{ $t("singleProduct.sharing") }}</span>
         <div class="social-sharing-icons">
           <a href="#">
             <font-awesome-icon icon="fa-brands fa-facebook-f" />
@@ -69,9 +72,6 @@ import Counter from "../global/Counter.vue";
 export default {
   components: {
     Counter,
-  },
-  data() {
-    return { count: 0 };
   },
 };
 </script>

@@ -1,26 +1,31 @@
 <template>
   <div class="specs">
     <div class="content">
-      <h5 class="header d-inline-block font-weight-bold mb-3">Reviews (0):</h5>
-      <p class="description">
-        Your email address will not be published. Required fields are marked.
-      </p>
-      <p class="hint">Be the first to review “MEAT CENTER”</p>
+      <h5 class="header d-inline-block font-weight-bold mb-3">
+        {{ $t("singleProduct.ratingHeader") }} (0):
+      </h5>
+      <p class="description">{{ $t("singleProduct.ratingDescription") }}.</p>
+      <p class="hint">{{ $t("singleProduct.ratingHint") }}</p>
       <div class="product-rate">
         <form class="review-form row">
           <div class="form-group mb-4 col-12">
-            <label for="rating">Your rating*</label>
+            <label for="rating">{{ $t("singleProduct.ratingLabel") }}</label>
             <b-form-rating id="rating" style="color: #acacac"></b-form-rating>
           </div>
           <div class="form-group mb-4 col-12">
-            <label for="review">Your review*</label>
-            <textarea id="review" name="review" rows="4"></textarea>
+            <label for="review">{{ $t("singleProduct.reviewLabel") }}</label>
+            <textarea
+              id="review"
+              name="review"
+              rows="4"
+              :placeholder="$t('singleProduct.reviewInput')"
+            ></textarea>
           </div>
           <div class="form-group mb-4 col-12 col-md-6">
-            <input type="text" placeholder="Your Name*" />
+            <input type="text" :placeholder="$t('singleProduct.nameInput')" />
           </div>
           <div class="form-group mb-4 col-12 col-md-6">
-            <input type="text" placeholder="Your Email*" />
+            <input type="text" :placeholder="$t('singleProduct.emailInput')" />
           </div>
           <div class="col-12 custom-control custom-checkbox">
             <input
@@ -29,8 +34,7 @@
               id="customCheck1"
             />
             <label class="custom-control-label" for="customCheck1">
-              Save my name and email in this browser for the next time I
-              comment.
+              {{ $t("singleProduct.checkInput") }}
             </label>
           </div>
           <div class="col-12 col-xl-2">
