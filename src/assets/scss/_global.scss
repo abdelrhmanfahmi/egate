@@ -265,6 +265,12 @@ label,
 		margin-inline-start: 0.2rem;
 	}
 }
+.b-rating {
+	border: none;
+	width: fit-content;
+	padding: 0;
+	color: #ff1513;
+}
 // arabic style
 html:lang(ar) {
 	.b-sidebar.b-sidebar-right > .b-sidebar-header .close {
