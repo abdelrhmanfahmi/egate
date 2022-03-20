@@ -47,6 +47,20 @@
         <Counter class="my-3"></Counter>
       </div>
       <hr />
+      <div class="share-social d-flex align-items-center">
+        <span>Sharing</span>
+        <div class="social-sharing-icons">
+          <a href="#">
+            <font-awesome-icon icon="fa-brands fa-facebook-f" />
+          </a>
+          <a href="#">
+            <font-awesome-icon icon="fa-brands fa-whatsapp" />
+          </a>
+          <a href="#">
+            <font-awesome-icon icon="fa-brands fa-twitter" />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -160,6 +174,23 @@ export default {
         text-align: center;
         &:hover {
           background: #ed2124;
+        }
+      }
+    }
+    .share-social {
+      span {
+        color: #403a37;
+        margin-inline-end: 1rem;
+      }
+      .social-sharing-icons {
+        a {
+          color: #898481;
+          padding: 0.5rem;
+          display: inline-block;
+          margin-inline-end: 0.25rem;
+          &:hover {
+            color: #ed2124;
+          }
         }
       }
     }
