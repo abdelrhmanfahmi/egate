@@ -10,10 +10,10 @@
     </b-row>
     <div class="humhum-tabs">
       <b-tabs content-class="mt-3">
-        <b-tab title="Specs">
+        <b-tab :title="$t('singleProduct.specsTitle')" active>
           <Specs></Specs>
         </b-tab>
-        <b-tab title="Rating" active>
+        <b-tab :title="$t('singleProduct.ratingTitle')">
           <Rating></Rating>
         </b-tab>
       </b-tabs>
