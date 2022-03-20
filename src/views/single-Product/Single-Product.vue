@@ -8,15 +8,20 @@
         <Slider></Slider>
       </b-col>
     </b-row>
+    <div class="test">
+      <Specs></Specs>
+    </div>
   </div>
 </template>
 <script>
 import Slider from "@/components/single-product/Slider.vue";
 import ProductInfo from "@/components/single-product/ProductInfo.vue";
+import Specs from "@/components/single-product/Specs.vue";
 export default {
   components: {
     Slider,
     ProductInfo,
+    Specs,
   },
   data() {
     return { count: 0 };
@@ -24,7 +29,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.class-name {
-  padding: 2rem;
+.test {
+  background: #f2f5f6;
+  padding: 4rem;
+  margin: 3rem 0;
 }
 </style>
