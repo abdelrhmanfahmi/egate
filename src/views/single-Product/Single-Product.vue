@@ -9,7 +9,8 @@
       </b-col>
     </b-row>
     <div class="test">
-      <Specs></Specs>
+      <Rating></Rating>
+      <Specs v-if="false"></Specs>
     </div>
   </div>
 </template>
@@ -17,11 +18,13 @@
 import Slider from "@/components/single-product/Slider.vue";
 import ProductInfo from "@/components/single-product/ProductInfo.vue";
 import Specs from "@/components/single-product/Specs.vue";
+import Rating from "@/components/single-product/Rating.vue";
 export default {
   components: {
     Slider,
     ProductInfo,
     Specs,
+    Rating,
   },
   data() {
     return { count: 0 };
