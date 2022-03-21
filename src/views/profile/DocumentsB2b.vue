@@ -36,7 +36,10 @@
                 class="d-flex justify-content-center align-items-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="ccl_pathType === 'image'">
+                <div
+                  class=""
+                  v-if="ccl_pathType === 'image' && ccl_pathType !== null"
+                >
                   <img
                     v-b-modal.ccl_path
                     :src="buisnessData.ccl_path"
@@ -76,15 +79,20 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="downloadImage(buisnessData.ccl_path)"
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="
+                    ccl_pathType === 'document' && ccl_pathType !== null
+                  "
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -94,7 +102,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -130,7 +138,13 @@
                 class="d-flex justify-content-center align-content-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="auth_civil_copyType === 'image'">
+                <div
+                  class=""
+                  v-if="
+                    auth_civil_copyType === 'image' &&
+                    auth_civil_copyType !== null
+                  "
+                >
                   <img
                     v-b-modal.auth_civil_copy_path
                     :src="buisnessData.auth_civil_copy_path"
@@ -170,17 +184,23 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="
                           downloadImage(buisnessData.auth_civil_copy_path)
                         "
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="
+                    auth_civil_copyType === 'document' &&
+                    auth_civil_copyType !== null
+                  "
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -190,7 +210,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -227,7 +247,7 @@
                 class="d-flex justify-content-center align-content-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="ccsType === 'image'">
+                <div class="" v-if="ccsType === 'image' && ccsType !== null">
                   <img
                     v-b-modal.ccs_path
                     :src="buisnessData.ccs_path"
@@ -267,15 +287,18 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="downloadImage(buisnessData.ccs_path)"
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="ccsType === 'document' && ccsType !== null"
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -285,7 +308,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -323,7 +346,7 @@
                 class="d-flex justify-content-center align-content-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="rmcmType === 'image'">
+                <div class="" v-if="rmcmType === 'image' && rmcmType !== null">
                   <img
                     v-b-modal.rmcm_path
                     :src="buisnessData.rmcm_path"
@@ -363,15 +386,18 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="downloadImage(buisnessData.rmcm_path)"
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="rmcmType === 'document' && rmcmType !== null"
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -381,7 +407,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -396,15 +422,20 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" class="login-button" :disabled="btn1Disabled">
-          {{ $t("profile.save") }}
+        <b-button
+          type="submit"
+          variant="outline-danger" 
+          class="saveBtn btn-block py-3"
+          :disabled="btn1Disabled"
+        >
+          <i class="fa fa-upload"></i> {{ $t("profile.save") }}
           <span class="loader" v-if="buissnessinfoUploadLoading"></span>
         </b-button>
       </form>
 
       <!-- suppDocUpload -->
 
-      <form class="suppDoc" @submit.prevent="suppDocUploadForm">
+      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm">
         <div class="form-input mb-4">
           <label for="establishmentContract">
             {{ $t("profile.establishmentContract") }}
@@ -427,7 +458,7 @@
             </div>
             <div class="col-md-4 col-sm-12 mb-3">
               <div class="d-flex" v-if="buisnessData">
-                <div class="" v-if="moaType === 'image'">
+                <div class="" v-if="moaType === 'image' && moaType !== null">
                   <img
                     v-b-modal.moaModal
                     :src="suppData.moa_path"
@@ -467,18 +498,18 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="downloadImage(suppData.moa_path)"
                       >
-                        {{ $t("profile.download") }}
-                        <span class="loading-span" v-if="suppDataLoading">
-                          ...</span
-                        >
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="moaType === 'document' && moaType !== null"
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -488,7 +519,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -568,15 +599,18 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
+                        variant="outline-success"
                         @click="downloadImage(downloadItem.sad_path)"
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else>
+                <div
+                  class=""
+                  v-else-if="sadType === 'document' && sadType !== null"
+                >
                   <b-button
                     variant="outline-success"
                     @click="
@@ -586,7 +620,7 @@
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -601,8 +635,9 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" class="login-button" :disabled="btn2Disabled">
-          {{ $t("profile.save") }}
+        <b-button type="submit" variant="outline-danger" 
+          class="saveBtn btn-block py-3" :disabled="btn2Disabled">
+          <i class="fa fa-upload"></i> {{ $t("profile.save") }}
           <span class="loader" v-if="suppDataLoading"></span>
         </b-button>
       </form>
@@ -630,8 +665,11 @@
               </b-form-group>
             </div>
             <div class="col-md-4 col-sm-12 mb-3">
-              <div class="d-flex justify-content-center align-content-center" v-if="buisnessData">
-                <div class="" v-if="ibanType === 'image'">
+              <div
+                class="d-flex justify-content-center align-content-center"
+                v-if="buisnessData"
+              >
+                <div class="" v-if="ibanType === 'image' && ibanType !== null">
                   <img
                     v-b-modal.ibanModal
                     :src="ibanData.iban_number_certificate_path"
@@ -671,25 +709,30 @@
                       <!-- Emulate built in modal footer ok and cancel button actions -->
                       <b-button
                         class="btn-block"
-                        variant="info"
-                        @click="downloadImage(ibanData.iban_number_certificate_path)"
+                        variant="outline-success"
+                        @click="
+                          downloadImage(ibanData.iban_number_certificate_path)
+                        "
                       >
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
                 </div>
-                <div class="" v-else-if="ibanType !== 'image' && ibanType !== null">
+                <div
+                  class=""
+                  v-else-if="ibanType !== 'image' && ibanType !== null"
+                >
                   <b-button
                     variant="outline-success"
                     @click="
                       downloadItem(
-                        suppData.iban_number_certificate_path,
+                        ibanData.iban_number_certificate_path,
                         $t('profile.ibanCertificate')
                       )
                     "
                   >
-                    {{ $t("download") }}
+                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
                   </b-button>
                 </div>
               </div>
@@ -706,8 +749,9 @@
             {{ unOuthMesssage }}
           </div>
         </div>
-        <b-button type="submit" class="login-button" :disabled="btn3Disabled">
-          {{ $t("profile.save") }}
+        <b-button type="submit" variant="outline-danger" 
+          class="saveBtn btn-block py-3" :disabled="btn3Disabled">
+          <i class="fa fa-upload"></i> {{ $t("profile.save") }}
 
           <span class="loader" v-if="ibanUploadLoading"></span>
         </b-button>
@@ -761,7 +805,7 @@ export default {
       moaType: null,
       sadType: null,
 
-      ibanType:null
+      ibanType: null,
     };
   },
   mounted() {
@@ -819,7 +863,7 @@ export default {
       let url = res.data.items.iban_number_certificate_path;
       if (url.match(/.(jpeg|jpg|gif|png)$/)) {
         this.ibanType = "image";
-      } else if(!url.match(/.(jpeg|jpg|gif|png)$/)) {
+      } else if (!url.match(/.(jpeg|jpg|gif|png)$/)) {
         this.ibanType = "document";
       }
     });
@@ -842,6 +886,7 @@ export default {
       });
     },
     downloadItem(url, label) {
+      console.log(url);
       axios({
         url: url, // File URL Goes Here
         method: "GET",
@@ -977,11 +1022,11 @@ export default {
     // suppDocUpload change functions
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
-      this.checkBtn2();
+      // this.checkBtn2();
     },
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
-      this.checkBtn2();
+      // this.checkBtn2();
     },
 
     // suppDocUpload upload function
@@ -1034,7 +1079,7 @@ export default {
     // bankIbanUpload change function
     bankIbanUpload(event) {
       this.bankIban.iban = event.target.files[0];
-      this.checkBtn3();
+      // this.checkBtn3();
     },
 
     // bankIbanUpload upload function
@@ -1086,31 +1131,31 @@ export default {
         });
     },
     //btn 1 check
-    checkBtn1() {
-      if (
-        this.buissnessinfo.ccc !== null &&
-        this.buissnessinfo.auth_civil_copy !== null &&
-        this.buissnessinfo.ccs !== null &&
-        this.buissnessinfo.rmcm !== null
-      ) {
-        this.btn1Disabled = false;
-      }
-    },
-    //btn 2 check
-    checkBtn2() {
-      if (
-        this.suppDocUploadInfo.moa !== null &&
-        this.suppDocUploadInfo.sad !== null
-      ) {
-        this.btn2Disabled = false;
-      }
-    },
-    //btn 3 check
-    checkBtn3() {
-      if (this.bankIban.iban !== null) {
-        this.btn3Disabled = false;
-      }
-    },
+    // checkBtn1() {
+    //   if (
+    //     this.buissnessinfo.ccc !== null &&
+    //     this.buissnessinfo.auth_civil_copy !== null &&
+    //     this.buissnessinfo.ccs !== null &&
+    //     this.buissnessinfo.rmcm !== null
+    //   ) {
+    //     this.btn1Disabled = false;
+    //   }
+    // },
+    // //btn 2 check
+    // checkBtn2() {
+    //   if (
+    //     this.suppDocUploadInfo.moa !== null &&
+    //     this.suppDocUploadInfo.sad !== null
+    //   ) {
+    //     this.btn2Disabled = false;
+    //   }
+    // },
+    // //btn 3 check
+    // checkBtn3() {
+    //   if (this.bankIban.iban !== null) {
+    //     this.btn3Disabled = false;
+    //   }
+    // },
 
     // checkURL(url) {
     //   return url.match(/.(jpeg|jpg|gif|png)$/) != null;
@@ -1197,5 +1242,19 @@ html:lang(ar) {
 }
 button:disabled {
   cursor: no-drop;
+}
+
+.savebtn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.savebtn:hover {
+  background-color: RoyalBlue;
 }
 </style>
