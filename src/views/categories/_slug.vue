@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="subCategory">
     <div class="cover text-center">
       <div
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
@@ -10,10 +10,14 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="#">{{ $t("Home") }}</a>
+                  <router-link to="/">
+                    {{ $t("Home") }}
+                  </router-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="#">{{ $t("Library") }}</a>
+                  <router-link to="/liberary">
+                    {{ $t("Library") }}
+                  </router-link>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   {{ $t("Data") }}
@@ -91,42 +95,69 @@
       <div class="container">
         <div class="tabs-holder">
           <div class="tabs-content">
-            <tabs class="nav-pills nav-fill" :data="tabsData"></tabs>
-            <div class="tab-content">
-              <div class="tab-pane fade show active" id="tab1">
-                <div class="product-desc-content">
-                  <p>tab1</p>
-                </div>
-              </div>
-
-              <div class="tab-pane fade" id="tab2">
-                <div class="product-desc-content">
-                  <p>tab2</p>
-                </div>
-              </div>
-
-              <div class="tab-pane fade" id="tab3">
-                <div class="product-desc-content">
-                  <p>tab3</p>
-                </div>
-              </div>
-
-              <div class="tab-pane fade" id="tab4">
-                <p>tab4</p>
-              </div>
-              <div class="tab-pane fade" id="tab5">
-                <p>tab5</p>
-              </div>
-              <div class="tab-pane fade" id="tab6">
-                <p>tab6</p>
-              </div>
-              <div class="tab-pane fade" id="tab7">
-                <p>tab7</p>
-              </div>
-              <div class="tab-pane fade" id="tab8">
-                <p>tab8</p>
-              </div>
-            </div>
+            <b-tabs>
+              <b-tab :title="$t('All')">
+                <b-row v-if="loading">
+                  <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+                    <b-skeleton-img></b-skeleton-img>
+                    <b-card>
+                      <b-skeleton
+                        animation="fade"
+                        width="60%"
+                        class="border-none"
+                      ></b-skeleton>
+                      <b-skeleton
+                        animation="fade"
+                        width="85%"
+                        class="border-none"
+                      ></b-skeleton>
+                    </b-card>
+                  </b-col>
+                </b-row>
+                <b-row v-else>
+                  <b-col
+                    :title="category.title"
+                    v-for="category in allChildrenData"
+                    :key="category.id"
+                    lg="3"
+                    sm="6"
+                    class="custum-padding mb-2"
+                  >
+                    <router-link
+                      :to="`/categories/${category.id}/variants`"
+                      v-if="category.id"
+                    >
+                      <CategoryCard
+                        :card="{ type: category.title }"
+                        :image="category.image_path"
+                      />
+                    </router-link>
+                  </b-col>
+                </b-row>
+              </b-tab>
+              <b-tab
+                :title="category.title"
+                v-for="category in subCategories"
+                :key="category.id"
+              >
+                <b-row>
+                  <b-col
+                    lg="3"
+                    sm="6"
+                    class="custum-padding mb-2"
+                    v-for="cat in category.all_children"
+                    :key="cat.id"
+                  >
+                    <router-link :to="`/categories/${category.id}/variants`">
+                      <CategoryCard
+                        :card="{ type: cat.title }"
+                        :image="cat.image_path"
+                      />
+                    </router-link>
+                  </b-col>
+                </b-row>
+              </b-tab>
+            </b-tabs>
           </div>
         </div>
       </div>
@@ -135,46 +166,12 @@
 </template>
 
 <script>
-import Tabs from "@/components/Tabs";
+import CategoryCard from "@/components/global/CategoryCard.vue";
+import categories from "@/services/categories";
 export default {
   data() {
     return {
       id: this.$route.params.slug,
-      tabsData: [
-        {
-          id: "tab1",
-          title: this.$t("All"),
-          active: true,
-        },
-        {
-          id: "tab2",
-          title: "tab2",
-        },
-        {
-          id: "tab3",
-          title: "tab3",
-        },
-        {
-          id: "tab4",
-          title: "tab4",
-        },
-        {
-          id: "tab5",
-          title: "tab5",
-        },
-        {
-          id: "tab6",
-          title: "tab6",
-        },
-        {
-          id: "tab7",
-          title: "tab7",
-        },
-        {
-          id: "tab8",
-          title: "tab8",
-        },
-      ],
       category: "",
       products: [
         { name: "Keyboard", price: 44, category: "Accessories" },
@@ -188,17 +185,45 @@ export default {
         { name: "Eraser", price: 2, category: "Stationary" },
         { name: "Highlighter", price: 5, category: "Stationary" },
       ],
+      loading: true,
+      subCategories: null,
+      allChildren: null,
+      allChildrenData: null,
     };
   },
   computed: {
     filterProductsByCategory: function () {
       return this.products.filter(
-        (product) => !product.category.indexOf(this.category)
+        (product) => !product.category.iOf(this.category)
       );
     },
   },
   components: {
-    Tabs,
+    CategoryCard,
+  },
+  methods: {
+    filterAllChildren() {},
+    async getSubCategories() {
+      await categories
+        .getSubCategories(this.id)
+        .then((resp) => {
+          this.subCategories = resp.data.items;
+          for (let i = 0; i < this.subCategories.length; i++) {
+            // const element = array[i];
+            this.allChildrenData = this.subCategories[i].all_children;
+          }
+          console.log("subCategories", resp);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+  created() {
+    this.getSubCategories();
   },
 };
 </script>
