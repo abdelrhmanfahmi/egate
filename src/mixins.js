@@ -1,4 +1,5 @@
 import Vue from "vue";
+import auth from "@/services/auth";
 Vue.mixin({
 
   computed: {
@@ -27,7 +28,8 @@ Vue.mixin({
 
   },
   methods: {
-    logout() {
+    async logout() {
+      await auth.logout()
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userData");
       localStorage.removeItem("provider");
