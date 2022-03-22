@@ -163,7 +163,6 @@ export default {
   mounted() {
     this.getAllCountires();
     this.form = { ...this.userInfo.item };
-    console.log("this.userInfo" , this.userInfo);
   },
   methods: {
     getAllCountires() {

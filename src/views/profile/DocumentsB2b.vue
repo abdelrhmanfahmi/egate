@@ -1064,26 +1064,27 @@ export default {
       if (this.buissnessinfo.rmcm !== null) {
         formData.append("rmcm", this.buissnessinfo.rmcm);
       }
+      // console.log(this.userData.type);
+
+      formData.append("portal", "buyer");
 
       await profile
         .buissnessinfoUpload(formData)
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.suppData = []
-            
-            
+            this.suppData = [];
           }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.uploadErrors = err.items;
           this.errMsg(err.message);
-          console.log("buissnessinfoUpload", error.response);
         })
         .finally(() => {
           this.buissnessinfoUploadLoading = false;
           this.btn1Disabled = false;
+          console.log("formData", formData);
         });
     },
 
@@ -1125,12 +1126,14 @@ export default {
         formData.append("sad", this.suppDocUploadInfo.sad);
       }
 
+      formData.append("portal", "buyer");
+
       await profile
         .suppDocUpload(formData)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
-          this.getSuppDocUploadData()
+          this.getSuppDocUploadData();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1172,6 +1175,8 @@ export default {
       if (this.bankIban.iban !== null) {
         formData.append("iban_number_certificate", this.bankIban.iban);
       }
+
+      formData.append("portal", "buyer");
       await profile
         .ibanUpload(formData)
         .then((res) => {
