@@ -141,7 +141,7 @@
                 :key="category.id"
               >
                 <b-row>
-                  <b-col
+                  <b-col 
                     lg="3"
                     sm="6"
                     class="custum-padding mb-2"

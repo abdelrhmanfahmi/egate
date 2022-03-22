@@ -1,7 +1,6 @@
 import Vue from "vue";
 import auth from "@/services/auth";
 Vue.mixin({
-
   computed: {
     getDir() {
       return document.documentElement.dir;
@@ -14,22 +13,21 @@ Vue.mixin({
       }
     },
     mainDoamin() {
-      return process.env.VUE_APP_DOMAIN_NAME
+      return process.env.VUE_APP_DOMAIN_NAME;
     },
     massgeOfVerify() {
-      return localStorage.getItem("massege")
+      return localStorage.getItem("massege");
     },
     userInfo() {
-      return this.$store.getters.userInfo
+      return this.$store.getters.userInfo;
     },
     userData() {
-      return this.$store.getters.userData
+      return this.$store.getters.userData;
     },
-
   },
   methods: {
-    async logout() {
-      await auth.logout()
+    logout() {
+      auth.logout();
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userData");
       localStorage.removeItem("provider");
@@ -37,27 +35,27 @@ Vue.mixin({
       this.$router.push("/");
       location.reload();
     },
-    sucessMsg(text, icon = 'success') {
+    sucessMsg(text, icon = "success") {
       this.$swal({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
         icon: icon,
         title: text,
-      })
+      });
     },
-    errMsg(text, icon = 'error') {
+    errMsg(text, icon = "error") {
       this.$swal({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
         icon: icon,
         title: text,
-      })
-    }
-  }
+      });
+    },
+  },
 });
