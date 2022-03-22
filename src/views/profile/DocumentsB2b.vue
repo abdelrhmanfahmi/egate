@@ -80,7 +80,15 @@
                       <b-button
                         class="btn-block"
                         variant="outline-success"
-                        @click="downloadImage(buisnessData.ccl_path)"
+                        @click="
+                          downloadImage(
+                            buisnessData.ccl_path,
+                            (extension = buisnessData.ccl_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.commercialLicense')
+                          )
+                        "
                       >
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
@@ -99,6 +107,7 @@
                     @click="
                       downloadItem(
                         buisnessData.ccl_path,
+                        (extension = buisnessData.ccl_path.split('.').pop()),
                         $t('profile.commercialLicense')
                       )
                     "
@@ -122,6 +131,7 @@
           <label for="signatureAccreditation">
             {{ $t("profile.signatureAccreditation") }}
           </label>
+
           <div class="row justify-content-center align-content-center">
             <div class="col-md-8 col-sm-12 mb-3">
               <b-form-group>
@@ -187,7 +197,13 @@
                         class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(buisnessData.auth_civil_copy_path)
+                          downloadImage(
+                            buisnessData.auth_civil_copy_path,
+                            (extension = buisnessData.auth_civil_copy_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.signatureAccreditation')
+                          )
                         "
                       >
                         <i class="fa fa-download"></i>
@@ -208,6 +224,9 @@
                     @click="
                       downloadItem(
                         buisnessData.auth_civil_copy_path,
+                        (extension = buisnessData.auth_civil_copy_path
+                          .split('.')
+                          .pop()),
                         $t('profile.signatureAccreditation')
                       )
                     "
@@ -290,7 +309,15 @@
                       <b-button
                         class="btn-block"
                         variant="outline-success"
-                        @click="downloadImage(buisnessData.ccs_path)"
+                        @click="
+                          downloadImage(
+                            buisnessData.ccs_path,
+                            (extension = buisnessData.ccs_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.commissionerCard')
+                          )
+                        "
                       >
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
@@ -307,6 +334,7 @@
                     @click="
                       downloadItem(
                         buisnessData.ccs_path,
+                        (extension = buisnessData.ccs_path.split('.').pop()),
                         $t('profile.commissionerCard')
                       )
                     "
@@ -390,7 +418,15 @@
                       <b-button
                         class="btn-block"
                         variant="outline-success"
-                        @click="downloadImage(buisnessData.rmcm_path)"
+                        @click="
+                          downloadImage(
+                            buisnessData.rmcm_path,
+                            (extension = buisnessData.rmcm_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.certificateAdministration')
+                          )
+                        "
                       >
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
@@ -407,6 +443,7 @@
                     @click="
                       downloadItem(
                         buisnessData.rmcm_path,
+                        (extension = buisnessData.rmcm_path.split('.').pop()),
                         $t('profile.certificateAdministration')
                       )
                     "
@@ -461,7 +498,10 @@
               </b-form-group>
             </div>
             <div class="col-md-4 col-sm-12 mb-3">
-              <div class="d-flex" v-if="buisnessData">
+              <div
+                class="d-flex justify-content-center align-content-center"
+                v-if="buisnessData"
+              >
                 <div class="" v-if="moaType === 'image' && moaType !== null">
                   <img
                     v-b-modal.moaModal
@@ -503,7 +543,13 @@
                       <b-button
                         class="btn-block"
                         variant="outline-success"
-                        @click="downloadImage(suppData.moa_path)"
+                        @click="
+                          downloadImage(
+                            suppData.moa_path,
+                            (extension = suppData.moa_path.split('.').pop())
+                          ),
+                            $t('profile.establishmentContract')
+                        "
                       >
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
@@ -520,6 +566,7 @@
                     @click="
                       downloadItem(
                         suppData.moa_path,
+                        (extension = suppData.moa_path.split('.').pop()),
                         $t('profile.establishmentContract')
                       )
                     "
@@ -605,7 +652,15 @@
                       <b-button
                         class="btn-block"
                         variant="outline-success"
-                        @click="downloadImage(downloadItem.sad_path)"
+                        @click="
+                          downloadImage(
+                            downloadItem.sad_path,
+                            (extension = downloadItem.sad_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.letterAuthorization')
+                          )
+                        "
                       >
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
@@ -622,6 +677,7 @@
                     @click="
                       downloadItem(
                         suppData.sad_path,
+                        (extension = suppData.sad_path.split('.').pop()),
                         $t('profile.letterAuthorization')
                       )
                     "
@@ -721,7 +777,13 @@
                         class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(ibanData.iban_number_certificate_path)
+                          downloadImage(
+                            ibanData.iban_number_certificate_path,
+                            (extension = ibanData.iban_number_certificate_path
+                              .split('.')
+                              .pop()),
+                            $t('profile.ibanCertificate')
+                          )
                         "
                       >
                         <i class="fa fa-download"></i>
@@ -739,6 +801,9 @@
                     @click="
                       downloadItem(
                         ibanData.iban_number_certificate_path,
+                        (extension = ibanData.iban_number_certificate_path
+                          .split('.')
+                          .pop()),
                         $t('profile.ibanCertificate')
                       )
                     "
@@ -884,7 +949,7 @@ export default {
     });
   },
   methods: {
-    downloadImage(url) {
+    downloadImage(url, extension, label) {
       axios({
         url: url, // File URL Goes Here
         method: "GET",
@@ -894,13 +959,13 @@ export default {
         var fileLink = document.createElement("a");
 
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "image.png");
+        fileLink.setAttribute("download", `${label}.${extension}`);
         document.body.appendChild(fileLink);
 
         fileLink.click();
       });
     },
-    downloadItem(url, label) {
+    downloadItem(url, extension, label) {
       console.log(url);
       axios({
         url: url, // File URL Goes Here
@@ -911,7 +976,7 @@ export default {
         var fileLink = document.createElement("a");
 
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", `${label}.pdf`);
+        fileLink.setAttribute("download", `${label}.${extension}`);
         document.body.appendChild(fileLink);
 
         fileLink.click();
@@ -967,7 +1032,7 @@ export default {
       //   this.buissnessinfo.ccl.document = true;
       //   this.buissnessinfo.ccl.url = e.target.files[0].ccl;
       // }
-      this.checkBtn1();
+      // this.checkBtn1();
     },
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
@@ -1180,7 +1245,7 @@ export default {
   },
   created() {
     if (this.userInfo === "b2c") {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   },
   computed: {
