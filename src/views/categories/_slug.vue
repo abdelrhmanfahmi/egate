@@ -127,7 +127,7 @@
                       :to="`/categories/${category.id}/variants`"
                       v-if="category.id"
                     >
-                      <CategoryCard
+                      <CategoryCard v-if="category"
                         :card="{ type: category.title }"
                         :image="category.image_path"
                       />
@@ -148,12 +148,17 @@
                     v-for="cat in category.all_children"
                     :key="cat.id"
                   >
-                    <router-link :to="`/categories/${category.id}/variants`">
+                    <router-link :to="`/categories/${cat.id}/variants`" v-if="cat">
                       <CategoryCard
                         :card="{ type: cat.title }"
                         :image="cat.image_path"
                       />
                     </router-link>
+                    <div class="" v-else>
+                      <h3>
+                        {{$t(`Sorry no data about ${cat.title} till now`)}}
+                      </h3>
+                    </div>
                   </b-col>
                 </b-row>
               </b-tab>
