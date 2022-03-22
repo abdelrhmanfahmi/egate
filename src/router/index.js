@@ -81,6 +81,12 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
     },
+    {
+        path: "/categories/:slug/variants",
+        name: "variants",
+        component: () =>
+            import(/* webpackChunkName: "about" */ "../views/categories/variants.vue"),
+    },
     ...auth,
     profileRoutes,
 ];

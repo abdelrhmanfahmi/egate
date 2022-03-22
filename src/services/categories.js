@@ -5,4 +5,7 @@ export default {
     getCategories() {
         return globalAxios.get("lists/categories");
     },
+    getSubCategories(id) {
+        return globalAxios.get(`lists/categories/allChild?parent_id=${id}`);
+    },
 };

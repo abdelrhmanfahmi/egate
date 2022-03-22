@@ -110,7 +110,7 @@ export default {
           if (!res.data.items.item.verify_email_required) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
           }
-          this.$router.push("/");
+          this.$router.push("/profile/account-information-b2b");
           location.reload();
         })
         .catch((error) => {

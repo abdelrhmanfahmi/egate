@@ -82,7 +82,8 @@
                         variant="outline-success"
                         @click="downloadImage(buisnessData.ccl_path)"
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -189,7 +190,8 @@
                           downloadImage(buisnessData.auth_civil_copy_path)
                         "
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -290,7 +292,8 @@
                         variant="outline-success"
                         @click="downloadImage(buisnessData.ccs_path)"
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -389,7 +392,8 @@
                         variant="outline-success"
                         @click="downloadImage(buisnessData.rmcm_path)"
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -424,7 +428,7 @@
         </div>
         <b-button
           type="submit"
-          variant="outline-danger" 
+          variant="outline-danger"
           class="saveBtn btn-block py-3"
           :disabled="btn1Disabled"
         >
@@ -501,7 +505,8 @@
                         variant="outline-success"
                         @click="downloadImage(suppData.moa_path)"
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -602,7 +607,8 @@
                         variant="outline-success"
                         @click="downloadImage(downloadItem.sad_path)"
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -635,8 +641,12 @@
             {{ error }}
           </div>
         </div>
-        <b-button type="submit" variant="outline-danger" 
-          class="saveBtn btn-block py-3" :disabled="btn2Disabled">
+        <b-button
+          type="submit"
+          variant="outline-danger"
+          class="saveBtn btn-block py-3"
+          :disabled="btn2Disabled"
+        >
           <i class="fa fa-upload"></i> {{ $t("profile.save") }}
           <span class="loader" v-if="suppDataLoading"></span>
         </b-button>
@@ -714,7 +724,8 @@
                           downloadImage(ibanData.iban_number_certificate_path)
                         "
                       >
-                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i>
+                        {{ $t("profile.download") }}
                       </b-button>
                     </template>
                   </b-modal>
@@ -749,8 +760,12 @@
             {{ unOuthMesssage }}
           </div>
         </div>
-        <b-button type="submit" variant="outline-danger" 
-          class="saveBtn btn-block py-3" :disabled="btn3Disabled">
+        <b-button
+          type="submit"
+          variant="outline-danger"
+          class="saveBtn btn-block py-3"
+          :disabled="btn3Disabled"
+        >
           <i class="fa fa-upload"></i> {{ $t("profile.save") }}
 
           <span class="loader" v-if="ibanUploadLoading"></span>
@@ -1162,6 +1177,16 @@ export default {
     // },
 
     // suppDocUpload change functionsF
+  },
+  created() {
+    if (this.userInfo === "b2c") {
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.userInfo.item.type;
+    },
   },
 };
 </script>
