@@ -1,12 +1,19 @@
 <template>
   <div class="profile-body">
-    <b-container v-if="userInfo.item.type === 'buyer'">
+    <b-container
+      v-if="
+        userInfo.item.type === 'buyer' ||
+        (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
+      "
+    >
       <div class="row profile-header">
         <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
-            <router-link to="/profile/account-information-b2b">{{ $t("profile.completeLink") }}</router-link>
+            <router-link to="/profile/account-information-b2b">{{
+              $t("profile.completeLink")
+            }}</router-link>
           </p>
         </div>
         <div class="rate col-12 col-sm-4">
