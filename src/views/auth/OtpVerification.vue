@@ -68,7 +68,7 @@ export default {
       auth
         .verificationMobile(this.form)
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/profile/account-information-b2b");
           this.$store.dispatch("getUserInfo");
         })
         .catch((error) => {

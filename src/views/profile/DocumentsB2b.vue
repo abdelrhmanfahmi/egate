@@ -1070,7 +1070,9 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.getBuissnessinfodata();
+            this.suppData = []
+            
+            
           }
         })
         .catch((error) => {
@@ -1128,7 +1130,7 @@ export default {
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
-          console.log(res);
+          this.getSuppDocUploadData()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
