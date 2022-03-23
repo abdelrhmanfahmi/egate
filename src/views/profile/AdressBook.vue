@@ -237,8 +237,20 @@ export default {
       showForm: false,
       fields: [
         {
+          key: "apartment",
+          label: this.$t("profile.apartment"),
+        },
+        {
           key: "building_number",
-          label: this.$t("profile.homeNumber"),
+          label: this.$t("profile.block_number"),
+        },
+        {
+          key: "floor",
+          label: this.$t("profile.floor"),
+        },
+        {
+          key: "apartment",
+          label: this.$t("profile.apartment"),
         },
         {
           key: "address_line_1",

@@ -21,6 +21,6 @@ export default {
   KWD: "KWD",
   EGP: "EGP",
   showAll: "show all",
-  noData:'there is no ',
+  noData:'no ',
   tilNow:'till now'
 };

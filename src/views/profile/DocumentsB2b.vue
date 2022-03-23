@@ -1075,6 +1075,7 @@ export default {
             this.sucessMsg(res.data.message);
             this.suppData = [];
           }
+          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1085,6 +1086,7 @@ export default {
           this.buissnessinfoUploadLoading = false;
           this.btn1Disabled = false;
           console.log("formData", formData);
+          location.reload()
         });
     },
 
@@ -1134,6 +1136,7 @@ export default {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
           this.getSuppDocUploadData();
+          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1143,6 +1146,7 @@ export default {
         .finally(() => {
           this.suppDataLoading = false;
           this.btn2Disabled = false;
+          location.reload()
         });
       console.log(formData);
     },
@@ -1184,6 +1188,7 @@ export default {
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
           }
+          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1201,6 +1206,7 @@ export default {
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
+          location.reload() //
         });
     },
 

@@ -117,5 +117,7 @@ export default {
   profileData : "Your data is completed",
   completeInformation:"please complete your profile",
   filePlaceHolder:'Please Choose File',
-  postcode:'Post Code'
+  postcode:'Post Code',
+  apartment:'Apartment',
+  block_number:'Block Number',
 };
