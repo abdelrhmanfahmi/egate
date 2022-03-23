@@ -112,5 +112,7 @@ export default {
   profileData: "الملف الشحضي كامل من حيث البيانات",
   completeInformation: "من فضلك اكمل بيناتك",
   filePlaceHolder:'قم باختيار الملف',
-  postcode:'الرمز البريدى'
+  postcode:'الرمز البريدى',
+  apartment:'رقم الشقة',
+  block_number:'رقم المبني',
 };

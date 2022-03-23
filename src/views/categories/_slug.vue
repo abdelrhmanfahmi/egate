@@ -2,6 +2,8 @@
   <div class="subCategory">
     <div class="cover text-center">
       <div
+
+        :style="{backgroundImage:'url(https://vuejs.org/images/logo.png)'}"
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
@@ -141,7 +143,6 @@
                 v-for="category in subCategories"
                 :key="category.id"
               >
-                
                 <b-row v-if="category.all_children.length > 0">
                   <b-col
                     lg="3"
@@ -160,7 +161,8 @@
                 </b-row>
                 <div class="" v-else>
                   <h3 class="my-2">
-                    {{$t('home.noData')}} {{category.title}} {{$t('home.tilNow')}}
+                    {{ $t("home.noData") }} {{ category.title }}
+                    {{ $t("home.tilNow") }}
                   </h3>
                 </div>
               </b-tab>
@@ -237,8 +239,8 @@ export default {
 
 <style lang="scss" scoped>
 .cover-data {
-  //local now
-  background: url("../../assets/images/cover.png") no-repeat center;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 select {
   border: none;

@@ -1075,6 +1075,7 @@ export default {
             this.sucessMsg(res.data.message);
             this.suppData = [];
           }
+          location.reload()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1134,6 +1135,7 @@ export default {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
           this.getSuppDocUploadData();
+          location.reload()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1184,6 +1186,7 @@ export default {
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
           }
+          location.reload()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
