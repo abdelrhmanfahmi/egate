@@ -1206,7 +1206,7 @@ export default {
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
-          location.reload()
+          location.reload() //
         });
     },
 
