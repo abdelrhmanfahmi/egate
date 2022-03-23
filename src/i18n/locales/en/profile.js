@@ -116,5 +116,6 @@ export default {
   giftCardCheck: "Check the status and balance",
   profileData : "Your data is completed",
   completeInformation:"please complete your profile",
-  filePlaceHolder:'Please Choose File'
+  filePlaceHolder:'Please Choose File',
+  postcode:'Post Code'
 };

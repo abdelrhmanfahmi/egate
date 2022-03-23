@@ -20,5 +20,7 @@ export default {
   cart: "cart",
   KWD: "KWD",
   EGP: "EGP",
-  showAll: "show all"
+  showAll: "show all",
+  noData:'there is no ',
+  tilNow:'till now'
 };
