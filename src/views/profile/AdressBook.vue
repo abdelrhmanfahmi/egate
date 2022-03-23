@@ -186,6 +186,13 @@
         <div class="actions">
           <b-button
             v-b-tooltip.hover
+            :title="$t('profile.edit')"
+            @click="editAdress(row)"
+          >
+            <font-awesome-icon icon="fa-solid fa-edit" />
+          </b-button>
+          <b-button
+            v-b-tooltip.hover
             :title="$t('profile.delete')"
             @click="deleteAdress(row)"
           >
@@ -248,6 +255,10 @@ export default {
         {
           key: "country.title",
           label: this.$t("profile.country"),
+        },
+        {
+          key: "pin_code",
+          label: this.$t("profile.postcode"),
         },
         {
           key: "actions",
@@ -320,6 +331,23 @@ export default {
           const err = Object.values(error)[2].data;
           this.errMsg(err.message);
         });
+    },
+    editAdress(row) {
+      console.log(row);
+      this.showForm = true;
+      this.form.country_id = row.item.country.id;
+
+      this.form = { ...row.item };
+
+      profile.getAllRegions(this.form.country_id).then((res) => {
+        this.regions = res.data.items;
+        this.form.region_id = row.item.region.id;
+      });
+
+      profile.getAllCities(this.form.region_id).then((res) => {
+        this.cities = res.data.items;
+        this.form.city_id = row.item.city.id;
+      });
     },
     makeDefaultAddress(row) {
       profile

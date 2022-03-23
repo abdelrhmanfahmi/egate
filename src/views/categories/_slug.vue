@@ -98,7 +98,7 @@
             <b-tabs>
               <b-tab :title="$t('All')">
                 <b-row v-if="loading">
-                  <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+                  <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                     <b-skeleton-img></b-skeleton-img>
                     <b-card>
                       <b-skeleton
@@ -127,7 +127,8 @@
                       :to="`/categories/${category.id}/variants`"
                       v-if="category.id"
                     >
-                      <CategoryCard v-if="category"
+                      <CategoryCard
+                        v-if="category"
                         :card="{ type: category.title }"
                         :image="category.image_path"
                       />
@@ -140,27 +141,28 @@
                 v-for="category in subCategories"
                 :key="category.id"
               >
-                <b-row>
-                  <b-col 
+                
+                <b-row v-if="category.all_children.length > 0">
+                  <b-col
                     lg="3"
                     sm="6"
                     class="custum-padding mb-2"
                     v-for="cat in category.all_children"
                     :key="cat.id"
                   >
-                    <router-link :to="`/categories/${cat.id}/variants`" v-if="cat">
+                    <router-link :to="`/categories/${cat.id}/variants`">
                       <CategoryCard
                         :card="{ type: cat.title }"
                         :image="cat.image_path"
                       />
                     </router-link>
-                    <div class="" v-else>
-                      <h3>
-                        {{$t(`Sorry no data about ${cat.title} till now`)}}
-                      </h3>
-                    </div>
                   </b-col>
                 </b-row>
+                <div class="" v-else>
+                  <h3 class="my-2">
+                    {{$t('home.noData')}} {{category.title}} {{$t('home.tilNow')}}
+                  </h3>
+                </div>
               </b-tab>
             </b-tabs>
           </div>

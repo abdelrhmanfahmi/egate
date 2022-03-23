@@ -20,5 +20,7 @@ export default {
   cart: "سلة المشتريات",
   KWD: "الدينار الكويتي",
   EGP: "الجنيه المصري",
-  showAll: "عرض الكل"
+  showAll: "عرض الكل",
+  noData:"لا يوجد ",
+  tilNow:'حتي الان'
 };
