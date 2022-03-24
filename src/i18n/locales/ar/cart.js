@@ -3,4 +3,5 @@ export default {
   total: "الاجمالي",
   shopping: "سلة المشتريات",
   purchase: "الشراء",
+  noData:'لا يوجد بيانات'
 };

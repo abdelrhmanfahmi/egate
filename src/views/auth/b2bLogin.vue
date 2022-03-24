@@ -36,9 +36,7 @@
                 <!-- Password -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{
-                      $t("register.password")
-                    }}</label>
+                    <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
@@ -107,11 +105,16 @@ export default {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           console.log("yes" , res.data.items.item.verify_email_required)
 
-          if (!res.data.items.item.verify_email_required) {
+          // if (!res.data.items.item.verify_email_required) {
+          if (!this.userInfo.item.is_verified) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
+          }else{
+            localStorage.setItem("massege", '');
           }
           this.$router.push("/profile/account-information-b2b");
           location.reload();
+
+          console.log("show" , );
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
