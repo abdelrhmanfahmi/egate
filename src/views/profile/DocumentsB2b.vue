@@ -14,7 +14,8 @@
       <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
         <div class="form-input mb-4">
           <label for="CommercialLicense">
-            {{ $t("profile.commercialLicense") }}
+            {{ $t("profile.commercialLicense") }} 
+            <span class="text-danger">*</span>
           </label>
           <div
             class="row justify-content-center align-content-center"
@@ -130,6 +131,7 @@
         <div class="form-input mb-4">
           <label for="signatureAccreditation">
             {{ $t("profile.signatureAccreditation") }}
+            <span class="text-danger">*</span>
           </label>
 
           <div class="row justify-content-center align-content-center">
@@ -249,6 +251,7 @@
         <div class="form-input mb-4">
           <label for="commissionerCard">
             {{ $t("profile.commissionerCard") }}
+            <span class="text-danger">*</span>
           </label>
 
           <div class="row justify-content-center align-content-center">
@@ -714,6 +717,7 @@
         <div class="form-input mb-4">
           <label for="LetterAuthorization">
             {{ $t("profile.ibanCertificate") }}
+            <span class="text-danger">*</span>
           </label>
           <div
             class="row justify-content-center align-content-center"
