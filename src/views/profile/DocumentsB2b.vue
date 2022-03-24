@@ -14,7 +14,8 @@
       <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
         <div class="form-input mb-4">
           <label for="CommercialLicense">
-            {{ $t("profile.commercialLicense") }}
+            {{ $t("profile.commercialLicense") }} 
+            <span class="text-danger">*</span>
           </label>
           <div
             class="row justify-content-center align-content-center"
@@ -130,6 +131,7 @@
         <div class="form-input mb-4">
           <label for="signatureAccreditation">
             {{ $t("profile.signatureAccreditation") }}
+            <span class="text-danger">*</span>
           </label>
 
           <div class="row justify-content-center align-content-center">
@@ -249,6 +251,7 @@
         <div class="form-input mb-4">
           <label for="commissionerCard">
             {{ $t("profile.commissionerCard") }}
+            <span class="text-danger">*</span>
           </label>
 
           <div class="row justify-content-center align-content-center">
@@ -714,6 +717,7 @@
         <div class="form-input mb-4">
           <label for="LetterAuthorization">
             {{ $t("profile.ibanCertificate") }}
+            <span class="text-danger">*</span>
           </label>
           <div
             class="row justify-content-center align-content-center"
@@ -1074,8 +1078,10 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.suppData = [];
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
           }
-          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1086,7 +1092,6 @@ export default {
           this.buissnessinfoUploadLoading = false;
           this.btn1Disabled = false;
           console.log("formData", formData);
-          location.reload()
         });
     },
 
@@ -1136,7 +1141,11 @@ export default {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
           this.getSuppDocUploadData();
-          
+          if (res.status == 200) {
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1146,7 +1155,7 @@ export default {
         .finally(() => {
           this.suppDataLoading = false;
           this.btn2Disabled = false;
-          location.reload()
+          location.reload();
         });
       console.log(formData);
     },
@@ -1187,8 +1196,10 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
           }
-          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1206,7 +1217,7 @@ export default {
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
-          location.reload() //
+          location.reload(); //
         });
     },
 
