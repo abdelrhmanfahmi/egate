@@ -172,7 +172,7 @@ export default {
           this.countries = res.data.items;
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err); //
         });
     },
     // Update Profile
