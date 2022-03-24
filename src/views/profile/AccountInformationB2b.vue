@@ -162,7 +162,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.form = { ...this.userInfo.item };
+    this.form = { ...this.userData };
   },
   methods: {
     getAllCountires() {

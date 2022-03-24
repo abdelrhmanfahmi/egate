@@ -3,4 +3,5 @@ export default {
   total: "total",
   shopping: "shopping",
   purchase: "purchase",
+  noData:'No Data'
 };
