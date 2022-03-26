@@ -162,7 +162,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.form = { ...this.userInfo.item };
+    this.form = { ...this.userData };
   },
   methods: {
     getAllCountires() {
@@ -172,7 +172,7 @@ export default {
           this.countries = res.data.items;
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err); //
         });
     },
     // Update Profile

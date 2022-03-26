@@ -1082,6 +1082,7 @@ export default {
               location.reload();
             }, 1000);
           }
+          console.log(res);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
