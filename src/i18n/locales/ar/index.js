@@ -7,7 +7,7 @@ import cart from "./cart";
 import supplier from "./supplier";
 import items from "./items";
 import singleProduct from "./singleProduct";
-
+import payment from "./payment";
 
 export default {
   register,
@@ -19,4 +19,5 @@ export default {
   supplier,
   items,
   singleProduct,
+  payment,
 };
