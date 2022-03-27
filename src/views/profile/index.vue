@@ -7,7 +7,7 @@
       "
     >
       <div class="row profile-header">
-        <div class="col-12 col-sm-8 continue-registration">
+        <div class="col-12 col-sm-8 continue-registration" v-if="userData.profile_percentage !== 100">
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}

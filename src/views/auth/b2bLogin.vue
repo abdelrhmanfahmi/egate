@@ -103,18 +103,19 @@ export default {
         .login("buyer", this.form)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          console.log("yes" , res.data.items.item.verify_email_required)
+          console.log("yes", res.data.items.item.verify_email_required);
 
           // if (!res.data.items.item.verify_email_required) {
-          if (!this.userInfo.item.is_verified) {
-            localStorage.setItem("massege", this.$t("register.openEmail"));
-          }else{
-            localStorage.setItem("massege", '');
-          }
           this.$router.push("/profile/account-information-b2b");
           location.reload();
+          
+          if (!this.userInfo.item.is_verified) {
+            localStorage.setItem("massege", this.$t("register.openEmail"));
+          } else {
+            localStorage.setItem("massege", "");
+          }
 
-          console.log("show" , );
+          alert("loged");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

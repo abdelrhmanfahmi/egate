@@ -164,6 +164,9 @@ export default {
     this.getAllCountires();
     this.form = { ...this.userData };
   },
+  created() {
+    this.reloadPage();
+  },
   methods: {
     getAllCountires() {
       auth
@@ -196,6 +199,19 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+    },
+    reloadPage() {
+      if (localStorage.getItem("reloaded")) {
+        // The page was just reloaded. Clear the value from local storage
+        // so that it will reload the next time this page is visited.
+        localStorage.removeItem("reloaded");
+      } else {
+        // Set a flag so that we know not to reload the page twice.
+        localStorage.setItem("reloaded", "1");
+        setTimeout(() => {
+          location.reload();
+        }, 1200);
+      }
     },
   },
 };
