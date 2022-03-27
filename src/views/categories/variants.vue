@@ -60,7 +60,7 @@
           stacked="lg"
         >
           <template #cell(item)="data">
-            <a href="#">{{ data.value }}</a>
+            <a href="#" >{{ data.value }}</a>
           </template>
           <template #cell(image_path)="data">
             <img :src="data.value" class="product-image" />
@@ -89,7 +89,7 @@
             <Counter
               v-else
               class="justify-content-center"
-              :quantity="0"
+              :quantity="1"
             ></Counter>
           </template>
           <template #cell(addTo)>
@@ -161,11 +161,12 @@ export default {
       ],
       tableFields: [
         {
-          key: "type",
+          key: "#",
+          // key: "condition",
           label: this.$t("items.type"),
         },
         {
-          key: "item",
+          key: "product.title",
           label: this.$t("items.item"),
         },
         {
@@ -173,15 +174,15 @@ export default {
           label: this.$t("items.image"),
         },
         {
-          key: "supplier",
+          key: "client.company_name",
           label: this.$t("items.supplier"),
         },
         {
-          key: "unit",
+          key: "unit.title",
           label: this.$t("items.unit"),
         },
         {
-          key: "price",
+          key: "product_details[0].price",
           label: this.$t("items.price"),
         },
         {

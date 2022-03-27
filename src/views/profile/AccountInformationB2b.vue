@@ -185,6 +185,7 @@ export default {
         last_name: this.form.last_name,
         job_title: this.form.job_title,
         reg_number: this.form.reg_number,
+        portal: "buyer",
       };
       auth
         .storeInfo(payload)

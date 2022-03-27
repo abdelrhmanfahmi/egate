@@ -22,5 +22,6 @@ export default {
   EGP: "الجنيه المصري",
   showAll: "عرض الكل",
   noData:"لا يوجد ",
-  tilNow:'حتي الان'
+  tilNow:'حتي الان',
+  noDataTill:'لا يوجد معلومات حتي الان'
 };

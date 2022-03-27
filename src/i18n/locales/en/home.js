@@ -22,5 +22,6 @@ export default {
   EGP: "EGP",
   showAll: "show all",
   noData:'no ',
-  tilNow:'till now'
+  tilNow:'till now',
+  noDataTill:'No Data till now'
 };
