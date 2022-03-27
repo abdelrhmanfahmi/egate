@@ -4,9 +4,19 @@
       <div
         class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
       >
-        <a href="#" class="prev"><span>&#60;</span>{{ $t("items.prev") }}</a>
+        <button
+          class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
+          @click="prevPage"
+          :disabled="pageId == 1"
+        >
+          <span>&#60;</span>{{ $t("items.prev") }}
+        </button>
         <b-breadcrumb :items="items"></b-breadcrumb>
-        <a href="#" class="next">{{ $t("items.next") }}<span>&#62;</span></a>
+        <span
+          @click="nextPage"
+          class="next btn btn-light shadow-none bg-transparent border-none outline-none"
+          >{{ $t("items.next") }}<span>&#62;</span></span
+        >
       </div>
       <div class="content">
         <b-row align-h="center" align-v="center" class="py-5">
@@ -60,7 +70,7 @@
           stacked="lg"
         >
           <template #cell(item)="data">
-            <a href="#" >{{ data.value }}</a>
+            <a href="#">{{ data.value }}</a>
           </template>
           <template #cell(image_path)="data">
             <img :src="data.value" class="product-image" />
@@ -135,12 +145,13 @@ import Product from "@/components/pages/supplier/products/Product.vue";
 export default {
   data() {
     return {
-      id: this.$route.params.slug,
+      // id: this.$route.params.slug,
+      pageId: this.$route.params.slug,
       products: [],
       items: [
         {
           text: this.$t("items.home"),
-          href: "#",
+          href: "/humhum-user",
         },
         {
           text: this.$t("items.category"),
@@ -285,7 +296,7 @@ export default {
   methods: {
     getCategoryProducts() {
       categories
-        .getCategoryProducts(this.id)
+        .getCategoryProducts(this.pageId)
         .then((res) => {
           console.log(res);
           this.products = res.data.items.data;
@@ -295,9 +306,30 @@ export default {
           console.log(err);
         });
     },
+    updateId() {
+      this.pageId = this.$route.params.slug;
+    },
+    prevPage() {
+      let prevUrl = this.pageId;
+      if (prevUrl > 0) {
+        this.pageId -= 1;
+        console.log(this.pageId);
+        // this.$router.replace(`/categories/${prevUrl}/variants`);
+        this.getCategoryProducts();
+      }
+    },
+    nextPage() {
+      this.pageId = parseInt(this.pageId) + 1;
+      console.log(this.pageId);
+      // this.$router.replace(`/categories/${prevUrl}/variants`);
+      this.getCategoryProducts();
+    },
   },
   mounted() {
     this.getCategoryProducts();
+  },
+  watch: {
+    $route: "updateId",
   },
 };
 </script>
