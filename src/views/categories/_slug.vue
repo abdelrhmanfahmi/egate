@@ -2,8 +2,7 @@
   <div class="subCategory">
     <div class="cover text-center">
       <div
-
-        :style="{backgroundImage:'url(https://vuejs.org/images/logo.png)'}"
+        :style="{ backgroundImage: 'url(https://vuejs.org/images/logo.png)' }"
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
@@ -116,7 +115,7 @@
                     </b-card>
                   </b-col>
                 </b-row>
-                <b-row v-else>
+                <b-row v-else-if="!loading && allChildrenLength > 0">
                   <b-col
                     :title="category.title"
                     v-for="category in allChildrenData"
@@ -125,18 +124,25 @@
                     sm="6"
                     class="custum-padding mb-2"
                   >
-                    <router-link
-                      :to="`/categories/${category.id}/variants`"
-                      v-if="category.id"
-                    >
-                      <CategoryCard
-                        v-if="category"
-                        :card="{ type: category.title }"
-                        :image="category.image_path"
-                      />
-                    </router-link>
+                    <div class="">
+                      <router-link
+                        :to="`/categories/${category.id}/variants`"
+                        v-if="category.id"
+                      >
+                        <CategoryCard
+                          v-if="category"
+                          :card="{ type: category.title }"
+                          :image="category.image_path"
+                        />
+                      </router-link>
+                    </div>
                   </b-col>
                 </b-row>
+                <div class="" v-else-if="!loading && allChildrenLength <= 0">
+                  <h3 class="my-2">
+                    {{ $t("home.noDataTill") }}
+                  </h3>
+                </div>
               </b-tab>
               <b-tab
                 :title="category.title"
@@ -198,6 +204,7 @@ export default {
       subCategories: null,
       allChildren: null,
       allChildrenData: null,
+      allChildrenLength: null,
     };
   },
   computed: {
@@ -217,6 +224,7 @@ export default {
         .getSubCategories(this.id)
         .then((resp) => {
           this.subCategories = resp.data.items;
+          this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
             // const element = array[i];
             this.allChildrenData = this.subCategories[i].all_children;

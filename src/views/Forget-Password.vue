@@ -134,6 +134,12 @@ export default {
       }
     },
   },
+  created() {
+    let profileData = this.userData;
+    if (!profileData) {
+      location.replace("/b2b-login");
+    }
+  },
 };
 </script>
 
