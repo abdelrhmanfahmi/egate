@@ -5,6 +5,7 @@ import Suppliers from "../views/Suppliers.vue";
 import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
 import ContactUs from "../views/Contact-Us.vue";
+import Cart from "../views/Cart.vue";
 import Payment from "../views/Payment.vue";
 import ForgetPassword from "../views/Forget-Password.vue";
 import Items from "../views/Items.vue";
@@ -63,6 +64,10 @@ const routes = [
         component: SingleProduct,
     },
     {
+        path: "/cart",
+        name: "Cart",
+        component: Cart,
+    }, {
         path: "/payment",
         name: "Payment",
         component: Payment,
