@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+// import createPersistedState from 'vuex-persistedstate';
+import cart from "./modules/cart";
+import wishlist from "./modules/wishlist";
 import auth from "@/services/auth";
 Vue.use(Vuex);
 
@@ -32,5 +35,9 @@ export default new Vuex.Store({
       });
     }
   },
-  modules: {},
+  modules: {
+    cart,
+    wishlist
+  },
+  // plugins: [createPersistedState()]
 });

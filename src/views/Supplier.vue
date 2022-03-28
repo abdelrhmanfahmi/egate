@@ -9,27 +9,51 @@
         <a href="" class="next">{{ $t("supplier.next") }}<span>&#62;</span></a>
       </div>
 
-      <div class="row justify-content-between">
-        <SideSection class="col-12 col-lg-4 order-1 order-lg-0"></SideSection>
-        <Article
-          class="col-12 col-lg-8 order-0 order-lg-1"
-          :data="article"
-        ></Article>
-      </div>
-      <div class="products text-center">
-        <p class="title">{{ $t("supplier.products") }}</p>
-        <div class="row">
-          <div
-            class="col-12 col-sm-6 col-lg-3"
-            v-for="item in 10"
-            :key="item.message"
-          >
-            <Product :data="product"></Product>
-          </div>
+      <b-row v-if="loading">
+        <b-col class="mb-2" lg="3" sm="6" v-for="x in 2" :key="x">
+          <b-skeleton-img></b-skeleton-img>
+          <b-card>
+            <b-skeleton
+              animation="fade"
+              width="60%"
+              class="border-none"
+            ></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="85%"
+              class="border-none"
+            ></b-skeleton>
+          </b-card>
+        </b-col>
+      </b-row>
+
+      <div class="" v-else>
+        <div class="row justify-content-between">
+          <SideSection
+            class="col-12 col-lg-4 order-1 order-lg-0"
+            :supplier="supplier"
+          ></SideSection>
+          <Article
+            class="col-12 col-lg-8 order-0 order-lg-1"
+            :data="article"
+            :supplier="supplier"
+          ></Article>
         </div>
-        <b-button class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0">{{
-          $t("supplier.more")
-        }}</b-button>
+        <div class="products text-center">
+          <p class="title">{{ $t("supplier.products") }}</p>
+          <div class="row">
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              v-for="item in supplierProducts"
+              :key="item.id"
+            >
+              <Product :data="item"></Product>
+            </div>
+          </div>
+          <b-button class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0">{{
+            $t("supplier.more")
+          }}</b-button>
+        </div>
       </div>
     </div>
   </div>
@@ -38,6 +62,8 @@
 import SideSection from "@/components/pages/supplier/SideSection";
 import Article from "@/components/pages/supplier/Article";
 import Product from "@/components/pages/supplier/products/Product";
+import suppliers from "@/services/suppliers";
+
 export default {
   components: {
     SideSection,
@@ -49,7 +75,7 @@ export default {
       items: [
         {
           text: this.$t("supplier.home"),
-          href: "#",
+          href: "/humhum-user",
         },
         {
           text: this.$t("supplier.suppliers"),
@@ -60,6 +86,8 @@ export default {
           active: true,
         },
       ],
+      id: this.$route.params.id,
+      loading: false,
       article: {
         image: require("@/assets/images/supba.png"),
         content: this.$t("supplier.article"),
@@ -69,7 +97,42 @@ export default {
         name: this.$t("supplier.productName"),
         price: "4.620 KD",
       },
+      supplier: null,
+      supplierProducts:null,
     };
+  },
+  methods: {
+    getSupplier() {
+      this.loading = true;
+      let id = this.id;
+      suppliers
+        .getSupplier(id)
+        .then((resp) => {
+          this.supplier = resp.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    getSupplierProducts() {
+      let id = this.id;
+      suppliers
+        .getSupplierProducts(id)
+        .then((resp) => {
+          console.log(resp);
+          this.supplierProducts = resp.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
+  },
+  mounted() {
+    this.getSupplier();
+    this.getSupplierProducts();
   },
 };
 </script>
