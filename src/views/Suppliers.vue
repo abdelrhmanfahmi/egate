@@ -8,13 +8,30 @@
 
     <div class="suppliers py-4">
       <div class="container">
-        <div class="row suppliers-data">
+        <b-row v-if="loading">
+          <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
+            <b-skeleton-img></b-skeleton-img>
+            <b-card>
+              <b-skeleton
+                animation="fade"
+                width="60%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="85%"
+                class="border-none"
+              ></b-skeleton>
+            </b-card>
+          </b-col>
+        </b-row>
+        <div class="row suppliers-data" v-else>
           <div
             class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content"
-            v-for="(item, key) in 10"
-            :key="key"
+            v-for="supplier in suppliers"
+            :key="supplier.id"
           >
-            <SingleSupplier></SingleSupplier>
+            <SingleSupplier :supplier="supplier"></SingleSupplier>
           </div>
         </div>
       </div>
@@ -23,6 +40,7 @@
 </template>
 <script>
 import SingleSupplier from "../components/pages/suppliers/SingleSupplier.vue";
+import suppliers from "@/services/suppliers";
 export default {
   components: {
     SingleSupplier,
@@ -32,7 +50,7 @@ export default {
       items: [
         {
           text: this.$t("supplier.home"),
-          href: "#",
+          href: "/humhum-user",
         },
         {
           text: this.$t("supplier.suppliers"),
@@ -43,7 +61,29 @@ export default {
           active: true,
         },
       ],
+      suppliers: null,
+      loading: false,
     };
+  },
+  methods: {
+    getSuppliers() {
+      this.loading = true;
+      suppliers
+        .getSuppliers()
+        .then((resp) => {
+          console.log(resp);
+          this.suppliers = resp.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+  mounted() {
+    this.getSuppliers();
   },
 };
 </script>

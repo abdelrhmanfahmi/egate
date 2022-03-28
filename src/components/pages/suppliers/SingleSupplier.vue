@@ -2,14 +2,15 @@
   <div class="single-supplier bg-white position-relative">
     <div class="supplier-data">
       <div class="thumb">
-        <router-link to="/supplier" class="d-block text-center">
+
+        <router-link :to="`/suppliers/${supplier.id}`" class="d-block text-center">
           <img
-            :src="require('@/assets/images/slogo3.png')"
+            :src="supplier.image_path"
             alt="supplier image"
           />
         </router-link>
         <p class="supplier-name text-center mt-3 text-capitalize">
-          {{ $t("supplier.company") }}
+          {{ supplier.company_name }}
         </p>
       </div>
     </div>
@@ -20,6 +21,7 @@ export default {
   data() {
     return {};
   },
+  props: ["supplier"],
 };
 </script>
 <style lang="scss" scoped>

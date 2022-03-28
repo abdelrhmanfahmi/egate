@@ -1,10 +1,16 @@
 <template>
-  <div class="side-sections">
+  <div class="side-sections" v-if="supplier">
     <p class="title">{{ $t("supplier.about") }}</p>
     <div class="company-info">
-      <img :src="require('@/assets/images/suplogo.png')" alt="Company Name" />
-      <h4 class="name">{{ $t("supplier.company") }}</h4>
-      <ul class="social-accounts d-flex flex-wrap">
+      <img
+        :src="supplier.image_path"
+        alt="Company Name"
+        v-if="supplier.image_path"
+      />
+      <h4 class="name" v-if="supplier.company_name">
+        {{ supplier.company_name }}
+      </h4>
+      <!-- <ul class="social-accounts d-flex flex-wrap">
         <li class="account">
           <a href="#"><b-icon-twitter></b-icon-twitter></a>
         </li>
@@ -23,27 +29,30 @@
         <li class="account">
           <a href="#"><b-icon-twitter></b-icon-twitter></a>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div class="other-sections">
       <p class="title">{{ $t("supplier.sections") }}</p>
       <ul class="sections">
-        <li class="section" v-for="item in 5" :key="item">
-          <a href="#">{{ $t("supplier.milk") }}</a>
+        <li class="section" v-for="item in supplier.categories" :key="item.id">
+          <router-link :to="`${supplier.id}`">
+            {{ item.category.title }}
+          </router-link>
         </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import { BIconTwitter } from "bootstrap-vue";
+// import { BIconTwitter } from "bootstrap-vue";
 export default {
   components: {
-    BIconTwitter,
+    // BIconTwitter,
   },
   data() {
     return { count: 0 };
   },
+  props: ["supplier"],
 };
 </script>
 <style lang="scss" scoped>

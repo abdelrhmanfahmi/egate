@@ -19,7 +19,12 @@
         >
       </div>
       <div class="content">
-        <b-row align-h="center" align-v="center" class="py-5" v-if="productInfo">
+        <b-row
+          align-h="center"
+          align-v="center"
+          class="py-5"
+          v-if="productInfo"
+        >
           <b-col cols="12" lg="6" xl="5" class="item-content">
             <!-- <a href="#" class="link">{{ $t("items.category") }}</a> -->
             <h5 class="name" v-if="productInfo.title">
@@ -33,34 +38,52 @@
             </p> -->
             <div class="customize">
               <div class="customize-selection">
-                <label for="select">{{ $t("items.typesSelect") }}</label>
                 <!-- <b-form-select
                   v-model="product.id"
                   v-for="product in productInfo.variants" :key="product.id"
                   :options="product.title"
                 ></b-form-select> -->
-                <b-form-select
+                <div
+                  v-for="product in productInfo.variants"
+                  :key="product.id"
+                  class="mb-3"
+                >
+                  <form action="">
+                    <label for="select">{{ product.title }}</label>
+                    <b-form-group >
+                      <b-form-select v-model="product.selectedVariance" @change="changeVariance(product)" class="mb-3">
+                        <b-form-select-option selected disabled :value="null">
+                          {{ $t("cart.selectOption") }}
+                        </b-form-select-option>
+                        <b-form-select-option
+                          v-for="pro in product.options"
+                          :key="pro.id"
+                          :value="pro.id"
+                        >
+                          <span v-if="pro.title">{{ pro.title }}</span>
+                        </b-form-select-option>
+                      </b-form-select>
+                    </b-form-group>
+                  </form>
+                </div>
+                <!-- <b-form-select
                   v-for="product in productInfo.variants"
                   :key="product.id"
                   v-model="selectedProduct"
                   class="mb-3"
                 >
-                product.title : {{productInfo.variants}}
-                  <b-form-select-option selected disabled :value="null"
-                    >
-                    {{$t('cart.selectOption')}}
-                    </b-form-select-option
-                  >
+                  <b-form-select-option selected disabled :value="null">
+                    {{ $t("cart.selectOption") }}
+                  </b-form-select-option>
                   <b-form-select-option
                     v-for="pro in product.options"
                     :key="pro.id"
                     :value="pro.id"
-                    >
-                    <span v-if="pro.title">{{ pro.title }}</span>
-                    </b-form-select-option
                   >
+                    <span v-if="pro.title">{{ pro.title }}</span>
+                  </b-form-select-option>
                 </b-form-select>
-                selectedProduct : {{ selectedProduct }}
+                selectedProduct : {{ selectedProduct }} -->
               </div>
             </div>
           </b-col>
@@ -76,9 +99,25 @@
         </b-row>
       </div>
     </div>
-    <div class="products text-center">
+    <div class="products text-center" v-if="products.length > 0">
       <h4 class="header font-weight-bold my-5">{{ $t("items.products") }}</h4>
-      <div class="products-table">
+      <b-row v-if="loading">
+        <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
+          <b-card>
+            <b-skeleton
+              animation="fade"
+              width="80%"
+              class="border-none"
+            ></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="95%"
+              class="border-none"
+            ></b-skeleton>
+          </b-card>
+        </b-col>
+      </b-row>
+      <div class="products-table" v-else>
         <b-table
           bordered
           hover
@@ -121,11 +160,13 @@
           </template>
           <template #cell(addTo)>
             <div class="add-to d-flex justify-content-center">
-              <a href="#">
+              <a @click="addToCart()">
                 <span>{{ $t("items.addToCart") }}</span>
                 <font-awesome-icon icon="fa-solid fa-cart-shopping" />
               </a>
-              <a href="#"><font-awesome-icon icon="fa-solid fa-star" /></a>
+              <a @click="addToWishlist()"
+                ><font-awesome-icon icon="fa-solid fa-star"
+              /></a>
               <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a>
             </div>
           </template>
@@ -159,6 +200,7 @@
 import categories from "@/services/categories";
 import Counter from "@/components/global/Counter.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -166,7 +208,9 @@ export default {
       pageId: this.$route.params.slug,
       products: [],
       productInfo: null,
-      selectedProduct: null,
+      selectedVariance: null,
+      loading: false,
+      variants:null,
       items: [
         {
           text: this.$t("items.home"),
@@ -313,7 +357,24 @@ export default {
     Product,
   },
   methods: {
+    ...mapActions("cart", ["addProductToCart", "addProductToWishlist"]),
+    addToCart() {
+      // this.addProductToCart({
+      //   product: this.product,
+      //   quantity: 1,
+      // });
+    },
+    addToWishlist() {
+      // this.addProductToWishlist({
+      //   product: this.product,
+      //   quantity: 1,
+      // });
+    },
+    changeVariance(product){
+      console.log(product.selectedVariance);
+    },
     getCategoryProducts() {
+      this.loading = true;
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
@@ -321,6 +382,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     getSingleProductDetails() {
@@ -329,6 +393,11 @@ export default {
         .then((res) => {
           console.log(res);
           this.productInfo = res.data.items;
+          let variantData = res.data.items.variants
+          for (let index = 0; index < variantData.length; index++) {
+            // this.variants = variantData[index];
+            this.productInfo.variants[index].selectedVariance = null      
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -352,6 +421,11 @@ export default {
       // this.$router.replace(`/categories/${prevUrl}/variants`);
       this.getCategoryProducts();
     },
+    postVariance(){
+      // let selectedVariance = [];
+
+      // axios.post('')
+    }
   },
   mounted() {
     this.getCategoryProducts();
