@@ -11,4 +11,7 @@ export default {
     getCategoryProducts(id) {
         return globalAxios.get(`products?category_id=${id}`);
     },
+    getSingleProductDetails(id) {
+        return globalAxios.get(`lists/categories/single/${id}`);
+    },
 };

@@ -19,42 +19,59 @@
         >
       </div>
       <div class="content">
-        <b-row align-h="center" align-v="center" class="py-5">
+        <b-row align-h="center" align-v="center" class="py-5" v-if="productInfo">
           <b-col cols="12" lg="6" xl="5" class="item-content">
-            <a href="#" class="link">{{ $t("items.category") }}</a>
-            <h5 class="name">{{ $t("items.fruit") }}</h5>
-            <p class="description">
-              {{ $t("items.description") }}
+            <!-- <a href="#" class="link">{{ $t("items.category") }}</a> -->
+            <h5 class="name" v-if="productInfo.title">
+              {{ productInfo.title }}
+            </h5>
+            <p class="description" v-if="productInfo.description">
+              {{ productInfo.description }}
             </p>
-            <p class="description">
+            <!-- <p class="description">
               {{ $t("items.description") }}
-            </p>
+            </p> -->
             <div class="customize">
               <div class="customize-selection">
                 <label for="select">{{ $t("items.typesSelect") }}</label>
+                <!-- <b-form-select
+                  v-model="product.id"
+                  v-for="product in productInfo.variants" :key="product.id"
+                  :options="product.title"
+                ></b-form-select> -->
                 <b-form-select
-                  v-model="selected"
-                  :options="types"
-                ></b-form-select>
-              </div>
-              <div class="customize-selection">
-                <label for="select">{{ $t("items.weightSelect") }}</label>
-                <b-form-select
-                  v-model="selected"
-                  :options="types"
-                ></b-form-select>
-              </div>
-              <div class="customize-selection">
-                <label for="select">{{ $t("items.facilitySelect") }}</label>
-                <b-form-select
-                  v-model="selected"
-                  :options="types"
-                ></b-form-select>
+                  v-for="product in productInfo.variants"
+                  :key="product.id"
+                  v-model="selectedProduct"
+                  class="mb-3"
+                >
+                product.title : {{productInfo.variants}}
+                  <b-form-select-option selected disabled :value="null"
+                    >
+                    {{$t('cart.selectOption')}}
+                    </b-form-select-option
+                  >
+                  <b-form-select-option
+                    v-for="pro in product.options"
+                    :key="pro.id"
+                    :value="pro.id"
+                    >
+                    <span v-if="pro.title">{{ pro.title }}</span>
+                    </b-form-select-option
+                  >
+                </b-form-select>
+                selectedProduct : {{ selectedProduct }}
               </div>
             </div>
           </b-col>
-          <b-col cols="12" lg="6" xl="5" class="item-media mt-3 m-lg-0">
-            <img :src="require('@/assets/images/ftb.png')" alt="item-name" />
+          <b-col
+            cols="12"
+            lg="6"
+            xl="5"
+            class="item-media mt-3 m-lg-0"
+            v-if="productInfo.image_path"
+          >
+            <img :src="productInfo.image_path" alt="item-name" />
           </b-col>
         </b-row>
       </div>
@@ -84,7 +101,7 @@
           <template #cell(unit)="data">
             {{ data.value }} {{ $t("items.kg") }}
           </template>
-          <template #cell(price)="data">         
+          <template #cell(price)="data">
             <span v-if="data.value > 0">{{ data.value }} </span>
             <span v-else>
               {{ $t("cart.noData") }}
@@ -148,6 +165,8 @@ export default {
       // id: this.$route.params.slug,
       pageId: this.$route.params.slug,
       products: [],
+      productInfo: null,
+      selectedProduct: null,
       items: [
         {
           text: this.$t("items.home"),
@@ -298,9 +317,18 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
-          console.log(res);
           this.products = res.data.items.data;
-          console.log(this.products);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getSingleProductDetails() {
+      categories
+        .getSingleProductDetails(this.pageId)
+        .then((res) => {
+          console.log(res);
+          this.productInfo = res.data.items;
         })
         .catch((err) => {
           console.log(err);
@@ -327,6 +355,7 @@ export default {
   },
   mounted() {
     this.getCategoryProducts();
+    this.getSingleProductDetails();
   },
   watch: {
     $route: "updateId",
@@ -405,5 +434,13 @@ export default {
 }
 .product-image {
   width: 150px;
+}
+.items-body
+  .content
+  .item-content
+  .customize
+  .customize-selection
+  select[data-v-74400477] {
+  height: 3rem;
 }
 </style>

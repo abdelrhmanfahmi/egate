@@ -18,4 +18,5 @@ export default {
   delivery: "التوصيل",
   free: "مجاني",
   checkout: "الذهاب للدفع",
+  selectOption:'من فضلك قم بالاختيار'
 };

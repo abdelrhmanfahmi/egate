@@ -3,7 +3,7 @@ export default {
   total: "Total",
   shopping: "shopping",
   purchase: "purchase",
-  noData: 'No Data',
+  noData: "No Data",
   supplier: "Supplier name",
   priceUnit: "KD",
   purchaseCart: "Purchase cart",
@@ -18,4 +18,5 @@ export default {
   delivery: "Delivery",
   free: "Free",
   checkout: "Checkout",
+  selectOption: "Please select an option",
 };
