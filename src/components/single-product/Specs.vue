@@ -2,35 +2,58 @@
   <div class="specs">
     <div class="content">
       <h5 class="header d-inline-block font-weight-bold mb-3">
-        {{ $t("singleProduct.specsHeader") }}:
+        {{ $t("singleProduct.specsHeader") }}
       </h5>
       <p class="description">
-        {{ $t("singleProduct.specsDescription") }}
+        {{ myProduct.description }}
       </p>
-      <div class="side-data">
+      <!-- <div class="side-data">
         <span
           >{{ $t("singleProduct.origin") }}:
           {{ $t("singleProduct.originData") }}</span
         >
         <span>{{ $t("singleProduct.importer") }}: عالم الفرضة</span>
-      </div>
+      </div> -->
       <div class="product-info">
         <table class="table table-bordered m-0">
           <tr>
-            <th>{{ $t("singleProduct.supplierName") }}:</th>
-            <td>عالم الفرضة</td>
+            <th>{{ $t("singleProduct.supplierName") }}</th>
+            <td>
+              {{myProduct.client.company_name}}
+            </td>
           </tr>
           <tr>
-            <th>{{ $t("singleProduct.country") }}:</th>
-            <td>{{ $t("singleProduct.kuwait") }}</td>
+            <th>{{ $t("singleProduct.country") }}</th>
+            <td v-if="myProduct.client.country">{{ myProduct.client.country }}</td>
+            <td v-else>{{ $t('no info about country') }}</td>
           </tr>
           <tr>
-            <th>{{ $t("singleProduct.deliveryTime") }}:</th>
-            <td>{{ $t("singleProduct.deliveryTimeData") }}</td>
+            <th>{{ $t("singleProduct.deliveryTime") }}</th>
+            <td>{{ myProduct.delivery_time.title }}</td>
           </tr>
           <tr>
-            <th>{{ $t("singleProduct.deliveryBy") }}:</th>
-            <td>{{ $t("singleProduct.deliveryByData") }}</td>
+            <th>{{ $t("singleProduct.warantyType") }}</th>
+            <td>{{ myProduct.warranty.title }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t("singleProduct.min_order_quantity") }}</th>
+            <td>{{ myProduct.min_order_quantity.title }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t("singleProduct.delivery_time") }}</th>
+            <td>{{ myProduct.delivery_time.title }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t("singleProduct.return_time") }}</th>
+            <td>{{ myProduct.return_time.title }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t("singleProduct.PcsperUnit") }}</th>
+            <td>{{ myProduct.product_details[0].pieces_number }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t("singleProduct.expiration_date") }}</th>
+            <td>{{ myProduct.product_details[0].expiration_date }}</td>
           </tr>
         </table>
       </div>
@@ -42,6 +65,7 @@ export default {
   data() {
     return { count: 0 };
   },
+  props:['myProduct']
 };
 </script>
 <style lang="scss" scoped>

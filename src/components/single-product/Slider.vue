@@ -2,7 +2,8 @@
   <div class="product-slider">
     <div class="content d-flex">
       <div class="main-img">
-        <img id="main-img" :src="currentImage" />
+        <img id="main-img" :src="currentImage" v-if="currentImage"/>
+        <img id="main-img" :src="firstImage" v-else />
       </div>
       <div class="images d-flex flex-column">
         <div
@@ -11,7 +12,8 @@
           :key="index"
         >
           <img
-            :src="img"
+            v-if="img.image_path"
+            :src="img.image_path"
             @click="changeImage(index)"
             :class="[index === active ? 'active' : null]"
           />
@@ -21,26 +23,47 @@
   </div>
 </template>
 <script>
+import categories from "@/services/categories";
 export default {
   data() {
     return {
+      id: this.$route.query.id,
       active: -1,
       currentImage: "",
-      images: [
-        "https://media.istockphoto.com/photos/orange-picture-id185284489",
-        "https://media.istockphoto.com/photos/red-apple-picture-id184276818",
-        "https://media.istockphoto.com/photos/green-apple-fruit-with-green-leaf-isolated-on-white-picture-id920478620",
-      ],
+      myProduct: null,
+      firstImage:null,
+      // images: [
+      //   "https://media.istockphoto.com/photos/orange-picture-id185284489",
+      //   "https://media.istockphoto.com/photos/red-apple-picture-id184276818",
+      //   "https://media.istockphoto.com/photos/green-apple-fruit-with-green-leaf-isolated-on-white-picture-id920478620",
+      // ],
+      images: [],
     };
   },
   methods: {
     changeImage(i) {
-      this.currentImage = this.images[i];
+      this.currentImage = this.images[i].image_path;
       this.active = i;
+    },
+    productDetails() {
+      this.loading = true;
+      categories
+        .productDetails(this.id)
+        .then((res) => {
+          this.myProduct = res.data.items;
+          this.images = res.data.items.images;
+          this.firstImage = res.data.items.images[0].image_path;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   mounted() {
-    this.currentImage = this.images[0];
+    this.productDetails();
     this.active = 0;
   },
 };

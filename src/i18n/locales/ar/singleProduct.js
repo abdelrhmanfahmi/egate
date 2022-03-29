@@ -8,6 +8,12 @@ export default {
   weight: "الوزن",
   available: "متوفر بالمخزن",
   bidRequest: "طلب عرض سعر",
+  PcsperUnit: "عدد القطع لكل وحده",
+  expiration_date: "تاريخ انتهاء الصلاحيه",
+  warantyType: "الضمان",
+  min_order_quantity: "اقل كميه للطلب",
+  return_time: "مدة المرتجع",
+  delivery_time: "مدة التوصيل",
   addFavorites: "اضف للمفضلة",
   addPurchase: "اضف لقوائم المشتريات",
   addCart: "اضف للكارت",
@@ -15,7 +21,8 @@ export default {
   // Specs
   specsTitle: "مواصفات",
   specsHeader: "معلومات",
-  specsDescription: "يمتاز التفاح بمحتواه العالي من مضادات الأكسدة، الفلافونويدات، وبعض أنواع الفيتامينات، ما جعله مصدر غذائي مفيد للغاية.",
+  specsDescription:
+    "يمتاز التفاح بمحتواه العالي من مضادات الأكسدة، الفلافونويدات، وبعض أنواع الفيتامينات، ما جعله مصدر غذائي مفيد للغاية.",
   origin: "المنشا",
   originData: "امريكي",
   importer: "المستورد",
@@ -37,5 +44,6 @@ export default {
   nameInput: "اسمك*",
   emailInput: "بريدك الإلكتروني*",
   checkInput: "احفظ اسمي والبريد الإلكتروني في هذا المتصفح في المرة التالية.*",
-
+  loginFirst: "يجب عليك تسجيل الدخول اولا",
+  registerNow: "  اذا لم يكن لديك اى حساب برجاء تسجيل حساب جديد",
 };

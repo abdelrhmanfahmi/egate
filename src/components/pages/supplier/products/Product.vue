@@ -1,12 +1,12 @@
 <template>
-  <div class="product position-relative w-100">
+  <div class="product position-relative w-100" v-if="data">
     <div class="thumb">
-      <a
-        href="#"
+      <router-link
+        :to="{path:'/details' , query:{id:`${data.id}`}}"
         class="d-flex justify-content-center align-items-center product-image"
       >
         <img :src="data.image_path" alt="Product Image" />
-      </a>
+      </router-link>
       <div class="actions">
         <ul>
           <li>
@@ -17,8 +17,8 @@
           </li>
         </ul>
       </div>
-      <div class="info d-flex flex-column align-items-center my-3">
-        <a href="#" class="name">{{ data.product.title }}</a>
+      <div class="info d-flex flex-column align-items-center my-3" v-if="data.product">
+        <a href="#" class="name" v-if="data.product.title">{{ data.product.title }}</a>
         <span class="price">{{ data.price }}</span>
       </div>
       <span class="discount d-block text-white" v-if="data.discount">
@@ -40,13 +40,8 @@ export default {
   data() {
     return { count: 0 };
   },
-  props: {
-    data: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },
-  },
+  props:['data']
+  
 };
 </script>
 <style lang="scss" scoped>

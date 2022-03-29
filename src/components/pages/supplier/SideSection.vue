@@ -1,6 +1,6 @@
 <template>
   <div class="side-sections" v-if="supplier">
-    <p class="title">{{ $t("supplier.about") }}</p>
+    <p class="title" v-if="supplier.image_path">{{ $t("supplier.about") }}</p>
     <div class="company-info">
       <img
         :src="supplier.image_path"
@@ -31,9 +31,9 @@
         </li>
       </ul> -->
     </div>
-    <div class="other-sections">
+    <div class="other-sections" v-if="supplier.categories">
       <p class="title">{{ $t("supplier.sections") }}</p>
-      <ul class="sections">
+      <ul class="sections" >
         <li class="section" v-for="item in supplier.categories" :key="item.id">
           <router-link :to="`${supplier.id}`">
             {{ item.category.title }}
