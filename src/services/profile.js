@@ -69,4 +69,10 @@ export default {
   },
 
   //end  bank info
+
+
+  // profile quotations
+  getQuotations() {
+    return globalAxios.get(`members/product/rfq`);
+  },
 };

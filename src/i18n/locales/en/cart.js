@@ -19,4 +19,8 @@ export default {
   free: "Free",
   checkout: "Checkout",
   selectOption: "Please select an option",
+  quoteName:'Enter Quote Name',
+  message:'Message To supplier',
+  cancel:'Cancel',
+  submit:'Send Request'
 };

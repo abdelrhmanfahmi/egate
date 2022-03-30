@@ -4,7 +4,7 @@
       <h5 class="header d-inline-block font-weight-bold mb-3">
         {{ $t("singleProduct.specsHeader") }}
       </h5>
-      <p class="description">
+      <p class="description" v-if="myProduct.description !== null">
         {{ myProduct.description }}
       </p>
       <!-- <div class="side-data">
@@ -16,44 +16,43 @@
       </div> -->
       <div class="product-info">
         <table class="table table-bordered m-0">
-          <tr>
+          <tr v-if="myProduct.client !== null">
             <th>{{ $t("singleProduct.supplierName") }}</th>
             <td>
               {{myProduct.client.company_name}}
             </td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.client.country ">
             <th>{{ $t("singleProduct.country") }}</th>
-            <td v-if="myProduct.client.country">{{ myProduct.client.country }}</td>
-            <td v-else>{{ $t('no info about country') }}</td>
+            <td >{{ myProduct.client.country }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.delivery_time !== null ">
             <th>{{ $t("singleProduct.deliveryTime") }}</th>
-            <td>{{ myProduct.delivery_time.title }}</td>
+            <td v-if="myProduct.delivery_time.title">{{ myProduct.delivery_time.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.warranty !== null">
             <th>{{ $t("singleProduct.warantyType") }}</th>
             <td>{{ myProduct.warranty.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.min_order_quantity !== null">
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
             <td>{{ myProduct.min_order_quantity.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.delivery_time !== null">
             <th>{{ $t("singleProduct.delivery_time") }}</th>
             <td>{{ myProduct.delivery_time.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.return_time !== null">
             <th>{{ $t("singleProduct.return_time") }}</th>
             <td>{{ myProduct.return_time.title }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.product_details_by_type !== null">
             <th>{{ $t("singleProduct.PcsperUnit") }}</th>
-            <td>{{ myProduct.product_details[0].pieces_number }}</td>
+            <td>{{ myProduct.product_details_by_type !== null }}</td>
           </tr>
-          <tr>
+          <tr v-if="myProduct.product_details_by_type !== null">
             <th>{{ $t("singleProduct.expiration_date") }}</th>
-            <td>{{ myProduct.product_details[0].expiration_date }}</td>
+            <td>{{ myProduct.product_details_by_type.expiration_date }}</td>
           </tr>
         </table>
       </div>

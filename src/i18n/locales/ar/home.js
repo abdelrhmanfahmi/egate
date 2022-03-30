@@ -23,5 +23,6 @@ export default {
   showAll: "عرض الكل",
   noData:"لا يوجد ",
   tilNow:'حتي الان',
-  noDataTill:'لا يوجد معلومات حتي الان'
+  noDataTill:'لا يوجد معلومات حتي الان',
+  
 };

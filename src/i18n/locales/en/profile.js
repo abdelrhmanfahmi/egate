@@ -120,4 +120,7 @@ export default {
   postcode:'Post Code',
   apartment:'Apartment',
   block_number:'Block Number',
+  message:'Show Message',
+  name:'Name',
+  yourMessage:'Your message'
 };
