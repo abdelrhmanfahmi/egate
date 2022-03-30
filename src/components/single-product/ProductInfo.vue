@@ -1,53 +1,126 @@
 <template>
   <div class="product-info">
-    <div class="content">
-      <a href="#" class="category">{{ $t("singleProduct.category") }}</a>
-      <h4 class="name">{{ $t("singleProduct.fruitName") }}</h4>
+    <div class="content" v-if="myProduct">
+      <b
+        class="sort"
+        v-for="type in myProduct.product.categories"
+        :key="type.id"
+      >
+        {{ type.title }}
+      </b>
+      <h4 class="name" v-if="myProduct.product.title">
+        {{ myProduct.product.title }}
+      </h4>
+      <p>
+        {{ myProduct.short_description }}
+      </p>
       <b-form-rating></b-form-rating>
-      <p class="serial">SKU : WI56OMTJ</p>
-      <p class="price">
-        {{ $t("singleProduct.price") }} : 1.500
-        {{ $t("singleProduct.priceUnit") }}
-      </p>
-      <hr />
-      <p class="supplier">
-        {{ $t("singleProduct.supplier") }}
-        <a href="#">عالم الفرضة</a>
-      </p>
-      <div class="weight">
-        <p class="title">{{ $t("singleProduct.weight") }}</p>
-        <div class="available-weight d-flex justify-content-end">
-          <span>500</span>
-          <span>1500</span>
+      <div
+        class=""
+        v-for="(pro, index) in myProduct.product_details"
+        :key="index"
+      >
+        <p class="serial" v-if="pro.sku">SKU : {{ pro.sku }}</p>
+        <p class="price">
+          {{ $t("singleProduct.price") }} :
+          {{ pro.price }}
+        </p>
+
+        <hr />
+        <p class="supplier">
+          {{ $t("singleProduct.supplier") }}
+          <b>:</b>
+          <router-link :to="`/suppliers/${myProduct.client.id}`">
+            {{ myProduct.client.company_name }}
+          </router-link>
+        </p>
+        <div class="weight">
+          <p class="title" v-if="pro.weight">
+            {{ $t("singleProduct.weight") }} : {{ pro.weight }}
+          </p>
+          <!-- <div class="available-weight d-flex justify-content-end">
+            <span>500</span>
+            <span>1500</span>
+          </div> -->
         </div>
       </div>
-      <span class="is-available">{{ $t("singleProduct.available") }}</span>
+      <span class="is-available" v-if="myProduct.in_stock_quantity"
+        >{{ $t("singleProduct.available") }} :
+        <b>{{ myProduct.in_stock_quantity }}</b></span
+      >
       <hr />
       <div
         class="product-actions d-flex flex-wrap justify-content-between align-items-center"
       >
         <div class="short-links">
-          <a href="#">
+          <button
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
+            v-if="
+              (myProduct.product_details[0].add_type == 'rfq' ||
+                myProduct.product_details[0].add_type == 'both') &&
+              userData
+            "
+          >
             {{ $t("singleProduct.bidRequest") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-list" />
             </span>
-          </a>
-          <a href="#">
+          </button>
+          <button
+            @click="loginFirst"
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
+            v-else-if="!userData"
+          >
+            {{ $t("singleProduct.bidRequest") }}
+            <span>
+              <font-awesome-icon icon="fa-solid fa-list" />
+            </span>
+          </button>
+          <button
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
+            v-else
+          >
+            <!-- <router-link to="/b2b-login"> -->
+            {{ $t("singleProduct.bidRequest") }}
+            <span>
+              <font-awesome-icon icon="fa-solid fa-list" />
+            </span>
+            <!-- </router-link> -->
+          </button>
+          <button
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block"
+          >
             {{ $t("singleProduct.addFavorites") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-heart" />
             </span>
-          </a>
-          <a href="#">
+          </button>
+          <!-- <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0" >
             {{ $t("singleProduct.addPurchase") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-repeat" />
             </span>
-          </a>
+          </button> -->
         </div>
-        <a href="#" class="add-cart">{{ $t("singleProduct.addCart") }}</a>
-        <Counter :quantity="1" class="my-3"></Counter>
+        <button
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+          v-if="
+            (myProduct.product_details[0].add_type == 'cart' ||
+              myProduct.product_details[0].add_type == 'both') &&
+            userData
+          "
+        >
+          {{ $t("singleProduct.addCart") }}
+        </button>
+        <Counter
+          :quantity="1"
+          class="my-3"
+          v-if="
+            (myProduct.product_details[0].add_type == 'cart' ||
+              myProduct.product_details[0].add_type == 'both') &&
+            userData
+          "
+        ></Counter>
       </div>
       <hr />
       <div class="share-social d-flex align-items-center">
@@ -69,9 +142,30 @@
 </template>
 <script>
 import Counter from "../global/Counter.vue";
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
 export default {
   components: {
     Counter,
+  },
+  props: ["myProduct"],
+  methods: {
+    loginFirst() {
+      Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.registerNow"),
+        icon: "warning",
+        buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          Vue.swal(location.replace("/user-register"));
+        } 
+      });
+    },
   },
 };
 </script>
@@ -194,6 +288,13 @@ export default {
         }
       }
     }
+  }
+  .sort {
+    background: #f6f6f6;
+    padding: 16px !important;
+    font-size: 19px;
+    display: inline-block;
+    margin: 10px 10px 20px 0;
   }
 }
 </style>

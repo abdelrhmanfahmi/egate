@@ -4,7 +4,7 @@
       <div
         class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
       >
-        <a href="" class="prev"><span>&#60;</span>{{ $t("supplier.prev") }}</a>
+        <button class="btn btn-light bg-transparent border-0 outlinr-0 prev shadow-none"  onclick="history.back()"><span>&#60;</span>{{ $t("supplier.prev") }}</button>
         <b-breadcrumb :items="items"></b-breadcrumb>
         <a href="" class="next">{{ $t("supplier.next") }}<span>&#62;</span></a>
       </div>

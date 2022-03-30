@@ -50,8 +50,12 @@
                 >
                   <form action="">
                     <label for="select">{{ product.title }}</label>
-                    <b-form-group >
-                      <b-form-select v-model="product.selectedVariance" @change="changeVariance(product)" class="mb-3">
+                    <b-form-group>
+                      <b-form-select
+                        v-model="product.selectedVariance"
+                        @change="changeVariance(product)"
+                        class="mb-3"
+                      >
                         <b-form-select-option selected disabled :value="null">
                           {{ $t("cart.selectOption") }}
                         </b-form-select-option>
@@ -185,10 +189,10 @@
             sm="6"
             lg="4"
             xl="2"
-            v-for="(item, index) in 4"
+            v-for="(item, index) in supplierProducts"
             :key="index"
           >
-            <Product :data="product[index]"></Product
+            <Product :data="item"></Product
           ></b-col>
         </b-row>
       </div>
@@ -198,19 +202,20 @@
 
 <script>
 import categories from "@/services/categories";
+import suppliers from "@/services/suppliers";
 import Counter from "@/components/global/Counter.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
 import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      // id: this.$route.params.slug,
+      id: this.$route.params.slug,
       pageId: this.$route.params.slug,
       products: [],
       productInfo: null,
       selectedVariance: null,
       loading: false,
-      variants:null,
+      variants: null,
       items: [
         {
           text: this.$t("items.home"),
@@ -350,6 +355,7 @@ export default {
           discount: 35,
         },
       ],
+      supplierProducts: null,
     };
   },
   components: {
@@ -370,7 +376,7 @@ export default {
       //   quantity: 1,
       // });
     },
-    changeVariance(product){
+    changeVariance(product) {
       console.log(product.selectedVariance);
     },
     getCategoryProducts() {
@@ -391,12 +397,12 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.productInfo = res.data.items;
-          let variantData = res.data.items.variants
+          let variantData = res.data.items.variants;
           for (let index = 0; index < variantData.length; index++) {
             // this.variants = variantData[index];
-            this.productInfo.variants[index].selectedVariance = null      
+            this.productInfo.variants[index].selectedVariance = null;
           }
         })
         .catch((err) => {
@@ -421,15 +427,26 @@ export default {
       // this.$router.replace(`/categories/${prevUrl}/variants`);
       this.getCategoryProducts();
     },
-    postVariance(){
+    postVariance() {
       // let selectedVariance = [];
-
       // axios.post('')
-    }
+    },
+    getSupplierProducts() {
+      suppliers
+        .getSupplierProducts(this.id)
+        .then((resp) => {
+          console.log("getSupplierProducts" , resp);
+          this.supplierProducts = resp.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getCategoryProducts();
     this.getSingleProductDetails();
+    this.getSupplierProducts();
   },
   watch: {
     $route: "updateId",

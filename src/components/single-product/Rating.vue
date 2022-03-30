@@ -5,7 +5,7 @@
         {{ $t("singleProduct.ratingHeader") }} (0):
       </h5>
       <p class="description">{{ $t("singleProduct.ratingDescription") }}.</p>
-      <p class="hint">{{ $t("singleProduct.ratingHint") }}</p>
+      <!-- <p class="hint">{{ $t("singleProduct.ratingHint") }}</p> -->
       <div class="product-rate">
         <form class="review-form row">
           <div class="form-group mb-4 col-12">
@@ -52,6 +52,7 @@ export default {
   data() {
     return { count: 0 };
   },
+  props:['myProduct']
 };
 </script>
 <style lang="scss" scoped>

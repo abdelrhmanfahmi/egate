@@ -9,14 +9,7 @@ export default {
   data() {
     return { count: 0 };
   },
-  props: {
-
-    supplier: {
-      type:Object,
-
-      default: () => {},
-    },
-  },
+  props:['supplier']
 };
 </script>
 <style lang="scss" scoped>

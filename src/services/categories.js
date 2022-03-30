@@ -14,4 +14,7 @@ export default {
     getSingleProductDetails(id) {
         return globalAxios.get(`lists/categories/single/${id}`);
     },
+    productDetails(id) {
+        return globalAxios.get(`products/${id}`);
+    },
 };
