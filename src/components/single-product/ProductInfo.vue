@@ -48,6 +48,7 @@
         >{{ $t("singleProduct.available") }} :
         <b>{{ myProduct.in_stock_quantity }}</b></span
       >
+      <!--  -->
       <div class="variants" v-if="myProduct.product.variants[0].variant.title">
         <p
           class="sort"
