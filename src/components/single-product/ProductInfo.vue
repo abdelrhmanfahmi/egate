@@ -48,6 +48,18 @@
         >{{ $t("singleProduct.available") }} :
         <b>{{ myProduct.in_stock_quantity }}</b></span
       >
+      <!--  -->
+      <div class="variants" v-if="myProduct.product.variants[0].variant.title">
+        <p
+          class="sort"
+          v-for="type in myProduct.product.variants"
+          :key="type.id"
+        >
+          <b v-if="type.variant.title">
+            {{ type.variant.title }}
+          </b>
+        </p>
+      </div>
       <hr />
       <div
         class="product-actions d-flex flex-wrap justify-content-between align-items-center"
@@ -152,7 +164,12 @@
 
                 <template #modal-footer="{ cancel }">
                   <!-- Emulate built in modal footer ok and cancel button actions -->
-                  <b-button size="sm" variant="danger" @click="cancel()" class="cancelBtn">
+                  <b-button
+                    size="sm"
+                    variant="danger"
+                    @click="cancel()"
+                    class="cancelBtn"
+                  >
                     {{ $t("cart.cancel") }}
                   </b-button>
                   <!-- Button with custom close trigger value -->

@@ -33,9 +33,14 @@
     </div>
     <div class="other-sections" v-if="supplier.categories">
       <p class="title">{{ $t("supplier.sections") }}</p>
-      <ul class="sections" >
+      <ul class="sections">
         <li class="section" v-for="item in supplier.categories" :key="item.id">
-          <router-link :to="`${supplier.id}`">
+          <router-link
+            :to="{
+              path: '/supplier-products',
+              query: { supId: `${supplier.id}`, catId: `${item.category_id}` },
+            }"
+          >
             {{ item.category.title }}
           </router-link>
         </li>

@@ -103,6 +103,7 @@
         </b-row>
       </div>
     </div>
+
     <div class="products text-center" v-if="products.length > 0">
       <h4 class="header font-weight-bold my-5">{{ $t("items.products") }}</h4>
       <b-row v-if="loading">
@@ -301,6 +302,7 @@ export default {
     },
     changeVariance(product) {
       console.log(product.selectedVariance);
+      console.log(product.title.replace(/\s/g, '-'));
     },
     getCategoryProducts() {
       this.loading = true;
@@ -320,7 +322,7 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
           for (let index = 0; index < variantData.length; index++) {
@@ -366,7 +368,7 @@ export default {
         .then((resp) => {
           console.log("getSupplierProducts", resp);
           this.supplierProducts = resp.data.items.data;
-          this.supplierProductsLength = resp.data.items.data.length
+          this.supplierProductsLength = resp.data.items.data.length;
         })
         .catch((err) => {
           console.log(err);
