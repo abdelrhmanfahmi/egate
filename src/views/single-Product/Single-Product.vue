@@ -39,7 +39,7 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/Loader.gif" alt="loading" />
+        <img src="@/assets/images/Loader.gif" class="loading-img" alt="loading" />
       </div>
     </div>
     <div class="" v-else>
@@ -86,6 +86,7 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
+          console.log(res);
           this.myProduct = res.data.items;
         })
         .catch((err) => {
@@ -100,7 +101,6 @@ export default {
       suppliers
         .getSupplierProducts(id)
         .then((resp) => {
-          console.log(resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length
         })

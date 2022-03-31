@@ -22,5 +22,6 @@ export default {
   quoteName:'Enter Quote Name',
   message:'Message To supplier',
   cancel:'Cancel',
-  submit:'Send Request'
+  submit:'Send Request',
+  noProducts:'No Products'
 };

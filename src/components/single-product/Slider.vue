@@ -1,7 +1,7 @@
 <template>
   <div class="product-slider" v-if="images.length > 0">
     <div class="content d-flex">
-      <div class="main-img">
+      <div class="main-img mr-2">
         <img id="main-img" :src="currentImage" v-if="currentImage" />
         <img id="main-img" :src="firstImage" v-else />
       </div>

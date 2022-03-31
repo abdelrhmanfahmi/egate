@@ -4,7 +4,12 @@
       <div
         class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
       >
-        <button class="btn btn-light bg-transparent border-0 outlinr-0 prev shadow-none"  onclick="history.back()"><span>&#60;</span>{{ $t("supplier.prev") }}</button>
+        <button
+          class="btn btn-light bg-transparent border-0 outlinr-0 prev shadow-none"
+          onclick="history.back()"
+        >
+          <span>&#60;</span>{{ $t("supplier.prev") }}
+        </button>
         <b-breadcrumb :items="items"></b-breadcrumb>
         <a href="" class="next">{{ $t("supplier.next") }}<span>&#62;</span></a>
       </div>
@@ -39,7 +44,7 @@
             :supplier="supplier"
           ></Article>
         </div>
-        <div class="products text-center">
+        <div class="products text-center" v-if="supplierProductsLength > 0">
           <p class="title">{{ $t("supplier.products") }}</p>
           <div class="row">
             <div
@@ -50,9 +55,18 @@
               <Product :data="item"></Product>
             </div>
           </div>
-          <b-button class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0">{{
-            $t("supplier.more")
-          }}</b-button>
+
+          <router-link
+            class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block"
+            :to="{ path: `/supplier-products`, query: { supId: supplier.id } }"
+          >
+            {{ $t("supplier.more") }}
+          </router-link>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" v-else>
+          <h3>
+            {{ $t("cart.noProducts") }}
+          </h3>
         </div>
       </div>
     </div>
@@ -98,7 +112,8 @@ export default {
         price: "4.620 KD",
       },
       supplier: null,
-      supplierProducts:null,
+      supplierProducts: null,
+      supplierProductsLength: null,
     };
   },
   methods: {
@@ -108,6 +123,7 @@ export default {
       suppliers
         .getSupplier(id)
         .then((resp) => {
+          console.log("resp", resp.data.items.id);
           this.supplier = resp.data.items;
         })
         .catch((err) => {
@@ -122,12 +138,14 @@ export default {
       suppliers
         .getSupplierProducts(id)
         .then((resp) => {
-          console.log(resp);
           this.supplierProducts = resp.data.items.data;
+          resp.data.items.data.length > 0
+            ? (this.supplierProductsLength = resp.data.items.data.length)
+            : (this.supplierProductsLength = 0);
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     },
   },
   mounted() {

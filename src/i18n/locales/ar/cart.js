@@ -22,5 +22,6 @@ export default {
   quoteName:'اسم الطلب',
   message:'ارسل الى المورد',
   submit:'ارسل ',
-  cancel:'الغاء'
+  cancel:'الغاء',
+  noProducts:'لا يوجد منتجات'
 };

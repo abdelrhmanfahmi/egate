@@ -22,9 +22,9 @@
               {{myProduct.client.company_name}}
             </td>
           </tr>
-          <tr v-if="myProduct.client.country ">
+          <tr v-if="myProduct.country ">
             <th>{{ $t("singleProduct.country") }}</th>
-            <td >{{ myProduct.client.country }}</td>
+            <td >{{ myProduct.country.title }}</td>
           </tr>
           <tr v-if="myProduct.delivery_time !== null ">
             <th>{{ $t("singleProduct.deliveryTime") }}</th>

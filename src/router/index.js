@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
 import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
+import supplierpProducts from "../views/supplierpProducts.vue";
 import ContactUs from "../views/Contact-Us.vue";
 import Cart from "../views/Cart.vue";
 import Payment from "../views/Payment.vue";
@@ -42,6 +43,11 @@ const routes = [
         path: "/corporat",
         name: "Corporat",
         component: Corporat,
+    },
+    {
+        path: "/supplier-products",
+        name: "supplierProducts",
+        component: supplierpProducts,
     },
     {
         path: "/contact-us",

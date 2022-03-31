@@ -108,14 +108,16 @@ export default {
           // if (!res.data.items.item.verify_email_required) {
           this.$router.push("/profile/account-information-b2b");
           location.reload();
-          
+
           if (!this.userInfo.item.is_verified) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
+            this.$router.push("/profile/account-information-b2b");
+            location.reload();
           } else {
             localStorage.setItem("massege", "");
+            this.$router.push("/profile/account-information-b2b");
+            location.reload();
           }
-
-          alert("loged");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
