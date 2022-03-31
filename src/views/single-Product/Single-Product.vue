@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="" v-if="myProduct !== null">
-      <b-row align-h="center">
+      <b-row align-h="center" class="mt-5">
         <b-col cols="12" lg="6" xl="4">
           <ProductInfo :myProduct="myProduct"></ProductInfo>
         </b-col>
@@ -12,37 +12,34 @@
       <div class="humhum-tabs">
         <b-tabs content-class="mt-3">
           <b-tab :title="$t('singleProduct.specsTitle')" active>
-            <Specs :myProduct="myProduct"></Specs>
+            <Specs :myProduct="myProduct" v-if="myProduct"></Specs>
           </b-tab>
           <b-tab :title="$t('singleProduct.ratingTitle')">
-            <Rating :myProduct="myProduct"></Rating>
+            <Rating :myProduct="myProduct" v-if="myProduct"></Rating>
           </b-tab>
         </b-tabs>
       </div>
-      <div class="most-sold text-center">
+      <div class="most-sold text-center" v-if="supplierProductsLength > 0">
         <div class="container">
           <h4 class="header font-weight-bold mt-5 mb-3">
             {{ $t("items.products") }}
           </h4>
           <hr />
-          <b-row class="justify-content-center justify-content-sm-between">
-            <b-col
-              cols="10"
-              sm="6"
-              lg="4"
-              xl="2"
-              v-for="(item, index) in 4"
-              :key="index"
+          <div class="row">
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              v-for="item in supplierProducts"
+              :key="item.id"
             >
-              <Product :data="product[index]"></Product
-            ></b-col>
-          </b-row>
+              <Product :data="item"></Product>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/Loader.gif" alt="loading">
+        <img src="@/assets/images/Loader.gif" alt="loading" />
       </div>
     </div>
     <div class="" v-else>
@@ -62,6 +59,8 @@ import Rating from "@/components/single-product/Rating.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
 import categories from "@/services/categories";
 
+import suppliers from "@/services/suppliers";
+
 export default {
   components: {
     Slider,
@@ -75,32 +74,9 @@ export default {
       id: this.$route.query.id,
       loading: false,
       myProduct: null,
-      product: [
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          new: true,
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          discount: 20,
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          new: true,
-          discount: 35,
-        },
-      ],
+      product: [],
+      supplierProducts: null,
+      supplierProductsLength: null,
     };
   },
 
@@ -110,7 +86,6 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
-          console.log(res);
           this.myProduct = res.data.items;
         })
         .catch((err) => {
@@ -120,9 +95,23 @@ export default {
           this.loading = false;
         });
     },
+    getSupplierProducts() {
+      let id = this.id;
+      suppliers
+        .getSupplierProducts(id)
+        .then((resp) => {
+          console.log(resp);
+          this.supplierProducts = resp.data.items.data;
+          this.supplierProductsLength = resp.data.items.data.length
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.productDetails();
+    this.getSupplierProducts();
   },
 };
 </script>

@@ -123,6 +123,8 @@
       </b-row>
       <div class="products-table" v-else>
         <b-table
+          selectable
+          @row-clicked="onRowSelected"
           bordered
           hover
           :items="products"
@@ -177,7 +179,7 @@
         </b-table>
       </div>
     </div>
-    <div class="most-sold text-center">
+    <div class="most-sold text-center" v-if="supplierProductsLength > 0">
       <div class="container">
         <h4 class="header font-weight-bold mt-5 mb-3">
           {{ $t("items.products") }}
@@ -273,89 +275,10 @@ export default {
           label: this.$t("items.addTo"),
         },
       ],
-      tableItems: [
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-        {
-          type: "Announcement",
-          item: "American red apple",
-          image: require("@/assets/images/ftb1.png"),
-          supplier: "Aalm Alfrda",
-          unit: 1,
-          price: "3.10",
-          quantity: 2,
-        },
-      ],
-      product: [
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          new: true,
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          discount: 20,
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-        },
-        {
-          image: require("@/assets/images/sp.png"),
-          name: this.$t("supplier.productName"),
-          price: "4.620 KD",
-          new: true,
-          discount: 35,
-        },
-      ],
+      tableItems: [],
+      product: [],
       supplierProducts: null,
+      supplierProductsLength: null,
     };
   },
   components: {
@@ -421,6 +344,12 @@ export default {
         this.getCategoryProducts();
       }
     },
+    onRowSelected(item) {
+      this.$router.push({
+        path: "/details",
+        query: { id: item.id },
+      });
+    },
     nextPage() {
       this.pageId = parseInt(this.pageId) + 1;
       console.log(this.pageId);
@@ -435,8 +364,9 @@ export default {
       suppliers
         .getSupplierProducts(this.id)
         .then((resp) => {
-          console.log("getSupplierProducts" , resp);
+          console.log("getSupplierProducts", resp);
           this.supplierProducts = resp.data.items.data;
+          this.supplierProductsLength = resp.data.items.data.length
         })
         .catch((err) => {
           console.log(err);

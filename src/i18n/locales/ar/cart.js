@@ -18,5 +18,9 @@ export default {
   delivery: "التوصيل",
   free: "مجاني",
   checkout: "الذهاب للدفع",
-  selectOption:'من فضلك قم بالاختيار'
+  selectOption:'من فضلك قم بالاختيار',
+  quoteName:'اسم الطلب',
+  message:'ارسل الى المورد',
+  submit:'ارسل ',
+  cancel:'الغاء'
 };

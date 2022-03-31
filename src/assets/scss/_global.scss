@@ -300,3 +300,7 @@ html:lang(ar) {
 button:disabled{
   cursor: no-drop;
 }
+
+p{
+  word-break: break-all;
+}

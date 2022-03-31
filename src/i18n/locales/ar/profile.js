@@ -115,4 +115,7 @@ export default {
   postcode:'الرمز البريدى',
   apartment:'رقم الشقة',
   block_number:'رقم المبني',
+  message:'اظهر الرساله',
+  name:'الاسم',
+  yourMessage:'رسالتك'
 };

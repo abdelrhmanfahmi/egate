@@ -10,4 +10,7 @@ export default {
   getSupplierProducts(id) {
     return globalAxios.get(`products?client_id=${id}`);
   },
+  requestQuotation(payload) {
+    return globalAxios.post(`/members/product/rfq` , payload);
+  },
 };

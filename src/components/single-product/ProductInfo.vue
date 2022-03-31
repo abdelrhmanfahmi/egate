@@ -11,7 +11,7 @@
       <h4 class="name" v-if="myProduct.product.title">
         {{ myProduct.product.title }}
       </h4>
-      <p>
+      <p class="description">
         {{ myProduct.short_description }}
       </p>
       <b-form-rating></b-form-rating>
@@ -27,7 +27,7 @@
         </p>
 
         <hr />
-        <p class="supplier">
+        <p class="supplier" v-if="myProduct.client.company_name">
           {{ $t("singleProduct.supplier") }}
           <b>:</b>
           <router-link :to="`/suppliers/${myProduct.client.id}`">
@@ -56,15 +56,117 @@
           <button
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
             v-if="
-              (myProduct.product_details[0].add_type == 'rfq' ||
-                myProduct.product_details[0].add_type == 'both') &&
+              (myProduct.product_details_by_type.add_type == 'rfq' ||
+                myProduct.product_details_by_type.add_type == 'both') &&
               userData
             "
           >
-            {{ $t("singleProduct.bidRequest") }}
-            <span>
-              <font-awesome-icon icon="fa-solid fa-list" />
-            </span>
+            <div>
+              <span role="button" @click="$bvModal.show('modal-scoped')">
+                {{ $t("singleProduct.bidRequest") }}
+                <font-awesome-icon icon="fa-solid fa-list" />
+              </span>
+
+              <b-modal id="modal-scoped" centered>
+                <template #modal-header="{ close }">
+                  <h5>{{ $t("singleProduct.bidRequest") }}</h5>
+
+                  <!-- Emulate built in modal header close button action -->
+                  <b-button
+                    size="sm"
+                    variant="outline-danger"
+                    @click="close()"
+                    class="close cancelBtn"
+                  >
+                    x
+                  </b-button>
+                </template>
+
+                <form>
+                  <div class="form-group">
+                    <label for="">
+                      <h5>
+                        {{ $t("cart.quantity") }}
+                        <span class="text-danger">*</span>
+                      </h5>
+                    </label>
+                    <input
+                      class="form-control"
+                      v-model.number="requestData.quantity"
+                      type="number"
+                      min="1"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.request_qty"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">
+                      <h5>
+                        {{ $t("cart.quoteName") }}
+                        <span class="text-danger">*</span>
+                      </h5>
+                    </label>
+                    <input
+                      class="form-control"
+                      v-model="requestData.name"
+                      type="text"
+                      min="1"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.qoute_name"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">
+                      <h5>
+                        {{ $t("cart.message") }}
+                        <span class="text-danger">*</span>
+                      </h5>
+                    </label>
+                    <textarea
+                      class="form-control"
+                      name="message"
+                      id=""
+                      cols="30"
+                      rows="10"
+                      v-model="requestData.comment"
+                    ></textarea>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.comment"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                </form>
+
+                <template #modal-footer="{ cancel }">
+                  <!-- Emulate built in modal footer ok and cancel button actions -->
+                  <b-button size="sm" variant="danger" @click="cancel()" class="cancelBtn">
+                    {{ $t("cart.cancel") }}
+                  </b-button>
+                  <!-- Button with custom close trigger value -->
+                  <b-button
+                    size="sm"
+                    variant="outline-secondary"
+                    @click="requestQuotation"
+                    class="submitBtn"
+                  >
+                    {{ $t("cart.submit") }}
+                  </b-button>
+                </template>
+              </b-modal>
+            </div>
           </button>
           <button
             @click="loginFirst"
@@ -105,8 +207,8 @@
         <button
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
           v-if="
-            (myProduct.product_details[0].add_type == 'cart' ||
-              myProduct.product_details[0].add_type == 'both') &&
+            (myProduct.product_details_by_type.add_type == 'cart' ||
+              myProduct.product_details_by_type.add_type == 'both') &&
             userData
           "
         >
@@ -116,8 +218,8 @@
           :quantity="1"
           class="my-3"
           v-if="
-            (myProduct.product_details[0].add_type == 'cart' ||
-              myProduct.product_details[0].add_type == 'both') &&
+            (myProduct.product_details_by_type.add_type == 'cart' ||
+              myProduct.product_details_by_type.add_type == 'both') &&
             userData
           "
         ></Counter>
@@ -147,6 +249,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
+import suppliers from "@/services/suppliers";
 export default {
   components: {
     Counter,
@@ -163,9 +266,43 @@ export default {
       }).then((willDelete) => {
         if (willDelete) {
           Vue.swal(location.replace("/user-register"));
-        } 
+        }
       });
     },
+    requestQuotation() {
+      let payload = {
+        qoute_name: this.requestData.name,
+        product_supplier_id: this.requestData.id,
+        request_qty: this.requestData.quantity,
+        comment: this.requestData.comment,
+      };
+      suppliers
+        .requestQuotation(payload)
+        .then((resp) => {
+          console.log(resp);
+          this.errors = {};
+          this.sucessMsg(resp.data.message);
+          setTimeout(() => {
+            document.querySelector(".close").click();
+          }, 500);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+  },
+  data() {
+    return {
+      requestData: {
+        name: null,
+        quantity: null,
+        comment: null,
+        id: this.$route.query.id,
+      },
+      errors: {},
+    };
   },
 };
 </script>
@@ -296,5 +433,25 @@ export default {
     display: inline-block;
     margin: 10px 10px 20px 0;
   }
+}
+textarea {
+  resize: none;
+}
+.submitBtn {
+  background: #f57b22;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.cancelBtn {
+  background: transparent;
+  font-size: 20px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  margin: 0 20px;
+  color: #312620;
 }
 </style>
