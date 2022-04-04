@@ -1,21 +1,21 @@
-import Api from "./Api";
-
+// import Api from "./Api";
+import globalAxios from "@/services/global-axios";
 const END_POINT = 'cart';
 
 export default {
     all() {
-        return Api.get(END_POINT);
+        return globalAxios.get(END_POINT);
     },
 
     store(data) {
-        return Api.post(END_POINT, data);
+        return globalAxios.post(`${END_POINT}/add`, data);
     },
 
-    delete(id) {
-        return Api.delete(`${END_POINT}/${id}`);
+    delete(uuid) {
+        return globalAxios.delete(`cart/delete/:${uuid}`);
     },
 
     deleteAll() {
-        return Api.delete(END_POINT);
+        return globalAxios.delete(END_POINT);
     }
 }

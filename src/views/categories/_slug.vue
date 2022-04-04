@@ -2,12 +2,14 @@
   <div class="subCategory">
     <div class="cover text-center">
       <div
-        :style="{ backgroundImage: 'url(https://vuejs.org/images/logo.png)' }"
+        :style="{ backgroundImage: `url(${pageCover})` }"
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
           <div class="cover-title">
-            <h2>cover title</h2>
+            <h2>
+            {{pageTitle}}
+            </h2>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -97,7 +99,7 @@
         <div class="tabs-holder">
           <div class="tabs-content">
             <b-tabs>
-              <b-tab :title="$t('All')">
+              <b-tab :title="$t('home.All')">
                 <b-row v-if="loading">
                   <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                     <b-skeleton-img></b-skeleton-img>
@@ -205,6 +207,8 @@ export default {
       allChildren: null,
       allChildrenData: null,
       allChildrenLength: null,
+      pageCover:null,
+      pageTitle:null,
     };
   },
   computed: {
@@ -229,7 +233,6 @@ export default {
             // const element = array[i];
             this.allChildrenData = this.subCategories[i].all_children;
           }
-          console.log("subCategories", resp);
         })
         .catch((err) => {
           console.log(err);
@@ -238,9 +241,18 @@ export default {
           this.loading = false;
         });
     },
+    getCover(){
+      categories.getSingleProductDetails(this.id).then(res =>{
+        this.pageCover = res.data.items.cover_image_path
+        this.pageTitle = res.data.items.title
+        console.log(res);
+        console.log(this.cover);
+      })
+    }
   },
   created() {
     this.getSubCategories();
+    this.getCover();
   },
 };
 </script>

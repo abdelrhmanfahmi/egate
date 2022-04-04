@@ -34,22 +34,22 @@
             {{ myProduct.client.company_name }}
           </router-link>
         </p>
-        <div class="weight">
+        <!-- <div class="weight">
           <p class="title" v-if="pro.weight">
             {{ $t("singleProduct.weight") }} : {{ pro.weight }}
           </p>
-          <!-- <div class="available-weight d-flex justify-content-end">
+          <div class="available-weight d-flex justify-content-end">
             <span>500</span>
             <span>1500</span>
-          </div> -->
-        </div>
+          </div>
+        </div> -->
       </div>
       <span class="is-available" v-if="myProduct.in_stock_quantity"
         >{{ $t("singleProduct.available") }} :
         <b>{{ myProduct.in_stock_quantity }}</b></span
       >
       <!--  -->
-      <div class="variants" v-if="myProduct.product.variants[0].variant.title">
+      <div class="variants" v-if="myProduct.product.variants">
         <p
           class="sort"
           v-for="type in myProduct.product.variants"
@@ -59,6 +59,22 @@
             {{ type.variant.title }}
           </b>
         </p>
+        <div class="weight" v-if="myProduct.product_details_by_type">
+          <div
+            class="available-weight d-flex justify-content-end"
+            v-for="option in myProduct.product_details_by_type.options"
+            :key="option.id"
+          >
+            <span
+              v-if="option.price"
+              @click="selectedOption(option.price)"
+              :class="mySelectedOption == option.price ? 'active' : ''"
+            >
+              {{ option.price }}
+            </span>
+          </div>
+        </div>
+
       </div>
       <hr />
       <div
@@ -309,6 +325,9 @@ export default {
           this.errMsg(err.message);
         });
     },
+    selectedOption(option) {
+      this.mySelectedOption = option;
+    },
   },
   data() {
     return {
@@ -318,6 +337,7 @@ export default {
         comment: null,
         id: this.$route.query.id,
       },
+      mySelectedOption: null,
       errors: {},
     };
   },
@@ -384,6 +404,11 @@ export default {
             border-color: #ff6000;
             color: #fff;
           }
+        }
+        span.active {
+          background: #ff6000;
+          border-color: #ff6000;
+          color: #fff;
         }
       }
     }
