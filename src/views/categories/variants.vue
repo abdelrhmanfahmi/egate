@@ -11,7 +11,19 @@
         >
           <span>&#60;</span>{{ $t("items.prev") }}
         </button>
-        <b-breadcrumb :items="items"></b-breadcrumb>
+        <nav aria-label="breadcrumb" v-if="productInfo">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <router-link to="/">
+                {{ $t("items.home") }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page" >
+              {{ productInfo.title }}
+            </li>
+          </ol>
+        </nav>
         <span
           @click="nextPage"
           class="next btn btn-light shadow-none bg-transparent border-none outline-none"
@@ -302,7 +314,7 @@ export default {
     },
     changeVariance(product) {
       console.log(product.selectedVariance);
-      console.log(product.title.replace(/\s/g, '-'));
+      console.log(product.title.replace(/\s/g, "-"));
     },
     getCategoryProducts() {
       this.loading = true;
@@ -340,10 +352,13 @@ export default {
     prevPage() {
       let prevUrl = this.pageId;
       if (prevUrl > 0) {
-        this.pageId -= 1;
-        console.log(this.pageId);
-        // this.$router.replace(`/categories/${prevUrl}/variants`);
+        this.pageId = parseInt(this.pageId) - 1;
+
+        this.$router.replace(`/categories/${this.pageId}/variants`);
         this.getCategoryProducts();
+        setTimeout(() => {
+          location.reload();
+        }, 200);
       }
     },
     onRowSelected(item) {
@@ -354,9 +369,13 @@ export default {
     },
     nextPage() {
       this.pageId = parseInt(this.pageId) + 1;
-      console.log(this.pageId);
-      // this.$router.replace(`/categories/${prevUrl}/variants`);
+
+      this.$router.replace(`/categories/${this.pageId}/variants`);
       this.getCategoryProducts();
+
+      setTimeout(() => {
+        location.reload();
+      }, 200);
     },
     postVariance() {
       // let selectedVariance = [];

@@ -13,24 +13,24 @@
             <th></th>
           </tr>
         </thead>
-        <tbody class="supplier" v-for="(supplier, index) in cart" :key="index">
+        <tbody class="supplier" v-for="(supplier, index) in cartItems" :key="index">
           <h5 class="name">
-            {{ supplier.supplier }}
+            {{ supplier.supplier_name }}
           </h5>
           <tr
             class="item-content"
-            v-for="(item, index) in supplier.items"
+            v-for="(item, index) in supplier.products"
             :key="index"
           >
             <td class="media">
-              <img :src="item.img" :alt="item.name + ' image'" />
+              <img :src="item.product_image" :alt="item.name + ' image'" />
             </td>
             <td>
               <a href="#">
-                {{ item.name }}
+                {{ item.product_name }}
               </a>
             </td>
-            <td>{{ item.price }} {{ $t("cart.priceUnit") }}</td>
+            <td>{{ item.price }} </td>
             <td>
               <Counter
                 :quantity="item.quantity"
@@ -152,6 +152,33 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.getCartProducts();
+  },
+  methods: {
+    getCartProducts() {
+      this.$store.dispatch("cart/getCartProducts");
+    },
+    removeFromCart(product) {
+      // this.removeProductFromCart({
+      //   product: product,
+      // });
+      this.$store.dispatch("cart/removeProductFromCart", {
+        product: product,
+      });
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 1000);
+    },
+  },
+  computed: {
+    cartItems() {
+      return this.$store.state.cart.cartItems;
+    },
+    cart_sub_total() {
+      return this.$store.state.cart.cart_sub_total;
+    },
   },
 };
 </script>
