@@ -74,7 +74,6 @@
             </span>
           </div>
         </div>
-
       </div>
       <hr />
       <div
@@ -84,8 +83,8 @@
           <button
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
             v-if="
-              (myProduct.product_details_by_type.add_type == 'rfq' ||
-                myProduct.product_details_by_type.add_type == 'both') &&
+              (myProduct.product_details_by_type.add_type === 'rfq' ||
+                myProduct.product_details_by_type.add_type === 'both') &&
               userData
             "
           >
@@ -94,117 +93,16 @@
                 {{ $t("singleProduct.bidRequest") }}
                 <font-awesome-icon icon="fa-solid fa-list" />
               </span>
-
-              <b-modal id="modal-scoped" centered>
-                <template #modal-header="{ close }">
-                  <h5>{{ $t("singleProduct.bidRequest") }}</h5>
-
-                  <!-- Emulate built in modal header close button action -->
-                  <b-button
-                    size="sm"
-                    variant="outline-danger"
-                    @click="close()"
-                    class="close cancelBtn"
-                  >
-                    x
-                  </b-button>
-                </template>
-
-                <form>
-                  <div class="form-group">
-                    <label for="">
-                      <h5>
-                        {{ $t("cart.quantity") }}
-                        <span class="text-danger">*</span>
-                      </h5>
-                    </label>
-                    <input
-                      class="form-control"
-                      v-model.number="requestData.quantity"
-                      type="number"
-                      min="1"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.request_qty"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="">
-                      <h5>
-                        {{ $t("cart.quoteName") }}
-                        <span class="text-danger">*</span>
-                      </h5>
-                    </label>
-                    <input
-                      class="form-control"
-                      v-model="requestData.name"
-                      type="text"
-                      min="1"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.qoute_name"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="">
-                      <h5>
-                        {{ $t("cart.message") }}
-                        <span class="text-danger">*</span>
-                      </h5>
-                    </label>
-                    <textarea
-                      class="form-control"
-                      name="message"
-                      id=""
-                      cols="30"
-                      rows="10"
-                      v-model="requestData.comment"
-                    ></textarea>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.comment"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                </form>
-
-                <template #modal-footer="{ cancel }">
-                  <!-- Emulate built in modal footer ok and cancel button actions -->
-                  <b-button
-                    size="sm"
-                    variant="danger"
-                    @click="cancel()"
-                    class="cancelBtn"
-                  >
-                    {{ $t("cart.cancel") }}
-                  </b-button>
-                  <!-- Button with custom close trigger value -->
-                  <b-button
-                    size="sm"
-                    variant="outline-secondary"
-                    @click="requestQuotation"
-                    class="submitBtn"
-                  >
-                    {{ $t("cart.submit") }}
-                  </b-button>
-                </template>
-              </b-modal>
             </div>
           </button>
           <button
             @click="loginFirst"
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
-            v-else-if="!userData"
+            v-else-if="
+              (myProduct.product_details_by_type.add_type === 'rfq' ||
+                myProduct.product_details_by_type.add_type === 'both') &&
+              !userData
+            "
           >
             {{ $t("singleProduct.bidRequest") }}
             <span>
@@ -213,7 +111,8 @@
           </button>
           <button
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
-            v-else
+            v-else-if="(myProduct.product_details_by_type.add_type === 'rfq' ||
+                myProduct.product_details_by_type.add_type === 'both')"
           >
             <!-- <router-link to="/b2b-login"> -->
             {{ $t("singleProduct.bidRequest") }}
@@ -238,24 +137,36 @@
           </button> -->
         </div>
         <button
+          @click="addToCart(myProduct)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+          v-if="
+            myProduct.product_details_by_type.add_type === 'cart' ||
+            myProduct.product_details_by_type.add_type === 'both'
+          "
+        >
+          {{ $t("singleProduct.addCart") }}
+        </button>
+
+        <div
+          class="product-counter my-3"
           v-if="
             (myProduct.product_details_by_type.add_type == 'cart' ||
               myProduct.product_details_by_type.add_type == 'both') &&
             userData
           "
         >
-          {{ $t("singleProduct.addCart") }}
-        </button>
-        <Counter
-          :quantity="1"
-          class="my-3"
-          v-if="
-            (myProduct.product_details_by_type.add_type == 'cart' ||
-              myProduct.product_details_by_type.add_type == 'both') &&
-            userData
-          "
-        ></Counter>
+          <div class="value">
+            <span class="product-counter-number"> {{ mySelectedOption }}</span>
+          </div>
+          <div class="actions d-flex flex-column">
+            <button class="product-counter-btn" @click="incrementQuantity">
+              <b-icon-plus />
+            </button>
+            <button class="product-counter-btn" @click="decrementQuantity">
+              <b-icon-dash />
+            </button>
+          </div>
+        </div>
       </div>
       <hr />
       <div class="share-social d-flex align-items-center">
@@ -276,19 +187,33 @@
   </div>
 </template>
 <script>
-import Counter from "../global/Counter.vue";
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 import suppliers from "@/services/suppliers";
+// import { mapActions } from "vuex";
+import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
   components: {
-    Counter,
+    BIconPlus,
+    BIconDash,
   },
   props: ["myProduct"],
   methods: {
+    // ...mapActions("cart", ["cart/addProductToCart"]),
+    addToCart(myProduct) {
+      // this.addProductToCart({
+      //   product: myProduct,
+      //   quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
+      // });
+      this.$store.dispatch("cart/addProductToCart", {
+        product: myProduct,
+        quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
+      });
+      this.$store.dispatch("cart/getCartProducts");
+    },
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
@@ -328,6 +253,12 @@ export default {
     selectedOption(option) {
       this.mySelectedOption = option;
     },
+    incrementQuantity() {
+      this.mySelectedOption += 1;
+    },
+    decrementQuantity() {
+      this.mySelectedOption > 0 ? this.mySelectedOption-- : null;
+    },
   },
   data() {
     return {
@@ -337,8 +268,8 @@ export default {
         comment: null,
         id: this.$route.query.id,
       },
-      mySelectedOption: null,
       errors: {},
+      mySelectedOption: 1,
     };
   },
 };
@@ -495,5 +426,40 @@ textarea {
   outline: none;
   margin: 0 20px;
   color: #312620;
+}
+
+.product-counter {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  .actions {
+    color: #606266;
+    .product-counter-btn {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0;
+      border: 1px solid transparent;
+      color: #606266;
+      background: #eef1f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:first-child {
+        border-bottom: 1px solid #dcdcdc;
+      }
+    }
+  }
+  .value {
+    border-radius: 0;
+    border: 1px solid #f0f0f0;
+    color: #544842;
+    font-weight: 500;
+    width: 6rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
 }
 </style>

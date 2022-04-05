@@ -3,57 +3,22 @@ import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
+import Product from "@/apis/Product";
 Vue.use(VueSweetalert2);
 export const addProductToCart = ({ commit }, { product, quantity }) => {
     commit("ADD_TO_CART", { product, quantity });
 
-    alert(product.title)
-
-    // Vue.swal({
-    //     toast: true,
-    //     position: "top-end",
-    //     showConfirmButton: false,
-    //     timer: 5000,
-    //     timerProgressBar: true,
-    //     icon: "success",
-    //     title: "Product added to cart.",
-    // });
-
-    let userExist = localStorage.getItem("userData");
-
-    if (userExist !== null) {
-        alert("user exist");
-        localStorage.setItem('cart', JSON.stringify(product))
-    } else {
-        alert("user not exist");
-    }
-
-    // Cart.store({
-    //     product_supplier_id: product.id,
-    //     quantity,
-    // });
+    Cart.store({
+        product_supplier_id: product.product_details_by_type.product_supplier_id,
+        quantity,
+    });
 };
 
-// export const getCartItems = ({ commit }) => {
-//   Cart.all().then((response) => {
-//     commit("SET_CART", response.data);
-//   });
-// };
 
 export const removeProductFromCart = ({ commit }, product) => {
     commit("REMOVE_PRODUCT_FROM_CART", product);
 
-    Vue.swal({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 5000,
-        timerProgressBar: true,
-        icon: "success",
-        title: "Product removed successfully.",
-    });
-
-    // Cart.delete(product.id);
+    Cart.delete(product.product.uuid);
 };
 
 export const clearCartItems = ({ commit }) => {
@@ -70,4 +35,12 @@ export const clearCartItems = ({ commit }) => {
     });
 
     Cart.deleteAll();
+};
+
+
+export const getCartProducts = ({ commit }) => {
+    Product.all().then((res) => {
+        commit("SET_CART_ITEMS", res.data.items.cart_items);
+        commit("SET_CART_TOTAL", res.data.items.cart_sub_total);
+    });
 };
