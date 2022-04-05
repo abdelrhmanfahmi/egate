@@ -37,7 +37,8 @@
                 class="justify-content-center"
               ></Counter>
             </td>
-            <td>{{ item.price * item.quantity }}</td>
+            <td>{{ item.price * item.quantity }}</td> 
+            
             <td>
               <a href="#"> <font-awesome-icon icon="fa-solid fa-trash" /></a>
             </td>
