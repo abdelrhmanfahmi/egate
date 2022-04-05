@@ -86,7 +86,7 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
-          console.log(res);
+          console.log("productDetails"  , res);
           this.myProduct = res.data.items;
         })
         .catch((err) => {

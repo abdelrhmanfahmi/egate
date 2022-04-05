@@ -1,13 +1,13 @@
-import Api from "./Api";
-
-const END_POINT = '/products';
+// import Api from "./Api";
+import globalAxios from "@/services/global-axios";
+const END_POINT = 'cart';
 
 export default {
     all() {
-        return Api.get(END_POINT);
+        return globalAxios.get(END_POINT);
     },
 
     show(id) {
-        return Api.get(`${END_POINT}/${id}`);
+        return globalAxios.get(`${END_POINT}/${id}`);
     }
 }

@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import Suppliers from "../views/Suppliers.vue";
 import Supplier from "../views/Supplier.vue";
 import Corporat from "../views/Corporat.vue";
-import supplierpProducts from "../views/supplierpProducts.vue";
+import supplierProducts from "../views/supplierProducts.vue";
 import ContactUs from "../views/Contact-Us.vue";
 import Cart from "../views/Cart.vue";
 import Payment from "../views/Payment.vue";
@@ -16,8 +16,7 @@ import profileRoutes from "./profileRoutes";
 
 Vue.use(VueRouter);
 
-const routes = [
-    {
+const routes = [{
         path: "/",
         name: "Home",
         component: Home,
@@ -37,7 +36,7 @@ const routes = [
         name: "About",
 
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/About.vue"),
+            import ( /* webpackChunkName: "about" */ "../views/About.vue"),
     },
     {
         path: "/corporat",
@@ -47,7 +46,7 @@ const routes = [
     {
         path: "/supplier-products",
         name: "supplierProducts",
-        component: supplierpProducts,
+        component: supplierProducts,
     },
     {
         path: "/contact-us",
@@ -96,13 +95,13 @@ const routes = [
         path: "/categories/:slug",
         name: "subCategory",
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
+            import ( /* webpackChunkName: "about" */ "../views/categories/_slug.vue"),
     },
     {
         path: "/categories/:slug/variants",
         name: "variants",
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/categories/variants.vue"),
+            import ( /* webpackChunkName: "about" */ "../views/categories/variants.vue"),
     },
     ...auth,
     profileRoutes,

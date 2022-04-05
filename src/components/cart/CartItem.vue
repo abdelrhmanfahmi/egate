@@ -1,27 +1,78 @@
 <template>
-  <div class="d-flex cart-item">
-    <a href="#" class="thumb">
-      <img :src="require('@/assets/images/p1.png')" alt="Cart Item" />
-    </a>
-    <div class="product-info w-100">
-      <a href="#" class="name">{{ $t("cart.itemName") }}</a>
-      <span class="price">3.700 KD</span>
-    </div>
-    <div class="actions">
-      <span class="action-icon">
-        <b-icon-trash></b-icon-trash>
-      </span>
+  <div class="holder">
+    <div
+      class="d-flex cart-item"
+      v-for="product in products.products"
+      :key="product.id"
+    >
+      <router-link
+        :to="{ path: '/details', query: { id: `${product.id}` } }"
+        class="thumb"
+      >
+        <img
+          :src="product.product_image"
+          alt="Cart Item"
+          class="product-image"
+        />
+      </router-link>
+      <div class="product-info w-100">
+        <router-link
+          class="name"
+          :to="{ path: '/details', query: { id: `${product.id}` } }"
+        >
+          {{ product.product_name }}
+        </router-link>
+
+        <span class="price">
+          {{ product.price }} x
+          <b class="text-success">{{ product.quantity }}</b>
+        </span>
+      </div>
+      <div class="total mr-2">
+        {{ products.supplier_sub_total }}
+      </div>
+      <div class="actions" @click="removeFromCart(product)">
+        <span class="action-icon">
+          <b-icon-trash></b-icon-trash>
+        </span>
+      </div>
+      <!-- <ul>
+        <li v-for="product in products" :key="product.id">
+          product.supplier_name : {{ product.product_name }}
+        </li>
+        <li>
+          {{ products.supplier_name }}
+          {{ products.supplier_sub_total }}
+          {{ products.products[0].product_name }}
+        </li>
+      </ul> -->
     </div>
   </div>
 </template>
 <script>
 import { BIconTrash } from "bootstrap-vue";
+// import { mapActions } from "vuex";
 export default {
   data() {
     return { count: 0 };
   },
   components: {
     BIconTrash,
+  },
+  props: ["products"],
+  methods: {
+    // ...mapActions("cart", ["removeProductFromCart"]),
+    removeFromCart(product) {
+      // this.removeProductFromCart({
+      //   product: product,
+      // });
+      this.$store.dispatch("cart/removeProductFromCart", {
+        product: product,
+      });
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 1000);
+    },
   },
 };
 </script>
@@ -59,5 +110,9 @@ export default {
       cursor: pointer;
     }
   }
+}
+.product-image {
+  width: 100px;
+  height: 75px;
 }
 </style>

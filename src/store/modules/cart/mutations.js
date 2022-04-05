@@ -28,3 +28,12 @@ export const REMOVE_PRODUCT_FROM_CART = (state, product) => {
 export const CLEAR_CART_ITEMS = (state) => {
     state.cart = [];
 }
+
+
+export const SET_CART_ITEMS = (state, cartItems) => {
+    state.cartItems = cartItems;
+}
+
+export const SET_CART_TOTAL = (state, cart_sub_total) => {
+    state.cart_sub_total = cart_sub_total;
+}

@@ -107,6 +107,7 @@ export default {
 
           // if (!res.data.items.item.verify_email_required) {
           this.$router.push("/profile/account-information-b2b");
+          localStorage.removeItem("guest-id")
           location.reload();
 
           if (!this.userInfo.item.is_verified) {
