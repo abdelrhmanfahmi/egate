@@ -1,7 +1,7 @@
 <template>
-  <div class="cart-content">
+  <div class="cart-content mb-2">
     <div class="" v-if="cartItems">
-      <div v-for="products in cartItems" :key="products.id">
+      <div v-for="products in cartItems" :key="products.id" class="cart-items">
         <CartItem :products="products"></CartItem>
       </div>
       <hr />
@@ -15,7 +15,7 @@
         </span>
       </div>
       <div class="navigation my-4" v-if="cart_sub_total">
-        <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button>
+        <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
         <b-button class="login-button dark my-2">{{
           $t("cart.purchase")
         }}</b-button>
@@ -58,6 +58,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .cart-content {
-// }
+.cart-items {
+  max-height: 34vh;
+  overflow-y: scroll;
+}
 </style>

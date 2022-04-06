@@ -33,6 +33,9 @@ export default {
       required: true,
       default: 0,
     },
+    product: {
+      type: Object,
+    },
   },
   mounted() {
     this.countValue = this.quantity;
@@ -40,9 +43,28 @@ export default {
   methods: {
     incrementQuantity() {
       this.countValue += 1;
+
+      let data = {
+        quantity: this.countValue,
+        uuid: this.product.uuid,
+      };
+      this.$store.dispatch("cart/updateProductFromCart", data);
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 300);
     },
     decrementQuantity() {
       this.countValue > 0 ? this.countValue-- : null;
+
+      let data = {
+        quantity: this.countValue,
+        uuid: this.product.uuid,
+      };
+
+      this.$store.dispatch("cart/updateProductFromCart", data);
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 300);
     },
   },
 };

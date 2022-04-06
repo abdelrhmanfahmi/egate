@@ -1,5 +1,5 @@
 <template>
-  <div class="holder">
+  <div class="holder mb-2">
     <div
       class="d-flex cart-item"
       v-for="product in products.products"
@@ -31,7 +31,7 @@
       <div class="total mr-2">
         {{ products.supplier_sub_total }}
       </div>
-      <div class="actions" @click="removeFromCart(product)">
+      <div class="actions mr-2" @click="removeFromCart(product)">
         <span class="action-icon">
           <b-icon-trash></b-icon-trash>
         </span>
