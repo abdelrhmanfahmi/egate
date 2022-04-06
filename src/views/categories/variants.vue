@@ -314,7 +314,9 @@ export default {
         product: item,
         quantity: this.cartCounter !== null ? this.cartCounter : 1,
       });
-      this.$store.dispatch("cart/getCartProducts");
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 500);
     },
     addToWishlist() {
       // this.addProductToWishlist({
