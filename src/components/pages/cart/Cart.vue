@@ -29,7 +29,19 @@
                 :key="index"
               >
                 <td class="media">
-                  <img :src="item.product_image" :alt="item.name + ' image'" />
+                  <router-link
+                    :to="{
+                      path: '/details',
+                      query: { id: `${item.product_supplier_id}` },
+                    }"
+                    class="thumb"
+                  >
+                    <img
+                      :src="item.product_image"
+                      :alt="item.name + ' image'"
+                      class="product-image"
+                    />
+                  </router-link>
                 </td>
                 <td>
                   <a href="#">
@@ -187,7 +199,7 @@ export default {
         },
       ],
       discount: 6,
-      loading:false
+      loading: false,
     };
   },
   mounted() {
@@ -195,9 +207,9 @@ export default {
   },
   methods: {
     getCartProducts() {
-      this.loading = true
+      this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
-      this.loading = false
+      this.loading = false;
     },
     removeFromCart(product) {
       // this.removeProductFromCart({

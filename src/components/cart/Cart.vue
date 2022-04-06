@@ -16,9 +16,10 @@
       </div>
       <div class="navigation my-4" v-if="cart_sub_total">
         <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
-        <b-button class="login-button dark my-2">{{
-          $t("cart.purchase")
-        }}</b-button>
+
+        <router-link to="/cart" class="login-button dark my-2 text-center text-white">
+          {{$t("cart.purchase")}}
+        </router-link>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center" v-else>

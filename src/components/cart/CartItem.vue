@@ -6,7 +6,7 @@
       :key="product.id"
     >
       <router-link
-        :to="{ path: '/details', query: { id: `${product.id}` } }"
+        :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
         class="thumb"
       >
         <img
@@ -18,7 +18,7 @@
       <div class="product-info w-100">
         <router-link
           class="name"
-          :to="{ path: '/details', query: { id: `${product.id}` } }"
+          :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
         >
           {{ product.product_name }}
         </router-link>

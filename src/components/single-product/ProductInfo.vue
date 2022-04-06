@@ -15,15 +15,16 @@
         {{ myProduct.short_description }}
       </p>
       <b-form-rating></b-form-rating>
+
       <div
         class=""
-        v-for="(pro, index) in myProduct.product_details"
-        :key="index"
+        v-if="myProduct.product_details_by_type"
+        
       >
-        <p class="serial" v-if="pro.sku">SKU : {{ pro.sku }}</p>
+        <p class="serial" v-if="myProduct.product_details_by_type.sku">SKU : {{ myProduct.product_details_by_type.sku }}</p>
         <p class="price">
           {{ $t("singleProduct.price") }} :
-          {{ pro.price }}
+          {{ myProduct.product_details_by_type.customer_price }}
         </p>
 
         <hr />
@@ -346,7 +347,7 @@ export default {
     .is-available {
       font-size: 11pt;
       margin-bottom: 1.3rem;
-      padding-inline-start: 35px;
+      //padding-inline-start: 35px;
       font-weight: bold;
     }
     .product-actions {

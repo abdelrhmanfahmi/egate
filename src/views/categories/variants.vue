@@ -18,8 +18,10 @@
                 {{ $t("items.home") }}
               </router-link>
             </li>
-            <li class="breadcrumb-item"><a href="#">{{productInfo.parent_category.title}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page" >
+            <li class="breadcrumb-item">
+              <a href="#">{{ productInfo.parent_category.title }}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
               {{ productInfo.title }}
             </li>
           </ol>
@@ -166,20 +168,22 @@
             </span>
           </template>
           <template #cell(quantity)="data">
-            <Counter
+            <Variants-Counter
               v-if="data.value"
               class="justify-content-center"
               :quantity="data.value"
-            ></Counter>
-            <Counter
+              @changeCount="ChangeCounter($event)"
+            ></Variants-Counter>
+            <Variants-Counter
               v-else
               class="justify-content-center"
               :quantity="1"
-            ></Counter>
+              @changeCount="ChangeCounter($event)"
+            ></Variants-Counter>
           </template>
-          <template #cell(addTo)>
+          <template #cell(addTo)="data">
             <div class="add-to d-flex justify-content-center">
-              <a @click="addToCart()">
+              <a @click="addToCart(data.item)">
                 <span>{{ $t("items.addToCart") }}</span>
                 <font-awesome-icon icon="fa-solid fa-cart-shopping" />
               </a>
@@ -218,9 +222,9 @@
 <script>
 import categories from "@/services/categories";
 import suppliers from "@/services/suppliers";
-import Counter from "@/components/global/Counter.vue";
+import VariantsCounter from "@/components/global/variantsCounter.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -255,7 +259,7 @@ export default {
       ],
       tableFields: [
         {
-          key: "#",
+          key: "",
           // key: "condition",
           label: this.$t("items.type"),
         },
@@ -276,7 +280,7 @@ export default {
           label: this.$t("items.unit"),
         },
         {
-          key: "product_details[0].price",
+          key: "product_details_by_type.customer_price",
           label: this.$t("items.price"),
         },
         {
@@ -292,19 +296,25 @@ export default {
       product: [],
       supplierProducts: null,
       supplierProductsLength: null,
+      cartCounter: 1,
     };
   },
   components: {
-    Counter,
+    VariantsCounter,
     Product,
   },
   methods: {
-    ...mapActions("cart", ["addProductToCart", "addProductToWishlist"]),
-    addToCart() {
+    // ...mapActions("cart", ["addProductToCart", "addProductToWishlist"]),
+    addToCart(item) {
       // this.addProductToCart({
       //   product: this.product,
       //   quantity: 1,
       // });
+      this.$store.dispatch("cart/addProductToCart", {
+        product: item,
+        quantity: this.cartCounter !== null ? this.cartCounter : 1,
+      });
+      this.$store.dispatch("cart/getCartProducts");
     },
     addToWishlist() {
       // this.addProductToWishlist({
@@ -312,8 +322,10 @@ export default {
       //   quantity: 1,
       // });
     },
+    ChangeCounter(cartCounter) {
+      this.cartCounter = cartCounter;
+    },
     changeVariance(product) {
-      console.log(product.selectedVariance);
       console.log(product.title.replace(/\s/g, "-"));
     },
     getCategoryProducts() {
@@ -321,6 +333,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
+          console.log("res" , res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -385,7 +398,6 @@ export default {
       suppliers
         .getSupplierProducts(this.id)
         .then((resp) => {
-          console.log("getSupplierProducts", resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
