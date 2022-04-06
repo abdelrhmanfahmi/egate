@@ -1,12 +1,12 @@
 <template>
-  <div class="holder">
+  <div class="holder mb-2">
     <div
       class="d-flex cart-item"
       v-for="product in products.products"
       :key="product.id"
     >
       <router-link
-        :to="{ path: '/details', query: { id: `${product.id}` } }"
+        :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
         class="thumb"
       >
         <img
@@ -18,7 +18,7 @@
       <div class="product-info w-100">
         <router-link
           class="name"
-          :to="{ path: '/details', query: { id: `${product.id}` } }"
+          :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
         >
           {{ product.product_name }}
         </router-link>
@@ -31,7 +31,7 @@
       <div class="total mr-2">
         {{ products.supplier_sub_total }}
       </div>
-      <div class="actions" @click="removeFromCart(product)">
+      <div class="actions mr-2" @click="removeFromCart(product)">
         <span class="action-icon">
           <b-icon-trash></b-icon-trash>
         </span>

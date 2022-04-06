@@ -21,6 +21,14 @@ export const removeProductFromCart = ({ commit }, product) => {
     Cart.delete(product.product.uuid);
 };
 
+export const updateProductFromCart = ({ commit }, product) => {
+    commit("SET_CART", product);
+
+    
+
+    Cart.update(product);
+};
+
 export const clearCartItems = ({ commit }) => {
     commit("CLEAR_CART_ITEMS");
 

@@ -27,4 +27,5 @@ export default {
     addedToCart: "Product added to cart.",
     removedFromCart: "Product removed from cart",
     noCartProducts: "No Products In cart",
+    updateCart:'Cart Updated'
 };

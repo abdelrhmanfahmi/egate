@@ -1,115 +1,161 @@
 <template>
   <div class="cart">
-    <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
-    <div class="cart-table p-4">
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>{{ $t("cart.product") }}</th>
-            <th>{{ $t("cart.price") }}</th>
-            <th>{{ $t("cart.quantity") }}</th>
-            <th>{{ $t("cart.total") }}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="supplier" v-for="(supplier, index) in cartItems" :key="index">
-          <h5 class="name">
-            {{ supplier.supplier_name }}
-          </h5>
-          <tr
-            class="item-content"
-            v-for="(item, index) in supplier.products"
-            :key="index"
-          >
-            <td class="media">
-              <img :src="item.product_image" :alt="item.name + ' image'" />
-            </td>
-            <td>
-              <a href="#">
-                {{ item.product_name }}
+    <div class="" v-if="!loading">
+      <div class="" v-if="cartItems">
+        <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
+        <div class="cart-table p-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>{{ $t("cart.product") }}</th>
+                <th>{{ $t("cart.price") }}</th>
+                <th>{{ $t("cart.quantity") }}</th>
+                <th>{{ $t("cart.total") }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody
+              class="supplier"
+              v-for="(supplier, index) in cartItems"
+              :key="index"
+            >
+              <h5 class="name">
+                {{ supplier.supplier_name }}
+              </h5>
+              <tr
+                class="item-content"
+                v-for="(item, index) in supplier.products"
+                :key="index"
+              >
+                <td class="media">
+                  <router-link
+                    :to="{
+                      path: '/details',
+                      query: { id: `${item.product_supplier_id}` },
+                    }"
+                    class="thumb"
+                  >
+                    <img
+                      :src="item.product_image"
+                      :alt="item.name + ' image'"
+                      class="product-image"
+                    />
+                  </router-link>
+                </td>
+                <td>
+                  <a href="#">
+                    {{ item.product_name }}
+                  </a>
+                </td>
+                <td>{{ item.price }}</td>
+                <td>
+                  <Counter
+                    :quantity="item.quantity"
+                    :product="item"
+                    class="justify-content-center"
+                  ></Counter>
+                </td>
+                <td>{{ item.price * item.quantity }}</td>
+
+                <td>
+                  <div class="actions" @click="removeFromCart(item)">
+                    <span class="action-icon">
+                      <font-awesome-icon icon="fa-solid fa-trash" />
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="coupon my-4">
+            <div class="d-flex flex-wrap align-items-center">
+              <a
+                type="submit"
+                class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
+              >
+                {{ $t("cart.UpdateDelivery") }}
               </a>
-            </td>
-            <td>{{ item.price }} </td>
-            <td>
-              <Counter
-                :quantity="item.quantity"
-                class="justify-content-center"
-              ></Counter>
-            </td>
-            <td>{{ item.price * item.quantity }}</td> 
-            
-            <td>
-              <a href="#"> <font-awesome-icon icon="fa-solid fa-trash" /></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="coupon my-4">
-        <div class="d-flex flex-wrap align-items-center">
-          <a
-            type="submit"
-            class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
-          >
-            {{ $t("cart.UpdateDelivery") }}
-          </a>
-          <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-            {{ $t("cart.couponDiscount") }}
-          </b-button>
-          <input
-            type="text"
-            :placeholder="$t('cart.addCoupon')"
-            class="my-2 h-100 p-4"
-          />
+              <b-button
+                type="submit"
+                class="login-button my-2 py-3 px-4 w-auto"
+              >
+                {{ $t("cart.couponDiscount") }}
+              </b-button>
+              <input
+                type="text"
+                :placeholder="$t('cart.addCoupon')"
+                class="my-2 h-100 p-4"
+              />
+            </div>
+          </div>
         </div>
+        <div class="cart-detail p-4">
+          <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
+          <div class="data">
+            <table class="w-100">
+              <tbody>
+                <tr>
+                  <th>{{ $t("cart.total") }}</th>
+                  <td>{{ cart_sub_total }}</td>
+                </tr>
+                <tr>
+                  <th>{{ $t("cart.discount") }}</th>
+                  <td>{{ discount }}</td>
+                </tr>
+                <tr>
+                  <th>{{ $t("cart.delivery") }}</th>
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="freeDelivery"
+                      />
+                      <label class="custom-control-label" for="freeDelivery">
+                        {{ $t("cart.free") }}
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th>{{ $t("cart.total") }}</th>
+                  <td>
+                    {{ totalPayment }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="checkout d-flex">
+              <a
+                href="#"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("cart.checkout") }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-else
+      >
+        <img src="@/assets/images/empty-cart.png" alt="cart-image" />
+        <h3 class="m-0">
+          {{ $t("cart.noCartProducts") }}
+        </h3>
       </div>
     </div>
-    <div class="cart-detail p-4">
-      <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
-      <div class="data">
-        <table class="w-100">
-          <tbody>
-            <tr>
-              <th>{{ $t("cart.total") }}</th>
-              <td>6.00 {{ $t("cart.priceUnit") }}</td>
-            </tr>
-            <tr>
-              <th>{{ $t("cart.discount") }}</th>
-              <td>6.00 {{ $t("cart.priceUnit") }}</td>
-            </tr>
-            <tr>
-              <th>{{ $t("cart.delivery") }}</th>
-              <td>
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="freeDelivery"
-                  />
-                  <label class="custom-control-label" for="freeDelivery">
-                    {{ $t("cart.free") }}
-                  </label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>{{ $t("cart.total") }}</th>
-              <td>6.00 {{ $t("cart.priceUnit") }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="checkout d-flex">
-          <a
-            href="#"
-            class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-          >
-            {{ $t("cart.checkout") }}
-          </a>
-        </div>
-      </div>
+    <div
+      class="d-flex justify-content-center align-items-center flex-column"
+      v-else
+    >
+      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
   </div>
 </template>
+
 <script>
 import Counter from "../../global/Counter.vue";
 export default {
@@ -152,6 +198,8 @@ export default {
           ],
         },
       ],
+      discount: 6,
+      loading: false,
     };
   },
   mounted() {
@@ -159,7 +207,9 @@ export default {
   },
   methods: {
     getCartProducts() {
+      this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
+      this.loading = false;
     },
     removeFromCart(product) {
       // this.removeProductFromCart({
@@ -179,6 +229,9 @@ export default {
     },
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
+    },
+    totalPayment() {
+      return parseInt(this.cart_sub_total) - parseInt(this.discount);
     },
   },
 };
@@ -295,6 +348,13 @@ export default {
         }
       }
     }
+  }
+}
+.actions {
+  color: #000;
+  .action-icon {
+    font-size: 12pt;
+    cursor: pointer;
   }
 }
 </style>

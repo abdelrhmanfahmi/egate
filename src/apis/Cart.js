@@ -74,6 +74,37 @@ export default {
             });
     },
 
+    update(data) {
+        return globalAxios
+            .put(`cart/change-quantity` , data)
+            .then((res) => {
+                if (res.status == 200) {
+                    Vue.swal({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true,
+                        icon: "success",
+                        title: i18n.t("cart.updateCart"),
+                    });
+                }
+            })
+            .catch((err) => {
+                const error = Object.values(err)[2].data;
+                Vue.swal({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    icon: "error",
+                    title: error.message,
+                });
+            });
+    },
+    
+
     deleteAll() {
         return globalAxios.delete(END_POINT);
     },
