@@ -21,41 +21,72 @@
             <form class="row delivery-form">
               <div class="col-6 form-group required">
                 <label for="firstName">{{ $t("payment.firstName") }}</label>
-                <input type="text" class="form-control" id="firstName" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  v-model="formData.first_name"
+                />
               </div>
               <div class="col-6 form-group required">
                 <label for="firstName">{{ $t("payment.lastName") }}</label>
-                <input type="text" class="form-control" id="lastName" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  v-model="formData.last_name"
+                />
               </div>
               <div class="col-12 form-group">
-                <label for="companyName">
+                <!-- <label for="companyName">
                   {{ $t("payment.category") }} ({{ $t("payment.optional") }})
+                </label> -->
+                <label for="companyName">
+                  {{ $t("payment.companyName") }} 
                 </label>
-                <input type="text" class="form-control" id="companyName" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="companyName"
+                  v-model="formData.company_name"
+                />
               </div>
               <div class="col-12 form-group required">
                 <label for="country">{{ $t("payment.country") }}</label>
-                <select class="custom-select" id="country">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select
+                  class="custom-select"
+                  id="country"
+                  v-model="formData.country"
+                >
+                  <option :value="1">One</option>
+                  <option :value="2">Two</option>
+                  <option :value="3">Three</option>
                 </select>
               </div>
               <div class="col-12 form-group required">
                 <label for="address">{{ $t("payment.address") }}</label>
-                <input type="text" class="form-control" id="address" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  v-model="formData.address"
+                />
               </div>
               <div class="col-6 form-group required">
                 <label for="governorate">{{ $t("payment.governorate") }}</label>
-                <select class="custom-select" id="governorate">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select
+                  class="custom-select"
+                  id="governorate"
+                  v-model="formData.governorate"
+                >
+                  <option :value="1">One</option>
+                  <option :value="2">Two</option>
+                  <option :value="3">Three</option>
                 </select>
               </div>
               <div class="col-6 form-group required">
                 <label for="city">{{ $t("payment.city") }}</label>
-                <select class="custom-select" id="city">
+                <select class="custom-select" id="city" v-model="formData.city">
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
@@ -63,21 +94,37 @@
               </div>
               <div class="col-6 form-group required">
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
-                <input type="text" class="form-control" id="postalCode" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="postalCode"
+                  v-model="formData.postal_code"
+                />
               </div>
               <div class="col-6 form-group required">
                 <label for="phoneNumber">{{ $t("payment.phoneNumber") }}</label>
-                <input type="number" class="form-control" id="phoneNumber" />
+                <input
+                  type="number"
+                  class="form-control"
+                  id="phoneNumber"
+                  v-model="formData.phone"
+                />
               </div>
               <div class="col-12 form-group required">
                 <label for="email">{{ $t("payment.email") }}</label>
-                <input type="email" class="form-control" id="email" />
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  v-model="formData.email"
+                />
               </div>
-              <div class="col-12 form-group custom-control custom-checkbox">
+              <div class="col-12 form-group custom-control custom-checkbox" v-if="userData">
                 <input
                   type="checkbox"
                   class="custom-control-input"
                   id="deliveryAddress"
+                  v-model="formData.sameAddress"
                 />
                 <label class="custom-control-label" for="deliveryAddress">
                   {{ $t("payment.deliverySameAddress") }}
@@ -87,7 +134,12 @@
                 <label for="notes">
                   {{ $t("payment.notes") }} ({{ $t("payment.optional") }})
                 </label>
-                <textarea class="form-control" id="notes" rows="3"></textarea>
+                <textarea
+                  class="form-control"
+                  id="notes"
+                  rows="3"
+                  v-model="formData.comment"
+                ></textarea>
               </div>
             </form>
           </div>
@@ -108,6 +160,8 @@
                     type="checkbox"
                     class="custom-control-input"
                     id="freeDelivery"
+                    v-model="formData.payment_type"
+                    value="free"
                   />
                   <label class="custom-control-label" for="freeDelivery">
                     {{ $t("payment.freeDelivery") }}
@@ -130,6 +184,8 @@
                       id="paymentMethod1"
                       name="paymentMethod"
                       class="custom-control-input"
+                      v-model="formData.payment_type"
+                      value="bank"
                     />
                     <label class="custom-control-label" for="paymentMethod1">
                       {{ $t("payment.bankTransfer") }}
@@ -146,6 +202,8 @@
                       id="paymentMethod2"
                       name="paymentMethod"
                       class="custom-control-input"
+                      v-model="formData.payment_type"
+                      value="when reciving"
                     />
                     <label class="custom-control-label" for="paymentMethod2">
                       {{ $t("payment.paymentWhenReceiving") }}
@@ -164,6 +222,8 @@
                       id="paymentMethod3"
                       name="paymentMethod"
                       class="custom-control-input"
+                      v-model="formData.payment_type"
+                      value="online"
                     />
                     <label class="custom-control-label" for="paymentMethod3">
                       {{ $t("payment.onlinePayment") }}
@@ -188,7 +248,11 @@
                 </div>
               </div>
               <div class="submit">
-                <b-button type="submit" class="login-button dark">
+                <b-button
+                  type="submit"
+                  class="login-button dark"
+                  @click="payment"
+                >
                   {{ $t("payment.checkout") }}
                 </b-button>
               </div>
@@ -200,9 +264,41 @@
   </div>
 </template>
 <script>
+import suppliers from "@/services/suppliers";
 export default {
   data() {
-    return { count: 0 };
+    return {
+      count: 0,
+      formData: {
+        guest_uuid: "",
+        comment: "",
+        phone: "",
+        payment_type: "",
+        first_name: "",
+        last_name: "",
+        company_name: "",
+        address: "",
+        sameAddress: false,
+        country: 1,
+        governorate: 1,
+        city: 2,
+        postal_code: "",
+        email: "",
+        coupons: [],
+      },
+    };
+  },
+  methods: {
+    async payment() {
+      suppliers
+        .payment(this.formData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
