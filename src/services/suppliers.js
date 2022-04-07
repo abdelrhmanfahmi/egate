@@ -14,6 +14,17 @@ export default {
     return globalAxios.get(`products`);
   },
   requestQuotation(payload) {
-    return globalAxios.post(`/members/product/rfq` , payload);
+    return globalAxios.post(`/members/product/rfq`, payload);
+  },
+  payment(payload) {
+    return globalAxios.post(`members/products/order`, payload);
+  },
+  checkCoupon(data) {
+    return globalAxios.post(`members/products/coupon/check`,{}, {
+      params: {
+        supplier_id: data.supplier_id,
+        coupon: data.coupon,
+      },
+    });
   },
 };

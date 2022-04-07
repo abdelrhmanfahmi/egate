@@ -78,6 +78,7 @@
               </a>
               <b-button
                 type="submit"
+                @click="checkCoupon()"
                 class="login-button my-2 py-3 px-4 w-auto"
               >
                 {{ $t("cart.couponDiscount") }}
@@ -86,6 +87,7 @@
                 type="text"
                 :placeholder="$t('cart.addCoupon')"
                 class="my-2 h-100 p-4"
+                v-model="coupon"
               />
             </div>
           </div>
@@ -127,12 +129,12 @@
               </tbody>
             </table>
             <div class="checkout d-flex">
-              <a
-                href="#"
+              <router-link
+                to="/payment"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
                 {{ $t("cart.checkout") }}
-              </a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -158,6 +160,7 @@
 
 <script>
 import Counter from "../../global/Counter.vue";
+import suppliers from "@/services/suppliers";
 export default {
   components: { Counter },
   data() {
@@ -198,6 +201,7 @@ export default {
           ],
         },
       ],
+      coupon: null,
       discount: 6,
       loading: false,
     };
@@ -221,6 +225,20 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
+    },
+    checkCoupon() {
+      let data = {
+        supplier_id: 2,
+        coupon: this.coupon,
+      };
+      suppliers
+        .checkCoupon(data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   computed: {

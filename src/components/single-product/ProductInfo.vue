@@ -16,12 +16,10 @@
       </p>
       <b-form-rating></b-form-rating>
 
-      <div
-        class=""
-        v-if="myProduct.product_details_by_type"
-        
-      >
-        <p class="serial" v-if="myProduct.product_details_by_type.sku">SKU : {{ myProduct.product_details_by_type.sku }}</p>
+      <div class="" v-if="myProduct.product_details_by_type">
+        <p class="serial" v-if="myProduct.product_details_by_type.sku">
+          SKU : {{ myProduct.product_details_by_type.sku }}
+        </p>
         <p class="price">
           {{ $t("singleProduct.price") }} :
           {{ myProduct.product_details_by_type.customer_price }}
@@ -112,8 +110,10 @@
           </button>
           <button
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
-            v-else-if="(myProduct.product_details_by_type.add_type === 'rfq' ||
-                myProduct.product_details_by_type.add_type === 'both')"
+            v-else-if="
+              myProduct.product_details_by_type.add_type === 'rfq' ||
+              myProduct.product_details_by_type.add_type === 'both'
+            "
           >
             <!-- <router-link to="/b2b-login"> -->
             {{ $t("singleProduct.bidRequest") }}
@@ -213,7 +213,9 @@ export default {
         product: myProduct,
         quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
       });
-      this.$store.dispatch("cart/getCartProducts");
+      setTimeout(() => {
+        this.$store.dispatch("cart/getCartProducts");
+      }, 500);
     },
     loginFirst() {
       Vue.swal({
