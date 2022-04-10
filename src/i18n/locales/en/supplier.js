@@ -12,4 +12,8 @@ export default {
   products: "products",
   productName: "milk",
   more: "more",
+  OurShop:'Our Shop',
+  Showing:"Showing",
+  of:'Of',
+  results:'Results'
 };

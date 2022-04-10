@@ -44,9 +44,14 @@
                   </router-link>
                 </td>
                 <td>
-                  <a href="#">
+                  <router-link
+                    :to="{
+                      path: '/details',
+                      query: { id: `${item.product_supplier_id}` },
+                    }"
+                  >
                     {{ item.product_name }}
-                  </a>
+                  </router-link>
                 </td>
                 <td>{{ item.price }}</td>
                 <td>
@@ -66,31 +71,45 @@
                   </div>
                 </td>
               </tr>
+              <br />
+              <tr>
+                <div
+                  class="coupon my-4"
+                  v-for="item in supplier.products"
+                  :key="item.id"
+                >
+                  <div class="d-flex flex-wrap align-items-center">
+                    <router-link to="/profile/account-information-b2b"
+                      type="submit"
+                      class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
+                    >
+                      {{ $t("cart.UpdateDelivery") }}
+                    </router-link>
+                    <b-button
+                      type="submit"
+                      @click="checkCoupon(item)"
+                      class="login-button my-2 py-3 px-4 w-auto"
+                    >
+                      {{ $t("cart.couponDiscount") }}
+                    </b-button>
+                    <input
+                      type="text"
+                      :placeholder="$t('cart.addCoupon')"
+                      class="my-2 h-100 p-4"
+                      v-model="coupon"
+                    />
+                  </div>
+                  <div class="text-danger">
+                    <ul>
+                      <li v-for="(error, index) in errors" :key="index">
+                        {{ error }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </tr>
             </tbody>
           </table>
-          <div class="coupon my-4">
-            <div class="d-flex flex-wrap align-items-center">
-              <a
-                type="submit"
-                class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
-              >
-                {{ $t("cart.UpdateDelivery") }}
-              </a>
-              <b-button
-                type="submit"
-                @click="checkCoupon()"
-                class="login-button my-2 py-3 px-4 w-auto"
-              >
-                {{ $t("cart.couponDiscount") }}
-              </b-button>
-              <input
-                type="text"
-                :placeholder="$t('cart.addCoupon')"
-                class="my-2 h-100 p-4"
-                v-model="coupon"
-              />
-            </div>
-          </div>
         </div>
         <div class="cart-detail p-4">
           <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
@@ -113,7 +132,9 @@
                         type="checkbox"
                         class="custom-control-input"
                         id="freeDelivery"
+                        v-model="freeDelivery"
                       />
+                      {{freeDeliveryStatus}}
                       <label class="custom-control-label" for="freeDelivery">
                         {{ $t("cart.free") }}
                       </label>
@@ -202,12 +223,15 @@ export default {
         },
       ],
       coupon: null,
-      discount: 6,
+      discount: 0,
       loading: false,
+      errors: null,
+      freeDelivery:false
     };
   },
   mounted() {
     this.getCartProducts();
+    
   },
   methods: {
     getCartProducts() {
@@ -226,18 +250,31 @@ export default {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
-    checkCoupon() {
+    checkCoupon(item) {
       let data = {
-        supplier_id: 2,
+        supplier_id: item.product_supplier_id,
         coupon: this.coupon,
       };
       suppliers
         .checkCoupon(data)
         .then((res) => {
           console.log(res);
+          let coupons = [];
+          if (res.status == 200) {
+            this.discount = res.data.items.discount;
+            this.sucessMsg(res.data.message);
+            coupons.push(res.data.items.uuid);
+            sessionStorage.setItem("coupons", JSON.stringify(coupons));
+            sessionStorage.setItem("discount", res.data.items.discount);
+            
+          }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          if (error) {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          }
         });
     },
   },
@@ -251,7 +288,13 @@ export default {
     totalPayment() {
       return parseInt(this.cart_sub_total) - parseInt(this.discount);
     },
+    freeDeliveryStatus(){
+      return sessionStorage.setItem("freeDelivery", this.freeDelivery);
+    }
   },
+  // beforeDestroy(){
+  //   localStorage.removeItem('coupons')
+  // }
 };
 </script>
 <style lang="scss" scoped>
@@ -314,7 +357,7 @@ export default {
             border: none;
             color: #312620;
             img {
-              width: 4rem;
+              width: 8rem;
               margin: 0 auto;
             }
             a {

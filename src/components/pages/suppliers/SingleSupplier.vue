@@ -35,6 +35,8 @@ export default {
         text-align: center;
         img {
           color: #000;
+          width: 100% !important;
+          height: 40vh;
         }
       }
       .supplier-name {

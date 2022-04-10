@@ -5,13 +5,33 @@
         class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
       >
         <button
-          class="btn btn-light bg-transparent border-0 outlinr-0 prev shadow-none"
-          onclick="history.back()"
+          class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
+          @click="prevPage"
+          :disabled="pageId == 1"
         >
-          <span>&#60;</span>{{ $t("supplier.prev") }}
+          <span>&#60;</span>{{ $t("items.prev") }}
         </button>
-        <b-breadcrumb :items="items"></b-breadcrumb>
-        <a href="" class="next">{{ $t("supplier.next") }}<span>&#62;</span></a>
+        <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
+        <b-breadcrumb v-if="supplier">
+          <b-breadcrumb-item href="#home">
+            <router-link to="/">
+              {{ $t("supplier.home") }}
+            </router-link>
+          </b-breadcrumb-item>
+          <b-breadcrumb-item>
+            <router-link to="/suppliers">
+              {{ $t("supplier.suppliers") }}
+            </router-link>
+          </b-breadcrumb-item>
+          <b-breadcrumb-item active>
+            {{ supplier.company_name }}
+          </b-breadcrumb-item>
+        </b-breadcrumb>
+        <span
+          @click="nextPage"
+          class="next btn btn-light shadow-none bg-transparent border-none outline-none"
+          >{{ $t("items.next") }}<span>&#62;</span></span
+        >
       </div>
 
       <b-row v-if="loading">
@@ -101,6 +121,7 @@ export default {
         },
       ],
       id: this.$route.params.id,
+      pageId: this.$route.params.id,
       loading: false,
       article: {
         image: require("@/assets/images/supba.png"),
@@ -146,6 +167,30 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    nextPage() {
+      this.pageId = parseInt(this.pageId) + 1;
+
+      this.$router.replace(`/suppliers/${this.pageId}`);
+      this.getSupplier();
+      this.getSupplierProducts();
+
+      setTimeout(() => {
+        location.reload();
+      }, 200);
+    },
+    prevPage() {
+      let prevUrl = this.pageId;
+      if (prevUrl > 0) {
+        this.pageId = parseInt(this.pageId) - 1;
+
+        this.$router.replace(`/suppliers/${this.pageId}`);
+        this.getSupplier();
+        this.getSupplierProducts();
+        setTimeout(() => {
+          location.reload();
+        }, 200);
+      }
     },
   },
   mounted() {

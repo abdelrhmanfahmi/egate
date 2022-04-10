@@ -55,11 +55,11 @@ export default {
         {
           text: this.$t("supplier.suppliers"),
           href: "#",
-        },
-        {
-          text: this.$t("supplier.company"),
           active: true,
         },
+        // {
+        //   text: this.$t("supplier.company"),
+        // },
       ],
       suppliers: null,
       loading: false,

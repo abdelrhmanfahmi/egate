@@ -11,16 +11,26 @@ import { baseURL } from "@/apis/Api";
 import axios from "axios";
 export default {
   name: "Home",
-  mounted() {
+  created() {
     // let gestUser = localStorage.getItem("guest-id");
 
     this.$store.dispatch("getUserInfo");
     let userExist = localStorage.getItem("userData");
-    if (!userExist) {
+    let guestUser = localStorage.getItem("guest-id");
+    if (userExist === null && guestUser === null ) {
       this.checkGuest();
-    } else {
-      localStorage.removeItem("guest-id");
+    } else if(userExist === null && guestUser) {
+      return null
+    }else if(userExist){
+      localStorage.removeItem('guest-id')
     }
+    // return
+
+    // if (localStorage.getItem("guest-id") === null) {
+    //   console.log("gest not exist");
+    // }else{
+    //   console.log("gest exist");
+    // }
   },
   components: {
     MainLayout,
@@ -31,6 +41,7 @@ export default {
         .post(`${baseURL}guest/generate-token`)
         .then((res) => {
           console.log(res);
+          alert("user not exist");
           localStorage.setItem("guest-id", res.data.items.uuid);
         })
         .catch((err) => {

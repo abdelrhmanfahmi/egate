@@ -4,20 +4,34 @@
       <div class="container">
         <div class="intro text-center">
           <h1>
-            {{ $t("Our Shop") }}
+            {{ $t("supplier.OurShop") }}
           </h1>
-          <b-breadcrumb :items="items"></b-breadcrumb>
+          <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
+          <b-breadcrumb v-if="supplier">
+            <b-breadcrumb-item href="#home">
+              <router-link to="/">
+                {{ $t("supplier.home") }}
+              </router-link>
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+              {{ supplier.company_name }}
+            </b-breadcrumb-item>
+          </b-breadcrumb>
         </div>
         <div class="row justify-content-around align-items-center">
           <div class="col-md-6 col-sm-12 mb-3 d-flex">
-            <h6 class="font-weight-bold mr-3">
+            <h6 class="font-weight-bold mx-3">
               <b-icon-grid></b-icon-grid>
-              filter
             </h6>
-            <p>Showing <b class="ml-3">{{supplierProductsLength}}</b> of <b class="text-danger ml-3 mr-2">{{supplierProductsLength}}</b> results</p>
+            <p>
+              {{ $t("supplier.Showing") }}
+              <b class="ml-3">{{ supplierProductsLength }}</b>
+              {{ $t("supplier.of") }}
+              <b class="text-danger ml-3 mr-2">{{ supplierProductsLength }}</b>
+            </p>
           </div>
           <div class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end">
-            <select name="" id="" labeel="select">
+            <!-- <select name="" id="" labeel="select">
               <option value="AccessoriesA">AccessoriesA</option>
               <option value="Laptop">Laptop</option>
               <option value="Stationary">Stationary</option>
@@ -27,13 +41,13 @@
               <button class="btn btn-default" type="submit">
                 <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="data">
           <div class="row">
             <div
-              class="col-12 col-sm-6 col-lg-3"
+              class="col-12 col-sm-6 col-lg-3 text-center"
               v-for="item in supplierProducts"
               :key="item.id"
             >
@@ -135,6 +149,7 @@ export default {
   // },
   mounted() {
     this.getSupplierProducts();
+    this.getSupplier();
   },
   components: {
     BIconGrid,
