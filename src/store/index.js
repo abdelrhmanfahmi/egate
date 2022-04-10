@@ -8,44 +8,48 @@ import auth from "@/services/auth";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        userInfo: localStorage.getItem("userInfo") &&
-            localStorage.getItem("userInfo") != "undefined" ?
-            JSON.parse(localStorage.getItem("userInfo")) : "",
+  state: {
+    userInfo:
+      localStorage.getItem("userInfo") &&
+      localStorage.getItem("userInfo") != "undefined"
+        ? JSON.parse(localStorage.getItem("userInfo"))
+        : "",
 
-        userData: localStorage.getItem("userData") &&
-            localStorage.getItem("userData") != "undefined" ?
-            JSON.parse(localStorage.getItem("userData")) : "",
+    userData:
+      localStorage.getItem("userData") &&
+      localStorage.getItem("userData") != "undefined"
+        ? JSON.parse(localStorage.getItem("userData"))
+        : "",
 
-
+    coupons: [],
+  },
+  getters: {
+    userInfo(state) {
+      return state.userInfo;
     },
-    getters: {
-        userInfo(state) {
-            return state.userInfo;
-        },
-        userData(state) {
-            return state.userData;
-        },
-
+    userData(state) {
+      return state.userData;
     },
-    mutations: {
-        SET_USER_DATA_INFO(state, userInfo) {
-            state.userData = userInfo;
-        },
-
+  },
+  mutations: {
+    SET_USER_DATA_INFO(state, userInfo) {
+      state.userData = userInfo;
     },
-    actions: {
-        getUserInfo({ commit }) {
-            auth.getUserInfo().then((res) => {
-                commit("SET_USER_DATA_INFO", res.data.items);
-                localStorage.setItem("userData", JSON.stringify(res.data.items));
-            });
-        },
-
+    SET_USER_COUPONS(state, coupons) {
+      state.coupons = coupons;
     },
-    modules: {
-        cart,
-        wishlist,
+  },
+  actions: {
+    getUserInfo({ commit }) {
+      auth.getUserInfo().then((res) => {
+        commit("SET_USER_DATA_INFO", res.data.items);
+        localStorage.setItem("userData", JSON.stringify(res.data.items));
+      });
     },
-    // plugins: [createPersistedState()]
+  },
+  modules: {
+    cart,
+    wishlist,
+  },
+  // plugins: [createPersistedState()]
 });

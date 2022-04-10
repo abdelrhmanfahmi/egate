@@ -11,12 +11,12 @@
               class="d-flex justify-content-between heading align-items-center mb-4"
             >
               <span class="title">{{ $t("payment.deliveryData") }}</span>
-              <a href="#">
+              <router-link to="/cart">
                 {{ $t("payment.backToCart") }}
                 <span>
                   <font-awesome-icon icon="fa-solid fa-arrow-right" />
                 </span>
-              </a>
+              </router-link>
             </div>
             <form class="row delivery-form">
               <div class="col-6 form-group required">
@@ -27,6 +27,13 @@
                   id="firstName"
                   v-model="formData.first_name"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.first_name"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-6 form-group required">
                 <label for="firstName">{{ $t("payment.lastName") }}</label>
@@ -36,13 +43,20 @@
                   id="lastName"
                   v-model="formData.last_name"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.last_name"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-12 form-group">
                 <!-- <label for="companyName">
                   {{ $t("payment.category") }} ({{ $t("payment.optional") }})
                 </label> -->
                 <label for="companyName">
-                  {{ $t("payment.companyName") }} 
+                  {{ $t("payment.companyName") }}
                 </label>
                 <input
                   type="text"
@@ -50,18 +64,34 @@
                   id="companyName"
                   v-model="formData.company_name"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.company_name"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-12 form-group required">
                 <label for="country">{{ $t("payment.country") }}</label>
-                <select
-                  class="custom-select"
-                  id="country"
+                <b-form-select
                   v-model="formData.country"
+                  @input="getAllRegions"
                 >
-                  <option :value="1">One</option>
-                  <option :value="2">Two</option>
-                  <option :value="3">Three</option>
-                </select>
+                  <b-form-select-option
+                    v-for="country in countries"
+                    :key="country.id"
+                    :value="country.id"
+                    >{{ country.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.country"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-12 form-group required">
                 <label for="address">{{ $t("payment.address") }}</label>
@@ -71,26 +101,57 @@
                   id="address"
                   v-model="formData.address"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.address"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-6 form-group required">
                 <label for="governorate">{{ $t("payment.governorate") }}</label>
-                <select
-                  class="custom-select"
-                  id="governorate"
+
+                <b-form-select
                   v-model="formData.governorate"
+                  :disabled="!formData.country"
+                  @input="getAllCities"
                 >
-                  <option :value="1">One</option>
-                  <option :value="2">Two</option>
-                  <option :value="3">Three</option>
-                </select>
+                  <b-form-select-option
+                    v-for="region in regions"
+                    :key="region.id"
+                    :value="region.id"
+                    >{{ region.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.governorate"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-6 form-group required">
                 <label for="city">{{ $t("payment.city") }}</label>
-                <select class="custom-select" id="city" v-model="formData.city">
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <b-form-select
+                  v-model="formData.city"
+                  :disabled="!formData.country || !formData.governorate"
+                >
+                  <b-form-select-option
+                    v-for="city in cities"
+                    :key="city.id"
+                    :value="city.id"
+                    >{{ city.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.city"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-6 form-group required">
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
@@ -100,6 +161,13 @@
                   id="postalCode"
                   v-model="formData.postal_code"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.postal_code"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-6 form-group required">
                 <label for="phoneNumber">{{ $t("payment.phoneNumber") }}</label>
@@ -109,6 +177,13 @@
                   id="phoneNumber"
                   v-model="formData.phone"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.phone"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
               <div class="col-12 form-group required">
                 <label for="email">{{ $t("payment.email") }}</label>
@@ -118,8 +193,18 @@
                   id="email"
                   v-model="formData.email"
                 />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.email"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
-              <div class="col-12 form-group custom-control custom-checkbox" v-if="userData">
+              <div
+                class="col-12 form-group custom-control custom-checkbox"
+                v-if="userData"
+              >
                 <input
                   type="checkbox"
                   class="custom-control-input"
@@ -140,6 +225,13 @@
                   rows="3"
                   v-model="formData.comment"
                 ></textarea>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.comment"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
             </form>
           </div>
@@ -149,10 +241,10 @@
             </div>
             <div class="methods-data">
               <div class="info">
-                {{ $t("payment.total") }}: 8.600 {{ $t("payment.priceUnit") }}
+                {{ $t("payment.total") }}: {{ cart_sub_total }}
               </div>
               <div class="info">
-                {{ $t("payment.discount") }}: 0.00 {{ $t("payment.priceUnit") }}
+                {{ $t("payment.discount") }}: {{ discount }}
               </div>
               <div class="info delivery">
                 <div class="custom-control custom-checkbox">
@@ -160,7 +252,7 @@
                     type="checkbox"
                     class="custom-control-input"
                     id="freeDelivery"
-                    v-model="formData.payment_type"
+                    v-model="freeDelivery"
                     value="free"
                   />
                   <label class="custom-control-label" for="freeDelivery">
@@ -265,27 +357,40 @@
 </template>
 <script>
 import suppliers from "@/services/suppliers";
+import auth from "@/services/auth";
+import profile from "@/services/profile";
 export default {
   data() {
     return {
       count: 0,
       formData: {
-        guest_uuid: "",
-        comment: "",
-        phone: "",
-        payment_type: "",
-        first_name: "",
-        last_name: "",
-        company_name: "",
-        address: "",
+        guest_uuid: sessionStorage.getItem("coupons")
+          ? sessionStorage.getItem("coupons")
+          : null,
+        comment: null,
+        phone: null,
+        payment_type: null,
+        first_name: null,
+        last_name: null,
+        company_name: null,
+        address: null,
         sameAddress: false,
         country: 1,
         governorate: 1,
         city: 2,
-        postal_code: "",
-        email: "",
+        postal_code: null,
+        email: null,
         coupons: [],
       },
+      discount: sessionStorage.getItem("discount")
+        ? sessionStorage.getItem("discount")
+        : 0,
+      freeDelivery:
+        sessionStorage.getItem("freeDelivery") == "true" ? true : false,
+      errors: [],
+      countries: [],
+      cities: [],
+      regions: [],
     };
   },
   methods: {
@@ -296,9 +401,45 @@ export default {
           console.log(res);
         })
         .catch((err) => {
+          const errors = Object.values(err)[2].data;
+          this.errors = errors.items;
           console.log(err);
         });
     },
+    getAllCountires() {
+      auth.getAllCountires().then((res) => {
+        this.countries = res.data.items;
+      });
+    },
+    // getAllRegions
+    getAllRegions() {
+      profile.getAllRegions(this.formData.country).then((res) => {
+        this.regions = res.data.items;
+        this.form.region_id = "";
+        this.form.city_id = "";
+      });
+    },
+    // Cities
+    getAllCities() {
+      profile.getAllCities(this.formData.governorate).then((res) => {
+        this.cities = res.data.items;
+        this.form.city_id = "";
+      });
+    },
+  },
+  computed: {
+    cartItems() {
+      return this.$store.state.cart.cartItems;
+    },
+    cart_sub_total() {
+      return this.$store.state.cart.cart_sub_total;
+    },
+    totalPayment() {
+      return parseInt(this.cart_sub_total) - parseInt(this.discount);
+    },
+  },
+  mounted() {
+    this.getAllCountires();
   },
 };
 </script>
