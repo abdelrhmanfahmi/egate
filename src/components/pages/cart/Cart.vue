@@ -339,7 +339,9 @@ export default {
               this.buttonDisabled = true;
             }
             prevButton.onclick = function(){
-              location.reload()
+              // location.reload()
+
+              return this.totalPayment = 200
             }
           }
         })
