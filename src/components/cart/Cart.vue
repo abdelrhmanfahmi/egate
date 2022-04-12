@@ -1,5 +1,8 @@
 <template>
   <div class="cart-content mb-2">
+    <span class="cartLength" v-if="cartItems && cartItemsLength">
+      {{ cartItemsLength }}
+    </span>
     <div class="" v-if="cartItems">
       <div v-for="products in cartItems" :key="products.id" class="cart-items">
         <CartItem :products="products"></CartItem>
@@ -17,8 +20,11 @@
       <div class="navigation my-4" v-if="cart_sub_total">
         <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
 
-        <router-link to="/cart" class="login-button dark my-2 text-center text-white">
-          {{$t("cart.purchase")}}
+        <router-link
+          to="/cart"
+          class="login-button dark my-2 text-center text-white"
+        >
+          {{ $t("cart.purchase") }}
         </router-link>
       </div>
     </div>
@@ -55,6 +61,9 @@ export default {
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
+    cartItemsLength() {
+      return this.cartItems.length;
+    },
   },
 };
 </script>
@@ -62,5 +71,23 @@ export default {
 .cart-items {
   max-height: 34vh;
   overflow-y: scroll;
+}
+.cart-content {
+  position: relative;
+  .cartLength {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: red;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 31px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 20px;
+    border: 5px solid #fdfdfd00;
+    font-weight: bold;
+  }
 }
 </style>

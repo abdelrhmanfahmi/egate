@@ -29,4 +29,5 @@ export default {
   noCartProducts: "No Products In cart",
   updateCart: "Cart Updated",
   enableButton: "remove coupone",
+  proceAfterDisc: "Price After Discount",
 };

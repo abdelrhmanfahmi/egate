@@ -4,7 +4,7 @@ const END_POINT = 'cart';
 
 export default {
     all() {
-        return globalAxios.get(END_POINT);
+        return globalAxios.post(END_POINT);
     },
 
     show(id) {

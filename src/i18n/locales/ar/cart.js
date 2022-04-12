@@ -26,7 +26,8 @@ export default {
   noProducts: "لا يوجد منتجات",
   addedToCart: "تم اضافة المنتج للسله",
   removedFromCart: "تم حذف المنتج",
-  noCartProducts: "لاسوجد منتجات فى السله",
+  noCartProducts: "لايوجد منتجات فى السله",
   updateCart: "تم تحديث السله",
   enableButton: "حذف الكوبون",
+  proceAfterDisc: "السعر بعد الخصم",
 };

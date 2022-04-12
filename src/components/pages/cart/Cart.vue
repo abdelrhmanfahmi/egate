@@ -62,7 +62,7 @@
                   ></Counter>
                 </td>
                 <td>
-                  {{ item.product_sub_total }}
+                  {{ supplier.price_after_discount }}
                 </td>
 
                 <td>
@@ -97,20 +97,26 @@
                       {{ $t("cart.couponDiscount") }}
                     </b-button> -->
                     <b-button
-                      
                       type="submit"
                       @click="checkCoupon(supplier)"
                       class="login-button my-2 py-3 px-4 w-auto"
                     >
                       {{ $t("cart.couponDiscount") }}
                     </b-button>
-                    <input
-                      type="text"
-                      :placeholder="$t('cart.addCoupon')"
-                      class="my-2 h-100 p-4"
-                      id="itemInput"
-                      @input="changeCoupon($event)"
-                    />
+                    <div class="input-holder">
+                      <input
+                        type="text"
+                        :placeholder="$t('cart.addCoupon')"
+                        class="my-2 h-100 p-4 itemInput"
+                        @input="changeCoupon($event)"
+                      />
+                      <span
+                        class="close"
+                        v-if="couponChecked"
+                        @click="removeDisabled"
+                        >x</span
+                      >
+                    </div>
                   </div>
                   <div class="text-danger">
                     <ul>
@@ -122,6 +128,12 @@
                 </div>
               </tr>
             </tbody>
+            <!-- <div class="proceAfterDisc" v-if="couponChecked">
+              {{ $t("cart.proceAfterDisc") }} :
+              <span
+                ><b>{{ totalPayment }}</b></span
+              >
+            </div> -->
           </table>
         </div>
         <div class="cart-detail p-4">
@@ -195,6 +207,7 @@
 <script>
 import Counter from "../../global/Counter.vue";
 import suppliers from "@/services/suppliers";
+import globalAxios from "@/services/global-axios";
 export default {
   components: { Counter },
   data() {
@@ -244,6 +257,9 @@ export default {
       newCartData: null,
       selectedCoupon: null,
       buttonDisabled: false,
+      cartItems: null,
+      price_after_discount: null,
+      couponChecked: false,
     };
   },
   mounted() {
@@ -253,11 +269,15 @@ export default {
     changeCoupon($event) {
       // console.log($event.target.value);
       this.selectedCoupon = $event.target.value;
+      // $event.target.setAttribute('disabled' , 'true')
     },
 
     getCartProducts() {
       this.loading = true;
-      this.$store.dispatch("cart/getCartProducts");
+      globalAxios.post(`cart`).then((res) => {
+        console.log("cart res", res);
+        this.cartItems = res.data.items.cart_items;
+      });
       this.loading = false;
     },
     removeFromCart(product) {
@@ -270,6 +290,13 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
+    },
+    removeDisabled() {
+      let myInput = document.querySelector("input");
+
+      myInput.removeAttribute("disabled");
+      myInput.value = "";
+      this.couponChecked = false;
     },
     checkCoupon(supplier) {
       // let data = {
@@ -289,60 +316,21 @@ export default {
       suppliers
         .checkCoupon(data)
         .then((res) => {
-          console.log(res);
           // let coupons = [];
           if (res.status == 200) {
-            this.discount = res.data.items.discount;
+            this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
-            // coupons.push(res.data.items.uuid);
+            this.couponChecked = true;
+            let myInput = document.querySelectorAll("input");
+            myInput.setAttribute("disabled", "true");
+            this.cartItems = res.data.items.cart_items;
 
-            // var existing = localStorage.getItem("coupons");
-            // existing = existing ? existing.split(",") : [];
-            // existing.push(res.data.items.uuid);
-            // localStorage.setItem("my_coupons", existing);
-
-            // localStorage.setItem("discount", res.data.items.discount);
-
-            // if (existing) {
-            //   alert("exist");
-            //   if (data !== existing) {
-            //     existing.push(data);
-            //   }
-            // } else {
-            //   alert("not exist");
+            // let existing = localStorage.getItem('coupons');
+            // if(existing){
+            //   localStorage.setItem('coupons' , )
+            // }else{
+            //   alert('not exist')
             // }
-            // console.log(data);
-            // this.newCartData = res.data.items.suppliers
-            this.total_cart = res.data.items.total_cart;
-            // console.log("total_cart", this.total_cart);
-
-            // this.productInfo = res.data.items;
-            // this.total_cart = res.data.items.total_cart;
-
-            // let variantData = res.data.items.products;
-            // for (let index = 0; index < variantData.length; index++) {
-            //   // this.variants = variantData[index];
-            //   this.productInfo.suppliers[index].selectedCoupon = null;
-            // }
-
-            let myInput = document.getElementById("itemInput");
-
-            let prevButton = myInput.previousElementSibling;
-
-            if (myInput.value.length > 0) {
-              myInput.setAttribute("disabled", "true");
-              // prevButton.setAttribute("disabled","true")
-
-
-            console.log(prevButton);
-              prevButton.innerHTML = this.$t('cart.enableButton')
-              this.buttonDisabled = true;
-            }
-            prevButton.onclick = function(){
-              // location.reload()
-
-              return this.totalPayment = 200
-            }
           }
         })
         .catch((error) => {
@@ -351,39 +339,28 @@ export default {
             this.errors = err.items;
             this.errMsg(err.message);
           }
-        })
-        .finally(() => {
-          this.coupon = "";
         });
-    },
-    enableButton() {
-      alert("enabled");
-      let myInput = document.getElementById("itemInput");
-      if (myInput.value.length > 0) {
-        myInput.removeAttribute("disabled");
-        this.buttonDisabled = false;
-      }
     },
   },
   computed: {
-    cartItems() {
-      return this.newCartData
-        ? this.newCartData
-        : this.$store.state.cart.cartItems;
-    },
+    // cartItems() {
+    //   return this.newCartData
+    //     ? this.newCartData
+    //     : this.$store.state.cart.cartItems;
+    // },
     cart_sub_total() {
-      return this.total_cart.total_price
-        ? this.total_cart.total_price
+      return this.total_cart.cart_sub_total
+        ? this.total_cart.cart_sub_total
         : this.$store.state.cart.cart_sub_total;
     },
     totalDiscount() {
-      return this.total_cart.total_discount
-        ? this.total_cart.total_discount
+      return this.total_cart.cart_sub_total_disc
+        ? this.total_cart.cart_sub_total_disc
         : this.discount;
     },
     totalPayment() {
-      return this.total_cart.price_after_discount
-        ? this.total_cart.price_after_discount
+      return this.total_cart.cart_sub_total_after_disc
+        ? this.total_cart.cart_sub_total_after_disc
         : this.cart_sub_total;
     },
     newPrice() {
@@ -394,9 +371,6 @@ export default {
       return sessionStorage.setItem("freeDelivery", this.freeDelivery);
     },
   },
-  // beforeDestroy(){
-  //   localStorage.removeItem('coupons')
-  // }
 };
 </script>
 <style lang="scss" scoped>
@@ -522,5 +496,24 @@ export default {
 }
 input[type="text"]:disabled {
   cursor: no-drop;
+}
+.proceAfterDisc {
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  background: #ccc;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.input-holder {
+  position: relative;
+  .close {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+  }
 }
 </style>
