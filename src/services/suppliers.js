@@ -19,7 +19,7 @@ export default {
   payment(payload) {
     return globalAxios.post(`members/products/order`, payload);
   },
-  checkCoupon(data) {
-    return globalAxios.post(`members/products/coupon/check`, data);
+  checkCoupon(checkData) {
+    return globalAxios.post(`cart`, checkData);
   },
 };

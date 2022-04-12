@@ -11,7 +11,7 @@ import i18n from "../i18n/i18n";
 
 export default {
     all() {
-        return globalAxios.get(END_POINT);
+        return globalAxios.post(END_POINT);
     },
 
     store(data) {

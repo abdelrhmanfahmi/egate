@@ -13,6 +13,9 @@
                 {{ $t("supplier.home") }}
               </router-link>
             </b-breadcrumb-item>
+            <b-breadcrumb-item >
+              {{ $t("supplier.suppliers") }}
+            </b-breadcrumb-item>
             <b-breadcrumb-item active>
               {{ supplier.company_name }}
             </b-breadcrumb-item>
