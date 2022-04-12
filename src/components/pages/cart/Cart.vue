@@ -61,7 +61,9 @@
                     class="justify-content-center"
                   ></Counter>
                 </td>
-                <td>{{ item.price * item.quantity }}</td>
+                <td>
+                  {{ item.product_sub_total }}
+                </td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -79,15 +81,25 @@
                   :key="item.id"
                 >
                   <div class="d-flex flex-wrap align-items-center">
-                    <router-link to="/profile/account-information-b2b"
+                    <router-link
+                      to="/profile/account-information-b2b"
                       type="submit"
                       class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
                     >
                       {{ $t("cart.UpdateDelivery") }}
                     </router-link>
-                    <b-button
+                    <!-- <b-button
+                      
                       type="submit"
-                      @click="checkCoupon(item)"
+                      @click="enableButton"
+                      class="login-button my-2 py-3 px-4 w-auto"
+                    >
+                      {{ $t("cart.couponDiscount") }}
+                    </b-button> -->
+                    <b-button
+                      
+                      type="submit"
+                      @click="checkCoupon(supplier)"
                       class="login-button my-2 py-3 px-4 w-auto"
                     >
                       {{ $t("cart.couponDiscount") }}
@@ -96,7 +108,8 @@
                       type="text"
                       :placeholder="$t('cart.addCoupon')"
                       class="my-2 h-100 p-4"
-                      v-model="coupon"
+                      id="itemInput"
+                      @input="changeCoupon($event)"
                     />
                   </div>
                   <div class="text-danger">
@@ -122,9 +135,9 @@
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ discount }}</td>
+                  <td>{{ totalDiscount }}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
                   <td>
                     <div class="custom-control custom-checkbox">
@@ -134,13 +147,13 @@
                         id="freeDelivery"
                         v-model="freeDelivery"
                       />
-                      {{freeDeliveryStatus}}
+                      {{ freeDeliveryStatus }}
                       <label class="custom-control-label" for="freeDelivery">
                         {{ $t("cart.free") }}
                       </label>
                     </div>
                   </td>
-                </tr>
+                </tr> -->
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
                   <td>
@@ -226,14 +239,22 @@ export default {
       discount: 0,
       loading: false,
       errors: null,
-      freeDelivery:false
+      freeDelivery: false,
+      total_cart: [],
+      newCartData: null,
+      selectedCoupon: null,
+      buttonDisabled: false,
     };
   },
   mounted() {
     this.getCartProducts();
-    
   },
   methods: {
+    changeCoupon($event) {
+      // console.log($event.target.value);
+      this.selectedCoupon = $event.target.value;
+    },
+
     getCartProducts() {
       this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
@@ -250,23 +271,78 @@ export default {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
-    checkCoupon(item) {
-      let data = {
-        supplier_id: item.product_supplier_id,
-        coupon: this.coupon,
+    checkCoupon(supplier) {
+      // let data = {
+      //   supplier_id: supplier.supplier_id,
+      //   coupon: this.coupon,
+      // };
+
+      var data = {
+        coupons: [
+          {
+            coupon: this.selectedCoupon,
+            supplier_id: supplier.supplier_id,
+          },
+        ],
       };
+
       suppliers
         .checkCoupon(data)
         .then((res) => {
           console.log(res);
-          let coupons = [];
+          // let coupons = [];
           if (res.status == 200) {
             this.discount = res.data.items.discount;
             this.sucessMsg(res.data.message);
-            coupons.push(res.data.items.uuid);
-            sessionStorage.setItem("coupons", JSON.stringify(coupons));
-            sessionStorage.setItem("discount", res.data.items.discount);
-            
+            // coupons.push(res.data.items.uuid);
+
+            // var existing = localStorage.getItem("coupons");
+            // existing = existing ? existing.split(",") : [];
+            // existing.push(res.data.items.uuid);
+            // localStorage.setItem("my_coupons", existing);
+
+            // localStorage.setItem("discount", res.data.items.discount);
+
+            // if (existing) {
+            //   alert("exist");
+            //   if (data !== existing) {
+            //     existing.push(data);
+            //   }
+            // } else {
+            //   alert("not exist");
+            // }
+            // console.log(data);
+            // this.newCartData = res.data.items.suppliers
+            this.total_cart = res.data.items.total_cart;
+            // console.log("total_cart", this.total_cart);
+
+            // this.productInfo = res.data.items;
+            // this.total_cart = res.data.items.total_cart;
+
+            // let variantData = res.data.items.products;
+            // for (let index = 0; index < variantData.length; index++) {
+            //   // this.variants = variantData[index];
+            //   this.productInfo.suppliers[index].selectedCoupon = null;
+            // }
+
+            let myInput = document.getElementById("itemInput");
+
+            let prevButton = myInput.previousElementSibling;
+
+            if (myInput.value.length > 0) {
+              myInput.setAttribute("disabled", "true");
+              // prevButton.setAttribute("disabled","true")
+
+
+            console.log(prevButton);
+              prevButton.innerHTML = this.$t('cart.enableButton')
+              this.buttonDisabled = true;
+            }
+            prevButton.onclick = function(){
+              // location.reload()
+
+              return this.totalPayment = 200
+            }
           }
         })
         .catch((error) => {
@@ -275,22 +351,48 @@ export default {
             this.errors = err.items;
             this.errMsg(err.message);
           }
+        })
+        .finally(() => {
+          this.coupon = "";
         });
+    },
+    enableButton() {
+      alert("enabled");
+      let myInput = document.getElementById("itemInput");
+      if (myInput.value.length > 0) {
+        myInput.removeAttribute("disabled");
+        this.buttonDisabled = false;
+      }
     },
   },
   computed: {
     cartItems() {
-      return this.$store.state.cart.cartItems;
+      return this.newCartData
+        ? this.newCartData
+        : this.$store.state.cart.cartItems;
     },
     cart_sub_total() {
-      return this.$store.state.cart.cart_sub_total;
+      return this.total_cart.total_price
+        ? this.total_cart.total_price
+        : this.$store.state.cart.cart_sub_total;
+    },
+    totalDiscount() {
+      return this.total_cart.total_discount
+        ? this.total_cart.total_discount
+        : this.discount;
     },
     totalPayment() {
-      return parseInt(this.cart_sub_total) - parseInt(this.discount);
+      return this.total_cart.price_after_discount
+        ? this.total_cart.price_after_discount
+        : this.cart_sub_total;
     },
-    freeDeliveryStatus(){
+    newPrice() {
+      return this.total_cart;
+    },
+
+    freeDeliveryStatus() {
       return sessionStorage.setItem("freeDelivery", this.freeDelivery);
-    }
+    },
   },
   // beforeDestroy(){
   //   localStorage.removeItem('coupons')
@@ -417,5 +519,8 @@ export default {
     font-size: 12pt;
     cursor: pointer;
   }
+}
+input[type="text"]:disabled {
+  cursor: no-drop;
 }
 </style>

@@ -20,11 +20,6 @@ export default {
     return globalAxios.post(`members/products/order`, payload);
   },
   checkCoupon(data) {
-    return globalAxios.get(`members/products/coupon/check`, {
-      params: {
-        supplier_id: data.supplier_id,
-        coupon: data.coupon,
-      },
-    });
+    return globalAxios.post(`members/products/coupon/check`, data);
   },
 };

@@ -41,7 +41,6 @@ export default {
         .post(`${baseURL}guest/generate-token`)
         .then((res) => {
           console.log(res);
-          alert("user not exist");
           localStorage.setItem("guest-id", res.data.items.uuid);
         })
         .catch((err) => {
