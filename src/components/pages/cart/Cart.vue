@@ -111,8 +111,8 @@
                         @input="changeCoupon($event)"
                       />
                       <span
+                        :title="$t('cart.enableButton')"
                         class="close"
-                        v-if="couponChecked"
                         @click="removeDisabled"
                         >x</span
                       >
@@ -260,6 +260,9 @@ export default {
       cartItems: null,
       price_after_discount: null,
       couponChecked: false,
+      seletedInput: null,
+      selectedButton: null,
+      selectedSpan: null,
     };
   },
   mounted() {
@@ -270,12 +273,23 @@ export default {
       // console.log($event.target.value);
       this.selectedCoupon = $event.target.value;
       // $event.target.setAttribute('disabled' , 'true')
+
+      let input = $event.target;
+
+      this.seletedInput = input;
+
+      let button = input.parentElement.previousElementSibling;
+
+      this.selectedButton = button;
+
+      let span = input.nextElementSibling;
+
+      this.selectedSpan = span;
     },
 
     getCartProducts() {
       this.loading = true;
       globalAxios.post(`cart`).then((res) => {
-        console.log("cart res", res);
         this.cartItems = res.data.items.cart_items;
       });
       this.loading = false;
@@ -292,11 +306,21 @@ export default {
       }, 1000);
     },
     removeDisabled() {
-      let myInput = document.querySelector("input");
+      let myInput = this.seletedInput;
 
       myInput.removeAttribute("disabled");
       myInput.value = "";
+      let button = this.selectedButton;
+      button.removeAttribute("disabled");
+
       this.couponChecked = false;
+      globalAxios.post(`cart`).then((res) => {
+        this.total_cart = res.data.items;
+      });
+
+      this.selectedSpan.style.display = "none";
+      document.querySelector('.itemInput').removeAttribute('disabled')
+      document.querySelectorAll('.login-button').removeAttribute('disabled')
     },
     checkCoupon(supplier) {
       // let data = {
@@ -321,16 +345,21 @@ export default {
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
-            let myInput = document.querySelectorAll("input");
-            myInput.setAttribute("disabled", "true");
+            // let myInput = document.querySelectorAll("input");
+            // myInput.setAttribute("disabled", "true");
             this.cartItems = res.data.items.cart_items;
 
-            // let existing = localStorage.getItem('coupons');
-            // if(existing){
-            //   localStorage.setItem('coupons' , )
-            // }else{
-            //   alert('not exist')
-            // }
+            ///
+
+            let myInput = this.seletedInput;
+            let button = this.selectedButton;
+
+            let span = this.selectedSpan;
+
+            span.style.display = "block";
+            button.setAttribute("disabled", "true");
+            // button.innerHTML = this.$t("cart.enableButton");
+            myInput.setAttribute("disabled", "true");
           }
         })
         .catch((error) => {
@@ -514,6 +543,7 @@ input[type="text"]:disabled {
     right: 0;
     padding: 15px;
     cursor: pointer;
+    display: none;
   }
 }
 </style>
