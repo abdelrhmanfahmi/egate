@@ -36,7 +36,7 @@ export default {
         img {
           color: #000;
           width: 100% !important;
-          height: 40vh;
+          height: 273px;
         }
       }
       .supplier-name {
