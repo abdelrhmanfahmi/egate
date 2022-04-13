@@ -162,7 +162,7 @@
             {{ data.value }} {{ $t("items.kg") }}
           </template>
           <template #cell(price)="data">
-            <span v-if="data.value > 0">{{ data.value }} </span>
+            <span v-if="data.value > 0">{{ data.value }} {{currency}}</span>
             <span v-else>
               {{ $t("cart.noData") }}
             </span>

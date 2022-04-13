@@ -24,6 +24,9 @@ Vue.mixin({
     userData() {
       return this.$store.getters.userData;
     },
+    currency(){
+      return localStorage.getItem('currency')
+    }
   },
   methods: {
     logout() {

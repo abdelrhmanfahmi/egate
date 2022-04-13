@@ -53,7 +53,7 @@
                     {{ item.product_name }}
                   </router-link>
                 </td>
-                <td>{{ item.price }}</td>
+                <td>{{ item.price }} {{currency}}</td>
                 <td>
                   <Counter
                     :quantity="item.quantity"
@@ -62,7 +62,7 @@
                   ></Counter>
                 </td>
                 <td>
-                  {{ supplier.price_after_discount }}
+                  {{ supplier.price_after_discount }} {{currency}}
                 </td>
 
                 <td>
@@ -143,11 +143,11 @@
               <tbody>
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ cart_sub_total }}</td>
+                  <td>{{ cart_sub_total }} {{currency}}</td>
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ totalDiscount }}</td>
+                  <td>{{ totalDiscount }} {{currency}}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -169,7 +169,7 @@
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
                   <td>
-                    {{ totalPayment }}
+                    {{ totalPayment }} {{currency}}
                   </td>
                 </tr>
               </tbody>

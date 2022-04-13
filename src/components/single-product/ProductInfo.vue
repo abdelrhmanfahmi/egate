@@ -22,7 +22,7 @@
         </p>
         <p class="price">
           {{ $t("singleProduct.price") }} :
-          {{ myProduct.product_details_by_type.customer_price }}
+          {{ myProduct.product_details_by_type.customer_price }} {{currency}}
         </p>
 
         <hr />

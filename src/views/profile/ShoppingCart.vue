@@ -8,7 +8,7 @@
         <a href="#" class="product-name">{{ data.value }}</a>
       </template>
       <template #cell(price)="data">
-        <p>{{ data.value }} KD</p>
+        <p>{{ data.value }} {{currency}}</p>
       </template>
       <template #cell(quantity)="data">
         <Counter
@@ -17,7 +17,7 @@
         ></Counter>
       </template>
       <template #cell(totalPrice)="data">
-        <p>{{ data.value }} KD</p>
+        <p>{{ data.value }} {{currency}}</p>
       </template>
       <template #cell(action)="data">
         <div class="actions d-flex">

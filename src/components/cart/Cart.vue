@@ -1,8 +1,6 @@
 <template>
   <div class="cart-content mb-2">
-    <span class="cartLength" v-if="cartItems && cartItemsLength">
-      {{ cartItemsLength }}
-    </span>
+    
     <div class="" v-if="cartItems">
       <div v-for="products in cartItems" :key="products.id" class="cart-items">
         <CartItem :products="products"></CartItem>
@@ -14,7 +12,7 @@
       >
         <span> {{ $t("cart.total") }}</span>
         <span>
-          {{ cart_sub_total }}
+          {{ cart_sub_total }} {{currency}}
         </span>
       </div>
       <div class="navigation my-4" v-if="cart_sub_total">
