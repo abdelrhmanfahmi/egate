@@ -34,7 +34,17 @@
             <SingleSupplier :supplier="supplier"></SingleSupplier>
           </div>
         </div>
-        <!-- <pagination :per-page="perPage" :total="totalCount"></pagination> -->
+        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
+
+        <div class="text-center d-flex justify-content-center align-items-center mt-5">
+          <b-pagination
+            v-model="currentPage"
+            pills
+            :total-rows="total"
+            :per-page="perPage"
+            size="lg"
+          ></b-pagination>
+        </div>
       </div>
     </div>
   </div>
@@ -66,7 +76,8 @@ export default {
       ],
       suppliers: null,
       loading: false,
-      perPage: 3,
+      perPage: 5,
+      total: 0,
       currentPage: 1,
     };
   },
@@ -78,6 +89,8 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.suppliers = resp.data.items.data;
+          this.perPage = resp.data.items.per_page;
+          this.total = resp.data.items.total;
         })
         .catch((err) => {
           console.log(err);

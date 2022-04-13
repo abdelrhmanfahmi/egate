@@ -8,7 +8,7 @@
         <b-container>
           <div class="cover-title">
             <h2>
-            {{pageTitle}}
+              {{ pageTitle }}
             </h2>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
@@ -57,11 +57,11 @@
                   </b-form-select> -->
                 </div>
                 <!-- <select name="" id="" v-model="category" labeel="select"> -->
-                <select name="" id="" labeel="select">
+                <!-- <select name="" id="" labeel="select">
                   <option value="AccessoriesA">AccessoriesA</option>
                   <option value="Laptop">Laptop</option>
                   <option value="Stationary">Stationary</option>
-                </select>
+                </select> -->
               </div>
               <!-- <ul>
                 <li
@@ -77,17 +77,24 @@
           <div class="col-md-3 col-sm-12 mb-3">
             <form class="xt-blog-form" role="search">
               <div class="input-group add-on">
-                <input
-                  class="form-control"
-                  name="srch-term"
-                  id="srch-term"
-                  type="text"
-                />
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                    <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-                  </button>
-                </div>
+                <form @submit.prevent="search">
+                  <div class="form-group">
+                    <input
+                      class="form-control"
+                      name="srch-term"
+                      id="srch-term"
+                      type="text"
+                      v-model="searchWord"
+                    />
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                        <font-awesome-icon
+                          icon="fa-solid fa-magnifying-glass"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </form>
           </div>
@@ -207,8 +214,9 @@ export default {
       allChildren: null,
       allChildrenData: null,
       allChildrenLength: null,
-      pageCover:null,
-      pageTitle:null,
+      pageCover: null,
+      pageTitle: null,
+      searchWord: null,
     };
   },
   computed: {
@@ -224,9 +232,14 @@ export default {
   methods: {
     filterAllChildren() {},
     async getSubCategories() {
+      let data = {
+        parent_id: this.id,
+        keyword: this.searchWord,
+      };
       await categories
-        .getSubCategories(this.id)
+        .getSubCategories(data)
         .then((resp) => {
+          console.log("getSubCategories", resp);
           this.subCategories = resp.data.items;
           this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
@@ -241,14 +254,15 @@ export default {
           this.loading = false;
         });
     },
-    getCover(){
-      categories.getSingleProductDetails(this.id).then(res =>{
-        this.pageCover = res.data.items.cover_image_path
-        this.pageTitle = res.data.items.title
-        console.log(res);
-        console.log(this.cover);
-      })
-    }
+    getCover() {
+      categories.getSingleProductDetails(this.id).then((res) => {
+        this.pageCover = res.data.items.cover_image_path;
+        this.pageTitle = res.data.items.title;
+      });
+    },
+    search() {
+      this.getSubCategories();
+    },
   },
   created() {
     this.getSubCategories();
@@ -273,8 +287,8 @@ form {
   }
   .input-group-btn {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 29%;
+    top: -12%;
     bottom: 0;
     height: 100%;
     display: flex;

@@ -101,6 +101,8 @@ export default {
     }
   }
   .other-sections {
+    height: 500px;
+    overflow-y: scroll;
     color: #ed2124;
     .sections {
       color: #ed2124;

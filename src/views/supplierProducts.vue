@@ -13,7 +13,7 @@
                 {{ $t("supplier.home") }}
               </router-link>
             </b-breadcrumb-item>
-            <b-breadcrumb-item >
+            <b-breadcrumb-item>
               {{ $t("supplier.suppliers") }}
             </b-breadcrumb-item>
             <b-breadcrumb-item active>
@@ -21,41 +21,74 @@
             </b-breadcrumb-item>
           </b-breadcrumb>
         </div>
-        <div class="row justify-content-around align-items-center">
-          <div class="col-md-6 col-sm-12 mb-3 d-flex">
-            <h6 class="font-weight-bold mx-3">
-              <b-icon-grid></b-icon-grid>
-            </h6>
-            <p>
-              {{ $t("supplier.Showing") }}
-              <b class="ml-3">{{ supplierProductsLength }}</b>
-              {{ $t("supplier.of") }}
-              <b class="text-danger ml-3 mr-2">{{ supplierProductsLength }}</b>
-            </p>
-          </div>
-          <div class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end">
-            <!-- <select name="" id="" labeel="select">
-              <option value="AccessoriesA">AccessoriesA</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Stationary">Stationary</option>
-            </select>
+        <div class="" v-if="supplierProductsLength">
+          <div class="row justify-content-around align-items-center">
+            <div class="col-md-6 col-sm-12 mb-3 d-flex">
+              <h6 class="font-weight-bold mx-3">
+                <b-icon-grid></b-icon-grid>
+              </h6>
+              <p>
+                {{ $t("supplier.Showing") }}
+                <b class="ml-3">{{ supplierProductsLength }}</b>
+                {{ $t("supplier.of") }}
+                <b class="text-danger ml-3 mr-2">{{
+                  supplierProductsLength
+                }}</b>
+              </p>
+            </div>
+            <div class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end">
+              <!-- <select name="" id="" labeel="select">
+                <option value="AccessoriesA">AccessoriesA</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Stationary">Stationary</option>
+              </select> -->
 
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-              </button>
-            </div> -->
+              <div class="search-icon">
+                <b-button v-b-modal.modal-2 class="icon-search" size="md">
+                  <font-awesome-icon
+                    v-b-toggle.sidebar-1
+                    icon="fa-solid fa-search"
+                  />
+                </b-button>
+                <b-modal id="modal-2" class="search">
+                  <!-- Using slots -->
+                  <b-input-group class="mt-3">
+                    <template #append>
+                      <b-input-group-text>
+                        <strong>
+                          <font-awesome-icon
+                            v-b-toggle.sidebar-1
+                            icon="fa-solid fa-search" /></strong
+                      ></b-input-group-text>
+                    </template>
+                    <b-form @submit.prevent="search">
+                      <b-form-input
+                        placeholder="Search"
+                        v-model="searchWord"
+                      ></b-form-input>
+                    </b-form>
+                  </b-input-group>
+                </b-modal>
+              </div>
+            </div>
+          </div>
+          <div class="data">
+            <div class="row">
+              <div
+                class="col-12 col-sm-6 col-lg-3 text-center"
+                v-for="item in supplierProducts"
+                :key="item.id"
+              >
+                <Product :data="item"></Product>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="data">
-          <div class="row">
-            <div
-              class="col-12 col-sm-6 col-lg-3 text-center"
-              v-for="item in supplierProducts"
-              :key="item.id"
-            >
-              <Product :data="item"></Product>
-            </div>
+        <div class="" v-else>
+          <div class="d-flex justify-content-center align-items-center p-5">
+            <h3>
+              {{ $t("cart.noDataMatch") }}
+            </h3>
           </div>
         </div>
       </div>
@@ -74,6 +107,9 @@ export default {
     return {
       client_id: this.$route.query.supId,
       categoryId: this.$route.query.catId,
+      queryWord: this.$route.query.queryWord,
+      country_id: this.$route.query.country_id,
+      unit_id: this.$route.query.unit_id,
       supplier: null,
       supplierProducts: null,
       supplierProductsLength: null,
@@ -89,6 +125,7 @@ export default {
       ],
       loading: true,
       subCategories: null,
+      searchWord: null,
     };
   },
   computed: {
@@ -134,6 +171,9 @@ export default {
           params: {
             category_id: this.categoryId ? this.categoryId : "",
             client_id: this.client_id ? this.client_id : "",
+            keyword: this.queryWord ? this.queryWord : this.searchWord,
+            country_id: this.country_id ? this.country_id : "",
+            unit_id: this.unit_id ? this.unit_id : "",
           },
         })
         .then((resp) => {
@@ -141,10 +181,17 @@ export default {
           this.supplierProductsLength =
             resp.data.items.data !== null ? resp.data.items.data.length : 0;
           console.log(resp);
+          if (resp.status == 200) {
+            document.querySelector("input").value = "";
+            document.getElementById("modal-2").click();
+          }
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    search() {
+      this.getSupplierProducts();
     },
   },
   // created() {
@@ -200,5 +247,18 @@ input {
 }
 .intro {
   margin: 10% 0;
+}
+.search-icon {
+  .modal-header {
+    display: none;
+  }
+  .icon-search {
+    color: #212529;
+    background-color: transparent;
+    border-color: transparent;
+    &:focus {
+      box-shadow: 0 0 0 0;
+    }
+  }
 }
 </style>
