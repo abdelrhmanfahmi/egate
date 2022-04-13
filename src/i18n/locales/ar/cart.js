@@ -4,6 +4,7 @@ export default {
   shopping: "سلة المشتريات",
   purchase: "الشراء",
   noData: "لا يوجد بيانات",
+  noDataMatch: " لا يوجد بيانات مطابقه",
   supplier: "اسم المورد",
   priceUnit: "دينار كويتي",
   purchaseCart: "سلة الشراء",

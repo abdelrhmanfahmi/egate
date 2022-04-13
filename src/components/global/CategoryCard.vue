@@ -35,7 +35,7 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.125);
   img {
     width: 100%;
-    height: 43vh;
+    height: 210px;
   }
 
   .card-footer {

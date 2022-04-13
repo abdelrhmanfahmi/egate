@@ -77,20 +77,20 @@ label,
 		}
 	}
 }
-#modal-1 {
+#modal-1 , #modal-2 {
 	background: rgba(23, 26, 33, 0.95);
 	.modal-dialog {
 		min-width: 700px;
 		transform: translate(0%, 50%);
 	}
-	#modal-1___BV_modal_content_ {
+	#modal-1___BV_modal_content_  , #modal-2___BV_modal_content_ {
 		background: transparent;
 		border: none;
-		#modal-1___BV_modal_header_,
-		#modal-1___BV_modal_footer_ {
+		#modal-1___BV_modal_header_,#modal-2___BV_modal_header_,
+		#modal-1___BV_modal_footer_ , #modal-2___BV_modal_footer_ {
 			display: none;
 		}
-		#modal-1___BV_modal_body_ {
+		#modal-1___BV_modal_body_  , #modal-2___BV_modal_body_ {
 			background: transparent;
 		}
 	}

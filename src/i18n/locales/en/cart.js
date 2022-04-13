@@ -4,6 +4,7 @@ export default {
   shopping: "shopping",
   purchase: "purchase",
   noData: "No Data",
+  noDataMatch: "No Matching Data",
   supplier: "Supplier name",
   priceUnit: "KD",
   purchaseCart: "Purchase cart",

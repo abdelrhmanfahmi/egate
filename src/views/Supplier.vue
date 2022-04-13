@@ -144,7 +144,7 @@ export default {
       suppliers
         .getSupplier(id)
         .then((resp) => {
-          console.log("resp", resp.data.items.id);
+          console.log("resp", resp.data.items);
           this.supplier = resp.data.items;
         })
         .catch((err) => {

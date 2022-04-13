@@ -320,7 +320,7 @@ export default {
 
       this.selectedSpan.style.display = "none";
       document.querySelector('.itemInput').removeAttribute('disabled')
-      document.querySelectorAll('.login-button').removeAttribute('disabled')
+      document.querySelector('.login-button').removeAttribute('disabled')
     },
     checkCoupon(supplier) {
       // let data = {
@@ -345,7 +345,7 @@ export default {
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
-            // let myInput = document.querySelectorAll("input");
+            // let myInput = document.querySelector("input");
             // myInput.setAttribute("disabled", "true");
             this.cartItems = res.data.items.cart_items;
 
