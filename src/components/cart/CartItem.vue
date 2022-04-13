@@ -28,8 +28,8 @@
           <b class="text-success">{{ product.quantity }}</b>
         </span>
       </div>
-      <div class="total mr-2">
-        {{ products.supplier_sub_total }}
+      <div class="total mr-2"> 
+        {{ products.supplier_sub_total }} {{currency}}
       </div>
       <div class="actions mr-2" @click="removeFromCart(product)">
         <span class="action-icon">

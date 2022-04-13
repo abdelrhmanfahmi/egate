@@ -84,6 +84,9 @@
             <span class="cart-icon">
               <b-icon-minecart-loaded></b-icon-minecart-loaded>
             </span>
+            <span class="cartLength" v-if="cartItems && cartItemsLength">
+              {{ cartItemsLength }}
+            </span>
             <Cart class="cart-body"></Cart>
           </div>
           <!-- user sign in -->
@@ -203,6 +206,17 @@ export default {
     },
     goToHome() {
       this.$router.push("/");
+    },
+    getCartProducts() {
+      this.$store.dispatch("cart/getCartProducts");
+    },
+  },
+  computed: {
+    cartItems() {
+      return this.$store.state.cart.cartItems;
+    },
+    cartItemsLength() {
+      return this.cartItems.length;
     },
   },
 };
@@ -344,5 +358,19 @@ html:lang(ar) {
   .icon-active {
     transform: rotate(180deg);
   }
+}
+.cartLength {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  background: red;
+  color: #fff;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: bold;
 }
 </style>

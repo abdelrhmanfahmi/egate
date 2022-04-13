@@ -19,7 +19,8 @@
       </div>
       <div class="info d-flex flex-column align-items-center my-3" v-if="data.product">
         <a href="#" class="name" v-if="data.product.title">{{ data.product.title }}</a>
-        <span class="price">{{ data.price }}</span>
+        <span class="price">{{data.product_details_by_type.customer_price}} {{currency}}</span>
+        
       </div>
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %

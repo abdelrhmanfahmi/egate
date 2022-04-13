@@ -57,7 +57,7 @@ export default {
       countryImg: JSON.parse(localStorage.getItem("country"))
         ? JSON.parse(localStorage.getItem("country")).flag
         : "https://humhum.work/user-interface/public/assets/flags/KW.png",
-        
+
       countryName: JSON.parse(localStorage.getItem("country"))
         ? JSON.parse(localStorage.getItem("country")).title
         : this.$t("home.kuwait"),
@@ -72,6 +72,10 @@ export default {
         .getAllCountires()
         .then((res) => {
           this.countries = res.data.items;
+
+          if (localStorage.getItem("is_default") === null) {
+            localStorage.setItem("is_default", res.data.items[0].is_default);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -90,11 +94,21 @@ export default {
       this.countryImg = data.flag;
       this.countryName = data.title;
       localStorage.setItem("country", JSON.stringify(data));
-    
+      if (data) {
+        if (localStorage.getItem("is_default")) {
+          localStorage.setItem("is_default", data.currencies[0].id);
+        } else {
+          localStorage.setItem("is_default", data.currencies[0].is_default);
+        }
+      }
+      localStorage.setItem("currency", data.currencies[0].code);
+
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     },
     handleCurrency(event) {
       localStorage.setItem("currency", event.target.value);
-    
     },
   },
 };

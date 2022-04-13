@@ -6,6 +6,9 @@ let lang = null;
 
 lang = localStorage.getItem("lang") || "en";
 
+let currency_code = localStorage.getItem("currency");
+let currency_id = localStorage.getItem("is_default");
+
 const getToken = function () {
   if (
     localStorage.getItem("userInfo") &&
@@ -38,6 +41,8 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     "guest-id": checkGuest(),
+    currency_code: currency_code,
+    currency_id: currency_id,
   },
 });
 
