@@ -23,24 +23,24 @@ const getToken = function () {
 };
 
 export { getToken };
-let guestUser = null;
-guestUser = localStorage.getItem("guest-id");
+// let guestUser = null;
+let guestUser = localStorage.getItem("guest-id");
 
-let checkGuest = function () {
-  if (localStorage.getItem("userData")) {
-    localStorage.removeItem("guest-id");
-  } else {
-    return guestUser ? guestUser : "";
-  }
-};
+// let checkGuest = function () {
+//   if (localStorage.getItem("userData")) {
+//     localStorage.removeItem("guest-id");
+//   } else {
+//     return guestUser ? guestUser : "";
+//   }
+// };
 
-export { checkGuest };
+// export { checkGuest };
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {
     Authorization: getToken(),
     "Accept-Language": lang,
-    "guest-id": checkGuest(),
+    "guest-id": guestUser ? guestUser : "",
     currency_code: currency_code,
     currency_id: currency_id,
   },
