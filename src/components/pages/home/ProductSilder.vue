@@ -12,18 +12,40 @@
     <span class="product-info">
       <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
     </span>
-    <div class="container">
+    <div class="container mb-3">
       <div class="d-flex justify-content-end">
         <router-link to="/suppliers"> Show All </router-link>
       </div>
     </div>
-    <VueSlickCarousel v-bind="settings">
-      <div v-for="(x, index) in 10" :key="index" class="px-5">
-        <b-img
-          class="img-suplier"
-          src="https://humhum.work/user-interface/public/assets/img/brand/su2.png"
+    <b-row v-if="loading" class="px-5">
+      <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+        <b-skeleton-img></b-skeleton-img>
+        <b-card>
+          <b-skeleton
+            animation="fade"
+            width="60%"
+            class="border-none"
+          ></b-skeleton>
+          <b-skeleton
+            animation="fade"
+            width="85%"
+            class="border-none"
+          ></b-skeleton>
+        </b-card>
+      </b-col>
+    </b-row>
+    <VueSlickCarousel v-bind="settings" v-else >
+      <div v-for="(supplier, index) in suppliers" :key="index" class="px-5">
+        <router-link
+          :to="`/suppliers/${supplier.id}`"
+          class="d-block text-center"
         >
-        </b-img>
+          <img
+            :src="supplier.image_path"
+            class="supplier-image"
+            alt="supplier image"
+          />
+        </router-link>
       </div>
     </VueSlickCarousel>
   </div>
@@ -34,6 +56,7 @@ import VueSlickCarousel from "vue-slick-carousel";
 import Countdown from "vuejs-countdown";
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import suppliers from "@/services/suppliers";
 export default {
   components: {
     ProductCard,
@@ -45,6 +68,7 @@ export default {
       settings: {
         dots: false,
         infinite: true,
+        arrows: true,
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -57,6 +81,7 @@ export default {
             settings: {
               slidesToShow: 3,
               slidesToScroll: 1,
+              arrows: true,
             },
           },
           {
@@ -64,6 +89,8 @@ export default {
             settings: {
               slidesToShow: 2,
               slidesToScroll: 1,
+              arrows: true,
+              dots: true,
             },
           },
           {
@@ -71,11 +98,35 @@ export default {
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
+              arrows: true,
+              dots: true,
             },
           },
         ],
       },
+      suppliers: null,
+      loading: false,
     };
+  },
+  methods: {
+    getSuppliers() {
+      this.loading = true;
+      suppliers
+        .getSuppliers()
+        .then((resp) => {
+          console.log("resp suppliers", resp);
+          this.suppliers = resp.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+  created() {
+    this.getSuppliers();
   },
 };
 </script>
@@ -103,5 +154,16 @@ export default {
       opacity: 1;
     }
   }
+}
+.slick-current {
+  img {
+    opacity: 1;
+  }
+}
+.supplier-image {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  opacity: 0.5;
 }
 </style>
