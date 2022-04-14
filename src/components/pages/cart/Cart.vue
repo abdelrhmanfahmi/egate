@@ -176,11 +176,17 @@
             </table>
             <div class="checkout d-flex">
               <router-link
+                to="/order-shipping"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("next") }}
+              </router-link>
+              <!-- <router-link
                 to="/payment"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
                 {{ $t("cart.checkout") }}
-              </router-link>
+              </router-link> -->
             </div>
           </div>
         </div>
