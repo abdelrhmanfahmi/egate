@@ -7,22 +7,21 @@
 <script>
 // @ is an alias to /src
 import MainLayout from "@/layouts/MainLayout.vue";
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+import globalAxios from "@/services/global-axios";
 export default {
   name: "Home",
   created() {
     // let gestUser = localStorage.getItem("guest-id");
-
+    this.$store.dispatch("getUserGuestId");
     this.$store.dispatch("getUserInfo");
     let userExist = localStorage.getItem("userData");
     let guestUser = localStorage.getItem("guest-id");
-    if (userExist === null && guestUser === null ) {
+    if (userExist === null && guestUser === null) {
       this.checkGuest();
-    } else if(userExist === null && guestUser) {
-      return null
-    }else if(userExist){
-      localStorage.removeItem('guest-id')
+    } else if (userExist === null && guestUser) {
+      return guestUser;
+    } else if (userExist) {
+      localStorage.removeItem("guest-id");
     }
     // return
 
@@ -37,15 +36,32 @@ export default {
   },
   methods: {
     checkGuest() {
-      axios
-        .post(`${baseURL}guest/generate-token`)
+      globalAxios
+        .post(`guest/generate-token`)
         .then((res) => {
           console.log(res);
           localStorage.setItem("guest-id", res.data.items.uuid);
+          sessionStorage.setItem("guest-id", res.data.items.uuid);
         })
         .catch((err) => {
           console.log(err);
         });
+
+      // globalAxios.interceptors.request.use(
+      //   (config) => {
+      //     const guestId = localStorage.getItem("guest-id")
+      //     if (guestId) {
+      //       config.headers["guest-id"] = guestId;
+      //     }
+      //     return config;
+      //   },
+      //   (error) => Promise.reject(error)
+      // );
+    },
+  },
+  computed: {
+    guestId() {
+      return this.$store.state.guestId;
     },
   },
 };
