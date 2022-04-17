@@ -75,6 +75,11 @@ export default {
 
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);
+            
+          }
+          if (localStorage.getItem("currency") === null) {
+            localStorage.setItem("currency", res.data.items[0].currencies[0].code);
+            
           }
         })
         .catch((err) => {

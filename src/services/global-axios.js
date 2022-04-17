@@ -7,7 +7,7 @@ let lang = null;
 lang = localStorage.getItem("lang") || "en";
 
 let currency_code = localStorage.getItem("currency");
-let currency_id = localStorage.getItem("is_default");
+let currency_id = localStorage.getItem("country");
 
 const getToken = function () {
   if (
@@ -45,5 +45,21 @@ const globalAxios = axios.create({
     currency_id: currency_id,
   },
 });
+
+globalAxios.interceptors.request.use(
+  (config) => {
+    const guestId = localStorage.getItem("guest-id");
+    const country_id = localStorage.getItem("is_default");
+    const currency_code = localStorage.getItem("currency");
+    // const default_id = localStorage.getItem("default_id");
+    if (guestId) {
+      config.headers['guest-id'] = guestId;
+    }
+    config.headers['currency'] = currency_code;
+    config.headers['country_id'] = country_id ? country_id  : 1;
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 export default globalAxios;
