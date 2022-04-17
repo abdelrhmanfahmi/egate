@@ -17,14 +17,12 @@
                     {{ $t("Home") }}
                   </router-link>
                 </li>
-                <li class="breadcrumb-item">
-                  <router-link to="/liberary">
-                    {{ $t("Library") }}
-                  </router-link>
+                <!-- <li class="breadcrumb-item active">
+                  {{ $t("Library") }}
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   {{ $t("Data") }}
-                </li>
+                </li> -->
               </ol>
             </nav>
           </div>
@@ -127,21 +125,25 @@
                 <b-row v-else-if="!loading && allChildrenLength > 0">
                   <b-col
                     :title="category.title"
-                    v-for="category in allChildrenData"
+                    v-for="category in subCategories"
                     :key="category.id"
                     lg="3"
                     sm="6"
-                    class="custum-padding mb-2"
+                    class="custum-padding mb-3"
                   >
-                    <div class="">
+                    <div
+                      class="mb-2"
+                      v-for="cat in category.all_children"
+                      :key="cat.id"
+                    >
                       <router-link
-                        :to="`/categories/${category.id}/variants`"
-                        v-if="category.id"
+                        :to="`/categories/${cat.id}/variants`"
+                        v-if="cat.id"
                       >
                         <CategoryCard
-                          v-if="category"
-                          :card="{ type: category.title }"
-                          :image="category.image_path"
+                          v-if="cat"
+                          :card="{ type: cat.title }"
+                          :image="cat.image_path"
                         />
                       </router-link>
                     </div>
@@ -162,7 +164,7 @@
                   <b-col
                     lg="3"
                     sm="6"
-                    class="custum-padding mb-2"
+                    class="custum-padding mb-3"
                     v-for="cat in category.all_children"
                     :key="cat.id"
                   >
@@ -239,12 +241,29 @@ export default {
       await categories
         .getSubCategories(data)
         .then((resp) => {
-          console.log("getSubCategories", resp);
           this.subCategories = resp.data.items;
           this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
             // const element = array[i];
-            this.allChildrenData = this.subCategories[i].all_children;
+            // this.allChildrenData = this.subCategories[i].all_children;
+
+            for (
+              let index = 0;
+              index < this.subCategories[i].all_children.length;
+              index++
+            ) {
+              this.allChildrenData = this.subCategories[i].all_children;
+
+              // console.log("element", this.allChildrenData);
+
+              // console.log(
+              //   "inside index",
+              //   // this.allChildrenData[index]
+              //   this.allChildrenData
+              // );
+            }
+
+            // console.log("outside index", resp.data.items[i].all_children);
           }
         })
         .catch((err) => {
@@ -256,7 +275,8 @@ export default {
     },
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
-        this.pageCover = res.data.items.cover_image_path;
+        // this.pageCover = res.data.items.cover_image_path;
+        this.pageCover = res.data.items.image_path;
         this.pageTitle = res.data.items.title;
       });
     },
@@ -267,6 +287,7 @@ export default {
   created() {
     this.getSubCategories();
     this.getCover();
+    sessionStorage.setItem("catId", this.id);
   },
 };
 </script>
@@ -306,6 +327,17 @@ input {
   &:hover,
   &:focus {
     box-shadow: none;
+  }
+}
+div:empty {
+  display: none !important;
+  opacity: 0;
+}
+.custum-padding {
+  display: inline-box;
+  display: -webkit-inline-box;
+  .category-card {
+    margin-right: 7px;
   }
 }
 </style>

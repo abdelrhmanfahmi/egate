@@ -75,7 +75,7 @@
         </div>
       </div>
       <hr />
-      <div
+      <div v-if="myProduct.product_details_by_type"
         class="product-actions d-flex flex-wrap justify-content-between align-items-center"
       >
         <div class="short-links">

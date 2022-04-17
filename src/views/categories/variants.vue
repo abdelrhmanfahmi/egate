@@ -2,16 +2,16 @@
   <div class="items-body">
     <div class="container">
       <div
-        class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
+        class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
       >
-        <button
+        <!-- <button
           class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
           @click="prevPage"
           :disabled="pageId == 1"
         >
           <span>&#60;</span>{{ $t("items.prev") }}
-        </button>
-        <nav aria-label="breadcrumb" v-if="productInfo">
+        </button> -->
+        <nav aria-label="breadcrumb " v-if="productInfo">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <router-link to="/">
@@ -19,18 +19,20 @@
               </router-link>
             </li>
             <li class="breadcrumb-item">
-              <a href="#">{{ productInfo.parent_category.title }}</a>
+              <router-link :to="catId">
+                {{ productInfo.parent_category.title }}
+              </router-link>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <!-- <li class="breadcrumb-item active" aria-current="page">
               {{ productInfo.title }}
-            </li>
+            </li> -->
           </ol>
         </nav>
-        <span
+        <!-- <span
           @click="nextPage"
           class="next btn btn-light shadow-none bg-transparent border-none outline-none"
           >{{ $t("items.next") }}<span>&#62;</span></span
-        >
+        > -->
       </div>
       <div class="content">
         <b-row
@@ -162,7 +164,7 @@
             {{ data.value }} {{ $t("items.kg") }}
           </template>
           <template #cell(price)="data">
-            <span v-if="data.value > 0">{{ data.value }} {{currency}}</span>
+            <span v-if="data.value > 0">{{ data.value }} {{ currency }}</span>
             <span v-else>
               {{ $t("cart.noData") }}
             </span>
@@ -335,7 +337,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
-          console.log("res" , res);
+          console.log("res", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -415,6 +417,13 @@ export default {
   },
   watch: {
     $route: "updateId",
+  },
+  computed: {
+    catId() {
+      return sessionStorage.getItem("catId")
+        ? `/categories/${sessionStorage.getItem("catId")}`
+        : "/";
+    },
   },
 };
 </script>
