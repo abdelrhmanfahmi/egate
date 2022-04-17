@@ -1,0 +1,791 @@
+<template>
+  <div>
+    <!-- <div class="block" v-for="(product, index) in products" :key="index">
+      <h3>{{ product.name }}</h3>
+      <p>Desc: {{ product.description }}</p>
+      <p>Price: £{{ product.price }}</p>
+      <h3>Rating</h3>
+      <form @change="selectType(product, index)">
+        <input
+          type="radio"
+          value="first"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />1
+        <input
+          type="radio"
+          value="second"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />2
+        <input
+          type="radio"
+          value="thirs"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />3
+        <input
+          type="radio"
+          value="fourth"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />4
+        <input
+          type="radio"
+          value="fifth"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />5
+        <input
+          type="radio"
+          value="sixth"
+          :name="'types-' + index"
+          v-model="ratingNum[index]"
+        />6
+        <input type="submit" />
+      </form>
+    </div> -->
+
+    <div class="container my-5">
+      <div class="cart-table p-4">
+        <div
+          class="supplier"
+          v-for="(supplier, index) in cartItems"
+          :key="index"
+        >
+          <div class="row">
+            <div class="col-md-4 col-sm-12 mb-2">
+              <h5 class="name">
+                {{ supplier.supplier_name }}
+              </h5>
+            </div>
+            <div class="col-md-8 col-sm-12 mb-4">
+              <form @change="selectType(supplier, index)">
+                <label>
+                  <input
+                    type="radio"
+                    value="deliver"
+                    :name="'types-' + index"
+                    v-model="ratingNum[index]"
+                    checked
+                  />
+                  <span>Deliver</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="backup"
+                    :name="'types-' + index"
+                    v-model="ratingNum[index]"
+                  />
+                  <span>Backup</span>
+                </label>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="addresses-holder" v-if="deliverType == true">
+        <div class="addresses mb-5">
+          <form>
+            <label>
+              <input
+                type="radio"
+                value="newAddress"
+                name="radio"
+                v-model="selectAddressShape"
+                checked
+              />
+              <span>{{ $t("profile.newAddress") }}</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="existingAddresses"
+                name="radio"
+                v-model="selectAddressShape"
+              />
+              <span>Backup</span>
+            </label>
+            <span  v-if="selectAddressShape === 'existingAddresses'">
+              <b-form-select
+                v-model="newAddressOption"
+                :options="options"
+              ></b-form-select>
+            </span>
+          </form>
+        </div>
+        <div class="addressShape">
+          <div class="newAddress" v-if="selectAddressShape === 'newAddress'">
+            <form
+              @submit.prevent="createAdress()"
+              class="account-information-form"
+            >
+              <b-row class="justify-content-center">
+                <!-- country  -->
+                <b-col lg="12">
+                  <b-form-group>
+                    <label>{{ $t("profile.country") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-select
+                      v-model="form.country_id"
+                      @input="getAllRegions"
+                    >
+                      <b-form-select-option
+                        v-for="country in countries"
+                        :key="country.id"
+                        :value="country.id"
+                        >{{ country.title }}
+                      </b-form-select-option>
+                    </b-form-select>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.country_id"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- regions -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label>{{ $t("profile.region") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-select
+                      v-model="form.region_id"
+                      :disabled="!form.country_id"
+                      @input="getAllCities"
+                    >
+                      <b-form-select-option
+                        v-for="region in regions"
+                        :key="region.id"
+                        :value="region.id"
+                        >{{ region.title }}
+                      </b-form-select-option>
+                    </b-form-select>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.region_id"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- cities -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label>{{ $t("profile.city") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-select
+                      v-model="form.city_id"
+                      :disabled="!form.country_id || !form.region_id"
+                    >
+                      <b-form-select-option
+                        v-for="city in cities"
+                        :key="city.id"
+                        :value="city.id"
+                        >{{ city.title }}
+                      </b-form-select-option>
+                    </b-form-select>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.city_id"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- street number  -->
+                <b-col lg="12">
+                  <b-form-group>
+                    <label for="streetNumber">{{
+                      $t("profile.streetNumber")
+                    }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input
+                      id="streetNumber"
+                      v-model="form.address_line_1"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.address_line_1"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- home number  -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label for="homeNumber">{{
+                      $t("profile.homeNumber")
+                    }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input
+                      id="homeNumber"
+                      v-model="form.building_number"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.building_number"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- floor  -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label for="floor">{{ $t("profile.floor") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input id="floor" v-model="form.floor" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.floor"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- block number   -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label for="blockNumber">{{
+                      $t("profile.blockNumber")
+                    }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input id="blockNumber" v-model="form.apartment" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.apartment"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- post code  -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label for="postCode">{{ $t("profile.postCode") }}</label>
+                    <b-form-input id="postCode" v-model="form.pin_code" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.pin_code"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- note  -->
+                <b-col lg="12">
+                  <b-form-group>
+                    <label for="textarea">{{ $t("profile.note") }}</label>
+                    <b-form-textarea
+                      id="textarea"
+                      size="lg"
+                      v-model="form.notes"
+                    ></b-form-textarea>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.notes"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+              <b-button
+                type="submit"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("register.submit") }}
+              </b-button>
+            </form>
+          </div>
+
+          <div
+            class="existingAddresses"
+            v-else-if="selectAddressShape === 'existingAddresses'"
+          >
+            <div class="existingAddressNewStep">
+              <form
+                v-if="
+                  selectAddressShape === 'existingAddresses' &&
+                  newAddressOption !== null
+                "
+                @submit.prevent="createAdress()"
+                class="account-information-form"
+              >
+                <b-row class="justify-content-center">
+                  <!-- country  -->
+                  <b-col lg="12">
+                    <b-form-group>
+                      <label>{{ $t("profile.country") }}</label>
+                      <span class="requried">*</span>
+                      <b-form-select
+                        v-model="newForm.country_id"
+                        @input="getAllRegions"
+                        disabled
+                      >
+                        <b-form-select-option
+                          v-for="country in countries"
+                          :key="country.id"
+                          :value="country.id"
+                          >{{ country.title }}
+                        </b-form-select-option>
+                      </b-form-select>
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.country_id"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- regions -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label>{{ $t("profile.region") }}</label>
+                      <span class="requried">*</span>
+                      <b-form-select
+                        v-model="newForm.region_id"
+                        disabled
+                        @input="getAllCities"
+                      >
+                        <b-form-select-option
+                          v-for="region in regions"
+                          :key="region.id"
+                          :value="region.id"
+                          >{{ region.title }}
+                        </b-form-select-option>
+                      </b-form-select>
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.region_id"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- cities -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label>{{ $t("profile.city") }}</label>
+                      <span class="requried">*</span>
+                      <b-form-select v-model="newForm.city_id" disabled>
+                        <b-form-select-option
+                          v-for="city in cities"
+                          :key="city.id"
+                          :value="city.id"
+                          >{{ city.title }}
+                        </b-form-select-option>
+                      </b-form-select>
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.city_id"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- street number  -->
+                  <b-col lg="12">
+                    <b-form-group>
+                      <label for="streetNumber">{{
+                        $t("profile.streetNumber")
+                      }}</label>
+                      <span class="requried">*</span>
+                      <b-form-input
+                        id="streetNumber"
+                        disabled
+                        v-model="newForm.address_line_1"
+                      />
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.address_line_1"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- home number  -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label for="homeNumber">{{
+                        $t("profile.homeNumber")
+                      }}</label>
+                      <span class="requried">*</span>
+                      <b-form-input
+                        disabled
+                        id="homeNumber"
+                        v-model="newForm.building_number"
+                      />
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.building_number"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- floor  -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label for="floor">{{ $t("profile.floor") }}</label>
+                      <span class="requried">*</span>
+                      <b-form-input
+                        id="floor"
+                        v-model="newForm.floor"
+                        disabled
+                      />
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.floor"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- block number   -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label for="blockNumber">{{
+                        $t("profile.blockNumber")
+                      }}</label>
+                      <span class="requried">*</span>
+                      <b-form-input
+                        id="blockNumber"
+                        v-model="newForm.apartment"
+                        disabled
+                      />
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.apartment"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- post code  -->
+                  <b-col lg="6">
+                    <b-form-group>
+                      <label for="postCode">{{ $t("profile.postCode") }}</label>
+                      <b-form-input
+                        id="postCode"
+                        v-model="newForm.pin_code"
+                        disabled
+                      />
+                      <div
+                        class="error"
+                        v-for="(error, index) in errors.pin_code"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <!-- note  -->
+                </b-row>
+
+                <router-link
+                  to="/payment"
+                  class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+                >
+                  {{ $t("cart.checkout") }}
+                </router-link>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="" v-else-if="deliverType == false">
+        <router-link
+          to="/payment"
+          class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+        >
+          {{ $t("cart.checkout") }}
+        </router-link>
+      </div>
+      <div class="" v-else></div>
+    </div>
+    <!-- {{ ratingNum }} -->
+  </div>
+</template>
+
+<script>
+import globalAxios from "@/services/global-axios";
+import auth from "@/services/auth";
+import profile from "@/services/profile";
+export default {
+  data() {
+    return {
+      ratingNum: [],
+      // loggedUser: {
+      //   email: "test@test",
+      // },
+      // products: [
+      //   {
+      //     name: "Product A",
+      //     description: "desc A",
+      //     price: 2,
+      //   },
+      //   {
+      //     name: "Product B",
+      //     description: "desc B",
+      //     price: 3,
+      //   },
+      // ],
+      cartItems: null,
+      deliverType: null,
+      selectAddressShape: null,
+      form: {
+        country_id: "",
+        region_id: "",
+        city_id: "",
+        building_number: "",
+        floor: "",
+        apartment: "",
+        pin_code: "",
+        notes: "",
+      },
+      newForm: {
+        country_id: "",
+        region_id: "",
+        city_id: "",
+        building_number: "",
+        floor: "",
+        apartment: "",
+        pin_code: "",
+        notes: "",
+      },
+      countries: [],
+      cities: [],
+      regions: [],
+      errors: {},
+      newAddressOption: null,
+      options: [
+        { value: null, text: "Please select an option" , disabled: true },
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Selected Option" },
+
+      ],
+    };
+  },
+  methods: {
+    selectType: function (product, index) {
+      // let newRating = {
+      //   name: product.supplier_name,
+      //   // description: product.description,
+      //   // price: product.price,
+      //   // email: this.loggedUser.email,
+      //   type: this.ratingNum[index],
+      // };
+      const type = document.querySelectorAll(`input[name="types-${index}"]`);
+      // let myArray = [];
+      for (const f of type) {
+        if (f.checked) {
+          // let myArray = [f.value]
+          // console.log(JSON.stringify(f.value));
+          // console.log(myArray);
+        }
+      }
+
+      localStorage.setItem("type", this.ratingNum);
+      if (localStorage.getItem("type").includes("deliver")) {
+        this.deliverType = true;
+      } else {
+        this.deliverType = false;
+      }
+    },
+
+    getCartProducts() {
+      this.loading = true;
+      globalAxios.post(`cart`).then((res) => {
+        this.cartItems = res.data.items.cart_items;
+      });
+      this.loading = false;
+    },
+    getAllAdresses() {
+      profile.getAllAdresses().then((res) => {
+        this.adresses = res.data.items;
+        console.log(res);
+      });
+    },
+    // Countires
+    getAllCountires() {
+      auth.getAllCountires().then((res) => {
+        this.countries = res.data.items;
+      });
+    },
+    // getAllRegions
+    getAllRegions() {
+      profile.getAllRegions(this.form.country_id).then((res) => {
+        this.regions = res.data.items;
+        this.form.region_id = "";
+        this.form.city_id = "";
+      });
+    },
+    // Cities
+    getAllCities() {
+      profile.getAllCities(this.form.region_id).then((res) => {
+        this.cities = res.data.items;
+        this.form.city_id = "";
+      });
+    },
+
+    // createAdress
+    createAdress() {
+      (this.form.is_sale_point = false),
+        profile
+          .createAdress(this.form)
+          .then((res) => {
+            this.sucessMsg(res.data.message);
+            this.errors = {};
+            this.getAllAdresses();
+            this.showForm = false;
+            this.form = {};
+          })
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          });
+    },
+  },
+  mounted() {
+    this.getCartProducts();
+    this.getAllCountires();
+    this.getAllAdresses();
+  },
+};
+</script>
+<style lang="scss" scoped>
+$primary-color: #00005c; // Change color here. C'mon, try it!
+$text-color: mix(#000, $primary-color, 64%);
+form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+label {
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  margin: 0px 20px 0.375em 0;
+  /* Accessible outline */
+  /* Remove comment to use */
+  /*
+		&:focus-within {
+				outline: .125em solid $primary-color;
+		}
+	*/
+  input {
+    position: absolute;
+    left: -9999px;
+    &:checked + span {
+      background-color: mix(#fff, $primary-color, 84%);
+      &:before {
+        box-shadow: inset 0 0 0 0.4375em $primary-color;
+      }
+    }
+  }
+  span {
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em; // or something higher...
+    transition: 0.25s ease;
+    &:hover {
+      background-color: mix(#fff, $primary-color, 84%);
+    }
+    &:before {
+      display: flex;
+      flex-shrink: 0;
+      content: "";
+      background-color: #fff;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+      margin-right: 0.375em;
+      transition: 0.25s ease;
+      box-shadow: inset 0 0 0 0.125em $primary-color;
+    }
+  }
+}
+.address-book {
+  padding-top: 40px;
+  .main-header {
+    text-transform: uppercase;
+  }
+  .add-address {
+    font-size: 17px;
+    color: #312620;
+    margin: 15px 0;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      color: $main-color;
+    }
+    span {
+      font-size: 23px;
+      font-weight: 600;
+    }
+  }
+  .account-information-form {
+    padding: 20px 0;
+    .login-button {
+      margin: 30px 0px;
+      width: 20%;
+    }
+  }
+  .actions {
+    text-align: center;
+    button {
+      color: #000 !important;
+      background-color: transparent !important;
+      border: 0 !important;
+    }
+    svg {
+      font-size: 1.2rem;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+html:lang(ar) {
+  .address-book {
+    text-align: right;
+  }
+}
+.addresses-holder {
+  .addressShape {
+    label {
+      overflow: auto;
+      margin: 0;
+      display: inline-block;
+    }
+  }
+}
+</style>
