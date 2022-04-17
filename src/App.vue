@@ -41,7 +41,6 @@ export default {
         .then((res) => {
           console.log(res);
           localStorage.setItem("guest-id", res.data.items.uuid);
-          sessionStorage.setItem("guest-id", res.data.items.uuid);
         })
         .catch((err) => {
           console.log(err);
