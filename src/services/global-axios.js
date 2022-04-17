@@ -55,8 +55,8 @@ globalAxios.interceptors.request.use(
     if (guestId) {
       config.headers['guest-id'] = guestId;
     }
-    config.headers['currency'] = currency_code;
-    config.headers['country_id'] = country_id ? country_id  : 1;
+    config.headers['currency_code'] = currency_code;
+    config.headers['currency_id'] = country_id ? country_id  : 1;
     return config;
   },
   (error) => Promise.reject(error),

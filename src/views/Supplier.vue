@@ -2,15 +2,15 @@
   <div class="supplier">
     <div class="container">
       <div
-        class="navigation d-none d-lg-flex justify-content-between align-items-center w-75 mx-auto my-4"
+        class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
       >
-        <button
+        <!-- <button
           class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
           @click="prevPage"
           :disabled="pageId == 1"
         >
           <span>&#60;</span>{{ $t("items.prev") }}
-        </button>
+        </button> -->
         <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
         <b-breadcrumb v-if="supplier">
           <b-breadcrumb-item href="#home">
@@ -27,11 +27,11 @@
             {{ supplier.company_name }}
           </b-breadcrumb-item>
         </b-breadcrumb>
-        <span
+        <!-- <span
           @click="nextPage"
           class="next btn btn-light shadow-none bg-transparent border-none outline-none"
           >{{ $t("items.next") }}<span>&#62;</span></span
-        >
+        > -->
       </div>
 
       <b-row v-if="loading">

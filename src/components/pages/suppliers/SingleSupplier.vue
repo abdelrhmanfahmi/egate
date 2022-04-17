@@ -41,6 +41,7 @@ export default {
       }
       .supplier-name {
         transition: all 0.3s ease 0s;
+        margin: 0;
       }
     }
     &::before {
