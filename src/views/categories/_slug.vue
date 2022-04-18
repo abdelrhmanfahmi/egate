@@ -296,6 +296,7 @@ export default {
 .cover-data {
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
 }
 select {
   border: none;
