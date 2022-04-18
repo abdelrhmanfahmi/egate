@@ -54,9 +54,9 @@ export default {
       };
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts");
+        this.$store.dispatch("cart/getCartProducts")
       }, 300);
-      this.$emit('changeTitle','Awesome')
+      this.$emit('changeTitle',this.countValue)
     },
     decrementQuantity() {
       this.countValue > 1 ? this.countValue-- : null;
@@ -70,6 +70,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 300);
+      this.$emit('changeTitle',this.countValue)
     },
   },
 };

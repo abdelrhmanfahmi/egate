@@ -1,7 +1,13 @@
 <template>
   <div class="cart">
-    <div class="" v-if="!loading">
-      <div class="" v-if="cartItems">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column"
+      v-if="loading"
+    >
+      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+    </div>
+    <div class="" v-else>
+      <div class="" v-if="cartItems.length > 0">
         <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
         <div class="cart-table p-4">
           <table class="table">
@@ -59,9 +65,10 @@
                     :quantity="item.quantity"
                     :product="item"
                     class="justify-content-center"
+                    @changeTitle="ChangeQ($event)"
                   ></Counter>
                 </td>
-                <td>{{ supplier.price_after_discount }} {{ currency }}</td>
+                <td>{{ item.product_sub_total }} {{ currency }}</td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -192,16 +199,10 @@
         v-else
       >
         <img src="@/assets/images/empty-cart.png" alt="cart-image" />
-        <h3 class="m-0">
+        <!-- <h3 class="m-0">
           {{ $t("cart.noCartProducts") }}
-        </h3>
+        </h3> -->
       </div>
-    </div>
-    <div
-      class="d-flex justify-content-center align-items-center flex-column"
-      v-else
-    >
-      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
   </div>
 </template>
@@ -214,45 +215,10 @@ export default {
   components: { Counter },
   data() {
     return {
-      cart: [
-        {
-          supplier: this.$t("cart.supplier"),
-          items: [
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.7,
-              quantity: 2,
-            },
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.5,
-              quantity: 4,
-            },
-          ],
-        },
-        {
-          supplier: this.$t("cart.supplier"),
-          items: [
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.7,
-              quantity: 2,
-            },
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.5,
-              quantity: 4,
-            },
-          ],
-        },
-      ],
       coupon: null,
       discount: 0,
       loading: false,
+      productLoading: false,
       errors: null,
       freeDelivery: false,
       total_cart: [],
@@ -265,6 +231,7 @@ export default {
       seletedInput: null,
       selectedButton: null,
       selectedSpan: null,
+      myQuantity: null,
     };
   },
   mounted() {
@@ -303,9 +270,14 @@ export default {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
+      this.loading = true;
+      this.cartItems = null;
       setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts");
+        this.getCartProducts();
       }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1200);
     },
     removeDisabled() {
       let myInput = this.seletedInput;
@@ -371,6 +343,14 @@ export default {
             this.errMsg(err.message);
           }
         });
+    },
+    ChangeQ(myQuantity) {
+      this.myQuantity = myQuantity;
+      console.log(myQuantity);
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+      }, 300);
     },
   },
   computed: {
