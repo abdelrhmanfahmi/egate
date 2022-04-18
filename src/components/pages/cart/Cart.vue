@@ -199,9 +199,9 @@
         v-else
       >
         <img src="@/assets/images/empty-cart.png" alt="cart-image" />
-        <!-- <h3 class="m-0">
+        <h3 class="m-0">
           {{ $t("cart.noCartProducts") }}
-        </h3> -->
+        </h3>
       </div>
     </div>
   </div>
