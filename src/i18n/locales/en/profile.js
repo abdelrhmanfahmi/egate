@@ -29,6 +29,7 @@ export default {
   favorite: "favorite",
   // changePassword
   changePassword: "change Password",
+  changePasswordMessage: "Your password has been updated successfully",
   currentPassword: "current password",
   NewPassword: "new password",
   // adress book

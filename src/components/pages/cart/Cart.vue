@@ -53,7 +53,7 @@
                     {{ item.product_name }}
                   </router-link>
                 </td>
-                <td>{{ item.price }} {{currency}}</td>
+                <td>{{ item.price }} {{ currency }}</td>
                 <td>
                   <Counter
                     :quantity="item.quantity"
@@ -61,9 +61,7 @@
                     class="justify-content-center"
                   ></Counter>
                 </td>
-                <td>
-                  {{ supplier.price_after_discount }} {{currency}}
-                </td>
+                <td>{{ supplier.price_after_discount }} {{ currency }}</td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -143,11 +141,11 @@
               <tbody>
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ cart_sub_total }} {{currency}}</td>
+                  <td>{{ cart_sub_total }} {{ currency }}</td>
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ totalDiscount }} {{currency}}</td>
+                  <td>{{ totalDiscount }} {{ currency }}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -168,9 +166,7 @@
                 </tr> -->
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>
-                    {{ totalPayment }} {{currency}}
-                  </td>
+                  <td>{{ totalPayment }} {{ currency }}</td>
                 </tr>
               </tbody>
             </table>
@@ -325,8 +321,8 @@ export default {
       });
 
       this.selectedSpan.style.display = "none";
-      document.querySelector('.itemInput').removeAttribute('disabled')
-      document.querySelector('.login-button').removeAttribute('disabled')
+      document.querySelector(".itemInput").removeAttribute("disabled");
+      document.querySelector(".login-button").removeAttribute("disabled");
     },
     checkCoupon(supplier) {
       // let data = {
@@ -551,5 +547,11 @@ input[type="text"]:disabled {
     cursor: pointer;
     display: none;
   }
+}
+.coupon {
+  display: none;
+}
+.coupon:first-of-type {
+  display: block;
 }
 </style>

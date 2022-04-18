@@ -29,6 +29,7 @@ export default {
   favorite: "المفضلة",
   // changePassword
   changePassword: "تغير كلمه السر",
+  changePasswordMessage: "تم تغيير كلمة السر بنجاح",
   currentPassword: "كلمة المرور الحالية",
   NewPassword: "كلمة المرور الجديدة",
   // adress book

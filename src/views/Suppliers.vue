@@ -36,14 +36,24 @@
         </div>
         <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
-        <div class="text-center d-flex justify-content-center align-items-center mt-5">
-          <b-pagination
+        <div
+          class="text-center d-flex justify-content-center align-items-center mt-5"
+        >
+          <!-- <b-pagination
             v-model="currentPage"
             pills
             :total-rows="total"
             :per-page="perPage"
             size="lg"
-          ></b-pagination>
+          ></b-pagination> -->
+          <Paginate
+            v-if="suppliers"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+            
+          />
         </div>
       </div>
     </div>
@@ -51,12 +61,15 @@
 </template>
 <script>
 import SingleSupplier from "../components/pages/suppliers/SingleSupplier.vue";
-import suppliers from "@/services/suppliers";
+// import suppliers from "@/services/suppliers";
 // import Pagination from "@/components/global/Pagination";
+import Paginate from "@/components/global/Paginate.vue";
+import { baseURL } from "@/apis/Api";
+import axios from "axios";
 export default {
   components: {
     SingleSupplier,
-    // Pagination,
+    Paginate,
   },
   data() {
     return {
@@ -79,18 +92,26 @@ export default {
       perPage: 5,
       total: 0,
       currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
     };
   },
   methods: {
     getSuppliers() {
       this.loading = true;
-      suppliers
-        .getSuppliers()
+      axios
+        .get(`${baseURL}suppliers?page=${this.page}`)
         .then((resp) => {
           console.log(resp);
           this.suppliers = resp.data.items.data;
-          this.perPage = resp.data.items.per_page;
           this.total = resp.data.items.total;
+          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page) // Calculate total records
+
+          this.totalRecords = resp.data.items.total;
         })
         .catch((err) => {
           console.log(err);
@@ -98,6 +119,19 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    onPageChange(page) {
+      this.page = page;
+      this.getSuppliers();
+    },
+    onChangeRecordsPerPage() {
+      this.getSuppliers();
+    },
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getSuppliers();
+      }
     },
   },
   mounted() {

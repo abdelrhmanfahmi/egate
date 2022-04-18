@@ -1,8 +1,8 @@
 import globalAxios from "./global-axios";
 
 export default {
-  getSuppliers() {
-    return globalAxios.get("suppliers");
+  getSuppliers(page) {
+    return globalAxios.get(`"suppliers?page=${page}"`);
   },
   getSupplier(id) {
     return globalAxios.get(`suppliers/${id}`);

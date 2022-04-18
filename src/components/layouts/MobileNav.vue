@@ -45,7 +45,7 @@ export default {
 
         { name: this.$t("home.contactUs"), to: "/contact-us" },
 
-        { name: this.$t("home.cart"), to: "/" },
+        { name: this.$t("home.cart"), to: "/cart" },
         {
           name: `${this.$t("home.corporat")} - ${this.$t("home.buyer")}`,
           to: "/b2b-register",

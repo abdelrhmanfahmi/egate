@@ -132,7 +132,9 @@ export default {
       auth
         .changePassword(this.form)
         .then((res) => {
-          this.sucessMsg(res.data.message);
+          if (res.status == 200) {
+            this.sucessMsg(this.$t("profile.changePasswordMessage"));
+          }
           this.errors = {};
         })
         .catch((error) => {

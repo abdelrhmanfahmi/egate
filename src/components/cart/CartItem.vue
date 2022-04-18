@@ -1,42 +1,56 @@
 <template>
   <div class="holder mb-2">
     <div
-      class="d-flex cart-item"
-      v-for="product in products.products"
-      :key="product.id"
+      class="d-flex justify-content-center align-items-center"
+      v-if="loading"
     >
-      <router-link
-        :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
-        class="thumb"
+      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+    </div>
+    <div class="" v-else>
+      <div
+        class="d-flex cart-item"
+        v-for="product in products.products"
+        :key="product.id"
       >
-        <img
-          :src="product.product_image"
-          alt="Cart Item"
-          class="product-image"
-        />
-      </router-link>
-      <div class="product-info w-100">
         <router-link
-          class="name"
-          :to="{ path: '/details', query: { id: `${product.product_supplier_id}` } }"
+          :to="{
+            path: '/details',
+            query: { id: `${product.product_supplier_id}` },
+          }"
+          class="thumb"
         >
-          {{ product.product_name }}
+          <img
+            :src="product.product_image"
+            alt="Cart Item"
+            class="product-image"
+          />
         </router-link>
+        <div class="product-info w-100">
+          <router-link
+            class="name"
+            :to="{
+              path: '/details',
+              query: { id: `${product.product_supplier_id}` },
+            }"
+          >
+            {{ product.product_name }}
+          </router-link>
 
-        <span class="price">
-          {{ product.price }} x
-          <b class="text-success">{{ product.quantity }}</b>
-        </span>
-      </div>
-      <div class="total mr-2"> 
-        {{ products.supplier_sub_total }} {{currency}}
-      </div>
-      <div class="actions mr-2" @click="removeFromCart(product)">
-        <span class="action-icon">
-          <b-icon-trash></b-icon-trash>
-        </span>
-      </div>
-      <!-- <ul>
+          <span class="price">
+            {{ product.price }} x
+            <b class="text-success">{{ product.quantity }} </b>
+          </span>
+        </div>
+        <div class="total mr-2">
+          {{product.product_sub_total}} {{ currency }}
+          
+        </div>
+        <div class="actions mr-2" @click="removeFromCart(product)">
+          <span class="action-icon">
+            <b-icon-trash></b-icon-trash>
+          </span>
+        </div>
+        <!-- <ul>
         <li v-for="product in products" :key="product.id">
           product.supplier_name : {{ product.product_name }}
         </li>
@@ -46,6 +60,7 @@
           {{ products.products[0].product_name }}
         </li>
       </ul> -->
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +69,7 @@ import { BIconTrash } from "bootstrap-vue";
 // import { mapActions } from "vuex";
 export default {
   data() {
-    return { count: 0 };
+    return { count: 0, loading: false };
   },
   components: {
     BIconTrash,
@@ -69,9 +84,13 @@ export default {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
+      this.loading = true;
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1200);
     },
   },
 };
