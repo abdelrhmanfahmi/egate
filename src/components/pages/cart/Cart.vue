@@ -7,7 +7,7 @@
       <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
-      <div class="" v-if="cartItems.length > 0">
+      <div class="" v-if="cartItems !==null">
         <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
         <div class="cart-table p-4">
           <table class="table">
@@ -199,9 +199,9 @@
         v-else
       >
         <img src="@/assets/images/empty-cart.png" alt="cart-image" />
-        <h3 class="m-0">
+        <!-- <h3 class="m-0">
           {{ $t("cart.noCartProducts") }}
-        </h3>
+        </h3> -->
       </div>
     </div>
   </div>
@@ -346,7 +346,7 @@ export default {
     },
     ChangeQ(myQuantity) {
       this.myQuantity = myQuantity;
-      console.log(myQuantity);
+      // console.log(myQuantity);
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();

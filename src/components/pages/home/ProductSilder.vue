@@ -34,7 +34,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <VueSlickCarousel v-bind="settings" v-else >
+    <VueSlickCarousel v-bind="settings" v-else>
       <div v-for="(supplier, index) in suppliers" :key="index" class="px-5">
         <router-link
           :to="`/suppliers/${supplier.id}`"
@@ -56,7 +56,8 @@ import VueSlickCarousel from "vue-slick-carousel";
 import Countdown from "vuejs-countdown";
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
-import suppliers from "@/services/suppliers";
+
+import globalAxios from "@/services/global-axios";
 export default {
   components: {
     ProductCard,
@@ -109,10 +110,11 @@ export default {
     };
   },
   methods: {
+
     getSuppliers() {
       this.loading = true;
-      suppliers
-        .getSuppliers()
+      return globalAxios
+        .get(`suppliers`)
         .then((resp) => {
           console.log("resp suppliers", resp);
           this.suppliers = resp.data.items.data;
