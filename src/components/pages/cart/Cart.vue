@@ -1,7 +1,13 @@
 <template>
   <div class="cart">
-    <div class="" v-if="!loading">
-      <div class="" v-if="cartItems">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column"
+      v-if="loading"
+    >
+      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+    </div>
+    <div class="" v-else>
+      <div class="" v-if="cartItems.length > 0">
         <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
         <div class="cart-table p-4">
           <table class="table">
@@ -53,17 +59,16 @@
                     {{ item.product_name }}
                   </router-link>
                 </td>
-                <td>{{ item.price }} {{currency}}</td>
+                <td>{{ item.price }} {{ currency }}</td>
                 <td>
                   <Counter
                     :quantity="item.quantity"
                     :product="item"
                     class="justify-content-center"
+                    @changeTitle="ChangeQ($event)"
                   ></Counter>
                 </td>
-                <td>
-                  {{ supplier.price_after_discount }} {{currency}}
-                </td>
+                <td>{{ item.product_sub_total }} {{ currency }}</td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -143,11 +148,11 @@
               <tbody>
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ cart_sub_total }} {{currency}}</td>
+                  <td>{{ cart_sub_total }} {{ currency }}</td>
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ totalDiscount }} {{currency}}</td>
+                  <td>{{ totalDiscount }} {{ currency }}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -168,9 +173,7 @@
                 </tr> -->
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>
-                    {{ totalPayment }} {{currency}}
-                  </td>
+                  <td>{{ totalPayment }} {{ currency }}</td>
                 </tr>
               </tbody>
             </table>
@@ -201,12 +204,6 @@
         </h3>
       </div>
     </div>
-    <div
-      class="d-flex justify-content-center align-items-center flex-column"
-      v-else
-    >
-      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
-    </div>
   </div>
 </template>
 
@@ -218,45 +215,10 @@ export default {
   components: { Counter },
   data() {
     return {
-      cart: [
-        {
-          supplier: this.$t("cart.supplier"),
-          items: [
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.7,
-              quantity: 2,
-            },
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.5,
-              quantity: 4,
-            },
-          ],
-        },
-        {
-          supplier: this.$t("cart.supplier"),
-          items: [
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.7,
-              quantity: 2,
-            },
-            {
-              img: require("@/assets/images/p1.png"),
-              name: this.$t("cart.itemName"),
-              price: 3.5,
-              quantity: 4,
-            },
-          ],
-        },
-      ],
       coupon: null,
       discount: 0,
       loading: false,
+      productLoading: false,
       errors: null,
       freeDelivery: false,
       total_cart: [],
@@ -269,6 +231,7 @@ export default {
       seletedInput: null,
       selectedButton: null,
       selectedSpan: null,
+      myQuantity: null,
     };
   },
   mounted() {
@@ -307,9 +270,14 @@ export default {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
+      this.loading = true;
+      this.cartItems = null;
       setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts");
+        this.getCartProducts();
       }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1200);
     },
     removeDisabled() {
       let myInput = this.seletedInput;
@@ -325,8 +293,8 @@ export default {
       });
 
       this.selectedSpan.style.display = "none";
-      document.querySelector('.itemInput').removeAttribute('disabled')
-      document.querySelector('.login-button').removeAttribute('disabled')
+      document.querySelector(".itemInput").removeAttribute("disabled");
+      document.querySelector(".login-button").removeAttribute("disabled");
     },
     checkCoupon(supplier) {
       // let data = {
@@ -375,6 +343,14 @@ export default {
             this.errMsg(err.message);
           }
         });
+    },
+    ChangeQ(myQuantity) {
+      this.myQuantity = myQuantity;
+      console.log(myQuantity);
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+      }, 300);
     },
   },
   computed: {
@@ -551,5 +527,11 @@ input[type="text"]:disabled {
     cursor: pointer;
     display: none;
   }
+}
+.coupon {
+  display: none;
+}
+.coupon:first-of-type {
+  display: block;
 }
 </style>

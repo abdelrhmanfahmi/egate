@@ -194,6 +194,11 @@ export default {
           this.errors = {};
           // this.$store.commit("SET_USER_DATA_INFO", res.data.items);
           this.$store.dispatch("getUserInfo");
+          if(res.status == 200){
+            setTimeout(() => {
+              this.$router.replace('/profile/adress-book')
+            }, 500);
+          }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

@@ -1,35 +1,41 @@
 <template>
   <div class="cart-content mb-2">
-    
-    <div class="" v-if="cartItems">
-      <div v-for="products in cartItems" :key="products.id" class="cart-items">
-        <CartItem :products="products"></CartItem>
-      </div>
-      <hr />
-      <div
-        class="total-price d-flex justify-content-between align-items-center"
-        v-if="cart_sub_total"
-      >
-        <span> {{ $t("cart.total") }}</span>
-        <span>
-          {{ cart_sub_total }} {{currency}}
-        </span>
-      </div>
-      <div class="navigation my-4" v-if="cart_sub_total">
-        <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
-
-        <router-link
-          to="/cart"
-          class="login-button dark my-2 text-center text-white"
-        >
-          {{ $t("cart.purchase") }}
-        </router-link>
-      </div>
+    <div class="d-flex justify-content-center align-items-center" v-if="loading">
+      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
-    <div class="d-flex justify-content-center align-items-center" v-else>
-      <p class="m-0">
-        {{ $t("cart.noCartProducts") }}
-      </p>
+    <div class="" v-else>
+      <div class="" v-if="cartItems">
+        <div
+          v-for="products in cartItems"
+          :key="products.id"
+          class="cart-items"
+        >
+          <CartItem :products="products"></CartItem>
+        </div>
+        <hr />
+        <div
+          class="total-price d-flex justify-content-between align-items-center"
+          v-if="cart_sub_total"
+        >
+          <span> {{ $t("cart.total") }}</span>
+          <span> {{ cart_sub_total }} {{ currency }} </span>
+        </div>
+        <div class="navigation my-4" v-if="cart_sub_total">
+          <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
+
+          <router-link
+            to="/cart"
+            class="login-button dark my-2 text-center text-white"
+          >
+            {{ $t("cart.purchase") }}
+          </router-link>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center" v-else>
+        <p class="m-0">
+          {{ $t("cart.noCartProducts") }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -39,14 +45,16 @@ import CartItem from "./CartItem.vue";
 
 export default {
   data() {
-    return { count: 0 };
+    return { count: 0, loading: false };
   },
   components: {
     CartItem,
   },
   methods: {
     getCartProducts() {
+      this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
+      this.loading = false;
     },
   },
   mounted() {

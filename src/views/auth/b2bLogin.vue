@@ -67,9 +67,12 @@
                   </b-form-group>
                 </b-col>
               </b-row>
-              <b class="forget-password my-3" v-b-modal.ForgetPassword>
-                {{ $t("login.fogetPassword") }}
-              </b>
+
+              <router-link to="/forget-password">
+                <b class="forget-password my-3" v-b-modal.ForgetPassword>
+                  {{ $t("login.fogetPassword") }}
+                </b>
+              </router-link>
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
@@ -107,7 +110,7 @@ export default {
 
           // if (!res.data.items.item.verify_email_required) {
           this.$router.push("/profile/account-information-b2b");
-          localStorage.removeItem("guest-id")
+          localStorage.removeItem("guest-id");
           location.reload();
 
           if (!this.userInfo.item.is_verified) {
