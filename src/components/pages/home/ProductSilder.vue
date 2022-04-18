@@ -56,7 +56,7 @@ import VueSlickCarousel from "vue-slick-carousel";
 import Countdown from "vuejs-countdown";
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// import suppliers from "@/services/suppliers";
+
 import globalAxios from "@/services/global-axios";
 export default {
   components: {
