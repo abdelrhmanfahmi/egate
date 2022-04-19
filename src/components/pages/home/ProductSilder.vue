@@ -35,7 +35,7 @@
       </b-col>
     </b-row>
     <VueSlickCarousel v-bind="settings" v-else>
-      <div v-for="(supplier, index) in suppliers" :key="index" class="px-5">
+      <div v-for="(supplier, index) in suppliers" :key="index" >
         <router-link
           :to="`/suppliers/${supplier.id}`"
           class="d-block text-center"
@@ -73,7 +73,7 @@ export default {
         infinite: true,
         arrows: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 1,
         swipeToSlide: true,
         autoplay: true,
@@ -177,10 +177,13 @@ export default {
   }
 }
 .supplier-image {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  transition: all .3s ease-in-out;
   opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$i18n.locale">
     <!-- <div class="block" v-for="(product, index) in products" :key="index">
       <h3>{{ product.name }}</h3>
       <p>Desc: {{ product.description }}</p>
@@ -69,7 +69,7 @@
                     v-model="ratingNum[index]"
                     checked
                   />
-                  <span>Deliver</span>
+                  <span class="mx-2">Deliver</span>
                 </label>
                 <label>
                   <input
@@ -108,7 +108,7 @@
               />
               <span>Backup</span>
             </label>
-            <span  v-if="selectAddressShape === 'existingAddresses'">
+            <span v-if="selectAddressShape === 'existingAddresses'">
               <b-form-select
                 v-model="newAddressOption"
                 :options="options"
@@ -582,10 +582,9 @@ export default {
       errors: {},
       newAddressOption: null,
       options: [
-        { value: null, text: "Please select an option" , disabled: true },
+        { value: null, text: "Please select an option", disabled: true },
         { value: "a", text: "This is First option" },
         { value: "b", text: "Selected Option" },
-
       ],
     };
   },
@@ -702,7 +701,7 @@ label {
 	*/
   input {
     position: absolute;
-    left: -9999px;
+
     &:checked + span {
       background-color: mix(#fff, $primary-color, 84%);
       &:before {
@@ -710,6 +709,7 @@ label {
       }
     }
   }
+
   span {
     display: flex;
     align-items: center;
@@ -730,6 +730,7 @@ label {
       margin-right: 0.375em;
       transition: 0.25s ease;
       box-shadow: inset 0 0 0 0.125em $primary-color;
+      margin: 0 5px;
     }
   }
 }
@@ -785,6 +786,20 @@ html:lang(ar) {
       overflow: auto;
       margin: 0;
       display: inline-block;
+    }
+  }
+}
+.en {
+  label {
+    input {
+      left: -100%;
+    }
+  }
+}
+.ar {
+  label {
+    input {
+      left: 100%;
     }
   }
 }

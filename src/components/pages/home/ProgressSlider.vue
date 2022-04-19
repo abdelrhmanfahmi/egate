@@ -12,9 +12,9 @@
           :key="index"
           class="text-center"
         >
-          <router-link :to="{ path: '/details', query: { id: `${slider.id}` } }">
-            <vue-ellipse-progress
-              :progress="slider.product.id"
+          <router-link :to="{ path: '/details', query: { id: `${slider.id}` } }" v-if="slider">
+            <vue-ellipse-progress v-if="slider.offer_active_by_type.countdown_percentage"
+              :progress="slider.offer_active_by_type.countdown_percentage"
               :determinate="determinate"
               v-bind="options"
               :loading="loading"

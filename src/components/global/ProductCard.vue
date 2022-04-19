@@ -44,8 +44,8 @@ export default {
       opacity: 1;
     }
     img {
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       display: block;
     }
