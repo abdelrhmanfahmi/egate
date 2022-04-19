@@ -22,4 +22,7 @@ export default {
   checkCoupon(checkData) {
     return globalAxios.post(`cart`, checkData);
   },
+  getBestDeals(){
+    return globalAxios.get('products/best/offers')
+  }
 };

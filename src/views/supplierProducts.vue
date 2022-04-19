@@ -4,10 +4,11 @@
       <div class="container">
         <div class="intro text-center">
           <h1>
-            {{ $t("supplier.OurShop") }}
+            <!-- {{ supplier.company_name }} {{ $t("supplier.OurShop") }} -->
+            {{ supplier.company_name }} {{ $t("supplier.Shop") }}
           </h1>
           <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
-          <b-breadcrumb v-if="supplier">
+          <!-- <b-breadcrumb v-if="supplier">
             <b-breadcrumb-item href="#home">
               <router-link to="/">
                 {{ $t("supplier.home") }}
@@ -19,7 +20,7 @@
             <b-breadcrumb-item active>
               {{ supplier.company_name }}
             </b-breadcrumb-item>
-          </b-breadcrumb>
+          </b-breadcrumb> -->
         </div>
         <div class="" v-if="supplierProductsLength">
           <div class="row justify-content-around align-items-center">

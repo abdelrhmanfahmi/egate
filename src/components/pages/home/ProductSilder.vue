@@ -4,9 +4,9 @@
       <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
     </span>
     <Countdown deadline="August 22, 2022"></Countdown>
-    <VueSlickCarousel v-bind="settings" class="my-5">
-      <div v-for="(x, index) in 10" :key="index">
-        <ProductCard />
+    <VueSlickCarousel v-bind="settings" class="my-5" v-if="sliders">
+      <div v-for="(slider, index) in sliders" :key="index">
+        <ProductCard :slider="slider" />
       </div>
     </VueSlickCarousel>
     <span class="product-info">
@@ -58,6 +58,8 @@ import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 import globalAxios from "@/services/global-axios";
+import axios from "axios";
+import { baseURL } from "@/apis/Api";
 export default {
   components: {
     ProductCard,
@@ -107,16 +109,15 @@ export default {
       },
       suppliers: null,
       loading: false,
+      sliders: null,
     };
   },
   methods: {
-
     getSuppliers() {
       this.loading = true;
       return globalAxios
         .get(`suppliers`)
         .then((resp) => {
-          console.log("resp suppliers", resp);
           this.suppliers = resp.data.items.data;
         })
         .catch((err) => {
@@ -126,9 +127,22 @@ export default {
           this.loading = false;
         });
     },
+    getBestDeals() {
+      axios
+        .get(`${baseURL}products/featured/offers`)
+        .then((res) => {
+          this.sliders = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.getSuppliers();
+  },
+  mounted() {
+    this.getBestDeals();
   },
 };
 </script>
@@ -168,4 +182,5 @@ export default {
   border-radius: 50%;
   opacity: 0.5;
 }
+
 </style>
