@@ -51,6 +51,21 @@ export default {
         .productDetails(this.id)
         .then((res) => {
           this.myProduct = res.data.items;
+          // product.image_path == null && product.product.image_path
+          if (
+            res.data.items.product.images == null ||
+            res.data.items.product.images.length == 0
+          ) {
+            this.images = res.data.items.images;
+          }
+
+          if (
+            res.data.items.images.length == 0 ||
+            res.data.items.images.length == null
+          ) {
+            this.images = res.data.items.product.images;
+          }
+
           this.images = res.data.items.images;
           if (res.data.items.images.length > 0) {
             this.firstImage = res.data.items.images[0].image_path;

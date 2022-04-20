@@ -2,11 +2,26 @@
   <div class="product position-relative w-100" v-if="data">
     <div class="thumb">
       <router-link
-        :to="{path:'/details' , query:{id:`${data.id}`}}"
+        v-if="data.image_path !== null"
+        :to="{ path: '/details', query: { id: `${data.id}` } }"
         class="d-flex justify-content-center align-items-center product-image"
       >
-        <img :src="data.image_path" alt="Product Image" />
+        <img :src="data.image_path" alt="Product Image" class="Product-Image" />
       </router-link>
+      <router-link
+        v-else-if="data.image_path == null && data.product.image_path"
+        :to="{ path: '/details', query: { id: `${data.id}` } }"
+        class="d-flex justify-content-center align-items-center product-image"
+      >
+        <img
+          :src="data.product.image_path"
+          alt="Product Image"
+          class="Product-Image"
+        />
+      </router-link>
+      <div class="Product-Image" v-else>
+        <img :src="data.product.image_path" alt="Product-Image" />
+      </div>
       <div class="actions">
         <ul>
           <li>
@@ -17,10 +32,17 @@
           </li>
         </ul>
       </div>
-      <div class="info d-flex flex-column align-items-center my-3" v-if="data.product">
-        <a href="#" class="name" v-if="data.product.title">{{ data.product.title }}</a>
-        <span class="price">{{data.product_details_by_type.customer_price}} {{currency}}</span>
-        
+      <div
+        class="info d-flex flex-column align-items-center my-3"
+        v-if="data.product"
+      >
+        <a href="#" class="name" v-if="data.product.title">{{
+          data.product.title
+        }}</a>
+        <span class="price"
+          >{{ data.product_details_by_type.customer_price }}
+          {{ currency }}</span
+        >
       </div>
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
@@ -41,8 +63,7 @@ export default {
   data() {
     return { count: 0 };
   },
-  props:['data']
-  
+  props: ["data"],
 };
 </script>
 <style lang="scss" scoped>
@@ -116,5 +137,10 @@ export default {
       background: #ca84ac;
     }
   }
+}
+.Product-Image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
 }
 </style>

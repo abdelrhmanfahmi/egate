@@ -112,7 +112,7 @@
             lg="6"
             xl="5"
             class="item-media mt-3 m-lg-0"
-            v-if="productInfo.image_path"
+            v-if="productInfo.image_path !== null"
           >
             <img :src="productInfo.image_path" alt="item-name" />
           </b-col>
@@ -252,6 +252,7 @@
               </td>
               <td>
                 <router-link
+                  v-if="product.image_path !== null"
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
@@ -261,6 +262,20 @@
                     alt="product-image"
                   />
                 </router-link>
+                <router-link
+                  v-else-if="
+                    product.image_path == null && product.product.image_path
+                  "
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  <img
+                    :src="product.product.image_path"
+                    class="product-image"
+                    alt="product-image"
+                  />
+                </router-link>
+
               </td>
               <td>
                 <router-link
@@ -303,11 +318,7 @@
                   :quantity="1"
                   @changeCount="ChangeCounter($event)"
                 ></Variants-Counter>
-                <p
-                  v-else
-                >
-                  -
-                </p>
+                <p v-else>-</p>
               </td>
               <td>
                 <div
