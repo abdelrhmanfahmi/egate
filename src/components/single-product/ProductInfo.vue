@@ -80,7 +80,7 @@
       >
         <div class="short-links">
           <button
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
             v-if="
               (myProduct.product_details_by_type.add_type === 'rfq' ||
                 myProduct.product_details_by_type.add_type === 'both') &&
@@ -96,7 +96,7 @@
           </button>
           <button
             @click="loginFirst"
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 not-loged-in"
             v-else-if="
               (myProduct.product_details_by_type.add_type === 'rfq' ||
                 myProduct.product_details_by_type.add_type === 'both') &&
@@ -222,7 +222,7 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        buttons: ["Oh noez!", true],
+        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="holder mb-2">
+  <div class="action-holder mb-2">
     <div
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
@@ -42,8 +42,7 @@
           </span>
         </div>
         <div class="total mr-2">
-          {{product.product_sub_total}} {{ currency }}
-          
+          {{ product.product_sub_total }} {{ currency }}
         </div>
         <div class="actions mr-2" @click="removeFromCart(product)">
           <span class="action-icon">
@@ -96,6 +95,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.action-holder {
+  max-height: 400px;
+  overflow-y: scroll;
+}
 .cart-item {
   &:not(:last-child) {
     margin-bottom: 1rem;

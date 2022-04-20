@@ -31,4 +31,5 @@ export default {
   updateCart: "تم تحديث السله",
   enableButton: "حذف الكوبون",
   proceAfterDisc: "السعر بعد الخصم",
+  currency:'العمله'
 };

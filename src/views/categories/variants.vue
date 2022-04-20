@@ -119,7 +119,6 @@
         </b-row>
       </div>
     </div>
-
     <div class="products text-center" v-if="products.length > 0">
       <h4 class="header font-weight-bold my-5">{{ $t("items.products") }}</h4>
       <b-row v-if="loading">
@@ -139,7 +138,7 @@
         </b-col>
       </b-row>
       <div class="products-table" v-else>
-        <b-table
+        <!-- <b-table
           selectable
           @row-clicked="onRowSelected"
           bordered
@@ -161,31 +160,61 @@
             </span>
           </template>
           <template #cell(unit)="data">
-            {{ data.value }} 
+            {{ data.value }}
           </template>
+
           <template #cell(price)="data">
-            <span v-if="data.value > 0">{{ data.value }} {{ currency }}</span>
+            <span
+              v-if="
+                (data.value > 0 &&
+                  userData.profile_percentage == 100 &&
+                  userData.type === 'buyer') ||
+                userData.type === 'b2b'
+              "
+              >{{ data.value }} {{ currency }}</span
+            >
             <span v-else>
               {{ $t("cart.noData") }}
             </span>
           </template>
+          <template #cell(currency) colspan="2">
+            {{ currency }}
+          </template>
           <template #cell(quantity)="data">
             <Variants-Counter
-              v-if="data.value"
-              class="justify-content-center"
-              :quantity="data.value"
-              @changeCount="ChangeCounter($event)"
-            ></Variants-Counter>
-            <Variants-Counter
-              v-else
+              v-if="
+                data.item.product_details_by_type.add_type == 'cart' ||
+                data.item.product_details_by_type.add_type == 'both'
+              "
               class="justify-content-center"
               :quantity="1"
               @changeCount="ChangeCounter($event)"
             ></Variants-Counter>
+            <p
+              v-else-if="
+                data.item.product_details_by_type.add_type !== 'cart' ||
+                data.item.product_details_by_type.add_type !== 'both'
+              "
+            >
+              -
+            </p>
           </template>
           <template #cell(addTo)="data">
-            <div class="add-to d-flex justify-content-center">
-              <a @click="addToCart(data.item)">
+            <div
+              class="add-to d-flex justify-content-center"
+              v-if="
+                (userData.profile_percentage === 100 &&
+                  userData.type === 'buyer') ||
+                userData.type === 'b2b'
+              "
+            >
+              <a
+                @click="addToCart(data.item)"
+                v-if="
+                  data.item.product_details_by_type.add_type === 'cart' ||
+                  data.item.product_details_by_type.add_type === 'both'
+                "
+              >
                 <span>{{ $t("items.addToCart") }}</span>
                 <font-awesome-icon icon="fa-solid fa-cart-shopping" />
               </a>
@@ -194,8 +223,125 @@
               /></a>
               <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a>
             </div>
+            <div class="" v-else>
+              <router-link to="/profile/account-information-b2b">
+                {{ $t("profile.completeAccount") }}
+              </router-link>
+            </div>
           </template>
-        </b-table>
+        </b-table> -->
+        <table
+          class="table table-striped table-hover table-bordered selectable"
+        >
+          <thead>
+            <tr>
+              <th scope="col" v-for="(tab, index) in tableFields" :key="index">
+                {{ tab.label }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(product, index) in products" :key="index">
+              <td>
+                <router-link
+                  class="link font-weight-bold text-danger"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  {{ product.product.title }}
+                </router-link>
+              </td>
+              <td>
+                <router-link
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  <img
+                    :src="product.image_path"
+                    class="product-image"
+                    alt="product-image"
+                  />
+                </router-link>
+              </td>
+              <td>
+                <router-link
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  {{ product.client.company_name }}
+                </router-link>
+              </td>
+              <td>
+                <router-link
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  {{ product.unit.title }}
+                </router-link>
+              </td>
+              <td>
+                <router-link
+                  v-if="
+                    (userData.profile_percentage === 100 &&
+                      userData.type === 'buyer') ||
+                    userData.type === 'b2b'
+                  "
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  {{ product.product_details_by_type.customer_price }}
+                  {{ currency }}
+                </router-link>
+                <div class="" v-else>-</div>
+              </td>
+              <td>
+                <Variants-Counter
+                  v-if="
+                    product.product_details_by_type.add_type == 'cart' ||
+                    product.product_details_by_type.add_type == 'both'
+                  "
+                  class="justify-content-center"
+                  :quantity="1"
+                  @changeCount="ChangeCounter($event)"
+                ></Variants-Counter>
+                <p
+                  v-else
+                >
+                  -
+                </p>
+              </td>
+              <td>
+                <div
+                  class="add-to d-flex justify-content-center"
+                  v-if="
+                    (userData.profile_percentage === 100 &&
+                      userData.type === 'buyer') ||
+                    userData.type === 'b2b'
+                  "
+                >
+                  <a
+                    @click="addToCart(product)"
+                    v-if="
+                      product.product_details_by_type.add_type === 'cart' ||
+                      product.product_details_by_type.add_type === 'both'
+                    "
+                  >
+                    <span>{{ $t("items.addToCart") }}</span>
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                  </a>
+                  <a @click="addToWishlist()"
+                    ><font-awesome-icon icon="fa-solid fa-star"
+                  /></a>
+                  <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
+                </div>
+                <div class="" v-else>
+                  <router-link to="/profile/account-information-b2b">
+                    {{ $t("profile.completeAccount") }}
+                  </router-link>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="most-sold text-center" v-if="supplierProductsLength > 0">
@@ -260,11 +406,11 @@ export default {
         { value: "d", text: "Fourth option" },
       ],
       tableFields: [
-        {
-          key: "",
-          // key: "condition",
-          label: this.$t("items.type"),
-        },
+        // {
+        //   key: "",
+        //   // key: "condition",
+        //   label: this.$t("items.item"),
+        // },
         {
           key: "product.title",
           label: this.$t("items.item"),
@@ -285,6 +431,10 @@ export default {
           key: "product_details_by_type.customer_price",
           label: this.$t("items.price"),
         },
+        // {
+        //   key: "currency",
+        //   label: this.$t("cart.currency"),
+        // },
         {
           key: "quantity",
           label: this.$t("items.quantity"),
@@ -499,6 +649,8 @@ export default {
 }
 .product-image {
   width: 150px;
+  height: 125px;
+  object-fit: cover;
 }
 .items-body
   .content
@@ -507,5 +659,10 @@ export default {
   .customize-selection
   select[data-v-74400477] {
   height: 3rem;
+}
+.link {
+  color: #403a37;
+  font-size: 11pt;
+  margin-bottom: 0.5rem;
 }
 </style>
