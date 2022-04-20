@@ -1,9 +1,9 @@
 <template>
   <div class="category-card">
     <div>
-      <b-img
+      <b-img-lazy
         :src="image"
-      ></b-img>
+      ></b-img-lazy>
     </div>
 
     <div class="card-footer">

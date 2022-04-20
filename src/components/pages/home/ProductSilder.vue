@@ -4,9 +4,9 @@
       <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
     </span>
     <Countdown deadline="August 22, 2022"></Countdown>
-    <VueSlickCarousel v-bind="settings" class="my-5">
-      <div v-for="(x, index) in 10" :key="index">
-        <ProductCard />
+    <VueSlickCarousel v-bind="settings" class="my-5" v-if="sliders">
+      <div v-for="(slider, index) in sliders" :key="index">
+        <ProductCard :slider="slider" />
       </div>
     </VueSlickCarousel>
     <span class="product-info">
@@ -35,7 +35,7 @@
       </b-col>
     </b-row>
     <VueSlickCarousel v-bind="settings" v-else>
-      <div v-for="(supplier, index) in suppliers" :key="index" class="px-5">
+      <div v-for="(supplier, index) in suppliers" :key="index" >
         <router-link
           :to="`/suppliers/${supplier.id}`"
           class="d-block text-center"
@@ -58,6 +58,8 @@ import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 import globalAxios from "@/services/global-axios";
+import axios from "axios";
+import { baseURL } from "@/apis/Api";
 export default {
   components: {
     ProductCard,
@@ -71,7 +73,7 @@ export default {
         infinite: true,
         arrows: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 1,
         swipeToSlide: true,
         autoplay: true,
@@ -107,16 +109,15 @@ export default {
       },
       suppliers: null,
       loading: false,
+      sliders: null,
     };
   },
   methods: {
-
     getSuppliers() {
       this.loading = true;
       return globalAxios
         .get(`suppliers`)
         .then((resp) => {
-          console.log("resp suppliers", resp);
           this.suppliers = resp.data.items.data;
         })
         .catch((err) => {
@@ -126,9 +127,22 @@ export default {
           this.loading = false;
         });
     },
+    getBestDeals() {
+      axios
+        .get(`${baseURL}products/featured/offers`)
+        .then((res) => {
+          this.sliders = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.getSuppliers();
+  },
+  mounted() {
+    this.getBestDeals();
   },
 };
 </script>
@@ -163,9 +177,13 @@ export default {
   }
 }
 .supplier-image {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  transition: all .3s ease-in-out;
   opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 }
 </style>

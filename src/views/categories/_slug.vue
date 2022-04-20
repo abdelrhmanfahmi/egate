@@ -1,20 +1,20 @@
 <template>
-  <div class="subCategory">
+  <div class="subCategory" :class="$i18n.locale">
     <div class="cover text-center">
       <div
         :style="{ backgroundImage: `url(${pageCover})` }"
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
-          <div class="cover-title">
-            <h2>
+          <div class="cover-title text-white font-weight-bold">
+            <h2 class="font-weight-bold">
               {{ pageTitle }}
             </h2>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <router-link to="/">
-                    {{ $t("Home") }}
+                <li class="breadcrumb-item text-white">
+                  <router-link to="/" class="text-white font-weight-bold">
+                    {{ $t("items.home") }}
                   </router-link>
                 </li>
                 <!-- <li class="breadcrumb-item active">
@@ -85,7 +85,11 @@
                       v-model="searchWord"
                     />
                     <div class="input-group-btn">
-                      <button class="btn btn-default" type="submit">
+                      <button
+                        class="btn btn-default"
+                        type="submit"
+                        @clicks="search"
+                      >
                         <font-awesome-icon
                           icon="fa-solid fa-magnifying-glass"
                         />
@@ -122,8 +126,8 @@
                     </b-card>
                   </b-col>
                 </b-row>
-                <b-row v-else-if="!loading && allChildrenLength > 0">
-                  <b-col
+                <div class="" v-else-if="!loading && allChildrenLength > 0">
+                  <div
                     :title="category.title"
                     v-for="category in subCategories"
                     :key="category.id"
@@ -132,7 +136,7 @@
                     class="custum-padding mb-3"
                   >
                     <div
-                      class="mb-2"
+                      class="mb-2 d-inline-block"
                       v-for="cat in category.all_children"
                       :key="cat.id"
                     >
@@ -147,8 +151,8 @@
                         />
                       </router-link>
                     </div>
-                  </b-col>
-                </b-row>
+                  </div>
+                </div>
                 <div class="" v-else-if="!loading && allChildrenLength <= 0">
                   <h3 class="my-2">
                     {{ $t("home.noDataTill") }}
@@ -307,9 +311,12 @@ form {
   .xt-blog-form {
     margin-top: 50px;
   }
+  .input-group {
+    display: block !important;
+  }
   .input-group-btn {
     position: absolute;
-    right: 29%;
+    right: 5%;
     top: -12%;
     bottom: 0;
     height: 100%;
@@ -320,7 +327,6 @@ form {
       display: flex;
       justify-content: center;
       align-items: center;
-      border-left: 1px solid #ccc;
     }
   }
 }
@@ -335,10 +341,27 @@ div:empty {
   opacity: 0;
 }
 .custum-padding {
-  display: inline-box;
-  display: -webkit-inline-box;
+
   .category-card {
     margin-right: 7px;
+  }
+}
+.ar {
+  form {
+    .input-group-btn {
+      left: 10px !important;
+      right: auto;
+      top: 0px;
+    }
+  }
+}
+.en {
+  form {
+    .input-group-btn {
+      right: 10px !important;
+      left: auto;
+      top: 0px;
+    }
   }
 }
 </style>

@@ -161,7 +161,7 @@
             </span>
           </template>
           <template #cell(unit)="data">
-            {{ data.value }} {{ $t("items.kg") }}
+            {{ data.value }} 
           </template>
           <template #cell(price)="data">
             <span v-if="data.value > 0">{{ data.value }} {{ currency }}</span>
