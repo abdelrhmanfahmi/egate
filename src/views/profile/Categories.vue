@@ -4,30 +4,75 @@
       <small>{{ $t("profile.welcomeAgain") }} </small>
       <h4 class="main-header">{{ $t("profile.categories") }}</h4>
     </div>
-    <b-row>
-      <b-col v-for="(x, index) in 5" :key="index" lg="4" class="custum-padding">
-        <CategoryCard :card="{ type: 'لحوم' }" />
-      </b-col>
-    </b-row>
+
+      <b-row v-if="loading">
+        <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+          <b-skeleton-img></b-skeleton-img>
+          <b-card>
+            <b-skeleton
+              animation="fade"
+              width="60%"
+              class="border-none"
+            ></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="85%"
+              class="border-none"
+            ></b-skeleton>
+          </b-card>
+        </b-col>
+      </b-row>
+      <b-row v-else>
+        <b-col
+          v-for="category in categories"
+          :key="category.id"
+          lg="3"
+          sm="6"
+          class="custum-padding"
+        >
+          <router-link :to="`/categories/${category.id}`">
+            <CategoryCard
+              :card="{ type: category.title }"
+              :image="category.image_path"
+            />
+          </router-link>
+        </b-col>
+      </b-row>
   </div>
 </template>
 
 <script>
-import profileApi from "@/services/profile";
 import CategoryCard from "@/components/global/CategoryCard.vue";
+import categories from "@/services/categories";
+// import VueSkeletonLoader from "skeleton-loader-vue";
 export default {
   components: {
     CategoryCard,
+    // VueSkeletonLoader,
+  },
+  methods: {
+    async getCategories() {
+      await categories
+        .getCategories("lists/categories")
+        .then((resp) => {
+          this.categories = resp.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
+  data() {
+    return {
+      loading: true,
+      categories: null,
+    };
   },
   mounted() {
     this.getCategories();
-  },
-  methods: {
-    getCategories() {
-      profileApi.getCategories().then((res) => {
-        console.log(res);
-      });
-    },
   },
 };
 </script>

@@ -40,7 +40,7 @@
                     >
                   </li>
                   <li>
-                    <router-link to="/b2b-register">{{
+                    <router-link to="/b2b-login">{{
                       $t("home.buyer")
                     }}</router-link>
                   </li>

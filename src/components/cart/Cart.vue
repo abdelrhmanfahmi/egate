@@ -1,10 +1,13 @@
 <template>
   <div class="cart-content mb-2">
-    <div class="d-flex justify-content-center align-items-center" v-if="loading">
+    <div
+      class="d-flex justify-content-center align-items-center"
+      v-if="loading"
+    >
       <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
-      <div class="" v-if="cartItems">
+      <div class="cart-items-holder" v-if="cartItems">
         <div
           v-for="products in cartItems"
           :key="products.id"
@@ -12,6 +15,8 @@
         >
           <CartItem :products="products"></CartItem>
         </div>
+      </div>
+      <div class="action-holder">
         <hr />
         <div
           class="total-price d-flex justify-content-between align-items-center"
@@ -31,7 +36,10 @@
           </router-link>
         </div>
       </div>
-      <div class="d-flex justify-content-center align-items-center" v-else>
+      <div
+        class="d-flex justify-content-center align-items-center"
+        v-if="!cartItems"
+      >
         <p class="m-0">
           {{ $t("cart.noCartProducts") }}
         </p>
@@ -74,8 +82,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.cart-items {
-  max-height: 34vh;
+.cart-items-holder {
+  height: 346px;
   overflow-y: scroll;
 }
 .cart-content {

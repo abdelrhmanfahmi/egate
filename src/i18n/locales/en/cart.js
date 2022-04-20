@@ -31,4 +31,5 @@ export default {
   updateCart: "Cart Updated",
   enableButton: "remove coupone",
   proceAfterDisc: "Price After Discount",
+  currency:'Currency'
 };
