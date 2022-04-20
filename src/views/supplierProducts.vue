@@ -3,7 +3,7 @@
     <div class="data-holder py-5">
       <div class="container">
         <div class="intro text-center">
-          <h1>
+          <h1 v-if="supplier">
             <!-- {{ supplier.company_name }} {{ $t("supplier.OurShop") }} -->
             {{ supplier.company_name }} {{ $t("supplier.Shop") }}
           </h1>
