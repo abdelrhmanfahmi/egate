@@ -100,7 +100,10 @@
                 </template>
                 <form>
                   <div class="form-group">
-                    <label for="">{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.nameInput") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <input
                       type="text"
                       class="form-control"
@@ -115,9 +118,10 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="">{{
-                      $t("singleProduct.min_order_quantity")
-                    }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.min_order_quantity") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <input
                       type="number"
                       min="1"
@@ -133,7 +137,10 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="">{{ $t("singleProduct.reviewInput") }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.reviewInput") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <textarea
                       class="form-control"
                       v-model="requestData.comment"
@@ -240,7 +247,7 @@
             {{ $t("profile.completeAccount") }}
           </router-link>
         </div>
-        <div class="" v-else-if="!userData">
+        <div class="" v-else-if="!userData || userData.type === 'b2c'">
           <button
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
@@ -256,8 +263,8 @@
         <div
           class="product-counter my-3"
           v-if="
-            (myProduct.product_details_by_type.add_type == 'cart' ||
-              myProduct.product_details_by_type.add_type == 'both') &&
+            (myProduct.product_details_by_type.add_type === 'cart' ||
+              myProduct.product_details_by_type.add_type === 'both') &&
             userData
           "
         >

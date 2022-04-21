@@ -342,8 +342,8 @@
               <td>
                 <Variants-Counter
                   v-if="
-                    product.product_details_by_type.add_type == 'cart' ||
-                    product.product_details_by_type.add_type == 'both'
+                    product.product_details_by_type.add_type === 'cart' ||
+                    product.product_details_by_type.add_type === 'both'
                   "
                   class="justify-content-center"
                   :quantity="1"
