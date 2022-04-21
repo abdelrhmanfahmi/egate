@@ -324,6 +324,11 @@ export default {
             this.getAllAdresses();
             this.showForm = false;
             this.form = {};
+             if(res.status == 200){
+            setTimeout(() => {
+              this.$router.replace('/profile/documents')
+            }, 500);
+          }
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
