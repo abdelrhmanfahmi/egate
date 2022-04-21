@@ -275,7 +275,6 @@
                     alt="product-image"
                   />
                 </router-link>
-
               </td>
               <td>
                 <router-link
@@ -324,9 +323,11 @@
                 <div
                   class="add-to d-flex justify-content-center"
                   v-if="
-                    (userData.profile_percentage === 100 &&
+                    (userData &&
+                      userData.profile_percentage == 100 &&
                       userData.type === 'buyer') ||
-                    userData.type === 'b2b'
+                    userData.type === 'b2b' ||
+                    (userData.type === 'supplier' && userData.is_buyer == true)
                   "
                 >
                   <a
@@ -344,10 +345,40 @@
                   /></a>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                 </div>
-                <div class="" v-else>
+                <div
+                  class="d-flex justify-content-center"
+                  v-else-if="
+                    (userData && userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'buyer' &&
+                      userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'b2b' &&
+                      userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'supplier' &&
+                      userData.is_buyer !== true &&
+                      userData.profile_percentage !== 100)
+                  "
+                >
                   <router-link to="/profile/account-information-b2b">
                     {{ $t("profile.completeAccount") }}
                   </router-link>
+                </div>
+                <div
+                  class="add-to d-flex justify-content-center"
+                  v-else-if="!userData"
+                >
+                  <a
+                    @click="addToCart(product)"
+                    v-if="
+                      product.product_details_by_type.add_type === 'cart' ||
+                      product.product_details_by_type.add_type === 'both'
+                    "
+                  >
+                    <span>{{ $t("items.addToCart") }}</span>
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                  </a>
                 </div>
               </td>
             </tr>
