@@ -22,7 +22,7 @@
         </p>
         <p class="price">
           {{ $t("singleProduct.price") }} :
-          {{ myProduct.product_details_by_type.customer_price }} {{currency}}
+          {{ myProduct.product_details_by_type.customer_price }} {{ currency }}
         </p>
 
         <hr />
@@ -75,7 +75,8 @@
         </div>
       </div>
       <hr />
-      <div v-if="myProduct.product_details_by_type"
+      <div
+        v-if="myProduct.product_details_by_type"
         class="product-actions d-flex flex-wrap justify-content-between align-items-center"
       >
         <div class="short-links">
@@ -137,16 +138,59 @@
             </span>
           </button> -->
         </div>
-        <button
-          @click="addToCart(myProduct)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+        <div
+          class=""
           v-if="
-            myProduct.product_details_by_type.add_type === 'cart' ||
-            myProduct.product_details_by_type.add_type === 'both'
+            (userData &&
+              userData.profile_percentage == 100 &&
+              userData.type === 'buyer') ||
+            userData.type === 'b2b' ||
+            (userData.type === 'supplier' && userData.is_buyer == true)
           "
         >
-          {{ $t("singleProduct.addCart") }}
-        </button>
+          <button
+            @click="addToCart(myProduct)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+            v-if="
+              myProduct.product_details_by_type.add_type === 'cart' ||
+              myProduct.product_details_by_type.add_type === 'both'
+            "
+          >
+            {{ $t("singleProduct.addCart") }}
+          </button>
+        </div>
+        <div
+          class=""
+          v-else-if="
+            (userData && userData.profile_percentage !== 100) ||
+            (userData &&
+              userData.type === 'buyer' &&
+              userData.profile_percentage !== 100) ||
+            (userData &&
+              userData.type === 'b2b' &&
+              userData.profile_percentage !== 100) ||
+            (userData &&
+              userData.type === 'supplier' &&
+              userData.is_buyer !== true &&
+              userData.profile_percentage !== 100)
+          "
+        >
+          <router-link to="/profile/account-information-b2b">
+            {{ $t("profile.completeAccount") }}
+          </router-link>
+        </div>
+        <div class="" v-else-if="!userData">
+          <button
+            @click="addToCart(myProduct)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+            v-if="
+              myProduct.product_details_by_type.add_type === 'cart' ||
+              myProduct.product_details_by_type.add_type === 'both'
+            "
+          >
+            {{ $t("singleProduct.addCart") }}
+          </button>
+        </div>
 
         <div
           class="product-counter my-3"
