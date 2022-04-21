@@ -293,19 +293,51 @@
                 </router-link>
               </td>
               <td>
-                <router-link
+                <div
+                  class=""
                   v-if="
-                    (userData.profile_percentage === 100 &&
+                    (userData &&
+                      userData.profile_percentage == 100 &&
                       userData.type === 'buyer') ||
-                    userData.type === 'b2b'
+                    userData.type === 'b2b' ||
+                    (userData.type === 'supplier' && userData.is_buyer == true)
                   "
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
                 >
-                  {{ product.product_details_by_type.customer_price }}
-                  {{ currency }}
-                </router-link>
-                <div class="" v-else>-</div>
+                  <router-link
+                    class="link"
+                    :to="{ path: '/details', query: { id: product.id } }"
+                  >
+                    {{ product.product_details_by_type.customer_price }}
+                    {{ currency }}
+                  </router-link>
+                </div>
+                <div
+                  class=""
+                  v-else-if="
+                    (userData && userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'buyer' &&
+                      userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'b2b' &&
+                      userData.profile_percentage !== 100) ||
+                    (userData &&
+                      userData.type === 'supplier' &&
+                      userData.is_buyer !== true &&
+                      userData.profile_percentage !== 100)
+                  "
+                >
+                  -
+                </div>
+                <div class="" v-else-if="!userData || userData.type === 'b2c'">
+                  <router-link
+                    class="link"
+                    :to="{ path: '/details', query: { id: product.id } }"
+                  >
+                    {{ product.product_details_by_type.customer_price }}
+                    {{ currency }}
+                  </router-link>
+                </div>
               </td>
               <td>
                 <Variants-Counter

@@ -622,6 +622,10 @@ export default {
       });
       this.loading = false;
     },
+
+
+    // address functions 
+    
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.adresses = res.data.items;
