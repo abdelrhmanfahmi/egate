@@ -89,10 +89,71 @@
             "
           >
             <div>
-              <span role="button" @click="$bvModal.show('modal-scoped')">
+              <span id="show-btn" @click="$bvModal.show('bv-bidRequest')">
+                <!-- <span role="button" @click="loggedBidRequest"> -->
                 {{ $t("singleProduct.bidRequest") }}
                 <font-awesome-icon icon="fa-solid fa-list" />
               </span>
+              <b-modal id="bv-bidRequest" hide-footer>
+                <template #modal-title>
+                  {{ $t("singleProduct.bidRequest") }}
+                </template>
+                <form>
+                  <div class="form-group">
+                    <label for="">{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="requestData.name"
+                    />
+                    <div
+                      class="text-danger"
+                      v-for="(error, index) in errors.qoute_name"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">{{
+                      $t("singleProduct.min_order_quantity")
+                    }} <span class="text-danger">*</span></label>
+                    <input
+                      type="number"
+                      min="1"
+                      class="form-control"
+                      v-model="requestData.request_qty"
+                    />
+                    <div
+                      class="text-danger"
+                      v-for="(error, index) in errors.request_qty"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">{{ $t("singleProduct.reviewInput") }} <span class="text-danger">*</span></label>
+                    <textarea
+                      class="form-control"
+                      v-model="requestData.comment"
+                    ></textarea>
+                    <div
+                      class="text-danger"
+                      v-for="(error, index) in errors.comment"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                </form>
+                <b-button
+                  class="btn-lg btn-block"
+                  block
+                  @click="requestQuotation"
+                  >{{ $t("cart.submit") }}</b-button
+                >
+              </b-modal>
             </div>
           </button>
           <button
@@ -277,8 +338,8 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.requestData.id,
-        request_qty: this.requestData.quantity,
+        product_supplier_id: this.id,
+        request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
       suppliers
@@ -289,6 +350,7 @@ export default {
           this.sucessMsg(resp.data.message);
           setTimeout(() => {
             document.querySelector(".close").click();
+            this.requestData = [];
           }, 500);
         })
         .catch((error) => {
@@ -296,6 +358,9 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+    },
+    loggedBidRequest() {
+      this.sucessMsg("request sent");
     },
     selectedOption(option) {
       this.mySelectedOption = option;
@@ -311,10 +376,10 @@ export default {
     return {
       requestData: {
         name: null,
-        quantity: null,
+        request_qty: null,
         comment: null,
-        id: this.$route.query.id,
       },
+      id: this.$route.query.id,
       errors: {},
       mySelectedOption: 1,
     };

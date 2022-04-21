@@ -41,7 +41,7 @@ export default {
   ratingLabel: "تقييمك*",
   reviewLabel: "رأيك*",
   reviewInput: "تعليقك...",
-  nameInput: "اسمك*",
+  nameInput: "اسمك",
   emailInput: "بريدك الإلكتروني*",
   checkInput: "احفظ اسمي والبريد الإلكتروني في هذا المتصفح في المرة التالية.*",
   loginFirst: "يجب عليك تسجيل الدخول اولا",

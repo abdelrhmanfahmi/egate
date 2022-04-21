@@ -55,5 +55,8 @@ export default {
     completeProfile(payload) {
         return globalAxios.patch("checkpoint/complete", payload);
     },
+    // bidRequest(){
+
+    // }
 
 };
