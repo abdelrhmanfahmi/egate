@@ -399,7 +399,7 @@
                 </div>
                 <div
                   class="add-to d-flex justify-content-center"
-                  v-else-if="!userData"
+                  v-else-if="!userData || userData.type === 'b2c'"
                 >
                   <a
                     @click="addToCart(product)"
