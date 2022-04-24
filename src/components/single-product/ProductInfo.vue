@@ -100,7 +100,10 @@
                 </template>
                 <form>
                   <div class="form-group">
-                    <label for="">{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.nameInput") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <input
                       type="text"
                       class="form-control"
@@ -115,9 +118,10 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="">{{
-                      $t("singleProduct.min_order_quantity")
-                    }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.min_order_quantity") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <input
                       type="number"
                       min="1"
@@ -133,7 +137,10 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="">{{ $t("singleProduct.reviewInput") }} <span class="text-danger">*</span></label>
+                    <label for=""
+                      >{{ $t("singleProduct.reviewInput") }}
+                      <span class="text-danger">*</span></label
+                    >
                     <textarea
                       class="form-control"
                       v-model="requestData.comment"
@@ -209,7 +216,8 @@
             (userData.type === 'supplier' && userData.is_buyer == true)
           "
         >
-          <button
+          <b-button
+            @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
             v-if="
@@ -218,7 +226,13 @@
             "
           >
             {{ $t("singleProduct.addCart") }}
-          </button>
+          </b-button>
+
+          <transition name="modal">
+            <div class="modal-mask" v-if="showModal">
+              <modal @close="closeModal" :product="myProduct" />
+            </div>
+          </transition>
         </div>
         <div
           class=""
@@ -240,8 +254,9 @@
             {{ $t("profile.completeAccount") }}
           </router-link>
         </div>
-        <div class="" v-else-if="!userData">
-          <button
+        <div class="" v-else-if="!userData || userData.type === 'b2c'">
+          <b-button
+            @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
             v-if="
@@ -250,14 +265,14 @@
             "
           >
             {{ $t("singleProduct.addCart") }}
-          </button>
+          </b-button>
         </div>
 
         <div
           class="product-counter my-3"
           v-if="
-            (myProduct.product_details_by_type.add_type == 'cart' ||
-              myProduct.product_details_by_type.add_type == 'both') &&
+            (myProduct.product_details_by_type.add_type === 'cart' ||
+              myProduct.product_details_by_type.add_type === 'both') &&
             userData
           "
         >
@@ -301,10 +316,13 @@ Vue.use(VueSweetalert2);
 import suppliers from "@/services/suppliers";
 // import { mapActions } from "vuex";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
+import modal from "@/components/cart/cartModal.vue";
+// import CartModal from "@/components/cart/cartModal.vue"
 export default {
   components: {
     BIconPlus,
     BIconDash,
+    modal,
   },
   props: ["myProduct"],
   methods: {
@@ -321,6 +339,8 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 500);
+
+      this.showModal = true;
     },
     loginFirst() {
       Vue.swal({
@@ -371,6 +391,12 @@ export default {
     decrementQuantity() {
       this.mySelectedOption > 0 ? this.mySelectedOption-- : null;
     },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal() {
+      this.showModal = true;
+    },
   },
   data() {
     return {
@@ -382,6 +408,7 @@ export default {
       id: this.$route.query.id,
       errors: {},
       mySelectedOption: 1,
+      showModal: false,
     };
   },
 };

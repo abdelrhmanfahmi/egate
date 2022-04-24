@@ -31,5 +31,11 @@ export default {
   updateCart: "تم تحديث السله",
   enableButton: "حذف الكوبون",
   proceAfterDisc: "السعر بعد الخصم",
-  currency:'العمله'
+  currency: "العمله",
+  cartCount: "يوجد عدد ",
+  cartInCart: "من المنتجات فى السله",
+  cartSubTotal: "السعر الكلى لمنتجات السله",
+  contShopping: "تابع عملية التسوق",
+  viewCart: "سلة المشتريات",
+  success: "تمت العمليه بنجاح",
 };

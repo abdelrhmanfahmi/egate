@@ -589,25 +589,27 @@ export default {
     };
   },
   methods: {
-    selectType: function (product, index) {
+    selectType: function (supplier, index) {
       // let newRating = {
-      //   name: product.supplier_name,
-      //   // description: product.description,
-      //   // price: product.price,
+      //   name: supplier.supplier_name,
+      //   // description: supplier.description,
+      //   // price: supplier.price,
       //   // email: this.loggedUser.email,
       //   type: this.ratingNum[index],
       // };
+      console.log(supplier)
       const type = document.querySelectorAll(`input[name="types-${index}"]`);
       // let myArray = [];
       for (const f of type) {
         if (f.checked) {
           // let myArray = [f.value]
-          // console.log(JSON.stringify(f.value));
+          console.log(JSON.stringify(f.value));
           // console.log(myArray);
         }
       }
 
       localStorage.setItem("type", this.ratingNum);
+      localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
       if (localStorage.getItem("type").includes("deliver")) {
         this.deliverType = true;
       } else {
