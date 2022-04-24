@@ -28,4 +28,6 @@ export default {
   accept: "انا موافق على",
   termsAndConditions: "الشروط والأحكام",
   checkout: "الدفع",
+  delivery: "توصيل",
+  pickup: "اختر موقع استلام",
 };

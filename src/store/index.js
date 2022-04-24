@@ -3,6 +3,7 @@ import Vuex from "vuex";
 // import createPersistedState from 'vuex-persistedstate';
 import cart from "./modules/cart";
 import wishlist from "./modules/wishlist";
+import suppliers from "./modules/suppliers";
 import auth from "@/services/auth";
 import { baseURL } from "@/apis/Api";
 import axios from "axios";
@@ -80,6 +81,7 @@ export default new Vuex.Store({
   modules: {
     cart,
     wishlist,
+    suppliers
   },
   // plugins: [createPersistedState()]
 });
