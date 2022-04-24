@@ -334,6 +334,7 @@ export default {
             button.setAttribute("disabled", "true");
             // button.innerHTML = this.$t("cart.enableButton");
             myInput.setAttribute("disabled", "true");
+            localStorage.setItem('discount' , res.data.items.cart_sub_total_disc)
           }
         })
         .catch((error) => {

@@ -31,5 +31,11 @@ export default {
   updateCart: "Cart Updated",
   enableButton: "remove coupone",
   proceAfterDisc: "Price After Discount",
-  currency:'Currency'
+  currency: "Currency",
+  cartCount: "there are ",
+  cartInCart: "in your cart",
+  cartSubTotal: "Cart Subtotal",
+  contShopping:'Continue Shopping',
+  viewCart:'View Cart',
+  success:'Success'
 };

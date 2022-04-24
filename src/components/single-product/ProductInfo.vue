@@ -216,7 +216,8 @@
             (userData.type === 'supplier' && userData.is_buyer == true)
           "
         >
-          <button
+          <b-button
+            @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
             v-if="
@@ -225,7 +226,13 @@
             "
           >
             {{ $t("singleProduct.addCart") }}
-          </button>
+          </b-button>
+
+          <transition name="modal">
+            <div class="modal-mask" v-if="showModal">
+              <modal @close="closeModal" :product="myProduct" />
+            </div>
+          </transition>
         </div>
         <div
           class=""
@@ -248,7 +255,8 @@
           </router-link>
         </div>
         <div class="" v-else-if="!userData || userData.type === 'b2c'">
-          <button
+          <b-button
+            @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
             v-if="
@@ -257,7 +265,7 @@
             "
           >
             {{ $t("singleProduct.addCart") }}
-          </button>
+          </b-button>
         </div>
 
         <div
@@ -308,10 +316,13 @@ Vue.use(VueSweetalert2);
 import suppliers from "@/services/suppliers";
 // import { mapActions } from "vuex";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
+import modal from "@/components/cart/cartModal.vue";
+// import CartModal from "@/components/cart/cartModal.vue"
 export default {
   components: {
     BIconPlus,
     BIconDash,
+    modal,
   },
   props: ["myProduct"],
   methods: {
@@ -328,6 +339,8 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 500);
+
+      this.showModal = true;
     },
     loginFirst() {
       Vue.swal({
@@ -378,6 +391,12 @@ export default {
     decrementQuantity() {
       this.mySelectedOption > 0 ? this.mySelectedOption-- : null;
     },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal() {
+      this.showModal = true;
+    },
   },
   data() {
     return {
@@ -389,6 +408,7 @@ export default {
       id: this.$route.query.id,
       errors: {},
       mySelectedOption: 1,
+      showModal: false,
     };
   },
 };

@@ -413,6 +413,11 @@
                   </a>
                 </div>
               </td>
+              <transition name="modal">
+                <div class="modal-mask" v-if="showModal">
+                  <modal @close="closeModal" :product="product" />
+                </div>
+              </transition>
             </tr>
           </tbody>
         </table>
@@ -446,6 +451,7 @@ import categories from "@/services/categories";
 import suppliers from "@/services/suppliers";
 import VariantsCounter from "@/components/global/variantsCounter.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
+import modal from "@/components/cart/cartModal.vue";
 // import { mapActions } from "vuex";
 export default {
   data() {
@@ -523,11 +529,13 @@ export default {
       supplierProducts: null,
       supplierProductsLength: null,
       cartCounter: 1,
+      showModal: false,
     };
   },
   components: {
     VariantsCounter,
     Product,
+    modal,
   },
   methods: {
     // ...mapActions("cart", ["addProductToCart", "addProductToWishlist"]),
@@ -543,12 +551,19 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 500);
+      this.showModal = true;
     },
     addToWishlist() {
       // this.addProductToWishlist({
       //   product: this.product,
       //   quantity: 1,
       // });
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal() {
+      this.showModal = true;
     },
     ChangeCounter(cartCounter) {
       this.cartCounter = cartCounter;

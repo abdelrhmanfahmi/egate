@@ -241,10 +241,10 @@
             </div>
             <div class="methods-data">
               <div class="info">
-                {{ $t("payment.total") }}: {{ cart_sub_total }}
+                {{ $t("payment.total") }}: {{ cart_sub_total }} {{currency}}
               </div>
               <div class="info">
-                {{ $t("payment.discount") }}: {{ discount }}
+                {{ $t("payment.discount") }} : {{ discount }} {{currency}}
               </div>
               <div class="info delivery">
                 <div class="custom-control custom-checkbox">
@@ -264,7 +264,7 @@
                 class="d-flex justify-content-between align-items-center total"
               >
                 <span class="title">{{ $t("payment.total") }}</span>
-                <span class="price">8.600 {{ $t("payment.priceUnit") }}</span>
+                <span class="price">{{totalPayment}} {{currency}}</span>
               </div>
               <div class="methods">
                 <div class="method">
@@ -382,9 +382,6 @@ export default {
         email: null,
         coupons: [],
       },
-      discount: sessionStorage.getItem("discount")
-        ? sessionStorage.getItem("discount")
-        : 0,
       freeDelivery:
         sessionStorage.getItem("freeDelivery") == "true" ? true : false,
       errors: [],
@@ -434,8 +431,16 @@ export default {
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
+    cartTest(){
+      return this.$store.state.cart
+    },
     totalPayment() {
       return parseInt(this.cart_sub_total) - parseInt(this.discount);
+    },
+    discount() {
+      return localStorage.getItem("discount")
+        ? localStorage.getItem("discount")
+        : 0;
     },
   },
   mounted() {
