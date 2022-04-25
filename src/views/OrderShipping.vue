@@ -45,7 +45,6 @@
         <input type="submit" />
       </form>
     </div> -->
-
     <div class="container my-5">
       <div class="cart-table p-4">
         <div
@@ -64,21 +63,21 @@
                 <label>
                   <input
                     type="radio"
-                    value="deliver"
+                    value="0"
                     :name="'types-' + index"
                     v-model="ratingNum[index]"
                     checked
                   />
-                  <span class="mx-2">Deliver</span>
+                  <span class="mx-2">{{ $t("payment.delivery") }}</span>
                 </label>
-                <label>
+                <label v-if="userData">
                   <input
                     type="radio"
-                    value="backup"
+                    value="1"
                     :name="'types-' + index"
                     v-model="ratingNum[index]"
                   />
-                  <span>Backup</span>
+                  <span>{{ $t("payment.pickup") }}</span>
                 </label>
               </form>
             </div>
@@ -99,29 +98,34 @@
               />
               <span>{{ $t("profile.newAddress") }}</span>
             </label>
-            <label>
+            <label v-if="userData">
               <input
                 type="radio"
                 value="existingAddresses"
                 name="radio"
                 v-model="selectAddressShape"
               />
-              <span>Backup</span>
+              <span>{{ $t("payment.pickup") }}</span>
             </label>
             <span v-if="selectAddressShape === 'existingAddresses'">
               <b-form-select
-                v-model="newAddressOption"
-                :options="options"
-              ></b-form-select>
+                v-model="selectedAddress"
+                @input="changeAddress"
+                class="pickupAddresses"
+              >
+                <b-form-select-option
+                  v-for="(address, index) in addresses"
+                  :key="index"
+                  :value="address"
+                  >{{ index + 1 }}</b-form-select-option
+                >
+              </b-form-select>
             </span>
           </form>
         </div>
         <div class="addressShape">
           <div class="newAddress" v-if="selectAddressShape === 'newAddress'">
-            <form
-              @submit.prevent="createAdress()"
-              class="account-information-form"
-            >
+            <form class="account-information-form">
               <b-row class="justify-content-center">
                 <!-- country  -->
                 <b-col lg="12">
@@ -306,11 +310,28 @@
               </b-row>
 
               <b-button
+                v-if="userData"
                 type="submit"
+                @click.prevent="createAdress()"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
                 {{ $t("register.submit") }}
               </b-button>
+              <b-button
+                v-else
+                type="submit"
+                @click.prevent="localStoreAdresses()"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("register.submit") }}
+              </b-button>
+              <router-link
+                v-if="submitted"
+                to="/payment"
+                class="login-button dark m-0 mt-4 ml-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("cart.checkout") }}
+              </router-link>
             </form>
           </div>
 
@@ -322,7 +343,7 @@
               <form
                 v-if="
                   selectAddressShape === 'existingAddresses' &&
-                  newAddressOption !== null
+                  selectedAddress !== null
                 "
                 @submit.prevent="createAdress()"
                 class="account-information-form"
@@ -586,31 +607,45 @@ export default {
         { value: "a", text: "This is First option" },
         { value: "b", text: "Selected Option" },
       ],
+      selectedAddress: null,
+      addresses: null,
+      submitted: false,
     };
   },
   methods: {
+    changeAddress() {
+      this.newForm = this.selectedAddress;
+      console.log("old selected address", this.selectedAddress);
+    },
     selectType: function (supplier, index) {
-      // let newRating = {
-      //   name: supplier.supplier_name,
-      //   // description: supplier.description,
-      //   // price: supplier.price,
-      //   // email: this.loggedUser.email,
-      //   type: this.ratingNum[index],
-      // };
-      console.log(supplier)
+      let newRating = {
+        // name: supplier.supplier_name,
+        id: supplier.supplier_id,
+        supplier_id: supplier.supplier_id,
+        // description: supplier.description,
+        // price: supplier.price,
+        // email: this.loggedUser.email,
+        shipping_type: this.ratingNum[index],
+        coupon: supplier.coupon ? supplier.coupon : "",
+      };
+      this.$store.dispatch("suppliers/addSupplierToCart", {
+        suppliers: newRating,
+      });
+      // console.log(newRating);
+      // console.log(supplier);
       const type = document.querySelectorAll(`input[name="types-${index}"]`);
       // let myArray = [];
       for (const f of type) {
         if (f.checked) {
           // let myArray = [f.value]
-          console.log(JSON.stringify(f.value));
+          // console.log(JSON.stringify(f.value));
           // console.log(myArray);
         }
       }
 
-      localStorage.setItem("type", this.ratingNum);
-      localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
-      if (localStorage.getItem("type").includes("deliver")) {
+      // localStorage.setItem("type", this.ratingNum);
+      // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
+      if (this.ratingNum.includes("0")) {
         this.deliverType = true;
       } else {
         this.deliverType = false;
@@ -625,12 +660,11 @@ export default {
       this.loading = false;
     },
 
+    // address functions
 
-    // address functions 
-    
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
-        this.adresses = res.data.items;
+        this.addresses = res.data.items;
         console.log(res);
       });
     },
@@ -667,6 +701,10 @@ export default {
             this.getAllAdresses();
             this.showForm = false;
             this.form = {};
+            if (res.status == 200) {
+              this.submitted = true;
+            }
+            localStorage.setItem("addressUUID", res.data.items.uuid);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -674,11 +712,26 @@ export default {
             this.errMsg(err.message);
           });
     },
+    localStoreAdresses() {
+      localStorage.setItem("guestAddressData", JSON.stringify(this.form));
+      setTimeout(() => {
+        this.$nextTick(function () {
+          this.sucessMsg(this.$t('cart.success'))
+          this.form = [];
+          this.submitted = true
+        });
+      }, 500);
+    },
   },
   mounted() {
     this.getCartProducts();
     this.getAllCountires();
     this.getAllAdresses();
+  },
+  computed: {
+    supplierCart() {
+      return this.$store.state.suppliers;
+    },
   },
 };
 </script>
@@ -808,5 +861,8 @@ html:lang(ar) {
       left: 100%;
     }
   }
+}
+.pickupAddresses {
+  min-width: 250px;
 }
 </style>
