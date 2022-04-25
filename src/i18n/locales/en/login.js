@@ -13,4 +13,9 @@ export default {
   thankYou: "Thank you",
   invalidEmail: "Invalid Email",
   resetPassword: "Reset Password",
+  log1: "You are about to get your order !",
+  log2: "Do you want to have a registered account with Humhumm?",
+  logBtn1: "Yes, i want to register",
+  logBtn2: "No, Continue as a guest",
+  actionComplete: "Complete Action",
 };

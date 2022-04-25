@@ -13,5 +13,9 @@ export default {
   thankYou: "شكراً لك",
   invalidEmail: "بريد خاطئ",
   resetPassword: "إعادة كلمة المرور",
-
+  log1: "أنت على وشك الحصول على طلبك!",
+  log2: "هل تريد أن يكون لديك حساب مسجل في Humhumm؟",
+  logBtn1: " نعم ، أريد التسجيل",
+  logBtn2: "لا ، المتابعة بدون تسجيل",
+  actionComplete: "من فضلك اكمل العمليه",
 };

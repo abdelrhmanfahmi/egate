@@ -93,22 +93,6 @@
                   {{ error }}
                 </div>
               </div>
-              <div class="col-12 form-group required">
-                <label for="address">{{ $t("payment.address") }}</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address"
-                  v-model="formData.address"
-                />
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in errors.address"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-              </div>
               <div class="col-6 form-group required">
                 <label for="governorate">{{ $t("payment.governorate") }}</label>
 
@@ -153,6 +137,23 @@
                   {{ error }}
                 </div>
               </div>
+              <div class="col-12 form-group required">
+                <label for="address">{{ $t("payment.address") }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  v-model="formData.address"
+                />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.address"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+
               <div class="col-6 form-group required">
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
                 <input
@@ -241,10 +242,10 @@
             </div>
             <div class="methods-data">
               <div class="info">
-                {{ $t("payment.total") }}: {{ cart_sub_total }} {{currency}}
+                {{ $t("payment.total") }}: {{ cart_sub_total }} {{ currency }}
               </div>
               <div class="info">
-                {{ $t("payment.discount") }} : {{ discount }} {{currency}}
+                {{ $t("payment.discount") }} : {{ discount }} {{ currency }}
               </div>
               <div class="info delivery">
                 <div class="custom-control custom-checkbox">
@@ -264,7 +265,7 @@
                 class="d-flex justify-content-between align-items-center total"
               >
                 <span class="title">{{ $t("payment.total") }}</span>
-                <span class="price">{{totalPayment}} {{currency}}</span>
+                <span class="price">{{ totalPayment }} {{ currency }}</span>
               </div>
               <div class="methods">
                 <div class="method">
@@ -363,10 +364,11 @@ export default {
   data() {
     return {
       count: 0,
+      storedData: null,
       formData: {
-        guest_uuid: sessionStorage.getItem("coupons")
-          ? sessionStorage.getItem("coupons")
-          : null,
+        // guest_uuid: sessionStorage.getItem("coupons")
+        //   ? sessionStorage.getItem("coupons")
+        //   : null,
         comment: null,
         phone: null,
         payment_type: null,
@@ -375,9 +377,9 @@ export default {
         company_name: null,
         address: null,
         sameAddress: false,
-        country: 1,
-        governorate: 1,
-        city: 2,
+        country: null,
+        governorate: null,
+        city: null,
         postal_code: null,
         email: null,
         coupons: [],
@@ -431,8 +433,8 @@ export default {
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
-    cartTest(){
-      return this.$store.state.cart
+    cartTest() {
+      return this.$store.state.cart;
     },
     totalPayment() {
       return parseInt(this.cart_sub_total) - parseInt(this.discount);
@@ -445,6 +447,14 @@ export default {
   },
   mounted() {
     this.getAllCountires();
+    this.storedData = JSON.parse(localStorage.getItem("guestAddressData"));
+    // this.formData.country = this.storedData.country_id
+    // this.formData.governorate = this.storedData.region_id
+    // this.formData.country = this.storedData.country_id
+    console.log(this.storedData);
+    this.formData.postal_code = this.storedData.pin_code
+      ? this.storedData.pin_code
+      : null;
   },
 };
 </script>

@@ -28,9 +28,14 @@
           alt="product-image"
         />
         <div class="mt-2">
-          <span class="h5">
+          <span class="h5" v-if="cart_sub_total > 0">
             {{ $t("cart.cartCount") }}
-            <router-link to="/cart"> {{ cartItemsLength }} items </router-link>
+            <router-link to="/cart"> {{ cartItemsLength }} {{$t('cart.items')}} </router-link>
+            {{ $t("cart.cartInCart") }}
+          </span>
+          <span class="h5" v-else>
+            {{ $t("cart.cartCount") }}
+            <router-link to="/cart"> 1 {{$t('cart.items')}} </router-link>
             {{ $t("cart.cartInCart") }}
           </span>
         </div>
@@ -76,7 +81,7 @@ export default {
       return this.$store.state.cart.cartItems;
     },
     cartItemsLength() {
-      return this.cartItems.length;
+      return this.cart_sub_total > 0 ? this.cartItems.length : 0;
     },
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;

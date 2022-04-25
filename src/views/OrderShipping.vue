@@ -70,7 +70,7 @@
                   />
                   <span class="mx-2">{{ $t("payment.delivery") }}</span>
                 </label>
-                <label v-if="userData">
+                <label>
                   <input
                     type="radio"
                     value="1"
@@ -117,7 +117,7 @@
                   v-for="(address, index) in addresses"
                   :key="index"
                   :value="address"
-                  >{{ index + 1 }}</b-form-select-option
+                  >{{ address.country_id }} , {{ address.region_id }} , {{ address.city_id }} , {{ address.building_number }} </b-form-select-option
                 >
               </b-form-select>
             </span>
@@ -131,7 +131,7 @@
                 <b-col lg="12">
                   <b-form-group>
                     <label>{{ $t("profile.country") }}</label>
-                    <span class="requried">*</span>
+                    <span class="requried text-danger">*</span>
                     <b-form-select
                       v-model="form.country_id"
                       @input="getAllRegions"
@@ -182,7 +182,7 @@
                 <b-col lg="6">
                   <b-form-group>
                     <label>{{ $t("profile.city") }}</label>
-                    <span class="requried">*</span>
+                    <span class="requried text-danger">*</span>
                     <b-form-select
                       v-model="form.city_id"
                       :disabled="!form.country_id || !form.region_id"
@@ -204,7 +204,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- street number  -->
-                <b-col lg="12">
+                <!-- <b-col lg="12">
                   <b-form-group>
                     <label for="streetNumber">{{
                       $t("profile.streetNumber")
@@ -222,7 +222,7 @@
                       {{ error }}
                     </div>
                   </b-form-group>
-                </b-col>
+                </b-col> -->
                 <!-- home number  -->
                 <b-col lg="6">
                   <b-form-group>
@@ -279,6 +279,7 @@
                 <b-col lg="6">
                   <b-form-group>
                     <label for="postCode">{{ $t("profile.postCode") }}</label>
+                    <span class="required text-danger">*</span>
                     <b-form-input id="postCode" v-model="form.pin_code" />
                     <div
                       class="error"
@@ -578,24 +579,24 @@ export default {
       deliverType: null,
       selectAddressShape: null,
       form: {
-        country_id: "",
-        region_id: "",
-        city_id: "",
-        building_number: "",
-        floor: "",
-        apartment: "",
-        pin_code: "",
-        notes: "",
+        country_id: null,
+        region_id: null,
+        city_id: null,
+        building_number: null,
+        floor: null,
+        apartment: null,
+        pin_code: null,
+        notes: null,
       },
       newForm: {
-        country_id: "",
-        region_id: "",
-        city_id: "",
-        building_number: "",
-        floor: "",
-        apartment: "",
-        pin_code: "",
-        notes: "",
+        country_id: null,
+        region_id: null,
+        city_id: null,
+        building_number: null,
+        floor: null,
+        apartment: null,
+        pin_code: null,
+        notes: null,
       },
       countries: [],
       cities: [],
@@ -615,7 +616,11 @@ export default {
   methods: {
     changeAddress() {
       this.newForm = this.selectedAddress;
-      console.log("old selected address", this.selectedAddress);
+      // console.log("old selected address", index);
+      localStorage.setItem(
+        "guestAddressData",
+        JSON.stringify(this.selectedAddress)
+      );
     },
     selectType: function (supplier, index) {
       let newRating = {
@@ -629,7 +634,7 @@ export default {
         coupon: supplier.coupon ? supplier.coupon : "",
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
-        suppliers: newRating,
+        supplier: newRating,
       });
       // console.log(newRating);
       // console.log(supplier);
@@ -714,13 +719,18 @@ export default {
     },
     localStoreAdresses() {
       localStorage.setItem("guestAddressData", JSON.stringify(this.form));
-      setTimeout(() => {
-        this.$nextTick(function () {
-          this.sucessMsg(this.$t('cart.success'))
-          this.form = [];
-          this.submitted = true
-        });
-      }, 500);
+      
+      if (
+        this.form.country_id !== null &&
+        this.form.region_id !== null &&
+        this.form.city_id !== null &&
+        this.form.pin_code !== null
+      ) {
+        this.sucessMsg(this.$t("cart.success"));
+        this.submitted = true;
+      }else{
+        this.errMsg(this.$t("cart.fillData"));
+      }
     },
   },
   mounted() {
