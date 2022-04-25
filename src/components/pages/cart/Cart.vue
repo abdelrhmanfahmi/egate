@@ -7,7 +7,7 @@
       <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
-      <div class="" v-if="cartItems !==null">
+      <div class="" v-if="cartItems !== null">
         <h5 class="heading py-5 text-center">{{ $t("cart.purchaseCart") }}</h5>
         <div class="cart-table p-4">
           <table class="table">
@@ -86,13 +86,13 @@
                   :key="item.id"
                 >
                   <div class="d-flex flex-wrap align-items-center">
-                    <router-link
+                    <!-- <router-link
                       to="/profile/account-information-b2b"
                       type="submit"
                       class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
                     >
                       {{ $t("cart.UpdateDelivery") }}
-                    </router-link>
+                    </router-link> -->
                     <!-- <b-button
                       
                       type="submit"
@@ -179,11 +179,26 @@
             </table>
             <div class="checkout d-flex">
               <router-link
+                v-if="userData"
                 to="/order-shipping"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
-                {{ $t("next") }}
+                {{ $t("cart.next") }}
               </router-link>
+              <button
+                @click="showModal = true"
+                @ok="$refs.cartModal.onSubmit()"
+                v-else
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+               {{ $t("cart.next") }}
+              </button>
+
+              <transition name="modal">
+                <div class="modal-mask" v-if="showModal">
+                  <login-modal @close="closeModal" />
+                </div>
+              </transition>
               <!-- <router-link
                 to="/payment"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
@@ -208,11 +223,12 @@
 </template>
 
 <script>
-import Counter from "../../global/Counter.vue";
+import Counter from "@/components/global/Counter.vue";
 import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
+import loginModal from "@/components/global/loginModal.vue";
 export default {
-  components: { Counter },
+  components: { Counter, loginModal },
   data() {
     return {
       coupon: null,
@@ -232,10 +248,12 @@ export default {
       selectedButton: null,
       selectedSpan: null,
       myQuantity: null,
+      showModal: false,
     };
   },
   mounted() {
     this.getCartProducts();
+    localStorage.removeItem("discount");
   },
   methods: {
     changeCoupon($event) {
@@ -334,7 +352,10 @@ export default {
             button.setAttribute("disabled", "true");
             // button.innerHTML = this.$t("cart.enableButton");
             myInput.setAttribute("disabled", "true");
-            localStorage.setItem('discount' , res.data.items.cart_sub_total_disc)
+            localStorage.setItem(
+              "discount",
+              res.data.items.cart_sub_total_disc
+            );
           }
         })
         .catch((error) => {
@@ -352,6 +373,12 @@ export default {
       setTimeout(() => {
         this.getCartProducts();
       }, 300);
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal() {
+      this.showModal = true;
     },
   },
   computed: {

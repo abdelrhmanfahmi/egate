@@ -35,7 +35,10 @@ export default {
   cartCount: "there are ",
   cartInCart: "in your cart",
   cartSubTotal: "Cart Subtotal",
-  contShopping:'Continue Shopping',
-  viewCart:'View Cart',
-  success:'Success'
+  contShopping: "Continue Shopping",
+  viewCart: "View Cart",
+  success: "Success",
+  items: "Items",
+  fillData: "Please Fill Data",
+  next: "Next",
 };

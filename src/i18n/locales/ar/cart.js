@@ -38,4 +38,7 @@ export default {
   contShopping: "تابع عملية التسوق",
   viewCart: "سلة المشتريات",
   success: "تمت العمليه بنجاح",
+  items: "منتج",
+  fillData: "من فضلك املأ البيانات",
+  next: "التالى",
 };

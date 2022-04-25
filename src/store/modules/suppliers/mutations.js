@@ -1,6 +1,6 @@
-export const ADD_SUPPLIER_TO_CART = (state, { suppliers }) => {
+export const ADD_SUPPLIER_TO_CART = (state, { supplier }) => {
   let suppliersInCart = state.suppliers.find((item) => {
-    return item.suppliers.id === suppliers.id;
+    return item.supplier.id === supplier.id;
   });
 
   if (suppliersInCart) {
@@ -9,7 +9,7 @@ export const ADD_SUPPLIER_TO_CART = (state, { suppliers }) => {
   }
 
   state.suppliers.push({
-    suppliers,
+    supplier,
   });
 };
 

@@ -86,10 +86,11 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
-      }, 1000);
+      }, 500);
       setTimeout(() => {
         this.loading = false;
       }, 1200);
+      return (this.$store.state.cartItems = []);
     },
   },
 };
