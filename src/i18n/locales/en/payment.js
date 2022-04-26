@@ -28,6 +28,6 @@ export default {
   accept: "I accept",
   termsAndConditions: "terms and conditions",
   checkout: "Checkout",
-  delivery:'Delivery',
+  delivery:'Shipping',
   pickup:'Pickup'
 };

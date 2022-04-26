@@ -117,7 +117,7 @@
                   v-for="(address, index) in addresses"
                   :key="index"
                   :value="address"
-                  >{{ address.country_id }} , {{ address.region_id }} , {{ address.city_id }} , {{ address.building_number }} </b-form-select-option
+                  >{{ address.country.title }} , {{ address.region.title }} , {{ address.city.title }} </b-form-select-option
                 >
               </b-form-select>
             </span>
