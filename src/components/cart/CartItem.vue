@@ -37,10 +37,29 @@
           </router-link>
 
           <span class="price">
+            {{ product.price.toFixed(3) }}
+          </span>
+          <span class="price"> x </span>
+          <span class="price">
+            <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
+          </span>
+        </div>
+        <!-- <div class="product-info w-100" v-else>
+          <router-link
+            class="name"
+            :to="{
+              path: '/details',
+              query: { id: `${product.product_supplier_id}` },
+            }"
+          >
+            {{ product.product_name }}
+          </router-link>
+
+          <span class="price">
             {{ product.price }} x
             <b class="text-success">{{ product.quantity }} </b>
           </span>
-        </div>
+        </div> -->
         <div class="total mr-2">
           {{ product.product_sub_total }} {{ currency }}
         </div>
