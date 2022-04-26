@@ -24,5 +24,8 @@ export default {
   },
   getBestDeals(){
     return globalAxios.get('products/best/offers')
+  },
+  getSupplierAddress(supplierId){
+    return globalAxios.get(`shipping-info/supplier-addresses/${supplierId}`)
   }
 };
