@@ -46,9 +46,12 @@
       </form>
     </div> -->
     <div class="container my-5">
+      <h3 class="font-weight-bold">
+        {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
+      </h3>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <div class="cart-table p-4">
+          <div class="cart-table p-5">
             <div
               class="supplier mt-4"
               v-for="(supplier, index) in cartItems"
@@ -64,6 +67,7 @@
                   <form @change="selectType(supplier, index)" class="d-flex">
                     <label>
                       <input
+                        @change="changeShippping"
                         type="radio"
                         value="0"
                         :name="'types-' + index"
@@ -75,6 +79,7 @@
                     <label>
                       <input
                         @input="getSupplierAddress(supplier.supplier_id)"
+                        @change="changePackUp"
                         type="radio"
                         value="1"
                         :name="'types-' + index"
@@ -82,10 +87,10 @@
                       />
                       <span>{{ $t("payment.pickup") }}</span>
                     </label>
+
                     <b-form-select
-                      v-if="deliverType == false"
                       @input="selectAddressUUID"
-                      class="w-auto"
+                      class="w-100 mt-2 supplierAddresses d-none"
                     >
                       <b-form-select-option
                         v-for="(address, index) in selectedSupplierAddresses"
@@ -99,7 +104,7 @@
                   </form>
                 </div>
               </div>
-              <hr class="divider" />
+              <!-- <hr class="divider" /> -->
             </div>
           </div>
           <div class="" v-if="deliverType == false">
@@ -112,7 +117,7 @@
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
-          <div class="addresses-holder" v-if="deliverType == true">
+          <div class="addresses-holder p-5" v-if="deliverType == true">
             <div class="addresses mb-5">
               <form>
                 <label>
@@ -162,12 +167,16 @@
                     <!-- country  -->
                     <b-col lg="12">
                       <b-form-group>
-                        <label>{{ $t("profile.country") }}</label>
-                        <span class="requried text-danger">*</span>
+                        <!-- <label>{{ $t("profile.country") }}</label> -->
+
                         <b-form-select
                           v-model="form.country_id"
                           @input="getAllRegions"
                         >
+                          <b-form-select-option value="null" disabled
+                            >{{ $t("profile.country") }}
+                            <span class="requried text-danger">*</span>
+                          </b-form-select-option>
                           <b-form-select-option
                             v-for="country in countries"
                             :key="country.id"
@@ -187,13 +196,17 @@
                     <!-- regions -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label>{{ $t("profile.region") }}</label>
-                        <span class="requried">*</span>
+                        <!-- <label>{{ $t("profile.region") }}</label>
+                        <span class="requried">*</span> -->
                         <b-form-select
                           v-model="form.region_id"
                           :disabled="!form.country_id"
                           @input="getAllCities"
                         >
+                          <b-form-select-option value="null" disabled
+                            >{{ $t("profile.region") }}
+                            <span class="requried text-danger">*</span>
+                          </b-form-select-option>
                           <b-form-select-option
                             v-for="region in regions"
                             :key="region.id"
@@ -213,12 +226,16 @@
                     <!-- cities -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label>{{ $t("profile.city") }}</label>
-                        <span class="requried text-danger">*</span>
+                        <!-- <label>{{ $t("profile.city") }}</label>
+                        <span class="requried text-danger">*</span> -->
                         <b-form-select
                           v-model="form.city_id"
                           :disabled="!form.country_id || !form.region_id"
                         >
+                          <b-form-select-option value="null" disabled
+                            >{{ $t("profile.city") }}
+                            <span class="requried text-danger">*</span>
+                          </b-form-select-option>
                           <b-form-select-option
                             v-for="city in cities"
                             :key="city.id"
@@ -236,35 +253,37 @@
                       </b-form-group>
                     </b-col>
                     <!-- street number  -->
-                    <!-- <b-col lg="12">
-                  <b-form-group>
-                    <label for="streetNumber">{{
-                      $t("profile.streetNumber")
-                    }}</label>
-                    <span class="requried">*</span>
-                    <b-form-input
-                      id="streetNumber"
-                      v-model="form.address_line_1"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.address_line_1"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </b-form-group>
-                </b-col> -->
+                    <b-col lg="12">
+                      <b-form-group>
+                        <!-- <label for="streetNumber">{{
+                          $t("profile.streetNumber")
+                        }}</label> -->
+                        <!-- <span class="requried">*</span> -->
+                        <b-form-input
+                          id="streetNumber"
+                          v-model="form.street"
+                          :placeholder="$t('profile.streetNumber') + '*'"
+                        />
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.street"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
+                      </b-form-group>
+                    </b-col>
                     <!-- home number  -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label for="homeNumber">{{
+                        <!-- <label for="homeNumber">{{
                           $t("profile.homeNumber")
-                        }}</label>
-                        <span class="requried">*</span>
+                        }}</label> -->
+                        <!-- <span class="requried">*</span> -->
                         <b-form-input
                           id="homeNumber"
                           v-model="form.building_number"
+                          :placeholder="$t('profile.homeNumber') + '*'"
                         />
                         <div
                           class="error"
@@ -278,9 +297,13 @@
                     <!-- floor  -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label for="floor">{{ $t("profile.floor") }}</label>
-                        <span class="requried">*</span>
-                        <b-form-input id="floor" v-model="form.floor" />
+                        <!-- <label for="floor">{{ $t("profile.floor") }}</label>
+                        <span class="requried">*</span> -->
+                        <b-form-input
+                          id="floor"
+                          v-model="form.floor"
+                          :placeholder="$t('profile.floor') + '*'"
+                        />
                         <div
                           class="error"
                           v-for="(error, index) in errors.floor"
@@ -293,13 +316,14 @@
                     <!-- block number   -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label for="blockNumber">{{
+                        <!-- <label for="blockNumber">{{
                           $t("profile.blockNumber")
                         }}</label>
-                        <span class="requried">*</span>
+                        <span class="requried">*</span> -->
                         <b-form-input
                           id="blockNumber"
                           v-model="form.apartment"
+                          :placeholder="$t('profile.blockNumber') + '*'"
                         />
                         <div
                           class="error"
@@ -313,17 +337,18 @@
                     <!-- post code  -->
                     <b-col lg="6">
                       <b-form-group>
-                        <label for="postCode">{{
+                        <!-- <label for="postCode">{{
                           $t("profile.postCode")
                         }}</label>
-                        <span class="required text-danger">*</span>
+                        <span class="required text-danger">*</span> -->
                         <b-form-input
                           id="postCode"
-                          v-model="form.postal_code"
+                          v-model="form.pin_code"
+                          :placeholder="$t('profile.postCode') + '*'"
                         />
                         <div
                           class="error"
-                          v-for="(error, index) in errors.postal_code"
+                          v-for="(error, index) in errors.pin_code"
                           :key="index"
                         >
                           {{ error }}
@@ -474,11 +499,11 @@
                           <b-form-input
                             id="streetNumber"
                             disabled
-                            v-model="newForm.address_line_1"
+                            v-model="newForm.street"
                           />
                           <div
                             class="error"
-                            v-for="(error, index) in errors.address_line_1"
+                            v-for="(error, index) in errors.street"
                             :key="index"
                           >
                             {{ error }}
@@ -554,16 +579,28 @@
                           }}</label>
                           <b-form-input
                             id="postCode"
-                            v-model="newForm.postal_code"
+                            v-model="newForm.pin_code"
                             disabled
                           />
                           <div
                             class="error"
-                            v-for="(error, index) in errors.postal_code"
+                            v-for="(error, index) in errors.pin_code"
                             :key="index"
                           >
                             {{ error }}
                           </div>
+                        </b-form-group>
+                      </b-col>
+
+                      <b-col lg="12">
+                        <b-form-group>
+                          <label for="textarea">{{ $t("profile.note") }}</label>
+                          <b-form-textarea
+                            id="textarea"
+                            size="lg"
+                            disabled
+                            v-model="form.notes"
+                          ></b-form-textarea>
                         </b-form-group>
                       </b-col>
                       <!-- note  -->
@@ -623,9 +660,10 @@ export default {
         building_number: null,
         floor: null,
         apartment: null,
-        postal_code: null,
+        pin_code: null,
         notes: null,
-        address_uuid: null,
+        // address_uuid: null,
+        street: null,
       },
       newForm: {
         country_id: null,
@@ -634,8 +672,9 @@ export default {
         building_number: null,
         floor: null,
         apartment: null,
-        postal_code: null,
+        pin_code: null,
         notes: null,
+        street: null,
       },
       countries: [],
       cities: [],
@@ -652,28 +691,30 @@ export default {
       submitted: false,
       supplierAddress: null,
       selectedSupplierAddresses: null,
+      selectedInput: null,
     };
   },
   methods: {
     changeAddress() {
       this.newForm = this.selectedAddress;
-      // console.log("old selected address", index);
+      // console.log("old selected address", this.selectedAddress);
       localStorage.setItem(
         "guestAddressData",
         JSON.stringify(this.selectedAddress)
       );
+      localStorage.setItem("addressUUID", this.selectedAddress.uuid);
     },
     selectAddressUUID(myselectAddressUUID) {
       this.supplierAddress = myselectAddressUUID.uuid;
       this.address_uuid = myselectAddressUUID.uuid;
-      localStorage.setItem("supplierUUID", myselectAddressUUID.uuid);
+      localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
     selectType: function (supplier, index) {
       let newRating = {
         // name: supplier.supplier_name,
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
-        // address_uuid: localStorage.getItem('supplierUUID'),
+        // address_uuid: localStorage.getItem('addressUUID'),
         // description: supplier.description,
         // price: supplier.price,
         // email: this.loggedUser.email,
@@ -771,7 +812,7 @@ export default {
         this.form.country_id !== null &&
         this.form.region_id !== null &&
         this.form.city_id !== null &&
-        this.form.postal_code !== null
+        this.form.pin_code !== null
       ) {
         this.sucessMsg(this.$t("cart.success"));
         this.submitted = true;
@@ -792,11 +833,26 @@ export default {
           console.log(err);
         });
     },
+    changePackUp($event) {
+      let input = $event.target;
+
+      this.selectedInput = input;
+
+      let button = input.parentElement.nextElementSibling;
+      button.classList.add("d-block");
+    },
+    changeShippping() {
+      document.querySelector(".supplierAddresses").classList.remove("d-block");
+    },
   },
   mounted() {
     this.getCartProducts();
     this.getAllCountires();
     this.getAllAdresses();
+    // let checkTypes = localStorage.getItem('type');
+    // if(checkTypes.includes('1')){
+    //   alert('pickup')
+    // }
   },
   computed: {
     supplierCart() {
@@ -832,7 +888,7 @@ label {
     position: absolute;
 
     &:checked + span {
-      background-color: mix(#fff, $primary-color, 84%);
+      /* background-color: mix(#fff, $primary-color, 84%); */
       &:before {
         box-shadow: inset 0 0 0 0.4375em $primary-color;
       }
@@ -944,25 +1000,41 @@ html:lang(ar) {
 }
 .supplier {
   position: relative;
-  &::before {
+  &::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    background: #dedede;
-    width: 90%;
-    height: 2px;
-    
+    background: #555555;
+    width: 100%;
+    height: 1.5px;
+  }
+  &::after:last-child {
+    display: none !important;
   }
 }
-.supplier::before:last-of-type {
-  display: none;
-}
+
 .divider {
   height: 3px;
   &:last-of-type {
     display: none;
   }
-} 
+}
+.name {
+  color: #6e6e6e;
+  font-weight: 600;
+}
+input,
+input:active,
+select,
+textarea {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 15px;
+  &:focus {
+    box-shadow: 0 0 0 0.1rem #6e6e6e;
+  }
+}
 </style>
