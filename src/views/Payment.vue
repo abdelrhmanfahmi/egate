@@ -72,7 +72,7 @@
                   {{ error }}
                 </div>
               </div>
-              <!-- <div class="col-12 form-group required">
+              <!-- <div class="col-12 form-group required" v-if="checkType">
                 <label for="country">{{ $t("payment.country") }}</label>
                 <b-form-select
                   v-model="formData.country"
@@ -93,7 +93,7 @@
                   {{ error }}
                 </div>
               </div> -->
-              <!-- <div class="col-6 form-group required">
+              <!-- <div class="col-6 form-group required" v-if="checkType">
                 <label for="governorate">{{ $t("payment.governorate") }}</label>
 
                 <b-form-select
@@ -116,7 +116,7 @@
                   {{ error }}
                 </div>
               </div> -->
-              <!-- <div class="col-6 form-group required">
+              <!-- <div class="col-6 form-group required" v-if="checkType">
                 <label for="city">{{ $t("payment.city") }}</label>
                 <b-form-select
                   v-model="formData.city"
@@ -137,7 +137,7 @@
                   {{ error }}
                 </div>
               </div> -->
-              <!-- <div class="col-12 form-group required">
+              <div class="col-12 form-group required">
                 <label for="address">{{ $t("payment.address") }}</label>
                 <input
                   type="text"
@@ -152,9 +152,13 @@
                 >
                   {{ error }}
                 </div>
-              </div> -->
+              </div>
 
-              <!-- <div class="col-6 form-group required">
+              <div
+                :class="{ 'col-12': checkType }"
+                class="col-6 form-group required"
+                v-if="checkType"
+              >
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
                 <input
                   type="text"
@@ -169,9 +173,9 @@
                 >
                   {{ error }}
                 </div>
-              </div> -->
+              </div>
 
-              <div class="col-6 form-group required" v-if="userData">
+              <div class="col-6 form-group required">
                 <label for="email">{{ $t("payment.email") }}</label>
                 <input
                   type="email"
@@ -188,7 +192,7 @@
                 </div>
               </div>
 
-              <div class="col-6 form-group required" v-if="userData">
+              <div class="col-6 form-group required">
                 <label for="phoneNumber">{{ $t("payment.phoneNumber") }}</label>
                 <input
                   type="number"
@@ -385,7 +389,9 @@ export default {
         city: null,
         postal_code: null,
         email: null,
-        coupons: [],
+        // coupons: [],
+        address_uuid: null,
+        suppliers: null,
       },
       freeDelivery:
         sessionStorage.getItem("freeDelivery") == "true" ? true : false,
@@ -447,18 +453,35 @@ export default {
         ? localStorage.getItem("discount")
         : 0;
     },
+    checkType() {
+      return localStorage.getItem("type").includes("1");
+    },
+    mySuppliers() {
+      return this.$store.state.suppliers;
+    },
   },
   mounted() {
     this.getAllCountires();
     this.storedData = JSON.parse(localStorage.getItem("guestAddressData"));
-    this.formData.country = this.storedData.country_id;
-    this.formData.governorate = this.storedData.region_id;
-    this.formData.city = this.storedData.city_id;
+    // this.formData.country = this.storedData.country_id
+    //   ? this.storedData.country_id
+    //   : "";
+    // this.formData.governorate = this.storedData.region_id
+    //   ? this.storedData.region_id
+    //   : "";
+    // this.formData.city = this.storedData.city_id ? this.storedData.city_id : "";
+    this.formData.address_uuid = this.storedData.address_uuid
+      ? this.storedData.address_uuid
+      : "";
+    this.formData.suppliers = this.mySuppliers ? this.mySuppliers : "";
+    this.formData.address_uuid = localStorage.getItem("supplierUUID")
+      ? localStorage.getItem("supplierUUID")
+      : "";
 
     console.log(this.storedData);
-    // this.formData.postal_code = this.storedData.pin_code
-    //   ? this.storedData.pin_code
-    //   : null;
+    this.formData.postal_code = this.storedData.postal_code
+      ? this.storedData.postal_code
+      : null;
   },
 };
 </script>

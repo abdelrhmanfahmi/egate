@@ -71,12 +71,12 @@ export default {
 <style lang="scss" scoped>
 .header-holder {
   position: relative;
-  background: #6e6e6e;
+  background: #555555;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  border: #414141 !important;
+  border: #555555 !important;
   padding: 20px;
   font-size: 19px;
   .cls-button {
@@ -89,11 +89,11 @@ export default {
     }
   }
   .btn-outline-danger:hover {
-    color: #414141;
+    color: #555555;
   }
 }
 .event-btn {
-  background: #414141;
+  background: #555555;
   color: #fff;
   padding: 5px 10px;
   text-transform: capitalize;
@@ -110,6 +110,6 @@ button {
   font-size: 16px;
 }
 .dark {
-  background: #909090 !important;
+  background: #555555 !important;
 }
 </style>
