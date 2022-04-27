@@ -285,12 +285,17 @@
                 </router-link>
               </td>
               <td>
-                <router-link
+                <router-link v-if="product.unit"
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
                   {{ product.unit.title }}
                 </router-link>
+                <div v-else
+                  class="link"
+                >
+                  -
+                </div>
               </td>
               <td>
                 <div
@@ -576,7 +581,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
-          console.log("res", res);
+          console.log("products", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {

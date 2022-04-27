@@ -84,8 +84,8 @@
             <span class="cart-icon">
               <b-icon-minecart-loaded></b-icon-minecart-loaded>
             </span>
-            <span class="cartLength" v-if="cartItems && cartItemsLength">
-              {{ cartItemsLength }}
+            <span class="cartLength" v-if="cartItems && cartLength">
+              {{ cartLength }}
             </span>
             <Cart class="cart-body"></Cart>
           </div>
@@ -166,6 +166,8 @@
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
+import globalAxios from "@/services/global-axios";
+
 import { BIconMinecartLoaded } from "bootstrap-vue";
 
 export default {
@@ -175,6 +177,7 @@ export default {
       mobile: null,
       mobileNav: null,
       windowWidth: null,
+      cartItemsLength: 0,
     };
   },
   components: {
@@ -186,6 +189,7 @@ export default {
   created() {
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
+    this.getCartProducts();
   },
   methods: {
     closeSideBar() {
@@ -208,15 +212,18 @@ export default {
       this.$router.push("/");
     },
     getCartProducts() {
-      this.$store.dispatch("cart/getCartProducts");
+      return globalAxios.post("/cart").then((res) => {
+        console.log("cart res", res);
+        this.cartItemsLength = res.data.items.cart_total_products_count;
+      });
     },
   },
   computed: {
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
-    cartItemsLength() {
-      return this.cartItems.length;
+    cartLength() {
+      return this.$store.state.cart.cartLength
     },
   },
 };
@@ -361,16 +368,17 @@ html:lang(ar) {
 }
 .cartLength {
   position: absolute;
-  top: -5px;
-  right: 5px;
+  top: -15px;
+  right: 4px;
   background: red;
   color: #fff;
-  width: 15px;
-  height: 15px;
-  line-height: 15px;
+  /* width: 18px; */
+  /* height: 18px; */
+  /* line-height: 18px; */
   text-align: center;
   border-radius: 50%;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
+  padding: 0px 4px;
 }
 </style>

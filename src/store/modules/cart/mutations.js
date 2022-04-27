@@ -33,6 +33,9 @@ export const CLEAR_CART_ITEMS = (state) => {
 export const SET_CART_ITEMS = (state, cartItems) => {
     state.cartItems = cartItems;
 }
+export const SET_CART_LENGTH = (state, cartLength) => {
+    state.cartLength = cartLength;
+}
 
 export const SET_CART_TOTAL = (state, cart_sub_total) => {
     state.cart_sub_total = cart_sub_total;

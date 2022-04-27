@@ -87,7 +87,12 @@
         </b-col>
       </b-row>
 
-      <div class="work-info my-5">
+      <div
+        class="work-info my-5"
+        v-if="
+          (userData && userData.type === 'buyer') || userData.type === 'b2b'
+        "
+      >
         <h4 class="main-header my-4">
           {{ $t("profile.businessInformation") }}
         </h4>
@@ -194,9 +199,9 @@ export default {
           this.errors = {};
           // this.$store.commit("SET_USER_DATA_INFO", res.data.items);
           this.$store.dispatch("getUserInfo");
-          if(res.status == 200){
+          if (res.status == 200) {
             setTimeout(() => {
-              this.$router.replace('/profile/adress-book')
+              this.$router.replace("/profile/adress-book");
             }, 500);
           }
         })

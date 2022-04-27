@@ -16,6 +16,9 @@ export const cartTotalPrice = (state) => {
 export const cartItems = (state) => {
     return state.cartItems;
 }
+export const cartLength = (state) => {
+    return state.cartLength;
+}
 export const cart_sub_total = (state) => {
     return state.cart_sub_total;
 }

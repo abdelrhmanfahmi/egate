@@ -30,12 +30,14 @@
         <div class="mt-2">
           <span class="h5" v-if="cart_sub_total > 0">
             {{ $t("cart.cartCount") }}
-            <router-link to="/cart"> {{ cartItemsLength }} {{$t('cart.items')}} </router-link>
+            <router-link to="/cart">
+              {{ cartItemsLength }} {{ $t("cart.items") }}
+            </router-link>
             {{ $t("cart.cartInCart") }}
           </span>
           <span class="h5" v-else>
             {{ $t("cart.cartCount") }}
-            <router-link to="/cart"> 1 {{$t('cart.items')}} </router-link>
+            <router-link to="/cart"> 1 {{ $t("cart.items") }} </router-link>
             {{ $t("cart.cartInCart") }}
           </span>
         </div>
@@ -44,10 +46,13 @@
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
       >
-        <button class="btn event-btn continue-shopping" @click="handleClose">
+        <button
+          class="btn dark event-btn continue-shopping"
+          @click="handleClose"
+        >
           {{ $t("cart.contShopping") }}
         </button>
-        <button class="btn event-btn view-cart">
+        <button class="btn dark event-btn view-cart">
           <router-link to="/cart"> {{ $t("cart.viewCart") }} </router-link>
         </button>
       </div>
@@ -81,7 +86,7 @@ export default {
       return this.$store.state.cart.cartItems;
     },
     cartItemsLength() {
-      return this.cart_sub_total > 0 ? this.cartItems.length : 0;
+      return this.cart_sub_total > 0 ? this.$store.state.cart.cartLength : 0;
     },
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
@@ -95,7 +100,7 @@ export default {
 <style lang="scss" scoped>
 .header-holder {
   position: relative;
-  background: #f57b21;
+  background: $main-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,7 +120,7 @@ export default {
   }
 }
 .event-btn {
-  background: #f57b21;
+  background: #000;
   color: #fff;
   padding: 5px 10px;
   text-transform: uppercase;
@@ -124,7 +129,7 @@ export default {
     color: inherit;
     &:hover {
       text-decoration: none;
-      color: inherit;
+      color: #fff;
     }
   }
 }
