@@ -479,8 +479,8 @@ export default {
       : "";
 
     console.log(this.storedData);
-    this.formData.postal_code = this.storedData.postal_code
-      ? this.storedData.postal_code
+    this.formData.postal_code = this.storedData.pin_code
+      ? this.storedData.pin_code
       : null;
   },
 };

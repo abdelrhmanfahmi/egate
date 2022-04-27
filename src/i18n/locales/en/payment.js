@@ -29,5 +29,5 @@ export default {
   termsAndConditions: "terms and conditions",
   checkout: "Checkout",
   delivery:'Shipping',
-  pickup:'Pickup'
+  pickup:'Pick-up'
 };
