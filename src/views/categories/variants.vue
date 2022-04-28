@@ -534,7 +534,8 @@ export default {
       supplierProductsLength: null,
       cartCounter: 1,
       showModal: false,
-      requestVariants:null
+      requestVariants: null,
+      selectedVariants:null
     };
   },
   components: {
@@ -616,27 +617,27 @@ export default {
       // console.log(product.title.replace(/\s/g, "-"));
       // console.log("variant", variant);
       console.log("productInfo", this.productInfo);
+      let myVariants = [];
       for (let index = 0; index < this.productInfo.variants.length; index++) {
-        const element = this.productInfo.variants[index];
-        console.log();
-        let myNewData = `category_options[${index}]=${element.selectedVariance}`;
-        let variantArray  = [];
-        variantArray.unshift(myNewData)
-
-        this.loading = true;
-        categories
-          .getCategoryProducts(this.pageId , variantArray)
-          .then((res) => {
-            console.log("products", res);
-            this.products = res.data.items.data;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.loading = false;
-          });
+        const element = this.productInfo.variants[index].selectedVariance;
+        let myNewData = `category_options[${index}]=${element}`;
+        myVariants.push(myNewData);
       }
+      this.selectedVariants = myVariants.join('&');
+
+      this.loading = true;
+      categories
+        .getCategoryProducts(this.pageId, this.selectedVariants)
+        .then((res) => {
+          console.log("products", res);
+          this.products = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     getCategoryProducts() {
       this.loading = true;
