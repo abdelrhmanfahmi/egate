@@ -2,14 +2,17 @@
   <div
     id="modal-center"
     centered
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+    class=" modal-dialog-centered modal-dialog-scrollable"
   >
     <div class="modal-content">
       <div class="header-holder">
         <!-- <div class="modal-header">Header</div> -->
         <span>{{ $t("cart.success") }}</span>
         <div class="cls-button">
-          <button class="btn btn-outline-danger" @click="handleClose">x</button>
+          <!-- <button class="btn btn-outline-danger" @click="handleClose">x</button> -->
+          <button title="Close (Esc)" type="button" class="mfp-close btn btn-outline-danger" @click="$emit('close')">
+            <span>×</span>
+          </button>
         </div>
       </div>
       <div
@@ -18,10 +21,10 @@
         <h5>
           {{ $t("cart.addedToCart") }}
         </h5>
-        <h2>
+        <h2 v-if="product.product">
           {{ product.product.title }}
         </h2>
-        <img
+        <img v-if="product.image_path"
           :src="
             product.image_path ? product.image_path : product.product.image_path
           "
@@ -48,7 +51,7 @@
       >
         <button
           class="btn dark event-btn continue-shopping"
-          @click="handleClose"
+          title="Close (Esc)" type="button" @click="$emit('close')"
         >
           {{ $t("cart.contShopping") }}
         </button>
@@ -65,20 +68,20 @@ export default {
   name: "Modal",
   data: function () {
     return {
-      dataObj: {
-        title: "",
-        body: "",
-      },
+      // dataObj: {
+      //   title: "",
+      //   body: "",
+      // },
     };
   },
   methods: {
-    handleSave() {
-      console.log(this.dataObj);
-      this.handleClose();
-    },
-    handleClose() {
-      this.$emit("close");
-    },
+    // handleSave() {
+    //   console.log(this.dataObj);
+    //   this.handleClose();
+    // },
+    // handleClose() {
+    //   this.$emit("close");
+    // },
   },
   props: ["product"],
   computed: {
@@ -94,6 +97,11 @@ export default {
   },
   mounted() {
     console.log(this.product);
+  },
+  watch: {
+    $route: function () {
+      this.$modal.hideAll();
+    },
   },
 };
 </script>

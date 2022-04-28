@@ -228,11 +228,11 @@
             {{ $t("singleProduct.addCart") }}
           </b-button>
 
-          <transition name="modal">
+          <!-- <transition name="modal">
             <div class="modal-mask" v-if="showModal">
               <modal @close="closeModal" :product="myProduct" />
             </div>
-          </transition>
+          </transition> -->
         </div>
         <div
           class=""
@@ -316,31 +316,66 @@ Vue.use(VueSweetalert2);
 import suppliers from "@/services/suppliers";
 // import { mapActions } from "vuex";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
-import modal from "@/components/cart/cartModal.vue";
+// import modal from "@/components/cart/cartModal.vue";
+import globalAxios from "@/services/global-axios";
 // import CartModal from "@/components/cart/cartModal.vue"
 export default {
   components: {
     BIconPlus,
     BIconDash,
-    modal,
+    // modal,
   },
   props: ["myProduct"],
   methods: {
     // ...mapActions("cart", ["cart/addProductToCart"]),
     addToCart(myProduct) {
-      // this.addProductToCart({
-      //   product: myProduct,
-      //   quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
-      // });
-      this.$store.dispatch("cart/addProductToCart", {
-        product: myProduct,
+      let data = {
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
         quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
-      });
-      setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts");
-      }, 500);
+      };
+      // this.$store
+      //   .dispatch("cart/addProductToCart", {
+      //     product: item,
+      //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
+      //   })
+      //   .then((res) => {
+      //     if (res.status == 200) {
+      //       this.$modal.show(
+      //         () => import("@/components/cart/cartModal.vue"),
+      //         {
+      //           product: item,
+      //         },
+      //         { width: "700", height: "auto", adaptive: true }
+      //       );
+      //     }
+      //   });
 
-      this.showModal = true;
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
     },
     loginFirst() {
       Vue.swal({

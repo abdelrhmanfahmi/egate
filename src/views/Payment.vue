@@ -303,7 +303,7 @@
                       name="paymentMethod"
                       class="custom-control-input"
                       v-model="formData.payment_type"
-                      value="when reciving"
+                      value="cach"
                     />
                     <label class="custom-control-label" for="paymentMethod2">
                       {{ $t("payment.paymentWhenReceiving") }}
@@ -373,20 +373,20 @@ export default {
       count: 0,
       storedData: null,
       formData: {
-        // guest_uuid: sessionStorage.getItem("coupons")
-        //   ? sessionStorage.getItem("coupons")
-        //   : null,
+        guest_uuid: localStorage.getItem("guest-id")
+          ? localStorage.getItem("guest-id")
+          : "",
         comment: null,
         phone: null,
         payment_type: null,
         first_name: null,
         last_name: null,
-        company_name: null,
+        company_name: "",
         address: null,
         sameAddress: false,
-        country: null,
-        governorate: null,
-        city: null,
+        country: "",
+        governorate: "",
+        city: "",
         postal_code: null,
         email: null,
         // coupons: [],
@@ -473,16 +473,27 @@ export default {
     this.formData.address_uuid = this.storedData.address_uuid
       ? this.storedData.address_uuid
       : "";
-    this.formData.suppliers = this.mySuppliers ? this.mySuppliers : "";
-    this.formData.address_uuid = localStorage.getItem("supplierUUID")
-      ? localStorage.getItem("supplierUUID")
+    this.formData.suppliers = this.mySuppliers.suppliers ? this.mySuppliers.suppliers : "";
+    this.formData.address_uuid = localStorage.getItem("addressUUID")
+      ? localStorage.getItem("addressUUID")
       : "";
 
     console.log(this.storedData);
     this.formData.postal_code = this.storedData.pin_code
       ? this.storedData.pin_code
       : null;
+    this.formData.first_name = this.userData.first_name
+      ? this.userData.first_name
+      : "";
+    this.formData.last_name = this.userData.last_name
+      ? this.userData.last_name
+      : "";
   },
+  created(){
+    if(this.mySuppliers.suppliers == null || this.mySuppliers.suppliers == ""){
+      location.replace('/order-shipping')
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

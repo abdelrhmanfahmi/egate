@@ -285,17 +285,14 @@
                 </router-link>
               </td>
               <td>
-                <router-link v-if="product.unit"
+                <router-link
+                  v-if="product.unit"
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
                   {{ product.unit.title }}
                 </router-link>
-                <div v-else
-                  class="link"
-                >
-                  -
-                </div>
+                <div v-else class="link">-</div>
               </td>
               <td>
                 <div
@@ -418,11 +415,11 @@
                   </a>
                 </div>
               </td>
-              <transition name="modal">
+              <!-- <transition name="modal">
                 <div class="modal-mask" v-if="showModal">
                   <modal @close="closeModal" :product="product" />
                 </div>
-              </transition>
+              </transition> -->
             </tr>
           </tbody>
         </table>
@@ -456,7 +453,9 @@ import categories from "@/services/categories";
 import suppliers from "@/services/suppliers";
 import VariantsCounter from "@/components/global/variantsCounter.vue";
 import Product from "@/components/pages/supplier/products/Product.vue";
-import modal from "@/components/cart/cartModal.vue";
+import globalAxios from "@/services/global-axios";
+
+// import modal from "@/components/cart/cartModal.vue";
 // import { mapActions } from "vuex";
 export default {
   data() {
@@ -540,7 +539,7 @@ export default {
   components: {
     VariantsCounter,
     Product,
-    modal,
+    // modal,
   },
   methods: {
     // ...mapActions("cart", ["addProductToCart", "addProductToWishlist"]),
@@ -549,14 +548,53 @@ export default {
       //   product: this.product,
       //   quantity: 1,
       // });
-      this.$store.dispatch("cart/addProductToCart", {
-        product: item,
+
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
         quantity: this.cartCounter !== null ? this.cartCounter : 1,
-      });
-      setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts");
-      }, 500);
-      this.showModal = true;
+      };
+      // this.$store
+      //   .dispatch("cart/addProductToCart", {
+      //     product: item,
+      //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
+      //   })
+      //   .then((res) => {
+      //     if (res.status == 200) {
+      //       this.$modal.show(
+      //         () => import("@/components/cart/cartModal.vue"),
+      //         {
+      //           product: item,
+      //         },
+      //         { width: "700", height: "auto", adaptive: true }
+      //       );
+      //     }
+      //   });
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
     },
     addToWishlist() {
       // this.addProductToWishlist({
