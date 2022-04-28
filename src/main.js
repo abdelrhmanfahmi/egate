@@ -18,7 +18,7 @@ let lang = null;
 lang = localStorage.getItem("lang") || "en";
 document.documentElement.lang = lang;
 if (lang === "ar") {
-    document.documentElement.dir = "rtl";
+  document.documentElement.dir = "rtl";
 }
 
 /* add fontawesome core */
@@ -39,30 +39,32 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(BootstrapVue);
 
-
-import VueSweetalert2 from 'vue-sweetalert2';
+import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
-import 'sweetalert2/dist/sweetalert2.min.css';
+import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-import VueEllipseProgress from 'vue-ellipse-progress';
+import VueEllipseProgress from "vue-ellipse-progress";
 
 Vue.use(VueEllipseProgress);
+
+import vmodal from "vue-js-modal";
+Vue.use(vmodal);
 
 import "./mixins";
 
 // Import the component
-import VueSkeletonLoader from 'skeleton-loader-vue';
+import VueSkeletonLoader from "skeleton-loader-vue";
 
 // Register the component globally
-Vue.component('vue-skeleton-loader', VueSkeletonLoader);
+Vue.component("vue-skeleton-loader", VueSkeletonLoader);
 
 Vue.config.productionTip = false;
 new Vue({
-    router,
-    store,
-    i18n,
-    render: (h) => h(App),
+  router,
+  store,
+  i18n,
+  render: (h) => h(App),
 }).$mount("#app");
 // Styles: SCSS
 import "./assets/scss/main.scss";
