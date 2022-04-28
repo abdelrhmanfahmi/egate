@@ -615,7 +615,6 @@ export default {
     },
     changeVariance() {
       // console.log(product.title.replace(/\s/g, "-"));
-      // console.log("variant", variant);
       console.log("productInfo", this.productInfo);
       let myVariants = [];
       for (let index = 0; index < this.productInfo.variants.length; index++) {
