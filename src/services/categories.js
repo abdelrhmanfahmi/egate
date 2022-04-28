@@ -13,8 +13,8 @@ export default {
       },
     });
   },
-  getCategoryProducts(id) {
-    return globalAxios.get(`products?category_id=${id}`);
+  getCategoryProducts(id,variantData) {
+    return globalAxios.get(`products?category_id=${id}&${variantData}`);
   },
   getSingleProductDetails(id) {
     return globalAxios.get(`lists/categories/single/${id}`);
