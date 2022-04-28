@@ -60,23 +60,23 @@
                   :options="product.title"
                 ></b-form-select> -->
                 <div
-                  v-for="product in productInfo.variants"
-                  :key="product.id"
+                  v-for="variant in productInfo.variants"
+                  :key="variant.id"
                   class="mb-3"
                 >
                   <form action="">
-                    <label for="select">{{ product.title }}</label>
+                    <label for="select">{{ variant.title }}</label>
                     <b-form-group>
                       <b-form-select
-                        v-model="product.selectedVariance"
-                        @change="changeVariance(product)"
+                        v-model="variant.selectedVariance"
+                        @change="changeVariance(variant)"
                         class="mb-3"
                       >
                         <b-form-select-option selected disabled :value="null">
                           {{ $t("cart.selectOption") }}
                         </b-form-select-option>
                         <b-form-select-option
-                          v-for="pro in product.options"
+                          v-for="pro in variant.options"
                           :key="pro.id"
                           :value="pro.id"
                         >
@@ -534,6 +534,8 @@ export default {
       supplierProductsLength: null,
       cartCounter: 1,
       showModal: false,
+      requestVariants: null,
+      selectedVariants:null
     };
   },
   components: {
@@ -611,8 +613,31 @@ export default {
     ChangeCounter(cartCounter) {
       this.cartCounter = cartCounter;
     },
-    changeVariance(product) {
-      console.log(product.title.replace(/\s/g, "-"));
+    changeVariance() {
+      // console.log(product.title.replace(/\s/g, "-"));
+      // console.log("variant", variant);
+      console.log("productInfo", this.productInfo);
+      let myVariants = [];
+      for (let index = 0; index < this.productInfo.variants.length; index++) {
+        const element = this.productInfo.variants[index].selectedVariance;
+        let myNewData = `category_options[${index}]=${element}`;
+        myVariants.push(myNewData);
+      }
+      this.selectedVariants = myVariants.join('&');
+
+      this.loading = true;
+      categories
+        .getCategoryProducts(this.pageId, this.selectedVariants)
+        .then((res) => {
+          console.log("products", res);
+          this.products = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     getCategoryProducts() {
       this.loading = true;
@@ -633,7 +658,7 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          console.log(res);
+          console.log("res test ", res);
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
           for (let index = 0; index < variantData.length; index++) {
