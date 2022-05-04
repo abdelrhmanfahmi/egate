@@ -334,6 +334,13 @@
                   </div>
                 </div>
               </div>
+              <div
+                class="error text-center"
+                v-for="(error, index) in errors.payment_type"
+                :key="index"
+              >
+                {{ error }}
+              </div>
               <div class="terms my-4">
                 <div class="custom-control custom-checkbox">
                   <input
@@ -407,11 +414,13 @@ export default {
         .payment(this.formData)
         .then((res) => {
           console.log(res);
+          this.sucessMsg(res.data.message);
         })
         .catch((err) => {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
           console.log(err);
+          this.errMsg(errors.message);
         });
     },
     getAllCountires() {
@@ -473,7 +482,7 @@ export default {
     this.formData.address_uuid = this.storedData.address_uuid
       ? this.storedData.address_uuid
       : "";
-    this.formData.suppliers = this.mySuppliers.suppliers ? this.mySuppliers.suppliers : "";
+    this.formData.suppliers = this.mySuppliers.suppliers;
     this.formData.address_uuid = localStorage.getItem("addressUUID")
       ? localStorage.getItem("addressUUID")
       : "";
@@ -489,11 +498,14 @@ export default {
       ? this.userData.last_name
       : "";
   },
-  created(){
-    if(this.mySuppliers.suppliers == null || this.mySuppliers.suppliers == ""){
-      location.replace('/order-shipping')
+  created() {
+    if (
+      this.mySuppliers.suppliers == null ||
+      this.mySuppliers.suppliers == ""
+    ) {
+      location.replace("/order-shipping");
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
