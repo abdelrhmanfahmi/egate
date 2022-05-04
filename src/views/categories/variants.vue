@@ -72,7 +72,7 @@
                         @change="changeVariance(variant)"
                         class="mb-3"
                       >
-                        <b-form-select-option selected  :value="``">
+                        <b-form-select-option selected  :value="''">
                           {{ $t("cart.selectOption") }}
                         </b-form-select-option>
                         <b-form-select-option
