@@ -279,7 +279,7 @@
               <td>
                 <router-link
                   class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
+                  :to="{ path: `/suppliers/${product.product_details_by_type.product_supplier_id}`}"
                 >
                   {{ product.client.company_name }}
                 </router-link>
@@ -307,7 +307,7 @@
                 >
                   <router-link
                     class="link"
-                    :to="{ path: '/details', query: { id: product.id } }"
+                    :to="{ path: '/suppliers/', query: { id: product.id } }"
                   >
                     {{ product.product_details_by_type.customer_price }}
                     {{ currency }}

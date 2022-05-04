@@ -30,4 +30,5 @@ export default {
   checkout: "الدفع",
   delivery: "توصيل",
   pickup: "اختر موقع استلام",
+  selectExist: "اختر من العناوين المتاحه",
 };

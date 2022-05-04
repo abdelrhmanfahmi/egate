@@ -17,4 +17,5 @@ export default {
   Showing: "يتم عرض ",
   of: "من",
   results: "ناتج البحث",
+  
 };
