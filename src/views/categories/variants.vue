@@ -72,7 +72,7 @@
                         @change="changeVariance(variant)"
                         class="mb-3"
                       >
-                        <b-form-select-option selected disabled :value="null">
+                        <b-form-select-option selected  :value="''">
                           {{ $t("cart.selectOption") }}
                         </b-form-select-option>
                         <b-form-select-option
@@ -535,7 +535,7 @@ export default {
       cartCounter: 1,
       showModal: false,
       requestVariants: null,
-      selectedVariants:null
+      selectedVariants: null,
     };
   },
   components: {
@@ -620,9 +620,12 @@ export default {
       for (let index = 0; index < this.productInfo.variants.length; index++) {
         const element = this.productInfo.variants[index].selectedVariance;
         let myNewData = `category_options[${index}]=${element}`;
-        myVariants.push(myNewData);
+
+        if (!myNewData.includes("null")) {
+          myVariants.push(myNewData);
+        }
       }
-      this.selectedVariants = myVariants.join('&');
+      this.selectedVariants = myVariants.join("&");
 
       this.loading = true;
       categories

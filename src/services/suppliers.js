@@ -17,7 +17,7 @@ export default {
     return globalAxios.post(`/members/product/rfq`, payload);
   },
   payment(payload) {
-    return globalAxios.post(`members/products/order`, payload);
+    return globalAxios.post(`/order`, payload);
   },
   checkCoupon(checkData) {
     return globalAxios.post(`cart`, checkData);
