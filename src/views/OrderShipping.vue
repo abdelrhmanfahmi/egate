@@ -137,7 +137,7 @@
                     name="radio"
                     v-model="selectAddressShape"
                   />
-                  <span>{{ $t("payment.pickup") }}</span>
+                  <span>{{ $t("payment.selectExist") }}</span>
                 </label>
                 <span v-if="selectAddressShape === 'existingAddresses'">
                   <b-form-select
@@ -758,7 +758,15 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        // console.log(res);
+        console.log("addresses" , res);
+        for (let index = 0; index < res.data.items.length; index++) {
+          const element = res.data.items[index]
+          const element2 = element.is_default
+          if (element2) {
+            this.selectedAddress = element
+            localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+          }
+        }
       });
     },
     // Countires

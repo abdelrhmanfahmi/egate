@@ -16,5 +16,6 @@ export default {
   Shop:'Shop',
   Showing:"Showing",
   of:'Of',
-  results:'Results'
+  results:'Results',
+  
 };

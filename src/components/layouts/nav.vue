@@ -223,7 +223,7 @@ export default {
       return this.$store.state.cart.cartItems;
     },
     cartLength() {
-      return this.$store.state.cart.cartLength
+      return this.$store.state.cart.cartLength;
     },
   },
 };
@@ -368,13 +368,13 @@ html:lang(ar) {
 }
 .cartLength {
   position: absolute;
-  top: -15px;
+  top: -11px;
   right: 4px;
-  background: red;
+  background: $main_color;
   color: #fff;
-  /* width: 18px; */
-  /* height: 18px; */
-  /* line-height: 18px; */
+  min-width: 20px;
+  min-height: 20px;
+  line-height: 20px;
   text-align: center;
   border-radius: 50%;
   font-size: 14px;
