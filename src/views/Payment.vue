@@ -323,7 +323,7 @@
                       name="paymentMethod"
                       class="custom-control-input"
                       v-model="formData.payment_type"
-                      value="online"
+                      value="visa"
                     />
                     <label class="custom-control-label" for="paymentMethod3">
                       {{ $t("payment.onlinePayment") }}

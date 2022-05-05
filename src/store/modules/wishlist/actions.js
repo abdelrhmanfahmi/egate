@@ -1,25 +1,9 @@
 import Wishlist from "@/apis/Wishlist";
 
-export const addProductToWishlist = ({ commit }, { product, quantity }) => {
-  commit("ADD_TO_WISHLIST", { product, quantity });
+export const addProductToWishlist = ({ commit }, { product }) => {
+  commit("ADD_TO_WISHLIST", { product });
 
-  console.log("Product added to Wishlist.");
-
-  this.$swal({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true,
-    icon: "success",
-    title: "Product added to Wishlist.",
-  });
-
- 
-  // Wishlist.store({
-  //   product_id: product.id,
-  //   quantity,
-  // });
+  Wishlist.store(product.id)
 };
 
 export const getWishlistItems = ({ commit }) => {
@@ -30,32 +14,11 @@ export const getWishlistItems = ({ commit }) => {
 
 export const removeProductFromWishlist = ({ commit }, product) => {
   commit("REMOVE_PRODUCT_FROM_SET_WISHLIST", product);
-
-  this.$swal({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true,
-    icon: "success",
-    title: "Product removed successfully.",
-  });
-
-  Wishlist.delete(product.id);
+  Wishlist.delete(product.myItem.id);
 };
 
 export const clearWishlistItems = ({ commit }) => {
   commit("CLEAR_WISHLIST_ITEMS");
-
-  this.$swal({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true,
-    icon: "success",
-    title: "Wishlist cleared",
-  });
 
   Wishlist.deleteAll();
 };

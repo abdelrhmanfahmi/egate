@@ -41,4 +41,7 @@ export default {
   items: "منتج",
   fillData: "من فضلك املأ البيانات",
   next: "التالى",
+  addedToWishlist: "تم اضافة المنتج لقائمة المفضله",
+  viewWishlist: "قائمة المفضله",
+  wishlist: "قائمة المفضله",
 };

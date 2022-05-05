@@ -89,6 +89,16 @@
             </span>
             <Cart class="cart-body"></Cart>
           </div>
+          <!-- <div v-if="!mobile" class="cart">
+            <span class="cart-icon">
+              <font-awesome-icon icon="fa-solid fa-heart" />
+            </span>
+            <span class="cartLength" v-if="wishlistItems">
+              {{ wishlistLength }}
+            </span>
+            <Cart class="cart-body"></Cart>
+          </div> -->
+
           <!-- user sign in -->
           <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
             <font-awesome-icon icon="fa-solid fa-user" size="2x" />
@@ -178,6 +188,9 @@ export default {
       mobileNav: null,
       windowWidth: null,
       cartItemsLength: 0,
+      cartWishlistLength: 0,
+      wishlistItems:null,
+      wishlistLength:0
     };
   },
   components: {
@@ -190,6 +203,7 @@ export default {
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
     this.getCartProducts();
+    this.getWishlistProducts();
   },
   methods: {
     closeSideBar() {
@@ -213,8 +227,15 @@ export default {
     },
     getCartProducts() {
       return globalAxios.post("/cart").then((res) => {
-        console.log("cart res", res);
+        // console.log("cart res", res);
         this.cartItemsLength = res.data.items.cart_total_products_count;
+      });
+    },
+    getWishlistProducts() {
+      return globalAxios.get("members/profile/favorite").then((res) => {
+        // console.log("cart res", res);
+        this.wishlistItems = res.data.items.data;
+        this.wishlistLength = res.data.items.data.length;
       });
     },
   },

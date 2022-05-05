@@ -72,7 +72,7 @@
                         @change="changeVariance(variant)"
                         class="mb-3"
                       >
-                        <b-form-select-option selected  :value="''">
+                        <b-form-select-option selected :value="''">
                           {{ $t("cart.selectOption") }}
                         </b-form-select-option>
                         <b-form-select-option
@@ -279,7 +279,9 @@
               <td>
                 <router-link
                   class="link"
-                  :to="{ path: `/suppliers/${product.product_details_by_type.product_supplier_id}`}"
+                  :to="{
+                    path: `/suppliers/${product.product_details_by_type.product_supplier_id}`,
+                  }"
                 >
                   {{ product.client.company_name }}
                 </router-link>
@@ -374,7 +376,7 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
-                  <a @click="addToWishlist()"
+                  <a @click="addToWishlist(product)"
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
@@ -598,11 +600,40 @@ export default {
           }, 500);
         });
     },
-    addToWishlist() {
+    addToWishlist(item) {
+      
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id
+      };
       // this.addProductToWishlist({
       //   product: this.product,
-      //   quantity: 1,
       // });
+
+      return globalAxios
+        .post(`members/profile/favorite`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            // this.$modal.show(
+            //   () => import("@/components/wishlist/wishlistModal.vue"),
+            //   {
+            //     product: item,
+            //   },
+            //   { width: "700", height: "auto", adaptive: true }
+            // );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
     },
     closeModal() {
       this.showModal = false;

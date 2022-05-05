@@ -716,6 +716,7 @@ export default {
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
     selectType: function (supplier, index) {
+      console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
         id: supplier.supplier_id,
@@ -726,6 +727,9 @@ export default {
         // email: this.loggedUser.email,
         shipping_type: this.ratingNum[index],
         coupon: supplier.coupon ? supplier.coupon : "",
+        // supplier_address_uuid: this.supplierAddress
+        //   ? this.supplierAddress.uuid
+        //   : localStorage.getItem('addressUUID'),
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,

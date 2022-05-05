@@ -7,6 +7,7 @@ import Corporat from "../views/Corporat.vue";
 import supplierProducts from "../views/supplierProducts.vue";
 import ContactUs from "../views/Contact-Us.vue";
 import Cart from "../views/Cart.vue";
+import Wishlist from "../views/wishlist.vue";
 import Payment from "../views/Payment.vue";
 import ForgetPassword from "../views/Forget-Password.vue";
 import Items from "../views/Items.vue";
@@ -73,6 +74,11 @@ const routes = [
     path: "/cart",
     name: "Cart",
     component: Cart,
+  },
+  {
+    path: "/wishlist",
+    name: "Wishlist",
+    component: Wishlist,
   },
   {
     path: "/payment",
