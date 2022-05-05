@@ -108,11 +108,17 @@
             </div>
           </div>
           <div class="" v-if="deliverType == false">
-            <router-link
-              to="/payment"
-              class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-            >
-              {{ $t("cart.checkout") }}
+            <router-link to="/payment">
+              <button
+                class="m-0 mt-4 py-3 px-5 text-white text-center btn-block"
+                :class="{
+                  'login-button dark': supplierAddress,
+                  'login-button': !supplierAddress,
+                }"
+                :disabled="!supplierAddress"
+              >
+                {{ $t("cart.checkout") }}
+              </button>
             </router-link>
           </div>
         </div>
@@ -758,12 +764,12 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        console.log("addresses" , res);
+        console.log("addresses", res);
         for (let index = 0; index < res.data.items.length; index++) {
-          const element = res.data.items[index]
-          const element2 = element.is_default
+          const element = res.data.items[index];
+          const element2 = element.is_default;
           if (element2) {
-            this.selectedAddress = element
+            this.selectedAddress = element;
             localStorage.setItem("addressUUID", this.selectedAddress.uuid);
           }
         }
@@ -857,6 +863,7 @@ export default {
     this.getCartProducts();
     this.getAllCountires();
     this.getAllAdresses();
+
     // let checkTypes = localStorage.getItem('type');
     // if(checkTypes.includes('1')){
     //   alert('pickup')
