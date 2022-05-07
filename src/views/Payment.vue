@@ -156,7 +156,7 @@
 
               <div
                 :class="{ 'col-12': checkType }"
-                class="col-6 form-group required"
+                class="col-6 form-group "
                 v-if="checkType"
               >
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
@@ -254,7 +254,7 @@
               <div class="info">
                 {{ $t("payment.discount") }} : {{ discount }} {{ currency }}
               </div>
-              <div class="info delivery">
+              <!-- <div class="info delivery">
                 <div class="custom-control custom-checkbox">
                   <input
                     type="checkbox"
@@ -267,7 +267,7 @@
                     {{ $t("payment.freeDelivery") }}
                   </label>
                 </div>
-              </div>
+              </div> -->
               <div
                 class="d-flex justify-content-between align-items-center total"
               >
@@ -323,7 +323,7 @@
                       name="paymentMethod"
                       class="custom-control-input"
                       v-model="formData.payment_type"
-                      value="online"
+                      value="visa"
                     />
                     <label class="custom-control-label" for="paymentMethod3">
                       {{ $t("payment.onlinePayment") }}
@@ -341,7 +341,7 @@
               >
                 {{ error }}
               </div>
-              <div class="terms my-4">
+              <!-- <div class="terms my-4">
                 <div class="custom-control custom-checkbox">
                   <input
                     type="checkbox"
@@ -353,7 +353,24 @@
                     <a href="#">{{ $t("payment.termsAndConditions") }}</a>
                   </label>
                 </div>
-              </div>
+              </div> -->
+              <b-form-checkbox v-model="terms" class="terms my-4">
+                {{ $t("payment.accept") }}
+                <a v-b-modal.terms&condation>
+                  {{ $t("payment.termsAndConditions") }}</a
+                >
+              </b-form-checkbox>
+
+              <b-modal
+                size="lg"
+                id="terms&condation"
+                :title="condations.title"
+                ok-only
+              >
+                <p v-html="condations.description">
+                  {{ condations.description }}
+                </p>
+              </b-modal>
               <div class="submit">
                 <b-button
                   type="submit"
@@ -406,6 +423,8 @@ export default {
       countries: [],
       cities: [],
       regions: [],
+      terms: "",
+      condations: {},
     };
   },
   methods: {
@@ -441,6 +460,11 @@ export default {
       profile.getAllCities(this.formData.governorate).then((res) => {
         this.cities = res.data.items;
         this.form.city_id = "";
+      });
+    },
+    getTerms() {
+      auth.termsAndCondations().then((res) => {
+        this.condations = res.data.items;
       });
     },
   },
@@ -497,6 +521,7 @@ export default {
     this.formData.last_name = this.userData.last_name
       ? this.userData.last_name
       : "";
+    this.getTerms();
   },
   created() {
     if (
@@ -635,5 +660,8 @@ html:lang(ar) {
 }
 form {
   padding: 5% 0;
+}
+a:not([href]):not([class]){
+  color: #007bff;
 }
 </style>

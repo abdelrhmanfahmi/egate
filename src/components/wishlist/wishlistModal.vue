@@ -19,7 +19,7 @@
         class="modal-body d-flex justify-content-center align-items-center flex-column"
       >
         <h5>
-          {{ $t("cart.addedToCart") }}
+          {{ $t("cart.addedToWishlist") }}
         </h5>
         <h2 v-if="product.product">
           {{ product.product.title }}
@@ -30,7 +30,7 @@
           "
           alt="product-image"
         />
-        <div class="mt-2">
+        <!-- <div class="mt-2">
           <span class="h5" v-if="cart_sub_total > 0">
             {{ $t("cart.cartCount") }}
             <router-link to="/cart">
@@ -43,8 +43,8 @@
             <router-link to="/cart"> 1 {{ $t("cart.items") }} </router-link>
             {{ $t("cart.cartInCart") }}
           </span>
-        </div>
-        <h5>{{ $t("cart.cartSubTotal") }} : {{ cart_sub_total }} {{currency}}</h5>
+        </div> -->
+        <!-- <h5>{{ $t("cart.cartSubTotal") }} : {{ cart_sub_total }} {{currency}}</h5> -->
       </div>
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
@@ -56,7 +56,7 @@
           {{ $t("cart.contShopping") }}
         </button>
         <button class="btn dark event-btn view-cart">
-          <router-link to="/cart"> {{ $t("cart.viewCart") }} </router-link>
+          <router-link to="/wishlist"> {{ $t("cart.viewWishlist") }} </router-link>
         </button>
       </div>
     </div>
@@ -84,17 +84,17 @@ export default {
     // },
   },
   props: ["product"],
-  computed: {
-    cartItems() {
-      return this.$store.state.cart.cartItems;
-    },
-    cartItemsLength() {
-      return this.cart_sub_total > 0 ? this.$store.state.cart.cartLength : 0;
-    },
-    cart_sub_total() {
-      return this.$store.state.cart.cart_sub_total;
-    },
-  },
+//   computed: {
+//     cartItems() {
+//       return this.$store.state.cart.cartItems;
+//     },
+//     cartItemsLength() {
+//       return this.cart_sub_total > 0 ? this.$store.state.cart.cartLength : 0;
+//     },
+//     cart_sub_total() {
+//       return this.$store.state.cart.cart_sub_total;
+//     },
+//   },
   mounted() {
     console.log(this.product);
   },

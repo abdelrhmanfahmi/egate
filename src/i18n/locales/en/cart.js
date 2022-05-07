@@ -41,4 +41,7 @@ export default {
   items: "Items",
   fillData: "Please Fill Data",
   next: "Next",
+  addedToWishlist: "Product added to Wishlist.",
+  viewWishlist: "View Wishlist",
+  wishlist:'Wishlist'
 };
