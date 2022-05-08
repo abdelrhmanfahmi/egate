@@ -30,5 +30,6 @@ export default {
   checkout: "Checkout",
   delivery:'Shipping',
   pickup:'Pick-up',
-  selectExist:'Select From Existing'
+  selectExist:'Select From Existing',
+  country_code:'Country Code'
 };

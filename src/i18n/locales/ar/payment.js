@@ -31,4 +31,5 @@ export default {
   delivery: "توصيل",
   pickup: "اختر موقع استلام",
   selectExist: "اختر من العناوين المتاحه",
+  country_code:'كود الدوله'
 };

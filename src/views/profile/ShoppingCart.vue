@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table hover :items="items" :fields="fields" stacked="lg">
+    <!-- <b-table hover :items="cartItems" :fields="fields" stacked="lg">
       <template #cell(image)="data">
         <img :src="data.value" class="product-img" />
       </template>
@@ -8,7 +8,7 @@
         <a href="#" class="product-name">{{ data.value }}</a>
       </template>
       <template #cell(price)="data">
-        <p>{{ data.value }} {{currency}}</p>
+        <p>{{ data.value }} {{ currency }}</p>
       </template>
       <template #cell(quantity)="data">
         <Counter
@@ -17,7 +17,7 @@
         ></Counter>
       </template>
       <template #cell(totalPrice)="data">
-        <p>{{ data.value }} {{currency}}</p>
+        <p>{{ data.value }} {{ currency }}</p>
       </template>
       <template #cell(action)="data">
         <div class="actions d-flex">
@@ -30,12 +30,94 @@
           </b-button>
         </div>
       </template>
-    </b-table>
+    </b-table> -->
+    <div class="cart-table p-4" stacked="lg">
+      <table  class="table table-striped table-hover">
+        <thead>
+          <tr class="data-holder">
+            <th></th>
+            <th class="product"  :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.product") }}</th>
+            <th class="price " :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.price") }}</th>
+            <th class="quantity ">{{ $t("cart.quantity") }}</th>
+            <th class="total " :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.total") }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody
+          class="supplier"
+          v-for="(supplier, index) in cartItems"
+          :key="index"
+        >
+          <tr
+            class="item-content"
+            v-for="(item, index) in supplier.products"
+            :key="index"
+          >
+            <td class="media">
+              <router-link
+                :to="{
+                  path: '/details',
+                  query: { id: `${item.product_supplier_id}` },
+                }"
+                class="thumb"
+              >
+                <img v-if="item.product_image == undefined || item.product_image == 'undefined'"
+                  :src="item.product_image"
+                  :alt="' image'"
+                  class="product-img"
+                  title="image"
+                />
+                <img v-else
+                  :src="item.product_image"
+                  :alt="item.name + ' image'"
+                  :title="item.name + ' image'"
+                  class="product-img"
+                />
+              </router-link>
+            </td>
+            <td>
+              <router-link
+                :to="{
+                  path: '/details',
+                  query: { id: `${item.product_supplier_id}` },
+                }"
+              >
+                {{ item.product_name }}
+              </router-link>
+            </td>
+            <td>{{ item.price }} {{ currency }}</td>
+            <td>
+              <Counter
+                :quantity="item.quantity"
+                :product="item"
+                class="justify-content-center"
+                @changeTitle="ChangeQ($event)"
+              ></Counter>
+            </td>
+            <td>{{ item.product_sub_total }} {{ currency }}</td>
+
+            <td>
+              <div class="actions d-flex">
+                <b-button @click="removeFromCart(item)">
+                  <font-awesome-icon icon="fa-solid fa-trash-can" />
+                </b-button>
+
+                <!-- <b-button>
+                  <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                </b-button> -->
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import Counter from "../../components/global/Counter.vue";
+
+import globalAxios from "@/services/global-axios";
 export default {
   data() {
     return {
@@ -137,6 +219,8 @@ export default {
           totalPrice: 63.9,
         },
       ],
+      cartItems: null,
+      myQuantity: null,
     };
   },
   components: {
@@ -146,6 +230,40 @@ export default {
     removeItem(i) {
       this.items.splice(i, 1);
     },
+    getCartProducts() {
+      this.loading = true;
+      globalAxios.post(`cart`).then((res) => {
+        this.cartItems = res.data.items.cart_items;
+      });
+      this.loading = false;
+    },
+    removeFromCart(product) {
+      // this.removeProductFromCart({
+      //   product: product,
+      // });
+      this.$store.dispatch("cart/removeProductFromCart", {
+        product: product,
+      });
+      this.loading = true;
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+      }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1200);
+    },
+    ChangeQ(myQuantity) {
+      this.myQuantity = myQuantity;
+      // console.log(myQuantity);
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+      }, 300);
+    },
+  },
+  mounted() {
+    this.getCartProducts();
   },
 };
 </script>
@@ -172,5 +290,9 @@ export default {
     margin: 0 5px;
     cursor: pointer;
   }
+}
+.table th,
+.table td {
+  border: none;
 }
 </style>

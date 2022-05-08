@@ -156,7 +156,7 @@
 
               <div
                 :class="{ 'col-12': checkType }"
-                class="col-6 form-group "
+                class="col-6 form-group"
                 v-if="checkType"
               >
                 <label for="postalCode">{{ $t("payment.postalCode") }}</label>
@@ -192,7 +192,26 @@
                 </div>
               </div>
 
-              <div class="col-6 form-group required">
+              <div class="col-2 form-group required">
+                <label for="country_code">{{
+                  $t("payment.country_code")
+                }}</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="country_code"
+                  v-model="formData.country_code"
+                />
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.country_code"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+
+              <div class="col-4 form-group required">
                 <label for="phoneNumber">{{ $t("payment.phoneNumber") }}</label>
                 <input
                   type="number"
@@ -208,20 +227,21 @@
                   {{ error }}
                 </div>
               </div>
+              
 
               <div
                 class="col-12 form-group custom-control custom-checkbox"
                 v-if="userData"
               >
-                <input
+                <!-- <input
                   type="checkbox"
                   class="custom-control-input"
                   id="deliveryAddress"
                   v-model="formData.sameAddress"
-                />
-                <label class="custom-control-label" for="deliveryAddress">
+                /> -->
+                <!-- <label class="custom-control-label" for="deliveryAddress">
                   {{ $t("payment.deliverySameAddress") }}
-                </label>
+                </label> -->
               </div>
               <div class="col-12 form-group">
                 <label for="notes">
@@ -416,6 +436,7 @@ export default {
         // coupons: [],
         address_uuid: null,
         suppliers: null,
+        country_code: null,
       },
       freeDelivery:
         sessionStorage.getItem("freeDelivery") == "true" ? true : false,
@@ -495,7 +516,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.storedData = JSON.parse(localStorage.getItem("guestAddressData"));
+    this.storedData = localStorage.getItem("addressUUID");
     // this.formData.country = this.storedData.country_id
     //   ? this.storedData.country_id
     //   : "";
@@ -661,7 +682,7 @@ html:lang(ar) {
 form {
   padding: 5% 0;
 }
-a:not([href]):not([class]){
+a:not([href]):not([class]) {
   color: #007bff;
 }
 </style>
