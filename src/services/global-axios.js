@@ -6,8 +6,8 @@ let lang = null;
 
 lang = localStorage.getItem("lang") || "en";
 
-let currency_code = localStorage.getItem("currency");
-let currency_id = localStorage.getItem("country");
+// let currency_code = localStorage.getItem("currency");
+// let currency_id = localStorage.getItem("country");
 
 const getToken = function () {
   if (
@@ -41,22 +41,26 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     "guest-id": guestUser ? guestUser : "",
-    currency_code: currency_code,
-    currency_id: currency_id,
+    // currency_code: currency_code,
+    // currency_id: currency_id,
   },
 });
 
 globalAxios.interceptors.request.use(
   (config) => {
     const guestId = localStorage.getItem("guest-id");
-    const country_id = localStorage.getItem("is_default");
-    const currency_code = localStorage.getItem("currency");
+    // const country_id = localStorage.getItem("is_default");
+    const country = localStorage.getItem("country");
+    // const currency_code = localStorage.getItem("currency");
     // const default_id = localStorage.getItem("default_id");
     if (guestId) {
       config.headers['guest-id'] = guestId;
     }
-    config.headers['currency_code'] = currency_code;
-    config.headers['currency_id'] = country_id ? country_id  : 1;
+    if (country) {
+      let country_parsed = JSON.parse(localStorage.getItem("country"));
+      config.headers['currency_id'] = country_parsed.currencies[0].id || 1;
+    }
+    // config.headers['currency_code'] = currency_code;
     return config;
   },
   (error) => Promise.reject(error),

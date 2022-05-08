@@ -46,7 +46,7 @@ import auth from "@/services/auth";
 export default {
   data() {
     return {
-      currencyValue: localStorage.getItem("currency") || "KWD",
+      currencyValue: localStorage.getItem("currency") ,
       currencies: [
         { value: "KWD", text: this.$t("home.KWD") },
         { value: "EGP", text: this.$t("home.EGP") },
@@ -72,15 +72,23 @@ export default {
         .getAllCountires()
         .then((res) => {
           this.countries = res.data.items;
-
+          if (localStorage.getItem('country')) {
+            let current_stored_country = JSON.parse(localStorage.getItem('country'));
+            this.countries.forEach((country) => {
+              if (country.id == current_stored_country.id) {
+                window.localStorage.setItem('country', JSON.stringify(country));
+                localStorage.setItem("currency", country.currencies[0].code);
+              }
+            })
+          }
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);
             
           }
-          if (localStorage.getItem("currency") === null) {
-            localStorage.setItem("currency", res.data.items[0].currencies[0].code);
+          // if (localStorage.getItem("currency") === null) {
+          //   localStorage.setItem("currency", res.data.items[0].currencies[0].code);
             
-          }
+          // }
         })
         .catch((err) => {
           console.log(err);
@@ -96,6 +104,9 @@ export default {
       window.location.reload();
     },
     onHandelCountry(data) {
+      // localStorage.setItem("country_id", );
+      console.log(data);
+      localStorage.setItem("country", JSON.stringify(data));
       this.countryImg = data.flag;
       this.countryName = data.title;
       localStorage.setItem("country", JSON.stringify(data));
@@ -106,15 +117,15 @@ export default {
           localStorage.setItem("is_default", data.currencies[0].is_default);
         }
       }
-      localStorage.setItem("currency", data.currencies[0].code);
+      // localStorage.setItem("currency", data.currencies[0].code);
 
       setTimeout(() => {
         location.reload();
       }, 100);
     },
-    handleCurrency(event) {
-      localStorage.setItem("currency", event.target.value);
-    },
+    // handleCurrency(event) {
+    //   localStorage.setItem("currency", event.target.value);
+    // },
   },
 };
 </script>
