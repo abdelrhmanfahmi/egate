@@ -311,7 +311,9 @@
                     class="link"
                     :to="{ path: '/suppliers/', query: { id: product.id } }"
                   >
-                    {{ product.product_details_by_type.customer_price }}
+                    {{
+                      product.product_details_by_type.customer_price.toFixed(3)
+                    }}
                     {{ currency }}
                   </router-link>
                 </div>
@@ -338,7 +340,9 @@
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
-                    {{ product.product_details_by_type.customer_price }}
+                    {{
+                      product.product_details_by_type.customer_price.toFixed(3)
+                    }}
                     {{ currency }}
                   </router-link>
                 </div>
@@ -601,9 +605,8 @@ export default {
         });
     },
     addToWishlist(item) {
-      
       let data = {
-        product_supplier_id: item.product_details_by_type.product_supplier_id
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
       };
       // this.addProductToWishlist({
       //   product: this.product,
@@ -854,5 +857,11 @@ export default {
   color: #403a37;
   font-size: 11pt;
   margin-bottom: 0.5rem;
+}
+.products-table {
+  @media (max-width: 992px) {
+    width: 100% !important;
+    overflow-y: scroll;
+  }
 }
 </style>

@@ -227,7 +227,6 @@
                   {{ error }}
                 </div>
               </div>
-              
 
               <div
                 class="col-12 form-group custom-control custom-checkbox"
@@ -269,10 +268,10 @@
             </div>
             <div class="methods-data">
               <div class="info">
-                {{ $t("payment.total") }}: {{ cart_sub_total }} {{ currency }}
+                {{ $t("payment.total") }}: {{ cart_sub_total.toFixed(3) }} {{ currency }}
               </div>
               <div class="info">
-                {{ $t("payment.discount") }} : {{ discount }} {{ currency }}
+                {{ $t("payment.discount") }} : {{ discount.toFixed(3) }} {{ currency }}
               </div>
               <!-- <div class="info delivery">
                 <div class="custom-control custom-checkbox">
@@ -292,7 +291,7 @@
                 class="d-flex justify-content-between align-items-center total"
               >
                 <span class="title">{{ $t("payment.total") }}</span>
-                <span class="price">{{ totalPayment }} {{ currency }}</span>
+                <span class="price">{{ totalPayment.toFixed(3) }} {{ currency }}</span>
               </div>
               <div class="methods">
                 <div class="method">
@@ -437,6 +436,7 @@ export default {
         address_uuid: null,
         suppliers: null,
         country_code: null,
+        redirect_url: null,
       },
       freeDelivery:
         sessionStorage.getItem("freeDelivery") == "true" ? true : false,
@@ -455,6 +455,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.sucessMsg(res.data.message);
+          window.location.href = res.data.items.url;
         })
         .catch((err) => {
           const errors = Object.values(err)[2].data;
@@ -462,6 +463,8 @@ export default {
           console.log(err);
           this.errMsg(errors.message);
         });
+
+      console.log(this.formData.redirect_url);
     },
     getAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -542,7 +545,8 @@ export default {
     this.formData.last_name = this.userData.last_name
       ? this.userData.last_name
       : "";
-    this.getTerms();
+    const backUrl = `${this.mainDoamin}complete-checkout`;
+    this.formData.redirect_url = backUrl
   },
   created() {
     if (

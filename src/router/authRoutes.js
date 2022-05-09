@@ -3,6 +3,7 @@ import OtaVerification from "../views/auth/OtpVerification.vue";
 import b2bRegister from "../views/auth/b2bRegister.vue";
 import b2bLogin from "../views/auth/b2bLogin.vue";
 import CompleteSocialProfile from "../views/auth/CompleteSocialProfile.vue";
+import CompleteCheckout from "../views/complete-checkout";
 
 export default [
   {
@@ -29,5 +30,10 @@ export default [
     path: "/complete-social-profile",
     name: "CompleteSocialProfile",
     component: CompleteSocialProfile,
+  },
+  {
+    path: "/complete-checkout",
+    name: "CompleteCheckout",
+    component: CompleteCheckout,
   },
 ];

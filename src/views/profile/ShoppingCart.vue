@@ -85,7 +85,7 @@
                 {{ item.product_name }}
               </router-link>
             </td>
-            <td>{{ item.price }} {{ currency }}</td>
+            <td>{{ item.price.toFixed(3) }} {{ currency }}</td>
             <td>
               <Counter
                 :quantity="item.quantity"
@@ -94,7 +94,7 @@
                 @changeTitle="ChangeQ($event)"
               ></Counter>
             </td>
-            <td>{{ item.product_sub_total }} {{ currency }}</td>
+            <td>{{ item.product_sub_total.toFixed(3) }} {{ currency }}</td>
 
             <td>
               <div class="actions d-flex">

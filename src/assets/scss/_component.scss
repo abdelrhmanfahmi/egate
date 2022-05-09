@@ -134,3 +134,34 @@
     border-bottom: 2px solid transparent !important;
   }
 }
+.main-header {
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .dropdown-toggle {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    &:hover,
+    &:active {
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  .show > .btn-secondary.dropdown-toggle {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    &:focus,
+    &:active {
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

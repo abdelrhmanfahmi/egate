@@ -106,7 +106,7 @@ export default {
       axios
         .get(`${baseURL}products/best/offers`)
         .then((res) => {
-          console.log("getBestDeals", res);
+          // console.log("getBestDeals", res);
           this.sliders = res.data.items.data;
         })
         .catch((err) => {
