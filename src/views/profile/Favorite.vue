@@ -25,7 +25,7 @@
     <div class="">
       <div class="" v-if="wishlistItems !== null">
         <h5 class="heading py-5 text-center">{{ $t("profile.favorite") }}</h5>
-        <div class="cart-table p-4">
+        <div class="cart-table ">
           <div class="suppliers py-4">
             <div class="container">
               <!-- <b-row v-if="loading">
