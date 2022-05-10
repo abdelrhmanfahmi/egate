@@ -44,7 +44,7 @@
             {{ $t("cart.cartInCart") }}
           </span>
         </div>
-        <h5>{{ $t("cart.cartSubTotal") }} : {{ cart_sub_total }} {{currency}}</h5>
+        <h5>{{ $t("cart.cartSubTotal") }} : {{ cart_sub_total.toFixed(3) }} {{currency}}</h5>
       </div>
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
@@ -140,6 +140,10 @@ export default {
       color: #fff;
     }
   }
+}
+
+img{
+  height: 400px;
 }
 
 </style>

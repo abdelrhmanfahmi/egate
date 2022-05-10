@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table hover :items="wishlistItems" :fields="fields" stacked="lg">
+    <!-- <b-table hover :items="wishlistItems" :fields="fields" stacked="lg">
       <template #cell(image)="data">
         <img :src="data.value" class="product-img" />
       </template>
@@ -21,14 +21,14 @@
           </b-button>
         </div>
       </template>
-    </b-table>
+    </b-table> -->
     <div class="">
       <div class="" v-if="wishlistItems !== null">
-        <h5 class="heading py-5 text-center">{{ $t("cart.wishlist") }}</h5>
+        <h5 class="heading py-5 text-center">{{ $t("profile.favorite") }}</h5>
         <div class="cart-table p-4">
           <div class="suppliers py-4">
             <div class="container">
-              <b-row v-if="loading">
+              <!-- <b-row v-if="loading">
                 <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                   <b-skeleton-img></b-skeleton-img>
                   <b-card>
@@ -107,7 +107,76 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">{{ $t("profile.product") }}</th>
+                    <th scope="col">{{ $t("profile.price") }}</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody v-for="(item, index) in wishlistItems" :key="index">
+                  <tr>
+                    <td class="text-center">
+                      <router-link
+                        :to="{ path: '/details', query: { id: item.id } }"
+                      >
+                        <div
+                          class="d-block text-center"
+                          v-if="
+                            item.product_supplier.image_path
+                              ? item.product_supplier.image_path
+                              : item.product_supplier.image
+                          "
+                        >
+                          <img
+                            :src="item.image_path"
+                            alt="wishlist-product-image"
+                            class="product-img"
+                          />
+                        </div>
+                        <div class="" v-else>
+                          <img
+                            src="@/assets/images/wishlist.png"
+                            alt="wishlist-product"
+                            class="product-img"
+                          />
+                        </div>
+                      </router-link>
+                    </td>
+                    <td class="text-center">
+                      <p
+                        class="supplier-name text-center mt-3 text-capitalize mb-0"
+                      >
+                        {{ item.product_supplier.company_name }}
+                      </p>
+                      <p v-if="$i18n.locale == 'ar'">
+                        {{ item.product_supplier.short_description_ar }}
+                      </p>
+                      <p v-if="$i18n.locale == 'en'">
+                        {{ item.product_supplier.short_description_en }}
+                      </p>
+                    </td>
+                    <td class="text-center">
+                      {{ item.client_id }}
+                    </td>
+                    <td class="text-center">
+                      <div class="actions d-flex">
+                        <b-button @click="removeFromWishlist(item)">
+                          <font-awesome-icon icon="fa-solid fa-trash-can" />
+                        </b-button>
+
+                        <b-button @click="addToCart(item)">
+                          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                        </b-button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
               <div
@@ -155,7 +224,7 @@ export default {
       fields: [
         {
           key: "image",
-          label: "",
+          label: "image",
         },
         {
           key: "product",
@@ -257,12 +326,12 @@ export default {
   },
   components: {
     // Counter,
-    Paginate
+    Paginate,
   },
   methods: {
-    removeItem(i) {
-      this.items.splice(i, 1);
-    },
+    // removeItem(i) {
+    //   this.items.splice(i, 1);
+    // },
     getWishlistProducts() {
       this.loadingOne = false;
       this.loading = true;
@@ -300,6 +369,39 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 1200);
+    },
+    addToCart(item) {
+      let data = {
+        product_supplier_id:
+          item.product_details_by_type.product_supplier_id,
+        quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
+      };
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
     },
     onPageChange(page) {
       this.page = page;
@@ -343,5 +445,9 @@ export default {
     margin: 0 5px;
     cursor: pointer;
   }
+}
+.heading {
+  color: #312620;
+  font-size: 28pt;
 }
 </style>

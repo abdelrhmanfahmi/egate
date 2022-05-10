@@ -28,8 +28,15 @@ export default {
   accept: "I accept",
   termsAndConditions: "terms and conditions",
   checkout: "Checkout",
-  delivery:'Shipping',
-  pickup:'Pick-up',
-  selectExist:'Select From Existing',
-  country_code:'Country Code'
+  delivery: "Shipping",
+  pickup: "Pick-up",
+  selectExist: "Select From Existing",
+  country_code: "Country Code",
+  chooseCurrency: "Choose Currency",
+  waitPurchace1: "Thank You for Your Order!",
+  waitPurchace2: "A copy or your order summary has been sent to Your Email",
+  congrats:'Congratulations!',
+  orderTrack:'Track Your Order',
+  fail:'ERROR!',
+  fail1:'Something Went Wrong'
 };

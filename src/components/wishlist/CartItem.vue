@@ -61,7 +61,7 @@
           </span>
         </div> -->
         <div class="total mr-2">
-          {{ product.product_sub_total }} {{ currency }}
+          {{ product.product_sub_total.toFixed(3) }} {{ currency }}
         </div>
         <div class="actions mr-2" @click="removeFromCart(product)">
           <span class="action-icon">

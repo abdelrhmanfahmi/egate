@@ -59,7 +59,7 @@
                     {{ item.product_name }}
                   </router-link>
                 </td>
-                <td>{{ item.price }} {{ currency }}</td>
+                <td>{{ item.price.toFixed(3) }} {{ currency }}</td>
                 <td>
                   <Counter
                     :quantity="item.quantity"
@@ -68,7 +68,7 @@
                     @changeTitle="ChangeQ($event)"
                   ></Counter>
                 </td>
-                <td>{{ item.product_sub_total }} {{ currency }}</td>
+                <td>{{ item.product_sub_total.toFixed(3) }} {{ currency }}</td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -148,11 +148,11 @@
               <tbody>
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ cart_sub_total }} {{ currency }}</td>
+                  <td>{{ cart_sub_total.toFixed(3) }} {{ currency }}</td>
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ totalDiscount }} {{ currency }}</td>
+                  <td>{{ totalDiscount.toFixed(3) }} {{ currency }}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -173,7 +173,7 @@
                 </tr> -->
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ totalPayment }} {{ currency }}</td>
+                  <td>{{ totalPayment.toFixed(3) }} {{ currency }}</td>
                 </tr>
               </tbody>
             </table>

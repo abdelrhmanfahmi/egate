@@ -31,5 +31,12 @@ export default {
   delivery: "توصيل",
   pickup: "اختر موقع استلام",
   selectExist: "اختر من العناوين المتاحه",
-  country_code:'كود الدوله'
+  country_code: "كود الدوله",
+  chooseCurrency: "اختر عملة الشراء",
+  waitPurchace1: "شكرا لاستكمال طلبك",
+  waitPurchace2: "سوف يتم ارسال تفاصيل طلبك على بريدك الالكترونى",
+  congrats: "مبروك!",
+  orderTrack: "تتبع طلبك",
+  fail: "حدث خطأ",
+  fail1: "لقد حدث خطأ ما",
 };
