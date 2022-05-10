@@ -59,7 +59,10 @@
                     {{ item.product_name }}
                   </router-link>
                 </td>
-                <td>{{ item.price.toFixed(3) }} {{ currency }}</td>
+                <td v-if="item.price">
+                  {{ item.price | fixedCurrency }} {{ currency }}
+                </td>
+                <td v-else>-</td>
                 <td>
                   <Counter
                     :quantity="item.quantity"
@@ -68,7 +71,10 @@
                     @changeTitle="ChangeQ($event)"
                   ></Counter>
                 </td>
-                <td>{{ item.product_sub_total.toFixed(3) }} {{ currency }}</td>
+                <td v-if="item.product_sub_total">
+                  {{ item.product_sub_total | fixedCurrency }} {{ currency }}
+                </td>
+                <td v-else>-</td>
 
                 <td>
                   <div class="actions" @click="removeFromCart(item)">
@@ -148,11 +154,11 @@
               <tbody>
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ cart_sub_total.toFixed(3) }} {{ currency }}</td>
+                  <td v-if="cart_sub_total">{{ cart_sub_total | fixedCurrency }} {{ currency }}</td>
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td>{{ totalDiscount.toFixed(3) }} {{ currency }}</td>
+                  <td v-if="totalDiscount">{{ totalDiscount | fixedCurrency }} {{ currency }}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -173,7 +179,7 @@
                 </tr> -->
                 <tr>
                   <th>{{ $t("cart.total") }}</th>
-                  <td>{{ totalPayment.toFixed(3) }} {{ currency }}</td>
+                  <td>{{ totalPayment | fixedCurrency }} {{ currency }}</td>
                 </tr>
               </tbody>
             </table>
@@ -191,7 +197,7 @@
                 v-else
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
-               {{ $t("cart.next") }}
+                {{ $t("cart.next") }}
               </button>
 
               <transition name="modal">

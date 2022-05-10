@@ -37,7 +37,7 @@
           </router-link>
 
           <span class="price">
-            {{ product.price.toFixed(3) }}
+            {{ product.price | fixedCurrency }}
           </span>
           <span class="price"> x </span>
           <span class="price">
@@ -61,7 +61,7 @@
           </span>
         </div> -->
         <div class="total mr-2">
-          {{ product.product_sub_total.toFixed(3) }} {{ currency }}
+          {{ product.product_sub_total | fixedCurrency }} {{ currency }}
         </div>
         <div class="actions mr-2" @click="removeFromCart(product)">
           <span class="action-icon">

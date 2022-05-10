@@ -312,7 +312,7 @@
                     :to="{ path: '/suppliers/', query: { id: product.id } }"
                   >
                     {{
-                      product.product_details_by_type.customer_price.toFixed(3)
+                      product.product_details_by_type.customer_price | fixedCurrency
                     }}
                     {{ currency }}
                   </router-link>
@@ -341,7 +341,7 @@
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
                     {{
-                      product.product_details_by_type.customer_price.toFixed(3)
+                      product.product_details_by_type.customer_price | fixedCurrency
                     }}
                     {{ currency }}
                   </router-link>
@@ -380,7 +380,14 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
-                  <a @click="addToWishlist(product)"
+                  <a class="text-danger" :title="`product in favourite`"
+                    @click="addToWishlist(product)"
+                    v-if="product.is_favorite == true"
+                    ><font-awesome-icon icon="fa-solid fa-star"
+                  /></a>
+                  <a
+                    @click="addToWishlist(product)"
+                    v-else
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
@@ -634,6 +641,7 @@ export default {
         })
         .finally(() => {
           setTimeout(() => {
+            this.getCategoryProducts()
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });

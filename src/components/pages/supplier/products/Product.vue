@@ -40,7 +40,7 @@
           data.product.title
         }}</a>
         <span class="price"
-          >{{ data.product_details_by_type.customer_price.toFixed(3) }}
+          >{{ data.product_details_by_type.customer_price | fixedCurrency }}
           {{ currency }}</span
         >
       </div>

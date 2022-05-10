@@ -52,6 +52,7 @@ import vmodal from "vue-js-modal";
 Vue.use(vmodal);
 
 import "./mixins";
+import "./filters"
 
 // Import the component
 import VueSkeletonLoader from "skeleton-loader-vue";
