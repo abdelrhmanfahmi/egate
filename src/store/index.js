@@ -63,7 +63,7 @@ export default new Vuex.Store({
         axios
           .post(`${baseURL}guest/generate-token`)
           .then((res) => {
-            console.log("SET_USER_DATA_INFO", res);
+            // console.log("SET_USER_DATA_INFO", res);
             commit("SET_USER_GUEST_ID", res.data.items.uuid);
             localStorage.setItem("guest-id", res.data.items.uuid);
           })

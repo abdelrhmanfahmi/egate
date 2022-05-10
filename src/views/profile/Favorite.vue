@@ -122,7 +122,7 @@
                   <tr>
                     <td class="text-center">
                       <router-link
-                        :to="{ path: '/details', query: { id: item.id } }"
+                        :to="{ path: '/details', query: { id: item.product_supplier_id } }"
                       >
                         <div
                           class="d-block text-center"
@@ -164,7 +164,7 @@
                       {{ item.client_id }}
                     </td>
                     <td class="text-center">
-                      <div class="actions d-flex">
+                      <div class="actions d-flex justify-content-center align-items-center">
                         <b-button @click="removeFromWishlist(item)">
                           <font-awesome-icon icon="fa-solid fa-trash-can" />
                         </b-button>
@@ -177,6 +177,10 @@
                   </tr>
                 </tbody>
               </table>
+              <!-- v-if="
+              myProduct.product_details_by_type.add_type === 'cart' ||
+              myProduct.product_details_by_type.add_type === 'both'
+            " -->
               <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
               <div
@@ -359,7 +363,7 @@ export default {
       //   product: product,
       // });
       this.$store.dispatch("wishlist/removeProductFromWishlist", {
-        myItem: product.product_supplier,
+        myItem: product.id,
       });
       this.loading = true;
       this.wishlistItems = null;
