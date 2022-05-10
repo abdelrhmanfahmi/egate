@@ -14,7 +14,7 @@ export const getWishlistItems = ({ commit }) => {
 
 export const removeProductFromWishlist = ({ commit }, product) => {
   commit("REMOVE_PRODUCT_FROM_SET_WISHLIST", product);
-  Wishlist.delete(product.myItem.id);
+  Wishlist.delete(product.myItem);
 };
 
 export const clearWishlistItems = ({ commit }) => {

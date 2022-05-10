@@ -56,21 +56,17 @@
           class="bg-transparent border-0 text-white"
         >
           <b-dropdown-item
-            v-for="(currency, index) in currencies"
+            v-for="(currency, index) in myCurrencies"
             :key="index"
             class="list-unstyled d-flex bg-transparent border-0"
           >
             <ul class="list-unstyled d-flex">
-              <li
-                v-for="(curr, index) in currency.currencies"
-                :key="index"
-                class="d-flex"
-              >
+              <li class="d-flex">
                 <button
-                  @click="handleCurrency(curr.code)"
+                  @click="handleCurrency(currency.code)"
                   class="bg-transparent border-0 bg-transparent border-0"
                 >
-                  {{ curr.code }}
+                  {{ currency.code }}
                 </button>
               </li>
             </ul>
@@ -97,6 +93,7 @@ export default {
       currencyValue: null,
       currencies: [],
       countries: [],
+      myCurrencies: null,
       lang: localStorage.getItem("lang") || "en",
 
       countryImg: JSON.parse(localStorage.getItem("country"))
@@ -127,6 +124,7 @@ export default {
                 if (localStorage.getItem("currency") === null) {
                   localStorage.setItem("currency", country.currencies[0].code);
                 }
+                this.myCurrencies = country.currencies;
               }
             });
           }
@@ -204,7 +202,7 @@ export default {
     }
   }
 }
-.btn-secondary{
+.btn-secondary {
   background: transparent !important;
   border: none !important;
 }

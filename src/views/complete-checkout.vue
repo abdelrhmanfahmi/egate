@@ -71,14 +71,14 @@ export default {
   methods: {
     checkComplete() {
       let data = {
-        order_uuid: this.$route.query.order_uuid || "",
-        payment_charge_id: this.$route.query.tap_id || "",
+        order_uuid: this.$route.query.order_uuid,
+        payment_charge_id: this.$route.query.tap_id,
       };
       auth
         .checkoutComplete(data)
         .then((res) => {
           console.log(res);
-          if (res.status == 200) {
+          if (res.data.items.status === 'CAPTURED' || res.data.items.status === 'INITIATED') {
             this.success = true;
             this.fail = false;
           } else {
