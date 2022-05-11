@@ -170,7 +170,7 @@ export default {
     this.form = { ...this.userData };
   },
   created() {
-    this.reloadPage();
+    // this.reloadPage();
   },
   methods: {
     getAllCountires() {

@@ -4,7 +4,8 @@ export default {
   needCompanyContact: "لتغير الشركة اتصل بنا.",
   //Header
   completeAccount: "اكمل حسابك",
-  completeMessage: "جى إكمال التسجيل عن طريق تحميل المستندات المطلوبة ، الان يمكنك فقط إدراج منتجاتك.",
+  completeMessage:
+    "جى إكمال التسجيل عن طريق تحميل المستندات المطلوبة ، الان يمكنك فقط إدراج منتجاتك.",
   completeLink: "انقر هنا لإكمال التسجيل",
   completeRate: "نسبة اكتمال بيانات التسجيل",
   // side Menu
@@ -68,7 +69,7 @@ export default {
   ibanCertificate: "رقم الحساب المصرفى",
   letterAuthorization: "خطاب تفويض لمستخدمين - وتحديد دور كل منهم",
   company: "شركة",
-  download: 'تحميل',
+  download: "تحميل",
   // Supplier Rating
   supplierRatings: "تقييمات المورد الخاص بي",
   supplierRatingsEmpty: "لم تقم بإضافة اي مراجعات",
@@ -93,7 +94,7 @@ export default {
   invoiceNo: "رقم الفاتورة",
   supplier: "اسم المورد",
   residentsEmpty: "لا توجد مرتجعات",
-  //SupplierCorrespondence 
+  //SupplierCorrespondence
   supplierCorrespondence: "مراسلات المورد",
   supplierCorrespondenceEmpty: "لا توجد اتصالات",
   cancelSubscribe: "إلغاء الاشتراك",
@@ -112,11 +113,18 @@ export default {
   giftCardCheck: "تحقق من الحالة والتوازن",
   profileData: "الملف الشحضي كامل من حيث البيانات",
   completeInformation: "من فضلك اكمل بيناتك",
-  filePlaceHolder:'قم باختيار الملف',
-  postcode:'الرمز البريدى',
-  apartment:'رقم الشقة',
-  block_number:'رقم المبني',
-  message:'اظهر الرساله',
-  name:'الاسم',
-  yourMessage:'رسالتك'
+  filePlaceHolder: "قم باختيار الملف",
+  postcode: "الرمز البريدى",
+  apartment: "رقم الشقة",
+  block_number: "رقم المبني",
+  message: "اظهر الرساله",
+  name: "الاسم",
+  yourMessage: "رسالتك",
+  date: "التاريخ",
+  productsNumber: "عدد المنتجات",
+  amount: "الكميه",
+  suppliersNumber: "المورد",
+  orderStatus: "حالة الطلب",
+  buyMethod: "طريقة الشراء",
+  Actions: "اجراء",
 };

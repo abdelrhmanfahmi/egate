@@ -14,6 +14,7 @@ import Items from "../views/Items.vue";
 import SingleProduct from "../views/single-Product/Single-Product.vue";
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
+import ViewOrderDetails from "../views/profile/ViewOrderDetails.vue";
 
 Vue.use(VueRouter);
 
@@ -125,6 +126,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/bestDeals.vue"),
   },
+  {
+    path: "/viewOrderDetails",
+    name: "ViewOrderDetails",
+    component: ViewOrderDetails,
+  },
   ...auth,
   profileRoutes,
 ];
@@ -134,7 +140,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   },
 });
 
