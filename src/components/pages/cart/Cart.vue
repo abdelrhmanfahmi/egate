@@ -191,14 +191,14 @@
               >
                 {{ $t("cart.next") }}
               </router-link>
-              <button
+              <a 
                 @click="showModal = true"
                 @ok="$refs.cartModal.onSubmit()"
                 v-else
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
                 {{ $t("cart.next") }}
-              </button>
+              </a>
 
               <transition name="modal">
                 <div class="modal-mask" v-if="showModal">
