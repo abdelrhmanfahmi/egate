@@ -51,7 +51,7 @@
             </ul>
           </li>
         </ul> -->
-        <b-dropdown
+        <!-- <b-dropdown
           :text="$t('payment.chooseCurrency')"
           class="bg-transparent border-0 text-white"
         >
@@ -71,7 +71,26 @@
               </li>
             </ul>
           </b-dropdown-item>
-        </b-dropdown>
+        </b-dropdown> -->
+        <div class="select-country">
+          <b-dropdown
+            id="dropdown-1"
+            variant="link"
+            toggle-class="text-decoration-none"
+            no-caret
+          >
+            <template #button-content>
+              <span class="title">{{ currentCurrency }}</span>
+            </template>
+            <b-dropdown-item
+              v-for="(currency, index) in myCurrencies"
+              :key="index"
+              @click="handleCurrency(currency.code)"
+            >
+              <span>{{ currency.code }}</span>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
         <!-- <div class="select-currency" @change="handleCurrency($event)">
           <b-form-select
             v-model="currencyValue"
@@ -103,10 +122,14 @@ export default {
       countryName: JSON.parse(localStorage.getItem("country"))
         ? JSON.parse(localStorage.getItem("country")).title
         : this.$t("home.kuwait"),
+      // currentCurrency : localStorage.getItem('currency')
     };
   },
   mounted() {
     this.getAllCountires();
+  },
+  created(){
+    this.reloadPage()
   },
   methods: {
     getAllCountires() {
@@ -177,6 +200,24 @@ export default {
     handleCurrency(event) {
       localStorage.setItem("currency", event);
       location.reload();
+    },
+    reloadPage() {
+      if (localStorage.getItem("reloadedCurrency")) {
+        // The page was just reloaded. Clear the value from local storage
+        // so that it will reload the next time this page is visited.
+        localStorage.removeItem("reloadedCurrency");
+      } else {
+        // Set a flag so that we know not to reload the page twice.
+        localStorage.setItem("reloadedCurrency", "1");
+        setTimeout(() => {
+          location.reload();
+        }, 700);
+      }
+    },
+  },
+  computed: {
+    currentCurrency() {
+      return localStorage.getItem("currency");
     },
   },
 };

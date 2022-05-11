@@ -17,7 +17,7 @@
           <!-- {{ slider.product.title }} -->
         </h4>
         <span class="price" v-if="slider.product_details_by_type.price">
-          {{ slider.product_details_by_type.price.toFixed(3) }} {{ currency }}
+          {{ slider.product_details_by_type.price | fixedCurrency }} {{ currency }}
         </span>
       </div>
     </div>

@@ -268,10 +268,10 @@
             </div>
             <div class="methods-data">
               <div class="info">
-                {{ $t("payment.total") }}: {{ cart_sub_total.toFixed(3) }} {{ currency }}
+                {{ $t("payment.total") }}: {{ cart_sub_total | fixedCurrency }} {{ currency }}
               </div>
               <div class="info">
-                {{ $t("payment.discount") }} : {{ discount.toFixed(3) }} {{ currency }}
+                {{ $t("payment.discount") }} : {{ discount | fixedCurrency }} {{ currency }}
               </div>
               <!-- <div class="info delivery">
                 <div class="custom-control custom-checkbox">
@@ -291,7 +291,7 @@
                 class="d-flex justify-content-between align-items-center total"
               >
                 <span class="title">{{ $t("payment.total") }}</span>
-                <span class="price">{{ totalPayment.toFixed(3) }} {{ currency }}</span>
+                <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
               </div>
               <div class="methods">
                 <div class="method">

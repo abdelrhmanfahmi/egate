@@ -23,7 +23,7 @@
           v-if="cart_sub_total"
         >
           <span> {{ $t("cart.total") }}</span>
-          <span> {{ cart_sub_total.toFixed(3) }} {{ currency }} </span>
+          <span> {{ cart_sub_total | fixedCurrency }} {{ currency }} </span>
         </div>
         <div class="navigation my-4" v-if="cart_sub_total">
           <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
