@@ -150,11 +150,17 @@
                     v-model="selectedAddress"
                     class="pickupAddresses"
                     @input="changeAddress"
+                    placeholder="test"
                   >
+                    <b-form-select-option selected disabled :value="$t('payment.selectExist')"
+                      >{{ $t("payment.selectExist") }}</b-form-select-option
+                    >
+
                     <b-form-select-option
                       v-for="(address, index) in addresses"
                       :key="index"
                       :value="address"
+                      
                       >{{ address.country.title }} ,
                       {{ address.region.title }} ,
                       {{ address.city.title }}

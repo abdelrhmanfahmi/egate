@@ -25,13 +25,13 @@
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
       >
-        <router-link to="/b2b-register" class="text-white">
-          <button
+        <a v-b-toggle.login class="text-white" >
+          <button  @click="close"
             class="login-button m-0 mt-4 py-3 px-2 mx-2 text-white text-center w-auto btn-secondary"
           >
             {{ $t("login.logBtn1") }}
           </button>
-        </router-link>
+        </a>
         <router-link to="/order-shipping" class="text-white">
           <button
             class="login-button dark m-0 mt-4 py-3 px-2 mx-2 text-white text-center w-auto"
@@ -64,6 +64,11 @@ export default {
     handleClose() {
       this.$emit("close");
     },
+    close(){
+      setTimeout(() => {
+        this.$emit("close");
+      }, 50);
+    }
   },
   //   props: ["product"],
 };
