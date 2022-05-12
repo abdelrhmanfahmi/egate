@@ -67,7 +67,7 @@ export default {
         .checkCoupon(this.coupon)
         .then((res) => {
           console.log(res);
-          this.sucessMsg(res.data.message);
+          this.sucessMsg(this.$t('profile.couponValid'));
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

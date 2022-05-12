@@ -137,4 +137,5 @@ export default {
   rowTotal: "السعر الكلى",
   orderTotal: "اجمالى الطلب",
   notFound: "عذرا المنتج غير متاح حاليا",
+  couponValid: "الكوبون صحيح",
 };

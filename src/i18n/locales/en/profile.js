@@ -151,4 +151,5 @@ export default {
   rowTotal: "Row Total",
   orderTotal: "Order Total",
   notFound: "Sorry , Product Isn't Available Now",
+  couponValid: "coupon Valid",  
 };
