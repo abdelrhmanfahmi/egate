@@ -4,7 +4,8 @@ export default {
   needCompanyContact: "To change company, contact us.",
   //Header
   completeAccount: "Complete your account",
-  completeMessage: "Please complete the registration by downloading the required documents, now you can only insert your products.",
+  completeMessage:
+    "Please complete the registration by downloading the required documents, now you can only insert your products.",
   completeLink: "Click here to complete the registration",
   completeRate: "Completion rate of registration data",
   // side Menu
@@ -71,7 +72,7 @@ export default {
   ibanCertificate: "IBAN Certificate No",
 
   company: "company",
-  download:'Download',
+  download: "Download",
   // Supplier Rating
   supplierRatings: "My supplier ratings",
   supplierRatingsEmpty: "You have not added any reviews",
@@ -98,7 +99,7 @@ export default {
   invoiceNo: "Invoice Number",
   supplier: "Supplier",
   residentsEmpty: "There are no residents",
-  //SupplierCorrespondence 
+  //SupplierCorrespondence
   supplierCorrespondence: "Supplier Correspondence",
   supplierCorrespondenceEmpty: "There are no contacts",
   cancelSubscribe: "cancel subscribe",
@@ -115,13 +116,29 @@ export default {
   giftCard: "Gift Card",
   giftCardCoupon: "Enter a gift coupon",
   giftCardCheck: "Check the status and balance",
-  profileData : "Your data is completed",
-  completeInformation:"please complete your profile",
-  filePlaceHolder:'Please Choose File',
-  postcode:'Post Code',
-  apartment:'Apartment',
-  block_number:'Block Number',
-  message:'Show Message',
-  name:'Name',
-  yourMessage:'Your message'
+  profileData: "Your data is completed",
+  completeInformation: "please complete your profile",
+  filePlaceHolder: "Please Choose File",
+  postcode: "Post Code",
+  apartment: "Apartment",
+  block_number: "Block Number",
+  message: "Show Message",
+  name: "Name",
+  yourMessage: "Your message",
+  date: "Date",
+  productsNumber: "Number Of Products",
+  amount: "Amount",
+  suppliersNumber: "Supplier Name",
+  orderStatus: "Order Status",
+  buyMethod: "Buy Method",
+  Actions: "Actions",
+  printIno: "PRINT Invoice",
+  accountInfo: "Account Information",
+  customerName: "Customer Name",
+  customerEmail: "Customer Email",
+  customerPlacedId: "Customer Placed In",
+  addressInfo: "Address Information",
+  billingAddress: "billing Address",
+  paymentInfo: "Payment Information",
+  shoppingInfo: "Shoppnig & Handling Information",
 };

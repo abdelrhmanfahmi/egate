@@ -85,7 +85,8 @@
                 {{ item.product_name }}
               </router-link>
             </td>
-            <td>{{ item.price | fixedCurrency }} {{ currency }}</td>
+            <td v-if="item.price">{{ item.price | fixedCurrency }} {{ currency }}</td>
+            <td v-else>-</td>
             <td>
               <Counter
                 :quantity="item.quantity"
@@ -94,7 +95,8 @@
                 @changeTitle="ChangeQ($event)"
               ></Counter>
             </td>
-            <td>{{ item.product_sub_total | fixedCurrency }} {{ currency }}</td>
+            <td v-if="item.product_sub_total">{{ item.product_sub_total | fixedCurrency }} {{ currency }}</td>
+            <td v-else >-</td>
 
             <td>
               <div class="actions d-flex">

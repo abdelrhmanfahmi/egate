@@ -3,14 +3,14 @@
     <h5 class="profileB2b-header-table">
       {{ $t("profile.ordersLists") }}
     </h5>
-    <div class="row">
+    <div class="d-flex">
       <div class="col-12 col-md-6 col-lg-3">
         <a href="#" type="submit" class="login-button white my-3">
           {{ $t("profile.ordersListsNew") }}
         </a>
       </div>
     </div>
-    <b-table
+    <!-- <b-table
       hover
       :items="items"
       :fields="fields"
@@ -18,12 +18,55 @@
       show-empty
       :empty-text="$t('profile.ordersListsEmpty')"
     >
-      <template #cell(procedure)>
-        <a href="#" class="login-button my-0 w-50 white">
-          {{ $t("profile.viewDetails") }}
-        </a>
+      <template #cell(Actions)="data">
+        <router-link
+          :to="{ path: '/viewOrderDetails', query: { id: `${data.value}` } }"
+          class="text-dark"
+        >
+          <b-button variant="outline-secondary" class="mx-2">
+            {{ $t("view") }}
+          </b-button>
+        </router-link>
+
+        <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
       </template>
-    </b-table>
+    </b-table> -->
+    <div class="holder">
+      <table class="table table-striped table-hover table-bordered selectable">
+        <thead>
+          <tr>
+            <th scope="col" v-for="(tab, index) in fields" :key="index">
+              {{ tab.label }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(x, index) in 8" :key="index">
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>test {{ index }}</td>
+            <td>
+              <router-link
+                :to="{
+                  path: '/viewOrderDetails',
+                  query: { id: `${index}` },
+                }"
+                class="text-dark"
+              >
+                <b-button variant="outline-secondary" class="m-2">
+                  {{ $t("view") }}
+                </b-button>
+              </router-link>
+              <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -33,20 +76,36 @@ export default {
     return {
       fields: [
         {
-          key: "nameDescription",
-          label: this.$t("profile.nameDescription"),
+          key: "id",
+          label: "id",
         },
         {
-          key: "products",
-          label: this.$t("profile.products"),
+          key: "date",
+          label: this.$t("profile.date"),
         },
         {
-          key: "finalActivity",
-          label: this.$t("profile.finalActivity"),
+          key: "no-of-products",
+          label: this.$t("profile.productsNumber"),
         },
         {
-          key: "procedure",
-          label: this.$t("profile.procedure"),
+          key: "amount",
+          label: this.$t("profile.amount"),
+        },
+        {
+          key: "no-of-suppliers",
+          label: this.$t("profile.suppliersNumber"),
+        },
+        {
+          key: "order-status",
+          label: this.$t("profile.orderStatus"),
+        },
+        {
+          key: "buy-method",
+          label: this.$t("profile.buyMethod"),
+        },
+        {
+          key: "Actions",
+          label: this.$t("profile.Actions"),
         },
       ],
       items: [
