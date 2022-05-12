@@ -22,7 +22,10 @@
         </p>
         <p class="price">
           {{ $t("singleProduct.price") }} :
-          {{ myProduct.product_details_by_type.customer_price | fixedCurrency }} {{ currency }}
+          {{
+            myProduct.product_details_by_type.customer_price | fixedCurrency
+          }}
+          {{ currency }}
         </p>
 
         <hr />
@@ -33,15 +36,15 @@
             {{ myProduct.client.company_name }}
           </router-link>
         </p>
-        <!-- <div class="weight">
-          <p class="title" v-if="pro.weight">
-            {{ $t("singleProduct.weight") }} : {{ pro.weight }}
+        <div class="weight">
+          <p class="title" v-if="myProduct.product_details_by_type.weight">
+            {{ $t("singleProduct.weight") }} : 
           </p>
+
           <div class="available-weight d-flex justify-content-end">
-            <span>500</span>
-            <span>1500</span>
+            <span>{{ myProduct.product_details_by_type.weight }} {{ myProduct.unit.title }}</span>
           </div>
-        </div> -->
+        </div>
       </div>
       <span class="is-available" v-if="myProduct.in_stock_quantity"
         >{{ $t("singleProduct.available") }} :
