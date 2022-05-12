@@ -70,9 +70,15 @@ export default {
 
   //end  bank info
 
-
   // profile quotations
   getQuotations() {
     return globalAxios.get(`members/product/rfq`);
+  },
+  checkCoupon(coupon) {
+    return globalAxios.get(`members/products/coupon/check-coupons`, {
+      params: {
+        coupon: coupon,
+      },
+    });
   },
 };

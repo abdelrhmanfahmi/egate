@@ -174,6 +174,7 @@ export default {
       }
       localStorage.setItem("lang", this.lang);
       localStorage.removeItem("currency");
+      
       window.location.reload();
     },
     onHandelCountry(data) {

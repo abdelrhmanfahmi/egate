@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="" v-if="myProduct !== null">
+    <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" lg="6" xl="4">
           <ProductInfo :myProduct="myProduct"></ProductInfo>
@@ -39,15 +39,14 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/Loader.gif" class="loading-img" alt="loading" />
+        <img src="@/assets/images/Loader.gif" class="loading-img w-25" alt="loading" />
       </div>
     </div>
-    <div class="" v-else>
-      <div class="d-flex justify-content-center align-items-center p-5">
-        <h3>
-          {{ $t("cart.noData") }}
-        </h3>
-      </div>
+    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound" >
+      <img src="@/assets/images/New-Project.png" alt="product-not-found">
+      <h2>
+        {{$t('profile.notFound')}}
+      </h2>
     </div>
   </div>
 </template>
@@ -77,6 +76,7 @@ export default {
       product: [],
       supplierProducts: null,
       supplierProductsLength: null,
+      notFound:false
     };
   },
 
@@ -90,7 +90,11 @@ export default {
           this.myProduct = res.data.items;
         })
         .catch((err) => {
-          console.log(err);
+          if(err.response.data.code == 404){
+            this.notFound = true;
+            this.loading = false;
+            this.myProduct = ""
+          }
         })
         .finally(() => {
           this.loading = false;
@@ -122,5 +126,8 @@ export default {
   @media(max-width:992px){
     padding: 0;
   }
+}
+.notFound{
+  min-height: 70vh;
 }
 </style>
