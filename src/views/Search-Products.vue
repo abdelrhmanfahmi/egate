@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container"> 
       <div class="text-center my-5">
         <h1>
           {{ $t("profile.searchResult") }}
