@@ -114,7 +114,11 @@
             class="item-media mt-3 m-lg-0"
             v-if="productInfo.image_path !== null"
           >
-            <img :src="productInfo.image_path" alt="item-name" />
+            <img
+              :src="productInfo.image_path"
+              alt="item-name"
+              class="img-fluid"
+            />
           </b-col>
         </b-row>
       </div>
@@ -292,7 +296,8 @@
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
-                  {{product.product_details_by_type.weight}} {{ product.product_details_by_type.unit.title }}
+                  {{ product.product_details_by_type.weight }}
+                  {{ product.product_details_by_type.unit.title }}
                 </router-link>
                 <div v-else class="link">-</div>
               </td>
@@ -312,7 +317,8 @@
                     :to="{ path: '/suppliers/', query: { id: product.id } }"
                   >
                     {{
-                      product.product_details_by_type.customer_price | fixedCurrency
+                      product.product_details_by_type.customer_price
+                        | fixedCurrency
                     }}
                     {{ currency }}
                   </router-link>
@@ -341,7 +347,8 @@
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
                     {{
-                      product.product_details_by_type.customer_price | fixedCurrency
+                      product.product_details_by_type.customer_price
+                        | fixedCurrency
                     }}
                     {{ currency }}
                   </router-link>
@@ -380,14 +387,14 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
-                  <a class="text-danger" :title="`product in favourite`"
+                  <a
+                    class="text-danger"
+                    :title="`product in favourite`"
                     @click="addToWishlist(product)"
                     v-if="product.is_favorite == true"
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
-                  <a
-                    @click="addToWishlist(product)"
-                    v-else
+                  <a @click="addToWishlist(product)" v-else
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
@@ -641,7 +648,7 @@ export default {
         })
         .finally(() => {
           setTimeout(() => {
-            this.getCategoryProducts()
+            this.getCategoryProducts();
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });
@@ -870,6 +877,13 @@ export default {
   @media (max-width: 992px) {
     width: 100% !important;
     overflow-y: scroll;
+  }
+}
+.item-media {
+  img {
+    min-height: 250px;
+    width: 100%;
+    object-fit: cover;
   }
 }
 </style>

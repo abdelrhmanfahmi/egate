@@ -13,6 +13,20 @@ export default {
       },
     });
   },
+  searchResult(data) {
+    return globalAxios.get(`products/search/categories-products`, {
+      params: {
+        keyword: data.keyword,
+      },
+    });
+  },
+  searchAllProducts(data) {
+    return globalAxios.get(`products`, {
+      params: {
+        keyword: data.keyword,
+      },
+    });
+  },
   getCategoryProducts(id,variantData) {
     return globalAxios.get(`products?category_id=${id}&${variantData}`);
   },

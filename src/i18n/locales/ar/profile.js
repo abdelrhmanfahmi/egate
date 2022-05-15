@@ -154,4 +154,6 @@ export default {
   shoppingInfo: "معلومات الشحن ",
   return: "استرجاع",
   serial: "الرقم التسلسلى",
+  searchResult: "نتيجة البحث",
+  searchNoResult: "لايوجد نتائج مطابقه للبحث",
 };

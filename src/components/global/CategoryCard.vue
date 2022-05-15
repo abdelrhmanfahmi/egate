@@ -1,9 +1,7 @@
 <template>
   <div class="category-card">
     <div>
-      <b-img-lazy
-        :src="image"
-      ></b-img-lazy>
+      <b-img-lazy :src="image" class="img-fluid"></b-img-lazy>
     </div>
 
     <div class="card-footer">
@@ -21,9 +19,9 @@ export default {
         return {};
       },
     },
-    image:{
-      type:String
-    }
+    image: {
+      type: String,
+    },
   },
 };
 </script>
@@ -34,14 +32,23 @@ export default {
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
   img {
-    width: 100%;
+    min-width: 350px;
     height: 210px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    background-size: cover;
+    width: 100%;
   }
 
   .card-footer {
     text-align: center;
     font-size: 19px;
     background: #ed2124;
+  }
+}
+.homecategories {
+  img {
+    min-width: 100% !important;
   }
 }
 </style>

@@ -162,4 +162,6 @@ export default {
   serial: "Serial Number",
   cancel: "Cancel",
   view: "View",
+  searchResult: "Search Result",
+  searchNoResult: "No Results Found",
 };

@@ -76,7 +76,12 @@
                         icon="fa-solid fa-search" /></strong
                   ></b-input-group-text>
                 </template>
-                <b-form-input placeholder="Search"></b-form-input>
+                <b-form @submit.prevent="search">
+                  <b-form-input
+                    :placeholder="$t('cart.search')"
+                    v-model="keyword"
+                  ></b-form-input>
+                </b-form>
               </b-input-group>
             </b-modal>
           </div>
@@ -189,8 +194,9 @@ export default {
       windowWidth: null,
       cartItemsLength: 0,
       cartWishlistLength: 0,
-      wishlistItems:null,
-      wishlistLength:0
+      wishlistItems: null,
+      wishlistLength: 0,
+      keyword: "",
     };
   },
   components: {
@@ -237,6 +243,14 @@ export default {
         this.wishlistItems = res.data.items.data;
         this.wishlistLength = res.data.items.data.length;
       });
+    },
+    search() {
+      document.querySelector('.modal').click()
+      this.$router.push({
+        path: "/SearchResults",
+        query: { keyword: this.keyword },
+      });
+      location.reload()
     },
   },
   computed: {
