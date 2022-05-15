@@ -15,6 +15,8 @@ import SingleProduct from "../views/single-Product/Single-Product.vue";
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
 import ViewOrderDetails from "../views/profile/ViewOrderDetails.vue";
+import SearchResults from "../views/SearchResult.vue";
+import SearchProducts from "../views/Search-Products.vue";
 
 Vue.use(VueRouter);
 
@@ -130,6 +132,16 @@ const routes = [
     path: "/viewOrderDetails",
     name: "ViewOrderDetails",
     component: ViewOrderDetails,
+  },
+  {
+    path: "/searchResults",
+    name: "SearchResults",
+    component: SearchResults,
+  },
+  {
+    path: "/Search-Products",
+    name: "SearchProducts",
+    component: SearchProducts,
   },
   ...auth,
   profileRoutes,

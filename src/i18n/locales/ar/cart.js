@@ -44,4 +44,5 @@ export default {
   addedToWishlist: "تم اضافة المنتج لقائمة المفضله",
   viewWishlist: "قائمة المفضله",
   wishlist: "قائمة المفضله",
+  search: "بحث",
 };

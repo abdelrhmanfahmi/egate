@@ -72,7 +72,7 @@
               </ul> -->
             </div>
           </div>
-          <div class="col-md-3 col-sm-12 mb-3">
+          <!-- <div class="col-md-3 col-sm-12 mb-3">
             <form class="xt-blog-form" role="search">
               <div class="input-group add-on">
                 <form @submit.prevent="search">
@@ -99,7 +99,7 @@
                 </form>
               </div>
             </form>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

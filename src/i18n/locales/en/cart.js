@@ -43,5 +43,6 @@ export default {
   next: "Next",
   addedToWishlist: "Product added to Wishlist.",
   viewWishlist: "View Wishlist",
-  wishlist:'Wishlist'
+  wishlist: "Wishlist",
+  search: "Search",
 };
