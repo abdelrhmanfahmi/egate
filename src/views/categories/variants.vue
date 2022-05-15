@@ -288,11 +288,11 @@
               </td>
               <td>
                 <router-link
-                  v-if="product.unit"
+                  v-if="product.product_details_by_type.unit.title"
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
-                  {{product.product_details_by_type.weight}} {{ product.unit.title }}
+                  {{product.product_details_by_type.weight}} {{ product.product_details_by_type.unit.title }}
                 </router-link>
                 <div v-else class="link">-</div>
               </td>
@@ -521,7 +521,7 @@ export default {
           label: this.$t("items.supplier"),
         },
         {
-          key: "unit.title",
+          key: "product_details_by_type.unit.title",
           label: this.$t("items.unit"),
         },
         {

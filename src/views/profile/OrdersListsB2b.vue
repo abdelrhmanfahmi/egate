@@ -3,13 +3,13 @@
     <h5 class="profileB2b-header-table">
       {{ $t("profile.ordersLists") }}
     </h5>
-    <div class="d-flex">
+    <!-- <div class="d-flex">
       <div class="col-12 col-md-6 col-lg-3">
         <a href="#" type="submit" class="login-button white my-3">
           {{ $t("profile.ordersListsNew") }}
         </a>
       </div>
-    </div>
+    </div> -->
     <!-- <b-table
       hover
       :items="items"
@@ -31,7 +31,7 @@
         <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
       </template>
     </b-table> -->
-    <div class="holder">
+    <div class="holder text-center">
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -45,8 +45,7 @@
             <td>test {{ index }}</td>
             <td>test {{ index }}</td>
             <td>test {{ index }}</td>
-            <td>test {{ index }}</td>
-            <td>test {{ index }}</td>
+            <td>test {{ index }} {{currency}}</td>
             <td>test {{ index }}</td>
             <td>test {{ index }}</td>
             <td>
@@ -58,10 +57,10 @@
                 class="text-dark"
               >
                 <b-button variant="outline-secondary" class="m-2">
-                  {{ $t("view") }}
+                  {{ $t("profile.view") }}
                 </b-button>
               </router-link>
-              <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
+              <b-button variant="outline-danger">{{ $t("profile.cancel") }}</b-button>
             </td>
           </tr>
         </tbody>
@@ -77,7 +76,7 @@ export default {
       fields: [
         {
           key: "id",
-          label: "id",
+          label: this.$t('profile.serial'),
         },
         {
           key: "date",
@@ -90,10 +89,6 @@ export default {
         {
           key: "amount",
           label: this.$t("profile.amount"),
-        },
-        {
-          key: "no-of-suppliers",
-          label: this.$t("profile.suppliersNumber"),
         },
         {
           key: "order-status",
