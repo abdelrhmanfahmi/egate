@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       currencyValue: null,
-      currencies: [],
+      currencies: [] ,
       countries: [],
       myCurrencies: null,
       lang: localStorage.getItem("lang") || "en",
@@ -129,7 +129,8 @@ export default {
     this.getAllCountires();
   },
   created(){
-    this.reloadPage()
+    this.reloadPage();
+    console.log("this.countries" ,  this.countries);
   },
   methods: {
     getAllCountires() {
@@ -137,6 +138,7 @@ export default {
         .getAllCountires()
         .then((res) => {
           this.countries = res.data.items;
+          console.log("res" , res);
           if (localStorage.getItem("country")) {
             let current_stored_country = JSON.parse(
               localStorage.getItem("country")
@@ -150,6 +152,13 @@ export default {
                 this.myCurrencies = country.currencies;
               }
             });
+          }else{
+            console.log("res.data.items" , res.data.items);
+            localStorage.setItem('country' ,JSON.stringify(res.data.items[0]))
+            localStorage.setItem('currency' ,res.data.items[0].currencies[0].code);
+            setTimeout(() => {
+              location.reload()
+            }, 500);
           }
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);

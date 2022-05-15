@@ -5,7 +5,7 @@
         class="data-holder serial-holder d-flex justify-content-between align-items-center"
       >
         <div class="serial">
-          <h4 class="m-0">#serial</h4>
+          <h4 class="m-0">#{{id}}</h4>
         </div>
         <div class="print" @click="printScreen">
           <font-awesome-icon icon="fa-solid fa-print" />
@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-md-6 col-sm-12 mb-2">
             <h4 class="data-holder">
-              {{ $t("profile.accountInfo") }}
+              {{ $t("profile.accountInformation") }}
             </h4>
             <div class="">
               <div class="info">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="row info-data info-colored">
                   <div class="col-6">
-                    {{ $t("profile.customerPlacedId") }}
+                    {{ $t("profile.tele") }}
                   </div>
                   <div class="col-6">data</div>
                 </div>
@@ -46,32 +46,39 @@
           <div class="col-md-6 col-sm-12 mb-2">
             <h4 class="data-holder">
               {{ $t("profile.addressInfo") }}
-              <sub> ( {{ $t("profile.billingAddress") }} ) </sub>
+              <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
             </h4>
-            <div class="pl-2">
-              <div class="">
-                <h5 class="font-weight-bold h4">
-                  {{ $t("userName") }}
-                </h5>
-                <p>data</p>
-                <p>data</p>
-                <p>data</p>
-                <p>country</p>
-                <p><font-awesome-icon icon="fa-solid fa-phone" /> phone</p>
-                <p><font-awesome-icon icon="fa-solid fa-envelope" /> email</p>
+            <div class="pl-2">address</div>
+          </div>
+        </div>
+      </section>
+      <section class="supplier-info">
+        <div
+          class="data-holder serial-holder d-flex justify-content-between align-items-center"
+        >
+          <div class="serial">
+            <h4 class="m-0">pickup addresses</h4>
+          </div>
+        </div>
+        <div class="">
+          <div class="info">
+            <div class="row info-data">
+              <div class="col">
+                {{ $t("profile.supplier") }} :
+                <span class="">address</span>
               </div>
             </div>
           </div>
         </div>
       </section>
       <section class="payment">
-        <div
+        <!-- <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center mb-4"
         >
           <div class="">
             <h4 class="m-0">{{ $t("profile.payment") }}</h4>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-md-6 col-sm-12 mb-2">
             <h4 class="data-holder">
@@ -81,19 +88,13 @@
               <div class="info">
                 <div class="row info-data info-colored">
                   <div class="col-6">
-                    {{ $t("profile.customerName") }}
+                    {{ $t("profile.paymentType") }}
                   </div>
                   <div class="col-6">data</div>
                 </div>
                 <div class="row info-data">
                   <div class="col-6">
-                    {{ $t("profile.customerEmail") }}
-                  </div>
-                  <div class="col-6">data</div>
-                </div>
-                <div class="row info-data info-colored">
-                  <div class="col-6">
-                    {{ $t("profile.customerPlacedId") }}
+                    {{ $t("profile.paymentCurency") }}
                   </div>
                   <div class="col-6">data</div>
                 </div>
@@ -107,7 +108,7 @@
             <div class="">
               <div class="info">
                 <div class="row info-data info-colored">
-                  <div class="col-6">free delivery</div>
+                  <div class="col-6">{{ $t("profile.deleiveryFees") }}</div>
                   <div class="col-6">{{ currency }} 20.00</div>
                 </div>
               </div>
@@ -124,14 +125,16 @@
         </div>
         <div class="supplier-products-data">
           <div class="supplier-info">
-            <div class="supplier-data info-data info-colored">
-              <p class="m-0 p-2 px-3">
-                supplier : supplier name | supplier order : #860680 | status :
-                New
-              </p>
+            <div class="supplier-data info-data info-colored data-holder">
+              <div class="holder">
+                <div>{{$t('profile.supplier')}} : supplier name</div>
+                <div class="">{{$t('profile.supplierOrder')}}  : #860680 | {{$t('profile.status')}} : New</div>
+              </div>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button variant="outline-danger" v-if="$i18n.locale == 'en'"
+              <b-button
+                variant="outline-danger mt-2"
+                v-if="$i18n.locale == 'en'"
                 ><font-awesome-icon icon="fa-solid fa-x" />
                 <span class="mx-2">cancel</span></b-button
               >
@@ -159,15 +162,15 @@
                 <tbody>
                   <tr v-for="(x, index) in 10" :key="index">
                     <td>test {{ index }}</td>
+                    <td>test {{ index }} {{ currency }}</td>
+                    <td>test {{ index }} {{ currency }}</td>
                     <td>test {{ index }}</td>
                     <td>test {{ index }}</td>
                     <td>test {{ index }}</td>
                     <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
+                    <td>
+                      <button class="btn btn-outline-danger">{{$t('profile.return')}}</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -175,48 +178,24 @@
           </div>
         </div>
       </section>
+
       <section class="item-order">
-        <div class="my-5">
+        <div class="mt-5">
           <h5 class="h4">
-            {{ $t("profile.itemsOrder") }}
+            {{ $t("profile.orderTotal") }}
           </h5>
           <hr />
         </div>
         <div class="row">
-          <div class="col-md-6 col-sm-12 mb-2">
-            <h4 class="data-holder">
-              {{ $t("profile.paymentInfo") }}
-            </h4>
+          <div class="col-12">
+
             <div class="">
               <div class="info">
                 <div class="row info-data info-colored">
-                  <div class="col-6">
-                    {{ $t("profile.customerName") }}
-                  </div>
-                  <div class="col-6">data</div>
+                  <div class="col-6">free delivery</div>
+                  <div class="col-6">{{ currency }} 20.00</div>
                 </div>
                 <div class="row info-data">
-                  <div class="col-6">
-                    {{ $t("profile.customerEmail") }}
-                  </div>
-                  <div class="col-6">data</div>
-                </div>
-                <div class="row info-data info-colored">
-                  <div class="col-6">
-                    {{ $t("profile.customerPlacedId") }}
-                  </div>
-                  <div class="col-6">data</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12 mb-2">
-            <h4 class="data-holder">
-              {{ $t("profile.shoppingInfo") }}
-            </h4>
-            <div class="">
-              <div class="info">
-                <div class="row info-data info-colored">
                   <div class="col-6">free delivery</div>
                   <div class="col-6">{{ currency }} 20.00</div>
                 </div>
@@ -236,11 +215,7 @@ export default {
       fields: [
         {
           key: "product",
-          label: this.$t("profile.product"),
-        },
-        {
-          key: "itemStatus",
-          label: this.$t("profile.itemStatus"),
+          label: this.$t("profile.productName"),
         },
         {
           key: "originalPrice",
@@ -259,14 +234,6 @@ export default {
           label: this.$t("profile.subTotal"),
         },
         {
-          key: "taxAmount",
-          label: this.$t("profile.taxAmount"),
-        },
-        {
-          key: "taxPercent",
-          label: this.$t("profile.taxPercent"),
-        },
-        {
           key: "discountPercent",
           label: this.$t("profile.discountPercent"),
         },
@@ -274,7 +241,12 @@ export default {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
+        {
+          key: "",
+          label: this.$t("profile.actions"),
+        },
       ],
+      id: this.$route.query.id
     };
   },
   methods: {
@@ -322,5 +294,11 @@ table td {
 }
 .print {
   cursor: pointer;
+}
+.holder {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 20px;
 }
 </style>

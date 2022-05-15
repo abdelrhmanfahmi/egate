@@ -41,8 +41,8 @@
             {{ $t("singleProduct.weight") }} : 
           </p>
 
-          <div class="available-weight d-flex justify-content-end">
-            <span>{{ myProduct.product_details_by_type.weight }} {{ myProduct.unit.title }}</span>
+          <div class="available-weight d-flex justify-content-end" v-if="myProduct.product_details_by_type">
+            <span v-if="myProduct.product_details_by_type.unit">{{ myProduct.product_details_by_type.weight }} {{ myProduct.product_details_by_type.unit.title }}</span>
           </div>
         </div>
       </div>
