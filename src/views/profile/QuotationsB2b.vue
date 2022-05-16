@@ -11,10 +11,9 @@
     >
       <template #cell(message)="data">
         <b-button
-          v-b-modal.modal-center.data.value
-          @click="showMessage(data.value)"
-          class="mr-2 btn btn-light bg-transparent"
-          >{{ $t("profile.message") }}</b-button
+          @click="goQuotation(data.item.id)"
+          class="mr-2 btn btn-light bg-transparent link"
+          >{{ $t("profile.view") }}</b-button
         >
       </template>
       <template #cell(supplier_product_name)="data">
@@ -56,10 +55,7 @@ export default {
           key: "request_qty",
           label: this.$t("profile.quantity"),
         },
-        {
-          key: "message",
-          label: this.$t("profile.message"),
-        },
+
         {
           key: "price",
           label: this.$t("profile.price"),
@@ -67,6 +63,10 @@ export default {
         {
           key: "status",
           label: this.$t("profile.status"),
+        },
+        {
+          key: "message",
+          label: this.$t("profile.actions"),
         },
       ],
       items: [],
@@ -96,6 +96,14 @@ export default {
     goProduct(product) {
       this.$router.push({
         path: "/details",
+        query: {
+          id: product,
+        },
+      });
+    },
+    goQuotation(product) {
+      this.$router.push({
+        path: "/profile/quotationDetails",
         query: {
           id: product,
         },

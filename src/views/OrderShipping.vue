@@ -774,7 +774,7 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        console.log("addresses", res);
+        // console.log("addresses", res);
         for (let index = 0; index < res.data.items.length; index++) {
           const element = res.data.items[index];
           const element2 = element.is_default;

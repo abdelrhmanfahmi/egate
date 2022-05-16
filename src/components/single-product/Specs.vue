@@ -50,10 +50,10 @@
             <th>{{ $t("singleProduct.PcsperUnit") }}</th>
             <td>{{ myProduct.product_details_by_type.pieces_number }}</td>
           </tr>
-          <tr v-if="myProduct.product_details_by_type !== null">
+          <!-- <tr v-if="myProduct.product_details_by_type !== null">
             <th>{{ $t("singleProduct.expiration_date") }}</th>
             <td>{{ myProduct.product_details_by_type.expiration_date }}</td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>

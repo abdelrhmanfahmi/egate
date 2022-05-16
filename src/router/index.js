@@ -17,6 +17,7 @@ import profileRoutes from "./profileRoutes";
 import ViewOrderDetails from "../views/profile/ViewOrderDetails.vue";
 import SearchResults from "../views/SearchResult.vue";
 import SearchProducts from "../views/Search-Products.vue";
+import QuotationDetails from "../views/profile/QuotationDetails.vue";
 
 Vue.use(VueRouter);
 
@@ -137,6 +138,11 @@ const routes = [
     path: "/searchResults",
     name: "SearchResults",
     component: SearchResults,
+  },
+  {
+    path: "/profile/quotationDetails",
+    name: "QuotationDetails",
+    component: QuotationDetails,
   },
   {
     path: "/Search-Products",

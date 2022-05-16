@@ -10,12 +10,6 @@
           <span>{{ link.name }}</span></router-link
         >
       </li>
-      <li v-if="!userInfo.item.is_social_account">
-        <router-link to="/profile/change-password">
-          <font-awesome-icon :icon="`fa-solid fa-star`" />
-          <span>{{ $t("profile.changePassword"), }}</span></router-link
-        >
-      </li>
     </ul>
   </div>
 </template>
@@ -36,20 +30,26 @@ export default {
           iconName: "cart-shopping",
         },
         {
+          to: "/profile/ordersListsB2b",
+          name: this.$t("profile.ordersLists"),
+          iconName: "clipboard-list",
+        },
+        {
           to: "/profile/account-information-b2b",
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
+        },
+        {
+          to: "/profile/change-password",
+          name: this.$t("profile.changePassword"),
+          iconName: "key",
         },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
           iconName: "location-dot",
         },
-        {
-          to: "/profile/product-reviews-b2b",
-          name: this.$t("profile.productReviews"),
-          iconName: "cubes",
-        },
+        
         {
           to: "/profile/documents",
           name: this.$t("profile.documents"),
@@ -60,25 +60,26 @@ export default {
           name: this.$t("profile.subscribeNewsletter"),
           iconName: "newspaper",
         },
-        {
-          to: "/profile/SupplierCorrespondenceB2b",
-          name: this.$t("profile.supplierCorrespondence"),
-          iconName: "comments",
-        },
+        
         {
           to: "/profile/favorite",
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
         {
-          to: "/profile/ordersListsB2b",
-          name: this.$t("profile.ordersLists"),
-          iconName: "clipboard-list",
-        },
-        {
           to: "/profile/giftCardB2b",
           name: this.$t("profile.giftCard"),
           iconName: "gift",
+        },
+        {
+          to: "/profile/QuotationsB2b",
+          name: this.$t("profile.quotations"),
+          iconName: "list-ol",
+        },
+        {
+          to: "/profile/product-reviews-b2b",
+          name: this.$t("profile.productReviews"),
+          iconName: "cubes",
         },
         {
           to: "/profile/ResidentsB2b",
@@ -90,15 +91,17 @@ export default {
           name: this.$t("profile.bankNotifications"),
           iconName: "money-bill-wave",
         },
-        {
-          to: "/profile/QuotationsB2b",
-          name: this.$t("profile.quotations"),
-          iconName: "list-ol",
-        },
+        
         {
           to: "/profile/supplierRatingB2b",
           name: this.$t("profile.supplierRatings"),
           iconName: "star",
+        },
+        
+        {
+          to: "/profile/SupplierCorrespondenceB2b",
+          name: this.$t("profile.supplierCorrespondence"),
+          iconName: "comments",
         },
       ],
     };

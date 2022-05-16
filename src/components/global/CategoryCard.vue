@@ -46,9 +46,5 @@ export default {
     background: #ed2124;
   }
 }
-.homecategories {
-  img {
-    min-width: 100% !important;
-  }
-}
+
 </style>

@@ -81,4 +81,7 @@ export default {
       },
     });
   },
+  getQuotationDetail(id){
+    return globalAxios.get(`members/product/rfq/${id}`)
+  }
 };

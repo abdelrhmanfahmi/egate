@@ -27,13 +27,42 @@ export default {
   children: [
     { path: "/profile/categories", name: "Categories", component: Categories },
     { path: "/profile/documents", name: "Documents", component: DocumentsB2b },
-    { path: "/profile/supplierRatingB2b", name: "SupplierRatingB2b", component: SupplierRatingB2b },
-    { path: "/profile/quotationsB2b", name: "QuotationsB2b", component: QuotationsB2b },
-    { path: "/profile/BankNotificationsB2b", name: "BankNotificationsB2b", component: BankNotificationsB2b },
-    { path: "/profile/ResidentsB2b", name: "ResidentsB2b", component: ResidentsB2b },
-    { path: "/profile/SupplierCorrespondenceB2b", name: "SupplierCorrespondenceB2b", component: SupplierCorrespondenceB2b },
-    { path: "/profile/OrdersListsB2b", name: "OrdersListsB2b", component: OrdersListsB2b },
-    { path: "/profile/GiftCardB2b", name: "GiftCardB2b", component: GiftCardB2b },
+    {
+      path: "/profile/supplierRatingB2b",
+      name: "SupplierRatingB2b",
+      component: SupplierRatingB2b,
+    },
+    {
+      path: "/profile/quotationsB2b",
+      name: "QuotationsB2b",
+      component: QuotationsB2b,
+    },
+    
+    {
+      path: "/profile/BankNotificationsB2b",
+      name: "BankNotificationsB2b",
+      component: BankNotificationsB2b,
+    },
+    {
+      path: "/profile/ResidentsB2b",
+      name: "ResidentsB2b",
+      component: ResidentsB2b,
+    },
+    {
+      path: "/profile/SupplierCorrespondenceB2b",
+      name: "SupplierCorrespondenceB2b",
+      component: SupplierCorrespondenceB2b,
+    },
+    {
+      path: "/profile/OrdersListsB2b",
+      name: "OrdersListsB2b",
+      component: OrdersListsB2b,
+    },
+    {
+      path: "/profile/GiftCardB2b",
+      name: "GiftCardB2b",
+      component: GiftCardB2b,
+    },
     {
       path: "/profile/shopping-cart",
       name: "ShoppingCart",

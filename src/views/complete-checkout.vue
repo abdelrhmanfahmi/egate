@@ -78,7 +78,7 @@ export default {
         .checkoutComplete(data)
         .then((res) => {
           console.log(res);
-          if (res.data.items.status === 'CAPTURED' || res.data.items.status === 'INITIATED') {
+          if (res.data.items.status === 'CAPTURED') {
             this.success = true;
             this.fail = false;
           } else {
