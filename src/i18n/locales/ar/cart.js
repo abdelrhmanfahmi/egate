@@ -26,6 +26,7 @@ export default {
   cancel: "الغاء",
   noProducts: "لا يوجد منتجات",
   addedToCart: "تم اضافة المنتج للسله",
+  addToCart: " اضف المنتج للسله",
   removedFromCart: "تم حذف المنتج",
   noCartProducts: "لايوجد منتجات فى السله",
   updateCart: "تم تحديث السله",

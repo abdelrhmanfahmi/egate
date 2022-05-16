@@ -1,0 +1,212 @@
+<template>
+  <div :class="$i18n.locale">
+    <div class="container">
+      <div class="my-5 py-5 text-center">
+        <h1>
+          {{ $t("profile.quoteData") }}
+        </h1>
+      </div>
+      <div class="my-5" v-if="quotations">
+        <b-button
+          variant="outline-success"
+          v-if="quotations.price"
+          id="show-btn"
+          @click="$bvModal.show('bv-modal-example')"
+          >button</b-button
+        >
+      </div>
+      <table class="table">
+        <thead
+          :class="{
+            'text-left': $i18n.locale == 'en',
+            'text-right': $i18n.locale == 'ar',
+          }"
+        >
+          <tr>
+            <!-- <th scope="col" v-for="(field, index) in fields" :key="index">
+              {{ field.label }}
+            </th> -->
+            <th scope="col" colspan="1">
+              {{ $t("profile.sentBy") }}
+            </th>
+            <th scope="col" colspan="8">{{ $t("profile.quoteMessage") }}</th>
+            <th scope="col" colspan="1">{{ $t("profile.sentdate") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="quotate in quotations.client_quote_comment"
+            :key="quotate.id"
+          >
+            <th>
+              <div class="" v-if="quotate.comment_by === 'client'">
+                <span
+                  >{{ quotations.client.first_name }}
+                  {{ quotations.client.last_name }}</span
+                >
+              </div>
+              <div class="" v-if="quotate.comment_by === 'supplier'">
+                <span
+                  >{{ quotations.supplier.first_name }}
+                  {{ quotations.supplier.last_name }}</span
+                >
+              </div>
+            </th>
+            <td>
+              <div>
+                <span>{{ quotate.comment }}</span>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <span>{{ quotate.created_at }}</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <b-modal id="bv-modal-example" centered hide-footer>
+        <template #modal-title> {{ $t("profile.quoteData") }} </template>
+        <div class="d-block">
+          <div class="data-holder">
+            <div class="" v-if="quotations">
+              <div class="" v-if="quotations.product_supplier.product">
+                <div v-if="$i18n.locale == 'en'">
+                  <h5>
+                    {{ $t("profile.title") }} :
+                    {{ quotations.product_supplier.product.title_en }}
+                  </h5>
+                </div>
+                <div v-else>
+                  <h5>
+                    {{ $t("profile.title") }} :
+                    {{ quotations.product_supplier.product.title_ar }}
+                  </h5>
+                </div>
+              </div>
+              <div class="" v-if="quotations.price">
+                <h5>{{ $t("cart.price") }} : {{ quotations.price }} {{currency}}</h5>
+              </div>
+              <div class="" v-if="quotations.request_qty">
+                <h5>
+                  {{ $t("cart.quantity") }} : {{ quotations.request_qty }}
+                </h5>
+              </div>
+              <div class="" v-if="quotations.expiry_at">
+                <h5>
+                  {{ $t("profile.expiry_at") }} : {{ quotations.expiry_at }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <b-button
+          class="mt-3"
+          variant="outline-success"
+          block
+          @click="addToCart(quotations)"
+          >{{ $t("cart.addToCart") }}</b-button
+        >
+        <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
+          >{{$t('cart.addToCart')}}</b-button
+        > -->
+      </b-modal>
+    </div>
+  </div>
+</template>
+
+<script>
+import profile from "@/services/profile";
+import globalAxios from "@/services/global-axios";
+export default {
+  data() {
+    return {
+      quotations: [],
+      id: this.$route.query.id,
+      fields: [
+        {
+          key: "client_quote_comment",
+          label: this.$t("profile.sentBy"),
+        },
+        {
+          key: "supplier_product_name",
+          label: this.$t("profile.quoteMessage"),
+        },
+        {
+          key: "created_by",
+          label: this.$t("profile.sentdate"),
+        },
+      ],
+    };
+  },
+  methods: {
+    getQuotationDetail() {
+      profile
+        .getQuotationDetail(this.id)
+        .then((res) => {
+          console.log("rfq res", res);
+          this.quotations = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    addToCart(myProduct) {
+      let data = {
+        client_quote_id:this.id,
+        approve: 1,
+      };
+      console.log(myProduct);
+      return globalAxios
+        .post(`members/product/rfq/approve`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            document.querySelector('.close').click()
+
+            // this.$modal.show(
+            //   () => import("@/components/cart/cartModal.vue"),
+            //   {
+            //     product: myProduct,
+            //   },
+            //   { width: "700", height: "auto", adaptive: true }
+            // );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+  },
+  mounted() {
+    this.getQuotationDetail();
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.ar {
+  thead th {
+    text-align: right !important;
+  }
+}
+.en {
+  thead th {
+    text-align: left !important;
+  }
+}
+</style>

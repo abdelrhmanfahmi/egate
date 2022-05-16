@@ -343,3 +343,8 @@ p {
   width: 100%;
   overflow-y: scroll;
 }
+.homecategories {
+  img {
+    min-width: 100% !important;
+  }
+}

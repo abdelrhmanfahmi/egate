@@ -27,7 +27,7 @@
           :key="category.id"
           lg="3"
           sm="6"
-          class="custum-padding"
+          class="homecategories custum-padding"
         >
           <router-link :to="`/categories/${category.id}`">
             <CategoryCard
@@ -55,6 +55,7 @@ export default {
       await categories
         .getCategories("lists/categories")
         .then((resp) => {
+          console.log("cat" , resp);
           this.categories = resp.data.items;
         })
         .catch((err) => {

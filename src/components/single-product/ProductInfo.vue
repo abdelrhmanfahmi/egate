@@ -427,7 +427,7 @@ export default {
       this.mySelectedOption += 1;
     },
     decrementQuantity() {
-      this.mySelectedOption > 0 ? this.mySelectedOption-- : null;
+      this.mySelectedOption > 1 ? this.mySelectedOption-- : null;
     },
     closeModal() {
       this.showModal = false;

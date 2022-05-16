@@ -26,6 +26,7 @@ export default {
   submit: "Send Request",
   noProducts: "No Products",
   addedToCart: "Product added to cart.",
+  addToCart: "add to cart.",
   removedFromCart: "Product removed from cart",
   noCartProducts: "No Products In cart",
   updateCart: "Cart Updated",
