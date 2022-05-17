@@ -1,53 +1,57 @@
 <template>
   <div class="product-silder">
-    <span class="product-info">
-      <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
-    </span>
-    <Countdown deadline="August 22, 2022"></Countdown>
-    <VueSlickCarousel v-bind="settings" class="my-5" v-if="sliders">
-      <div v-for="(slider, index) in sliders" :key="index">
-        <ProductCard :slider="slider" />
-      </div>
-    </VueSlickCarousel>
-    <span class="product-info">
-      <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
-    </span>
-    <div class="container mb-3">
-      <div class="d-flex justify-content-end">
-        <router-link to="/suppliers"> Show All </router-link>
-      </div>
+    <div class="bestDeals" v-if="slidersLength > 0">
+      <span class="product-info">
+        <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
+      </span>
+      <Countdown deadline="August 22, 2022"></Countdown>
+      <VueSlickCarousel v-bind="settings" class="my-5">
+        <div v-for="(slider, index) in sliders" :key="index">
+          <ProductCard :slider="slider" />
+        </div>
+      </VueSlickCarousel>
     </div>
-    <b-row v-if="loading" class="px-5">
-      <b-col lg="3" sm="6" v-for="x in 10" :key="x">
-        <b-skeleton-img></b-skeleton-img>
-        <b-card>
-          <b-skeleton
-            animation="fade"
-            width="60%"
-            class="border-none"
-          ></b-skeleton>
-          <b-skeleton
-            animation="fade"
-            width="85%"
-            class="border-none"
-          ></b-skeleton>
-        </b-card>
-      </b-col>
-    </b-row>
-    <VueSlickCarousel v-bind="settings" v-else>
-      <div v-for="(supplier, index) in suppliers" :key="index" >
-        <router-link
-          :to="`/suppliers/${supplier.id}`"
-          class="d-block text-center"
-        >
-          <img
-            :src="supplier.image_path"
-            class="supplier-image"
-            alt="supplier image"
-          />
-        </router-link>
+    <div class="suppliers pt-5" v-if="suppliers">
+      <span class="product-info">
+        <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
+      </span>
+      <div class="container mb-3">
+        <div class="d-flex justify-content-end">
+          <router-link to="/suppliers"> Show All </router-link>
+        </div>
       </div>
-    </VueSlickCarousel>
+      <b-row v-if="loading" class="px-5">
+        <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+          <b-skeleton-img></b-skeleton-img>
+          <b-card>
+            <b-skeleton
+              animation="fade"
+              width="60%"
+              class="border-none"
+            ></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="85%"
+              class="border-none"
+            ></b-skeleton>
+          </b-card>
+        </b-col>
+      </b-row>
+      <VueSlickCarousel v-bind="settings" v-if="!loading && suppliers && suppliers.length" >
+        <div v-for="(supplier, index) in suppliers" :key="index">
+          <router-link
+            :to="`/suppliers/${supplier.id}`"
+            class="d-block text-center"
+          >
+            <img
+              :src="supplier.image_path"
+              class="supplier-image"
+              alt="supplier image"
+            />
+          </router-link>
+        </div>
+      </VueSlickCarousel>
+    </div>
   </div>
 </template>
 
@@ -58,8 +62,9 @@ import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 import globalAxios from "@/services/global-axios";
-import axios from "axios";
-import { baseURL } from "@/apis/Api";
+// import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+import categories from "@/services/categories";
 export default {
   components: {
     ProductCard,
@@ -128,8 +133,8 @@ export default {
         });
     },
     getBestDeals() {
-      axios
-        .get(`${baseURL}products/featured/offers`)
+      categories
+        .getBestDeals()
         .then((res) => {
           this.sliders = res.data.items.data;
         })
@@ -144,6 +149,11 @@ export default {
   mounted() {
     this.getBestDeals();
   },
+  computed:{
+    slidersLength(){
+      return this.sliders ? this.sliders.length : 0
+    }
+  }
 };
 </script>
 
@@ -180,7 +190,7 @@ export default {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   opacity: 0.5;
   &:hover {
     opacity: 1;

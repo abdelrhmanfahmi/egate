@@ -31,7 +31,7 @@
         <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
       </template>
     </b-table> -->
-    <div class="holder text-center">
+    <div class="holder text-center" v-if="orders">
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -41,18 +41,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(x, index) in 8" :key="index">
-            <td>test {{ index }}</td>
-            <td>test {{ index }}</td>
-            <td>test {{ index }}</td>
-            <td>test {{ index }} {{currency}}</td>
-            <td>test {{ index }}</td>
-            <td>test {{ index }}</td>
+          <tr v-for="(order, index) in orders" :key="index">
+            <td> {{ order.serial }}</td>
+            <td> {{ order.created_at | formatDate }}</td>
+            <td> {{ order.order_supplier_items_count }}</td>
+            <td> {{ order.total_price }} {{ currency }}</td>
+            <td> {{ order.payment_status }}</td>
+            <td> {{ order.payment_type }}</td>
             <td>
               <router-link
                 :to="{
                   path: '/viewOrderDetails',
-                  query: { id: `${index}` },
+                  query: { id: `${order.id}` },
                 }"
                 class="text-dark"
               >
@@ -60,7 +60,6 @@
                   {{ $t("profile.view") }}
                 </b-button>
               </router-link>
-              <b-button variant="outline-danger">{{ $t("profile.cancel") }}</b-button>
             </td>
           </tr>
         </tbody>
@@ -70,13 +69,14 @@
 </template>
 
 <script>
+import profile from "@/services/profile";
 export default {
   data() {
     return {
       fields: [
         {
           key: "id",
-          label: this.$t('profile.serial'),
+          label: this.$t("profile.serial"),
         },
         {
           key: "date",
@@ -91,8 +91,8 @@ export default {
           label: this.$t("profile.amount"),
         },
         {
-          key: "order-status",
-          label: this.$t("profile.orderStatus"),
+          key: "paymentStatus",
+          label: this.$t("profile.paymentStatus"),
         },
         {
           key: "buy-method",
@@ -110,8 +110,24 @@ export default {
           finalActivity: "07/24/2021",
         },
       ],
+      orders:null
     };
   },
+  methods: {
+    getOrders() {
+      profile
+        .getOrders()
+        .then((res) => {
+          this.orders = res.data.items.orders
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted(){
+    this.getOrders()
+  }
 };
 </script>
 <style></style>

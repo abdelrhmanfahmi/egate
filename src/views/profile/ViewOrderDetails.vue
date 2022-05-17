@@ -4,8 +4,10 @@
       <div
         class="data-holder serial-holder d-flex justify-content-between align-items-center"
       >
-        <div class="serial">
-          <h4 class="m-0">#{{id}}</h4>
+        <div class="serial" v-if="orderData">
+          <h4 class="m-0">
+            {{ $t("profile.orderSerial") }} : {{ orderData.serial }}
+          </h4>
         </div>
         <div class="print" @click="printScreen">
           <font-awesome-icon icon="fa-solid fa-print" />
@@ -18,37 +20,40 @@
         <div class="row">
           <div class="col-md-6 col-sm-12 mb-2">
             <h4 class="data-holder">
-              {{ $t("profile.accountInformation") }}
+              {{ $t("profile.buyerInformation") }}
             </h4>
-            <div class="">
+            <div class="" v-if="orderData">
               <div class="info">
-                <div class="row info-data info-colored">
+                <div class="row info-data info-colored" v-if="orderData.client_info">
                   <div class="col-6">
                     {{ $t("profile.customerName") }}
                   </div>
-                  <div class="col-6">data</div>
+                  <div class="col-6" v-if="orderData.client_info">
+                    {{ orderData.client_info.first_name }}
+                    {{ orderData.client_info.last_name }}
+                  </div>
                 </div>
-                <div class="row info-data">
+                <div class="row info-data" v-if="orderData.client_info.email">
                   <div class="col-6">
                     {{ $t("profile.customerEmail") }}
                   </div>
-                  <div class="col-6">data</div>
+                  <div class="col-6">{{ orderData.client_info.email }}</div>
                 </div>
-                <div class="row info-data info-colored">
+                <div class="row info-data info-colored" v-if="orderData.client_info.phone">
                   <div class="col-6">
                     {{ $t("profile.tele") }}
                   </div>
-                  <div class="col-6">data</div>
+                  <div class="col-6" v-if="orderData.client_info.phone">{{ orderData.client_info.phone }}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-12 mb-2">
+          <div class="col-md-6 col-sm-12 mb-2" v-if="orderData">
             <h4 class="data-holder">
               {{ $t("profile.addressInfo") }}
               <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
             </h4>
-            <div class="pl-2">address</div>
+            <div class="pl-2" v-if="orderData.client_info">{{orderData.client_info.address}}</div>
           </div>
         </div>
       </section>
@@ -127,8 +132,11 @@
           <div class="supplier-info">
             <div class="supplier-data info-data info-colored data-holder">
               <div class="holder">
-                <div>{{$t('profile.supplier')}} : supplier name</div>
-                <div class="">{{$t('profile.supplierOrder')}}  : #860680 | {{$t('profile.status')}} : New</div>
+                <div>{{ $t("profile.supplier") }} : supplier name</div>
+                <div class="">
+                  {{ $t("profile.supplierOrder") }} : #860680 |
+                  {{ $t("profile.status") }} : New
+                </div>
               </div>
             </div>
             <div class="d-flex justify-content-end">
@@ -144,7 +152,7 @@
               /></b-button>
             </div>
           </div>
-          <div class="supplier-products mt-3">
+          <div class="supplier-products mt-3" v-if="fields">
             <div class="holder">
               <table class="table table-striped table-hover selectable">
                 <thead class="font-weight-bold">
@@ -160,16 +168,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(x, index) in 10" :key="index">
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }} {{ currency }}</td>
-                    <td>test {{ index }} {{ currency }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
-                    <td>test {{ index }}</td>
+                  <tr v-for="(order, index) in orders" :key="index">
+                    <td v-if="order.product_supplier && $i18n.locale == 'en'">
+                      {{ order.product_supplier.product.title_en }}
+                    </td>
+                    <td v-if="order.product_supplier && $i18n.locale == 'ar'">
+                      {{ order.product_supplier.product.title_ar }}
+                    </td>
+                    <td v-if="order.price">{{ order.price }} {{ currency }}</td>
+                    <td v-if="order.quantity">{{ order.quantity }}</td>
+                    <td v-if="order.total_price">
+                      {{ order.total_price }} {{ currency }}
+                    </td>
                     <td>
-                      <button class="btn btn-outline-danger">{{$t('profile.return')}}</button>
+                      <button class="btn btn-outline-danger">
+                        {{ $t("profile.return") }}
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -188,7 +202,6 @@
         </div>
         <div class="row">
           <div class="col-12">
-
             <div class="">
               <div class="info">
                 <div class="row info-data info-colored">
@@ -209,6 +222,7 @@
 </template>
 
 <script>
+import profile from "@/services/profile";
 export default {
   data() {
     return {
@@ -216,10 +230,6 @@ export default {
         {
           key: "product",
           label: this.$t("profile.productName"),
-        },
-        {
-          key: "originalPrice",
-          label: this.$t("profile.originalPrice"),
         },
         {
           key: "price",
@@ -230,14 +240,6 @@ export default {
           label: this.$t("profile.qty"),
         },
         {
-          key: "subTotal",
-          label: this.$t("profile.subTotal"),
-        },
-        {
-          key: "discountPercent",
-          label: this.$t("profile.discountPercent"),
-        },
-        {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
@@ -246,13 +248,30 @@ export default {
           label: this.$t("profile.actions"),
         },
       ],
-      id: this.$route.query.id
+      id: this.$route.query.id,
+      orders: null,
+      orderData: null,
     };
   },
   methods: {
     printScreen() {
       window.print();
     },
+    getSingleOrders() {
+      profile
+        .getSingleOrders(this.id)
+        .then((res) => {
+          console.log("getSingleOrders", res);
+          this.orders = res.data.items.supplier_items;
+          this.orderData = res.data.items.order;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.getSingleOrders();
   },
 };
 </script>

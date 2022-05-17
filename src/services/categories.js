@@ -36,4 +36,7 @@ export default {
   productDetails(id) {
     return globalAxios.get(`products/${id}`);
   },
+  getBestDeals(){
+    return globalAxios.get('products/best/offers')
+  },
 };

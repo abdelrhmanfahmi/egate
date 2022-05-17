@@ -81,7 +81,16 @@ export default {
       },
     });
   },
-  getQuotationDetail(id){
-    return globalAxios.get(`members/product/rfq/${id}`)
+  getQuotationDetail(id) {
+    return globalAxios.get(`members/product/rfq/${id}`);
+  },
+  sendMessage(data) {
+    return globalAxios.post("members/product/rfq/comment", data);
+  },
+  getOrders(){
+    return globalAxios.get(`members/client-orders/`)
+  },
+  getSingleOrders(id){
+    return globalAxios.get(`members/client-orders/${id}`)
   }
 };

@@ -81,22 +81,22 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
-        {
-          to: "/profile/ResidentsB2b",
-          name: this.$t("profile.residents"),
-          iconName: "receipt",
-        },
+        // {
+        //   to: "/profile/ResidentsB2b",
+        //   name: this.$t("profile.residents"),
+        //   iconName: "receipt",
+        // },
         {
           to: "/profile/BankNotificationsB2b",
           name: this.$t("profile.bankNotifications"),
           iconName: "money-bill-wave",
         },
         
-        {
-          to: "/profile/supplierRatingB2b",
-          name: this.$t("profile.supplierRatings"),
-          iconName: "star",
-        },
+        // {
+        //   to: "/profile/supplierRatingB2b",
+        //   name: this.$t("profile.supplierRatings"),
+        //   iconName: "star",
+        // },
         
         {
           to: "/profile/SupplierCorrespondenceB2b",

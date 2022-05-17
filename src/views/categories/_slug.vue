@@ -1,8 +1,8 @@
 <template>
   <div class="subCategory" :class="$i18n.locale">
-    <div class="cover text-center">
+    <div class="cover text-center" :style="{ backgroundImage: `url(${pageCover})` }">
       <div
-        :style="{ backgroundImage: `url(${pageCover})` }"
+        
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
@@ -297,10 +297,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cover-data {
+.cover {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+.cover-data {
+  background:rgba(0,0,0,.35);
 }
 select {
   border: none;
