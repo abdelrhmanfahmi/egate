@@ -3,7 +3,7 @@
     <b-container>
       <div class="user-register-form">
         <b-row class="justify-content-center">
-          <div v-if="userInfo.item.email && userInfo.item.mobile_number">
+          <div div v-if="userInfo.item.email && userInfo.item.mobile_number">
             <h1>{{ $t("profile.profileData") }}</h1>
           </div>
           <b-col lg="10" v-else>
@@ -15,7 +15,7 @@
             <form @submit.prevent="completeProfile()">
               <b-row class="justify-content-center">
                 <!-- Email -->
-                <b-col lg="12" v-if="!userInfo.item.email">
+                <b-col lg="12" v-if="!userInfo.item.email || !userInfo.item.email.includes('@')">
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>

@@ -12,10 +12,18 @@
           v-if="quotations.price"
           id="show-btn"
           @click="$bvModal.show('bv-modal-example')"
-          >button</b-button
+          >{{ $t("profile.offer") }}</b-button
+        >
+        <b-button
+          variant="outline-danger"
+          
+          id="show-btn"
+          class="mx-2"
+          @click="$bvModal.show('bv-modal-example1')"
+          >{{ $t("profile.sendMessage") }}</b-button
         >
       </div>
-      <table class="table">
+      <table class="table custom-margin">
         <thead
           :class="{
             'text-left': $i18n.locale == 'en',
@@ -46,15 +54,12 @@
                 >
               </div>
               <div class="" v-if="quotate.comment_by === 'supplier'">
-                <span
-                  >{{ quotations.supplier.first_name }}
-                  {{ quotations.supplier.last_name }}</span
-                >
+                <span>{{ quotations.supplier.company_name }}</span>
               </div>
             </th>
             <td>
               <div>
-                <span>{{ quotate.comment }}</span>
+                <span class="comment">{{ quotate.comment }}</span>
               </div>
             </td>
             <td></td>
@@ -66,7 +71,7 @@
             <td></td>
             <td>
               <div>
-                <span>{{ quotate.created_at }}</span>
+                <span>{{ quotate.created_at | formatDate }}</span>
               </div>
             </td>
           </tr>
@@ -76,23 +81,25 @@
         <template #modal-title> {{ $t("profile.quoteData") }} </template>
         <div class="d-block">
           <div class="data-holder">
-            <div class="" v-if="quotations">
+            <div class="" v-if="quotations.product_supplier">
               <div class="" v-if="quotations.product_supplier.product">
                 <div v-if="$i18n.locale == 'en'">
-                  <h5>
+                  <h5 v-if="quotations.product_supplier.product">
                     {{ $t("profile.title") }} :
                     {{ quotations.product_supplier.product.title_en }}
                   </h5>
                 </div>
                 <div v-else>
-                  <h5>
+                  <h5 v-if="quotations.product_supplier.product">
                     {{ $t("profile.title") }} :
                     {{ quotations.product_supplier.product.title_ar }}
                   </h5>
                 </div>
               </div>
               <div class="" v-if="quotations.price">
-                <h5>{{ $t("cart.price") }} : {{ quotations.price }} {{currency}}</h5>
+                <h5>
+                  {{ $t("cart.price") }} : {{ quotations.price }} {{ currency }}
+                </h5>
               </div>
               <div class="" v-if="quotations.request_qty">
                 <h5>
@@ -113,6 +120,39 @@
           block
           @click="addToCart(quotations)"
           >{{ $t("cart.addToCart") }}</b-button
+        >
+        <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
+          >{{$t('cart.addToCart')}}</b-button
+        > -->
+      </b-modal>
+      <b-modal id="bv-modal-example1" centered hide-footer>
+        <template #modal-title> {{ $t("profile.yourMessage") }} </template>
+        <div class="d-block">
+          <div class="data-holder">
+            <form>
+              <textarea
+                class="form-control"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                v-model="message"
+                required
+              ></textarea>
+              <div class="error mt-2">
+                <p v-for="(error, index) in errors.comment" :key="index">
+                  {{ error }}
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <b-button
+          class="mt-3"
+          variant="outline-success"
+          block
+          @click="sendMessage"
+          >{{ $t("profile.send") }}</b-button
         >
         <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
           >{{$t('cart.addToCart')}}</b-button
@@ -144,6 +184,8 @@ export default {
           label: this.$t("profile.sentdate"),
         },
       ],
+      message: null,
+      errors: [],
     };
   },
   methods: {
@@ -151,7 +193,6 @@ export default {
       profile
         .getQuotationDetail(this.id)
         .then((res) => {
-          console.log("rfq res", res);
           this.quotations = res.data.items;
         })
         .catch((err) => {
@@ -160,7 +201,7 @@ export default {
     },
     addToCart(myProduct) {
       let data = {
-        client_quote_id:this.id,
+        client_quote_id: this.id,
         approve: 1,
       };
       console.log(myProduct);
@@ -169,7 +210,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            document.querySelector('.close').click()
+            document.querySelector(".close").click();
 
             // this.$modal.show(
             //   () => import("@/components/cart/cartModal.vue"),
@@ -191,6 +232,27 @@ export default {
           }, 500);
         });
     },
+    sendMessage() {
+      let data = {
+        client_quote_id: this.id,
+        comment: this.message,
+      };
+      profile
+        .sendMessage(data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            document.querySelector(".close").click();
+            this.message = "";
+            this.getQuotationDetail();
+          }
+        })
+        .catch((error) => {
+          let err = Object.values(error)[2].data;
+          this.errors = err.items;
+          console.log(error);
+        });
+    },
   },
   mounted() {
     this.getQuotationDetail();
@@ -208,5 +270,11 @@ export default {
   thead th {
     text-align: left !important;
   }
+}
+.comment {
+  word-break: break-all;
+}
+.custom-margin{
+  margin-bottom: 80px;
 }
 </style>

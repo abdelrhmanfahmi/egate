@@ -1,19 +1,23 @@
 <template>
-  <div class="product-silder text-center">
-    <b-container>
-      <div class="info" v-if="sliders">
+  <div class="product-silder text-center mt-5" >
+    <b-container v-if="slidersLength > 0">
+      <div class="info" >
         <p>{{ $t("home.bestDeal") }}</p>
         <router-link to="/best-deals">{{ $t("home.showAll") }}</router-link>
       </div>
 
-      <VueSlickCarousel v-bind="settings" class="my-2" v-if="sliders">
+      <VueSlickCarousel v-bind="settings" v-if="sliders && sliders.length" class="my-2">
         <div
           v-for="(slider, index) in sliders"
           :key="index"
           class="text-center"
         >
-          <router-link :to="{ path: '/details', query: { id: `${slider.id}` } }" v-if="slider">
-            <vue-ellipse-progress v-if="slider.offer_active_by_type.countdown_percentage"
+          <router-link
+            :to="{ path: '/details', query: { id: `${slider.id}` } }"
+            v-if="slider"
+          >
+            <vue-ellipse-progress
+              v-if="slider.offer_active_by_type.countdown_percentage"
               :progress="slider.offer_active_by_type.countdown_percentage"
               :determinate="determinate"
               v-bind="options"
@@ -42,8 +46,9 @@ import VueSlickCarousel from "vue-slick-carousel";
 
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+// import axios from "axios";
+import categories from "@/services/categories"
 export default {
   components: {
     VueSlickCarousel,
@@ -103,10 +108,9 @@ export default {
   },
   methods: {
     getBestDeals() {
-      axios
-        .get(`${baseURL}products/best/offers`)
+      categories
+        .getBestDeals()
         .then((res) => {
-          // console.log("getBestDeals", res);
           this.sliders = res.data.items.data;
         })
         .catch((err) => {
@@ -118,6 +122,11 @@ export default {
     this.getBestDeals();
     if (this.progress === 0) this.nodata = true;
   },
+  computed:{
+    slidersLength(){
+      return this.sliders ? this.sliders.length : 0
+    }
+  }
 };
 </script>
 
