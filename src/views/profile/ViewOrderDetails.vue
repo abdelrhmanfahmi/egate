@@ -84,8 +84,8 @@
                 :key="index"
               >
                 <div class="col-md-2 col-sm-6">
-                  <span class="mb-2" v-if="order.supplier.company_name"
-                    >{{ order.supplier.company_name }} :</span
+                  <span class="mb-2" v-if="order.supplier"
+                    >{{ order.supplier }} :</span
                   >
                 </div>
 
@@ -93,17 +93,35 @@
                   class="col-md-10 col-sm-6"
                   v-if="order.bicked !== null || order.bicked"
                 >
+                  <span class="mb-2" v-if="order.bicked.apartment">{{
+                    order.bicked.apartment
+                  }} ,</span
+                  >
+                  <span class="mb-2" v-if="order.bicked.floor">{{
+                    order.bicked.floor
+                  }} ,</span
+                  >
+                  <span class="mb-2" v-if="order.bicked.address_line_1">{{
+                    order.bicked.address_line_1
+                  }} ,</span
+                  >
+                  <span class="mb-2" v-if="order.bicked.address_line_2">{{
+                    order.bicked.address_line_2
+                  }} ,</span>
+                  
+
+                  <span class="mb-2" v-if="order.bicked.city">{{
+                    order.bicked.city.title
+                  }} ,</span
+                  >
+                  <span class="mb-2" v-if="order.bicked.region">{{
+                    order.bicked.region.title
+                  }} ,</span>
+                  
                   <span class="mb-2" v-if="order.bicked.country">{{
                     order.bicked.country.title
                   }}</span>
-                  ,
-                  <span class="mb-2" v-if="order.bicked.region">{{
-                    order.bicked.region.title
-                  }}</span>
-                  ,
-                  <span class="mb-2" v-if="order.bicked.city">{{
-                    order.bicked.city.title
-                  }}</span>
+                  
                 </div>
               </div>
             </div>
@@ -151,7 +169,7 @@
                 <div class="row info-data info-colored">
                   <div class="col-6">{{ $t("profile.deleiveryFees") }}</div>
                   <div class="col-6" v-if="orderData">
-                    {{ orderData.total_shipping_fee }}
+                    {{ orderData.total_shipping_fee | fixedCurrency }}
                   </div>
                 </div>
               </div>
@@ -177,13 +195,14 @@
               v-if="order.supplier"
             >
               <div class="holder">
-                <div v-if="order.supplier.company_name">
+                <div v-if="order.company">
                   {{ $t("profile.supplier") }} :
-                  {{ order.supplier.company_name }}
+                  {{ order.company }}
                 </div>
-                <div class="" v-if="order.supplier.status">
-                  {{ $t("profile.supplierOrder") }} : {{order.order_supplier.serial}} |
-                  {{ $t("profile.status") }} : {{ order.order_supplier.status }}
+                <div class="" v-if="order.order_status">
+                  {{ $t("profile.supplierOrder") }} :
+                  serial |
+                  {{ $t("profile.status") }} : {{ order.order_status }}
                 </div>
               </div>
             </div>
@@ -214,18 +233,18 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody v-for="(ord , index) in order.items" :key="index">
                     <tr>
-                      <td v-if="order.items">
-                        {{ order.items.product.title }}
+                      <td v-if="order.title">
+                        {{ ord.title }}
                       </td>
                       <td v-else>-</td>
-                      <td v-if="order.price">
-                        {{ order.price }} {{ currency }}
+                      <td v-if="ord.price">
+                        {{ ord.price | fixedCurrency }} 
                       </td>
-                      <td v-if="order.quantity">{{ order.quantity }}</td>
-                      <td v-if="order.total_price">
-                        {{ order.total_price }} {{ currency }}
+                      <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                      <td v-if="ord.total_price">
+                        {{ ord.total_price | fixedCurrency }} 
                       </td>
                       <td>
                         <button class="btn btn-outline-danger">
@@ -255,24 +274,38 @@
               <div class="info">
                 <div class="row info-data info-colored">
                   <div class="col-6">
+                    {{ $t("profile.subTotal") }}
+                  </div>
+                  <div class="col-6" v-if="orderData">
+                    KWD {{ orderData.sup_total_price | fixedCurrency }}
+                  </div>
+                </div>
+                <div class="row info-data">
+                  <div class="col-6">
                     {{ $t("profile.total_shipping_fee") }}
                   </div>
                   <div class="col-6" v-if="orderData">
-                    KWD {{ orderData.total_shipping_fee }}
+                    KWD {{ orderData.total_shipping_fee | fixedCurrency }}
                   </div>
                 </div>
 
-                <div class="row info-data">
+                <!-- <div class="row info-data">
                   <div class="col-6">{{ $t("profile.total_commission") }}</div>
-                  <div class="col-6" v-if="orderData">KWD {{ orderData.total_commission }}</div>
-                </div>
+                  <div class="col-6" v-if="orderData">
+                    KWD {{ orderData.total_commission }}
+                  </div>
+                </div> -->
                 <div class="row info-data info-colored">
                   <div class="col-6">{{ $t("profile.totalDiscount") }}</div>
-                  <div class="col-6" v-if="orderData">KWD {{ orderData.total_discount }}</div>
+                  <div class="col-6" v-if="orderData">
+                    KWD {{ orderData.total_discount | fixedCurrency }}
+                  </div>
                 </div>
                 <div class="row info-data ">
                   <div class="col-6">{{ $t("profile.total_price") }}</div>
-                  <div class="col-6" v-if="orderData">KWD {{ orderData.total_price }}</div>
+                  <div class="col-6" v-if="orderData">
+                    KWD {{ orderData.total_price | fixedCurrency }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -324,7 +357,7 @@ export default {
         .getSingleOrders(this.id)
         .then((res) => {
           console.log("getSingleOrders", res);
-          this.orders = res.data.items.supplier_items;
+          this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
         })
         .catch((err) => {
