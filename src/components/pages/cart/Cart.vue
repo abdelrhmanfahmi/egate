@@ -158,7 +158,7 @@
                 </tr>
                 <tr>
                   <th>{{ $t("cart.discount") }}</th>
-                  <td v-if="totalDiscount">{{ totalDiscount | fixedCurrency }} {{ currency }}</td>
+                  <td v-if="cart_sub_total">{{totalDiscount }} {{ currency }}</td>
                 </tr>
                 <!-- <tr>
                   <th>{{ $t("cart.delivery") }}</th>
@@ -255,6 +255,7 @@ export default {
       selectedSpan: null,
       myQuantity: null,
       showModal: false,
+      priceData:null
     };
   },
   mounted() {
@@ -284,6 +285,7 @@ export default {
       this.loading = true;
       globalAxios.post(`cart`).then((res) => {
         this.cartItems = res.data.items.cart_items;
+        this.priceData = res.data.items;
       });
       this.loading = false;
     },
@@ -399,9 +401,9 @@ export default {
         : this.$store.state.cart.cart_sub_total;
     },
     totalDiscount() {
-      return this.total_cart.cart_sub_total_disc
-        ? this.total_cart.cart_sub_total_disc
-        : this.discount;
+      return this.priceData.cart_sub_total_disc
+        ? this.priceData.cart_sub_total_disc
+        : 0;
     },
     totalPayment() {
       return this.total_cart.cart_sub_total_after_disc

@@ -178,4 +178,9 @@ export default {
   offer: "Supplier Offer",
   sendMessage: "Send Message To Supplier",
   orderSerial: "Order Serial",
+  pickedAddresses: "Picked Addresses",
+  total_shipping_fee: "Total Shipping Fees",
+  total_commission: "Total Commission",
+  totalDiscount: "Total Discount",
+  total_price: "Total Price",
 };

@@ -170,4 +170,9 @@ export default {
   offer: "عرض المورد",
   sendMessage: "تواصل مع المورد",
   orderSerial: "مسلسل الطلب",
+  pickedAddresses: "عناوين مواقع الاستلام",
+  total_shipping_fee: "مصاريف الشحن",
+  total_commission: "اجمالى العموله",
+  totalDiscount: "اجمالى الخصم",
+  total_price: "اجمالى السعر",
 };
