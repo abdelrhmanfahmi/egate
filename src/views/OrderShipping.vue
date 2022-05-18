@@ -64,7 +64,7 @@
                   </h5>
                 </div>
                 <div class="col-md-8 col-sm-12 mb-4">
-                  <form @change="selectType(supplier, index)" class="d-flex">
+                  <form @change="ordeType" class="d-flex">
                     <label>
                       <input
                         @change="changeShippping"
@@ -90,6 +90,7 @@
 
                     <b-form-select
                       @input="selectAddressUUID"
+                      @change="selectType(supplier, index)"
                       class="w-100 mt-2 supplierAddresses d-none"
                     >
                       <b-form-select-option
@@ -152,7 +153,10 @@
                     @input="changeAddress"
                     placeholder="test"
                   >
-                    <b-form-select-option selected disabled :value="$t('payment.selectExist')"
+                    <b-form-select-option
+                      selected
+                      disabled
+                      :value="$t('payment.selectExist')"
                       >{{ $t("payment.selectExist") }}</b-form-select-option
                     >
 
@@ -160,7 +164,6 @@
                       v-for="(address, index) in addresses"
                       :key="index"
                       :value="address"
-                      
                       >{{ address.country.title }} ,
                       {{ address.region.title }} ,
                       {{ address.city.title }}
@@ -710,10 +713,10 @@ export default {
     changeAddress() {
       this.newForm = this.selectedAddress;
       // console.log("old selected address", this.selectedAddress);
-      localStorage.setItem(
-        "guestAddressData",
-        JSON.stringify(this.selectedAddress)
-      );
+      // localStorage.setItem(
+      //   "guestAddressData",
+      //   JSON.stringify(this.selectedAddress)
+      // );
       localStorage.setItem("addressUUID", this.selectedAddress.uuid);
     },
     selectAddressUUID(myselectAddressUUID) {
@@ -722,17 +725,14 @@ export default {
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
     selectType: function (supplier, index) {
-      console.log(this.supplierAddress);
+      // console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
-        // address_uuid: localStorage.getItem('addressUUID'),
-        // description: supplier.description,
-        // price: supplier.price,
-        // email: this.loggedUser.email,
         shipping_type: this.ratingNum[index],
         coupon: supplier.coupon ? supplier.coupon : "",
+        point_of_sell_uuid: this.supplierAddress,
         // supplier_address_uuid: this.supplierAddress
         //   ? this.supplierAddress.uuid
         //   : localStorage.getItem('addressUUID'),
@@ -751,14 +751,7 @@ export default {
           // console.log(myArray);
         }
       }
-
-      localStorage.setItem("type", this.ratingNum);
       // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
-      if (this.ratingNum.includes("0")) {
-        this.deliverType = true;
-      } else {
-        this.deliverType = false;
-      }
     },
 
     getCartProducts() {
@@ -830,7 +823,7 @@ export default {
           });
     },
     localStoreAdresses() {
-      localStorage.setItem("guestAddressData", JSON.stringify(this.form));
+      // localStorage.setItem("guestAddressData", JSON.stringify(this.form));
 
       if (
         this.form.country_id !== null &&
@@ -867,6 +860,20 @@ export default {
     },
     changeShippping() {
       document.querySelector(".supplierAddresses").classList.remove("d-block");
+    },
+    ordeType() {
+      localStorage.setItem("type", this.ratingNum);
+      let storedAddress = localStorage.getItem("addressUUID");
+      let storedUserData = localStorage.getItem("userData");
+      if (storedAddress == undefined || storedAddress === "undefined") {
+        localStorage.setItem("addressUUID", storedUserData.uuid);
+        // alert('undefined')
+      }
+      if (this.ratingNum.includes("0")) {
+        this.deliverType = true;
+      } else {
+        this.deliverType = false;
+      }
     },
   },
   mounted() {
