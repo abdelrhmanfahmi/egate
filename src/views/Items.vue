@@ -271,7 +271,7 @@ export default {
       color: #000;
       .link {
         color: #403a37;
-        font-size: 11pt;
+        font-size: 14pt;
         margin-bottom: 0.5rem;
       }
       .name {

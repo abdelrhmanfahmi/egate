@@ -87,10 +87,19 @@ export default {
   sendMessage(data) {
     return globalAxios.post("members/product/rfq/comment", data);
   },
-  getOrders(){
-    return globalAxios.get(`members/client-orders/`)
+  getOrders() {
+    return globalAxios.get(`members/client-orders/`);
   },
-  getSingleOrders(id){
-    return globalAxios.get(`members/client-orders/${id}`)
-  }
+  getSingleOrders(id) {
+    return globalAxios.get(`members/client-orders/${id}`);
+  },
+  deleteOrder(data) {
+    return globalAxios.post(
+      `members/client-orders/${data.orderUUID}/change-status`,
+      {
+        status: "4",
+        client_cancel_reason: data.payLoad,
+      }
+    );
+  },
 };

@@ -148,6 +148,7 @@
                           v-if="cat"
                           :card="{ type: cat.title }"
                           :image="cat.image_path"
+                          
                         />
                       </router-link>
                     </div>
@@ -176,6 +177,7 @@
                       <CategoryCard
                         :card="{ type: cat.title }"
                         :image="cat.image_path"
+                        class="homecategories"
                       />
                     </router-link>
                   </b-col>
@@ -257,6 +259,7 @@ export default {
               index++
             ) {
               this.allChildrenData = this.subCategories[i].all_children;
+              
 
               // console.log("element", this.allChildrenData);
 
