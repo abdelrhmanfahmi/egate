@@ -444,8 +444,11 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="most-sold text-center" v-if="supplierProductsLength > 0">
+    </div> 
+
+    <!-- commented till return to backend -->
+
+    <!-- <div class="most-sold text-center" v-if="supplierProductsLength > 0">
       <div class="container">
         <h4 class="header font-weight-bold mt-5 mb-3">
           {{ $t("items.products") }}
@@ -464,7 +467,7 @@
           ></b-col>
         </b-row>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -472,7 +475,7 @@
 import categories from "@/services/categories";
 import suppliers from "@/services/suppliers";
 import VariantsCounter from "@/components/global/variantsCounter.vue";
-import Product from "@/components/pages/supplier/products/Product.vue";
+// import Product from "@/components/pages/supplier/products/Product.vue";
 import globalAxios from "@/services/global-axios";
 
 // import modal from "@/components/cart/cartModal.vue";
@@ -560,7 +563,7 @@ export default {
   },
   components: {
     VariantsCounter,
-    Product,
+    // Product,
     // modal,
   },
   methods: {
@@ -664,7 +667,7 @@ export default {
     },
     changeVariance() {
       // console.log(product.title.replace(/\s/g, "-"));
-      console.log("productInfo", this.productInfo);
+      // console.log("productInfo", this.productInfo);
       let myVariants = [];
       for (let index = 0; index < this.productInfo.variants.length; index++) {
         const element = this.productInfo.variants[index].selectedVariance;
@@ -680,7 +683,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId, this.selectedVariants)
         .then((res) => {
-          console.log("products", res);
+          // console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -695,7 +698,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
-          console.log("products", res);
+          // console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -709,7 +712,7 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          console.log("res test ", res);
+          // console.log("res test ", res);
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
           for (let index = 0; index < variantData.length; index++) {
@@ -760,6 +763,7 @@ export default {
       suppliers
         .getSupplierProducts(this.id)
         .then((resp) => {
+          console.log("supplierProducts" , resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
