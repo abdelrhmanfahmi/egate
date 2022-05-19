@@ -259,7 +259,6 @@ export default {
               index++
             ) {
               this.allChildrenData = this.subCategories[i].all_children;
-              
 
               // console.log("element", this.allChildrenData);
 

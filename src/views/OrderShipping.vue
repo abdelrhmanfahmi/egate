@@ -64,7 +64,7 @@
                   </h5>
                 </div>
                 <div class="col-md-8 col-sm-12 mb-4">
-                  <form @change="ordeType" class="d-flex">
+                  <form @change="ordeType(supplier.supplier_id)" class="d-flex">
                     <label>
                       <input
                         @change="changeShippping"
@@ -206,6 +206,14 @@
                         >
                           {{ error }}
                         </div>
+
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.country"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
                       </b-form-group>
                     </b-col>
                     <!-- regions -->
@@ -236,6 +244,14 @@
                         >
                           {{ error }}
                         </div>
+
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.governorate"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
                       </b-form-group>
                     </b-col>
                     <!-- cities -->
@@ -258,9 +274,17 @@
                             >{{ city.title }}
                           </b-form-select-option>
                         </b-form-select>
+
                         <div
                           class="error"
                           v-for="(error, index) in errors.city_id"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.city"
                           :key="index"
                         >
                           {{ error }}
@@ -402,17 +426,25 @@
                     v-else
                     type="submit"
                     @click.prevent="localStoreAdresses()"
-                    class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+                    class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                   >
                     {{ $t("register.submit") }}
                   </b-button>
                   <router-link
                     v-if="submitted"
                     to="/payment"
-                    class="login-button dark m-0 mt-4 ml-4 py-3 px-5 text-white text-center w-auto"
+                    class="login-button dark m-0 mt-4 ml-4 py-3 px-5 text-white text-center w-auto mx-2"
                   >
                     {{ $t("cart.checkout") }}
                   </router-link>
+
+                  <button
+                    @click.prevent="getShippingFeesexist"
+                    to="/payment"
+                    class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
+                  >
+                    {{ $t("cart.checkFees") }}
+                  </button>
                 </form>
               </div>
 
@@ -627,6 +659,12 @@
                     >
                       {{ $t("cart.checkout") }}
                     </router-link>
+                    <button
+                      @click.prevent="getShippingFees"
+                      class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
+                    >
+                      {{ $t("cart.checkFees") }}
+                    </button>
                   </form>
                 </div>
               </div>
@@ -707,6 +745,7 @@ export default {
       supplierAddress: null,
       selectedSupplierAddresses: null,
       selectedInput: null,
+      suppier_id: null,
     };
   },
   methods: {
@@ -861,25 +900,70 @@ export default {
     changeShippping() {
       document.querySelector(".supplierAddresses").classList.remove("d-block");
     },
-    ordeType() {
+    ordeType(supplier) {
+      console.log(supplier);
+      localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
-      let storedAddress = localStorage.getItem("addressUUID");
-      let storedUserData = localStorage.getItem("userData");
-      if (storedAddress == undefined || storedAddress === "undefined") {
-        localStorage.setItem("addressUUID", storedUserData.uuid);
-        // alert('undefined')
-      }
+      // let storedAddress = localStorage.getItem("addressUUID");
+      // let storedUserData = localStorage.getItem("userData");
+      // if (storedAddress == undefined || storedAddress === "undefined") {
+      //   localStorage.setItem("addressUUID", storedUserData.uuid);
+      //   // alert('undefined')
+      // }
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
       } else {
         this.deliverType = false;
       }
     },
+    getShippingFees() {
+      let address_uuid = localStorage.getItem("addressUUID");
+      let data = {
+        country: this.form.country_id,
+        governorate: this.form.region_id,
+        city: this.form.city_id,
+        address_uuid: address_uuid,
+        supplier_id: localStorage.getItem("s_id"),
+      };
+      suppliers
+        .getShippingFees(data)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.errors = []
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    getShippingFeesexist() {
+      // let address_uuid = localStorage.getItem("addressUUID");
+      let data = {
+        country: this.form.country_id,
+        governorate: this.form.region_id,
+        city: this.form.city_id,
+        // address_uuid: address_uuid,
+        supplier_id: localStorage.getItem("s_id"),
+      };
+      suppliers
+        .getShippingFees(data)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.errors = []
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
   },
   mounted() {
     this.getCartProducts();
     this.getAllCountires();
     this.getAllAdresses();
+    localStorage.removeItem("s_id");
 
     // let checkTypes = localStorage.getItem('type');
     // if(checkTypes.includes('1')){
