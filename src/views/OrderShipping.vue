@@ -87,7 +87,6 @@
                       />
                       <span>{{ $t("payment.pickup") }}</span>
                     </label>
-
                     <b-form-select
                       @input="selectAddressUUID"
                       @change="selectType(supplier, index)"
@@ -102,6 +101,7 @@
                         {{ address.city.title }}
                       </b-form-select-option>
                     </b-form-select>
+                    <span class="feedsResult"></span>
                   </form>
                 </div>
               </div>
@@ -439,7 +439,7 @@
                   </router-link>
 
                   <button
-                    @click.prevent="getShippingFeesexist"
+                    @click.prevent="getShippingFeesNew"
                     to="/payment"
                     class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                   >
@@ -660,7 +660,7 @@
                       {{ $t("cart.checkout") }}
                     </router-link>
                     <button
-                      @click.prevent="getShippingFees"
+                      @click.prevent="getShippingFeesExist"
                       class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                     >
                       {{ $t("cart.checkFees") }}
@@ -746,6 +746,7 @@ export default {
       selectedSupplierAddresses: null,
       selectedInput: null,
       suppier_id: null,
+      selectedInputText: "",
     };
   },
   methods: {
@@ -890,6 +891,7 @@ export default {
         });
     },
     changePackUp($event) {
+
       let input = $event.target;
 
       this.selectedInput = input;
@@ -897,7 +899,10 @@ export default {
       let button = input.parentElement.nextElementSibling;
       button.classList.add("d-block");
     },
-    changeShippping() {
+    changeShippping($event) {
+      let input = $event.target;
+
+      this.selectedInput = input;
       document.querySelector(".supplierAddresses").classList.remove("d-block");
     },
     ordeType(supplier) {
@@ -916,8 +921,13 @@ export default {
         this.deliverType = false;
       }
     },
-    getShippingFees() {
+    getShippingFeesExist() {
       let address_uuid = localStorage.getItem("addressUUID");
+
+      let myResult =
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling
+          .nextElementSibling;
+
       let data = {
         country: this.form.country_id,
         governorate: this.form.region_id,
@@ -929,7 +939,24 @@ export default {
         .getShippingFees(data)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          this.errors = []
+
+          if (this.$i18n.locale == "en") {
+            myResult.innerHTML = "Delivery fees : " + Number(res.data.items.price).toFixed(3) + ' ' +  this.currency ;
+          }
+          if (this.$i18n.locale == "ar") {
+            myResult.innerHTML = "تكلفة الشحن : " + Number(res.data.items.price).toFixed(3) + ' ' + this.currency ;
+          }
+
+          if (res.data.items == [] || res.data.items == "") {
+            if (this.$i18n.locale == "en") {
+              myResult.innerHTML = "no data available";
+            }
+            if (this.$i18n.locale == "ar") {
+              myResult.innerHTML = "عذرا لايوجد معلومات";
+            }
+          }
+
+          this.errors = [];
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -937,8 +964,18 @@ export default {
           this.errMsg(err.message);
         });
     },
-    getShippingFeesexist() {
+    getShippingFeesNew() {
+      // console.log(
+      //   "getShippingFeesNew",
+      //   (this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML =
+      //     res.data.items.price)
+      // );
       // let address_uuid = localStorage.getItem("addressUUID");
+
+      let myResult =
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling
+          .nextElementSibling;
+
       let data = {
         country: this.form.country_id,
         governorate: this.form.region_id,
@@ -950,7 +987,26 @@ export default {
         .getShippingFees(data)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          this.errors = []
+          // this.deliveryText = res.data.items.price
+          this.selectedInputText = res.data.items.price;
+
+          if (this.$i18n.locale == "en") {
+            myResult.innerHTML = "Delivery fees : " + Number(res.data.items.price).toFixed(3) +  ' ' + this.currency ;
+          }
+          if (this.$i18n.locale == "ar") {
+            myResult.innerHTML = "تكلفة الشحن : " + Number(res.data.items.price).toFixed(3) +  ' ' + this.currency ;
+          }
+
+          if (res.data.items == [] || res.data.items == "") {
+            if (this.$i18n.locale == "en") {
+              myResult.innerHTML = "no data available";
+            }
+            if (this.$i18n.locale == "ar") {
+              myResult.innerHTML = "عذرا لايوجد معلومات";
+            }
+          }
+
+          this.errors = [];
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1152,5 +1208,11 @@ textarea {
   &:focus {
     box-shadow: 0 0 0 0.1rem #6e6e6e;
   }
+}
+.feedsResult {
+  font-size: 19px;
+  text-transform: capitalize;
+  font-weight: bold;
+  margin: 20px;
 }
 </style>
