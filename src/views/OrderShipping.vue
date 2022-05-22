@@ -941,14 +941,12 @@ export default {
 
           myResult.innerHTML =
             this.$t("profile.deleiveryFees") +
-            +Number(res.data.items.price).toFixed(3) +
+            Number(res.data.items.price).toFixed(3) +
             " " +
             this.currency;
 
           if (res.data.items == [] || res.data.items == "") {
-            if (res.data.items == [] || res.data.items == "") {
-              myResult.innerHTML = this.$t("profile.deliveryFeesText");
-            }
+            myResult.innerHTML = this.$t("profile.deliveryFeesText");
           }
 
           this.errors = [];
@@ -987,14 +985,12 @@ export default {
 
           myResult.innerHTML =
             this.$t("profile.deleiveryFees") +
-            +Number(res.data.items.price).toFixed(3) +
+            Number(res.data.items.price).toFixed(3) +
             " " +
             this.currency;
 
           if (res.data.items == [] || res.data.items == "") {
-            if (res.data.items == [] || res.data.items == "") {
-              myResult.innerHTML = this.$t("profile.deliveryFeesText");
-            }
+            myResult.innerHTML = this.$t("profile.deliveryFeesText");
           }
 
           this.errors = [];
