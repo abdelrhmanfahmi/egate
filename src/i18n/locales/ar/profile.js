@@ -147,7 +147,7 @@ export default {
   tele: "هاتف العميل",
   paymentType: "طريقةالدفع",
   paymentCurency: "عملةالدفع",
-  deleiveryFees: "مصاريف الشحن",
+  deleiveryFees: "مصاريف الشحن : ",
   address: "عنوان",
   orderNote: "معلومات عن الطلب",
   supplierOrder: "طلب المورد",
@@ -175,4 +175,5 @@ export default {
   total_commission: "اجمالى العموله",
   totalDiscount: "اجمالى الخصم",
   total_price: "اجمالى السعر",
+  deliveryFeesText: "عذرا لايوجد معلومات",
 };

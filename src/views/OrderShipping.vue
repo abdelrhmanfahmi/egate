@@ -891,7 +891,6 @@ export default {
         });
     },
     changePackUp($event) {
-
       let input = $event.target;
 
       this.selectedInput = input;
@@ -940,19 +939,15 @@ export default {
         .then((res) => {
           this.sucessMsg(res.data.message);
 
-          if (this.$i18n.locale == "en") {
-            myResult.innerHTML = "Delivery fees : " + Number(res.data.items.price).toFixed(3) + ' ' +  this.currency ;
-          }
-          if (this.$i18n.locale == "ar") {
-            myResult.innerHTML = "تكلفة الشحن : " + Number(res.data.items.price).toFixed(3) + ' ' + this.currency ;
-          }
+          myResult.innerHTML =
+            this.$t("profile.deleiveryFees") +
+            +Number(res.data.items.price).toFixed(3) +
+            " " +
+            this.currency;
 
           if (res.data.items == [] || res.data.items == "") {
-            if (this.$i18n.locale == "en") {
-              myResult.innerHTML = "sorry , no shipping fees data available";
-            }
-            if (this.$i18n.locale == "ar") {
-              myResult.innerHTML = "عذرا لايوجد معلومات";
+            if (res.data.items == [] || res.data.items == "") {
+              myResult.innerHTML = this.$t("profile.deliveryFeesText");
             }
           }
 
@@ -990,19 +985,15 @@ export default {
           // this.deliveryText = res.data.items.price
           this.selectedInputText = res.data.items.price;
 
-          if (this.$i18n.locale == "en") {
-            myResult.innerHTML = "Delivery fees : " + Number(res.data.items.price).toFixed(3) +  ' ' + this.currency ;
-          }
-          if (this.$i18n.locale == "ar") {
-            myResult.innerHTML = "تكلفة الشحن : " + Number(res.data.items.price).toFixed(3) +  ' ' + this.currency ;
-          }
+          myResult.innerHTML =
+            this.$t("profile.deleiveryFees") +
+            +Number(res.data.items.price).toFixed(3) +
+            " " +
+            this.currency;
 
           if (res.data.items == [] || res.data.items == "") {
-            if (this.$i18n.locale == "en") {
-              myResult.innerHTML = "sorry , no shipping fees data available";
-            }
-            if (this.$i18n.locale == "ar") {
-              myResult.innerHTML = "عذرا لايوجد معلومات";
+            if (res.data.items == [] || res.data.items == "") {
+              myResult.innerHTML = this.$t("profile.deliveryFeesText");
             }
           }
 

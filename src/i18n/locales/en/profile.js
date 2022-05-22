@@ -154,7 +154,7 @@ export default {
   couponValid: "coupon Valid",
   paymentType: "Payment Type",
   paymentCurency: "Payment Curency",
-  deleiveryFees: "Delivery Fees",
+  deleiveryFees: "Delivery Fees : ",
   address: "Address",
   orderNote: "Note For this Order",
   productName: "Product Name",
@@ -183,4 +183,5 @@ export default {
   total_commission: "Total Commission",
   totalDiscount: "Total Discount",
   total_price: "Total Price",
+  deliveryFeesText: "sorry , no shipping fees data available",
 };
