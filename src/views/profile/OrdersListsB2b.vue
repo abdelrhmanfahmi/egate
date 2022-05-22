@@ -42,12 +42,12 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
-            <td> {{ order.serial }}</td>
-            <td> {{ order.created_at | formatDate }}</td>
-            <td> {{ order.order_supplier_items_count }}</td>
-            <td> {{ order.total_price }} {{ currency }}</td>
-            <td> {{ order.payment_status }}</td>
-            <td> {{ order.payment_type }}</td>
+            <td>{{ order.serial }}</td>
+            <td>{{ order.created_at | formatDate }}</td>
+            <td>{{ order.order_supplier_items_count }}</td>
+            <td>{{ order.total_price }} {{ currency }}</td>
+            <td>{{ order.payment_status }}</td>
+            <td>{{ order.payment_type }}</td>
             <td>
               <router-link
                 :to="{
@@ -65,11 +65,18 @@
         </tbody>
       </table>
     </div>
+    <div
+      class="spinner d-flex justify-content-center align-items-center"
+      v-else
+    >
+      <spinner />
+    </div>
   </div>
 </template>
 
 <script>
 import profile from "@/services/profile";
+import spinner from "@/components/spinner.vue";
 export default {
   data() {
     return {
@@ -110,7 +117,7 @@ export default {
           finalActivity: "07/24/2021",
         },
       ],
-      orders:null
+      orders: null,
     };
   },
   methods: {
@@ -118,16 +125,19 @@ export default {
       profile
         .getOrders()
         .then((res) => {
-          this.orders = res.data.items.orders
+          this.orders = res.data.items.orders;
         })
         .catch((err) => {
           console.log(err);
         });
     },
   },
-  mounted(){
-    this.getOrders()
-  }
+  mounted() {
+    this.getOrders();
+  },
+  components: {
+    spinner,
+  },
 };
 </script>
-<style></style>
+<style lang="scss" scoped></style>

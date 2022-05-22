@@ -16,9 +16,12 @@
           </router-link>
           <!-- {{ slider.product.title }} -->
         </h4>
-        <span class="price" v-if="slider.product_details_by_type.price">
+        <h5 class="price m-0" v-if="slider.product_details_by_type.price">
           {{ slider.product_details_by_type.price | fixedCurrency }} {{ currency }}
-        </span>
+        </h5>
+        <p class="price-after price m-0" v-if="slider.product_details_by_type.price_before_discount">
+          {{ slider.product_details_by_type.price_before_discount | fixedCurrency }} {{ currency }}
+        </p>
       </div>
     </div>
   </div>

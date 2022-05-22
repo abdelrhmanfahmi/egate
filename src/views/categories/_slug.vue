@@ -260,13 +260,14 @@ export default {
             ) {
               this.allChildrenData = this.subCategories[i].all_children;
 
-              // console.log("element", this.allChildrenData);
+              console.log("element", this.allChildrenData);
 
               // console.log(
               //   "inside index",
               //   // this.allChildrenData[index]
               //   this.allChildrenData
               // );
+              
             }
 
             // console.log("outside index", resp.data.items[i].all_children);

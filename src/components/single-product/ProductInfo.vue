@@ -21,11 +21,19 @@
           SKU : {{ myProduct.product_details_by_type.sku }}
         </p>
         <p class="price">
-          {{ $t("singleProduct.price") }} :
-          {{
-            myProduct.product_details_by_type.customer_price | fixedCurrency
-          }}
-          {{ currency }}
+          <span>
+            {{ $t("singleProduct.price") }} :
+            {{
+              myProduct.product_details_by_type.price | fixedCurrency
+            }}
+            {{ currency }}
+          </span>
+          <span class="price-after">
+            {{
+              myProduct.product_details_by_type.price_before_discount | fixedCurrency
+            }}
+            {{ currency }}
+          </span>
         </p>
 
         <hr />
@@ -38,11 +46,17 @@
         </p>
         <div class="weight">
           <p class="title" v-if="myProduct.product_details_by_type.weight">
-            {{ $t("singleProduct.weight") }} : 
+            {{ $t("singleProduct.weight") }} :
           </p>
 
-          <div class="available-weight d-flex justify-content-end" v-if="myProduct.product_details_by_type">
-            <span v-if="myProduct.product_details_by_type.unit">{{ myProduct.product_details_by_type.weight }} {{ myProduct.product_details_by_type.unit.title }}</span>
+          <div
+            class="available-weight d-flex justify-content-end"
+            v-if="myProduct.product_details_by_type"
+          >
+            <span v-if="myProduct.product_details_by_type.unit"
+              >{{ myProduct.product_details_by_type.weight }}
+              {{ myProduct.product_details_by_type.unit.title }}</span
+            >
           </div>
         </div>
       </div>
@@ -195,11 +209,23 @@
             <!-- </router-link> -->
           </button>
           <button
+            @click="addToWishlist(myProduct)"
+            v-if="myProduct.is_favorite == false"
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block"
           >
             {{ $t("singleProduct.addFavorites") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-heart" />
+            </span>
+          </button>
+          <button
+            @click="addToWishlist(myProduct)"
+            v-else
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block"
+          >
+            {{ $t("singleProduct.productInCart") }}
+            <span class="text-danger">
+              <font-awesome-icon icon="fa-solid fa-heart " />
             </span>
           </button>
           <!-- <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0" >
@@ -322,6 +348,8 @@ import { BIconPlus, BIconDash } from "bootstrap-vue";
 // import modal from "@/components/cart/cartModal.vue";
 import globalAxios from "@/services/global-axios";
 // import CartModal from "@/components/cart/cartModal.vue"
+
+import categories from "@/services/categories";
 export default {
   components: {
     BIconPlus,
@@ -434,6 +462,53 @@ export default {
     },
     openModal() {
       this.showModal = true;
+    },
+    addToWishlist(item) {
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
+      };
+      // this.addProductToWishlist({
+      //   product: this.product,
+      // });
+
+      return globalAxios
+        .post(`members/profile/favorite`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            this.productDetails();
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.getCategoryProducts();
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    productDetails() {
+      this.loading = true;
+      categories
+        .productDetails(this.id)
+        .then((res) => {
+          console.log("productDetails", res);
+          this.myProduct = res.data.items;
+        })
+        .catch((err) => {
+          if (err.response.data.code == 404) {
+            this.notFound = true;
+            this.loading = false;
+            this.myProduct = "";
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
   data() {

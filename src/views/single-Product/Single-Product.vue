@@ -25,32 +25,40 @@
             {{ $t("items.products") }}
           </h4>
           <hr />
-          <div class="row">
-            <div
-              class="col-12 col-sm-6 col-lg-3"
-              v-for="item in supplierProducts"
-              :key="item.id"
-            >
-              <Product :data="item"></Product>
-            </div>
+          <div class="">
+            <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
+              <div v-for="item in supplierProducts" :key="item.id">
+                <Product :data="item"></Product>
+              </div>
+            </VueSlickCarousel>
           </div>
         </div>
       </div>
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/Loader.gif" class="loading-img w-25" alt="loading" />
+        <img
+          src="@/assets/images/Loader.gif"
+          class="loading-img w-25"
+          alt="loading"
+        />
       </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound" >
-      <img src="@/assets/images/New-Project.png" alt="product-not-found">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
+      v-if="notFound"
+    >
+      <img src="@/assets/images/New-Project.png" alt="product-not-found" />
       <h2>
-        {{$t('profile.notFound')}}
+        {{ $t("profile.notFound") }}
       </h2>
     </div>
   </div>
 </template>
 <script>
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+
 import Slider from "@/components/single-product/Slider.vue";
 import ProductInfo from "@/components/single-product/ProductInfo.vue";
 import Specs from "@/components/single-product/Specs.vue";
@@ -67,6 +75,7 @@ export default {
     Specs,
     Rating,
     Product,
+    VueSlickCarousel,
   },
   data() {
     return {
@@ -76,7 +85,48 @@ export default {
       product: [],
       supplierProducts: null,
       supplierProductsLength: null,
-      notFound:false
+      notFound: false,
+      supplierProductsId: null,
+      settings: {
+        dots: false,
+        infinite: true,
+        arrows: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: true,
+
+        responsive: [
+          {
+            breakpoint: 1191,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              arrows: false,
+              dots:false
+            },
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              arrows: false,
+              dots:false
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              arrows: false,
+              dots:false
+            },
+          },
+        ],
+      },
     };
   },
 
@@ -86,14 +136,15 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
-          console.log("productDetails"  , res);
+          console.log("productDetails", res);
           this.myProduct = res.data.items;
+          this.supplierProductsId = res.data.items.client_id;
         })
         .catch((err) => {
-          if(err.response.data.code == 404){
+          if (err.response.data.code == 404) {
             this.notFound = true;
             this.loading = false;
-            this.myProduct = ""
+            this.myProduct = "";
           }
         })
         .finally(() => {
@@ -101,21 +152,26 @@ export default {
         });
     },
     getSupplierProducts() {
-      let id = this.id;
+      console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
-        .getSupplierProducts(id)
+        .getSupplierProducts(this.supplierProductsId)
         .then((resp) => {
+          console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
-          this.supplierProductsLength = resp.data.items.data.length
+          this.supplierProductsLength = resp.data.items.data.length;
         })
         .catch((err) => {
           console.log(err);
         });
     },
   },
-  mounted() {
+  created() {
     this.productDetails();
-    this.getSupplierProducts();
+  },
+  mounted() {
+    setTimeout(() => {
+      this.getSupplierProducts();
+    }, 1200);
   },
 };
 </script>
@@ -123,11 +179,14 @@ export default {
 .humhum-tabs {
   padding: 4rem;
   margin: 3rem 0;
-  @media(max-width:992px){
+  @media (max-width: 992px) {
     padding: 0;
   }
 }
-.notFound{
+.notFound {
   min-height: 70vh;
+}
+.slick-slide{
+  margin: 0 5px;
 }
 </style>
