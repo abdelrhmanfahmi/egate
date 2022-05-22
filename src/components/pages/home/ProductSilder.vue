@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       settings: {
-        dots: false,
+        dots: true,
         infinite: true,
         arrows: true,
         speed: 500,

@@ -88,7 +88,7 @@ export default {
     }
   }
   .custum-padding {
-    padding-right: 10px;
+    padding-right: 0px;
     padding-left: 10px;
     padding-bottom: 10px;
   }

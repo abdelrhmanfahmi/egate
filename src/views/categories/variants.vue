@@ -316,11 +316,19 @@
                     class="link"
                     :to="{ path: '/suppliers/', query: { id: product.id } }"
                   >
-                    {{
-                      product.product_details_by_type.customer_price
-                        | fixedCurrency
-                    }}
-                    {{ currency }}
+                    <p class="m-0">
+                      {{
+                        product.product_details_by_type.price | fixedCurrency
+                      }}
+                      {{ currency }}
+                    </p>
+                    <p class="price-after m-0">
+                      {{
+                        product.product_details_by_type.price_before_discount
+                          | fixedCurrency
+                      }}
+                      {{ currency }}
+                    </p>
                   </router-link>
                 </div>
                 <div
@@ -444,7 +452,7 @@
           </tbody>
         </table>
       </div>
-    </div> 
+    </div>
 
     <!-- commented till return to backend -->
 
@@ -473,7 +481,7 @@
 
 <script>
 import categories from "@/services/categories";
-import suppliers from "@/services/suppliers";
+// import suppliers from "@/services/suppliers";
 import VariantsCounter from "@/components/global/variantsCounter.vue";
 // import Product from "@/components/pages/supplier/products/Product.vue";
 import globalAxios from "@/services/global-axios";
@@ -554,7 +562,7 @@ export default {
       tableItems: [],
       product: [],
       supplierProducts: null,
-      supplierProductsLength: null,
+      // supplierProductsLength: null,
       cartCounter: 1,
       showModal: false,
       requestVariants: null,
@@ -759,23 +767,23 @@ export default {
       // let selectedVariance = [];
       // axios.post('')
     },
-    getSupplierProducts() {
-      suppliers
-        .getSupplierProducts(this.id)
-        .then((resp) => {
-          console.log("supplierProducts" , resp);
-          this.supplierProducts = resp.data.items.data;
-          this.supplierProductsLength = resp.data.items.data.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // getSupplierProducts() {
+    //   suppliers
+    //     .getSupplierProducts(this.id)
+    //     .then((resp) => {
+    //       console.log("supplierProducts" , resp);
+    //       this.supplierProducts = resp.data.items.data;
+    //       this.supplierProductsLength = resp.data.items.data.length;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
   mounted() {
     this.getCategoryProducts();
     this.getSingleProductDetails();
-    this.getSupplierProducts();
+    // this.getSupplierProducts();
   },
   watch: {
     $route: "updateId",
@@ -860,8 +868,8 @@ export default {
   }
 }
 .product-image {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
 }
 .items-body

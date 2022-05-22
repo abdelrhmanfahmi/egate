@@ -44,5 +44,6 @@ export default {
   emailInput: "Your Email*",
   checkInput: "Save My Name And Email In This Browser For The Next Time I Comment.*",
   loginFirst:'You Must Login First!',
-  registerNow:'If You don\'t have account , register First '
+  registerNow:'If You don\'t have account , register First ',
+  productInCart:'Product In Favorite'
 };

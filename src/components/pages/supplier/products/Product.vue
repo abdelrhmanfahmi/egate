@@ -39,16 +39,22 @@
         <a href="#" class="name" v-if="data.product.title">{{
           data.product.title
         }}</a>
-        <span class="price"
-          >{{ data.product_details_by_type.customer_price | fixedCurrency }}
-          {{ currency }}</span
-        >
+        <div class="price">
+          <h5 v-if="data.product_details_by_type.price">
+            {{ data.product_details_by_type.price | fixedCurrency }}
+            {{ currency }}
+          </h5>
+          <p class="m-0 price-after" v-if="data.product_details_by_type.price_before_discount">
+            {{ data.product_details_by_type.price_before_discount | fixedCurrency }}
+            {{ currency }}
+          </p>
+        </div>
       </div>
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
       </span>
-      <span class="new d-block text-white" v-if="data.condition == 'new'">{{
-        $t("items.new")
+      <span class="new d-block text-white" v-if="data.view_status">{{
+        data.view_status
       }}</span>
     </div>
   </div>
