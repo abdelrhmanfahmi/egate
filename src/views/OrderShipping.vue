@@ -949,7 +949,7 @@ export default {
 
           if (res.data.items == [] || res.data.items == "") {
             if (this.$i18n.locale == "en") {
-              myResult.innerHTML = "no data available";
+              myResult.innerHTML = "sorry , no shipping fees data available";
             }
             if (this.$i18n.locale == "ar") {
               myResult.innerHTML = "عذرا لايوجد معلومات";
@@ -999,7 +999,7 @@ export default {
 
           if (res.data.items == [] || res.data.items == "") {
             if (this.$i18n.locale == "en") {
-              myResult.innerHTML = "no data available";
+              myResult.innerHTML = "sorry , no shipping fees data available";
             }
             if (this.$i18n.locale == "ar") {
               myResult.innerHTML = "عذرا لايوجد معلومات";
