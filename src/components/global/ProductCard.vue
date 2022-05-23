@@ -1,7 +1,7 @@
 <template>
   <div class="product-cart">
-    <div class="" v-if="slider">
-      <router-link
+    <div  v-if="slider">
+      <router-link class="img-holder"
         :to="{ path: '/details', query: { id: `${slider.id}` } }"
         v-if="slider.product.image_path"
       >
@@ -65,4 +65,5 @@ export default {
     }
   }
 }
+
 </style>

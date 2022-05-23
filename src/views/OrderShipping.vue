@@ -92,6 +92,12 @@
                       @change="selectType(supplier, index)"
                       class="w-100 mt-2 supplierAddresses d-none"
                     >
+                    <b-form-select-option
+                      selected
+                      disabled
+                      :value="$t('payment.selectExist')"
+                      >{{ $t("payment.selectExist") }}</b-form-select-option
+                    >
                       <b-form-select-option
                         v-for="(address, index) in selectedSupplierAddresses"
                         :key="index"
@@ -164,9 +170,30 @@
                       v-for="(address, index) in addresses"
                       :key="index"
                       :value="address"
-                      >{{ address.country.title }} ,
-                      {{ address.region.title }} ,
-                      {{ address.city.title }}
+                    >
+                      <span class="mb-2" v-if="address.apartment"
+                        >{{ address.apartment }} ,</span
+                      >
+                      <span class="mb-2" v-if="address.floor"
+                        >{{ address.floor }} ,</span
+                      >
+                      <span class="mb-2" v-if="address.address_line1"
+                        >{{ address.address_line1 }} ,</span
+                      >
+                      <span class="mb-2" v-if="address.address_line2"
+                        >{{ address.address_line2 }} ,</span
+                      >
+
+                      <span class="mb-2" v-if="address.city"
+                        >{{ address.city.title }} ,</span
+                      >
+                      <span class="mb-2" v-if="address.region"
+                        >{{ address.region.title }} ,</span
+                      >
+
+                      <span class="mb-2" v-if="address.country">{{
+                        address.country.title
+                      }}</span>
                     </b-form-select-option>
                   </b-form-select>
                 </span>
@@ -807,7 +834,7 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        // console.log("addresses", res);
+        console.log("addresses", res);
         for (let index = 0; index < res.data.items.length; index++) {
           const element = res.data.items[index];
           const element2 = element.is_default;

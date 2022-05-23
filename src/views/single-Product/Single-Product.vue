@@ -22,10 +22,10 @@
       <div class="most-sold text-center" v-if="supplierProductsLength > 0">
         <div class="container">
           <h4 class="header font-weight-bold mt-5 mb-3">
-            {{ $t("items.products") }}
+            {{ $t("items.relativeProducts") }}
           </h4>
           <hr />
-          <div class="">
+          <div class="my-5 py-5">
             <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
               <div v-for="item in supplierProducts" :key="item.id">
                 <Product :data="item"></Product>
@@ -101,8 +101,8 @@ export default {
           {
             breakpoint: 1191,
             settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+              slidesToShow: 3,
+              slidesToScroll: 3 ,
               arrows: false,
               dots:false
             },
@@ -119,8 +119,8 @@ export default {
           {
             breakpoint: 600,
             settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
+              slidesToShow: 1,
+              slidesToScroll: 1,
               arrows: false,
               dots:false
             },
@@ -187,6 +187,6 @@ export default {
   min-height: 70vh;
 }
 .slick-slide{
-  margin: 0 5px;
+  padding: 0 2px;
 }
 </style>
