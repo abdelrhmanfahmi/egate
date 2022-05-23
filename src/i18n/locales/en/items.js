@@ -22,5 +22,6 @@ export default {
   addToCart: "Add To Cart",
   kg: "Kg",
   // Products Most Sold
-  new: "New"
+  new: "New",
+  relativeProducts:'Relative Products'
 };

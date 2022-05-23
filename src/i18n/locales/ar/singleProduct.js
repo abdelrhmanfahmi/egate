@@ -47,4 +47,5 @@ export default {
   loginFirst: "يجب عليك تسجيل الدخول اولا",
   registerNow: "  اذا لم يكن لديك اى حساب برجاء تسجيل حساب جديد",
   productInCart: "موجود بقائمة المفضله",
+  outOfStock: "عذرا , لقد نفذت الكميه",
 };

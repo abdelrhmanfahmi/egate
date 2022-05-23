@@ -23,14 +23,13 @@
         <p class="price">
           <span>
             {{ $t("singleProduct.price") }} :
-            {{
-              myProduct.product_details_by_type.price | fixedCurrency
-            }}
+            {{ myProduct.product_details_by_type.price | fixedCurrency }}
             {{ currency }}
           </span>
           <span class="price-after">
             {{
-              myProduct.product_details_by_type.price_before_discount | fixedCurrency
+              myProduct.product_details_by_type.price_before_discount
+                | fixedCurrency
             }}
             {{ currency }}
           </span>
@@ -38,8 +37,8 @@
 
         <hr />
         <p class="supplier" v-if="myProduct.client.company_name">
-          {{ $t("singleProduct.supplier") }}
-          <b>:</b>
+          <!-- {{ $t("singleProduct.supplier") }} -->
+          <!-- <b>:</b> -->
           <router-link :to="`/suppliers/${myProduct.client.id}`">
             {{ myProduct.client.company_name }}
           </router-link>
@@ -60,10 +59,14 @@
           </div>
         </div>
       </div>
-      <span class="is-available" v-if="myProduct.in_stock_quantity"
+      <span class="is-available" v-if="myProduct.in_stock_quantity > 0"
         >{{ $t("singleProduct.available") }} :
         <b>{{ myProduct.in_stock_quantity }}</b></span
       >
+      <span class="is-available text-danger" v-else>
+        <b>{{ $t("singleProduct.outOfStock") }}</b></span
+      >
+
       <!--  -->
       <div class="variants" v-if="myProduct.product.variants">
         <p
@@ -94,7 +97,7 @@
       <hr />
       <div
         v-if="myProduct.product_details_by_type"
-        class="product-actions d-flex flex-wrap justify-content-between align-items-center"
+        class="product-actions d-flex flex-wrap justify-content-between align-items-start mt-4"
       >
         <div class="short-links">
           <button
@@ -106,78 +109,15 @@
             "
           >
             <div>
-              <span id="show-btn" @click="$bvModal.show('bv-bidRequest')">
+              <button
+                id="show-btn"
+                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                @click="$bvModal.show('bv-bidRequest')"
+              >
                 <!-- <span role="button" @click="loggedBidRequest"> -->
                 {{ $t("singleProduct.bidRequest") }}
                 <font-awesome-icon icon="fa-solid fa-list" />
-              </span>
-              <b-modal id="bv-bidRequest" hide-footer>
-                <template #modal-title>
-                  {{ $t("singleProduct.bidRequest") }}
-                </template>
-                <form>
-                  <div class="form-group">
-                    <label for=""
-                      >{{ $t("singleProduct.nameInput") }}
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="requestData.name"
-                    />
-                    <div
-                      class="text-danger"
-                      v-for="(error, index) in errors.qoute_name"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for=""
-                      >{{ $t("singleProduct.min_order_quantity") }}
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="number"
-                      min="1"
-                      class="form-control"
-                      v-model="requestData.request_qty"
-                    />
-                    <div
-                      class="text-danger"
-                      v-for="(error, index) in errors.request_qty"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for=""
-                      >{{ $t("singleProduct.reviewInput") }}
-                      <span class="text-danger">*</span></label
-                    >
-                    <textarea
-                      class="form-control"
-                      v-model="requestData.comment"
-                    ></textarea>
-                    <div
-                      class="text-danger"
-                      v-for="(error, index) in errors.comment"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                </form>
-                <b-button
-                  class="btn-lg btn-block"
-                  block
-                  @click="requestQuotation"
-                  >{{ $t("cart.submit") }}</b-button
-                >
-              </b-modal>
+              </button>
             </div>
           </button>
           <button
@@ -211,23 +151,19 @@
           <button
             @click="addToWishlist(myProduct)"
             v-if="myProduct.is_favorite == false"
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block"
+            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block mt-3"
           >
             {{ $t("singleProduct.addFavorites") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-heart" />
             </span>
           </button>
-          <button
-            @click="addToWishlist(myProduct)"
-            v-else
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block"
-          >
+          <div v-else class="font-weight-bold mt-3">
             {{ $t("singleProduct.productInCart") }}
             <span class="text-danger">
               <font-awesome-icon icon="fa-solid fa-heart " />
             </span>
-          </button>
+          </div>
           <!-- <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0" >
             {{ $t("singleProduct.addPurchase") }}
             <span>
@@ -248,7 +184,7 @@
           <b-button
             @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
             v-if="
               myProduct.product_details_by_type.add_type === 'cart' ||
               myProduct.product_details_by_type.add_type === 'both'
@@ -287,7 +223,7 @@
           <b-button
             @ok="$refs.cartModal.onSubmit()"
             @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
             v-if="
               myProduct.product_details_by_type.add_type === 'cart' ||
               myProduct.product_details_by_type.add_type === 'both'
@@ -298,7 +234,7 @@
         </div>
 
         <div
-          class="product-counter my-3"
+          class="product-counter"
           v-if="
             (myProduct.product_details_by_type.add_type === 'cart' ||
               myProduct.product_details_by_type.add_type === 'both') &&
@@ -333,6 +269,70 @@
           </a>
         </div>
       </div>
+      <b-modal id="bv-bidRequest" hide-footer>
+        <template #modal-title>
+          {{ $t("singleProduct.bidRequest") }}
+        </template>
+        <form>
+          <div class="form-group">
+            <label for=""
+              >{{ $t("singleProduct.nameInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              v-model="requestData.name"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.qoute_name"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=""
+              >{{ $t("singleProduct.min_order_quantity") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              v-model="requestData.request_qty"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.request_qty"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=""
+              >{{ $t("singleProduct.reviewInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <textarea
+              class="form-control"
+              v-model="requestData.comment"
+            ></textarea>
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.comment"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </div>
+        </form>
+        <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
+          $t("cart.submit")
+        }}</b-button>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -510,6 +510,7 @@ export default {
           this.loading = false;
         });
     },
+    
   },
   data() {
     return {
@@ -522,6 +523,7 @@ export default {
       errors: {},
       mySelectedOption: 1,
       showModal: false,
+      suppliers: null,
     };
   },
 };
@@ -713,5 +715,8 @@ textarea {
     align-items: center;
     background-color: #fff;
   }
+}
+.cart-btn {
+  background: #ff6000 !important;
 }
 </style>

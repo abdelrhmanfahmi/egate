@@ -39,4 +39,8 @@ export default {
       },
     });
   },
+  getFirstShippingFees(data) {
+    return globalAxios.get(`shipping/cart-shipping-fee?address_uuid=${data}`);
+  },
 };
+  

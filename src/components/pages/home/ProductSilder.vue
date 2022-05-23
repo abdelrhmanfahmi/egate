@@ -188,8 +188,8 @@ export default {
 }
 .supplier-image {
   width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  // height: 150px;
+  // border-radius: 50%;
   transition: all 0.3s ease-in-out;
   opacity: 0.5;
   &:hover {
