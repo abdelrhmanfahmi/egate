@@ -1,326 +1,23 @@
 <template>
   <div>
     <div class="row">
-      <div
-        class="easy-trans"
-        :class="{ 'col-md-7 col-sm-12': deliverType, 'col-12': !deliverType }"
-      >
-        <div class="cart">
-          <div
-            class="d-flex justify-content-center align-items-center flex-column"
-            v-if="loading"
-          >
-            <img
-              src="@/assets/images/Loader.gif"
-              alt="cart-image"
-              class="w-25"
-            />
-          </div>
-          <div class="" v-else>
-            <div class="" v-if="cartItems !== null">
-              <h5 class="heading py-5 text-center">
-                {{ $t("cart.purchaseCart") }}
-              </h5>
-              <div class="cart-table p-4">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>{{ $t("cart.product") }}</th>
-                      <th>{{ $t("cart.price") }}</th>
-                      <th>{{ $t("cart.quantity") }}</th>
-                      <th>{{ $t("cart.total") }}</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody
-                    class="supplier"
-                    v-for="(supplier, index) in cartItems"
-                    :key="index"
-                  >
-                    <h5 class="name">
-                      {{ supplier.supplier_name }}
-                    </h5>
-                    <tr
-                      class="item-content"
-                      v-for="(item, index) in supplier.products"
-                      :key="index"
-                    >
-                      <td class="media">
-                        <router-link
-                          :to="{
-                            path: '/details',
-                            query: { id: `${item.product_supplier_id}` },
-                          }"
-                          class="thumb"
-                        >
-                          <img
-                            :src="item.product_image"
-                            :alt="item.name + ' image'"
-                            class="product-image"
-                          />
-                        </router-link>
-                      </td>
-                      <td>
-                        <router-link
-                          :to="{
-                            path: '/details',
-                            query: { id: `${item.product_supplier_id}` },
-                          }"
-                        >
-                          {{ item.product_name }}
-                        </router-link>
-                      </td>
-                      <td v-if="item.price">
-                        {{ item.price | fixedCurrency }} {{ currency }}
-                      </td>
-                      <td v-else>-</td>
-                      <td>
-                        <Counter
-                          :quantity="item.quantity"
-                          :product="item"
-                          class="justify-content-center"
-                          @changeTitle="ChangeQ($event)"
-                        ></Counter>
-                      </td>
-                      <td v-if="item.product_sub_total">
-                        {{ item.product_sub_total | fixedCurrency }}
-                        {{ currency }}
-                      </td>
-                      <td v-else>-</td>
-
-                      <td>
-                        <div class="actions" @click="removeFromCart(item)">
-                          <span class="action-icon">
-                            <font-awesome-icon icon="fa-solid fa-trash" />
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                    <div class="order-shipping mt-5">
-                      <div :class="$i18n.locale">
-                        <form
-                          @change="ordeType(supplier.supplier_id)"
-                          class="d-flex"
-                        >
-                          <label>
-                            <input
-                              @change="changeShippping"
-                              type="radio"
-                              value="0"
-                              :name="'types-' + index"
-                              v-model="ratingNum[index]"
-                              checked="checked"
-                            />
-                            <span class="mx-2">{{
-                              $t("payment.delivery")
-                            }}</span>
-                          </label>
-                          <label>
-                            <input
-                              @input="getSupplierAddress(supplier.supplier_id)"
-                              @change="changePackUp"
-                              type="radio"
-                              value="1"
-                              :name="'types-' + index"
-                              v-model="ratingNum[index]"
-                            />
-                            <span class="mx-2">{{ $t("payment.pickup") }}</span>
-                          </label>
-                          <b-form-select
-                            @input="selectAddressUUID"
-                            @change="selectType(supplier, index)"
-                            class="w-100 mt-2 supplierAddresses d-none"
-                          >
-                            <b-form-select-option
-                              selected
-                              disabled
-                              :value="$t('payment.selectExist')"
-                              >{{
-                                $t("payment.selectExist")
-                              }}</b-form-select-option
-                            >
-                            <b-form-select-option
-                              v-for="(
-                                address, index
-                              ) in selectedSupplierAddresses"
-                              :key="index"
-                              :value="address"
-                              >{{ address.country.title }} ,
-                              {{ address.region.title }} ,
-                              {{ address.city.title }}
-                            </b-form-select-option>
-                          </b-form-select>
-                          <span class="feedsResult"></span>
-                          <br>
-                          <ul class="list-unstyled" v-if="firstFees">
-                            <li v-for="(fee, index) in firstFees" :key="index">
-                              <h4 v-if="index == supplier.supplier_id">
-                                {{$t('profile.deleiveryFees')}} {{ fee.shipping_fee | fixedCurrency }} {{currency}}
-                              </h4>
-                            </li>
-                          </ul>
-                        </form>
-                      </div>
-                    </div>
-                    <br />
-                    <tr>
-                      <div
-                        class="coupon my-4"
-                        v-for="item in supplier.products"
-                        :key="item.id"
-                      >
-                        <div class="d-flex flex-wrap align-items-center">
-                          <!-- <router-link
-                      to="/profile/account-information-b2b"
-                      type="submit"
-                      class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
-                    >
-                      {{ $t("cart.UpdateDelivery") }}
-                    </router-link> -->
-                          <!-- <b-button
-                      
-                      type="submit"
-                      @click="enableButton"
-                      class="login-button my-2 py-3 px-4 w-auto"
-                    >
-                      {{ $t("cart.couponDiscount") }}
-                    </b-button> -->
-                          <b-button
-                            type="submit"
-                            @click="checkCoupon(supplier)"
-                            class="login-button my-2 py-3 px-4 w-auto"
-                          >
-                            {{ $t("cart.couponDiscount") }}
-                          </b-button>
-                          <div class="input-holder">
-                            <input
-                              type="text"
-                              :placeholder="$t('cart.addCoupon')"
-                              class="my-2 h-100 p-4 itemInput"
-                              @input="changeCoupon($event)"
-                            />
-                            <span
-                              :title="$t('cart.enableButton')"
-                              class="close"
-                              @click="removeDisabled"
-                              >x</span
-                            >
-                          </div>
-                        </div>
-                        <div class="text-danger">
-                          <ul>
-                            <li v-for="(error, index) in errors" :key="index">
-                              {{ error }}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </tr>
-                  </tbody>
-                  <!-- <div class="proceAfterDisc" v-if="couponChecked">
-              {{ $t("cart.proceAfterDisc") }} :
-              <span
-                ><b>{{ totalPayment }}</b></span
-              >
-            </div> -->
-                </table>
-              </div>
-              <div class="cart-detail p-4">
-                <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
-                <div class="data">
-                  <table class="w-100">
-                    <tbody>
-                      <tr>
-                        <th>{{ $t("cart.total") }}</th>
-                        <td v-if="cart_sub_total">
-                          {{ cart_sub_total | fixedCurrency }} {{ currency }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>{{ $t("cart.discount") }}</th>
-                        <td v-if="cart_sub_total">
-                          {{ totalDiscount }} {{ currency }}
-                        </td>
-                      </tr>
-                      <!-- <tr>
-                  <th>{{ $t("cart.delivery") }}</th>
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="freeDelivery"
-                        v-model="freeDelivery"
-                      />
-                      {{ freeDeliveryStatus }}
-                      <label class="custom-control-label" for="freeDelivery">
-                        {{ $t("cart.free") }}
-                      </label>
-                    </div>
-                  </td>
-                </tr> -->
-                      <tr>
-                        <th>{{ $t("cart.total") }}</th>
-                        <td>
-                          {{ totalPayment | fixedCurrency }} {{ currency }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div class="checkout d-flex">
-                    <router-link
-                      v-if="userData"
-                      to="/order-shipping"
-                      class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-                    >
-                      {{ $t("cart.next") }}
-                    </router-link>
-                    <a
-                      @click="showModal = true"
-                      @ok="$refs.cartModal.onSubmit()"
-                      v-else
-                      class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-                    >
-                      {{ $t("cart.next") }}
-                    </a>
-
-                    <transition name="modal">
-                      <div class="modal-mask" v-if="showModal">
-                        <login-modal @close="closeModal" />
-                      </div>
-                    </transition>
-                    <!-- <router-link
-                to="/payment"
-                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-              >
-                {{ $t("cart.checkout") }}
-              </router-link> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="d-flex justify-content-center align-items-center flex-column"
-              v-else
-            >
-              <img src="@/assets/images/empty-cart.png" alt="cart-image" />
-              <!-- <h3 class="m-0">
-          {{ $t("cart.noCartProducts") }}
-        </h3> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5 col-sm-12 order-shipping">
+      <div class="col-12 order-shipping">
         <div :class="$i18n.locale">
           <div class="container my-5">
-            <h3 class="font-weight-bold">
-              {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
-            </h3>
+            <b-button
+              variant="outline-info"
+              v-if="!showBtnClicked"
+              @click="toggleOptionsSelect"
+            >
+              {{ $t("payment.selectOption") }}
+            </b-button>
+
             <div class="row">
-              <div class="col-12">
-                <div class="addresses-holder p-5" v-if="deliverType == true">
+              <div class="col-12" v-if="deliverType == true && showBtnClicked">
+                <h3 class="font-weight-bold">
+                  {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
+                </h3>
+                <div class="addresses-holder p-5">
                   <div class="addresses mb-5">
                     <form>
                       <label>
@@ -641,7 +338,8 @@
                           @click.prevent="createAdress()"
                           class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
                         >
-                          {{ $t("register.submit") }}
+                          {{ $t("register.submit") }} &
+                          {{ $t("cart.checkFees") }}
                         </b-button>
                         <b-button
                           v-else
@@ -649,23 +347,24 @@
                           @click.prevent="localStoreAdresses()"
                           class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                         >
-                          {{ $t("register.submit") }}
+                          {{ $t("register.submit") }} &
+                          {{ $t("cart.checkFees") }}
                         </b-button>
-                        <router-link
+                        <!-- <router-link
                           v-if="submitted"
                           to="/payment"
                           class="login-button dark m-0 mt-4 ml-4 py-3 px-5 text-white text-center w-auto mx-2"
                         >
                           {{ $t("cart.checkout") }}
-                        </router-link>
+                        </router-link> -->
 
-                        <button
+                        <!-- <button
                           @click.prevent="getShippingFeesNew"
                           to="/payment"
                           class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                         >
                           {{ $t("cart.checkFees") }}
-                        </button>
+                        </button> -->
                       </form>
                     </div>
 
@@ -883,12 +582,12 @@
                             <!-- note  -->
                           </b-row>
 
-                          <router-link
+                          <!-- <router-link
                             to="/payment"
                             class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
                           >
                             {{ $t("cart.checkout") }}
-                          </router-link>
+                          </router-link> -->
                           <button
                             @click.prevent="getShippingFeesExist"
                             class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
@@ -899,13 +598,766 @@
                       </div>
                     </div>
                   </div>
+                  <div class="close-options" @click="closeOptions">x</div>
                 </div>
-
-                <div class="" v-else></div>
               </div>
+              <div class="" v-else></div>
             </div>
           </div>
           <!-- {{ ratingNum }} -->
+        </div>
+      </div>
+      <div class="easy-trans col-12">
+        <div class="cart">
+          <div
+            class="d-flex justify-content-center align-items-center flex-column"
+            v-if="loading"
+          >
+            <img
+              src="@/assets/images/Loader.gif"
+              alt="cart-image"
+              class="w-25"
+            />
+          </div>
+          <div class="" v-else>
+            <div class="" v-if="cartItems !== null">
+              <h5 class="heading py-5 text-center">
+                {{ $t("cart.purchaseCart") }}
+              </h5>
+              <div class="cart-table p-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>{{ $t("cart.product") }}</th>
+                      <th>{{ $t("cart.price") }}</th>
+                      <th>{{ $t("cart.quantity") }}</th>
+                      <th>{{ $t("cart.total") }}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="supplier"
+                    v-for="(supplier, index) in cartItems"
+                    :key="index"
+                  >
+                    <h5 class="name">
+                      {{ supplier.supplier_name }}
+                    </h5>
+                    <tr
+                      class="item-content"
+                      v-for="(item, index) in supplier.products"
+                      :key="index"
+                    >
+                      <td class="media">
+                        <router-link
+                          :to="{
+                            path: '/details',
+                            query: { id: `${item.product_supplier_id}` },
+                          }"
+                          class="thumb"
+                        >
+                          <img
+                            :src="item.product_image"
+                            :alt="item.name + ' image'"
+                            class="product-image"
+                          />
+                        </router-link>
+                      </td>
+                      <td>
+                        <router-link
+                          :to="{
+                            path: '/details',
+                            query: { id: `${item.product_supplier_id}` },
+                          }"
+                        >
+                          {{ item.product_name }}
+                        </router-link>
+                      </td>
+                      <td v-if="item.price">
+                        {{ item.price | fixedCurrency }} {{ currency }}
+                      </td>
+                      <td v-else>-</td>
+                      <td>
+                        <Counter
+                          :quantity="item.quantity"
+                          :product="item"
+                          class="justify-content-center"
+                          @changeTitle="ChangeQ($event)"
+                        ></Counter>
+                      </td>
+                      <td v-if="item.product_sub_total">
+                        {{ item.product_sub_total | fixedCurrency }}
+                        {{ currency }}
+                      </td>
+                      <td v-else>-</td>
+
+                      <td>
+                        <div class="actions" @click="removeFromCart(item)">
+                          <span class="action-icon">
+                            <font-awesome-icon icon="fa-solid fa-trash" />
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                    <div class="order-shipping mt-5">
+                      <div :class="$i18n.locale">
+                        <form
+                          @change="ordeType(supplier.supplier_id)"
+                          class="d-flex align-items-baseline"
+                        >
+                          <label>
+                            <input
+                              @change="changeShippping"
+                              type="radio"
+                              value="0"
+                              :name="'types-' + index"
+                              v-model="ratingNum[index]"
+                              checked
+                              class="checkFirst"
+                            />
+                            <span class="mx-2">{{
+                              $t("payment.delivery")
+                            }}</span>
+                          </label>
+                          <label>
+                            <input
+                              @input="getSupplierAddress(supplier.supplier_id)"
+                              @change="changePackUp"
+                              type="radio"
+                              value="1"
+                              :name="'types-' + index"
+                              v-model="ratingNum[index]"
+                            />
+                            <span class="mx-2">{{ $t("payment.pickup") }}</span>
+                          </label>
+                          <b-form-select
+                            @input="selectAddressUUID"
+                            @change="selectType(supplier, index)"
+                            class="w-100 mt-2 supplierAddresses d-none"
+                          >
+                            <b-form-select-option
+                              selected
+                              disabled
+                              :value="$t('payment.selectExist')"
+                              >{{
+                                $t("payment.selectExist")
+                              }}</b-form-select-option
+                            >
+                            <b-form-select-option
+                              v-for="(
+                                address, index
+                              ) in selectedSupplierAddresses"
+                              :key="index"
+                              :value="address"
+                              >{{ address.country.title }} ,
+                              {{ address.region.title }} ,
+                              {{ address.city.title }}
+                            </b-form-select-option>
+                          </b-form-select>
+                          <span class="feedsResult"></span>
+                          <br />
+                          <ul
+                            class="list-unstyled"
+                            v-if="firstFees && deliverType == true"
+                          >
+                            <li v-for="(fee, index) in firstFees" :key="index">
+                              <h4
+                                v-if="index == supplier.supplier_id"
+                                class="feedsResultShipping mb-0"
+                              >
+                                {{ $t("profile.deleiveryFees") }}
+                                {{ fee.shipping_fee | fixedCurrency }}
+                                {{ currency }}
+                              </h4>
+                            </li>
+                          </ul>
+                        </form>
+                      </div>
+                    </div>
+                    <br />
+                    <tr>
+                      <div
+                        class="coupon my-4"
+                        v-for="item in supplier.products"
+                        :key="item.id"
+                      >
+                        <div class="d-flex flex-wrap align-items-center">
+                          <!-- <router-link
+                      to="/profile/account-information-b2b"
+                      type="submit"
+                      class="login-button dark my-2 py-3 px-4 text-white text-center w-auto"
+                    >
+                      {{ $t("cart.UpdateDelivery") }}
+                    </router-link> -->
+                          <!-- <b-button
+                      
+                      type="submit"
+                      @click="enableButton"
+                      class="login-button my-2 py-3 px-4 w-auto"
+                    >
+                      {{ $t("cart.couponDiscount") }}
+                    </b-button> -->
+                          <b-button
+                            type="submit"
+                            @click="checkCoupon(supplier)"
+                            class="login-button my-2 py-3 px-4 w-auto"
+                          >
+                            {{ $t("cart.couponDiscount") }}
+                          </b-button>
+                          <div class="input-holder">
+                            <input
+                              type="text"
+                              :placeholder="$t('cart.addCoupon')"
+                              class="my-2 h-100 p-4 itemInput"
+                              @input="changeCoupon($event)"
+                            />
+                            <span
+                              :title="$t('cart.enableButton')"
+                              class="close"
+                              @click="removeDisabled"
+                              >x</span
+                            >
+                          </div>
+                        </div>
+                        <!-- <div class="text-danger">
+                          <ul>
+                            <li v-for="(error, index) in errors" :key="index">
+                              {{ error }}
+                            </li>
+                          </ul>
+                        </div> -->
+                      </div>
+                    </tr>
+                  </tbody>
+                  <!-- <div class="proceAfterDisc" v-if="couponChecked">
+              {{ $t("cart.proceAfterDisc") }} :
+              <span
+                ><b>{{ totalPayment }}</b></span
+              >
+            </div> -->
+                </table>
+              </div>
+            </div>
+            <div
+              class="d-flex justify-content-center align-items-center flex-column"
+              v-else
+            >
+              <img
+                src="@/assets/images/Loader.gif"
+                alt="cart-image"
+                class="w-25"
+              />
+              <!-- <h3 class="m-0">
+          {{ $t("cart.noCartProducts") }}
+        </h3> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="payment w-100">
+        <div class="payment py-3">
+          <div class="container">
+            <h4 class="header text-center py-5 font-weight-bold">
+              {{ $t("payment.payment") }}
+            </h4>
+            <div class="content">
+              <div class="row payment-data">
+                <div class="col-12 col-lg-7 col-xl-8 payment-delivery">
+                  <div
+                    class="d-flex justify-content-between heading align-items-center mb-4"
+                  >
+                    <span class="title">{{ $t("payment.deliveryData") }}</span>
+                    <!-- <router-link to="/cart">
+                      {{ $t("payment.backToCart") }}
+                      <span>
+                        <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                      </span>
+                    </router-link> -->
+                  </div>
+                  <form class="row delivery-form">
+                    <div class="col-6 form-group required" v-if="!userData">
+                      <label for="firstName">{{
+                        $t("payment.firstName")
+                      }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="firstName"
+                        v-model="paymentFormData.first_name"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.first_name"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+                    <div class="col-6 form-group required" v-if="!userData">
+                      <label for="firstName">{{
+                        $t("payment.lastName")
+                      }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="lastName"
+                        v-model="paymentFormData.last_name"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.last_name"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+                    <div class="col-12 form-group" v-if="!userData">
+                      <!-- <label for="companyName">
+                  {{ $t("payment.category") }} ({{ $t("payment.optional") }})
+                </label> -->
+                      <label for="companyName">
+                        {{ $t("payment.companyName") }}
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="companyName"
+                        v-model="paymentFormData.company_name"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.company_name"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+                    <!-- <div class="col-12 form-group required" v-if="checkType">
+                <label for="country">{{ $t("payment.country") }}</label>
+                <b-form-select
+                  v-model="paymentFormData.country"
+                  @input="getAllRegions"
+                >
+                  <b-form-select-option
+                    v-for="country in countries"
+                    :key="country.id"
+                    :value="country.id"
+                    >{{ country.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.country"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div> -->
+                    <!-- <div class="col-6 form-group required" v-if="checkType">
+                <label for="governorate">{{ $t("payment.governorate") }}</label>
+
+                <b-form-select
+                  v-model="paymentFormData.governorate"
+                  :disabled="!paymentFormData.country"
+                  @input="getAllCities"
+                >
+                  <b-form-select-option
+                    v-for="region in regions"
+                    :key="region.id"
+                    :value="region.id"
+                    >{{ region.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.governorate"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div> -->
+                    <!-- <div class="col-6 form-group required" v-if="checkType">
+                <label for="city">{{ $t("payment.city") }}</label>
+                <b-form-select
+                  v-model="paymentFormData.city"
+                  :disabled="!paymentFormData.country || !paymentFormData.governorate"
+                >
+                  <b-form-select-option
+                    v-for="city in cities"
+                    :key="city.id"
+                    :value="city.id"
+                    >{{ city.title }}
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in errors.city"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div> -->
+                    <div class="col-12 form-group required" v-if="!userData">
+                      <label for="address">{{ $t("payment.address") }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        v-model="paymentFormData.address"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.address"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+
+                    <div
+                      :class="{ 'col-12': checkType }"
+                      class="col-6 form-group"
+                      v-if="checkType && !userData"
+                    >
+                      <label for="postalCode">{{
+                        $t("payment.postalCode")
+                      }}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="postalCode"
+                        v-model="paymentFormData.postal_code"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.postal_code"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+
+                    <div class="col-6 form-group required" v-if="!userData">
+                      <label for="email">{{ $t("payment.email") }}</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        v-model="paymentFormData.email"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.email"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+
+                    <div class="col-2 form-group required" v-if="!userData">
+                      <label for="country_code">{{
+                        $t("payment.country_code")
+                      }}</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="country_code"
+                        v-model="paymentFormData.country_code"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.country_code"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+
+                    <div class="col-4 form-group required" v-if="!userData">
+                      <label for="phoneNumber">{{
+                        $t("payment.phoneNumber")
+                      }}</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="phoneNumber"
+                        v-model="paymentFormData.phone"
+                      />
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.phone"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-12 form-group custom-control custom-checkbox"
+                      v-if="!userData"
+                    >
+                      <!-- <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="deliveryAddress"
+                  v-model="paymentFormData.sameAddress"
+                /> -->
+                      <!-- <label class="custom-control-label" for="deliveryAddress">
+                  {{ $t("payment.deliverySameAddress") }}
+                </label> -->
+                    </div>
+                    <div class="col-12 form-group">
+                      <label for="notes">
+                        {{ $t("payment.notes") }} ({{ $t("payment.optional") }})
+                      </label>
+                      <textarea
+                        class="form-control"
+                        id="notes"
+                        rows="3"
+                        v-model="paymentFormData.comment"
+                      ></textarea>
+                      <div
+                        class="error text-start"
+                        v-for="(error, index) in errors.comment"
+                        :key="index"
+                      >
+                        {{ error }}
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-12 col-lg-5 col-xl-4 payment-method">
+                  <div class="heading mb-4">
+                    <span class="title">{{ $t("payment.paymentData") }}</span>
+                  </div>
+                  <div class="methods-data">
+                    <!-- <div class="info">
+                {{ $t("payment.total") }}: {{ cart_sub_total | fixedCurrency }} {{ currency }}
+              </div> -->
+                    <!-- <div class="info">
+                {{ $t("payment.discount") }} : {{ discount | fixedCurrency }} {{ currency }}
+              </div> -->
+                    <!-- <div class="info delivery">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="freeDelivery"
+                    v-model="freeDelivery"
+                    value="free"
+                  />
+                  <label class="custom-control-label" for="freeDelivery">
+                    {{ $t("payment.freeDelivery") }}
+                  </label>
+                </div>
+              </div> -->
+                    <!-- <div
+                class="d-flex justify-content-between align-items-center total"
+              >
+                <span class="title">{{ $t("payment.total") }}</span>
+                <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
+              </div> -->
+                    <div class="methods">
+                      <div class="method">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod1"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="bank"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod1"
+                          >
+                            {{ $t("payment.bankTransfer") }}
+                          </label>
+                          <span>{{ $t("payment.paymentByBank") }}</span>
+                        </div>
+                      </div>
+                      <div class="method">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod2"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="cach"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod2"
+                          >
+                            {{ $t("payment.paymentWhenReceiving") }}
+                          </label>
+                          <span>{{ $t("payment.requestReceipt") }}</span>
+                        </div>
+                      </div>
+                      <div
+                        class="method d-flex justify-content-between align-content-center"
+                      >
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod3"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="visa"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod3"
+                          >
+                            {{ $t("payment.onlinePayment") }}
+                          </label>
+                        </div>
+                        <div class="online-media">
+                          <img
+                            src="@/assets/images/cart.png"
+                            alt=""
+                            srcset=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="error text-center"
+                      v-for="(error, index) in errors.payment_type"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                    <!-- <div class="terms my-4">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="terms"
+                  />
+                  <label class="custom-control-label" for="terms">
+                    {{ $t("payment.accept") }}
+                    <a href="#">{{ $t("payment.termsAndConditions") }}</a>
+                  </label>
+                </div>
+              </div> -->
+                    <b-form-checkbox v-model="terms" class="terms my-4">
+                      {{ $t("payment.accept") }}
+                      <a v-b-modal.terms&condation>
+                        {{ $t("payment.termsAndConditions") }}</a
+                      >
+                    </b-form-checkbox>
+
+                    <b-modal
+                      size="lg"
+                      id="terms&condation"
+                      :title="condations.title"
+                      ok-only
+                    >
+                      <p v-html="condations.description">
+                        {{ condations.description }}
+                      </p>
+                    </b-modal>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cart w-100">
+        <div class="cart-detail p-4">
+          <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
+          <div class="data">
+            <table class="w-100">
+              <tbody>
+                <tr>
+                  <th>{{ $t("cart.total") }}</th>
+                  <td v-if="cart_sub_total">
+                    {{ cart_sub_total | fixedCurrency }} {{ currency }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>{{ $t("cart.discount") }}</th>
+                  <td v-if="totalDiscount !== null">
+                    {{ totalDiscount | fixedCurrency }} {{ currency }}
+                  </td>
+                </tr>
+                <!-- <tr>
+                  <th>{{ $t("cart.delivery") }}</th>
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="freeDelivery"
+                        v-model="freeDelivery"
+                      />
+                      {{ freeDeliveryStatus }}
+                      <label class="custom-control-label" for="freeDelivery">
+                        {{ $t("cart.free") }}
+                      </label>
+                    </div>
+                  </td>
+                </tr> -->
+                <tr>
+                  <th>{{ $t("cart.total") }}</th>
+                  <td v-if="totalPayment">
+                    {{ totalPayment | fixedCurrency }} {{ currency }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="checkout d-flex">
+              <!-- <router-link
+                v-if="userData"
+                to="/order-shipping"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("cart.next") }}
+              </router-link> -->
+              <!-- <a
+                @click="showModal = true"
+                @ok="$refs.cartModal.onSubmit()"
+                v-if="!userData"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("cart.next") }}
+              </a> -->
+
+              <div class="submit">
+                <b-button
+                  type="submit"
+                  class="login-button dark"
+                  @click="payment"
+                >
+                  {{ $t("payment.checkout") }}
+                </b-button>
+              </div>
+
+              <transition name="modal">
+                <div class="modal-mask" v-if="showModal">
+                  <login-modal @close="closeModal" />
+                </div>
+              </transition>
+              <!-- <router-link
+                to="/payment"
+                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+              >
+                {{ $t("cart.checkout") }}
+              </router-link> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -920,6 +1372,7 @@ import loginModal from "@/components/global/loginModal.vue";
 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
+// import paymentPage from "@/views/Payment";
 export default {
   components: { Counter, loginModal },
   data() {
@@ -936,7 +1389,7 @@ export default {
       cartItems: null,
       price_after_discount: null,
       couponChecked: false,
-      seletedInput: null,
+      selectedInput: null,
       selectedButton: null,
       selectedSpan: null,
       myQuantity: null,
@@ -944,7 +1397,7 @@ export default {
       priceData: null,
 
       ratingNum: [],
-      deliverType: null,
+      deliverType: true,
       selectAddressShape: null,
       form: {
         country_id: null,
@@ -979,15 +1432,50 @@ export default {
       submitted: false,
       supplierAddress: null,
       selectedSupplierAddresses: null,
-      selectedInput: null,
       suppier_id: null,
       selectedInputText: "",
-      firstFees:null
+      firstFees: null,
+      showBtnClicked: false,
+      totalDiscount: null,
+      cart_sub_total: null,
+      totalPayment: null,
+
+      // payment
+      count: 0,
+      storedData: null,
+      paymentFormData: {
+        guest_uuid: localStorage.getItem("guest-id")
+          ? localStorage.getItem("guest-id")
+          : "",
+        comment: null,
+        phone: null,
+        payment_type: null,
+        first_name: null,
+        last_name: null,
+        company_name: "",
+        address: null,
+        sameAddress: false,
+        country: "",
+        governorate: "",
+        city: "",
+        postal_code: null,
+        email: null,
+        // coupons: [],
+        address_uuid: null,
+        suppliers: null,
+        country_code: null,
+        redirect_url: null,
+      },
+      paymentCountries: [],
+      paymentCities: [],
+      paymentRegions: [],
+      terms: "",
+      condations: {},
     };
   },
   mounted() {
     this.getCartProducts();
-    localStorage.removeItem("discount");
+    // localStorage.removeItem("discount");
     this.getAllCountires();
     this.getAllAdresses();
     localStorage.removeItem("s_id");
@@ -996,6 +1484,38 @@ export default {
     // if(checkTypes.includes('1')){
     //   alert('pickup')
     // }
+
+    // payment
+
+    this.paymentGetAllCities();
+    this.storedData = localStorage.getItem("addressUUID");
+    // this.paymentFormData.country = this.storedData.country_id
+    //   ? this.storedData.country_id
+    //   : "";
+    // this.paymentFormData.governorate = this.storedData.region_id
+    //   ? this.storedData.region_id
+    //   : "";
+    // this.paymentFormData.city = this.storedData.city_id ? this.storedData.city_id : "";
+    this.paymentFormData.address_uuid = this.storedData.address_uuid
+      ? this.storedData.address_uuid
+      : "";
+    this.paymentFormData.suppliers = this.mySuppliers.suppliers;
+    this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
+      ? localStorage.getItem("addressUUID")
+      : "";
+
+    console.log(this.storedData);
+    this.paymentFormData.postal_code = this.storedData.pin_code
+      ? this.storedData.pin_code
+      : null;
+    this.paymentFormData.first_name = this.userData.first_name
+      ? this.userData.first_name
+      : "";
+    this.paymentFormData.last_name = this.userData.last_name
+      ? this.userData.last_name
+      : "";
+    const backUrl = `${this.mainDoamin}complete-checkout`;
+    this.paymentFormData.redirect_url = backUrl;
   },
   methods: {
     changeCoupon($event) {
@@ -1005,7 +1525,7 @@ export default {
 
       let input = $event.target;
 
-      this.seletedInput = input;
+      this.selectedInput = input;
 
       let button = input.parentElement.previousElementSibling;
 
@@ -1023,6 +1543,9 @@ export default {
         .then((res) => {
           this.cartItems = res.data.items.cart_items;
           this.priceData = res.data.items;
+          this.cart_sub_total = res.data.items.cart_sub_total;
+          this.totalDiscount = res.data.items.cart_sub_total_disc;
+          this.totalPayment = res.data.items.cart_sub_total_after_disc;
         })
         .then(() => {
           if (this.userData && this.userData.address_uuid) {
@@ -1048,7 +1571,7 @@ export default {
       }, 1200);
     },
     removeDisabled() {
-      let myInput = this.seletedInput;
+      let myInput = this.selectedInput;
 
       myInput.removeAttribute("disabled");
       myInput.value = "";
@@ -1093,7 +1616,7 @@ export default {
 
             ///
 
-            let myInput = this.seletedInput;
+            let myInput = this.selectedInput;
             let button = this.selectedButton;
 
             let span = this.selectedSpan;
@@ -1102,10 +1625,10 @@ export default {
             button.setAttribute("disabled", "true");
             // button.innerHTML = this.$t("cart.enableButton");
             myInput.setAttribute("disabled", "true");
-            localStorage.setItem(
-              "discount",
-              res.data.items.cart_sub_total_disc
-            );
+            // localStorage.setItem(
+            //   "discount",
+            //   res.data.items.cart_sub_total_disc
+            // );
           }
         })
         .catch((error) => {
@@ -1146,6 +1669,7 @@ export default {
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
     selectType: function (supplier, index) {
+      // alert('clicked')
       // console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
@@ -1213,6 +1737,8 @@ export default {
       });
     },
 
+    // order-shipping page functions
+
     // createAdress
     createAdress() {
       (this.form.is_sale_point = false),
@@ -1226,6 +1752,10 @@ export default {
             this.form = {};
             if (res.status == 200) {
               this.submitted = true;
+
+              setTimeout(() => {
+                this.getShippingFeesNew();
+              }, 500);
             }
             localStorage.setItem("addressUUID", res.data.items.uuid);
           })
@@ -1252,6 +1782,7 @@ export default {
     },
     getSupplierAddress(supplierId) {
       this.selectedAddress = supplierId;
+
       // console.log(this.supplierAddress);
       suppliers
         .getSupplierAddress(supplierId)
@@ -1263,6 +1794,19 @@ export default {
           console.log(err);
         });
     },
+    changeShippping($event) {
+      let input = $event.target;
+
+      this.selectedInput = input;
+      document.querySelector(".supplierAddresses").classList.remove("d-block");
+
+      this.showBtnClicked = false;
+
+      // if (document.querySelector(".top-btn")) {
+      //   document.querySelector(".top-btn").click();
+      // }
+    },
+
     changePackUp($event) {
       let input = $event.target;
 
@@ -1270,15 +1814,12 @@ export default {
 
       let button = input.parentElement.nextElementSibling;
       button.classList.add("d-block");
-    },
-    changeShippping($event) {
-      let input = $event.target;
 
-      this.selectedInput = input;
-      document.querySelector(".supplierAddresses").classList.remove("d-block");
+      this.showBtnClicked = true;
     },
+
     ordeType(supplier) {
-      console.log(supplier);
+      // console.log(supplier);
       localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
       // let storedAddress = localStorage.getItem("addressUUID");
@@ -1289,46 +1830,97 @@ export default {
       // }
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
+
+        // supplierAddresses
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.add(
+          "d-none"
+        );
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.remove(
+          "d-block"
+        );
+
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.add(
+          "d-none"
+        );
+        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
+          "d-block"
+        );
       } else {
         this.deliverType = false;
+
+        this.selectedInput.parentElement.nextElementSibling.classList.remove(
+          "d-none"
+        );
+        this.selectedInput.parentElement.nextElementSibling.classList.add(
+          "d-block"
+        );
+
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .classList.remove("d-none");
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .classList.add("d-block");
+
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".feedsResult"
+        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0 ${this.currency}`;
+
+        console.log(this.selectedInput);
       }
     },
     getShippingFeesExist() {
+      // let address_uuid = localStorage.getItem("addressUUID");
+
+      // let myResult =
+      //   this.selectedInput.parentElement.nextElementSibling.nextElementSibling
+      //     .nextElementSibling;
+
+      // let data = {
+      //   country: this.form.country_id,
+      //   governorate: this.form.region_id,
+      //   city: this.form.city_id,
+      //   address_uuid: address_uuid,
+      //   supplier_id: localStorage.getItem("s_id"),
+      // };
+      // suppliers
+      //   .getShippingFees(data)
+      //   .then((res) => {
+      //     this.sucessMsg(res.data.message);
+
+      //     myResult.innerHTML =
+      //       this.$t("profile.deleiveryFees") +
+      //       Number(res.data.items.price).toFixed(3) +
+      //       " " +
+      //       this.currency;
+
+      //     if (res.data.items == [] || res.data.items == "") {
+      //       myResult.innerHTML = this.$t("profile.deliveryFeesText");
+      //     }
+
+      //     this.errors = [];
+      //     this.firstFees = res.data.items;
+      //   })
+      //   .catch((error) => {
+      //     const err = Object.values(error)[2].data;
+      //     this.errors = err.items;
+      //     this.errMsg(err.message);
+      //   });
+
       let address_uuid = localStorage.getItem("addressUUID");
 
-      let myResult =
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling
-          .nextElementSibling;
-
-      let data = {
-        country: this.form.country_id,
-        governorate: this.form.region_id,
-        city: this.form.city_id,
-        address_uuid: address_uuid,
-        supplier_id: localStorage.getItem("s_id"),
-      };
       suppliers
-        .getShippingFees(data)
+        .getFirstShippingFees(address_uuid)
         .then((res) => {
+          // console.log(res);
+          this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
-
-          myResult.innerHTML =
-            this.$t("profile.deleiveryFees") +
-            Number(res.data.items.price).toFixed(3) +
-            " " +
-            this.currency;
-
-          if (res.data.items == [] || res.data.items == "") {
-            myResult.innerHTML = this.$t("profile.deliveryFeesText");
-          }
-
-          this.errors = [];
-          this.firstFees = []
         })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
+        .catch((err) => {
+          console.log(err);
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(error.message);
         });
     },
     getShippingFeesNew() {
@@ -1338,54 +1930,118 @@ export default {
       //     res.data.items.price)
       // );
       // let address_uuid = localStorage.getItem("addressUUID");
-
-      let myResult =
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling
-          .nextElementSibling;
-
-      let data = {
-        country: this.form.country_id,
-        governorate: this.form.region_id,
-        city: this.form.city_id,
-        // address_uuid: address_uuid,
-        supplier_id: localStorage.getItem("s_id"),
-      };
-      suppliers
-        .getShippingFees(data)
-        .then((res) => {
-          this.sucessMsg(res.data.message);
-          // this.deliveryText = res.data.items.price
-          this.selectedInputText = res.data.items.price;
-
-          myResult.innerHTML =
-            this.$t("profile.deleiveryFees") +
-            Number(res.data.items.price).toFixed(3) +
-            " " +
-            this.currency;
-
-          if (res.data.items == [] || res.data.items == "") {
-            myResult.innerHTML = this.$t("profile.deliveryFeesText");
-          }
-
-          this.errors = [];
-          this.firstFees = []
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        });
+      // let myResult =
+      //   this.selectedInput.parentElement.nextElementSibling.nextElementSibling
+      //     .nextElementSibling;
+      // let data = {
+      //   country: this.form.country_id,
+      //   governorate: this.form.region_id,
+      //   city: this.form.city_id,
+      //   // address_uuid: address_uuid,
+      //   supplier_id: localStorage.getItem("s_id"),
+      // };
+      // suppliers
+      //   .getFirstShippingFees(data)
+      //   .then((res) => {
+      //     this.sucessMsg(res.data.message);
+      //     this.deliveryText = res.data.items.price
+      //     this.selectedInputText = res.data.items.price;
+      //     this.firstFees = res.data.items;
+      //     myResult.innerHTML =
+      //       this.$t("profile.deleiveryFees") +
+      //       Number(res.data.items.price).toFixed(3) +
+      //       " " +
+      //       this.currency;
+      //     if (res.data.items == [] || res.data.items == "") {
+      //       myResult.innerHTML = this.$t("profile.deliveryFeesText");
+      //     }
+      //     this.errors = [];
+      //     this.firstFees = res.data.items;
+      //   })
+      //   .catch((error) => {
+      //     const err = Object.values(error)[2].data;
+      //     this.errors = err.items;
+      //     this.errMsg(err.message);
+      //   });
+      // this.getFirstShippingFees()
     },
     getFirstShippingFees() {
       suppliers
         .getFirstShippingFees(this.userData.address_uuid)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.firstFees = res.data.items;
+          this.sucessMsg(res.data.message);
         })
         .catch((err) => {
           console.log(err);
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(err.message);
         });
+    },
+    toggleOptionsSelect() {
+      this.showBtnClicked = true;
+    },
+    closeOptions() {
+      this.showBtnClicked = false;
+    },
+
+    //payment
+
+    async payment() {
+      // let test = localStorage.getItem('type');
+      // console.log("test.length" , test.length);
+      // console.log("this.mySuppliers.suppliers.length" , this.mySuppliers.suppliers.length);
+      // if(this.mySuppliers.suppliers.length !== test){
+      //   alert('choose all')
+      // }
+      // if (
+      //   this.mySuppliers.suppliers == null ||
+      //   this.mySuppliers.suppliers == ""
+      // ) {
+      //   alert('select suppliers first')
+      // }
+      suppliers
+        .payment(this.paymentFormData)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+          window.location.href = res.data.items.url;
+        })
+        .catch((err) => {
+          const errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          console.log(err);
+          this.errMsg(errors.message);
+        });
+
+      console.log(this.paymentFormData.redirect_url);
+    },
+    paymentGetAllCountires() {
+      auth.getAllCountires().then((res) => {
+        this.paymentCountries = res.data.items;
+      });
+    },
+    // getAllRegions
+    paymentGetAllRegions() {
+      profile.getAllRegions(this.paymentFormData.country).then((res) => {
+        this.paymentRegions = res.data.items;
+        this.form.region_id = "";
+        this.form.city_id = "";
+      });
+    },
+    // Cities
+    paymentGetAllCities() {
+      profile.getAllCities(this.paymentFormData.governorate).then((res) => {
+        this.paymentCities = res.data.items;
+        this.form.city_id = "";
+      });
+    },
+    getTerms() {
+      auth.termsAndCondations().then((res) => {
+        this.condations = res.data.items;
+      });
     },
   },
   computed: {
@@ -1394,27 +2050,53 @@ export default {
     //     ? this.newCartData
     //     : this.$store.state.cart.cartItems;
     // },
-    cart_sub_total() {
-      return this.total_cart.cart_sub_total
-        ? this.total_cart.cart_sub_total
-        : this.$store.state.cart.cart_sub_total;
-    },
-    totalDiscount() {
-      return this.priceData.cart_sub_total_disc
-        ? this.priceData.cart_sub_total_disc
-        : 0;
-    },
-    totalPayment() {
-      return this.total_cart.cart_sub_total_after_disc
-        ? this.total_cart.cart_sub_total_after_disc
-        : this.cart_sub_total;
-    },
+    // cart_sub_total() {
+    //   return this.total_cart.cart_sub_total
+    //     ? this.total_cart.cart_sub_total
+    //     : this.$store.state.cart.cart_sub_total;
+    // },
+    // totalDiscount() {
+    //   return this.priceData.cart_sub_total_disc
+    //     ? this.priceData.cart_sub_total_disc
+    //     : 0;
+    // },
+    // totalPayment() {
+    //   return this.total_cart.cart_sub_total_after_disc
+    //     ? this.total_cart.cart_sub_total_after_disc
+    //     : this.cart_sub_total;
+    // },
     newPrice() {
       return this.total_cart;
     },
 
     freeDeliveryStatus() {
       return sessionStorage.setItem("freeDelivery", this.freeDelivery);
+    },
+
+    //payment
+
+    // cartItems() {
+    //   return this.$store.state.cart.cartItems;
+    // },
+    // cart_sub_total() {
+    //   return this.$store.state.cart.cart_sub_total;
+    // },
+    cartTest() {
+      return this.$store.state.cart;
+    },
+    // totalPayment() {
+    //   return parseInt(this.cart_sub_total) - parseInt(this.discount);
+    // },
+    // discount() {
+    //   return localStorage.getItem("discount")
+    //     ? localStorage.getItem("discount")
+    //     : 0;
+    // },
+    checkType() {
+      return localStorage.getItem("type").includes("1");
+    },
+    mySuppliers() {
+      return this.$store.state.suppliers;
     },
   },
 };
@@ -1756,5 +2438,159 @@ input[type="text"]:disabled {
 }
 .easy-trans {
   transition: all 0.3s ease-in-out;
+}
+.supplierAddresses {
+  border: 1px solid !important;
+  width: 50% !important;
+}
+.addresses-holder {
+  position: relative;
+  .close-options {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
+    font-size: 19px;
+  }
+}
+
+// payment
+
+.payment {
+  .header {
+    color: #312620;
+  }
+  .content {
+    .payment-data {
+      .payment-delivery {
+        .heading {
+          .title {
+            color: #312620;
+            font-weight: 600;
+            font-size: 18pt;
+          }
+          a {
+            font-size: 11pt;
+            color: #312620;
+            span {
+              margin-inline-start: 0.25rem;
+            }
+            &:hover {
+              color: #ed2124;
+            }
+          }
+        }
+        .delivery-form {
+          .form-group {
+            margin-bottom: 1.5rem;
+            label {
+              margin-bottom: 0;
+            }
+            textarea {
+              resize: none;
+            }
+            input:focus,
+            textarea:focus,
+            select:focus {
+              outline: none;
+              border-color: #ced4da;
+              box-shadow: none;
+            }
+            &.required {
+              label::after {
+                content: "*";
+                color: $main-color;
+                padding-inline-start: 0.2rem;
+              }
+            }
+          }
+        }
+      }
+      .payment-method {
+        .methods-data {
+          background: #ecf0f1;
+          padding: 2rem;
+          border-radius: 0.5rem;
+          .info {
+            border-bottom: 1px dashed #c5c6c6;
+            padding: 1rem 0.3rem;
+            color: #312620;
+            font-weight: bold;
+          }
+          .total {
+            padding: 1rem 0;
+            color: #312620;
+            font-weight: bold;
+            .title {
+              font-size: 14pt;
+            }
+          }
+          .methods {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            border: 1px dashed #cfd0d0;
+            .method {
+              padding: 1rem;
+              border-bottom: 1px dashed #cfd0d0;
+              font-size: 11pt;
+              color: #544842;
+              .custom-radio {
+                flex-wrap: wrap;
+              }
+              label {
+                cursor: pointer;
+              }
+              span {
+                width: 100%;
+                font-size: 10pt;
+                margin-top: -0.2rem;
+                opacity: 0.7;
+              }
+              .online-media {
+                img {
+                  object-fit: contain;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .heading {
+      .title {
+        color: #312620;
+        font-weight: 600;
+        font-size: 18pt;
+      }
+      a {
+        font-size: 11pt;
+        color: #312620;
+        span {
+          margin-inline-start: 0.25rem;
+        }
+        &:hover {
+          color: #ed2124;
+        }
+      }
+    }
+  }
+}
+html:lang(ar) {
+  svg {
+    transform: rotate(180deg);
+  }
+}
+form {
+  padding: 5% 0;
+}
+a:not([href]):not([class]) {
+  color: #007bff;
 }
 </style>

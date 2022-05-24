@@ -11,6 +11,21 @@
     <transition name="slide-fade">
       <router-view></router-view>
     </transition>
+    <div class="top-btn" @click="goTop" v-if="visible">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#4a5568"
+        stroke-width="1"
+        stroke-linecap="square"
+        stroke-linejoin="arcs"
+      >
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </div>
     <Footer />
   </div>
 </template>
@@ -26,6 +41,44 @@ export default {
     Nav,
     Footer,
   },
+  methods: {
+    goTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    handleScroll: function () {
+      if (this.scTimer) return;
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY;
+        clearTimeout(this.scTimer);
+        this.scTimer = 0;
+      }, 100);
+      if(window.scrollY > 500){
+        this.visible = true
+      }else{
+        this.visible = false
+      }
+    },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+  },
+  data() {
+    return {
+      scTimer: 0,
+      scY: 0,
+      visible:false
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -40,4 +93,17 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
+.top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 50px;
+  padding: 10px 5px;
+  background: #333;
+  color: #fff;
+  border: none;
+  margin: none;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
 </style>

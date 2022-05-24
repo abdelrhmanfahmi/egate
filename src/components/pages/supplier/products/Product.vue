@@ -44,8 +44,17 @@
             {{ data.product_details_by_type.price | fixedCurrency }}
             {{ currency }}
           </h5>
-          <p class="m-0 price-after" v-if="data.product_details_by_type.price_before_discount">
-            {{ data.product_details_by_type.price_before_discount | fixedCurrency }}
+          <p
+            class="m-0 price-after"
+            v-if="
+              data.product_details_by_type.price_before_discount &&
+              data.product_details_by_type.price_before_discount <
+                data.product_details_by_type.price
+            "
+          >
+            {{
+              data.product_details_by_type.price_before_discount | fixedCurrency
+            }}
             {{ currency }}
           </p>
         </div>

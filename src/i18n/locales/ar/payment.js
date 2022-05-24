@@ -39,4 +39,5 @@ export default {
   orderTrack: "تتبع طلبك",
   fail: "حدث خطأ",
   fail1: "لقد حدث خطأ ما",
+  selectOption: "من فضلك قم بالاختيار",
 };

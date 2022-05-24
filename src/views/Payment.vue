@@ -25,7 +25,7 @@
                   type="text"
                   class="form-control"
                   id="firstName"
-                  v-model="formData.first_name"
+                  v-model="paymentFormData.first_name"
                 />
                 <div
                   class="error text-start"
@@ -41,7 +41,7 @@
                   type="text"
                   class="form-control"
                   id="lastName"
-                  v-model="formData.last_name"
+                  v-model="paymentFormData.last_name"
                 />
                 <div
                   class="error text-start"
@@ -62,7 +62,7 @@
                   type="text"
                   class="form-control"
                   id="companyName"
-                  v-model="formData.company_name"
+                  v-model="paymentFormData.company_name"
                 />
                 <div
                   class="error text-start"
@@ -75,7 +75,7 @@
               <!-- <div class="col-12 form-group required" v-if="checkType">
                 <label for="country">{{ $t("payment.country") }}</label>
                 <b-form-select
-                  v-model="formData.country"
+                  v-model="paymentFormData.country"
                   @input="getAllRegions"
                 >
                   <b-form-select-option
@@ -97,8 +97,8 @@
                 <label for="governorate">{{ $t("payment.governorate") }}</label>
 
                 <b-form-select
-                  v-model="formData.governorate"
-                  :disabled="!formData.country"
+                  v-model="paymentFormData.governorate"
+                  :disabled="!paymentFormData.country"
                   @input="getAllCities"
                 >
                   <b-form-select-option
@@ -119,8 +119,8 @@
               <!-- <div class="col-6 form-group required" v-if="checkType">
                 <label for="city">{{ $t("payment.city") }}</label>
                 <b-form-select
-                  v-model="formData.city"
-                  :disabled="!formData.country || !formData.governorate"
+                  v-model="paymentFormData.city"
+                  :disabled="!paymentFormData.country || !paymentFormData.governorate"
                 >
                   <b-form-select-option
                     v-for="city in cities"
@@ -143,7 +143,7 @@
                   type="text"
                   class="form-control"
                   id="address"
-                  v-model="formData.address"
+                  v-model="paymentFormData.address"
                 />
                 <div
                   class="error text-start"
@@ -164,7 +164,7 @@
                   type="text"
                   class="form-control"
                   id="postalCode"
-                  v-model="formData.postal_code"
+                  v-model="paymentFormData.postal_code"
                 />
                 <div
                   class="error text-start"
@@ -181,7 +181,7 @@
                   type="email"
                   class="form-control"
                   id="email"
-                  v-model="formData.email"
+                  v-model="paymentFormData.email"
                 />
                 <div
                   class="error text-start"
@@ -200,7 +200,7 @@
                   type="number"
                   class="form-control"
                   id="country_code"
-                  v-model="formData.country_code"
+                  v-model="paymentFormData.country_code"
                 />
                 <div
                   class="error text-start"
@@ -217,7 +217,7 @@
                   type="number"
                   class="form-control"
                   id="phoneNumber"
-                  v-model="formData.phone"
+                  v-model="paymentFormData.phone"
                 />
                 <div
                   class="error text-start"
@@ -236,7 +236,7 @@
                   type="checkbox"
                   class="custom-control-input"
                   id="deliveryAddress"
-                  v-model="formData.sameAddress"
+                  v-model="paymentFormData.sameAddress"
                 /> -->
                 <!-- <label class="custom-control-label" for="deliveryAddress">
                   {{ $t("payment.deliverySameAddress") }}
@@ -250,7 +250,7 @@
                   class="form-control"
                   id="notes"
                   rows="3"
-                  v-model="formData.comment"
+                  v-model="paymentFormData.comment"
                 ></textarea>
                 <div
                   class="error text-start"
@@ -267,12 +267,12 @@
               <span class="title">{{ $t("payment.paymentData") }}</span>
             </div>
             <div class="methods-data">
-              <div class="info">
+              <!-- <div class="info">
                 {{ $t("payment.total") }}: {{ cart_sub_total | fixedCurrency }} {{ currency }}
-              </div>
-              <div class="info">
+              </div> -->
+              <!-- <div class="info">
                 {{ $t("payment.discount") }} : {{ discount | fixedCurrency }} {{ currency }}
-              </div>
+              </div> -->
               <!-- <div class="info delivery">
                 <div class="custom-control custom-checkbox">
                   <input
@@ -287,12 +287,12 @@
                   </label>
                 </div>
               </div> -->
-              <div
+              <!-- <div
                 class="d-flex justify-content-between align-items-center total"
               >
                 <span class="title">{{ $t("payment.total") }}</span>
                 <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
-              </div>
+              </div> -->
               <div class="methods">
                 <div class="method">
                   <div
@@ -303,7 +303,7 @@
                       id="paymentMethod1"
                       name="paymentMethod"
                       class="custom-control-input"
-                      v-model="formData.payment_type"
+                      v-model="paymentFormData.payment_type"
                       value="bank"
                     />
                     <label class="custom-control-label" for="paymentMethod1">
@@ -321,7 +321,7 @@
                       id="paymentMethod2"
                       name="paymentMethod"
                       class="custom-control-input"
-                      v-model="formData.payment_type"
+                      v-model="paymentFormData.payment_type"
                       value="cach"
                     />
                     <label class="custom-control-label" for="paymentMethod2">
@@ -341,7 +341,7 @@
                       id="paymentMethod3"
                       name="paymentMethod"
                       class="custom-control-input"
-                      v-model="formData.payment_type"
+                      v-model="paymentFormData.payment_type"
                       value="visa"
                     />
                     <label class="custom-control-label" for="paymentMethod3">
@@ -415,7 +415,7 @@ export default {
     return {
       count: 0,
       storedData: null,
-      formData: {
+      paymentFormData: {
         guest_uuid: localStorage.getItem("guest-id")
           ? localStorage.getItem("guest-id")
           : "",
@@ -451,7 +451,7 @@ export default {
   methods: {
     async payment() {
       suppliers
-        .payment(this.formData)
+        .payment(this.paymentFormData)
         .then((res) => {
           console.log(res);
           this.sucessMsg(res.data.message);
@@ -464,7 +464,7 @@ export default {
           this.errMsg(errors.message);
         });
 
-      console.log(this.formData.redirect_url);
+      console.log(this.paymentFormData.redirect_url);
     },
     getAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -473,7 +473,7 @@ export default {
     },
     // getAllRegions
     getAllRegions() {
-      profile.getAllRegions(this.formData.country).then((res) => {
+      profile.getAllRegions(this.paymentFormData.country).then((res) => {
         this.regions = res.data.items;
         this.form.region_id = "";
         this.form.city_id = "";
@@ -481,7 +481,7 @@ export default {
     },
     // Cities
     getAllCities() {
-      profile.getAllCities(this.formData.governorate).then((res) => {
+      profile.getAllCities(this.paymentFormData.governorate).then((res) => {
         this.cities = res.data.items;
         this.form.city_id = "";
       });
@@ -520,41 +520,41 @@ export default {
   mounted() {
     this.getAllCountires();
     this.storedData = localStorage.getItem("addressUUID");
-    // this.formData.country = this.storedData.country_id
+    // this.paymentFormData.country = this.storedData.country_id
     //   ? this.storedData.country_id
     //   : "";
-    // this.formData.governorate = this.storedData.region_id
+    // this.paymentFormData.governorate = this.storedData.region_id
     //   ? this.storedData.region_id
     //   : "";
-    // this.formData.city = this.storedData.city_id ? this.storedData.city_id : "";
-    this.formData.address_uuid = this.storedData.address_uuid
+    // this.paymentFormData.city = this.storedData.city_id ? this.storedData.city_id : "";
+    this.paymentFormData.address_uuid = this.storedData.address_uuid
       ? this.storedData.address_uuid
       : "";
-    this.formData.suppliers = this.mySuppliers.suppliers;
-    this.formData.address_uuid = localStorage.getItem("addressUUID")
+    this.paymentFormData.suppliers = this.mySuppliers.suppliers;
+    this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
       ? localStorage.getItem("addressUUID")
       : "";
 
     console.log(this.storedData);
-    this.formData.postal_code = this.storedData.pin_code
+    this.paymentFormData.postal_code = this.storedData.pin_code
       ? this.storedData.pin_code
       : null;
-    this.formData.first_name = this.userData.first_name
+    this.paymentFormData.first_name = this.userData.first_name
       ? this.userData.first_name
       : "";
-    this.formData.last_name = this.userData.last_name
+    this.paymentFormData.last_name = this.userData.last_name
       ? this.userData.last_name
       : "";
     const backUrl = `${this.mainDoamin}complete-checkout`;
-    this.formData.redirect_url = backUrl
+    this.paymentFormData.redirect_url = backUrl
   },
   created() {
-    if (
-      this.mySuppliers.suppliers == null ||
-      this.mySuppliers.suppliers == ""
-    ) {
-      location.replace("/order-shipping");
-    }
+    // if (
+    //   this.mySuppliers.suppliers == null ||
+    //   this.mySuppliers.suppliers == ""
+    // ) {
+    //   location.replace("/order-shipping");
+    // }
   },
 };
 </script>
