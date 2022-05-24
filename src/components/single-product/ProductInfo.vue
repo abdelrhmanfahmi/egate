@@ -26,7 +26,9 @@
             {{ myProduct.product_details_by_type.price | fixedCurrency }}
             {{ currency }}
           </span>
-          <span class="price-after">
+          <span class="price-after" v-if="myProduct.product_details_by_type.price_before_discount &&
+              myProduct.product_details_by_type.price_before_discount <
+                myProduct.product_details_by_type.price">
             {{
               myProduct.product_details_by_type.price_before_discount
                 | fixedCurrency

@@ -38,5 +38,6 @@ export default {
   congrats:'Congratulations!',
   orderTrack:'Track Your Order',
   fail:'ERROR!',
-  fail1:'Something Went Wrong'
+  fail1:'Something Went Wrong',
+  selectOption:'Select Options'
 };

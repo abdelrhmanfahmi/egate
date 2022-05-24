@@ -1,7 +1,8 @@
 <template>
   <div class="product-cart">
-    <div  v-if="slider">
-      <router-link class="img-holder"
+    <div v-if="slider">
+      <router-link
+        class="img-holder"
         :to="{ path: '/details', query: { id: `${slider.id}` } }"
         v-if="slider.product.image_path"
       >
@@ -17,10 +18,21 @@
           <!-- {{ slider.product.title }} -->
         </h4>
         <h5 class="price m-0" v-if="slider.product_details_by_type.price">
-          {{ slider.product_details_by_type.price | fixedCurrency }} {{ currency }}
+          {{ slider.product_details_by_type.price | fixedCurrency }}
+          {{ currency }}
         </h5>
-        <p class="price-after price m-0" v-if="slider.product_details_by_type.price_before_discount">
-          {{ slider.product_details_by_type.price_before_discount | fixedCurrency }} {{ currency }}
+        <p
+          class="price-after price m-0"
+          v-if="
+            slider.product_details_by_type.price_before_discount &&
+            slider.product_details_by_type.price_before_discount <
+              slider.product_details_by_type.price
+          "
+        >
+          {{
+            slider.product_details_by_type.price_before_discount | fixedCurrency
+          }}
+          {{ currency }}
         </p>
       </div>
     </div>
@@ -65,5 +77,4 @@ export default {
     }
   }
 }
-
 </style>
