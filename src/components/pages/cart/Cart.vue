@@ -5,13 +5,13 @@
         <div class="col-12 order-shipping">
           <div :class="$i18n.locale">
             <div class="container my-5">
-              <b-button
+              <!-- <b-button
                 variant="outline-info"
                 v-if="!showBtnClicked"
                 @click="toggleOptionsSelect"
               >
                 {{ $t("payment.selectOption") }}
-              </b-button>
+              </b-button> -->
 
               <div class="row">
                 <div
@@ -22,7 +22,7 @@
                     {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
                   </h3>
                   <div class="addresses-holder p-5">
-                    <div class="addresses mb-5">
+                    <div class="addresses">
                       <form>
                         <label>
                           <input
@@ -94,7 +94,7 @@
                     </div>
                     <div class="addressShape">
                       <div
-                        class="newAddress"
+                        class="newAddress mt-5"
                         v-if="selectAddressShape === 'newAddress'"
                       >
                         <form class="account-information-form">
@@ -378,7 +378,7 @@
                         </form>
                       </div>
 
-                      <div
+                      <!-- <div
                         class="existingAddresses"
                         v-else-if="selectAddressShape === 'existingAddresses'"
                       >
@@ -392,7 +392,7 @@
                             class="account-information-form"
                           >
                             <b-row class="justify-content-center">
-                              <!-- country  -->
+                              country 
                               <b-col lg="12">
                                 <b-form-group>
                                   <label>{{ $t("profile.country") }}</label>
@@ -418,7 +418,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- regions -->
+                              regions
                               <b-col lg="6">
                                 <b-form-group>
                                   <label>{{ $t("profile.region") }}</label>
@@ -444,7 +444,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- cities -->
+                              cities
                               <b-col lg="6">
                                 <b-form-group>
                                   <label>{{ $t("profile.city") }}</label>
@@ -469,7 +469,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- street number  -->
+                              street number 
                               <b-col lg="12">
                                 <b-form-group>
                                   <label for="streetNumber">{{
@@ -490,7 +490,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- home number  -->
+                              home number 
                               <b-col lg="6">
                                 <b-form-group>
                                   <label for="homeNumber">{{
@@ -513,7 +513,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- floor  -->
+                              floor 
                               <b-col lg="6">
                                 <b-form-group>
                                   <label for="floor">{{
@@ -534,7 +534,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- block number   -->
+                              block number  
                               <b-col lg="6">
                                 <b-form-group>
                                   <label for="blockNumber">{{
@@ -555,7 +555,7 @@
                                   </div>
                                 </b-form-group>
                               </b-col>
-                              <!-- post code  -->
+                              post code 
                               <b-col lg="6">
                                 <b-form-group>
                                   <label for="postCode">{{
@@ -589,15 +589,8 @@
                                   ></b-form-textarea>
                                 </b-form-group>
                               </b-col>
-                              <!-- note  -->
+                              note 
                             </b-row>
-
-                            <!-- <router-link
-                            to="/payment"
-                            class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-                          >
-                            {{ $t("cart.checkout") }}
-                          </router-link> -->
                             <button
                               @click.prevent="getShippingFeesExist"
                               class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
@@ -606,7 +599,7 @@
                             </button>
                           </form>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="close-options" @click="closeOptions">x</div>
                   </div>
@@ -723,8 +716,8 @@
                                 value="0"
                                 :name="'types-' + index"
                                 v-model="ratingNum[index]"
-                                checked
                                 class="checkFirst"
+                                id="check"
                               />
                               <span class="mx-2">{{
                                 $t("payment.delivery")
@@ -770,6 +763,7 @@
                               </b-form-select-option>
                             </b-form-select>
                             <span class="feedsResult"></span>
+                            <h3 class="pickupNoData"></h3>
                             <br />
                             <ul
                               class="list-unstyled"
@@ -1059,7 +1053,7 @@
                         </div>
                       </div>
 
-                      <div class="col-2 form-group required">
+                      <!-- <div class="col-2 form-group required">
                         <label for="country_code">{{
                           $t("payment.country_code")
                         }}</label>
@@ -1076,9 +1070,9 @@
                         >
                           {{ error }}
                         </div>
-                      </div>
+                      </div> -->
 
-                      <div class="col-4 form-group required">
+                      <div class="col-6 form-group required">
                         <label for="phoneNumber">{{
                           $t("payment.phoneNumber")
                         }}</label>
@@ -1412,6 +1406,7 @@ export default {
       ratingNum: [],
       deliverType: true,
       selectAddressShape: null,
+
       form: {
         country_id: null,
         region_id: null,
@@ -1448,7 +1443,7 @@ export default {
       suppier_id: null,
       selectedInputText: "",
       firstFees: null,
-      showBtnClicked: false,
+      showBtnClicked: true,
       totalDiscount: null,
       cart_sub_total: null,
       totalPayment: null,
@@ -1484,10 +1479,13 @@ export default {
       paymentRegions: [],
       terms: "",
       condations: {},
+
+      availablePickup: true,
     };
   },
   mounted() {
     this.getCartProducts();
+
     // localStorage.removeItem("discount");
     this.getAllCountires();
     this.getAllAdresses();
@@ -1509,24 +1507,26 @@ export default {
     //   ? this.storedData.region_id
     //   : "";
     // this.paymentFormData.city = this.storedData.city_id ? this.storedData.city_id : "";
-    this.paymentFormData.address_uuid = this.storedData.address_uuid
-      ? this.storedData.address_uuid
-      : "";
-    this.paymentFormData.suppliers = this.mySuppliers.suppliers;
-    this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
-      ? localStorage.getItem("addressUUID")
-      : "";
+    // this.paymentFormData.address_uuid = this.storedData.address_uuid
+    //   ? this.storedData.address_uuid
+    //   : "";
+    // this.paymentFormData.suppliers = this.mySuppliers.suppliers;
+    // this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
+    //   ? localStorage.getItem("addressUUID")
+    //   : "";
 
-    console.log(this.storedData);
-    this.paymentFormData.postal_code = this.storedData.pin_code
-      ? this.storedData.pin_code
-      : null;
-    this.paymentFormData.first_name = this.userData.first_name
-      ? this.userData.first_name
-      : "";
-    this.paymentFormData.last_name = this.userData.last_name
-      ? this.userData.last_name
-      : "";
+    // this.paymentFormData.postal_code = this.storedData.pin_code
+    //   ? this.storedData.pin_code
+    //   : null;
+    // this.paymentFormData.first_name = this.userData.first_name
+    //   ? this.userData.first_name
+    //   : "";
+    // this.paymentFormData.last_name = this.userData.last_name
+    //   ? this.userData.last_name
+    //   : "";
+    // this.paymentFormData.country_code = this.userData.country_code
+    //   ? this.userData.country_code
+    //   : "";
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
   },
@@ -1567,6 +1567,12 @@ export default {
         })
         .finally(() => {
           this.loading = false;
+          setTimeout(() => {
+            var checkboxes = document.getElementsByClassName("checkFirst");
+            for (var i = 0; i < checkboxes.length; i++) {
+             checkboxes[i].checked = true;
+            }
+          }, 10);
         });
     },
     removeFromCart(product) {
@@ -1805,6 +1811,35 @@ export default {
         .then((res) => {
           // console.log(res);
           this.selectedSupplierAddresses = res.data.items;
+          if (
+            res.data.items.length == 0 ||
+            res.data.items == [] ||
+            res.data.items == ""
+          ) {
+            this.availablePickup = false;
+            console.log(this.selectedInput.parentElement.parentElement);
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".supplierAddresses")
+              .classList.remove("d-block");
+
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".supplierAddresses")
+              .classList.add("d-none");
+
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".feedsResult")
+              .classList.remove("d-block");
+
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".feedsResult")
+              .classList.add("d-none");
+
+            this.selectedInput.parentElement.parentElement.querySelector(
+              ".pickupNoData"
+            ).innerHTML = `${this.$t("profile.noPickupData")}`;
+
+            this.selectedInput.parentElement.classList.add("d-none");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -1816,7 +1851,11 @@ export default {
       this.selectedInput = input;
       document.querySelector(".supplierAddresses").classList.remove("d-block");
 
-      this.showBtnClicked = false;
+      this.showBtnClicked = true;
+
+      this.selectedInput.parentElement.parentElement.querySelector(
+        ".pickupNoData"
+      ).innerHTML = "";
 
       // if (document.querySelector(".top-btn")) {
       //   document.querySelector(".top-btn").click();
@@ -1828,10 +1867,10 @@ export default {
 
       this.selectedInput = input;
 
-      let button = input.parentElement.nextElementSibling;
-      button.classList.add("d-block");
+      // let button = input.parentElement.nextElementSibling;
+      // button.classList.add("d-block");
 
-      this.showBtnClicked = true;
+      this.showBtnClicked = false;
     },
 
     ordeType(supplier) {
@@ -1881,8 +1920,6 @@ export default {
         this.selectedInput.parentElement.parentElement.querySelector(
           ".feedsResult"
         ).innerHTML = `${this.$t("profile.deleiveryFees")} 0 ${this.currency}`;
-
-        console.log(this.selectedInput);
       }
     },
     getShippingFeesExist() {
@@ -2018,6 +2055,24 @@ export default {
       // ) {
       //   alert('select suppliers first')
       // }
+
+      this.paymentFormData.suppliers = this.mySuppliers.suppliers;
+      this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
+        ? localStorage.getItem("addressUUID")
+        : "";
+
+      // this.paymentFormData.postal_code = this.storedData.pin_code
+      //   ? this.storedData.pin_code
+      //   : null;
+      this.paymentFormData.first_name = this.userData.first_name
+        ? this.userData.first_name
+        : "";
+      this.paymentFormData.last_name = this.userData.last_name
+        ? this.userData.last_name
+        : "";
+      this.paymentFormData.country_code = this.userData.country_code
+        ? this.userData.country_code
+        : "";
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
@@ -2116,6 +2171,9 @@ export default {
     },
     mySuppliers() {
       return this.$store.state.suppliers;
+    },
+    myCountry_code() {
+      return this.userData ? this.userData.country_code : "";
     },
   },
 };
