@@ -47,4 +47,5 @@ export default {
   wishlist: "قائمة المفضله",
   search: "بحث",
   checkFees: "معرفة رسوم الشحن",
+  deliveryData: "معلومات التواصل",
 };

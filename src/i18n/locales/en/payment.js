@@ -1,6 +1,6 @@
 export default {
   payment: "Payment",
-  deliveryData: "Delivery data",
+  deliveryData: "Order Contacts Info",
   backToCart: "Back to cart",
   firstName: "First name",
   lastName: "Last name",

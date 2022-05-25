@@ -56,10 +56,10 @@ export default {
         clearTimeout(this.scTimer);
         this.scTimer = 0;
       }, 100);
-      if(window.scrollY > 500){
-        this.visible = true
-      }else{
-        this.visible = false
+      if (window.scrollY > 500) {
+        this.visible = true;
+      } else {
+        this.visible = false;
       }
     },
     toTop: function () {
@@ -73,7 +73,7 @@ export default {
     return {
       scTimer: 0,
       scY: 0,
-      visible:false
+      visible: false,
     };
   },
   mounted() {
@@ -97,13 +97,14 @@ export default {
   position: fixed;
   right: 20px;
   bottom: 50px;
-  padding: 10px 5px;
-  background: #333;
+  padding: 0;
+  background: transparent;
   color: #fff;
   border: none;
-  margin: none;
+  margin: 0;
   cursor: pointer;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  border-radius: 50%;
+  border: 1px solid #d4d5d8;
 }
-
 </style>
