@@ -184,4 +184,5 @@ export default {
   totalDiscount: "Total Discount",
   total_price: "Total Price",
   deliveryFeesText: "sorry , no shipping fees data available",
+  noPickupData:'Sorry , No Pick-Up data Available'
 };
