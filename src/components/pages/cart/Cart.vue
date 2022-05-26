@@ -1098,9 +1098,9 @@
                           <span class="requried text-danger">*</span>
                           <b-form-select v-model="paymentFormData.country_code">
                             <b-form-select-option
-                              v-for="country in countries"
-                              :key="country.id"
-                              :value="country.iso"
+                              v-for="(country  , index) in countries"
+                              :key="index"
+                              :value="country.phone_prefix"
                               >{{ country.title }}
                               {{ country.phone_prefix }}</b-form-select-option
                             >
