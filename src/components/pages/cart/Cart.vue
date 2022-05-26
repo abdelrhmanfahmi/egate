@@ -1529,6 +1529,8 @@ export default {
     //   : "";
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
+
+    this.getTerms();
   },
   methods: {
     changeCoupon($event) {
@@ -1570,7 +1572,7 @@ export default {
           setTimeout(() => {
             var checkboxes = document.getElementsByClassName("checkFirst");
             for (var i = 0; i < checkboxes.length; i++) {
-             checkboxes[i].checked = true;
+              checkboxes[i].checked = true;
             }
           }, 10);
         });
@@ -2114,6 +2116,7 @@ export default {
     },
     getTerms() {
       auth.termsAndCondations().then((res) => {
+        console.log("terms", res);
         this.condations = res.data.items;
       });
     },
@@ -2669,5 +2672,13 @@ html:lang(ar) {
 }*/
 a:not([href]):not([class]) {
   color: #007bff;
+}
+
+.terms {
+  a {
+    color: $main-color;
+    text-decoration: underline !important;
+    display: inline-block;
+  }
 }
 </style>
