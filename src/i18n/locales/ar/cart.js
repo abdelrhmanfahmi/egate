@@ -48,4 +48,5 @@ export default {
   search: "بحث",
   checkFees: "معرفة رسوم الشحن",
   deliveryData: "معلومات التواصل",
+  deleiveryFees: "مصاريف الشحن",
 };
