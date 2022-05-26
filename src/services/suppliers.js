@@ -42,5 +42,13 @@ export default {
   getFirstShippingFees(data) {
     return globalAxios.get(`shipping/cart-shipping-fee?address_uuid=${data}`);
   },
+  getGuestFirstShippingFees(data) {
+    return globalAxios.get(`shipping/cart-shipping-fee`, {
+      params: {
+        country: data.country,
+        governorate: data.governorate,
+        city: data.city,
+      },
+    });
+  },
 };
-  
