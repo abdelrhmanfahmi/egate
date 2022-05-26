@@ -47,4 +47,5 @@ export default {
   wishlist: "Wishlist",
   search: "Search",
   checkFees: "Check Delivery Fees",
+  deleiveryFees: "Delivery Fees",
 };
