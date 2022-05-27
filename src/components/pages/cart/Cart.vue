@@ -14,10 +14,7 @@
               </b-button> -->
 
               <div class="row">
-                <div
-                  class="col-12"
-                  
-                >
+                <div class="col-12">
                   <h3 class="font-weight-bold">
                     {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
                   </h3>
@@ -30,7 +27,7 @@
                             value="newAddress"
                             name="radio"
                             v-model="selectAddressShape"
-                            checked
+                            class="GuestNewAddress"
                           />
                           <span>{{ $t("profile.newAddress") }}</span>
                         </label>
@@ -610,9 +607,7 @@
                     </div>
                     <div
                       class="close-options"
-                      v-else-if="
-                        !expanded 
-                      "
+                      v-else-if="!expanded"
                       @click="expanded = !expanded"
                     >
                       <font-awesome-icon icon="fa-solid fa-arrow-down" />
@@ -652,7 +647,6 @@
                         <th>{{ $t("cart.quantity") }}</th>
                         <th>{{ $t("cart.total") }}</th>
                         <th></th>
-                        
                       </tr>
                     </thead>
                     <tbody
@@ -1098,7 +1092,7 @@
                           <span class="requried text-danger">*</span>
                           <b-form-select v-model="paymentFormData.country_code">
                             <b-form-select-option
-                              v-for="(country  , index) in countries"
+                              v-for="(country, index) in countries"
                               :key="index"
                               :value="country.phone_prefix"
                               >{{ country.title }}
@@ -1294,7 +1288,10 @@
                   </label>
                 </div>
               </div> -->
-                      <b-form-checkbox v-model="paymentFormData.accept_terms" class="terms my-4">
+                      <b-form-checkbox
+                        v-model="paymentFormData.accept_terms"
+                        class="terms my-4"
+                      >
                         {{ $t("payment.accept") }}
                         <a v-b-modal.terms&condation>
                           {{ $t("payment.termsAndConditions") }}</a
@@ -1553,6 +1550,11 @@ export default {
     };
   },
   mounted() {
+    if (localStorage.getItem("userData") === null) {
+      if (document.querySelector(".GuestNewAddress") !== null) {
+        document.querySelector(".GuestNewAddress").click();
+      }
+    }
     this.getCartProducts();
 
     // localStorage.removeItem("discount");
@@ -1569,8 +1571,12 @@ export default {
 
     this.paymentGetAllCities();
     // let this.userData = localStorage.getItem("userData");
-    this.paymentFormData.country = this.userData ? this.userData.country_id : "";
-    this.paymentFormData.governorate = this.userData ? this.userData.region_id : "";
+    this.paymentFormData.country = this.userData
+      ? this.userData.country_id
+      : "";
+    this.paymentFormData.governorate = this.userData
+      ? this.userData.region_id
+      : "";
     this.paymentFormData.city = this.userData ? this.userData.city_id : "";
 
     this.paymentFormData.suppliers = this.mySuppliers.suppliers;
@@ -1578,15 +1584,20 @@ export default {
       ? localStorage.getItem("addressUUID")
       : "";
 
-    this.paymentFormData.postal_code = this.userData ? this.userData.pin_code : null;
-    this.paymentFormData.first_name = this.userData ? this.userData.first_name : "";
-    this.paymentFormData.last_name = this.userData ? this.userData.last_name : "";
+    this.paymentFormData.postal_code = this.userData
+      ? this.userData.pin_code
+      : null;
+    this.paymentFormData.first_name = this.userData
+      ? this.userData.first_name
+      : "";
+    this.paymentFormData.last_name = this.userData
+      ? this.userData.last_name
+      : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
 
     this.getTerms();
-
   },
   methods: {
     changeCoupon($event) {
@@ -2144,7 +2155,6 @@ export default {
       //   ? this.userData.country_code
       //   : "";
 
-      
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
@@ -2179,10 +2189,12 @@ export default {
         pin_code: this.form.pin_code,
         street: this.form.street,
         notes: this.paymentFormData.comment,
+        suppliers: this.mySuppliers.suppliers,
+        country_code: this.paymentFormData.country_code,
       };
 
       suppliers
-        .payment(data)
+        .guestPayment(data)
         .then((res) => {
           this.sucessMsg(res.data.message);
           if (this.paymentFormData.payment_type === "visa") {

@@ -39,6 +39,9 @@ export default {
 
     return globalAxios.post(`/order`, data);
   },
+  guestPayment(payload) {
+    return globalAxios.post(`/order`, payload);
+  },
   checkCoupon(checkData) {
     return globalAxios.post(`cart`, checkData);
   },
