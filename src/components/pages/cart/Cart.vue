@@ -98,7 +98,7 @@
                         <form class="account-information-form">
                           <b-row class="justify-content-center">
                             <!-- country  -->
-                            <b-col lg="12">
+                            <b-col lg="4">
                               <b-form-group>
                                 <!-- <label>{{ $t("profile.country") }}</label> -->
                                 <b-form-select
@@ -110,8 +110,8 @@
                                     <span class="requried text-danger">*</span>
                                   </b-form-select-option>
                                   <b-form-select-option
-                                    v-for="country in countries"
-                                    :key="country.id"
+                                    v-for="(country, index) in countries"
+                                    :key="index"
                                     :value="country.id"
                                     >{{ country.title }}
                                   </b-form-select-option>
@@ -134,7 +134,7 @@
                               </b-form-group>
                             </b-col>
                             <!-- regions -->
-                            <b-col lg="6">
+                            <b-col lg="4">
                               <b-form-group>
                                 <!-- <label>{{ $t("profile.region") }}</label>
                         <span class="requried">*</span> -->
@@ -148,8 +148,8 @@
                                     <span class="requried text-danger">*</span>
                                   </b-form-select-option>
                                   <b-form-select-option
-                                    v-for="region in regions"
-                                    :key="region.id"
+                                    v-for="(region, index) in regions"
+                                    :key="index"
                                     :value="region.id"
                                     >{{ region.title }}
                                   </b-form-select-option>
@@ -172,7 +172,7 @@
                               </b-form-group>
                             </b-col>
                             <!-- cities -->
-                            <b-col lg="6">
+                            <b-col lg="4">
                               <b-form-group>
                                 <!-- <label>{{ $t("profile.city") }}</label>
                         <span class="requried text-danger">*</span> -->
@@ -187,8 +187,8 @@
                                     <span class="requried text-danger">*</span>
                                   </b-form-select-option>
                                   <b-form-select-option
-                                    v-for="city in cities"
-                                    :key="city.id"
+                                    v-for="(city, index) in cities"
+                                    :key="index"
                                     :value="city.id"
                                     >{{ city.title }}
                                   </b-form-select-option>
@@ -220,9 +220,7 @@
                                 <b-form-input
                                   id="streetNumber"
                                   v-model="form.street"
-                                  :placeholder="
-                                    $t('profile.streetNumber') + '*'
-                                  "
+                                  :placeholder="$t('contactUs.address') + '*'"
                                 />
                                 <div
                                   class="error"
@@ -717,8 +715,8 @@
                         <td colspan="4">
                           <div
                             class="coupon my-4"
-                            v-for="item in supplier.products"
-                            :key="item.id"
+                            v-for="(item, index) in supplier.products"
+                            :key="index"
                           >
                             <div class="d-flex flex-wrap align-items-center">
                               <b-button
@@ -813,11 +811,11 @@
                                   </b-form-select-option>
                                 </b-form-select>
                                 <span class="feedsResult"></span>
-                                <h3 class="pickupNoData"></h3>
+                                <h4 class="pickupNoData"></h4>
                                 <br />
                                 <ul
                                   class="list-unstyled"
-                                  v-if="firstFees && deliverType == true"
+                                  v-if="firstFees || deliverType == true"
                                 >
                                   <li
                                     v-for="(fee, index) in firstFees"
@@ -1092,9 +1090,22 @@
                           <span class="requried text-danger">*</span>
                           <b-form-select v-model="paymentFormData.country_code">
                             <b-form-select-option
+                              :value="paymentFormData.country_code"
+                              disabled
+                              selected
+                              hidden
+                            >
+                              {{
+                                paymentFormData.country_code
+                              }}</b-form-select-option
+                            >
+                            <b-form-select-option
                               v-for="(country, index) in countries"
                               :key="index"
                               :value="country.phone_prefix"
+                              :placeholder="
+                                country.title + paymentFormData.country_code
+                              "
                               >{{ country.title }}
                               {{ country.phone_prefix }}</b-form-select-option
                             >
@@ -1118,6 +1129,7 @@
                           class="form-control"
                           id="phoneNumber"
                           v-model="paymentFormData.phone"
+                          :placeholder="paymentFormData.phone"
                         />
                         <div
                           class="error text-start"
@@ -1288,15 +1300,22 @@
                   </label>
                 </div>
               </div> -->
+
                       <b-form-checkbox
                         v-model="paymentFormData.accept_terms"
-                        class="terms my-4"
+                        class="terms my-4 d-inline-block"
                       >
-                        {{ $t("payment.accept") }}
-                        <a v-b-modal.terms&condation>
-                          {{ $t("payment.termsAndConditions") }}</a
-                        >
+                        <span>
+                          {{ $t("payment.accept") }}
+                        </span>
                       </b-form-checkbox>
+
+                      <a
+                        v-b-modal.terms&condation
+                        class="text-decoration-underline"
+                      >
+                        {{ $t("payment.termsAndConditions") }}</a
+                      >
 
                       <div
                         class="error text-center"
@@ -1330,15 +1349,15 @@
               <table class="w-100">
                 <tbody>
                   <tr>
-                    <th>{{ $t("cart.total") }}</th>
+                    <th>{{ $t("profile.subTotal") }}</th>
                     <td v-if="cart_sub_total">
                       {{ cart_sub_total | fixedCurrency }} {{ currency }}
                     </td>
                   </tr>
                   <tr>
                     <th>{{ $t("cart.discount") }}</th>
-                    <td v-if="totalDiscount !== null">
-                      {{ totalDiscount | fixedCurrency }} {{ currency }}
+                    <td v-if="totalDiscount !== null && cart_sub_total">
+                      {{ totalDiscount }} {{ currency }}
                     </td>
                   </tr>
                   <tr>
@@ -1535,7 +1554,7 @@ export default {
         address_uuid: null,
         suppliers: null,
         redirect_url: null,
-        country_code: "KW",
+        country_code: "+965",
         accept_terms: false,
       },
       paymentCountries: [],
@@ -1593,6 +1612,10 @@ export default {
     this.paymentFormData.last_name = this.userData
       ? this.userData.last_name
       : "";
+    this.paymentFormData.phone = this.userData
+      ? this.userData.mobile_number.replace("+20", "").replace("+965", "")
+      : "";
+    this.paymentFormData.email = this.userData ? this.userData.email : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
@@ -1626,7 +1649,7 @@ export default {
           this.cartItems = res.data.items.cart_items;
           this.priceData = res.data.items;
           this.cart_sub_total = res.data.items.cart_sub_total;
-          this.totalDiscount = res.data.items.cart_sub_total_disc;
+          this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
           this.totalPayment = res.data.items.cart_sub_total_after_disc;
           this.shippingCartFee = res.data.items.cart_total_shipping_fee;
         })
@@ -1700,13 +1723,19 @@ export default {
         .checkCoupon(data)
         .then((res) => {
           // let coupons = [];
+
+          // console.log(res.data.items.total_cart.total_discount);
           if (res.status == 200) {
+            this.totalDiscount =
+              res.data.items.total_cart.total_discount.toFixed(3);
+            // this.totalPayment =
+            //   res.data.items.total_cart.total_price;
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
             // let myInput = document.querySelector("input");
             // myInput.setAttribute("disabled", "true");
-            this.cartItems = res.data.items.cart_items;
+            // this.cartItems = res.data.items.cart_items;
 
             ///
 
@@ -1719,6 +1748,7 @@ export default {
             button.setAttribute("disabled", "true");
             // button.innerHTML = this.$t("cart.enableButton");
             myInput.setAttribute("disabled", "true");
+            // this.getCartProducts()
             // localStorage.setItem(
             //   "discount",
             //   res.data.items.cart_sub_total_disc
@@ -1798,7 +1828,7 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        console.log("addresses", res);
+        // console.log("addresses", res);
         for (let index = 0; index < res.data.items.length; index++) {
           const element = res.data.items[index];
           const element2 = element.is_default;
@@ -1850,6 +1880,7 @@ export default {
 
               setTimeout(() => {
                 this.getShippingFeesExist(address_uuid);
+                this.expanded = false;
               }, 500);
             }
             localStorage.setItem("addressUUID", res.data.items.uuid);
@@ -1890,7 +1921,7 @@ export default {
             res.data.items == ""
           ) {
             this.availablePickup = false;
-            console.log(this.selectedInput.parentElement.parentElement);
+            // console.log(this.selectedInput.parentElement.parentElement);
             this.selectedInput.parentElement.parentElement
               .querySelector(".supplierAddresses")
               .classList.remove("d-block");
@@ -1912,6 +1943,14 @@ export default {
             ).innerHTML = `${this.$t("profile.noPickupData")}`;
 
             // this.selectedInput.parentElement.classList.add("d-none");
+            //  console.log(this.selectedInput.parentElement.parentElement.querySelector('.feedsResult'));
+            this.selectedInput.parentElement.parentElement.querySelector(
+              ".feedsResultShipping"
+            ).innerHTML = ``;
+          } else {
+            this.selectedInput.parentElement.parentElement.querySelector(
+              ".feedsResultShipping"
+            ).innerHTML = ``;
           }
         })
         .catch((err) => {
@@ -2161,7 +2200,32 @@ export default {
           this.sucessMsg(res.data.message);
           if (this.paymentFormData.payment_type === "visa") {
             setTimeout(() => {
-              window.location.href = res.data.items.url;
+              this.$router.push({
+                path: "/visa-checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  redirectURL: res.data.items.url,
+                  
+                  // window.location.href = res.data.items.url;
+                },
+              });
+            }, 500);
+          } else {
+            console.log(res.data);
+            setTimeout(() => {
+              this.$router.push({
+                path: "/checkout-details",
+                query: {
+                  order_serial: res.data.items.order_serial,
+                  date: res.data.items.created_at,
+                  total_price: res.data.items.total_price,
+                  payment_type: res.data.items.payment_type,
+                  orderId:res.data.items.id
+                },
+              });
             }, 500);
           }
         })
@@ -2232,7 +2296,7 @@ export default {
     },
     getTerms() {
       auth.termsAndCondations().then((res) => {
-        console.log("terms", res);
+        // console.log("terms", res);
         this.condations = res.data.items;
       });
     },
@@ -2552,6 +2616,7 @@ input[type="text"]:disabled {
   }
   .addresses-holder {
     .addressShape {
+      transition: all 0.3s ease-in-out;
       label {
         overflow: auto;
         margin: 0;
@@ -2793,5 +2858,8 @@ a:not([href]):not([class]) {
     text-decoration: underline !important;
     display: inline-block;
   }
+}
+.text-decoration-underline {
+  text-decoration: underline !important;
 }
 </style>

@@ -176,5 +176,5 @@ export default {
   totalDiscount: "اجمالى الخصم",
   total_price: "اجمالى السعر",
   deliveryFeesText: "عذرا لايوجد معلومات",
-  noPickupData: "عفوا و لا يوجد عناوين استلام متاحه",
+  noPickupData: "عفوا , هذا المورد لايدعم نقاط الاستلام",
 };

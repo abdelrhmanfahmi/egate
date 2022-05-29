@@ -35,9 +35,19 @@ export default {
   chooseCurrency: "Choose Currency",
   waitPurchace1: "Thank You for Your Order!",
   waitPurchace2: "A copy or your order summary has been sent to Your Email",
-  congrats:'Congratulations!',
-  orderTrack:'Track Your Order',
-  fail:'ERROR!',
-  fail1:'Something Went Wrong',
-  selectOption:'Select Options'
+  congrats: "Congratulations!",
+  orderTrack: "Track Your Order",
+  fail: "ERROR!",
+  fail1: "Something Went Wrong",
+  selectOption: "Select Options",
+  orderNumber: "Order Number",
+  orderDate: "Date",
+  paymentMethod: "Payment Method",
+  loadingParagraph:
+    "Loading payment method, please wait. This may take up to 15 seconds.",
+  orderPlaced: "Your Order has been placed",
+  checkCachResult:
+    "you will be redirected to your order automatically , please wait This may take up to 15 seconds.",
+  checkBankResult:
+    "you will be redirected to Bank tarnsfer confirmation form , please wait This may take up to 15 seconds.",
 };
