@@ -9,7 +9,7 @@
     </b-alert>
 
     <transition name="slide-fade">
-      <router-view></router-view>
+      <router-view class="view"></router-view>
     </transition>
     <div class="top-btn" @click="goTop" v-if="visible">
       <svg
@@ -106,5 +106,8 @@ export default {
   transition: all 0.5s ease-in-out;
   border-radius: 50%;
   border: 1px solid #d4d5d8;
+}
+.view{
+  min-height: 50vh;
 }
 </style>

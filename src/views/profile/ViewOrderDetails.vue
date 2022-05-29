@@ -86,7 +86,7 @@
                 >
                   <div class="col-md-2 col-sm-6">
                     <span class="mb-2" v-if="order.supplier"
-                      >{{ order.supplier }} :</span
+                      >{{ order.company }} : address</span
                     >
                   </div>
 

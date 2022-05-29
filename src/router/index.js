@@ -18,6 +18,9 @@ import ViewOrderDetails from "../views/profile/ViewOrderDetails.vue";
 import SearchResults from "../views/SearchResult.vue";
 import SearchProducts from "../views/Search-Products.vue";
 import QuotationDetails from "../views/profile/QuotationDetails.vue";
+import VisaCheckoutDetails from "../views/Visa-Checkout-Details.vue";
+import CheckoutDetails from "../views/Checkout-details.vue";
+import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
 
 Vue.use(VueRouter);
 
@@ -148,6 +151,21 @@ const routes = [
     path: "/Search-Products",
     name: "SearchProducts",
     component: SearchProducts,
+  },
+  {
+    path: "/visa-checkout-details",
+    name: "visaCheckoutDetails",
+    component: VisaCheckoutDetails,
+  },
+  {
+    path: "/checkout-details",
+    name: "CheckoutDetails",
+    component: CheckoutDetails,
+  },
+  {
+    path: "/Checkout-bank-details",
+    name: "CheckoutBankDetails",
+    component: CheckoutBankDetails,
   },
   ...auth,
   profileRoutes,

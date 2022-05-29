@@ -43,7 +43,7 @@ export default {
     return globalAxios.post(`/order`, payload);
   },
   checkCoupon(checkData) {
-    return globalAxios.post(`cart`, checkData);
+    return globalAxios.post(`members/products/coupon/check`, checkData);
   },
   getBestDeals() {
     return globalAxios.get("products/best/offers");
