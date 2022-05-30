@@ -905,4 +905,10 @@ export default {
     object-fit: cover;
   }
 }
+
+.products-table{
+  .table td{
+    padding: .40rem !important;
+  }
+}
 </style>

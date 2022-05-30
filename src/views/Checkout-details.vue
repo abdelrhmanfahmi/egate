@@ -55,12 +55,12 @@ export default {
     if (this.payment_type === "cach") {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
-      }, 3000);
+      }, 12000);
     }
     if (this.payment_type === "bank") {
       setTimeout(() => {
         this.$router.push(`Checkout-bank-details?id=${this.orderId}`);
-      }, 3000);
+      }, 12000);
     }
   },
 };

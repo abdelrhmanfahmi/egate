@@ -417,3 +417,13 @@ slick-arrow {
   border-top: 8px solid rgba(0, 0, 0, 0.8);
   border-right: 8px solid rgba(0, 0, 0, 0.8);
 }
+
+
+.suppliers {
+  .slick-track {
+    margin-top: 50px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}

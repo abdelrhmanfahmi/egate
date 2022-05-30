@@ -62,9 +62,11 @@
                 {{ $t("profile.addressInfo") }}
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
               </h4>
-              <div class="pl-2" v-if="orderData.client_info">
-                {{ orderData.client_info.address }}
-              </div>
+              <h5 class="pl-2" v-if="orderData.client_info">
+                {{ orderData.client_info.country }} ,
+                {{ orderData.client_info.governorate }} ,
+                {{ orderData.client_info.city }}
+              </h5>
             </div>
           </div>
         </section>
@@ -84,40 +86,41 @@
                   v-for="(order, index) in orders"
                   :key="index"
                 >
-                  <div class="col-md-2 col-sm-6">
-                    <span class="mb-2" v-if="order.supplier"
-                      >{{ order.company }} : address</span
+                  <div class="" v-if="order.supplier && order.bicked">
+                    <div class="col-md-2 col-sm-6">
+                      <span class="mb-2">{{ order.company }} : </span>
+                    </div>
+
+                    <div
+                      class="col-md-10 col-sm-6"
+                      v-if="order.bicked !== null"
                     >
+                      <span class="mb-2" v-if="order.bicked.apartment"
+                        >{{ order.bicked.apartment }} ,</span
+                      >
+                      <span class="mb-2" v-if="order.bicked.floor"
+                        >{{ order.bicked.floor }} ,</span
+                      >
+                      <span class="mb-2" v-if="order.bicked.address_line_1"
+                        >{{ order.bicked.address_line_1 }} ,</span
+                      >
+                      <span class="mb-2" v-if="order.bicked.address_line_2"
+                        >{{ order.bicked.address_line_2 }} ,</span
+                      >
+
+                      <span class="mb-2" v-if="order.bicked.city"
+                        >{{ order.bicked.city.title }} ,</span
+                      >
+                      <span class="mb-2" v-if="order.bicked.region"
+                        >{{ order.bicked.region.title }} ,</span
+                      >
+
+                      <span class="mb-2" v-if="order.bicked.country">{{
+                        order.bicked.country.title
+                      }}</span>
+                    </div>
                   </div>
-
-                  <div
-                    class="col-md-10 col-sm-6"
-                    v-if="order.bicked !== null || order.bicked"
-                  >
-                    <span class="mb-2" v-if="order.bicked.apartment"
-                      >{{ order.bicked.apartment }} ,</span
-                    >
-                    <span class="mb-2" v-if="order.bicked.floor"
-                      >{{ order.bicked.floor }} ,</span
-                    >
-                    <span class="mb-2" v-if="order.bicked.address_line_1"
-                      >{{ order.bicked.address_line_1 }} ,</span
-                    >
-                    <span class="mb-2" v-if="order.bicked.address_line_2"
-                      >{{ order.bicked.address_line_2 }} ,</span
-                    >
-
-                    <span class="mb-2" v-if="order.bicked.city"
-                      >{{ order.bicked.city.title }} ,</span
-                    >
-                    <span class="mb-2" v-if="order.bicked.region"
-                      >{{ order.bicked.region.title }} ,</span
-                    >
-
-                    <span class="mb-2" v-if="order.bicked.country">{{
-                      order.bicked.country.title
-                    }}</span>
-                  </div>
+                  <div class="" v-else-if="!order.bicked && index == 0">-</div>
                 </div>
               </div>
             </div>
@@ -195,7 +198,7 @@
                     {{ order.company }}
                   </div>
                   <div class="" v-if="order">
-                    {{ $t("profile.supplierOrder") }} : {{order.serial}} |
+                    {{ $t("profile.supplierOrder") }} : {{ order.serial }} |
                     {{ $t("profile.status") }} : {{ order.order_status }}
                   </div>
                 </div>

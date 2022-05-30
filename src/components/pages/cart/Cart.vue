@@ -45,7 +45,7 @@
                           <b-form-select
                             v-model="selectedAddress"
                             class="pickupAddresses"
-                            @input="changeAddress"
+                            @change="changeAddress"
                             placeholder="test"
                           >
                             <b-form-select-option
@@ -1088,28 +1088,26 @@
                             $t("register.countryCode")
                           }}</label>
                           <span class="requried text-danger">*</span>
-                          <b-form-select v-model="paymentFormData.country_code">
-                            <b-form-select-option
-                              :value="paymentFormData.country_code"
-                              disabled
-                              selected
-                              hidden
-                            >
-                              {{
-                                paymentFormData.country_code
-                              }}</b-form-select-option
-                            >
+
+
+
+                          <b-form-select
+                            v-model="paymentFormData.country_code"
+                            
+                          >
+                            <b-form-select-option value="null" disabled selected
+                              >{{ $t("register.countryCode") }}
+                              <span class="requried text-danger">*</span>
+                            </b-form-select-option>
                             <b-form-select-option
                               v-for="(country, index) in countries"
                               :key="index"
                               :value="country.phone_prefix"
-                              :placeholder="
-                                country.title + paymentFormData.country_code
-                              "
                               >{{ country.title }}
-                              {{ country.phone_prefix }}</b-form-select-option
-                            >
+                              {{ country.phone_prefix }}
+                            </b-form-select-option>
                           </b-form-select>
+
                           <div
                             class="error"
                             v-for="(error, index) in errors.country_code"
@@ -1386,7 +1384,8 @@
                   <tr>
                     <th>{{ $t("cart.total") }}</th>
                     <td v-if="totalPayment">
-                      {{ totalPayment | fixedCurrency }} {{ currency }}
+                      {{ totalPaymentReplacement | fixedCurrency }}
+                      {{ currency }}
                     </td>
                   </tr>
                 </tbody>
@@ -1554,7 +1553,7 @@ export default {
         address_uuid: null,
         suppliers: null,
         redirect_url: null,
-        country_code: "+965",
+        country_code: null,
         accept_terms: false,
       },
       paymentCountries: [],
@@ -1566,6 +1565,9 @@ export default {
       expanded: true,
       closeBtn: true,
       shippingCartFee: null,
+      totalFees: null,
+
+      totalPaymentReplacement: null,
     };
   },
   mounted() {
@@ -1615,12 +1617,21 @@ export default {
     this.paymentFormData.phone = this.userData
       ? this.userData.mobile_number.replace("+20", "").replace("+965", "")
       : "";
+
+    this.paymentFormData.country_code = this.userData
+      ? this.userData.phone_prefix
+      : "";
     this.paymentFormData.email = this.userData ? this.userData.email : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
 
     this.getTerms();
+
+    console.log(this.paymentFormData.country_code);
+
+    // let mtNumber = this.userData.mobile_number.substr(0,3);
+    // document.getElementById()
   },
   methods: {
     changeCoupon($event) {
@@ -1652,6 +1663,8 @@ export default {
           this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
           this.totalPayment = res.data.items.cart_sub_total_after_disc;
           this.shippingCartFee = res.data.items.cart_total_shipping_fee;
+
+          this.totalPaymentReplacement = this.totalPayment;
         })
         .then(() => {
           if (this.userData && this.userData.address_uuid) {
@@ -1786,6 +1799,56 @@ export default {
       //   JSON.stringify(this.selectedAddress)
       // );
       localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+
+      setTimeout(() => {
+        let address_uuid = localStorage.getItem("addressUUID");
+
+        suppliers
+          .getFirstShippingFees(address_uuid)
+          .then((res) => {
+            // console.log(res);
+
+            this.firstFees = res.data.items;
+            this.sucessMsg(res.data.message);
+
+            let arr = res.data.items;
+            var size = Object.values(arr);
+            // console.log("arr" , size);
+            let myData = 0;
+            for (let index = 0; index < size.length; index++) {
+              const element = size[index].shipping_fee;
+              // console.log(`element${index}`, element);
+              myData += parseFloat(element);
+            }
+
+            // this.shippingCartFee = myData + 'reda';
+            this.shippingCartFee = myData;
+
+            // this.cart_sub_total = res.data.items.cart_sub_total;
+            // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
+            this.totalPaymentReplacement += parseFloat(myData);
+
+            console.log("myData", myData);
+            console.log("this.totalPayment", this.totalPayment.toFixed(3));
+            if (myData == 0) {
+              this.totalPaymentReplacement = this.totalPayment;
+            }
+            console.log(
+              "this.totalPaymentReplacement",
+              this.totalPaymentReplacement.toFixed(3)
+            );
+            // this.totalPayment += myData;
+            // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
+
+            // console.log("myData", myData);
+          })
+          .catch((err) => {
+            console.log(err);
+            let error = Object.values(err)[2].data;
+            this.errors = error.items;
+            this.errMsg(error.message);
+          });
+      }, 200);
     },
     selectAddressUUID(myselectAddressUUID) {
       this.supplierAddress = myselectAddressUUID.uuid;
@@ -1821,6 +1884,56 @@ export default {
         }
       }
       // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
+
+      setTimeout(() => {
+        let address_uuid = localStorage.getItem("addressUUID");
+
+        suppliers
+          .getFirstShippingFees(address_uuid)
+          .then((res) => {
+            // console.log(res);
+
+            this.firstFees = res.data.items;
+            this.sucessMsg(res.data.message);
+
+            let arr = res.data.items;
+            var size = Object.values(arr);
+            // console.log("arr" , size);
+            let myData = 0;
+            for (let index = 0; index < size.length; index++) {
+              const element = size[index].shipping_fee;
+              // console.log(`element${index}`, element);
+              myData += parseFloat(element);
+            }
+
+            // this.shippingCartFee = myData + 'reda';
+            this.shippingCartFee = myData;
+
+            // this.cart_sub_total = res.data.items.cart_sub_total;
+            // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
+            this.totalPaymentReplacement += parseFloat(myData);
+
+            console.log("myData", myData);
+            console.log("this.totalPayment", this.totalPayment.toFixed(3));
+            if (myData == 0) {
+              this.totalPaymentReplacement = this.totalPayment;
+            }
+            console.log(
+              "this.totalPaymentReplacement",
+              this.totalPaymentReplacement.toFixed(3)
+            );
+            // this.totalPayment += myData;
+            // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
+
+            // console.log("myData", myData);
+          })
+          .catch((err) => {
+            console.log(err);
+            let error = Object.values(err)[2].data;
+            this.errors = error.items;
+            this.errMsg(error.message);
+          });
+      }, 200);
     },
 
     // address functions
@@ -1901,6 +2014,10 @@ export default {
       ) {
         this.sucessMsg(this.$t("cart.success"));
         this.submitted = true;
+        setTimeout(() => {
+          this.expanded = false;
+          this.form = [];
+        }, 500);
         this.getGuestFirstShippingFees();
       } else {
         this.errMsg(this.$t("cart.fillData"));
@@ -2136,8 +2253,15 @@ export default {
         .getFirstShippingFees(this.userData.address_uuid)
         .then((res) => {
           // console.log(res);
+
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
+          for (let index = 0; index < res.data.items.length; index++) {
+            const element = res.data.items[index].shipping_fee;
+            console.log("getLoggedFirstShippingFees", element);
+          }
+
+          // this.totalFees =
         })
         .catch((err) => {
           console.log(err);
@@ -2158,6 +2282,11 @@ export default {
           // console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
+
+          for (let index = 0; index < res.data.items.length; index++) {
+            const element = res.data.items[index].shipping_fee;
+            console.log("element guest", element);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -2208,7 +2337,7 @@ export default {
                   total_price: res.data.items.order.total_price,
                   payment_type: res.data.items.order.payment_type,
                   redirectURL: res.data.items.url,
-                  
+
                   // window.location.href = res.data.items.url;
                 },
               });
@@ -2223,7 +2352,7 @@ export default {
                   date: res.data.items.created_at,
                   total_price: res.data.items.total_price,
                   payment_type: res.data.items.payment_type,
-                  orderId:res.data.items.id
+                  orderId: res.data.items.id,
                 },
               });
             }, 500);
@@ -2263,7 +2392,32 @@ export default {
           this.sucessMsg(res.data.message);
           if (this.paymentFormData.payment_type === "visa") {
             setTimeout(() => {
-              window.location.href = res.data.items.url;
+              this.$router.push({
+                path: "/visa-checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  redirectURL: res.data.items.url,
+
+                  // window.location.href = res.data.items.url;
+                },
+              });
+            }, 500);
+          } else {
+            console.log(res.data);
+            setTimeout(() => {
+              this.$router.push({
+                path: "/checkout-details",
+                query: {
+                  order_serial: res.data.items.order_serial,
+                  date: res.data.items.created_at,
+                  total_price: res.data.items.total_price,
+                  payment_type: res.data.items.payment_type,
+                  orderId: res.data.items.id,
+                },
+              });
             }, 500);
           }
         })
