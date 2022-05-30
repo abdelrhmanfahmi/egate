@@ -87,8 +87,8 @@ export default {
   sendMessage(data) {
     return globalAxios.post("members/product/rfq/comment", data);
   },
-  getOrders() {
-    return globalAxios.get(`members/client-orders/`);
+  getOrders(data) {
+    return globalAxios.get(`members/client-orders/?page=${data}`);
   },
   getSingleOrders(id) {
     return globalAxios.get(`members/client-orders/${id}`);

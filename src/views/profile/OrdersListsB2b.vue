@@ -32,6 +32,15 @@
       </template>
     </b-table> -->
     <div class="holder text-center" v-if="orders">
+      <div class="text-right">
+        <Paginate
+          v-if="orders"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -77,6 +86,7 @@
 <script>
 import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
+import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
     return {
@@ -118,18 +128,48 @@ export default {
         },
       ],
       orders: null,
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
     };
   },
   methods: {
     getOrders() {
       profile
-        .getOrders()
-        .then((res) => {
-          this.orders = res.data.items.orders;
+        .getOrders(this.page)
+        .then((resp) => {
+          this.orders = resp.data.items.orders.data;
+
+          this.total = resp.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.orders.meta.total /
+              resp.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.orders.meta.total;
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    onPageChange(page) {
+      this.page = page;
+      this.getOrders();
+    },
+    onChangeRecordsPerPage() {
+      this.getOrders();
+    },
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getOrders();
+      }
     },
   },
   mounted() {
@@ -137,6 +177,7 @@ export default {
   },
   components: {
     spinner,
+    Paginate,
   },
 };
 </script>

@@ -47,7 +47,7 @@ export default {
   mounted(){
     setTimeout(() => {
       window.location.href = this.redirectURL
-    }, 3000);
+    }, 12000);
   }
 };
 </script>
