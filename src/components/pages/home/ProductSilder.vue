@@ -37,11 +37,14 @@
           </b-card>
         </b-col>
       </b-row>
-      <VueSlickCarousel v-bind="settings" v-if="!loading && suppliers && suppliers.length" >
+      <VueSlickCarousel
+        v-bind="settings"
+        v-if="!loading && suppliers && suppliers.length"
+      >
         <div v-for="(supplier, index) in suppliers" :key="index">
           <router-link
             :to="`/suppliers/${supplier.id}`"
-            class="d-block text-center"
+            class="d-flex justify-content-center align-items-center text-center"
           >
             <img
               :src="supplier.image_path"
@@ -77,7 +80,7 @@ export default {
         dots: true,
         infinite: true,
         arrows: true,
-        speed: 500,
+        speed: 55500,
         slidesToShow: 6,
         slidesToScroll: 1,
         swipeToSlide: true,
@@ -149,11 +152,11 @@ export default {
   mounted() {
     this.getBestDeals();
   },
-  computed:{
-    slidersLength(){
-      return this.sliders ? this.sliders.length : 0
-    }
-  }
+  computed: {
+    slidersLength() {
+      return this.sliders ? this.sliders.length : 0;
+    },
+  },
 };
 </script>
 
@@ -187,7 +190,7 @@ export default {
   }
 }
 .supplier-image {
-  width: 150px;
+  width: 100px;
   // height: 150px;
   // border-radius: 50%;
   transition: all 0.3s ease-in-out;
@@ -196,4 +199,6 @@ export default {
     opacity: 1;
   }
 }
+
+
 </style>

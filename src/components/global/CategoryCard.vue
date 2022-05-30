@@ -5,7 +5,7 @@
     </div>
 
     <div class="card-footer">
-      <small>{{ card.type }}</small>
+      <span class="font-weight-bold">{{ card.type }}</span>
     </div>
   </div>
 </template>
