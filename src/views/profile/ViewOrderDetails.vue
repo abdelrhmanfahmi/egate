@@ -62,11 +62,11 @@
                 {{ $t("profile.addressInfo") }}
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
               </h4>
-              <div class="pl-2" v-if="orderData.client_info">
+              <h5 class="pl-2" v-if="orderData.client_info">
                 {{ orderData.client_info.country }} ,
                 {{ orderData.client_info.governorate }} ,
                 {{ orderData.client_info.city }}
-              </div>
+              </h5>
             </div>
           </div>
         </section>
