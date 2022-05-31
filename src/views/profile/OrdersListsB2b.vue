@@ -32,15 +32,7 @@
       </template>
     </b-table> -->
     <div class="holder text-center" v-if="orders">
-      <div class="text-right">
-        <Paginate
-          v-if="orders"
-          :total-pages="totalPages"
-          :per-page="totalPages"
-          :current-page="page"
-          @pagechanged="onPageChange"
-        />
-      </div>
+      
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -73,6 +65,15 @@
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-center align-items-center mt-5">
+        <Paginate
+          v-if="orders"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
     </div>
     <div
       class="spinner d-flex justify-content-center align-items-center"
