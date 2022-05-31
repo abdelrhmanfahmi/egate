@@ -34,7 +34,7 @@ export default {
       suppliers: payload.suppliers,
       redirect_url: payload.redirect_url,
       country_code: payload.country_code,
-      accept_terms: payload.accept_terms == true ? '1' : '0',
+      accept_terms: payload.accept_terms == true ? "1" : "0",
     };
 
     return globalAxios.post(`/order`, data);
@@ -73,5 +73,16 @@ export default {
         city: data.city,
       },
     });
+  },
+  checkSupplierFees(data) {
+    return globalAxios.get(`shipping/supplier-shipping-fee`, {
+      params: {
+        address_uuid: data.address_uuid,
+        supplier_id: data.supplier_id,
+      },
+    });
+  },
+  bankCheckout(data) {
+    return globalAxios.post(`order/bank-transfer`,data);
   },
 };

@@ -17,11 +17,11 @@
             </li>
             <li>
               {{ $t("payment.total") }} :
-              <span class="totalbuy">{{total_price}}</span>
+              <span class="totalbuy">{{total_price | fixedCurrency}} {{currency}}</span>
             </li>
             <li>
               {{ $t("payment.paymentMethod") }} :
-              <span class="bold-result">{{payment_type}}</span>
+              <span class="bold-result">{{payment}}</span>
             </li>
           </ul>
           <h4 class="my-5">
@@ -39,15 +39,16 @@ export default {
     return {
       order_serial: this.$route.query.order_serial,
       orderDate: this.$route.query.date,
-      total_price: this.$route.query.total_price,
+      total_price: parseFloat(this.$route.query.total_price),
       payment_type: this.$route.query.payment_type,
+      payment: this.$route.query.payment,
       redirectURL: this.$route.query.redirectURL,
     };
   },
   mounted(){
     setTimeout(() => {
       window.location.href = this.redirectURL
-    }, 12000);
+    }, 8000);
   }
 };
 </script>

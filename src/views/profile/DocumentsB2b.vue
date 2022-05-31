@@ -1078,9 +1078,9 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.suppData = [];
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
+            // setTimeout(() => {
+            //   location.reload();
+            // }, 1000);
           }
           console.log(res);
         })
@@ -1142,11 +1142,11 @@ export default {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
           this.getSuppDocUploadData();
-          if (res.status == 200) {
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
-          }
+          // if (res.status == 200) {
+          //   setTimeout(() => {
+          //     location.reload();
+          //   }, 1000);
+          // }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1197,9 +1197,9 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
+            // setTimeout(() => {
+            //   location.reload();
+            // }, 1000);
           }
         })
         .catch((error) => {

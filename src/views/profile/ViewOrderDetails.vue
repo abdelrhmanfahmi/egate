@@ -62,11 +62,29 @@
                 {{ $t("profile.addressInfo") }}
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
               </h4>
-              <h5 class="pl-2" v-if="orderData.client_info">
-                {{ orderData.client_info.country }} ,
-                {{ orderData.client_info.governorate }} ,
-                {{ orderData.client_info.city }}
-              </h5>
+              <div class="pl-2" v-if="orderData.client_info">
+                <span v-if="orderData.client_info.apartment">{{
+                  orderData.client_info.apartment
+                }} , </span>
+                <span v-if="orderData.client_info.apartmfloorent">
+                  {{ orderData.client_info.floor }} , </span
+                >
+                <span v-if="orderData.client_info.address_line_1">
+                  {{ orderData.client_info.address_line_1 }} , 
+                </span>
+                <span v-if="orderData.client_info.address_line_2">
+                  {{ orderData.client_info.address_line_2 }} , </span
+                >
+                <h5 v-if="orderData.client_info.city">
+                  {{ orderData.client_info.city }} </h5
+                >
+                <h5 v-if="orderData.client_info.governorate">
+                  {{ orderData.client_info.governorate }} </h5
+                >
+                <h5 v-if="orderData.client_info.country">
+                  {{ orderData.client_info.country }}</h5
+                >
+              </div>
             </div>
           </div>
         </section>
@@ -86,8 +104,8 @@
                   v-for="(order, index) in orders"
                   :key="index"
                 >
-                  <div class="" v-if="order.supplier && order.bicked">
-                    <div class="col-md-2 col-sm-6">
+                  <div class="row w-100" v-if="order.supplier && order.bicked">
+                    <div class="col-md-1 col-sm-6">
                       <span class="mb-2">{{ order.company }} : </span>
                     </div>
 

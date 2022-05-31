@@ -46,7 +46,6 @@
                             v-model="selectedAddress"
                             class="pickupAddresses"
                             @change="changeAddress"
-                            placeholder="test"
                           >
                             <b-form-select-option
                               selected
@@ -371,6 +370,12 @@
                           {{ $t("cart.checkFees") }}
                         </button> -->
                         </form>
+                        <h6
+                          v-if="!userData && localStoreFail"
+                          class="localStoreFail mt-3 error"
+                        >
+                          {{ $t("cart.fillData") }}
+                        </h6>
                       </div>
 
                       <!-- <div
@@ -748,6 +753,8 @@
                             </li>
                           </ul>
                         </div> -->
+                            <h6 class="couponValid text-success m-0 p-0"></h6>
+                            <h6 class="couponNotValid text-danger m-0 p-0"></h6>
                           </div>
                         </td>
                         <td colspan="3">
@@ -1089,12 +1096,7 @@
                           }}</label>
                           <span class="requried text-danger">*</span>
 
-
-
-                          <b-form-select
-                            v-model="paymentFormData.country_code"
-                            
-                          >
+                          <b-form-select v-model="paymentFormData.country_code">
                             <b-form-select-option value="null" disabled selected
                               >{{ $t("register.countryCode") }}
                               <span class="requried text-danger">*</span>
@@ -1206,7 +1208,7 @@
                 <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
               </div> -->
                       <div class="methods">
-                        <div class="method">
+                        <div class="method" v-if="userData">
                           <div
                             class="custom-control custom-radio custom-control-inline"
                           >
@@ -1355,7 +1357,7 @@
                   <tr>
                     <th>{{ $t("cart.discount") }}</th>
                     <td v-if="totalDiscount !== null && cart_sub_total">
-                      {{ totalDiscount }} {{ currency }}
+                      {{ totalDiscountReplacement }} {{ currency }}
                     </td>
                   </tr>
                   <tr>
@@ -1568,6 +1570,8 @@ export default {
       totalFees: null,
 
       totalPaymentReplacement: null,
+      totalDiscountReplacement: null,
+      localStoreFail:false
     };
   },
   mounted() {
@@ -1630,6 +1634,8 @@ export default {
 
     console.log(this.paymentFormData.country_code);
 
+    localStorage.setItem("addressUUID", this.userData.uuid);
+
     // let mtNumber = this.userData.mobile_number.substr(0,3);
     // document.getElementById()
   },
@@ -1665,6 +1671,7 @@ export default {
           this.shippingCartFee = res.data.items.cart_total_shipping_fee;
 
           this.totalPaymentReplacement = this.totalPayment;
+          this.totalDiscountReplacement = this.totalDiscount;
         })
         .then(() => {
           if (this.userData && this.userData.address_uuid) {
@@ -1716,6 +1723,13 @@ export default {
       this.selectedSpan.style.display = "none";
       document.querySelector(".itemInput").removeAttribute("disabled");
       document.querySelector(".login-button").removeAttribute("disabled");
+
+      this.totalDiscountReplacement = parseFloat(0).toFixed(3);
+      if (this.totalDiscountReplacement == 0) {
+        this.totalPaymentReplacement = this.totalPayment;
+      }
+      document.querySelector(".couponValid").innerHTML = "";
+      document.querySelector(".couponNotValid").innerHTML = "";
     },
     checkCoupon(supplier) {
       // let data = {
@@ -1739,6 +1753,21 @@ export default {
 
           // console.log(res.data.items.total_cart.total_discount);
           if (res.status == 200) {
+            if (res.data.items.total_cart.total_discount !== 0) {
+              this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
+                ".couponValid"
+              ).innerHTML = `${this.$t("payment.couponValid")} `;
+              this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
+                ".couponNotValid"
+              ).innerHTML = ``;
+            } else {
+              this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
+                ".couponNotValid"
+              ).innerHTML = `${this.$t("payment.couponNotValid")}`;
+              this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
+                ".couponValid"
+              ).innerHTML = ``;
+            }
             this.totalDiscount =
               res.data.items.total_cart.total_discount.toFixed(3);
             // this.totalPayment =
@@ -1766,6 +1795,20 @@ export default {
             //   "discount",
             //   res.data.items.cart_sub_total_disc
             // );
+
+            if (res.data.items.total_cart.total_discount == 0) {
+              this.totalDiscountReplacement = parseFloat(this.totalDiscount);
+              this.totalPaymentReplacement = parseFloat(
+                this.totalDiscountReplacement
+              );
+            } else {
+              this.totalDiscountReplacement =
+                parseFloat(this.totalDiscountReplacement) +
+                parseFloat(res.data.items.total_cart.total_discount).toFixed(3);
+              this.totalPaymentReplacement =
+                parseFloat(this.totalPaymentReplacement) -
+                parseFloat(res.data.items.total_cart.total_discount);
+            }
           }
         })
         .catch((error) => {
@@ -1833,6 +1876,13 @@ export default {
             if (myData == 0) {
               this.totalPaymentReplacement = this.totalPayment;
             }
+
+            if (this.totalDiscountReplacement == parseFloat(0)) {
+              // this.totalDiscountReplacement += parseFloat(res.data.items.total_cart.total_discount)
+              this.totalPaymentReplacement -= parseFloat(
+                this.totalDiscountReplacement
+              );
+            }
             console.log(
               "this.totalPaymentReplacement",
               this.totalPaymentReplacement.toFixed(3)
@@ -1885,55 +1935,59 @@ export default {
       }
       // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
 
-      setTimeout(() => {
-        let address_uuid = localStorage.getItem("addressUUID");
+      // setTimeout(() => {
+      //   let address_uuid = localStorage.getItem("addressUUID");
 
-        suppliers
-          .getFirstShippingFees(address_uuid)
-          .then((res) => {
-            // console.log(res);
+      //   suppliers
+      //     .getFirstShippingFees(address_uuid)
+      //     .then((res) => {
+      //       // console.log(res);
 
-            this.firstFees = res.data.items;
-            this.sucessMsg(res.data.message);
+      //       this.firstFees = res.data.items;
+      //       this.sucessMsg(res.data.message);
 
-            let arr = res.data.items;
-            var size = Object.values(arr);
-            // console.log("arr" , size);
-            let myData = 0;
-            for (let index = 0; index < size.length; index++) {
-              const element = size[index].shipping_fee;
-              // console.log(`element${index}`, element);
-              myData += parseFloat(element);
-            }
+      //       let arr = res.data.items;
+      //       var size = Object.values(arr);
+      //       // console.log("arr" , size);
+      //       let myData = 0;
+      //       for (let index = 0; index < size.length; index++) {
+      //         const element = size[index].shipping_fee;
+      //         // console.log(`element${index}`, element);
+      //         myData += parseFloat(element);
+      //       }
 
-            // this.shippingCartFee = myData + 'reda';
-            this.shippingCartFee = myData;
+      //       // this.shippingCartFee = myData + 'reda';
+      //       this.shippingCartFee = myData;
 
-            // this.cart_sub_total = res.data.items.cart_sub_total;
-            // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
-            this.totalPaymentReplacement += parseFloat(myData);
+      //       // this.cart_sub_total = res.data.items.cart_sub_total;
+      //       // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
+      //       this.totalPaymentReplacement += parseFloat(myData);
 
-            console.log("myData", myData);
-            console.log("this.totalPayment", this.totalPayment.toFixed(3));
-            if (myData == 0) {
-              this.totalPaymentReplacement = this.totalPayment;
-            }
-            console.log(
-              "this.totalPaymentReplacement",
-              this.totalPaymentReplacement.toFixed(3)
-            );
-            // this.totalPayment += myData;
-            // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
+      //       console.log("myData", myData);
+      //       console.log("this.totalPayment", this.totalPayment.toFixed(3));
+      //       if (myData == 0) {
+      //         this.totalPaymentReplacement = this.totalPayment;
+      //       }
+      //       console.log(
+      //         "this.totalPaymentReplacement",
+      //         this.totalPaymentReplacement.toFixed(3)
+      //       );
+      //       // this.totalPayment += myData;
+      //       // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
 
-            // console.log("myData", myData);
-          })
-          .catch((err) => {
-            console.log(err);
-            let error = Object.values(err)[2].data;
-            this.errors = error.items;
-            this.errMsg(error.message);
-          });
-      }, 200);
+      //       // console.log("myData", myData);
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //       let error = Object.values(err)[2].data;
+      //       this.errors = error.items;
+      //       this.errMsg(error.message);
+      //     });
+      // }, 200);
+
+      this.checkSupplierFees(supplier);
+
+      // console.log(supplier);
     },
 
     // address functions
@@ -2016,11 +2070,13 @@ export default {
         this.submitted = true;
         setTimeout(() => {
           this.expanded = false;
-          this.form = [];
         }, 500);
         this.getGuestFirstShippingFees();
+
+        this.localStoreFail = false
       } else {
         this.errMsg(this.$t("cart.fillData"));
+        this.localStoreFail = true
       }
     },
     getSupplierAddress(supplierId) {
@@ -2190,7 +2246,7 @@ export default {
       //     this.errMsg(err.message);
       //   });
 
-      let address_uuid = localStorage.getItem("addressUUID");
+      let address_uuid = this.userData.uuid;
 
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
@@ -2283,10 +2339,28 @@ export default {
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
 
-          for (let index = 0; index < res.data.items.length; index++) {
-            const element = res.data.items[index].shipping_fee;
-            console.log("element guest", element);
-          }
+          // for (let index = 0; index < res.data.items.length; index++) {
+          //   const element = res.data.items[index].shipping_fee;
+          //   console.log("element guest", element);
+          // }
+        })
+        .catch((err) => {
+          console.log(err);
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(err.message);
+        });
+    },
+    checkSupplierFees(supplier) {
+      let data = {
+        address_uuid: this.supplierAddress,
+        supplier_id: supplier.supplier_id,
+      };
+      suppliers
+        .checkSupplierFees(data)
+        .then((res) => {
+          // this.firstFees = res.data.items;
+          this.sucessMsg(res.data.message);
         })
         .catch((err) => {
           console.log(err);
@@ -2336,6 +2410,8 @@ export default {
                   date: res.data.items.order.created_at,
                   total_price: res.data.items.order.total_price,
                   payment_type: res.data.items.order.payment_type,
+                  payment: res.data.items.order.payment,
+                  uuid: res.data.items.order.uuid,
                   redirectURL: res.data.items.url,
 
                   // window.location.href = res.data.items.url;
@@ -2344,18 +2420,22 @@ export default {
             }, 500);
           } else {
             console.log(res.data);
-            setTimeout(() => {
-              this.$router.push({
-                path: "/checkout-details",
-                query: {
-                  order_serial: res.data.items.order_serial,
-                  date: res.data.items.created_at,
-                  total_price: res.data.items.total_price,
-                  payment_type: res.data.items.payment_type,
-                  orderId: res.data.items.id,
-                },
-              });
-            }, 500);
+            if (this.userData) {
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/checkout-details",
+                  query: {
+                    order_serial: res.data.items.order_serial,
+                    date: res.data.items.created_at,
+                    total_price: res.data.items.total_price,
+                    payment_type: res.data.items.payment_type,
+                    payment: res.data.items.payment,
+                    uuid: res.data.items.uuid,
+                    orderId: res.data.items.id,
+                  },
+                });
+              }, 500);
+            }
           }
         })
         .catch((err) => {
@@ -2386,47 +2466,63 @@ export default {
         country_code: this.paymentFormData.country_code,
       };
 
-      suppliers
-        .guestPayment(data)
-        .then((res) => {
-          this.sucessMsg(res.data.message);
-          if (this.paymentFormData.payment_type === "visa") {
-            setTimeout(() => {
-              this.$router.push({
-                path: "/visa-checkout-details",
-                query: {
-                  order_serial: res.data.items.order.order_serial,
-                  date: res.data.items.order.created_at,
-                  total_price: res.data.items.order.total_price,
-                  payment_type: res.data.items.order.payment_type,
-                  redirectURL: res.data.items.url,
+      if(this.localStoreFail == false){
+        this.localStoreFail = true
+      }else{
 
-                  // window.location.href = res.data.items.url;
-                },
-              });
-            }, 500);
-          } else {
-            console.log(res.data);
-            setTimeout(() => {
-              this.$router.push({
-                path: "/checkout-details",
-                query: {
-                  order_serial: res.data.items.order_serial,
-                  date: res.data.items.created_at,
-                  total_price: res.data.items.total_price,
-                  payment_type: res.data.items.payment_type,
-                  orderId: res.data.items.id,
-                },
-              });
-            }, 500);
-          }
-        })
-        .catch((err) => {
-          const errors = Object.values(err)[2].data;
-          this.errors = errors.items;
-          console.log(err);
-          this.errMsg(errors.message);
-        });
+        suppliers
+          .guestPayment(data)
+          .then((res) => {
+            this.sucessMsg(res.data.message);
+            if (this.paymentFormData.payment_type === "visa") {
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/visa-checkout-details",
+                  query: {
+                    order_serial: res.data.items.order.order_serial,
+                    date: res.data.items.order.created_at,
+                    total_price: res.data.items.order.total_price,
+                    payment_type: res.data.items.order.payment_type,
+                    payment: res.data.items.order.payment,
+                    uuid: res.data.items.order.uuid,
+                    redirectURL: res.data.items.url,
+  
+                    // window.location.href = res.data.items.url;
+                  },
+                });
+              }, 500);
+            } else {
+              console.log(res.data);
+              if (this.userData) {
+                setTimeout(() => {
+                  this.$router.push({
+                    path: "/checkout-details",
+                    query: {
+                      order_serial: res.data.items.order_serial,
+                      date: res.data.items.created_at,
+                      total_price: res.data.items.total_price,
+                      payment_type: res.data.items.payment_type,
+                      payment: res.data.items.payment,
+                      uuid: res.data.items.uuid,
+                      orderId: res.data.items.id,
+                    },
+                  });
+                }, 500);
+              } else {
+                setTimeout(() => {
+                  this.$router.push("/success-checkout");
+                }, 500);
+              }
+            }
+          })
+          .catch((err) => {
+            const errors = Object.values(err)[2].data;
+            this.errors = errors.items;
+            console.log(err);
+            this.errMsg(errors.message);
+          });
+      }
+
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {

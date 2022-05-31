@@ -21,6 +21,7 @@ import QuotationDetails from "../views/profile/QuotationDetails.vue";
 import VisaCheckoutDetails from "../views/Visa-Checkout-Details.vue";
 import CheckoutDetails from "../views/Checkout-details.vue";
 import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
+import SuccessCheckout from "../views/SuccessCheckout";
 
 Vue.use(VueRouter);
 
@@ -166,6 +167,11 @@ const routes = [
     path: "/Checkout-bank-details",
     name: "CheckoutBankDetails",
     component: CheckoutBankDetails,
+  },
+  {
+    path: "/success-checkout",
+    name: "SuccessCheckout",
+    component: SuccessCheckout,
   },
   ...auth,
   profileRoutes,
