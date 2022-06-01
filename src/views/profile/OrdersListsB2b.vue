@@ -32,7 +32,6 @@
       </template>
     </b-table> -->
     <div class="holder text-center" v-if="orders">
-      
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -49,6 +48,7 @@
             <td>{{ order.total_price }} {{ currency }}</td>
             <td>{{ order.payment_status }}</td>
             <td>{{ order.payment_type }}</td>
+
             <td>
               <router-link
                 :to="{
@@ -61,6 +61,43 @@
                   {{ $t("profile.view") }}
                 </b-button>
               </router-link>
+              <router-link
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'bank'
+                "
+                :to="{
+                  path: '/checkout-details',
+                  query: {
+                    order_serial: order.serial,
+                    date: order.created_at,
+                    total_price: order.total_price,
+                    payment_type: order.payment_type,
+                    payment: order.payment,
+                    uuid: order.uuid,
+                  },
+                }"
+                class="text-dark"
+              >
+                <b-button variant="outline-success" class="m-2">
+                  {{ $t("profile.bankTransDocs") }}
+                </b-button>
+              </router-link>
+              <b-button
+                id="show-btn"
+                @click="
+                  $bvModal.show('bv-modal-example');
+                  saveUUID(order);
+                "
+                variant="outline-success"
+                class="m-2"
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'visa'
+                "
+              >
+                {{ $t("profile.pay") }}
+              </b-button>
             </td>
           </tr>
         </tbody>
@@ -73,6 +110,100 @@
           :current-page="page"
           @pagechanged="onPageChange"
         />
+      </div>
+      <div>
+        <b-modal centered id="bv-modal-example" hide-footer>
+          <template class="text-center" #modal-title>
+            <h3>{{ $t("payment.paymentData") }}</h3>
+          </template>
+          <div class="d-block text-center">
+            <div class="payment-method">
+              <!-- <div class="heading mb-4">
+                <span class="title">{{ $t("payment.paymentData") }}</span>
+              </div> -->
+              <div class="methods-data">
+                <div class="methods">
+                  <div class="method">
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod1"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="bank"
+                      />
+                      <label class="custom-control-label" for="paymentMethod1">
+                        {{ $t("payment.bankTransfer") }}
+                      </label>
+                      <span>{{ $t("payment.paymentByBank") }}</span>
+                    </div>
+                  </div>
+                  <div class="method">
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod2"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="cach"
+                      />
+                      <label class="custom-control-label" for="paymentMethod2">
+                        {{ $t("payment.paymentWhenReceiving") }}
+                      </label>
+                      <span>{{ $t("payment.requestReceipt") }}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="method d-flex justify-content-between align-content-center"
+                  >
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod3"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="visa"
+                      />
+                      <label class="custom-control-label" for="paymentMethod3">
+                        {{ $t("payment.onlinePayment") }}
+                      </label>
+                      <div class="online-media">
+                        <img src="@/assets/images/cart.png" alt="" srcset="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="error text-center"
+                  v-for="(error, index) in errors.payment_type"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <b-button
+            :disabled="paymentFormData.payment_type == null"
+            id="show-btn"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="rePay"
+          >
+            {{ $t("profile.pay") }}
+          </b-button>
+        </b-modal>
       </div>
     </div>
     <div
@@ -138,6 +269,12 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+
+      paymentFormData: {
+        payment_type: null,
+        order_uuid: null,
+      },
+      errors: [],
     };
   },
   methods: {
@@ -172,6 +309,48 @@ export default {
         this.getOrders();
       }
     },
+
+    rePay() {
+      profile
+        .rePay(this.paymentFormData)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+          if (res.status == 200) {
+            if (this.paymentFormData.payment_type === "cach") {
+              this.$router.push("/success-checkout");
+            } else if (this.paymentFormData.payment_type === "bank") {
+              this.$router.push({
+                path: "/checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  payment: res.data.items.order.payment,
+                  uuid: res.data.items.order.uuid,
+                  redirectURL: res.data.items.url,
+                },
+              });
+            } else if (this.paymentFormData.payment_type === "visa") {
+              setTimeout(() => {
+                window.location.href = res.data.items.payment_url;
+              }, 500);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(error.message);
+        });
+    },
+
+    saveUUID(order) {
+      console.log(order);
+      this.paymentFormData.order_uuid = order.uuid;
+    },
   },
   mounted() {
     this.getOrders();
@@ -182,4 +361,59 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.payment-method {
+  .methods-data {
+    background: #ecf0f1;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+    .info {
+      border-bottom: 1px dashed #c5c6c6;
+      padding: 1rem 0.3rem;
+      color: #312620;
+      font-weight: bold;
+    }
+    .total {
+      padding: 1rem 0;
+      color: #312620;
+      font-weight: bold;
+      .title {
+        font-size: 14pt;
+      }
+    }
+    .methods {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      border: 1px dashed #cfd0d0;
+      .method {
+        padding: 1rem;
+        border-bottom: 1px dashed #cfd0d0;
+        font-size: 11pt;
+        color: #544842;
+        .custom-radio {
+          flex-wrap: wrap;
+        }
+        label {
+          cursor: pointer;
+        }
+        span {
+          width: 100%;
+          font-size: 10pt;
+          margin-top: -0.2rem;
+          opacity: 0.7;
+        }
+        .online-media {
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+.modal-header {
+  align-content: center !important;
+  justify-content: center !important;
+}
+</style>

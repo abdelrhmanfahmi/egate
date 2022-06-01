@@ -177,4 +177,6 @@ export default {
   total_price: "اجمالى السعر",
   deliveryFeesText: "عذرا لايوجد معلومات",
   noPickupData: "عفوا , هذا المورد لايدعم نقاط الاستلام",
+  pay: "الدفع",
+  bankTransDocs: "ملفات البنك",
 };

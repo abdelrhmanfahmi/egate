@@ -53,4 +53,8 @@ export default {
   couponValid: "الكوبون صحيح",
   couponNotValid: "الكوبون غير صحيح",
   uploadImage: "قم بتحميل الصوره",
+  paymentStatus: "حالة الدفع",
+  bankImageDownload: "تحميل صورة التحويل",
+  bankTransImage: "صورة التحويل البنكى",
+  bankComment: "ملاحظات التحويل البنكى",
 };

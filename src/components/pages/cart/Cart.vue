@@ -1687,7 +1687,9 @@ export default {
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = true;
             }
-            existingAddresses.click();
+            if(this.addresses !== null){
+              existingAddresses.click();
+            }
           }, 10);
         });
     },
@@ -1871,8 +1873,8 @@ export default {
             // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
             this.totalPaymentReplacement += parseFloat(myData);
 
-            console.log("myData", myData);
-            console.log("this.totalPayment", this.totalPayment.toFixed(3));
+            // console.log("myData", myData);
+            // console.log("this.totalPayment", this.totalPayment.toFixed(3));
             if (myData == 0) {
               this.totalPaymentReplacement = this.totalPayment;
             }
@@ -1883,10 +1885,10 @@ export default {
                 this.totalDiscountReplacement
               );
             }
-            console.log(
-              "this.totalPaymentReplacement",
-              this.totalPaymentReplacement.toFixed(3)
-            );
+            // console.log(
+            //   "this.totalPaymentReplacement",
+            //   this.totalPaymentReplacement.toFixed(3)
+            // );
             // this.totalPayment += myData;
             // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
 
@@ -2312,10 +2314,10 @@ export default {
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
-          for (let index = 0; index < res.data.items.length; index++) {
-            const element = res.data.items[index].shipping_fee;
-            console.log("getLoggedFirstShippingFees", element);
-          }
+          // for (let index = 0; index < res.data.items.length; index++) {
+          //   const element = res.data.items[index].shipping_fee;
+          //   console.log("getLoggedFirstShippingFees", element);
+          // }
 
           // this.totalFees =
         })
@@ -2419,7 +2421,7 @@ export default {
               });
             }, 500);
           } else {
-            console.log(res.data);
+            // console.log(res.data);
             if (this.userData) {
               setTimeout(() => {
                 this.$router.push({
@@ -2492,7 +2494,7 @@ export default {
                 });
               }, 500);
             } else {
-              console.log(res.data);
+              // console.log(res.data);
               if (this.userData) {
                 setTimeout(() => {
                   this.$router.push({

@@ -55,6 +55,11 @@
                 </li>
               </ul>
             </div>
+            <div
+              class="bankInfo"
+              v-if="bankInfo"
+              v-html="bankInfo.description"
+            ></div>
           </div>
           <div class="col-md-6 col-sm-12">
             <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
@@ -94,7 +99,7 @@
                   class="saveBtn btn-block py-3"
                   :disabled="btn1Disabled"
                 >
-                  <i class="fa fa-upload"></i> {{ $t("profile.save") }}
+                  <i class="fa fa-upload"></i> {{ $t("payment.uploadImage") }}
                   <span class="loader" v-if="loading"></span>
                 </b-button>
               </div>
@@ -112,7 +117,7 @@
 
 <script>
 import suppliers from "@/services/suppliers";
-// import profile from "@/services/profile";
+import profile from "@/services/profile";
 export default {
   data() {
     return {
@@ -133,6 +138,7 @@ export default {
       btn1Disabled: false,
       loading: false,
       id: this.$route.query.id,
+      bankInfo: null,
     };
   },
   mounted() {
@@ -147,6 +153,11 @@ export default {
       // }, 12000);
       // this.getSingleOrders();
     }
+
+    // if(!this.payment || this.payment == null || this.payment == ''){
+    //   this.payment = this.payment_type
+    // }
+    this.getBankComment();
   },
   methods: {
     async checkoutbankUpload() {
@@ -203,6 +214,16 @@ export default {
       this.bankData.image = event.target.files[0];
       console.log(this.bankData.image);
     },
+    getBankComment() {
+      profile
+        .bankComment()
+        .then((res) => {
+          this.bankInfo = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
@@ -225,5 +246,13 @@ export default {
     font-weight: bold;
     font-size: 25px;
   }
+}
+.bankInfo {
+  color: #8f8f8f;
+  font-size: 18px;
+  line-height: 1.8;
+  text-transform: capitalize;
+  padding: 0 20px;
+  margin: 2% 0;
 }
 </style>

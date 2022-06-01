@@ -102,4 +102,10 @@ export default {
       }
     );
   },
+  rePay(payLoad){
+    return globalAxios.post(`order/payment`,payLoad)
+  },
+  bankComment(){
+    return globalAxios.get('statics/Bank-transfer-info')
+  }
 };

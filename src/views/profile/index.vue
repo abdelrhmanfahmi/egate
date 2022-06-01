@@ -6,8 +6,8 @@
         (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
       "
     >
-      <div class="row profile-header">
-        <div class="col-12 col-sm-8 continue-registration" v-if="userData.profile_percentage !== 100">
+      <div class="row profile-header" v-if="userData.profile_percentage !== 100">
+        <div class="col-12 col-sm-8 continue-registration" >
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
@@ -28,6 +28,7 @@
           ></b-progress>
         </div>
       </div>
+      <div class="v-else my-5 py-1"></div>
     </b-container>
     <div class="profile">
       <b-container>
