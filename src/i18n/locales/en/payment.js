@@ -19,7 +19,7 @@ export default {
   total: "Total",
   discount: "Discount",
   freeDelivery: "Free delivery",
-  priceUnit: "KD",
+  priceUnit: "KWD",
   bankTransfer: "Bank transfer",
   paymentByBank: "Payment by bank",
   paymentWhenReceiving: "Payment when receiving",
@@ -52,5 +52,9 @@ export default {
     "you will be redirected to Bank tarnsfer confirmation form , please wait This may take up to 15 seconds.",
   couponValid: "Coupon Is Valid",
   couponNotValid: "Coupon Not Valid",
-  uploadImage:'Upload Image'
+  uploadImage:'Upload Image',
+  paymentStatus:'Payment Status',
+  bankImageDownload:'Download Transfer Image',
+  bankTransImage:'Bank transfer image',
+  bankComment:'Bank transfer notes'
 };

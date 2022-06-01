@@ -2,6 +2,150 @@
   <div class="my-5">
     <div class="container">
       <div class="wrapper" v-if="!loading">
+        <div class="text-right my-4" v-if="orderData">
+          <div>
+            <b-button v-if="
+                  orderData.payment_status === 'Unpaid' &&
+                  orderData.payment_type === 'visa'
+                "
+              id="show-btn"
+              @click="$bvModal.show('bv-modal-example')"
+              variant="outline-success"
+              class="m-2"
+            >
+              {{ $t("profile.pay") }}
+            </b-button>
+
+            <router-link
+                v-if="
+                  orderData.payment_status === 'Unpaid' &&
+                  orderData.payment_type === 'bank'
+                "
+                :to="{
+                  path: '/checkout-details',
+                  query: {
+                    order_serial: orderData.serial,
+                    date: orderData.created_at,
+                    total_price: orderData.total_price,
+                    payment_type: orderData.payment_type,
+                    payment: orderData.payment,
+                    uuid: orderData.uuid,
+                  },
+                }"
+                class="text-dark"
+              >
+                <b-button variant="outline-success" class="m-2">
+                  {{ $t("profile.bankTransDocs") }}
+                </b-button>
+              </router-link>
+
+            <b-modal centered id="bv-modal-example" hide-footer>
+              <template class="text-center" #modal-title>
+                <h3>{{ $t("payment.paymentData") }}</h3>
+              </template>
+              <div class="d-block text-center">
+                <div class="payment-method">
+                  <!-- <div class="heading mb-4">
+                <span class="title">{{ $t("payment.paymentData") }}</span>
+              </div> -->
+                  <div class="methods-data">
+                    <div class="methods">
+                      <div class="method">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod1"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="bank"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod1"
+                          >
+                            {{ $t("payment.bankTransfer") }}
+                          </label>
+                          <span>{{ $t("payment.paymentByBank") }}</span>
+                        </div>
+                      </div>
+                      <div class="method">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod2"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="cach"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod2"
+                          >
+                            {{ $t("payment.paymentWhenReceiving") }}
+                          </label>
+                          <span>{{ $t("payment.requestReceipt") }}</span>
+                        </div>
+                      </div>
+                      <div
+                        class="method d-flex justify-content-between align-content-center"
+                      >
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="paymentMethod3"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="paymentFormData.payment_type"
+                            value="visa"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="paymentMethod3"
+                          >
+                            {{ $t("payment.onlinePayment") }}
+                          </label>
+                          <div class="online-media">
+                            <img
+                              src="@/assets/images/cart.png"
+                              alt=""
+                              srcset=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="error text-center"
+                      v-for="(error, index) in errors.payment_type"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <b-button
+                :disabled="paymentFormData.payment_type == null"
+                id="show-btn"
+                class="mt-3"
+                variant="outline-success"
+                block
+                @click="rePay"
+              >
+                {{ $t("profile.pay") }}
+              </b-button>
+            </b-modal>
+          </div>
+        </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
@@ -63,27 +207,39 @@
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
               </h4>
               <div class="pl-2" v-if="orderData.client_info">
-                <span v-if="orderData.client_info.apartment">{{
-                  orderData.client_info.apartment
-                }} , </span>
-                <span v-if="orderData.client_info.apartmfloorent">
-                  {{ orderData.client_info.floor }} , </span
+                <h6
+                  class="d-inline-block"
+                  v-if="orderData.client_info.apartment"
                 >
-                <span v-if="orderData.client_info.address_line_1">
-                  {{ orderData.client_info.address_line_1 }} , 
-                </span>
-                <span v-if="orderData.client_info.address_line_2">
-                  {{ orderData.client_info.address_line_2 }} , </span
+                  {{ orderData.client_info.apartment }}
+                </h6>
+                <h6
+                  class="d-inline-block"
+                  v-if="orderData.client_info.apartmfloorent"
                 >
+                  , {{ orderData.client_info.floor }}
+                </h6>
+                <h6
+                  class="d-inline-block"
+                  v-if="orderData.client_info.address_line_1"
+                >
+                  , {{ orderData.client_info.address_line_1 }} ,
+                </h6>
+                <h6
+                  class="d-inline-block"
+                  v-if="orderData.client_info.address_line_2"
+                >
+                  , {{ orderData.client_info.address_line_2 }}
+                </h6>
                 <h5 v-if="orderData.client_info.city">
-                  {{ orderData.client_info.city }} </h5
-                >
+                  {{ orderData.client_info.city }}
+                </h5>
                 <h5 v-if="orderData.client_info.governorate">
-                  {{ orderData.client_info.governorate }} </h5
-                >
+                  {{ orderData.client_info.governorate }}
+                </h5>
                 <h5 v-if="orderData.client_info.country">
-                  {{ orderData.client_info.country }}</h5
-                >
+                  {{ orderData.client_info.country }}
+                </h5>
               </div>
             </div>
           </div>
@@ -161,17 +317,61 @@
                 <div class="info" v-if="orderData">
                   <div class="row info-data info-colored">
                     <div class="col-6">
+                      {{ $t("payment.paymentStatus") }}
+                    </div>
+                    <div class="col-6" v-if="orderData.payment_status">
+                      {{ orderData.payment_status }}
+                    </div>
+                  </div>
+
+                  <div class="row info-data">
+                    <div class="col-6">
                       {{ $t("profile.paymentType") }}
                     </div>
                     <div class="col-6" v-if="orderData.payment_type">
-                      {{ orderData.payment_type }}
+                      {{ orderData.payment }}
                     </div>
                   </div>
-                  <div class="row info-data">
+                  <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.paymentCurency") }}
                     </div>
-                    <div class="col-6">KWD</div>
+                    <div class="col-6">{{ $t("payment.priceUnit") }}</div>
+                  </div>
+
+                  <div class="row info-data" v-if="orderData.payment_type === 'bank' && orderData.payment_image">
+                    <div class="col-6">
+                      {{ $t("payment.bankTransImage") }}
+                    </div>
+                    <div class="col-6">
+                      <div class="downloadArea">
+                        <b-button
+                          class="btn-block"
+                          variant="outline-success"
+                          @click="
+                            downloadImage(
+                              orderData.payment_image,
+                              (extension = orderData.payment_image
+                                .split('.')
+                                .pop()),
+                              $t('payment.bankImageDownload')
+                            )
+                          "
+                        >
+                          <i class="fa fa-download"></i>
+                          {{ $t("payment.bankImageDownload") }}
+                        </b-button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row info-data info-colored"
+                    v-if="orderData.payment_type === 'bank' && orderData.comment"
+                  >
+                    <div class="col-6">
+                      {{ $t("payment.bankComment") }}
+                    </div>
+                    <div class="col-6">{{ orderData.comment }}</div>
                   </div>
                 </div>
               </div>
@@ -186,6 +386,7 @@
                     <div class="col-6">{{ $t("profile.deleiveryFees") }}</div>
                     <div class="col-6" v-if="orderData">
                       {{ orderData.total_shipping_fee | fixedCurrency }}
+                      {{ $t("payment.priceUnit") }}
                     </div>
                   </div>
                 </div>
@@ -217,7 +418,7 @@
                   </div>
                   <div class="" v-if="order">
                     {{ $t("profile.supplierOrder") }} : {{ order.serial }} |
-                    {{ $t("profile.status") }} : {{ order.order_status }}
+                    {{ $t("payment.status") }} : {{ order.order_status }}
                   </div>
                 </div>
               </div>
@@ -398,6 +599,7 @@
 
 <script>
 import profile from "@/services/profile";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -430,6 +632,10 @@ export default {
       errors: [],
       supplierUUID: null,
       loading: false,
+      paymentFormData: {
+        payment_type: null,
+        order_uuid: null,
+      },
     };
   },
   methods: {
@@ -444,6 +650,7 @@ export default {
           console.log("getSingleOrders", res);
           this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
+          this.paymentFormData.order_uuid = res.data.items.order.uuid;
         })
         .catch((err) => {
           console.log(err);
@@ -473,8 +680,57 @@ export default {
           this.errMsg(err.message);
         });
     },
-    showModal(order) {
-      this.supplierUUID = order.uuid;
+    rePay() {
+      profile
+        .rePay(this.paymentFormData)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+          if (res.status == 200) {
+            if (this.paymentFormData.payment_type === "cach") {
+              this.$router.push("/success-checkout");
+            } else if (this.paymentFormData.payment_type === "bank") {
+              this.$router.push({
+                path: "/checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  payment: res.data.items.order.payment,
+                  uuid: res.data.items.order.uuid,
+                  redirectURL: res.data.items.url,
+                },
+              });
+            } else if (this.paymentFormData.payment_type === "visa") {
+              setTimeout(() => {
+                window.location.href = res.data.items.payment_url;
+              }, 500);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(error.message);
+        });
+    },
+    downloadImage(url, extension, label) {
+      axios({
+        url: url, // File URL Goes Here
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement("a");
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", `${label}.${extension}`);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      });
     },
   },
   mounted() {
@@ -532,5 +788,59 @@ table td {
 }
 .modal-content {
   display: none !important;
+}
+.payment-method {
+  .methods-data {
+    background: #ecf0f1;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+    .info {
+      border-bottom: 1px dashed #c5c6c6;
+      padding: 1rem 0.3rem;
+      color: #312620;
+      font-weight: bold;
+    }
+    .total {
+      padding: 1rem 0;
+      color: #312620;
+      font-weight: bold;
+      .title {
+        font-size: 14pt;
+      }
+    }
+    .methods {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      border: 1px dashed #cfd0d0;
+      .method {
+        padding: 1rem;
+        border-bottom: 1px dashed #cfd0d0;
+        font-size: 11pt;
+        color: #544842;
+        .custom-radio {
+          flex-wrap: wrap;
+        }
+        label {
+          cursor: pointer;
+        }
+        span {
+          width: 100%;
+          font-size: 10pt;
+          margin-top: -0.2rem;
+          opacity: 0.7;
+        }
+        .online-media {
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+.modal-header {
+  align-content: center !important;
+  justify-content: center !important;
 }
 </style>

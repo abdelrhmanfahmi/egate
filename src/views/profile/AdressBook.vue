@@ -85,8 +85,8 @@
         </b-col>
         <!-- street number  -->
         <b-col lg="12">
-          <b-form-group>
-            <label for="streetNumber">{{ $t("profile.streetNumber") }}</label>
+          <b-form-group> 
+            <label for="streetNumber">{{ $t("contactUs.address") }}</label>
             <span class="requried">*</span>
             <b-form-input id="streetNumber" v-model="form.address_line_1" />
             <div

@@ -184,5 +184,7 @@ export default {
   totalDiscount: "Total Discount",
   total_price: "Total Price",
   deliveryFeesText: "sorry , no shipping fees data available",
-  noPickupData:'Sorry ,this supplier does not support pick-up'
+  noPickupData:'Sorry ,this supplier does not support pick-up',
+  pay:'Pay',
+  bankTransDocs:'Bank Transfer Docs'
 };

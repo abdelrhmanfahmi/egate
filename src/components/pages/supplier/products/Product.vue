@@ -62,8 +62,8 @@
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
       </span>
-      <span class="new d-block text-white" v-if="data.view_status">{{
-        data.view_status
+      <span class="new d-block text-white" v-if="data.view_status_text">{{
+        data.view_status_text
       }}</span>
     </div>
   </div>
