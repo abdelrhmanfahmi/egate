@@ -179,4 +179,5 @@ export default {
   noPickupData: "عفوا , هذا المورد لايدعم نقاط الاستلام",
   pay: "الدفع",
   bankTransDocs: "ملفات البنك",
+  orderBack: "الرجوع لقائمة الطلبات",
 };

@@ -17,5 +17,7 @@ export default {
   Showing: "يتم عرض ",
   of: "من",
   results: "ناتج البحث",
-  
+  return_policy: "سياسة الاسترجاع",
+  shipping_and_payment_terms: "شروط الشحن و الدفع",
+  supplierProducts: "منتجات المورد",
 };

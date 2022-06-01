@@ -44,7 +44,7 @@
                 <option value="Stationary">Stationary</option>
               </select> -->
 
-              <div class="search-icon">
+              <!-- <div class="search-icon">
                 <b-button v-b-modal.modal-2 class="icon-search" size="md">
                   <font-awesome-icon
                     v-b-toggle.sidebar-1
@@ -52,7 +52,7 @@
                   />
                 </b-button>
                 <b-modal id="modal-2" class="search">
-                  <!-- Using slots -->
+                  Using slots
                   <b-input-group class="mt-3">
                     <template #append>
                       <b-input-group-text>
@@ -70,7 +70,7 @@
                     </b-form>
                   </b-input-group>
                 </b-modal>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="data">

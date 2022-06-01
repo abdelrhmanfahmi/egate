@@ -80,7 +80,7 @@ export default {
         dots: true,
         infinite: true,
         arrows: true,
-        speed: 55500,
+        speed: 500,
         slidesToShow: 6,
         slidesToScroll: 1,
         swipeToSlide: true,

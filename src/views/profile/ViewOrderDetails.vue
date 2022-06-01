@@ -2,148 +2,55 @@
   <div class="my-5">
     <div class="container">
       <div class="wrapper" v-if="!loading">
-        <div class="text-right my-4" v-if="orderData">
-          <div>
-            <b-button v-if="
-                  orderData.payment_status === 'Unpaid' &&
-                  orderData.payment_type === 'visa'
-                "
-              id="show-btn"
-              @click="$bvModal.show('bv-modal-example')"
-              variant="outline-success"
-              class="m-2"
-            >
-              {{ $t("profile.pay") }}
-            </b-button>
-
-            <router-link
-                v-if="
-                  orderData.payment_status === 'Unpaid' &&
-                  orderData.payment_type === 'bank'
-                "
-                :to="{
-                  path: '/checkout-details',
-                  query: {
-                    order_serial: orderData.serial,
-                    date: orderData.created_at,
-                    total_price: orderData.total_price,
-                    payment_type: orderData.payment_type,
-                    payment: orderData.payment,
-                    uuid: orderData.uuid,
-                  },
-                }"
-                class="text-dark"
-              >
-                <b-button variant="outline-success" class="m-2">
-                  {{ $t("profile.bankTransDocs") }}
+        <div class="my-4" v-if="orderData">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="">
+              <router-link to="/profile/ordersListsB2b">
+                <b-button variant="outline-ordinary">
+                  <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
+                  {{ $t("profile.orderBack") }}
                 </b-button>
               </router-link>
+            </div>
+            <div class="">
+              <div>
+                <b-button
+                  v-if="
+                    orderData.payment_status === 'Unpaid' &&
+                    orderData.payment_type === 'visa'
+                  "
+                  id="show-btn"
+                  @click="$bvModal.show('bv-modal-example')"
+                  variant="outline-success"
+                  class="m-2"
+                >
+                  {{ $t("profile.pay") }}
+                </b-button>
 
-            <b-modal centered id="bv-modal-example" hide-footer>
-              <template class="text-center" #modal-title>
-                <h3>{{ $t("payment.paymentData") }}</h3>
-              </template>
-              <div class="d-block text-center">
-                <div class="payment-method">
-                  <!-- <div class="heading mb-4">
-                <span class="title">{{ $t("payment.paymentData") }}</span>
-              </div> -->
-                  <div class="methods-data">
-                    <div class="methods">
-                      <div class="method">
-                        <div
-                          class="custom-control custom-radio custom-control-inline"
-                        >
-                          <input
-                            type="radio"
-                            id="paymentMethod1"
-                            name="paymentMethod"
-                            class="custom-control-input"
-                            v-model="paymentFormData.payment_type"
-                            value="bank"
-                          />
-                          <label
-                            class="custom-control-label"
-                            for="paymentMethod1"
-                          >
-                            {{ $t("payment.bankTransfer") }}
-                          </label>
-                          <span>{{ $t("payment.paymentByBank") }}</span>
-                        </div>
-                      </div>
-                      <div class="method">
-                        <div
-                          class="custom-control custom-radio custom-control-inline"
-                        >
-                          <input
-                            type="radio"
-                            id="paymentMethod2"
-                            name="paymentMethod"
-                            class="custom-control-input"
-                            v-model="paymentFormData.payment_type"
-                            value="cach"
-                          />
-                          <label
-                            class="custom-control-label"
-                            for="paymentMethod2"
-                          >
-                            {{ $t("payment.paymentWhenReceiving") }}
-                          </label>
-                          <span>{{ $t("payment.requestReceipt") }}</span>
-                        </div>
-                      </div>
-                      <div
-                        class="method d-flex justify-content-between align-content-center"
-                      >
-                        <div
-                          class="custom-control custom-radio custom-control-inline"
-                        >
-                          <input
-                            type="radio"
-                            id="paymentMethod3"
-                            name="paymentMethod"
-                            class="custom-control-input"
-                            v-model="paymentFormData.payment_type"
-                            value="visa"
-                          />
-                          <label
-                            class="custom-control-label"
-                            for="paymentMethod3"
-                          >
-                            {{ $t("payment.onlinePayment") }}
-                          </label>
-                          <div class="online-media">
-                            <img
-                              src="@/assets/images/cart.png"
-                              alt=""
-                              srcset=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="error text-center"
-                      v-for="(error, index) in errors.payment_type"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div>
-                </div>
+                <router-link
+                  v-if="
+                    orderData.payment_status === 'Unpaid' &&
+                    orderData.payment_type === 'bank'
+                  "
+                  :to="{
+                    path: '/checkout-details',
+                    query: {
+                      order_serial: orderData.serial,
+                      date: orderData.created_at,
+                      total_price: orderData.total_price,
+                      payment_type: orderData.payment_type,
+                      payment: orderData.payment,
+                      uuid: orderData.uuid,
+                    },
+                  }"
+                  class="text-dark"
+                >
+                  <b-button variant="outline-success" class="m-2">
+                    {{ $t("profile.bankTransDocs") }}
+                  </b-button>
+                </router-link>
               </div>
-
-              <b-button
-                :disabled="paymentFormData.payment_type == null"
-                id="show-btn"
-                class="mt-3"
-                variant="outline-success"
-                block
-                @click="rePay"
-              >
-                {{ $t("profile.pay") }}
-              </b-button>
-            </b-modal>
+            </div>
           </div>
         </div>
         <div
@@ -339,7 +246,13 @@
                     <div class="col-6">{{ $t("payment.priceUnit") }}</div>
                   </div>
 
-                  <div class="row info-data" v-if="orderData.payment_type === 'bank' && orderData.payment_image">
+                  <div
+                    class="row info-data"
+                    v-if="
+                      orderData.payment_type === 'bank' &&
+                      orderData.payment_image
+                    "
+                  >
                     <div class="col-6">
                       {{ $t("payment.bankTransImage") }}
                     </div>
@@ -366,7 +279,9 @@
                   </div>
                   <div
                     class="row info-data info-colored"
-                    v-if="orderData.payment_type === 'bank' && orderData.comment"
+                    v-if="
+                      orderData.payment_type === 'bank' && orderData.comment
+                    "
                   >
                     <div class="col-6">
                       {{ $t("payment.bankComment") }}
@@ -587,6 +502,99 @@
             </div>
           </div>
         </section>
+
+        <b-modal centered id="bv-modal-example" hide-footer>
+          <template class="text-center" #modal-title>
+            <h3>{{ $t("payment.paymentData") }}</h3>
+          </template>
+          <div class="d-block text-center">
+            <div class="payment-method">
+              <!-- <div class="heading mb-4">
+                <span class="title">{{ $t("payment.paymentData") }}</span>
+              </div> -->
+              <div class="methods-data">
+                <div class="methods">
+                  <div class="method">
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod1"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="bank"
+                      />
+                      <label class="custom-control-label" for="paymentMethod1">
+                        {{ $t("payment.bankTransfer") }}
+                      </label>
+                      <span>{{ $t("payment.paymentByBank") }}</span>
+                    </div>
+                  </div>
+                  <div class="method">
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod2"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="cach"
+                      />
+                      <label class="custom-control-label" for="paymentMethod2">
+                        {{ $t("payment.paymentWhenReceiving") }}
+                      </label>
+                      <span>{{ $t("payment.requestReceipt") }}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="method d-flex justify-content-between align-content-center"
+                  >
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod3"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="visa"
+                      />
+                      <label class="custom-control-label" for="paymentMethod3">
+                        {{ $t("payment.onlinePayment") }}
+                      </label>
+                      <div class="online-media">
+                        <img src="@/assets/images/cart.png" alt="" srcset="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="error text-center"
+                  v-for="(error, index) in errors.payment_type"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <b-button
+            :disabled="paymentFormData.payment_type == null"
+            id="show-btn"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="rePay"
+          >
+            {{ $t("profile.pay") }}
+          </b-button>
+        </b-modal>
       </div>
       <div class="" v-else>
         <div class="text-center">

@@ -85,4 +85,7 @@ export default {
   bankCheckout(data) {
     return globalAxios.post(`order/bank-transfer`,data);
   },
+  supplierMicroSite(id) {
+    return globalAxios.get(`suppliers/micro-site/${id}`);
+  },
 };
