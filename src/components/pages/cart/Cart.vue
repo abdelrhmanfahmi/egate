@@ -16,7 +16,8 @@
               <div class="row">
                 <div class="col-12">
                   <h3 class="font-weight-bold">
-                    {{ $t("payment.delivery") }} / {{ $t("payment.pickup") }}
+                    <!-- {{ $t("payment.delivery") }} /  -->
+                    {{ $t("payment.pickup") }}
                   </h3>
                   <div class="addresses-holder p-5">
                     <div class="addresses">
@@ -603,7 +604,7 @@
                     </div>
                     <div
                       class="close-options"
-                      v-if="expanded"
+                      v-if="expanded && selectAddressShape === 'newAddress'"
                       @click="expanded = !expanded"
                     >
                       <font-awesome-icon icon="fa-solid fa-xmark" />
@@ -746,7 +747,7 @@
                                 >
                               </div>
                             </div>
-                            <!-- <div class="text-danger">
+                            <!-- <div >
                           <ul>
                             <li v-for="(error, index) in errors" :key="index">
                               {{ error }}
@@ -1054,7 +1055,7 @@
                       </div>
                     </div> -->
 
-                      <div class="col-5 form-group">
+                      <div class="col-5 form-group required">
                         <label for="email">{{ $t("payment.email") }}</label>
                         <input
                           type="email"
@@ -1225,6 +1226,7 @@
                               for="paymentMethod1"
                             >
                               {{ $t("payment.bankTransfer") }}
+                              <sup >*</sup>
                             </label>
                             <span>{{ $t("payment.paymentByBank") }}</span>
                           </div>
@@ -1246,6 +1248,7 @@
                               for="paymentMethod2"
                             >
                               {{ $t("payment.paymentWhenReceiving") }}
+                              <sup >*</sup>
                             </label>
                             <span>{{ $t("payment.requestReceipt") }}</span>
                           </div>
@@ -1269,6 +1272,7 @@
                               for="paymentMethod3"
                             >
                               {{ $t("payment.onlinePayment") }}
+                              <sup >*</sup>
                             </label>
                           </div>
                           <div class="online-media">
@@ -1316,6 +1320,7 @@
                       >
                         {{ $t("payment.termsAndConditions") }}</a
                       >
+                      <sup >*</sup>
 
                       <div
                         class="error text-center"
@@ -1571,7 +1576,7 @@ export default {
 
       totalPaymentReplacement: null,
       totalDiscountReplacement: null,
-      localStoreFail:false
+      localStoreFail: false,
     };
   },
   mounted() {
@@ -1687,7 +1692,7 @@ export default {
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = true;
             }
-            if(this.addresses !== null){
+            if (this.addresses !== null) {
               existingAddresses.click();
             }
           }, 10);
@@ -2075,10 +2080,10 @@ export default {
         }, 500);
         this.getGuestFirstShippingFees();
 
-        this.localStoreFail = false
+        this.localStoreFail = false;
       } else {
         this.errMsg(this.$t("cart.fillData"));
-        this.localStoreFail = true
+        this.localStoreFail = true;
       }
     },
     getSupplierAddress(supplierId) {
@@ -2468,10 +2473,9 @@ export default {
         country_code: this.paymentFormData.country_code,
       };
 
-      if(this.localStoreFail == false){
-        this.localStoreFail = true
-      }else{
-
+      if (this.localStoreFail == false) {
+        this.localStoreFail = true;
+      } else {
         suppliers
           .guestPayment(data)
           .then((res) => {
@@ -2488,7 +2492,7 @@ export default {
                     payment: res.data.items.order.payment,
                     uuid: res.data.items.order.uuid,
                     redirectURL: res.data.items.url,
-  
+
                     // window.location.href = res.data.items.url;
                   },
                 });
@@ -2524,7 +2528,6 @@ export default {
             this.errMsg(errors.message);
           });
       }
-
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -3113,5 +3116,9 @@ a:not([href]):not([class]) {
 }
 .text-decoration-underline {
   text-decoration: underline !important;
+}
+sup{
+  font-size: 95% !important;
+  color:red
 }
 </style>

@@ -23,5 +23,5 @@ export default {
   kg: "Kg",
   // Products Most Sold
   new: "New",
-  relativeProducts:'Relative Products'
+  relativeProducts:'Related Products'
 };

@@ -25,7 +25,7 @@
     <div class="">
       <div class="" v-if="wishlistItems !== null">
         <h5 class="heading py-5 text-center">{{ $t("profile.favorite") }}</h5>
-        <div class="cart-table ">
+        <div class="cart-table">
           <div class="suppliers py-4">
             <div class="container">
               <!-- <b-row v-if="loading">
@@ -112,20 +112,20 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th></th>
-                    <th scope="col">{{ $t("profile.product") }}</th>
-                    <th scope="col">{{ $t("profile.price") }}</th>
+                    <th scope="col">{{ $t("profile.productImage") }}</th>
+                    <th scope="col">{{ $t("profile.productName") }}</th>
+                    <th scope="col">{{ $t("profile.itemPrice") }}</th>
                     <th scope="col">{{ $t("profile.actions") }}</th>
                   </tr>
                 </thead>
                 <tbody v-for="(item, index) in wishlistItems" :key="index">
                   <tr>
-                    <td  class="text-center">
+                    <td class="text-center">
                       <p
                         v-if="item.product_supplier.product"
                         class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
                       >
-                        {{ item.product_supplier.product.title }} 
+                        {{ item.product_supplier.product.title }}
                       </p>
 
                       <router-link
@@ -144,30 +144,44 @@
                             class="product-img"
                           />
                         </div>
-                        <div class="" v-else>
+                        <!-- <div class="" v-else>
                           <img
                             src="@/assets/images/wishlist.png"
                             alt="wishlist-product"
                             class="product-img"
                           />
-                        </div>
+                        </div> -->
                       </router-link>
-                      
                     </td>
-                    <td  class="text-center">
-                      <p
-                        v-if="item.product_supplier.product"
-                        class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+                    <td class="text-center">
+                      <router-link class="text-dark"
+                        :to="{
+                          path: '/details',
+                          query: { id: item.product_supplier_id },
+                        }"
                       >
-                        <span v-if="$i18n.locale == 'en'">{{ item.product_supplier.product.title_en }} </span>
-                        <span v-if="$i18n.locale == 'ar'">{{ item.product_supplier.product.title_ar }} </span>
+                        <p
+                          v-if="item.product_supplier.product"
+                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+                        >
+                          <span v-if="$i18n.locale == 'en'"
+                            >{{ item.product_supplier.product.title_en }}
+                          </span>
+                          <span v-if="$i18n.locale == 'ar'"
+                            >{{ item.product_supplier.product.title_ar }}
+                          </span>
+                        </p>
+                      </router-link>
+                    </td>
+                    <td class="text-center">
+                      <p>
+                        {{
+                          item.product_supplier.product_details[0].price
+                            | fixedCurrency
+                        }} {{currency}}
                       </p>
-                      
                     </td>
-                    <td  class="text-center">
-                      <p>{{ item.product_supplier.product_details[0].price | fixedCurrency }}</p>
-                    </td>
-                    <td  class="text-center">
+                    <td class="text-center">
                       <div
                         class="actions d-flex justify-content-center align-items-center"
                       >
@@ -390,9 +404,9 @@ export default {
       }, 1200);
     },
     addToCart(item) {
-      console.log(item);
+      console.log(item.product_supplier.product_id);
       let data = {
-        product_supplier_id: item.id,
+        product_supplier_id: item.product_supplier.product_id,
         quantity: 1,
       };
 

@@ -3,7 +3,7 @@
     <b-container v-if="slidersLength > 0">
       <div class="info" >
         <p>{{ $t("home.bestDeal") }}</p>
-        <router-link to="/best-deals">{{ $t("home.showAll") }}</router-link>
+        <router-link to="/best-deals" class="showAllLink">{{ $t("home.showAll") }}</router-link>
       </div>
 
       <VueSlickCarousel v-bind="settings" v-if="sliders && sliders.length" class="my-2">
@@ -132,7 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-silder {
-  padding: 20px 10px;
+  padding: 0px 10px 20px 10px;
   .info {
     display: flex;
     justify-content: space-between;
@@ -156,4 +156,5 @@ html:lang(ar) {
   height: 75px;
   border-radius: 50%;
 }
+
 </style>

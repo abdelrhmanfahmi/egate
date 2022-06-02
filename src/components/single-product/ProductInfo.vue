@@ -46,11 +46,12 @@
           </router-link>
         </p>
         <div class="weight">
-          <p class="title" v-if="myProduct.product_details_by_type.weight">
+          <span class="title mr-3" v-if="myProduct.product_details_by_type.weight">
             {{ $t("singleProduct.weight") }} :
-          </p>
+          </span>
 
-          <div
+          <span>
+            <div
             class="available-weight d-flex justify-content-end"
             v-if="myProduct.product_details_by_type"
           >
@@ -59,6 +60,7 @@
               {{ myProduct.product_details_by_type.unit.title }}</span
             >
           </div>
+          </span>
         </div>
       </div>
       <span class="is-available" v-if="myProduct.in_stock_quantity > 0"
@@ -584,13 +586,13 @@ export default {
           justify-content: center;
           align-items: center;
           margin: 0 0.2rem;
-          cursor: pointer;
+          // cursor: pointer; 
           transition: all ease-out 0.3s;
-          &:hover {
-            background: #ff6000;
-            border-color: #ff6000;
-            color: #fff;
-          }
+          // &:hover {
+          //   background: #ff6000;
+          //   border-color: #ff6000;
+          //   color: #fff;
+          // }
         }
         span.active {
           background: #ff6000;
