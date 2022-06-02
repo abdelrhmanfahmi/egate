@@ -107,5 +107,8 @@ export default {
   },
   bankComment(){
     return globalAxios.get('statics/Bank-transfer-info')
+  },
+  footerSocialLinks(){
+    return globalAxios.get(`site-settings`)
   }
 };

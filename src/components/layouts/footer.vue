@@ -1,6 +1,6 @@
 <template>
   <section class="user-footer">
-    <footer class="dark-bg pt-100 pb-80">
+    <footer class="dark-bg pt-50 pb-50">
       <div class="container">
         <div class="footer-top-wrap">
           <div class="row">
@@ -13,96 +13,131 @@
             </div>
           </div>
         </div>
-        <div class="footer-middle-wrap">
+        <div class="footer-middle-wrap py-5">
           <div class="row">
-            <div class="col-12">
+            <!-- <div class="col-12"></div> -->
+            <div class="col-md-3 col-sm-12">
+              <div class="footer-social">
+                <!-- <ul>
+                  <li>
+                    <router-link to=""><i class=""></i></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/f.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/t.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/y.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/i.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/l.png" alt=""
+                    /></router-link>
+                  </li>
+                </ul> -->
+                <ul v-if="socialLinks">
+                  <li v-for="(socialLink, index) in socialLinks" :key="index">
+                    <div v-if="socialLink.key === 'facebook'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/facebook.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                    <div v-if="socialLink.key === 'twitter'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/twitter.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                    <div v-if="socialLink.key === 'google'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/google.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                    <div v-if="socialLink.key === 'instagram'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/instagram.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                    <div v-if="socialLink.key === 'snapchat'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/snapchat.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                    <div v-if="socialLink.key === 'tiktok'">
+                      <a :href="socialLink.value" target="_blank">
+                        <img src="@/assets/images/tik-tok.png" :alt="socialLink.key" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 my-2">
+              <nav class="menu-links text-center">
+                <ul class="d-flex justify-content-around align-items-center">
+                  <li>
+                    <router-link to="/">{{ $t("items.home") }}</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/about">{{
+                      $t("home.about")
+                    }}</router-link>
+                  </li>
+
+                  <li>
+                    <router-link to="/suppliers">{{
+                      $t("home.suppliers")
+                    }}</router-link>
+                  </li>
+                  <li>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/auth/login"
+                      target="_blank"
+                      >{{ $t("home.vendors") }}</a
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/b2b-login">{{
+                      $t("home.corporat")
+                    }}</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/contact-us">{{
+                      $t("home.contactUs")
+                    }}</router-link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-md-3 col-sm-12 mb-2">
               <div class="footer-link-wrap">
-                <nav class="menu-links">
-                  <ul>
-                    <li>
-                      <router-link to="">{{ $t("home.about") }}</router-link>
-                    </li>
-                    <li>
-                      <router-link to="">{{
-                        $t("home.contactUs")
-                      }}</router-link>
-                    </li>
-                    <li>
-                      <router-link to="">{{
-                        $t("home.suppliers")
-                      }}</router-link>
-                    </li>
-                    <li>
-                      <router-link to="">{{
-                        $t("home.suppliers")
-                      }}</router-link>
-                    </li>
-                    <li>
-                      <router-link to="">{{
-                        $t("home.suppliers")
-                      }}</router-link>
-                    </li>
-                    <li>
-                      <router-link to="">{{
-                        $t("home.suppliers")
-                      }}</router-link>
-                    </li>
-                  </ul>
-                </nav>
-                <div class="footer-social">
-                  <ul>
-                    <li>
-                      <router-link to=""><i class=""></i></router-link>
-                    </li>
-                    <li>
-                      <router-link to=""
-                        ><img
-                          src="https://humhum.work/user-interface/public/assets/img/images/f.png"
-                          alt=""
-                      /></router-link>
-                    </li>
-                    <li>
-                      <router-link to=""
-                        ><img
-                          src="https://humhum.work/user-interface/public/assets/img/images/t.png"
-                          alt=""
-                      /></router-link>
-                    </li>
-                    <li>
-                      <router-link to=""
-                        ><img
-                          src="https://humhum.work/user-interface/public/assets/img/images/y.png"
-                          alt=""
-                      /></router-link>
-                    </li>
-                    <li>
-                      <router-link to=""
-                        ><img
-                          src="https://humhum.work/user-interface/public/assets/img/images/i.png"
-                          alt=""
-                      /></router-link>
-                    </li>
-                    <li>
-                      <router-link to=""
-                        ><img
-                          src="https://humhum.work/user-interface/public/assets/img/images/l.png"
-                          alt=""
-                      /></router-link>
-                    </li>
-                  </ul>
+                <div class="pay-method-img">
+                  <img src="@/assets/images/payment.png" alt="image" />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="copyright-wrap">
-          <div class="row">
-            <div class="col-lg-8" style="">
-              <div class="pay-method-img d-none">
-                <img src="img/images/payment.png" alt="" />
+          <div class="row justify-content-center align-items-center">
+            <!-- <div class="col-lg-8" style="">
+              <div class="pay-method-img">
+                <img src="@/assets/images/payment.png" alt="image" />
               </div>
-            </div>
-            <div class="col-lg-3">
+            </div> -->
+            <div class="col-12 text-center w-100">
               <div class="copyright-text">
                 <p>
                   © 2022
@@ -122,7 +157,30 @@
 </template>
 
 <script>
-export default {};
+import profile from "@/services/profile";
+export default {
+  data() {
+    return {
+      socialLinks: null,
+    };
+  },
+  methods: {
+    footerSocialLinks() {
+      profile
+        .footerSocialLinks()
+        .then((res) => {
+          console.log(res);
+          this.socialLinks = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.footerSocialLinks();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -130,11 +188,11 @@ export default {};
 .dark-bg {
   background: #262626;
 }
-.pb-80 {
-  padding-bottom: 80px;
+.pb-50 {
+  padding-bottom: 50px;
 }
-.pt-100 {
-  padding-top: 100px;
+.pt-50 {
+  padding-top: 50px;
 }
 .footer-top-wrap {
   padding: 0 0 40px;
@@ -162,9 +220,9 @@ export default {};
 }
 .footer-link-wrap {
   display: flex;
-  padding: 30px 0 0;
-  direction: rtl;
-  text-align: left;
+  // padding: 30px 0 0;
+  // direction: rtl;
+  // text-align: left;
 }
 .footer-link-wrap .menu-links {
   flex-grow: 1;
@@ -173,14 +231,14 @@ export default {};
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  direction: ltr;
+  // direction: ltr;
 }
-.footer-link-wrap .menu-links li {
-  margin-left: 40px;
-}
-.footer-link-wrap .menu-links li:last-child {
-  margin-right: 48px;
-}
+// .footer-link-wrap .menu-links li {
+//   margin-left: 40px;
+// }
+// .footer-link-wrap .menu-links li:last-child {
+//   margin-right: 48px;
+// }
 .footer-link-wrap .menu-links li a {
   display: block;
   font-size: 13px;
@@ -195,6 +253,7 @@ export default {};
 .footer-social ul {
   display: flex;
   align-items: center;
+
 }
 .footer-social ul li + li {
   margin-left: 18px;
@@ -206,9 +265,9 @@ export default {};
 .footer-social {
   margin-right: 108px;
 }
-.copyright-wrap {
-  margin-top: 27px;
-}
+// .copyright-wrap {
+//   margin-top: 27px;
+// }
 .copyright-text {
   p {
     margin-bottom: 0;
@@ -343,11 +402,16 @@ export default {};
 
 // style arabic
 html:lang(ar) {
-  .footer-link-wrap .menu-links ul {
-    direction: rtl;
-  }
+  // .footer-link-wrap .menu-links ul {
+  //   direction: rtl;
+  // }
   .footer-link-wrap .menu-links li:last-child {
     margin-right: 0;
+  }
+}
+.footer-middle-wrap {
+  a {
+    color: #8c8c8c;
   }
 }
 </style>

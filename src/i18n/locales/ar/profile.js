@@ -24,6 +24,7 @@ export default {
   totalPrice: "الاجمالي",
   quantity: "الكمية",
   price: "السعر",
+  itemPrice: "سعر المنتج",
   product: "المنتج",
   // Subscribe Newsletter
   subscribeNewsletter: "الاشتراك بالنشرة الدورية",
@@ -60,6 +61,7 @@ export default {
   actions: "احداث",
   viewDetails: "عرض التفاصيل",
   productName: "اسم المنتج",
+  productImage: "صورة المنتج",
   save: "حفظ",
   // Documents
   documents: "المستندات",

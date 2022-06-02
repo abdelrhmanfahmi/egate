@@ -17,7 +17,7 @@
       </span>
       <div class="container mb-3">
         <div class="d-flex justify-content-end">
-          <router-link to="/suppliers"> Show All </router-link>
+          <router-link to="/suppliers" class="showAllLink"> Show All </router-link>
         </div>
       </div>
       <b-row v-if="loading" class="px-5">

@@ -151,7 +151,7 @@
             </div>
           </div>
         </section>
-        <section class="supplier-info">
+        <section class="supplier-info" v-if="orders[0].bicked">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
           >
