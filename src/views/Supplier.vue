@@ -57,15 +57,18 @@
           <SideSection
             class="col-12 col-lg-4 order-1 order-lg-0"
             :supplier="supplier"
+            :supplierMSite="supplierMSite"
           ></SideSection>
           <Article
             class="col-12 col-lg-8 order-0 order-lg-1"
             :data="article"
             :supplier="supplier"
+            :supplierMSite="supplierMSite"
+            
           ></Article>
         </div>
-        <div class="products text-center" v-if="supplierProductsLength > 0">
-          <p class="title">{{ $t("supplier.products") }}</p>
+        <div class="products text-center mt-5 pt-5" v-if="supplierProductsLength > 0">
+          <h1 class="title">{{ $t("supplier.supplierProducts") }}</h1>
           <div class="row">
             <div
               class="col-12 col-sm-6 col-lg-3"
@@ -135,6 +138,7 @@ export default {
       supplier: null,
       supplierProducts: null,
       supplierProductsLength: null,
+      supplierMSite:null
     };
   },
   methods: {
@@ -144,7 +148,7 @@ export default {
       suppliers
         .getSupplier(id)
         .then((resp) => {
-          console.log("resp", resp.data.items);
+          // console.log("resp", resp.data.items);
           this.supplier = resp.data.items;
         })
         .catch((err) => {
@@ -159,7 +163,7 @@ export default {
       suppliers
         .getSupplierProducts(id)
         .then((resp) => {
-          this.supplierProducts = resp.data.items.data;
+          this.supplierProducts = resp.data.items.data.slice(0,4);
           resp.data.items.data.length > 0
             ? (this.supplierProductsLength = resp.data.items.data.length)
             : (this.supplierProductsLength = 0);
@@ -192,10 +196,22 @@ export default {
         }, 200);
       }
     },
+    supplierMicroSite() {
+      suppliers
+        .supplierMicroSite(this.id)
+        .then((res) => {
+          console.log(res);
+          this.supplierMSite = res.data.items
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getSupplier();
     this.getSupplierProducts();
+    this.supplierMicroSite();
   },
 };
 </script>
@@ -222,8 +238,8 @@ export default {
     color: #312620;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 14pt;
+    margin-bottom: 5rem;
+    // font-size: 14pt;
   }
   .load-more {
     background: #fff;

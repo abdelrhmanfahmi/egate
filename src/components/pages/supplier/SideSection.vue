@@ -1,38 +1,36 @@
 <template>
   <div class="side-sections" v-if="supplier">
-    <p class="title" v-if="supplier.image_path">{{ $t("supplier.about") }}</p>
+    <p class="title" v-if="supplier.image_path">
+      {{ $t("supplier.about") }}
+      <span class="supplier-name">{{ supplier.company_name }}</span>
+    </p>
     <div class="company-info">
       <img
+        class="supplier-logo"
         :src="supplier.image_path"
         alt="Company Name"
         v-if="supplier.image_path"
       />
-      <h4 class="name" v-if="supplier.company_name">
+      <!-- <h4 class="name" v-if="supplier.company_name">
         {{ supplier.company_name }}
-      </h4>
-      <!-- <ul class="social-accounts d-flex flex-wrap">
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
+      </h4> -->
+      <ul class="social-accounts d-flex flex-wrap" v-if="supplierMSite">
+        <li class="account" v-if="supplierMSite.facebook_page">
+          <a :href="supplierMSite.facebook_page"><b-icon-facebook font-scale="1.5"></b-icon-facebook></a>
         </li>
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
+        <li class="account" v-if="supplierMSite.twitter_page">
+          <a :href="supplierMSite.twitter_page"><b-icon-twitter font-scale="1.5"></b-icon-twitter></a>
         </li>
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
+        <li class="account" v-if="supplierMSite.instagram_page">
+          <a :href="supplierMSite.instagram_page"><b-icon-instagram font-scale="1.5"></b-icon-instagram></a>
         </li>
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
+        <li class="account" v-if="supplierMSite.google_page">
+          <a :href="supplierMSite.google_page"><b-icon-google font-scale="1.5"></b-icon-google></a>
         </li>
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
-        </li>
-        <li class="account">
-          <a href="#"><b-icon-twitter></b-icon-twitter></a>
-        </li>
-      </ul> -->
+      </ul>
     </div>
     <div class="other-sections" v-if="supplier.categories">
-      <p class="title">{{ $t("supplier.sections") }}</p>
+      <h5 class="title">{{ $t("supplier.sections") }}</h5>
       <ul class="sections">
         <li class="section" v-for="item in supplier.categories" :key="item.id">
           <router-link
@@ -49,15 +47,18 @@
   </div>
 </template>
 <script>
-// import { BIconTwitter } from "bootstrap-vue";
+import { BIconTwitter , BIconFacebook , BIconInstagram , BIconGoogle } from "bootstrap-vue";
 export default {
   components: {
-    // BIconTwitter,
+    BIconTwitter,
+    BIconFacebook,
+    BIconInstagram,
+    BIconGoogle
   },
   data() {
     return { count: 0 };
   },
-  props: ["supplier"],
+  props: ["supplier" , "supplierMSite"],
 };
 </script>
 <style lang="scss" scoped>
@@ -101,7 +102,7 @@ export default {
     }
   }
   .other-sections {
-    height: 500px;
+    max-height: 500px;
     overflow-y: scroll;
     color: #ed2124;
     .sections {
@@ -130,6 +131,17 @@ export default {
         }
       }
     }
+  }
+}
+.supplier-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 8px;
+}
+.company-info {
+  .supplier-logo {
+    width: 300px;
+    object-fit: cover;
   }
 }
 </style>
