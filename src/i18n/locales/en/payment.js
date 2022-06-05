@@ -34,7 +34,7 @@ export default {
   country_code: "Country Code",
   chooseCurrency: "Choose Currency",
   waitPurchace1: "Thank You for Your Order!",
-  waitPurchace2: "A copy or your order summary has been sent to Your Email",
+  waitPurchace2: "A copy of your order summary has been sent to Your Phone via SMS",
   congrats: "Congratulations!",
   orderTrack: "Track Your Order",
   fail: "ERROR!",

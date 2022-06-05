@@ -193,18 +193,19 @@ export default {
       profile
         .getQuotationDetail(this.id)
         .then((res) => {
+          console.log("res" , res);
           this.quotations = res.data.items;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    addToCart(myProduct) {
+    addToCart() {
       let data = {
         client_quote_id: this.id,
         approve: 1,
       };
-      console.log(myProduct);
+      // console.log(myProduct);
       return globalAxios
         .post(`members/product/rfq/approve`, data)
         .then((res) => {

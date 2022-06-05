@@ -245,12 +245,12 @@ export default {
       });
     },
     search() {
-      document.querySelector('.modal').click()
+      document.querySelector(".modal").click();
       this.$router.push({
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
-      location.reload()
+      location.reload();
     },
   },
   computed: {
@@ -312,6 +312,8 @@ export default {
     .branding {
       text-align: center;
       img {
+        width: 100px;
+        padding: 11px 12px 13px 5px;
         cursor: pointer;
       }
     }

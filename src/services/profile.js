@@ -110,5 +110,21 @@ export default {
   },
   footerSocialLinks(){
     return globalAxios.get(`site-settings`)
-  }
+  },
+  getAboutData(){
+    return globalAxios.get('statics/About-us')
+  },
+  getAboutVisionData(){
+    return globalAxios.get('statics/Vision')
+  },
+  getAboutMessageData(){
+    return globalAxios.get('statics/Message')
+  },
+  getAboutPrincipleData(){
+    return globalAxios.get('statics/Our-principles')
+  },
+  contactUs(payload){
+    return globalAxios.post('contact-us' , payload)
+  },
+
 };

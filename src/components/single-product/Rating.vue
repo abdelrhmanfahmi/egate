@@ -4,12 +4,13 @@
       <h5 class="header d-inline-block font-weight-bold mb-3">
         {{ $t("singleProduct.ratingHeader") }} (0):
       </h5>
-      <p class="description">{{ $t("singleProduct.ratingDescription") }}.</p>
+      <!-- <p class="description">{{ $t("singleProduct.ratingDescription") }}.</p> -->
       <!-- <p class="hint">{{ $t("singleProduct.ratingHint") }}</p> -->
       <div class="product-rate">
-        <form class="review-form row">
+        <!-- <form class="review-form row">
           <div class="form-group mb-4 col-12">
             <label for="rating">{{ $t("singleProduct.ratingLabel") }}</label>
+            <label for="rating"><span>{{ userData.first_name }}</span> {{ userData.last_name }}</label>
             <b-form-rating id="rating" style="color: #acacac"></b-form-rating>
           </div>
           <div class="form-group mb-4 col-12">
@@ -42,7 +43,29 @@
               {{ $t("profile.save") }}
             </b-button>
           </div>
-        </form>
+        </form> -->
+        <div class="my-3">
+          <!-- <hr /> -->
+          <div class="form-group mb-4 col-12">
+            <label for="rating" class="d-flex align-items-center">
+              <div class="mr-3">
+                <span>{{ userData.first_name }}</span>
+                <span>{{ userData.last_name }}</span>
+              </div>
+
+              <div>
+                <b-form-rating
+                  id="rating-disabled"
+                  style="color: #acacac"
+                  value="4"
+                  disabled
+                ></b-form-rating>
+                <!-- <b-form-rating id="rating-disabled" value="3" disabled></b-form-rating> -->
+                <!-- <span>ratingValue : {{ ratingValue }}</span> -->
+              </div>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -50,9 +73,9 @@
 <script>
 export default {
   data() {
-    return { count: 0 };
+    return { count: 0, ratingValue: null };
   },
-  props:['myProduct']
+  props: ["myProduct"],
 };
 </script>
 <style lang="scss" scoped>
@@ -99,5 +122,8 @@ export default {
       }
     }
   }
+}
+.b-rating.disabled{
+  background: transparent;
 }
 </style>

@@ -1,43 +1,36 @@
 <template>
   <div class="about">
-    <h2 class="about-title text-center">{{ $t("home.about") }}</h2>
-    <div class="about-content">
-      <!-- First Section -->
-      <div class="about-content-one">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="image w-100">
-              <img src="@/assets/images/ab.png" alt="" />
+    <div
+      class="d-flex justify-content-center align-items-center CUSTOM-SPINNER"
+      v-if="loading"
+    >
+      <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+    </div>
+    <div class="" v-else>
+      <h2 class="about-title text-center">{{ $t("home.about") }}</h2>
+      <div class="about-content">
+        <!-- First Section -->
+        <div class="about-content-one">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="image w-100">
+                <img src="@/assets/images/ab.png" alt="" />
+              </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="container">
-              <div class="content">
-                <h2 class="title">{{ $t("home.about") }}</h2>
-                <p class="body">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Quos, neque. Ullam, assumenda accusamus harum, adipisci sint
-                  exercitationem deserunt, ex officiis ducimus nesciunt autem
-                  optio nisi atque quidem quo provident iure! <br />
-                  <br />
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Quos, neque. Ullam, assumenda accusamus harum, adipisci sint
-                  exercitationem deserunt, ex officiis ducimus nesciunt autem
-                  optio nisi atque quidem quo provident iure! <br />
-                  <br />
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Quos, neque. Ullam, assumenda accusamus harum, adipisci sint
-                  exercitationem deserunt, ex officiis ducimus nesciunt autem
-                  optio nisi atque quidem quo provident iure! <br />
-                  <br />
-                </p>
+            <div class="col-md-6" v-if="aboutGeneralData">
+              <div class="container">
+                <div class="content">
+                  <h2 class="title" v-if="aboutGeneralData.title">
+                    {{ aboutGeneralData.title }}
+                  </h2>
+                  <p class="body" v-html="aboutGeneralData.description" v-if="aboutGeneralData.description"></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Second Section -->
-      <div class="about-content-sec">
+        <!-- Second Section -->
+        <!-- <div class="about-content-sec">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -70,61 +63,49 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- Third Section -->
-      <div class="about-content-third text-center">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="content">
-                <div class="img">
-                  <img src="@/assets/images/vision.png" alt="" />
-                </div>
-                <h3 class="title">{{ $t("home.vision") }}</h3>
-                <div class="body">
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit
-                  </p>
+      </div> -->
+        <!-- Third Section -->
+        <div class="about-content-third text-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="content" v-if="vision">
+                  <div class="img">
+                    <img src="@/assets/images/vision.png" alt="" />
+                  </div>
+                  <h3 class="title" v-if="vision.title">{{ vision.title }}</h3>
+                  <div class="body" v-if="vision.description">
+                    <p v-html="vision.description" v-if="vision.description"></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="content">
-                <div class="img">
-                  <img src="@/assets/images/mission.png" alt="" />
-                </div>
-                <h3 class="title">{{ $t("home.message") }}</h3>
-                <div class="body">
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  </p>
+              <div class="col-md-4">
+                <div class="content" v-if="message">
+                  <div class="img">
+                    <img src="@/assets/images/mission.png" alt="" />
+                  </div>
+                  <h3 class="title">{{ message.title }}</h3>
+                  <div class="body">
+                    <p v-html="message.description" v-if="message.description"></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="content">
-                <div class="img">
-                  <img src="@/assets/images/values.png" alt="" />
-                </div>
-                <h3 class="title">{{ $t("home.myPrinciples") }}</h3>
-                <div class="body">
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  </p>
+              <div class="col-md-4">
+                <div class="content" v-if="principle">
+                  <div class="img">
+                    <img src="@/assets/images/values.png" alt="" />
+                  </div>
+                  <h3 class="title">{{ principle.title }}</h3>
+                  <div class="body">
+                    <p v-html="principle.description" v-if="principle.description"></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- news letter Section -->
-      <div class="newsletter-bg newsletter-style-two pb-100">
+        <!-- news letter Section -->
+        <!-- <div class="newsletter-bg newsletter-style-two pb-100">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -148,19 +129,84 @@
             </div>
           </div>
         </div>
+      </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import profile from "@/services/profile";
 
 export default {
   mounted() {
-
+    setTimeout(() => {
+      this.loading = true;
+      this.getAboutData();
+    }, 50);
+    setTimeout(() => {
+      this.getAboutVisionData();
+    }, 100);
+    setTimeout(() => {
+      this.getAboutMessageData();
+    }, 150);
+    setTimeout(() => {
+      this.getAboutPrincipleData();
+    }, 200);
+    setTimeout(() => {
+      this.loading = false;
+    }, 500);
   },
   methods: {
-
+    getAboutData() {
+      profile
+        .getAboutData()
+        .then((res) => {
+          this.aboutGeneralData = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getAboutVisionData() {
+      profile
+        .getAboutVisionData()
+        .then((res) => {
+          this.vision = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getAboutMessageData() {
+      profile
+        .getAboutMessageData()
+        .then((res) => {
+          this.message = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getAboutPrincipleData() {
+      profile
+        .getAboutPrincipleData()
+        .then((res) => {
+          this.principle = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  data() {
+    return {
+      aboutGeneralData: null,
+      vision: null,
+      message: null,
+      principle: null,
+      loading: false,
+    };
   },
 };
 </script>
@@ -232,10 +278,10 @@ export default {
       .content {
         text-align: center;
         padding: 55px 100px;
-        .title {
-        }
-        .body {
-        }
+        // .title {
+        // }
+        // .body {
+        // }
       }
     }
 
@@ -343,5 +389,8 @@ html:lang(ar) {
   .newsletter-form input {
     text-align: left;
   }
+}
+.CUSTOM-SPINNER {
+  min-height: 80vh;
 }
 </style>

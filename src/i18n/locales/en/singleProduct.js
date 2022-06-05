@@ -19,7 +19,7 @@ export default {
   addCart: "Add to Cart",
   sharing: "Sharing",
   // Specs
-  specsTitle: "Specs",
+  specsTitle: "Product Specifications",
   specsHeader: "Info",
   specsDescription:
     "Apple features its high content of antioxidants, flavonoid, and some types of vitamins, making it a very useful diet.",

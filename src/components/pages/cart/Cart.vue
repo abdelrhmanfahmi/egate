@@ -1055,7 +1055,7 @@
                       </div>
                     </div> -->
 
-                      <div class="col-5 form-group required">
+                      <div class="col-5 form-group ">
                         <label for="email">{{ $t("payment.email") }}</label>
                         <input
                           type="email"
@@ -2048,7 +2048,7 @@ export default {
             this.errors = {};
             this.getAllAdresses();
             this.showForm = false;
-            this.form = {};
+            // this.form = {};
             if (res.status == 200) {
               this.submitted = true;
 

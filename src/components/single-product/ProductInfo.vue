@@ -126,7 +126,7 @@
           </button>
           <button
             @click="loginFirst"
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 not-loged-in"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
             v-else-if="
               (myProduct.product_details_by_type.add_type === 'rfq' ||
                 myProduct.product_details_by_type.add_type === 'both') &&
