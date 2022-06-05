@@ -61,6 +61,7 @@ export default {
 .mobile-nav {
   .branding {
     text-align: center;
+    
   }
   .drop-down {
     li {

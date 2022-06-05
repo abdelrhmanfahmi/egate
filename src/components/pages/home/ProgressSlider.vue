@@ -1,5 +1,5 @@
 <template>
-  <div class="product-silder text-center mt-5" >
+  <div class="product-silder text-center mt-2" >
     <b-container v-if="slidersLength > 0">
       <div class="info" >
         <p>{{ $t("home.bestDeal") }}</p>
@@ -132,7 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-silder {
-  padding: 0px 10px 20px 10px;
+  padding: 0px 10px 5px 10px;
   .info {
     display: flex;
     justify-content: space-between;

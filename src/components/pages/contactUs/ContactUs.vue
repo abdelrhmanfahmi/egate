@@ -5,38 +5,71 @@
         <div class="col-12 col-lg-8 col-xl-9 form-body">
           <span class="side-info">{{ $t("contactUs.contactUs") }}</span>
           <p class="title">{{ $t("contactUs.writeMessage") }}</p>
-          <form class="row">
+          <form class="row" @submit.prevent="contactUs">
             <div class="form-input col-6">
               <input
-                v-model="form.fullName"
+                v-model="form.full_name"
                 type="text"
                 :placeholder="$t('contactUs.formName')"
-                required
               />
+              <div class="" v-if="errors">
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.full_name"
+                  :key="index"
+                >
+                  <p>{{ error }}</p>
+                </div>
+              </div>
             </div>
             <div class="form-input col-6">
               <input
                 v-model="form.email"
                 type="text"
                 :placeholder="$t('contactUs.formEmail')"
-                required
               />
+              <div class="" v-if="errors">
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.email"
+                  :key="index"
+                >
+                  <p>{{ error }}</p>
+                </div>
+              </div>
             </div>
             <div class="form-input col-6">
               <input
-                v-model="form.phone"
-                type="text"
+                v-model="form.mobile_number"
+                type="number"
                 :placeholder="$t('contactUs.formPhone')"
-                required
+                min="0"
               />
+              <div class="" v-if="errors">
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.mobile_number"
+                  :key="index"
+                >
+                  <p>{{ error }}</p>
+                </div>
+              </div>
             </div>
             <div class="form-input col-6">
               <input
                 v-model="form.subject"
                 type="text"
                 :placeholder="$t('contactUs.formSubject')"
-                required
               />
+              <div class="" v-if="errors">
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.subject"
+                  :key="index"
+                >
+                  <p>{{ error }}</p>
+                </div>
+              </div>
             </div>
             <div class="form-input col-12">
               <b-form-textarea
@@ -45,6 +78,15 @@
                 rows="5"
                 style="resize: none"
               ></b-form-textarea>
+              <div class="" v-if="errors">
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.message"
+                  :key="index"
+                >
+                  <p>{{ error }}</p>
+                </div>
+              </div>
             </div>
             <div class="col-2">
               <b-button type="submit" class="login-button">
@@ -130,6 +172,7 @@
 </template>
 <script>
 import { BIconTelephoneOutbound } from "bootstrap-vue";
+import profile from "@/services/profile";
 export default {
   components: {
     BIconTelephoneOutbound,
@@ -137,13 +180,30 @@ export default {
   data() {
     return {
       form: {
-        fullName: "",
+        full_name: "",
         email: "",
-        phone: "",
+        mobile_number: "",
         subject: "",
         message: "",
       },
+      errors: [],
     };
+  },
+  methods: {
+    contactUs() {
+      profile
+        .contactUs(this.form)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+        })
+        .catch((error) => {
+          console.log(error);
+          let err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
   },
 };
 </script>

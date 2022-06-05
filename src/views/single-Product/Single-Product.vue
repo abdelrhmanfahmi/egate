@@ -14,7 +14,8 @@
           <b-tab :title="$t('singleProduct.specsTitle')" active>
             <Specs :myProduct="myProduct" v-if="myProduct"></Specs>
           </b-tab>
-          <b-tab :title="$t('singleProduct.ratingTitle')">
+          <b-tab :title="$t('singleProduct.ratingHeader')">
+          <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
             <Rating :myProduct="myProduct" v-if="myProduct"></Rating>
           </b-tab>
         </b-tabs>

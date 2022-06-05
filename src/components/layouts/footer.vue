@@ -169,7 +169,7 @@ export default {
       profile
         .footerSocialLinks()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.socialLinks = res.data.items.data;
         })
         .catch((err) => {
