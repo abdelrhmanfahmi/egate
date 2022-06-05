@@ -1,8 +1,10 @@
 <template>
   <div class="subCategory" :class="$i18n.locale">
-    <div class="cover text-center" :style="{ backgroundImage: `url(${pageCover})` }">
+    <div
+      class="cover text-center"
+      :style="{ backgroundImage: `url(${pageCover})` }"
+    >
       <div
-        
         class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
         <b-container>
@@ -126,34 +128,33 @@
                     </b-card>
                   </b-col>
                 </b-row>
-                <div class="" v-else-if="!loading && allChildrenLength > 0">
+                <b-row
+                  align-h="center"
+                  align-v="center"
+                  v-else-if="!loading && allSubCategoriesLength > 0"
+                >
                   <div
                     :title="category.title"
-                    v-for="category in subCategories"
+                    v-for="category in allSubCategories"
                     :key="category.id"
                     lg="3"
                     sm="6"
                     class="custum-padding mb-3"
                   >
-                    <div
-                      class="mb-2 d-inline-block"
-                      v-for="cat in category.all_children"
-                      :key="cat.id"
-                    >
+                    <div class="mb-2">
                       <router-link
-                        :to="`/categories/${cat.id}/variants`"
-                        v-if="cat.id"
+                        :to="`/categories/${category.id}/variants`"
+                        v-if="category.id"
                       >
                         <CategoryCard
-                          v-if="cat"
-                          :card="{ type: cat.title }"
-                          :image="cat.image_path"
-                          
+                          v-if="category"
+                          :card="{ type: category.title }"
+                          :image="category.image_path"
                         />
                       </router-link>
                     </div>
                   </div>
-                </div>
+                </b-row>
                 <div class="" v-else-if="!loading && allChildrenLength <= 0">
                   <h3 class="my-2">
                     {{ $t("home.noDataTill") }}
@@ -165,11 +166,15 @@
                 v-for="category in subCategories"
                 :key="category.id"
               >
-                <b-row v-if="category.all_children.length > 0">
+                <b-row
+                  align-h="center"
+                  align-v="center"
+                  v-if="category.all_children.length > 0"
+                >
                   <b-col
                     lg="3"
                     sm="6"
-                    class="custum-padding mb-3"
+                    class="custum-padding mb-3 p-0"
                     v-for="cat in category.all_children"
                     :key="cat.id"
                   >
@@ -225,6 +230,8 @@ export default {
       pageCover: null,
       pageTitle: null,
       searchWord: null,
+      allSubCategories: null,
+      allSubCategoriesLength: null,
     };
   },
   computed: {
@@ -260,18 +267,32 @@ export default {
             ) {
               this.allChildrenData = this.subCategories[i].all_children;
 
-              console.log("element", this.allChildrenData);
+              // console.log("element", this.allChildrenData);
 
               // console.log(
               //   "inside index",
               //   // this.allChildrenData[index]
               //   this.allChildrenData
               // );
-              
             }
 
             // console.log("outside index", resp.data.items[i].all_children);
           }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    async getAllSubCategories() {
+      await categories
+        .getAllSubCategories(this.id)
+        .then((resp) => {
+          console.log("all res", resp);
+          this.allSubCategories = resp.data.items;
+          this.allSubCategoriesLength = resp.data.items.length;
         })
         .catch((err) => {
           console.log(err);
@@ -292,6 +313,7 @@ export default {
     },
   },
   created() {
+    this.getAllSubCategories();
     this.getSubCategories();
     this.getCover();
     sessionStorage.setItem("catId", this.id);
@@ -306,7 +328,7 @@ export default {
   background-size: cover;
 }
 .cover-data {
-  background:rgba(0,0,0,.35);
+  background: rgba(0, 0, 0, 0.35);
 }
 select {
   border: none;
@@ -347,7 +369,6 @@ div:empty {
   opacity: 0;
 }
 .custum-padding {
-
   .category-card {
     margin-right: 7px;
   }

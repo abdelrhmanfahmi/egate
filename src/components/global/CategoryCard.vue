@@ -33,7 +33,7 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.125);
   img {
     min-width: 350px;
-    height: 210px;
+    height: 150px;
     -o-object-fit: cover;
     object-fit: cover;
     background-size: cover;

@@ -174,12 +174,12 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <p>
+                      <!-- <p>
                         {{
                           item.product_supplier.product_details[0].price
                             | fixedCurrency
                         }} {{currency}}
-                      </p>
+                      </p> -->
                     </td>
                     <td class="text-center">
                       <div

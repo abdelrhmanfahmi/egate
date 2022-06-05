@@ -1,5 +1,5 @@
 import Vue from "vue";
-
+import moment from 'moment'
 Vue.filter("fixedCurrency", function (el) {
   return el.toFixed(3);
 });
@@ -7,6 +7,7 @@ Vue.filter("fixedCurrency", function (el) {
 Vue.filter("formatDate", function (value) {
   if (value) {
 
-    return new Date(value).toLocaleString();
+    return moment(String(value)).format('MM/DD/YYYY  -  hh:mm')
+    // toLocaleString();
   }
 });

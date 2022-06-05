@@ -11,11 +11,11 @@
         </div>
       </VueSlickCarousel>
     </div>
-    <div class="suppliers pt-5" v-if="suppliers">
+    <div class="suppliers pt-2" v-if="suppliers">
       <span class="product-info">
         <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
       </span>
-      <div class="container mb-3">
+      <div class="container mb-1">
         <div class="d-flex justify-content-end">
           <router-link to="/suppliers" class="showAllLink"> Show All </router-link>
         </div>

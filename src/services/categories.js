@@ -13,6 +13,9 @@ export default {
       },
     });
   },
+  getAllSubCategories(data) {
+    return globalAxios.get(`lists/leafCategories/${data} `);
+  },
   searchResult(data) {
     return globalAxios.get(`products/search/categories-products`, {
       params: {
@@ -27,7 +30,7 @@ export default {
       },
     });
   },
-  getCategoryProducts(id,variantData) {
+  getCategoryProducts(id, variantData) {
     return globalAxios.get(`products?category_id=${id}&${variantData}`);
   },
   getSingleProductDetails(id) {
@@ -36,7 +39,7 @@ export default {
   productDetails(id) {
     return globalAxios.get(`products/${id}`);
   },
-  getBestDeals(){
-    return globalAxios.get('products/best/offers')
+  getBestDeals() {
+    return globalAxios.get("products/best/offers");
   },
 };

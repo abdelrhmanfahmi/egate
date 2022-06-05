@@ -37,7 +37,7 @@
       <div class="content">
         <b-row
           align-h="center"
-          align-v="center"
+          align-v="start"
           class="py-5"
           v-if="productInfo"
         >
@@ -381,9 +381,9 @@
                 ></Variants-Counter>
                 <p v-else>-</p>
               </td>
-              <td>
+              <td class="actions-holder">
                 <div
-                  class="add-to d-flex justify-content-center"
+                  class="add-to d-flex justify-content-center align-items-center"
                   v-if="
                     (userData &&
                       userData.profile_percentage == 100 &&
@@ -393,6 +393,7 @@
                   "
                 >
                   <a
+                    class="d-flex justify-content-center align-items-center"
                     @click="addToCart(product)"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
@@ -403,15 +404,50 @@
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
                   <a
-                    class="text-danger"
+                    class="text-danger d-flex justify-content-center align-items-center"
                     :title="`product in favourite`"
                     @click="addToWishlist(product)"
                     v-if="product.is_favorite == true"
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
-                  <a @click="addToWishlist(product)" v-else
+                  <a
+                    @click="addToWishlist(product)"
+                    class="d-flex justify-content-center align-items-center"
+                    v-else
                     ><font-awesome-icon icon="fa-solid fa-star"
                   /></a>
+                  <div class="d-flex justify-content-center">
+                    <button
+                      class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
+                      v-if="
+                        (userData &&
+                          (product.product_details_by_type.add_type === 'rfq' ||
+                            product.product_details_by_type.add_type ===
+                              'both') &&
+                          userData.type === 'buyer' &&
+                          userData.profile_percentage == 100) ||
+                        (userData.type === 'b2c' && userData.is_verified)
+                      "
+                    >
+                      <div
+                        @click="
+                          storeProductSupplierId(
+                            product.product_details_by_type.product_supplier_id
+                          )
+                        "
+                      >
+                        <button
+                          id="show-btn"
+                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                          @click="$bvModal.show('bv-bidRequest')"
+                        >
+                          <!-- <span role="button" @click="loggedBidRequest"> -->
+                          {{ $t("singleProduct.bidRequest") }}
+                          <font-awesome-icon icon="fa-solid fa-list" />
+                        </button>
+                      </div>
+                    </button>
+                  </div>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                 </div>
                 <div
@@ -458,6 +494,70 @@
             </tr>
           </tbody>
         </table>
+        <b-modal id="bv-bidRequest" hide-footer>
+          <template #modal-title>
+            {{ $t("singleProduct.bidRequest") }}
+          </template>
+          <form>
+            <div class="form-group">
+              <label for=""
+                >{{ $t("singleProduct.nameInput") }}
+                <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                v-model="requestData.name"
+              />
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.qoute_name"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for=""
+                >{{ $t("singleProduct.min_order_quantity") }}
+                <span class="text-danger">*</span></label
+              >
+              <input
+                type="number"
+                min="1"
+                class="form-control"
+                v-model="requestData.request_qty"
+              />
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.request_qty"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for=""
+                >{{ $t("singleProduct.reviewInput") }}
+                <span class="text-danger">*</span></label
+              >
+              <textarea
+                class="form-control"
+                v-model="requestData.comment"
+              ></textarea>
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.comment"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+          </form>
+          <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
+            $t("cart.submit")
+          }}</b-button>
+        </b-modal>
       </div>
     </div>
 
@@ -492,6 +592,7 @@ import categories from "@/services/categories";
 import VariantsCounter from "@/components/global/variantsCounter.vue";
 // import Product from "@/components/pages/supplier/products/Product.vue";
 import globalAxios from "@/services/global-axios";
+import suppliers from "@/services/suppliers";
 
 // import modal from "@/components/cart/cartModal.vue";
 // import { mapActions } from "vuex";
@@ -574,6 +675,13 @@ export default {
       showModal: false,
       requestVariants: null,
       selectedVariants: null,
+      requestData: {
+        name: null,
+        request_qty: null,
+        comment: null,
+      },
+      errors: [],
+      supplierProductId: null,
     };
   },
   components: {
@@ -713,7 +821,7 @@ export default {
       categories
         .getCategoryProducts(this.pageId)
         .then((res) => {
-          // console.log("getCategoryProducts", res);
+          console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -773,6 +881,41 @@ export default {
     postVariance() {
       // let selectedVariance = [];
       // axios.post('')
+    },
+    requestQuotation() {
+      let payload = {
+        qoute_name: this.requestData.name,
+        product_supplier_id: this.supplierProductId,
+        request_qty: this.requestData.request_qty,
+        comment: this.requestData.comment,
+      };
+      suppliers
+        .requestQuotation(payload)
+        .then((resp) => {
+          console.log(resp);
+          this.errors = {};
+          this.sucessMsg(resp.data.message);
+          setTimeout(() => {
+            document.querySelector(".close").click();
+            this.requestData = [];
+          }, 500);
+          setTimeout(() => {
+            this.$router.push({
+              path: "/profile/quotationDetails",
+              query: {
+                id: resp.data.items.client_quote_id,
+              },
+            });
+          }, 1000);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    storeProductSupplierId(product_supplier_id) {
+      this.supplierProductId = product_supplier_id;
     },
     // getSupplierProducts() {
     //   suppliers
@@ -900,15 +1043,35 @@ export default {
 }
 .item-media {
   img {
-    min-height: 250px;
+    height: 350px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 
-.products-table{
-  .table td{
-    padding: .40rem !important;
+.products-table {
+  .table td {
+    padding: 0.4rem !important;
+  }
+}
+.add-cart {
+  border-radius: 0;
+  font-size: 11pt;
+  background: #36363b;
+  color: #fff;
+  padding: 1rem 2rem;
+  height: fit-content;
+  margin-inline-end: 0.5rem;
+  display: block;
+  min-width: 10rem;
+  text-align: center;
+  &:hover {
+    background: #ed2124;
+  }
+}
+.actions-holder {
+  @media (min-width: 767px) {
+    width: 30%;
   }
 }
 </style>
