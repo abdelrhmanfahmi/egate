@@ -53,7 +53,11 @@
                     </div>
                     <div class="" v-if="product.product_details_by_type">
                       <small>
-                        {{ product.product_details_by_type.price }}</small
+                        {{ product.product_details_by_type.customer_price }}</small
+                      >
+                      <br>
+                      <small>
+                        {{ product.product_details_by_type.price_before_discount }}</small
                       >
                     </div>
                   </div>

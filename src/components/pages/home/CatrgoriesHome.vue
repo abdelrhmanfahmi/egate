@@ -4,23 +4,25 @@
       <span class="categories-info">
         <h4 class="top-header">{{ $t("profile.categories") }}</h4>
       </span>
-      <b-row v-if="loading">
-        <b-col lg="3" sm="6" v-for="x in 10" :key="x">
-          <b-skeleton-img></b-skeleton-img>
-          <b-card>
-            <b-skeleton
-              animation="fade"
-              width="60%"
-              class="border-none"
-            ></b-skeleton>
-            <b-skeleton
-              animation="fade"
-              width="85%"
-              class="border-none"
-            ></b-skeleton>
-          </b-card>
-        </b-col>
-      </b-row>
+      <div v-if="loading">
+        <b-row class="holder">
+          <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+            <b-skeleton-img></b-skeleton-img>
+            <b-card>
+              <b-skeleton
+                animation="fade"
+                width="60%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="85%"
+                class="border-none"
+              ></b-skeleton>
+            </b-card>
+          </b-col>
+        </b-row>
+      </div>
       <b-row v-else>
         <b-col
           v-for="category in categories"
@@ -101,5 +103,8 @@ export default {
 }
 .card-body {
   padding: 1.25rem 0 !important;
+}
+.holder{
+  overflow: hidden;
 }
 </style>

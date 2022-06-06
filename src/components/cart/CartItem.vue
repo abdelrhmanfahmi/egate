@@ -12,29 +12,17 @@
         v-for="product in products.products"
         :key="product.id"
       >
-        <router-link
-          :to="{
-            path: '/details',
-            query: { id: `${product.product_supplier_id}` },
-          }"
-          class="thumb"
-        >
+        <a @click="goProduct(product.product_supplier_id)" class="thumb">
           <img
             :src="product.product_image"
             alt="Cart Item"
             class="product-image"
           />
-        </router-link>
+        </a>
         <div class="product-info w-100">
-          <router-link
-            class="name"
-            :to="{
-              path: '/details',
-              query: { id: `${product.product_supplier_id}` },
-            }"
-          >
+          <a @click="goProduct(product.product_supplier_id)" class="name">
             {{ product.product_name }}
-          </router-link>
+          </a>
 
           <span class="price" v-if="product.price">
             {{ product.price | fixedCurrency }}
@@ -110,6 +98,13 @@ export default {
         this.loading = false;
       }, 1200);
       return (this.$store.state.cartItems = []);
+    },
+    goProduct(product) {
+      this.$router.push({
+        path: "/details",
+        query: { id: product },
+      });
+      window.location.reload()
     },
   },
 };

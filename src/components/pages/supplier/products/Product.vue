@@ -25,10 +25,21 @@
       <div class="actions">
         <ul>
           <li>
-            <a href="#"><b-icon-heart></b-icon-heart></a>
+            <a @click="addToWishlist(data)" v-if="data.is_favorite == false">
+              <b-icon-heart></b-icon-heart>
+            </a>
+            <a v-if="data.is_favorite == true" class="is_favorite">
+              <b-icon-heart></b-icon-heart>
+            </a>
           </li>
           <li>
-            <a href="#"><b-icon-eye></b-icon-eye></a>
+            <router-link
+              :to="{
+                path: '/details',
+                query: { id: data.product_details_by_type.product_supplier_id },
+              }"
+              ><b-icon-eye></b-icon-eye
+            ></router-link>
           </li>
         </ul>
       </div>
@@ -40,8 +51,8 @@
           data.product.title
         }}</a>
         <div class="price">
-          <h5 v-if="data.product_details_by_type.price">
-            {{ data.product_details_by_type.price | fixedCurrency }}
+          <h5 v-if="data.product_details_by_type.customer_price">
+            {{ data.product_details_by_type.customer_price | fixedCurrency }}
             {{ currency }}
           </h5>
           <p
@@ -49,7 +60,7 @@
             v-if="
               data.product_details_by_type.price_before_discount &&
               data.product_details_by_type.price_before_discount <
-                data.product_details_by_type.price
+                data.product_details_by_type.customer_price
             "
           >
             {{
@@ -70,15 +81,54 @@
 </template>
 <script>
 import { BIconHeart, BIconEye } from "bootstrap-vue";
+import globalAxios from "@/services/global-axios";
+import suppliers from "@/services/suppliers"
 export default {
   components: {
     BIconHeart,
     BIconEye,
   },
   data() {
-    return { count: 0 };
+    return { count: 0, errors: [] };
   },
   props: ["data"],
+  methods: {
+    addToWishlist(item) {
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
+      };
+      // this.addProductToWishlist({
+      //   product: this.product,
+      // });
+      return globalAxios
+        .post(`members/profile/favorite`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          this.getWishlistProducts();
+        });
+    },
+    getSupplierProducts() {
+      suppliers
+        .getSupplierProducts(this.supplierProductsId)
+        .then((resp) => {
+          console.log("resp", resp);
+          this.supplierProducts = resp.data.items.data;
+          this.supplierProductsLength = resp.data.items.data.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -157,5 +207,8 @@ export default {
   width: 100%;
   height: 200px;
   object-fit: contain;
+}
+.is_favorite {
+  background: #ed2124 !important;
 }
 </style>
