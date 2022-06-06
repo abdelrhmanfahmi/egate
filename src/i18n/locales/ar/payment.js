@@ -34,7 +34,7 @@ export default {
   country_code: "كود الدوله",
   chooseCurrency: "اختر عملة الشراء",
   waitPurchace1: "شكرا لاستكمال طلبك",
-  waitPurchace2: "سوف يتم ارسال تفاصيل طلبك على بريدك الالكترونى",
+  waitPurchace2: "سوف يتم ارسال تفاصيل طلبك على بريدك الالكترونى / رسالة قصيرة",
   congrats: "مبروك!",
   orderTrack: "تتبع طلبك",
   fail: "حدث خطأ",

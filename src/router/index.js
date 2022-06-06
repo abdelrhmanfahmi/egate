@@ -173,6 +173,12 @@ const routes = [
     name: "SuccessCheckout",
     component: SuccessCheckout,
   },
+  { path: '*', beforeEnter: (to, from, next) => { next('/404') } },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/pageNotFound')
+  },
   ...auth,
   profileRoutes,
 ];

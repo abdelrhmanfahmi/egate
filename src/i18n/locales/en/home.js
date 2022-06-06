@@ -25,5 +25,6 @@ export default {
     tilNow: 'Till Now',
     noDataTill: 'No Data Available',
     All: 'All',
-    vendors:'Vendors'
+    vendors:'Vendors',
+    pageNoteFound1: "THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.",
 };

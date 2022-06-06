@@ -141,12 +141,12 @@
                     sm="6"
                     class="custum-padding mb-3"
                   >
-                    <div class="mb-2">
+                    <div class="mb-4">
                       <router-link
                         :to="`/categories/${category.id}/variants`"
                         v-if="category.id"
                       >
-                        <CategoryCard
+                        <OtherCategoryCard
                           v-if="category"
                           :card="{ type: category.title }"
                           :image="category.image_path"
@@ -179,7 +179,7 @@
                     :key="cat.id"
                   >
                     <router-link :to="`/categories/${cat.id}/variants`">
-                      <CategoryCard
+                      <OtherCategoryCard
                         :card="{ type: cat.title }"
                         :image="cat.image_path"
                         class="homecategories"
@@ -203,7 +203,7 @@
 </template>
 
 <script>
-import CategoryCard from "@/components/global/CategoryCard.vue";
+import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
 export default {
   data() {
@@ -242,7 +242,7 @@ export default {
     },
   },
   components: {
-    CategoryCard,
+    OtherCategoryCard,
   },
   methods: {
     filterAllChildren() {},
