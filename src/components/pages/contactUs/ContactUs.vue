@@ -97,74 +97,107 @@
         </div>
         <div class="col-12 col-lg-4 col-xl-3 info-data">
           <div class="contact-info">
-            <div class="info d-flex">
-              <div class="icon">
+            <div class="info d-flex" v-if="contactPhone">
+              <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
               <div class="data">
-                <span class="title">{{ $t("contactUs.phone") }}</span>
+                <span class="title">{{ contactPhone.title }}</span>
                 <ul class="contact-data">
                   <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
+                    <p v-html="contactPhone.description"></p>
                   </li>
                 </ul>
+              </div> -->
+              <div class="row">
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="icon">
+                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-12 mb-2">
+                  <div class="data">
+                    <span class="title">{{ contactPhone.title }}</span>
+                    <ul class="contact-data">
+                      <li>
+                        <p v-html="contactPhone.description"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="info d-flex">
-              <div class="icon">
+            <div class="info d-flex" v-if="contactEmail">
+              <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
               <div class="data">
-                <span class="title">{{ $t("contactUs.formEmail") }}</span>
+                <span class="title">{{ contactEmail.title }}</span>
                 <ul class="contact-data">
                   <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
+                    <p v-html="contactEmail.description"></p>
                   </li>
                 </ul>
+              </div> -->
+              <div class="row">
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="icon">
+                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-12 mb-2">
+                  <div class="data pl-2">
+                    <span class="title">{{ contactEmail.title }}</span>
+                    <ul class="contact-data">
+                      <li>
+                        <p v-html="contactEmail.description"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="info d-flex">
-              <div class="icon">
+            <div class="info d-flex" v-if="contactAddress">
+              <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
               <div class="data">
-                <span class="title">{{ $t("contactUs.address") }}</span>
+                <span class="title">{{ contactAddress.title }}</span>
                 <ul class="contact-data">
                   <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
-                  </li>
-                  <li>
-                    <a href="tel:+201458745896">+201458745896</a>
+                    <p v-html="contactAddress.description"></p>
                   </li>
                 </ul>
+              </div> -->
+              <div class="row">
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <div class="icon">
+                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-12 mb-2">
+                  <div class="data">
+                    <span class="title">{{ contactAddress.title }}</span>
+                    <ul class="contact-data">
+                      <li>
+                        <p v-html="contactAddress.description"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="map">
+    <div class="map" v-if="contactMap">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6973.918440151834!2d48.131962!3d29.077350000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcdc0ee30a97dfb01!2sMySupply.me!5e0!3m2!1sen!2skw!4v1646740867580!5m2!1sen!2skw"
+        :src="contactMap.value"
         width="100%"
         height="450"
         style="border: 0"
-        allowfullscreen=""
+        allowfullscreen
         loading="lazy"
       ></iframe>
     </div>
@@ -187,6 +220,10 @@ export default {
         message: "",
       },
       errors: [],
+      contactMap: null,
+      contactPhone: null,
+      contactEmail: null,
+      contactAddress: null,
     };
   },
   methods: {
@@ -204,6 +241,56 @@ export default {
           this.errMsg(err.message);
         });
     },
+    contactUsMap() {
+      profile
+        .contactUsMap()
+        .then((res) => {
+          console.log(res);
+          this.contactMap = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    contactUsPhone() {
+      profile
+        .contactUsPhone()
+        .then((res) => {
+          console.log(res);
+          this.contactPhone = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    contactUsEmail() {
+      profile
+        .contactUsEmail()
+        .then((res) => {
+          console.log(res);
+          this.contactEmail = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    contactUsAddress() {
+      profile
+        .contactUsAddress()
+        .then((res) => {
+          console.log(res);
+          this.contactAddress = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.contactUsMap();
+    this.contactUsPhone();
+    this.contactUsEmail();
+    this.contactUsAddress();
   },
 };
 </script>
@@ -295,7 +382,8 @@ export default {
             color: #000;
             li {
               color: #000;
-              a {
+              a,
+              p {
                 color: #fff;
               }
             }

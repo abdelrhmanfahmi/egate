@@ -27,4 +27,5 @@ export default {
   noDataTill: "لا يوجد معلومات حتي الان",
   All: "الكل",
   vendors: "تسجيل الموردين",
+  pageNoteFound1: "الصفحة التي كنت تبحث عنها ليست موجودة.",
 };

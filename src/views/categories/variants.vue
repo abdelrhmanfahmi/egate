@@ -318,7 +318,7 @@
                   >
                     <p class="m-0">
                       {{
-                        product.product_details_by_type.price | fixedCurrency
+                        product.product_details_by_type.customer_price | fixedCurrency
                       }}
                       {{ currency }}
                     </p>
@@ -327,7 +327,7 @@
                       v-if="
                         product.product_details_by_type.price_before_discount &&
                         product.product_details_by_type.price_before_discount <
-                          product.product_details_by_type.price
+                          product.product_details_by_type.customer_price
                       "
                     >
                       {{
@@ -651,7 +651,7 @@ export default {
           label: this.$t("items.unit"),
         },
         {
-          key: "product_details_by_type.customer_price",
+          key: "product_details_by_type.price",
           label: this.$t("items.price"),
         },
         // {

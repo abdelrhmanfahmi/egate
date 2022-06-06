@@ -136,10 +136,10 @@
                       >
                         <div
                           class="d-block text-center"
-                          v-if="item.product_supplier.image_path"
+                          v-if="item.product_supplier.product.image_path"
                         >
                           <img
-                            :src="item.product_supplier.image_path"
+                            :src="item.product_supplier.product.image_path"
                             alt="wishlist-product-image"
                             class="product-img"
                           />
@@ -154,7 +154,8 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <router-link class="text-dark"
+                      <router-link
+                        class="text-dark"
                         :to="{
                           path: '/details',
                           query: { id: item.product_supplier_id },
@@ -174,15 +175,41 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <!-- <p>
-                        {{
-                          item.product_supplier.product_details[0].price
-                            | fixedCurrency
-                        }} {{currency}}
-                      </p> -->
+                      <p class="price" v-if="item.product_supplier.product_details_by_type">
+                        <span
+                          v-if="item.product_supplier.product_details_by_type
+                              .price"
+                        >
+                          
+                          {{
+                            item.product_supplier.product_details_by_type
+                              .price | fixedCurrency
+                          }}
+                          {{ currency }}
+                        </span>
+                        <br>
+                        <span
+                          class="price-after"
+                          v-if="
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount &&
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount <
+                              item.product_supplier.product_details_by_type
+                              .price
+                          "
+                        >
+                          {{
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount | fixedCurrency
+                          }}
+                          {{ currency }}
+                        </span>
+                      </p>
                     </td>
                     <td class="text-center">
                       <div
+                        v-if="item.product_supplier.product_details_by_type"
                         class="actions d-flex justify-content-center align-items-center"
                       >
                         <b-button @click="removeFromWishlist(item)">
@@ -192,9 +219,9 @@
                         <b-button
                           @click="addToCart(item)"
                           v-if="
-                            item.product_supplier.product_details[0]
+                            item.product_supplier.product_details_by_type
                               .add_type === 'cart' ||
-                            item.product_supplier.product_details[0]
+                            item.product_supplier.product_details_by_type
                               .add_type === 'both'
                           "
                         >

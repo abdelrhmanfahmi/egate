@@ -23,12 +23,12 @@
         <p class="price">
           <span>
             {{ $t("singleProduct.price") }} :
-            {{ myProduct.product_details_by_type.price | fixedCurrency }}
+            {{ myProduct.product_details_by_type.customer_price | fixedCurrency }}
             {{ currency }}
           </span>
           <span class="price-after" v-if="myProduct.product_details_by_type.price_before_discount &&
               myProduct.product_details_by_type.price_before_discount <
-                myProduct.product_details_by_type.price">
+                myProduct.product_details_by_type.customer_price">
             {{
               myProduct.product_details_by_type.price_before_discount
                 | fixedCurrency
@@ -63,9 +63,9 @@
           </span>
         </div>
       </div>
-      <span class="is-available" v-if="myProduct.in_stock_quantity > 0"
+      <span class="is-available" v-if="myProduct.product_details_by_type.quantity > 0"
         >{{ $t("singleProduct.available") }} :
-        <b>{{ myProduct.in_stock_quantity }}</b></span
+        <b>{{ myProduct.product_details_by_type.quantity }}</b></span
       >
       <span class="is-available text-danger" v-else>
         <b>{{ $t("singleProduct.outOfStock") }}</b></span

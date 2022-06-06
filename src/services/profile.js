@@ -127,4 +127,17 @@ export default {
     return globalAxios.post('contact-us' , payload)
   },
 
+  contactUsMap(){
+    return globalAxios.get('site-settings/map_iframe')
+  },
+  contactUsPhone(){
+    return globalAxios.get('statics/Phone')
+  },
+  contactUsEmail(){
+    return globalAxios.get('statics/Email')
+  },
+  contactUsAddress(){
+    return globalAxios.get('statics/Address')
+  },
+
 };
