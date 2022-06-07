@@ -80,7 +80,9 @@
             no-caret
           >
             <template #button-content>
-              <span class="title">{{ currentCurrency }}</span>
+              <span class="title" id="myCurrency-code">{{
+                currentCurrency
+              }}</span>
             </template>
             <b-dropdown-item
               v-for="(currency, index) in myCurrencies"
@@ -110,7 +112,7 @@ export default {
   data() {
     return {
       currencyValue: null,
-      currencies: [] ,
+      currencies: [],
       countries: [],
       myCurrencies: null,
       lang: localStorage.getItem("lang") || "en",
@@ -127,11 +129,11 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-  },
-  created(){
     this.reloadPage();
-    // console.log("this.countries" ,  this.countries);
   },
+  // created(){
+  //   // console.log("this.countries" ,  this.countries);
+  // },
   methods: {
     getAllCountires() {
       auth
@@ -152,12 +154,15 @@ export default {
                 this.myCurrencies = country.currencies;
               }
             });
-          }else{
+          } else {
             // console.log("res.data.items" , res.data.items);
-            localStorage.setItem('country' ,JSON.stringify(res.data.items[0]))
-            localStorage.setItem('currency' ,res.data.items[0].currencies[0].code);
+            localStorage.setItem("country", JSON.stringify(res.data.items[0]));
+            localStorage.setItem(
+              "currency",
+              res.data.items[0].currencies[0].code
+            );
             setTimeout(() => {
-              location.reload()
+              location.reload();
             }, 500);
           }
           if (localStorage.getItem("is_default") === null) {
@@ -183,7 +188,7 @@ export default {
       }
       localStorage.setItem("lang", this.lang);
       localStorage.removeItem("currency");
-      
+
       window.location.reload();
     },
     onHandelCountry(data) {
@@ -212,16 +217,24 @@ export default {
       location.reload();
     },
     reloadPage() {
-      if (localStorage.getItem("reloadedCurrency")) {
-        // The page was just reloaded. Clear the value from local storage
-        // so that it will reload the next time this page is visited.
-        localStorage.removeItem("reloadedCurrency");
-      } else {
-        // Set a flag so that we know not to reload the page twice.
-        localStorage.setItem("reloadedCurrency", "1");
+      // if (localStorage.getItem("reloadedCurrency")) {
+      //   // The page was just reloaded. Clear the value from local storage
+      //   // so that it will reload the next time this page is visited.
+      //   localStorage.removeItem("reloadedCurrency");
+      // } else {
+      //   // Set a flag so that we know not to reload the page twice.
+      //   localStorage.setItem("reloadedCurrency", "1");
+      //   setTimeout(() => {
+      //     location.reload();
+      //   }, 700);
+      // }
+      let myCurrency = document
+        .querySelector("#myCurrency-code")
+        .innerText.trim();
+      if (myCurrency == "") {
         setTimeout(() => {
           location.reload();
-        }, 700);
+        }, 800);
       }
     },
   },
