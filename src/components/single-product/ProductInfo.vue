@@ -14,7 +14,7 @@
       <p class="description">
         {{ myProduct.short_description }}
       </p>
-      <b-form-rating></b-form-rating>
+      <!-- <b-form-rating></b-form-rating> -->
 
       <div class="" v-if="myProduct.product_details_by_type">
         <p class="serial" v-if="myProduct.product_details_by_type.sku">
@@ -23,12 +23,19 @@
         <p class="price">
           <span>
             {{ $t("singleProduct.price") }} :
-            {{ myProduct.product_details_by_type.customer_price | fixedCurrency }}
+            {{
+              myProduct.product_details_by_type.customer_price | fixedCurrency
+            }}
             {{ currency }}
           </span>
-          <span class="price-after" v-if="myProduct.product_details_by_type.price_before_discount &&
+          <span
+            class="price-after"
+            v-if="
+              myProduct.product_details_by_type.price_before_discount &&
               myProduct.product_details_by_type.price_before_discount <
-                myProduct.product_details_by_type.customer_price">
+                myProduct.product_details_by_type.customer_price
+            "
+          >
             {{
               myProduct.product_details_by_type.price_before_discount
                 | fixedCurrency
@@ -38,32 +45,114 @@
         </p>
 
         <hr />
-        <p class="supplier" v-if="myProduct.client.company_name">
+        <div class="supplier" v-if="myProduct.client.company_name">
           <!-- {{ $t("singleProduct.supplier") }} -->
           <!-- <b>:</b> -->
-          <router-link :to="`/suppliers/${myProduct.client.id}`">
-            {{ myProduct.client.company_name }}
-          </router-link>
-        </p>
+          <div class="row justify-content-center align-items-center">
+            <div class="col-6 mb-2">
+              <router-link :to="`/suppliers/${myProduct.client.id}`">
+                {{ myProduct.client.company_name }}
+                <img
+                  :src="myProduct.client.image_path"
+                  class="supplier-image"
+                  alt=""
+                  srcset=""
+                />
+              </router-link>
+            </div>
+            <div class="col-6 mb-2">
+              <b-button
+                variant="outline-danger"
+                id="show-btn"
+                class="mx-2"
+                @click="$bvModal.show('bv-modal-example')"
+                >{{ $t("profile.sendMessage") }}</b-button
+              >
+            </div>
+            <b-modal id="bv-modal-example" centered hide-footer>
+              <template #modal-title>
+                {{ $t("profile.yourMessage") }}
+              </template>
+              <div class="d-block">
+                <div class="data-holder">
+                  <form>
+                    <div class="form-group">
+                      <label for="subject">
+                        {{ $t("supplier.subject") }}
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="subject"
+                      />
+                      <div class="error mt-2">
+                        <p
+                          v-for="(error, index) in errors.subject"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="message">
+                        {{ $t("contactUs.formMessage") }}
+                      </label>
+                      <textarea
+                        class="form-control"
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        v-model="message"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="error mt-2">
+                      <p v-for="(error, index) in errors.message" :key="index">
+                        {{ error }}
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <b-button
+                class="mt-3"
+                variant="outline-success"
+                block
+                @click="sendSupplierMessage(myProduct.client.id)"
+                >{{ $t("profile.send") }}</b-button
+              >
+              <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
+          >{{$t('cart.addToCart')}}</b-button
+        > -->
+            </b-modal>
+          </div>
+        </div>
         <div class="weight">
-          <span class="title mr-3" v-if="myProduct.product_details_by_type.weight">
+          <span
+            class="title mr-3"
+            v-if="myProduct.product_details_by_type.weight"
+          >
             {{ $t("singleProduct.weight") }} :
           </span>
 
           <span>
             <div
-            class="available-weight d-flex justify-content-end"
-            v-if="myProduct.product_details_by_type"
-          >
-            <span v-if="myProduct.product_details_by_type.unit"
-              >{{ myProduct.product_details_by_type.weight }}
-              {{ myProduct.product_details_by_type.unit.title }}</span
+              class="available-weight d-flex justify-content-end"
+              v-if="myProduct.product_details_by_type"
             >
-          </div>
+              <span v-if="myProduct.product_details_by_type.unit"
+                >{{ myProduct.product_details_by_type.weight }}
+                {{ myProduct.product_details_by_type.unit.title }}</span
+              >
+            </div>
           </span>
         </div>
       </div>
-      <span class="is-available" v-if="myProduct.product_details_by_type.quantity > 0"
+      <span
+        class="is-available"
+        v-if="myProduct.product_details_by_type.quantity > 0"
         >{{ $t("singleProduct.available") }} :
         <b>{{ myProduct.product_details_by_type.quantity }}</b></span
       >
@@ -354,6 +443,7 @@ import globalAxios from "@/services/global-axios";
 // import CartModal from "@/components/cart/cartModal.vue"
 
 import categories from "@/services/categories";
+import profile from "@/services/profile";
 export default {
   components: {
     BIconPlus,
@@ -514,7 +604,27 @@ export default {
           this.loading = false;
         });
     },
-    
+    sendSupplierMessage(supplierId) {
+      let data = {
+        supplier_id: supplierId,
+        message: this.message,
+        subject: this.subject,
+      };
+      profile
+        .sendSupplierMessage(data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            document.querySelector(".close").click();
+            this.message = "";
+          }
+        })
+        .catch((error) => {
+          let err = Object.values(error)[2].data;
+          this.errors = err.items;
+          console.log(error);
+        });
+    },
   },
   data() {
     return {
@@ -528,6 +638,8 @@ export default {
       mySelectedOption: 1,
       showModal: false,
       suppliers: null,
+      message: null,
+      subject: null,
     };
   },
 };
@@ -586,7 +698,7 @@ export default {
           justify-content: center;
           align-items: center;
           margin: 0 0.2rem;
-          // cursor: pointer; 
+          // cursor: pointer;
           transition: all ease-out 0.3s;
           // &:hover {
           //   background: #ff6000;
@@ -722,5 +834,11 @@ textarea {
 }
 .cart-btn {
   background: #ff6000 !important;
+}
+.supplier-image {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin: 0 7px;
 }
 </style>

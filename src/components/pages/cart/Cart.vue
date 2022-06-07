@@ -783,6 +783,7 @@
                                   <label>
                                     <input
                                       @change="changeShippping"
+                                      @input="shippingStore(supplier)"
                                       type="radio"
                                       value="0"
                                       :name="'types-' + index"
@@ -1338,10 +1339,29 @@
 
                         <a
                           v-b-modal.terms&condation
+                          @click="$bvModal.show('modal-scoped')"
                           class="text-decoration-underline"
                         >
                           {{ $t("payment.termsAndConditions") }}</a
                         >
+                        <b-modal
+                          size="lg"
+                          id="modal-scoped"
+                          :title="condations.title"
+                        >
+                          <p v-html="condations.description">
+                            {{ condations.description }}
+                          </p>
+                          <template #modal-footer="{ ok }">
+                            <b-button
+                              size="sm"
+                              variant="outline-success"
+                              @click="ok()"
+                            >
+                              {{ $t("home.ok") }}
+                            </b-button>
+                          </template>
+                        </b-modal>
                         <sup>*</sup>
 
                         <div
@@ -1351,17 +1371,6 @@
                         >
                           {{ error }}
                         </div>
-
-                        <b-modal
-                          size="lg"
-                          id="terms&condation"
-                          :title="condations.title"
-                          ok-only
-                        >
-                          <p v-html="condations.description">
-                            {{ condations.description }}
-                          </p>
-                        </b-modal>
                       </div>
                     </div>
                   </div>
@@ -1737,16 +1746,19 @@ export default {
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
-            var checkboxes = document.getElementsByClassName("checkFirst");
+            // var checkboxes = document.getElementsByClassName("checkFirst");
             var existingAddresses =
               document.querySelector(".existingAddresses");
-            for (var i = 0; i < checkboxes.length; i++) {
-              checkboxes[i].checked = true;
-            }
+            // for (var i = 0; i < checkboxes.length; i++) {
+            //   checkboxes[i].checked = true;
+            // }
             if (this.addresses !== null) {
               existingAddresses.click();
             }
-          }, 10);
+          }, 100);
+          setTimeout(() => {
+            this.shippingStore();
+          }, 200);
         });
     },
     removeFromCart(product) {
@@ -2204,6 +2216,21 @@ export default {
       // if (document.querySelector(".top-btn")) {
       //   document.querySelector(".top-btn").click();
       // }
+      
+    },
+    shippingStore(supplier){
+      let newRating = {
+        id: supplier.supplier_id,
+        supplier_id: supplier.supplier_id,
+        shipping_type: 0,
+        coupon: supplier.coupon ? supplier.coupon : "",
+        point_of_sell_uuid: null,
+      };
+
+      console.log(supplier);
+      this.$store.dispatch("suppliers/addSupplierToCart", {
+        supplier: newRating,
+      });
     },
 
     changePackUp($event) {

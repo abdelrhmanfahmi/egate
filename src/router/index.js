@@ -22,6 +22,7 @@ import VisaCheckoutDetails from "../views/Visa-Checkout-Details.vue";
 import CheckoutDetails from "../views/Checkout-details.vue";
 import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
 import SuccessCheckout from "../views/SuccessCheckout";
+import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
 
 Vue.use(VueRouter);
 
@@ -172,6 +173,11 @@ const routes = [
     path: "/success-checkout",
     name: "SuccessCheckout",
     component: SuccessCheckout,
+  },
+  {
+    path: "/viewCorresponseDetails",
+    name: "ViewCorresponseDetails",
+    component: ViewCorresponseDetails,
   },
   { path: '*', beforeEnter: (to, from, next) => { next('/404') } },
   {

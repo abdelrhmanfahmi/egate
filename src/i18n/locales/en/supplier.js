@@ -20,5 +20,7 @@ export default {
   results: "Results",
   return_policy: "Return Policy",
   shipping_and_payment_terms: "Shipping and payment terms",
-  supplierProducts:'Supplier Products'
+  supplierProducts:'Supplier Products',
+  subject:'Subject',
+  
 };

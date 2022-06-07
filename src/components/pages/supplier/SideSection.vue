@@ -70,17 +70,33 @@
       <div class="d-block">
         <div class="data-holder">
           <form>
-            <textarea
-              class="form-control"
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              v-model="message"
-              required
-            ></textarea>
+            <div class="form-group">
+              <label for="subject">
+                {{ $t("supplier.subject") }}
+              </label>
+              <input type="text" class="form-control" v-model="subject" />
+              <div class="error mt-2">
+                <p v-for="(error, index) in errors.subject" :key="index">
+                  {{ error }}
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">
+                {{ $t("contactUs.formMessage") }}
+              </label>
+              <textarea
+                class="form-control"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                v-model="message"
+                required
+              ></textarea>
+            </div>
             <div class="error mt-2">
-              <p v-for="(error, index) in errors.comment" :key="index">
+              <p v-for="(error, index) in errors.message" :key="index">
                 {{ error }}
               </p>
             </div>
@@ -119,15 +135,18 @@ export default {
     return {
       count: 0,
       message: null,
+      subject: null,
       errors: [],
+      id:this.$route.params.id
     };
   },
   props: ["supplier", "supplierMSite"],
   methods: {
     sendSupplierMessage() {
       let data = {
-        client_quote_id: this.id,
-        comment: this.message,
+        supplier_id: this.id,
+        message: this.message,
+        subject: this.subject,
       };
       profile
         .sendSupplierMessage(data)

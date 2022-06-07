@@ -189,5 +189,11 @@ export default {
   pay: "Pay",
   bankTransDocs: "Bank Transfer Docs",
   orderBack: "Back to orders",
-  productImage:'Product Image'
+  productImage:'Product Image',
+  
+  supplierName:'Supplier Name',
+
+  lastUpdateUser:'Last Update User',
+  actuons:'Actions',
+  corresponceDetail:'Byer & Supplier Corresponding'
 };

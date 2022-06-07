@@ -180,7 +180,10 @@
 
               <b-form-checkbox v-model="terms" class="terms my-1">
                 {{ $t("register.PleaseReview") }}
-                <a v-b-modal.terms&condation>
+                <a
+                  v-b-modal.terms&condation
+                  @click="$bvModal.show('modal-scoped')"
+                >
                   {{ $t("register.termsConditions") }}</a
                 >
                 {{ $t("register.toCompleteTheRegistration") }}
@@ -188,13 +191,18 @@
 
               <b-modal
                 size="lg"
-                id="terms&condation"
+                id="modal-scoped"
                 :title="condations.title"
-                ok-only
+                
               >
                 <p v-html="condations.description">
                   {{ condations.description }}
                 </p>
+                <template #modal-footer="{ ok }">
+                  <b-button size="sm" variant="outline-success" @click="ok()">
+                    {{$t('home.ok')}}
+                  </b-button>
+                </template>
               </b-modal>
 
               <b-form-checkbox
@@ -245,7 +253,7 @@ export default {
       ],
       countries: [],
       fieldType: "password",
-      condations:{}
+      condations: {},
     };
   },
   mounted() {

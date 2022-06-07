@@ -88,7 +88,7 @@ export default {
     return globalAxios.post("members/product/rfq/comment", data);
   },
   sendSupplierMessage(data) {
-    return globalAxios.post("members/product/rfq/comment", data);
+    return globalAxios.post("members/message/", data);
   },
   getOrders(data) {
     return globalAxios.get(`members/client-orders/?page=${data}`);
@@ -141,6 +141,15 @@ export default {
   },
   contactUsAddress(){
     return globalAxios.get('statics/Address')
+  },
+  supplierAllCorrespondence(){
+    return globalAxios.get('members/message')
+  },
+  suppliersingleCorrespondence(id){
+    return globalAxios.get(`members/message/${id}`)
+  },
+  sendsupplierCorrespondenceMessage(data){
+    return globalAxios.post(`members/message/`,data)
   },
 
 };

@@ -182,4 +182,8 @@ export default {
   pay: "الدفع",
   bankTransDocs: "ملفات البنك",
   orderBack: "الرجوع لقائمة الطلبات",
+  supplierName: "اسم المورد",
+  lastUpdateUser: "اخر تحديثات المستخدم",
+  actuons: "اجراءات",
+  corresponceDetail: "مراسلات المورد و المشترى",
 };

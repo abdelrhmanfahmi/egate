@@ -1,7 +1,7 @@
 <template>
   <div class="category-card">
     <div>
-      <b-img-lazy :src="image" class="img-fluid"></b-img-lazy>
+      <b-img-lazy v-bind="mainProps" :src="image" fluid></b-img-lazy>
     </div>
 
     <div class="card-footer">
@@ -22,6 +22,16 @@ export default {
     image: {
       type: String,
     },
+  },
+  data() {
+    return {
+      mainProps: {
+        center: true,
+        fluidGrow: true,
+        blank: true,
+        blankColor: "#eee",
+      },
+    };
   },
 };
 </script>
@@ -46,5 +56,4 @@ export default {
     background: #ed2124;
   }
 }
-
 </style>
