@@ -87,6 +87,9 @@ export default {
   sendMessage(data) {
     return globalAxios.post("members/product/rfq/comment", data);
   },
+  sendSupplierMessage(data) {
+    return globalAxios.post("members/product/rfq/comment", data);
+  },
   getOrders(data) {
     return globalAxios.get(`members/client-orders/?page=${data}`);
   },

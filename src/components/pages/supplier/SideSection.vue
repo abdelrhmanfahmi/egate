@@ -14,20 +14,41 @@
       <!-- <h4 class="name" v-if="supplier.company_name">
         {{ supplier.company_name }}
       </h4> -->
-      <ul class="social-accounts d-flex flex-wrap" v-if="supplierMSite">
-        <li class="account" v-if="supplierMSite.facebook_page">
-          <a :href="supplierMSite.facebook_page"><b-icon-facebook font-scale="1.5"></b-icon-facebook></a>
-        </li>
-        <li class="account" v-if="supplierMSite.twitter_page">
-          <a :href="supplierMSite.twitter_page"><b-icon-twitter font-scale="1.5"></b-icon-twitter></a>
-        </li>
-        <li class="account" v-if="supplierMSite.instagram_page">
-          <a :href="supplierMSite.instagram_page"><b-icon-instagram font-scale="1.5"></b-icon-instagram></a>
-        </li>
-        <li class="account" v-if="supplierMSite.google_page">
-          <a :href="supplierMSite.google_page"><b-icon-google font-scale="1.5"></b-icon-google></a>
-        </li>
-      </ul>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 col-sm-12 mb-2">
+          <ul class="social-accounts d-flex flex-wrap" v-if="supplierMSite">
+            <li class="account" v-if="supplierMSite.facebook_page">
+              <a :href="supplierMSite.facebook_page"
+                ><b-icon-facebook font-scale="1.5"></b-icon-facebook
+              ></a>
+            </li>
+            <li class="account" v-if="supplierMSite.twitter_page">
+              <a :href="supplierMSite.twitter_page"
+                ><b-icon-twitter font-scale="1.5"></b-icon-twitter
+              ></a>
+            </li>
+            <li class="account" v-if="supplierMSite.instagram_page">
+              <a :href="supplierMSite.instagram_page"
+                ><b-icon-instagram font-scale="1.5"></b-icon-instagram
+              ></a>
+            </li>
+            <li class="account" v-if="supplierMSite.google_page">
+              <a :href="supplierMSite.google_page"
+                ><b-icon-google font-scale="1.5"></b-icon-google
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-2">
+          <b-button
+            variant="outline-success"
+            id="show-btn"
+            class="mx-2"
+            @click="$bvModal.show('bv-modal-example')"
+            >{{ $t("profile.sendMessage") }}</b-button
+          >
+        </div>
+      </div>
     </div>
     <div class="other-sections" v-if="supplier.categories">
       <h5 class="title">{{ $t("supplier.sections") }}</h5>
@@ -44,21 +65,86 @@
         </li>
       </ul>
     </div>
+    <b-modal id="bv-modal-example" centered hide-footer>
+      <template #modal-title> {{ $t("profile.yourMessage") }} </template>
+      <div class="d-block">
+        <div class="data-holder">
+          <form>
+            <textarea
+              class="form-control"
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              v-model="message"
+              required
+            ></textarea>
+            <div class="error mt-2">
+              <p v-for="(error, index) in errors.comment" :key="index">
+                {{ error }}
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <b-button
+        class="mt-3"
+        variant="outline-success"
+        block
+        @click="sendSupplierMessage"
+        >{{ $t("profile.send") }}</b-button
+      >
+      <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
+          >{{$t('cart.addToCart')}}</b-button
+        > -->
+    </b-modal>
   </div>
 </template>
 <script>
-import { BIconTwitter , BIconFacebook , BIconInstagram , BIconGoogle } from "bootstrap-vue";
+import profile from "@/services/profile";
+import {
+  BIconTwitter,
+  BIconFacebook,
+  BIconInstagram,
+  BIconGoogle,
+} from "bootstrap-vue";
 export default {
   components: {
     BIconTwitter,
     BIconFacebook,
     BIconInstagram,
-    BIconGoogle
+    BIconGoogle,
   },
   data() {
-    return { count: 0 };
+    return {
+      count: 0,
+      message: null,
+      errors: [],
+    };
   },
-  props: ["supplier" , "supplierMSite"],
+  props: ["supplier", "supplierMSite"],
+  methods: {
+    sendSupplierMessage() {
+      let data = {
+        client_quote_id: this.id,
+        comment: this.message,
+      };
+      profile
+        .sendSupplierMessage(data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            document.querySelector(".close").click();
+            this.message = "";
+          }
+        })
+        .catch((error) => {
+          let err = Object.values(error)[2].data;
+          this.errors = err.items;
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
