@@ -51,13 +51,13 @@
           <div class="row justify-content-center align-items-center">
             <div class="col-6 mb-2">
               <router-link :to="`/suppliers/${myProduct.client.id}`">
-                {{ myProduct.client.company_name }}
                 <img
                   :src="myProduct.client.image_path"
                   class="supplier-image"
                   alt=""
                   srcset=""
                 />
+                {{ myProduct.client.company_name }}
               </router-link>
             </div>
             <div class="col-6 mb-2">
@@ -66,7 +66,7 @@
                 id="show-btn"
                 class="mx-2"
                 @click="$bvModal.show('bv-modal-example')"
-                >{{ $t("profile.sendMessage") }}</b-button
+                >{{ $t("supplier.sendSupplierMessage") }}</b-button
               >
             </div>
             <b-modal id="bv-modal-example" centered hide-footer>

@@ -195,5 +195,5 @@ export default {
 
   lastUpdateUser:'Last Update User',
   actuons:'Actions',
-  corresponceDetail:'Byer & Supplier Corresponding'
+  corresponceDetail:'Buyer & Supplier Corresponding'
 };

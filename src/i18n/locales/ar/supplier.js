@@ -21,6 +21,5 @@ export default {
   shipping_and_payment_terms: "شروط الشحن و الدفع",
   supplierProducts: "منتجات المورد",
   subject: "الموضوع",
-
-  
+  sendSupplierMessage: "راسل المورد",
 };

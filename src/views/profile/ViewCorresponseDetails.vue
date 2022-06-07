@@ -12,7 +12,7 @@
           id="show-btn"
           class="mx-2"
           @click="$bvModal.show('bv-modal-example')"
-          >{{ $t("profile.sendMessage") }}</b-button
+          >{{ $t("supplier.sendSupplierMessage") }}</b-button
         >
       </div>
       <table class="table custom-margin">

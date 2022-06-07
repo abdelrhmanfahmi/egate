@@ -1628,11 +1628,6 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.getItem("userData") === null) {
-      if (document.querySelector(".GuestNewAddress") !== null) {
-        document.querySelector(".GuestNewAddress").click();
-      }
-    }
     this.getCartProducts();
 
     // localStorage.removeItem("discount");
@@ -1759,6 +1754,14 @@ export default {
           setTimeout(() => {
             this.shippingStore();
           }, 200);
+          if (localStorage.getItem("userData") === null) {
+            if (document.querySelector(".GuestNewAddress") !== null) {
+              document.querySelector(".GuestNewAddress").click();
+            }
+            setTimeout(() => {
+              document.querySelector(".GuestNewAddress").click();
+            }, 500);
+          }
         });
     },
     removeFromCart(product) {
@@ -2216,9 +2219,8 @@ export default {
       // if (document.querySelector(".top-btn")) {
       //   document.querySelector(".top-btn").click();
       // }
-      
     },
-    shippingStore(supplier){
+    shippingStore(supplier) {
       let newRating = {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
