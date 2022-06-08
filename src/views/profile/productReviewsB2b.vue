@@ -2,24 +2,23 @@
   <div class="product-reviews">
     <h4 class="main-header my-4">{{ $t("profile.productReviews") }}</h4>
     <b-table hover :items="items" :fields="fields" stacked="lg">
+      <template #cell(created_at)="data">
+        <span>
+          {{data.value | formatDate}}
+        </span>
+      </template>
       <template #cell(productName)="data">
         <router-link to="/">{{ data.value }} </router-link>
       </template>
       <template #cell(evaluation)="data">
-        <b-form-rating
-          id="rating-inline"
-          inline
-          :value="data.value"
-          disabled
-          color="#000"
-        ></b-form-rating>
-      </template>
-      <template #cell(review)="data">
         <b>{{ data.value }}</b>
       </template>
+      <template #cell(review)>
+        <Rate @changeTitle="ChangeQ($event)" />
+      </template>
       <template #cell(actions)>
-        <b-button class="login-button">
-          {{ $t("profile.viewDetails") }}
+        <b-button class="login-button" @click="rate">
+          {{ $t("profile.review") }}
         </b-button>
       </template>
     </b-table>
@@ -27,12 +26,14 @@
 </template>
 
 <script>
+import Rate from "@/components/global/rate.vue"
+import profile from "@/services/profile";
 export default {
   data() {
     return {
       fields: [
         {
-          key: "age",
+          key: "created_at",
           label: this.$t("profile.construction"),
         },
         {
@@ -43,10 +44,7 @@ export default {
           key: "evaluation",
           label: this.$t("profile.evaluation"),
         },
-        {
-          key: "review",
-          label: this.$t("profile.review"),
-        },
+
         {
           key: "review",
           label: this.$t("profile.review"),
@@ -54,15 +52,42 @@ export default {
         { key: "actions", label: this.$t("profile.actions") },
       ],
       items: [
-        {
-          age: "07/24/2021",
-          productName: "فيجيتا شوربة الدجاج والنود لز 60جم",
-          evaluation: 2,
-          review: 2,
-        },
+        // {
+        //   age: "07/24/2021",
+        //   productName: "فيجيتا شوربة الدجاج والنود لز 60جم",
+        //   evaluation: "test",
+        //   review: 3,
+        // },
       ],
+      myRate:null
     };
   },
+  methods: {
+    rate() {
+      alert("rate");
+    },
+    getProductRate() {
+      profile
+        .getProductRate()
+        .then((res) => {
+          console.log(res);
+          this.items = res.data.items
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    ChangeQ(myRate) {
+      this.myRate = myRate;
+      console.log(myRate);
+    },
+  },
+  mounted(){
+    this.getProductRate()
+  },
+  components:{
+    Rate
+  }
 };
 </script>
 <style lang="scss" scoped>

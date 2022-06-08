@@ -777,7 +777,7 @@
                             <div class="order-shipping mt-5">
                               <div :class="$i18n.locale">
                                 <form
-                                  @change="ordeType(supplier.supplier_id)"
+                                  @change="orderType(supplier.supplier_id)"
                                   class="d-flex align-items-baseline"
                                 >
                                   <label>
@@ -1356,9 +1356,12 @@
                             <b-button
                               size="sm"
                               variant="outline-success"
-                              @click="ok()"
+                              @click="ok() ; acceptMyTerms()"
                             >
-                              {{ $t("home.ok") }}
+                              <h6 class="m-0">
+                                <span class="mx-1">{{ $t("payment.accept") }}</span>
+                                <span class="mx-1">{{ $t("payment.termsAndConditions") }}</span>
+                              </h6>
                             </b-button>
                           </template>
                         </b-modal>
@@ -2163,9 +2166,9 @@ export default {
           this.selectedSupplierAddresses = res.data.items;
           if (
             res.data.items.length == 0 ||
-            res.data.items == [] ||
             res.data.items == ""
           ) {
+            
             this.availablePickup = false;
             // console.log(this.selectedInput.parentElement.parentElement);
             this.selectedInput.parentElement.parentElement
@@ -2184,6 +2187,13 @@ export default {
               .querySelector(".feedsResult")
               .classList.add("d-none");
 
+              this.selectedInput.parentElement.parentElement.querySelector(
+              ".pickupNoData"
+            ).classList.remove('d-none')
+              this.selectedInput.parentElement.parentElement.querySelector(
+              ".pickupNoData"
+            ).classList.add('d-block')
+
             this.selectedInput.parentElement.parentElement.querySelector(
               ".pickupNoData"
             ).innerHTML = `${this.$t("profile.noPickupData")}`;
@@ -2197,6 +2207,7 @@ export default {
             this.selectedInput.parentElement.parentElement.querySelector(
               ".feedsResultShipping"
             ).innerHTML = ``;
+            
           }
         })
         .catch((err) => {
@@ -2204,6 +2215,7 @@ export default {
         });
     },
     changeShippping($event) {
+      
       let input = $event.target;
 
       this.selectedInput = input;
@@ -2216,11 +2228,56 @@ export default {
       ).innerHTML = "";
 
       this.expanded = true;
-      // if (document.querySelector(".top-btn")) {
-      //   document.querySelector(".top-btn").click();
-      // }
+
+
+      //  let address_uuid = localStorage.getItem("addressUUID");
+
+      let myResult =
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult')
+
+
+          let myPickupData = this.selectedInput.parentElement.parentElement.querySelector('.supplierAddresses')
+
+          myPickupData.classList.remove('d-block')
+          myPickupData.classList.add('d-none')
+
+      let data = {
+        country: this.form.country_id,
+        governorate: this.form.region_id,
+        city: this.form.city_id,
+        // address_uuid: address_uuid,
+        supplier_id: localStorage.getItem("s_id"),
+      };
+      suppliers
+        .getShippingFees(data)
+        .then((res) => {
+          console.log("res" , res.data.items.shepping_fee);
+          this.sucessMsg(res.data.message);
+
+          myResult.innerHTML =
+            this.$t("profile.deleiveryFees") +
+            Number(res.data.items.shepping_fee).toFixed(3) +
+            " " +
+            this.currency;
+
+            myResult.classList.remove('d-none')
+            myResult.classList.add('d-block')
+
+          if (res.data.items == [] || res.data.items == "") {
+            myResult.innerHTML = this.$t("profile.deliveryFeesText");
+          }
+
+          this.errors = [];
+          this.firstFees = res.data.items;
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
     },
     shippingStore(supplier) {
+      
       let newRating = {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
@@ -2246,7 +2303,7 @@ export default {
       this.showBtnClicked = false;
     },
 
-    ordeType(supplier) {
+    orderType(supplier) {
       // console.log(supplier);
       localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
@@ -2256,21 +2313,23 @@ export default {
       //   localStorage.setItem("addressUUID", storedUserData.uuid);
       //   // alert('undefined')
       // }
+
+
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
 
         // supplierAddresses
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.add(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.add(
           "d-none"
         );
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.remove(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.remove(
           "d-block"
         );
 
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.add(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.add(
           "d-none"
         );
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.remove(
           "d-block"
         );
       } else {
@@ -2635,6 +2694,9 @@ export default {
         this.condations = res.data.items;
       });
     },
+    acceptMyTerms(){
+      this.paymentFormData.accept_terms = true
+    }
   },
   computed: {
     // cartItems() {

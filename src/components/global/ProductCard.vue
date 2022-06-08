@@ -25,7 +25,7 @@
           class="price-after price m-0"
           v-if="
             slider.product_details_by_type.price_before_discount &&
-            slider.product_details_by_type.price_before_discount <
+            slider.product_details_by_type.price_before_discount >
               slider.product_details_by_type.customer_price
           "
         >

@@ -326,7 +326,7 @@
                       class="price-after m-0"
                       v-if="
                         product.product_details_by_type.price_before_discount &&
-                        product.product_details_by_type.price_before_discount <
+                        product.product_details_by_type.price_before_discount >
                           product.product_details_by_type.customer_price
                       "
                     >
