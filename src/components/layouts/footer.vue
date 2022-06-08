@@ -190,7 +190,7 @@ export default {
       profile
         .footerFacebookLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.facebook = res.data.items;
         })
         .catch((err) => {
@@ -201,7 +201,7 @@ export default {
       profile
         .footerTwitterLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.twitter = res.data.items;
         })
         .catch((err) => {
@@ -212,7 +212,7 @@ export default {
       profile
         .footerYoutubeLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.youtube = res.data.items;
         })
         .catch((err) => {
@@ -223,7 +223,7 @@ export default {
       profile
         .footerLinkedinLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.linkedin = res.data.items;
         })
         .catch((err) => {
@@ -234,7 +234,7 @@ export default {
       profile
         .footerInstagramLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.instagram = res.data.items;
         })
         .catch((err) => {
@@ -245,7 +245,7 @@ export default {
       profile
         .footerPinterestLink()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.pinterest = res.data.items;
         })
         .catch((err) => {

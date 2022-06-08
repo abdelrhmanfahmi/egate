@@ -166,5 +166,8 @@ export default {
   sendsupplierCorrespondenceMessage(data){
     return globalAxios.post(`members/message/`,data)
   },
+  getProductRate(){
+    return globalAxios.get('members/review/orderd-products')
+  }
 
 };
