@@ -2187,6 +2187,13 @@ export default {
               .querySelector(".feedsResult")
               .classList.add("d-none");
 
+              this.selectedInput.parentElement.parentElement.querySelector(
+              ".pickupNoData"
+            ).classList.remove('d-none')
+              this.selectedInput.parentElement.parentElement.querySelector(
+              ".pickupNoData"
+            ).classList.add('d-block')
+
             this.selectedInput.parentElement.parentElement.querySelector(
               ".pickupNoData"
             ).innerHTML = `${this.$t("profile.noPickupData")}`;
@@ -2226,10 +2233,13 @@ export default {
       //  let address_uuid = localStorage.getItem("addressUUID");
 
       let myResult =
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling
-          .nextElementSibling;
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult')
 
-          console.log(this.selectedInput.parentElement.parentElement);
+
+          let myPickupData = this.selectedInput.parentElement.parentElement.querySelector('.supplierAddresses')
+
+          myPickupData.classList.remove('d-block')
+          myPickupData.classList.add('d-none')
 
       let data = {
         country: this.form.country_id,
@@ -2241,13 +2251,17 @@ export default {
       suppliers
         .getShippingFees(data)
         .then((res) => {
+          console.log("res" , res.data.items.shepping_fee);
           this.sucessMsg(res.data.message);
 
           myResult.innerHTML =
             this.$t("profile.deleiveryFees") +
-            Number(res.data.items.price).toFixed(3) +
+            Number(res.data.items.shepping_fee).toFixed(3) +
             " " +
             this.currency;
+
+            myResult.classList.remove('d-none')
+            myResult.classList.add('d-block')
 
           if (res.data.items == [] || res.data.items == "") {
             myResult.innerHTML = this.$t("profile.deliveryFeesText");
@@ -2299,21 +2313,23 @@ export default {
       //   localStorage.setItem("addressUUID", storedUserData.uuid);
       //   // alert('undefined')
       // }
+
+
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
 
         // supplierAddresses
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.add(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.add(
           "d-none"
         );
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.classList.remove(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.remove(
           "d-block"
         );
 
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.add(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.add(
           "d-none"
         );
-        this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove(
+        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.remove(
           "d-block"
         );
       } else {
