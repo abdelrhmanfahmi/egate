@@ -86,11 +86,11 @@ export default {
         //   name: this.$t("profile.residents"),
         //   iconName: "receipt",
         // },
-        {
-          to: "/profile/BankNotificationsB2b",
-          name: this.$t("profile.bankNotifications"),
-          iconName: "money-bill-wave",
-        },
+        // {
+        //   to: "/profile/BankNotificationsB2b",
+        //   name: this.$t("profile.bankNotifications"),
+        //   iconName: "money-bill-wave",
+        // },
         
         // {
         //   to: "/profile/supplierRatingB2b",

@@ -194,7 +194,7 @@
                             item.product_supplier.product_details_by_type
                               .price_before_discount &&
                             item.product_supplier.product_details_by_type
-                              .price_before_discount <
+                              .price_before_discount >
                               item.product_supplier.product_details_by_type
                               .price
                           "

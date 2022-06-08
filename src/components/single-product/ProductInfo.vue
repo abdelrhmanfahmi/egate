@@ -32,7 +32,7 @@
             class="price-after"
             v-if="
               myProduct.product_details_by_type.price_before_discount &&
-              myProduct.product_details_by_type.price_before_discount <
+              myProduct.product_details_by_type.price_before_discount >
                 myProduct.product_details_by_type.customer_price
             "
           >
@@ -60,7 +60,7 @@
                 {{ myProduct.client.company_name }}
               </router-link>
             </div>
-            <div class="col-6 mb-2">
+            <div class="col-6 mb-2" v-if="userData">
               <b-button
                 variant="outline-danger"
                 id="show-btn"
@@ -68,6 +68,9 @@
                 @click="$bvModal.show('bv-modal-example')"
                 >{{ $t("supplier.sendSupplierMessage") }}</b-button
               >
+            </div>
+            <div class="col-6 mb-2" v-else>
+              <router-link to="/b2b-login">{{ $t("login.login") }}</router-link>
             </div>
             <b-modal id="bv-modal-example" centered hide-footer>
               <template #modal-title>
@@ -350,7 +353,7 @@
       <hr />
       <div class="share-social d-flex align-items-center">
         <span>{{ $t("singleProduct.sharing") }}</span>
-        <div class="social-sharing-icons">
+        <!-- <div class="social-sharing-icons">
           <a href="#">
             <font-awesome-icon icon="fa-brands fa-facebook-f" />
           </a>
@@ -360,6 +363,17 @@
           <a href="#">
             <font-awesome-icon icon="fa-brands fa-twitter" />
           </a>
+        </div> -->
+        <div class="social-sharing-icons">
+          <facebook :url="url" scale="2"></facebook>
+          <twitter :url="url" title="Check me on Github" scale="2"></twitter>
+          <whats-app :url="url" title="Hello" scale="2"></whats-app>
+          <!-- <linkedin :url="url" scale="3"></linkedin> -->
+          <!-- <telegram :url="url" scale="3"></telegram> -->
+          <!-- <pinterest :url="url" scale="3"></pinterest>
+          <reddit :url="url" scale="3" title="My Github"></reddit>
+          <google :url="url" scale="3"></google>
+          <email :url="url" subject="Hello" scale="3"></email> -->
         </div>
       </div>
       <b-modal id="bv-bidRequest" hide-footer>
@@ -444,10 +458,30 @@ import globalAxios from "@/services/global-axios";
 
 import categories from "@/services/categories";
 import profile from "@/services/profile";
+import {
+  Facebook,
+  Twitter,
+  WhatsApp,
+  // Linkedin,
+  // Pinterest,
+  // Reddit,
+  // Telegram,
+  // Email,
+  // Google,
+} from "vue-socialmedia-share";
 export default {
   components: {
     BIconPlus,
     BIconDash,
+    Facebook,
+    Twitter,
+    WhatsApp,
+    // Linkedin,
+    // Pinterest,
+    // Reddit,
+    // Telegram,
+    // Email,
+    // Google,
     // modal,
   },
   props: ["myProduct"],
@@ -640,8 +674,14 @@ export default {
       suppliers: null,
       message: null,
       subject: null,
+      // url: this.mainDoamin
     };
   },
+  computed:{
+    url(){
+      return this.mainDoamin + `details?id=${this.id}`
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -840,5 +880,10 @@ textarea {
   height: 65px;
   border-radius: 50%;
   margin: 0 7px;
+}
+.social-sharing-icons{
+  span{
+    cursor: pointer;
+  }
 }
 </style>

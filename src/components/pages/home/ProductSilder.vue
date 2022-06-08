@@ -4,7 +4,9 @@
       <span class="product-info">
         <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
       </span>
-      <Countdown deadline="August 22, 2022"></Countdown>
+      <div class="" v-if="deadline">
+        <Countdown :deadline="deadline"></Countdown>
+      </div>
       <VueSlickCarousel v-bind="settings" class="my-5">
         <div v-for="(slider, index) in sliders" :key="index">
           <ProductCard :slider="slider" />
@@ -17,7 +19,9 @@
       </span>
       <div class="container mb-1">
         <div class="d-flex justify-content-end">
-          <router-link to="/suppliers" class="showAllLink"> Show All </router-link>
+          <router-link to="/suppliers" class="showAllLink">
+            Show All
+          </router-link>
         </div>
       </div>
       <b-row v-if="loading" class="px-5">
@@ -67,7 +71,9 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import globalAxios from "@/services/global-axios";
 // import axios from "axios";
 // import { baseURL } from "@/apis/Api";
-import categories from "@/services/categories";
+// import categories from "@/services/categories";
+import auth from "@/services/auth";
+// import moment from "moment";
 export default {
   components: {
     ProductCard,
@@ -118,6 +124,7 @@ export default {
       suppliers: null,
       loading: false,
       sliders: null,
+      deadline: null,
     };
   },
   methods: {
@@ -135,11 +142,21 @@ export default {
           this.loading = false;
         });
     },
-    getBestDeals() {
-      categories
-        .getBestDeals()
+    getHomeDeadline() {
+      auth
+        .getHomeDeadline()
         .then((res) => {
-          this.sliders = res.data.items.data;
+          // console.log("slide data", res); 
+          this.sliders = res.data.items.deals.data;
+          this.deadline = res.data.items.timer_date
+
+          // this.deadline = new Date(res.data.items.timer_date)
+
+
+          // console.log("timer" , res.data.items.timer_date);
+          // console.log("this.deadline" , moment(new Date(res.data.items.timer_date)).format(
+          //   "YYYY-MM-DD HH:mm:ss"
+          // ));
         })
         .catch((err) => {
           console.log(err);
@@ -150,7 +167,7 @@ export default {
     this.getSuppliers();
   },
   mounted() {
-    this.getBestDeals();
+    this.getHomeDeadline();
   },
   computed: {
     slidersLength() {
@@ -199,6 +216,4 @@ export default {
     opacity: 1;
   }
 }
-
-
 </style>

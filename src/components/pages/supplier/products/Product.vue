@@ -59,7 +59,7 @@
             class="m-0 price-after"
             v-if="
               data.product_details_by_type.price_before_discount &&
-              data.product_details_by_type.price_before_discount <
+              data.product_details_by_type.price_before_discount >
                 data.product_details_by_type.customer_price
             "
           >

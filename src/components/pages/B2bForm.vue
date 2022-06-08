@@ -142,7 +142,7 @@
                       <b-form-select-option
                         v-for="country in countries"
                         :key="country.id"
-                        :value="country.phone_prefix"
+                        :value="country.iso"
                         >{{ country.title }}
                         {{ country.phone_prefix }}</b-form-select-option
                       >
