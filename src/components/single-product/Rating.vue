@@ -46,19 +46,18 @@
         </form> -->
         <div class="my-3">
           <!-- <hr /> -->
-          <div class="form-group mb-4 col-12">
+          <div class="form-group mb-4 col-12" v-for="(review , index) in reviews " :key="index">
             <label for="rating" class="d-flex align-items-center">
               <div class="mr-3">
-                <span>{{ userData.first_name }}</span>
-                <span>{{ userData.last_name }}</span>
+                <span>{{ review.client.first_name }}</span>
+                <span class="mx-1">{{ review.client.last_name }}</span>
               </div>
 
               <div>
                 <b-form-rating
                   id="rating-disabled"
                   style="color: #acacac"
-                  value="4"
-                  disabled
+                  :value="review.rate"
                 ></b-form-rating>
                 <!-- <b-form-rating id="rating-disabled" value="3" disabled></b-form-rating> -->
                 <!-- <span>ratingValue : {{ ratingValue }}</span> -->
@@ -71,11 +70,29 @@
   </div>
 </template>
 <script>
+import suppliers from "@/services/suppliers";
 export default {
   data() {
-    return { count: 0, ratingValue: null };
+    return { count: 0, ratingValue: null , id:this.$route.query.id , reviews:null };
   },
   props: ["myProduct"],
+  methods: {
+    getProductReview() {
+
+      suppliers
+        .getProductReview(this.id)
+        .then((res) => {
+          console.log("review" , res);
+          this.reviews = res.data.items.data
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted(){
+    this.getProductReview()
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -123,7 +140,7 @@ export default {
     }
   }
 }
-.b-rating.disabled{
+.b-rating.disabled {
   background: transparent;
 }
 </style>

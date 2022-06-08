@@ -48,38 +48,54 @@
                     /></router-link>
                   </li>
                 </ul> -->
-                <ul v-if="socialLinks">
-                  <li v-for="(socialLink, index) in socialLinks" :key="index">
-                    <div v-if="socialLink.key === 'facebook'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/facebook.png" :alt="socialLink.key" />
+                <ul >
+                  <li v-if="facebook">
+                    <a :href="facebook.value" target="_blank">
+                      <img
+                        src="@/assets/images/facebook.png"
+                        :alt="facebook.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="twitter">
+                    <a :href="twitter.value" target="_blank">
+                      <img
+                        src="@/assets/images/twitter.png"
+                        :alt="twitter.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="youtube">
+                    <a :href="youtube.value" target="_blank">
+                      <img
+                        src="@/assets/images/youtube.png"
+                        :alt="youtube.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="instagram">
+                    <a :href="instagram.value" target="_blank">
+                        <img
+                          src="@/assets/images/instagram.png"
+                          :alt="instagram.key"
+                        />
                       </a>
-                    </div>
-                    <div v-if="socialLink.key === 'twitter'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/twitter.png" :alt="socialLink.key" />
+                  </li>
+                  <li v-if="linkedin">
+                    <a :href="linkedin.value" target="_blank">
+                        <img
+                          src="@/assets/images/linkedin.png"
+                          :alt="linkedin.key"
+                        />
                       </a>
-                    </div>
-                    <div v-if="socialLink.key === 'google'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/google.png" :alt="socialLink.key" />
+                  </li>
+                  <li v-if="pinterest">
+                    <a :href="pinterest.value" target="_blank">
+                        <img
+                          src="@/assets/images/pinterest.png"
+                          :alt="pinterest.key"
+                        />
                       </a>
-                    </div>
-                    <div v-if="socialLink.key === 'instagram'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/instagram.png" :alt="socialLink.key" />
-                      </a>
-                    </div>
-                    <div v-if="socialLink.key === 'snapchat'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/snapchat.png" :alt="socialLink.key" />
-                      </a>
-                    </div>
-                    <div v-if="socialLink.key === 'tiktok'">
-                      <a :href="socialLink.value" target="_blank">
-                        <img src="@/assets/images/tik-tok.png" :alt="socialLink.key" />
-                      </a>
-                    </div>
                   </li>
                 </ul>
               </div>
@@ -161,16 +177,76 @@ import profile from "@/services/profile";
 export default {
   data() {
     return {
-      socialLinks: null,
+      facebook: null,
+      twitter: null,
+      youtube: null,
+      instagram: null,
+      linkedin: null,
+      pinterest: null,
     };
   },
   methods: {
-    footerSocialLinks() {
+    footerFacebookLink() {
       profile
-        .footerSocialLinks()
+        .footerFacebookLink()
         .then((res) => {
-          // console.log(res);
-          this.socialLinks = res.data.items.data;
+          console.log(res);
+          this.facebook = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerTwitterLink() {
+      profile
+        .footerTwitterLink()
+        .then((res) => {
+          console.log(res);
+          this.twitter = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerYoutubeLink() {
+      profile
+        .footerYoutubeLink()
+        .then((res) => {
+          console.log(res);
+          this.youtube = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerLinkedinLink() {
+      profile
+        .footerLinkedinLink()
+        .then((res) => {
+          console.log(res);
+          this.linkedin = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerInstagramLink() {
+      profile
+        .footerInstagramLink()
+        .then((res) => {
+          console.log(res);
+          this.instagram = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerPinterestLink() {
+      profile
+        .footerPinterestLink()
+        .then((res) => {
+          console.log(res);
+          this.pinterest = res.data.items;
         })
         .catch((err) => {
           console.log(err);
@@ -178,7 +254,12 @@ export default {
     },
   },
   mounted() {
-    this.footerSocialLinks();
+    this.footerFacebookLink();
+    this.footerTwitterLink();
+    this.footerYoutubeLink();
+    this.footerLinkedinLink();
+    this.footerInstagramLink();
+    this.footerPinterestLink();
   },
 };
 </script>
@@ -253,7 +334,6 @@ export default {
 .footer-social ul {
   display: flex;
   align-items: center;
-
 }
 .footer-social ul li + li {
   margin-left: 18px;

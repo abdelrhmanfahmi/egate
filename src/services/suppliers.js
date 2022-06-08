@@ -88,4 +88,7 @@ export default {
   supplierMicroSite(id) {
     return globalAxios.get(`suppliers/micro-site/${id}`);
   },
+  getProductReview(id){
+    return globalAxios.get(`members/review/product-reviews/${id}`)
+  }
 };

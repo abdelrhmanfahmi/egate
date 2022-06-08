@@ -24,8 +24,8 @@
             {{ product.product_name }}
           </a>
 
-          <span class="price" v-if="product.price">
-            {{ product.price | fixedCurrency }}
+          <span class="price" v-if="product.customer_price">
+            {{ product.customer_price | fixedCurrency }}
           </span>
           <span class="price"> x </span>
           <span class="price">

@@ -111,8 +111,23 @@ export default {
   bankComment(){
     return globalAxios.get('statics/Bank-transfer-info')
   },
-  footerSocialLinks(){
-    return globalAxios.get(`site-settings`)
+  footerFacebookLink(){
+    return globalAxios.get(`site-settings/facebook`)
+  },
+  footerTwitterLink(){
+    return globalAxios.get(`site-settings/twitter`)
+  },
+  footerYoutubeLink(){
+    return globalAxios.get(`site-settings/youtube`)
+  },
+  footerLinkedinLink(){
+    return globalAxios.get(`site-settings/linkedin`)
+  },
+  footerInstagramLink(){
+    return globalAxios.get(`site-settings/instagram`)
+  },
+  footerPinterestLink(){
+    return globalAxios.get(`site-settings/pinterest`)
   },
   getAboutData(){
     return globalAxios.get('statics/About-us')

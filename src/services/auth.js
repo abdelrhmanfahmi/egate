@@ -64,6 +64,9 @@ export default {
       },
     });
   },
+  getHomeDeadline(){
+    return globalAxios.get('products/featured/offers')
+  }
   // bidRequest(){
 
   // },
