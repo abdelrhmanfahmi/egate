@@ -27,4 +27,6 @@ export default {
     All: 'All',
     vendors:'Vendors',
     pageNoteFound1: "THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.",
+    you:'You',
+    ok:'Ok'
 };
