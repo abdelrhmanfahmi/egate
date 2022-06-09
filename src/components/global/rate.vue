@@ -5,8 +5,11 @@
       inline
       :value="rateValue"
       color="#000"
-      @change="changevalue"
+      @change="changevalue "
+      @click="testMe()"
     ></b-form-rating>
+
+    
   </div>
 </template>
 
@@ -20,8 +23,11 @@ export default {
   methods: {
     changevalue(rateValue) {
       this.rateValue = rateValue;
-      this.$emit('changeTitle',rateValue)
+      this.$emit('changeRate',rateValue)
     },
+    testMe(){
+      alert('test me')
+    }
   },
 };
 </script>

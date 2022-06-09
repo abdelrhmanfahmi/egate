@@ -176,6 +176,16 @@ export default {
           this.currencies = this.countries;
           // console.log(this.currencies);
         })
+        .then(() => {
+          let myCurrency = document
+            .querySelector("#myCurrency-code")
+            .innerText.trim();
+          if (myCurrency == "") {
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+          }
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -228,14 +238,7 @@ export default {
       //     location.reload();
       //   }, 700);
       // }
-      let myCurrency = document
-        .querySelector("#myCurrency-code")
-        .innerText.trim();
-      if (myCurrency == "") {
-        setTimeout(() => {
-          location.reload();
-        }, 800);
-      }
+      // this.getAllCountires();
     },
   },
   computed: {

@@ -48,4 +48,5 @@ export default {
   registerNow: "  اذا لم يكن لديك اى حساب برجاء تسجيل حساب جديد",
   productInCart: "موجود بقائمة المفضله",
   outOfStock: "عذرا , لقد نفذت الكميه",
+  noReviews: "لايوجد تقييمات ",
 };

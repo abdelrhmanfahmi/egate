@@ -153,11 +153,11 @@ export default {
         });
     },
     getSupplierProducts() {
-      console.log("this.supplierProductsId", this.supplierProductsId);
+      // console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
         .getSupplierProducts(this.supplierProductsId)
         .then((resp) => {
-          console.log("resp", resp);
+          // console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })

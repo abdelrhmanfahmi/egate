@@ -228,12 +228,12 @@
                                   <!-- <span class="requried">*</span> -->
                                   <b-form-input
                                     id="streetNumber"
-                                    v-model="form.street"
+                                    v-model="form.address_line_1"
                                     :placeholder="$t('contactUs.address') + '*'"
                                   />
                                   <div
                                     class="error"
-                                    v-for="(error, index) in errors.street"
+                                    v-for="(error, index) in errors.address_line_1"
                                     :key="index"
                                   >
                                     {{ error }}
@@ -1555,7 +1555,7 @@ export default {
         pin_code: null,
         notes: null,
         // address_uuid: null,
-        street: null,
+        address_line_1: null,
       },
       newForm: {
         country_id: null,
@@ -1566,7 +1566,7 @@ export default {
         apartment: null,
         pin_code: null,
         notes: null,
-        street: null,
+        address_line_1: null,
       },
       countries: [],
       cities: [],
@@ -1724,7 +1724,7 @@ export default {
           }
 
           console.log("cart_items", res.data.items.cart_items);
-          console.log("res", res);
+          // console.log("res", res);
 
           this.cartItems = res.data.items.cart_items;
           this.priceData = res.data.items;
@@ -2251,7 +2251,7 @@ export default {
       suppliers
         .getShippingFees(data)
         .then((res) => {
-          console.log("res" , res.data.items.shepping_fee);
+          // console.log("res" , res.data.items.shepping_fee);
           this.sucessMsg(res.data.message);
 
           myResult.innerHTML =
@@ -2606,7 +2606,7 @@ export default {
         floor: this.form.floor,
         apartment: this.form.apartment,
         pin_code: this.form.pin_code,
-        street: this.form.street,
+        address_line_1: this.form.address_line_1,
         notes: this.paymentFormData.comment,
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
