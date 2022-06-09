@@ -857,7 +857,7 @@ textarea {
     color: #606266;
     .product-counter-btn {
       width: 2rem;
-      height: 2rem;
+      height: 1.75rem;
       border-radius: 0;
       border: 1px solid transparent;
       color: #606266;
@@ -876,7 +876,7 @@ textarea {
     color: #544842;
     font-weight: 500;
     width: 6rem;
-    height: 4rem;
+    height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

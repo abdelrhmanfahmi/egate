@@ -12,7 +12,7 @@
         v-for="product in products.products"
         :key="product.id"
       >
-        <a @click="goProduct(product.product_supplier_id)" class="thumb">
+        <a @click="goProduct(product.product_supplier_id)" class="product-img-container">
           <img
             :src="product.product_image"
             alt="Cart Item"
@@ -24,8 +24,8 @@
             {{ product.product_name }}
           </a>
 
-          <span class="price" v-if="product.customer_price">
-            {{ product.customer_price | fixedCurrency }}
+          <span class="price" v-if="product.price">
+            {{ product.price | fixedCurrency }}
           </span>
           <span class="price"> x </span>
           <span class="price">
@@ -118,10 +118,10 @@ export default {
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
-  .thumb {
-    width: 100px;
-    margin-inline-end: 0.8rem;
-  }
+  // .thumb {
+  //   width: 100px;
+  //   margin-inline-end: 0.8rem;
+  // }
   .product-info {
     .name {
       color: #312620;
@@ -148,8 +148,19 @@ export default {
     }
   }
 }
+
+.product-img-container{
+        width: 90px;
+    height: 45px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px grey;
+    margin-inline-end: 15px;
+    margin-inline-start: 1px;
 .product-image {
-  width: 100px;
-  height: 75px;
+  width: 100%;
+    height: 100%;
+       object-fit: cover;
+    border-radius: 8px;
+}
 }
 </style>
