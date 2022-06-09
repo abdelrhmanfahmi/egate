@@ -167,7 +167,10 @@ export default {
     return globalAxios.post(`members/message/`,data)
   },
   getProductRate(){
-    return globalAxios.get('members/review/orderd-products')
+    return globalAxios.get('members/review/ordered-products')
+  },
+  postProductRate(data){
+    return globalAxios.post('members/review',data)
   }
 
 };

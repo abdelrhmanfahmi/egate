@@ -93,8 +93,8 @@ export default {
       options: {
         color: "#ed2124",
         "empty-color": "transparent",
-        size: 90,
-        thickness: 3,
+        size: 80,
+        thickness: 5,
         "empty-thickness": 3,
         "line-mode": "out 5",
         animation: "rs 700 1000",

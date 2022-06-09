@@ -596,6 +596,13 @@ import suppliers from "@/services/suppliers";
 
 // import modal from "@/components/cart/cartModal.vue";
 // import { mapActions } from "vuex";
+
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
+
 export default {
   data() {
     return {
@@ -916,6 +923,19 @@ export default {
     },
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
+    },
+     loginFirst() {
+      Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.registerNow"),
+        icon: "warning",
+        // buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          Vue.swal(location.replace("/user-register"));
+        }
+      });
     },
     // getSupplierProducts() {
     //   suppliers
