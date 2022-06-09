@@ -119,7 +119,7 @@
                   </li>
                   <li>
                     <a
-                      href="https://staging2.fabrica-dev.com/humhum-supplier/auth/login"
+                      href="https://supplier.humhum.work/auth/login"
                       target="_blank"
                       >{{ $t("home.vendors") }}</a
                     >
@@ -162,7 +162,7 @@
                   }}</a
                   >. {{ $t("home.allRightsReserved") }}
                 </p>
-                <p>version 0.0.107</p>
+                <p>version 0.0.120</p>
               </div>
             </div>
           </div>

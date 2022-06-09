@@ -34,7 +34,7 @@
                 <ul class="submenu">
                   <li>
                     <a
-                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                      href="https://supplier.humhum.work/"
                       target="_blank"
                       >{{ $t("home.suppliers") }}</a
                     >
