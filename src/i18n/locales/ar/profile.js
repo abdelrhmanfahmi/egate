@@ -186,4 +186,5 @@ export default {
   lastUpdateUser: "اخر تحديثات المستخدم",
   actuons: "اجراءات",
   corresponceDetail: "مراسلات المورد و المشترى",
+  notReviewd: "لم يتم تقييمه حتى الان ",
 };

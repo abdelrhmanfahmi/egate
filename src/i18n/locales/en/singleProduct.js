@@ -50,4 +50,5 @@ export default {
   registerNow: "If You don't have account , register First ",
   productInCart: "Product In Favorite",
   outOfStock: "Out Of Stock",
+  noReviews:'No Reviews'
 };

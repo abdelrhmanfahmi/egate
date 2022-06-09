@@ -2,7 +2,7 @@
   <div class="specs">
     <div class="content">
       <h5 class="header d-inline-block font-weight-bold mb-3">
-        {{ $t("singleProduct.ratingHeader") }} (0):
+        {{ $t("singleProduct.ratingHeader") }} ({{reviewsLength}}):
       </h5>
       <!-- <p class="description">{{ $t("singleProduct.ratingDescription") }}.</p> -->
       <!-- <p class="hint">{{ $t("singleProduct.ratingHint") }}</p> -->
@@ -44,9 +44,13 @@
             </b-button>
           </div>
         </form> -->
-        <div class="my-3">
+        <div class="my-3" v-if="reviewsLength > 0">
           <!-- <hr /> -->
-          <div class="form-group mb-4 col-12" v-for="(review , index) in reviews " :key="index">
+          <div
+            class="form-group mb-3 col-12"
+            v-for="(review, index) in reviews"
+            :key="index"
+          >
             <label for="rating" class="d-flex align-items-center">
               <div class="mr-3">
                 <span>{{ review.client.first_name }}</span>
@@ -65,6 +69,9 @@
             </label>
           </div>
         </div>
+        <div class="" v-else>
+          <h6>{{$t('singleProduct.noReviews')}}</h6>
+        </div>
       </div>
     </div>
   </div>
@@ -73,26 +80,32 @@
 import suppliers from "@/services/suppliers";
 export default {
   data() {
-    return { count: 0, ratingValue: null , id:this.$route.query.id , reviews:null };
+    return {
+      count: 0,
+      ratingValue: null,
+      id: this.$route.query.id,
+      reviews: null,
+      reviewsLength: null,
+    };
   },
   props: ["myProduct"],
   methods: {
     getProductReview() {
-
       suppliers
         .getProductReview(this.id)
         .then((res) => {
-          console.log("review" , res);
-          this.reviews = res.data.items.data
+          // console.log("review" , res);
+          this.reviews = res.data.items.data;
+          this.reviewsLength = res.data.items.data.length;
         })
         .catch((err) => {
           console.log(err);
         });
     },
   },
-  mounted(){
-    this.getProductReview()
-  }
+  mounted() {
+    this.getProductReview();
+  },
 };
 </script>
 <style lang="scss" scoped>

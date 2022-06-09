@@ -70,7 +70,14 @@
               >
             </div>
             <div class="col-6 mb-2" v-else>
-              <router-link to="/b2b-login">{{ $t("login.login") }}</router-link>
+              <b-button
+                variant="outline-danger"
+                id="show-btn"
+                class="mx-2"
+                @click="loginFirst"
+                >{{ $t("supplier.sendSupplierMessage") }}</b-button
+              >
+              <!-- <router-link to="/b2b-login">{{ $t("login.login") }}</router-link> -->
             </div>
             <b-modal id="bv-modal-example" centered hide-footer>
               <template #modal-title>
@@ -255,7 +262,7 @@
             </span>
           </button>
           <div v-else class="font-weight-bold mt-3">
-            {{ $t("singleProduct.productInCart") }}
+            <!-- {{ $t("singleProduct.productInCart") }} -->
             <span class="text-danger">
               <font-awesome-icon icon="fa-solid fa-heart " />
             </span>
@@ -332,9 +339,8 @@
         <div
           class="product-counter"
           v-if="
-            (myProduct.product_details_by_type.add_type === 'cart' ||
-              myProduct.product_details_by_type.add_type === 'both') &&
-            userData
+            myProduct.product_details_by_type.add_type === 'cart' ||
+            myProduct.product_details_by_type.add_type === 'both'
           "
         >
           <div class="value">
@@ -552,7 +558,7 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.id,
+        product_supplier_id: this.myProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -565,6 +571,12 @@ export default {
           setTimeout(() => {
             document.querySelector(".close").click();
             this.requestData = [];
+            this.$router.push({
+              path:'/profile/quotationDetails',
+              query:{
+                id:resp.data.items.client_quote_id
+              }
+            })
           }, 500);
         })
         .catch((error) => {
@@ -614,7 +626,6 @@ export default {
         })
         .finally(() => {
           setTimeout(() => {
-            this.getCategoryProducts();
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });
@@ -677,11 +688,11 @@ export default {
       // url: this.mainDoamin
     };
   },
-  computed:{
-    url(){
-      return this.mainDoamin + `details?id=${this.id}`
-    }
-  }
+  computed: {
+    url() {
+      return this.mainDoamin + `details?id=${this.id}`;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -881,8 +892,8 @@ textarea {
   border-radius: 50%;
   margin: 0 7px;
 }
-.social-sharing-icons{
-  span{
+.social-sharing-icons {
+  span {
     cursor: pointer;
   }
 }

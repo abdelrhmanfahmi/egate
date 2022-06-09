@@ -1,16 +1,16 @@
 <template>
   <div class="product position-relative w-100" v-if="data">
     <div class="thumb">
-      <router-link
+      <a @click="goProduct(data)"
         v-if="data.image_path !== null"
-        :to="{ path: '/details', query: { id: `${data.id}` } }"
+        
         class="d-flex justify-content-center align-items-center product-image"
       >
         <img :src="data.image_path" alt="Product Image" class="Product-Image" />
-      </router-link>
-      <router-link
+      </a>
+      <div @click="goProduct(data)"
         v-else-if="data.image_path == null && data.product.image_path"
-        :to="{ path: '/details', query: { id: `${data.id}` } }"
+        
         class="d-flex justify-content-center align-items-center product-image"
       >
         <img
@@ -18,7 +18,7 @@
           alt="Product Image"
           class="Product-Image"
         />
-      </router-link>
+      </div>
       <div class="Product-Image" v-else>
         <img :src="data.product.image_path" alt="Product-Image" />
       </div>
@@ -33,13 +33,9 @@
             </a>
           </li>
           <li>
-            <router-link
-              :to="{
-                path: '/details',
-                query: { id: data.product_details_by_type.product_supplier_id },
-              }"
+            <a @click="goPage2(data)"
               ><b-icon-eye></b-icon-eye
-            ></router-link>
+            ></a>
           </li>
         </ul>
       </div>
@@ -105,6 +101,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
+            this.getSupplierProducts()
           }
         })
         .catch((error) => {
@@ -120,7 +117,7 @@ export default {
       suppliers
         .getSupplierProducts(this.supplierProductsId)
         .then((resp) => {
-          console.log("resp", resp);
+          // console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
@@ -128,6 +125,22 @@ export default {
           console.log(err);
         });
     },
+    goProduct(data){
+      this.$router.push({
+        path:'/details',
+        query:{
+          id:data.id
+        }
+      })
+    },
+    goPage2(data){
+      this.$router.push({
+        path:'/details',
+        query:{
+          id:data.product_details_by_type.product_supplier_id
+        }
+      })
+    }
   },
 };
 </script>

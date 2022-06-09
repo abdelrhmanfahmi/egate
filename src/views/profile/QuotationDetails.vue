@@ -193,7 +193,7 @@ export default {
       profile
         .getQuotationDetail(this.id)
         .then((res) => {
-          console.log("res" , res);
+          // console.log("res" , res);
           this.quotations = res.data.items;
         })
         .catch((err) => {
