@@ -19,7 +19,7 @@
       <template #cell(supplier_product_name)="data">
         <b-button
           v-b-modal.modal-center.data.value
-          @click="goProduct(data.item.id)"
+          @click="goProduct(data.item.supplier_product_id)"
           class="mr-2 btn btn-light bg-transparent link"
           >{{ data.value }}</b-button
         >

@@ -1,32 +1,126 @@
 <template>
   <div class="product-reviews">
     <h4 class="main-header my-4">{{ $t("profile.productReviews") }}</h4>
-    <b-table hover :items="items" :fields="fields" stacked="lg">
+    <!-- <b-table hover :items="items" :fields="fields" stacked="lg">
       <template #cell(created_at)="data">
         <span>
-          {{data.value | formatDate}}
+          {{ new Date(data.value).toLocaleString() }}
         </span>
       </template>
-      <template #cell(productName)="data">
-        <router-link to="/">{{ data.value }} </router-link>
+      <template #cell(product_supplier)="data">
+        <router-link
+          :to="{ path: '/details', query: { id: data.value.product_id } }"
+          v-if="$i18n.locale == 'en'"
+          >{{ data.value.short_description_en }}
+        </router-link>
+        <router-link
+          :to="{ path: '/details', query: { id: data.value.product_id } }"
+          v-if="$i18n.locale == 'ar'"
+          >{{ data.value.short_description_ar }}
+        </router-link>
       </template>
       <template #cell(evaluation)="data">
         <b>{{ data.value }}</b>
       </template>
       <template #cell(review)>
-        <Rate @changeTitle="ChangeQ($event)" />
+        <Rate @changeRate="ChangeRateValue($event)" @input="checkSupplier" />
       </template>
-      <template #cell(actions)>
-        <b-button class="login-button" @click="rate">
+      <template #cell(is_reviewed)="data">
+        <b-button
+          class="login-button"
+          diabled
+          @click="rate(data)"
+          v-if="is_reviewed"
+        >
+          {{ $t("profile.review") }}
+        </b-button>
+        <b-button class="login-button" @click="rate(data)" v-if="!is_reviewed">
           {{ $t("profile.review") }}
         </b-button>
       </template>
-    </b-table>
+    </b-table> -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col" v-for="(field, index) in fields" :key="index">
+            {{ field.label }}
+          </th>
+        </tr>
+      </thead>
+      <tbody v-for="item in items" :key="item.id">
+        <tr>
+          <td class="text-center">
+            <p
+              v-if="item.product_supplier.product"
+              class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+            >
+              <span>{{ new Date(item.created_at).toLocaleString() }}</span>
+            </p>
+          </td>
+          <td class="text-center">
+            <router-link
+              class="text-dark"
+              :to="{
+                path: '/details',
+                query: { id: item.product_supplier.id },
+              }"
+            >
+              <p
+                v-if="item.product_supplier.product"
+                class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+              >
+                <span v-if="$i18n.locale == 'en'"
+                  >{{ item.product_supplier.product.title_en }}
+                </span>
+                <span v-if="$i18n.locale == 'ar'"
+                  >{{ item.product_supplier.product.title_ar }}
+                </span>
+              </p>
+            </router-link>
+          </td>
+          <td class="text-center" v-if="item.review">
+            {{ new Date(item.review.created_at).toLocaleString() }}
+          </td>
+          <td class="text-center" v-else>
+            {{ $t("profile.notReviewd") }}
+          </td>
+          <td class="text-center">
+            <div class="" v-if="item.is_reviewed">
+              <b-form-rating
+                id="rating-inline"
+                inline
+                :value="item.review.rate"
+                color="#000"
+                disabled
+              ></b-form-rating>
+            </div>
+            <div class="" v-else>
+              <Rate
+                @changeRate="ChangeRateValue($event)"
+                @input="checkSupplier"
+              />
+            </div>
+          </td>
+          <td class="text-center">
+            <b-button class="login-button" disabled v-if="item.is_reviewed">
+              {{ $t("profile.review") }}
+            </b-button>
+            <b-button
+              class="login-button"
+              @click="postProductRate(item.product_supplier.id)"
+              v-if="!item.is_reviewed"
+            >
+              {{ $t("profile.review") }}
+            </b-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-import Rate from "@/components/global/rate.vue"
+import Rate from "@/components/global/rate.vue";
 import profile from "@/services/profile";
 export default {
   data() {
@@ -37,7 +131,7 @@ export default {
           label: this.$t("profile.construction"),
         },
         {
-          key: "productName",
+          key: "product_supplier",
           label: this.$t("profile.productName"),
         },
         {
@@ -59,35 +153,50 @@ export default {
         //   review: 3,
         // },
       ],
-      myRate:null
+      myRate: null,
+      product_supplier_id: null,
     };
   },
   methods: {
-    rate() {
-      alert("rate");
+    postProductRate(data) {
+      let requestData = {
+        product_supplier_id: data,
+        rate: this.myRate,
+      };
+      profile
+        .postProductRate(requestData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     getProductRate() {
       profile
         .getProductRate()
         .then((res) => {
           console.log(res);
-          this.items = res.data.items
+          this.items = res.data.items;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    ChangeQ(myRate) {
+    ChangeRateValue(myRate) {
       this.myRate = myRate;
       console.log(myRate);
     },
+    checkSupplier() {
+      alert("test");
+    },
   },
-  mounted(){
-    this.getProductRate()
+  mounted() {
+    this.getProductRate();
   },
-  components:{
-    Rate
-  }
+  components: {
+    Rate,
+  },
 };
 </script>
 <style lang="scss" scoped>

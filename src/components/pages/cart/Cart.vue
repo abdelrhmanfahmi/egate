@@ -1724,7 +1724,7 @@ export default {
           }
 
           console.log("cart_items", res.data.items.cart_items);
-          console.log("res", res);
+          // console.log("res", res);
 
           this.cartItems = res.data.items.cart_items;
           this.priceData = res.data.items;
@@ -2251,7 +2251,7 @@ export default {
       suppliers
         .getShippingFees(data)
         .then((res) => {
-          console.log("res" , res.data.items.shepping_fee);
+          // console.log("res" , res.data.items.shepping_fee);
           this.sucessMsg(res.data.message);
 
           myResult.innerHTML =
