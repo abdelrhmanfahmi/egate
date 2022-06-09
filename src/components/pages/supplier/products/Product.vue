@@ -132,6 +132,7 @@ export default {
           id:data.id
         }
       })
+      location.reload()
     },
     goPage2(data){
       this.$router.push({
@@ -140,6 +141,7 @@ export default {
           id:data.product_details_by_type.product_supplier_id
         }
       })
+      location.reload()
     }
   },
 };
