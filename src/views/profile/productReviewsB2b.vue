@@ -166,10 +166,14 @@ export default {
       profile
         .postProductRate(requestData)
         .then((res) => {
-          console.log(res);
+          this.sucessMsg(res.data.message);
+          this.getProductRate()
         })
         .catch((err) => {
           console.log(err);
+            let error = Object.values(err)[2].data;
+            this.errors = error.items;
+            this.errMsg(error.message);
         });
     },
     getProductRate() {
