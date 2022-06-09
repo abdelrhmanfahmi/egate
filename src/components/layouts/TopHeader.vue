@@ -161,9 +161,9 @@ export default {
               "currency",
               res.data.items[0].currencies[0].code
             );
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 500);
+            setTimeout(() => {
+              location.reload();
+            }, 500);
           }
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);
@@ -175,6 +175,16 @@ export default {
 
           this.currencies = this.countries;
           // console.log(this.currencies);
+        })
+        .then(() => {
+          let myCurrency = document
+            .querySelector("#myCurrency-code")
+            .innerText.trim();
+          if (myCurrency == "") {
+            setTimeout(() => {
+              location.reload();
+            }, 800);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -228,14 +238,7 @@ export default {
       //     location.reload();
       //   }, 700);
       // }
-      let myCurrency = document
-        .querySelector("#myCurrency-code")
-        .innerText.trim();
-      if (myCurrency == "") {
-        setTimeout(() => {
-          location.reload();
-        }, 800);
-      }
+      // this.getAllCountires();
     },
   },
   computed: {
