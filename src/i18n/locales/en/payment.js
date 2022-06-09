@@ -26,7 +26,7 @@ export default {
   requestReceipt: "Payment with request receipt",
   onlinePayment: "Online payment",
   accept: "I accept",
-  termsAndConditions: "terms and conditions",
+  termsAndConditions: "Terms and Conditions",
   checkout: "Checkout",
   delivery: "Shipping",
   pickup: "Pick-up",

@@ -24,5 +24,5 @@ export default {
   kg: "كيلو",
   // Products Most Sold
   new: "جديد",
-  relativeProducts: "منتجات ذات صله",
+  relativeProducts: "منتجات ذات الصلة",
 };
