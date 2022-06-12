@@ -97,7 +97,7 @@
         </div>
         <div class="col-12 col-lg-4 col-xl-3 info-data">
           <div class="contact-info">
-            <div class="info d-flex" v-if="contactPhone">
+            <div class="info " v-if="contactPhone">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -110,12 +110,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
                     <b-icon-telephone-outbound></b-icon-telephone-outbound>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data">
                     <span class="title">{{ contactPhone.title }}</span>
                     <ul class="contact-data">
@@ -127,7 +127,7 @@
                 </div>
               </div>
             </div>
-            <div class="info d-flex" v-if="contactEmail">
+            <div class="info" v-if="contactEmail">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -140,12 +140,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
-                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                   <b-icon-envelope></b-icon-envelope>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data pl-2">
                     <span class="title">{{ contactEmail.title }}</span>
                     <ul class="contact-data">
@@ -157,7 +157,7 @@
                 </div>
               </div>
             </div>
-            <div class="info d-flex" v-if="contactAddress">
+            <div class="info" v-if="contactAddress">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -170,12 +170,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
-                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                    <b-icon-map-fill></b-icon-map-fill>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data">
                     <span class="title">{{ contactAddress.title }}</span>
                     <ul class="contact-data">
@@ -204,11 +204,13 @@
   </div>
 </template>
 <script>
-import { BIconTelephoneOutbound } from "bootstrap-vue";
+import { BIconTelephoneOutbound , BIconEnvelope , BIconMapFill } from "bootstrap-vue";
 import profile from "@/services/profile";
 export default {
   components: {
     BIconTelephoneOutbound,
+    BIconEnvelope,
+    BIconMapFill
   },
   data() {
     return {
@@ -233,6 +235,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.sucessMsg(res.data.message);
+          this.errors = []
         })
         .catch((error) => {
           console.log(error);

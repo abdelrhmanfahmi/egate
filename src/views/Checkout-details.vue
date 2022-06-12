@@ -183,6 +183,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
+            this.$router.push('/')
           }
           console.log(res);
         })
