@@ -68,6 +68,7 @@
             </span>
           </div>
         </div>
+
         <section class="account-address-info">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
@@ -151,7 +152,8 @@
             </div>
           </div>
         </section>
-        <section class="supplier-info" v-if="orders[0].bicked">
+        
+        <section class="supplier-info" v-if="orders && orders[0].bicked">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
           >
@@ -207,6 +209,7 @@
             </div>
           </div>
         </section>
+        
         <section class="payment">
           <!-- <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center mb-4"

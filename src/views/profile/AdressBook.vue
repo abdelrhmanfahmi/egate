@@ -326,7 +326,8 @@ export default {
             this.form = {};
              if(res.status == 200){
             setTimeout(() => {
-              this.$router.replace('/profile/documents')
+              // this.$router.replace('/profile/documents')
+              this.$router.replace('/')
             }, 500);
           }
           })

@@ -233,7 +233,9 @@
                                   />
                                   <div
                                     class="error"
-                                    v-for="(error, index) in errors.address_line_1"
+                                    v-for="(
+                                      error, index
+                                    ) in errors.address_line_1"
                                     :key="index"
                                   >
                                     {{ error }}
@@ -782,7 +784,7 @@
                                 >
                                   <label>
                                     <input
-                                      @change="changeShippping"
+                                      @change="changeShipping"
                                       @input="shippingStore(supplier)"
                                       type="radio"
                                       value="0"
@@ -1232,7 +1234,7 @@
                 <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
               </div> -->
                         <div class="methods">
-                          <div class="method" v-if="userData">
+                          <div class="method" v-if="userData.type === 'b2c'">
                             <div
                               class="custom-control custom-radio custom-control-inline"
                             >
@@ -1277,33 +1279,37 @@
                             </div>
                           </div>
                           <div
-                            class="method d-flex justify-content-between align-content-center"
+                            class="method row justify-content-between align-content-center"
                           >
-                            <div
-                              class="custom-control custom-radio custom-control-inline"
-                            >
-                              <input
-                                type="radio"
-                                id="paymentMethod3"
-                                name="paymentMethod"
-                                class="custom-control-input"
-                                v-model="paymentFormData.payment_type"
-                                value="visa"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="paymentMethod3"
+                            <div class="col-md-8 col-xs-12">
+                              <div
+                                class="custom-control custom-radio custom-control-inline"
                               >
-                                {{ $t("payment.onlinePayment") }}
-                                <sup>*</sup>
-                              </label>
+                                <input
+                                  type="radio"
+                                  id="paymentMethod3"
+                                  name="paymentMethod"
+                                  class="custom-control-input"
+                                  v-model="paymentFormData.payment_type"
+                                  value="visa"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="paymentMethod3"
+                                >
+                                  {{ $t("payment.onlinePayment") }}
+                                  <sup>*</sup>
+                                </label>
+                              </div>
                             </div>
-                            <div class="online-media">
-                              <img
-                                src="@/assets/images/cart.png"
-                                alt=""
-                                srcset=""
-                              />
+                            <div class="col-md-4 col-xs-12">
+                              <div class="online-media">
+                                <img
+                                  src="@/assets/images/cart.png"
+                                  alt=""
+                                  srcset=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1356,11 +1362,18 @@
                             <b-button
                               size="sm"
                               variant="outline-success"
-                              @click="ok() ; acceptMyTerms()"
+                              @click="
+                                ok();
+                                acceptMyTerms();
+                              "
                             >
                               <h6 class="m-0">
-                                <span class="mx-1">{{ $t("payment.accept") }}</span>
-                                <span class="mx-1">{{ $t("payment.termsAndConditions") }}</span>
+                                <span class="mx-1">{{
+                                  $t("payment.accept")
+                                }}</span>
+                                <span class="mx-1">{{
+                                  $t("payment.termsAndConditions")
+                                }}</span>
                               </h6>
                             </b-button>
                           </template>
@@ -1744,12 +1757,14 @@ export default {
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
-            // var checkboxes = document.getElementsByClassName("checkFirst");
+
+            // checkAll
+            var checkboxes = document.getElementsByClassName("checkFirst");
             var existingAddresses =
               document.querySelector(".existingAddresses");
-            // for (var i = 0; i < checkboxes.length; i++) {
-            //   checkboxes[i].checked = true;
-            // }
+            for (var i = 0; i < checkboxes.length; i++) {
+              checkboxes[i].checked = true;
+            }
             if (this.addresses !== null) {
               existingAddresses.click();
             }
@@ -2147,12 +2162,15 @@ export default {
         setTimeout(() => {
           this.expanded = false;
         }, 500);
+        // document.getElementsByClassName('feedsResult').innerHTML = ''
+        // document.getElementsByClassName('feedsResult').classList.remove('d-block')
+        // document.getElementsByClassName('feedsResult').classList.add('d-none')
         this.getGuestFirstShippingFees();
 
-        this.localStoreFail = false;
+        this.localStoreFail = true;
       } else {
         this.errMsg(this.$t("cart.fillData"));
-        this.localStoreFail = true;
+        this.localStoreFail = false;
       }
     },
     getSupplierAddress(supplierId) {
@@ -2164,11 +2182,7 @@ export default {
         .then((res) => {
           // console.log(res);
           this.selectedSupplierAddresses = res.data.items;
-          if (
-            res.data.items.length == 0 ||
-            res.data.items == ""
-          ) {
-            
+          if (res.data.items.length == 0 || res.data.items == "") {
             this.availablePickup = false;
             // console.log(this.selectedInput.parentElement.parentElement);
             this.selectedInput.parentElement.parentElement
@@ -2187,12 +2201,12 @@ export default {
               .querySelector(".feedsResult")
               .classList.add("d-none");
 
-              this.selectedInput.parentElement.parentElement.querySelector(
-              ".pickupNoData"
-            ).classList.remove('d-none')
-              this.selectedInput.parentElement.parentElement.querySelector(
-              ".pickupNoData"
-            ).classList.add('d-block')
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".pickupNoData")
+              .classList.remove("d-none");
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".pickupNoData")
+              .classList.add("d-block");
 
             this.selectedInput.parentElement.parentElement.querySelector(
               ".pickupNoData"
@@ -2207,15 +2221,13 @@ export default {
             this.selectedInput.parentElement.parentElement.querySelector(
               ".feedsResultShipping"
             ).innerHTML = ``;
-            
           }
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    changeShippping($event) {
-      
+    changeShipping($event) {
       let input = $event.target;
 
       this.selectedInput = input;
@@ -2229,17 +2241,20 @@ export default {
 
       this.expanded = true;
 
-
       //  let address_uuid = localStorage.getItem("addressUUID");
 
       let myResult =
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult')
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".feedsResult"
+        );
 
+      let myPickupData =
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".supplierAddresses"
+        );
 
-          let myPickupData = this.selectedInput.parentElement.parentElement.querySelector('.supplierAddresses')
-
-          myPickupData.classList.remove('d-block')
-          myPickupData.classList.add('d-none')
+      myPickupData.classList.remove("d-block");
+      myPickupData.classList.add("d-none");
 
       let data = {
         country: this.form.country_id,
@@ -2260,8 +2275,8 @@ export default {
             " " +
             this.currency;
 
-            myResult.classList.remove('d-none')
-            myResult.classList.add('d-block')
+          myResult.classList.remove("d-none");
+          myResult.classList.add("d-block");
 
           if (res.data.items == [] || res.data.items == "") {
             myResult.innerHTML = this.$t("profile.deliveryFeesText");
@@ -2269,6 +2284,7 @@ export default {
 
           this.errors = [];
           this.firstFees = res.data.items;
+          // this.shippingCartFee = Number(res.data.items.shepping_fee)
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -2277,7 +2293,6 @@ export default {
         });
     },
     shippingStore(supplier) {
-      
       let newRating = {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
@@ -2314,24 +2329,23 @@ export default {
       //   // alert('undefined')
       // }
 
-
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
 
         // supplierAddresses
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.add(
-          "d-none"
-        );
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.remove(
-          "d-block"
-        );
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .classList.add("d-none");
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .classList.remove("d-block");
 
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.add(
-          "d-none"
-        );
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.remove(
-          "d-block"
-        );
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .nextElementSibling.classList.add("d-none");
+        this.selectedInput.parentElement.parentElement
+          .querySelector(".feedsResult")
+          .nextElementSibling.classList.remove("d-block");
       } else {
         this.deliverType = false;
 
@@ -2351,7 +2365,7 @@ export default {
 
         this.selectedInput.parentElement.parentElement.querySelector(
           ".feedsResult"
-        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0 ${this.currency}`;
+        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency}`;
       }
     },
     getShippingFeesExist() {
@@ -2397,7 +2411,7 @@ export default {
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
         })
@@ -2454,7 +2468,7 @@ export default {
       suppliers
         .getFirstShippingFees(this.userData.address_uuid)
         .then((res) => {
-          // console.log(res);
+          console.log("new" , res);
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
@@ -2464,6 +2478,20 @@ export default {
           // }
 
           // this.totalFees =
+
+          let arr = res.data.items;
+            var size = Object.values(arr);
+            // console.log("arr" , size);
+            let myData = 0;
+            for (let index = 0; index < size.length; index++) {
+              const element = size[index].shipping_fee;
+              // console.log(`element${index}`, element);
+              myData += parseFloat(element);
+            }
+
+            // this.shippingCartFee = myData + 'reda';
+            this.shippingCartFee = myData;
+
         })
         .catch((err) => {
           console.log(err);
@@ -2592,6 +2620,7 @@ export default {
         });
     },
     guestPayment() {
+      alert('clicked')
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -2694,9 +2723,9 @@ export default {
         this.condations = res.data.items;
       });
     },
-    acceptMyTerms(){
-      this.paymentFormData.accept_terms = true
-    }
+    acceptMyTerms() {
+      this.paymentFormData.accept_terms = true;
+    },
   },
   computed: {
     // cartItems() {
@@ -3262,5 +3291,12 @@ a:not([href]):not([class]) {
 sup {
   font-size: 95% !important;
   color: red;
+}
+html:lang(ar){
+  .actions{
+    span{
+      transform: rotate(180deg);
+    }
+  }
 }
 </style>

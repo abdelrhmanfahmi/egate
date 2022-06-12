@@ -35,20 +35,17 @@
         > -->
       </div>
       <div class="content">
-        <b-row
-          align-h="center"
-          align-v="start"
-          class="py-5"
-          v-if="productInfo"
-        >
+        <b-row align-h="center" align-v="start" class="py-5" v-if="productInfo">
           <b-col cols="12" lg="6" xl="5" class="item-content">
             <!-- <a href="#" class="link">{{ $t("items.category") }}</a> -->
             <h5 class="name" v-if="productInfo.title">
               {{ productInfo.title }}
             </h5>
-            <p class="description" v-if="productInfo.description">
-              {{ productInfo.description }}
-            </p>
+            <p
+              class="description"
+              v-if="productInfo.description"
+              v-html="productInfo.description"
+            ></p>
             <!-- <p class="description">
               {{ $t("items.description") }}
             </p> -->
@@ -318,7 +315,8 @@
                   >
                     <p class="m-0">
                       {{
-                        product.product_details_by_type.customer_price | fixedCurrency
+                        product.product_details_by_type.customer_price
+                          | fixedCurrency
                       }}
                       {{ currency }}
                     </p>
@@ -484,6 +482,22 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
+
+                  <div class="" v-if="userData && userData.type === 'b2c' ">
+                    <a
+                      class="text-danger d-flex justify-content-center align-items-center"
+                      :title="`product in favourite`"
+                      @click="addToWishlist(product)"
+                      v-if="product.is_favorite == true"
+                      ><font-awesome-icon icon="fa-solid fa-star"
+                    /></a>
+                    <a
+                      @click="addToWishlist(product)"
+                      class="d-flex justify-content-center align-items-center"
+                      v-else
+                      ><font-awesome-icon icon="fa-solid fa-star"
+                    /></a>
+                  </div>
                 </div>
               </td>
               <!-- <transition name="modal">
@@ -924,7 +938,7 @@ export default {
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
     },
-     loginFirst() {
+    loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
