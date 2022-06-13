@@ -57,4 +57,6 @@ export default {
   bankImageDownload: "تحميل صورة التحويل",
   bankTransImage: "صورة التحويل البنكى",
   bankComment: "ملاحظات التحويل البنكى",
+  orderStatus: "حالة الطلب",
+  cancelOrder: "الغاء",
 };

@@ -25,9 +25,7 @@ export default {
       this.rateValue = rateValue;
       this.$emit('changeRate',rateValue)
     },
-    testMe(){
-      alert('test me')
-    }
+
   },
 };
 </script>

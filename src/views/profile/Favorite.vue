@@ -119,14 +119,15 @@
                   </tr>
                 </thead>
                 <tbody v-for="(item, index) in wishlistItems" :key="index">
-                  <tr>
-                    <td class="text-center">
-                      <p
+                  <tr v-if="item.product_supplier">
+                    <td class="text-center" >
+                      <!-- <div
                         v-if="item.product_supplier.product"
                         class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
                       >
-                        {{ item.product_supplier.product.title }}
-                      </p>
+                        <span v-if="$i18n.locale == 'en'">{{ item.product_supplier.product.title_en }}</span>
+                        <span v-else>{{ item.product_supplier.product.title_ar }}</span>
+                      </div> -->
 
                       <router-link
                         :to="{

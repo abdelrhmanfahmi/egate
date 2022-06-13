@@ -56,5 +56,7 @@ export default {
   paymentStatus:'Payment Status',
   bankImageDownload:'Download Transfer Image',
   bankTransImage:'Bank transfer image',
-  bankComment:'Bank transfer notes'
+  bankComment:'Bank transfer notes',
+  orderStatus:'Order Status',
+  cancelOrder:'Cancel'
 };

@@ -16,6 +16,10 @@
           >{{ $t("profile.view") }}</b-button
         >
       </template>
+      <template #cell(price)="data">
+        <span v-if="data.value">{{data.value | fixedCurrency}} {{currency}}</span>
+        <span v-else> - </span>
+      </template>
       <template #cell(supplier_product_name)="data">
         <b-button
           v-b-modal.modal-center.data.value

@@ -152,7 +152,7 @@
             </div>
           </div>
         </section>
-        
+
         <section class="supplier-info" v-if="orders && orders[0].bicked">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
@@ -209,7 +209,7 @@
             </div>
           </div>
         </section>
-        
+
         <section class="payment">
           <!-- <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center mb-4"
@@ -325,6 +325,7 @@
               v-for="(order, index) in orders"
               :key="index"
             >
+              <!-- {{order.order_status_no}} -->
               <div
                 class="supplier-data info-data info-colored data-holder"
                 v-if="order.supplier"
@@ -336,7 +337,7 @@
                   </div>
                   <div class="" v-if="order">
                     {{ $t("profile.supplierOrder") }} : {{ order.serial }} |
-                    {{ $t("payment.status") }} : {{ order.order_status }}
+                    {{ $t("payment.orderStatus") }} : {{ order.order_status }}
                   </div>
                 </div>
               </div>
@@ -344,34 +345,19 @@
                 <b-button
                   @click="
                     $bvModal.show('bv-modal-example1');
-                    showModal(order);
+                    showModal(order)
                   "
+                  
                   variant="outline-danger mt-2"
                   v-if="
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Pending') ||
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Accepted') ||
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Out_Of_Delivered')
+                    order.order_status_string === 'Pending' ||
+                    order.order_status_string === 'Accepted'
                   "
                   ><font-awesome-icon icon="fa-solid fa-x" />
-                  <span class="mx-2">cancel</span></b-button
+                  <span class="mx-2">{{
+                    $t("payment.cancelOrder")
+                  }}</span></b-button
                 >
-                <b-button
-                  @click="$bvModal.show('bv-modal-example1')"
-                  variant="outline-danger"
-                  v-else-if="
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Pending') ||
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Accepted') ||
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Out_Of_Delivered')
-                  "
-                  ><span class="mx-2">الغاء</span
-                  ><font-awesome-icon icon="fa-solid fa-x"
-                /></b-button>
               </div>
               <div class="supplier-products mt-3" v-if="fields">
                 <div class="holder">
@@ -402,9 +388,25 @@
                           {{ ord.total_price | fixedCurrency }}
                         </td>
                         <td>
-                          <button class="btn btn-outline-danger">
+                          <!-- <button class="btn btn-outline-danger">
                             {{ $t("profile.return") }}
-                          </button>
+                          </button> -->
+                          <b-button
+                            @click="
+                              $bvModal.show('bv-modal-example1');
+                              showModal(order)
+                            "
+                            
+                            variant="outline-danger mt-2"
+                            v-if="
+                              order.order_status_string === 'Completed' ||
+                              order.order_status_string === 'Delivered'
+                            "
+                            ><font-awesome-icon icon="fa-solid fa-x" />
+                            <span class="mx-2">{{
+                              $t("profile.return")
+                            }}</span></b-button
+                          >
                         </td>
                       </tr>
                     </tbody>
@@ -444,7 +446,7 @@
                 class="mt-3"
                 variant="outline-success"
                 block
-                @click="deleteOrder"
+                @click="cancelOrder"
                 >{{ $t("profile.send") }}</b-button
               >
               <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
@@ -658,7 +660,7 @@ export default {
       profile
         .getSingleOrders(this.id)
         .then((res) => {
-          console.log("getSingleOrders", res);
+          // console.log("getSingleOrders", res);
           this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
           this.paymentFormData.order_uuid = res.data.items.order.uuid;
@@ -670,14 +672,14 @@ export default {
           this.loading = false;
         });
     },
-    deleteOrder(order) {
-      console.log(order);
+    cancelOrder() {
+      // console.log(order);
       let data = {
         orderUUID: this.supplierUUID,
         payLoad: this.message,
       };
       profile
-        .deleteOrder(data)
+        .cancelOrder(data)
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
@@ -695,7 +697,7 @@ export default {
       profile
         .rePay(this.paymentFormData)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.sucessMsg(res.data.message);
           if (res.status == 200) {
             if (this.paymentFormData.payment_type === "cach") {
@@ -743,6 +745,9 @@ export default {
         fileLink.click();
       });
     },
+    showModal(order){
+      this.supplierUUID = order.uuid
+    }
   },
   mounted() {
     this.getSingleOrders();

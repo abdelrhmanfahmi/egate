@@ -183,7 +183,7 @@ export default {
   text-align: center;
   padding: 20px 5px;
   .product-info {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     small {
       color: $main-color;
       font-size: 12px;
