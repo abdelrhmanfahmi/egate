@@ -799,10 +799,7 @@
                                   </label>
                                   <label>
                                     <input
-                                      @input="
-                                        getSupplierAddress(supplier.supplier_id)
-                                      "
-                                      @change="changePackUp"
+                                      @input="changePickup($event, supplier)"
                                       type="radio"
                                       value="1"
                                       :name="'types-' + index"
@@ -1234,7 +1231,7 @@
                 <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
               </div> -->
                         <div class="methods">
-                          <div class="method" v-if="userData.type === 'b2c'">
+                          <div class="method" v-if="userData">
                             <div
                               class="custom-control custom-radio custom-control-inline"
                             >
@@ -1757,7 +1754,6 @@ export default {
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
-
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
             var existingAddresses =
@@ -1926,6 +1922,24 @@ export default {
     },
 
     changeAddress() {
+      document.getElementsByClassName("feedsResult").innerHTML = "";
+      // console.log(document.querySelector('.feedsResult').classList.contains('d-block'));
+      // if(document.querySelectorAll('.feedsResult').classList.contains('d-block')){
+      //   document.querySelectorAll('.feedsResult').classList.remove('d-block')
+      //   document.querySelectorAll('.feedsResult').classList.add('d-none')
+      // }
+      var doc = document.querySelectorAll(".feedsResult");
+      // console.log(doc);
+      // var notes = null;
+      for (var i = 0; i < doc.length; i++) {
+        if (doc[i].classList.contains ("d-block")) {
+          // notes = doc.childNodes[i];
+          // break;
+          doc[i].classList.remove('d-block')
+          doc[i].innerHTML = "";
+        }
+      }
+
       this.newForm = this.selectedAddress;
       // console.log("old selected address", this.selectedAddress);
       // localStorage.setItem(
@@ -2292,6 +2306,19 @@ export default {
           this.errMsg(err.message);
         });
     },
+    changePickup($event, supplier) {
+      let input = $event.target;
+
+      this.selectedInput = input;
+
+      // let button = input.parentElement.nextElementSibling;
+      // button.classList.add("d-block");
+
+      this.showBtnClicked = false;
+      // console.log(supplier);
+      this.getSupplierAddress(supplier.supplier_id);
+    },
+
     shippingStore(supplier) {
       let newRating = {
         id: supplier.supplier_id,
@@ -2305,17 +2332,6 @@ export default {
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-    },
-
-    changePackUp($event) {
-      let input = $event.target;
-
-      this.selectedInput = input;
-
-      // let button = input.parentElement.nextElementSibling;
-      // button.classList.add("d-block");
-
-      this.showBtnClicked = false;
     },
 
     orderType(supplier) {
@@ -2365,7 +2381,9 @@ export default {
 
         this.selectedInput.parentElement.parentElement.querySelector(
           ".feedsResult"
-        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency}`;
+        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+          this.currency
+        }`;
       }
     },
     getShippingFeesExist() {
@@ -2468,7 +2486,7 @@ export default {
       suppliers
         .getFirstShippingFees(this.userData.address_uuid)
         .then((res) => {
-          console.log("new" , res);
+          console.log("new", res);
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
@@ -2480,18 +2498,17 @@ export default {
           // this.totalFees =
 
           let arr = res.data.items;
-            var size = Object.values(arr);
-            // console.log("arr" , size);
-            let myData = 0;
-            for (let index = 0; index < size.length; index++) {
-              const element = size[index].shipping_fee;
-              // console.log(`element${index}`, element);
-              myData += parseFloat(element);
-            }
+          var size = Object.values(arr);
+          // console.log("arr" , size);
+          let myData = 0;
+          for (let index = 0; index < size.length; index++) {
+            const element = size[index].shipping_fee;
+            // console.log(`element${index}`, element);
+            myData += parseFloat(element);
+          }
 
-            // this.shippingCartFee = myData + 'reda';
-            this.shippingCartFee = myData;
-
+          // this.shippingCartFee = myData + 'reda';
+          this.shippingCartFee = myData;
         })
         .catch((err) => {
           console.log(err);
@@ -2620,7 +2637,7 @@ export default {
         });
     },
     guestPayment() {
-      alert('clicked')
+      alert("clicked");
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -3292,9 +3309,9 @@ sup {
   font-size: 95% !important;
   color: red;
 }
-html:lang(ar){
-  .actions{
-    span{
+html:lang(ar) {
+  .actions {
+    span {
       transform: rotate(180deg);
     }
   }

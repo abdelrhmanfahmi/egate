@@ -17,5 +17,5 @@ export default {
   log2: "هل تريد أن يكون لديك حساب مسجل في Humhumm؟",
   logBtn1: " نعم ، أريد التسجيل",
   logBtn2: "لا ، المتابعة بدون تسجيل",
-  actionComplete: "من فضلك اكمل العمليه",
+  actionComplete: "من فضلك اكمل العملية",
 };

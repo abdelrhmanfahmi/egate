@@ -13,7 +13,7 @@ export default {
   productName: "حليب كامل الدسم",
   more: "اعرض المزيد",
   OurShop: "منتجاتنا",
-  Shop: "منتجات",
+  Shop: "منتجات المورد",
   Showing: "يتم عرض ",
   of: "من",
   results: "ناتج البحث",

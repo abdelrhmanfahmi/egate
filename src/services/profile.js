@@ -96,7 +96,8 @@ export default {
   getSingleOrders(id) {
     return globalAxios.get(`members/client-orders/${id}`);
   },
-  deleteOrder(data) {
+  cancelOrder(data) {
+    console.log(data);
     return globalAxios.post(
       `members/client-orders/${data.orderUUID}/change-status`,
       {

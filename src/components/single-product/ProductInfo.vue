@@ -11,9 +11,9 @@
       <h4 class="name" v-if="myProduct.product.title">
         {{ myProduct.product.title }}
       </h4>
-      <p class="description" v-if="myProduct.short_description" v-html="myProduct.short_description">
+      <!-- <p class="description" v-if="myProduct.short_description" v-html="myProduct.short_description">
         
-      </p>
+      </p> -->
       <!-- <b-form-rating></b-form-rating> -->
 
       <div class="" v-if="myProduct.product_details_by_type">

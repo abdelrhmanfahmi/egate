@@ -25,13 +25,16 @@
             </b-card>
           </b-col>
         </b-row>
-        <div class="row suppliers-data" v-else>
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content"
+        <div class="" v-else>
+          <h1 class="text-center my-5">{{ $t("home.bestDeal") }}</h1>
+          <div class="row suppliers-data">
+            <div
+            class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
             v-for="(deal , index) in deals"
             :key="index"
           >
-            <BestDeals :deal="deal"></BestDeals>
+            <BestDeals :deal="deal" @getWishlistData="getWishlistData"></BestDeals>
+          </div>
           </div>
         </div>
         <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
@@ -63,8 +66,9 @@ import BestDeals from "@/components/pages/BestDeals.vue";
 // import suppliers from "@/services/suppliers";
 // import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+// import axios from "axios";
+import categories from "@/services/categories"
 export default {
   components: {
     BestDeals,
@@ -97,14 +101,14 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+      errors:[]
     };
   },
   methods: {
-    getSuppliers() {
+    getBestDeals() {
       this.loading = true;
-      axios
-        // .get(`${baseURL}suppliers?page=${this.page}`)
-        .get(`${baseURL}products/best/offers`)
+      categories
+        .getBestDeals()
         .then((resp) => {
           console.log(resp);
           this.deals = resp.data.items.data;
@@ -125,20 +129,23 @@ export default {
     },
     onPageChange(page) {
       this.page = page;
-      this.getSuppliers();
+      this.getBestDeals();
     },
     onChangeRecordsPerPage() {
-      this.getSuppliers();
+      this.getBestDeals();
     },
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
-        this.getSuppliers();
+        this.getBestDeals();
       }
     },
+    getWishlistData(){
+      this.getBestDeals()
+    }
   },
   mounted() {
-    this.getSuppliers();
+    this.getBestDeals();
   },
   computed: {
     rows() {

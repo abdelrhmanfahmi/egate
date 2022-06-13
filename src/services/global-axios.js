@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// import auth from "@/services/auth"
 // for token
 
 let lang = null;
@@ -65,5 +65,21 @@ globalAxios.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
+
+// globalAxios.interceptors.response.use(undefined, function (err) {
+//   // console.log('error' , err.response.data.code)
+//   return new Promise(function () {
+//     if (err.response.data.code === 401) {
+//       // if you ever get an unauthorized, logout the user
+      
+//       // auth.logout();
+//       // location.replace('/b2b-login')
+//       localStorage.removeItem('userInfo')
+//       localStorage.removeItem('userData')
+//       // you can also redirect to /login if needed !
+//     }
+//     throw err;
+//   });
+// });
 
 export default globalAxios;

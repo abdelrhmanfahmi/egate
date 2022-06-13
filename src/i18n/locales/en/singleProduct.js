@@ -3,7 +3,7 @@ export default {
   category: "Fruit",
   fruitName: "Apple",
   price: "Price",
-  priceUnit: "KD",
+  priceUnit: "KWD",
   supplier: "Supplier",
   weight: "Weight",
   available: "Available",
