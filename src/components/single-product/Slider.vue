@@ -1,5 +1,5 @@
 <template>
-  <div class="product-slider" v-if="images.length > 0">
+  <div class="product-slider" v-if="mediaExist">
     <div class="content d-flex">
       <div class="main-img mr-2">
         <img id="main-img" :src="currentImage" v-if="currentImage" />
@@ -38,6 +38,8 @@ export default {
       //   "https://media.istockphoto.com/photos/green-apple-fruit-with-green-leaf-isolated-on-white-picture-id920478620",
       // ],
       images: [],
+
+      mediaExist: false,
     };
   },
   methods: {
@@ -51,24 +53,38 @@ export default {
         .productDetails(this.id)
         .then((res) => {
           this.myProduct = res.data.items;
+          // this.images = res.data.items.images;
+
           // product.image_path == null && product.product.image_path
-          if (
-            res.data.items.product.images == null ||
-            res.data.items.product.images.length == 0
-          ) {
+          if (res.data.items.images.length !== 0) {
             this.images = res.data.items.images;
+            this.firstImage = res.data.items.images[0].image_path;
+            this.mediaExist = true;
           }
 
           if (
-            res.data.items.images.length == 0 ||
-            res.data.items.images.length == null
+            res.data.items.images.length == 0 &&
+            res.data.items.product.images.length !== 0
           ) {
             this.images = res.data.items.product.images;
+            this.firstImage = res.data.items.product.images[0].image_path;
+            this.mediaExist = true;
           }
 
-          this.images = res.data.items.images;
-          if (res.data.items.images.length > 0) {
-            this.firstImage = res.data.items.images[0].image_path;
+          // this.images = res.data.items.images;
+          // if (res.data.items.images.length > 0) {
+          //   this.firstImage = res.data.items.images[0].image_path;
+          // }
+
+          // console.log(res.data.items.images.length == 0);
+
+          if (
+            res.data.items.images.length === 0 &&
+            res.data.items.product.images.length === 0 &&
+            res.data.items.product.image_path
+          ) {
+            this.firstImage = res.data.items.product.image_path;
+            this.mediaExist = true;
           }
         })
         .catch((err) => {

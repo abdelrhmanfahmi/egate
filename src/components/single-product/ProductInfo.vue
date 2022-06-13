@@ -11,8 +11,8 @@
       <h4 class="name" v-if="myProduct.product.title">
         {{ myProduct.product.title }}
       </h4>
-      <p class="description">
-        {{ myProduct.short_description }}
+      <p class="description" v-if="myProduct.short_description" v-html="myProduct.short_description">
+        
       </p>
       <!-- <b-form-rating></b-form-rating> -->
 
@@ -551,7 +551,7 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          Vue.swal(location.replace("/user-register"));
+          this.$router.push("/user-register")
         }
       });
     },
