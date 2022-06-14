@@ -200,58 +200,161 @@
       <hr />
       <div
         v-if="myProduct.product_details_by_type"
-        class="product-actions d-flex flex-wrap justify-content-between align-items-start mt-4"
+        class="product-actions row justify-content-between align-items-center mt-4"
       >
-        <div class="short-links">
-          <button
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
+        <div class="col-2">
+          <div class="products mb-2 mr-1">
+            <a
+              class="text-danger d-flex justify-content-center align-items-center bg-transparent text-white"
+              :title="`product in favourite`"
+              v-if="myProduct.is_favorite == true"
+              ><font-awesome-icon icon="fa-solid fa-star"
+            /></a>
+            <a
+              @click="addToWishlist(myProduct)"
+              class="d-flex justify-content-center align-items-center text-dark"
+              v-else
+              ><font-awesome-icon icon="fa-solid fa-star"
+            /></a>
+          </div>
+        </div>
+        <div class="col-7">
+          <div
+            class="mb-2 mr-1"
             v-if="
-              (myProduct.product_details_by_type.add_type === 'rfq' ||
-                myProduct.product_details_by_type.add_type === 'both') &&
-              userData
+              (userData &&
+                userData.profile_percentage == 100 &&
+                userData.type === 'buyer') ||
+              userData.type === 'b2b' ||
+              (userData.type === 'supplier' && userData.is_buyer == true)
             "
           >
-            <div>
-              <button
-                id="show-btn"
-                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                @click="$bvModal.show('bv-bidRequest')"
-              >
-                <!-- <span role="button" @click="loggedBidRequest"> -->
-                {{ $t("singleProduct.bidRequest") }}
-                <font-awesome-icon icon="fa-solid fa-list" />
-              </button>
+            <b-button
+              @ok="$refs.cartModal.onSubmit()"
+              @click="addToCart(myProduct)"
+              class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
+              v-if="
+                myProduct.product_details_by_type.add_type === 'cart' ||
+                myProduct.product_details_by_type.add_type === 'both'
+              "
+            >
+              {{ $t("singleProduct.addCart") }}
+            </b-button>
+
+            <!-- <transition name="modal">
+            <div class="modal-mask" v-if="showModal">
+              <modal @close="closeModal" :product="myProduct" />
             </div>
-          </button>
-          <button
-            @click="loginFirst"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+          </transition> -->
+          </div>
+          <div
+            class="mb-2"
             v-else-if="
-              (myProduct.product_details_by_type.add_type === 'rfq' ||
-                myProduct.product_details_by_type.add_type === 'both') &&
-              !userData
+              (userData && userData.profile_percentage !== 100) ||
+              (userData &&
+                userData.type === 'buyer' &&
+                userData.profile_percentage !== 100) ||
+              (userData &&
+                userData.type === 'b2b' &&
+                userData.profile_percentage !== 100) ||
+              (userData &&
+                userData.type === 'supplier' &&
+                userData.is_buyer !== true &&
+                userData.profile_percentage !== 100)
             "
           >
-            {{ $t("singleProduct.bidRequest") }}
-            <span>
-              <font-awesome-icon icon="fa-solid fa-list" />
-            </span>
-          </button>
-          <button
-            class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0"
-            v-else-if="
-              myProduct.product_details_by_type.add_type === 'rfq' ||
+            <router-link to="/profile/account-information-b2b">
+              {{ $t("profile.completeAccount") }}
+            </router-link>
+          </div>
+          <div class="mb-2" v-else-if="!userData || userData.type === 'b2c'">
+            <b-button
+              @ok="$refs.cartModal.onSubmit()"
+              @click="addToCart(myProduct)"
+              class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+              v-if="
+                myProduct.product_details_by_type.add_type === 'cart' ||
+                myProduct.product_details_by_type.add_type === 'both'
+              "
+            >
+              {{ $t("singleProduct.addCart") }}
+            </b-button>
+          </div>
+        </div>
+        <div class="col-3">
+          <div
+            class="product-counter mb-2"
+            v-if="
+              myProduct.product_details_by_type.add_type === 'cart' ||
               myProduct.product_details_by_type.add_type === 'both'
             "
           >
-            <!-- <router-link to="/b2b-login"> -->
-            {{ $t("singleProduct.bidRequest") }}
-            <span>
+            <div class="value">
+              <span class="product-counter-number">
+                {{ mySelectedOption }}</span
+              >
+            </div>
+            <div class="actions d-flex flex-column">
+              <button class="product-counter-btn" @click="incrementQuantity">
+                <b-icon-plus />
+              </button>
+              <button class="product-counter-btn" @click="decrementQuantity">
+                <b-icon-dash />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-actions short-links mb-2 mr-1">
+        <button
+          class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block"
+          v-if="
+            (myProduct.product_details_by_type.add_type === 'rfq' ||
+              myProduct.product_details_by_type.add_type === 'both') &&
+            userData
+          "
+        >
+          <div>
+            <button
+              id="show-btn"
+              class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100"
+              @click="$bvModal.show('bv-bidRequest')"
+            >
+              <!-- <span role="button" @click="loggedBidRequest"> -->
+              {{ $t("singleProduct.bidRequest") }}
               <font-awesome-icon icon="fa-solid fa-list" />
-            </span>
-            <!-- </router-link> -->
-          </button>
-          <button
+            </button>
+          </div>
+        </button>
+        <button
+          @click="loginFirst"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart btn-block w-100"
+          v-else-if="
+            (myProduct.product_details_by_type.add_type === 'rfq' ||
+              myProduct.product_details_by_type.add_type === 'both') &&
+            !userData
+          "
+        >
+          {{ $t("singleProduct.bidRequest") }}
+          <span>
+            <font-awesome-icon icon="fa-solid fa-list" />
+          </span>
+        </button>
+        <button
+          class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100"
+          v-else-if="
+            myProduct.product_details_by_type.add_type === 'rfq' ||
+            myProduct.product_details_by_type.add_type === 'both'
+          "
+        >
+          <!-- <router-link to="/b2b-login"> -->
+          {{ $t("singleProduct.bidRequest") }}
+          <span>
+            <font-awesome-icon icon="fa-solid fa-list" />
+          </span>
+          <!-- </router-link> -->
+        </button>
+        <!-- <button
             @click="addToWishlist(myProduct)"
             v-if="myProduct.is_favorite == false"
             class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 d-block mt-3"
@@ -262,99 +365,16 @@
             </span>
           </button>
           <div v-else class="font-weight-bold mt-3">
-            <!-- {{ $t("singleProduct.productInCart") }} -->
             <span class="text-danger">
               <font-awesome-icon icon="fa-solid fa-heart " />
             </span>
-          </div>
-          <!-- <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0" >
+          </div> -->
+        <!-- <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0" >
             {{ $t("singleProduct.addPurchase") }}
             <span>
               <font-awesome-icon icon="fa-solid fa-repeat" />
             </span>
           </button> -->
-        </div>
-        <div
-          class=""
-          v-if="
-            (userData &&
-              userData.profile_percentage == 100 &&
-              userData.type === 'buyer') ||
-            userData.type === 'b2b' ||
-            (userData.type === 'supplier' && userData.is_buyer == true)
-          "
-        >
-          <b-button
-            @ok="$refs.cartModal.onSubmit()"
-            @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
-            v-if="
-              myProduct.product_details_by_type.add_type === 'cart' ||
-              myProduct.product_details_by_type.add_type === 'both'
-            "
-          >
-            {{ $t("singleProduct.addCart") }}
-          </b-button>
-
-          <!-- <transition name="modal">
-            <div class="modal-mask" v-if="showModal">
-              <modal @close="closeModal" :product="myProduct" />
-            </div>
-          </transition> -->
-        </div>
-        <div
-          class=""
-          v-else-if="
-            (userData && userData.profile_percentage !== 100) ||
-            (userData &&
-              userData.type === 'buyer' &&
-              userData.profile_percentage !== 100) ||
-            (userData &&
-              userData.type === 'b2b' &&
-              userData.profile_percentage !== 100) ||
-            (userData &&
-              userData.type === 'supplier' &&
-              userData.is_buyer !== true &&
-              userData.profile_percentage !== 100)
-          "
-        >
-          <router-link to="/profile/account-information-b2b">
-            {{ $t("profile.completeAccount") }}
-          </router-link>
-        </div>
-        <div class="" v-else-if="!userData || userData.type === 'b2c'">
-          <b-button
-            @ok="$refs.cartModal.onSubmit()"
-            @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
-            v-if="
-              myProduct.product_details_by_type.add_type === 'cart' ||
-              myProduct.product_details_by_type.add_type === 'both'
-            "
-          >
-            {{ $t("singleProduct.addCart") }}
-          </b-button>
-        </div>
-
-        <div
-          class="product-counter"
-          v-if="
-            myProduct.product_details_by_type.add_type === 'cart' ||
-            myProduct.product_details_by_type.add_type === 'both'
-          "
-        >
-          <div class="value">
-            <span class="product-counter-number"> {{ mySelectedOption }}</span>
-          </div>
-          <div class="actions d-flex flex-column">
-            <button class="product-counter-btn" @click="incrementQuantity">
-              <b-icon-plus />
-            </button>
-            <button class="product-counter-btn" @click="decrementQuantity">
-              <b-icon-dash />
-            </button>
-          </div>
-        </div>
       </div>
       <hr />
       <div class="share-social d-flex align-items-center">
@@ -551,14 +571,15 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          this.$router.push("/user-register")
+          this.$router.push("/user-register");
         }
       });
     },
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          this.myProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -572,11 +593,11 @@ export default {
             document.querySelector(".close").click();
             this.requestData = [];
             this.$router.push({
-              path:'/profile/quotationDetails',
-              query:{
-                id:resp.data.items.client_quote_id
-              }
-            })
+              path: "/profile/quotationDetails",
+              query: {
+                id: resp.data.items.client_quote_id,
+              },
+            });
           }, 500);
         })
         .catch((error) => {
@@ -772,8 +793,8 @@ export default {
     }
     .product-actions {
       .short-links {
-        margin-inline-end: 0.5rem;
-        min-width: 10rem;
+        // margin-inline-end: 0.5rem;
+        // min-width: 10rem;
         a {
           display: block;
           color: #676565;
@@ -788,14 +809,15 @@ export default {
       }
       .add-cart {
         border-radius: 0;
-        font-size: 11pt;
+        font-size: 16px;
         background: #36363b;
         color: #fff;
-        padding: 1rem 2rem;
+        padding: 12px 16px;
         height: fit-content;
-        margin-inline-end: 0.5rem;
+        -webkit-margin-end: 0.5rem;
+        margin-inline-end: 0;
         display: block;
-        min-width: 10rem;
+
         text-align: center;
         &:hover {
           background: #ed2124;
@@ -857,7 +879,7 @@ textarea {
     color: #606266;
     .product-counter-btn {
       width: 2rem;
-      height: 1.75rem;
+      height: 1.55rem;
       border-radius: 0;
       border: 1px solid transparent;
       color: #606266;
@@ -876,7 +898,7 @@ textarea {
     color: #544842;
     font-weight: 500;
     width: 6rem;
-    height: 3.5rem;
+    height: 3.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -897,4 +919,40 @@ textarea {
     cursor: pointer;
   }
 }
+
+.products {
+  box-shadow: 0px 0px 9px 0px #cccccccf;
+  padding: 17px 17px;
+  .header {
+    color: #312620;
+  }
+  .add-to {
+    color: #000;
+    a {
+      background: #fff;
+      color: #312620;
+      box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 10%);
+      padding: 1rem 2rem;
+      border-radius: 0.2rem;
+      margin: 0 0.3rem;
+      &:hover {
+        color: #ed2124;
+      }
+      span {
+        margin-inline-end: 0.5rem;
+      }
+    }
+  }
+}
+// @media screen and (max-width:1900px){
+//   .product-counter .value{
+
+//     font-weight: 500;
+//     width: 4rem;
+
+//   }
+//   .add-cart{
+//     padding: 12px 10px !important;
+//   }
+// }
 </style>
