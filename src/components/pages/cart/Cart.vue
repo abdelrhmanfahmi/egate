@@ -2368,6 +2368,8 @@ export default {
       }
     },
 
+    // 
+
     // shippingStore(supplier) {
     //   let newRating = {
     //     id: supplier.supplier_id,
