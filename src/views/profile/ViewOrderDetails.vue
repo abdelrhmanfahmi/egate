@@ -46,6 +46,7 @@
                   class="text-dark"
                 >
                   <b-button variant="outline-success" class="m-2">
+                    
                     {{ $t("profile.bankTransDocs") }}
                   </b-button>
                 </router-link>
@@ -57,8 +58,8 @@
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
           <div class="serial" v-if="orderData">
-            <h4 class="m-0">
-              {{ $t("profile.orderSerial") }} : {{ orderData.serial }}
+            <h4 class="m-0" >
+              <span>{{ $t("profile.orderSerial") }} :</span> <span>{{ orderData.serial  }}</span>
             </h4>
           </div>
           <div class="print" @click="printScreen">
@@ -123,7 +124,13 @@
                 </h6>
                 <h6
                   class="d-inline-block"
-                  v-if="orderData.client_info.apartmfloorent"
+                  v-if="orderData.client_info.building_number"
+                >
+                  , {{ orderData.client_info.building_number }}
+                </h6>
+                <h6
+                  class="d-inline-block"
+                  v-if="orderData.client_info.floor"
                 >
                   , {{ orderData.client_info.floor }}
                 </h6>
