@@ -1756,15 +1756,15 @@ export default {
           setTimeout(() => {
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
-            var existingAddresses =
-              document.querySelector(".existingAddresses");
+            // var existingAddresses =
+            //   document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = true;
             }
             if (this.addresses !== null) {
-              existingAddresses.click();
+              checkboxes.click();
             }
-          }, 100);
+          }, 500);
           setTimeout(() => {
             this.shippingStore();
           }, 200);
@@ -1817,6 +1817,14 @@ export default {
       }
       document.querySelector(".couponValid").innerHTML = "";
       document.querySelector(".couponNotValid").innerHTML = "";
+
+      let enteredCoupons = document.getElementsByClassName("couponNotValid");
+      if (enteredCoupons) {
+        for (let index = 0; index < enteredCoupons.length; index++) {
+          const element = enteredCoupons[index];
+          element.innerHTML = "";
+        }
+      }
     },
     checkCoupon(supplier) {
       // let data = {
@@ -1840,6 +1848,7 @@ export default {
 
           // console.log(res.data.items.total_cart.total_discount);
           if (res.status == 200) {
+            localStorage.setItem("cou", this.selectedCoupon);
             if (res.data.items.total_cart.total_discount !== 0) {
               this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
                 ".couponValid"
@@ -1932,10 +1941,10 @@ export default {
       // console.log(doc);
       // var notes = null;
       for (var i = 0; i < doc.length; i++) {
-        if (doc[i].classList.contains ("d-block")) {
+        if (doc[i].classList.contains("d-block")) {
           // notes = doc.childNodes[i];
           // break;
-          doc[i].classList.remove('d-block')
+          doc[i].classList.remove("d-block");
           doc[i].innerHTML = "";
         }
       }
@@ -2228,9 +2237,18 @@ export default {
 
             // this.selectedInput.parentElement.classList.add("d-none");
             //  console.log(this.selectedInput.parentElement.parentElement.querySelector('.feedsResult'));
-            this.selectedInput.parentElement.parentElement.querySelector(
-              ".feedsResultShipping"
-            ).innerHTML = ``;
+            // console.log(this.selectedInput.parentElement.parentElement.querySelector(
+            //   ".feedsResultShipping"
+            // ));
+            if (
+              this.selectedInput.parentElement.parentElement.querySelector(
+                ".feedsResultShipping"
+              )
+            ) {
+              this.selectedInput.parentElement.parentElement.querySelector(
+                ".feedsResultShipping"
+              ).innerHTML = ``;
+            }
           } else {
             this.selectedInput.parentElement.parentElement.querySelector(
               ".feedsResultShipping"
@@ -2317,22 +2335,74 @@ export default {
       this.showBtnClicked = false;
       // console.log(supplier);
       this.getSupplierAddress(supplier.supplier_id);
+
+      this.selectedInput.parentElement.nextElementSibling.classList.remove(
+        "d-none"
+      );
+      this.selectedInput.parentElement.nextElementSibling.classList.add(
+        "d-block"
+      );
+
+      this.selectedInput.parentElement.parentElement
+        .querySelector(".feedsResult")
+        .classList.remove("d-none");
+      this.selectedInput.parentElement.parentElement
+        .querySelector(".feedsResult")
+        .classList.add("d-block");
+
+      this.selectedInput.parentElement.parentElement.querySelector(
+        ".feedsResult"
+      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+        this.currency
+      }`;
+
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        console.log(element.id);
+        if (element.shipping_type == 0) {
+          return (element.shipping_type = 1);
+        } else if (element.shipping_type == 1) {
+          return (element.shipping_type = 0);
+        }
+      }
     },
 
-    shippingStore(supplier) {
-      let newRating = {
-        id: supplier.supplier_id,
-        supplier_id: supplier.supplier_id,
-        shipping_type: 0,
-        coupon: supplier.coupon ? supplier.coupon : "",
-        point_of_sell_uuid: null,
-      };
+    // shippingStore(supplier) {
+    //   let newRating = {
+    //     id: supplier.supplier_id,
+    //     supplier_id: supplier.supplier_id,
+    //     shipping_type: 0,
+    //     coupon: localStorage.getItem("cou") ? localStorage.getItem("cou") : "",
+    //     point_of_sell_uuid: null,
+    //   };
 
-      console.log(supplier);
-      this.$store.dispatch("suppliers/addSupplierToCart", {
-        supplier: newRating,
-      });
-    },
+    //   // console.log(supplier);
+
+    //   this.$store.dispatch("suppliers/addSupplierToCart", {
+    //         supplier: newRating,
+    //       });
+
+    //   let myControler = this.$store.state.suppliers.suppliers;
+    //   for (let index = 0; index < myControler.length; index++) {
+    //     const element = myControler[index].supplier;
+    //     console.log(element);
+    //     if (element.shipping_type == 0) {
+    //       newRating.point_of_sell_uuid = localStorage.getItem('addressUUID')
+    //       this.$store.dispatch("suppliers/addSupplierToCart", {
+    //         supplier: newRating,
+    //       });
+    //       return (element.shipping_type = 1);
+    //     } else if (element.shipping_type == 1) {
+    //       element.shipping_type = 0;
+    //       element.point_of_sell_uuid = null;
+    //       this.$store.dispatch("suppliers/addSupplierToCart", {
+    //         supplier: newRating,
+    //       });
+
+    //     }
+    //   }
+    // },
 
     orderType(supplier) {
       // console.log(supplier);
@@ -2349,41 +2419,41 @@ export default {
         this.deliverType = true;
 
         // supplierAddresses
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.add("d-none");
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.remove("d-block");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.add("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.remove("d-block");
 
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .nextElementSibling.classList.add("d-none");
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .nextElementSibling.classList.remove("d-block");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .nextElementSibling.classList.add("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .nextElementSibling.classList.remove("d-block");
       } else {
         this.deliverType = false;
 
-        this.selectedInput.parentElement.nextElementSibling.classList.remove(
-          "d-none"
-        );
-        this.selectedInput.parentElement.nextElementSibling.classList.add(
-          "d-block"
-        );
+        // this.selectedInput.parentElement.nextElementSibling.classList.remove(
+        //   "d-none"
+        // );
+        // this.selectedInput.parentElement.nextElementSibling.classList.add(
+        //   "d-block"
+        // );
 
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.remove("d-none");
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.add("d-block");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.remove("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.add("d-block");
 
-        this.selectedInput.parentElement.parentElement.querySelector(
-          ".feedsResult"
-        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
-          this.currency
-        }`;
+        // this.selectedInput.parentElement.parentElement.querySelector(
+        //   ".feedsResult"
+        // ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+        //   this.currency
+        // }`;
       }
     },
     getShippingFeesExist() {
@@ -2637,7 +2707,7 @@ export default {
         });
     },
     guestPayment() {
-      alert("clicked");
+      // alert("clicked");
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -2656,6 +2726,7 @@ export default {
         notes: this.paymentFormData.comment,
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
+        redirect_url: this.paymentFormData.redirect_url,
       };
 
       if (this.localStoreFail == false) {

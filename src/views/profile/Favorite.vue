@@ -432,9 +432,9 @@ export default {
       }, 1200);
     },
     addToCart(item) {
-      console.log(item.product_supplier.product_id);
+      console.log(item.product_supplier_id);
       let data = {
-        product_supplier_id: item.product_supplier.product_id,
+        product_supplier_id: item.product_supplier_id,
         quantity: 1,
       };
 
