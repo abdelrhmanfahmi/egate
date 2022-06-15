@@ -46,7 +46,6 @@
                   class="text-dark"
                 >
                   <b-button variant="outline-success" class="m-2">
-                    
                     {{ $t("profile.bankTransDocs") }}
                   </b-button>
                 </router-link>
@@ -58,8 +57,9 @@
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
           <div class="serial" v-if="orderData">
-            <h4 class="m-0" >
-              <span>{{ $t("profile.orderSerial") }} :</span> <span>{{ orderData.serial  }}</span>
+            <h4 class="m-0">
+              <span>{{ $t("profile.orderSerial") }} :</span>
+              <span>{{ orderData.serial }}</span>
             </h4>
           </div>
           <div class="print" @click="printScreen">
@@ -94,7 +94,9 @@
                     <div class="col-6">
                       {{ $t("profile.customerEmail") }}
                     </div>
-                    <div class="col-6">{{ orderData.client_info.email }}</div>
+                    <div class="col-6 mail">
+                      {{ orderData.client_info.email }}
+                    </div>
                   </div>
                   <div
                     class="row info-data info-colored"
@@ -120,19 +122,16 @@
                   class="d-inline-block"
                   v-if="orderData.client_info.apartment"
                 >
-                  {{ orderData.client_info.apartment }}
+                  {{$t('profile.aptNo')}} : {{ orderData.client_info.apartment }}
                 </h6>
                 <h6
                   class="d-inline-block"
                   v-if="orderData.client_info.building_number"
                 >
-                  , {{ orderData.client_info.building_number }}
+                  , {{$t('profile.buildingNo')}} : {{ orderData.client_info.building_number }}
                 </h6>
-                <h6
-                  class="d-inline-block"
-                  v-if="orderData.client_info.floor"
-                >
-                  , {{ orderData.client_info.floor }}
+                <h6 class="d-inline-block" v-if="orderData.client_info.floor">
+                  , {{$t('profile.floor')}} : {{ orderData.client_info.floor }}
                 </h6>
                 <h6
                   class="d-inline-block"
@@ -155,6 +154,14 @@
                 <h5 v-if="orderData.client_info.country">
                   {{ orderData.client_info.country }}
                 </h5>
+              </div>
+              <div class="branding d-flex justify-content-end">
+                <img
+                  src="@/assets/images/logo.png"
+                  class="img-fluid w-25"
+                  alt="logo"
+                  @click="goToHome()"
+                />
               </div>
             </div>
           </div>
@@ -352,10 +359,9 @@
                 <b-button
                   @click="
                     $bvModal.show('bv-modal-example1');
-                    showModal(order)
+                    showModal(order);
                   "
-                  
-                  variant="outline-danger mt-2"
+                  variant="outline-danger mt-2 cancel-btn"
                   v-if="
                     order.order_status_string === 'Pending' ||
                     order.order_status_string === 'Accepted'
@@ -401,10 +407,9 @@
                           <b-button
                             @click="
                               $bvModal.show('bv-modal-example1');
-                              showModal(order)
+                              showModal(order);
                             "
-                            
-                            variant="outline-danger mt-2"
+                            variant="outline-danger mt-2 return-btn"
                             v-if="
                               order.order_status_string === 'Completed' ||
                               order.order_status_string === 'Delivered'
@@ -752,9 +757,9 @@ export default {
         fileLink.click();
       });
     },
-    showModal(order){
-      this.supplierUUID = order.uuid
-    }
+    showModal(order) {
+      this.supplierUUID = order.uuid;
+    },
   },
   mounted() {
     this.getSingleOrders();
@@ -865,5 +870,25 @@ table td {
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
+}
+
+.branding {
+  display: none !important;
+}
+
+@media print {
+  .cancel-btn,
+  .return-btn,
+  .print {
+    display: none;
+  }
+  .mail {
+    word-break: break-all;
+  }
+  .branding {
+    display: flex !important;
+    justify-content: flex-end;
+    
+  }
 }
 </style>

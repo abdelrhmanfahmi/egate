@@ -187,4 +187,6 @@ export default {
   actuons: "اجراءات",
   corresponceDetail: "مراسلات المورد و المشترى",
   notReviewd: "لم يتم تقييمه حتى الان ",
+  aptNo:'رقم الشقه' , 
+  buildingNo:'رقم المبنى',
 };

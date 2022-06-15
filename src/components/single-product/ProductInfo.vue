@@ -203,7 +203,7 @@
         class="product-actions row justify-content-between align-items-center mt-4"
       >
         <div class="col-2">
-          <div class="products mb-2 mr-1">
+          <div class="products mb-2 mr-1" v-if="userData">
             <a
               class="text-danger d-flex justify-content-center align-items-center bg-transparent text-white"
               :title="`product in favourite`"
@@ -817,8 +817,9 @@ export default {
         -webkit-margin-end: 0.5rem;
         margin-inline-end: 0;
         display: block;
-
         text-align: center;
+        width: 100%;
+
         &:hover {
           background: #ed2124;
         }

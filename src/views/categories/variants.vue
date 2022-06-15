@@ -401,19 +401,21 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
-                  <a
-                    class="text-danger d-flex justify-content-center align-items-center"
-                    :title="`product in favourite`"
-                    @click="addToWishlist(product)"
-                    v-if="product.is_favorite == true"
-                    ><font-awesome-icon icon="fa-solid fa-star"
-                  /></a>
-                  <a
-                    @click="addToWishlist(product)"
-                    class="d-flex justify-content-center align-items-center"
-                    v-else
-                    ><font-awesome-icon icon="fa-solid fa-star"
-                  /></a>
+                  <div class="" v-if="userData">
+                    <a
+                      class="text-danger d-flex justify-content-center align-items-center"
+                      :title="`product in favourite`"
+                      @click="addToWishlist(product)"
+                      v-if="product.is_favorite == true"
+                      ><font-awesome-icon icon="fa-solid fa-star"
+                    /></a>
+                    <a
+                      @click="addToWishlist(product)"
+                      class="d-flex justify-content-center align-items-center"
+                      v-else
+                      ><font-awesome-icon icon="fa-solid fa-star" />
+                    </a>
+                  </div>
                   <div class="d-flex justify-content-center">
                     <button
                       class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
@@ -483,7 +485,7 @@
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
-                  <div class="" v-if="userData && userData.type === 'b2c' ">
+                  <div class="" v-if="userData && userData.type === 'b2c'">
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
                       :title="`product in favourite`"

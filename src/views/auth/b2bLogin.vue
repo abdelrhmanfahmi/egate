@@ -109,7 +109,12 @@ export default {
           console.log("yes", res.data.items.item.verify_email_required);
 
           // if (!res.data.items.item.verify_email_required) {
-          this.$router.push("/profile/account-information-b2b");
+          
+          if(this.userData.type === 'buyer' && this.userData.profile_percentage == 100){
+            this.$router.push("/profile/categories");
+          }else{
+            this.$router.push("/profile/account-information-b2b");
+          }
           localStorage.removeItem("guest-id");
           location.reload();
 
@@ -119,7 +124,7 @@ export default {
             location.reload();
           } else {
             localStorage.setItem("massege", "");
-            this.$router.push("/profile/account-information-b2b");
+            this.$router.push("/profile/categories");
             location.reload();
           }
         })

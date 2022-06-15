@@ -318,6 +318,7 @@
                         <span class="required text-danger">*</span> -->
                                   <b-form-input
                                     id="postCode"
+                                    type="number"
                                     v-model="form.pin_code"
                                     :placeholder="$t('profile.postCode') + '*'"
                                   />
@@ -1756,10 +1757,12 @@ export default {
           setTimeout(() => {
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
-            // var existingAddresses =
-            //   document.querySelector(".existingAddresses");
+            var existingAddresses =
+              document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
               checkboxes[i].checked = true;
+              existingAddresses.click()
+              existingAddresses.checked = true;
             }
             if (this.addresses !== null) {
               checkboxes.click();
@@ -2370,41 +2373,41 @@ export default {
 
     // 
 
-    // shippingStore(supplier) {
-    //   let newRating = {
-    //     id: supplier.supplier_id,
-    //     supplier_id: supplier.supplier_id,
-    //     shipping_type: 0,
-    //     coupon: localStorage.getItem("cou") ? localStorage.getItem("cou") : "",
-    //     point_of_sell_uuid: null,
-    //   };
+    shippingStore(supplier) {
+      let newRating = {
+        id: supplier.supplier_id,
+        supplier_id: supplier.supplier_id,
+        shipping_type: 0,
+        coupon: localStorage.getItem("cou") ? localStorage.getItem("cou") : "",
+        point_of_sell_uuid: null,
+      };
 
-    //   // console.log(supplier);
+      // console.log(supplier);
 
-    //   this.$store.dispatch("suppliers/addSupplierToCart", {
-    //         supplier: newRating,
-    //       });
+      // this.$store.dispatch("suppliers/addSupplierToCart", {
+      //       supplier: newRating,
+      //     });
 
-    //   let myControler = this.$store.state.suppliers.suppliers;
-    //   for (let index = 0; index < myControler.length; index++) {
-    //     const element = myControler[index].supplier;
-    //     console.log(element);
-    //     if (element.shipping_type == 0) {
-    //       newRating.point_of_sell_uuid = localStorage.getItem('addressUUID')
-    //       this.$store.dispatch("suppliers/addSupplierToCart", {
-    //         supplier: newRating,
-    //       });
-    //       return (element.shipping_type = 1);
-    //     } else if (element.shipping_type == 1) {
-    //       element.shipping_type = 0;
-    //       element.point_of_sell_uuid = null;
-    //       this.$store.dispatch("suppliers/addSupplierToCart", {
-    //         supplier: newRating,
-    //       });
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        console.log(element);
+        if (element.shipping_type == 0) {
+          newRating.point_of_sell_uuid = localStorage.getItem('addressUUID')
+          this.$store.dispatch("suppliers/addSupplierToCart", {
+            supplier: newRating,
+          });
+          return (element.shipping_type = 1);
+        } else if (element.shipping_type == 1) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
+          this.$store.dispatch("suppliers/addSupplierToCart", {
+            supplier: newRating,
+          });
 
-    //     }
-    //   }
-    // },
+        }
+      }
+    },
 
     orderType(supplier) {
       // console.log(supplier);
@@ -2731,10 +2734,12 @@ export default {
         redirect_url: this.paymentFormData.redirect_url,
       };
 
-      if (this.localStoreFail == false) {
-        this.localStoreFail = true;
-      } else {
-        suppliers
+      // if (this.localStoreFail == false) {
+      //   this.localStoreFail = true;
+      // } else {
+        
+      // }
+      suppliers
           .guestPayment(data)
           .then((res) => {
             this.sucessMsg(res.data.message);
@@ -2785,7 +2790,6 @@ export default {
             console.log(err);
             this.errMsg(errors.message);
           });
-      }
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {

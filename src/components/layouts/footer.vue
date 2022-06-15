@@ -18,84 +18,24 @@
             <!-- <div class="col-12"></div> -->
             <div class="col-md-3 col-sm-12">
               <div class="footer-social">
-                <!-- <ul>
-                  <li>
-                    <router-link to=""><i class=""></i></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/f.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/t.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/y.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/i.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/l.png" alt=""
-                    /></router-link>
-                  </li>
-                </ul> -->
-                <ul >
-                  <li v-if="facebook">
-                    <a :href="facebook.value" target="_blank">
+                <ul>
+                  <li >
+                    <a  target="_blank">
                       <img
-                        src="@/assets/images/facebook.png"
-                        :alt="facebook.key"
+                        src="@/assets/images/play_store1.png"
+                        alt="google-play"
+                        class="w-10"
                       />
                     </a>
                   </li>
-                  <li v-if="twitter">
-                    <a :href="twitter.value" target="_blank">
+                  <li >
+                    <a  target="_blank">
                       <img
-                        src="@/assets/images/twitter.png"
-                        :alt="twitter.key"
+                        src="@/assets/images/app_store1.png"
+                        alt="app-store"
+                        class="w-100"
                       />
                     </a>
-                  </li>
-                  <li v-if="youtube">
-                    <a :href="youtube.value" target="_blank">
-                      <img
-                        src="@/assets/images/youtube.png"
-                        :alt="youtube.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="instagram">
-                    <a :href="instagram.value" target="_blank">
-                        <img
-                          src="@/assets/images/instagram.png"
-                          :alt="instagram.key"
-                        />
-                      </a>
-                  </li>
-                  <li v-if="linkedin">
-                    <a :href="linkedin.value" target="_blank">
-                        <img
-                          src="@/assets/images/linkedin.png"
-                          :alt="linkedin.key"
-                        />
-                      </a>
-                  </li>
-                  <li v-if="pinterest">
-                    <a :href="pinterest.value" target="_blank">
-                        <img
-                          src="@/assets/images/pinterest.png"
-                          :alt="pinterest.key"
-                        />
-                      </a>
                   </li>
                 </ul>
               </div>
@@ -138,10 +78,92 @@
               </nav>
             </div>
             <div class="col-md-3 col-sm-12 mb-2">
-              <div class="footer-link-wrap">
+              <!-- <div class="footer-link-wrap">
                 <div class="pay-method-img">
                   <img src="@/assets/images/payment.png" alt="image" />
                 </div>
+              </div> -->
+              <div class="footer-social">
+                <!-- <ul>
+                  <li>
+                    <router-link to=""><i class=""></i></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/f.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/t.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/y.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/i.png" alt=""
+                    /></router-link>
+                  </li>
+                  <li>
+                    <router-link to=""
+                      ><img src="@/assets/images/l.png" alt=""
+                    /></router-link>
+                  </li>
+                </ul> -->
+                <ul>
+                  <li v-if="facebook">
+                    <a :href="facebook.value" target="_blank">
+                      <img
+                        src="@/assets/images/facebook.png"
+                        :alt="facebook.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="twitter">
+                    <a :href="twitter.value" target="_blank">
+                      <img
+                        src="@/assets/images/twitter.png"
+                        :alt="twitter.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="youtube">
+                    <a :href="youtube.value" target="_blank">
+                      <img
+                        src="@/assets/images/youtube.png"
+                        :alt="youtube.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="instagram">
+                    <a :href="instagram.value" target="_blank">
+                      <img
+                        src="@/assets/images/instagram.png"
+                        :alt="instagram.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="linkedin">
+                    <a :href="linkedin.value" target="_blank">
+                      <img
+                        src="@/assets/images/linkedin.png"
+                        :alt="linkedin.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="pinterest">
+                    <a :href="pinterest.value" target="_blank">
+                      <img
+                        src="@/assets/images/pinterest.png"
+                        :alt="pinterest.key"
+                      />
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

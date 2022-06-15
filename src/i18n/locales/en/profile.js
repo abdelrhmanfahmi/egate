@@ -196,5 +196,7 @@ export default {
   lastUpdateUser:'Last Update User',
   actuons:'Actions',
   corresponceDetail:'Buyer & Supplier Corresponding',
-  notReviewd:'Not Rated Yet'
+  notReviewd:'Not Rated Yet',
+  aptNo:'Apartment' , 
+  buildingNo:'Building',
 };
