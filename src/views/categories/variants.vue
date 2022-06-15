@@ -359,11 +359,27 @@
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
-                    {{
-                      product.product_details_by_type.customer_price
-                        | fixedCurrency
-                    }}
-                    {{ currency }}
+                    <p class="m-0">
+                      {{
+                        product.product_details_by_type.customer_price
+                          | fixedCurrency
+                      }}
+                      {{ currency }}
+                    </p>
+                    <p
+                      class="price-after m-0"
+                      v-if="
+                        product.product_details_by_type.price_before_discount &&
+                        product.product_details_by_type.price_before_discount >
+                          product.product_details_by_type.customer_price
+                      "
+                    >
+                      {{
+                        product.product_details_by_type.price_before_discount
+                          | fixedCurrency
+                      }}
+                      {{ currency }}
+                    </p>
                   </router-link>
                 </div>
               </td>
