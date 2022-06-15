@@ -4,7 +4,7 @@
       <div class="wrapper" v-if="!loading">
         <div class="my-4" v-if="orderData">
           <div class="d-flex justify-content-between align-items-center">
-            <div class="">
+            <div class="order-back">
               <router-link to="/profile/ordersListsB2b">
                 <b-button variant="outline-ordinary">
                   <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
@@ -12,6 +12,7 @@
                 </b-button>
               </router-link>
             </div>
+            
             <div class="">
               <div>
                 <b-button
@@ -52,6 +53,14 @@
               </div>
             </div>
           </div>
+          <div class="branding d-flex justify-content-center">
+              <img
+                src="@/assets/images/logo.png"
+                class="img-fluid w-25"
+                alt="logo"
+                @click="goToHome()"
+              />
+            </div>
         </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
@@ -112,7 +121,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12 mb-2" v-if="orderData">
+            <div
+              class="col-md-6 col-sm-12 mb-2"
+              v-if="orderData && shipingExist"
+            >
               <h4 class="data-holder">
                 {{ $t("profile.addressInfo") }}
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
@@ -122,16 +134,19 @@
                   class="d-inline-block"
                   v-if="orderData.client_info.apartment"
                 >
-                  {{$t('profile.aptNo')}} : {{ orderData.client_info.apartment }}
+                  {{ $t("profile.aptNo") }} :
+                  {{ orderData.client_info.apartment }}
                 </h6>
                 <h6
                   class="d-inline-block"
                   v-if="orderData.client_info.building_number"
                 >
-                  , {{$t('profile.buildingNo')}} : {{ orderData.client_info.building_number }}
+                  , {{ $t("profile.buildingNo") }} :
+                  {{ orderData.client_info.building_number }}
                 </h6>
                 <h6 class="d-inline-block" v-if="orderData.client_info.floor">
-                  , {{$t('profile.floor')}} : {{ orderData.client_info.floor }}
+                  , {{ $t("profile.floor") }} :
+                  {{ orderData.client_info.floor }}
                 </h6>
                 <h6
                   class="d-inline-block"
@@ -154,14 +169,6 @@
                 <h5 v-if="orderData.client_info.country">
                   {{ orderData.client_info.country }}
                 </h5>
-              </div>
-              <div class="branding d-flex justify-content-end">
-                <img
-                  src="@/assets/images/logo.png"
-                  class="img-fluid w-25"
-                  alt="logo"
-                  @click="goToHome()"
-                />
               </div>
             </div>
           </div>
@@ -661,6 +668,7 @@ export default {
         payment_type: null,
         order_uuid: null,
       },
+      shipingExist: false,
     };
   },
   methods: {
@@ -676,6 +684,15 @@ export default {
           this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
           this.paymentFormData.order_uuid = res.data.items.order.uuid;
+          let pickupArr = [];
+          for (let index = 0; index < this.orders.length; index++) {
+            const element = this.orders[index].shipping_type;
+            pickupArr.push(element);
+          }
+
+          if (pickupArr.includes("shipping")) {
+            this.shipingExist = true;
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -879,7 +896,8 @@ table td {
 @media print {
   .cancel-btn,
   .return-btn,
-  .print {
+  .print,
+  .order-back {
     display: none;
   }
   .mail {
@@ -888,7 +906,6 @@ table td {
   .branding {
     display: flex !important;
     justify-content: flex-end;
-    
   }
 }
 </style>
