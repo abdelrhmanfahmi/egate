@@ -6,7 +6,7 @@
         (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
       "
     >
-      <div class="row profile-header" v-if="userData.profile_percentage !== 100">
+      <div class="row profile-header" v-if="buyerUserData.profile_percentage !== 100">
         <div class="col-12 col-sm-8 continue-registration" >
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
@@ -20,7 +20,7 @@
           <h5>{{ $t("profile.completeRate") }}</h5>
           <b-progress
             class="progress-rate"
-            :value="userData.profile_percentage"
+            :value="buyerUserData.profile_percentage"
             max="100"
             show-progress
             animated

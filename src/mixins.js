@@ -21,8 +21,8 @@ Vue.mixin({
     userInfo() {
       return this.$store.getters.userInfo;
     },
-    userData() {
-      return this.$store.getters.userData;
+    buyerUserData() {
+      return this.$store.getters.buyerUserData;
     },
     currency(){
       return localStorage.getItem('currency')
@@ -32,7 +32,7 @@ Vue.mixin({
     logout() {
       auth.logout();
       localStorage.removeItem("userInfo");
-      localStorage.removeItem("userData");
+      localStorage.removeItem("buyerUserData");
       localStorage.removeItem("provider");
       localStorage.removeItem("massege");
       this.$router.push("/");

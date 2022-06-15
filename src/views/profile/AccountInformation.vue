@@ -122,7 +122,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.form = { ...this.userData };
+    this.form = { ...this.buyerUserData };
   },
   methods: {
     getAllCountires() {

@@ -41,6 +41,13 @@ export default {
   color: #fff;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
+    transition: all 0.3s ease-out;
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+    transform: translateY(-5px);
+    border: 1px solid #cccccc;
+    background-color: white;
+  }
   img {
     min-width: 350px;
     height: 150px;

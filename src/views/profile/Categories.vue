@@ -23,7 +23,7 @@
       </b-col>
     </b-row>
     <b-row v-else>
-      <b-col v-for="category in categories" :key="category.id" lg="3" sm="6" class="mb-3">
+      <b-col v-for="category in categories" :key="category.id" lg="3" sm="6" class=" custum-padding">
         <router-link :to="`/categories/${category.id}`">
           <CategoryCard
             :card="{ type: category.title }"

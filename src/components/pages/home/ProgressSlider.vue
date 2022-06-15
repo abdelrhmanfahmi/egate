@@ -1,12 +1,18 @@
 <template>
-  <div class="product-silder text-center mt-2" >
+  <div class="product-silder text-center mt-2">
     <b-container v-if="slidersLength > 0">
-      <div class="info" >
+      <div class="info">
         <p>{{ $t("home.bestDeal") }}</p>
-        <router-link to="/best-deals" class="showAllLink">{{ $t("home.showAll") }}</router-link>
+        <router-link to="/best-deals" class="showAllLink">{{
+          $t("home.showAll")
+        }}</router-link>
       </div>
 
-      <VueSlickCarousel v-bind="settings" v-if="sliders && sliders.length" class="my-2">
+      <VueSlickCarousel
+        v-bind="settings"
+        v-if="sliders && sliders.length"
+        class="my-2"
+      >
         <div
           v-for="(slider, index) in sliders"
           :key="index"
@@ -17,19 +23,26 @@
             v-if="slider"
           >
             <vue-ellipse-progress
-              v-if="slider.offer_active_by_type.countdown_percentage"
+              v-if="slider.offer_active_by_type.countdown_percentage >= 0"
               :progress="slider.offer_active_by_type.countdown_percentage"
               :determinate="determinate"
               v-bind="options"
               :loading="loading"
               :no-data="noData"
             >
-              <b-img
-                v-if="slider.product.image_path"
-                :src="slider.product.image_path"
-                class="offer-image"
+              <div class="" v-if="slider.image_path !== null">
+                <b-img :src="slider.image_path" class="offer-image"> </b-img>
+              </div>
+              <div
+                class=""
+                v-else-if="
+                  slider.image_path == null &&
+                  slider.product.image_path !== null
+                "
               >
-              </b-img>
+                <b-img :src="slider.product.image_path" class="offer-image">
+                </b-img>
+              </div>
             </vue-ellipse-progress>
             <h6 class="main-header mt-2" v-if="slider.product.title">
               {{ slider.product.title }}
@@ -48,7 +61,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 // import { baseURL } from "@/apis/Api";
 // import axios from "axios";
-import categories from "@/services/categories"
+import categories from "@/services/categories";
 export default {
   components: {
     VueSlickCarousel,
@@ -122,11 +135,11 @@ export default {
     this.getBestDeals();
     if (this.progress === 0) this.nodata = true;
   },
-  computed:{
-    slidersLength(){
-      return this.sliders ? this.sliders.length : 0
-    }
-  }
+  computed: {
+    slidersLength() {
+      return this.sliders ? this.sliders.length : 0;
+    },
+  },
 };
 </script>
 
@@ -156,5 +169,4 @@ html:lang(ar) {
   height: 75px;
   border-radius: 50%;
 }
-
 </style>

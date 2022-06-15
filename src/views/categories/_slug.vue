@@ -128,18 +128,18 @@
                     </b-card>
                   </b-col>
                 </b-row>
-                <b-row
+                 <b-row 
                   align-h="center"
                   align-v="center"
                   v-else-if="!loading && allSubCategoriesLength > 0"
                 >
-                  <div
+                  <b-col
+                    lg="3"
+                    sm="6"
+                    class="custum-padding mb-3 p-0"
                     :title="category.title"
                     v-for="category in allSubCategories"
                     :key="category.id"
-                    lg="3"
-                    sm="6"
-                    class="custum-padding mb-3"
                   >
                     <div class="mb-4">
                       <router-link
@@ -153,7 +153,7 @@
                         />
                       </router-link>
                     </div>
-                  </div>
+                  </b-col>
                 </b-row>
                 <div class="" v-else-if="!loading && allChildrenLength <= 0">
                   <h3 class="my-2">

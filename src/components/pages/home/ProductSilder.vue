@@ -50,11 +50,26 @@
             :to="`/suppliers/${supplier.id}`"
             class="d-flex justify-content-center align-items-center text-center"
           >
-            <img
-              :src="supplier.image_path"
-              class="supplier-image"
-              alt="supplier image"
-            />
+            
+
+            <div class="" v-if="supplier.image_path !== null">
+              <b-img
+                :src="supplier.image_path"
+                class="supplier-image"
+                alt="supplier image"
+              >
+              </b-img>
+            </div>
+            <div
+              class=""
+              v-else-if="
+                supplier.image_path == null &&
+                supplier.product.image_path !== null
+              "
+            >
+              <b-img :src="supplier.product.image_path" class="offer-image">
+              </b-img>
+            </div>
           </router-link>
         </div>
       </VueSlickCarousel>
@@ -146,12 +161,11 @@ export default {
       auth
         .getHomeDeadline()
         .then((res) => {
-          // console.log("slide data", res); 
+          // console.log("slide data", res);
           this.sliders = res.data.items.deals.data;
-          this.deadline = res.data.items.timer_date
+          this.deadline = res.data.items.timer_date;
 
           // this.deadline = new Date(res.data.items.timer_date)
-
 
           // console.log("timer" , res.data.items.timer_date);
           // console.log("this.deadline" , moment(new Date(res.data.items.timer_date)).format(

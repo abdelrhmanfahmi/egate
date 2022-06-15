@@ -49,7 +49,7 @@ export default {
   margin: 0 10px;
   // border: 1px solid rgba(0, 0, 0, 0.125);
   img {
-    min-width: 350px;
+    min-width: 200px;
     height: 200px;
     -o-object-fit: cover;
     object-fit: cover;
