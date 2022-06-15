@@ -135,7 +135,7 @@ export default {
     },
   },
   created() {
-    let profileData = this.userData;
+    let profileData = this.buyerUserData;
     if (!profileData) {
       location.replace("/b2b-login");
     }

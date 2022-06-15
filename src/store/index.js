@@ -18,10 +18,10 @@ export default new Vuex.Store({
         ? JSON.parse(localStorage.getItem("userInfo"))
         : "",
 
-    userData:
-      localStorage.getItem("userData") &&
-      localStorage.getItem("userData") != "undefined"
-        ? JSON.parse(localStorage.getItem("userData"))
+    buyerUserData:
+      localStorage.getItem("buyerUserData") &&
+      localStorage.getItem("buyerUserData") != "undefined"
+        ? JSON.parse(localStorage.getItem("buyerUserData"))
         : "",
 
     coupons: [],
@@ -31,8 +31,8 @@ export default new Vuex.Store({
     userInfo(state) {
       return state.userInfo;
     },
-    userData(state) {
-      return state.userData;
+    buyerUserData(state) {
+      return state.buyerUserData;
     },
     userGuestId(state) {
       return state.guestId;
@@ -40,7 +40,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USER_DATA_INFO(state, userInfo) {
-      state.userData = userInfo;
+      state.buyerUserData = userInfo;
     },
     SET_USER_COUPONS(state, coupons) {
       state.coupons = coupons;
@@ -53,11 +53,11 @@ export default new Vuex.Store({
     getUserInfo({ commit }) {
       auth.getUserInfo().then((res) => {
         commit("SET_USER_DATA_INFO", res.data.items);
-        localStorage.setItem("userData", JSON.stringify(res.data.items));
+        localStorage.setItem("buyerUserData", JSON.stringify(res.data.items));
       });
     },
     getUserGuestId({ commit }) {
-      let userExist = localStorage.getItem("userData");
+      let userExist = localStorage.getItem("buyerUserData");
       let guestUser = localStorage.getItem("guest-id");
       if (userExist === null && guestUser === null) {
         axios

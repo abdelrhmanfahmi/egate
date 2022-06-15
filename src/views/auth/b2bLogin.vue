@@ -110,7 +110,7 @@ export default {
 
           // if (!res.data.items.item.verify_email_required) {
           
-          if(this.userData.type === 'buyer' && this.userData.profile_percentage == 100){
+          if(this.buyerUserData.type === 'buyer' && this.buyerUserData.profile_percentage == 100){
             this.$router.push("/profile/categories");
           }else{
             this.$router.push("/profile/account-information-b2b");

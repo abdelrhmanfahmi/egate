@@ -168,9 +168,9 @@
             <span
               v-if="
                 (data.value > 0 &&
-                  userData.profile_percentage == 100 &&
-                  userData.type === 'buyer') ||
-                userData.type === 'b2b'
+                  buyerUserData.profile_percentage == 100 &&
+                  buyerUserData.type === 'buyer') ||
+                buyerUserData.type === 'b2b'
               "
               >{{ data.value }} {{ currency }}</span
             >
@@ -204,9 +204,9 @@
             <div
               class="add-to d-flex justify-content-center"
               v-if="
-                (userData.profile_percentage === 100 &&
-                  userData.type === 'buyer') ||
-                userData.type === 'b2b'
+                (buyerUserData.profile_percentage === 100 &&
+                  buyerUserData.type === 'buyer') ||
+                buyerUserData.type === 'b2b'
               "
             >
               <a
@@ -302,11 +302,11 @@
                 <div
                   class=""
                   v-if="
-                    (userData &&
-                      userData.profile_percentage == 100 &&
-                      userData.type === 'buyer') ||
-                    userData.type === 'b2b' ||
-                    (userData.type === 'supplier' && userData.is_buyer == true)
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage == 100 &&
+                      buyerUserData.type === 'buyer') ||
+                    buyerUserData.type === 'b2b' ||
+                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
                   "
                 >
                   <router-link
@@ -339,22 +339,22 @@
                 <div
                   class=""
                   v-else-if="
-                    (userData && userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'buyer' &&
-                      userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'b2b' &&
-                      userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'supplier' &&
-                      userData.is_buyer !== true &&
-                      userData.profile_percentage !== 100)
+                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'buyer' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2b' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer !== true &&
+                      buyerUserData.profile_percentage !== 100)
                   "
                 >
                   -
                 </div>
-                <div class="" v-else-if="!userData || userData.type === 'b2c'">
+                <div class="" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
                   <router-link
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
@@ -383,11 +383,11 @@
                 <div
                   class="add-to d-flex justify-content-center align-items-center"
                   v-if="
-                    (userData &&
-                      userData.profile_percentage == 100 &&
-                      userData.type === 'buyer') ||
-                    userData.type === 'b2b' ||
-                    (userData.type === 'supplier' && userData.is_buyer == true)
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage == 100 &&
+                      buyerUserData.type === 'buyer') ||
+                    buyerUserData.type === 'b2b' ||
+                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
                   "
                 >
                   <a
@@ -401,7 +401,7 @@
                     <span>{{ $t("items.addToCart") }}</span>
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
-                  <div class="" v-if="userData">
+                  <div class="" v-if="buyerUserData">
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
                       :title="`product in favourite`"
@@ -420,13 +420,13 @@
                     <button
                       class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
                       v-if="
-                        (userData &&
+                        (buyerUserData &&
                           (product.product_details_by_type.add_type === 'rfq' ||
                             product.product_details_by_type.add_type ===
                               'both') &&
-                          userData.type === 'buyer' &&
-                          userData.profile_percentage == 100) ||
-                        (userData.type === 'b2c' && userData.is_verified)
+                          buyerUserData.type === 'buyer' &&
+                          buyerUserData.profile_percentage == 100) ||
+                        (buyerUserData.type === 'b2c' && buyerUserData.is_verified)
                       "
                     >
                       <div
@@ -453,17 +453,17 @@
                 <div
                   class="d-flex justify-content-center"
                   v-else-if="
-                    (userData && userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'buyer' &&
-                      userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'b2b' &&
-                      userData.profile_percentage !== 100) ||
-                    (userData &&
-                      userData.type === 'supplier' &&
-                      userData.is_buyer !== true &&
-                      userData.profile_percentage !== 100)
+                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'buyer' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2b' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer !== true &&
+                      buyerUserData.profile_percentage !== 100)
                   "
                 >
                   <router-link to="/profile/account-information-b2b">
@@ -472,7 +472,7 @@
                 </div>
                 <div
                   class="add-to d-flex justify-content-center"
-                  v-else-if="!userData || userData.type === 'b2c'"
+                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
                 >
                   <a
                     @click="addToCart(product)"
@@ -485,7 +485,7 @@
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
-                  <div class="" v-if="userData && userData.type === 'b2c'">
+                  <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
                       :title="`product in favourite`"

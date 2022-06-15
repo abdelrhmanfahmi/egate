@@ -90,7 +90,7 @@
       <div
         class="work-info my-5"
         v-if="
-          (userData && userData.type === 'buyer') || userData.type === 'b2b'
+          (buyerUserData && buyerUserData.type === 'buyer') || buyerUserData.type === 'b2b'
         "
       >
         <h4 class="main-header my-4">
@@ -167,7 +167,7 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.form = { ...this.userData };
+    this.form = { ...this.buyerUserData };
   },
   created() {
     this.reloadPage();

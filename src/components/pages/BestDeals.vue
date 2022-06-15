@@ -42,7 +42,7 @@
         </a>
         <div class="actions">
           <ul>
-            <li v-if="userData">
+            <li v-if="buyerUserData">
               <a @click="addToWishlist(deal) ; changevalue()"  v-if="deal.is_favorite == false">
                 <b-icon-heart></b-icon-heart>
               </a>

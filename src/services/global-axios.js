@@ -27,7 +27,7 @@ export { getToken };
 let guestUser = localStorage.getItem("guest-id");
 
 // let checkGuest = function () {
-//   if (localStorage.getItem("userData")) {
+//   if (localStorage.getItem("buyerUserData")) {
 //     localStorage.removeItem("guest-id");
 //   } else {
 //     return guestUser ? guestUser : "";
@@ -75,7 +75,7 @@ globalAxios.interceptors.request.use(
 //       // auth.logout();
 //       // location.replace('/b2b-login')
 //       localStorage.removeItem('userInfo')
-//       localStorage.removeItem('userData')
+//       localStorage.removeItem('buyerUserData')
 //       // you can also redirect to /login if needed !
 //     }
 //     throw err;

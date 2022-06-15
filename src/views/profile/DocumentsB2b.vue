@@ -1068,7 +1068,7 @@ export default {
       if (this.buissnessinfo.rmcm !== null) {
         formData.append("rmcm", this.buissnessinfo.rmcm);
       }
-      // console.log(this.userData.type);
+      // console.log(this.buyerUserData.type);
 
       formData.append("portal", "buyer");
 

@@ -117,9 +117,9 @@
                 <template #button-content>
                   <span>
                     <font-awesome-icon icon="fa-solid fa-user" size="2x" />
-                    <p v-if="userData.is_verified">
+                    <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
-                      {{ userData.first_name || userData.company_name }}
+                      {{ buyerUserData.first_name || buyerUserData.company_name }}
                     </p>
                     <p v-else>
                       {{ $t("login.welcome") }} ,
@@ -130,7 +130,7 @@
                   </span>
                 </template>
                 <b-dropdown-item
-                  v-if="userInfo.item.is_verified || userData.is_verified"
+                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
                 >
                   <router-link to="/profile/categories">{{
                     $t("profile.myProfile")
