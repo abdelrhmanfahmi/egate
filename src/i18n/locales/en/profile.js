@@ -199,4 +199,10 @@ export default {
   notReviewd:'Not Rated Yet',
   aptNo:'Apartment' , 
   buildingNo:'Building',
+  returnReason:'Return Reason',
+  replace:'Replace',
+  refund:'Refund',
+  returnImage:'Product Image',
+  wallet:'Wallet',
+  refundMethods:'Refund Methods'
 };

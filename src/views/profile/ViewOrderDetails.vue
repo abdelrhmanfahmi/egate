@@ -12,7 +12,7 @@
                 </b-button>
               </router-link>
             </div>
-            
+
             <div class="">
               <div>
                 <b-button
@@ -54,13 +54,13 @@
             </div>
           </div>
           <div class="branding d-flex justify-content-center">
-              <img
-                src="@/assets/images/logo.png"
-                class="img-fluid w-25"
-                alt="logo"
-                @click="goToHome()"
-              />
-            </div>
+            <img
+              src="@/assets/images/logo.png"
+              class="img-fluid w-25"
+              alt="logo"
+              @click="goToHome()"
+            />
+          </div>
         </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
@@ -401,25 +401,38 @@
                         </td>
                         <td v-else>-</td>
                         <td v-if="ord.price">
-                          {{ ord.price | fixedCurrency }}
+                          {{ ord.price | fixedCurrency }} {{currency}}
                         </td>
                         <td v-if="ord.quantity">{{ ord.quantity }}</td>
                         <td v-if="ord.total_price">
-                          {{ ord.total_price | fixedCurrency }}
+                          {{ ord.total_price | fixedCurrency }} {{currency}}
                         </td>
                         <td>
                           <!-- <button class="btn btn-outline-danger">
                             {{ $t("profile.return") }}
                           </button> -->
-                          <b-button
+                          <!-- <b-button
                             @click="
                               $bvModal.show('bv-modal-example1');
                               showModal(order);
                             "
                             variant="outline-danger mt-2 return-btn"
+                            ><font-awesome-icon icon="fa-solid fa-x" />
+                            <span class="mx-2">{{
+                              $t("profile.return")
+                            }}</span></b-button
+                          > -->
+                          <div class="" v-if="order.order_status_string === 'Completed' || order.order_status_string === 'Delivered'">
+
+                          </div>
+                          <b-button
+                            @click="
+                              $bvModal.show('bv-modal-example1');
+                              showModal(ord);
+                            "
+                            variant="outline-danger mt-2 return-btn"
                             v-if="
-                              order.order_status_string === 'Completed' ||
-                              order.order_status_string === 'Delivered'
+                                ord.status !== 'Returned'
                             "
                             ><font-awesome-icon icon="fa-solid fa-x" />
                             <span class="mx-2">{{
@@ -436,11 +449,11 @@
             </div>
             <b-modal id="bv-modal-example1" centered hide-footer>
               <template #modal-title>
-                {{ $t("profile.yourMessage") }}
+                {{ $t("profile.returnReason") }}
               </template>
               <div class="d-block">
                 <div class="">
-                  <form>
+                  <!-- <form>
                     <textarea
                       class="form-control"
                       name=""
@@ -458,16 +471,46 @@
                         {{ error }}
                       </p>
                     </div>
-                  </form>
+                  </form> -->
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="">
+                      <router-link
+                        :to="{
+                          path: '/return-replace',
+                          query: { orderId: supplierUUID },
+                        }"
+                      >
+                        <b-button variant="outline-success">
+                          {{ $t("profile.replace") }}
+                        </b-button>
+                      </router-link>
+                    </div>
+                    <div class="">
+                      <router-link
+                        :to="{
+                          path: '/return-refund',
+                          query: { orderId: supplierUUID },
+                        }"
+                        variant="outlin-danger"
+                      >
+                        <b-button variant="outline-success">
+                          {{ $t("profile.refund") }}
+                        </b-button>
+                      </router-link>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <b-button
+              <!-- <b-button
                 class="mt-3"
                 variant="outline-success"
                 block
                 @click="cancelOrder"
                 >{{ $t("profile.send") }}</b-button
-              >
+              > -->
               <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
           >{{$t('cart.addToCart')}}</b-button
         > -->
@@ -774,8 +817,9 @@ export default {
         fileLink.click();
       });
     },
-    showModal(order) {
-      this.supplierUUID = order.uuid;
+    showModal(ord) {
+      console.log(ord);
+      this.supplierUUID = ord.uuid;
     },
   },
   mounted() {

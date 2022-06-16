@@ -1765,12 +1765,12 @@ export default {
               existingAddresses.checked = true;
             }
             if (this.addresses !== null) {
-              checkboxes.click();
+              // checkboxes.submit();
             }
           }, 500);
-          setTimeout(() => {
-            this.shippingStore();
-          }, 200);
+          // setTimeout(() => {
+          //   this.shippingStore();
+          // }, 200);
           if (localStorage.getItem("buyerUserData") === null) {
             if (document.querySelector(".GuestNewAddress") !== null) {
               document.querySelector(".GuestNewAddress").click();
@@ -2362,11 +2362,13 @@ export default {
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
-        console.log(element.id);
+
         if (element.shipping_type == 0) {
-          return (element.shipping_type = 1);
+          element.shipping_type = 1
+          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
         } else if (element.shipping_type == 1) {
-          return (element.shipping_type = 0);
+          element.shipping_type = 0
+          element.point_of_sell_uuid = null
         }
       }
     },
