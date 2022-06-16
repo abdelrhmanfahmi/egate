@@ -21,6 +21,7 @@ import GiftCardB2b from "../views/profile/GiftCardB2b.vue";
 
 
 
+
 export default {
   path: "/profile",
   name: "Profile",
@@ -104,6 +105,7 @@ export default {
       name: "productReviews",
       component: productReviews,
     },
+    
     
   ],
 };

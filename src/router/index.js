@@ -23,6 +23,8 @@ import CheckoutDetails from "../views/Checkout-details.vue";
 import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
 import SuccessCheckout from "../views/SuccessCheckout";
 import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
+import returnReplace from "../views/RetuenReplace.vue";
+import returnRefund from "../views/ReturnRefund.vue";
 
 Vue.use(VueRouter);
 
@@ -184,6 +186,16 @@ const routes = [
     path: '/404',
     name: '404',
     component: () => import('@/views/pageNotFound')
+  },
+  {
+    path: "/return-replace",
+    name: "returnReplace",
+    component: returnReplace,
+  },
+  {
+    path: "/return-refund",
+    name: "returnRefund",
+    component: returnRefund,
   },
   ...auth,
   profileRoutes,
