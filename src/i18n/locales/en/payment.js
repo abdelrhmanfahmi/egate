@@ -14,7 +14,7 @@ export default {
   phoneNumber: "Phone number",
   email: "Email",
   deliverySameAddress: "Delivery For The Same Address?",
-  paymentData: "Payment data",
+  paymentData: "Payment Method",
   notes: "Notes",
   total: "Total",
   discount: "Discount",

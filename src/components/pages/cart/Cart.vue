@@ -790,7 +790,7 @@
                                       type="radio"
                                       value="0"
                                       :name="'types-' + index"
-                                      v-model="ratingNum[index]"
+                                      v-model="ratingNum[index].delivery_type"
                                       class="checkFirst"
                                       id="check"
                                     />
@@ -798,19 +798,23 @@
                                       $t("payment.delivery")
                                     }}</span>
                                   </label>
+                                  
+
                                   <label>
                                     <input
                                       @input="changePickup($event, supplier)"
+                                      @click="changePickup($event, supplier)"
                                       type="radio"
                                       value="1"
                                       :name="'types-' + index"
-                                      v-model="ratingNum[index]"
+                                      v-model="ratingNum[index].delivery_type"
                                     />
                                     <span class="mx-2">{{
                                       $t("payment.pickup")
                                     }}</span>
                                   </label>
                                   <b-form-select
+                                    v-model="ratingNum[index].supplier_address_id"
                                     @input="selectAddressUUID"
                                     @change="selectType(supplier, index)"
                                     class="w-100 mt-2 supplierAddresses d-none"
@@ -826,9 +830,9 @@
                                     <b-form-select-option
                                       v-for="(
                                         address, index
-                                      ) in selectedSupplierAddresses"
+                                      ) in supplier.supplier_addresses"
                                       :key="index"
-                                      :value="address"
+                                      :value="address.country.title + address.region.title + address.city.title"
                                       >{{ address.country.title }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
@@ -1588,7 +1592,6 @@ export default {
       addresses: null,
       submitted: false,
       supplierAddress: null,
-      selectedSupplierAddresses: null,
       suppier_id: null,
       selectedInputText: "",
       firstFees: null,
@@ -1737,7 +1740,15 @@ export default {
           // console.log("cart_items", res.data.items.cart_items);
           // console.log("res", res);
 
-          this.cartItems = res.data.items.cart_items;
+          console.log(res);
+          // this.cartItems = this.cartItems = res.data.items.cart_items
+          this.cartItems = res.data.items.cart_items.map((cartItem) => {
+            return {
+              ...cartItem,
+              supplier_addresses: []
+            }
+          });
+          console.log(this.cartItems);
           this.priceData = res.data.items;
           this.cart_sub_total = res.data.items.cart_sub_total;
           this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
@@ -1746,6 +1757,13 @@ export default {
 
           this.totalPaymentReplacement = this.totalPayment;
           this.totalDiscountReplacement = this.totalDiscount;
+          this.ratingNum = res.data.items.cart_items.map(() => {
+            return {
+              delivery_type: '0',
+              supplier_address_id: null
+            }
+          });
+          // console.log(this.ratingNum);
         })
         .then(() => {
           if (this.buyerUserData && this.buyerUserData.address_uuid) {
@@ -1757,10 +1775,12 @@ export default {
           setTimeout(() => {
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
+
             var existingAddresses =
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
               // checkboxes[i].checked = true;
+              console.log(checkboxes[i].parentElement);
               checkboxes[i].parentElement.click()
               existingAddresses.click()
               existingAddresses.checked = true;
@@ -2023,86 +2043,22 @@ export default {
       this.address_uuid = myselectAddressUUID.uuid;
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
-    selectType: function (supplier, index) {
+    selectType: function (supplier) {
       // alert('clicked')
       // console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
-        shipping_type: this.ratingNum[index],
+        shipping_type: 1,
         coupon: supplier.coupon ? supplier.coupon : "",
-        point_of_sell_uuid: this.supplierAddress,
-        // supplier_address_uuid: this.supplierAddress
-        //   ? this.supplierAddress.uuid
-        //   : localStorage.getItem('addressUUID'),
+        // point_of_sell_uuid: this.supplierAddress,
+        point_of_sell_uuid: localStorage.getItem('addressUUID'),
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-      // console.log(newRating);
-      // console.log(supplier);
-      const type = document.querySelectorAll(`input[name="types-${index}"]`);
-      // let myArray = [];
-      for (const f of type) {
-        if (f.checked) {
-          // let myArray = [f.value]
-          // console.log(JSON.stringify(f.value));
-          // console.log(myArray);
-        }
-      }
-      // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
-
-      // setTimeout(() => {
-      //   let address_uuid = localStorage.getItem("addressUUID");
-
-      //   suppliers
-      //     .getFirstShippingFees(address_uuid)
-      //     .then((res) => {
-      //       // console.log(res);
-
-      //       this.firstFees = res.data.items;
-      //       this.sucessMsg(res.data.message);
-
-      //       let arr = res.data.items;
-      //       var size = Object.values(arr);
-      //       // console.log("arr" , size);
-      //       let myData = 0;
-      //       for (let index = 0; index < size.length; index++) {
-      //         const element = size[index].shipping_fee;
-      //         // console.log(`element${index}`, element);
-      //         myData += parseFloat(element);
-      //       }
-
-      //       // this.shippingCartFee = myData + 'reda';
-      //       this.shippingCartFee = myData;
-
-      //       // this.cart_sub_total = res.data.items.cart_sub_total;
-      //       // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
-      //       this.totalPaymentReplacement += parseFloat(myData);
-
-      //       console.log("myData", myData);
-      //       console.log("this.totalPayment", this.totalPayment.toFixed(3));
-      //       if (myData == 0) {
-      //         this.totalPaymentReplacement = this.totalPayment;
-      //       }
-      //       console.log(
-      //         "this.totalPaymentReplacement",
-      //         this.totalPaymentReplacement.toFixed(3)
-      //       );
-      //       // this.totalPayment += myData;
-      //       // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
-
-      //       // console.log("myData", myData);
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //       let error = Object.values(err)[2].data;
-      //       this.errors = error.items;
-      //       this.errMsg(error.message);
-      //     });
-      // }, 200);
-
+      // console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
       // console.log(supplier);
@@ -2134,15 +2090,15 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
 
@@ -2208,7 +2164,11 @@ export default {
         .getSupplierAddress(supplierId)
         .then((res) => {
           // console.log(res);
-          this.selectedSupplierAddresses = res.data.items;
+          // this.selectedSupplierAddresses = res.data.items;
+          console.log(this.cartItems);
+          this.cartItems.forEach((item, index) => {
+            if (item.supplier_id == supplierId) this.cartItems[index].supplier_addresses = res.data.items
+          })
           if (res.data.items.length == 0 || res.data.items == "") {
             this.availablePickup = false;
             // console.log(this.selectedInput.parentElement.parentElement);
@@ -2364,7 +2324,7 @@ export default {
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
-        console.log("element" , element.id);
+        // console.log("element" , element.id);
 
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
           element.shipping_type = 1
@@ -2798,15 +2758,15 @@ export default {
     paymentGetAllRegions() {
       profile.getAllRegions(this.paymentFormData.country).then((res) => {
         this.paymentRegions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     paymentGetAllCities() {
       profile.getAllCities(this.paymentFormData.governorate).then((res) => {
         this.paymentCities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
     getTerms() {
@@ -2941,6 +2901,7 @@ $text-color: mix(#000, $primary-color, 64%);
             img {
               width: 8rem;
               margin: 0 auto;
+              height: 6rem;
             }
             a {
               color: #a0a0a0;
