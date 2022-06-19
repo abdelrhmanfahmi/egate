@@ -387,12 +387,12 @@
                           {{ $t("cart.checkFees") }}
                         </button> -->
                           </form>
-                          <h6
+                          <!-- <h6
                             v-if="!buyerUserData && localStoreFail"
                             class="localStoreFail mt-3 error"
                           >
                             {{ $t("cart.fillData") }}
-                          </h6>
+                          </h6> -->
                         </div>
 
                         <!-- <div
@@ -785,7 +785,7 @@
                                 >
                                   <label>
                                     <input
-                                      @change="changeShipping"
+                                      @change="changeShipping($event)"
                                       @input="shippingStore(supplier)"
                                       type="radio"
                                       value="0"
@@ -1734,7 +1734,7 @@ export default {
             this.hasProducts = true;
           }
 
-          console.log("cart_items", res.data.items.cart_items);
+          // console.log("cart_items", res.data.items.cart_items);
           // console.log("res", res);
 
           this.cartItems = res.data.items.cart_items;
@@ -1760,7 +1760,8 @@ export default {
             var existingAddresses =
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
-              checkboxes[i].checked = true;
+              // checkboxes[i].checked = true;
+              checkboxes[i].parentElement.click()
               existingAddresses.click()
               existingAddresses.checked = true;
             }
@@ -2326,6 +2327,7 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+        
     },
     changePickup($event, supplier) {
       let input = $event.target;
@@ -2362,11 +2364,12 @@ export default {
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
+        console.log("element" , element.id);
 
-        if (element.shipping_type == 0) {
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
           element.shipping_type = 1
           element.point_of_sell_uuid = localStorage.getItem('addressUUID')
-        } else if (element.shipping_type == 1) {
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
           element.shipping_type = 0
           element.point_of_sell_uuid = null
         }
@@ -2386,29 +2389,22 @@ export default {
 
       // console.log(supplier);
 
-      // this.$store.dispatch("suppliers/addSupplierToCart", {
-      //       supplier: newRating,
-      //     });
-
-      let myControler = this.$store.state.suppliers.suppliers;
-      for (let index = 0; index < myControler.length; index++) {
-        const element = myControler[index].supplier;
-        console.log(element);
-        if (element.shipping_type == 0) {
-          newRating.point_of_sell_uuid = localStorage.getItem('addressUUID')
-          this.$store.dispatch("suppliers/addSupplierToCart", {
-            supplier: newRating,
-          });
-          return (element.shipping_type = 1);
-        } else if (element.shipping_type == 1) {
-          element.shipping_type = 0;
-          element.point_of_sell_uuid = null;
-          this.$store.dispatch("suppliers/addSupplierToCart", {
+      this.$store.dispatch("suppliers/addSupplierToCart", {
             supplier: newRating,
           });
 
-        }
-      }
+      // let myControler = this.$store.state.suppliers.suppliers;
+      // for (let index = 0; index < myControler.length; index++) {
+      //   const element = myControler[index].supplier;
+
+      //   if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+      //     element.shipping_type = 1
+      //     element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+      //   } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
+      //     element.shipping_type = 0
+      //     element.point_of_sell_uuid = null
+      //   }
+      // }
     },
 
     orderType(supplier) {
@@ -2563,7 +2559,7 @@ export default {
       suppliers
         .getFirstShippingFees(this.buyerUserData.address_uuid)
         .then((res) => {
-          console.log("new", res);
+          // console.log("new", res);
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);

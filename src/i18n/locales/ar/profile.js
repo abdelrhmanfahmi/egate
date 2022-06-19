@@ -195,4 +195,5 @@ export default {
   returnImage: "صورة المنتج",
   wallet: "محفظتى",
   refundMethods: "طريقة استرجاع المال",
+  replaceMethods: "طلب المبادلة",
 };

@@ -52,11 +52,11 @@ export default {
   display: inline-block;
   a {
     display: inline-block;
-    opacity: 0.7;
+    opacity: 1;
 
     border-radius: 50%;
     &:hover {
-      opacity: 1;
+      opacity: 0.5;
     }
     img {
       width: 150px;

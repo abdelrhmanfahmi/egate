@@ -205,13 +205,13 @@ export default {
     }
   }
   .img-suplier {
-    opacity: 0.75;
+    opacity: 1;
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     display: block;
     text-align: center;
     &:hover {
-      opacity: 1;
+      opacity: 0.75;
     }
   }
 }
@@ -225,9 +225,9 @@ export default {
   // height: 150px;
   // border-radius: 50%;
   transition: all 0.3s ease-in-out;
-  opacity: 0.5;
+  opacity: 1;
   &:hover {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 </style>

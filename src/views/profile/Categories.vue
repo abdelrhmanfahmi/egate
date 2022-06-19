@@ -89,8 +89,11 @@ export default {
   }
   .custum-padding {
     padding-right: 0px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    img{
+      opacity: .5;
+    }
   }
 }
 

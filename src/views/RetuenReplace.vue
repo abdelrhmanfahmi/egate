@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="container">
-      <div class="row justify-content-center align-items-center py-5 my-5">
+      <div class="row justify-content-center align-items-center pt-5 mt-5">
+        <h2 class="title">
+          {{ $t("profile.replaceMethods") }}
+        </h2>
+      </div>
+      <div class="row justify-content-center align-items-center pb-5 my-5">
         <div class="col-7">
           <form class="returnData mb-5 px-5" @submit.prevent="returnOrder">
             <div class="form-input mb-4">
@@ -13,9 +18,7 @@
                 <b-form-file
                   size="lg"
                   id="returnImage"
-                  
                   @change="uploadImage"
-                  
                   :placeholder="$t('profile.returnImage')"
                   drop-placeholder="Drop file here..."
                 ></b-form-file>
@@ -46,8 +49,8 @@
             </b-button>
           </form>
           <ul>
-            <li v-for="(item , index) in returnData.image" :key="index">
-              <img :src="item.name" alt="">
+            <li v-for="(item, index) in returnData.image" :key="index">
+              <img :src="item.name" alt="" />
             </li>
           </ul>
         </div>
@@ -65,8 +68,8 @@ export default {
         image: null,
         return_reason: null,
         item_uuid: this.$route.query.orderId ? this.$route.query.orderId : null,
-        return_option:1 , // refund = 0  , replace = 1
-        refund_option:0, // 0=Wallet,1=Visa,2=Bank,3=Cash
+        return_option: 1, // refund = 0  , replace = 1
+        refund_option: 0, // 0=Wallet,1=Visa,2=Bank,3=Cash
       },
       uploadErrors: [],
       btn1Disabled: false,
