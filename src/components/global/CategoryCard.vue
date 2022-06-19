@@ -55,6 +55,11 @@ export default {
     object-fit: cover;
     background-size: cover;
     width: 100%;
+    opacity: .5;
+    transition: all .3s ease-in-out;
+    &:hover{
+      opacity: 1;
+    }
   }
 
   .card-footer {

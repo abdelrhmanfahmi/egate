@@ -91,7 +91,7 @@ export default {
       text-transform: uppercase;
     }
   }
-  .custum-padding {
+  buyerUserData {
     padding-right: 0px;
     padding-left: 0px;
     padding-bottom: 0px;

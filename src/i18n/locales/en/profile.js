@@ -204,5 +204,6 @@ export default {
   refund:'Refund',
   returnImage:'Product Image',
   wallet:'Wallet',
-  refundMethods:'Refund Methods'
+  refundMethods:'Refund Methods',
+  replaceMethods:'Replace Request'
 };
