@@ -783,7 +783,7 @@
                                   @change="orderType(supplier.supplier_id)"
                                   class="d-flex align-items-baseline"
                                 >
-                                  <label>
+                                  <label @click="shippingStore(supplier)">
                                     <input
                                       @change="changeShipping($event)"
                                       @input="shippingStore(supplier)"
@@ -832,10 +832,11 @@
                                         address, index
                                       ) in supplier.supplier_addresses"
                                       :key="index"
-                                      :value="address.country.title + address.region.title + address.city.title"
+                                      :value="address"
                                       >{{ address.country.title }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
+                                      
                                     </b-form-select-option>
                                   </b-form-select>
                                   <span class="feedsResult"></span>
@@ -1697,7 +1698,7 @@ export default {
 
     this.getTerms();
 
-    console.log(this.paymentFormData.country_code);
+    // console.log(this.paymentFormData.country_code);
 
     localStorage.setItem("addressUUID", this.buyerUserData.uuid);
 
@@ -1740,7 +1741,7 @@ export default {
           // console.log("cart_items", res.data.items.cart_items);
           // console.log("res", res);
 
-          console.log(res);
+          // console.log(res);
           // this.cartItems = this.cartItems = res.data.items.cart_items
           this.cartItems = res.data.items.cart_items.map((cartItem) => {
             return {
@@ -1748,7 +1749,7 @@ export default {
               supplier_addresses: []
             }
           });
-          console.log(this.cartItems);
+          // console.log(this.cartItems);
           this.priceData = res.data.items;
           this.cart_sub_total = res.data.items.cart_sub_total;
           this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
@@ -1780,8 +1781,7 @@ export default {
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
               // checkboxes[i].checked = true;
-              console.log(checkboxes[i].parentElement);
-              checkboxes[i].parentElement.click()
+              checkboxes[i].parentElement.click()  
               existingAddresses.click()
               existingAddresses.checked = true;
             }
@@ -2039,12 +2039,12 @@ export default {
       }, 200);
     },
     selectAddressUUID(myselectAddressUUID) {
+      // console.log(myselectAddressUUID);
       this.supplierAddress = myselectAddressUUID.uuid;
       this.address_uuid = myselectAddressUUID.uuid;
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
     selectType: function (supplier) {
-      // alert('clicked')
       // console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
@@ -2058,10 +2058,22 @@ export default {
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-      // console.log(this.ratingNum);
+      // / console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
-      // console.log(supplier);
+       let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        // console.log("element" , element.id);
+
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+          element.shipping_type = 1
+          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
+          element.shipping_type = 1
+          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+        }
+      }
     },
 
     // address functions
@@ -2165,7 +2177,7 @@ export default {
         .then((res) => {
           // console.log(res);
           // this.selectedSupplierAddresses = res.data.items;
-          console.log(this.cartItems);
+          // console.log(this.cartItems);
           this.cartItems.forEach((item, index) => {
             if (item.supplier_id == supplierId) this.cartItems[index].supplier_addresses = res.data.items
           })
@@ -2329,6 +2341,7 @@ export default {
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
           element.shipping_type = 1
           element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+          alert('equal')
         } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
           element.shipping_type = 0
           element.point_of_sell_uuid = null
@@ -2343,7 +2356,7 @@ export default {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
         shipping_type: 0,
-        coupon: localStorage.getItem("cou") ? localStorage.getItem("cou") : "",
+        coupon: localStorage.getItem("cou") !== null ? localStorage.getItem("cou") : "",
         point_of_sell_uuid: null,
       };
 
@@ -2353,18 +2366,18 @@ export default {
             supplier: newRating,
           });
 
-      // let myControler = this.$store.state.suppliers.suppliers;
-      // for (let index = 0; index < myControler.length; index++) {
-      //   const element = myControler[index].supplier;
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
 
-      //   if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
-      //     element.shipping_type = 1
-      //     element.point_of_sell_uuid = localStorage.getItem('addressUUID')
-      //   } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
-      //     element.shipping_type = 0
-      //     element.point_of_sell_uuid = null
-      //   }
-      // }
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+          element.shipping_type = 1
+          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
+          element.shipping_type = 0
+          element.point_of_sell_uuid = null
+        }
+      }
     },
 
     orderType(supplier) {
@@ -2462,7 +2475,7 @@ export default {
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
         })
