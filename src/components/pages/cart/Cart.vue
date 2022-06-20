@@ -2058,7 +2058,7 @@ export default {
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-      // console.log(this.ratingNum);
+      // / console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
        let myControler = this.$store.state.suppliers.suppliers;
