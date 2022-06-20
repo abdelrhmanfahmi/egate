@@ -401,11 +401,11 @@
                         </td>
                         <td v-else>-</td>
                         <td v-if="ord.price">
-                          {{ ord.price | fixedCurrency }} {{currency}}
+                          {{ ord.price | fixedCurrency }} {{ currency }}
                         </td>
                         <td v-if="ord.quantity">{{ ord.quantity }}</td>
                         <td v-if="ord.total_price">
-                          {{ ord.total_price | fixedCurrency }} {{currency}}
+                          {{ ord.total_price | fixedCurrency }} {{ currency }}
                         </td>
                         <td>
                           <!-- <button class="btn btn-outline-danger">
@@ -422,23 +422,26 @@
                               $t("profile.return")
                             }}</span></b-button
                           > -->
-                          <div class="" v-if="order.order_status_string === 'Completed' || order.order_status_string === 'Delivered'">
-
-                          </div>
-                          <b-button
-                            @click="
-                              $bvModal.show('bv-modal-example1');
-                              showModal(ord);
-                            "
-                            variant="outline-danger mt-2 return-btn"
+                          <div
+                            class=""
                             v-if="
-                                ord.status !== 'Returned'
+                              order.order_status_string === 'Completed' ||
+                              order.order_status_string === 'Delivered'
                             "
-                            ><font-awesome-icon icon="fa-solid fa-x" />
-                            <span class="mx-2">{{
-                              $t("profile.return")
-                            }}</span></b-button
                           >
+                            <b-button
+                              @click="
+                                $bvModal.show('bv-modal-example1');
+                                showModal(ord);
+                              "
+                              variant="outline-danger mt-2 return-btn"
+                              v-if="ord.status === 'Pending'"
+                              ><font-awesome-icon icon="fa-solid fa-x" />
+                              <span class="mx-2">{{
+                                $t("profile.return")
+                              }}</span></b-button
+                            >
+                          </div>
                         </td>
                       </tr>
                     </tbody>

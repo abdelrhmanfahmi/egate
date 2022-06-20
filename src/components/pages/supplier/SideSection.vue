@@ -18,22 +18,22 @@
         <div class="col-md-6 col-sm-12 mb-2">
           <ul class="social-accounts d-flex flex-wrap" v-if="supplierMSite">
             <li class="account" v-if="supplierMSite.facebook_page">
-              <a :href="supplierMSite.facebook_page"
+              <a :href="supplierMSite.facebook_page" target="_blank"
                 ><b-icon-facebook font-scale="1.5"></b-icon-facebook
               ></a>
             </li>
             <li class="account" v-if="supplierMSite.twitter_page">
-              <a :href="supplierMSite.twitter_page"
+              <a :href="supplierMSite.twitter_page" target="_blank"
                 ><b-icon-twitter font-scale="1.5"></b-icon-twitter
               ></a>
             </li>
             <li class="account" v-if="supplierMSite.instagram_page">
-              <a :href="supplierMSite.instagram_page"
+              <a :href="supplierMSite.instagram_page" target="_blank"
                 ><b-icon-instagram font-scale="1.5"></b-icon-instagram
               ></a>
             </li>
             <li class="account" v-if="supplierMSite.google_page">
-              <a :href="supplierMSite.google_page"
+              <a :href="supplierMSite.google_page" target="_blank"
                 ><b-icon-google font-scale="1.5"></b-icon-google
               ></a>
             </li>

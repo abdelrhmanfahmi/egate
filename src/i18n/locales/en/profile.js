@@ -203,7 +203,14 @@ export default {
   replace:'Replace',
   refund:'Refund',
   returnImage:'Product Image',
-  wallet:'Wallet',
   refundMethods:'Refund Methods',
-  replaceMethods:'Replace Request'
+  replaceMethods:'Replace Request',
+  returnRequests:'Return Requests',
+  wallet:'My Wallet',
+  returnOption:'Return Option',
+  returnStatus:'Return Status',
+  returnRequestDate:'Return Request Date',
+  updatedAt:'Updated At',
+  downloadImage:'Download Image'
+
 };

@@ -9,7 +9,7 @@
     </div>
     <p
       v-if="supplierMSite.short_description_en && $i18n.locale == 'en'"
-      class="mt-2"
+      class="my-5 "
     >
       {{ supplierMSite.short_description_en }}
     </p>

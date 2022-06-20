@@ -34,6 +34,16 @@ export default {
           name: this.$t("profile.ordersLists"),
           iconName: "clipboard-list",
         },
+         {
+          to: "/profile/ReturnRequests",
+          name: this.$t("profile.returnRequests"),
+          iconName: "arrow-rotate-left",
+        },
+        {
+          to: "/profile/Wallet",
+          name: this.$t("profile.wallet"),
+          iconName: "wallet",
+        },
         {
           to: "/profile/account-information-b2b",
           name: this.$t("profile.accountInformation"),
@@ -81,6 +91,7 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
+        
         // {
         //   to: "/profile/ResidentsB2b",
         //   name: this.$t("profile.residents"),
@@ -103,6 +114,7 @@ export default {
           name: this.$t("profile.supplierCorrespondence"),
           iconName: "comments",
         },
+       
       ],
     };
   },

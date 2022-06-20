@@ -6,20 +6,20 @@
         
         class="d-flex justify-content-center align-items-center product-image"
       >
-        <img :src="data.image_path" alt="Product Image" class="Product-Image" />
+        <img  :src="data.image_path" alt="Product Image" class="Product-Image" />
       </a>
       <div @click="goProduct(data)"
         v-else-if="data.image_path == null && data.product.image_path"
         
         class="d-flex justify-content-center align-items-center product-image"
       >
-        <img
+        <img @click="goPage2(data)"
           :src="data.product.image_path"
           alt="Product Image"
           class="Product-Image"
         />
       </div>
-      <div class="Product-Image" v-else>
+      <div class="Product-Image" @click="goPage2(data)" v-else>
         <img :src="data.product.image_path" alt="Product-Image" />
       </div>
       <div class="actions">
@@ -43,7 +43,7 @@
         class="info d-flex flex-column align-items-center my-3"
         v-if="data.product"
       >
-        <a href="#" class="name" v-if="data.product.title">{{
+        <a @click="goPage2(data)" class="name" v-if="data.product.title">{{
           data.product.title
         }}</a>
         <div class="price">

@@ -90,7 +90,8 @@
       <div
         class="work-info my-5"
         v-if="
-          (buyerUserData && buyerUserData.type === 'buyer') || buyerUserData.type === 'b2b'
+          (buyerUserData && buyerUserData.type === 'buyer') ||
+          buyerUserData.type === 'b2b' || buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1
         "
       >
         <h4 class="main-header my-4">
@@ -98,7 +99,8 @@
         </h4>
         <b-row>
           <!-- Company Name -->
-          <b-col lg="6">
+          <b-col lg="6"
+            >
             <b-form-group>
               <label for="companyName">{{ $t("register.companyName") }}</label>
               <span class="requried">*</span>
