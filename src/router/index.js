@@ -15,6 +15,7 @@ import SingleProduct from "../views/single-Product/Single-Product.vue";
 import auth from "./authRoutes";
 import profileRoutes from "./profileRoutes";
 import ViewOrderDetails from "../views/profile/ViewOrderDetails.vue";
+import ViewReturnRequestPage from "../views/profile/ViewReturnRequestPage.vue";
 import SearchResults from "../views/SearchResult.vue";
 import SearchProducts from "../views/Search-Products.vue";
 import QuotationDetails from "../views/profile/QuotationDetails.vue";
@@ -140,6 +141,11 @@ const routes = [
     path: "/viewOrderDetails",
     name: "ViewOrderDetails",
     component: ViewOrderDetails,
+  },
+  {
+    path: "/ViewReturnRequestPage",
+    name: "ViewReturnRequestPage",
+    component: ViewReturnRequestPage,
   },
   {
     path: "/searchResults",

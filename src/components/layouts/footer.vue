@@ -19,21 +19,19 @@
             <div class="col-md-3 col-sm-12">
               <div class="footer-social">
                 <ul>
-                  <li >
-                    <a  target="_blank">
+                  <li v-if="googlePlay">
+                    <a :href="googlePlay.value" target="_blank">
                       <img
                         src="@/assets/images/play_store1.png"
-                        alt="google-play"
-                        class="w-10"
+                        :alt="googlePlay.key"
                       />
                     </a>
                   </li>
-                  <li >
-                    <a  target="_blank">
+                  <li v-if="appStore">
+                    <a :href="appStore.value" target="_blank">
                       <img
                         src="@/assets/images/app_store1.png"
-                        alt="app-store"
-                        class="w-100"
+                        :alt="appStore.key"
                       />
                     </a>
                   </li>
@@ -205,6 +203,8 @@ export default {
       instagram: null,
       linkedin: null,
       pinterest: null,
+      googlePlay: null,
+      appStore: null,
     };
   },
   methods: {
@@ -274,6 +274,28 @@ export default {
           console.log(err);
         });
     },
+    footerGoogleLink() {
+      profile
+        .storeGoogleLink()
+        .then((res) => {
+          // console.log(res);
+          this.googlePlay = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerAppLink() {
+      profile
+        .storeAppLink()
+        .then((res) => {
+          // console.log(res);
+          this.appStore = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.footerFacebookLink();
@@ -282,6 +304,8 @@ export default {
     this.footerLinkedinLink();
     this.footerInstagramLink();
     this.footerPinterestLink();
+    this.footerGoogleLink();
+    this.footerAppLink();
   },
 };
 </script>

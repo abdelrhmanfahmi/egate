@@ -193,7 +193,13 @@ export default {
   replace: "التبديل",
   refund: "استرجاع المال",
   returnImage: "صورة المنتج",
-  wallet: "محفظتى",
   refundMethods: "طريقة استرجاع المال",
   replaceMethods: "طلب المبادلة",
+  returnRequests:'طلبات الاسترجاع',
+  wallet: "محفظتى",
+  returnOption:'خيار الاستبدال',
+  returnStatus:'حالة الاستبدال',
+  returnRequestDate:'تاريخ الاستبدال',
+  updatedAt:'تاريخ التحديث',
+  downloadImage:'تحميل الصوره'
 };

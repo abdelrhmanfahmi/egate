@@ -108,25 +108,26 @@ export default {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           console.log("yes", res.data.items.item.verify_email_required);
 
-          // if (!res.data.items.item.verify_email_required) {
-          
-          if(this.buyerUserData.type === 'buyer' && this.buyerUserData.profile_percentage == 100){
-            this.$router.push("/profile/categories");
-          }else{
-            this.$router.push("/profile/account-information-b2b");
-          }
-          localStorage.removeItem("guest-id");
-          location.reload();
+          // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
-          if (!this.userInfo.item.is_verified) {
-            localStorage.setItem("massege", this.$t("register.openEmail"));
-            this.$router.push("/profile/account-information-b2b");
-            location.reload();
-          } else {
+          if (
+            (res.data.items.item.type === "buyer" &&
+            res.data.items.item.is_verified) || (res.data.items.item.type === "supplier" && res.data.items.item.is_buyer == 1 &&
+            res.data.items.item.is_verified)
+          ) {
             localStorage.setItem("massege", "");
+            localStorage.removeItem("guest-id");
             this.$router.push("/profile/categories");
             location.reload();
           }
+           else {
+            localStorage.setItem("massege", this.$t("register.openEmail"));
+            localStorage.removeItem("guest-id");
+            this.$router.push("/profile/account-information-b2b");
+            location.reload();
+          }
+          
+          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

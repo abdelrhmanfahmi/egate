@@ -783,7 +783,10 @@
                                   @change="orderType(supplier.supplier_id)"
                                   class="d-flex align-items-baseline"
                                 >
-                                  <label @click="shippingStore(supplier)">
+                                  <label
+                                    @click="shippingStore(supplier)"
+                                    class="shipping-label"
+                                  >
                                     <input
                                       @change="changeShipping($event)"
                                       @input="shippingStore(supplier)"
@@ -798,7 +801,6 @@
                                       $t("payment.delivery")
                                     }}</span>
                                   </label>
-                                  
 
                                   <label>
                                     <input
@@ -814,7 +816,9 @@
                                     }}</span>
                                   </label>
                                   <b-form-select
-                                    v-model="ratingNum[index].supplier_address_id"
+                                    v-model="
+                                      ratingNum[index].supplier_address_id
+                                    "
                                     @input="selectAddressUUID"
                                     @change="selectType(supplier, index)"
                                     class="w-100 mt-2 supplierAddresses d-none"
@@ -836,7 +840,6 @@
                                       >{{ address.country.title }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
-                                      
                                     </b-form-select-option>
                                   </b-form-select>
                                   <span class="feedsResult"></span>
@@ -914,7 +917,10 @@
                     </router-link> -->
                       </div>
                       <form class="row delivery-form">
-                        <div class="col-6 form-group required" v-if="!buyerUserData">
+                        <div
+                          class="col-6 form-group required"
+                          v-if="!buyerUserData"
+                        >
                           <label for="firstName">{{
                             $t("payment.firstName")
                           }}</label>
@@ -932,7 +938,10 @@
                             {{ error }}
                           </div>
                         </div>
-                        <div class="col-6 form-group required" v-if="!buyerUserData">
+                        <div
+                          class="col-6 form-group required"
+                          v-if="!buyerUserData"
+                        >
                           <label for="firstName">{{
                             $t("payment.lastName")
                           }}</label>
@@ -1668,11 +1677,13 @@ export default {
     this.paymentFormData.governorate = this.buyerUserData
       ? this.buyerUserData.region_id
       : "";
-    this.paymentFormData.city = this.buyerUserData ? this.buyerUserData.city_id : "";
+    this.paymentFormData.city = this.buyerUserData
+      ? this.buyerUserData.city_id
+      : "";
 
     this.paymentFormData.suppliers = this.mySuppliers.suppliers;
-    this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
-      ? localStorage.getItem("addressUUID")
+    this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID")
+      ? localStorage.getItem("globalAddressUUID")
       : "";
 
     this.paymentFormData.postal_code = this.buyerUserData
@@ -1691,7 +1702,9 @@ export default {
     this.paymentFormData.country_code = this.buyerUserData
       ? this.buyerUserData.phone_prefix
       : "";
-    this.paymentFormData.email = this.buyerUserData ? this.buyerUserData.email : "";
+    this.paymentFormData.email = this.buyerUserData
+      ? this.buyerUserData.email
+      : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
@@ -1700,7 +1713,7 @@ export default {
 
     // console.log(this.paymentFormData.country_code);
 
-    localStorage.setItem("addressUUID", this.buyerUserData.uuid);
+    localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
     // let mtNumber = this.buyerUserData.mobile_number.substr(0,3);
     // document.getElementById()
@@ -1746,8 +1759,8 @@ export default {
           this.cartItems = res.data.items.cart_items.map((cartItem) => {
             return {
               ...cartItem,
-              supplier_addresses: []
-            }
+              supplier_addresses: [],
+            };
           });
           // console.log(this.cartItems);
           this.priceData = res.data.items;
@@ -1760,9 +1773,9 @@ export default {
           this.totalDiscountReplacement = this.totalDiscount;
           this.ratingNum = res.data.items.cart_items.map(() => {
             return {
-              delivery_type: '0',
-              supplier_address_id: null
-            }
+              delivery_type: "0",
+              supplier_address_id: null,
+            };
           });
           // console.log(this.ratingNum);
         })
@@ -1777,12 +1790,23 @@ export default {
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
 
+            // checkboxes[0].parentElement.click();
+            // checkboxes[1].parentElement.click();
+            // console.log("checkboxes" , checkboxes);
+
+            for (let index = 0; index < checkboxes.length; index++) {
+              const element = checkboxes[index];
+              element.parentElement.click()
+              // console.log(element);
+            }
+
             var existingAddresses =
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
               // checkboxes[i].checked = true;
-              checkboxes[i].parentElement.click()  
-              existingAddresses.click()
+              // checkboxes[i].parentElement.click();
+              // console.log(checkboxes[i]);
+              existingAddresses.click();
               existingAddresses.checked = true;
             }
             if (this.addresses !== null) {
@@ -1979,10 +2003,10 @@ export default {
       //   "guestAddressData",
       //   JSON.stringify(this.selectedAddress)
       // );
-      localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+      localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
 
       setTimeout(() => {
-        let address_uuid = localStorage.getItem("addressUUID");
+        let address_uuid = localStorage.getItem("globalAddressUUID");
 
         suppliers
           .getFirstShippingFees(address_uuid)
@@ -2053,7 +2077,11 @@ export default {
         shipping_type: 1,
         coupon: supplier.coupon ? supplier.coupon : "",
         // point_of_sell_uuid: this.supplierAddress,
-        point_of_sell_uuid: localStorage.getItem('addressUUID'),
+        point_of_sell_uuid:
+          localStorage.getItem("addressUUID") !== null ||
+          localStorage.getItem("addressUUID") !== undefined
+            ? localStorage.getItem("addressUUID")
+            : "",
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
@@ -2061,17 +2089,28 @@ export default {
       // / console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
-       let myControler = this.$store.state.suppliers.suppliers;
+      let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
         // console.log("element" , element.id);
 
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
-          element.shipping_type = 1
-          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
-        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
-          element.shipping_type = 1
-          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
         }
       }
     },
@@ -2087,7 +2126,7 @@ export default {
           const element2 = element.is_default;
           if (element2) {
             this.selectedAddress = element;
-            localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+            localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
           }
         }
       });
@@ -2118,7 +2157,7 @@ export default {
 
     // createAdress
     createAdress() {
-      let address_uuid = localStorage.getItem("addressUUID");
+      let address_uuid = localStorage.getItem("globalAddressUUID");
       (this.form.is_sale_point = false),
         profile
           .createAdress(this.form)
@@ -2136,7 +2175,7 @@ export default {
                 this.expanded = false;
               }, 500);
             }
-            localStorage.setItem("addressUUID", res.data.items.uuid);
+            localStorage.setItem("globalAddressUUID", res.data.items.uuid);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -2169,7 +2208,7 @@ export default {
       }
     },
     getSupplierAddress(supplierId) {
-      this.selectedAddress = supplierId;
+      // this.selectedAddress = supplierId;
 
       // console.log(this.supplierAddress);
       suppliers
@@ -2179,8 +2218,9 @@ export default {
           // this.selectedSupplierAddresses = res.data.items;
           // console.log(this.cartItems);
           this.cartItems.forEach((item, index) => {
-            if (item.supplier_id == supplierId) this.cartItems[index].supplier_addresses = res.data.items
-          })
+            if (item.supplier_id == supplierId)
+              this.cartItems[index].supplier_addresses = res.data.items;
+          });
           if (res.data.items.length == 0 || res.data.items == "") {
             this.availablePickup = false;
             // console.log(this.selectedInput.parentElement.parentElement);
@@ -2299,7 +2339,6 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
-        
     },
     changePickup($event, supplier) {
       let input = $event.target;
@@ -2339,43 +2378,55 @@ export default {
         // console.log("element" , element.id);
 
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
-          element.shipping_type = 1
-          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
-          alert('equal')
-        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
-          element.shipping_type = 0
-          element.point_of_sell_uuid = null
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
         }
       }
     },
 
-    // 
+    //
 
     shippingStore(supplier) {
       let newRating = {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
         shipping_type: 0,
-        coupon: localStorage.getItem("cou") !== null ? localStorage.getItem("cou") : "",
+        coupon:
+          localStorage.getItem("cou") !== null
+            ? localStorage.getItem("cou")
+            : "",
         point_of_sell_uuid: null,
       };
 
       // console.log(supplier);
 
       this.$store.dispatch("suppliers/addSupplierToCart", {
-            supplier: newRating,
-          });
+        supplier: newRating,
+      });
 
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
 
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
-          element.shipping_type = 1
-          element.point_of_sell_uuid = localStorage.getItem('addressUUID')
-        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
-          element.shipping_type = 0
-          element.point_of_sell_uuid = null
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
         }
       }
     },
@@ -2708,59 +2759,59 @@ export default {
       // if (this.localStoreFail == false) {
       //   this.localStoreFail = true;
       // } else {
-        
+
       // }
       suppliers
-          .guestPayment(data)
-          .then((res) => {
-            this.sucessMsg(res.data.message);
-            if (this.paymentFormData.payment_type === "visa") {
+        .guestPayment(data)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          if (this.paymentFormData.payment_type === "visa") {
+            setTimeout(() => {
+              this.$router.push({
+                path: "/visa-checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  payment: res.data.items.order.payment,
+                  uuid: res.data.items.order.uuid,
+                  redirectURL: res.data.items.url,
+
+                  // window.location.href = res.data.items.url;
+                },
+              });
+            }, 500);
+          } else {
+            // console.log(res.data);
+            if (this.buyerUserData) {
               setTimeout(() => {
                 this.$router.push({
-                  path: "/visa-checkout-details",
+                  path: "/checkout-details",
                   query: {
-                    order_serial: res.data.items.order.order_serial,
-                    date: res.data.items.order.created_at,
-                    total_price: res.data.items.order.total_price,
-                    payment_type: res.data.items.order.payment_type,
-                    payment: res.data.items.order.payment,
-                    uuid: res.data.items.order.uuid,
-                    redirectURL: res.data.items.url,
-
-                    // window.location.href = res.data.items.url;
+                    order_serial: res.data.items.order_serial,
+                    date: res.data.items.created_at,
+                    total_price: res.data.items.total_price,
+                    payment_type: res.data.items.payment_type,
+                    payment: res.data.items.payment,
+                    uuid: res.data.items.uuid,
+                    orderId: res.data.items.id,
                   },
                 });
               }, 500);
             } else {
-              // console.log(res.data);
-              if (this.buyerUserData) {
-                setTimeout(() => {
-                  this.$router.push({
-                    path: "/checkout-details",
-                    query: {
-                      order_serial: res.data.items.order_serial,
-                      date: res.data.items.created_at,
-                      total_price: res.data.items.total_price,
-                      payment_type: res.data.items.payment_type,
-                      payment: res.data.items.payment,
-                      uuid: res.data.items.uuid,
-                      orderId: res.data.items.id,
-                    },
-                  });
-                }, 500);
-              } else {
-                setTimeout(() => {
-                  this.$router.push("/success-checkout");
-                }, 500);
-              }
+              setTimeout(() => {
+                this.$router.push("/success-checkout");
+              }, 500);
             }
-          })
-          .catch((err) => {
-            const errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            console.log(err);
-            this.errMsg(errors.message);
-          });
+          }
+        })
+        .catch((err) => {
+          const errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          console.log(err);
+          this.errMsg(errors.message);
+        });
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {

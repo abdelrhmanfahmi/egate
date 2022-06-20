@@ -175,6 +175,18 @@ export default {
   },
   returnOrder(payLoad){
     return globalAxios.post(`members/orders/return-order-item` , payLoad)
-  }
+  },
+  storeGoogleLink(){
+    return globalAxios.get('site-settings/google_play')
+  },
+  storeAppLink(){
+    return globalAxios.get('site-settings/app_store')
+  },
+  returnedOrders(){
+    return globalAxios.get(`members/returns`)
+  },
+  returnedSingleOrders(UUID){
+    return globalAxios.get(`members/returns/${UUID}/show`)
+  },
 
 };

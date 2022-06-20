@@ -5,7 +5,10 @@
         <div class="intro text-center">
           <h1 v-if="supplier">
             <!-- {{ supplier.company_name }} {{ $t("supplier.OurShop") }} -->
-            {{ supplier.company_name }} {{ $t("supplier.Shop") }}
+             <span class="d-block">{{ $t("supplier.Shop") }}</span>
+             <span>
+               {{ supplier.company_name }}
+             </span>
           </h1>
           <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
           <!-- <b-breadcrumb v-if="supplier">
@@ -247,9 +250,9 @@ input {
     box-shadow: none;
   }
 }
-.intro {
-  margin: 10% 0;
-}
+// .intro {
+//   margin: 10% 0;
+// }
 .search-icon {
   .modal-header {
     display: none;
