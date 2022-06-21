@@ -25,7 +25,7 @@
             <td>
               <router-link
                 :to="{
-                  path: '/ViewReturnRequestPage',
+                  path: '/ReturnedRequest',
                   query: { UUID: `${order.uuid}` },
                 }"
                 class="text-dark"

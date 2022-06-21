@@ -104,8 +104,9 @@
 import { BIconGrid } from "bootstrap-vue";
 import Product from "@/components/pages/supplier/products/Product";
 import suppliers from "@/services/suppliers";
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+// import axios from "axios";
+import globalAxios from "@/services/global-axios.js"
 export default {
   data() {
     return {
@@ -170,8 +171,8 @@ export default {
       //     console.log(err);
       //   });
 
-      axios
-        .get(`${baseURL}products`, {
+      return globalAxios
+        .get(`products`, {
           params: {
             category_id: this.categoryId ? this.categoryId : "",
             client_id: this.client_id ? this.client_id : "",

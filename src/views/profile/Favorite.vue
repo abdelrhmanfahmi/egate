@@ -435,7 +435,7 @@ export default {
       console.log(item.product_supplier_id);
       let data = {
         product_supplier_id: item.product_supplier_id,
-        quantity: 1,
+        quantity: item.product_details_by_type.min_order_quantity ? item.product_details_by_type.min_order_quantity : 1,
       };
 
       return globalAxios

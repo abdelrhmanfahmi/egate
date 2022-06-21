@@ -8,64 +8,57 @@
               <router-link to="/profile/ReturnRequests">
                 <b-button variant="outline-ordinary">
                   <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
-                  {{ $t("profile.orderBack") }}
+                  {{ $t("profile.returnBack") }}
                 </b-button>
               </router-link>
             </div>
           </div>
-          <div class="branding d-flex justify-content-center">
-            <img
-              src="@/assets/images/logo.png"
-              class="img-fluid w-25"
-              alt="logo"
-              @click="goToHome()"
-            />
-          </div>
+
         </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
-          <div class="serial" v-if="return_item">
+          <div class="serial" >
             <h4 class="m-0">
-              <span>{{ $t("profile.orderSerial") }} :</span>
-              <span>{{ return_item.serial }}</span>
+              <span>{{ $t("profile.returnSerial") }} :</span>
+              <span>{{ return_item.serial }} #</span>
             </h4>
           </div>
-          <div class="print" v-if="return_item">
+          <div class="print" >
             <span class="mx-2">
               {{ return_item.return_status }}
             </span>
           </div>
         </div>
 
-        <!-- <section class="account-address-info">
+        <section class="account-address-info">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
-              <div class="" v-if="order">
+              <div class="" >
                 <div class="info">
                   <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.returnStatus") }}
                     </div>
-                    <div class="col-6">status</div>
+                    <div class="col-6">{{return_item.status}}</div>
                   </div>
-                  <div class="row info-data" v-if="order.client_info.email">
+                  <div class="row info-data" >
                     <div class="col-6">
                       {{ $t("profile.returnOption") }}
                     </div>
-                    <div class="col-6 mail">return type</div>
+                    <div class="col-6 mail">{{return_item.retrun_option}}</div>
                   </div>
                   <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.createedAt") }}
                     </div>
-                    <div class="col-6">created at</div>
+                    <div class="col-6">{{return_item.return_request_date | formatDate}}</div>
                   </div>
                   <div class="row info-data">
                     <div class="col-6">
                       {{ $t("profile.updatedAt") }}
                     </div>
-                    <div class="col-6 mail">rupdated at</div>
+                    <div class="col-6 mail">{{return_item.updated_at | formatDate}}</div>
                   </div>
                 </div>
               </div>
@@ -85,8 +78,8 @@
                       variant="outline-success"
                       @click="
                         downloadImage(
-                          order.payment_image,
-                          (extension = order.payment_image
+                          return_item.image,
+                          (extension = return_item.image
                             .split('.')
                             .pop()),
                           $t('profile.downloadImage')
@@ -100,17 +93,19 @@
                 </div>
               </div>
               <div
-                class="row info-data "
+                class=" info-data "
                 
               >
-                <div class="col-6">
-                  {{ $t("profile.returnReason") }}
+                <div class="col-12 p-0">
+                  <h5 class="pt-2">{{ $t("profile.returnReason") }}</h5>
                 </div>
-                <div class="col-6">returnReason</div>
+                <div class="col-12 return-reason">
+                  {{return_item.return_reason}}
+                </div>
               </div>
             </div>
           </div>
-        </section> -->
+        </section>
 
         <!-- <section class="supplier-info" v-if="orders && orders[0].bicked">
           <div
@@ -169,32 +164,25 @@
           </div>
         </section> -->
 
-        <!-- <section class="payment">
+        <section class="payment">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
               <h4 class="data-holder">
                 {{ $t("profile.paymentInfo") }}
               </h4>
               <div class="">
-                <div class="info" v-if="order">
-                  <div class="row info-data info-colored">
-                    <div class="col-6">
-                      {{ $t("payment.paymentStatus") }}
-                    </div>
-                    <div class="col-6" v-if="order.payment_status">
-                      {{ order.payment_status }}
-                    </div>
-                  </div>
+                <div class="info">
 
-                  <div class="row info-data">
+
+                  <div class="row info-data info-colored" v-if="return_item.payment_type">
                     <div class="col-6">
                       {{ $t("profile.paymentType") }}
                     </div>
-                    <div class="col-6" v-if="order.payment_type">
-                      {{ order.payment }}
+                    <div class="col-6" >
+                      {{return_item.payment_type}} 
                     </div>
                   </div>
-                  <div class="row info-data info-colored">
+                  <div class="row info-data ">
                     <div class="col-6">
                       {{ $t("profile.paymentCurency") }}
                     </div>
@@ -210,9 +198,9 @@
               <div class="">
                 <div class="info">
                   <div class="row info-data info-colored">
-                    <div class="col-6">{{ $t("profile.deleiveryFees") }}</div>
-                    <div class="col-6" v-if="order">
-                      {{ order.total_shipping_fee | fixedCurrency }}
+                    <div class="col-6">{{ $t("profile.reshippingFees") }}</div>
+                    <div class="col-6" v-if="return_item.reshipping_fee">
+                      {{ return_item.reshipping_fee | fixedCurrency }}
                       {{ $t("payment.priceUnit") }}
                     </div>
                   </div>
@@ -220,7 +208,7 @@
               </div>
             </div>
           </div>
-        </section> -->
+        </section>
         
         <section class="item-order">
           <div class="my-5">
@@ -240,9 +228,9 @@
                 v-if="return_item"
               >
                 <div class="holder">
-                  <div v-if="return_item.client">
+                  <div v-if="return_item.supplier">
                     {{ $t("profile.supplier") }} :
-                    {{ return_item.client }}
+                    {{ return_item.supplier }}
                   </div>
                   <div class="" v-if="return_item">
                     {{ $t("profile.supplierOrder") }} : {{ return_item.order_supplier_serial }}
@@ -271,13 +259,13 @@
                           {{ return_item.item_names }}
                         </td>
                         <td v-else>-</td>
-                        <td v-if="return_item.price">
-                          {{ return_item.price | fixedCurrency }} {{ currency }}
+                        <td v-if="supplier_oreder_item.price">
+                          {{ supplier_oreder_item.price | fixedCurrency }} {{ currency }}
                         </td>
-                        <td v-if="return_item.quantity">{{ return_item.quantity }}</td>
+                        <td v-if="supplier_oreder_item.quantity">{{ supplier_oreder_item.quantity }}</td>
                         <td v-else>-</td>
-                        <td v-if="return_item.total_price">
-                          {{ return_item.total_price | fixedCurrency }} {{ currency }}
+                        <td v-if="supplier_oreder_item.sup_total">
+                          {{ supplier_oreder_item.sup_total | fixedCurrency }} {{ currency }}
                         </td>
                         <td v-else>
                           -
@@ -328,7 +316,9 @@ export default {
       ],
       UUID: this.$route.query.UUID,
 
+      clinet_info: null,
       return_item: null,
+      supplier_oreder_item: null,
       message: "",
       errors: [],
       supplierUUID: null,
@@ -346,6 +336,8 @@ export default {
         .then((res) => {
           console.log("returnedSingleOrders", res);
           this.return_item = res.data.items.return_item;
+          this.supplier_oreder_item = res.data.items.supplier_oreder_item;
+          this.clinet_info = res.data.items.clinet_info;
 
           // this.paymentFormData.order_uuid = res.data.items.order.uuid;
         })
@@ -504,5 +496,8 @@ table td {
     display: flex !important;
     justify-content: flex-end;
   }
+}
+.return-reason{
+  word-break: break-all;
 }
 </style>

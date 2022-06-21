@@ -201,5 +201,8 @@ export default {
   returnStatus:'حالة الاستبدال',
   returnRequestDate:'تاريخ الاستبدال',
   updatedAt:'تاريخ التحديث',
-  downloadImage:'تحميل الصوره'
+  downloadImage:'تحميل الصوره',
+  returnBack:'الرجوع الى طلبات الاسترجاع',
+  returnSerial:'مسلسل طلب الاسترجاع',
+  reshippingFees:'مصاريف اعادة الشحن'
 };

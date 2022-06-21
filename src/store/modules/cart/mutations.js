@@ -19,9 +19,10 @@ export const SET_CART = (state, cartItems) => {
     state.cart = cartItems;
 }
 
-export const REMOVE_PRODUCT_FROM_CART = (state, product) => {
-    state.cart = state.cart.filter(item => {
-        return item.product.id !== product.id;
+export const REMOVE_PRODUCT_FROM_CART = (state , products) => {
+    state.cartItems = state.cartItems.filter(item => {
+        return item.products.id !== products.id;
+        // console.log(item);
     })
 }
 

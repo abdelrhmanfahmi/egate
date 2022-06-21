@@ -48,4 +48,7 @@ export default {
   search: "Search",
   checkFees: "Check Delivery Fees",
   deleiveryFees: "Delivery Fees",
+  asc:'Low Price To High Price',
+  desc:'High Price To Low Price',
+  sortBy:'Sort By'
 };
