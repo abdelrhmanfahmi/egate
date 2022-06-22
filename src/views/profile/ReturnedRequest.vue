@@ -334,7 +334,6 @@ export default {
       profile
         .returnedSingleOrders(this.UUID)
         .then((res) => {
-          console.log("returnedSingleOrders", res);
           this.return_item = res.data.items.return_item;
           this.supplier_oreder_item = res.data.items.supplier_oreder_item;
           this.clinet_info = res.data.items.clinet_info;
