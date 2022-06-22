@@ -211,6 +211,9 @@ export default {
   returnStatus:'Return Status',
   returnRequestDate:'Return Request Date',
   updatedAt:'Updated At',
-  downloadImage:'Download Image'
+  downloadImage:'Download Image',
+  returnBack:'Back To Return Requests',
+  returnSerial:'Return Serial',
+  reshippingFees:'Reshipping Fees'
 
 };

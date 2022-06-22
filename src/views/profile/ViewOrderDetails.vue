@@ -174,7 +174,7 @@
           </div>
         </section>
 
-        <section class="supplier-info" v-if="orders && orders[0].bicked">
+        <section class="supplier-info" v-if="orders && shipingExist">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
           >
@@ -435,7 +435,7 @@
                                 showModal(ord);
                               "
                               variant="outline-danger mt-2 return-btn"
-                              v-if="ord.status === 'Pending'"
+                              v-if="ord.status === 'Pending' && (ord.return_time !== null || ord.return_time !== 0 ) "
                               ><font-awesome-icon icon="fa-solid fa-x" />
                               <span class="mx-2">{{
                                 $t("profile.return")
@@ -452,7 +452,12 @@
             </div>
             <b-modal id="bv-modal-example1" centered hide-footer>
               <template #modal-title>
-                {{ $t("profile.returnReason") }}
+                <div class="d-flex justify-content-center align-items-center">
+                  <span class="text-center"
+                    >{{ $t("profile.returnReason") }}
+                    <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" />
+                  </span>
+                </div>
               </template>
               <div class="d-block">
                 <div class="">
@@ -486,8 +491,13 @@
                           query: { orderId: supplierUUID },
                         }"
                       >
-                        <b-button variant="outline-success">
-                          {{ $t("profile.replace") }}
+                        <b-button variant="outline-success" class="replace">
+                          <span>{{ $t("profile.replace") }}</span>
+                          <span class="mx-2">
+                            <font-awesome-icon
+                            icon="fa-solid fa-arrow-right-arrow-left"
+                          />
+                          </span>
                         </b-button>
                       </router-link>
                     </div>
@@ -499,8 +509,15 @@
                         }"
                         variant="outlin-danger"
                       >
-                        <b-button variant="outline-success">
-                          {{ $t("profile.refund") }}
+                        <b-button variant="outline-danger" class="refund">
+                          <span>{{ $t("profile.refund") }}</span>
+                          <!-- <span class="fa-stack">
+                            <i class="fa fa-dollar fa-stack-1x"></i>
+                            <i class="fa fa-refresh fa-stack-2x"></i>
+                          </span> -->
+                          <span>
+                            <img src="@/assets/images/refund.png" alt="" class="refund-image">
+                          </span>
                         </b-button>
                       </router-link>
                     </div>
@@ -954,5 +971,34 @@ table td {
     display: flex !important;
     justify-content: flex-end;
   }
+}
+.replace {
+  padding: 8px 30px;
+  background: #303030;
+  color: #fff;
+  border: none;
+  border-image-source: none;
+  box-shadow: none;
+}
+.refund {
+  padding: 8px 30px;
+  background: $main-color;
+  color: #fff;
+  border: none;
+  border-image-source: none;
+  box-shadow: none;
+}
+.modal-header {
+  position: relative !important;
+  .close {
+    position: absolute !important;
+    right: 10px !important;
+    top: 10px !important;
+  }
+}
+.refund-image{
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
 }
 </style>

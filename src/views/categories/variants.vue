@@ -120,8 +120,33 @@
         </b-row>
       </div>
     </div>
-    <div class="products text-center" v-if="products.length > 0">
-      <h4 class="header font-weight-bold my-5">{{ $t("items.products") }}</h4>
+    <div class="products " v-if="products.length > 0">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="col-6">
+            <h4 class="header font-weight-bold my-5">
+              {{ $t("items.products") }}
+            </h4>
+          </div>
+          <div class="col-6">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-3 text-center">
+                <h5>
+                  {{$t('cart.sortBy')}}
+                </h5>
+              </div>
+              <div class="col-6">
+                <b-form-select
+                  class=""
+                  v-model="sortType"
+                  :options="options"
+                  @change="getCategoryProducts"
+                ></b-form-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <b-row v-if="loading">
         <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
           <b-card>
@@ -138,7 +163,7 @@
           </b-card>
         </b-col>
       </b-row>
-      <div class="products-table" v-else>
+      <div class="products-table text-center" v-else>
         <!-- <b-table
           selectable
           @row-clicked="onRowSelected"
@@ -306,7 +331,8 @@
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
                     buyerUserData.type === 'b2b' ||
-                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
+                    (buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer == true)
                   "
                 >
                   <router-link
@@ -339,7 +365,8 @@
                 <div
                   class=""
                   v-else-if="
-                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
                       buyerUserData.type === 'buyer' &&
                       buyerUserData.profile_percentage !== 100) ||
@@ -354,7 +381,10 @@
                 >
                   -
                 </div>
-                <div class="" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
+                <div
+                  class=""
+                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
+                >
                   <router-link
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
@@ -384,13 +414,13 @@
                 </div>
               </td>
               <td>
-                <Variants-Counter
+                <Variants-Counter :minimum="product.product_details_by_type.min_order_quantity ? product.product_details_by_type.min_order_quantity : 1"
                   v-if="
                     product.product_details_by_type.add_type === 'cart' ||
                     product.product_details_by_type.add_type === 'both'
                   "
                   class="justify-content-center"
-                  :quantity="1"
+                  :quantity="product.product_details_by_type.min_order_quantity > 0 ? product.product_details_by_type.min_order_quantity : 1"
                   @changeCount="ChangeCounter($event)"
                 ></Variants-Counter>
                 <p v-else>-</p>
@@ -403,7 +433,8 @@
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
                     buyerUserData.type === 'b2b' ||
-                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
+                    (buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer == true)
                   "
                 >
                   <a
@@ -442,7 +473,8 @@
                               'both') &&
                           buyerUserData.type === 'buyer' &&
                           buyerUserData.profile_percentage == 100) ||
-                        (buyerUserData.type === 'b2c' && buyerUserData.is_verified)
+                        (buyerUserData.type === 'b2c' &&
+                          buyerUserData.is_verified)
                       "
                     >
                       <div
@@ -469,7 +501,8 @@
                 <div
                   class="d-flex justify-content-center"
                   v-else-if="
-                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
                       buyerUserData.type === 'buyer' &&
                       buyerUserData.profile_percentage !== 100) ||
@@ -501,7 +534,10 @@
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
-                  <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+                  <div
+                    class=""
+                    v-if="buyerUserData && buyerUserData.type === 'b2c'"
+                  >
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
                       :title="`product in favourite`"
@@ -721,6 +757,11 @@ export default {
       },
       errors: [],
       supplierProductId: null,
+      sortType: "asc",
+      options: [
+        { value: "asc", text: this.$t("cart.asc") },
+        { value: "desc", text: this.$t("cart.desc") },
+      ],
     };
   },
   components: {
@@ -738,7 +779,9 @@ export default {
 
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
-        quantity: this.cartCounter !== null ? this.cartCounter : 1,
+        quantity: this.cartCounter !== null
+          ? this.cartCounter
+          : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
@@ -825,7 +868,9 @@ export default {
       this.showModal = true;
     },
     ChangeCounter(cartCounter) {
-      this.cartCounter = cartCounter;
+      if(cartCounter > 0){
+        this.cartCounter = cartCounter;
+      }
     },
     changeVariance() {
       // console.log(product.title.replace(/\s/g, "-"));
@@ -858,7 +903,7 @@ export default {
     getCategoryProducts() {
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId)
+        .getCategoryProducts(this.pageId, this.sortType)
         .then((res) => {
           console.log("getCategoryProducts", res);
           this.products = res.data.items.data;

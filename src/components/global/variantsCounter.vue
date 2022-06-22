@@ -35,8 +35,13 @@ export default {
     quantity: {
       type: Number,
       required: true,
-      default: 0,
+      default: 1,
     },
+    minimum:{
+      type:Number,
+      required: true,
+      default: 1,
+    }
   },
   mounted() {
     this.countValue = this.quantity;
@@ -47,7 +52,7 @@ export default {
       this.$emit('changeCount',this.countValue)
     },
     decrementQuantity() {
-      this.countValue > 1 ? this.countValue-- : null;
+      this.countValue > this.minimum ? this.countValue-- : null;
       this.$emit('changeCount',this.countValue)
     },
   },

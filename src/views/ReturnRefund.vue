@@ -181,6 +181,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
+            window.history.back();
           }
           console.log(res);
         })

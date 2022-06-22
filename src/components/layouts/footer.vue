@@ -381,8 +381,8 @@ export default {
   display: flex;
   align-items: center;
 }
-.footer-social ul li + li {
-  margin-left: 18px;
+.footer-social ul li  {
+  margin:0  9px;
 }
 .footer-social ul li a {
   font-size: 13px;

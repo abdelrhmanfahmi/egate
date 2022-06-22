@@ -711,8 +711,9 @@
                             {{ item.price | fixedCurrency }} {{ currency }}
                           </td>
                           <td v-else>-</td>
+                          
                           <td>
-                            <Counter
+                            <Counter 
                               :quantity="item.quantity"
                               :product="item"
                               class="justify-content-center"
@@ -1964,12 +1965,14 @@ export default {
         });
     },
     ChangeQ(myQuantity) {
-      this.myQuantity = myQuantity;
+      if(myQuantity > 0){
+        this.myQuantity = myQuantity;
+      }
       // console.log(myQuantity);
       this.cartItems = null;
-      setTimeout(() => {
+      
         this.getCartProducts();
-      }, 300);
+      
     },
     closeModal() {
       this.showModal = false;
@@ -2684,6 +2687,10 @@ export default {
       // this.paymentFormData.country_code = this.buyerUserData.country_code
       //   ? this.buyerUserData.country_code
       //   : "";
+
+     if (this.paymentFormData.address_uuid == '' || !this.paymentFormData.address_uuid || this.paymentFormData.address_uuid == undefined){
+       this.paymentFormData.address_uuid = localStorage.getItem('globalAddressUUID')
+     }
 
       suppliers
         .payment(this.paymentFormData)

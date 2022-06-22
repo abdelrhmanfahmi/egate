@@ -1,7 +1,7 @@
 import Vue from "vue";
 import moment from 'moment'
 Vue.filter("fixedCurrency", function (el) {
-  return el.toFixed(3);
+  return Number(el).toFixed(3)
 });
 
 Vue.filter("formatDate", function (value) {

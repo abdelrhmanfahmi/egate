@@ -202,7 +202,7 @@
         v-if="myProduct.product_details_by_type"
         class="product-actions row justify-content-between align-items-center mt-4"
       >
-        <div class="col-2">
+        <div class="col-2" v-if="myProduct.product_details_by_type.quantity > 0">
           <div class="products mb-2 mr-1" v-if="buyerUserData">
             <a
               class="text-danger d-flex justify-content-center align-items-center bg-transparent text-white"
@@ -218,7 +218,7 @@
             /></a>
           </div>
         </div>
-        <div class="col-7">
+        <div class="col-7" v-if="myProduct.product_details_by_type.quantity > 0">
           <div
             class="mb-2 mr-1"
             v-if="
@@ -281,7 +281,7 @@
             </b-button>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-3" v-if="myProduct.product_details_by_type.quantity > 0">
           <div
             class="product-counter mb-2"
             v-if="
@@ -291,14 +291,14 @@
           >
             <div class="value">
               <span class="product-counter-number">
-                {{ mySelectedOption }}</span
+                {{ mySelectedOption  ? mySelectedOption : 1 }}</span
               >
             </div>
             <div class="actions d-flex flex-column">
               <button class="product-counter-btn" @click="incrementQuantity">
                 <b-icon-plus />
               </button>
-              <button class="product-counter-btn" @click="decrementQuantity">
+              <button class="product-counter-btn" @click="decrementQuantity(myProduct.product_details_by_type.min_order_quantity)">
                 <b-icon-dash />
               </button>
             </div>
@@ -517,13 +517,13 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-        quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
+          quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
       //     product: item,
       //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
-      //   })
+      //   }) 
       //   .then((res) => {
       //     if (res.status == 200) {
       //       this.$modal.show(
@@ -615,8 +615,8 @@ export default {
     incrementQuantity() {
       this.mySelectedOption += 1;
     },
-    decrementQuantity() {
-      this.mySelectedOption > 1 ? this.mySelectedOption-- : null;
+    decrementQuantity(minimum) {
+      this.mySelectedOption > minimum ? this.mySelectedOption-- : null;
     },
     closeModal() {
       this.showModal = false;
@@ -701,7 +701,8 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: 1,
+      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity ?this.myProduct.product_details_by_type.min_order_quantity : 1,
+      changedValue:null,
       showModal: false,
       suppliers: null,
       message: null,

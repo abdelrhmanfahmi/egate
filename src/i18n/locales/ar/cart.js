@@ -49,4 +49,7 @@ export default {
   checkFees: "معرفة رسوم الشحن",
   deliveryData: "معلومات التواصل",
   deleiveryFees: "مصاريف الشحن",
+  asc:'من الاقل للأعلى ',
+  desc:'من الاعلى للأقل',
+  sortBy:'تصفيه ب'
 };

@@ -6,11 +6,15 @@
           <span class="side-info">{{ $t("contactUs.contactUs") }}</span>
           <p class="title">{{ $t("contactUs.writeMessage") }}</p>
           <form class="row" @submit.prevent="contactUs">
-            <div class="form-input col-6">
+            <div class="form-input col-6 required">
+              <label for="full_name">
+                {{$t('contactUs.formName')}} <span class="required text-danger">*</span>
+              </label>
+              
               <input
                 v-model="form.full_name"
                 type="text"
-                :placeholder="$t('contactUs.formName')"
+                
               />
               <div class="" v-if="errors">
                 <div
@@ -23,10 +27,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="email">
+                {{$t('contactUs.formEmail')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.email"
                 type="text"
-                :placeholder="$t('contactUs.formEmail')"
               />
               <div class="" v-if="errors">
                 <div
@@ -39,10 +45,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="mobile_number">
+                {{$t('contactUs.formPhone')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.mobile_number"
                 type="number"
-                :placeholder="$t('contactUs.formPhone')"
                 min="0"
               />
               <div class="" v-if="errors">
@@ -56,10 +64,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="subject">
+                {{$t('contactUs.formSubject')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.subject"
                 type="text"
-                :placeholder="$t('contactUs.formSubject')"
               />
               <div class="" v-if="errors">
                 <div
@@ -72,9 +82,11 @@
               </div>
             </div>
             <div class="form-input col-12">
+              <label for="message">
+                {{$t('contactUs.formMessage')}} <span class="required text-danger">*</span>
+              </label>
               <b-form-textarea
                 v-model="form.message"
-                :placeholder="$t('contactUs.formMessage')"
                 rows="5"
                 style="resize: none"
               ></b-form-textarea>
