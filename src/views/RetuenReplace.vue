@@ -103,7 +103,14 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
 
-            window.history.back();
+            setTimeout(() => {
+              this.$router.push({
+                path: "ReturnedRequest",
+                query: {
+                  UUID: res.data.items.uuid,
+                },
+              });
+            }, 500);
           }
           console.log(res);
         })
