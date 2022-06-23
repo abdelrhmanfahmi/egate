@@ -68,7 +68,7 @@
           <div class="serial" v-if="orderData">
             <h4 class="m-0">
               <span>{{ $t("profile.orderSerial") }} :</span>
-              <span>{{ orderData.serial }}</span>
+              <span>{{ orderData.id }} #</span>
             </h4>
           </div>
           <div class="print" @click="printScreen">
@@ -435,7 +435,7 @@
                                 showModal(ord);
                               "
                               variant="outline-danger mt-2 return-btn"
-                              v-if="ord.status === 'Pending' && (ord.return_time !== null || ord.return_time !== 0 ) "
+                              v-if="ord.status === 'Pending' && (ord.return_time !== null && ord.return_time !== 0 ) "
                               ><font-awesome-icon icon="fa-solid fa-x" />
                               <span class="mx-2">{{
                                 $t("profile.return")
@@ -502,10 +502,10 @@
                       </router-link>
                     </div>
                     <div class="">
-                      <router-link
+                      <router-link v-if="orderData"
                         :to="{
                           path: '/return-refund',
-                          query: { orderId: supplierUUID },
+                          query: { orderId: supplierUUID , prodId:orderData.id },
                         }"
                         variant="outlin-danger"
                       >
@@ -515,8 +515,9 @@
                             <i class="fa fa-dollar fa-stack-1x"></i>
                             <i class="fa fa-refresh fa-stack-2x"></i>
                           </span> -->
-                          <span>
-                            <img src="@/assets/images/refund.png" alt="" class="refund-image">
+                          <span class="mx-2">
+                            <!-- <img src="@/assets/images/refund.png" alt="" class="refund-image"> -->
+                            <font-awesome-icon icon="fa-solid fa-money-bill-wave" />
                           </span>
                         </b-button>
                       </router-link>

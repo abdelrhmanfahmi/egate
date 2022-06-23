@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="container">
-      <div class="row  justify-content-center align-items-center py-5 ">
-        <div class="col-md-7 col-sm-12 ">
+      <div class="row justify-content-center align-items-center py-5">
+        <div class="col-md-7 col-sm-12">
           <div class="refund-options">
             <h2 class="title">
               {{ $t("profile.refundMethods") }}
@@ -10,7 +10,7 @@
 
             <div class="methods">
               <div class="d-flex justify-content-center align-items-center">
-                <div class="method ">
+                <div class="method">
                   <div
                     class="custom-control custom-radio custom-control-inline"
                   >
@@ -27,7 +27,7 @@
                     </label>
                   </div>
                 </div>
-                <div class="method">
+                <div class="method" v-if="selectedOption == 'bank'">
                   <div
                     class="custom-control custom-radio custom-control-inline"
                   >
@@ -44,7 +44,7 @@
                     </label>
                   </div>
                 </div>
-                <div class="method">
+                <div class="method" v-if="selectedOption == 'cach'">
                   <div
                     class="custom-control custom-radio custom-control-inline"
                   >
@@ -62,6 +62,7 @@
                   </div>
                 </div>
                 <div
+                  v-if="selectedOption == 'visa'"
                   class="method d-flex justify-content-between align-content-center"
                 >
                   <div
@@ -85,9 +86,9 @@
           </div>
         </div>
       </div>
-      <div class="row justify-content-center align-items-center py-2 ">
+      <div class="row justify-content-center align-items-center py-2">
         <div class="col-md-7 col-sm-12">
-          <form class="returnData mb-5 " @submit.prevent="returnOrder">
+          <form class="returnData mb-5" @submit.prevent="returnOrder">
             <div class="form-input mb-4">
               <label for="CommercialLicense">
                 {{ $t("profile.returnImage") }}
@@ -134,6 +135,8 @@
           </ul>
         </div>
       </div>
+
+      <!-- returnData.refund_option : {{returnData.refund_option}} -->
     </div>
   </div>
 </template>
@@ -153,6 +156,8 @@ export default {
       uploadErrors: [],
       btn1Disabled: false,
       loading: false,
+      id: this.$route.query.prodId,
+      selectedOption: null,
     };
   },
   methods: {
@@ -181,7 +186,14 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            window.history.back();
+            setTimeout(() => {
+              this.$router.push({
+                path: "ReturnedRequest",
+                query: {
+                  UUID: res.data.items.uuid,
+                },
+              });
+            }, 500);
           }
           console.log(res);
         })
@@ -205,12 +217,40 @@ export default {
         ? files[0].name
         : `${files.length} files selected`;
     },
+    getOrderData() {
+      profile
+        .getSingleOrders(this.id)
+        .then((res) => {
+          this.orderData = res.data.items.order;
+
+          if (res.data.items.order.payment_type === "wallet") {
+            this.returnData.refund_option = 0;
+            this.selectedOption = "wallet";
+          }
+          if (res.data.items.order.payment_type === "visa") {
+            this.returnData.refund_option = 1;
+            this.selectedOption = "visa";
+          }
+          if (res.data.items.order.payment_type === "bank") {
+            this.returnData.refund_option = 2;
+            this.selectedOption = "bank";
+          }
+          if (res.data.items.order.payment_type === "cach") {
+            this.returnData.refund_option = 3;
+            this.selectedOption = "cach";
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
-  mounted(){
-    if(!this.$route.query.orderId){
-      this.$router.push('/viewOrderDetails?id=563')
+  mounted() {
+    if (!this.$route.query.orderId) {
+      this.$router.push("/viewOrderDetails?id=563");
     }
-  }
+    this.getOrderData();
+  },
 };
 </script>
 

@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     async getCategories() {
+
       await categories
         .getCategories("lists/categories")
         .then((resp) => {
@@ -71,6 +72,7 @@ export default {
     return {
       loading: true,
       categories: null,
+      msg: "First Message",
     };
   },
   mounted() {

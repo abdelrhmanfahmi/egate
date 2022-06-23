@@ -49,4 +49,5 @@ export default {
   productInCart: "موجود بقائمة المفضلة",
   outOfStock: "عذرا , لقد نفذت الكمية",
   noReviews: "لايوجد تقييمات ",
+  noAvailQuant:'الكميه المتوفره اقل من اقل كميه للاضافه'
 };

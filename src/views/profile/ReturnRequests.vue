@@ -16,11 +16,15 @@
           <tr v-for="(order, index) in orders" :key="index">
             <td>{{ order.item_names }}</td>
             <td>{{ order.client }}</td>
-            <td><span v-if="order.price">{{ order.price | fixedCurrency }} {{ currency }}</span></td>
+            <td>
+              <span v-if="order.price"
+                >{{ order.price | fixedCurrency }} {{ currency }}</span
+              >
+            </td>
             <td>{{ order.retrun_option }}</td>
             <td>{{ order.return_status }}</td>
             <td>{{ order.return_request_date | formatDate }}</td>
-            <td>{{ order.updated_at | formatDate}}</td>
+            <td>{{ order.updated_at | formatDate }}</td>
 
             <td>
               <router-link
@@ -125,22 +129,42 @@ export default {
   },
   methods: {
     returnedOrders() {
-      profile
-        .returnedOrders(this.page)
-        .then((resp) => {
-          this.orders = resp.data.items.items.data;
+      if (this.buyerUserData.type === "buyer") {
+        profile
+          .returneBuyerdOrders(this.page)
+          .then((resp) => {
+            this.orders = resp.data.items.items.data;
 
-          this.total = resp.data.items.items.meta.total;
-          this.totalPages = Math.ceil(
-            resp.data.items.items.meta.total /
-              resp.data.items.items.meta.per_page
-          ); // Calculate total records
+            this.total = resp.data.items.items.meta.total;
+            this.totalPages = Math.ceil(
+              resp.data.items.items.meta.total /
+                resp.data.items.items.meta.per_page
+            ); // Calculate total records
 
-          this.totalRecords = resp.data.items.items.meta.total;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+            this.totalRecords = resp.data.items.items.meta.total;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } 
+       if (this.buyerUserData.type === "supplier") {
+        profile
+          .returneSupplierOrders(this.page)
+          .then((resp) => {
+            this.orders = resp.data.items.items.data;
+
+            this.total = resp.data.items.items.meta.total;
+            this.totalPages = Math.ceil(
+              resp.data.items.items.meta.total /
+                resp.data.items.items.meta.per_page
+            ); // Calculate total records
+
+            this.totalRecords = resp.data.items.items.meta.total;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
     onPageChange(page) {
       this.page = page;
@@ -225,5 +249,3 @@ export default {
   justify-content: center !important;
 }
 </style>
-
-

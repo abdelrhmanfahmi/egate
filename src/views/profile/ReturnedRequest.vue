@@ -13,18 +13,17 @@
               </router-link>
             </div>
           </div>
-
         </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
-          <div class="serial" >
+          <div class="serial">
             <h4 class="m-0">
               <span>{{ $t("profile.returnSerial") }} :</span>
-              <span>{{ return_item.serial }} #</span>
+              <span v-if="return_item.serial">{{ return_item.serial }} </span>
             </h4>
           </div>
-          <div class="print" >
+          <div class="print">
             <span class="mx-2">
               {{ return_item.return_status }}
             </span>
@@ -34,54 +33,61 @@
         <section class="account-address-info">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
-              <div class="" >
+              <div class="">
                 <div class="info">
                   <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.returnStatus") }}
                     </div>
-                    <div class="col-6">{{return_item.status}}</div>
+                    <div class="col-6">{{ return_item.status }}</div>
                   </div>
-                  <div class="row info-data" >
+                  <div class="row info-data">
                     <div class="col-6">
                       {{ $t("profile.returnOption") }}
                     </div>
-                    <div class="col-6 mail">{{return_item.retrun_option}}</div>
+                    <div class="col-6 mail">
+                      {{ return_item.retrun_option }}
+                    </div>
                   </div>
                   <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.createedAt") }}
                     </div>
-                    <div class="col-6">{{return_item.return_request_date | formatDate}}</div>
+                    <div class="col-6">
+                      {{ return_item.return_request_date | formatDate }}
+                    </div>
                   </div>
                   <div class="row info-data">
                     <div class="col-6">
                       {{ $t("profile.updatedAt") }}
                     </div>
-                    <div class="col-6 mail">{{return_item.updated_at | formatDate}}</div>
+                    <div class="col-6 mail">
+                      {{ return_item.updated_at | formatDate }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-6 col-sm-12 mb-2">
-              <div
-                class="row info-data"
-                
-              >
-                <div class="col-6  info-colored">
-                  <h5 class="pt-2">{{ $t("profile.returnImage") }} </h5>
+              <div class="row info-data">
+                <div class="col-6 info-colored">
+                  <h5 class="pt-2">{{ $t("profile.returnImage") }}</h5>
                 </div>
                 <div class="col-6 py-1 info-colored">
-                  <div class="downloadArea w-50 " :class="{'ml-auto' : $i18n.locale == 'en' , 'mr-auto' : $i18n.locale == 'ar'}">
+                  <div
+                    class="downloadArea w-50"
+                    :class="{
+                      'ml-auto': $i18n.locale == 'en',
+                      'mr-auto': $i18n.locale == 'ar',
+                    }"
+                  >
                     <b-button
                       class="btn-block"
                       variant="outline-success"
                       @click="
                         downloadImage(
                           return_item.image,
-                          (extension = return_item.image
-                            .split('.')
-                            .pop()),
+                          (extension = return_item.image.split('.').pop()),
                           $t('profile.downloadImage')
                         )
                       "
@@ -92,15 +98,12 @@
                   </div>
                 </div>
               </div>
-              <div
-                class=" info-data "
-                
-              >
+              <div class="info-data">
                 <div class="col-12 p-0">
                   <h5 class="pt-2">{{ $t("profile.returnReason") }}</h5>
                 </div>
                 <div class="col-12 return-reason">
-                  {{return_item.return_reason}}
+                  {{ return_item.return_reason }}
                 </div>
               </div>
             </div>
@@ -172,17 +175,18 @@
               </h4>
               <div class="">
                 <div class="info">
-
-
-                  <div class="row info-data info-colored" v-if="return_item.payment_type">
+                  <div
+                    class="row info-data info-colored"
+                    v-if="return_item.payment_type"
+                  >
                     <div class="col-6">
                       {{ $t("profile.paymentType") }}
                     </div>
-                    <div class="col-6" >
-                      {{return_item.payment_type}} 
+                    <div class="col-6">
+                      {{ return_item.payment_type }}
                     </div>
                   </div>
-                  <div class="row info-data ">
+                  <div class="row info-data">
                     <div class="col-6">
                       {{ $t("profile.paymentCurency") }}
                     </div>
@@ -209,7 +213,7 @@
             </div>
           </div>
         </section>
-        
+
         <section class="item-order">
           <div class="my-5">
             <h5 class="h4">
@@ -218,11 +222,7 @@
             <hr />
           </div>
           <div class="supplier-products-data" v-if="return_item">
-            <div
-              class="supplier-info mb-5"
-              
-              
-            >
+            <div class="supplier-info mb-5">
               <div
                 class="supplier-data info-data info-colored data-holder"
                 v-if="return_item"
@@ -233,7 +233,8 @@
                     {{ return_item.supplier }}
                   </div>
                   <div class="" v-if="return_item">
-                    {{ $t("profile.supplierOrder") }} : {{ return_item.order_supplier_serial }}
+                    {{ $t("profile.supplierOrder") }} :
+                    {{ return_item.order_supplier_serial }}
                   </div>
                 </div>
               </div>
@@ -253,23 +254,25 @@
                         </th>
                       </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                       <tr>
                         <td v-if="return_item.item_names">
                           {{ return_item.item_names }}
                         </td>
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.price">
-                          {{ supplier_oreder_item.price | fixedCurrency }} {{ currency }}
+                          {{ supplier_oreder_item.price | fixedCurrency }}
+                          {{ currency }}
                         </td>
-                        <td v-if="supplier_oreder_item.quantity">{{ supplier_oreder_item.quantity }}</td>
+                        <td v-if="supplier_oreder_item.quantity">
+                          {{ supplier_oreder_item.quantity }}
+                        </td>
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.sup_total">
-                          {{ supplier_oreder_item.sup_total | fixedCurrency }} {{ currency }}
+                          {{ supplier_oreder_item.sup_total | fixedCurrency }}
+                          {{ currency }}
                         </td>
-                        <td v-else>
-                          -
-                        </td>
+                        <td v-else>-</td>
                         <td></td>
                       </tr>
                     </tbody>
@@ -328,24 +331,42 @@ export default {
     };
   },
   methods: {
-
     returnedSingleOrders() {
-      this.loading = true;
-      profile
-        .returnedSingleOrders(this.UUID)
-        .then((res) => {
-          this.return_item = res.data.items.return_item;
-          this.supplier_oreder_item = res.data.items.supplier_oreder_item;
-          this.clinet_info = res.data.items.clinet_info;
+      if (this.buyerUserData.type === "buyer") {
+        this.loading = true;
+        profile
+          .returnedSingleBuyerOrders(this.UUID)
+          .then((res) => {
+            this.return_item = res.data.items.return_item;
+            this.supplier_oreder_item = res.data.items.supplier_oreder_item;
+            this.clinet_info = res.data.items.clinet_info;
 
-          // this.paymentFormData.order_uuid = res.data.items.order.uuid;
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+            // this.paymentFormData.order_uuid = res.data.items.order.uuid;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      } else if (this.buyerUserData.type === "supplier") {
+        this.loading = true;
+        profile
+          .returnedSingleSupplierOrders(this.UUID)
+          .then((res) => {
+            this.return_item = res.data.items.return_item;
+            this.supplier_oreder_item = res.data.items.supplier_oreder_item;
+            this.clinet_info = res.data.items.clinet_info;
+
+            // this.paymentFormData.order_uuid = res.data.items.order.uuid;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
     },
 
     downloadImage(url, extension, label) {
@@ -364,7 +385,6 @@ export default {
         fileLink.click();
       });
     },
-
   },
   mounted() {
     this.returnedSingleOrders();
@@ -496,7 +516,7 @@ table td {
     justify-content: flex-end;
   }
 }
-.return-reason{
+.return-reason {
   word-break: break-all;
 }
 </style>
