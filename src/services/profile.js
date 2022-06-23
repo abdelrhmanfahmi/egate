@@ -182,10 +182,16 @@ export default {
   storeAppLink(){
     return globalAxios.get('site-settings/app_store')
   },
-  returnedOrders(){
+  returneBuyerdOrders(){
+    return globalAxios.get(`members/client_returns`)
+  },
+  returnedSingleBuyerOrders(UUID){
+    return globalAxios.get(`members/client_returns/${UUID}/show`)
+  },
+  returneSupplierOrders(){
     return globalAxios.get(`members/returns`)
   },
-  returnedSingleOrders(UUID){
+  returnedSingleSupplierOrders(UUID){
     return globalAxios.get(`members/returns/${UUID}/show`)
   },
 

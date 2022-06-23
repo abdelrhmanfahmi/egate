@@ -40,6 +40,11 @@ export default {
     product: {
       type: Object,
     },
+    minimum:{
+      type:Number,
+      required:true,
+      default: 1,
+    }
   },
   mounted() {
     this.countValue = this.quantity;
@@ -59,7 +64,7 @@ export default {
       this.$emit('changeTitle',this.countValue)
     },
     decrementQuantity() {
-      this.countValue > 1 ? this.countValue-- : null;
+      this.countValue > this.minimum ? this.countValue-- : null;
 
       let data = {
         quantity: this.countValue,

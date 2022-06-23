@@ -711,9 +711,8 @@
                             {{ item.price | fixedCurrency }} {{ currency }}
                           </td>
                           <td v-else>-</td>
-                          
                           <td>
-                            <Counter 
+                            <Counter :minimum="item.min_order_quantity ? item.min_order_quantity : 1"
                               :quantity="item.quantity"
                               :product="item"
                               class="justify-content-center"
@@ -1739,7 +1738,7 @@ export default {
     },
 
     getCartProducts() {
-      this.loading = true;
+      // this.loading = true;
       globalAxios
         .post(`cart`)
         .then((res) => {
@@ -1786,7 +1785,7 @@ export default {
           }
         })
         .finally(() => {
-          this.loading = false;
+          // this.loading = false;
           setTimeout(() => {
             // checkAll
             var checkboxes = document.getElementsByClassName("checkFirst");
@@ -1834,14 +1833,14 @@ export default {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
-      this.loading = true;
+      // this.loading = true;
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
       }, 1000);
-      setTimeout(() => {
-        this.loading = false;
-      }, 1200);
+      // setTimeout(() => {
+      //   this.loading = false;
+      // }, 1200);
     },
     removeDisabled() {
       let myInput = this.selectedInput;
@@ -1971,7 +1970,7 @@ export default {
       // console.log(myQuantity);
       this.cartItems = null;
       
-        this.getCartProducts();
+      this.getCartProducts();
       
     },
     closeModal() {

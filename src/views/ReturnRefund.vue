@@ -61,7 +61,8 @@
                     </label>
                   </div>
                 </div>
-                <div v-if="selectedOption == 'visa'"
+                <div
+                  v-if="selectedOption == 'visa'"
                   class="method d-flex justify-content-between align-content-center"
                 >
                   <div
@@ -156,7 +157,7 @@ export default {
       btn1Disabled: false,
       loading: false,
       id: this.$route.query.prodId,
-      selectedOption:null
+      selectedOption: null,
     };
   },
   methods: {
@@ -185,7 +186,14 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            window.history.back();
+            setTimeout(() => {
+              this.$router.push({
+                path: "ReturnedRequest",
+                query: {
+                  UUID: res.data.items.uuid,
+                },
+              });
+            }, 500);
           }
           console.log(res);
         })
@@ -217,19 +225,19 @@ export default {
 
           if (res.data.items.order.payment_type === "wallet") {
             this.returnData.refund_option = 0;
-            this.selectedOption = 'wallet'
+            this.selectedOption = "wallet";
           }
           if (res.data.items.order.payment_type === "visa") {
             this.returnData.refund_option = 1;
-            this.selectedOption = 'visa'
+            this.selectedOption = "visa";
           }
           if (res.data.items.order.payment_type === "bank") {
             this.returnData.refund_option = 2;
-            this.selectedOption = 'bank'
+            this.selectedOption = "bank";
           }
           if (res.data.items.order.payment_type === "cach") {
             this.returnData.refund_option = 3;
-            this.selectedOption = 'cach'
+            this.selectedOption = "cach";
           }
         })
         .catch((err) => {

@@ -68,7 +68,7 @@
           <div class="serial" v-if="orderData">
             <h4 class="m-0">
               <span>{{ $t("profile.orderSerial") }} :</span>
-              <span>{{ orderData.serial }}</span>
+              <span>{{ orderData.id }} #</span>
             </h4>
           </div>
           <div class="print" @click="printScreen">
