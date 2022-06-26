@@ -1086,7 +1086,7 @@
                     </div> -->
 
                         <div class="col-5 form-group">
-                          <label for="email">{{ $t("payment.email") }} <span class="requried text-danger">*</span></label>
+                          <label for="email">{{ $t("payment.email") }} <span class="requried text-danger" v-if="buyerUserData">*</span></label>
                           <input
                             type="email"
                             class="form-control"

@@ -72,7 +72,7 @@
           <form>
             <div class="form-group">
               <label for="subject">
-                {{ $t("supplier.subject") }}
+                {{ $t("supplier.subject") }} <span class="text-danger">*</span>
               </label>
               <input type="text" class="form-control" v-model="subject" />
               <div class="error mt-2">
@@ -83,7 +83,7 @@
             </div>
             <div class="form-group">
               <label for="message">
-                {{ $t("contactUs.formMessage") }}
+                {{ $t("contactUs.formMessage") }} <span class="text-danger">*</span>
               </label>
               <textarea
                 class="form-control"

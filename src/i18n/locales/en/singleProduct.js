@@ -11,7 +11,7 @@ export default {
   PcsperUnit: "Pcs per Unit",
   expiration_date: "Expiration Date",
   warantyType: "Waranty Type",
-  min_order_quantity: "Min Order Quantity",
+  min_order_quantity: "Enter Requested Qty",
   return_time: "Return Time",
   delivery_time: "Delivery Time",
   addFavorites: "Add to favorites",
@@ -41,7 +41,7 @@ export default {
   ratingHint: "Be the first to review “MEAT CENTER”",
   ratingLabel: "Your Rating*",
   reviewLabel: "Your Review*",
-  reviewInput: "Your Comment...",
+  reviewInput: "Add Your Comment...",
   nameInput: "Quote Name",
   emailInput: "Your Email*",
   checkInput:
