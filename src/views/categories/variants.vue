@@ -120,7 +120,7 @@
         </b-row>
       </div>
     </div>
-    <div class="products " v-if="products.length > 0">
+    <div class="products" v-if="products.length > 0">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
           <div class="col-6">
@@ -132,7 +132,7 @@
             <div class="row justify-content-center align-items-center">
               <div class="col-3 text-center">
                 <h5>
-                  {{$t('cart.sortBy')}}
+                  {{ $t("cart.sortBy") }}
                 </h5>
               </div>
               <div class="col-6">
@@ -414,13 +414,22 @@
                 </div>
               </td>
               <td>
-                <Variants-Counter :minimum="product.product_details_by_type.min_order_quantity ? product.product_details_by_type.min_order_quantity : 1"
+                <Variants-Counter
+                  :minimum="
+                    product.product_details_by_type.min_order_quantity
+                      ? product.product_details_by_type.min_order_quantity
+                      : 1
+                  "
                   v-if="
                     product.product_details_by_type.add_type === 'cart' ||
                     product.product_details_by_type.add_type === 'both'
                   "
                   class="justify-content-center"
-                  :quantity="product.product_details_by_type.min_order_quantity > 0 ? product.product_details_by_type.min_order_quantity : 1"
+                  :quantity="
+                    product.product_details_by_type.min_order_quantity > 0
+                      ? product.product_details_by_type.min_order_quantity
+                      : 1
+                  "
                   @changeCount="ChangeCounter($event)"
                 ></Variants-Counter>
                 <p v-else>-</p>
@@ -432,9 +441,10 @@
                     (buyerUserData &&
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
-                    buyerUserData.type === 'b2b' ||
+                    buyerUserData && buyerUserData.type === 'b2b' ||
                     (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true)
+                      buyerUserData.is_buyer == true) || (buyerUserData && buyerUserData.type === 'b2c' &&
+                          buyerUserData.is_verified)
                   "
                 >
                   <a
@@ -463,15 +473,19 @@
                       ><font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div class="d-flex justify-content-center">
+                  <div
+                    class="d-flex justify-content-center"
+                    v-if="
+                      (buyerUserData &&
+                        product.product_details_by_type.add_type === 'rfq') ||
+                      (buyerUserData &&
+                        product.product_details_by_type.add_type === 'both')
+                    "
+                  >
                     <button
                       class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
                       v-if="
-                        (buyerUserData &&
-                          (product.product_details_by_type.add_type === 'rfq' ||
-                            product.product_details_by_type.add_type ===
-                              'both') &&
-                          buyerUserData.type === 'buyer' &&
+                        (buyerUserData.type === 'buyer' &&
                           buyerUserData.profile_percentage == 100) ||
                         (buyerUserData.type === 'b2c' &&
                           buyerUserData.is_verified)
@@ -497,10 +511,10 @@
                     </button>
                   </div>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
-                </div>
+                </div>  
                 <div
                   class="d-flex justify-content-center"
-                  v-else-if="
+                  v-if="
                     (buyerUserData &&
                       buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
@@ -521,7 +535,7 @@
                 </div>
                 <div
                   class="add-to d-flex justify-content-center"
-                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
+                  v-else-if="!buyerUserData"
                 >
                   <a
                     @click="addToCart(product)"
@@ -779,9 +793,7 @@ export default {
 
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
-        quantity: this.cartCounter !== null
-          ? this.cartCounter
-          : 1,
+        quantity: this.cartCounter !== null ? this.cartCounter : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
@@ -868,7 +880,7 @@ export default {
       this.showModal = true;
     },
     ChangeCounter(cartCounter) {
-      if(cartCounter > 0){
+      if (cartCounter > 0) {
         this.cartCounter = cartCounter;
       }
     },

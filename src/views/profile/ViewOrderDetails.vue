@@ -174,7 +174,7 @@
           </div>
         </section>
 
-        <section class="supplier-info" v-if="orders && shipingExist">
+        <section class="supplier-info" v-if="orders && pickupExist">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
           >
@@ -365,7 +365,7 @@
               <div class="d-flex justify-content-end">
                 <b-button
                   @click="
-                    $bvModal.show('bv-modal-example1');
+                    $bvModal.show('cancel_btn_modal');
                     showModal(order);
                   "
                   variant="outline-danger mt-2 cancel-btn"
@@ -413,7 +413,7 @@
                           </button> -->
                           <!-- <b-button
                             @click="
-                              $bvModal.show('bv-modal-example1');
+                              $bvModal.show('cancel_btn_modal');
                               showModal(order);
                             "
                             variant="outline-danger mt-2 return-btn"
@@ -431,11 +431,15 @@
                           >
                             <b-button
                               @click="
-                                $bvModal.show('bv-modal-example1');
+                                $bvModal.show('return');
                                 showModal(ord);
                               "
                               variant="outline-danger mt-2 return-btn"
-                              v-if="ord.status === 'Pending' && (ord.return_time !== null && ord.return_time !== 0 ) "
+                              v-if="
+                                ord.status === 'Pending' &&
+                                ord.return_time !== null &&
+                                ord.return_time !== 0
+                              "
                               ><font-awesome-icon icon="fa-solid fa-x" />
                               <span class="mx-2">{{
                                 $t("profile.return")
@@ -450,7 +454,7 @@
               </div>
               <hr class="w-50 my-5 mx-auto" />
             </div>
-            <b-modal id="bv-modal-example1" centered hide-footer>
+            <b-modal id="return" centered hide-footer>
               <template #modal-title>
                 <div class="d-flex justify-content-center align-items-center">
                   <span class="text-center"
@@ -495,17 +499,21 @@
                           <span>{{ $t("profile.replace") }}</span>
                           <span class="mx-2">
                             <font-awesome-icon
-                            icon="fa-solid fa-arrow-right-arrow-left"
-                          />
+                              icon="fa-solid fa-arrow-right-arrow-left"
+                            />
                           </span>
                         </b-button>
                       </router-link>
                     </div>
                     <div class="">
-                      <router-link v-if="orderData"
+                      <router-link
+                        v-if="orderData"
                         :to="{
                           path: '/return-refund',
-                          query: { orderId: supplierUUID , prodId:orderData.id },
+                          query: {
+                            orderId: supplierUUID,
+                            prodId: orderData.id,
+                          },
                         }"
                         variant="outlin-danger"
                       >
@@ -517,7 +525,9 @@
                           </span> -->
                           <span class="mx-2">
                             <!-- <img src="@/assets/images/refund.png" alt="" class="refund-image"> -->
-                            <font-awesome-icon icon="fa-solid fa-money-bill-wave" />
+                            <font-awesome-icon
+                              icon="fa-solid fa-money-bill-wave"
+                            />
                           </span>
                         </b-button>
                       </router-link>
@@ -683,6 +693,49 @@
             {{ $t("profile.pay") }}
           </b-button>
         </b-modal>
+        <b-modal id="cancel_btn_modal" centered hide-footer>
+          <template #modal-title>
+            <div class="d-flex justify-content-center align-items-center">
+              <span class="text-center"
+                >{{ $t("profile.yourMessage") }}
+                <!-- <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" /> -->
+              </span>
+            </div>
+          </template>
+          <div class="d-block">
+            <div class="">
+              <form>
+                <textarea
+                  class="form-control"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  v-model="message"
+                  required
+                ></textarea>
+                <div class="error mt-2">
+                  <p
+                    v-for="(error, index) in errors.client_cancel_reason"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </p>
+                </div>
+                <b-button
+                  :disabled="message == ''"
+                  id="show-btn"
+                  class="mt-3"
+                  variant="outline-success"
+                  block
+                  @click="cancelOrder"
+                >
+                  {{ $t("profile.cancel") }}
+                </b-button>
+              </form>
+            </div>
+          </div>
+        </b-modal>
       </div>
       <div class="" v-else>
         <div class="text-center">
@@ -733,6 +786,7 @@ export default {
         order_uuid: null,
       },
       shipingExist: false,
+      pickupExist:false
     };
   },
   methods: {
@@ -750,13 +804,28 @@ export default {
           this.paymentFormData.order_uuid = res.data.items.order.uuid;
           let pickupArr = [];
           for (let index = 0; index < this.orders.length; index++) {
-            const element = this.orders[index].shipping_type;
+            const element = this.orders[index].bicked;
             pickupArr.push(element);
           }
 
-          if (pickupArr.includes("shipping")) {
-            this.shipingExist = true;
+          for (let index = 0; index < pickupArr.length; index++) {
+            const element = pickupArr[index];
+            // console.log(element == null);
+            if (element == null) {
+              console.log('shipping');
+              this.shipingExist = true;
+            }else{
+              console.log('pickup');
+              this.pickupExist = true;
+            }
           }
+
+          // if (pickupArr[0] == null) {
+          //   this.shipingExist = true;
+          // }
+          // if (pickupArr[0] == null) {
+          //   this.shipingExist = true;
+          // }
         })
         .catch((err) => {
           console.log(err);
@@ -839,7 +908,7 @@ export default {
       });
     },
     showModal(ord) {
-      console.log(ord);
+      // console.log(ord);
       this.supplierUUID = ord.uuid;
     },
   },
@@ -997,7 +1066,7 @@ table td {
     top: 10px !important;
   }
 }
-.refund-image{
+.refund-image {
   width: 25px;
   height: 25px;
   margin: 0 5px;

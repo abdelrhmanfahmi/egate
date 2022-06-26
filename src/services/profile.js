@@ -194,5 +194,14 @@ export default {
   returnedSingleSupplierOrders(UUID){
     return globalAxios.get(`members/returns/${UUID}/show`)
   },
+  getWallet(){
+    return globalAxios.get('members/wallet')
+  },
+  getWalletPayments(){
+    return globalAxios.get('members/wallet/payments')
+  },
+  getWalletRecivables(){
+    return globalAxios.get('members/wallet/receivables')
+  },
 
 };

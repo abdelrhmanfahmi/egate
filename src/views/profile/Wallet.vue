@@ -65,8 +65,8 @@
                       v-if="recivables"
                       :total-pages="totalPages"
                       :per-page="totalPages"
-                      :current-page="page"
-                      @pagechanged="onPageChange"
+                      :current-page="recivablePage"
+                      @pagechanged="onRecivablesChange"
                     />
                   </div>
                 </div>
@@ -155,8 +155,8 @@
                       v-if="payments"
                       :total-pages="totalPages"
                       :per-page="totalPages"
-                      :current-page="page"
-                      @pagechanged="onPageChange"
+                      :current-page="paymentPage"
+                      @pagechanged="onPaymentsPageChange"
                     />
                   </div>
                 </div>
@@ -237,7 +237,8 @@ export default {
       total: 0,
       currentPage: 1,
 
-      page: 1,
+      paymentPage: 1,
+      recivablePage: 1,
       totalPages: 0,
       totalRecords: 0,
       recordsPerPage: 10,
@@ -248,87 +249,83 @@ export default {
         order_uuid: null,
       },
       errors: [],
-      payments:null
+      payments:null,
+      walletData:null
     };
   },
   methods: {
-    getOrders() {
+    getWallet(){
+      profile.getWallet().then(res =>{
+        console.log(res);
+        this.walletData = res.data.items
+      }).catch(err =>{
+        console.log(err);
+      })
+    },
+    getWalletPayments() {
       profile
-        .getOrders(this.page)
+        .getWalletPayments(this.paymentPage)
         .then((resp) => {
-          this.recivables = resp.data.items.orders.data;
-          this.payments = resp.data.items.orders.data;
+          this.recivables = resp.data.items.payments.data;
+          this.payments = resp.data.items.payments.data;
 
-          this.total = resp.data.items.orders.meta.total;
+          this.total = resp.data.items.payments.meta.total;
           this.totalPages = Math.ceil(
-            resp.data.items.orders.meta.total /
-              resp.data.items.orders.meta.per_page
+            resp.data.items.payments.meta.total /
+              resp.data.items.payments.meta.per_page
           ); // Calculate total records
 
-          this.totalRecords = resp.data.items.orders.meta.total;
+          this.totalRecords = resp.data.items.payments.meta.total;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    onPageChange(page) {
-      this.page = page;
-      this.getOrders();
-    },
-    onChangeRecordsPerPage() {
-      this.getOrders();
-    },
-    gotoPage() {
-      if (!isNaN(parseInt(this.enterpageno))) {
-        this.page = parseInt(this.enterpageno);
-        this.getOrders();
-      }
-    },
-
-    rePay() {
+    getWalletRecivables() {
       profile
-        .rePay(this.paymentFormData)
-        .then((res) => {
-          console.log(res);
-          this.sucessMsg(res.data.message);
-          if (res.status == 200) {
-            if (this.paymentFormData.payment_type === "cach") {
-              this.$router.push("/success-checkout");
-            } else if (this.paymentFormData.payment_type === "bank") {
-              this.$router.push({
-                path: "/checkout-details",
-                query: {
-                  order_serial: res.data.items.order.order_serial,
-                  date: res.data.items.order.created_at,
-                  total_price: res.data.items.order.total_price,
-                  payment_type: res.data.items.order.payment_type,
-                  payment: res.data.items.order.payment,
-                  uuid: res.data.items.order.uuid,
-                  redirectURL: res.data.items.url,
-                },
-              });
-            } else if (this.paymentFormData.payment_type === "visa") {
-              setTimeout(() => {
-                window.location.href = res.data.items.payment_url;
-              }, 500);
-            }
-          }
+        .getWalletRecivables(this.recivablePage)
+        .then((resp) => {
+          console.log(resp);
+          this.recivables = resp.data.items.receivables.data;
+          this.payments = resp.data.items.receivables.data;
+
+          this.total = resp.data.items.receivables.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.receivables.meta.total /
+              resp.data.items.receivables.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.receivables.meta.total;
         })
         .catch((err) => {
           console.log(err);
-          let error = Object.values(err)[2].data;
-          this.errors = error.items;
-          this.errMsg(error.message);
         });
     },
-
-    saveUUID(order) {
-      console.log(order);
-      this.paymentFormData.order_uuid = order.uuid;
+    onPaymentsPageChange(page) {
+      this.paymentPage = page;
+      this.getWalletPayments();
     },
+    onRecivablesChange(page) {
+      this.recivablePage = page;
+      this.onRecivablesChange();
+    },
+    // onChangeRecordsPerPage() {
+    //   this.getWalletPayments();
+    // },
+    // onChangeRecordsPerPage() {
+    //   this.onRecivablesChange();
+    // },
+    // gotoPage() {
+    //   if (!isNaN(parseInt(this.enterpageno))) {
+    //     this.page = parseInt(this.enterpageno);
+    //     this.getWalletPayments();
+    //   }
+    // },
   },
   mounted() {
-    this.getOrders();
+    this.getWalletPayments();
+    this.getWalletRecivables();
+    this.getWallet();
   },
   components: {
     spinner,

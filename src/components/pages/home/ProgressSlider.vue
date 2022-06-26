@@ -30,10 +30,10 @@
               :loading="loading"
               :no-data="noData"
             >
-              <div class="" v-if="slider.image_path !== null">
-                <b-img :src="slider.image_path" class="offer-image"> </b-img>
+              <div class="" v-if="slider.current_main_image_path !== null">
+                <b-img :src="slider.current_main_image_path" class="offer-image"> </b-img>
               </div>
-              <div
+              <!-- <div
                 class=""
                 v-else-if="
                   slider.image_path == null &&
@@ -42,7 +42,7 @@
               >
                 <b-img :src="slider.product.image_path" class="offer-image">
                 </b-img>
-              </div>
+              </div> -->
             </vue-ellipse-progress>
             <h6 class="main-header mt-2" v-if="slider.product.title">
               {{ slider.product.title }}
