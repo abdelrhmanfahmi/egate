@@ -7,10 +7,10 @@
       <div class="container">
         <div class="data-holder p-5">
           <ul class="list-data">
-            <li>
+            <!-- <li>
               {{ $t("payment.orderNumber") }} :
               <span class="bold-result"> {{order_serial}}</span>
-            </li>
+            </li> -->
             <li>
               {{ $t("payment.orderDate") }} :
               <span class="bold-result">{{orderDate | formatDate}}</span>

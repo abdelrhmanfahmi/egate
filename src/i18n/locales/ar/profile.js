@@ -209,5 +209,6 @@ export default {
   receivables:'المدخلات',
   payments:'المدفوعات',
   RefundedValue:'قيمة المرتجع',
-  ValueDate:'تاريخ الاستحقاق'
+  ValueDate:'تاريخ الاستحقاق',
+  cancelReason:'سبب الغاء الطلب'
 };
