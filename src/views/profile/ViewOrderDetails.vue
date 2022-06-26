@@ -697,7 +697,7 @@
           <template #modal-title>
             <div class="d-flex justify-content-center align-items-center">
               <span class="text-center"
-                >{{ $t("profile.yourMessage") }}
+                >{{ $t("profile.cancelReason") }}
                 <!-- <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" /> -->
               </span>
             </div>

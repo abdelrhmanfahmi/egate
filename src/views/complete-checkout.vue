@@ -46,7 +46,10 @@
             <font-awesome-icon icon="fa-solid fa-exclamation" />
           </i>
         </div>
-        <h1 class="mt-3">
+        <h1 class="mt-3" v-if="failReason == null">
+          {{ $t("payment.fail1") }}
+        </h1>
+        <h1 class="mt-3" v-else>
           {{ $t("payment.fail1") }}
         </h1>
         <!-- <p>
@@ -71,6 +74,7 @@ export default {
     return {
       success: false,
       fail: false,
+      failReason:null
     };
   },
   methods: {
@@ -87,6 +91,7 @@ export default {
             this.success = true;
             this.fail = false;
           } else {
+            this.failReason = res.data.items.status_lang
             this.success = false;
             this.fail = true;
           }

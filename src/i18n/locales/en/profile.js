@@ -219,5 +219,6 @@ export default {
   receivables: "Receivables",
   payments: "Payments",
   RefundedValue:'Refunded Value',
-  ValueDate:'Value Date'
+  ValueDate:'Value Date',
+  cancelReason:'Cancel Reason'
 };
