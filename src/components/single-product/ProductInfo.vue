@@ -86,9 +86,9 @@
               <div class="d-block">
                 <div class="data-holder">
                   <form>
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label for="subject">
-                        {{ $t("supplier.subject") }}
+                        {{ $t("supplier.subject") }} <span class="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -106,7 +106,7 @@
                     </div>
                     <div class="form-group">
                       <label for="message">
-                        {{ $t("contactUs.formMessage") }}
+                        {{ $t("contactUs.formMessage") }} <span class="text-danger">*</span>
                       </label>
                       <textarea
                         class="form-control"
@@ -126,7 +126,7 @@
                   </form>
                 </div>
               </div>
-              <b-button
+              <b-button v-if="buyerUserData"
                 class="mt-3"
                 variant="outline-success"
                 block
@@ -683,6 +683,7 @@ export default {
             this.sucessMsg(res.data.message);
             document.querySelector(".close").click();
             this.message = "";
+            this.subject = "";
           }
         })
         .catch((error) => {

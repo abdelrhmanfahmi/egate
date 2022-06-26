@@ -1086,7 +1086,7 @@
                     </div> -->
 
                         <div class="col-5 form-group">
-                          <label for="email">{{ $t("payment.email") }}</label>
+                          <label for="email">{{ $t("payment.email") }} <span class="requried text-danger">*</span></label>
                           <input
                             type="email"
                             class="form-control"
@@ -1777,7 +1777,8 @@ export default {
               supplier_address_id: null,
             };
           });
-          // console.log(this.ratingNum);
+
+          
         })
         .then(() => {
           if (this.buyerUserData && this.buyerUserData.address_uuid) {
@@ -2028,12 +2029,15 @@ export default {
               myData += parseFloat(element);
             }
 
+            this.totalPaymentReplacement= this.totalPayment
+
             // this.shippingCartFee = myData + 'reda';
             this.shippingCartFee = myData;
 
             // this.cart_sub_total = res.data.items.cart_sub_total;
             // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
             this.totalPaymentReplacement += parseFloat(myData);
+            
 
             // console.log("myData", myData);
             // console.log("this.totalPayment", this.totalPayment.toFixed(3));
@@ -2334,6 +2338,8 @@ export default {
 
           this.errors = [];
           this.firstFees = res.data.items;
+
+          
           // this.shippingCartFee = Number(res.data.items.shepping_fee)
         })
         .catch((error) => {
@@ -2608,6 +2614,8 @@ export default {
 
           // this.shippingCartFee = myData + 'reda';
           this.shippingCartFee = myData;
+          this.totalPaymentReplacement += parseFloat(myData);
+          
         })
         .catch((err) => {
           console.log(err);

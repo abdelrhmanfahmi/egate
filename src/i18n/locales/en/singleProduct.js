@@ -42,7 +42,7 @@ export default {
   ratingLabel: "Your Rating*",
   reviewLabel: "Your Review*",
   reviewInput: "Your Comment...",
-  nameInput: "Your Name",
+  nameInput: "Quote Name",
   emailInput: "Your Email*",
   checkInput:
     "Save My Name And Email In This Browser For The Next Time I Comment.*",
