@@ -430,7 +430,12 @@
                       ? product.product_details_by_type.min_order_quantity
                       : 1
                   "
-                  @changeCount="ChangeCounter($event)"
+                  @changeCount="
+                    ChangeCounter(
+                      $event,
+                      product.product_details_by_type.min_order_quantity
+                    )
+                  "
                 ></Variants-Counter>
                 <p v-else>-</p>
               </td>
@@ -441,10 +446,12 @@
                     (buyerUserData &&
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
-                    buyerUserData && buyerUserData.type === 'b2b' ||
+                    (buyerUserData && buyerUserData.type === 'b2b') ||
                     (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true) || (buyerUserData && buyerUserData.type === 'b2c' &&
-                          buyerUserData.is_verified)
+                      buyerUserData.is_buyer == true) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2c' &&
+                      buyerUserData.is_verified)
                   "
                 >
                   <a
@@ -511,7 +518,7 @@
                     </button>
                   </div>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
-                </div>  
+                </div>
                 <div
                   class="d-flex justify-content-center"
                   v-if="
@@ -793,7 +800,10 @@ export default {
 
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
-        quantity: this.cartCounter !== null ? this.cartCounter : 1,
+        quantity:
+          this.cartCounter > item.product_details_by_type.min_order_quantity
+            ? this.cartCounter
+            : item.product_details_by_type.min_order_quantity,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
@@ -879,8 +889,8 @@ export default {
     openModal() {
       this.showModal = true;
     },
-    ChangeCounter(cartCounter) {
-      if (cartCounter > 0) {
+    ChangeCounter(cartCounter, minimum) {
+      if (cartCounter >= minimum) {
         this.cartCounter = cartCounter;
       }
     },

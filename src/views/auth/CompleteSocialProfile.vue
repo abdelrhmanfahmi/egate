@@ -80,7 +80,7 @@
               </b-row>
 
               <!-- active_with -->
-              <b-form-group
+              <!-- <b-form-group
                 class="my-4"
                 :label="$t('register.chooseOneOfTheWays')"
                 v-if="!userInfo.item.mobile_number && !userInfo.item.email"
@@ -94,14 +94,14 @@
                   :value="connect.value"
                   >{{ connect.name }}</b-form-radio
                 >
-                <!-- <div
+                <div
                   class="error"
                   v-for="(error, indx) in errors.active_with"
                   :key="indx"
                 >
                   {{ error }}
-                </div> -->
-              </b-form-group>
+                </div>
+              </b-form-group> -->
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
