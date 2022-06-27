@@ -50,7 +50,12 @@
           {{ $t("payment.fail1") }}
         </h1>
         <h1 class="mt-3" v-else>
-          {{ $t("payment.fail1") }}
+          <p>
+            {{ $t("payment.fail1") }}
+          </p>
+           <p>
+             {{ failReason }}
+           </p>
         </h1>
         <!-- <p>
           {{ $t("payment.waitPurchace1") }}

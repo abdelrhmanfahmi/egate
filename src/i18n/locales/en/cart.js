@@ -50,5 +50,6 @@ export default {
   deleiveryFees: "Delivery Fees",
   asc:'Low Price To High Price',
   desc:'High Price To Low Price',
-  sortBy:'Sort By'
+  sortBy:'Sort By',
+  selectPickupAddress:'Select Pickup Address'
 };

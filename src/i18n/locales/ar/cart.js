@@ -51,5 +51,6 @@ export default {
   deleiveryFees: "مصاريف الشحن",
   asc:'من الاقل للأعلى ',
   desc:'من الاعلى للأقل',
-  sortBy:'تصفيه ب'
+  sortBy:'تصفيه ب',
+  selectPickupAddress:'اختر عنوان استلام للمورد '
 };

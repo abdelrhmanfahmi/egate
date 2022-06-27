@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="wrabber">
-      <div class="balance-holder py-5">
-        <h4 class="balanc_number">balance number</h4>
+      <div class="balance-holder py-5 px-3">
+        <h4 class="balanc_number">{{ walletData }} {{ currency }}</h4>
         <h5 class="balance_text">
           {{ $t("profile.balance") }}
         </h5>
@@ -11,165 +11,200 @@
       <div class="tabs-holder">
         <!-- partial:index.partial.html -->
 
-        
-          <div class="tab-wrap">
-            <!-- active tab on page load gets checked attribute -->
-            <input
-              type="radio"
-              id="recivables"
-              name="tabGroup1"
-              class="tab"
-              checked
-            />
-            <label for="recivables">
-              <h5>{{ $t("profile.receivables") }}</h5>
-            </label>
+        <div class="tab-wrap">
+          <!-- active tab on page load gets checked attribute -->
+          <input
+            type="radio"
+            id="recivables"
+            name="tabGroup1"
+            class="tab"
+            checked
+          />
+          <label for="recivables">
+            <h5>{{ $t("profile.receivables") }}</h5>
+          </label>
 
-            <input type="radio" id="payments" name="tabGroup1" class="tab" />
-            <label for="payments">
-              <h5>{{ $t("profile.payments") }}</h5>
-            </label>
+          <input type="radio" id="payments" name="tabGroup1" class="tab" />
+          <label for="payments">
+            <h5>{{ $t("profile.payments") }}</h5>
+          </label>
 
-            <div class="tab__content">
-              <div class="recivables py-3">
-                <div class="holder text-center" v-if="recivables">
-                  <table
-                    class="table table-striped table-hover table-bordered selectable"
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          scope="col"
-                          v-for="(tab, index) in recivablesHeader"
-                          :key="index"
-                        >
-                          {{ tab.label }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(order, index) in recivables" :key="index">
-                        <td>Return.resquest.serial</td>
-                        <td>RefundedValue</td>
-                        <td>ValueDate of recieve payment in wallet</td>
-                        <td>
-                          <span v-if="order.total_price"> Supplier_name </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div
-                    class="d-flex justify-content-center align-items-center mt-5"
-                  >
-                    <Paginate
-                      v-if="recivables"
-                      :total-pages="totalPages"
-                      :per-page="totalPages"
-                      :current-page="recivablePage"
-                      @pagechanged="onRecivablesChange"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="spinner d-flex justify-content-center align-items-center"
-                  v-else
+          <div class="tab__content">
+            <div class="recivables py-3" v-if="recivablesLength > 0">
+              <div class="holder text-center" v-if="recivables">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
                 >
-                  <spinner />
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        v-for="(tab, index) in recivablesHeader"
+                        :key="index"
+                      >
+                        {{ tab.label }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(order, index) in recivables" :key="index">
+                      <td v-if="order.serial">{{ order.serial }}</td>
+                      <td v-if="order.value">
+                        {{ order.value }} {{ currency }}
+                      </td>
+                      <td v-if="order.value_date">
+                        {{ order.value_date | formatDate }}
+                      </td>
+                      <td>
+                        <span v-if="order.supplier">
+                          {{ order.supplier }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div
+                  class="d-flex justify-content-center align-items-center mt-5"
+                >
+                  <Paginate
+                    v-if="recivables && recivablesLength > 1"
+                    :total-pages="recivableTotalPages"
+                    :per-page="recivablePerPage"
+                    :current-page="recivableRecordsPerPage"
+                    @pagechanged="onRecivablesChange"
+                  />
                 </div>
+              </div>
+              <div
+                class="spinner d-flex justify-content-center align-items-center"
+                v-else
+              >
+                <spinner />
               </div>
             </div>
-
-            <div class="tab__content">
-              <div class="payments py-3">
-                <div class="holder text-center" v-if="payments">
-                  <table
-                    class="table table-striped table-hover table-bordered selectable"
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          scope="col"
-                          v-for="(tab, index) in paymentsHeadrer"
-                          :key="index"
-                        >
-                          {{ tab.label }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(order, index) in payments" :key="index">
-                        <td>{{ order.serial }}</td>
-                        <td>{{ order.created_at | formatDate }}</td>
-                        <td>{{ order.order_supplier_items_count }}</td>
-                        <td>
-                          <span v-if="order.total_price"
-                            >{{ order.total_price | fixedCurrency }}
-                            {{ currency }}</span
-                          >
-                        </td>
-                        <td>{{ order.payment_status }}</td>
-                        <td>{{ order.payment }}</td>
-
-                        <td>
-                          <router-link
-                            :to="{
-                              path: '/viewOrderDetails',
-                              query: { id: `${order.id}` },
-                            }"
-                            class="text-dark"
-                          >
-                            <b-button variant="outline-secondary" class="m-2">
-                              {{ $t("profile.view") }}
-                            </b-button>
-                          </router-link>
-                          <router-link
-                            v-if="
-                              order.payment_status === 'Unpaid' &&
-                              order.payment_type === 'bank'
-                            "
-                            :to="{
-                              path: '/checkout-details',
-                              query: {
-                                order_serial: order.serial,
-                                date: order.created_at,
-                                total_price: order.total_price,
-                                payment_type: order.payment_type,
-                                payment: order.payment,
-                                uuid: order.uuid,
-                              },
-                            }"
-                            class="text-dark"
-                          >
-                            <b-button variant="outline-success" class="m-2">
-                              {{ $t("profile.bankTransDocs") }}
-                            </b-button>
-                          </router-link>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div
-                    class="d-flex justify-content-center align-items-center mt-5"
-                  >
-                    <Paginate
-                      v-if="payments"
-                      :total-pages="totalPages"
-                      :per-page="totalPages"
-                      :current-page="paymentPage"
-                      @pagechanged="onPaymentsPageChange"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="spinner d-flex justify-content-center align-items-center"
-                  v-else
-                >
-                  <spinner />
-                </div>
-              </div>
+            <div class="" v-else>
+              {{ $t("home.noData") }}
             </div>
           </div>
-        
+
+          <div class="tab__content">
+            <div class="payments py-3" v-if="paymentsLength > 0">
+              <div class="holder text-center" v-if="payments">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        v-for="(tab, index) in paymentsHeadrer"
+                        :key="index"
+                      >
+                        {{ tab.label }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(order, index) in payments" :key="index">
+                      <td>
+                        <span v-if="order.serial">{{ order.serial }}</span>
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.created_at | formatDate">{{
+                          order.created_at | formatDate
+                        }}</span>
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.products_count">{{
+                          order.products_count
+                        }}</span>
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.amount"
+                          >{{ order.amount | fixedCurrency }}
+                          {{ currency }}</span
+                        >
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.payment_status">{{
+                          order.payment_status
+                        }}</span>
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.payment_type">{{
+                          order.payment_type
+                        }}</span>
+                        <span v-else></span>
+                      </td>
+
+                      <td>
+                        <router-link
+                          :to="{
+                            path: '/viewOrderDetails',
+                            query: { id: `${order.id}` },
+                          }"
+                          class="text-dark"
+                        >
+                          <b-button variant="outline-secondary" class="m-2">
+                            {{ $t("profile.view") }}
+                          </b-button>
+                        </router-link>
+                        <router-link
+                          v-if="
+                            order.payment_status === 'Unpaid' &&
+                            order.payment_type === 'bank'
+                          "
+                          :to="{
+                            path: '/checkout-details',
+                            query: {
+                              order_serial: order.serial,
+                              date: order.created_at,
+                              total_price: order.total_price,
+                              payment_type: order.payment_type,
+                              payment: order.payment,
+                              uuid: order.uuid,
+                            },
+                          }"
+                          class="text-dark"
+                        >
+                          <b-button variant="outline-success" class="m-2">
+                            {{ $t("profile.bankTransDocs") }}
+                          </b-button>
+                        </router-link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div
+                  class="d-flex justify-content-center align-items-center mt-5"
+                >
+                  <Paginate
+                    v-if="payments && paymentsLength > 1"
+                    :total-pages="paymentTotalPages"
+                    :per-page="paymentPerPage"
+                    :current-page="paymentPage"
+                    @pagechanged="onPaymentsPageChange"
+                  />
+                </div>
+              </div>
+              <div
+                class="spinner d-flex justify-content-center align-items-center"
+                v-else
+              >
+                <spinner />
+              </div>
+            </div>
+            <div class="" v-else>
+              {{ $t("home.noData") }}
+            </div>
+          </div>
+        </div>
+
         <!-- partial -->
       </div>
     </div>
@@ -185,7 +220,7 @@ export default {
     return {
       recivablesHeader: [
         {
-          key: "id",
+          key: "serial",
           label: this.$t("profile.serial"),
         },
         {
@@ -233,49 +268,65 @@ export default {
       ],
       items: [],
       recivables: null,
-      perPage: 5,
-      total: 0,
-      currentPage: 1,
+
+      // payment paginate
+      paymentPerPage: 5,
+      paymentTotal: 0,
+      paymentCurrentPage: 1,
 
       paymentPage: 1,
+      paymentTotalPages: 0,
+      paymentTotalRecords: 0,
+      paymentRecordsPerPage: 10,
+      paymentEnterpageno: "",
+
+      // recivable paginate
+
+      recivablePerPage: 5,
+      recivableTotal: 0,
+      recivableCurrentPage: 1,
+
       recivablePage: 1,
-      totalPages: 0,
-      totalRecords: 0,
-      recordsPerPage: 10,
-      enterpageno: "",
+      recivableTotalPages: 0,
+      recivableTotalRecords: 0,
+      recivableRecordsPerPage: 10,
+      recivableEnterpageno: "",
 
       paymentFormData: {
         payment_type: null,
         order_uuid: null,
       },
       errors: [],
-      payments:null,
-      walletData:null
+      payments: null,
+      walletData: null,
+      paymentsLength: 0,
+      recivablesLength: 0,
     };
   },
   methods: {
-    getWallet(){
-      profile.getWallet().then(res =>{
-        console.log(res);
-        this.walletData = res.data.items
-      }).catch(err =>{
-        console.log(err);
-      })
+    getWallet() {
+      profile
+        .getWallet()
+        .then((res) => {
+          this.walletData = res.data.items.balnce;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     getWalletPayments() {
       profile
         .getWalletPayments(this.paymentPage)
         .then((resp) => {
-          this.recivables = resp.data.items.payments.data;
           this.payments = resp.data.items.payments.data;
-
-          this.total = resp.data.items.payments.meta.total;
-          this.totalPages = Math.ceil(
+          this.paymentsLength = resp.data.items.payments.data.length;
+          this.paymentTotal = resp.data.items.payments.meta.total;
+          this.paymentTotalPages = Math.ceil(
             resp.data.items.payments.meta.total /
               resp.data.items.payments.meta.per_page
           ); // Calculate total records
 
-          this.totalRecords = resp.data.items.payments.meta.total;
+          this.paymentTotalRecords = resp.data.items.payments.meta.total;
         })
         .catch((err) => {
           console.log(err);
@@ -285,17 +336,16 @@ export default {
       profile
         .getWalletRecivables(this.recivablePage)
         .then((resp) => {
-          console.log(resp);
           this.recivables = resp.data.items.receivables.data;
-          this.payments = resp.data.items.receivables.data;
+          this.recivablesLength = resp.data.items.receivables.data.length;
 
-          this.total = resp.data.items.receivables.meta.total;
-          this.totalPages = Math.ceil(
+          this.recivableTotal = resp.data.items.receivables.meta.total;
+          this.precivableTotalPages = Math.ceil(
             resp.data.items.receivables.meta.total /
               resp.data.items.receivables.meta.per_page
           ); // Calculate total records
 
-          this.totalRecords = resp.data.items.receivables.meta.total;
+          this.recivableTotalRecords = resp.data.items.receivables.meta.total;
         })
         .catch((err) => {
           console.log(err);
