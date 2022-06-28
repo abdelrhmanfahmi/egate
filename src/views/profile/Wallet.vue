@@ -111,7 +111,7 @@
                         <span v-else></span>
                       </td>
                       <td>
-                        <span v-if="order.created_at | formatDate">{{
+                        <span v-if="order.created_at">{{
                           order.created_at | formatDate
                         }}</span>
                         <span v-else></span>

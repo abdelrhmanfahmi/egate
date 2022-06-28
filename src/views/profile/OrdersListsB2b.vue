@@ -46,7 +46,7 @@
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td><span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span></td>
-            <td>{{ order.payment_status }}</td>
+            <td>{{ order.payment_status_lang }}</td>
             <td>{{ order.payment }}</td>
 
             <td>
