@@ -182,7 +182,7 @@
                   }}</a
                   >. {{ $t("home.allRightsReserved") }}
                 </p>
-                <p>version 0.0.138</p>
+                <p>version 0.0.139</p>
               </div>
             </div>
           </div>
