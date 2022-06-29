@@ -320,6 +320,7 @@
                                     id="postCode"
                                     type="number"
                                     v-model="form.pin_code"
+                                    :formatter="formatPin_code"
                                     :placeholder="$t('profile.postCode') + '*'"
                                   />
                                   <div
@@ -1599,7 +1600,7 @@ export default {
         building_number: null,
         floor: null,
         apartment: null,
-        pin_code: null,
+        pin_code: '',
         notes: null,
         // address_uuid: null,
         address_line_1: null,
@@ -1674,7 +1675,8 @@ export default {
       totalDiscountReplacement: null,
       localStoreFail: false,
       hasProducts: false,
-      walletData:null
+      walletData:null,
+      pin_codeMaxLength:6
     };
   },
   mounted() {
@@ -1743,6 +1745,9 @@ export default {
     this.getWallet()
   },
   methods: {
+    formatPin_code(e){
+     return String(e).substring(0,6);
+  },
     changeCoupon($event) {
       // console.log($event.target.value);
       this.selectedCoupon = $event.target.value;

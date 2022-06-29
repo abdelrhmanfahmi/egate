@@ -1,6 +1,6 @@
 <template>
   <div class="my-5">
-    <div class="container">
+    <div class="container normaly">
       <div class="wrapper" v-if="!loading">
         <div class="my-4" v-if="orderData">
           <div class="d-flex justify-content-between align-items-center">
@@ -743,6 +743,227 @@
         </div>
       </div>
     </div>
+    <div class="container printing">
+      <h4 class="title text-center my-5">PURCHASE ORDER SUGGESTION</h4>
+      <div class="wrapper">
+        <div class="data bb">
+          <div class="row">
+            <div
+              class="col-md-6 col-sm-12 p-20"
+              :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
+            >
+              <div class="branding d-flex justify-content-center">
+                <img
+                  src="@/assets/images/logo.png"
+                  class="img-fluid w-25"
+                  alt="logo"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 p-20">
+              <h5 class="mb-3"><b>Humhumm</b></h5>
+              <div class="row">
+                <div class="col-md-2 col-sm-6">
+                  <p>Email :</p>
+                  <p>Call Center :</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <p>email@email.com</p>
+                  <p>number</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="data bb">
+          <div class="row">
+            <div
+              class="col-6"
+              :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
+            >
+              <div class="holder bor">
+                <p>Invoice # 1-000001319-1027</p>
+                <p>Order Date: Apr 26, 2021</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="holder">
+                <p class="mb-0">
+                  {{ $t("profile.orderSerial") }} : {{ orderData.id }} #
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="supplier-data p-15">
+          <div class="colored">
+            <div
+              class="data-for-loop my-5"
+              v-for="(order, index) in orders"
+              :key="index"
+            >
+              <h5 class="mt-3 mb-5 data-heading">
+                <span>{{ $t("profile.supplier") }} : {{ order.company }}</span>
+                <span class="mx-5"
+                  >{{ $t("profile.supplierOrder") }} : {{ order.serial }}</span
+                >
+              </h5>
+              <div class="row data-headings">
+                <div class="col-md-6 col-sm-12 mb-2">
+                  <h5 class="data-heading">{{ $t("profile.productName") }}</h5>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <h5 class="data-heading">{{ $t("profile.qty") }}</h5>
+                </div>
+                <div class="col-md-3 col-sm-12 mb-2">
+                  <h5 class="data-heading">{{ $t("profile.price") }}</h5>
+                </div>
+              </div>
+
+              <div
+                class="row holder-row"
+                v-for="(ord, index) in order.items"
+                :key="index"
+              >
+                <div class="col-md-6 col-sm-12 py-2">
+                  <div class="data-holder">
+                    <h5 class="title">{{ ord.items.product.title }}</h5>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 py-2">
+                  <div class="data-holder">
+                    <h4 class="title">{{ ord.quantity }}</h4>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 py-2">
+                  <div class="data-holder">
+                    <h4 class="title">
+                      {{ ord.price | fixedCurrency }} {{ currency }}
+                    </h4>
+                  </div>
+                </div>
+              </div>
+              <div class="supplier-shipping-data pt-4">
+                <div class="row">
+                  <!-- <div class="col-md-6 col-sm-12 borderred-bottom"></div> -->
+                  <div class="col-md-6 col-sm-12 offset-6">
+                    <div class="row borderred-bottom p-15">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>{{ $t("profile.subTotal") }}</h5>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>
+                          KWD {{ orderData.sup_total_price | fixedCurrency }}
+                        </h5>
+                      </div>
+                    </div>
+                    <div class="row borderred-bottom p-15">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>{{ $t("profile.total_shipping_fee") }}</h5>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>
+                          KWD {{ orderData.total_shipping_fee | fixedCurrency }}
+                        </h5>
+                      </div>
+                    </div>
+                    <!-- <div class="row borderred-bottom p-15">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>Tax</h5>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>KWD0.250</h5>
+                      </div>
+                    </div> -->
+                    <div class="row borderred-bottom p-15">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>{{ $t("profile.totalDiscount") }}</h5>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>
+                          KWD {{ orderData.total_discount | fixedCurrency }}
+                        </h5>
+                      </div>
+                    </div>
+                    <div class="row p-15">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>{{ $t("profile.total_price") }}</h5>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>KWD {{ orderData.total_price | fixedCurrency }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="payment-data mt-5 px-5">
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <h4>
+                    <b>{{ $t("profile.paymentType") }}</b>
+                  </h4>
+                  <h6>{{ orderData.payment }}</h6>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <h4>
+                    <b>{{ $t("profile.shippingMethod") }}</b>
+                  </h4>
+                  <h6>Supplier Delivery</h6>
+                </div>
+              </div>
+              <div class="bill mt-3">
+                <h5><b>Billing Info, </b></h5>
+                <h6>
+                  sabeeha Basheer, Mysupply, Block 7, Street 72, Fahaheel,
+                  640001,Kuwait
+                </h6>
+
+                <h6>Mobile No: <a href="tel:94089218">94089218</a></h6>
+              </div>
+            </div>
+            <div class="social">
+              <div class="ml-auto footer-social">
+                <ul>
+                  <li v-if="twitter">
+                    <a :href="twitter.value" target="_blank">
+                      <img
+                        src="@/assets/images/twitter.png"
+                        :alt="twitter.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="youtube">
+                    <a :href="youtube.value" target="_blank">
+                      <img
+                        src="@/assets/images/youtube.png"
+                        :alt="youtube.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="instagram">
+                    <a :href="instagram.value" target="_blank">
+                      <img
+                        src="@/assets/images/instagram.png"
+                        :alt="instagram.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="pinterest">
+                    <a :href="pinterest.value" target="_blank">
+                      <img
+                        src="@/assets/images/pinterest.png"
+                        :alt="pinterest.key"
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -786,7 +1007,11 @@ export default {
         order_uuid: null,
       },
       shipingExist: false,
-      pickupExist:false
+      pickupExist: false,
+      twitter: null,
+      youtube: null,
+      instagram: null,
+      pinterest: null,
     };
   },
   methods: {
@@ -812,10 +1037,10 @@ export default {
             const element = pickupArr[index];
             // console.log(element == null);
             if (element == null) {
-              console.log('shipping');
+              console.log("shipping");
               this.shipingExist = true;
-            }else{
-              console.log('pickup');
+            } else {
+              console.log("pickup");
               this.pickupExist = true;
             }
           }
@@ -911,120 +1136,271 @@ export default {
       // console.log(ord);
       this.supplierUUID = ord.uuid;
     },
+    footerTwitterLink() {
+      profile
+        .footerTwitterLink()
+        .then((res) => {
+          // console.log(res);
+          this.twitter = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerYoutubeLink() {
+      profile
+        .footerYoutubeLink()
+        .then((res) => {
+          // console.log(res);
+          this.youtube = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerLinkedinLink() {
+      profile
+        .footerLinkedinLink()
+        .then((res) => {
+          // console.log(res);
+          this.linkedin = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerInstagramLink() {
+      profile
+        .footerInstagramLink()
+        .then((res) => {
+          // console.log(res);
+          this.instagram = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerPinterestLink() {
+      profile
+        .footerPinterestLink()
+        .then((res) => {
+          // console.log(res);
+          this.pinterest = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getSingleOrders();
+    this.footerTwitterLink();
+    this.footerYoutubeLink();
+    this.footerInstagramLink();
+    this.footerPinterestLink();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.data-holder {
-  padding: 20px;
-  background: #f7f7f7;
-}
-.serial-holder {
-  font-size: 20px;
-}
-h4 {
-  background: #f7f7f7;
-  margin-bottom: 2%;
-}
-section {
-  margin: 2% 0;
+.normaly {
+  .data-holder {
+    padding: 20px;
+    background: #f7f7f7;
+  }
+  .serial-holder {
+    font-size: 20px;
+  }
+  h4 {
+    background: #f7f7f7;
+    margin-bottom: 2%;
+  }
+  section {
+    margin: 2% 0;
+  }
+
+  .info {
+    font-size: 20px;
+    padding: 10px 0;
+    margin: 0 15px;
+  }
+  .info-data {
+    padding: 10px 0;
+  }
+  .info-colored {
+    background: #f7f7f7;
+  }
+  .supplier-info {
+    font-size: 20px;
+  }
+  table,
+  table tr,
+  table td {
+    text-align: center !important;
+  }
+  .print {
+    cursor: pointer;
+  }
+  .holder {
+    display: flex;
+    justify-content: space-between;
+    // padding: 20px;
+    font-size: 20px;
+  }
+  .supplier-data {
+    padding: 20px;
+  }
+  .modal-content {
+    display: none !important;
+  }
+
+  .modal-header {
+    align-content: center !important;
+    justify-content: center !important;
+  }
+
+  .branding {
+    display: none !important;
+  }
+
+  .replace {
+    padding: 8px 30px;
+    background: #303030;
+    color: #fff;
+    border: none;
+    border-image-source: none;
+    box-shadow: none;
+  }
+  .refund {
+    padding: 8px 30px;
+    background: $main-color;
+    color: #fff;
+    border: none;
+    border-image-source: none;
+    box-shadow: none;
+  }
+  .modal-header {
+    position: relative !important;
+    .close {
+      position: absolute !important;
+      right: 10px !important;
+      top: 10px !important;
+    }
+  }
+  .refund-image {
+    width: 25px;
+    height: 25px;
+    margin: 0 5px;
+  }
 }
 
-.info {
-  font-size: 20px;
-  padding: 10px 0;
-  margin: 0 15px;
-}
-.info-data {
-  padding: 10px 0;
-}
-.info-colored {
-  background: #f7f7f7;
-}
-.supplier-info {
-  font-size: 20px;
-}
-table,
-table tr,
-table td {
-  text-align: center !important;
-}
-.print {
-  cursor: pointer;
-}
-.holder {
-  display: flex;
-  justify-content: space-between;
-  // padding: 20px;
-  font-size: 20px;
-}
-.supplier-data {
-  padding: 20px;
-}
-.modal-content {
-  display: none !important;
-}
-.payment-method {
-  .methods-data {
-    background: #ecf0f1;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    text-align: left;
-    .info {
-      border-bottom: 1px dashed #c5c6c6;
-      padding: 1rem 0.3rem;
-      color: #312620;
-      font-weight: bold;
-    }
-    .total {
-      padding: 1rem 0;
-      color: #312620;
-      font-weight: bold;
-      .title {
-        font-size: 14pt;
-      }
-    }
-    .methods {
-      background-color: #fff;
+  .payment-method {
+    .methods-data {
+      background: #ecf0f1;
+      padding: 2rem;
       border-radius: 0.5rem;
-      border: 1px dashed #cfd0d0;
-      .method {
-        padding: 1rem;
-        border-bottom: 1px dashed #cfd0d0;
-        font-size: 11pt;
-        color: #544842;
-        .custom-radio {
-          flex-wrap: wrap;
+      text-align: left;
+      .info {
+        border-bottom: 1px dashed #c5c6c6;
+        padding: 1rem 0.3rem;
+        color: #312620;
+        font-weight: bold;
+      }
+      .total {
+        padding: 1rem 0;
+        color: #312620;
+        font-weight: bold;
+        .title {
+          font-size: 14pt;
         }
-        label {
-          cursor: pointer;
-        }
-        span {
-          width: 100%;
-          font-size: 10pt;
-          margin-top: -0.2rem;
-          opacity: 0.7;
-        }
-        .online-media {
-          img {
-            object-fit: contain;
+      }
+      .methods {
+        background-color: #fff;
+        border-radius: 0.5rem;
+        border: 1px dashed #cfd0d0;
+        .method {
+          padding: 1rem;
+          border-bottom: 1px dashed #cfd0d0;
+          font-size: 11pt;
+          color: #544842;
+          .custom-radio {
+            flex-wrap: wrap;
+          }
+          label {
+            cursor: pointer;
+          }
+          span {
+            width: 100%;
+            font-size: 10pt;
+            margin-top: -0.2rem;
+            opacity: 0.7;
+          }
+          .online-media {
+            img {
+              object-fit: contain;
+            }
           }
         }
       }
     }
   }
-}
-.modal-header {
-  align-content: center !important;
-  justify-content: center !important;
-}
 
-.branding {
-  display: none !important;
+.printing {
+  color: #000 !important;
+  display: none;
+  .wrapper {
+    border: 1px solid #000;
+    .bor {
+      padding: 5px 20px;
+    }
+    .supplier-data {
+      background: #f7f7f7;
+    }
+  }
+  .p-15 {
+    padding: 15px;
+  }
+  .p-20 {
+    padding: 20px;
+  }
+  .br {
+    border-right: 1px solid #000;
+  }
+  .bl {
+    border-left: 1px solid #000;
+  }
+  .bb {
+    border-bottom: 1px solid #000;
+  }
+  .bt {
+    border-top: 1px solid #000;
+  }
+  p {
+    color: #000;
+    font-weight: bold;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  .data-heading {
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+  .holder-row {
+    background: #fff;
+    border-bottom: 2px solid #ccc;
+  }
+  .borderred-bottom {
+    border-bottom: 2px solid #ccc;
+  }
+  .footer-social ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .footer-social ul li {
+    margin: 0 9px;
+  }
 }
 
 @media print {
@@ -1041,34 +1417,11 @@ table td {
     display: flex !important;
     justify-content: flex-end;
   }
-}
-.replace {
-  padding: 8px 30px;
-  background: #303030;
-  color: #fff;
-  border: none;
-  border-image-source: none;
-  box-shadow: none;
-}
-.refund {
-  padding: 8px 30px;
-  background: $main-color;
-  color: #fff;
-  border: none;
-  border-image-source: none;
-  box-shadow: none;
-}
-.modal-header {
-  position: relative !important;
-  .close {
-    position: absolute !important;
-    right: 10px !important;
-    top: 10px !important;
+  .normaly {
+    display: none;
   }
-}
-.refund-image {
-  width: 25px;
-  height: 25px;
-  margin: 0 5px;
+  .printing {
+    display: block;
+  }
 }
 </style>
