@@ -23,7 +23,7 @@
       </b-col>
     </b-row>
     <b-row v-else>
-      <b-col v-for="category in categories" :key="category.id" lg="3" sm="6" class="mb-3">
+      <b-col v-for="category in categories" :key="category.id" lg="3" sm="6" class=" custum-padding">
         <router-link :to="`/categories/${category.id}`">
           <CategoryCard
             :card="{ type: category.title }"
@@ -89,8 +89,11 @@ export default {
   }
   .custum-padding {
     padding-right: 0px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    img{
+      opacity: .5;
+    }
   }
 }
 

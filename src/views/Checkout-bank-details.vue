@@ -9,10 +9,10 @@
           <div class="col-md-6 col-sm-12 my-3">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <li v-if="order_serial">
+                <!-- <li v-if="order_serial">
                   {{ $t("payment.orderNumber") }} :
                   <span class="bold-result"> {{ order_serial }}</span>
-                </li>
+                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>

@@ -4,9 +4,9 @@
       <router-link
         class="img-holder"
         :to="{ path: '/details', query: { id: `${slider.id}` } }"
-        v-if="slider.product.image_path"
+        v-if="slider.current_main_image_path"
       >
-        <b-img :src="slider.product.image_path"> </b-img>
+        <b-img :src="slider.current_main_image_path"> </b-img>
       </router-link>
       <div class="card-info">
         <h4 class="main-header my-2" v-if="slider.product.title">
@@ -52,11 +52,11 @@ export default {
   display: inline-block;
   a {
     display: inline-block;
-    opacity: 0.7;
+    opacity: 1;
 
     border-radius: 50%;
     &:hover {
-      opacity: 1;
+      opacity: 0.5;
     }
     img {
       width: 150px;

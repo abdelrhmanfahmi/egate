@@ -14,7 +14,7 @@ export default {
     // let gestUser = localStorage.getItem("guest-id");
     this.$store.dispatch("getUserGuestId");
     this.$store.dispatch("getUserInfo");
-    let userExist = localStorage.getItem("userData");
+    let userExist = localStorage.getItem("buyerUserData");
     let guestUser = localStorage.getItem("guest-id");
     if (userExist === null && guestUser === null) {
       this.checkGuest();

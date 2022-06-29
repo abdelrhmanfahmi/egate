@@ -19,7 +19,7 @@
               </router-link>
             </div>
             <form class="row delivery-form">
-              <div class="col-6 form-group required" v-if="!userData">
+              <div class="col-6 form-group required" v-if="!buyerUserData">
                 <label for="firstName">{{ $t("payment.firstName") }}</label>
                 <input
                   type="text"
@@ -35,7 +35,7 @@
                   {{ error }}
                 </div>
               </div>
-              <div class="col-6 form-group required" v-if="!userData">
+              <div class="col-6 form-group required" v-if="!buyerUserData">
                 <label for="firstName">{{ $t("payment.lastName") }}</label>
                 <input
                   type="text"
@@ -51,7 +51,7 @@
                   {{ error }}
                 </div>
               </div>
-              <div class="col-12 form-group" v-if="!userData">
+              <div class="col-12 form-group" v-if="!buyerUserData">
                 <!-- <label for="companyName">
                   {{ $t("payment.category") }} ({{ $t("payment.optional") }})
                 </label> -->
@@ -230,7 +230,7 @@
 
               <div
                 class="col-12 form-group custom-control custom-checkbox"
-                v-if="userData"
+                v-if="buyerUserData"
               >
                 <!-- <input
                   type="checkbox"
@@ -539,11 +539,11 @@ export default {
     this.paymentFormData.postal_code = this.storedData.pin_code
       ? this.storedData.pin_code
       : null;
-    this.paymentFormData.first_name = this.userData.first_name
-      ? this.userData.first_name
+    this.paymentFormData.first_name = this.buyerUserData.first_name
+      ? this.buyerUserData.first_name
       : "";
-    this.paymentFormData.last_name = this.userData.last_name
-      ? this.userData.last_name
+    this.paymentFormData.last_name = this.buyerUserData.last_name
+      ? this.buyerUserData.last_name
       : "";
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl

@@ -50,11 +50,26 @@
             :to="`/suppliers/${supplier.id}`"
             class="d-flex justify-content-center align-items-center text-center"
           >
-            <img
-              :src="supplier.image_path"
-              class="supplier-image"
-              alt="supplier image"
-            />
+            
+
+            <div class="" v-if="supplier.image_path !== null">
+              <b-img
+                :src="supplier.image_path"
+                class="supplier-image"
+                alt="supplier image"
+              >
+              </b-img>
+            </div>
+            <div
+              class=""
+              v-else-if="
+                supplier.image_path == null &&
+                supplier.product.image_path !== null
+              "
+            >
+              <b-img :src="supplier.product.image_path" class="offer-image">
+              </b-img>
+            </div>
           </router-link>
         </div>
       </VueSlickCarousel>
@@ -146,12 +161,11 @@ export default {
       auth
         .getHomeDeadline()
         .then((res) => {
-          // console.log("slide data", res); 
+          // console.log("slide data", res);
           this.sliders = res.data.items.deals.data;
-          this.deadline = res.data.items.timer_date
+          this.deadline = res.data.items.timer_date;
 
           // this.deadline = new Date(res.data.items.timer_date)
-
 
           // console.log("timer" , res.data.items.timer_date);
           // console.log("this.deadline" , moment(new Date(res.data.items.timer_date)).format(
@@ -183,7 +197,7 @@ export default {
   text-align: center;
   padding: 20px 5px;
   .product-info {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     small {
       color: $main-color;
       font-size: 12px;
@@ -191,13 +205,13 @@ export default {
     }
   }
   .img-suplier {
-    opacity: 0.75;
+    opacity: 1;
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     display: block;
     text-align: center;
     &:hover {
-      opacity: 1;
+      opacity: 0.75;
     }
   }
 }
@@ -211,9 +225,9 @@ export default {
   // height: 150px;
   // border-radius: 50%;
   transition: all 0.3s ease-in-out;
-  opacity: 0.5;
+  opacity: 1;
   &:hover {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
 </style>

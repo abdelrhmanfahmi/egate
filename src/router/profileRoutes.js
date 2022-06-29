@@ -18,6 +18,9 @@ import ResidentsB2b from "../views/profile/ResidentsB2b.vue";
 import SupplierCorrespondenceB2b from "../views/profile/SupplierCorrespondenceB2b.vue";
 import OrdersListsB2b from "../views/profile/OrdersListsB2b.vue";
 import GiftCardB2b from "../views/profile/GiftCardB2b.vue";
+import ReturnRequests from "../views/profile/ReturnRequests.vue";
+import Wallet from "../views/profile/Wallet.vue";
+
 
 
 
@@ -104,6 +107,17 @@ export default {
       name: "productReviews",
       component: productReviews,
     },
+    {
+      path: "/profile/ReturnRequests",
+      name: "ReturnRequests",
+      component: ReturnRequests,
+    },
+    {
+      path: "/profile/Wallet",
+      name: "Wallet",
+      component: Wallet,
+    },
+    
     
   ],
 };

@@ -10,7 +10,7 @@
         <!-- <form class="review-form row">
           <div class="form-group mb-4 col-12">
             <label for="rating">{{ $t("singleProduct.ratingLabel") }}</label>
-            <label for="rating"><span>{{ userData.first_name }}</span> {{ userData.last_name }}</label>
+            <label for="rating"><span>{{ buyerUserData.first_name }}</span> {{ buyerUserData.last_name }}</label>
             <b-form-rating id="rating" style="color: #acacac"></b-form-rating>
           </div>
           <div class="form-group mb-4 col-12">

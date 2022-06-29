@@ -21,7 +21,12 @@
           <br />
           {{ $t("payment.waitPurchace2") }}
         </p>
-        <router-link to="">
+        <router-link to="/profile/ordersListsB2b" v-if="buyerUserData && buyerUserData ==='buyer'">
+          <b-button variant="outline-success mt-4">
+            {{ $t("payment.orderTrack") }}
+          </b-button>
+        </router-link>
+        <router-link to="/profile/ordersListsB2b" v-if="buyerUserData && buyerUserData ==='b2c'">
           <b-button variant="outline-success mt-4">
             {{ $t("payment.orderTrack") }}
           </b-button>
@@ -41,8 +46,16 @@
             <font-awesome-icon icon="fa-solid fa-exclamation" />
           </i>
         </div>
-        <h1 class="mt-3">
+        <h1 class="mt-3" v-if="failReason == null">
           {{ $t("payment.fail1") }}
+        </h1>
+        <h1 class="mt-3" v-else>
+          <p>
+            {{ $t("payment.fail1") }}
+          </p>
+           <p>
+             {{ failReason }}
+           </p>
         </h1>
         <!-- <p>
           {{ $t("payment.waitPurchace1") }}
@@ -66,6 +79,7 @@ export default {
     return {
       success: false,
       fail: false,
+      failReason:null
     };
   },
   methods: {
@@ -82,6 +96,7 @@ export default {
             this.success = true;
             this.fail = false;
           } else {
+            this.failReason = res.data.items.status_lang
             this.success = false;
             this.fail = true;
           }

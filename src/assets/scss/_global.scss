@@ -348,15 +348,15 @@ p {
     min-width: 100% !important;
   }
 }
-.spinner{
+.spinner {
   min-height: 50vh;
 }
 
-.price-after{
+.price-after {
   text-decoration: line-through;
   margin: 0 5px;
   color: $main_color;
-  font-size:12pt;
+  font-size: 12pt;
 }
 
 slick-arrow {
@@ -418,7 +418,6 @@ slick-arrow {
   border-right: 8px solid rgba(0, 0, 0, 0.8);
 }
 
-
 .suppliers {
   .slick-track {
     margin-top: 50px;
@@ -428,6 +427,21 @@ slick-arrow {
   }
 }
 
-.showAllLink{
+.showAllLink {
   color: #8c8c8c;
+}
+
+img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+@media print {
+  .main-header , .main-nav , footer {
+    display: none !important;
+  }
 }

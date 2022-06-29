@@ -301,15 +301,15 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
 
@@ -326,7 +326,8 @@ export default {
             this.form = {};
              if(res.status == 200){
             setTimeout(() => {
-              this.$router.replace('/profile/documents')
+              // this.$router.replace('/profile/documents')
+              this.$router.replace('/')
             }, 500);
           }
           })

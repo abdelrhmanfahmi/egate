@@ -14,7 +14,7 @@ export default {
   phoneNumber: "Phone number",
   email: "Email",
   deliverySameAddress: "Delivery For The Same Address?",
-  paymentData: "Payment data",
+  paymentData: "Payment Method",
   notes: "Notes",
   total: "Total",
   discount: "Discount",
@@ -26,7 +26,7 @@ export default {
   requestReceipt: "Payment with request receipt",
   onlinePayment: "Online payment",
   accept: "I accept",
-  termsAndConditions: "terms and conditions",
+  termsAndConditions: "Terms and Conditions",
   checkout: "Checkout",
   delivery: "Shipping",
   pickup: "Pick-up",
@@ -56,5 +56,7 @@ export default {
   paymentStatus:'Payment Status',
   bankImageDownload:'Download Transfer Image',
   bankTransImage:'Bank transfer image',
-  bankComment:'Bank transfer notes'
+  bankComment:'Bank transfer notes',
+  orderStatus:'Order Status',
+  cancelOrder:'Cancel'
 };

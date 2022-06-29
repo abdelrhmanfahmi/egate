@@ -33,7 +33,7 @@
                             />
                             <span>{{ $t("profile.newAddress") }}</span>
                           </label>
-                          <label v-if="userData">
+                          <label v-if="buyerUserData">
                             <input
                               type="radio"
                               value="existingAddresses"
@@ -54,7 +54,7 @@
                               <b-form-select-option
                                 selected
                                 disabled
-                                :value="$t('payment.selectExist')"
+                                value="null"
                                 >{{
                                   $t("payment.selectExist")
                                 }}</b-form-select-option
@@ -233,7 +233,9 @@
                                   />
                                   <div
                                     class="error"
-                                    v-for="(error, index) in errors.address_line_1"
+                                    v-for="(
+                                      error, index
+                                    ) in errors.address_line_1"
                                     :key="index"
                                   >
                                     {{ error }}
@@ -316,6 +318,7 @@
                         <span class="required text-danger">*</span> -->
                                   <b-form-input
                                     id="postCode"
+                                    type="number"
                                     v-model="form.pin_code"
                                     :placeholder="$t('profile.postCode') + '*'"
                                   />
@@ -351,7 +354,7 @@
                             </b-row>
 
                             <b-button
-                              v-if="userData"
+                              v-if="buyerUserData"
                               type="submit"
                               @click.prevent="createAdress()"
                               class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
@@ -384,12 +387,12 @@
                           {{ $t("cart.checkFees") }}
                         </button> -->
                           </form>
-                          <h6
-                            v-if="!userData && localStoreFail"
+                          <!-- <h6
+                            v-if="!buyerUserData && localStoreFail"
                             class="localStoreFail mt-3 error"
                           >
                             {{ $t("cart.fillData") }}
-                          </h6>
+                          </h6> -->
                         </div>
 
                         <!-- <div
@@ -709,7 +712,7 @@
                           </td>
                           <td v-else>-</td>
                           <td>
-                            <Counter
+                            <Counter :minimum="item.min_order_quantity ? item.min_order_quantity : 1"
                               :quantity="item.quantity"
                               :product="item"
                               class="justify-content-center"
@@ -780,14 +783,17 @@
                                   @change="orderType(supplier.supplier_id)"
                                   class="d-flex align-items-baseline"
                                 >
-                                  <label>
+                                  <label
+                                    @click="shippingStore(supplier)"
+                                    class="shipping-label"
+                                  >
                                     <input
-                                      @change="changeShippping"
+                                      @change="changeShipping($event)"
                                       @input="shippingStore(supplier)"
                                       type="radio"
                                       value="0"
                                       :name="'types-' + index"
-                                      v-model="ratingNum[index]"
+                                      v-model="ratingNum[index].delivery_type"
                                       class="checkFirst"
                                       id="check"
                                     />
@@ -795,22 +801,24 @@
                                       $t("payment.delivery")
                                     }}</span>
                                   </label>
+
                                   <label>
                                     <input
-                                      @input="
-                                        getSupplierAddress(supplier.supplier_id)
-                                      "
-                                      @change="changePackUp"
+                                      @input="changePickup($event, supplier)"
+                                      @click="changePickup($event, supplier)"
                                       type="radio"
                                       value="1"
                                       :name="'types-' + index"
-                                      v-model="ratingNum[index]"
+                                      v-model="ratingNum[index].delivery_type"
                                     />
                                     <span class="mx-2">{{
                                       $t("payment.pickup")
                                     }}</span>
                                   </label>
                                   <b-form-select
+                                    v-model="
+                                      ratingNum[index].supplier_address_id
+                                    "
                                     @input="selectAddressUUID"
                                     @change="selectType(supplier, index)"
                                     class="w-100 mt-2 supplierAddresses d-none"
@@ -818,15 +826,15 @@
                                     <b-form-select-option
                                       selected
                                       disabled
-                                      :value="$t('payment.selectExist')"
-                                      >{{
-                                        $t("payment.selectExist")
-                                      }}</b-form-select-option
+                                      value="null"
+                                      ><span>{{
+                                        $t("cart.selectPickupAddress")
+                                      }}</span></b-form-select-option
                                     >
                                     <b-form-select-option
                                       v-for="(
                                         address, index
-                                      ) in selectedSupplierAddresses"
+                                      ) in supplier.supplier_addresses"
                                       :key="index"
                                       :value="address"
                                       >{{ address.country.title }} ,
@@ -909,7 +917,10 @@
                     </router-link> -->
                       </div>
                       <form class="row delivery-form">
-                        <div class="col-6 form-group required" v-if="!userData">
+                        <div
+                          class="col-6 form-group required"
+                          v-if="!buyerUserData"
+                        >
                           <label for="firstName">{{
                             $t("payment.firstName")
                           }}</label>
@@ -927,7 +938,10 @@
                             {{ error }}
                           </div>
                         </div>
-                        <div class="col-6 form-group required" v-if="!userData">
+                        <div
+                          class="col-6 form-group required"
+                          v-if="!buyerUserData"
+                        >
                           <label for="firstName">{{
                             $t("payment.lastName")
                           }}</label>
@@ -945,7 +959,7 @@
                             {{ error }}
                           </div>
                         </div>
-                        <!-- <div class="col-12 form-group" v-if="!userData">
+                        <!-- <div class="col-12 form-group" v-if="!buyerUserData">
                       <label for="companyName">
                   {{ $t("payment.category") }} ({{ $t("payment.optional") }})
                 </label>
@@ -1031,7 +1045,7 @@
                   {{ error }}
                 </div>
               </div> -->
-                        <!-- <div class="col-12 form-group required" v-if="!userData">
+                        <!-- <div class="col-12 form-group required" v-if="!buyerUserData">
                       <label for="address">{{ $t("payment.address") }}</label>
                       <input
                         type="text"
@@ -1051,7 +1065,7 @@
                         <!-- <div
                       :class="{ 'col-12': checkType }"
                       class="col-6 form-group"
-                      v-if="checkType && !userData"
+                      v-if="checkType && !buyerUserData"
                     >
                       <label for="postalCode">{{
                         $t("payment.postalCode")
@@ -1072,7 +1086,7 @@
                     </div> -->
 
                         <div class="col-5 form-group">
-                          <label for="email">{{ $t("payment.email") }}</label>
+                          <label for="email">{{ $t("payment.email") }} <span class="requried text-danger" v-if="buyerUserData">*</span></label>
                           <input
                             type="email"
                             class="form-control"
@@ -1164,7 +1178,7 @@
 
                         <div
                           class="col-12 form-group custom-control custom-checkbox"
-                          v-if="!userData"
+                          v-if="!buyerUserData"
                         >
                           <!-- <input
                   type="checkbox"
@@ -1232,7 +1246,29 @@
                 <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
               </div> -->
                         <div class="methods">
-                          <div class="method" v-if="userData">
+                          <div class="method" v-if="buyerUserData && walletData >= totalPaymentReplacement">
+                            <div
+                              class="custom-control custom-radio custom-control-inline"
+                            >
+                              <input
+                                type="radio"
+                                id="paymentMethod0"
+                                name="paymentMethod"
+                                class="custom-control-input"
+                                v-model="paymentFormData.payment_type"
+                                value="wallet"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="paymentMethod0"
+                              >
+                                {{ $t("profile.wallet") }}
+                                <sup>*</sup>
+                              </label>
+                              <span>{{walletData}} {{currency}}</span>
+                            </div>
+                          </div>
+                          <div class="method" v-if="buyerUserData">
                             <div
                               class="custom-control custom-radio custom-control-inline"
                             >
@@ -1277,33 +1313,37 @@
                             </div>
                           </div>
                           <div
-                            class="method d-flex justify-content-between align-content-center"
+                            class="method row justify-content-between align-content-center"
                           >
-                            <div
-                              class="custom-control custom-radio custom-control-inline"
-                            >
-                              <input
-                                type="radio"
-                                id="paymentMethod3"
-                                name="paymentMethod"
-                                class="custom-control-input"
-                                v-model="paymentFormData.payment_type"
-                                value="visa"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="paymentMethod3"
+                            <div class="col-md-8 col-xs-12">
+                              <div
+                                class="custom-control custom-radio custom-control-inline"
                               >
-                                {{ $t("payment.onlinePayment") }}
-                                <sup>*</sup>
-                              </label>
+                                <input
+                                  type="radio"
+                                  id="paymentMethod3"
+                                  name="paymentMethod"
+                                  class="custom-control-input"
+                                  v-model="paymentFormData.payment_type"
+                                  value="visa"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="paymentMethod3"
+                                >
+                                  {{ $t("payment.onlinePayment") }}
+                                  <sup>*</sup>
+                                </label>
+                              </div>
                             </div>
-                            <div class="online-media">
-                              <img
-                                src="@/assets/images/cart.png"
-                                alt=""
-                                srcset=""
-                              />
+                            <div class="col-md-4 col-xs-12">
+                              <div class="online-media">
+                                <img
+                                  src="@/assets/images/cart.png"
+                                  alt=""
+                                  srcset=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1356,11 +1396,18 @@
                             <b-button
                               size="sm"
                               variant="outline-success"
-                              @click="ok() ; acceptMyTerms()"
+                              @click="
+                                ok();
+                                acceptMyTerms();
+                              "
                             >
                               <h6 class="m-0">
-                                <span class="mx-1">{{ $t("payment.accept") }}</span>
-                                <span class="mx-1">{{ $t("payment.termsAndConditions") }}</span>
+                                <span class="mx-1">{{
+                                  $t("payment.accept")
+                                }}</span>
+                                <span class="mx-1">{{
+                                  $t("payment.termsAndConditions")
+                                }}</span>
                               </h6>
                             </b-button>
                           </template>
@@ -1433,7 +1480,7 @@
                 </table>
                 <div class="checkout d-flex">
                   <!-- <router-link
-                v-if="userData"
+                v-if="buyerUserData"
                 to="/order-shipping"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
@@ -1442,13 +1489,13 @@
                   <!-- <a
                 @click="showModal = true"
                 @ok="$refs.cartModal.onSubmit()"
-                v-if="!userData"
+                v-if="!buyerUserData"
                 class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
               >
                 {{ $t("cart.next") }}
               </a> -->
 
-                  <div class="submit" v-if="userData">
+                  <div class="submit" v-if="buyerUserData">
                     <b-button
                       type="submit"
                       class="login-button dark"
@@ -1577,7 +1624,6 @@ export default {
       addresses: null,
       submitted: false,
       supplierAddress: null,
-      selectedSupplierAddresses: null,
       suppier_id: null,
       selectedInputText: "",
       firstFees: null,
@@ -1628,6 +1674,7 @@ export default {
       totalDiscountReplacement: null,
       localStoreFail: false,
       hasProducts: false,
+      walletData:null
     };
   },
   mounted() {
@@ -1646,49 +1693,54 @@ export default {
     // payment
 
     this.paymentGetAllCities();
-    // let this.userData = localStorage.getItem("userData");
-    this.paymentFormData.country = this.userData
-      ? this.userData.country_id
+    // let this.buyerUserData = localStorage.getItem("buyerUserData");
+    this.paymentFormData.country = this.buyerUserData
+      ? this.buyerUserData.country_id
       : "";
-    this.paymentFormData.governorate = this.userData
-      ? this.userData.region_id
+    this.paymentFormData.governorate = this.buyerUserData
+      ? this.buyerUserData.region_id
       : "";
-    this.paymentFormData.city = this.userData ? this.userData.city_id : "";
+    this.paymentFormData.city = this.buyerUserData
+      ? this.buyerUserData.city_id
+      : "";
 
     this.paymentFormData.suppliers = this.mySuppliers.suppliers;
-    this.paymentFormData.address_uuid = localStorage.getItem("addressUUID")
-      ? localStorage.getItem("addressUUID")
+    this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID")
+      ? localStorage.getItem("globalAddressUUID")
       : "";
 
-    this.paymentFormData.postal_code = this.userData
-      ? this.userData.pin_code
+    this.paymentFormData.postal_code = this.buyerUserData
+      ? this.buyerUserData.pin_code
       : null;
-    this.paymentFormData.first_name = this.userData
-      ? this.userData.first_name
+    this.paymentFormData.first_name = this.buyerUserData
+      ? this.buyerUserData.first_name
       : "";
-    this.paymentFormData.last_name = this.userData
-      ? this.userData.last_name
+    this.paymentFormData.last_name = this.buyerUserData
+      ? this.buyerUserData.last_name
       : "";
-    this.paymentFormData.phone = this.userData
-      ? this.userData.mobile_number.replace("+20", "").replace("+965", "")
+    this.paymentFormData.phone = this.buyerUserData
+      ? this.buyerUserData.mobile_number.replace("+20", "").replace("+965", "")
       : "";
 
-    this.paymentFormData.country_code = this.userData
-      ? this.userData.phone_prefix
+    this.paymentFormData.country_code = this.buyerUserData
+      ? this.buyerUserData.phone_prefix
       : "";
-    this.paymentFormData.email = this.userData ? this.userData.email : "";
+    this.paymentFormData.email = this.buyerUserData
+      ? this.buyerUserData.email
+      : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
 
     this.getTerms();
 
-    console.log(this.paymentFormData.country_code);
+    // console.log(this.paymentFormData.country_code);
 
-    localStorage.setItem("addressUUID", this.userData.uuid);
+    localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
-    // let mtNumber = this.userData.mobile_number.substr(0,3);
+    // let mtNumber = this.buyerUserData.mobile_number.substr(0,3);
     // document.getElementById()
+    this.getWallet()
   },
   methods: {
     changeCoupon($event) {
@@ -1710,7 +1762,7 @@ export default {
     },
 
     getCartProducts() {
-      this.loading = true;
+      // this.loading = true;
       globalAxios
         .post(`cart`)
         .then((res) => {
@@ -1723,10 +1775,18 @@ export default {
             this.hasProducts = true;
           }
 
-          console.log("cart_items", res.data.items.cart_items);
+          // console.log("cart_items", res.data.items.cart_items);
           // console.log("res", res);
 
-          this.cartItems = res.data.items.cart_items;
+          // console.log(res);
+          // this.cartItems = this.cartItems = res.data.items.cart_items
+          this.cartItems = res.data.items.cart_items.map((cartItem) => {
+            return {
+              ...cartItem,
+              supplier_addresses: [],
+            };
+          });
+          // console.log(this.cartItems);
           this.priceData = res.data.items;
           this.cart_sub_total = res.data.items.cart_sub_total;
           this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
@@ -1735,29 +1795,53 @@ export default {
 
           this.totalPaymentReplacement = this.totalPayment;
           this.totalDiscountReplacement = this.totalDiscount;
+          this.ratingNum = res.data.items.cart_items.map(() => {
+            return {
+              delivery_type: "0",
+              supplier_address_id: null,
+            };
+          });
+
+          
         })
         .then(() => {
-          if (this.userData && this.userData.address_uuid) {
+          if (this.buyerUserData && this.buyerUserData.address_uuid) {
             this.getLoggedFirstShippingFees();
           }
         })
         .finally(() => {
-          this.loading = false;
+          // this.loading = false;
           setTimeout(() => {
-            // var checkboxes = document.getElementsByClassName("checkFirst");
+            // checkAll
+            var checkboxes = document.getElementsByClassName("checkFirst");
+
+            // checkboxes[0].parentElement.click();
+            // checkboxes[1].parentElement.click();
+            // console.log("checkboxes" , checkboxes);
+
+            for (let index = 0; index < checkboxes.length; index++) {
+              const element = checkboxes[index];
+              element.parentElement.click()
+              // console.log(element);
+            }
+
             var existingAddresses =
               document.querySelector(".existingAddresses");
-            // for (var i = 0; i < checkboxes.length; i++) {
-            //   checkboxes[i].checked = true;
-            // }
-            if (this.addresses !== null) {
+            for (var i = 0; i < checkboxes.length; i++) {
+              // checkboxes[i].checked = true;
+              // checkboxes[i].parentElement.click();
+              // console.log(checkboxes[i]);
               existingAddresses.click();
+              existingAddresses.checked = true;
             }
-          }, 100);
-          setTimeout(() => {
-            this.shippingStore();
-          }, 200);
-          if (localStorage.getItem("userData") === null) {
+            if (this.addresses !== null) {
+              // checkboxes.submit();
+            }
+          }, 500);
+          // setTimeout(() => {
+          //   this.shippingStore();
+          // }, 200);
+          if (localStorage.getItem("buyerUserData") === null) {
             if (document.querySelector(".GuestNewAddress") !== null) {
               document.querySelector(".GuestNewAddress").click();
             }
@@ -1774,14 +1858,14 @@ export default {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
-      this.loading = true;
+      // this.loading = true;
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
       }, 1000);
-      setTimeout(() => {
-        this.loading = false;
-      }, 1200);
+      // setTimeout(() => {
+      //   this.loading = false;
+      // }, 1200);
     },
     removeDisabled() {
       let myInput = this.selectedInput;
@@ -1806,6 +1890,14 @@ export default {
       }
       document.querySelector(".couponValid").innerHTML = "";
       document.querySelector(".couponNotValid").innerHTML = "";
+
+      let enteredCoupons = document.getElementsByClassName("couponNotValid");
+      if (enteredCoupons) {
+        for (let index = 0; index < enteredCoupons.length; index++) {
+          const element = enteredCoupons[index];
+          element.innerHTML = "";
+        }
+      }
     },
     checkCoupon(supplier) {
       // let data = {
@@ -1829,6 +1921,7 @@ export default {
 
           // console.log(res.data.items.total_cart.total_discount);
           if (res.status == 200) {
+            localStorage.setItem("cou", this.selectedCoupon);
             if (res.data.items.total_cart.total_discount !== 0) {
               this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
                 ".couponValid"
@@ -1896,12 +1989,14 @@ export default {
         });
     },
     ChangeQ(myQuantity) {
-      this.myQuantity = myQuantity;
+      if(myQuantity > 0){
+        this.myQuantity = myQuantity;
+      }
       // console.log(myQuantity);
       this.cartItems = null;
-      setTimeout(() => {
-        this.getCartProducts();
-      }, 300);
+      
+      this.getCartProducts();
+      
     },
     closeModal() {
       this.showModal = false;
@@ -1911,16 +2006,34 @@ export default {
     },
 
     changeAddress() {
+      document.getElementsByClassName("feedsResult").innerHTML = "";
+      // console.log(document.querySelector('.feedsResult').classList.contains('d-block'));
+      // if(document.querySelectorAll('.feedsResult').classList.contains('d-block')){
+      //   document.querySelectorAll('.feedsResult').classList.remove('d-block')
+      //   document.querySelectorAll('.feedsResult').classList.add('d-none')
+      // }
+      var doc = document.querySelectorAll(".feedsResult");
+      // console.log(doc);
+      // var notes = null;
+      for (var i = 0; i < doc.length; i++) {
+        if (doc[i].classList.contains("d-block")) {
+          // notes = doc.childNodes[i];
+          // break;
+          doc[i].classList.remove("d-block");
+          doc[i].innerHTML = "";
+        }
+      }
+
       this.newForm = this.selectedAddress;
       // console.log("old selected address", this.selectedAddress);
       // localStorage.setItem(
       //   "guestAddressData",
       //   JSON.stringify(this.selectedAddress)
       // );
-      localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+      localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
 
       setTimeout(() => {
-        let address_uuid = localStorage.getItem("addressUUID");
+        let address_uuid = localStorage.getItem("globalAddressUUID");
 
         suppliers
           .getFirstShippingFees(address_uuid)
@@ -1940,12 +2053,15 @@ export default {
               myData += parseFloat(element);
             }
 
+            this.totalPaymentReplacement= this.totalPayment
+
             // this.shippingCartFee = myData + 'reda';
             this.shippingCartFee = myData;
 
             // this.cart_sub_total = res.data.items.cart_sub_total;
             // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
             this.totalPaymentReplacement += parseFloat(myData);
+            
 
             // console.log("myData", myData);
             // console.log("this.totalPayment", this.totalPayment.toFixed(3));
@@ -1977,93 +2093,56 @@ export default {
       }, 200);
     },
     selectAddressUUID(myselectAddressUUID) {
+      // console.log(myselectAddressUUID);
       this.supplierAddress = myselectAddressUUID.uuid;
       this.address_uuid = myselectAddressUUID.uuid;
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
     },
-    selectType: function (supplier, index) {
-      // alert('clicked')
+    selectType: function (supplier) {
       // console.log(this.supplierAddress);
       let newRating = {
         // name: supplier.supplier_name,
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
-        shipping_type: this.ratingNum[index],
+        shipping_type: 1,
         coupon: supplier.coupon ? supplier.coupon : "",
-        point_of_sell_uuid: this.supplierAddress,
-        // supplier_address_uuid: this.supplierAddress
-        //   ? this.supplierAddress.uuid
-        //   : localStorage.getItem('addressUUID'),
+        // point_of_sell_uuid: this.supplierAddress,
+        point_of_sell_uuid:
+          localStorage.getItem("addressUUID") !== null ||
+          localStorage.getItem("addressUUID") !== undefined
+            ? localStorage.getItem("addressUUID")
+            : "",
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-      // console.log(newRating);
-      // console.log(supplier);
-      const type = document.querySelectorAll(`input[name="types-${index}"]`);
-      // let myArray = [];
-      for (const f of type) {
-        if (f.checked) {
-          // let myArray = [f.value]
-          // console.log(JSON.stringify(f.value));
-          // console.log(myArray);
-        }
-      }
-      // localStorage.setItem("suppliers", JSON.stringify(supplier.supplier_id));
-
-      // setTimeout(() => {
-      //   let address_uuid = localStorage.getItem("addressUUID");
-
-      //   suppliers
-      //     .getFirstShippingFees(address_uuid)
-      //     .then((res) => {
-      //       // console.log(res);
-
-      //       this.firstFees = res.data.items;
-      //       this.sucessMsg(res.data.message);
-
-      //       let arr = res.data.items;
-      //       var size = Object.values(arr);
-      //       // console.log("arr" , size);
-      //       let myData = 0;
-      //       for (let index = 0; index < size.length; index++) {
-      //         const element = size[index].shipping_fee;
-      //         // console.log(`element${index}`, element);
-      //         myData += parseFloat(element);
-      //       }
-
-      //       // this.shippingCartFee = myData + 'reda';
-      //       this.shippingCartFee = myData;
-
-      //       // this.cart_sub_total = res.data.items.cart_sub_total;
-      //       // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
-      //       this.totalPaymentReplacement += parseFloat(myData);
-
-      //       console.log("myData", myData);
-      //       console.log("this.totalPayment", this.totalPayment.toFixed(3));
-      //       if (myData == 0) {
-      //         this.totalPaymentReplacement = this.totalPayment;
-      //       }
-      //       console.log(
-      //         "this.totalPaymentReplacement",
-      //         this.totalPaymentReplacement.toFixed(3)
-      //       );
-      //       // this.totalPayment += myData;
-      //       // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
-
-      //       // console.log("myData", myData);
-      //     })
-      //     .catch((err) => {
-      //       console.log(err);
-      //       let error = Object.values(err)[2].data;
-      //       this.errors = error.items;
-      //       this.errMsg(error.message);
-      //     });
-      // }, 200);
-
+      // / console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
-      // console.log(supplier);
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        // console.log("element" , element.id);
+
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
+        }
+      }
     },
 
     // address functions
@@ -2077,7 +2156,7 @@ export default {
           const element2 = element.is_default;
           if (element2) {
             this.selectedAddress = element;
-            localStorage.setItem("addressUUID", this.selectedAddress.uuid);
+            localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
           }
         }
       });
@@ -2092,15 +2171,15 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
 
@@ -2108,7 +2187,7 @@ export default {
 
     // createAdress
     createAdress() {
-      let address_uuid = localStorage.getItem("addressUUID");
+      let address_uuid = localStorage.getItem("globalAddressUUID");
       (this.form.is_sale_point = false),
         profile
           .createAdress(this.form)
@@ -2126,7 +2205,7 @@ export default {
                 this.expanded = false;
               }, 500);
             }
-            localStorage.setItem("addressUUID", res.data.items.uuid);
+            localStorage.setItem("globalAddressUUID", res.data.items.uuid);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -2147,28 +2226,32 @@ export default {
         setTimeout(() => {
           this.expanded = false;
         }, 500);
+        // document.getElementsByClassName('feedsResult').innerHTML = ''
+        // document.getElementsByClassName('feedsResult').classList.remove('d-block')
+        // document.getElementsByClassName('feedsResult').classList.add('d-none')
         this.getGuestFirstShippingFees();
 
-        this.localStoreFail = false;
+        this.localStoreFail = true;
       } else {
         this.errMsg(this.$t("cart.fillData"));
-        this.localStoreFail = true;
+        this.localStoreFail = false;
       }
     },
     getSupplierAddress(supplierId) {
-      this.selectedAddress = supplierId;
+      // this.selectedAddress = supplierId;
 
       // console.log(this.supplierAddress);
       suppliers
         .getSupplierAddress(supplierId)
         .then((res) => {
           // console.log(res);
-          this.selectedSupplierAddresses = res.data.items;
-          if (
-            res.data.items.length == 0 ||
-            res.data.items == ""
-          ) {
-            
+          // this.selectedSupplierAddresses = res.data.items;
+          // console.log(this.cartItems);
+          this.cartItems.forEach((item, index) => {
+            if (item.supplier_id == supplierId)
+              this.cartItems[index].supplier_addresses = res.data.items;
+          });
+          if (res.data.items.length == 0 || res.data.items == "") {
             this.availablePickup = false;
             // console.log(this.selectedInput.parentElement.parentElement);
             this.selectedInput.parentElement.parentElement
@@ -2187,12 +2270,12 @@ export default {
               .querySelector(".feedsResult")
               .classList.add("d-none");
 
-              this.selectedInput.parentElement.parentElement.querySelector(
-              ".pickupNoData"
-            ).classList.remove('d-none')
-              this.selectedInput.parentElement.parentElement.querySelector(
-              ".pickupNoData"
-            ).classList.add('d-block')
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".pickupNoData")
+              .classList.remove("d-none");
+            this.selectedInput.parentElement.parentElement
+              .querySelector(".pickupNoData")
+              .classList.add("d-block");
 
             this.selectedInput.parentElement.parentElement.querySelector(
               ".pickupNoData"
@@ -2200,22 +2283,29 @@ export default {
 
             // this.selectedInput.parentElement.classList.add("d-none");
             //  console.log(this.selectedInput.parentElement.parentElement.querySelector('.feedsResult'));
-            this.selectedInput.parentElement.parentElement.querySelector(
-              ".feedsResultShipping"
-            ).innerHTML = ``;
+            // console.log(this.selectedInput.parentElement.parentElement.querySelector(
+            //   ".feedsResultShipping"
+            // ));
+            if (
+              this.selectedInput.parentElement.parentElement.querySelector(
+                ".feedsResultShipping"
+              )
+            ) {
+              this.selectedInput.parentElement.parentElement.querySelector(
+                ".feedsResultShipping"
+              ).innerHTML = ``;
+            }
           } else {
             this.selectedInput.parentElement.parentElement.querySelector(
               ".feedsResultShipping"
             ).innerHTML = ``;
-            
           }
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    changeShippping($event) {
-      
+    changeShipping($event) {
       let input = $event.target;
 
       this.selectedInput = input;
@@ -2229,17 +2319,20 @@ export default {
 
       this.expanded = true;
 
-
       //  let address_uuid = localStorage.getItem("addressUUID");
 
       let myResult =
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult')
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".feedsResult"
+        );
 
+      let myPickupData =
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".supplierAddresses"
+        );
 
-          let myPickupData = this.selectedInput.parentElement.parentElement.querySelector('.supplierAddresses')
-
-          myPickupData.classList.remove('d-block')
-          myPickupData.classList.add('d-none')
+      myPickupData.classList.remove("d-block");
+      myPickupData.classList.add("d-none");
 
       let data = {
         country: this.form.country_id,
@@ -2260,8 +2353,8 @@ export default {
             " " +
             this.currency;
 
-            myResult.classList.remove('d-none')
-            myResult.classList.add('d-block')
+          myResult.classList.remove("d-none");
+          myResult.classList.add("d-block");
 
           if (res.data.items == [] || res.data.items == "") {
             myResult.innerHTML = this.$t("profile.deliveryFeesText");
@@ -2269,6 +2362,9 @@ export default {
 
           this.errors = [];
           this.firstFees = res.data.items;
+
+          
+          // this.shippingCartFee = Number(res.data.items.shepping_fee)
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -2276,23 +2372,7 @@ export default {
           this.errMsg(err.message);
         });
     },
-    shippingStore(supplier) {
-      
-      let newRating = {
-        id: supplier.supplier_id,
-        supplier_id: supplier.supplier_id,
-        shipping_type: 0,
-        coupon: supplier.coupon ? supplier.coupon : "",
-        point_of_sell_uuid: null,
-      };
-
-      console.log(supplier);
-      this.$store.dispatch("suppliers/addSupplierToCart", {
-        supplier: newRating,
-      });
-    },
-
-    changePackUp($event) {
+    changePickup($event, supplier) {
       let input = $event.target;
 
       this.selectedInput = input;
@@ -2301,6 +2381,86 @@ export default {
       // button.classList.add("d-block");
 
       this.showBtnClicked = false;
+      // console.log(supplier);
+      this.getSupplierAddress(supplier.supplier_id);
+
+      this.selectedInput.parentElement.nextElementSibling.classList.remove(
+        "d-none"
+      );
+      this.selectedInput.parentElement.nextElementSibling.classList.add(
+        "d-block"
+      );
+
+      this.selectedInput.parentElement.parentElement
+        .querySelector(".feedsResult")
+        .classList.remove("d-none");
+      this.selectedInput.parentElement.parentElement
+        .querySelector(".feedsResult")
+        .classList.add("d-block");
+
+      this.selectedInput.parentElement.parentElement.querySelector(
+        ".feedsResult"
+      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+        this.currency
+      }`;
+
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        // console.log("element" , element.id);
+
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+          element.shipping_type = 1;
+          element.point_of_sell_uuid =
+            localStorage.getItem("addressUUID") !== null ||
+            localStorage.getItem("addressUUID") !== undefined
+              ? localStorage.getItem("addressUUID")
+              : null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
+        }
+      }
+    },
+
+    //
+
+    shippingStore(supplier) {
+      let newRating = {
+        id: supplier.supplier_id,
+        supplier_id: supplier.supplier_id,
+        shipping_type: 0,
+        coupon:
+          localStorage.getItem("cou") !== null
+            ? localStorage.getItem("cou")
+            : "",
+        point_of_sell_uuid: null,
+      };
+
+      // console.log(supplier);
+
+      this.$store.dispatch("suppliers/addSupplierToCart", {
+        supplier: newRating,
+      });
+
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+
+        if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
+        } else if (
+          element.shipping_type == 1 &&
+          element.id == supplier.supplier_id
+        ) {
+          element.shipping_type = 0;
+          element.point_of_sell_uuid = null;
+        }
+      }
     },
 
     orderType(supplier) {
@@ -2308,50 +2468,51 @@ export default {
       localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
       // let storedAddress = localStorage.getItem("addressUUID");
-      // let storedUserData = localStorage.getItem("userData");
+      // let storedbuyerUserData = localStorage.getItem("buyerUserData");
       // if (storedAddress == undefined || storedAddress === "undefined") {
-      //   localStorage.setItem("addressUUID", storedUserData.uuid);
+      //   localStorage.setItem("addressUUID", storedbuyerUserData.uuid);
       //   // alert('undefined')
       // }
-
 
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
 
         // supplierAddresses
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.add(
-          "d-none"
-        );
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').classList.remove(
-          "d-block"
-        );
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.add("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.remove("d-block");
 
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.add(
-          "d-none"
-        );
-        this.selectedInput.parentElement.parentElement.querySelector('.feedsResult').nextElementSibling.classList.remove(
-          "d-block"
-        );
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .nextElementSibling.classList.add("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .nextElementSibling.classList.remove("d-block");
       } else {
         this.deliverType = false;
 
-        this.selectedInput.parentElement.nextElementSibling.classList.remove(
-          "d-none"
-        );
-        this.selectedInput.parentElement.nextElementSibling.classList.add(
-          "d-block"
-        );
+        // this.selectedInput.parentElement.nextElementSibling.classList.remove(
+        //   "d-none"
+        // );
+        // this.selectedInput.parentElement.nextElementSibling.classList.add(
+        //   "d-block"
+        // );
 
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.remove("d-none");
-        this.selectedInput.parentElement.parentElement
-          .querySelector(".feedsResult")
-          .classList.add("d-block");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.remove("d-none");
+        // this.selectedInput.parentElement.parentElement
+        //   .querySelector(".feedsResult")
+        //   .classList.add("d-block");
 
-        this.selectedInput.parentElement.parentElement.querySelector(
-          ".feedsResult"
-        ).innerHTML = `${this.$t("profile.deleiveryFees")} 0 ${this.currency}`;
+        // this.selectedInput.parentElement.parentElement.querySelector(
+        //   ".feedsResult"
+        // ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+        //   this.currency
+        // }`;
       }
     },
     getShippingFeesExist() {
@@ -2392,7 +2553,7 @@ export default {
       //     this.errMsg(err.message);
       //   });
 
-      let address_uuid = this.userData.uuid;
+      let address_uuid = this.buyerUserData.uuid;
 
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
@@ -2452,9 +2613,9 @@ export default {
     },
     getLoggedFirstShippingFees() {
       suppliers
-        .getFirstShippingFees(this.userData.address_uuid)
+        .getFirstShippingFees(this.buyerUserData.address_uuid)
         .then((res) => {
-          // console.log(res);
+          // console.log("new", res);
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
@@ -2464,6 +2625,21 @@ export default {
           // }
 
           // this.totalFees =
+
+          let arr = res.data.items;
+          var size = Object.values(arr);
+          // console.log("arr" , size);
+          let myData = 0;
+          for (let index = 0; index < size.length; index++) {
+            const element = size[index].shipping_fee;
+            // console.log(`element${index}`, element);
+            myData += parseFloat(element);
+          }
+
+          // this.shippingCartFee = myData + 'reda';
+          this.shippingCartFee = myData;
+          this.totalPaymentReplacement += parseFloat(myData);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -2539,9 +2715,13 @@ export default {
       //   alert('select suppliers first')
       // }
 
-      // this.paymentFormData.country_code = this.userData.country_code
-      //   ? this.userData.country_code
+      // this.paymentFormData.country_code = this.buyerUserData.country_code
+      //   ? this.buyerUserData.country_code
       //   : "";
+
+     if (this.paymentFormData.address_uuid == '' || !this.paymentFormData.address_uuid || this.paymentFormData.address_uuid == undefined){
+       this.paymentFormData.address_uuid = localStorage.getItem('globalAddressUUID')
+     }
 
       suppliers
         .payment(this.paymentFormData)
@@ -2566,7 +2746,7 @@ export default {
             }, 500);
           } else {
             // console.log(res.data);
-            if (this.userData) {
+            if (this.buyerUserData) {
               setTimeout(() => {
                 this.$router.push({
                   path: "/checkout-details",
@@ -2592,6 +2772,7 @@ export default {
         });
     },
     guestPayment() {
+      // alert("clicked");
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -2610,63 +2791,65 @@ export default {
         notes: this.paymentFormData.comment,
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
+        redirect_url: this.paymentFormData.redirect_url,
       };
 
-      if (this.localStoreFail == false) {
-        this.localStoreFail = true;
-      } else {
-        suppliers
-          .guestPayment(data)
-          .then((res) => {
-            this.sucessMsg(res.data.message);
-            if (this.paymentFormData.payment_type === "visa") {
+      // if (this.localStoreFail == false) {
+      //   this.localStoreFail = true;
+      // } else {
+
+      // }
+      suppliers
+        .guestPayment(data)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          if (this.paymentFormData.payment_type === "visa") {
+            setTimeout(() => {
+              this.$router.push({
+                path: "/visa-checkout-details",
+                query: {
+                  order_serial: res.data.items.order.order_serial,
+                  date: res.data.items.order.created_at,
+                  total_price: res.data.items.order.total_price,
+                  payment_type: res.data.items.order.payment_type,
+                  payment: res.data.items.order.payment,
+                  uuid: res.data.items.order.uuid,
+                  redirectURL: res.data.items.url,
+
+                  // window.location.href = res.data.items.url;
+                },
+              });
+            }, 500);
+          } else {
+            // console.log(res.data);
+            if (this.buyerUserData) {
               setTimeout(() => {
                 this.$router.push({
-                  path: "/visa-checkout-details",
+                  path: "/checkout-details",
                   query: {
-                    order_serial: res.data.items.order.order_serial,
-                    date: res.data.items.order.created_at,
-                    total_price: res.data.items.order.total_price,
-                    payment_type: res.data.items.order.payment_type,
-                    payment: res.data.items.order.payment,
-                    uuid: res.data.items.order.uuid,
-                    redirectURL: res.data.items.url,
-
-                    // window.location.href = res.data.items.url;
+                    order_serial: res.data.items.order_serial,
+                    date: res.data.items.created_at,
+                    total_price: res.data.items.total_price,
+                    payment_type: res.data.items.payment_type,
+                    payment: res.data.items.payment,
+                    uuid: res.data.items.uuid,
+                    orderId: res.data.items.id,
                   },
                 });
               }, 500);
             } else {
-              // console.log(res.data);
-              if (this.userData) {
-                setTimeout(() => {
-                  this.$router.push({
-                    path: "/checkout-details",
-                    query: {
-                      order_serial: res.data.items.order_serial,
-                      date: res.data.items.created_at,
-                      total_price: res.data.items.total_price,
-                      payment_type: res.data.items.payment_type,
-                      payment: res.data.items.payment,
-                      uuid: res.data.items.uuid,
-                      orderId: res.data.items.id,
-                    },
-                  });
-                }, 500);
-              } else {
-                setTimeout(() => {
-                  this.$router.push("/success-checkout");
-                }, 500);
-              }
+              setTimeout(() => {
+                this.$router.push("/success-checkout");
+              }, 500);
             }
-          })
-          .catch((err) => {
-            const errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            console.log(err);
-            this.errMsg(errors.message);
-          });
-      }
+          }
+        })
+        .catch((err) => {
+          const errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          console.log(err);
+          this.errMsg(errors.message);
+        });
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -2677,15 +2860,15 @@ export default {
     paymentGetAllRegions() {
       profile.getAllRegions(this.paymentFormData.country).then((res) => {
         this.paymentRegions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     paymentGetAllCities() {
       profile.getAllCities(this.paymentFormData.governorate).then((res) => {
         this.paymentCities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
     getTerms() {
@@ -2694,9 +2877,16 @@ export default {
         this.condations = res.data.items;
       });
     },
-    acceptMyTerms(){
-      this.paymentFormData.accept_terms = true
-    }
+    acceptMyTerms() {
+      this.paymentFormData.accept_terms = true;
+    },
+    getWallet(){
+      profile.getWallet().then(res =>{
+        this.walletData = res.data.items.balnce
+      }).catch(err =>{
+        console.log(err);
+      })
+    },
   },
   computed: {
     // cartItems() {
@@ -2756,511 +2946,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$primary-color: #00005c; // Change color here. C'mon, try it!
-$text-color: mix(#000, $primary-color, 64%);
-
-.cart {
-  .heading {
-    color: #312620;
-    font-size: 28pt;
-  }
-  .cart-table {
-    table {
-      thead {
-        tr {
-          th {
-            font-size: 11pt;
-            font-weight: bold;
-            color: #565656;
-            border-bottom: 1px solid #dee2e6;
-          }
-        }
-      }
-      .supplier + .supplier {
-        border: none;
-      }
-      .supplier {
-        position: relative;
-        &::before {
-          content: "";
-          display: block;
-          height: 3rem;
-        }
-        .name {
-          padding-inline-start: 1.5rem;
-          position: absolute;
-          top: 1rem;
-          font-weight: bold;
-          font-size: 12pt;
-          color: #312620;
-        }
-        .item-content {
-          &:first-of-type {
-            td:first-child {
-              border-top-left-radius: 0.5rem;
-            }
-            td:last-child {
-              border-top-right-radius: 0.5rem;
-            }
-          }
-          &:last-child {
-            td:first-child {
-              border-bottom-left-radius: 0.5rem;
-            }
-            td:last-child {
-              border-bottom-right-radius: 0.5rem;
-            }
-          }
-          td {
-            text-align: center;
-            vertical-align: middle;
-            background: rgb(236 240 241 / 20%);
-            border: none;
-            color: #312620;
-            img {
-              width: 8rem;
-              margin: 0 auto;
-            }
-            a {
-              color: #a0a0a0;
-              &:hover {
-                color: #ed2124;
-              }
-            }
-          }
-        }
-      }
-    }
-    .coupon {
-      a {
-        margin: 0;
-        margin-inline-end: 1rem;
-      }
-      button {
-        margin: 0;
-        margin-inline-end: 1rem;
-      }
-      input {
-        border: none;
-        border-bottom: 1px solid #7d7d7d;
-        color: #544842;
-        min-width: 20rem;
-      }
-    }
-  }
-  .cart-detail {
-    .heading {
-      font-size: 18pt;
-    }
-    .data {
-      background: #ecf0f1;
-      padding: 2.5rem;
-      border-radius: 0.5rem;
-      table {
-        tbody {
-          tr {
-            color: #312620;
-            font-weight: 600;
-            border-bottom: 1px dashed #c5c6c6;
-            th {
-              padding: 1rem 0;
-              width: 25%;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-.actions {
-  color: #000;
-  .action-icon {
-    font-size: 12pt;
-    cursor: pointer;
-  }
-}
-input[type="text"]:disabled {
-  cursor: no-drop;
-}
-.proceAfterDisc {
-  position: fixed;
-  top: 30%;
-  right: 20px;
-  background: #ccc;
-  padding: 10px 15px;
-  font-size: 20px;
-  border-radius: 10px;
-}
-.input-holder {
-  position: relative;
-  .close {
-    position: absolute;
-    top: 12px;
-    right: 0;
-    padding: 15px;
-    cursor: pointer;
-    display: none;
-  }
-}
-.coupon {
-  display: none;
-}
-.coupon:first-of-type {
-  display: block;
-}
-.order-shipping {
-  transition: all 0.3s ease-in-out;
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-  }
-
-  label {
-    display: flex;
-    cursor: pointer;
-    font-weight: 500;
-    position: relative;
-    overflow: hidden;
-    margin: 0px 20px 0.375em 0;
-    /* Accessible outline */
-    /* Remove comment to use */
-    /*
-		&:focus-within {
-				outline: .125em solid $primary-color;
-		}
-	*/
-    input {
-      position: absolute;
-
-      &:checked + span {
-        /* background-color: mix(#fff, $primary-color, 84%); */
-        &:before {
-          box-shadow: inset 0 0 0 0.4375em $primary-color;
-        }
-      }
-    }
-
-    span {
-      display: flex;
-      align-items: center;
-      padding: 0.375em 0.75em 0.375em 0.375em;
-      border-radius: 99em; // or something higher...
-      transition: 0.25s ease;
-      &:hover {
-        background-color: mix(#fff, $primary-color, 84%);
-      }
-      &:before {
-        display: flex;
-        flex-shrink: 0;
-        content: "";
-        background-color: #fff;
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 50%;
-        margin-right: 0.375em;
-        transition: 0.25s ease;
-        box-shadow: inset 0 0 0 0.125em $primary-color;
-        margin: 0 5px;
-      }
-    }
-  }
-  .address-book {
-    padding-top: 40px;
-    .main-header {
-      text-transform: uppercase;
-    }
-    .add-address {
-      font-size: 17px;
-      color: #312620;
-      margin: 15px 0;
-      transition: all 0.5s ease-in-out;
-      cursor: pointer;
-      &:hover {
-        color: $main-color;
-      }
-      span {
-        font-size: 23px;
-        font-weight: 600;
-      }
-    }
-    .account-information-form {
-      padding: 20px 0;
-      .login-button {
-        margin: 30px 0px;
-        width: 20%;
-      }
-    }
-    .actions {
-      text-align: center;
-      button {
-        color: #000 !important;
-        background-color: transparent !important;
-        border: 0 !important;
-      }
-      svg {
-        font-size: 1.2rem;
-        margin: 0 5px;
-        cursor: pointer;
-      }
-    }
-  }
-
-  html:lang(ar) {
-    .address-book {
-      text-align: right;
-    }
-  }
-  .addresses-holder {
-    .addressShape {
-      transition: all 0.3s ease-in-out;
-      label {
-        overflow: auto;
-        margin: 0;
-        display: inline-block;
-      }
-    }
-  }
-  .en {
-    label {
-      input {
-        left: -100%;
-      }
-    }
-  }
-  .ar {
-    label {
-      input {
-        left: 100%;
-      }
-    }
-  }
-  .pickupAddresses {
-    min-width: 250px;
-  }
-  .cart-table,
-  .addresses-holder {
-    background: #ecf0f1;
-    padding: 5% 2%;
-    margin: 2% 0;
-    border-radius: 20px;
-  }
-  .supplier {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #555555;
-      width: 100%;
-      height: 1.5px;
-    }
-    &::after:last-child {
-      display: none !important;
-    }
-  }
-
-  .divider {
-    height: 3px;
-    &:last-of-type {
-      display: none;
-    }
-  }
-  .name {
-    color: #6e6e6e;
-    font-weight: 600;
-  }
-  input,
-  input:active,
-  select,
-  textarea {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    border-radius: 15px;
-    &:focus {
-      box-shadow: 0 0 0 0.1rem #6e6e6e;
-    }
-  }
-  .feedsResult {
-    font-size: 19px;
-    text-transform: capitalize;
-    font-weight: bold;
-    margin: 20px;
-  }
-}
-.easy-trans {
-  transition: all 0.3s ease-in-out;
-}
-.supplierAddresses {
-  border: 1px solid !important;
-  width: 50% !important;
-}
-.addresses-holder {
-  position: relative;
-  .close-options {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #333;
-    color: #fff;
-    text-align: center;
-    line-height: 25px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-}
-
-// payment
-
-.payment {
-  .header {
-    color: #312620;
-  }
-  .content {
-    .payment-data {
-      .payment-delivery {
-        .heading {
-          .title {
-            color: #312620;
-            font-weight: 600;
-            font-size: 18pt;
-          }
-          a {
-            font-size: 11pt;
-            color: #312620;
-            span {
-              margin-inline-start: 0.25rem;
-            }
-            &:hover {
-              color: #ed2124;
-            }
-          }
-        }
-        .delivery-form {
-          .form-group {
-            margin-bottom: 1.5rem;
-            label {
-              margin-bottom: 0;
-            }
-            textarea {
-              resize: none;
-            }
-            input:focus,
-            textarea:focus,
-            select:focus {
-              outline: none;
-              border-color: #ced4da;
-              box-shadow: none;
-            }
-            &.required {
-              label::after {
-                content: "*";
-                color: $main-color;
-                padding-inline-start: 0.2rem;
-              }
-            }
-          }
-        }
-      }
-      .payment-method {
-        .methods-data {
-          background: #ecf0f1;
-          padding: 2rem;
-          border-radius: 0.5rem;
-          .info {
-            border-bottom: 1px dashed #c5c6c6;
-            padding: 1rem 0.3rem;
-            color: #312620;
-            font-weight: bold;
-          }
-          .total {
-            padding: 1rem 0;
-            color: #312620;
-            font-weight: bold;
-            .title {
-              font-size: 14pt;
-            }
-          }
-          .methods {
-            background-color: #fff;
-            border-radius: 0.5rem;
-            border: 1px dashed #cfd0d0;
-            .method {
-              padding: 1rem;
-              border-bottom: 1px dashed #cfd0d0;
-              font-size: 11pt;
-              color: #544842;
-              .custom-radio {
-                flex-wrap: wrap;
-              }
-              label {
-                cursor: pointer;
-              }
-              span {
-                width: 100%;
-                font-size: 10pt;
-                margin-top: -0.2rem;
-                opacity: 0.7;
-              }
-              .online-media {
-                img {
-                  object-fit: contain;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .heading {
-      .title {
-        color: #312620;
-        font-weight: 600;
-        font-size: 18pt;
-      }
-      a {
-        font-size: 11pt;
-        color: #312620;
-        span {
-          margin-inline-start: 0.25rem;
-        }
-        &:hover {
-          color: #ed2124;
-        }
-      }
-    }
-  }
-}
-html:lang(ar) {
-  svg {
-    transform: rotate(180deg);
-  }
-}
-/*form {
-  padding: 5% 0;
-}*/
-a:not([href]):not([class]) {
-  color: #007bff;
-}
-
-.terms {
-  a {
-    color: $main-color;
-    text-decoration: underline !important;
-    display: inline-block;
-  }
-}
-.text-decoration-underline {
-  text-decoration: underline !important;
-}
-sup {
-  font-size: 95% !important;
-  color: red;
-}
+@import '~/src/assets/scss/_cartStyle.scss';
 </style>

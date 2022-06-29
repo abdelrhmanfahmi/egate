@@ -3,7 +3,7 @@ export default {
   category: "Fruit",
   fruitName: "Apple",
   price: "Price",
-  priceUnit: "KD",
+  priceUnit: "KWD",
   supplier: "Supplier",
   weight: "Weight",
   available: "Available",
@@ -11,7 +11,7 @@ export default {
   PcsperUnit: "Pcs per Unit",
   expiration_date: "Expiration Date",
   warantyType: "Waranty Type",
-  min_order_quantity: "Min Order Quantity",
+  min_order_quantity: "Enter Requested Qty",
   return_time: "Return Time",
   delivery_time: "Delivery Time",
   addFavorites: "Add to favorites",
@@ -41,8 +41,8 @@ export default {
   ratingHint: "Be the first to review “MEAT CENTER”",
   ratingLabel: "Your Rating*",
   reviewLabel: "Your Review*",
-  reviewInput: "Your Comment...",
-  nameInput: "Your Name",
+  reviewInput: "Add Your Comment...",
+  nameInput: "Quote Name",
   emailInput: "Your Email*",
   checkInput:
     "Save My Name And Email In This Browser For The Next Time I Comment.*",
@@ -50,5 +50,6 @@ export default {
   registerNow: "If You don't have account , register First ",
   productInCart: "Product In Favorite",
   outOfStock: "Out Of Stock",
-  noReviews:'No Reviews'
+  noReviews:'No Reviews',
+  noAvailQuant:'Available Quantity less than the minimum number for order'
 };

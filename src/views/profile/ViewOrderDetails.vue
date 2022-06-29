@@ -4,7 +4,7 @@
       <div class="wrapper" v-if="!loading">
         <div class="my-4" v-if="orderData">
           <div class="d-flex justify-content-between align-items-center">
-            <div class="">
+            <div class="order-back">
               <router-link to="/profile/ordersListsB2b">
                 <b-button variant="outline-ordinary">
                   <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
@@ -12,6 +12,7 @@
                 </b-button>
               </router-link>
             </div>
+
             <div class="">
               <div>
                 <b-button
@@ -52,13 +53,22 @@
               </div>
             </div>
           </div>
+          <div class="branding d-flex justify-content-center">
+            <img
+              src="@/assets/images/logo.png"
+              class="img-fluid w-25"
+              alt="logo"
+              @click="goToHome()"
+            />
+          </div>
         </div>
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
           <div class="serial" v-if="orderData">
             <h4 class="m-0">
-              {{ $t("profile.orderSerial") }} : {{ orderData.serial }}
+              <span>{{ $t("profile.orderSerial") }} :</span>
+              <span>{{ orderData.id }} #</span>
             </h4>
           </div>
           <div class="print" @click="printScreen">
@@ -68,6 +78,7 @@
             </span>
           </div>
         </div>
+
         <section class="account-address-info">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
@@ -92,7 +103,9 @@
                     <div class="col-6">
                       {{ $t("profile.customerEmail") }}
                     </div>
-                    <div class="col-6">{{ orderData.client_info.email }}</div>
+                    <div class="col-6 mail">
+                      {{ orderData.client_info.email }}
+                    </div>
                   </div>
                   <div
                     class="row info-data info-colored"
@@ -108,7 +121,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12 mb-2" v-if="orderData">
+            <div
+              class="col-md-6 col-sm-12 mb-2"
+              v-if="orderData && shipingExist"
+            >
               <h4 class="data-holder">
                 {{ $t("profile.addressInfo") }}
                 <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
@@ -118,13 +134,19 @@
                   class="d-inline-block"
                   v-if="orderData.client_info.apartment"
                 >
+                  {{ $t("profile.aptNo") }} :
                   {{ orderData.client_info.apartment }}
                 </h6>
                 <h6
                   class="d-inline-block"
-                  v-if="orderData.client_info.apartmfloorent"
+                  v-if="orderData.client_info.building_number"
                 >
-                  , {{ orderData.client_info.floor }}
+                  , {{ $t("profile.buildingNo") }} :
+                  {{ orderData.client_info.building_number }}
+                </h6>
+                <h6 class="d-inline-block" v-if="orderData.client_info.floor">
+                  , {{ $t("profile.floor") }} :
+                  {{ orderData.client_info.floor }}
                 </h6>
                 <h6
                   class="d-inline-block"
@@ -151,7 +173,8 @@
             </div>
           </div>
         </section>
-        <section class="supplier-info" v-if="orders[0].bicked">
+
+        <section class="supplier-info" v-if="orders && pickupExist">
           <div
             class="data-holder serial-holder d-flex justify-content-between align-items-center"
           >
@@ -207,6 +230,7 @@
             </div>
           </div>
         </section>
+
         <section class="payment">
           <!-- <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center mb-4"
@@ -322,6 +346,7 @@
               v-for="(order, index) in orders"
               :key="index"
             >
+              <!-- {{order.order_status_no}} -->
               <div
                 class="supplier-data info-data info-colored data-holder"
                 v-if="order.supplier"
@@ -333,42 +358,26 @@
                   </div>
                   <div class="" v-if="order">
                     {{ $t("profile.supplierOrder") }} : {{ order.serial }} |
-                    {{ $t("payment.status") }} : {{ order.order_status }}
+                    {{ $t("payment.orderStatus") }} : {{ order.order_status }}
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-end">
                 <b-button
                   @click="
-                    $bvModal.show('bv-modal-example1');
+                    $bvModal.show('cancel_btn_modal');
                     showModal(order);
                   "
-                  variant="outline-danger mt-2"
+                  variant="outline-danger mt-2 cancel-btn"
                   v-if="
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Pending') ||
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Accepted') ||
-                    ($i18n.locale == 'en' &&
-                      order.order_status === 'Out_Of_Delivered')
+                    order.order_status_string === 'Pending' ||
+                    order.order_status_string === 'Accepted'
                   "
                   ><font-awesome-icon icon="fa-solid fa-x" />
-                  <span class="mx-2">cancel</span></b-button
+                  <span class="mx-2">{{
+                    $t("payment.cancelOrder")
+                  }}</span></b-button
                 >
-                <b-button
-                  @click="$bvModal.show('bv-modal-example1')"
-                  variant="outline-danger"
-                  v-else-if="
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Pending') ||
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Accepted') ||
-                    ($i18n.locale == 'ar' &&
-                      order.order_status === 'Out_Of_Delivered')
-                  "
-                  ><span class="mx-2">الغاء</span
-                  ><font-awesome-icon icon="fa-solid fa-x"
-                /></b-button>
               </div>
               <div class="supplier-products mt-3" v-if="fields">
                 <div class="holder">
@@ -392,16 +401,51 @@
                         </td>
                         <td v-else>-</td>
                         <td v-if="ord.price">
-                          {{ ord.price | fixedCurrency }}
+                          {{ ord.price | fixedCurrency }} {{ currency }}
                         </td>
                         <td v-if="ord.quantity">{{ ord.quantity }}</td>
                         <td v-if="ord.total_price">
-                          {{ ord.total_price | fixedCurrency }}
+                          {{ ord.total_price | fixedCurrency }} {{ currency }}
                         </td>
                         <td>
-                          <button class="btn btn-outline-danger">
+                          <!-- <button class="btn btn-outline-danger">
                             {{ $t("profile.return") }}
-                          </button>
+                          </button> -->
+                          <!-- <b-button
+                            @click="
+                              $bvModal.show('cancel_btn_modal');
+                              showModal(order);
+                            "
+                            variant="outline-danger mt-2 return-btn"
+                            ><font-awesome-icon icon="fa-solid fa-x" />
+                            <span class="mx-2">{{
+                              $t("profile.return")
+                            }}</span></b-button
+                          > -->
+                          <div
+                            class=""
+                            v-if="
+                              order.order_status_string === 'Completed' ||
+                              order.order_status_string === 'Delivered'
+                            "
+                          >
+                            <b-button
+                              @click="
+                                $bvModal.show('return');
+                                showModal(ord);
+                              "
+                              variant="outline-danger mt-2 return-btn"
+                              v-if="
+                                ord.status === 'Pending' &&
+                                ord.return_time !== null &&
+                                ord.return_time !== 0
+                              "
+                              ><font-awesome-icon icon="fa-solid fa-x" />
+                              <span class="mx-2">{{
+                                $t("profile.return")
+                              }}</span></b-button
+                            >
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -410,13 +454,18 @@
               </div>
               <hr class="w-50 my-5 mx-auto" />
             </div>
-            <b-modal id="bv-modal-example1" centered hide-footer>
+            <b-modal id="return" centered hide-footer>
               <template #modal-title>
-                {{ $t("profile.yourMessage") }}
+                <div class="d-flex justify-content-center align-items-center">
+                  <span class="text-center"
+                    >{{ $t("profile.returnReason") }}
+                    <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" />
+                  </span>
+                </div>
               </template>
               <div class="d-block">
                 <div class="">
-                  <form>
+                  <!-- <form>
                     <textarea
                       class="form-control"
                       name=""
@@ -434,16 +483,65 @@
                         {{ error }}
                       </p>
                     </div>
-                  </form>
+                  </form> -->
+
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="">
+                      <router-link
+                        :to="{
+                          path: '/return-replace',
+                          query: { orderId: supplierUUID },
+                        }"
+                      >
+                        <b-button variant="outline-success" class="replace">
+                          <span>{{ $t("profile.replace") }}</span>
+                          <span class="mx-2">
+                            <font-awesome-icon
+                              icon="fa-solid fa-arrow-right-arrow-left"
+                            />
+                          </span>
+                        </b-button>
+                      </router-link>
+                    </div>
+                    <div class="">
+                      <router-link
+                        v-if="orderData"
+                        :to="{
+                          path: '/return-refund',
+                          query: {
+                            orderId: supplierUUID,
+                            prodId: orderData.id,
+                          },
+                        }"
+                        variant="outlin-danger"
+                      >
+                        <b-button variant="outline-danger" class="refund">
+                          <span>{{ $t("profile.refund") }}</span>
+                          <!-- <span class="fa-stack">
+                            <i class="fa fa-dollar fa-stack-1x"></i>
+                            <i class="fa fa-refresh fa-stack-2x"></i>
+                          </span> -->
+                          <span class="mx-2">
+                            <!-- <img src="@/assets/images/refund.png" alt="" class="refund-image"> -->
+                            <font-awesome-icon
+                              icon="fa-solid fa-money-bill-wave"
+                            />
+                          </span>
+                        </b-button>
+                      </router-link>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <b-button
+              <!-- <b-button
                 class="mt-3"
                 variant="outline-success"
                 block
-                @click="deleteOrder"
+                @click="cancelOrder"
                 >{{ $t("profile.send") }}</b-button
-              >
+              > -->
               <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
           >{{$t('cart.addToCart')}}</b-button
         > -->
@@ -595,6 +693,49 @@
             {{ $t("profile.pay") }}
           </b-button>
         </b-modal>
+        <b-modal id="cancel_btn_modal" centered hide-footer>
+          <template #modal-title>
+            <div class="d-flex justify-content-center align-items-center">
+              <span class="text-center"
+                >{{ $t("profile.cancelReason") }}
+                <!-- <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" /> -->
+              </span>
+            </div>
+          </template>
+          <div class="d-block">
+            <div class="">
+              <form>
+                <textarea
+                  class="form-control"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  v-model="message"
+                  required
+                ></textarea>
+                <div class="error mt-2">
+                  <p
+                    v-for="(error, index) in errors.client_cancel_reason"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </p>
+                </div>
+                <b-button
+                  :disabled="message == ''"
+                  id="show-btn"
+                  class="mt-3"
+                  variant="outline-success"
+                  block
+                  @click="cancelOrder"
+                >
+                  {{ $t("profile.cancel") }}
+                </b-button>
+              </form>
+            </div>
+          </div>
+        </b-modal>
       </div>
       <div class="" v-else>
         <div class="text-center">
@@ -644,6 +785,8 @@ export default {
         payment_type: null,
         order_uuid: null,
       },
+      shipingExist: false,
+      pickupExist:false
     };
   },
   methods: {
@@ -655,10 +798,34 @@ export default {
       profile
         .getSingleOrders(this.id)
         .then((res) => {
-          console.log("getSingleOrders", res);
+          // console.log("getSingleOrders", res);
           this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
           this.paymentFormData.order_uuid = res.data.items.order.uuid;
+          let pickupArr = [];
+          for (let index = 0; index < this.orders.length; index++) {
+            const element = this.orders[index].bicked;
+            pickupArr.push(element);
+          }
+
+          for (let index = 0; index < pickupArr.length; index++) {
+            const element = pickupArr[index];
+            // console.log(element == null);
+            if (element == null) {
+              console.log('shipping');
+              this.shipingExist = true;
+            }else{
+              console.log('pickup');
+              this.pickupExist = true;
+            }
+          }
+
+          // if (pickupArr[0] == null) {
+          //   this.shipingExist = true;
+          // }
+          // if (pickupArr[0] == null) {
+          //   this.shipingExist = true;
+          // }
         })
         .catch((err) => {
           console.log(err);
@@ -667,14 +834,14 @@ export default {
           this.loading = false;
         });
     },
-    deleteOrder(order) {
-      console.log(order);
+    cancelOrder() {
+      // console.log(order);
       let data = {
         orderUUID: this.supplierUUID,
         payLoad: this.message,
       };
       profile
-        .deleteOrder(data)
+        .cancelOrder(data)
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
@@ -692,7 +859,7 @@ export default {
       profile
         .rePay(this.paymentFormData)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.sucessMsg(res.data.message);
           if (res.status == 200) {
             if (this.paymentFormData.payment_type === "cach") {
@@ -739,6 +906,10 @@ export default {
 
         fileLink.click();
       });
+    },
+    showModal(ord) {
+      // console.log(ord);
+      this.supplierUUID = ord.uuid;
     },
   },
   mounted() {
@@ -850,5 +1021,54 @@ table td {
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
+}
+
+.branding {
+  display: none !important;
+}
+
+@media print {
+  .cancel-btn,
+  .return-btn,
+  .print,
+  .order-back {
+    display: none;
+  }
+  .mail {
+    word-break: break-all;
+  }
+  .branding {
+    display: flex !important;
+    justify-content: flex-end;
+  }
+}
+.replace {
+  padding: 8px 30px;
+  background: #303030;
+  color: #fff;
+  border: none;
+  border-image-source: none;
+  box-shadow: none;
+}
+.refund {
+  padding: 8px 30px;
+  background: $main-color;
+  color: #fff;
+  border: none;
+  border-image-source: none;
+  box-shadow: none;
+}
+.modal-header {
+  position: relative !important;
+  .close {
+    position: absolute !important;
+    right: 10px !important;
+    top: 10px !important;
+  }
+}
+.refund-image {
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
 }
 </style>

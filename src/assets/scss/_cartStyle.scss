@@ -1,0 +1,515 @@
+$primary-color: #00005c; // Change color here. C'mon, try it!
+$text-color: mix(#000, $primary-color, 64%);
+
+.cart {
+  .heading {
+    color: #312620;
+    font-size: 28pt;
+  }
+  .cart-table {
+    table {
+      thead {
+        tr {
+          th {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #565656;
+            border-bottom: 1px solid #dee2e6;
+          }
+        }
+      }
+      .supplier + .supplier {
+        border: none;
+      }
+      .supplier {
+        position: relative;
+        &::before {
+          content: "";
+          display: block;
+          height: 3rem;
+        }
+        .name {
+          padding-inline-start: 1.5rem;
+          position: absolute;
+          top: 1rem;
+          font-weight: bold;
+          font-size: 12pt;
+          color: #312620;
+        }
+        .item-content {
+          &:first-of-type {
+            td:first-child {
+              border-top-left-radius: 0.5rem;
+            }
+            td:last-child {
+              border-top-right-radius: 0.5rem;
+            }
+          }
+          &:last-child {
+            td:first-child {
+              border-bottom-left-radius: 0.5rem;
+            }
+            td:last-child {
+              border-bottom-right-radius: 0.5rem;
+            }
+          }
+          td {
+            text-align: center;
+            vertical-align: middle;
+            background: rgb(236 240 241 / 20%);
+            border: none;
+            color: #312620;
+            img {
+              width: 8rem;
+              margin: 0 auto;
+              height: 6rem;
+            }
+            a {
+              color: #a0a0a0;
+              &:hover {
+                color: #ed2124;
+              }
+            }
+          }
+        }
+      }
+    }
+    .coupon {
+      a {
+        margin: 0;
+        margin-inline-end: 1rem;
+      }
+      button {
+        margin: 0;
+        margin-inline-end: 1rem;
+      }
+      input {
+        border: none;
+        border-bottom: 1px solid #7d7d7d;
+        color: #544842;
+        min-width: 20rem;
+      }
+    }
+  }
+  .cart-detail {
+    .heading {
+      font-size: 18pt;
+    }
+    .data {
+      background: #ecf0f1;
+      padding: 2.5rem;
+      border-radius: 0.5rem;
+      table {
+        tbody {
+          tr {
+            color: #312620;
+            font-weight: 600;
+            border-bottom: 1px dashed #c5c6c6;
+            th {
+              padding: 1rem 0;
+              width: 25%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.actions {
+  color: #000;
+  .action-icon {
+    font-size: 12pt;
+    cursor: pointer;
+  }
+}
+input[type="text"]:disabled {
+  cursor: no-drop;
+}
+.proceAfterDisc {
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  background: #ccc;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.input-holder {
+  position: relative;
+  .close {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+    display: none;
+  }
+}
+.coupon {
+  display: none;
+}
+.coupon:first-of-type {
+  display: block;
+}
+.order-shipping {
+  transition: all 0.3s ease-in-out;
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  label {
+    display: flex;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    margin: 0px 20px 0.375em 0;
+    /* Accessible outline */
+    /* Remove comment to use */
+    /*
+		&:focus-within {
+				outline: .125em solid $primary-color;
+		}
+	*/
+    input {
+      position: absolute;
+
+      &:checked + span {
+        /* background-color: mix(#fff, $primary-color, 84%); */
+        &:before {
+          box-shadow: inset 0 0 0 0.4375em $primary-color;
+        }
+      }
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      padding: 0.375em 0.75em 0.375em 0.375em;
+      border-radius: 99em; // or something higher...
+      transition: 0.25s ease;
+      &:hover {
+        background-color: mix(#fff, $primary-color, 84%);
+      }
+      &:before {
+        display: flex;
+        flex-shrink: 0;
+        content: "";
+        background-color: #fff;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+        margin-right: 0.375em;
+        transition: 0.25s ease;
+        box-shadow: inset 0 0 0 0.125em $primary-color;
+        margin: 0 5px;
+      }
+    }
+  }
+  .address-book {
+    padding-top: 40px;
+    .main-header {
+      text-transform: uppercase;
+    }
+    .add-address {
+      font-size: 17px;
+      color: #312620;
+      margin: 15px 0;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        color: $main-color;
+      }
+      span {
+        font-size: 23px;
+        font-weight: 600;
+      }
+    }
+    .account-information-form {
+      padding: 20px 0;
+      .login-button {
+        margin: 30px 0px;
+        width: 20%;
+      }
+    }
+    .actions {
+      text-align: center;
+      button {
+        color: #000 !important;
+        background-color: transparent !important;
+        border: 0 !important;
+      }
+      svg {
+        font-size: 1.2rem;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  html:lang(ar) {
+    .address-book {
+      text-align: right;
+    }
+  }
+  .addresses-holder {
+    .addressShape {
+      transition: all 0.3s ease-in-out;
+      label {
+        overflow: auto;
+        margin: 0;
+        display: inline-block;
+      }
+    }
+  }
+  .en {
+    label {
+      input {
+        left: -100%;
+      }
+    }
+  }
+  .ar {
+    label {
+      input {
+        left: 100%;
+      }
+    }
+  }
+  .pickupAddresses {
+    min-width: 250px;
+  }
+  .cart-table,
+  .addresses-holder {
+    background: #ecf0f1;
+    padding: 5% 2%;
+    margin: 2% 0;
+    border-radius: 20px;
+  }
+  .supplier {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #555555;
+      width: 100%;
+      height: 1.5px;
+    }
+    &::after:last-child {
+      display: none !important;
+    }
+  }
+
+  .divider {
+    height: 3px;
+    &:last-of-type {
+      display: none;
+    }
+  }
+  .name {
+    color: #6e6e6e;
+    font-weight: 600;
+  }
+  input,
+  input:active,
+  select,
+  textarea {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 15px;
+    &:focus {
+      box-shadow: 0 0 0 0.1rem #6e6e6e;
+    }
+  }
+  .feedsResult {
+    font-size: 19px;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 20px;
+  }
+}
+.easy-trans {
+  transition: all 0.3s ease-in-out;
+}
+.supplierAddresses {
+  border: 1px solid !important;
+  width: 50% !important;
+}
+.addresses-holder {
+  position: relative;
+  .close-options {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+}
+
+// payment
+
+.payment {
+  .header {
+    color: #312620;
+  }
+  .content {
+    .payment-data {
+      .payment-delivery {
+        .heading {
+          .title {
+            color: #312620;
+            font-weight: 600;
+            font-size: 18pt;
+          }
+          a {
+            font-size: 11pt;
+            color: #312620;
+            span {
+              margin-inline-start: 0.25rem;
+            }
+            &:hover {
+              color: #ed2124;
+            }
+          }
+        }
+        .delivery-form {
+          .form-group {
+            margin-bottom: 1.5rem;
+            label {
+              margin-bottom: 0;
+            }
+            textarea {
+              resize: none;
+            }
+            input:focus,
+            textarea:focus,
+            select:focus {
+              outline: none;
+              border-color: #ced4da;
+              box-shadow: none;
+            }
+            &.required {
+              label::after {
+                content: "*";
+                color: $main-color;
+                padding-inline-start: 0.2rem;
+              }
+            }
+          }
+        }
+      }
+      .payment-method {
+        .methods-data {
+          background: #ecf0f1;
+          padding: 2rem;
+          border-radius: 0.5rem;
+          .info {
+            border-bottom: 1px dashed #c5c6c6;
+            padding: 1rem 0.3rem;
+            color: #312620;
+            font-weight: bold;
+          }
+          .total {
+            padding: 1rem 0;
+            color: #312620;
+            font-weight: bold;
+            .title {
+              font-size: 14pt;
+            }
+          }
+          .methods {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            border: 1px dashed #cfd0d0;
+            .method {
+              padding: 1rem;
+              border-bottom: 1px dashed #cfd0d0;
+              font-size: 11pt;
+              color: #544842;
+              .custom-radio {
+                flex-wrap: wrap;
+              }
+              label {
+                cursor: pointer;
+              }
+              span {
+                width: 100%;
+                font-size: 10pt;
+                margin-top: -0.2rem;
+                opacity: 0.7;
+              }
+              .online-media {
+                img {
+                  object-fit: contain;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .heading {
+      .title {
+        color: #312620;
+        font-weight: 600;
+        font-size: 18pt;
+      }
+      a {
+        font-size: 11pt;
+        color: #312620;
+        span {
+          margin-inline-start: 0.25rem;
+        }
+        &:hover {
+          color: #ed2124;
+        }
+      }
+    }
+  }
+}
+html:lang(ar) {
+  svg {
+    transform: rotate(180deg);
+  }
+}
+/*form {
+  padding: 5% 0;
+}*/
+a:not([href]):not([class]) {
+  color: #007bff;
+}
+
+.terms {
+  a {
+    color: $main-color;
+    text-decoration: underline !important;
+    display: inline-block;
+  }
+}
+.text-decoration-underline {
+  text-decoration: underline !important;
+}
+sup {
+  font-size: 95% !important;
+  color: red;
+}
+html:lang(ar) {
+  .actions {
+    span {
+      transform: rotate(180deg);
+    }
+  }
+}

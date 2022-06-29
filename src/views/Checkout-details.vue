@@ -7,10 +7,10 @@
         </div>
         <div class="data-holder p-5" v-if="this.payment_type === 'cach'">
           <ul class="list-data">
-            <li v-if="order_serial">
+            <!-- <li v-if="order_serial">
               {{ $t("payment.orderNumber") }} :
               <span class="bold-result"> {{ order_serial }}</span>
-            </li>
+            </li> -->
             <li v-if="orderDate">
               {{ $t("payment.orderDate") }} :
               <span class="bold-result">{{ orderDate | formatDate }}</span>
@@ -35,10 +35,10 @@
           <div class="col-md-6 col-sm-12 my-3">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <li v-if="order_serial">
+                <!-- <li v-if="order_serial">
                   {{ $t("payment.orderNumber") }} :
                   <span class="bold-result"> {{ order_serial }}</span>
-                </li>
+                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>
@@ -183,6 +183,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
+            this.$router.push('/')
           }
           console.log(res);
         })

@@ -6,11 +6,15 @@
           <span class="side-info">{{ $t("contactUs.contactUs") }}</span>
           <p class="title">{{ $t("contactUs.writeMessage") }}</p>
           <form class="row" @submit.prevent="contactUs">
-            <div class="form-input col-6">
+            <div class="form-input col-6 required">
+              <label for="full_name">
+                {{$t('contactUs.formName')}} <span class="required text-danger">*</span>
+              </label>
+              
               <input
                 v-model="form.full_name"
                 type="text"
-                :placeholder="$t('contactUs.formName')"
+                
               />
               <div class="" v-if="errors">
                 <div
@@ -23,10 +27,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="email">
+                {{$t('contactUs.formEmail')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.email"
                 type="text"
-                :placeholder="$t('contactUs.formEmail')"
               />
               <div class="" v-if="errors">
                 <div
@@ -39,10 +45,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="mobile_number">
+                {{$t('contactUs.formPhone')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.mobile_number"
                 type="number"
-                :placeholder="$t('contactUs.formPhone')"
                 min="0"
               />
               <div class="" v-if="errors">
@@ -56,10 +64,12 @@
               </div>
             </div>
             <div class="form-input col-6">
+              <label for="subject">
+                {{$t('contactUs.formSubject')}} <span class="required text-danger">*</span>
+              </label>
               <input
                 v-model="form.subject"
                 type="text"
-                :placeholder="$t('contactUs.formSubject')"
               />
               <div class="" v-if="errors">
                 <div
@@ -72,9 +82,11 @@
               </div>
             </div>
             <div class="form-input col-12">
+              <label for="message">
+                {{$t('contactUs.formMessage')}} <span class="required text-danger">*</span>
+              </label>
               <b-form-textarea
                 v-model="form.message"
-                :placeholder="$t('contactUs.formMessage')"
                 rows="5"
                 style="resize: none"
               ></b-form-textarea>
@@ -97,7 +109,7 @@
         </div>
         <div class="col-12 col-lg-4 col-xl-3 info-data">
           <div class="contact-info">
-            <div class="info d-flex" v-if="contactPhone">
+            <div class="info " v-if="contactPhone">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -110,12 +122,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
                     <b-icon-telephone-outbound></b-icon-telephone-outbound>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data">
                     <span class="title">{{ contactPhone.title }}</span>
                     <ul class="contact-data">
@@ -127,7 +139,7 @@
                 </div>
               </div>
             </div>
-            <div class="info d-flex" v-if="contactEmail">
+            <div class="info" v-if="contactEmail">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -140,12 +152,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
-                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                   <b-icon-envelope></b-icon-envelope>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data pl-2">
                     <span class="title">{{ contactEmail.title }}</span>
                     <ul class="contact-data">
@@ -157,7 +169,7 @@
                 </div>
               </div>
             </div>
-            <div class="info d-flex" v-if="contactAddress">
+            <div class="info" v-if="contactAddress">
               <!-- <div class="icon">
                 <b-icon-telephone-outbound></b-icon-telephone-outbound>
               </div>
@@ -170,12 +182,12 @@
                 </ul>
               </div> -->
               <div class="row">
-                <div class="col-md-3 col-sm-12 mb-2">
+                <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
-                    <b-icon-telephone-outbound></b-icon-telephone-outbound>
+                    <b-icon-map-fill></b-icon-map-fill>
                   </div>
                 </div>
-                <div class="col-md-9 col-sm-12 mb-2">
+                <div class="col-md-8 col-sm-12 mb-2">
                   <div class="data">
                     <span class="title">{{ contactAddress.title }}</span>
                     <ul class="contact-data">
@@ -204,11 +216,13 @@
   </div>
 </template>
 <script>
-import { BIconTelephoneOutbound } from "bootstrap-vue";
+import { BIconTelephoneOutbound , BIconEnvelope , BIconMapFill } from "bootstrap-vue";
 import profile from "@/services/profile";
 export default {
   components: {
     BIconTelephoneOutbound,
+    BIconEnvelope,
+    BIconMapFill
   },
   data() {
     return {
@@ -233,6 +247,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.sucessMsg(res.data.message);
+          this.errors = []
         })
         .catch((error) => {
           console.log(error);

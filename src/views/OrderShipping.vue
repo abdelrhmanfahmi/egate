@@ -143,7 +143,7 @@
                   />
                   <span>{{ $t("profile.newAddress") }}</span>
                 </label>
-                <label v-if="userData">
+                <label v-if="buyerUserData">
                   <input
                     type="radio"
                     value="existingAddresses"
@@ -442,7 +442,7 @@
                   </b-row>
 
                   <b-button
-                    v-if="userData"
+                    v-if="buyerUserData"
                     type="submit"
                     @click.prevent="createAdress()"
                     class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
@@ -855,15 +855,15 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
+        this.form.region_id = null;
+        this.form.city_id = null;
       });
     },
     // Cities
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
 
@@ -936,9 +936,9 @@ export default {
       localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
       // let storedAddress = localStorage.getItem("addressUUID");
-      // let storedUserData = localStorage.getItem("userData");
+      // let storedbuyerUserData = localStorage.getItem("buyerUserData");
       // if (storedAddress == undefined || storedAddress === "undefined") {
-      //   localStorage.setItem("addressUUID", storedUserData.uuid);
+      //   localStorage.setItem("addressUUID", storedbuyerUserData.uuid);
       //   // alert('undefined')
       // }
       if (this.ratingNum.includes("0")) {

@@ -96,7 +96,8 @@ export default {
   getSingleOrders(id) {
     return globalAxios.get(`members/client-orders/${id}`);
   },
-  deleteOrder(data) {
+  cancelOrder(data) {
+    console.log(data);
     return globalAxios.post(
       `members/client-orders/${data.orderUUID}/change-status`,
       {
@@ -171,6 +172,36 @@ export default {
   },
   postProductRate(data){
     return globalAxios.post('members/review',data)
-  }
+  },
+  returnOrder(payLoad){
+    return globalAxios.post(`members/orders/return-order-item` , payLoad)
+  },
+  storeGoogleLink(){
+    return globalAxios.get('site-settings/google_play')
+  },
+  storeAppLink(){
+    return globalAxios.get('site-settings/app_store')
+  },
+  returneBuyerdOrders(){
+    return globalAxios.get(`members/client_returns`)
+  },
+  returnedSingleBuyerOrders(UUID){
+    return globalAxios.get(`members/client_returns/${UUID}/show`)
+  },
+  returneSupplierOrders(){
+    return globalAxios.get(`members/returns`)
+  },
+  returnedSingleSupplierOrders(UUID){
+    return globalAxios.get(`members/returns/${UUID}/show`)
+  },
+  getWallet(){
+    return globalAxios.get('members/wallet')
+  },
+  getWalletPayments(){
+    return globalAxios.get('members/wallet/payments')
+  },
+  getWalletRecivables(){
+    return globalAxios.get('members/wallet/receivables')
+  },
 
 };

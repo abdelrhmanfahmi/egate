@@ -18,6 +18,70 @@
             <!-- <div class="col-12"></div> -->
             <div class="col-md-3 col-sm-12">
               <div class="footer-social">
+                <ul>
+                  <li v-if="googlePlay">
+                    <a :href="googlePlay.value" target="_blank">
+                      <img
+                        src="@/assets/images/play_store1.png"
+                        :alt="googlePlay.key"
+                      />
+                    </a>
+                  </li>
+                  <li v-if="appStore">
+                    <a :href="appStore.value" target="_blank">
+                      <img
+                        src="@/assets/images/app_store1.png"
+                        :alt="appStore.key"
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 my-2">
+              <nav class="menu-links text-center">
+                <ul class="d-flex justify-content-around align-items-center">
+                  <li>
+                    <router-link to="/">{{ $t("items.home") }}</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/about">{{
+                      $t("home.about")
+                    }}</router-link>
+                  </li>
+
+                  <li>
+                    <router-link to="/suppliers">{{
+                      $t("home.suppliers")
+                    }}</router-link>
+                  </li>
+                  <li>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/auth/login"
+                      target="_blank"
+                      >{{ $t("home.vendors") }}</a
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/b2b-login">{{
+                      $t("home.corporat")
+                    }}</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/contact-us">{{
+                      $t("home.contactUs")
+                    }}</router-link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-md-3 col-sm-12 mb-2">
+              <!-- <div class="footer-link-wrap">
+                <div class="pay-method-img">
+                  <img src="@/assets/images/payment.png" alt="image" />
+                </div>
+              </div> -->
+              <div class="footer-social">
                 <!-- <ul>
                   <li>
                     <router-link to=""><i class=""></i></router-link>
@@ -48,7 +112,7 @@
                     /></router-link>
                   </li>
                 </ul> -->
-                <ul >
+                <ul>
                   <li v-if="facebook">
                     <a :href="facebook.value" target="_blank">
                       <img
@@ -75,73 +139,29 @@
                   </li>
                   <li v-if="instagram">
                     <a :href="instagram.value" target="_blank">
-                        <img
-                          src="@/assets/images/instagram.png"
-                          :alt="instagram.key"
-                        />
-                      </a>
+                      <img
+                        src="@/assets/images/instagram.png"
+                        :alt="instagram.key"
+                      />
+                    </a>
                   </li>
                   <li v-if="linkedin">
                     <a :href="linkedin.value" target="_blank">
-                        <img
-                          src="@/assets/images/linkedin.png"
-                          :alt="linkedin.key"
-                        />
-                      </a>
+                      <img
+                        src="@/assets/images/linkedin.png"
+                        :alt="linkedin.key"
+                      />
+                    </a>
                   </li>
                   <li v-if="pinterest">
                     <a :href="pinterest.value" target="_blank">
-                        <img
-                          src="@/assets/images/pinterest.png"
-                          :alt="pinterest.key"
-                        />
-                      </a>
+                      <img
+                        src="@/assets/images/pinterest.png"
+                        :alt="pinterest.key"
+                      />
+                    </a>
                   </li>
                 </ul>
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12 my-2">
-              <nav class="menu-links text-center">
-                <ul class="d-flex justify-content-around align-items-center">
-                  <li>
-                    <router-link to="/">{{ $t("items.home") }}</router-link>
-                  </li>
-                  <li>
-                    <router-link to="/about">{{
-                      $t("home.about")
-                    }}</router-link>
-                  </li>
-
-                  <li>
-                    <router-link to="/suppliers">{{
-                      $t("home.suppliers")
-                    }}</router-link>
-                  </li>
-                  <li>
-                    <a
-                      href="https://supplier.humhum.work/auth/login"
-                      target="_blank"
-                      >{{ $t("home.vendors") }}</a
-                    >
-                  </li>
-                  <li>
-                    <router-link to="/b2b-login">{{
-                      $t("home.corporat")
-                    }}</router-link>
-                  </li>
-                  <li>
-                    <router-link to="/contact-us">{{
-                      $t("home.contactUs")
-                    }}</router-link>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div class="col-md-3 col-sm-12 mb-2">
-              <div class="footer-link-wrap">
-                <div class="pay-method-img">
-                  <img src="@/assets/images/payment.png" alt="image" />
-                </div>
               </div>
             </div>
           </div>
@@ -162,7 +182,7 @@
                   }}</a
                   >. {{ $t("home.allRightsReserved") }}
                 </p>
-                <p>version 0.0.120</p>
+                <p>version 0.0.139</p>
               </div>
             </div>
           </div>
@@ -183,6 +203,8 @@ export default {
       instagram: null,
       linkedin: null,
       pinterest: null,
+      googlePlay: null,
+      appStore: null,
     };
   },
   methods: {
@@ -252,6 +274,28 @@ export default {
           console.log(err);
         });
     },
+    footerGoogleLink() {
+      profile
+        .storeGoogleLink()
+        .then((res) => {
+          // console.log(res);
+          this.googlePlay = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    footerAppLink() {
+      profile
+        .storeAppLink()
+        .then((res) => {
+          // console.log(res);
+          this.appStore = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.footerFacebookLink();
@@ -260,6 +304,8 @@ export default {
     this.footerLinkedinLink();
     this.footerInstagramLink();
     this.footerPinterestLink();
+    this.footerGoogleLink();
+    this.footerAppLink();
   },
 };
 </script>
@@ -335,8 +381,8 @@ export default {
   display: flex;
   align-items: center;
 }
-.footer-social ul li + li {
-  margin-left: 18px;
+.footer-social ul li  {
+  margin:0  9px;
 }
 .footer-social ul li a {
   font-size: 13px;

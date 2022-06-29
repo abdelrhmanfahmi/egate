@@ -9,9 +9,9 @@ export default {
   allRightsReserved: " جميع الحقوق محفوظة",
   bestDeal: "أفضل الصفقات",
   about: "عن الشركة",
-  vision: "رؤية",
-  message: "رسالة",
-  myPrinciples: "مبادئي",
+  vision: "رؤية الشركة",
+  message: "رسالة الشركة",
+  myPrinciples: "مبادئ الشركة",
   registerForTheNewsletter: "التسجيل في النشرة الإخبارية",
   beTheFirstToGetExclusiveOffersAndCoupons:
     "كن أول من يحصل على عروض وكوبونات حصرية",
@@ -22,12 +22,12 @@ export default {
   KWD: "الدينار الكويتي",
   EGP: "الجنيه المصري",
   showAll: "عرض الكل",
-  noData: "لا يوجد ",
+  noData: "لا يوجد بيانات ",
   tilNow: "حتي الان",
-  noDataTill: "لا يوجد معلومات حتي الان",
+  noDataTill: "لا يوجد بيانات حتي الان",
   All: "الكل",
   vendors: "تسجيل الموردين",
-  pageNoteFound1: "الصفحة التي كنت تبحث عنها ليست موجودة.",
+  pageNoteFound1: "الصفحة التي تبحث عنها ليست موجودة.",
   you: "انت",
   ok:'أوافق'
 };

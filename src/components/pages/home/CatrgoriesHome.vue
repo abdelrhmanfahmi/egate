@@ -2,7 +2,7 @@
   <div class="profile-categories">
     <b-container>
       <span class="categories-info">
-        <h4 class="top-header">{{ $t("profile.categories") }}</h4>
+        <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
       <div v-if="loading">
         <b-row class="holder">
@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     async getCategories() {
+
       await categories
         .getCategories("lists/categories")
         .then((resp) => {
@@ -71,6 +72,7 @@ export default {
     return {
       loading: true,
       categories: null,
+      msg: "First Message",
     };
   },
   mounted() {
@@ -93,8 +95,11 @@ export default {
   }
   .custum-padding {
     padding-right: 0px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    img{
+      opacity: .5;
+    }
   }
 }
 

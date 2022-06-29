@@ -35,8 +35,13 @@ export default {
     quantity: {
       type: Number,
       required: true,
-      default: 0,
+      default: 1,
     },
+    minimum:{
+      type:Number,
+      required: true,
+      default: 1,
+    }
   },
   mounted() {
     this.countValue = this.quantity;
@@ -47,7 +52,7 @@ export default {
       this.$emit('changeCount',this.countValue)
     },
     decrementQuantity() {
-      this.countValue > 1 ? this.countValue-- : null;
+      this.countValue > this.minimum ? this.countValue-- : null;
       this.$emit('changeCount',this.countValue)
     },
   },
@@ -63,7 +68,7 @@ export default {
     color: #606266;
     .product-counter-btn {
       width: 2rem;
-      height: 2rem;
+      height: 1.75rem;
       border-radius: 0;
       border: 1px solid transparent;
       color: #606266;
@@ -82,7 +87,7 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 6rem;
-    height: 4rem;
+    height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
