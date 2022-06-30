@@ -222,5 +222,9 @@ export default {
   ValueDate:'Value Date',
   cancelReason:'Cancel Reason',
   createdAt:'Return Date',
-  shippingMethod:'Shipping Method'
+  shippingMethod:'Shipping Method',
+  billingInfo:'Billing Info',
+  orderSug:'PURCHASE ORDER SUGGESTION',
+  shippingInfo:'Shipping Info',
+  OrderDate:'Order Date'
 };

@@ -213,4 +213,8 @@ export default {
   cancelReason: "سبب الغاء الطلب",
   createdAt: "وقت الطلب",
   shippingMethod: "وسيلة الشحن",
+  billingInfo:'بيانات الفاتوره',
+  orderSug:'اقتراح طلب منتج',
+  shippingInfo:'معلومات التوصيل',
+  OrderDate:'تاريخ الطلب'
 };

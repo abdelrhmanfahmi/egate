@@ -744,7 +744,7 @@
       </div>
     </div>
     <div class="container printing">
-      <h4 class="title text-center my-5">PURCHASE ORDER SUGGESTION</h4>
+      <h4 class="title text-center my-5">{{ $t("profile.orderSug") }}</h4>
       <div class="wrapper">
         <div class="data bb">
           <div class="row">
@@ -762,14 +762,20 @@
             </div>
             <div class="col-md-6 col-sm-12 p-20">
               <h5 class="mb-3"><b>Humhumm</b></h5>
-              <div class="row">
-                <div class="col-md-2 col-sm-6">
-                  <p>Email :</p>
-                  <p>Call Center :</p>
+              <div class="row" v-if="contactEmail">
+                <div class="col-md-3 col-sm-6">
+                  <p>{{$t('contactUs.formEmail')}} :</p>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                  <p>email@email.com</p>
-                  <p>number</p>
+                <div class="col-md-9 col-sm-6">
+                  <p v-html="contactEmail.description"></p>
+                </div>
+              </div>
+              <div class="row" v-if="contactPhone">
+                <div class="col-md-3 col-sm-6">
+                  <p>{{$t('contactUs.phone')}} :</p>
+                </div>
+                <div class="col-md-9 col-sm-6" >
+                  <p v-html="contactPhone.description"></p>
                 </div>
               </div>
             </div>
@@ -782,20 +788,23 @@
               :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
             >
               <div class="holder bor">
-                <p>Invoice # 1-000001319-1027</p>
-                <p>Order Date: Apr 26, 2021</p>
+                <!-- <p>Invoice # 1-000001319-1027</p> -->
+                <p>
+                  {{ $t("profile.OrderDate") }} :
+                  {{ orderData.created_at | formatDate }}
+                </p>
               </div>
             </div>
             <div class="col-6">
               <div class="holder">
-                <p class="mb-0">
+                <p class="mb-0" v-if="orderData">
                   {{ $t("profile.orderSerial") }} : {{ orderData.id }} #
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div class="supplier-data p-15">
+        <div class="supplier-data p-15 mt-3">
           <div class="colored">
             <div
               class="data-for-loop my-5"
@@ -903,23 +912,79 @@
                   <h4>
                     <b>{{ $t("profile.paymentType") }}</b>
                   </h4>
-                  <h6>{{ orderData.payment }}</h6>
+                  <h6 v-if="orderData">{{ orderData.payment }}</h6>
                 </div>
                 <div class="col-md-6 col-sm-12">
                   <h4>
                     <b>{{ $t("profile.shippingMethod") }}</b>
                   </h4>
-                  <h6>Supplier Delivery</h6>
+                  <ul>
+                    <div
+                      v-for="(supplier, index) in orders"
+                      :key="index"
+                      class="px-2"
+                    >
+                      <p>
+                        <span>{{ supplier.company }}</span> -
+                        <span>{{ supplier.shipping_type }}</span>
+                      </p>
+                    </div>
+                  </ul>
                 </div>
               </div>
               <div class="bill mt-3">
-                <h5><b>Billing Info, </b></h5>
-                <h6>
-                  sabeeha Basheer, Mysupply, Block 7, Street 72, Fahaheel,
-                  640001,Kuwait
-                </h6>
-
-                <h6>Mobile No: <a href="tel:94089218">94089218</a></h6>
+                <h5>
+                  <b>{{ $t("profile.billingInfo") }}</b>
+                </h5>
+                <div
+                  class="col-md-6 col-sm-12 mb-2 px-1"
+                  v-if="orderData && shipingExist"
+                >
+                  <div class="" v-if="orderData.client_info">
+                    <h6
+                      class="d-inline-block"
+                      v-if="orderData.client_info.apartment"
+                    >
+                      {{ $t("profile.aptNo") }} :
+                      {{ orderData.client_info.apartment }}
+                    </h6>
+                    <h6
+                      class="d-inline-block"
+                      v-if="orderData.client_info.building_number"
+                    >
+                      , {{ $t("profile.buildingNo") }} :
+                      {{ orderData.client_info.building_number }}
+                    </h6>
+                    <h6
+                      class="d-inline-block"
+                      v-if="orderData.client_info.floor"
+                    >
+                      , {{ $t("profile.floor") }} :
+                      {{ orderData.client_info.floor }}
+                    </h6>
+                    <h6
+                      class="d-inline-block"
+                      v-if="orderData.client_info.address_line_1"
+                    >
+                      , {{ orderData.client_info.address_line_1 }} ,
+                    </h6>
+                    <h6
+                      class="d-inline-block"
+                      v-if="orderData.client_info.address_line_2"
+                    >
+                      , {{ orderData.client_info.address_line_2 }}
+                    </h6>
+                    <h5 v-if="orderData.client_info.city">
+                      {{ orderData.client_info.city }}
+                    </h5>
+                    <h5 v-if="orderData.client_info.governorate">
+                      {{ orderData.client_info.governorate }}
+                    </h5>
+                    <h5 v-if="orderData.client_info.country">
+                      {{ orderData.client_info.country }}
+                    </h5>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="social">
@@ -1012,6 +1077,8 @@ export default {
       youtube: null,
       instagram: null,
       pinterest: null,
+      contactPhone: null,
+      contactEmail: null,
     };
   },
   methods: {
@@ -1191,9 +1258,33 @@ export default {
           console.log(err);
         });
     },
+     contactUsPhone() {
+      profile
+        .contactUsPhone()
+        .then((res) => {
+          console.log(res);
+          this.contactPhone = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    contactUsEmail() {
+      profile
+        .contactUsEmail()
+        .then((res) => {
+          console.log(res);
+          this.contactEmail = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getSingleOrders();
+    this.contactUsPhone();
+    this.contactUsEmail();
     this.footerTwitterLink();
     this.footerYoutubeLink();
     this.footerInstagramLink();
@@ -1294,56 +1385,56 @@ export default {
   }
 }
 
-  .payment-method {
-    .methods-data {
-      background: #ecf0f1;
-      padding: 2rem;
+.payment-method {
+  .methods-data {
+    background: #ecf0f1;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+    .info {
+      border-bottom: 1px dashed #c5c6c6;
+      padding: 1rem 0.3rem;
+      color: #312620;
+      font-weight: bold;
+    }
+    .total {
+      padding: 1rem 0;
+      color: #312620;
+      font-weight: bold;
+      .title {
+        font-size: 14pt;
+      }
+    }
+    .methods {
+      background-color: #fff;
       border-radius: 0.5rem;
-      text-align: left;
-      .info {
-        border-bottom: 1px dashed #c5c6c6;
-        padding: 1rem 0.3rem;
-        color: #312620;
-        font-weight: bold;
-      }
-      .total {
-        padding: 1rem 0;
-        color: #312620;
-        font-weight: bold;
-        .title {
-          font-size: 14pt;
+      border: 1px dashed #cfd0d0;
+      .method {
+        padding: 1rem;
+        border-bottom: 1px dashed #cfd0d0;
+        font-size: 11pt;
+        color: #544842;
+        .custom-radio {
+          flex-wrap: wrap;
         }
-      }
-      .methods {
-        background-color: #fff;
-        border-radius: 0.5rem;
-        border: 1px dashed #cfd0d0;
-        .method {
-          padding: 1rem;
-          border-bottom: 1px dashed #cfd0d0;
-          font-size: 11pt;
-          color: #544842;
-          .custom-radio {
-            flex-wrap: wrap;
-          }
-          label {
-            cursor: pointer;
-          }
-          span {
-            width: 100%;
-            font-size: 10pt;
-            margin-top: -0.2rem;
-            opacity: 0.7;
-          }
-          .online-media {
-            img {
-              object-fit: contain;
-            }
+        label {
+          cursor: pointer;
+        }
+        span {
+          width: 100%;
+          font-size: 10pt;
+          margin-top: -0.2rem;
+          opacity: 0.7;
+        }
+        .online-media {
+          img {
+            object-fit: contain;
           }
         }
       }
     }
   }
+}
 
 .printing {
   color: #000 !important;

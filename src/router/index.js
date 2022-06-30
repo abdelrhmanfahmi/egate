@@ -26,7 +26,7 @@ import SuccessCheckout from "../views/SuccessCheckout";
 import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
 import returnReplace from "../views/RetuenReplace.vue";
 import returnRefund from "../views/ReturnRefund.vue";
-import test from "@/components/test.vue";
+// import test from "@/components/test.vue";
 
 Vue.use(VueRouter);
 
@@ -204,11 +204,11 @@ const routes = [
     name: "returnRefund",
     component: returnRefund,
   },
-  {
-    path: "/test",
-    name: "test",
-    component: test,
-  },
+  // {
+  //   path: "/test",
+  //   name: "test",
+  //   component: test,
+  // },
   ...auth,
   profileRoutes,
 ];
