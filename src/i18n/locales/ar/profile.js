@@ -206,9 +206,15 @@ export default {
   returnSerial: "مسلسل طلب الاسترجاع",
   reshippingFees: "مصاريف اعادة الشحن",
   balance: "الرصيد",
-  receivables:'المدخلات',
-  payments:'المدفوعات',
-  RefundedValue:'قيمة المرتجع',
-  ValueDate:'تاريخ الاستحقاق',
-  cancelReason:'سبب الغاء الطلب'
+  receivables: "المدخلات",
+  payments: "المدفوعات",
+  RefundedValue: "قيمة المرتجع",
+  ValueDate: "تاريخ الاستحقاق",
+  cancelReason: "سبب الغاء الطلب",
+  createdAt: "وقت الطلب",
+  shippingMethod: "وسيلة الشحن",
+  billingInfo:'بيانات الفاتوره',
+  orderSug:'اقتراح طلب منتج',
+  shippingInfo:'معلومات التوصيل',
+  OrderDate:'تاريخ الطلب'
 };

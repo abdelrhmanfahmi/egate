@@ -220,5 +220,11 @@ export default {
   payments: "Payments",
   RefundedValue:'Refunded Value',
   ValueDate:'Value Date',
-  cancelReason:'Cancel Reason'
+  cancelReason:'Cancel Reason',
+  createdAt:'Return Date',
+  shippingMethod:'Shipping Method',
+  billingInfo:'Billing Info',
+  orderSug:'PURCHASE ORDER SUGGESTION',
+  shippingInfo:'Shipping Info',
+  OrderDate:'Order Date'
 };
