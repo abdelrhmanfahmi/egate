@@ -8,6 +8,7 @@ import auth from "@/services/auth";
 import { baseURL } from "@/apis/Api";
 import axios from "axios";
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({

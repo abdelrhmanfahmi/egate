@@ -51,7 +51,7 @@
                   </div>
                   <div class="row info-data info-colored">
                     <div class="col-6">
-                      {{ $t("profile.createedAt") }}
+                      {{ $t("profile.createdAt") }}
                     </div>
                     <div class="col-6">
                       {{ return_item.return_request_date | formatDate }}
@@ -70,10 +70,10 @@
             </div>
             <div class="col-md-6 col-sm-12 mb-2">
               <div class="row info-data">
-                <div class="col-6 info-colored">
+                <div class="col-4 info-colored">
                   <h5 class="pt-2">{{ $t("profile.returnImage") }}</h5>
                 </div>
-                <div class="col-6 py-1 info-colored">
+                <div class="col-8 py-1 info-colored">
                   <div
                     class="downloadArea w-50"
                     :class="{
