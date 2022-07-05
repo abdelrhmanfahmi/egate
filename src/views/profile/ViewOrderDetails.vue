@@ -96,8 +96,13 @@
                         {{ $t("profile.customerName") }}
                       </div>
                       <div class="col-6" v-if="orderData.client_info">
-                        {{ orderData.client_info.first_name }}
-                        {{ orderData.client_info.last_name }}
+                        <span v-if="buyerUserData === 'buyer'">
+                          {{ orderData.client_info.company_name }}
+                        </span>
+                        <span v-else>
+                          {{ orderData.client_info.first_name }}
+                          {{ orderData.client_info.last_name }}
+                        </span>
                       </div>
                     </div>
                     <div
