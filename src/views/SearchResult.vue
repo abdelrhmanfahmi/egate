@@ -6,7 +6,7 @@
           {{ $t("profile.searchResult") }}
         </h1>
       </div>
-      <div class="" v-if="categoriesLength > 0">
+      <div class="" v-if="categoriesLength > 0 || productsLength > 0">
         <div class="data-holder py-5">
           <b-row v-if="loading">
             <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
@@ -69,8 +69,8 @@
                     <div class="" v-if="product">
                       <div>
                         <b-img-lazy
-                          v-if="product.product.image_path"
-                          :src="product.product.image_path"
+                          v-if="product.current_main_image_path"
+                          :src="product.current_main_image_path"
                           class="img-fluid"
                           alt="image"
                         ></b-img-lazy>
@@ -81,11 +81,11 @@
                       </div>
                       <div class="" v-if="product.product_details_by_type">
                         <small>
-                          {{ product.product_details_by_type.customer_price }}</small
+                          {{ product.product_details_by_type.customer_price | fixedCurrency }} {{ currency}}</small
                         >
                         <br>
-                      <small>
-                        {{ product.product_details_by_type.price_before_discount }}</small
+                      <small class="price-after price m-0">
+                        {{ product.product_details_by_type.price_before_discount | fixedCurrency }} {{ currency}}</small
                       >
                       </div>
                     </div>
@@ -93,7 +93,7 @@
                 </div>
               </div>
 
-              <div class="text-center">
+              <div class="text-center" v-if="productsLength > 16">
                 <router-link
                   class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block"
                   :to="{
