@@ -95,8 +95,13 @@
                       {{ $t("profile.customerName") }}
                     </div>
                     <div class="col-6" v-if="orderData.client_info">
-                      {{ orderData.client_info.first_name }}
-                      {{ orderData.client_info.last_name }}
+                      <span v-if="orderData.client_info.company_name">
+                        {{ orderData.client_info.company_name }}
+                      </span>
+                      <span v-else>
+                        {{ orderData.client_info.first_name }}
+                        {{ orderData.client_info.last_name }}
+                      </span>
                     </div>
                   </div>
                   <div class="row info-data" v-if="orderData.client_info.email">
@@ -786,7 +791,7 @@ export default {
         order_uuid: null,
       },
       shipingExist: false,
-      pickupExist:false
+      pickupExist: false,
     };
   },
   methods: {
@@ -812,10 +817,10 @@ export default {
             const element = pickupArr[index];
             // console.log(element == null);
             if (element == null) {
-              console.log('shipping');
+              console.log("shipping");
               this.shipingExist = true;
-            }else{
-              console.log('pickup');
+            } else {
+              console.log("pickup");
               this.pickupExist = true;
             }
           }
