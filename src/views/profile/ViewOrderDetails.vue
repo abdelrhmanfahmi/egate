@@ -375,7 +375,13 @@
                       {{ $t("payment.orderStatus") }} : {{ order.order_status }}
                     </div>
                   </div>
+                  
                 </div>
+                <div class="cancelReason" v-if="order.order_status === 'Cancelled'">
+                    <p class="text-danger px-3">
+                      {{order.supplier_cancel_reason}}
+                    </p>
+                  </div>
                 <div class="d-flex justify-content-end">
                   <b-button
                     @click="

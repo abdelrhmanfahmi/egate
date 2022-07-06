@@ -106,6 +106,81 @@
             </form>
           </div>
         </div>
+        <div class="row" v-if="this.payment_type === 'wallet'">
+          <div class="col-md-6 col-sm-12 my-3">
+            <div class="data-holder p-5">
+              <ul class="list-data">
+                <!-- <li v-if="order_serial">
+                  {{ $t("payment.orderNumber") }} :
+                  <span class="bold-result"> {{ order_serial }}</span>
+                </li> -->
+                <li v-if="orderDate">
+                  {{ $t("payment.orderDate") }} :
+                  <span class="bold-result">{{ orderDate | formatDate }}</span>
+                </li>
+                <li v-if="total_price">
+                  {{ $t("payment.total") }} :
+                  <span class="totalbuy"
+                    >{{ total_price | fixedCurrency }} {{ currency }}</span
+                  >
+                </li>
+                <li v-if="payment">
+                  {{ $t("payment.paymentMethod") }} :
+                  <span class="bold-result">{{ payment }}</span>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="bankInfo"
+              v-if="bankInfo"
+              v-html="bankInfo.description"
+            ></div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
+              <div class="form-input mb-4">
+                <label for="bankImage">
+                  {{ $t("payment.uploadImage") }}
+                  <span class="text-danger">*</span>
+                </label>
+                <b-form-group>
+                  <b-form-file
+                    size="lg"
+                    id="bankImage"
+                    @change="uploadImage"
+                    :placeholder="$t('profile.filePlaceHolder')"
+                    drop-placeholder="Drop file here..."
+                  ></b-form-file>
+                </b-form-group>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.image"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+
+              <b-form-textarea
+                id="textarea-rows"
+                :placeholder="$t('singleProduct.reviewInput')"
+                rows="8"
+                v-model="bankData.comment"
+              ></b-form-textarea>
+              <div class="my-3">
+                <b-button
+                  type="submit"
+                  variant="outline-danger"
+                  class="saveBtn btn-block py-3"
+                  :disabled="btn1Disabled"
+                >
+                  <i class="fa fa-upload"></i> {{ $t("payment.uploadImage") }}
+                  <span class="loader" v-if="loading"></span>
+                </b-button>
+              </div>
+            </form>
+          </div>
+        </div>
 
         <!-- <h4 class="my-5" v-if="payment === 'bank'">
           {{ $t("payment.checkBankResult") }}
@@ -142,7 +217,7 @@ export default {
     };
   },
   mounted() {
-    if (this.payment_type === "cach") {
+    if (this.payment_type === "cach" || this.payment_type === "wallet") {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
       }, 12000);

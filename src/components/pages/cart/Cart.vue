@@ -1694,7 +1694,7 @@ export default {
 
     // payment
 
-    this.paymentGetAllCities();
+    // this.paymentGetAllCities();
     // let this.buyerUserData = localStorage.getItem("buyerUserData");
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id

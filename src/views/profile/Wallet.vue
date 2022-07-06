@@ -50,7 +50,7 @@
                     <tr v-for="(order, index) in recivables" :key="index">
                       <td v-if="order.serial">{{ order.serial }}</td>
                       <td v-if="order.value">
-                        {{ order.value }} {{ currency }}
+                        {{ order.value | fixedCurrency  }} {{ currency }}
                       </td>
                       <td v-if="order.value_date">
                         {{ order.value_date | formatDate }}
@@ -143,10 +143,11 @@
                       </td>
 
                       <td>
+
                         <router-link
                           :to="{
                             path: '/viewOrderDetails',
-                            query: { id: `${order.id}` },
+                            query: { id: `${order.order_id}` },
                           }"
                           class="text-dark"
                         >
@@ -455,6 +456,7 @@ export default {
   background-color: #fff;
   margin: 40px 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 0;
 }
 .tab-wrap:hover {
   box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
