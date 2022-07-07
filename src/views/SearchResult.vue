@@ -1,13 +1,24 @@
 <template>
-  <div>
+  <div class="searchResult">
     <div class="container">
-      <div class="text-center my-5">
+      <div class="text-center mt-5 mb-0">
         <h1>
           {{ $t("profile.searchResult") }}
         </h1>
+        <h6>
+          {{ $t("singleProduct.serchingResult") }}
+          <span class="word"
+            ><b>{{ keyword }}</b></span
+          >
+        </h6>
       </div>
-      <div class="" v-if="categoriesLength > 0 || productsLength > 0">
-        <div class="data-holder py-5">
+      <div class="my-5" v-if="categoriesLength == null || productsLength == null">
+        <div class="text-center">
+          <b-spinner style="width: 3rem; height: 3rem;" variant="primary" label="Spinning" ></b-spinner>
+        </div>
+      </div>
+      <div class="" v-else-if="categoriesLength > 0 || productsLength > 0">
+        <div class="data-holder py-3">
           <b-row v-if="loading">
             <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
               <b-skeleton-img></b-skeleton-img>
@@ -81,12 +92,20 @@
                       </div>
                       <div class="" v-if="product.product_details_by_type">
                         <small>
-                          {{ product.product_details_by_type.customer_price | fixedCurrency }} {{ currency}}</small
+                          {{
+                            product.product_details_by_type.customer_price
+                              | fixedCurrency
+                          }}
+                          {{ currency }}</small
                         >
-                        <br>
-                      <small class="price-after price m-0">
-                        {{ product.product_details_by_type.price_before_discount | fixedCurrency }} {{ currency}}</small
-                      >
+                        <br />
+                        <small class="price-after price m-0">
+                          {{
+                            product.product_details_by_type
+                              .price_before_discount | fixedCurrency
+                          }}
+                          {{ currency }}</small
+                        >
                       </div>
                     </div>
                   </router-link>
@@ -130,9 +149,9 @@ export default {
     return {
       loading: false,
       categories: false,
-      categoriesLength: 0,
+      categoriesLength: null,
       products: null,
-      productsLength: 0,
+      productsLength: null,
       keyword: this.$route.query.keyword,
     };
   },
@@ -191,5 +210,9 @@ export default {
     background: #ed2124;
     color: #fff;
   }
+}
+.word {
+  font-size: 20px;
+  text-decoration: underline;
 }
 </style>

@@ -51,5 +51,6 @@ export default {
   productInCart: "Product In Favorite",
   outOfStock: "Out Of Stock",
   noReviews:'No Reviews',
-  noAvailQuant:'Available Quantity less than the minimum number for order'
+  noAvailQuant:'Available Quantity less than the minimum number for order',
+  serchingResult:'You are searching for : '
 };

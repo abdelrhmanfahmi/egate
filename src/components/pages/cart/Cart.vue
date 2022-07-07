@@ -2369,7 +2369,7 @@ export default {
           }
 
           this.errors = [];
-          this.firstFees = res.data.items;
+          // this.firstFees = res.data.items;
 
           
           // this.shippingCartFee = Number(res.data.items.shepping_fee)
