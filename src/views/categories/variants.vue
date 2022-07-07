@@ -910,7 +910,7 @@ export default {
 
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.selectedVariants)
+        .getCategoryProducts(this.pageId,this.sortType, this.selectedVariants)
         .then((res) => {
           // console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -925,7 +925,7 @@ export default {
     getCategoryProducts() {
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.sortType)
+        .getCategoryProducts(this.pageId, this.sortType , this.selectedVariants)
         .then((res) => {
           console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -1124,7 +1124,7 @@ export default {
       background: #fff;
       color: #312620;
       box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 10%);
-      padding: 1rem 2rem;
+      padding: 1rem 1rem;
       border-radius: 0.2rem;
       margin: 0 0.3rem;
       &:hover {

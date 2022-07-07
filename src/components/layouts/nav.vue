@@ -119,13 +119,21 @@
                     <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                     <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
-                      {{ buyerUserData.first_name || buyerUserData.company_name }}
+                      <span v-if="buyerUserData.type === 'buyer'">
+                        {{ userInfo.item.company_name }} 
+                      </span>
+                      <span v-else>
+                        {{ userInfo.item.userInfo.item.first_name }}
+                      </span>
                     </p>
                     <p v-else>
                       {{ $t("login.welcome") }} ,
-                      {{
-                        userInfo.item.first_name || userInfo.item.company_name
-                      }}
+                      <span v-if="buyerUserData.type === 'buyer'">
+                        {{ userInfo.item.company_name }} 
+                      </span>
+                      <span v-else>
+                        {{ userInfo.item.userInfo.item.first_name }}
+                      </span>
                     </p>
                   </span>
                 </template>

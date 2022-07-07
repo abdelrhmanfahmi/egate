@@ -320,6 +320,7 @@
                                     id="postCode"
                                     type="number"
                                     v-model="form.pin_code"
+                                    :formatter="formatPin_code"
                                     :placeholder="$t('profile.postCode') + '*'"
                                   />
                                   <div
@@ -1599,7 +1600,7 @@ export default {
         building_number: null,
         floor: null,
         apartment: null,
-        pin_code: null,
+        pin_code: '',
         notes: null,
         // address_uuid: null,
         address_line_1: null,
@@ -1674,7 +1675,8 @@ export default {
       totalDiscountReplacement: null,
       localStoreFail: false,
       hasProducts: false,
-      walletData:null
+      walletData:null,
+      pin_codeMaxLength:6
     };
   },
   mounted() {
@@ -1692,7 +1694,7 @@ export default {
 
     // payment
 
-    this.paymentGetAllCities();
+    // this.paymentGetAllCities();
     // let this.buyerUserData = localStorage.getItem("buyerUserData");
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id
@@ -1718,6 +1720,9 @@ export default {
     this.paymentFormData.last_name = this.buyerUserData
       ? this.buyerUserData.last_name
       : "";
+    // this.paymentFormData.company_name = this.buyerUserData
+    //   ? this.buyerUserData.company_name
+    //   : "";
     this.paymentFormData.phone = this.buyerUserData
       ? this.buyerUserData.mobile_number.replace("+20", "").replace("+965", "")
       : "";
@@ -1743,6 +1748,9 @@ export default {
     this.getWallet()
   },
   methods: {
+    formatPin_code(e){
+     return String(e).substring(0,6);
+  },
     changeCoupon($event) {
       // console.log($event.target.value);
       this.selectedCoupon = $event.target.value;
@@ -2361,7 +2369,7 @@ export default {
           }
 
           this.errors = [];
-          this.firstFees = res.data.items;
+          // this.firstFees = res.data.items;
 
           
           // this.shippingCartFee = Number(res.data.items.shepping_fee)
