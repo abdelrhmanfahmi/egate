@@ -49,7 +49,8 @@ export default {
     background-color: white;
   }
   img {
-    min-width: 350px;
+    //min-width: 350px;
+    width: 100% !important;
     height: 150px;
     -o-object-fit: cover;
     object-fit: cover;
