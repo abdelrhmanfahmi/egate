@@ -1694,7 +1694,7 @@ export default {
 
     // payment
 
-    this.paymentGetAllCities();
+    // this.paymentGetAllCities();
     // let this.buyerUserData = localStorage.getItem("buyerUserData");
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id
@@ -1720,6 +1720,9 @@ export default {
     this.paymentFormData.last_name = this.buyerUserData
       ? this.buyerUserData.last_name
       : "";
+    // this.paymentFormData.company_name = this.buyerUserData
+    //   ? this.buyerUserData.company_name
+    //   : "";
     this.paymentFormData.phone = this.buyerUserData
       ? this.buyerUserData.mobile_number.replace("+20", "").replace("+965", "")
       : "";

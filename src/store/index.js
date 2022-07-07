@@ -53,9 +53,16 @@ export default new Vuex.Store({
   actions: {
     getUserInfo({ commit }) {
       auth.getUserInfo().then((res) => {
+
+
+        if(localStorage.getItem('globalAddressUUID') === null){
+          console.log('false')
+          localStorage.setItem('globalAddressUUID' , res.data.items.address_uuid )
+        }
+        // localStorage.setItem('globalAddressUUID' , res.data.items.address_uuid )
         commit("SET_USER_DATA_INFO", res.data.items);
         localStorage.setItem("buyerUserData", JSON.stringify(res.data.items));
-      });
+      })
     },
     getUserGuestId({ commit }) {
       let userExist = localStorage.getItem("buyerUserData");

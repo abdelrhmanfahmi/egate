@@ -96,8 +96,13 @@
                         {{ $t("profile.customerName") }}
                       </div>
                       <div class="col-6" v-if="orderData.client_info">
-                        {{ orderData.client_info.first_name }}
-                        {{ orderData.client_info.last_name }}
+                        <span v-if="buyerUserData === 'buyer'">
+                          {{ orderData.client_info.company_name }}
+                        </span>
+                        <span v-else>
+                          {{ orderData.client_info.first_name }}
+                          {{ orderData.client_info.last_name }}
+                        </span>
                       </div>
                     </div>
                     <div
@@ -370,7 +375,13 @@
                       {{ $t("payment.orderStatus") }} : {{ order.order_status }}
                     </div>
                   </div>
+                  
                 </div>
+                <div class="cancelReason" v-if="order.order_status === 'Cancelled'">
+                    <p class="text-danger px-3">
+                      {{order.supplier_cancel_reason}}
+                    </p>
+                  </div>
                 <div class="d-flex justify-content-end">
                   <b-button
                     @click="
@@ -811,7 +822,7 @@
               >
                 <div class="holder bor">
                   <!-- <p>Invoice # 1-000001319-1027</p> -->
-                  <p>
+                  <p v-if="orderData">
                     {{ $t("profile.OrderDate") }} :
                     {{ orderData.created_at | formatDate }}
                   </p>
