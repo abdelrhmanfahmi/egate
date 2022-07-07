@@ -935,7 +935,7 @@ textarea {
       background: #fff;
       color: #312620;
       box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 10%);
-      padding: 1rem 2rem;
+      padding: 1rem 1rem;
       border-radius: 0.2rem;
       margin: 0 0.3rem;
       &:hover {

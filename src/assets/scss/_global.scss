@@ -441,7 +441,11 @@ img {
 }
 
 @media print {
-  .main-header , .main-nav , footer {
+  .main-header,
+  .main-nav,
+  footer {
     display: none !important;
   }
 }
+
+
