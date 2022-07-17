@@ -81,6 +81,16 @@ globalAxios.interceptors.request.use(
 //   }
 // );
 
+// globalAxios.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === 401) {
+//       window.location.href = "/";
+//     }
+//   }
+// );
+
+
 // globalAxios.interceptors.response.use(undefined, function (err) {
 //   // console.log('error' , err.response.data.code)
 //   return new Promise(function () {
@@ -96,5 +106,7 @@ globalAxios.interceptors.request.use(
 //     throw err;
 //   });
 // });
+
+
 
 export default globalAxios;
