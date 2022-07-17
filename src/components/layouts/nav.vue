@@ -123,7 +123,7 @@
                         {{ userInfo.item.company_name }} 
                       </span>
                       <span v-else>
-                        {{ userInfo.item.userInfo.item.first_name }}
+                        {{ userInfo.item.first_name }}
                       </span>
                     </p>
                     <p v-else>
@@ -132,7 +132,7 @@
                         {{ userInfo.item.company_name }} 
                       </span>
                       <span v-else>
-                        {{ userInfo.item.userInfo.item.first_name }}
+                        {{ userInfo.item.first_name }}
                       </span>
                     </p>
                   </span>
