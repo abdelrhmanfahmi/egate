@@ -120,7 +120,7 @@
                     <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        {{ userInfo.item.company_name }} 
+                        {{ userInfo.item.company_name }}
                       </span>
                       <span v-else>
                         {{ userInfo.item.first_name }}
@@ -129,7 +129,7 @@
                     <p v-else>
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        {{ userInfo.item.company_name }} 
+                        {{ userInfo.item.company_name }}
                       </span>
                       <span v-else>
                         {{ userInfo.item.first_name }}
@@ -260,6 +260,17 @@ export default {
       });
       location.reload();
     },
+    loginNow() {
+      document.$refs["b2cLogin"].show();
+      document.querySelector(".login").click();
+      if (document.querySelector(".login")) {
+        alert("exist");
+      }
+      this.$router.push({
+        path: this.$router.path,
+        query: { force_login: "false" },
+      });
+    },
   },
   computed: {
     cartItems() {
@@ -269,6 +280,21 @@ export default {
       return this.$store.state.cart.cartLength;
     },
   },
+  mounted() {
+    if (this.$route.query.force_login == "true") {
+      if (document.querySelector(".login")) {
+        setTimeout(() => {
+          document.querySelector(".login").click();
+        }, 0);
+          var newURL = location.href.split("?")[0];
+          window.history.pushState("object", document.title, newURL);
+          console.log(newURL);
+      }
+    }
+  },
+  destroyed(){
+    window.history.pushState({}, document.title, window.location.pathname);
+  }
 };
 </script>
 

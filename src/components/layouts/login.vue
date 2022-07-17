@@ -97,6 +97,7 @@
       :title="$t('login.resetPassword')"
       no-close-on-backdrop
       no-close-on-esc
+      ref="b2cLogin"
     >
       <form>
         <b-form-group>
