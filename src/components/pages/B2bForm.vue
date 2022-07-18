@@ -178,29 +178,32 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox v-model="terms" class="terms my-1">
-                {{ $t("register.PleaseReview") }}
-                <a
-                  v-b-modal.terms&condation
-                  @click="$bvModal.show('modal-scoped')"
-                >
-                  {{ $t("register.termsConditions") }}</a
-                >
-                {{ $t("register.toCompleteTheRegistration") }}
+              <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
+                <span>
+                  {{ $t("register.PleaseReview") }}
+                </span>
               </b-form-checkbox>
+              <div class="terms d-inline-block">
+                <span>
+                  <a
+                    v-b-modal.terms&condation
+                    @click="$bvModal.show('modal-scoped')"
+                  >
+                    {{ $t("register.termsConditions") }}</a
+                  >
+                </span>
+                <span>
+                  {{ $t("register.toCompleteTheRegistration") }}
+                </span>
+              </div>
 
-              <b-modal
-                size="lg"
-                id="modal-scoped"
-                :title="condations.title"
-                
-              >
+              <b-modal size="lg" id="modal-scoped" :title="condations.title">
                 <p v-html="condations.description">
                   {{ condations.description }}
                 </p>
                 <template #modal-footer="{ ok }">
-                  <b-button size="sm" variant="outline-success" @click="ok()">
-                    {{$t('home.ok')}}
+                  <b-button size="sm" variant="outline-success" @click="ok() ; acceptMyTerms()">
+                    {{ $t("home.ok") }}
                   </b-button>
                 </template>
               </b-modal>
@@ -294,6 +297,9 @@ export default {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
       });
+    },
+    acceptMyTerms() {
+      this.terms = true;
     },
   },
 };

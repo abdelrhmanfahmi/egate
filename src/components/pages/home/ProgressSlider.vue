@@ -106,10 +106,10 @@ export default {
       options: {
         color: "#ed2124",
         "empty-color": "transparent",
-        size: 80,
-        thickness: 5,
+        size: 60,
+        thickness: 3,
         "empty-thickness": 3,
-        "line-mode": "out 5",
+        "line-mode": "out 2",
         animation: "rs 700 1000",
         "font-size": "1.5rem",
         "font-color": "white",
@@ -145,7 +145,10 @@ export default {
 
 <style lang="scss" scoped>
 .product-silder {
-  padding: 0px 10px 5px 10px;
+  padding: 0 75px;
+  @media(max-width:991.98px){
+    padding: 0;
+  }
   .info {
     display: flex;
     justify-content: space-between;
@@ -165,8 +168,8 @@ html:lang(ar) {
   }
 }
 .offer-image {
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 </style>

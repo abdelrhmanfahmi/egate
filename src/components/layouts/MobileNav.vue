@@ -61,6 +61,10 @@ export default {
 .mobile-nav {
   .branding {
     text-align: center;
+    img{
+      max-width: 120px;
+      margin:  20px;
+    }
     
   }
   .drop-down {
