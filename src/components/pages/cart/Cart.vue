@@ -827,7 +827,6 @@
                                       $t("payment.delivery")
                                     }}</span>
                                   </label>
-
                                   <label>
                                     <input
                                       @input="changePickup($event, supplier)"
@@ -1683,9 +1682,8 @@ export default {
         payment_type: null,
         first_name: null,
         last_name: null,
-        // company_name: "",
         // address: null,
-        sameAddress: false,
+        // sameAddress: false,
         country: "",
         governorate: "",
         city: "",
@@ -1697,6 +1695,7 @@ export default {
         redirect_url: null,
         country_code: null,
         accept_terms: false,
+        company_name:null
       },
       paymentCountries: [],
       paymentCities: [],
@@ -1760,9 +1759,12 @@ export default {
     this.paymentFormData.last_name = this.buyerUserData
       ? this.buyerUserData.last_name
       : "";
-    // this.paymentFormData.company_name = this.buyerUserData
-    //   ? this.buyerUserData.company_name
-    //   : "";
+      
+    this.paymentFormData.company_name = this.buyerUserData
+      ? this.buyerUserData.company_name
+      : "";
+
+      
     this.paymentFormData.phone = this.buyerUserData
       ? this.buyerUserData.mobile_number.replace("+20", "").replace("+965", "")
       : "";
@@ -2772,6 +2774,7 @@ export default {
         this.paymentFormData.address_uuid =
           localStorage.getItem("globalAddressUUID");
       }
+      
 
       suppliers
         .payment(this.paymentFormData)
@@ -2826,6 +2829,7 @@ export default {
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
+        company_name :  this.paymentFormData.company_name,
         email: this.paymentFormData.email,
         payment_type: this.paymentFormData.payment_type,
         phone: this.paymentFormData.phone,

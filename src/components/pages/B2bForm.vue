@@ -36,9 +36,10 @@
                 <!-- job title -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="l-name">{{ $t("register.jobTitle") }}</label>
+                    <label for="l-name">{{ $t("register.department") }}</label>
+                    <!-- <label for="l-name">{{ $t("register.jobTitle") }}</label> -->
                     <span class="requried">*</span>
-                    <b-form-input id="l-name" v-model="form.job_title" />
+                    <!-- <b-form-input id="l-name" v-model="form.job_title" /> -->
                     <div
                       class="error"
                       v-for="(error, index) in errors.job_title"
@@ -46,6 +47,23 @@
                     >
                       {{ error }}
                     </div>
+                    <b-form-select v-model="form.job_title">
+                      <b-form-select-option selected disabled value="null">{{
+                        $t("register.selectDept")
+                      }}</b-form-select-option>
+                      <b-form-select-option
+                        v-for="department in departments"
+                        :key="department.id"
+                        :value="department.id"
+                      >
+                        <span v-if="$i18n.locale == 'en'">{{
+                          department.name_en
+                        }}</span>
+                        <span v-if="$i18n.locale == 'ar'">{{
+                          department.name_ar
+                        }}</span></b-form-select-option
+                      >
+                    </b-form-select>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
@@ -240,7 +258,7 @@
           <h6 class="main-header">
             {{ $t("register.unableRegister") }}
           </h6>
-          <a class="tel pb-0"  v-html="contactPhone.description"></a>
+          <a class="tel pb-0" v-html="contactPhone.description"></a>
         </div>
       </div>
     </b-container>
@@ -254,7 +272,7 @@ export default {
     return {
       form: {
         first_name: "",
-        job_title: "",
+        job_title: null,
         email: "",
         password: "",
         password_confirmation: "",
@@ -262,6 +280,39 @@ export default {
         mobile_number: "",
         register_mailing_list: false,
       },
+      selectedDepartment: null,
+      departments: [
+        {
+          id: "Marketing",
+          name_ar: "التسويق",
+          name_en: "Marketing",
+        },
+        {
+          id: "Sales",
+          name_ar: "المبيعات",
+          name_en: "Sales",
+        },
+        {
+          id: "HR",
+          name_ar: "الموارد البشرية",
+          name_en: "HR",
+        },
+        {
+          id: "Accounting",
+          name_ar: "الحسابات",
+          name_en: "Accounting",
+        },
+        {
+          id: "IT",
+          name_ar: "تكنولوجيا المعلومات",
+          name_en: "IT",
+        },
+        {
+          id: "Law",
+          name_ar: "القانون",
+          name_en: "Law",
+        },
+      ],
       errors: {},
       terms: "",
       connects: [
@@ -271,7 +322,7 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
-      contactPhone:'', // add phone
+      contactPhone: "", // add phone
     };
   },
   mounted() {

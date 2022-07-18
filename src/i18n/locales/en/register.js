@@ -31,4 +31,6 @@ export default {
   resetPassword: "Type New Password",
   passwordConfirmation: "Password Confirmation",
   save: "Save",
+  department:'Department',
+  selectDept:'Select Department'
 };

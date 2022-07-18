@@ -59,4 +59,5 @@ export default {
   bankComment: "ملاحظات التحويل البنكى",
   orderStatus: "حالة الطلب",
   cancelOrder: "الغاء",
+  postalError: "يجب ان يكون ٦ ارقام",
 };

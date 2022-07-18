@@ -58,5 +58,6 @@ export default {
   bankTransImage:'Bank transfer image',
   bankComment:'Bank transfer notes',
   orderStatus:'Order Status',
-  cancelOrder:'Cancel'
+  cancelOrder:'Cancel',
+  postalError:'Must Be 6 numbers'
 };
