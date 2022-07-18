@@ -178,7 +178,10 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
+              <b-form-checkbox
+                v-model="terms"
+                class="terms my-1 d-inline-block"
+              >
                 <span>
                   {{ $t("register.PleaseReview") }}
                 </span>
@@ -202,8 +205,18 @@
                   {{ condations.description }}
                 </p>
                 <template #modal-footer="{ ok }">
-                  <b-button size="sm" variant="outline-success" @click="ok() ; acceptMyTerms()">
-                    {{ $t("home.ok") }}
+                  <b-button
+                    size="sm"
+                    variant="outline-success"
+                    @click="
+                      ok();
+                      acceptMyTerms();
+                    "
+                  >
+                    <span class="mx-1">{{ $t("payment.accept") }}</span>
+                    <span class="mx-1">{{
+                      $t("payment.termsAndConditions")
+                    }}</span>
                   </b-button>
                 </template>
               </b-modal>
@@ -227,7 +240,7 @@
           <h6 class="main-header">
             {{ $t("register.unableRegister") }}
           </h6>
-          <a class="tel" href="tel:4733378901">47 333 78 901</a>
+          <a class="tel pb-0"  v-html="contactPhone.description"></a>
         </div>
       </div>
     </b-container>
@@ -235,6 +248,7 @@
 </template>
 <script>
 import auth from "@/services/auth";
+import profile from "@/services/profile";
 export default {
   data() {
     return {
@@ -257,11 +271,13 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
+      contactPhone:'',
     };
   },
   mounted() {
     this.getTerms();
     this.getAllCountires();
+    this.contactUsPhone();
   },
   methods: {
     switchField() {
@@ -300,6 +316,17 @@ export default {
     },
     acceptMyTerms() {
       this.terms = true;
+    },
+    contactUsPhone() {
+      profile
+        .contactUsPhone()
+        .then((res) => {
+          console.log(res);
+          this.contactPhone = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
