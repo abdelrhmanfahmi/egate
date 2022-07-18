@@ -70,7 +70,7 @@
               <b-input-group class="mt-3">
                 <template #append>
                   <b-input-group-text>
-                    <strong>
+                    <strong @click="search" class="search-eye">
                       <font-awesome-icon
                         v-b-toggle.sidebar-1
                         icon="fa-solid fa-search" /></strong
@@ -286,15 +286,15 @@ export default {
         setTimeout(() => {
           document.querySelector(".login").click();
         }, 0);
-          var newURL = location.href.split("?")[0];
-          window.history.pushState("object", document.title, newURL);
-          console.log(newURL);
+        var newURL = location.href.split("?")[0];
+        window.history.pushState("object", document.title, newURL);
+        console.log(newURL);
       }
     }
   },
-  destroyed(){
+  destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
-  }
+  },
 };
 </script>
 
@@ -302,6 +302,12 @@ export default {
 .main-nav {
   width: 100%;
   transition: 0.5s all ease-in-out;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999999;
+  background: #fff;
   nav {
     align-items: center;
     font-size: 14px;
@@ -432,7 +438,6 @@ html:lang(ar) {
     transition: 0.8s all ease-in-out;
     font-size: 25px;
   }
-  
 
   .icon-active {
     transform: rotate(180deg);
@@ -453,10 +458,13 @@ html:lang(ar) {
   font-weight: bold;
   padding: 0px 4px;
 }
-.ar{
-    .icon{
-      left: 24px;
-      right: auto;
-    }
+.ar {
+  .icon {
+    left: 24px;
+    right: auto;
   }
+}
+.search-eye{
+  cursor: pointer;
+}
 </style>

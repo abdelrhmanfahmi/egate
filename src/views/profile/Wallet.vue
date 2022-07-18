@@ -2,7 +2,7 @@
   <div>
     <div class="wrabber">
       <div class="balance-holder py-5 px-3">
-        <h4 class="balanc_number">{{ walletData }} {{ currency }}</h4>
+        <h4 class="balanc_number">{{ walletData | fixedCurrency }} {{ currency }}</h4>
         <h5 class="balance_text">
           {{ $t("profile.balance") }}
         </h5>
