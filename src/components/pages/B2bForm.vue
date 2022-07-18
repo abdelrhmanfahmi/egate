@@ -271,7 +271,7 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
-      contactPhone:'',
+      contactPhone:'', // add phone
     };
   },
   mounted() {
