@@ -1,7 +1,7 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
     <b-container>
-      <nav>
+      <nav :class="$i18n.locale">
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
@@ -432,6 +432,7 @@ html:lang(ar) {
     transition: 0.8s all ease-in-out;
     font-size: 25px;
   }
+  
 
   .icon-active {
     transform: rotate(180deg);
@@ -452,4 +453,10 @@ html:lang(ar) {
   font-weight: bold;
   padding: 0px 4px;
 }
+.ar{
+    .icon{
+      left: 24px;
+      right: auto;
+    }
+  }
 </style>

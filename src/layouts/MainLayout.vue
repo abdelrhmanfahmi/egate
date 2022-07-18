@@ -106,6 +106,7 @@ export default {
   transition: all 0.5s ease-in-out;
   border-radius: 50%;
   border: 1px solid #d4d5d8;
+  z-index: 999999;
 }
 .view{
   min-height: 50vh;

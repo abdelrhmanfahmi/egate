@@ -23,5 +23,7 @@ export default {
   kg: "Kg",
   // Products Most Sold
   new: "New",
-  relativeProducts:'Related Products'
+  relativeProducts:'Related Products',
+  addToFavourite:'Add To Favourite',
+  addedToFavourite:'Already in favourite'
 };
