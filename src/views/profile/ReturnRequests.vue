@@ -15,7 +15,7 @@
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
             <td>{{ order.item_names }}</td>
-            <td>{{ order.client }}</td>
+            <td>{{ order.supplier }}</td>
             <td>
               <span v-if="order.price"
                 >{{ order.price | fixedCurrency }} {{ currency }}</span
