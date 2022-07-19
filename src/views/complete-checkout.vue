@@ -21,12 +21,7 @@
           <br />
           {{ $t("payment.waitPurchace2") }}
         </p>
-        <router-link :to="{path:'viewOrderDetails' , query:{id:orderId}}" v-if="buyerUserData && buyerUserData ==='buyer'">
-          <b-button variant="outline-success mt-4">
-            {{ $t("payment.orderTrack") }}
-          </b-button>
-        </router-link>
-        <router-link :to="{path:'viewOrderDetails' , query:{id:orderId}}" v-if="buyerUserData && buyerUserData ==='b2c'">
+        <router-link :to="{path:'viewOrderDetails' , query:{id:orderId}}" v-if="buyerUserData">
           <b-button variant="outline-success mt-4">
             {{ $t("payment.orderTrack") }}
           </b-button>
