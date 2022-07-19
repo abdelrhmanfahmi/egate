@@ -1,0 +1,48 @@
+stages:
+  - dependencies
+  - build
+  - deploy
+
+variables:
+  staing_base_url: https://staging2.fabrica-dev.com/humhum-user/
+
+install_dependenices:
+  image: node:12-alpine
+  stage: dependencies
+  script:
+    - npm install
+  only:
+    - develop
+  artifacts:
+    untracked: true
+
+build to Staging:
+  image: node:12-alpine
+  stage: build
+  dependencies:
+    - install_dependenices
+  script:
+    - npm run build
+  only:
+    - develop
+  artifacts:
+    paths:
+      - dist
+
+deploy to staging:
+  image: alpine
+  stage: deploy
+  dependencies:
+    - install_dependenices
+    - build to Staging
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - cd dist
+    - scp -o StrictHostKeyChecking=no -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/humhum-user
+  only:
+    - develop
