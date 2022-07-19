@@ -12,7 +12,7 @@ install_dependenices:
   script:
     - npm install
   only:
-    - develop
+    - dev
   artifacts:
     untracked: true
 
@@ -24,7 +24,7 @@ build to Staging:
   script:
     - npm run build
   only:
-    - develop
+    - dev
   artifacts:
     paths:
       - dist
@@ -45,4 +45,4 @@ deploy to staging:
     - cd dist
     - scp -o StrictHostKeyChecking=no -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/humhum-user
   only:
-    - develop
+    - dev
