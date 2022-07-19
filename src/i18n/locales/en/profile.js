@@ -226,5 +226,6 @@ export default {
   billingInfo:'Billing Info',
   orderSug:'PURCHASE ORDER SUGGESTION',
   shippingInfo:'Shipping Info',
-  OrderDate:'Order Date'
+  OrderDate:'Order Date',
+  rejectionReason:'Rejection Reason'
 };

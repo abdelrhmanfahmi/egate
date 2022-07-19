@@ -377,9 +377,14 @@
                   </div>
                   
                 </div>
-                <div class="cancelReason" v-if="order.order_status === 'Cancelled'">
-                    <p class="text-danger px-3">
-                      {{order.supplier_cancel_reason}}
+                <div class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0 " v-if="order.order_status_string === 'Cancelled'">
+                    <p class="text-danger px-3 mb-0">
+                      <span>
+                        {{$t('profile.cancelReason')}} : 
+                      </span>
+                      <span class="mx-2">
+                        {{order.supplier_cancel_reason}}
+                      </span>
                     </p>
                   </div>
                 <div class="d-flex justify-content-end">
@@ -1556,5 +1561,8 @@ export default {
   .printing {
     display: block;
   }
+}
+.cancelReason {
+  background: #ff000042 !important;
 }
 </style>
