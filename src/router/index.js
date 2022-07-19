@@ -26,6 +26,11 @@ import SuccessCheckout from "../views/SuccessCheckout";
 import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
 import returnReplace from "../views/RetuenReplace.vue";
 import returnRefund from "../views/ReturnRefund.vue";
+
+
+import privacyPolicy from "../views/privacyPolicy.vue";
+import termsConditions from "../views/termsConditions.vue";
+import faq from "../views/faq.vue";
 // import test from "@/components/test.vue";
 
 Vue.use(VueRouter);
@@ -203,6 +208,23 @@ const routes = [
     path: "/return-refund",
     name: "returnRefund",
     component: returnRefund,
+  },
+
+
+  {
+    path: "/privacyPolicy",
+    name: "privacyPolicy",
+    component: privacyPolicy,
+  },
+  {
+    path: "/termsConditions",
+    name: "termsConditions",
+    component: termsConditions,
+  },
+  {
+    path: "/faq",
+    name: "faq",
+    component: faq,
   },
   // {
   //   path: "/test",

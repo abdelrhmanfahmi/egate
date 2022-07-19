@@ -19,7 +19,10 @@
           <tr v-if="myProduct.client !== null">
             <th>{{ $t("singleProduct.supplierName") }}</th>
             <td>
-              {{myProduct.client.company_name}}
+
+              <router-link :to="`/suppliers/${myProduct.client_id}`">
+                {{myProduct.client.company_name}}
+              </router-link>
             </td>
           </tr>
           <tr v-if="myProduct.country ">

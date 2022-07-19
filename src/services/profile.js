@@ -204,4 +204,11 @@ export default {
     return globalAxios.get('members/wallet/receivables')
   },
 
+  privacyPage(){
+    return globalAxios.get(`statics/privacy-policy`)
+  },
+  termsPage(){
+    return globalAxios.get(`statics/terms-conditions`)
+  }
+
 };

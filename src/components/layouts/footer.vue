@@ -1,6 +1,6 @@
 <template>
   <section class="user-footer">
-    <footer class="dark-bg pt-50 pb-50">
+    <footer class="dark-bg pt-50 pb-1">
       <div class="container">
         <div class="footer-top-wrap">
           <div class="row">
@@ -186,6 +186,22 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="newLinks footer-middle-wrap mt-5">
+          <nav class="menu-links text-center">
+            <ul class="d-flex justify-content-center align-items-center">
+              <li class="mx-3">
+                <router-link to="/privacyPolicy">{{ $t("home.privacyPolicy") }}</router-link>
+              </li>
+              <li class="mx-3">
+                <router-link to="/termsConditions">{{ $t("home.termsConditions") }}</router-link>
+              </li>
+
+              <li class="mx-3">
+                <router-link to="/faq">{{ $t("home.faq") }}</router-link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>
@@ -381,8 +397,8 @@ export default {
   display: flex;
   align-items: center;
 }
-.footer-social ul li  {
-  margin:0  9px;
+.footer-social ul li {
+  margin: 0 9px;
 }
 .footer-social ul li a {
   font-size: 13px;
@@ -538,6 +554,15 @@ html:lang(ar) {
 .footer-middle-wrap {
   a {
     color: #8c8c8c;
+  }
+}
+.menu-links {
+  ul {
+    @media (max-width: 767px) {
+      flex-direction: column !important;
+      font-size: 20px;
+      line-height: 1.7;
+    }
   }
 }
 </style>

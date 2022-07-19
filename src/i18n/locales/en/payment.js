@@ -59,5 +59,9 @@ export default {
   bankComment:'Bank transfer notes',
   orderStatus:'Order Status',
   cancelOrder:'Cancel',
-  postalError:'Must Be 6 numbers'
+  postalError:'Must Be 6 numbers',
+  CountryRequired:'Country is Mandatory',
+  RegionRequired:'Region is Mandatory',
+  CityRequired:'City is Mandatory',
+  AddressRequired:'Address is Mandatory',
 };

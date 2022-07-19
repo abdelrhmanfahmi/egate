@@ -21,12 +21,7 @@
           <br />
           {{ $t("payment.waitPurchace2") }}
         </p>
-        <router-link to="/profile/ordersListsB2b" v-if="buyerUserData && buyerUserData ==='buyer'">
-          <b-button variant="outline-success mt-4">
-            {{ $t("payment.orderTrack") }}
-          </b-button>
-        </router-link>
-        <router-link to="/profile/ordersListsB2b" v-if="buyerUserData && buyerUserData ==='b2c'">
+        <router-link :to="{path:'viewOrderDetails' , query:{id:orderId}}" v-if="buyerUserData">
           <b-button variant="outline-success mt-4">
             {{ $t("payment.orderTrack") }}
           </b-button>
@@ -79,7 +74,8 @@ export default {
     return {
       success: false,
       fail: false,
-      failReason:null
+      failReason:null,
+      orderId:null
     };
   },
   methods: {
@@ -91,7 +87,7 @@ export default {
       auth
         .checkoutComplete(data)
         .then((res) => {
-          console.log(res);
+          this.orderId = res.data.items.order_id
           if (res.data.items.status === 'CAPTURED') {
             this.success = true;
             this.fail = false;
