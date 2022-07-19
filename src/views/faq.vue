@@ -2,7 +2,9 @@
   <div>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-        <h1 class="display-4">FAQ</h1>
+        <h1 class="display-4">
+          {{$t('home.faq')}}
+        </h1>
         <!-- <p class="lead">This is a Sample FAQ page.</p> -->
       </div>
     </div>
