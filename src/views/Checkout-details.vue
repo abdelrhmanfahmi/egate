@@ -106,8 +106,8 @@
             </form>
           </div>
         </div>
-        <div class="row" v-if="this.payment_type === 'wallet'">
-          <div class="col-md-6 col-sm-12 my-3">
+        <div v-if="this.payment_type === 'wallet'">
+          <div class="">
             <div class="data-holder p-5">
               <ul class="list-data">
                 <!-- <li v-if="order_serial">
@@ -130,55 +130,9 @@
                 </li>
               </ul>
             </div>
-            <div
-              class="bankInfo"
-              v-if="bankInfo"
-              v-html="bankInfo.description"
-            ></div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
-              <div class="form-input mb-4">
-                <label for="bankImage">
-                  {{ $t("payment.uploadImage") }}
-                  <span class="text-danger">*</span>
-                </label>
-                <b-form-group>
-                  <b-form-file
-                    size="lg"
-                    id="bankImage"
-                    @change="uploadImage"
-                    :placeholder="$t('profile.filePlaceHolder')"
-                    drop-placeholder="Drop file here..."
-                  ></b-form-file>
-                </b-form-group>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in uploadErrors.image"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-              </div>
-
-              <b-form-textarea
-                id="textarea-rows"
-                :placeholder="$t('singleProduct.reviewInput')"
-                rows="8"
-                v-model="bankData.comment"
-              ></b-form-textarea>
-              <div class="my-3">
-                <b-button
-                  type="submit"
-                  variant="outline-danger"
-                  class="saveBtn btn-block py-3"
-                  :disabled="btn1Disabled"
-                >
-                  <i class="fa fa-upload"></i> {{ $t("payment.uploadImage") }}
-                  <span class="loader" v-if="loading"></span>
-                </b-button>
-              </div>
-            </form>
+            <h4 class="my-5">
+              {{ $t("payment.checkCachResult") }}
+            </h4>
           </div>
         </div>
 
@@ -220,7 +174,7 @@ export default {
     if (this.payment_type === "cach" || this.payment_type === "wallet") {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
-      }, 12000);
+      }, 8000);
     }
     if (this.payment_type === "bank") {
       // setTimeout(() => {
@@ -258,7 +212,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.$router.push('/')
+            this.$router.push("/");
           }
           console.log(res);
         })

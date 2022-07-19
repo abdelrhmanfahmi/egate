@@ -356,6 +356,9 @@ input[type="text"]:disabled {
     width: 100% !important;
   }
 }
+.supplierAddressesDanger{
+  border: 2px solid red !important;
+}
 .addresses-holder {
   position: relative;
   .close-options {

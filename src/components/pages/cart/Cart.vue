@@ -145,6 +145,12 @@
                                     >
                                       {{ error }}
                                     </div>
+                                    <div
+                                      class="error" v-if="localClicked && form.country_id == null"
+                                    >
+                                      {{ $t('payment.CountryRequired') }}
+                                      
+                                    </div>
                                   </b-form-group>
                                 </b-col>
                                 <!-- regions -->
@@ -178,6 +184,13 @@
                                       :key="index"
                                     >
                                       {{ error }}
+                                    </div>
+
+                                    <div
+                                      class="error" v-if="localClicked && form.region_id == null"
+                                    >
+                                      {{ $t('payment.RegionRequired') }}
+                                      
                                     </div>
 
                                     <div
@@ -232,6 +245,12 @@
                                     >
                                       {{ error }}
                                     </div>
+                                     <div
+                                      class="error" v-if="localClicked && form.city_id == null"
+                                    >
+                                      {{ $t('payment.CityRequired') }}
+                                      
+                                    </div>
                                   </b-form-group>
                                 </b-col>
                                 <!-- street number  -->
@@ -257,6 +276,12 @@
                                     >
                                       {{ error }}
                                     </div>
+                                    <div
+                                      class="error" v-if="localClicked && form.address_line_1 == null"
+                                    >
+                                      {{ $t('payment.AddressRequired') }}
+                                      
+                                    </div>
                                   </b-form-group>
                                 </b-col>
                                 <!-- home number  -->
@@ -270,7 +295,7 @@
                                       id="homeNumber"
                                       v-model="form.building_number"
                                       :placeholder="
-                                        $t('profile.homeNumber') + '*'
+                                        $t('profile.homeNumber')
                                       "
                                     />
                                     <div
@@ -292,7 +317,7 @@
                                     <b-form-input
                                       id="floor"
                                       v-model="form.floor"
-                                      :placeholder="$t('profile.floor') + '*'"
+                                      :placeholder="$t('profile.floor')"
                                     />
                                     <div
                                       class="error"
@@ -314,7 +339,7 @@
                                       id="blockNumber"
                                       v-model="form.apartment"
                                       :placeholder="
-                                        $t('profile.blockNumber') + '*'
+                                        $t('profile.blockNumber') 
                                       "
                                     />
                                     <div
@@ -339,15 +364,13 @@
                                       v-model="form.pin_code"
                                       :formatter="formatPin_code"
                                       :placeholder="
-                                        $t('profile.postCode') + '*'
+                                        $t('profile.postCode')
                                       "
                                     />
                                     <div
-                                      class="error"
-                                      v-for="(error, index) in errors.pin_code"
-                                      :key="index"
+                                      class="error" v-if="postalError"
                                     >
-                                      {{ error }}
+                                      {{ $t('payment.postalError') }}
                                     </div>
                                   </b-form-group>
                                 </b-col>
@@ -847,6 +870,7 @@
                                     @input="selectAddressUUID"
                                     @change="selectType(supplier, index)"
                                     class="w-100 mt-2 supplierAddresses d-none"
+                                    :class="{'text-danger':ratingNum[index].supplier_address_id === null , 'text-dark d-block':ratingNum[index].supplier_address_id !== null}"
                                   >
                                     <b-form-select-option
                                       selected
@@ -1714,6 +1738,8 @@ export default {
       hasProducts: false,
       walletData: null,
       pin_codeMaxLength: 6,
+      postalError:false,
+      localClicked:false
     };
   },
   mounted() {
@@ -2264,27 +2290,38 @@ export default {
     },
     localStoreAdresses() {
       // localStorage.setItem("guestAddressData", JSON.stringify(this.form));
+      this.localClicked = true;
 
       if (
         this.form.country_id !== null &&
         this.form.region_id !== null &&
-        this.form.city_id !== null
+        this.form.city_id !== null &&
+        
+        this.form.address_line_1 !== null 
       ) {
         this.sucessMsg(this.$t("cart.success"));
         this.submitted = true;
         setTimeout(() => {
           this.expanded = false;
         }, 500);
+        this.postalError = false
         // document.getElementsByClassName('feedsResult').innerHTML = ''
         // document.getElementsByClassName('feedsResult').classList.remove('d-block')
         // document.getElementsByClassName('feedsResult').classList.add('d-none')
         this.getGuestFirstShippingFees();
 
         this.localStoreFail = true;
-      } else {
+        
+      }else if(this.form.pin_code.length < 6 && this.form.pin_code !== ''){
+        this.postalError = true
+      }
+       else {
+        this.postalError = false
         this.errMsg(this.$t("cart.fillData"));
         this.localStoreFail = false;
       }
+      
+      
     },
     getSupplierAddress(supplierId) {
       // this.selectedAddress = supplierId;
