@@ -375,18 +375,18 @@
                       {{ $t("payment.orderStatus") }} : {{ order.order_status }}
                     </div>
                   </div>
-                  
                 </div>
-                <div class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0 " v-if="order.order_status_string === 'Cancelled'">
-                    <p class="text-danger px-3 mb-0">
-                      <span>
-                        {{$t('profile.cancelReason')}} : 
-                      </span>
-                      <span class="mx-2">
-                        {{order.supplier_cancel_reason}}
-                      </span>
-                    </p>
-                  </div>
+                <div
+                  class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0"
+                  v-if="order.order_status_string === 'Cancelled'"
+                >
+                  <p class="text-danger px-3 mb-0">
+                    <span> {{ $t("profile.cancelReason") }} : </span>
+                    <span class="mx-2">
+                      {{ order.supplier_cancel_reason }}
+                    </span>
+                  </p>
+                </div>
                 <div class="d-flex justify-content-end">
                   <b-button
                     @click="
@@ -743,7 +743,8 @@
             <div class="d-block">
               <div class="">
                 <form>
-                  <textarea
+                  
+                  <textarea 
                     class="form-control"
                     name=""
                     id=""
@@ -1126,6 +1127,7 @@ export default {
       pinterest: null,
       contactPhone: null,
       contactEmail: null,
+      
     };
   },
   methods: {
@@ -1564,5 +1566,9 @@ export default {
 }
 .cancelReason {
   background: #ff000042 !important;
+}
+textarea{
+  transition: al .5s ease-in-out;
+  resize: none;
 }
 </style>
