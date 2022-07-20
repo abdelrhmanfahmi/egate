@@ -227,5 +227,14 @@ export default {
   orderSug:'PURCHASE ORDER SUGGESTION',
   shippingInfo:'Shipping Info',
   OrderDate:'Order Date',
-  rejectionReason:'Rejection Reason'
+  rejectionReason:'Rejection Reason',
+  cancelReason1:'Unsuitable Fit',
+  cancelReason2:'Unhappy with the product',
+  cancelReason3:'Item is Damaged',
+  cancelReason4:'Wrong Item was delivered',
+  cancelReason5:'Unhappy with customer service',
+  cancelReason6:'Duplicate order',
+  cancelReason7:'Incorrect size',
+  cancelReason8:'others',
+  Notifications:'Notifications'
 };

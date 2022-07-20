@@ -94,6 +94,14 @@
             </span>
             <Cart class="cart-body"></Cart>
           </div>
+          <div v-if="!mobile" class="cart">
+            <router-link to="/profile/Notifications">
+              <span class="cart-icon">
+                <font-awesome-icon icon="fa-solid fa-bell" />
+              </span>
+              <span class="cartLength"> 0 </span>
+            </router-link>
+          </div>
           <!-- <div v-if="!mobile" class="cart">
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-heart" />
@@ -464,7 +472,7 @@ html:lang(ar) {
     right: auto;
   }
 }
-.search-eye{
+.search-eye {
   cursor: pointer;
 }
 </style>

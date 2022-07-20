@@ -111,6 +111,19 @@
                 {{ error }}
               </div>
             </div>
+            <div>
+              <b-form-select v-model="cancelationReason" class="mb-3">
+                <b-form-select-option disabled value="null">{{
+                  $t("cart.selectOption")
+                }}</b-form-select-option>
+                <b-form-select-option
+                  :value="reason.id"
+                  v-for="(reason, index) in reasons"
+                  :key="index"
+                  >{{ reason.text }}</b-form-select-option
+                >
+              </b-form-select>
+            </div>
 
             <b-form-textarea
               id="textarea-rows"
@@ -158,6 +171,41 @@ export default {
       loading: false,
       id: this.$route.query.prodId,
       selectedOption: null,
+      reasons: [
+        {
+          id: "1",
+          text: this.$t("profile.cancelReason1"),
+        },
+        {
+          id: "2",
+          text: this.$t("profile.cancelReason2"),
+        },
+        {
+          id: "3",
+          text: this.$t("profile.cancelReason3"),
+        },
+        {
+          id: "4",
+          text: this.$t("profile.cancelReason4"),
+        },
+        {
+          id: "5",
+          text: this.$t("profile.cancelReason5"),
+        },
+        {
+          id: "6",
+          text: this.$t("profile.cancelReason6"),
+        },
+        {
+          id: "7",
+          text: this.$t("profile.cancelReason7"),
+        },
+        {
+          id: "8",
+          text: this.$t("profile.cancelReason8"),
+        },
+      ],
+      cancelationReason: null,
     };
   },
   methods: {

@@ -218,4 +218,13 @@ export default {
   shippingInfo: "معلومات التوصيل",
   OrderDate: "تاريخ الطلب",
   rejectionReason: "سبب رفض الاسترجاع",
+  cancelReason1: "غير ملائم",
+  cancelReason2: "غير راضٍ عن المنتج",
+  cancelReason3: "العنصر تالف",
+  cancelReason4: "تم استلام عنصر خاطئ",
+  cancelReason5: "غير راضٍ عن خدمة العملاء",
+  cancelReason6: "الطلب مكرر",
+  cancelReason7: "حجم غير صحيح",
+  cancelReason8: "سبب اخر",
+  Notifications:'الاشعارات'
 };
