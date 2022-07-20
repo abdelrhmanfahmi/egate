@@ -182,7 +182,7 @@
                   }}</a
                   >. {{ $t("home.allRightsReserved") }}
                 </p>
-                <p>version 0.0.145</p>
+                <p>version {{version}}</p>
               </div>
             </div>
           </div>
@@ -210,6 +210,7 @@
 
 <script>
 import profile from "@/services/profile";
+import { version } from "../../../package";
 export default {
   data() {
     return {
@@ -221,6 +222,7 @@ export default {
       pinterest: null,
       googlePlay: null,
       appStore: null,
+      version: version
     };
   },
   methods: {
