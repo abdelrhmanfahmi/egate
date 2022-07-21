@@ -52,5 +52,6 @@ export default {
   asc:'من الاقل للأعلى ',
   desc:'من الاعلى للأقل',
   sortBy:'تصفيه ب',
-  selectPickupAddress:'اختر عنوان استلام للمورد '
+  selectPickupAddress:'اختر عنوان استلام للمورد ',
+  viewAll:'عرض الكل'
 };

@@ -32,20 +32,23 @@
               </div>
             </div>
             <div>
-              <b-form-select v-model="cancelationReason" class="mb-3">
+              <b-form-select v-model="returnData.return" class="mb-3">
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
                 }}</b-form-select-option>
                 <b-form-select-option
-                  :value="reason.id"
+                  :value="reason.name"
                   v-for="(reason, index) in reasons"
                   :key="index"
-                  >{{ reason.text }}</b-form-select-option
+                  >{{ reason.name }}</b-form-select-option
                 >
               </b-form-select>
             </div>
 
             <b-form-textarea
+              v-if="
+                returnData.return == 'others' || returnData.return == 'سبب اخر'
+              "
               id="textarea-rows"
               :placeholder="$t('profile.returnReason')"
               rows="8"
@@ -83,45 +86,13 @@ export default {
         item_uuid: this.$route.query.orderId ? this.$route.query.orderId : null,
         return_option: 1, // refund = 0  , replace = 1
         refund_option: 0, // 0=Wallet,1=Visa,2=Bank,3=Cash
+        return: null,
       },
       uploadErrors: [],
       btn1Disabled: false,
       loading: false,
-      reasons: [
-        {
-          id: "1",
-          text: this.$t("profile.cancelReason1"),
-        },
-        {
-          id: "2",
-          text: this.$t("profile.cancelReason2"),
-        },
-        {
-          id: "3",
-          text: this.$t("profile.cancelReason3"),
-        },
-        {
-          id: "4",
-          text: this.$t("profile.cancelReason4"),
-        },
-        {
-          id: "5",
-          text: this.$t("profile.cancelReason5"),
-        },
-        {
-          id: "6",
-          text: this.$t("profile.cancelReason6"),
-        },
-        {
-          id: "7",
-          text: this.$t("profile.cancelReason7"),
-        },
-        {
-          id: "8",
-          text: this.$t("profile.cancelReason8"),
-        },
-      ],
-      cancelationReason: null,
+      // reasons: null,
+      reasons: null,
     };
   },
   methods: {
@@ -140,7 +111,18 @@ export default {
       if (this.returnData.image !== null) {
         formData.append("image", this.returnData.image);
       }
-      formData.append("return_reason", this.returnData.return_reason);
+      
+      if (
+        this.returnData.return === "others" ||
+        this.returnData.return == "سبب اخر"
+      ) {
+        formData.append("return", null);
+
+        formData.append("return_reason", this.returnData.return_reason);
+      } else {
+        formData.append("return", this.returnData.return);
+        formData.append("return_reason", null);
+      }
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
       formData.append("refund_option", this.returnData.refund_option);
@@ -184,6 +166,20 @@ export default {
         ? files[0].name
         : `${files.length} files selected`;
     },
+    returnReasons() {
+      profile
+        .returnReasons()
+        .then((res) => {
+          console.log(res);
+          this.reasons = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.returnReasons();
   },
 };
 </script>
