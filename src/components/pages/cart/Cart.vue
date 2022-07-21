@@ -2830,6 +2830,12 @@ export default {
           localStorage.getItem("globalAddressUUID");
       }
 
+      // make sure address_uuid will not undefined
+
+      if(this.paymentFormData.address_uuid == 'undefined'){
+        this.paymentFormData.address_uuid = this.buyerUserData.uuid
+      }
+
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
