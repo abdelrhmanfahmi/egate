@@ -7,19 +7,10 @@
             <div :class="$i18n.locale">
               <div class="shipping-holder">
                 <div class="container">
-                  <!-- <b-button
-                variant="outline-info"
-                v-if="!showBtnClicked"
-                @click="toggleOptionsSelect"
-              >
-                {{ $t("payment.selectOption") }}
-              </b-button> -->
-
                   <div class="row">
                     <div class="col-12">
                       <h3 class="font-weight-bold">
                         {{ $t("payment.delivery") }}
-                        <!--  / {{ $t("payment.pickup") }} -->
                       </h3>
                       <div class="addresses-holder p-5">
                         <div class="addresses">
@@ -415,252 +406,8 @@
                                 {{ $t("register.submit") }} &
                                 {{ $t("cart.checkFees") }}
                               </b-button>
-                              <!-- <router-link
-                          v-if="submitted"
-                          to="/payment"
-                          class="login-button dark m-0 mt-4 ml-4 py-3 px-5 text-white text-center w-auto mx-2"
-                        >
-                          {{ $t("cart.checkout") }}
-                        </router-link> -->
-
-                              <!-- <button
-                          @click.prevent="getShippingFeesNew"
-                          to="/payment"
-                          class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
-                        >
-                          {{ $t("cart.checkFees") }}
-                        </button> -->
                             </form>
-                            <!-- <h6
-                            v-if="!buyerUserData && localStoreFail"
-                            class="localStoreFail mt-3 error"
-                          >
-                            {{ $t("cart.fillData") }}
-                          </h6> -->
                           </div>
-
-                          <!-- <div
-                        class="existingAddresses"
-                        v-else-if="selectAddressShape === 'existingAddresses'"
-                      >
-                        <div class="existingAddressNewStep">
-                          <form
-                            v-if="
-                              selectAddressShape === 'existingAddresses' &&
-                              selectedAddress !== null
-                            "
-                            @submit.prevent="createAdress()"
-                            class="account-information-form"
-                          >
-                            <b-row class="justify-content-center">
-                              country 
-                              <b-col lg="12">
-                                <b-form-group>
-                                  <label>{{ $t("profile.country") }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-select
-                                    v-model="newForm.country_id"
-                                    @input="getAllRegions"
-                                    disabled
-                                  >
-                                    <b-form-select-option
-                                      v-for="country in countries"
-                                      :key="country.id"
-                                      :value="country.id"
-                                      >{{ country.title }}
-                                    </b-form-select-option>
-                                  </b-form-select>
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.country_id"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              regions
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label>{{ $t("profile.region") }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-select
-                                    v-model="newForm.region_id"
-                                    disabled
-                                    @input="getAllCities"
-                                  >
-                                    <b-form-select-option
-                                      v-for="region in regions"
-                                      :key="region.id"
-                                      :value="region.id"
-                                      >{{ region.title }}
-                                    </b-form-select-option>
-                                  </b-form-select>
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.region_id"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              cities
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label>{{ $t("profile.city") }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-select
-                                    v-model="newForm.city_id"
-                                    disabled
-                                  >
-                                    <b-form-select-option
-                                      v-for="city in cities"
-                                      :key="city.id"
-                                      :value="city.id"
-                                      >{{ city.title }}
-                                    </b-form-select-option>
-                                  </b-form-select>
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.city_id"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              street number 
-                              <b-col lg="12">
-                                <b-form-group>
-                                  <label for="streetNumber">{{
-                                    $t("profile.streetNumber")
-                                  }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-input
-                                    id="streetNumber"
-                                    disabled
-                                    v-model="newForm.street"
-                                  />
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.street"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              home number 
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label for="homeNumber">{{
-                                    $t("profile.homeNumber")
-                                  }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-input
-                                    disabled
-                                    id="homeNumber"
-                                    v-model="newForm.building_number"
-                                  />
-                                  <div
-                                    class="error"
-                                    v-for="(
-                                      error, index
-                                    ) in errors.building_number"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              floor 
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label for="floor">{{
-                                    $t("profile.floor")
-                                  }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-input
-                                    id="floor"
-                                    v-model="newForm.floor"
-                                    disabled
-                                  />
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.floor"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              block number  
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label for="blockNumber">{{
-                                    $t("profile.blockNumber")
-                                  }}</label>
-                                  <span class="requried">*</span>
-                                  <b-form-input
-                                    id="blockNumber"
-                                    v-model="newForm.apartment"
-                                    disabled
-                                  />
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.apartment"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-                              post code 
-                              <b-col lg="6">
-                                <b-form-group>
-                                  <label for="postCode">{{
-                                    $t("profile.postCode")
-                                  }}</label>
-                                  <b-form-input
-                                    id="postCode"
-                                    v-model="newForm.pin_code"
-                                    disabled
-                                  />
-                                  <div
-                                    class="error"
-                                    v-for="(error, index) in errors.pin_code"
-                                    :key="index"
-                                  >
-                                    {{ error }}
-                                  </div>
-                                </b-form-group>
-                              </b-col>
-
-                              <b-col lg="12">
-                                <b-form-group>
-                                  <label for="textarea">{{
-                                    $t("profile.note")
-                                  }}</label>
-                                  <b-form-textarea
-                                    id="textarea"
-                                    size="lg"
-                                    disabled
-                                    v-model="form.notes"
-                                  ></b-form-textarea>
-                                </b-form-group>
-                              </b-col>
-                              note 
-                            </b-row>
-                            <button
-                              @click.prevent="getShippingFeesExist"
-                              class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
-                            >
-                              {{ $t("cart.checkFees") }}
-                            </button>
-                          </form>
-                        </div>
-                      </div> -->
                         </div>
                         <div
                           class="close-options"
@@ -813,13 +560,7 @@
                                   >
                                 </div>
                               </div>
-                              <!-- <div >
-                          <ul>
-                            <li v-for="(error, index) in errors" :key="index">
-                              {{ error }}
-                            </li>
-                          </ul>
-                        </div> -->
+
                               <h6 class="couponValid text-success m-0 p-0"></h6>
                               <h6
                                 class="couponNotValid text-danger m-0 p-0"
@@ -927,12 +668,6 @@
                           </td>
                         </tr>
                       </tbody>
-                      <!-- <div class="proceAfterDisc" v-if="couponChecked">
-              {{ $t("cart.proceAfterDisc") }} :
-              <span
-                ><b>{{ totalPayment }}</b></span
-              >
-            </div> -->
                     </table>
                   </div>
                 </div>
@@ -945,9 +680,6 @@
                     alt="cart-image"
                     class="w-25"
                   />
-                  <!-- <h3 class="m-0">
-          {{ $t("cart.noCartProducts") }}
-        </h3> -->
                 </div>
               </div>
             </div>
@@ -955,9 +687,6 @@
           <div class="payment w-100">
             <div class="payment py-3">
               <div class="container">
-                <!-- <h4 class="header text-center py-5 font-weight-bold">
-                  {{ $t("payment.payment") }}
-                </h4> -->
                 <div class="content">
                   <div class="row payment-data">
                     <div class="col-12 col-lg-7 col-xl-8 payment-delivery">
@@ -967,12 +696,6 @@
                         <span class="title">{{
                           $t("payment.deliveryData")
                         }}</span>
-                        <!-- <router-link to="/cart">
-                      {{ $t("payment.backToCart") }}
-                      <span>
-                        <font-awesome-icon icon="fa-solid fa-arrow-right" />
-                      </span>
-                    </router-link> -->
                       </div>
                       <form class="row delivery-form">
                         <div
@@ -1017,131 +740,6 @@
                             {{ error }}
                           </div>
                         </div>
-                        <!-- <div class="col-12 form-group" v-if="!buyerUserData">
-                      <label for="companyName">
-                  {{ $t("payment.category") }} ({{ $t("payment.optional") }})
-                </label>
-                      <label for="companyName">
-                        {{ $t("payment.companyName") }}
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="companyName"
-                        v-model="paymentFormData.company_name"
-                      />
-                      <div
-                        class="error text-start"
-                        v-for="(error, index) in errors.company_name"
-                        :key="index"
-                      >
-                        {{ error }}
-                      </div>
-                    </div> -->
-                        <!-- <div class="col-12 form-group required" v-if="checkType">
-                <label for="country">{{ $t("payment.country") }}</label>
-                <b-form-select
-                  v-model="paymentFormData.country"
-                  @input="getAllRegions"
-                >
-                  <b-form-select-option
-                    v-for="country in countries"
-                    :key="country.id"
-                    :value="country.id"
-                    >{{ country.title }}
-                  </b-form-select-option>
-                </b-form-select>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in errors.country"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-              </div> -->
-                        <!-- <div class="col-6 form-group required" v-if="checkType">
-                <label for="governorate">{{ $t("payment.governorate") }}</label>
-
-                <b-form-select
-                  v-model="paymentFormData.governorate"
-                  :disabled="!paymentFormData.country"
-                  @input="getAllCities"
-                >
-                  <b-form-select-option
-                    v-for="region in regions"
-                    :key="region.id"
-                    :value="region.id"
-                    >{{ region.title }}
-                  </b-form-select-option>
-                </b-form-select>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in errors.governorate"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-              </div> -->
-                        <!-- <div class="col-6 form-group required" v-if="checkType">
-                <label for="city">{{ $t("payment.city") }}</label>
-                <b-form-select
-                  v-model="paymentFormData.city"
-                  :disabled="!paymentFormData.country || !paymentFormData.governorate"
-                >
-                  <b-form-select-option
-                    v-for="city in cities"
-                    :key="city.id"
-                    :value="city.id"
-                    >{{ city.title }}
-                  </b-form-select-option>
-                </b-form-select>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in errors.city"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-              </div> -->
-                        <!-- <div class="col-12 form-group required" v-if="!buyerUserData">
-                      <label for="address">{{ $t("payment.address") }}</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="address"
-                        v-model="paymentFormData.address"
-                      />
-                      <div
-                        class="error text-start"
-                        v-for="(error, index) in errors.address"
-                        :key="index"
-                      >
-                        {{ error }}
-                      </div>
-                    </div> -->
-
-                        <!-- <div
-                      :class="{ 'col-12': checkType }"
-                      class="col-6 form-group"
-                      v-if="checkType && !buyerUserData"
-                    >
-                      <label for="postalCode">{{
-                        $t("payment.postalCode")
-                      }}</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="postalCode"
-                        v-model="paymentFormData.postal_code"
-                      />
-                      <div
-                        class="error text-start"
-                        v-for="(error, index) in errors.postal_code"
-                        :key="index"
-                      >
-                        {{ error }}
-                      </div>
-                    </div> -->
 
                         <div class="col-md-5 col-sm-12 form-group">
                           <label for="email"
@@ -1167,24 +765,6 @@
                           </div>
                         </div>
 
-                        <!-- <div class="col-2 form-group required">
-                        <label for="country_code">{{
-                          $t("payment.country_code")
-                        }}</label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="country_code"
-                          v-model="paymentFormData.country_code"
-                        />
-                        <div
-                          class="error text-start"
-                          v-for="(error, index) in errors.country_code"
-                          :key="index"
-                        >
-                          {{ error }}
-                        </div>
-                      </div> -->
                         <b-col md="3" sm="12">
                           <b-form-group>
                             <label for="countryCode">{{
@@ -1244,17 +824,7 @@
                         <div
                           class="col-12 form-group custom-control custom-checkbox"
                           v-if="!buyerUserData"
-                        >
-                          <!-- <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  id="deliveryAddress"
-                  v-model="paymentFormData.sameAddress"
-                /> -->
-                          <!-- <label class="custom-control-label" for="deliveryAddress">
-                  {{ $t("payment.deliverySameAddress") }}
-                </label> -->
-                        </div>
+                        ></div>
                         <div class="col-12 form-group">
                           <label for="notes">
                             {{ $t("payment.notes") }} ({{
@@ -1284,32 +854,6 @@
                         }}</span>
                       </div>
                       <div class="methods-data">
-                        <!-- <div class="info">
-                {{ $t("payment.total") }}: {{ cart_sub_total | fixedCurrency }} {{ currency }}
-              </div> -->
-                        <!-- <div class="info">
-                {{ $t("payment.discount") }} : {{ discount | fixedCurrency }} {{ currency }}
-              </div> -->
-                        <!-- <div class="info delivery">
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="freeDelivery"
-                    v-model="freeDelivery"
-                    value="free"
-                  />
-                  <label class="custom-control-label" for="freeDelivery">
-                    {{ $t("payment.freeDelivery") }}
-                  </label>
-                </div>
-              </div> -->
-                        <!-- <div
-                class="d-flex justify-content-between align-items-center total"
-              >
-                <span class="title">{{ $t("payment.total") }}</span>
-                <span class="price">{{ totalPayment | fixedCurrency }} {{ currency }}</span>
-              </div> -->
                         <div class="methods">
                           <div
                             class="method"
@@ -1425,19 +969,6 @@
                         >
                           {{ error }}
                         </div>
-                        <!-- <div class="terms my-4">
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="terms"
-                  />
-                  <label class="custom-control-label" for="terms">
-                    {{ $t("payment.accept") }}
-                    <a href="#">{{ $t("payment.termsAndConditions") }}</a>
-                  </label>
-                </div>
-              </div> -->
 
                         <b-form-checkbox
                           v-model="paymentFormData.accept_terms"
@@ -1523,23 +1054,7 @@
                         {{ shippingCartFee | fixedCurrency }} {{ currency }}
                       </td>
                     </tr>
-                    <!-- <tr>
-                  <th>{{ $t("cart.delivery") }}</th>
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="freeDelivery"
-                        v-model="freeDelivery"
-                      />
-                      {{ freeDeliveryStatus }}
-                      <label class="custom-control-label" for="freeDelivery">
-                        {{ $t("cart.free") }}
-                      </label>
-                    </div>
-                  </td>
-                </tr> -->
+
                     <tr>
                       <th>{{ $t("cart.total") }}</th>
                       <td v-if="totalPayment">
@@ -1550,22 +1065,6 @@
                   </tbody>
                 </table>
                 <div class="checkout d-flex">
-                  <!-- <router-link
-                v-if="buyerUserData"
-                to="/order-shipping"
-                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-              >
-                {{ $t("cart.next") }}
-              </router-link> -->
-                  <!-- <a
-                @click="showModal = true"
-                @ok="$refs.cartModal.onSubmit()"
-                v-if="!buyerUserData"
-                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-              >
-                {{ $t("cart.next") }}
-              </a> -->
-
                   <div class="submit" v-if="buyerUserData">
                     <b-button
                       type="submit"
@@ -1590,12 +1089,6 @@
                       <login-modal @close="closeModal" />
                     </div>
                   </transition>
-                  <!-- <router-link
-                to="/payment"
-                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
-              >
-                {{ $t("cart.checkout") }}
-              </router-link> -->
                 </div>
               </div>
             </div>
@@ -1707,16 +1200,12 @@ export default {
       count: 0,
       storedData: null,
       paymentFormData: {
-        // guest_uuid: localStorage.getItem("guest-id")
-        //   ? localStorage.getItem("guest-id")
-        //   : "",
         comment: null,
         phone: null,
         payment_type: null,
         first_name: null,
         last_name: null,
-        // address: null,
-        // sameAddress: false,
+
         country: "",
         governorate: "",
         city: "",
@@ -1754,20 +1243,10 @@ export default {
   mounted() {
     this.getCartProducts();
 
-    // localStorage.removeItem("discount");
     this.getAllCountires();
     this.getAllAdresses();
     localStorage.removeItem("s_id");
 
-    // let checkTypes = localStorage.getItem('type');
-    // if(checkTypes.includes('1')){
-    //   alert('pickup')
-    // }
-
-    // payment
-
-    // this.paymentGetAllCities();
-    // let this.buyerUserData = localStorage.getItem("buyerUserData");
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id
       : "";
@@ -1815,12 +1294,8 @@ export default {
 
     this.getTerms();
 
-    // console.log(this.paymentFormData.country_code);
-
     localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
-    // let mtNumber = this.buyerUserData.mobile_number.substr(0,3);
-    // document.getElementById()
     this.getWallet();
   },
   methods: {
@@ -1859,11 +1334,6 @@ export default {
             this.hasProducts = true;
           }
 
-          // console.log("cart_items", res.data.items.cart_items);
-          // console.log("res", res);
-
-          // console.log(res);
-          // this.cartItems = this.cartItems = res.data.items.cart_items
           this.cartItems = res.data.items.cart_items.map((cartItem) => {
             return {
               ...cartItem,
@@ -1910,19 +1380,11 @@ export default {
             var existingAddresses =
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
-              // checkboxes[i].checked = true;
-              // checkboxes[i].parentElement.click();
-              // console.log(checkboxes[i]);
               existingAddresses.click();
               existingAddresses.checked = true;
             }
-            if (this.addresses !== null) {
-              // checkboxes.submit();
-            }
           }, 500);
-          // setTimeout(() => {
-          //   this.shippingStore();
-          // }, 200);
+
           if (localStorage.getItem("buyerUserData") === null) {
             if (document.querySelector(".GuestNewAddress") !== null) {
               document.querySelector(".GuestNewAddress").click();
@@ -1934,9 +1396,6 @@ export default {
         });
     },
     removeFromCart(product) {
-      // this.removeProductFromCart({
-      //   product: product,
-      // });
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
@@ -1945,9 +1404,6 @@ export default {
       setTimeout(() => {
         this.getCartProducts();
       }, 1000);
-      // setTimeout(() => {
-      //   this.loading = false;
-      // }, 1200);
     },
     removeDisabled() {
       let myInput = this.selectedInput;
@@ -1982,11 +1438,6 @@ export default {
       }
     },
     checkCoupon(supplier) {
-      // let data = {
-      //   supplier_id: supplier.supplier_id,
-      //   coupon: this.coupon,
-      // };
-
       var data = {
         coupons: [
           {
@@ -2021,16 +1472,10 @@ export default {
             }
             this.totalDiscount =
               res.data.items.total_cart.total_discount.toFixed(3);
-            // this.totalPayment =
-            //   res.data.items.total_cart.total_price;
+
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
-            // let myInput = document.querySelector("input");
-            // myInput.setAttribute("disabled", "true");
-            // this.cartItems = res.data.items.cart_items;
-
-            ///
 
             let myInput = this.selectedInput;
             let button = this.selectedButton;
@@ -2039,13 +1484,8 @@ export default {
 
             span.style.display = "block";
             button.setAttribute("disabled", "true");
-            // button.innerHTML = this.$t("cart.enableButton");
+
             myInput.setAttribute("disabled", "true");
-            // this.getCartProducts()
-            // localStorage.setItem(
-            //   "discount",
-            //   res.data.items.cart_sub_total_disc
-            // );
 
             if (res.data.items.total_cart.total_discount == 0) {
               this.totalDiscountReplacement = parseFloat(this.totalDiscount);
@@ -2074,7 +1514,7 @@ export default {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
       }
-      // console.log(myQuantity);
+
       this.cartItems = null;
 
       setTimeout(() => {
@@ -2090,29 +1530,18 @@ export default {
 
     changeAddress() {
       document.getElementsByClassName("feedsResult").innerHTML = "";
-      // console.log(document.querySelector('.feedsResult').classList.contains('d-block'));
-      // if(document.querySelectorAll('.feedsResult').classList.contains('d-block')){
-      //   document.querySelectorAll('.feedsResult').classList.remove('d-block')
-      //   document.querySelectorAll('.feedsResult').classList.add('d-none')
-      // }
+
       var doc = document.querySelectorAll(".feedsResult");
-      // console.log(doc);
-      // var notes = null;
+
       for (var i = 0; i < doc.length; i++) {
         if (doc[i].classList.contains("d-block")) {
-          // notes = doc.childNodes[i];
-          // break;
           doc[i].classList.remove("d-block");
           doc[i].innerHTML = "";
         }
       }
 
       this.newForm = this.selectedAddress;
-      // console.log("old selected address", this.selectedAddress);
-      // localStorage.setItem(
-      //   "guestAddressData",
-      //   JSON.stringify(this.selectedAddress)
-      // );
+
       localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
 
       setTimeout(() => {
@@ -2121,50 +1550,34 @@ export default {
         suppliers
           .getFirstShippingFees(address_uuid)
           .then((res) => {
-            // console.log(res);
-
             this.firstFees = res.data.items;
             this.sucessMsg(res.data.message);
 
             let arr = res.data.items;
             var size = Object.values(arr);
-            // console.log("arr" , size);
+
             let myData = 0;
             for (let index = 0; index < size.length; index++) {
               const element = size[index].shipping_fee;
-              // console.log(`element${index}`, element);
+
               myData += parseFloat(element);
             }
 
             this.totalPaymentReplacement = this.totalPayment;
 
-            // this.shippingCartFee = myData + 'reda';
             this.shippingCartFee = myData;
 
-            // this.cart_sub_total = res.data.items.cart_sub_total;
-            // this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
             this.totalPaymentReplacement += parseFloat(myData);
 
-            // console.log("myData", myData);
-            // console.log("this.totalPayment", this.totalPayment.toFixed(3));
             if (myData == 0) {
               this.totalPaymentReplacement = this.totalPayment;
             }
 
             if (this.totalDiscountReplacement == parseFloat(0)) {
-              // this.totalDiscountReplacement += parseFloat(res.data.items.total_cart.total_discount)
               this.totalPaymentReplacement -= parseFloat(
                 this.totalDiscountReplacement
               );
             }
-            // console.log(
-            //   "this.totalPaymentReplacement",
-            //   this.totalPaymentReplacement.toFixed(3)
-            // );
-            // this.totalPayment += myData;
-            // this.shippingCartFee = res.data.items.cart_total_shipping_fee;
-
-            // console.log("myData", myData);
           })
           .catch((err) => {
             console.log(err);
@@ -2175,20 +1588,13 @@ export default {
       }, 200);
     },
     selectAddressUUID(myselectAddressUUID) {
-      // console.log(myselectAddressUUID);
       this.supplierAddress = myselectAddressUUID.uuid;
       this.address_uuid = myselectAddressUUID.uuid;
       localStorage.setItem("addressUUID", myselectAddressUUID.uuid);
-      
 
-      // setting delivery fees again after select pick-up
-
-       let newFee = this.selectedInput.parentElement.parentElement
-              .querySelector(".feedsResultShipping").getAttribute('value')
-
-
-              
-
+      let newFee = this.selectedInput.parentElement.parentElement
+        .querySelector(".feedsResultShipping")
+        .getAttribute("value");
 
       this.shippingCartFee -= parseFloat(newFee);
       this.totalPaymentReplacement -= parseFloat(newFee);
@@ -2327,9 +1733,7 @@ export default {
           this.expanded = false;
         }, 500);
         this.postalError = false;
-        // document.getElementsByClassName('feedsResult').innerHTML = ''
-        // document.getElementsByClassName('feedsResult').classList.remove('d-block')
-        // document.getElementsByClassName('feedsResult').classList.add('d-none')
+
         this.getGuestFirstShippingFees();
 
         this.localStoreFail = true;
@@ -2342,22 +1746,16 @@ export default {
       }
     },
     getSupplierAddress(supplierId) {
-      // this.selectedAddress = supplierId;
-
-      // console.log(this.supplierAddress);
       suppliers
         .getSupplierAddress(supplierId)
         .then((res) => {
-          // console.log(res);
-          // this.selectedSupplierAddresses = res.data.items;
-          // console.log(this.cartItems);
           this.cartItems.forEach((item, index) => {
             if (item.supplier_id == supplierId)
               this.cartItems[index].supplier_addresses = res.data.items;
           });
           if (res.data.items.length == 0 || res.data.items == "") {
             this.availablePickup = false;
-            // console.log(this.selectedInput.parentElement.parentElement);
+
             this.selectedInput.parentElement.parentElement
               .querySelector(".supplierAddresses")
               .classList.remove("d-block");
@@ -2385,11 +1783,6 @@ export default {
               ".pickupNoData"
             ).innerHTML = `${this.$t("profile.noPickupData")}`;
 
-            // this.selectedInput.parentElement.classList.add("d-none");
-            //  console.log(this.selectedInput.parentElement.parentElement.querySelector('.feedsResult'));
-            // console.log(this.selectedInput.parentElement.parentElement.querySelector(
-            //   ".feedsResultShipping"
-            // ));
             if (
               this.selectedInput.parentElement.parentElement.querySelector(
                 ".feedsResultShipping"
@@ -2413,7 +1806,6 @@ export default {
       let input = $event.target;
 
       this.selectedInput = input;
-      // document.querySelector(".supplierAddresses").classList.remove("d-block");
 
       this.showBtnClicked = true;
 
@@ -2422,8 +1814,6 @@ export default {
       ).innerHTML = "";
 
       this.expanded = true;
-
-      //  let address_uuid = localStorage.getItem("addressUUID");
 
       let myResult =
         this.selectedInput.parentElement.parentElement.querySelector(
@@ -2465,9 +1855,6 @@ export default {
           }
 
           this.errors = [];
-          // this.firstFees = res.data.items;
-
-          // this.shippingCartFee = Number(res.data.items.shepping_fee)
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -2480,11 +1867,8 @@ export default {
 
       this.selectedInput = input;
 
-      // let button = input.parentElement.nextElementSibling;
-      // button.classList.add("d-block");
-
       this.showBtnClicked = false;
-      // console.log(supplier);
+
       this.getSupplierAddress(supplier.supplier_id);
 
       this.selectedInput.parentElement.nextElementSibling.classList.remove(
@@ -2567,95 +1951,16 @@ export default {
     },
 
     orderType(supplier) {
-      // console.log(supplier);
       localStorage.setItem("s_id", supplier);
       localStorage.setItem("type", this.ratingNum);
-      // let storedAddress = localStorage.getItem("addressUUID");
-      // let storedbuyerUserData = localStorage.getItem("buyerUserData");
-      // if (storedAddress == undefined || storedAddress === "undefined") {
-      //   localStorage.setItem("addressUUID", storedbuyerUserData.uuid);
-      //   // alert('undefined')
-      // }
 
       if (this.ratingNum.includes("0")) {
         this.deliverType = true;
-
-        // supplierAddresses
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .classList.add("d-none");
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .classList.remove("d-block");
-
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .nextElementSibling.classList.add("d-none");
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .nextElementSibling.classList.remove("d-block");
       } else {
         this.deliverType = false;
-
-        // this.selectedInput.parentElement.nextElementSibling.classList.remove(
-        //   "d-none"
-        // );
-        // this.selectedInput.parentElement.nextElementSibling.classList.add(
-        //   "d-block"
-        // );
-
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .classList.remove("d-none");
-        // this.selectedInput.parentElement.parentElement
-        //   .querySelector(".feedsResult")
-        //   .classList.add("d-block");
-
-        // this.selectedInput.parentElement.parentElement.querySelector(
-        //   ".feedsResult"
-        // ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
-        //   this.currency
-        // }`;
       }
     },
     getShippingFeesExist() {
-      // let address_uuid = localStorage.getItem("addressUUID");
-
-      // let myResult =
-      //   this.selectedInput.parentElement.nextElementSibling.nextElementSibling
-      //     .nextElementSibling;
-
-      // let data = {
-      //   country: this.form.country_id,
-      //   governorate: this.form.region_id,
-      //   city: this.form.city_id,
-      //   address_uuid: address_uuid,
-      //   supplier_id: localStorage.getItem("s_id"),
-      // };
-      // suppliers
-      //   .getShippingFees(data)
-      //   .then((res) => {
-      //     this.sucessMsg(res.data.message);
-
-      //     myResult.innerHTML =
-      //       this.$t("profile.deleiveryFees") +
-      //       Number(res.data.items.price).toFixed(3) +
-      //       " " +
-      //       this.currency;
-
-      //     if (res.data.items == [] || res.data.items == "") {
-      //       myResult.innerHTML = this.$t("profile.deliveryFeesText");
-      //     }
-
-      //     this.errors = [];
-      //     this.firstFees = res.data.items;
-      //   })
-      //   .catch((error) => {
-      //     const err = Object.values(error)[2].data;
-      //     this.errors = err.items;
-      //     this.errMsg(err.message);
-      //   });
-
       let address_uuid = this.buyerUserData.uuid;
 
       suppliers
@@ -2672,48 +1977,7 @@ export default {
           this.errMsg(error.message);
         });
     },
-    getShippingFeesNew() {
-      // console.log(
-      //   "getShippingFeesNew",
-      //   (this.selectedInput.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML =
-      //     res.data.items.price)
-      // );
-      // let address_uuid = localStorage.getItem("addressUUID");
-      // let myResult =
-      //   this.selectedInput.parentElement.nextElementSibling.nextElementSibling
-      //     .nextElementSibling;
-      // let data = {
-      //   country: this.form.country_id,
-      //   governorate: this.form.region_id,
-      //   city: this.form.city_id,
-      //   // address_uuid: address_uuid,
-      //   supplier_id: localStorage.getItem("s_id"),
-      // };
-      // suppliers
-      //   .getLoggedFirstShippingFees(data)
-      //   .then((res) => {
-      //     this.sucessMsg(res.data.message);
-      //     this.deliveryText = res.data.items.price
-      //     this.selectedInputText = res.data.items.price;
-      //     this.firstFees = res.data.items;
-      //     myResult.innerHTML =
-      //       this.$t("profile.deleiveryFees") +
-      //       Number(res.data.items.price).toFixed(3) +
-      //       " " +
-      //       this.currency;
-      //     if (res.data.items == [] || res.data.items == "") {
-      //       myResult.innerHTML = this.$t("profile.deliveryFeesText");
-      //     }
-      //     this.errors = [];
-      //     this.firstFees = res.data.items;
-      //   })
-      //   .catch((error) => {
-      //     const err = Object.values(error)[2].data;
-      //     this.errors = err.items;
-      //     this.errMsg(err.message);
-      //   });
-      // this.getLoggedFirstShippingFees()
-    },
+
     getLoggedFirstShippingFees() {
       suppliers
         .getFirstShippingFees(this.buyerUserData.address_uuid)
@@ -2722,12 +1986,6 @@ export default {
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
-          // for (let index = 0; index < res.data.items.length; index++) {
-          //   const element = res.data.items[index].shipping_fee;
-          //   console.log("getLoggedFirstShippingFees", element);
-          // }
-
-          // this.totalFees =
 
           let arr = res.data.items;
           var size = Object.values(arr);
@@ -2762,11 +2020,6 @@ export default {
           // console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
-
-          // for (let index = 0; index < res.data.items.length; index++) {
-          //   const element = res.data.items[index].shipping_fee;
-          //   console.log("element guest", element);
-          // }
         })
         .catch((err) => {
           console.log(err);
@@ -2804,23 +2057,6 @@ export default {
     //payment
 
     async payment() {
-      // let test = localStorage.getItem('type');
-      // console.log("test.length" , test.length);
-      // console.log("this.mySuppliers.suppliers.length" , this.mySuppliers.suppliers.length);
-      // if(this.mySuppliers.suppliers.length !== test){
-      //   alert('choose all')
-      // }
-      // if (
-      //   this.mySuppliers.suppliers == null ||
-      //   this.mySuppliers.suppliers == ""
-      // ) {
-      //   alert('select suppliers first')
-      // }
-
-      // this.paymentFormData.country_code = this.buyerUserData.country_code
-      //   ? this.buyerUserData.country_code
-      //   : "";
-
       if (
         this.paymentFormData.address_uuid == "" ||
         !this.paymentFormData.address_uuid ||
@@ -2832,8 +2068,8 @@ export default {
 
       // make sure address_uuid will not undefined
 
-      if(this.paymentFormData.address_uuid == 'undefined'){
-        this.paymentFormData.address_uuid = this.buyerUserData.uuid
+      if (this.paymentFormData.address_uuid == "undefined") {
+        this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
 
       suppliers
@@ -2908,11 +2144,6 @@ export default {
         redirect_url: this.paymentFormData.redirect_url,
       };
 
-      // if (this.localStoreFail == false) {
-      //   this.localStoreFail = true;
-      // } else {
-
-      // }
       suppliers
         .guestPayment(data)
         .then((res) => {
@@ -3006,26 +2237,6 @@ export default {
     },
   },
   computed: {
-    // cartItems() {
-    //   return this.newCartData
-    //     ? this.newCartData
-    //     : this.$store.state.cart.cartItems;
-    // },
-    // cart_sub_total() {
-    //   return this.total_cart.cart_sub_total
-    //     ? this.total_cart.cart_sub_total
-    //     : this.$store.state.cart.cart_sub_total;
-    // },
-    // totalDiscount() {
-    //   return this.priceData.cart_sub_total_disc
-    //     ? this.priceData.cart_sub_total_disc
-    //     : 0;
-    // },
-    // totalPayment() {
-    //   return this.total_cart.cart_sub_total_after_disc
-    //     ? this.total_cart.cart_sub_total_after_disc
-    //     : this.cart_sub_total;
-    // },
     newPrice() {
       return this.total_cart;
     },
@@ -3034,25 +2245,9 @@ export default {
       return sessionStorage.setItem("freeDelivery", this.freeDelivery);
     },
 
-    //payment
-
-    // cartItems() {
-    //   return this.$store.state.cart.cartItems;
-    // },
-    // cart_sub_total() {
-    //   return this.$store.state.cart.cart_sub_total;
-    // },
     cartTest() {
       return this.$store.state.cart;
     },
-    // totalPayment() {
-    //   return parseInt(this.cart_sub_total) - parseInt(this.discount);
-    // },
-    // discount() {
-    //   return localStorage.getItem("discount")
-    //     ? localStorage.getItem("discount")
-    //     : 0;
-    // },
     checkType() {
       return localStorage.getItem("type").includes("1");
     },
