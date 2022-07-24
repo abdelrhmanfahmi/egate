@@ -13,7 +13,6 @@ install_dependenices:
     - npm install
   only:
     - dev
-    - merge_requests
   artifacts:
     untracked: true
 
@@ -26,7 +25,6 @@ build to Staging:
     - npm run build
   only:
     - dev
-    - merge_requests
   artifacts:
     paths:
       - dist
@@ -48,4 +46,3 @@ deploy to staging:
     - scp -o StrictHostKeyChecking=no -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/humhum-user
   only:
     - dev
-    - merge_requests
