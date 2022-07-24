@@ -302,6 +302,7 @@ export default {
       walletData: null,
       paymentsLength: 0,
       recivablesLength: 0,
+      //
     };
   },
   methods: {

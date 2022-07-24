@@ -78,11 +78,7 @@ globalAxios.interceptors.response.use(
       (error.response.status == 403 && userExist) ||
       (error.response.status == 401 && userExist)
     ) {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("buyerUserData");
-      localStorage.removeItem("globalAddressUUID");
-      localStorage.removeItem("type");
-      localStorage.removeItem("is_default");
+      localStorage.clear()
 
       // router.push("/");
       // this.$router.push("/b2b-login");
