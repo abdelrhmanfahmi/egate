@@ -150,6 +150,12 @@ input[type="text"]:disabled {
     display: none;
   }
 }
+.ar{
+  .close {
+    right: auto;
+    left: 0;
+  }
+}
 .coupon {
   display: none;
 }
