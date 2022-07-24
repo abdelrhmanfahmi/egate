@@ -71,6 +71,16 @@ export default {
           iconName: "clipboard-list",
         },
         {
+          to: "/profile/ReturnRequests",
+          name: this.$t("profile.returnRequests"),
+          iconName: "arrow-rotate-left",  
+        },
+        {
+          to: "/profile/Wallet",
+          name: this.$t("profile.wallet"),
+          iconName: "wallet",
+        },
+        {
           to: "/profile/account-information-b2b",
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
