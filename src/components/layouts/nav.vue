@@ -94,13 +94,12 @@
             </span>
             <Cart class="cart-body"></Cart>
           </div>
-          <div v-if="!mobile" class="cart">
-            <router-link to="/profile/Notifications">
-              <span class="cart-icon">
-                <font-awesome-icon icon="fa-solid fa-bell" />
-              </span>
-              <span class="cartLength"> 0 </span>
-            </router-link>
+          <div v-if="!mobile" class="cart notify-holder">
+            <span class="cart-icon">
+              <font-awesome-icon icon="fa-solid fa-bell" />
+            </span>
+            <span class="cartLength"> 6 </span>
+            <Notify class="notify-body" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
             <span class="cart-icon">
@@ -197,6 +196,7 @@
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
+import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
 
 import { BIconMinecartLoaded } from "bootstrap-vue";
@@ -220,6 +220,7 @@ export default {
     BIconMinecartLoaded,
     Login,
     MobileNav,
+    Notify,
   },
   created() {
     window.addEventListener("resize", this.checkScreen);
@@ -314,7 +315,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999999999;
+  z-index: 999;
   background: #fff;
   nav {
     align-items: center;
@@ -427,7 +428,7 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-    .cart-body {
+    .cart-body , .notify-body {
       right: auto;
       left: 0;
     }
@@ -474,5 +475,16 @@ html:lang(ar) {
 }
 .search-eye {
   cursor: pointer;
+}
+
+.notify-holder {
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    .notifications {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 </style>

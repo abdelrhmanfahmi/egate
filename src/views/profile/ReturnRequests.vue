@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     returnedOrders() {
-      if (this.buyerUserData.type === "buyer") {
+      if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         profile
           .returneBuyerdOrders(this.page)
           .then((resp) => {

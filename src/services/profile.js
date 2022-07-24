@@ -173,6 +173,9 @@ export default {
   postProductRate(data){
     return globalAxios.post('members/review',data)
   },
+  returnReasons(){
+    return globalAxios.get('members/returns/return-reasons')
+  },
   returnOrder(payLoad){
     return globalAxios.post(`members/orders/return-order-item` , payLoad)
   },

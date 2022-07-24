@@ -309,7 +309,7 @@ export default {
       profile
         .getWallet()
         .then((res) => {
-          this.walletData = res.data.items.balnce;
+          this.walletData = res.data.items.balance;
         })
         .catch((err) => {
           console.log(err);
