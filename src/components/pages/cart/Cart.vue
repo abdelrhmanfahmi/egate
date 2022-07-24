@@ -700,7 +700,7 @@
                       <form class="row delivery-form">
                         <div
                           class="col-6 form-group required"
-                          v-if="!buyerUserData"
+                          v-if="!buyerUserData || (buyerUserData.type ==='b2c' && !buyerUserData.first_name)"
                         >
                           <label for="firstName">{{
                             $t("payment.firstName")
@@ -721,7 +721,7 @@
                         </div>
                         <div
                           class="col-6 form-group required"
-                          v-if="!buyerUserData"
+                          v-if="!buyerUserData || (buyerUserData.type ==='b2c' && !buyerUserData.last_name)"
                         >
                           <label for="firstName">{{
                             $t("payment.lastName")
