@@ -537,34 +537,11 @@
                               v-for="(item, index) in supplier.products"
                               :key="index"
                             >
-                              <div class="d-flex flex-wrap align-items-center">
-                                <b-button
-                                  type="submit"
-                                  @click="checkCoupon(supplier)"
-                                  class="login-button my-2 py-3 px-4 w-auto"
-                                >
-                                  {{ $t("cart.couponDiscount") }}
-                                </b-button>
-                                <div class="input-holder">
-                                  <input
-                                    type="text"
-                                    :placeholder="$t('cart.addCoupon')"
-                                    class="my-2 h-100 p-4 itemInput"
-                                    @input="changeCoupon($event)"
-                                  />
-                                  <span
-                                    :title="$t('cart.enableButton')"
-                                    class="close"
-                                    @click="removeDisabled"
-                                    >x</span
-                                  >
-                                </div>
-                              </div>
-
-                              <h6 class="couponValid text-success m-0 p-0"></h6>
-                              <h6
-                                class="couponNotValid text-danger m-0 p-0"
-                              ></h6>
+                              <Coupon
+                                :item="item"
+                                :supplier="supplier"
+                                @changeRate="ChangeRateValue($event)"
+                              />
                             </div>
                           </td>
                           <td colspan="3">
@@ -700,7 +677,11 @@
                       <form class="row delivery-form">
                         <div
                           class="col-6 form-group required"
-                          v-if="!buyerUserData || (buyerUserData.type ==='b2c' && !buyerUserData.first_name)"
+                          v-if="
+                            !buyerUserData ||
+                            (buyerUserData.type === 'b2c' &&
+                              !buyerUserData.first_name)
+                          "
                         >
                           <label for="firstName">{{
                             $t("payment.firstName")
@@ -721,7 +702,11 @@
                         </div>
                         <div
                           class="col-6 form-group required"
-                          v-if="!buyerUserData || (buyerUserData.type ==='b2c' && !buyerUserData.last_name)"
+                          v-if="
+                            !buyerUserData ||
+                            (buyerUserData.type === 'b2c' &&
+                              !buyerUserData.last_name)
+                          "
                         >
                           <label for="firstName">{{
                             $t("payment.lastName")
@@ -1129,8 +1114,9 @@ import loginModal from "@/components/global/loginModal.vue";
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 // import paymentPage from "@/views/Payment";
+import Coupon from "@/components/cart/Couon.vue";
 export default {
-  components: { Counter, loginModal },
+  components: { Counter, loginModal, Coupon },
   data() {
     return {
       coupon: null,
@@ -2234,6 +2220,31 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    ChangeRateValue(res) {
+      this.totalDiscount = res.data.items.total_cart.total_discount;
+
+      this.total_cart = res.data.items;
+      this.sucessMsg(res.data.message);
+      this.couponChecked = true;
+
+
+      if (res.data.items.total_cart.total_discount == 0) {
+        this.totalDiscountReplacement = parseFloat(this.totalDiscount);
+        this.totalPaymentReplacement = parseFloat(
+          this.totalDiscountReplacement
+        );
+      } else {
+        this.totalDiscountReplacement =
+          parseFloat(this.totalDiscountReplacement) +
+          parseFloat(res.data.items.total_cart.total_discount);
+        this.totalPaymentReplacement =
+          parseFloat(this.totalPayment) -
+          parseFloat(this.totalDiscountReplacement + this.shippingCartFee);
+          // console.log("total subtotal" , this.totalPayment);
+          // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
+          // console.log("total " , this.totalPaymentReplacement);
+      }
     },
   },
   computed: {

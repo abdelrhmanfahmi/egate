@@ -809,6 +809,8 @@
                                     :title="$t('cart.enableButton')"
                                     class="close"
                                     @click="removeDisabled"
+                                    @mouseenter="changeCouponInput($event)"
+                                    @mouseleave="backDisable"
                                     >x</span
                                   >
                                 </div>
@@ -1949,13 +1951,13 @@ export default {
       //   this.loading = false;
       // }, 1200);
     },
-    removeDisabled() {
+     removeDisabled() {
       let myInput = this.selectedInput;
 
       myInput.removeAttribute("disabled");
       myInput.value = "";
       let button = this.selectedButton;
-      button.removeAttribute("disabled");
+      button.setAttribute("disabled", false);
 
       this.couponChecked = false;
       globalAxios.post(`cart`).then((res) => {
@@ -1981,12 +1983,28 @@ export default {
         }
       }
     },
-    checkCoupon(supplier) {
-      // let data = {
-      //   supplier_id: supplier.supplier_id,
-      //   coupon: this.coupon,
-      // };
-
+    changeCouponInput($event) {
+      // console.log($event.target.parentElement.querySelector('.itemInput'))
+      let elementsHolder = $event.target.parentElement;
+      this.selectedInput = elementsHolder.querySelector(".itemInput");
+      elementsHolder.parentElement
+        .querySelector(".login-button")
+        .removeAttribute("disabled");
+    },
+    backDisable() {
+      console.log(
+        this.selectedInput.parentElement.parentElement.querySelector(
+          ".login-button"
+        )
+      );
+      this.selectedInput.parentElement.parentElement
+        .querySelector(".login-button")
+        .removeAttribute("disabled");
+    },
+    checkCoupon(supplier, $event) {
+      this.selectedInput = $event.target.parentElement
+        .querySelector(".input-holder")
+        .querySelector(".itemInput");
       var data = {
         coupons: [
           {
@@ -2021,16 +2039,10 @@ export default {
             }
             this.totalDiscount =
               res.data.items.total_cart.total_discount.toFixed(3);
-            // this.totalPayment =
-            //   res.data.items.total_cart.total_price;
+
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
-            // let myInput = document.querySelector("input");
-            // myInput.setAttribute("disabled", "true");
-            // this.cartItems = res.data.items.cart_items;
-
-            ///
 
             let myInput = this.selectedInput;
             let button = this.selectedButton;
@@ -2039,13 +2051,8 @@ export default {
 
             span.style.display = "block";
             button.setAttribute("disabled", "true");
-            // button.innerHTML = this.$t("cart.enableButton");
+
             myInput.setAttribute("disabled", "true");
-            // this.getCartProducts()
-            // localStorage.setItem(
-            //   "discount",
-            //   res.data.items.cart_sub_total_disc
-            // );
 
             if (res.data.items.total_cart.total_discount == 0) {
               this.totalDiscountReplacement = parseFloat(this.totalDiscount);
