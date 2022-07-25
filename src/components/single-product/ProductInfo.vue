@@ -517,7 +517,7 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-          quantity: this.mySelectedOption !== null ? this.mySelectedOption : 1,
+          quantity: this.mySelectedOption !== null || this.mySelectedOption !== 0 ? this.mySelectedOption : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
@@ -616,7 +616,7 @@ export default {
       this.mySelectedOption += 1;
     },
     decrementQuantity(minimum) {
-      this.mySelectedOption > minimum ? this.mySelectedOption-- : null;
+      this.mySelectedOption > minimum && this.mySelectedOption > 1 ? this.mySelectedOption-- : null;
     },
     closeModal() {
       this.showModal = false;
@@ -702,7 +702,7 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity ?this.myProduct.product_details_by_type.min_order_quantity : 1,
+      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity ? this.myProduct.product_details_by_type.min_order_quantity : 1,
       changedValue:null,
       showModal: false,
       suppliers: null,
