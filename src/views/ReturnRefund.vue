@@ -112,18 +112,52 @@
               </div>
             </div>
 
-            <div>
-              <b-form-select v-model="returnData.return" class="mb-3">
-                <b-form-select-option disabled value="null">{{
-                  $t("cart.selectOption")
-                }}</b-form-select-option>
-                <b-form-select-option
-                  :value="reason.name"
-                  v-for="(reason, index) in reasons"
-                  :key="index"
-                  >{{ reason.name }}</b-form-select-option
-                >
-              </b-form-select>
+            <div class="row">
+              <div class="col-3">
+                <label>
+                  {{ $t("profile.ReturnedNumber") }}
+                </label>
+                <div class="product-counter mb-2">
+                  <div class="value">
+                    <span class="product-counter-number">
+                      {{ returnData.quantity ? returnData.quantity : 1 }}</span
+                    >
+                  </div>
+                  <div class="actions d-flex flex-column">
+                    <button
+                      class="product-counter-btn"
+                      @click="incrementQuantity"
+                      type="button"
+                    >
+                      <b-icon-plus />
+                    </button>
+                    <button
+                      class="product-counter-btn"
+                      @click="decrementQuantity(returnData.quantity)"
+                      :disabled="returnData.quantity == 1"
+                      type="button"
+                    >
+                      <b-icon-dash />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-9">
+                <label>
+                  {{ $t("profile.returnReason") }}
+                </label>
+                <b-form-select v-model="returnData.return" class="mb-3">
+                  <b-form-select-option disabled value="null">{{
+                    $t("cart.selectOption")
+                  }}</b-form-select-option>
+                  <b-form-select-option
+                    :value="reason.name"
+                    v-for="(reason, index) in reasons"
+                    :key="index"
+                    >{{ reason.name }}</b-form-select-option
+                  >
+                </b-form-select>
+              </div>
             </div>
 
             <b-form-textarea
@@ -160,6 +194,7 @@
 
 <script>
 import profile from "@/services/profile";
+import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
   data() {
     return {
@@ -170,6 +205,7 @@ export default {
         return_option: 0, // refund = 0  , replace = 1
         refund_option: null, // 0=Wallet,1=Visa,2=Bank,3=Cash
         return: null,
+        quantity:1
       },
       uploadErrors: [],
       btn1Disabled: false,
@@ -211,8 +247,7 @@ export default {
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
       formData.append("refund_option", this.returnData.refund_option);
-
-
+      formData.append("quantity", this.returnData.quantity);
 
       await profile
         .returnOrder(formData)
@@ -288,6 +323,14 @@ export default {
           console.log(err);
         });
     },
+    incrementQuantity() {
+      this.returnData.quantity += 1;
+    },
+    decrementQuantity() {
+      this.returnData.quantity > 1
+        ? this.returnData.quantity--
+        : this.returnData.quantity == 1;
+    },
   },
   mounted() {
     if (!this.$route.query.orderId) {
@@ -295,6 +338,10 @@ export default {
     }
     this.getOrderData();
     this.returnReasons();
+  },
+  components: {
+    BIconPlus,
+    BIconDash,
   },
 };
 </script>
@@ -309,4 +356,39 @@ export default {
     margin: 20px 0;
   }
 }
+
+.product-counter {
+  display: flex;
+  align-items: center;
+  // justify-content: left;
+  .actions {
+    color: #606266;
+    .product-counter-btn {
+      width: 2rem;
+      height: 1.55rem;
+      border-radius: 0;
+      border: 1px solid transparent;
+      color: #606266;
+      background: #eef1f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:first-child {
+        border-bottom: 1px solid #dcdcdc;
+      }
+    }
+  }
+  .value {
+    border-radius: 0;
+    border: 1px solid #f0f0f0;
+    color: #544842;
+    font-weight: 500;
+    width: 6rem;
+    height: 3.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
+} 
 </style>

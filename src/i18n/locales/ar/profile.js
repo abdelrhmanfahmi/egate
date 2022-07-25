@@ -226,5 +226,6 @@ export default {
   cancelReason6: "الطلب مكرر",
   cancelReason7: "حجم غير صحيح",
   cancelReason8: "سبب اخر",
-  Notifications:'الاشعارات'
+  Notifications:'الاشعارات',
+  ReturnedNumber:'عدد منتجات المرتجع'
 };
