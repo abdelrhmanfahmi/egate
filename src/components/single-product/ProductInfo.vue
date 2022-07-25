@@ -298,7 +298,7 @@
               <button class="product-counter-btn" @click="incrementQuantity">
                 <b-icon-plus />
               </button>
-              <button class="product-counter-btn" @click="decrementQuantity(myProduct.product_details_by_type.min_order_quantity)">
+              <button class="product-counter-btn" @click="decrementQuantity(myProduct.product_details_by_type.min_order_quantity)" :disabled="mySelectedOption == 1">
                 <b-icon-dash />
               </button>
             </div>
@@ -517,7 +517,7 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-          quantity: this.mySelectedOption !== null || this.mySelectedOption !== 0 ? this.mySelectedOption : 1,
+          quantity: (this.mySelectedOption !== null || this.mySelectedOption > 0) ? this.mySelectedOption : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
@@ -616,7 +616,16 @@ export default {
       this.mySelectedOption += 1;
     },
     decrementQuantity(minimum) {
-      this.mySelectedOption > minimum && this.mySelectedOption > 1 ? this.mySelectedOption-- : null;
+      if(minimum){
+
+        this.mySelectedOption > minimum  ? this.mySelectedOption-- : null;
+        console.log('no minimum');
+        console.log("this.mySelectedOption" , this.mySelectedOption);
+      }else{
+        this.mySelectedOption >=1 ? this.mySelectedOption-- : this.mySelectedOption == 1
+        console.log('no minimum');
+        console.log("this.mySelectedOption" , this.mySelectedOption);
+      }
     },
     closeModal() {
       this.showModal = false;
