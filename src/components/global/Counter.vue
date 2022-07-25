@@ -60,8 +60,12 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts")
-      }, 300);
+      }, 500);
+        // this.$emit('changeTitle',this.countValue)
+
+        setTimeout(() => {
         this.$emit('changeTitle',this.countValue)
+      }, 500);
       
     },
     decrementQuantity() {
@@ -72,13 +76,15 @@ export default {
         uuid: this.product.uuid,
       };
 
-      
+      // this.$emit('changeTitle',this.countValue)
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 300);
 
-      this.$emit('changeTitle',this.countValue)
+      setTimeout(() => {
+        this.$emit('changeTitle',this.countValue)
+      }, 500);
       
     },
   },
