@@ -17,21 +17,21 @@
           <div class="row">
             <!-- <div class="col-12"></div> -->
             <div class="col-md-3 col-sm-12">
-              <div class="footer-social">
-                <ul>
-                  <li v-if="googlePlay">
-                    <a :href="googlePlay.value" target="_blank">
+              <div class="footer-social d-flex" >
+                <ul class="" v-for="(link, index) in links" :key="index">
+                  <li v-if="link.key === 'google_play'">
+                    <a :href="link.value" target="_blank">
                       <img
                         src="@/assets/images/play_store1.png"
-                        :alt="googlePlay.key"
+                        :alt="link.key"
                       />
                     </a>
                   </li>
-                  <li v-if="appStore">
-                    <a :href="appStore.value" target="_blank">
+                  <li v-if="link.key === 'app_store'">
+                    <a :href="link.value" target="_blank">
                       <img
                         src="@/assets/images/app_store1.png"
-                        :alt="appStore.key"
+                        :alt="link.key"
                       />
                     </a>
                   </li>
@@ -81,7 +81,7 @@
                   <img src="@/assets/images/payment.png" alt="image" />
                 </div>
               </div> -->
-              <div class="footer-social">
+              <div class="footer-social d-flex justify-content-center align-items-center">
                 <!-- <ul>
                   <li>
                     <router-link to=""><i class=""></i></router-link>
@@ -112,56 +112,58 @@
                     /></router-link>
                   </li>
                 </ul> -->
-                <ul>
-                  <li v-if="facebook">
-                    <a :href="facebook.value" target="_blank">
-                      <img
-                        src="@/assets/images/facebook.png"
-                        :alt="facebook.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="twitter">
-                    <a :href="twitter.value" target="_blank">
-                      <img
-                        src="@/assets/images/twitter.png"
-                        :alt="twitter.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="youtube">
-                    <a :href="youtube.value" target="_blank">
-                      <img
-                        src="@/assets/images/youtube.png"
-                        :alt="youtube.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="instagram">
-                    <a :href="instagram.value" target="_blank">
-                      <img
-                        src="@/assets/images/instagram.png"
-                        :alt="instagram.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="linkedin">
-                    <a :href="linkedin.value" target="_blank">
-                      <img
-                        src="@/assets/images/linkedin.png"
-                        :alt="linkedin.key"
-                      />
-                    </a>
-                  </li>
-                  <li v-if="pinterest">
-                    <a :href="pinterest.value" target="_blank">
-                      <img
-                        src="@/assets/images/pinterest.png"
-                        :alt="pinterest.key"
-                      />
-                    </a>
-                  </li>
-                </ul>
+                <div v-for="(link, index) in links" :key="index">
+                  <ul>
+                    <li v-if="link.key === 'facebook'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/facebook.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                    <li v-if="link.key === 'twitter'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/twitter.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                    <li v-if="link.key === 'youtube'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/youtube.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                    <li v-if="link.key === 'instagram'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/instagram.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                    <li v-if="link.key === 'linkedin'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/linkedin.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                    <li v-if="link.key === 'pinterest'">
+                      <a :href="link.value" target="_blank">
+                        <img
+                          src="@/assets/images/pinterest.png"
+                          :alt="link.key"
+                        />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -182,7 +184,7 @@
                   }}</a
                   >. {{ $t("home.allRightsReserved") }}
                 </p>
-                <p>version {{version}}</p>
+                <p>version {{ version }}</p>
               </div>
             </div>
           </div>
@@ -191,10 +193,14 @@
           <nav class="menu-links text-center">
             <ul class="d-flex justify-content-center align-items-center">
               <li class="mx-3">
-                <router-link to="/privacyPolicy">{{ $t("home.privacyPolicy") }}</router-link>
+                <router-link to="/privacyPolicy">{{
+                  $t("home.privacyPolicy")
+                }}</router-link>
               </li>
               <li class="mx-3">
-                <router-link to="/termsConditions">{{ $t("home.termsConditions") }}</router-link>
+                <router-link to="/termsConditions">{{
+                  $t("home.termsConditions")
+                }}</router-link>
               </li>
 
               <li class="mx-3">
@@ -222,108 +228,110 @@ export default {
       pinterest: null,
       googlePlay: null,
       appStore: null,
-      version: version
+      version: version,
+      links: null,
     };
   },
   methods: {
-    footerFacebookLink() {
+    footerLinks() {
       profile
-        .footerFacebookLink()
+        .footerLinks()
         .then((res) => {
           // console.log(res);
+          this.links = res.data.items.data;
           this.facebook = res.data.items;
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    footerTwitterLink() {
-      profile
-        .footerTwitterLink()
-        .then((res) => {
-          // console.log(res);
-          this.twitter = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerYoutubeLink() {
-      profile
-        .footerYoutubeLink()
-        .then((res) => {
-          // console.log(res);
-          this.youtube = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerLinkedinLink() {
-      profile
-        .footerLinkedinLink()
-        .then((res) => {
-          // console.log(res);
-          this.linkedin = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerInstagramLink() {
-      profile
-        .footerInstagramLink()
-        .then((res) => {
-          // console.log(res);
-          this.instagram = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerPinterestLink() {
-      profile
-        .footerPinterestLink()
-        .then((res) => {
-          // console.log(res);
-          this.pinterest = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerGoogleLink() {
-      profile
-        .storeGoogleLink()
-        .then((res) => {
-          // console.log(res);
-          this.googlePlay = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    footerAppLink() {
-      profile
-        .storeAppLink()
-        .then((res) => {
-          // console.log(res);
-          this.appStore = res.data.items;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // footerTwitterLink() {
+    //   profile
+    //     .footerTwitterLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.twitter = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerYoutubeLink() {
+    //   profile
+    //     .footerYoutubeLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.youtube = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerLinkedinLink() {
+    //   profile
+    //     .footerLinkedinLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.linkedin = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerInstagramLink() {
+    //   profile
+    //     .footerInstagramLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.instagram = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerPinterestLink() {
+    //   profile
+    //     .footerPinterestLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.pinterest = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerGoogleLink() {
+    //   profile
+    //     .storeGoogleLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.googlePlay = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    // footerAppLink() {
+    //   profile
+    //     .storeAppLink()
+    //     .then((res) => {
+    //       // console.log(res);
+    //       this.appStore = res.data.items;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
   mounted() {
-    this.footerFacebookLink();
-    this.footerTwitterLink();
-    this.footerYoutubeLink();
-    this.footerLinkedinLink();
-    this.footerInstagramLink();
-    this.footerPinterestLink();
-    this.footerGoogleLink();
-    this.footerAppLink();
+    this.footerLinks();
+    // this.footerTwitterLink();
+    // this.footerYoutubeLink();
+    // this.footerLinkedinLink();
+    // this.footerInstagramLink();
+    // this.footerPinterestLink();
+    // this.footerGoogleLink();
+    // this.footerAppLink();
   },
 };
 </script>
