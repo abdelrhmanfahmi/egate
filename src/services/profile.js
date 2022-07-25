@@ -112,24 +112,24 @@ export default {
   bankComment(){
     return globalAxios.get('statics/Bank-transfer-info')
   },
-  footerFacebookLink(){
-    return globalAxios.get(`site-settings/facebook`)
+  footerLinks(){
+    return globalAxios.get(`site-settings`)
   },
-  footerTwitterLink(){
-    return globalAxios.get(`site-settings/twitter`)
-  },
-  footerYoutubeLink(){
-    return globalAxios.get(`site-settings/youtube`)
-  },
-  footerLinkedinLink(){
-    return globalAxios.get(`site-settings/linkedin`)
-  },
-  footerInstagramLink(){
-    return globalAxios.get(`site-settings/instagram`)
-  },
-  footerPinterestLink(){
-    return globalAxios.get(`site-settings/pinterest`)
-  },
+  // footerTwitterLink(){
+  //   return globalAxios.get(`site-settings/twitter`)
+  // },
+  // footerYoutubeLink(){
+  //   return globalAxios.get(`site-settings/youtube`)
+  // },
+  // footerLinkedinLink(){
+  //   return globalAxios.get(`site-settings/linkedin`)
+  // },
+  // footerInstagramLink(){
+  //   return globalAxios.get(`site-settings/instagram`)
+  // },
+  // footerPinterestLink(){
+  //   return globalAxios.get(`site-settings/pinterest`)
+  // },
   getAboutData(){
     return globalAxios.get('statics/About-us')
   },
@@ -179,12 +179,12 @@ export default {
   returnOrder(payLoad){
     return globalAxios.post(`members/orders/return-order-item` , payLoad)
   },
-  storeGoogleLink(){
-    return globalAxios.get('site-settings/google_play')
-  },
-  storeAppLink(){
-    return globalAxios.get('site-settings/app_store')
-  },
+  // storeGoogleLink(){
+  //   return globalAxios.get('site-settings/google_play')
+  // },
+  // storeAppLink(){
+  //   return globalAxios.get('site-settings/app_store')
+  // },
   returneBuyerdOrders(){
     return globalAxios.get(`members/client_returns`)
   },
