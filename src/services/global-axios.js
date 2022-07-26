@@ -2,10 +2,14 @@ import axios from "axios";
 // import mixin from "../mixins"
 // import auth from "@/services/auth";
 // for token
+import router from "../router/index";
 
 let lang = null;
 
 lang = localStorage.getItem("lang") || "en";
+
+// let userExist = localStorage.getItem("currency");
+let userExist = localStorage.getItem("buyerUserData");
 
 // let currency_code = localStorage.getItem("currency");
 // let currency_id = localStorage.getItem("country");
@@ -67,34 +71,26 @@ globalAxios.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// globalAxios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response.status === 403 || error.response.status === 401) {
-//       auth.logout();
-//       // localStorage.clear()
-//       // location.replace("/");
-//       // location.reload();
-//     }
+globalAxios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      (error.response.status == 403 && userExist) ||
+      (error.response.status == 401 && userExist)
+    ) {
+      localStorage.clear()
 
-//     return Promise.reject(error);
-//   }
-// );
+      // router.push("/");
+      // this.$router.push("/b2b-login");
+      // location.reload();
+      // this.$store.dispatch('loginAgain')
+      userExist.type === "buyer"
+        ? router.push(`b2b-login`)
+        : router.push({path:'/' , query:{force_login : 'true'}});
+    }
 
-// globalAxios.interceptors.response.use(undefined, function (err) {
-//   // console.log('error' , err.response.data.code)
-//   return new Promise(function () {
-//     if (err.response.data.code === 401) {
-//       // if you ever get an unauthorized, logout the user
-
-//       // auth.logout();
-//       // location.replace('/b2b-login')
-//       localStorage.removeItem('userInfo')
-//       localStorage.removeItem('buyerUserData')
-//       // you can also redirect to /login if needed !
-//     }
-//     throw err;
-//   });
-// });
+    return Promise.reject(error);
+  }
+);
 
 export default globalAxios;

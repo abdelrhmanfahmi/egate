@@ -12,9 +12,16 @@
           >
         </h6>
       </div>
-      <div class="my-5" v-if="categoriesLength == null || productsLength == null">
+      <div
+        class="my-5"
+        v-if="categoriesLength == null || productsLength == null"
+      >
         <div class="text-center">
-          <b-spinner style="width: 3rem; height: 3rem;" variant="primary" label="Spinning" ></b-spinner>
+          <b-spinner
+            style="width: 3rem; height: 3rem"
+            variant="primary"
+            label="Spinning"
+          ></b-spinner>
         </div>
       </div>
       <div class="" v-else-if="categoriesLength > 0 || productsLength > 0">
@@ -99,7 +106,16 @@
                           {{ currency }}</small
                         >
                         <br />
-                        <small class="price-after price m-0">
+                        <small
+                          class="price-after price m-0"
+                          v-if="
+                            product.product_details_by_type
+                              .price_before_discount &&
+                            product.product_details_by_type.customer_price >
+                              product.product_details_by_type
+                                .price_before_discount
+                          "
+                        >
                           {{
                             product.product_details_by_type
                               .price_before_discount | fixedCurrency

@@ -50,6 +50,7 @@ export default {
   floor: "الدور",
   blockNumber: "شقه",
   postCode: "الرمز البريدى",
+  zipCode: "الرمز البريدى",
   note: "ملاحظات",
   // b2b
   businessInformation: "معلومات العمل",
@@ -213,8 +214,19 @@ export default {
   cancelReason: "سبب الغاء الطلب",
   createdAt: "وقت الطلب",
   shippingMethod: "وسيلة الشحن",
-  billingInfo:'بيانات الفاتوره',
-  orderSug:'اقتراح طلب منتج',
-  shippingInfo:'معلومات التوصيل',
-  OrderDate:'تاريخ الطلب'
+  billingInfo: "بيانات الفاتوره",
+  orderSug: "اقتراح طلب منتج",
+  shippingInfo: "معلومات التوصيل",
+  OrderDate: "تاريخ الطلب",
+  rejectionReason: "سبب رفض الاسترجاع",
+  cancelReason1: "غير ملائم",
+  cancelReason2: "غير راضٍ عن المنتج",
+  cancelReason3: "العنصر تالف",
+  cancelReason4: "تم استلام عنصر خاطئ",
+  cancelReason5: "غير راضٍ عن خدمة العملاء",
+  cancelReason6: "الطلب مكرر",
+  cancelReason7: "حجم غير صحيح",
+  cancelReason8: "سبب اخر",
+  Notifications:'الاشعارات',
+  ReturnedNumber:'عدد منتجات المرتجع'
 };

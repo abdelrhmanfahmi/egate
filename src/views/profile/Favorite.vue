@@ -511,4 +511,38 @@ export default {
   color: #312620;
   font-size: 28pt;
 }
+@media screen and (max-width: 767px) {
+  table {
+    text-align: center;
+    tbody{
+      tr{
+        margin: 30px 0;
+      }
+    }
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    padding: 0;
+  }
+
+  table td {
+    display: block;
+    font-size: 0.8rem;
+    border-top: none !important;
+  }
+  .table-striped tbody tr:nth-of-type(odd){
+    margin: 30px 0;
+    display: block;
+  }
+  .actions{
+    justify-content: center;
+    align-items: center;
+  }
+}
 </style>

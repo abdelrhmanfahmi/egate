@@ -2,7 +2,7 @@
   <div>
     <div class="wrabber">
       <div class="balance-holder py-5 px-3">
-        <h4 class="balanc_number">{{ walletData }} {{ currency }}</h4>
+        <h4 class="balanc_number">{{ walletData | fixedCurrency }} {{ currency }}</h4>
         <h5 class="balance_text">
           {{ $t("profile.balance") }}
         </h5>
@@ -302,6 +302,7 @@ export default {
       walletData: null,
       paymentsLength: 0,
       recivablesLength: 0,
+      //
     };
   },
   methods: {
@@ -309,7 +310,7 @@ export default {
       profile
         .getWallet()
         .then((res) => {
-          this.walletData = res.data.items.balnce;
+          this.walletData = res.data.items.balance;
         })
         .catch((err) => {
           console.log(err);
@@ -595,5 +596,39 @@ h3 {
 p {
   line-height: 1.6;
   margin-bottom: 20px;
+}
+@media screen and (max-width: 767px) {
+  table {
+    text-align: center;
+    tbody{
+      tr{
+        margin: 30px 0;
+      }
+    }
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    padding: 0;
+  }
+
+  table td {
+    display: block;
+    font-size: 0.8rem;
+    border-top: none !important;
+  }
+  .table-striped tbody tr:nth-of-type(odd){
+    margin: 30px 0;
+    display: block;
+  }
+  .actions{
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

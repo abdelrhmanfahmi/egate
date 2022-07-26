@@ -35,6 +35,7 @@ export default {
       redirect_url: payload.redirect_url,
       country_code: payload.country_code,
       accept_terms: payload.accept_terms == true ? "1" : "0",
+      company_name : payload.company_name
     };
 
     return globalAxios.post(`/order`, data);

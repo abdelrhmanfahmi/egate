@@ -7,6 +7,8 @@ $text-color: mix(#000, $primary-color, 64%);
     font-size: 28pt;
   }
   .cart-table {
+    width: 100%;
+    // overflow-x: scroll;
     table {
       thead {
         tr {
@@ -88,6 +90,9 @@ $text-color: mix(#000, $primary-color, 64%);
         border-bottom: 1px solid #7d7d7d;
         color: #544842;
         min-width: 20rem;
+        @media (max-width: 767px) {
+          min-width: auto;
+        }
       }
     }
   }
@@ -143,6 +148,12 @@ input[type="text"]:disabled {
     padding: 15px;
     cursor: pointer;
     display: none;
+  }
+}
+.ar{
+  .close {
+    right: auto;
+    left: 0;
   }
 }
 .coupon {
@@ -255,6 +266,9 @@ input[type="text"]:disabled {
     }
   }
   .addresses-holder {
+    @media (max-width: 767px) {
+      padding: 20px !important;
+    }
     .addressShape {
       transition: all 0.3s ease-in-out;
       label {
@@ -278,9 +292,9 @@ input[type="text"]:disabled {
       }
     }
   }
-  .pickupAddresses {
-    min-width: 250px;
-  }
+  // .pickupAddresses {
+  //   min-width: 250px;
+  // }
   .cart-table,
   .addresses-holder {
     background: #ecf0f1;
@@ -332,6 +346,10 @@ input[type="text"]:disabled {
     text-transform: capitalize;
     font-weight: bold;
     margin: 20px;
+    @media screen and (max-width: 767px) {
+      margin: 10px 0px;
+      font-size: 1rem;
+    }
   }
 }
 .easy-trans {
@@ -340,6 +358,12 @@ input[type="text"]:disabled {
 .supplierAddresses {
   border: 1px solid !important;
   width: 50% !important;
+  @media screen and (max-width: 767px) {
+    width: 100% !important;
+  }
+}
+.supplierAddressesDanger{
+  border: 2px solid #ed2124 !important;
 }
 .addresses-holder {
   position: relative;
@@ -499,6 +523,11 @@ a:not([href]):not([class]) {
     display: inline-block;
   }
 }
+.ar {
+  .terms {
+    padding: 0 35px;
+  }
+}
 .text-decoration-underline {
   text-decoration: underline !important;
 }
@@ -510,6 +539,43 @@ html:lang(ar) {
   .actions {
     span {
       transform: rotate(180deg);
+    }
+  }
+}
+.methods-data {
+  @media (max-width: 767px) {
+    padding: 10px !important;
+  }
+}
+.cart .cart-detail .data {
+  @media (max-width: 767px) {
+    padding: 10px 15px !important;
+    text-align: center;
+  }
+}
+
+.checkout {
+  @media (max-width: 767px) {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.shipping-holder {
+  margin: 0px;
+  @media (max-width: 767px) {
+    margin: 10x !important;
+  }
+}
+@media (max-width: 767px) {
+  .feedsResultShipping,
+  .pickupNoData {
+    font-size: 1rem;
+  }
+  tbody {
+    border-bottom: 2px solid #333 !important;
+    &:last-of-type {
+      border-bottom: none !important;
     }
   }
 }

@@ -15,7 +15,7 @@
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
             <td>{{ order.item_names }}</td>
-            <td>{{ order.client }}</td>
+            <td>{{ order.supplier }}</td>
             <td>
               <span v-if="order.price"
                 >{{ order.price | fixedCurrency }} {{ currency }}</span
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     returnedOrders() {
-      if (this.buyerUserData.type === "buyer") {
+      if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         profile
           .returneBuyerdOrders(this.page)
           .then((resp) => {
@@ -247,5 +247,39 @@ export default {
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
+}
+@media screen and (max-width: 767px) {
+  table {
+    text-align: center;
+    tbody{
+      tr{
+        margin: 30px 0;
+      }
+    }
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    padding: 0;
+  }
+
+  table td {
+    display: block;
+    font-size: 0.8rem;
+    border-top: none !important;
+  }
+  .table-striped tbody tr:nth-of-type(odd){
+    margin: 30px 0;
+    display: block;
+  }
+  .actions{
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

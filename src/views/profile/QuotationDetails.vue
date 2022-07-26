@@ -48,18 +48,18 @@
           >
             <th>
               <div class="" v-if="quotate.comment_by === 'client'">
-                <span
+                <span v-if="quotations.client"
                   >{{ quotations.client.first_name }}
                   {{ quotations.client.last_name }}</span
                 >
               </div>
               <div class="" v-if="quotate.comment_by === 'supplier'">
-                <span>{{ quotations.supplier.company_name }}</span>
+                <span v-if="quotations.supplier">{{ quotations.supplier.company_name }}</span>
               </div>
             </th>
             <td>
               <div>
-                <span class="comment">{{ quotate.comment }}</span>
+                <span class="comment" v-if="quotate.comment">{{ quotate.comment }}</span>
               </div>
             </td>
             <td></td>
@@ -172,7 +172,7 @@ export default {
       id: this.$route.query.id,
       fields: [
         {
-          key: "client_quote_comment",
+          key: "comments",
           label: this.$t("profile.sentBy"),
         },
         {
@@ -193,8 +193,8 @@ export default {
       profile
         .getQuotationDetail(this.id)
         .then((res) => {
-          // console.log("res" , res);
-          this.quotations = res.data.items;
+          console.log("res" , res);
+          this.quotations = res.data.items.client_quote;
         })
         .catch((err) => {
           console.log(err);

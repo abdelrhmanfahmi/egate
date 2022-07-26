@@ -201,15 +201,29 @@
                 </div> -->
               </b-form-group>
 
-              <b-form-checkbox v-model="terms" class="terms">
-                {{ $t("register.PleaseReview") }}
-                <a v-b-modal.terms&condation>
-                  {{ $t("register.termsConditions") }}</a
-                >
-                {{ $t("register.toCompleteTheRegistration") }}
+              <b-form-checkbox
+                v-model="terms"
+                class="terms my-1 d-inline-block"
+              >
+                <span>
+                  {{ $t("register.PleaseReview") }}
+                </span>
               </b-form-checkbox>
+              <div class="terms d-inline-block">
+                <span>
+                  <a
+                    v-b-modal.terms&condation
+                    @click="$bvModal.show('modal-scoped')"
+                  >
+                    {{ $t("register.termsConditions") }}</a
+                  >
+                </span>
+                <span>
+                  {{ $t("register.toCompleteTheRegistration") }}
+                </span>
+              </div>
 
-              <b-modal
+              <!-- <b-modal
                 size="lg"
                 id="terms&condation"
                 :title="condations.title"
@@ -218,6 +232,27 @@
                 <p v-html="condations.description">
                   {{ condations.description }}
                 </p>
+              </b-modal> -->
+
+              <b-modal size="lg" id="terms&condation" :title="condations.title">
+                <p v-html="condations.description">
+                  {{ condations.description }}
+                </p>
+                <template #modal-footer="{ ok }">
+                  <b-button
+                    size="sm"
+                    variant="outline-success"
+                    @click="
+                      ok();
+                      acceptMyTerms();
+                    "
+                  >
+                    <span class="mx-1">{{ $t("payment.accept") }}</span>
+                    <span class="mx-1">{{
+                      $t("payment.termsAndConditions")
+                    }}</span>
+                  </b-button>
+                </template>
               </b-modal>
 
               <b-form-checkbox
@@ -238,7 +273,7 @@
           <h6 class="main-header">
             {{ $t("register.unableRegister") }}
           </h6>
-          <a class="tel" href="tel:4733378901">47 333 78 901</a>
+          <a class="tel pb-0"  v-html="contactPhone.description"></a>
         </div>
       </div>
     </b-container>
@@ -246,6 +281,7 @@
 </template>
 <script>
 import auth from "@/services/auth";
+import profile from "@/services/profile";
 export default {
   data() {
     return {
@@ -269,11 +305,13 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
+      contactPhone:'',
     };
   },
   mounted() {
     this.getTerms();
     this.getAllCountires();
+    this.contactUsPhone();
   },
   methods: {
     getAllCountires() {
@@ -314,6 +352,20 @@ export default {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
       });
+    },
+    acceptMyTerms() {
+      this.terms = true;
+    },
+    contactUsPhone() {
+      profile
+        .contactUsPhone()
+        .then((res) => {
+          console.log(res);
+          this.contactPhone = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

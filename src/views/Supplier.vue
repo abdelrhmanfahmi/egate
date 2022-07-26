@@ -252,4 +252,10 @@ export default {
     }
   }
 }
+
+.supplier {
+  #bv-modal-example {
+    top: 6% !important;
+  }
+}
 </style>

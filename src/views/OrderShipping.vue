@@ -1174,9 +1174,9 @@ html:lang(ar) {
     }
   }
 }
-.pickupAddresses {
-  min-width: 250px;
-}
+// .pickupAddresses {
+//   min-width: 250px;
+// }
 .cart-table,
 .addresses-holder {
   background: #ecf0f1;

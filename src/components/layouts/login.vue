@@ -97,6 +97,7 @@
       :title="$t('login.resetPassword')"
       no-close-on-backdrop
       no-close-on-esc
+      ref="b2cLogin"
     >
       <form>
         <b-form-group>
@@ -123,12 +124,16 @@
 
 <script>
 import auth from "@/services/auth";
+import { getMessaging, onMessage, getToken } from "firebase/messaging";
+import {messaging} from "@/plugins/firebase"
 export default {
   data() {
     return {
       form: {
         email: "",
         password: "",
+        token:"",
+        device_type:'web'
       },
       errorMsg: "",
       fieldType: "password",
@@ -188,7 +193,27 @@ export default {
           this.errMsg(err.message);
         });
     },
+    async generateFirebaseToken() {
+      const token = await getToken(messaging, {
+        vapidKey:
+          "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+      });
+
+      if (token) {
+        this.form.token = token;
+        console.log(token);
+      }
+    },
   },
+  mounted(){
+    const messaging = getMessaging();
+
+    onMessage(messaging , (payload) =>{
+      console.log("message on clinet" , payload);
+    })
+
+    this.generateFirebaseToken()
+  }
 };
 </script>
 

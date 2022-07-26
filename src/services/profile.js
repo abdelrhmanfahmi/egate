@@ -112,8 +112,8 @@ export default {
   bankComment(){
     return globalAxios.get('statics/Bank-transfer-info')
   },
-  footerFacebookLink(){
-    return globalAxios.get(`site-settings/facebook`)
+  footerLinks(){
+    return globalAxios.get(`site-settings`)
   },
   footerTwitterLink(){
     return globalAxios.get(`site-settings/twitter`)
@@ -173,15 +173,18 @@ export default {
   postProductRate(data){
     return globalAxios.post('members/review',data)
   },
+  returnReasons(){
+    return globalAxios.get('members/returns/return-reasons')
+  },
   returnOrder(payLoad){
     return globalAxios.post(`members/orders/return-order-item` , payLoad)
   },
-  storeGoogleLink(){
-    return globalAxios.get('site-settings/google_play')
-  },
-  storeAppLink(){
-    return globalAxios.get('site-settings/app_store')
-  },
+  // storeGoogleLink(){
+  //   return globalAxios.get('site-settings/google_play')
+  // },
+  // storeAppLink(){
+  //   return globalAxios.get('site-settings/app_store')
+  // },
   returneBuyerdOrders(){
     return globalAxios.get(`members/client_returns`)
   },
@@ -203,5 +206,12 @@ export default {
   getWalletRecivables(){
     return globalAxios.get('members/wallet/receivables')
   },
+
+  privacyPage(){
+    return globalAxios.get(`statics/privacy-policy`)
+  },
+  termsPage(){
+    return globalAxios.get(`statics/terms-conditions`)
+  }
 
 };

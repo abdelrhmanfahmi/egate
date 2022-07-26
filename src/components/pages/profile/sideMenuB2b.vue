@@ -114,6 +114,11 @@ export default {
           name: this.$t("profile.supplierCorrespondence"),
           iconName: "comments",
         },
+        {
+          to: "/profile/Notifications",
+          name: this.$t("profile.Notifications"),
+          iconName: "bell",
+        },
        
       ],
     };

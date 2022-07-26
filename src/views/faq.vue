@@ -1,0 +1,245 @@
+<template>
+  <div>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">
+          {{$t('home.faq')}}
+        </h1>
+        <!-- <p class="lead">This is a Sample FAQ page.</p> -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="faq-list">
+        <div>
+          <details open>
+            <summary title="How can I pay for my appointment?">
+              How can I pay for my appointment?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo
+              quod debitis ducimus iste soluta rerum ipsa consequuntur minus
+              quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit
+              enim expedita fugiat, assumenda molestiae earum iste blanditiis,
+              ipsum ratione.
+            </p>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary title="What can I expect at my first consultation?">
+              What can I expect at my first consultation?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+              molestias similique! Molestiae sapiente omnis, illo facere odit
+              reprehenderit eveniet consequuntur sit minus adipisci temporibus
+              eius inventore quidem. Dignissimos, facere quae. Rem quas a
+              laborum est officia pariatur voluptatum iusto perferendis aut
+              labore fugit magni inventore nulla architecto, velit, facilis
+              itaque.
+            </p>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary title="What are your opening hours?">
+              What are your opening hours?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error
+              ea accusantium? Sunt cum in, repudiandae et facere at nesciunt
+              commodi non quia earum libero aliquid labore obcaecati repellendus
+              consequatur! Nesciunt impedit ducimus illum unde optio veritatis
+              atque facere, voluptate a odio asperiores laudantium rerum.
+            </p>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary title="Do I need a referral?">
+              Do I need a referral?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              quisquam numquam labore explicabo cupiditate laboriosam. Ipsam
+              explicabo possimus illum aspernatur.
+            </p>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary
+              title="Is the cost of the appointment covered by private health insurance?"
+            >
+              Is the cost of the appointment covered by private health
+              insurance?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis
+              autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque
+              voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse
+              tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa
+              incidunt tempora velit dolor distinctio repellat tenetur illum
+              consectetur quos veniam eius provident earum doloremque commodi!
+              Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus
+              incidunt laudantium vitae iusto laborum culpa! Similique,
+              repellat.
+            </p>
+          </details>
+        </div>
+        <div>
+          <details>
+            <summary title="What are the parking and public transport options?">
+              What are the parking and public transport options?
+            </summary>
+            <p class="faq-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              quisquam numquam labore explicabo cupiditate laboriosam. Ipsam
+              explicabo possimus illum aspernatur.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped>
+div + div {
+  clear: both;
+}
+
+p {
+  line-height: 1.4em;
+  color: #000;
+}
+
+.faq-title {
+  font-size: 2em;
+  margin: 0.4em 0;
+}
+
+div.seperator {
+  width: 7.5em;
+  background-color: #e31b1b;
+  height: 0.17em;
+  margin-left: -1.8em;
+}
+
+.faq-list > div {
+  border-bottom: 0.07em solid #ededed;
+  padding: 1.5em 0em;
+}
+
+.faq-list > div:last-child {
+  border: unset;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+summary {
+  font-size: 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+summary:hover {
+  color: #e31b1b;
+}
+
+details[open] summary ~ * {
+  animation: sweep 0.5s ease-in-out;
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    margin-left: -10px;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 55px;
+  }
+}
+
+details[open] summary {
+  color: #e31b1b;
+}
+
+details[open] p {
+  border-left: 2px solid #e31b1b;
+  margin-left: 55px;
+  padding-left: 25px;
+  opacity: 100;
+  transition: all 3s ease;
+  margin-top: 20px;
+}
+
+details[open] summary:after {
+  content: "-";
+  font-size: 3.2em;
+  margin: -33px 0.35em 0 0;
+  font-weight: 200;
+}
+
+.faq-body {
+  width: 70em;
+  margin: 4em auto;
+  box-shadow: 0px 0px 16px #5b5b5b;
+  border-radius: 0.2em;
+  padding: 5em;
+  background-color: #fff;
+}
+
+.faq-list {
+  width: 60%;
+  margin: 1em auto;
+  padding: 2em 0;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary:after {
+  background: transparent;
+  border-radius: 0.3em;
+  content: "+";
+  color: #e31b1b;
+  float: left;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: -0.3em 0.65em 0 0;
+  padding: 0;
+  text-align: center;
+  width: 25px;
+}
+.jumbotron {
+  // padding-top: 30px;
+  // padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #ec4b2d;
+  text-align: center;
+  color: #fff;
+  padding: 3% 0;
+}
+</style>

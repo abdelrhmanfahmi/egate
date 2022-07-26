@@ -29,5 +29,8 @@ export default {
   vendors: "تسجيل الموردين",
   pageNoteFound1: "الصفحة التي تبحث عنها ليست موجودة.",
   you: "انت",
-  ok:'أوافق'
+  ok: "أوافق",
+  privacyPolicy: "سياسة الخصوصيه",
+  termsConditions: "الشروط و الاحكام",
+  faq: "الأسئله الشائعه",
 };
