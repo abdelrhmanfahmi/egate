@@ -115,21 +115,21 @@ export default {
   footerLinks(){
     return globalAxios.get(`site-settings`)
   },
-  // footerTwitterLink(){
-  //   return globalAxios.get(`site-settings/twitter`)
-  // },
-  // footerYoutubeLink(){
-  //   return globalAxios.get(`site-settings/youtube`)
-  // },
-  // footerLinkedinLink(){
-  //   return globalAxios.get(`site-settings/linkedin`)
-  // },
-  // footerInstagramLink(){
-  //   return globalAxios.get(`site-settings/instagram`)
-  // },
-  // footerPinterestLink(){
-  //   return globalAxios.get(`site-settings/pinterest`)
-  // },
+  footerTwitterLink(){
+    return globalAxios.get(`site-settings/twitter`)
+  },
+  footerYoutubeLink(){
+    return globalAxios.get(`site-settings/youtube`)
+  },
+  footerLinkedinLink(){
+    return globalAxios.get(`site-settings/linkedin`)
+  },
+  footerInstagramLink(){
+    return globalAxios.get(`site-settings/instagram`)
+  },
+  footerPinterestLink(){
+    return globalAxios.get(`site-settings/pinterest`)
+  },
   getAboutData(){
     return globalAxios.get('statics/About-us')
   },
