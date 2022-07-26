@@ -50,6 +50,7 @@ export default {
   floor: "الدور",
   blockNumber: "شقه",
   postCode: "الرمز البريدى",
+  zipCode: "الرمز البريدى",
   note: "ملاحظات",
   // b2b
   businessInformation: "معلومات العمل",

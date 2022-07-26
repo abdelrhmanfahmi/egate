@@ -86,6 +86,7 @@ export default {
         .removeAttribute("disabled");
     },
     checkCoupon(supplier, $event) {
+      console.log(supplier);
       this.selectedInput = $event.target.parentElement
         .querySelector(".input-holder")
         .querySelector(".itemInput");

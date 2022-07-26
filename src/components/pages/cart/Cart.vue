@@ -359,7 +359,7 @@
                                       type="number"
                                       v-model="form.pin_code"
                                       :formatter="formatPin_code"
-                                      :placeholder="$t('profile.postCode')"
+                                      :placeholder="$t('profile.zipCode')"
                                     />
                                     <div class="error" v-if="postalError">
                                       {{ $t("payment.postalError") }}
@@ -1030,7 +1030,7 @@
                     <tr>
                       <th>{{ $t("cart.discount") }}</th>
                       <td v-if="totalDiscount !== null && cart_sub_total">
-                        {{ totalDiscountReplacement }} {{ currency }}
+                        {{ totalDiscountReplacement | fixedCurrency }} {{ currency }}
                       </td>
                     </tr>
                     <tr>
@@ -1232,6 +1232,7 @@ export default {
     this.getAllCountires();
     this.getAllAdresses();
     localStorage.removeItem("s_id");
+    localStorage.removeItem("cou");
 
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id
@@ -1389,6 +1390,7 @@ export default {
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
+        this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
     removeDisabled() {
@@ -2233,14 +2235,13 @@ export default {
         this.totalDiscountReplacement = parseFloat(this.totalDiscount);
         this.totalPaymentReplacement = parseFloat(
           this.totalDiscountReplacement
-        );
+      );
       } else {
         this.totalDiscountReplacement =
           parseFloat(this.totalDiscountReplacement) +
           parseFloat(res.data.items.total_cart.total_discount);
         this.totalPaymentReplacement =
-          parseFloat(this.totalPayment) -
-          parseFloat(this.totalDiscountReplacement + this.shippingCartFee);
+          parseFloat((this.totalPayment + this.shippingCartFee) - this.totalDiscountReplacement) 
           // console.log("total subtotal" , this.totalPayment);
           // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
           // console.log("total " , this.totalPaymentReplacement);

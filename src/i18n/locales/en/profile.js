@@ -47,6 +47,7 @@ export default {
   floor: "Floor",
   blockNumber: "Block Number",
   postCode: "Postal Code",
+  zipCode: "Zip Code",
   note: "Notes",
   businessInformation: "Business Information",
   RegistrationNumber: "Registration Number",
