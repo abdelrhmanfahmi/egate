@@ -350,7 +350,7 @@ export default {
   },
   methods: {
     returnedSingleOrders() {
-      if (this.buyerUserData.type === "buyer") {
+      if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         this.loading = true;
         profile
           .returnedSingleBuyerOrders(this.UUID)

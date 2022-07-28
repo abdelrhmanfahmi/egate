@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap align-items-center">
       <b-button
         type="submit"
-        @click="checkCoupon(supplier , $event)"
+        @click="checkCoupon(supplier, $event)"
         class="login-button my-2 py-3 px-4 w-auto"
       >
         {{ $t("cart.couponDiscount") }}
@@ -18,7 +18,7 @@
         <span
           :title="$t('cart.enableButton')"
           class="close"
-          @click="removeDisabled"
+          @click="removeDisabled(supplier)"
           >x</span
         >
       </div>
@@ -34,9 +34,8 @@ import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 export default {
   methods: {
-    removeDisabled() {
+    removeDisabled(supplier) {
       let myInput = this.selectedInput;
-
 
       myInput.removeAttribute("disabled");
       myInput.value = "";
@@ -56,8 +55,12 @@ export default {
       if (this.totalDiscountReplacement == 0) {
         this.totalPaymentReplacement = this.totalPayment;
       }
-      this.selectedInput.parentElement.parentElement.parentElement.querySelector('.couponValid').innerHTML = "";
-      this.selectedInput.parentElement.parentElement.parentElement.querySelector(".couponNotValid").innerHTML = "";
+      this.selectedInput.parentElement.parentElement.parentElement.querySelector(
+        ".couponValid"
+      ).innerHTML = "";
+      this.selectedInput.parentElement.parentElement.parentElement.querySelector(
+        ".couponNotValid"
+      ).innerHTML = "";
 
       let enteredCoupons = document.getElementsByClassName("couponNotValid");
       if (enteredCoupons) {
@@ -66,6 +69,44 @@ export default {
           element.innerHTML = "";
         }
       }
+
+      // remove couppn
+      let removeCoupon = {
+        id: supplier.supplier_id,
+        supplier_id: supplier.supplier_id,
+        shipping_type: 1,
+        coupon: supplier.coupon ? supplier.coupon : "",
+        // point_of_sell_uuid: this.supplierAddress,
+        point_of_sell_uuid:
+          localStorage.getItem("addressUUID") !== null ||
+          localStorage.getItem("addressUUID") !== undefined
+            ? localStorage.getItem("addressUUID")
+            : "",
+      };
+      this.$store.dispatch("suppliers/addSupplierToCart", {
+        supplier: removeCoupon,
+      });
+
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        // console.log("element" , element.id);
+
+        if (
+          (element.shipping_type == 0 && element.id == supplier.supplier_id) ||
+          (element.shipping_type == 1 && element.id == supplier.supplier_id)
+        ) {
+          element.coupon = "";
+          // element.couponDisc = 0;
+        }
+        this.couponRemoved = true;
+      }
+      setTimeout(() => {
+        this.removeDiscount();
+      }, 200);
+      setTimeout(() => {
+        localStorage.removeItem("cou");
+      }, 1000);
     },
     changeCouponInput($event) {
       // console.log($event.target.parentElement.querySelector('.itemInput'))
@@ -113,24 +154,18 @@ export default {
                 ".couponValid"
               ).innerHTML = `${this.$t("payment.couponValid")} `;
 
-
               this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
                 ".couponNotValid"
               ).innerHTML = ``;
-
-
             } else {
               this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
                 ".couponNotValid"
               ).innerHTML = `${this.$t("payment.couponNotValid")}`;
 
-
               this.selectedInput.parentElement.parentElement.parentElement.parentElement.querySelector(
                 ".couponValid"
               ).innerHTML = ``;
             }
-
-            
 
             this.sucessMsg(res.data.message);
             this.couponChecked = true;
@@ -145,8 +180,45 @@ export default {
 
             myInput.setAttribute("disabled", "true");
 
-            this.changevalue(res)
-          }else{
+            this.changevalue(res);
+
+            // add coupon to supplier
+
+            let newAddCoupon = {
+              id: supplier.supplier_id,
+              supplier_id: supplier.supplier_id,
+              shipping_type: 1,
+              coupon: supplier.coupon ? supplier.coupon : "",
+              // point_of_sell_uuid: this.supplierAddress,
+              point_of_sell_uuid:
+                localStorage.getItem("addressUUID") !== null ||
+                localStorage.getItem("addressUUID") !== undefined
+                  ? localStorage.getItem("addressUUID")
+                  : "",
+            };
+            this.$store.dispatch("suppliers/addSupplierToCart", {
+              supplier: newAddCoupon,
+            });
+
+            let myControler = this.$store.state.suppliers.suppliers;
+            for (let index = 0; index < myControler.length; index++) {
+              const element = myControler[index].supplier;
+              // console.log("element" , element.id);
+
+              if (
+                (element.shipping_type == 0 &&
+                  element.id == supplier.supplier_id) ||
+                (element.shipping_type == 1 &&
+                  element.id == supplier.supplier_id)
+              ) {
+                element.coupon = localStorage.getItem("cou");
+                element.couponDisc = res.data.items.suppliers[0].discount;
+              }
+              setTimeout(() => {
+                localStorage.removeItem("cou");
+              }, 1000);
+            }
+          } else {
             localStorage.removeItem("cou");
           }
         })
@@ -177,7 +249,10 @@ export default {
       this.selectedSpan = span;
     },
     changevalue(res) {
-      this.$emit('changeRate',res)
+      this.$emit("changeRate", res);
+    },
+    removeDiscount() {
+      this.$emit("removeDiscount");
     },
   },
   data() {
@@ -190,7 +265,7 @@ export default {
       selectedSpan: null,
     };
   },
-  props:['item','supplier']
+  props: ["item", "supplier"],
 };
 </script>
 

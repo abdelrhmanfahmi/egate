@@ -72,6 +72,7 @@ export default {
         country: data.country,
         governorate: data.governorate,
         city: data.city,
+        address_line_one:data.address_line_one
       },
     });
   },
