@@ -24,9 +24,9 @@
         <h2 v-if="product.product">
           {{ product.product.title }}
         </h2>
-        <img v-if="product.image_path"
+        <img v-if="product.current_main_image_path"
           :src="
-            product.image_path ? product.image_path : product.product.image_path
+            product.current_main_image_path
           "
           alt="product-image"
         />
