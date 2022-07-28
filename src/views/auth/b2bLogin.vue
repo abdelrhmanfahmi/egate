@@ -155,7 +155,7 @@ export default {
 
       if (token) {
         this.form.token = token;
-        console.log(token);
+        // console.log(token);
       }
     },
     
