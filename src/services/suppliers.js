@@ -76,11 +76,11 @@ export default {
       },
     });
   },
-  checkSupplierFees(data) {
+  checkSupplierFees(payload) {
     return globalAxios.get(`shipping/supplier-shipping-fee`, {
       params: {
-        address_uuid: data.address_uuid,
-        supplier_id: data.supplier_id,
+        address_uuid: payload.address_uuid,
+        supplier_id: payload.supplier_id,
       },
     });
   },
