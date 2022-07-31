@@ -32,4 +32,9 @@ export default {
     privacyPolicy:'Privacy & Policy',
     termsConditions:'Terms & Conditions',
     faq:'FAQ',
+    siteName:'HumHumm Support',
+    siteSupport:'Typical response within one hour',
+    hiThere:'Hi there',
+    helpYou:'How can I help you?',
+    startCaht:'Start Chat'
 };

@@ -540,9 +540,7 @@
                               <Coupon
                                 :item="item"
                                 :supplier="supplier"
-                                @changeRate="
-                                  ChangeRateValue($event, supplier)
-                                "
+                                @changeRate="ChangeRateValue($event, supplier)"
                                 @removeDiscount="changeCouponStatus(supplier)"
                               />
                             </div>
@@ -1287,9 +1285,13 @@ export default {
 
     this.getTerms();
 
-    localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
+    // localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
     this.getWallet();
+    let addressUUID = localStorage.getItem('globalAddressUUID');
+    if(addressUUID == undefined || addressUUID == 'undefined'){
+      localStorage.setItem('globalAddressUUID' , this.buyerUserData.uuid)
+    }
   },
   methods: {
     formatPin_code(e) {
@@ -1352,7 +1354,7 @@ export default {
         .then(() => {
           // if (this.buyerUserData && this.buyerUserData.address_uuid) {
           if (this.buyerUserData) {
-            let address_uuid = localStorage.getItem('globalAddressUUID')
+            let address_uuid = localStorage.getItem("globalAddressUUID");
             this.getLoggedFirstShippingFees(address_uuid);
           }
         })
@@ -1706,6 +1708,10 @@ export default {
               }, 500);
             }
             localStorage.setItem("globalAddressUUID", res.data.items.uuid);
+            setTimeout(() => {
+              let address_uuid = localStorage.getItem("globalAddressUUID");
+              this.getLoggedFirstShippingFees(address_uuid);
+            }, 500);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -1828,7 +1834,7 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
-        // address_uuid: address_uuid,
+        address_uuid: localStorage.getItem('globalAddressUUID'),
         supplier_id: localStorage.getItem("s_id"),
       };
       suppliers
@@ -1957,7 +1963,7 @@ export default {
       }
     },
     getShippingFeesExist() {
-      let address_uuid = this.buyerUserData.uuid;
+      let address_uuid = localStorage.getItem("globalAddressUUID");
 
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
@@ -1975,7 +1981,9 @@ export default {
     },
 
     getLoggedFirstShippingFees() {
-      let address_uuid = localStorage.getItem('globalAddressUUID');
+      let address_uuid = localStorage.getItem("globalAddressUUID")
+        ? localStorage.getItem("globalAddressUUID")
+        : this.buyerUserData.uuid;
       suppliers
         .getFirstShippingFees(address_uuid)
         .then((res) => {
@@ -2010,7 +2018,7 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
-        address_line_one:this.form.address_line_one
+        address_line_one: this.form.address_line_one,
       };
       suppliers
         .getGuestFirstShippingFees(data)
@@ -2028,7 +2036,7 @@ export default {
     },
     checkSupplierFees(supplier) {
       let data = {
-        address_uuid: this.supplierAddress,
+        address_uuid: localStorage.getItem('globalAddressUUID'),
         supplier_id: supplier.supplier_id,
       };
       suppliers
@@ -2233,7 +2241,7 @@ export default {
           console.log(err);
         });
     },
-    ChangeRateValue(res ) {
+    ChangeRateValue(res) {
       this.totalDiscount = res.data.items.total_cart.total_discount;
 
       this.total_cart = res.data.items;
@@ -2259,25 +2267,24 @@ export default {
         // console.log("total " , this.totalPaymentReplacement);
       }
     },
-    changeCouponStatus(supplier){
+    changeCouponStatus(supplier) {
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
         // console.log("element" , element.id);
 
-        if (element.id == supplier.supplier_id  ) {
-          this.totalDiscountReplacement -= element.couponDisc
+        if (element.id == supplier.supplier_id) {
+          this.totalDiscountReplacement -= element.couponDisc;
           this.totalPaymentReplacement = parseFloat(
-            (this.totalPayment +
-              this.shippingCartFee) -
+            this.totalPayment +
+              this.shippingCartFee -
               this.totalDiscountReplacement
           );
-          
-            element.couponDisc = 0;
-          
+
+          element.couponDisc = 0;
         }
       }
-    }
+    },
   },
   computed: {
     newPrice() {
