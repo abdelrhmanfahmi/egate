@@ -364,6 +364,13 @@
                                     <div class="error" v-if="postalError">
                                       {{ $t("payment.postalError") }}
                                     </div>
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.pin_code"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
                                   </b-form-group>
                                 </b-col>
                                 <!-- note  -->
