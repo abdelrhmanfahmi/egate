@@ -1361,7 +1361,7 @@ export default {
         .then(() => {
           // if (this.buyerUserData && this.buyerUserData.address_uuid) {
           if (this.buyerUserData) {
-            let address_uuid = localStorage.getItem("globalAddressUUID");
+            let address_uuid = this.buyerUserData.address_uuid
             this.getLoggedFirstShippingFees(address_uuid);
           }
         })
@@ -2312,6 +2312,9 @@ export default {
       return this.$store.state.suppliers;
     },
   },
+  created(){
+    localStorage.setItem('globalAddressUUID' , this.buyerUserData.address_uuid)
+  }
 };
 </script>
 <style lang="scss" scoped>
