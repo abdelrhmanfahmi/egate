@@ -17,7 +17,7 @@
           <div class="row">
             <!-- <div class="col-12"></div> -->
             <div class="col-md-3 col-sm-12">
-              <div class="footer-social d-flex" >
+              <div class="footer-social d-flex">
                 <ul class="" v-for="(link, index) in links" :key="index">
                   <li v-if="link.key === 'google_play'">
                     <a :href="link.value" target="_blank">
@@ -81,7 +81,9 @@
                   <img src="@/assets/images/payment.png" alt="image" />
                 </div>
               </div> -->
-              <div class="footer-social d-flex justify-content-center align-items-center">
+              <div
+                class="footer-social d-flex justify-content-center align-items-center"
+              >
                 <!-- <ul>
                   <li>
                     <router-link to=""><i class=""></i></router-link>
@@ -177,13 +179,15 @@
             </div> -->
             <div class="col-12 text-center w-100">
               <div class="copyright-text">
-                <p>
-                  © 2022
-                  <a href="https://humhum.work/user-interface/public/en_kw">{{
-                    $t("home.mySupply")
-                  }}</a
-                  >. {{ $t("home.allRightsReserved") }}
-                </p>
+                <div v-for="(link, index) in links" :key="index">
+                  <p v-if="link.key === 'mysupply_link'">
+                    © 2022
+                    <a :href="link.value" target="_blank">{{
+                      $t("home.mySupply")
+                    }}</a
+                    >. {{ $t("home.allRightsReserved") }}
+                  </p>
+                </div>
                 <p>version {{ version }}</p>
               </div>
             </div>
@@ -209,6 +213,7 @@
             </ul>
           </nav>
         </div>
+        <ChatUs :whatsapp="whatsapp" />
       </div>
     </footer>
   </section>
@@ -217,6 +222,7 @@
 <script>
 import profile from "@/services/profile";
 import { version } from "../../../package";
+import ChatUs from "@/components/global/chat.vue";
 export default {
   data() {
     return {
@@ -230,6 +236,7 @@ export default {
       appStore: null,
       version: version,
       links: null,
+      whatsapp: null,
     };
   },
   methods: {
@@ -237,9 +244,14 @@ export default {
       profile
         .footerLinks()
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           this.links = res.data.items.data;
-          this.facebook = res.data.items;
+          for (let index = 0; index < res.data.items.data.length; index++) {
+            const element = res.data.items.data[index];
+            if (element.key === "whatsapp") {
+              this.whatsapp = element;
+            }
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -332,6 +344,9 @@ export default {
     // this.footerPinterestLink();
     // this.footerGoogleLink();
     // this.footerAppLink();
+  },
+  components: {
+    ChatUs,
   },
 };
 </script>

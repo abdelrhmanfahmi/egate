@@ -94,7 +94,7 @@
             </span>
             <Cart class="cart-body"></Cart>
           </div>
-          <div v-if="!mobile" class="cart notify-holder">
+          <div v-if="!mobile && buyerUserData" class="cart notify-holder">
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-bell" />
             </span>

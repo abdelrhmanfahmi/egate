@@ -26,7 +26,6 @@
         <path d="M18 15l-6-6-6 6" />
       </svg>
     </div>
-    <ChatUs />
     <Footer />
   </div>
 </template>
@@ -35,14 +34,13 @@
 import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
-import ChatUs from "@/components/global/chat.vue";
+
 
 export default {
   components: {
     TopHeader,
     Nav,
     Footer,
-    ChatUs,
   },
   methods: {
     goTop() {
