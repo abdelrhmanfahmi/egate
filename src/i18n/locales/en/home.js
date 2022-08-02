@@ -28,5 +28,13 @@ export default {
     vendors:'Vendors',
     pageNoteFound1: "THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.",
     you:'You',
-    ok:'Ok'
+    ok:'Ok',
+    privacyPolicy:'Privacy & Policy',
+    termsConditions:'Terms & Conditions',
+    faq:'FAQ',
+    siteName:'HumHumm Support',
+    siteSupport:'Typical response within one hour',
+    hiThere:'Hi there',
+    helpYou:'How can I help you?',
+    startCaht:'Start Chat'
 };

@@ -106,6 +106,35 @@
             </form>
           </div>
         </div>
+        <div v-if="this.payment_type === 'wallet'">
+          <div class="">
+            <div class="data-holder p-5">
+              <ul class="list-data">
+                <!-- <li v-if="order_serial">
+                  {{ $t("payment.orderNumber") }} :
+                  <span class="bold-result"> {{ order_serial }}</span>
+                </li> -->
+                <li v-if="orderDate">
+                  {{ $t("payment.orderDate") }} :
+                  <span class="bold-result">{{ orderDate | formatDate }}</span>
+                </li>
+                <li v-if="total_price">
+                  {{ $t("payment.total") }} :
+                  <span class="totalbuy"
+                    >{{ total_price | fixedCurrency }} {{ currency }}</span
+                  >
+                </li>
+                <li v-if="payment">
+                  {{ $t("payment.paymentMethod") }} :
+                  <span class="bold-result">{{ payment }}</span>
+                </li>
+              </ul>
+            </div>
+            <h4 class="my-5">
+              {{ $t("payment.checkCachResult") }}
+            </h4>
+          </div>
+        </div>
 
         <!-- <h4 class="my-5" v-if="payment === 'bank'">
           {{ $t("payment.checkBankResult") }}
@@ -142,10 +171,10 @@ export default {
     };
   },
   mounted() {
-    if (this.payment_type === "cach") {
+    if (this.payment_type === "cach" || this.payment_type === "wallet") {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
-      }, 12000);
+      }, 8000);
     }
     if (this.payment_type === "bank") {
       // setTimeout(() => {
@@ -183,7 +212,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.$router.push('/')
+            this.$router.push("/");
           }
           console.log(res);
         })

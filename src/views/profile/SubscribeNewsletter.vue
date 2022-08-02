@@ -106,6 +106,9 @@ export default {
     .login-button {
       margin: 10px auto 0;
       width: 20%;
+      @media(max-width:992px){
+        width: 100%;
+      }
     }
   }
 }

@@ -51,6 +51,11 @@ Vue.use(VueEllipseProgress);
 import vmodal from "vue-js-modal";
 Vue.use(vmodal);
 
+  
+import VueSocialChat from 'vue-social-chat'
+
+Vue.use(VueSocialChat)
+
 import "./mixins";
 import "./filters"
 

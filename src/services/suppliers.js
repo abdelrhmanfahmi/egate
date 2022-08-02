@@ -35,6 +35,7 @@ export default {
       redirect_url: payload.redirect_url,
       country_code: payload.country_code,
       accept_terms: payload.accept_terms == true ? "1" : "0",
+      company_name : payload.company_name
     };
 
     return globalAxios.post(`/order`, data);
@@ -71,14 +72,15 @@ export default {
         country: data.country,
         governorate: data.governorate,
         city: data.city,
+        address_line_one:data.address_line_one
       },
     });
   },
-  checkSupplierFees(data) {
+  checkSupplierFees(payload) {
     return globalAxios.get(`shipping/supplier-shipping-fee`, {
       params: {
-        address_uuid: data.address_uuid,
-        supplier_id: data.supplier_id,
+        address_uuid: payload.address_uuid,
+        supplier_id: payload.supplier_id,
       },
     });
   },

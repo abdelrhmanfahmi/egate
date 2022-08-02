@@ -29,4 +29,6 @@ export default {
   resetPassword: "يرجى كتابة كلمة المرور الجديدة",
   passwordConfirmation: "إعادة كلمة المرور",
   save: "حفظ",
+  department: "القسم",
+  selectDept: "اختر القسم",
 };

@@ -17,41 +17,56 @@
         <div
           class="data-holder serial-holder d-flex justify-content-between align-items-center"
         >
-          <div class="serial">
+          <div class="serial" v-if="return_item">
             <h4 class="m-0">
               <span>{{ $t("profile.returnSerial") }} :</span>
               <span v-if="return_item.serial">{{ return_item.serial }} </span>
             </h4>
           </div>
-          <div class="print">
-            <span class="mx-2">
+          <div class="print" v-if="return_item">
+            <span class="mx-2" v-if="return_item.return_status">
               {{ return_item.return_status }}
             </span>
           </div>
         </div>
 
+
+        <div
+          class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0 px-1"
+          v-if="return_item && return_item.return_status === 'Declined'"
+        >
+          <h5 class="text-danger px-3 mb-0">
+            <span> {{ $t("profile.rejectionReason") }} : </span>
+            <span class="mx-2">
+              {{ return_item.declined_reason }}
+            </span>
+          </h5>
+        </div>
+
         <section class="account-address-info">
           <div class="row">
-            <div class="col-md-6 col-sm-12 mb-2">
+            <div class="col-md-6 col-sm-12 mb-2" v-if="return_item">
               <div class="">
                 <div class="info">
                   <div class="row info-data info-colored">
                     <div class="col-6">
                       {{ $t("profile.returnStatus") }}
                     </div>
-                    <div class="col-6">{{ return_item.status }}</div>
+                    <div class="col-6" v-if="return_item.status">
+                      {{ return_item.status }}
+                    </div>
                   </div>
                   <div class="row info-data">
                     <div class="col-6">
                       {{ $t("profile.returnOption") }}
                     </div>
-                    <div class="col-6 mail">
+                    <div class="col-6 mail" v-if="return_item.retrun_option">
                       {{ return_item.retrun_option }}
                     </div>
                   </div>
                   <div class="row info-data info-colored">
                     <div class="col-6">
-                      {{ $t("profile.createedAt") }}
+                      {{ $t("profile.createdAt") }}
                     </div>
                     <div class="col-6">
                       {{ return_item.return_request_date | formatDate }}
@@ -70,10 +85,10 @@
             </div>
             <div class="col-md-6 col-sm-12 mb-2">
               <div class="row info-data">
-                <div class="col-6 info-colored">
+                <div class="col-4 info-colored">
                   <h5 class="pt-2">{{ $t("profile.returnImage") }}</h5>
                 </div>
-                <div class="col-6 py-1 info-colored">
+                <div class="col-8 py-1 info-colored">
                   <div
                     class="downloadArea w-50"
                     :class="{
@@ -98,11 +113,14 @@
                   </div>
                 </div>
               </div>
-              <div class="info-data">
+              <div class="info-data" v-if="return_item">
                 <div class="col-12 p-0">
                   <h5 class="pt-2">{{ $t("profile.returnReason") }}</h5>
                 </div>
-                <div class="col-12 return-reason">
+                <div
+                  class="col-12 return-reason"
+                  v-if="return_item.return_reason"
+                >
                   {{ return_item.return_reason }}
                 </div>
               </div>
@@ -167,7 +185,7 @@
           </div>
         </section> -->
 
-        <section class="payment">
+        <section class="payment" v-if="return_item">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
               <h4 class="data-holder">
@@ -201,7 +219,7 @@
               </h4>
               <div class="">
                 <div class="info">
-                  <div class="row info-data info-colored">
+                  <div class="row info-data info-colored cancelReason">
                     <div class="col-6">{{ $t("profile.reshippingFees") }}</div>
                     <div class="col-6" v-if="return_item.reshipping_fee">
                       {{ return_item.reshipping_fee | fixedCurrency }}
@@ -332,7 +350,7 @@ export default {
   },
   methods: {
     returnedSingleOrders() {
-      if (this.buyerUserData.type === "buyer") {
+      if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         this.loading = true;
         profile
           .returnedSingleBuyerOrders(this.UUID)
@@ -518,5 +536,8 @@ table td {
 }
 .return-reason {
   word-break: break-all;
+}
+.cancelReason {
+  background: #ff000042 !important;
 }
 </style>

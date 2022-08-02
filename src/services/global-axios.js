@@ -1,10 +1,15 @@
 import axios from "axios";
-// import auth from "@/services/auth"
+// import mixin from "../mixins"
+// import auth from "@/services/auth";
 // for token
+import router from "../router/index";
 
 let lang = null;
 
 lang = localStorage.getItem("lang") || "en";
+
+// let userExist = localStorage.getItem("currency");
+let userExist = localStorage.getItem("buyerUserData");
 
 // let currency_code = localStorage.getItem("currency");
 // let currency_id = localStorage.getItem("country");
@@ -54,32 +59,38 @@ globalAxios.interceptors.request.use(
     // const currency_code = localStorage.getItem("currency");
     // const default_id = localStorage.getItem("default_id");
     if (guestId) {
-      config.headers['guest-id'] = guestId;
+      config.headers["guest-id"] = guestId;
     }
     if (country) {
       let country_parsed = JSON.parse(localStorage.getItem("country"));
-      config.headers['currency_id'] = country_parsed.currencies[0].id || 1;
+      config.headers["currency_id"] = country_parsed.currencies[0].id || 1;
     }
     // config.headers['currency_code'] = currency_code;
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
-// globalAxios.interceptors.response.use(undefined, function (err) {
-//   // console.log('error' , err.response.data.code)
-//   return new Promise(function () {
-//     if (err.response.data.code === 401) {
-//       // if you ever get an unauthorized, logout the user
-      
-//       // auth.logout();
-//       // location.replace('/b2b-login')
-//       localStorage.removeItem('userInfo')
-//       localStorage.removeItem('buyerUserData')
-//       // you can also redirect to /login if needed !
-//     }
-//     throw err;
-//   });
-// });
+globalAxios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      (error.response.status == 403 && userExist) ||
+      (error.response.status == 401 && userExist)
+    ) {
+      localStorage.clear()
+
+      // router.push("/");
+      // this.$router.push("/b2b-login");
+      // location.reload();
+      // this.$store.dispatch('loginAgain')
+      userExist.type === "buyer"
+        ? router.push(`b2b-login`)
+        : router.push({path:'/' , query:{force_login : 'true'}});
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default globalAxios;

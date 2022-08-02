@@ -35,6 +35,7 @@ import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
 
+
 export default {
   components: {
     TopHeader,
@@ -95,7 +96,7 @@ export default {
 }
 .top-btn {
   position: fixed;
-  right: 20px;
+  right: 110px;
   bottom: 50px;
   padding: 0;
   background: transparent;
@@ -106,8 +107,9 @@ export default {
   transition: all 0.5s ease-in-out;
   border-radius: 50%;
   border: 1px solid #d4d5d8;
+  z-index: 999999;
 }
-.view{
+.view {
   min-height: 50vh;
 }
 </style>

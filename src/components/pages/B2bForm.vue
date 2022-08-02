@@ -36,9 +36,10 @@
                 <!-- job title -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="l-name">{{ $t("register.jobTitle") }}</label>
+                    <label for="l-name">{{ $t("register.department") }}</label>
+                    <!-- <label for="l-name">{{ $t("register.jobTitle") }}</label> -->
                     <span class="requried">*</span>
-                    <b-form-input id="l-name" v-model="form.job_title" />
+                    <!-- <b-form-input id="l-name" v-model="form.job_title" /> -->
                     <div
                       class="error"
                       v-for="(error, index) in errors.job_title"
@@ -46,6 +47,23 @@
                     >
                       {{ error }}
                     </div>
+                    <b-form-select v-model="form.job_title">
+                      <b-form-select-option selected disabled value="null">{{
+                        $t("register.selectDept")
+                      }}</b-form-select-option>
+                      <b-form-select-option
+                        v-for="department in departments"
+                        :key="department.id"
+                        :value="department.id"
+                      >
+                        <span v-if="$i18n.locale == 'en'">{{
+                          department.name_en
+                        }}</span>
+                        <span v-if="$i18n.locale == 'ar'">{{
+                          department.name_ar
+                        }}</span></b-form-select-option
+                      >
+                    </b-form-select>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
@@ -178,29 +196,45 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox v-model="terms" class="terms my-1">
-                {{ $t("register.PleaseReview") }}
-                <a
-                  v-b-modal.terms&condation
-                  @click="$bvModal.show('modal-scoped')"
-                >
-                  {{ $t("register.termsConditions") }}</a
-                >
-                {{ $t("register.toCompleteTheRegistration") }}
-              </b-form-checkbox>
-
-              <b-modal
-                size="lg"
-                id="modal-scoped"
-                :title="condations.title"
-                
+              <b-form-checkbox
+                v-model="terms"
+                class="terms my-1 d-inline-block"
               >
+                <span>
+                  {{ $t("register.PleaseReview") }}
+                </span>
+              </b-form-checkbox>
+              <div class="terms d-inline-block">
+                <span>
+                  <a
+                    v-b-modal.terms&condation
+                    @click="$bvModal.show('modal-scoped')"
+                  >
+                    {{ $t("register.termsConditions") }}</a
+                  >
+                </span>
+                <span>
+                  {{ $t("register.toCompleteTheRegistration") }}
+                </span>
+              </div>
+
+              <b-modal size="lg" id="modal-scoped" :title="condations.title">
                 <p v-html="condations.description">
                   {{ condations.description }}
                 </p>
                 <template #modal-footer="{ ok }">
-                  <b-button size="sm" variant="outline-success" @click="ok()">
-                    {{$t('home.ok')}}
+                  <b-button
+                    size="sm"
+                    variant="outline-success"
+                    @click="
+                      ok();
+                      acceptMyTerms();
+                    "
+                  >
+                    <span class="mx-1">{{ $t("payment.accept") }}</span>
+                    <span class="mx-1">{{
+                      $t("payment.termsAndConditions")
+                    }}</span>
                   </b-button>
                 </template>
               </b-modal>
@@ -224,7 +258,7 @@
           <h6 class="main-header">
             {{ $t("register.unableRegister") }}
           </h6>
-          <a class="tel" href="tel:4733378901">47 333 78 901</a>
+          <a class="tel pb-0" v-html="contactPhone.description"></a>
         </div>
       </div>
     </b-container>
@@ -232,12 +266,13 @@
 </template>
 <script>
 import auth from "@/services/auth";
+import profile from "@/services/profile";
 export default {
   data() {
     return {
       form: {
         first_name: "",
-        job_title: "",
+        job_title: null,
         email: "",
         password: "",
         password_confirmation: "",
@@ -245,6 +280,39 @@ export default {
         mobile_number: "",
         register_mailing_list: false,
       },
+      selectedDepartment: null,
+      departments: [
+        {
+          id: "Marketing",
+          name_ar: "التسويق",
+          name_en: "Marketing",
+        },
+        {
+          id: "Sales",
+          name_ar: "المبيعات",
+          name_en: "Sales",
+        },
+        {
+          id: "HR",
+          name_ar: "الموارد البشرية",
+          name_en: "HR",
+        },
+        {
+          id: "Accounting",
+          name_ar: "الحسابات",
+          name_en: "Accounting",
+        },
+        {
+          id: "IT",
+          name_ar: "تكنولوجيا المعلومات",
+          name_en: "IT",
+        },
+        {
+          id: "Law",
+          name_ar: "القانون",
+          name_en: "Law",
+        },
+      ],
       errors: {},
       terms: "",
       connects: [
@@ -254,11 +322,13 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
+      contactPhone: "", // add phone
     };
   },
   mounted() {
     this.getTerms();
     this.getAllCountires();
+    this.contactUsPhone();
   },
   methods: {
     switchField() {
@@ -294,6 +364,20 @@ export default {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
       });
+    },
+    acceptMyTerms() {
+      this.terms = true;
+    },
+    contactUsPhone() {
+      profile
+        .contactUsPhone()
+        .then((res) => {
+          console.log(res);
+          this.contactPhone = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

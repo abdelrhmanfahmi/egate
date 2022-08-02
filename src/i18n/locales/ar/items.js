@@ -25,4 +25,6 @@ export default {
   // Products Most Sold
   new: "جديد",
   relativeProducts: "منتجات ذات الصلة",
+  addToFavourite: "اضف الى المفضلة",
+  addedToFavourite: "موجودة بالفعل فى المفضلة",
 };

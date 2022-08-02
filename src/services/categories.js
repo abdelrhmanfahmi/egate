@@ -30,8 +30,8 @@ export default {
       },
     });
   },
-  getCategoryProducts(id, sorting) {
-    return globalAxios.get(`products` , {
+  getCategoryProducts(id,sorting , cat) {
+    return globalAxios.get(`products?${cat}` , {
       params:{
         category_id: id,
         sort_price:sorting

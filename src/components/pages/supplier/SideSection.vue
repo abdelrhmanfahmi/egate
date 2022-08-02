@@ -40,11 +40,18 @@
           </ul>
         </div>
         <div class="col-md-6 col-sm-12 mb-2">
-          <b-button
+          <b-button v-if="buyerUserData"
             variant="outline-success"
             id="show-btn"
             class="mx-2"
             @click="$bvModal.show('bv-modal-example')"
+            >{{ $t("supplier.sendSupplierMessage") }}</b-button
+          >
+          <b-button v-else
+            variant="outline-success"
+            id="show-btn"
+            class="mx-2"
+            @click="loginFirst"
             >{{ $t("supplier.sendSupplierMessage") }}</b-button
           >
         </div>
@@ -118,6 +125,11 @@
 </template>
 <script>
 import profile from "@/services/profile";
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
 import {
   BIconTwitter,
   BIconFacebook,
@@ -155,6 +167,7 @@ export default {
             this.sucessMsg(res.data.message);
             document.querySelector(".close").click();
             this.message = "";
+            this.subject = "";
           }
         })
         .catch((error) => {
@@ -162,6 +175,17 @@ export default {
           this.errors = err.items;
           console.log(error);
         });
+    },
+    loginFirst() {
+     Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.registerNow"),
+        icon: "warning",
+        // buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then(() => {
+        this.$router.push("/user-register");
+      });
     },
   },
 };
@@ -249,4 +273,5 @@ export default {
     object-fit: cover;
   }
 }
+
 </style>

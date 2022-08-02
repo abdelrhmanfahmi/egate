@@ -13,7 +13,7 @@ export default {
   created() {
     // let gestUser = localStorage.getItem("guest-id");
     this.$store.dispatch("getUserGuestId");
-    this.$store.dispatch("getUserInfo");
+    this.$store.dispatch("getUserInfo")
     let userExist = localStorage.getItem("buyerUserData");
     let guestUser = localStorage.getItem("guest-id");
     if (userExist === null && guestUser === null) {

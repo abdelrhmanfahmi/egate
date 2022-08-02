@@ -20,6 +20,7 @@ import OrdersListsB2b from "../views/profile/OrdersListsB2b.vue";
 import GiftCardB2b from "../views/profile/GiftCardB2b.vue";
 import ReturnRequests from "../views/profile/ReturnRequests.vue";
 import Wallet from "../views/profile/Wallet.vue";
+import Notifications from "../views/profile/Notifications.vue";
 
 
 
@@ -116,6 +117,11 @@ export default {
       path: "/profile/Wallet",
       name: "Wallet",
       component: Wallet,
+    },
+    {
+      path: "/profile/Notifications",
+      name: "Notifications",
+      component: Notifications,
     },
     
     

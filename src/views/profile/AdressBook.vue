@@ -146,7 +146,7 @@
         <!-- post code  -->
         <b-col lg="6">
           <b-form-group>
-            <label for="postCode">{{ $t("profile.postCode") }}</label>
+            <label for="postCode">{{ $t("profile.zipCode") }}</label>
             <b-form-input id="postCode" v-model="form.pin_code" />
             <div
               class="error"
@@ -270,7 +270,7 @@ export default {
         },
         {
           key: "pin_code",
-          label: this.$t("profile.postcode"),
+          label: this.$t("profile.zipCode"),
         },
         {
           key: "actions",

@@ -1,7 +1,7 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
     <b-container>
-      <nav>
+      <nav :class="$i18n.locale">
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
@@ -70,7 +70,7 @@
               <b-input-group class="mt-3">
                 <template #append>
                   <b-input-group-text>
-                    <strong>
+                    <strong @click="search" class="search-eye">
                       <font-awesome-icon
                         v-b-toggle.sidebar-1
                         icon="fa-solid fa-search" /></strong
@@ -93,6 +93,13 @@
               {{ cartLength }}
             </span>
             <Cart class="cart-body"></Cart>
+          </div>
+          <div v-if="!mobile && buyerUserData" class="cart notify-holder">
+            <span class="cart-icon">
+              <font-awesome-icon icon="fa-solid fa-bell" />
+            </span>
+            <span class="cartLength"> 6 </span>
+            <Notify class="notify-body" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
             <span class="cart-icon">
@@ -119,13 +126,21 @@
                     <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                     <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
-                      {{ buyerUserData.first_name || buyerUserData.company_name }}
+                      <span v-if="buyerUserData.type === 'buyer'">
+                        {{ userInfo.item.company_name }}
+                      </span>
+                      <span v-else>
+                        {{ userInfo.item.first_name }}
+                      </span>
                     </p>
                     <p v-else>
                       {{ $t("login.welcome") }} ,
-                      {{
-                        userInfo.item.first_name || userInfo.item.company_name
-                      }}
+                      <span v-if="buyerUserData.type === 'buyer'">
+                        {{ userInfo.item.company_name }}
+                      </span>
+                      <span v-else>
+                        {{ userInfo.item.first_name }}
+                      </span>
                     </p>
                   </span>
                 </template>
@@ -181,6 +196,7 @@
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
+import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
 
 import { BIconMinecartLoaded } from "bootstrap-vue";
@@ -204,6 +220,7 @@ export default {
     BIconMinecartLoaded,
     Login,
     MobileNav,
+    Notify,
   },
   created() {
     window.addEventListener("resize", this.checkScreen);
@@ -252,6 +269,17 @@ export default {
       });
       location.reload();
     },
+    loginNow() {
+      document.$refs["b2cLogin"].show();
+      document.querySelector(".login").click();
+      if (document.querySelector(".login")) {
+        alert("exist");
+      }
+      this.$router.push({
+        path: this.$router.path,
+        query: { force_login: "false" },
+      });
+    },
   },
   computed: {
     cartItems() {
@@ -261,6 +289,21 @@ export default {
       return this.$store.state.cart.cartLength;
     },
   },
+  mounted() {
+    if (this.$route.query.force_login == "true") {
+      if (document.querySelector(".login")) {
+        setTimeout(() => {
+          document.querySelector(".login").click();
+        }, 0);
+        var newURL = location.href.split("?")[0];
+        window.history.pushState("object", document.title, newURL);
+        console.log(newURL);
+      }
+    }
+  },
+  destroyed() {
+    window.history.pushState({}, document.title, window.location.pathname);
+  },
 };
 </script>
 
@@ -268,6 +311,12 @@ export default {
 .main-nav {
   width: 100%;
   transition: 0.5s all ease-in-out;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #fff;
   nav {
     align-items: center;
     font-size: 14px;
@@ -379,7 +428,7 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-    .cart-body {
+    .cart-body , .notify-body {
       right: auto;
       left: 0;
     }
@@ -417,5 +466,25 @@ html:lang(ar) {
   font-size: 14px;
   font-weight: bold;
   padding: 0px 4px;
+}
+.ar {
+  .icon {
+    left: 24px;
+    right: auto;
+  }
+}
+.search-eye {
+  cursor: pointer;
+}
+
+.notify-holder {
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    .notifications {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 </style>

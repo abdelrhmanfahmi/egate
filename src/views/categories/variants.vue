@@ -123,19 +123,19 @@
     <div class="products" v-if="products.length > 0">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-          <div class="col-6">
+          <div class="col-md-6 col-sm-12">
             <h4 class="header font-weight-bold my-5">
               {{ $t("items.products") }}
             </h4>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-sm-12">
             <div class="row justify-content-center align-items-center">
-              <div class="col-3 text-center">
+              <div class="col-md-3 col-sm-12 text-center">
                 <h5>
                   {{ $t("cart.sortBy") }}
                 </h5>
               </div>
-              <div class="col-6">
+              <div class="col-md-9 col-sm-12">
                 <b-form-select
                   class=""
                   v-model="sortType"
@@ -455,26 +455,31 @@
                   "
                 >
                   <a
-                    class="d-flex justify-content-center align-items-center"
+                    class="d-flex justify-content-center align-items-center cart-link"
                     @click="addToCart(product)"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
                       product.product_details_by_type.add_type === 'both'
                     "
+                    v-b-tooltip.hover
+                    :title="$t('items.addToCart')"
                   >
-                    <span>{{ $t("items.addToCart") }}</span>
+                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
                   <div class="" v-if="buyerUserData">
                     <a
-                      class="text-danger d-flex justify-content-center align-items-center"
-                      :title="`product in favourite`"
+                      class="text-danger d-flex justify-content-center align-items-center "
                       @click="addToWishlist(product)"
                       v-if="product.is_favorite == true"
+                      v-b-tooltip.hover
+                      :title="$t('items.addedToFavourite')"
                       ><font-awesome-icon icon="fa-solid fa-star"
                     /></a>
                     <a
                       @click="addToWishlist(product)"
+                      v-b-tooltip.hover
+                      :title="$t('items.addToFavourite')"
                       class="d-flex justify-content-center align-items-center"
                       v-else
                       ><font-awesome-icon icon="fa-solid fa-star" />
@@ -509,9 +514,11 @@
                           id="show-btn"
                           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
                           @click="$bvModal.show('bv-bidRequest')"
+                          v-b-tooltip.hover
+                          :title="$t('singleProduct.bidRequest')"
                         >
                           <!-- <span role="button" @click="loggedBidRequest"> -->
-                          {{ $t("singleProduct.bidRequest") }}
+                          <!-- {{ $t("singleProduct.bidRequest") }} -->
                           <font-awesome-icon icon="fa-solid fa-list" />
                         </button>
                       </div>
@@ -545,13 +552,16 @@
                   v-else-if="!buyerUserData"
                 >
                   <a
+                  class="cart-link"
                     @click="addToCart(product)"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
                       product.product_details_by_type.add_type === 'both'
                     "
+                    v-b-tooltip.hover
+                    :title="$t('items.addToCart')"
                   >
-                    <span>{{ $t("items.addToCart") }}</span>
+                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
@@ -910,7 +920,7 @@ export default {
 
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.selectedVariants)
+        .getCategoryProducts(this.pageId, this.sortType, this.selectedVariants)
         .then((res) => {
           // console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -925,7 +935,7 @@ export default {
     getCategoryProducts() {
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.sortType)
+        .getCategoryProducts(this.pageId, this.sortType, this.selectedVariants)
         .then((res) => {
           console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -1124,7 +1134,7 @@ export default {
       background: #fff;
       color: #312620;
       box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 10%);
-      padding: 1rem 2rem;
+      padding: 1rem 1rem;
       border-radius: 0.2rem;
       margin: 0 0.3rem;
       &:hover {
@@ -1174,7 +1184,7 @@ export default {
   }
 }
 .add-cart {
-  border-radius: 0;
+  // border-radius: 0;
   font-size: 11pt;
   background: #36363b;
   color: #fff;
@@ -1182,8 +1192,11 @@ export default {
   height: fit-content;
   margin-inline-end: 0.5rem;
   display: block;
-  min-width: 10rem;
+  // min-width: 10rem;
   text-align: center;
+  padding: 11px 18px;
+  border-radius: 3px;
+  margin: 0 5px;
   &:hover {
     background: #ed2124;
   }
@@ -1193,4 +1206,38 @@ export default {
     width: 30%;
   }
 }
+.cart-link{
+  background: #ff6000 !important;
+  color: #fff !important;
+}
+@media screen and (max-width: 767px) {
+  table {
+    tbody{
+      tr{
+        margin: 30px 0;
+      }
+    }
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    padding: 0;
+  }
+
+  table td {
+    display: block;
+    font-size: 0.8rem;
+    border-top: none !important;
+  }
+  .table-striped tbody tr:nth-of-type(odd){
+    margin: 30px 0;
+    display: block;
+  }
+}
+
 </style>
