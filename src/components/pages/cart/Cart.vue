@@ -259,7 +259,7 @@
                                     <!-- <span class="requried">*</span> -->
                                     <b-form-input
                                       id="streetNumber"
-                                      v-model="form.address_line_1"
+                                      v-model="form.address_line_one"
                                       :placeholder="
                                         $t('contactUs.address') + '*'
                                       "
@@ -268,7 +268,7 @@
                                       class="error"
                                       v-for="(
                                         error, index
-                                      ) in errors.address_line_1"
+                                      ) in errors.address_line_one"
                                       :key="index"
                                     >
                                       {{ error }}
@@ -277,7 +277,7 @@
                                       class="error"
                                       v-if="
                                         localClicked &&
-                                        form.address_line_1 == null
+                                        form.address_line_one == null
                                       "
                                     >
                                       {{ $t("payment.AddressRequired") }}
@@ -363,6 +363,13 @@
                                     />
                                     <div class="error" v-if="postalError">
                                       {{ $t("payment.postalError") }}
+                                    </div>
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.pin_code"
+                                      :key="index"
+                                    >
+                                      {{ error }}
                                     </div>
                                   </b-form-group>
                                 </b-col>
@@ -540,7 +547,8 @@
                               <Coupon
                                 :item="item"
                                 :supplier="supplier"
-                                @changeRate="ChangeRateValue($event)"
+                                @changeRate="ChangeRateValue($event, supplier)"
+                                @removeDiscount="changeCouponStatus(supplier)"
                               />
                             </div>
                           </td>
@@ -1030,7 +1038,8 @@
                     <tr>
                       <th>{{ $t("cart.discount") }}</th>
                       <td v-if="totalDiscount !== null && cart_sub_total">
-                        {{ totalDiscountReplacement | fixedCurrency }} {{ currency }}
+                        {{ totalDiscountReplacement | fixedCurrency }}
+                        {{ currency }}
                       </td>
                     </tr>
                     <tr>
@@ -1152,7 +1161,7 @@ export default {
         pin_code: "",
         notes: null,
         // address_uuid: null,
-        address_line_1: null,
+        address_line_one: null,
       },
       newForm: {
         country_id: null,
@@ -1163,7 +1172,7 @@ export default {
         apartment: null,
         pin_code: null,
         notes: null,
-        address_line_1: null,
+        address_line_one: null,
       },
       countries: [],
       cities: [],
@@ -1224,6 +1233,7 @@ export default {
       pin_codeMaxLength: 6,
       postalError: false,
       localClicked: false,
+      couponRemoved: false,
     };
   },
   mounted() {
@@ -1233,6 +1243,7 @@ export default {
     this.getAllAdresses();
     localStorage.removeItem("s_id");
     localStorage.removeItem("cou");
+    // this.getLoggedFirstShippingFees()
 
     this.paymentFormData.country = this.buyerUserData
       ? this.buyerUserData.country_id
@@ -1281,9 +1292,13 @@ export default {
 
     this.getTerms();
 
-    localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
+    // localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
     this.getWallet();
+    let addressUUID = localStorage.getItem('globalAddressUUID');
+    if(addressUUID == undefined || addressUUID == 'undefined'){
+      localStorage.setItem('globalAddressUUID' , this.buyerUserData.uuid)
+    }
   },
   methods: {
     formatPin_code(e) {
@@ -1344,8 +1359,10 @@ export default {
           });
         })
         .then(() => {
-          if (this.buyerUserData && this.buyerUserData.address_uuid) {
-            this.getLoggedFirstShippingFees();
+          // if (this.buyerUserData && this.buyerUserData.address_uuid) {
+          if (this.buyerUserData) {
+            let address_uuid = this.buyerUserData.address_uuid
+            this.getLoggedFirstShippingFees(address_uuid);
           }
         })
         .finally(() => {
@@ -1698,6 +1715,10 @@ export default {
               }, 500);
             }
             localStorage.setItem("globalAddressUUID", res.data.items.uuid);
+            setTimeout(() => {
+              let address_uuid = localStorage.getItem("globalAddressUUID");
+              this.getLoggedFirstShippingFees(address_uuid);
+            }, 500);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -1713,7 +1734,7 @@ export default {
         this.form.country_id !== null &&
         this.form.region_id !== null &&
         this.form.city_id !== null &&
-        this.form.address_line_1 !== null
+        this.form.address_line_one !== null
       ) {
         this.sucessMsg(this.$t("cart.success"));
         this.submitted = true;
@@ -1820,7 +1841,7 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
-        // address_uuid: address_uuid,
+        address_uuid: localStorage.getItem('globalAddressUUID'),
         supplier_id: localStorage.getItem("s_id"),
       };
       suppliers
@@ -1949,7 +1970,7 @@ export default {
       }
     },
     getShippingFeesExist() {
-      let address_uuid = this.buyerUserData.uuid;
+      let address_uuid = localStorage.getItem("globalAddressUUID");
 
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
@@ -1967,8 +1988,11 @@ export default {
     },
 
     getLoggedFirstShippingFees() {
+      let address_uuid = localStorage.getItem("globalAddressUUID")
+        ? localStorage.getItem("globalAddressUUID")
+        : this.buyerUserData.uuid;
       suppliers
-        .getFirstShippingFees(this.buyerUserData.address_uuid)
+        .getFirstShippingFees(address_uuid)
         .then((res) => {
           // console.log("new", res);
 
@@ -2001,6 +2025,7 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
+        address_line_one: this.form.address_line_one,
       };
       suppliers
         .getGuestFirstShippingFees(data)
@@ -2018,7 +2043,7 @@ export default {
     },
     checkSupplierFees(supplier) {
       let data = {
-        address_uuid: this.supplierAddress,
+        address_uuid: localStorage.getItem('globalAddressUUID'),
         supplier_id: supplier.supplier_id,
       };
       suppliers
@@ -2125,7 +2150,7 @@ export default {
         floor: this.form.floor,
         apartment: this.form.apartment,
         pin_code: this.form.pin_code,
-        address_line_1: this.form.address_line_1,
+        address_line_one: this.form.address_line_one,
         notes: this.paymentFormData.comment,
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
@@ -2230,21 +2255,41 @@ export default {
       this.sucessMsg(res.data.message);
       this.couponChecked = true;
 
-
       if (res.data.items.total_cart.total_discount == 0) {
         this.totalDiscountReplacement = parseFloat(this.totalDiscount);
         this.totalPaymentReplacement = parseFloat(
           this.totalDiscountReplacement
-      );
+        );
       } else {
         this.totalDiscountReplacement =
           parseFloat(this.totalDiscountReplacement) +
           parseFloat(res.data.items.total_cart.total_discount);
-        this.totalPaymentReplacement =
-          parseFloat((this.totalPayment + this.shippingCartFee) - this.totalDiscountReplacement) 
-          // console.log("total subtotal" , this.totalPayment);
-          // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
-          // console.log("total " , this.totalPaymentReplacement);
+        this.totalPaymentReplacement = parseFloat(
+          this.totalPayment +
+            this.shippingCartFee -
+            this.totalDiscountReplacement
+        );
+        // console.log("total subtotal" , this.totalPayment);
+        // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
+        // console.log("total " , this.totalPaymentReplacement);
+      }
+    },
+    changeCouponStatus(supplier) {
+      let myControler = this.$store.state.suppliers.suppliers;
+      for (let index = 0; index < myControler.length; index++) {
+        const element = myControler[index].supplier;
+        // console.log("element" , element.id);
+
+        if (element.id == supplier.supplier_id) {
+          this.totalDiscountReplacement -= element.couponDisc;
+          this.totalPaymentReplacement = parseFloat(
+            this.totalPayment +
+              this.shippingCartFee -
+              this.totalDiscountReplacement
+          );
+
+          element.couponDisc = 0;
+        }
       }
     },
   },
@@ -2267,6 +2312,9 @@ export default {
       return this.$store.state.suppliers;
     },
   },
+  created(){
+    localStorage.setItem('globalAddressUUID' , this.buyerUserData.address_uuid)
+  }
 };
 </script>
 <style lang="scss" scoped>

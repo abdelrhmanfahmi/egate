@@ -212,6 +212,9 @@ export default {
   },
   termsPage(){
     return globalAxios.get(`statics/terms-conditions`)
+  },
+  faqPage(){
+    return globalAxios.get('lists/faqs')
   }
 
 };

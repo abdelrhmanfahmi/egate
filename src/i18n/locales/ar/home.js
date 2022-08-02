@@ -32,5 +32,10 @@ export default {
   ok: "أوافق",
   privacyPolicy: "سياسة الخصوصيه",
   termsConditions: "الشروط و الاحكام",
-  faq: "الأسئله الشائعه",
+  faq: "لأسئلة الشائعة",
+  siteName: "فريق دعم HumHumm",
+  siteSupport: "الرد غالبا يكون خلال ساعة",
+  hiThere: "مرحبا",
+  helpYou: "كيف يمكننى مساعدتك ؟",
+  startCaht:'ابدأ المحادثه'
 };

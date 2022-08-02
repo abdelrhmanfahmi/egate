@@ -456,10 +456,37 @@ img {
 //   align-items: center !important;
 // }
 
-
 // supplier page
 
-  #bv-modal-example {
-    top: 6% !important;
-  }
+#bv-modal-example {
+  top: 6% !important;
+}
 
+// setting pop up chat wedgit
+.vsc-popup {
+  bottom: 50px !important;
+  right: 20px;
+}
+
+.vsc-popup-header {
+  padding: 14px 18px !important;
+  font-size: 18px !important;
+}
+
+.whatsapp-chat {
+  --whatsapp: #46c056;
+  --vsc-bg-header: #095e54;
+  --vsc-bg-button: var(--whatsapp);
+  --vsc-outline-color: var(--whatsapp);
+  --vsc-border-color-bottom-header: #289D37;
+}
+
+.vsc-popup-body{
+  padding: 0 !important;
+}
+
+.vsc-popup-button{
+  width: 45px !important;
+  height: 45px !important;
+  padding: 4px !important;
+}

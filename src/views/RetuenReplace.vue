@@ -173,14 +173,14 @@ export default {
             this.sucessMsg(res.data.message);
 
             setTimeout(() => {
-              // this.$router.push({
-              //   path: "ReturnedRequest",
-              //   query: {
-              //     UUID: res.data.items.uuid,
-              //   },
-              // });
+              this.$router.push({
+                path: "ReturnedRequest",
+                query: {
+                  UUID: res.data.items.uuid,
+                },
+              });
 
-              this.$router.push("/");
+              // this.$router.push("/");
             }, 500);
           }
           console.log(res);
