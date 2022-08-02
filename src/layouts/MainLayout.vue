@@ -35,6 +35,8 @@ import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
 
+import { getMessaging, onMessage } from "firebase/messaging";
+// import {messaging} from "@/plugins/firebase"
 
 export default {
   components: {
@@ -69,6 +71,51 @@ export default {
         behavior: "smooth",
       });
     },
+    notifyMe({ notification: notific, ...data }) {
+      let notification;
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+      } else if (Notification.permission === "granted") {
+        notification = new Notification(notific.title, {
+          body: notific.body,
+        });
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === "granted") {
+            notification = new Notification(notific.title, {
+              body: notific.body,
+            });
+          }
+        });
+      }
+      notification.addEventListener("click", function (event) {
+        console.log(event, data);
+        if (data.type && data.type_id) {
+          let url = "/";
+          switch (data.type) {
+            case "order":
+              url = `/viewOrderDetails?id=${data.type_id}`;
+              break;
+            case "product":
+              url = `/product/details/${data.type_id}`;
+              break;
+            // case "quote":
+            //   url = `/quotes/quote-details/${data.id}`;
+            //   break;
+            case "return":
+              url = `/ReturnedRequest?UUID=${data.type_id}`;
+              break;
+            // case "financials":
+            //   url = `/financials/transactions`;
+            //   break;
+            default:
+              url = "/";
+          }
+
+          this.$router.push(url);
+        }
+      });
+    },
   },
   data() {
     return {
@@ -79,6 +126,18 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
+
+    const messaging = getMessaging();
+
+    onMessage(messaging, (payload) => {
+      // console.log("forground", payload);
+      const { data } = payload;
+      this.notifyMe(data);
+    });
+  },
+  created() {
+    this.$store.dispatch("generateFirebaseToken");
+    this.$store.dispatch("getNotifications");
   },
 };
 </script>

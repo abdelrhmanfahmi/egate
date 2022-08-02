@@ -2,23 +2,26 @@
   <div class="notifications notifications-content">
     <div class="notification-ui_dd-content">
       <div
-        class="notification-list "
-        v-for="(x, index) in 6"
+        class="notification-list"
+        v-for="(notification, index) in notifications"
         :key="index"
       >
         <div class="row">
-        <div class="col-md-3 col-sm-12">
-            <div class="notification-list_feature-img">
-              <img src="https://i.imgur.com/AbZqFnR.jpg" alt="Feature image" />
+          <div class="col-md-2 col-sm-12">
+            <div class="notification-list_feature-img" v-if="notification.status_type === 'success'">
+              <font-awesome-icon icon="fa-solid fa-circle-check" class="text-success" size="2x" />
             </div>
           </div>
-          <div class="col-md-9 col-sm-12">
+          <div class="col-md-10 col-sm-12">
             <div class="notification-list_detail">
-              <p><b>John Doe</b> reacted to your post</p>
-              <p><small>10 mins ago</small></p>
+              <h6>
+                <b>{{ notification.title }}</b>
+              </h6>
+              <p>
+                <small>{{ notification.body.substr(0,50) + '...' }}</small>
+              </p>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -33,7 +36,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["notifications"],
+  mounted() {
+    console.log(this.notifications);
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -42,7 +50,7 @@ export default {};
   right: 0;
   background: #fff;
   opacity: 0;
-  padding: 1.5rem;
+  padding: 1rem;
   position: absolute;
   top: 2rem;
   transition: all 0.5s ease 0s;
@@ -144,7 +152,6 @@ export default {};
     height: 48px;
     width: 48px;
     border-radius: 50px;
-  
   }
 
   .notification-list .notification-list_detail p {
@@ -156,7 +163,6 @@ export default {};
     height: 48px;
     width: 48px;
     border-radius: 5px;
-  
   }
   .notification-ui_dd-footer {
     margin-top: 20px;

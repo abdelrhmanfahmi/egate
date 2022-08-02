@@ -1153,10 +1153,10 @@ export default {
             const element = pickupArr[index];
             // console.log(element == null);
             if (element == null) {
-              console.log("shipping");
+              // console.log("shipping");
               this.shipingExist = true;
             } else {
-              console.log("pickup");
+              // console.log("pickup");
               this.pickupExist = true;
             }
           }

@@ -89,8 +89,7 @@
 <script>
 import auth from "@/services/auth";
 // import { getAuth, signInAnonymously } from "firebase/auth";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import {messaging} from "@/plugins/firebase"
+
 export default {
   data() {
     return {
@@ -107,8 +106,15 @@ export default {
   },
   methods: {
     login() {
+
+      let loginData = {
+        email:this.form.email,
+        password: this.form.password,
+        token : this.firebaseToken , 
+        device_type : this.form.device_type
+      }
       auth
-        .login("buyer", this.form)
+        .login("buyer", loginData)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           console.log("yes", res.data.items.item.verify_email_required);
@@ -147,27 +153,24 @@ export default {
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
-    async generateFirebaseToken() {
-      const token = await getToken(messaging, {
-        vapidKey:
-          "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-      });
+    // async generateFirebaseToken() {
+    //   const token = await getToken(messaging, {
+    //     vapidKey:
+    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+    //   });
 
-      if (token) {
-        this.form.token = token;
-        // console.log(token);
-      }
-    },
+    //   if (token) {
+    //     this.form.token = token;
+    //     // console.log(token);
+    //   }
+    // },
     
   },
-  mounted(){
-    const messaging = getMessaging();
-
-    onMessage(messaging , (payload) =>{
-      console.log("message on clinet" , payload);
-    })
-
-    this.generateFirebaseToken()
+  mounted(){},
+  computed:{
+    firebaseToken(){
+      return this.$store.state.firebaseToken
+    }
   }
 };
 </script>
