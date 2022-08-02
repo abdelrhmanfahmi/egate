@@ -85,8 +85,8 @@
       </template>
       <div slot="footer">
         <div class="">
-          <div class="button-holder">
-            <a href="" target="_blank" class="d-flex justify-content-center align-items-center text-white">
+          <div class="button-holder" v-if="whatsapp">
+            <a :href="whatsapp.value" target="_blank" class="d-flex justify-content-center align-items-center text-white" v-if="whatsapp.value">
               <span class="mx-2">
                 <img
                   src="https://raw.githubusercontent.com/ktquez/vue-social-chat/master/src/icons/whatsapp.svg"
@@ -123,6 +123,7 @@ export default {
       // ...
     ],
   }),
+  props:['whatsapp']
 };
 </script>
 

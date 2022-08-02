@@ -3,7 +3,7 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-4">
-          {{$t('home.faq')}}
+          {{ $t("home.faq") }}
         </h1>
         <!-- <p class="lead">This is a Sample FAQ page.</p> -->
       </div>
@@ -11,103 +11,47 @@
 
     <div class="container">
       <div class="faq-list">
-        <div>
-          <details open>
-            <summary title="How can I pay for my appointment?">
-              How can I pay for my appointment?
+        <div v-for="(questin , index) in questions" :key="index">
+          <details :class="`details-${index}`">
+            <summary :title="questin.title">
+              {{questin.title}}
             </summary>
             <p class="faq-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo
-              quod debitis ducimus iste soluta rerum ipsa consequuntur minus
-              quae. Ea minus ex corporis, pariatur quia rerum sequi iusto odit
-              enim expedita fugiat, assumenda molestiae earum iste blanditiis,
-              ipsum ratione.
+              {{questin.description}}
             </p>
           </details>
-        </div>
-        <div>
-          <details>
-            <summary title="What can I expect at my first consultation?">
-              What can I expect at my first consultation?
-            </summary>
-            <p class="faq-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
-              molestias similique! Molestiae sapiente omnis, illo facere odit
-              reprehenderit eveniet consequuntur sit minus adipisci temporibus
-              eius inventore quidem. Dignissimos, facere quae. Rem quas a
-              laborum est officia pariatur voluptatum iusto perferendis aut
-              labore fugit magni inventore nulla architecto, velit, facilis
-              itaque.
-            </p>
-          </details>
-        </div>
-        <div>
-          <details>
-            <summary title="What are your opening hours?">
-              What are your opening hours?
-            </summary>
-            <p class="faq-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos error
-              ea accusantium? Sunt cum in, repudiandae et facere at nesciunt
-              commodi non quia earum libero aliquid labore obcaecati repellendus
-              consequatur! Nesciunt impedit ducimus illum unde optio veritatis
-              atque facere, voluptate a odio asperiores laudantium rerum.
-            </p>
-          </details>
-        </div>
-        <div>
-          <details>
-            <summary title="Do I need a referral?">
-              Do I need a referral?
-            </summary>
-            <p class="faq-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-              quisquam numquam labore explicabo cupiditate laboriosam. Ipsam
-              explicabo possimus illum aspernatur.
-            </p>
-          </details>
-        </div>
-        <div>
-          <details>
-            <summary
-              title="Is the cost of the appointment covered by private health insurance?"
-            >
-              Is the cost of the appointment covered by private health
-              insurance?
-            </summary>
-            <p class="faq-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Explicabo quos quam asperiores enim sequi nihil? Iure blanditiis
-              autem in ratione rerum, sequi cupiditate eos nemo iusto unde eaque
-              voluptatum alias, porro aliquid sunt. Nesciunt veritatis, ex esse
-              tempora laudantium officiis? Quas corrupti a aut sed quaerat, ipsa
-              incidunt tempora velit dolor distinctio repellat tenetur illum
-              consectetur quos veniam eius provident earum doloremque commodi!
-              Minus amet, obcaecati rem, modi accusantium ad, deleniti possimus
-              incidunt laudantium vitae iusto laborum culpa! Similique,
-              repellat.
-            </p>
-          </details>
-        </div>
-        <div>
-          <details>
-            <summary title="What are the parking and public transport options?">
-              What are the parking and public transport options?
-            </summary>
-            <p class="faq-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-              quisquam numquam labore explicabo cupiditate laboriosam. Ipsam
-              explicabo possimus illum aspernatur.
-            </p>
-          </details>
-        </div>
+        </div>  
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import profile from "@/services/profile";
+export default {
+  data() {
+    return {
+      questions: null,
+    };
+  },
+  methods: {
+    faqPage() {
+      profile
+        .faqPage()
+        .then((res) => {
+          console.log(res);
+          this.questions = res.data.items;
+          // document.querySelector('.details-0').setAttribute('open')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted(){
+    this.faqPage()
+  }
+};
 </script>
 
 <style lang="scss" scoped>
