@@ -41,10 +41,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(coupon, index) in myCoupon" :key="index" class="text-center">
-            <td>{{ coupon.client.company_name }}</td>
-            <td>{{ coupon.discount }} {{ coupon.discount_type }}</td>
-            <td>{{ coupon.end_date }}</td>
+          <tr class="text-center">
+            <!-- <td>{{ coupon.client.company_name }}</td> -->
+            <td>{{ myCoupon.discount }} {{ myCoupon.discount_type }}</td>
+            <td>{{ myCoupon.end_date }}</td>
           </tr>
         </tbody>
       </table>
@@ -58,10 +58,10 @@ export default {
   data() {
     return {
       fields: [
-        {
-          key: "nameDescription",
-          label: this.$t("profile.validFor"),
-        },
+        // {
+        //   key: "nameDescription",
+        //   label: this.$t("profile.validFor"),
+        // },
         {
           key: "products",
           label: this.$t("profile.discountvalue"),
