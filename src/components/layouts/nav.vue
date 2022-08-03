@@ -292,8 +292,8 @@ export default {
       return this.$store.state.notifications
     },
     notificationsLength(){
-      return this.$store.state.notifications.length
-    }
+      return this.$store.state.notificationsLength
+    },
   },
   mounted() {
     if (this.$route.query.force_login == "true") {

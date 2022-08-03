@@ -244,7 +244,7 @@ export default {
       profile
         .footerLinks()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.links = res.data.items.data;
           for (let index = 0; index < res.data.items.data.length; index++) {
             const element = res.data.items.data[index];

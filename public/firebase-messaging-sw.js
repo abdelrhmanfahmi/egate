@@ -130,7 +130,9 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body: payload.data.notification.body,
     data: payload.data,
+    icon: 'https://staging2.fabrica-dev.com/humhum-user/img/logo.42fe99c6.png'
   };
+  
 
   self.clients
     .matchAll({

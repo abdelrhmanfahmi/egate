@@ -78,12 +78,14 @@ export default {
       } else if (Notification.permission === "granted") {
         notification = new Notification(notific.title, {
           body: notific.body,
+          icon: '@/assets/images/logo.png'
         });
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(function (permission) {
           if (permission === "granted") {
             notification = new Notification(notific.title, {
               body: notific.body,
+              icon: '@/assets/images/logo.png'
             });
           }
         });
@@ -133,6 +135,7 @@ export default {
       // console.log("forground", payload);
       const { data } = payload;
       this.notifyMe(data);
+      this.$store.dispatch("getNotifications");
     });
   },
   created() {

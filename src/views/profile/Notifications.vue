@@ -3,7 +3,7 @@
     <div class="">
       <div class="text-center">
         <h1>
-          {{$t('profile.Notifications')}}
+          {{ $t("profile.Notifications") }}
         </h1>
       </div>
       <div class="row data-holder">
@@ -15,7 +15,9 @@
                 <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555"> intente nuevamente</router-link>
+                  <router-link to="" class="btn btn-sm" href="555">
+                    intente nuevamente</router-link
+                  >
                 </p>
               </div>
             </div>
@@ -31,7 +33,9 @@
                 <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555"> intente nuevamente</router-link>
+                  <router-link to="" class="btn btn-sm" href="555">
+                    intente nuevamente</router-link
+                  >
                 </p>
               </div>
             </div>
@@ -50,7 +54,9 @@
                 <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555"> intente nuevamente</router-link>
+                  <router-link to="" class="btn btn-sm" href="555">
+                    intente nuevamente</router-link
+                  >
                 </p>
               </div>
             </div>
@@ -67,7 +73,9 @@
                 <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555"> intente nuevamente</router-link>
+                  <router-link to="" class="btn btn-sm" href="555">
+                    intente nuevamente</router-link
+                  >
                 </p>
               </div>
             </div>
@@ -76,15 +84,23 @@
       </div>
       <!-- -->
       <div class="row data-holder">
-        <div class="col-12">
+        <div
+          class="col-12"
+          v-for="(notify, index) in notifications"
+          :key="index"
+        >
           <div class="new-message-box">
             <div class="new-message-box-info">
-              <div class="info-tab tip-icon-info" title="error"><i></i></div>
+              <div class="info-tab tip-icon-info" title="error" :class="{}"><i></i></div>
               <div class="tip-box-info">
                 <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
-                  Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555"> intente nuevamente</router-link>
+                  {{ notify.title }}
+                  <router-link to="" class="btn btn-sm" href="555">
+                    <h5>
+                      <b>{{ notify.body }}</b>
+                    </h5></router-link
+                  >
                 </p>
               </div>
             </div>
@@ -97,7 +113,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    notifications() {
+      return this.$store.state.notifications;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -412,7 +434,7 @@ export default {};
   body {
     background-color: #ffffff;
   }
-  .data-holder{
+  .data-holder {
     width: 80%;
     margin: auto;
   }

@@ -1297,7 +1297,7 @@ export default {
     this.getWallet();
     let addressUUID = localStorage.getItem('globalAddressUUID');
     if(addressUUID == undefined || addressUUID == 'undefined'){
-      localStorage.setItem('globalAddressUUID' , this.buyerUserData.uuid)
+      localStorage.setItem('globalAddressUUID' , this.buyerUserData.address_uuid)
     }
   },
   methods: {
