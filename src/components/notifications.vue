@@ -39,7 +39,7 @@
 export default {
   props: ["notifications"],
   mounted() {
-    console.log(this.notifications);
+    // console.log(this.notifications);
   },
 };
 </script>

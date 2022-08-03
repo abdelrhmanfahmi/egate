@@ -34,6 +34,7 @@ export default new Vuex.Store({
     guestId: "",
     firebaseToken: null,
     notifications: null,
+    notificationsLength: null,
   },
   getters: {
     userInfo(state) {
@@ -61,6 +62,9 @@ export default new Vuex.Store({
     },
     SET_NOTIFICATIONS(state, notifications) {
       state.notifications = notifications;
+    },
+    SET_NOTIFICATIONS_LENGTH(state, notificationsLength) {
+      state.notificationsLength = notificationsLength;
     },
   },
   actions: {
@@ -134,6 +138,7 @@ export default new Vuex.Store({
 
           
           commit('SET_NOTIFICATIONS' , res.data.items.notifications)
+          commit('SET_NOTIFICATIONS_LENGTH' , res.data.items.notifications.length)
         });
       } catch (error) {
         console.log(error);
