@@ -52,5 +52,6 @@ export default {
   outOfStock: "Out Of Stock",
   noReviews:'No Reviews',
   noAvailQuant:'Available Quantity less than the minimum number for order',
-  serchingResult:'You are searching for : '
+  serchingResult:'You are searching for : ',
+  orderTrack2:'To track your order you must register with the same phone number you made the order with.'
 };
