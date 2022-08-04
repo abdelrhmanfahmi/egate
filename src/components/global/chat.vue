@@ -19,8 +19,8 @@
           </div>
         </div> -->
         <div class="header-chat">
-          <div class="row align-items-center">
-            <div class="col-md-2 col-sm-12">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-2 col-sm-12mb-3 img-col ">
               <div class="logo-holder">
                 <img src="@/assets/images/logo.png" alt="logo" />
               </div>
@@ -562,5 +562,12 @@ export default {
   text-align: center;
   border-radius: 20px;
   padding: 5px;
+}
+.img-col{
+  @media(max-width:767px){
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 }
 </style>

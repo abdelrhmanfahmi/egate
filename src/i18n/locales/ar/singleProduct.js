@@ -50,5 +50,6 @@ export default {
   outOfStock: "عذرا , لقد نفذت الكمية",
   noReviews: "لايوجد تقييمات ",
   noAvailQuant:'الكميه المتوفره اقل من اقل كميه للاضافه',
-  serchingResult:'نتيجة بحثك عن :'
+  serchingResult:'نتيجة بحثك عن :',
+  orderTrack2:'لتتبع طلبك يجب تسجيل الدخول برقم الهاتف الذى قمت باجراء الطلب من خلاله'
 };

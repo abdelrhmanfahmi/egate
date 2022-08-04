@@ -6,13 +6,12 @@
           {{ $t("profile.Notifications") }}
         </h1>
       </div>
-      <div class="row data-holder">
+      <!-- <div class="row data-holder">
         <div class="col-12">
           <div class="new-message-box">
             <div class="new-message-box-alert">
               <div class="info-tab tip-icon-alert" title="error"><i></i></div>
               <div class="tip-box-alert">
-                <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
                   <router-link to="" class="btn btn-sm" href="555">
@@ -23,14 +22,13 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row data-holder">
+      </div> -->
+      <!-- <div class="row data-holder">
         <div class="col-12">
           <div class="new-message-box">
             <div class="new-message-box-danger">
               <div class="info-tab tip-icon-danger" title="error"><i></i></div>
               <div class="tip-box-danger">
-                <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
                   <router-link to="" class="btn btn-sm" href="555">
@@ -41,9 +39,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- -->
-      <div class="row data-holder">
+      <!-- <div class="row data-holder">
         <div class="col-12">
           <div class="new-message-box">
             <div class="new-message-box-success">
@@ -51,7 +49,6 @@
                 <i></i>
               </div>
               <div class="tip-box-success">
-                <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
                 <p>
                   Ha ocurrido un problema por favor
                   <router-link to="" class="btn btn-sm" href="555">
@@ -62,38 +59,37 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- -->
-      <div class="row data-holder">
+      <div
+        class="row data-holder"
+        v-for="(notify, index) in notifications"
+        :key="index"
+      >
         <div class="col-12">
           <div class="new-message-box">
-            <div class="new-message-box-warning">
-              <div class="info-tab tip-icon-warning" title="error"><i></i></div>
-              <div class="tip-box-warning">
-                <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
-                <p>
-                  Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555">
-                    intente nuevamente</router-link
-                  >
-                </p>
+            <div
+              class="new-message-box-warning"
+              :class="{
+                'new-message-box-warning': notify.status_type === 'warning',
+                'new-message-box-success': notify.status_type === 'success',
+              }"
+            >
+              <div
+                :class="{
+                  'info-tab tip-icon-warning': notify.status_type === 'warning',
+                  'info-tab tip-icon-success': notify.status_type === 'success',
+                }"
+                title="error"
+              >
+                <i></i>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- -->
-      <div class="row data-holder">
-        <div
-          class="col-12"
-          v-for="(notify, index) in notifications"
-          :key="index"
-        >
-          <div class="new-message-box">
-            <div class="new-message-box-info">
-              <div class="info-tab tip-icon-info" title="error" :class="{}"><i></i></div>
-              <div class="tip-box-info">
-                <!--<p><strong>Tip:</strong> If you want to enable the fading transition effect while closing the alert boxes, apply the classes <code>.fade</code> and <code>.in</code> to them along with the contextual class.</p>-->
+              <div
+                :class="{
+                  'tip-box-warning': notify.status_type === 'warning',
+                  'tip-box-success': notify.status_type === 'success',
+                }"
+              >
                 <p>
                   {{ notify.title }}
                   <router-link to="" class="btn btn-sm" href="555">
@@ -107,6 +103,30 @@
           </div>
         </div>
       </div>
+      <!-- -->
+      <!-- <div class="row data-holder">
+        <div
+          class="col-12"
+          v-for="(notify, index) in notifications"
+          :key="index"
+        >
+          <div class="new-message-box">
+            <div class="new-message-box-info">
+              <div class="info-tab tip-icon-info" title="error" :class="{}"><i></i></div>
+              <div class="tip-box-info">
+                <p>
+                  {{ notify.title }}
+                  <router-link to="" class="btn btn-sm" href="555">
+                    <h5>
+                      <b>{{ notify.body }}</b>
+                    </h5></router-link
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
       <!-- -->
     </div>
   </div>
