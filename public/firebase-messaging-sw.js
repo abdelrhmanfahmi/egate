@@ -125,11 +125,30 @@ self.addEventListener("notificationclick", (event) => {
 // handel messages
 const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
+  console.log("background", payload);
   const notificationTitle = payload.data.notification.title;
   const notificationOptions = {
     body: payload.data.notification.body,
     data: payload.data,
+    icon: 'https://staging2.fabrica-dev.com/humhum-user/img/logo.42fe99c6.png'
   };
+  
+
+  self.clients
+    .matchAll({
+      includeUncontrolled: true,
+      type: "window",
+    })
+    .then((clients) => {
+      if (clients && clients.length) {
+        // Send a response - the clients
+        // array is ordered by last focused
+        clients[0].postMessage({
+          type: "NEW-HUMHUM-NOTIFICATION",
+          notification: payload,
+        });
+      }
+    });
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });

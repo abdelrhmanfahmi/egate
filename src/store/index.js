@@ -8,6 +8,11 @@ import auth from "@/services/auth";
 import { baseURL } from "@/apis/Api";
 import axios from "axios";
 
+// firebase
+import { getToken } from "firebase/messaging";
+import { messaging } from "@/plugins/firebase";
+
+import profile from "@/services/profile";
 
 Vue.use(Vuex);
 
@@ -27,6 +32,9 @@ export default new Vuex.Store({
 
     coupons: [],
     guestId: "",
+    firebaseToken: null,
+    notifications: null,
+    notificationsLength: null,
   },
   getters: {
     userInfo(state) {
@@ -49,20 +57,30 @@ export default new Vuex.Store({
     SET_USER_GUEST_ID(state, guestId) {
       state.guestId = guestId;
     },
+    SET_FIREBASE_TOKEN(state, firebaseToken) {
+      state.firebaseToken = firebaseToken;
+    },
+    SET_NOTIFICATIONS(state, notifications) {
+      state.notifications = notifications;
+    },
+    SET_NOTIFICATIONS_LENGTH(state, notificationsLength) {
+      state.notificationsLength = notificationsLength;
+    },
   },
   actions: {
     getUserInfo({ commit }) {
       auth.getUserInfo().then((res) => {
-
-
-        if(localStorage.getItem('globalAddressUUID') === null){
-          console.log('false')
-          localStorage.setItem('globalAddressUUID' , res.data.items.address_uuid )
+        if (localStorage.getItem("globalAddressUUID") === null) {
+          console.log("false");
+          localStorage.setItem(
+            "globalAddressUUID",
+            res.data.items.address_uuid
+          );
         }
         // localStorage.setItem('globalAddressUUID' , res.data.items.address_uuid )
         commit("SET_USER_DATA_INFO", res.data.items);
         localStorage.setItem("buyerUserData", JSON.stringify(res.data.items));
-      })
+      });
     },
     getUserGuestId({ commit }) {
       let userExist = localStorage.getItem("buyerUserData");
@@ -85,11 +103,52 @@ export default new Vuex.Store({
         commit("SET_USER_GUEST_ID", guestUser);
       }
     },
+    async generateFirebaseToken({ commit }) {
+      const serviceWorkerRegistration = await navigator.serviceWorker.register(
+        "firebase-messaging-sw.js"
+      );
+      navigator.serviceWorker.onmessage = ({ data }) => {
+        console.log("sw event: ", data);
+        const { type } = data;
+        switch (type) {
+          case "NEW-HUMHUM-NOTIFICATION": {
+            // this.handelNotification(notification);
+            break;
+          }
+        }
+      };
+      // const messaging = getMessaging();
+
+      const token = await getToken(messaging, {
+        vapidKey:
+          "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+        serviceWorkerRegistration: serviceWorkerRegistration,
+      });
+
+      // if (token) {
+
+      console.log("vuex token", token);
+      // }
+
+      commit("SET_FIREBASE_TOKEN", token);
+    },
+    getNotifications({ commit }) {
+      try {
+        profile.getNotificatins().then(res =>{
+
+          
+          commit('SET_NOTIFICATIONS' , res.data.items.notifications)
+          commit('SET_NOTIFICATIONS_LENGTH' , res.data.items.notifications.length)
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   modules: {
     cart,
     wishlist,
-    suppliers
+    suppliers,
   },
   // plugins: [createPersistedState()]
 });

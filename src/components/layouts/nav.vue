@@ -98,8 +98,8 @@
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-bell" />
             </span>
-            <span class="cartLength"> 6 </span>
-            <Notify class="notify-body" />
+            <span class="cartLength"> {{notificationsLength}} </span>
+            <Notify class="notify-body" :notifications="notifications" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
             <span class="cart-icon">
@@ -287,6 +287,12 @@ export default {
     },
     cartLength() {
       return this.$store.state.cart.cartLength;
+    },
+    notifications(){
+      return this.$store.state.notifications
+    },
+    notificationsLength(){
+      return this.$store.state.notificationsLength
     },
   },
   mounted() {

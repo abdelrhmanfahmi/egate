@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="card success" >
+      <div class="card success">
         <div
           style="
             border-radius: 200px;
@@ -21,17 +21,27 @@
           <br />
           {{ $t("payment.waitPurchace2") }}
         </p>
-        <router-link to="/">
-          <b-button variant="outline-success mt-4 text-capitalize">
-            {{ $t("supplier.home") }}
-          </b-button>
-        </router-link>
+
+        <b-button
+          variant="outline-success mt-4 text-capitalize"
+         
+          id="show-btn"
+          class="mx-2"
+          @click="loginFirst"
+        >
+          {{ $t("payment.orderTrack") }}
+        </b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
 import auth from "@/services/auth";
 export default {
   data() {
@@ -50,7 +60,7 @@ export default {
         .checkoutComplete(data)
         .then((res) => {
           console.log(res);
-          if (res.data.items.status === 'CAPTURED') {
+          if (res.data.items.status === "CAPTURED") {
             this.success = true;
             this.fail = false;
           } else {
@@ -61,6 +71,17 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    loginFirst() {
+      Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.orderTrack2"),
+        icon: "warning",
+        // buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then(() => {
+        this.$router.push("/user-register");
+      });
     },
   },
   mounted() {
