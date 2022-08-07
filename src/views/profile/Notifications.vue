@@ -90,14 +90,23 @@
                   'tip-box-success': notify.status_type === 'success',
                 }"
               >
-                <p>
-                  {{ notify.title }}
+                <div>
+                  <div class="row justify-content-between">
+                    <div class="col-12">
+                      <p>{{ notify.title }}</p>
+                    </div>
+                    <!-- <div class="col-6">
+                      <span>{{ notify.created_at | timeDefer(notify.created_at) }}</span>
+                      <span>{{ notify.created_at | formatDate }}</span>
+                    </div> -->
+                  </div>
                   <router-link to="" class="btn btn-sm" href="555">
                     <h5>
                       <b>{{ notify.body }}</b>
                     </h5></router-link
                   >
-                </p>
+                </div>
+                <span><i>{{ notify.created_at | timeDefer(notify.created_at) }}</i></span>
               </div>
             </div>
           </div>
@@ -189,6 +198,7 @@ export default {
   },
   mounted() {
     this.getNotificatinos();
+   
   },
   data() {
     return {

@@ -239,5 +239,16 @@ export default {
   cancelReason8: "others",
   Notifications: "Notifications",
   ReturnedNumber: "Number of returned products",
-  noNotifications:'No Notifications till now'
+  noNotifications: "No Notifications till now",
+  justNow: "Just Now",
+  second: "s",
+  ago: "Ago",
+  year: "Year",
+  month: "Month",
+
+  week: "Week",
+  day: "Day",
+  hour: "hour",
+  minute: "minute",
+  second2: "second",
 };

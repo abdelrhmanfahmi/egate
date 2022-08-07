@@ -4,7 +4,7 @@
       <div class="notification-ui_dd-content">
         <div
           class="notification-list"
-          v-for="(notification, index) in notifications.slice(0,5)"
+          v-for="(notification, index) in notifications.slice(0, 5)"
           :key="index"
         >
           <div class="row">
@@ -26,9 +26,16 @@
                   <b>{{ notification.title }}</b>
                 </h6>
                 <p v-if="notification.body">
-                  <small>{{ notification.body.substr(0, 50) + "..." }}</small>
+                  <small>{{ notification.body }}</small>
                 </p>
               </div>
+              <!-- <span
+                >time :
+                {{
+                  notification.created_at | timeDefer(notification.created_at)
+                }}</span
+              > -->
+              <span v-if="notification.created_at">{{ notification.created_at | timeDefer(notification.created_at) }}</span>
             </div>
           </div>
         </div>
@@ -51,6 +58,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: ["notifications"],
   mounted() {
@@ -59,6 +67,21 @@ export default {
   computed: {
     notificationsLength() {
       return this.$store.state.notificationsLength;
+    },
+  },
+  methods: {
+    myTimeNow(date1) {
+      if (date1) {
+        var c_date = moment(String(date1)).format("DD-MM-YYYY");
+
+        var timeNow = Date();
+
+        var now = moment(String(timeNow)).format("DD-MM-YYYY");
+
+        var diff = now - c_date;
+
+        return diff;
+      }
     },
   },
 };
