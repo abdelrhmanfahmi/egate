@@ -1,36 +1,51 @@
 <template>
   <div class="notifications notifications-content">
-    <div class="notification-ui_dd-content">
-      <div
-        class="notification-list"
-        v-for="(notification, index) in notifications"
-        :key="index"
-      >
-        <div class="row">
-          <div class="col-md-2 col-sm-12">
-            <div class="notification-list_feature-img" v-if="notification.status_type === 'success'">
-              <font-awesome-icon icon="fa-solid fa-circle-check" class="text-success" size="2x" />
+    <div class="" v-if="notificationsLength > 0">
+      <div class="notification-ui_dd-content">
+        <div
+          class="notification-list"
+          v-for="(notification, index) in notifications"
+          :key="index"
+        >
+          <div class="row">
+            <div class="col-md-2 col-sm-12">
+              <div
+                class="notification-list_feature-img"
+                v-if="notification.status_type === 'success'"
+              >
+                <font-awesome-icon
+                  icon="fa-solid fa-circle-check"
+                  class="text-success"
+                  size="2x"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-md-10 col-sm-12">
-            <div class="notification-list_detail">
-              <h6>
-                <b>{{ notification.title }}</b>
-              </h6>
-              <p>
-                <small>{{ notification.body.substr(0,50) + '...' }}</small>
-              </p>
+            <div class="col-md-10 col-sm-12">
+              <div class="notification-list_detail">
+                <h6>
+                  <b>{{ notification.title }}</b>
+                </h6>
+                <p v-if="notification.body">
+                  <small>{{ notification.body.substr(0, 50) + "..." }}</small>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="notification-ui_dd-footer">
+        <router-link
+          to="/profile/Notifications"
+          class="btn btn-success btn-block"
+          >{{ $t("cart.viewAll") }}</router-link
+        >
+      </div>
     </div>
-    <div class="notification-ui_dd-footer">
-      <router-link
-        to="/profile/Notifications"
-        class="btn btn-success btn-block"
-        >{{ $t("cart.viewAll") }}</router-link
-      >
+
+    <div class="" v-else>
+      <div class="d-flex justify-content-center align-content-center">
+        <h6 class="m-0">{{ $t("profile.noNotifications") }}</h6>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +55,11 @@ export default {
   props: ["notifications"],
   mounted() {
     // console.log(this.notifications);
+  },
+  computed: {
+    notificationsLength() {
+      return this.$store.state.notificationsLength;
+    },
   },
 };
 </script>
@@ -124,7 +144,6 @@ export default {
   }
 
   .notification-list {
-   
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;

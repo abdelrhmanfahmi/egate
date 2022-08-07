@@ -239,4 +239,5 @@ export default {
   cancelReason8: "others",
   Notifications: "Notifications",
   ReturnedNumber: "Number of returned products",
+  noNotifications:'No Notifications till now'
 };

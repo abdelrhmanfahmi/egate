@@ -228,5 +228,6 @@ export default {
   cancelReason7: "حجم غير صحيح",
   cancelReason8: "سبب اخر",
   Notifications:'الاشعارات',
-  ReturnedNumber:'عدد منتجات المرتجع'
+  ReturnedNumber:'عدد منتجات المرتجع',
+  noNotifications:'لا يوجد اشعارات حتى الان'
 };
