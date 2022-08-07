@@ -4,7 +4,7 @@
       <div class="notification-ui_dd-content">
         <div
           class="notification-list"
-          v-for="(notification, index) in notifications"
+          v-for="(notification, index) in notifications.slice(0,5)"
           :key="index"
         >
           <div class="row">

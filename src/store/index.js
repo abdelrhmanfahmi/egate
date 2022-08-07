@@ -134,7 +134,7 @@ export default new Vuex.Store({
     },
     getNotifications({ commit }) {
       try {
-        profile.getNotificatins().then(res =>{
+        profile.getNotificatinos().then(res =>{
 
           
           commit('SET_NOTIFICATIONS' , res.data.items.notifications.data)

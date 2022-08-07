@@ -129,15 +129,80 @@
       </div> -->
       <!-- -->
     </div>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <Paginate
+        v-if="notifications"
+        :total-pages="totalPages"
+        :per-page="totalPages"
+        :current-page="page"
+        @pagechanged="onPageChange"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import Paginate from "@/components/global/Paginate.vue";
+import profile from "@/services/profile";
 export default {
   computed: {
-    notifications() {
-      return this.$store.state.notifications;
+    // notifications() {
+    //   return this.$store.state.notifications;
+    // },
+  },
+  components: {
+    Paginate,
+  },
+  methods: {
+    getNotificatinos() {
+      profile
+        .getNotificatinos(this.page)
+        .then((resp) => {
+          console.log(resp);
+          this.notifications = resp.data.items.notifications.data;
+
+          this.total = resp.data.items.notifications.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.notifications.meta.total /
+              resp.data.items.notifications.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.notifications.meta.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
+    onPageChange(page) {
+      this.page = page;
+      this.getNotificatinos();
+    },
+    onChangeRecordsPerPage() {
+      this.getNotificatinos();
+    },
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getNotificatinos();
+      }
+    },
+  },
+  mounted() {
+    this.getNotificatinos();
+  },
+  data() {
+    return {
+      notifications: [],
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
+    };
   },
 };
 </script>

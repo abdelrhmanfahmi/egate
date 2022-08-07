@@ -216,8 +216,8 @@ export default {
   faqPage(){
     return globalAxios.get('lists/faqs')
   },
-  getNotificatins(){
-    return globalAxios.get('members/notifications/')
+  getNotificatinos(data){
+    return globalAxios.get(`members/notifications?page=${data}`)
   }
 
 };
