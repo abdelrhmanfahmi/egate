@@ -227,6 +227,18 @@ export default {
   cancelReason6: "الطلب مكرر",
   cancelReason7: "حجم غير صحيح",
   cancelReason8: "سبب اخر",
-  Notifications:'الاشعارات',
-  ReturnedNumber:'عدد منتجات المرتجع'
+  Notifications: "الاشعارات",
+  ReturnedNumber: "عدد منتجات المرتجع",
+  noNotifications: "لا يوجد اشعارات حتى الان",
+  justNow: "الان",
+  second: "ث",
+  ago: "منذ",
+  year: "سنه",
+  month: "شهر",
+
+  week: "اسبوع",
+  day: "يوم",
+  hour: "ساعة",
+  minute: "دقيقة",
+  second2: "ثانيm",
 };

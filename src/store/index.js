@@ -108,7 +108,7 @@ export default new Vuex.Store({
         "firebase-messaging-sw.js"
       );
       navigator.serviceWorker.onmessage = ({ data }) => {
-        console.log("sw event: ", data);
+        // console.log("sw event: ", data);
         const { type } = data;
         switch (type) {
           case "NEW-HUMHUM-NOTIFICATION": {
@@ -134,11 +134,11 @@ export default new Vuex.Store({
     },
     getNotifications({ commit }) {
       try {
-        profile.getNotificatins().then(res =>{
+        profile.getNotificatinos().then(res =>{
 
           
-          commit('SET_NOTIFICATIONS' , res.data.items.notifications)
-          commit('SET_NOTIFICATIONS_LENGTH' , res.data.items.notifications.length)
+          commit('SET_NOTIFICATIONS' , res.data.items.notifications.data)
+          commit('SET_NOTIFICATIONS_LENGTH' , res.data.items.notifications.data.length)
         });
       } catch (error) {
         console.log(error);
