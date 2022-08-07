@@ -538,7 +538,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td colspan="4">
+                          <td colspan="4" v-if="buyerUserData">
                             <div
                               class="coupon my-4"
                               v-for="(item, index) in supplier.products"
