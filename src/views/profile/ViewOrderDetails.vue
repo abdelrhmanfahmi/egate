@@ -743,8 +743,7 @@
             <div class="d-block">
               <div class="">
                 <form>
-                  
-                  <textarea 
+                  <textarea
                     class="form-control"
                     name=""
                     id=""
@@ -1127,7 +1126,6 @@ export default {
       pinterest: null,
       contactPhone: null,
       contactEmail: null,
-      
     };
   },
   methods: {
@@ -1343,6 +1341,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .normaly {
   .data-holder {
     padding: 20px;
@@ -1382,9 +1387,13 @@ export default {
     cursor: pointer;
   }
   .holder {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
-    // padding: 20px;
+    //padding: 20px;
     font-size: 20px;
   }
   .supplier-data {
@@ -1395,7 +1404,10 @@ export default {
   }
 
   .modal-header {
+    -ms-flex-line-pack: center !important;
     align-content: center !important;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
     justify-content: center !important;
   }
 
@@ -1409,6 +1421,7 @@ export default {
     color: #fff;
     border: none;
     border-image-source: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
   }
   .refund {
@@ -1417,6 +1430,7 @@ export default {
     color: #fff;
     border: none;
     border-image-source: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
   }
   .modal-header {
@@ -1458,12 +1472,15 @@ export default {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
+      -moz-border: 1px dashed #cfd0d0;
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
+        -moz-border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
         .custom-radio {
+          -ms-flex-wrap: wrap;
           flex-wrap: wrap;
         }
         label {
@@ -1477,6 +1494,7 @@ export default {
         }
         .online-media {
           img {
+            -o-object-fit: contain;
             object-fit: contain;
           }
         }
@@ -1490,6 +1508,7 @@ export default {
   display: none;
   .wrapper {
     border: 1px solid #000;
+    -moz-border: 1px solid #000;
     .bor {
       padding: 5px 20px;
     }
@@ -1505,15 +1524,19 @@ export default {
   }
   .br {
     border-right: 1px solid #000;
+    -moz-border-right: 1px solid #000;
   }
   .bl {
     border-left: 1px solid #000;
+    -moz-border-left: 1px solid #000;
   }
   .bb {
     border-bottom: 1px solid #000;
+    -moz-border-bottom: 1px solid #000;
   }
   .bt {
     border-top: 1px solid #000;
+    -moz-border-top: 1px solid #000;
   }
   p {
     color: #000;
@@ -1529,13 +1552,21 @@ export default {
   .holder-row {
     background: #fff;
     border-bottom: 2px solid #ccc;
+    -moz-border-bottom: 2px solid #ccc;
   }
   .borderred-bottom {
     border-bottom: 2px solid #ccc;
+    -moz-border-bottom: 2px solid #ccc;
   }
   .footer-social ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
   .footer-social ul li {
@@ -1544,6 +1575,7 @@ export default {
 }
 
 @media print {
+  
   .cancel-btn,
   .return-btn,
   .print,
@@ -1554,7 +1586,11 @@ export default {
     word-break: break-all;
   }
   .branding {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
     display: flex !important;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
   }
   .normaly {
@@ -1567,8 +1603,10 @@ export default {
 .cancelReason {
   background: #ff000042 !important;
 }
-textarea{
-  transition: al .5s ease-in-out;
+textarea {
+  -webkit-transition: al 0.5s ease-in-out;
+  -o-transition: al 0.5s ease-in-out;
+  transition: al 0.5s ease-in-out;
   resize: none;
 }
 </style>
