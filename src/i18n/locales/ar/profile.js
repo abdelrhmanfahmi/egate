@@ -215,7 +215,7 @@ export default {
   createdAt: "وقت الطلب",
   shippingMethod: "وسيلة الشحن",
   billingInfo: "بيانات الفاتوره",
-  orderSug: "اقتراح طلب منتج",
+  orderSug: "طلب شراء",
   shippingInfo: "معلومات التوصيل",
   OrderDate: "تاريخ الطلب",
   rejectionReason: "سبب رفض الاسترجاع",
@@ -240,5 +240,6 @@ export default {
   day: "يوم",
   hour: "ساعة",
   minute: "دقيقة",
-  second2: "ثانيm",
+  second2: "ثانية",
+  printIno:'اطبع طلب الشراء'
 };
