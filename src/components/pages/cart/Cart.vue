@@ -2088,7 +2088,7 @@ export default {
                 query: {
                   order_serial: res.data.items.order.order_serial,
                   date: res.data.items.order.created_at,
-                  total_price: res.data.items.order.total_price,
+                  total_price: this.totalPaymentReplacement,
                   payment_type: res.data.items.order.payment_type,
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
@@ -2107,7 +2107,7 @@ export default {
                   query: {
                     order_serial: res.data.items.order_serial,
                     date: res.data.items.created_at,
-                    total_price: res.data.items.total_price,
+                    total_price: this.totalPaymentReplacement,
                     payment_type: res.data.items.payment_type,
                     payment: res.data.items.payment,
                     uuid: res.data.items.uuid,
@@ -2160,7 +2160,7 @@ export default {
                 query: {
                   order_serial: res.data.items.order.order_serial,
                   date: res.data.items.order.created_at,
-                  total_price: res.data.items.order.total_price,
+                  total_price: this.totalPaymentReplacement,
                   payment_type: res.data.items.order.payment_type,
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
@@ -2179,7 +2179,7 @@ export default {
                   query: {
                     order_serial: res.data.items.order_serial,
                     date: res.data.items.created_at,
-                    total_price: res.data.items.total_price,
+                    total_price: this.totalPaymentReplacement,
                     payment_type: res.data.items.payment_type,
                     payment: res.data.items.payment,
                     uuid: res.data.items.uuid,
