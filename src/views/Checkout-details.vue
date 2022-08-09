@@ -212,7 +212,12 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.$router.push("/");
+            this.$router.push({
+              path:'/viewOrderDetails',
+              query:{
+                id:res.data.items.order_id
+              }
+            });
           }
           console.log(res);
         })
