@@ -2,8 +2,16 @@
   <div class="profile-menu">
     <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
-    <ul>
-      <li v-for="(link, index) in links" :key="index">
+    <ul v-if="!buyerLinks">
+      <li v-for="(link, index) in buyerLinks" :key="index">
+        <router-link :to="link.to">
+          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+          <span>{{ link.name }}</span></router-link
+        >
+      </li>
+    </ul>
+    <ul v-else>
+      <li v-for="(link, index) in socialLinks" :key="index">
         <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span></router-link
@@ -54,7 +62,7 @@ export default {
       //     iconName: "heart",
       //   },
       // ],
-      links: [
+      buyerLinks: [
         {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
@@ -90,6 +98,79 @@ export default {
           name: this.$t("profile.changePassword"),
           iconName: "key",
         },
+        {
+          to: "/profile/adress-book",
+          name: this.$t("profile.addressBook"),
+          iconName: "location-dot",
+        },
+        {
+          to: "/profile/subscribe-newsletter",
+          name: this.$t("profile.subscribeNewsletter"),
+          iconName: "newspaper",
+        },
+
+        {
+          to: "/profile/favorite",
+          name: this.$t("profile.favorite"),
+          iconName: "heart",
+        },
+        {
+          to: "/profile/giftCardB2b",
+          name: this.$t("profile.giftCard"),
+          iconName: "gift",
+        },
+        {
+          to: "/profile/QuotationsB2b",
+          name: this.$t("profile.quotations"),
+          iconName: "list-ol",
+        },
+        {
+          to: "/profile/product-reviews-b2b",
+          name: this.$t("profile.productReviews"),
+          iconName: "cubes",
+        },
+        {
+          to: "/profile/SupplierCorrespondenceB2b",
+          name: this.$t("profile.supplierCorrespondence"),
+          iconName: "comments",
+        },
+      ],
+      socialLinks: [
+        {
+          to: "/profile/categories",
+          name: this.$t("profile.shop"),
+          iconName: "shop",
+        },
+        {
+          to: "/profile/shopping-cart",
+          name: this.$t("profile.shoppingCart"),
+          iconName: "cart-shopping",
+        },
+        {
+          to: "/profile/ordersListsB2b",
+          name: this.$t("profile.ordersLists"),
+          iconName: "clipboard-list",
+        },
+        {
+          to: "/profile/ReturnRequests",
+          name: this.$t("profile.returnRequests"),
+          iconName: "arrow-rotate-left",  
+        },
+        {
+          to: "/profile/Wallet",
+          name: this.$t("profile.wallet"),
+          iconName: "wallet",
+        },
+        {
+          to: "/profile/account-information-b2b",
+          name: this.$t("profile.accountInformation"),
+          iconName: "circle-info",
+        },
+        // {
+        //   to: "/profile/change-password",
+        //   name: this.$t("profile.changePassword"),
+        //   iconName: "key",
+        // },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),

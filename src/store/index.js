@@ -104,9 +104,16 @@ export default new Vuex.Store({
       }
     },
     async generateFirebaseToken({ commit }) {
-      const serviceWorkerRegistration = await navigator.serviceWorker.register(
-        "firebase-messaging-sw.js"
-      );
+      let serviceWorkerRegistration;
+      if ((process.env.NODE_ENV == "development")) {
+        serviceWorkerRegistration = await navigator.serviceWorker.register(
+          `${process.env.VUE_APP_LOCAL}firebase-messaging-sw.js`
+        );
+      } else {
+        serviceWorkerRegistration = await navigator.serviceWorker.register(
+          `${process.env.VUE_APP_DOMAIN_NAME}firebase-messaging-sw.js`
+        );
+      }
       navigator.serviceWorker.onmessage = ({ data }) => {
         // console.log("sw event: ", data);
         const { type } = data;
@@ -134,11 +141,12 @@ export default new Vuex.Store({
     },
     getNotifications({ commit }) {
       try {
-        profile.getNotificatinos().then(res =>{
-
-          
-          commit('SET_NOTIFICATIONS' , res.data.items.notifications.data)
-          commit('SET_NOTIFICATIONS_LENGTH' , res.data.items.notifications.data.length)
+        profile.getNotificatinos().then((res) => {
+          commit("SET_NOTIFICATIONS", res.data.items.notifications.data);
+          commit(
+            "SET_NOTIFICATIONS_LENGTH",
+            res.data.items.notifications.data.length
+          );
         });
       } catch (error) {
         console.log(error);
