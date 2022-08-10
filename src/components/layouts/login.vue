@@ -124,8 +124,8 @@
 
 <script>
 import auth from "@/services/auth";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
-import {messaging} from "@/plugins/firebase"
+// import { getMessaging, onMessage, getToken } from "firebase/messaging";
+// import {messaging} from "@/plugins/firebase"
 export default {
   data() {
     return {
@@ -144,8 +144,17 @@ export default {
   },
   methods: {
     loginB2c() {
+       localStorage.removeItem('provider');
+
+        let loginData = {
+        email:this.form.email,
+        password: this.form.password,
+        token : this.firebaseToken , 
+        device_type : this.form.device_type
+      }
+
       auth
-        .login("b2c", this.form)
+        .login("b2c", loginData)
         .then((res) => {
           if (!res.data.items.item.is_verified) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
@@ -193,26 +202,31 @@ export default {
           this.errMsg(err.message);
         });
     },
-    async generateFirebaseToken() {
-      const token = await getToken(messaging, {
-        vapidKey:
-          "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-      });
+    // async generateFirebaseToken() {
+    //   const token = await getToken(messaging, {
+    //     vapidKey:
+    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+    //   });
 
-      if (token) {
-        this.form.token = token;
-        console.log(token);
-      }
-    },
+    //   if (token) {
+    //     this.form.token = token;
+    //     console.log(token);
+    //   }
+    // },
   },
   mounted(){
-    const messaging = getMessaging();
+    // const messaging = getMessaging();
 
-    onMessage(messaging , (payload) =>{
-      console.log("message on clinet" , payload);
-    })
+    // onMessage(messaging , (payload) =>{
+    //   console.log("message on clinet" , payload);
+    // })
 
-    this.generateFirebaseToken()
+    // this.generateFirebaseToken()
+  },
+   computed:{
+    firebaseToken(){
+      return this.$store.state.firebaseToken
+    }
   }
 };
 </script>

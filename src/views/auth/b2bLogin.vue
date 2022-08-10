@@ -106,6 +106,7 @@ export default {
   },
   methods: {
     login() {
+       localStorage.removeItem('provider');
 
       let loginData = {
         email:this.form.email,

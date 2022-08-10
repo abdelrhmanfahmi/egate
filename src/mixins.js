@@ -26,6 +26,9 @@ Vue.mixin({
     },
     currency(){
       return localStorage.getItem('currency')
+    },
+    socialLogin(){
+      return localStorage.getItem('provider')
     }
   },
   methods: {
