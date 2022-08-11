@@ -87,7 +87,7 @@
         <b-col lg="12">
           <b-form-group> 
             <label for="streetNumber">{{ $t("contactUs.address") }}</label>
-            <span class="requried">*</span>
+            <!-- <span class="requried">*</span> -->
             <b-form-input id="streetNumber" v-model="form.address_line_1" />
             <div
               class="error"
@@ -102,7 +102,7 @@
         <b-col lg="6">
           <b-form-group>
             <label for="homeNumber">{{ $t("profile.homeNumber") }}</label>
-            <span class="requried">*</span>
+            <!-- <span class="requried">*</span> -->
             <b-form-input id="homeNumber" v-model="form.building_number" />
             <div
               class="error"
@@ -117,7 +117,7 @@
         <b-col lg="6">
           <b-form-group>
             <label for="floor">{{ $t("profile.floor") }}</label>
-            <span class="requried">*</span>
+            <!-- <span class="requried">*</span> -->
             <b-form-input id="floor" v-model="form.floor" />
             <div
               class="error"
@@ -132,7 +132,7 @@
         <b-col lg="6">
           <b-form-group>
             <label for="blockNumber">{{ $t("profile.blockNumber") }}</label>
-            <span class="requried">*</span>
+            <!-- <span class="requried">*</span> -->
             <b-form-input id="blockNumber" v-model="form.apartment" />
             <div
               class="error"
