@@ -91,7 +91,8 @@
         class="work-info my-5"
         v-if="
           (buyerUserData && buyerUserData.type === 'buyer') ||
-          buyerUserData.type === 'b2b' || buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1
+          buyerUserData.type === 'b2b' ||
+          (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1)
         "
       >
         <h4 class="main-header my-4">
@@ -99,19 +100,40 @@
         </h4>
         <b-row>
           <!-- Company Name -->
-          <b-col lg="6"
-            >
+          <b-col lg="6">
             <b-form-group>
-              <label for="companyName">{{ $t("register.companyName") }}</label>
-              <span class="requried">*</span>
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <label for="companyName">{{
+                    $t("register.englishCompanyName")
+                  }}</label>
+                  <span class="requried">*</span>
+                  <b-form-input
+                    id="companyName"
+                    v-model="form.company_name_en"
+                    disabled
+                  />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <label for="companyName">{{
+                    $t("register.arabicCompanyName")
+                  }}</label>
+                  <span class="requried">*</span>
+                  <b-form-input
+                    id="companyName"
+                    v-model="form.company_name_ar"
+                    disabled
+                  />
+                </div>
+              </div>
               <router-link to="/contact-us" class="mx-1 text-lowercase">
                 {{ $t("profile.needCompanyContact") }}
               </router-link>
-              <b-form-input
+              <!-- <b-form-input
                 id="companyName"
                 v-model="form.company_name"
                 disabled
-              />
+              /> -->
               <div
                 class="error"
                 v-for="(error, index) in errors.company_name"
@@ -160,7 +182,8 @@ export default {
         email: "",
         mobile_number: "",
         job_title: "",
-        company_name: "",
+        company_name_en: "",
+        company_name_ar: "",
         reg_number: "",
       },
       countries: [],

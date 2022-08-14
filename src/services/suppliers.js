@@ -2,7 +2,7 @@ import globalAxios from "./global-axios";
 
 export default {
   getSuppliers(page) {
-    return globalAxios.get(`"suppliers?page=${page}"`);
+    return globalAxios.get(`suppliers?page=${page}`);
   },
   getSupplier(id) {
     return globalAxios.get(`suppliers/${id}`);

@@ -4,7 +4,7 @@ export default {
   backToCart: " العودة للسلة",
   firstName: "الاسم الاول",
   lastName: "الاسم الاخير",
-  companyName: "اسم الشركة",
+  
   optional: "اختياري",
   country: "البلد",
   address: "عنوان الشارع",
@@ -60,8 +60,8 @@ export default {
   orderStatus: "حالة الطلب",
   cancelOrder: "الغاء",
   postalError: "يجب ان يكون ٦ ارقام",
-  CountryRequired:'حقل الدوله الزامى ',
-  RegionRequired:'حقل المحافظه الزامى ',
-  CityRequired:'حقل المدينه الزامى ',
-  AddressRequired:'حقل العنوان الزامى ',
+  CountryRequired: "حقل الدوله الزامى ",
+  RegionRequired: "حقل المحافظه الزامى ",
+  CityRequired: "حقل المدينه الزامى ",
+  AddressRequired: "حقل العنوان الزامى ",
 };

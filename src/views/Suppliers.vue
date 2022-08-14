@@ -61,11 +61,11 @@
 </template>
 <script>
 import SingleSupplier from "../components/pages/suppliers/SingleSupplier.vue";
-// import suppliers from "@/services/suppliers";
+import suppliers from "@/services/suppliers";
 // import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+// import axios from "axios";
 export default {
   components: {
     SingleSupplier,
@@ -103,8 +103,7 @@ export default {
   methods: {
     getSuppliers() {
       this.loading = true;
-      axios
-        .get(`${baseURL}suppliers?page=${this.page}`)
+      suppliers.getSuppliers(this.page)
         .then((resp) => {
           console.log(resp);
           this.suppliers = resp.data.items.data;
