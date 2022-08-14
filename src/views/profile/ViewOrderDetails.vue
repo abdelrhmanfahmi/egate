@@ -371,8 +371,9 @@
                       {{ order.company }}
                     </div>
                     <div class="" v-if="order">
-                      {{ $t("profile.supplierOrder") }} : {{ order.serial }} |
-                      {{ $t("payment.orderStatus") }} : {{ order.order_status }}
+                      {{ $t("profile.supplierOrder") }} : {{ order.serial }}  , 
+                      {{ $t("payment.orderStatus") }} : {{ order.order_status }}  , 
+                      {{ $t("payment.paymentStatus") }} : {{ order.payment_status }}
                     </div>
                   </div>
                 </div>

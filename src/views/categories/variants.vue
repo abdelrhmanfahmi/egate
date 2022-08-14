@@ -209,8 +209,8 @@
           <template #cell(quantity)="data">
             <Variants-Counter
               v-if="
-                data.item.product_details_by_type.add_type == 'cart' ||
-                data.item.product_details_by_type.add_type == 'both'
+                data.item.product_details_by_type.add_type   == 'cart' ||
+                data.item.product_details_by_type.add_type   == 'both'
               "
               class="justify-content-center"
               :quantity="1"
@@ -218,8 +218,8 @@
             ></Variants-Counter>
             <p
               v-else-if="
-                data.item.product_details_by_type.add_type !== 'cart' ||
-                data.item.product_details_by_type.add_type !== 'both'
+                data.item.product_details_by_type.add_type   !== 'cart' ||
+                data.item.product_details_by_type.add_type   !== 'both'
               "
             >
               -
@@ -237,8 +237,8 @@
               <a
                 @click="addToCart(data.item)"
                 v-if="
-                  data.item.product_details_by_type.add_type === 'cart' ||
-                  data.item.product_details_by_type.add_type === 'both'
+                  data.item.product_details_by_type.add_type   === 'cart' ||
+                  data.item.product_details_by_type.add_type   === 'both'
                 "
               >
                 <span>{{ $t("items.addToCart") }}</span>
@@ -469,7 +469,7 @@
                   </a>
                   <div class="" v-if="buyerUserData">
                     <a
-                      class="text-danger d-flex justify-content-center align-items-center "
+                      class="text-danger d-flex justify-content-center align-items-center"
                       @click="addToWishlist(product)"
                       v-if="product.is_favorite == true"
                       v-b-tooltip.hover
@@ -552,7 +552,7 @@
                   v-else-if="!buyerUserData"
                 >
                   <a
-                  class="cart-link"
+                    class="cart-link"
                     @click="addToCart(product)"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
@@ -583,6 +583,28 @@
                       ><font-awesome-icon icon="fa-solid fa-star"
                     /></a>
                   </div>
+                </div>
+                <div class="" v-if="!buyerUserData">
+                  <a
+                    @click="loginFirst"
+                    v-b-tooltip.hover
+                    :title="$t('items.addToFavourite')"
+                    class="d-flex justify-content-center align-items-center"
+                    ><font-awesome-icon icon="fa-solid fa-star" />
+                  </a>
+                </div>
+                <div v-if="!buyerUserData">
+                  <button
+                    id="show-btn"
+                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                    @click="loginFirst"
+                    v-b-tooltip.hover
+                    :title="$t('singleProduct.bidRequest')"
+                  >
+                    <!-- <span role="button" @click="loggedBidRequest"> -->
+                    <!-- {{ $t("singleProduct.bidRequest") }} -->
+                    <font-awesome-icon icon="fa-solid fa-list" />
+                  </button>
                 </div>
               </td>
               <!-- <transition name="modal">
@@ -1040,10 +1062,8 @@ export default {
         icon: "warning",
         // buttons: ["Oh noez!", true],
         dangerMode: true,
-      }).then((willDelete) => {
-        if (willDelete) {
-          Vue.swal(location.replace("/user-register"));
-        }
+      }).then(() => {
+        this.$router.push("/user-register");
       });
     },
     // getSupplierProducts() {
@@ -1206,14 +1226,14 @@ export default {
     width: 30%;
   }
 }
-.cart-link{
+.cart-link {
   background: #ff6000 !important;
   color: #fff !important;
 }
 @media screen and (max-width: 767px) {
   table {
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -1234,10 +1254,9 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
 }
-
 </style>
