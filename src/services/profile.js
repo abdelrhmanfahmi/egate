@@ -106,78 +106,78 @@ export default {
       }
     );
   },
-  rePay(payLoad){
-    return globalAxios.post(`order/payment`,payLoad)
+  rePay(payLoad) {
+    return globalAxios.post(`order/payment`, payLoad);
   },
-  bankComment(){
-    return globalAxios.get('statics/Bank-transfer-info')
+  bankComment() {
+    return globalAxios.get("statics/Bank-transfer-info");
   },
-  footerLinks(){
-    return globalAxios.get(`site-settings`)
+  footerLinks() {
+    return globalAxios.get(`site-settings`);
   },
-  footerTwitterLink(){
-    return globalAxios.get(`site-settings/twitter`)
+  footerTwitterLink() {
+    return globalAxios.get(`site-settings/twitter`);
   },
-  footerYoutubeLink(){
-    return globalAxios.get(`site-settings/youtube`)
+  footerYoutubeLink() {
+    return globalAxios.get(`site-settings/youtube`);
   },
-  footerLinkedinLink(){
-    return globalAxios.get(`site-settings/linkedin`)
+  footerLinkedinLink() {
+    return globalAxios.get(`site-settings/linkedin`);
   },
-  footerInstagramLink(){
-    return globalAxios.get(`site-settings/instagram`)
+  footerInstagramLink() {
+    return globalAxios.get(`site-settings/instagram`);
   },
-  footerPinterestLink(){
-    return globalAxios.get(`site-settings/pinterest`)
+  footerPinterestLink() {
+    return globalAxios.get(`site-settings/pinterest`);
   },
-  getAboutData(){
-    return globalAxios.get('statics/About-us')
+  getAboutData() {
+    return globalAxios.get("statics/About-us");
   },
-  getAboutVisionData(){
-    return globalAxios.get('statics/Vision')
+  getAboutVisionData() {
+    return globalAxios.get("statics/Vision");
   },
-  getAboutMessageData(){
-    return globalAxios.get('statics/Message')
+  getAboutMessageData() {
+    return globalAxios.get("statics/Message");
   },
-  getAboutPrincipleData(){
-    return globalAxios.get('statics/Our-principles')
+  getAboutPrincipleData() {
+    return globalAxios.get("statics/Our-principles");
   },
-  contactUs(payload){
-    return globalAxios.post('contact-us' , payload)
+  contactUs(payload) {
+    return globalAxios.post("contact-us", payload);
   },
 
-  contactUsMap(){
-    return globalAxios.get('site-settings/map_iframe')
+  contactUsMap() {
+    return globalAxios.get("site-settings/map_iframe");
   },
-  contactUsPhone(){
-    return globalAxios.get('statics/Phone')
+  contactUsPhone() {
+    return globalAxios.get("statics/Phone");
   },
-  contactUsEmail(){
-    return globalAxios.get('statics/Email')
+  contactUsEmail() {
+    return globalAxios.get("statics/Email");
   },
-  contactUsAddress(){
-    return globalAxios.get('statics/Address')
+  contactUsAddress() {
+    return globalAxios.get("statics/Address");
   },
-  supplierAllCorrespondence(){
-    return globalAxios.get('members/message')
+  supplierAllCorrespondence() {
+    return globalAxios.get("members/message");
   },
-  suppliersingleCorrespondence(id){
-    return globalAxios.get(`members/message/${id}`)
+  suppliersingleCorrespondence(id) {
+    return globalAxios.get(`members/message/${id}`);
   },
-  sendsupplierCorrespondenceMessage(data){
-    return globalAxios.post(`members/message/`,data)
+  sendsupplierCorrespondenceMessage(data) {
+    return globalAxios.post(`members/message/`, data);
   },
-  getProductRate(){
-    return globalAxios.get('members/review/ordered-products')
+  getProductRate() {
+    return globalAxios.get("members/review/ordered-products");
   },
-  postProductRate(data){
-    return globalAxios.post('members/review',data)
+  postProductRate(data) {
+    return globalAxios.post("members/review", data);
   },
-  returnReasons(){
-    return globalAxios.get('members/returns/return-reasons')
+  returnReasons() {
+    return globalAxios.get("members/returns/return-reasons");
   },
-  returnOrder(payLoad){
-    return globalAxios.post(`members/orders/return-order-item` , payLoad)
+  returnOrder(payLoad) {
+    return globalAxios.post(`members/orders/return-order-item`, payLoad);
   },
   // storeGoogleLink(){
   //   return globalAxios.get('site-settings/google_play')
@@ -185,39 +185,44 @@ export default {
   // storeAppLink(){
   //   return globalAxios.get('site-settings/app_store')
   // },
-  returneBuyerdOrders(){
-    return globalAxios.get(`members/client_returns`)
+  returneBuyerdOrders() {
+    return globalAxios.get(`members/client_returns`);
   },
-  returnedSingleBuyerOrders(UUID){
-    return globalAxios.get(`members/client_returns/${UUID}/show`)
+  returnedSingleBuyerOrders(UUID) {
+    return globalAxios.get(`members/client_returns/${UUID}/show`);
   },
-  returneSupplierOrders(){
-    return globalAxios.get(`members/returns`)
+  returneSupplierOrders() {
+    return globalAxios.get(`members/returns`);
   },
-  returnedSingleSupplierOrders(UUID){
-    return globalAxios.get(`members/returns/${UUID}/show`)
+  returnedSingleSupplierOrders(UUID) {
+    return globalAxios.get(`members/returns/${UUID}/show`);
   },
-  getWallet(){
-    return globalAxios.get('members/wallet')
+  getWallet() {
+    return globalAxios.get("members/wallet");
   },
-  getWalletPayments(){
-    return globalAxios.get('members/wallet/payments')
+  getWalletPayments() {
+    return globalAxios.get("members/wallet/payments");
   },
-  getWalletRecivables(){
-    return globalAxios.get('members/wallet/receivables')
+  getWalletRecivables() {
+    return globalAxios.get("members/wallet/receivables");
   },
 
-  privacyPage(){
-    return globalAxios.get(`statics/privacy-policy`)
+  privacyPage() {
+    return globalAxios.get(`statics/privacy-policy`);
   },
-  termsPage(){
-    return globalAxios.get(`statics/terms-conditions`)
+  termsPage() {
+    return globalAxios.get(`statics/terms-conditions`);
   },
-  faqPage(){
-    return globalAxios.get('lists/faqs')
+  faqPage() {
+    return globalAxios.get("lists/faqs");
   },
-  getNotificatinos(data){
-    return globalAxios.get(`members/notifications?page=${data}`)
-  }
-
+  getNotificatinos(data) {
+    if (data == undefined || data == "undefined") {
+      data = 1;
+    }
+    return globalAxios.get(`members/notifications?page=${data}`);
+  },
+  readNotification(notification) {
+    return globalAxios.get(`members/notifications/${notification.id}`);
+  },
 };

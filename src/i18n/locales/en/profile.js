@@ -251,4 +251,5 @@ export default {
   hour: "hour",
   minute: "minute",
   second2: "second",
+  markRead:"mark as read"
 };
