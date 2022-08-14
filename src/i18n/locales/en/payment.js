@@ -5,6 +5,7 @@ export default {
   firstName: "First name",
   lastName: "Last name",
   companyName: "Company name",
+
   optional: "Optional",
   country: "Country",
   address: "Address",
