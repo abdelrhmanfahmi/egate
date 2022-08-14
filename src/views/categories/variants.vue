@@ -583,28 +583,28 @@
                       ><font-awesome-icon icon="fa-solid fa-star"
                     /></a>
                   </div>
-                </div>
-                <div class="" v-if="!buyerUserData">
-                  <a
-                    @click="loginFirst"
-                    v-b-tooltip.hover
-                    :title="$t('items.addToFavourite')"
-                    class="d-flex justify-content-center align-items-center"
-                    ><font-awesome-icon icon="fa-solid fa-star" />
-                  </a>
-                </div>
-                <div v-if="!buyerUserData">
-                  <button
-                    id="show-btn"
-                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                    @click="loginFirst"
-                    v-b-tooltip.hover
-                    :title="$t('singleProduct.bidRequest')"
-                  >
-                    <!-- <span role="button" @click="loggedBidRequest"> -->
-                    <!-- {{ $t("singleProduct.bidRequest") }} -->
-                    <font-awesome-icon icon="fa-solid fa-list" />
-                  </button>
+                  <div class="" v-if="!buyerUserData">
+                    <a
+                      @click="loginFirst"
+                      v-b-tooltip.hover
+                      :title="$t('items.addToFavourite')"
+                      class="d-flex justify-content-center align-items-center"
+                      ><font-awesome-icon icon="fa-solid fa-star" />
+                    </a>
+                  </div>
+                  <div v-if="!buyerUserData">
+                    <button
+                      id="show-btn"
+                      class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                      @click="loginFirst"
+                      v-b-tooltip.hover
+                      :title="$t('singleProduct.bidRequest')"
+                    >
+                      <!-- <span role="button" @click="loggedBidRequest"> -->
+                      <!-- {{ $t("singleProduct.bidRequest") }} -->
+                      <font-awesome-icon icon="fa-solid fa-list" />
+                    </button>
+                  </div>
                 </div>
               </td>
               <!-- <transition name="modal">
@@ -1157,6 +1157,9 @@ export default {
       padding: 1rem 1rem;
       border-radius: 0.2rem;
       margin: 0 0.3rem;
+
+      height: 44px;
+      line-height: 0;
       &:hover {
         color: #ed2124;
       }
