@@ -241,5 +241,6 @@ export default {
   hour: "ساعة",
   minute: "دقيقة",
   second2: "ثانية",
-  printIno:'اطبع طلب الشراء'
+  printIno:'اطبع طلب الشراء',
+  markRead:"ضع إشارة مقروء"
 };

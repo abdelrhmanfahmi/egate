@@ -88,6 +88,8 @@
                 :class="{
                   'tip-box-warning': notify.status_type === 'warning',
                   'tip-box-success': notify.status_type === 'success',
+                  unread: notify.is_read == 0,
+                  readed: notify.is_read == 1,
                 }"
               >
                 <div>
@@ -100,13 +102,45 @@
                       <span>{{ notify.created_at | formatDate }}</span>
                     </div> -->
                   </div>
-                  <router-link to="" class="btn btn-sm" href="555">
+                  <div
+                    to=""
+                    class="btn btn-sm"
+                    @click="goNotificationPage(notify)"
+                  >
                     <h5>
                       <b>{{ notify.body }}</b>
-                    </h5></router-link
-                  >
+                    </h5>
+                  </div>
                 </div>
-                <span><i>{{ notify.created_at | timeDefer(notify.created_at) }}</i></span>
+                <div class="row justify-content-around align-items-center">
+                  <div class="col-6">
+                    <span
+                      ><i>{{
+                        notify.created_at | timeDefer(notify.created_at)
+                      }}</i></span
+                    >
+                  </div>
+                  <div
+                    class="col-6"
+                    :class="{
+                      'text-right': $i18n.locale == 'en',
+                      'text-left': $i18n.locale == 'ar',
+                    }"
+                  >
+                    <span v-if="notify.is_read == 0">
+                      <b class="text-success">
+                        <button
+                          class="btn text-success m-0"
+                          @click="readNotification(notify)"
+                        >
+                          <b class="text-capitalize">{{
+                            $t("profile.markRead")
+                          }}</b>
+                        </button>
+                      </b>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -195,10 +229,55 @@ export default {
         this.getNotificatinos();
       }
     },
+    readNotification(notification) {
+      console.log(notification);
+      profile
+        .readNotification(notification)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$store.dispatch("getNotifications");
+            this.getNotificatinos();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    goNotificationPage(notification) {
+      if (notification.type === "return_item") {
+        this.$router.push({
+          path: "/ReturnedRequest",
+          query: {
+            UUID: notification.type_id,
+          },
+        });
+      } else if (notification.type === "order") {
+        this.$router.push({
+          path: "/viewOrderDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      } else if (notification.type === "RFQ") {
+        this.$router.push({
+          path: "/quotationDetails",
+          query: {
+            id: notification.itype_idd,
+          },
+        });
+      } else if (notification.type === "chat") {
+        this.$router.push({
+          path: "/viewCorresponseDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      }
+    },
   },
   mounted() {
     this.getNotificatinos();
-   
   },
   data() {
     return {
@@ -530,8 +609,20 @@ export default {
     background-color: #ffffff;
   }
   .data-holder {
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
+}
+
+.btn:focus,
+.btn.focus {
+  box-shadow: none !important;
+}
+
+.readed {
+  background: #f4f4f4 !important;
+}
+.unreaded {
+  background: #8bc34a !important;
 }
 </style>

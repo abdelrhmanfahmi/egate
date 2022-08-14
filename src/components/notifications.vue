@@ -6,6 +6,10 @@
           class="notification-list"
           v-for="(notification, index) in notifications.slice(0, 5)"
           :key="index"
+          :class="{
+            readed: notification.is_read == 1,
+            unreaded: notification.is_read == 0,
+          }"
         >
           <div class="row">
             <div class="col-md-2 col-sm-12">
@@ -21,11 +25,11 @@
               </div>
             </div>
             <div class="col-md-10 col-sm-12">
-              <div class="notification-list_detail">
-                <h6>
+              <div class="notification-list_detail" @click="goNotificationPage(notification)">
+                <h6  class="notification-title">
                   <b>{{ notification.title }}</b>
                 </h6>
-                <p v-if="notification.body">
+                <p v-if="notification.body" class="">
                   <small>{{ notification.body }}</small>
                 </p>
               </div>
@@ -35,8 +39,20 @@
                   notification.created_at | timeDefer(notification.created_at)
                 }}</span
               > -->
-              <span v-if="notification.created_at">{{ notification.created_at | timeDefer(notification.created_at) }}</span>
+              <span v-if="notification.created_at">{{
+                notification.created_at | timeDefer(notification.created_at)
+              }}</span>
             </div>
+            <span class="ml-auto" v-if="notification.is_read == 0">
+              <b class="text-success">
+                <button
+                  class="btn text-success m-0"
+                  @click="readNotification(notification)"
+                >
+                  <small>{{ $t("profile.markRead") }}</small>
+                </button>
+              </b>
+            </span>
           </div>
         </div>
       </div>
@@ -59,6 +75,7 @@
 
 <script>
 import moment from "moment";
+import profile from "@/services/profile";
 export default {
   props: ["notifications"],
   mounted() {
@@ -83,6 +100,51 @@ export default {
         return diff;
       }
     },
+    readNotification(notification) {
+      console.log(notification);
+      profile
+        .readNotification(notification)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.$store.dispatch("getNotifications");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    goNotificationPage(notification) {
+      if (notification.type === "return_item") {
+        this.$router.push({
+          path: "/ReturnedRequest",
+          query: {
+            UUID: notification.type_id,
+          },
+        });
+      } else if (notification.type === "order") {
+        this.$router.push({
+          path: "/viewOrderDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      } else if (notification.type === "RFQ") {
+        this.$router.push({
+          path: "/quotationDetails",
+          query: {
+            id: notification.itype_idd,
+          },
+        });
+      } else if (notification.type === "chat") {
+        this.$router.push({
+          path: "/viewCorresponseDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      }
+    },
   },
 };
 </script>
@@ -93,7 +155,7 @@ export default {
   right: 0;
   background: #fff;
   opacity: 0;
-  padding: 1rem;
+  padding: 1rem 0;
   position: absolute;
   top: 2rem;
   transition: all 0.5s ease 0s;
@@ -170,9 +232,15 @@ export default {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px 10px;
     margin: 0 25px;
     border-bottom: 1px solid #ddd;
+  }
+  .readed {
+    background: #fff;
+  }
+  .unreaded {
+    background: #f4f4f4;
   }
 
   .notification-list--unread {
@@ -197,19 +265,38 @@ export default {
   .notification-list .notification-list_detail p {
     margin-bottom: 5px;
     line-height: 1.2;
+    cursor: pointer;
   }
 
   .notification-list .notification-list_feature-img img {
     height: 48px;
     width: 48px;
     border-radius: 5px;
+    position: relative;
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 5px;
+      background: $main_color;
+      border-radius: 50%;
+    }
   }
   .notification-ui_dd-footer {
     margin-top: 20px;
+    padding: 0 1rem;
   }
   .notification-ui_dd-content {
     height: 360px;
     overflow-y: scroll;
   }
+}
+.btn:focus,
+.btn.focus {
+  box-shadow: none !important;
+}
+.notification-title , .notification-body{
+  cursor: pointer;
 }
 </style>

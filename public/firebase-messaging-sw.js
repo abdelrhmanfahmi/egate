@@ -83,24 +83,54 @@ self.addEventListener("notificationclick", (event) => {
   const { type_id, type } = event.notification.data;
 
   let url = "/";
-  switch (type) {
-    case "order":
-      url = `/viewOrderDetails?id=${type_id}`;
-      break;
-    case "product":
-      url = `/product/details/${type_id}`;
-      break;
-    // case "quote":
-    //   url = `/quotes/quote-details/${type_id}`;
-    //   break;
-    case "return":
-      url = `/ReturnedRequest?UUID=${type_id}`;
-      break;
-    // case "financials":
-    //   url = `/financials/transactions`;
-    //   break;
-    default:
-      url = "/";
+  // switch (type) {
+  //   case "order":
+  //     url = `/viewOrderDetails?id=${type_id}`;
+  //     break;
+  //   case "product":
+  //     url = `/product/details/${type_id}`;
+  //     break;
+  //   // case "quote":
+  //   //   url = `/quotes/quote-details/${type_id}`;
+  //   //   break;
+  //   case "return":
+  //     url = `/ReturnedRequest?UUID=${type_id}`;
+  //     break;
+  //   // case "financials":
+  //   //   url = `/financials/transactions`;
+  //   //   break;
+  //   default:
+  //     url = "/";
+  // }
+
+  if (type === "return_item") {
+    this.$router.push({
+      path: "/ReturnedRequest",
+      query: {
+        UUID: type_id,
+      },
+    });
+  } else if (type === "order") {
+    this.$router.push({
+      path: "/viewOrderDetails",
+      query: {
+        id: type_id,
+      },
+    });
+  } else if (type === "RFQ") {
+    this.$router.push({
+      path: "/quotationDetails",
+      query: {
+        id: itype_idd,
+      },
+    });
+  } else if (type === "chat") {
+    this.$router.push({
+      path: "/viewCorresponseDetails",
+      query: {
+        id: type_id,
+      },
+    });
   }
 
   const link = new URL(base).href;
@@ -130,9 +160,8 @@ messaging.onBackgroundMessage((payload) => {
   const notificationOptions = {
     body: payload.data.notification.body,
     data: payload.data,
-    icon: 'https://staging2.fabrica-dev.com/humhum-user/img/logo.42fe99c6.png'
+    icon: "https://staging2.fabrica-dev.com/humhum-user/img/logo.42fe99c6.png",
   };
-  
 
   self.clients
     .matchAll({
