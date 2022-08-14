@@ -20,6 +20,8 @@ export default {
   registrationCompany:
     "registration for the accounts of restaurants, hotels and companies wholesale purchase",
   companyName: "company name",
+  arabicCompanyName: "Arabic Company Name",
+  englishCompanyName: "English Company Name",
   jobTitle: "job title",
   pleaseVerification: "Please Verification Account",
   codeSent: "The verification code has been sent to your phone",

@@ -18,6 +18,8 @@ export default {
   unableRegister: "في حالة تعذر التسجيل يرجي الاتصال بنا للمساعدة",
   registrationCompany: "تسجيل لحسابات المطاعم و الفنادق و الشركات شراء بالجملة",
   companyName: "اسم الشركة",
+  arabicCompanyName: "اسم الشركة باللغة العربيه",
+  englishCompanyName: "اسم الشركة باللغة الانجليزية",
   jobTitle: "الوظيفة",
   pleaseVerification: "يرجى التحقق من الحساب",
   codeSent: "تم إرسال رمز التحقق إلى هاتفك",

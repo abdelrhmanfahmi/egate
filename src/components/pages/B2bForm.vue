@@ -21,15 +21,52 @@
                 <!-- First Name -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="f-name">{{ $t("register.companyName") }}</label>
-                    <span class="requried">*</span>
-                    <b-form-input id="f-name" v-model="form.company_name" />
+                    <!-- <label for="f-name">{{ $t("register.companyName") }}</label> -->
+
+                    <!-- <span class="requried">*</span> -->
+                    <!-- <b-form-input id="f-name" v-model="form.company_name" />
                     <div
                       class="error"
                       v-for="(error, index) in errors.company_name"
                       :key="index"
                     >
                       {{ error }}
+                    </div> -->
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12">
+                        <label for="f-name">{{
+                          $t("register.englishCompanyName")
+                        }}</label>
+                        <span class="requried">*</span>
+                        <b-form-input
+                          id="f-name"
+                          v-model="form.company_name_en"
+                        />
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.company_name_en"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <label for="f-name">{{
+                          $t("register.arabicCompanyName")
+                        }}</label>
+                        <span class="requried">*</span>
+                        <b-form-input
+                          id="f-name"
+                          v-model="form.company_name_ar"
+                        />
+                        <div
+                          class="error"
+                          v-for="(error, index) in errors.company_name_ar"
+                          :key="index"
+                        >
+                          {{ error }}
+                        </div>
+                      </div>
                     </div>
                   </b-form-group>
                 </b-col>
@@ -279,6 +316,8 @@ export default {
         country_code: "KW",
         mobile_number: "",
         register_mailing_list: false,
+        company_name_en: null,
+        company_name_ar: null,
       },
       selectedDepartment: null,
       departments: [
