@@ -8,6 +8,8 @@ export default {
   mySupply: "ماي سبلاي",
   allRightsReserved: " جميع الحقوق محفوظة",
   bestDeal: "أفضل الصفقات",
+  dailyOffers: "العروض اليومية",
+  monthlyOffers: "العروض الشهرية",
   about: "عن الشركة",
   vision: "رؤية الشركة",
   message: "رسالة الشركة",
@@ -37,5 +39,5 @@ export default {
   siteSupport: "الرد غالبا يكون خلال ساعة",
   hiThere: "مرحبا",
   helpYou: "كيف يمكننى مساعدتك ؟",
-  startCaht:'ابدأ المحادثه'
+  startCaht: "ابدأ المحادثه",
 };

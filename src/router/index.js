@@ -144,6 +144,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/bestDeals.vue"),
   },
   {
+    path: "/monthly-offers",
+    name: "monthlyOffers",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/monthlyOffers.vue"),
+  },
+  {
     path: "/viewOrderDetails",
     name: "ViewOrderDetails",
     component: ViewOrderDetails,

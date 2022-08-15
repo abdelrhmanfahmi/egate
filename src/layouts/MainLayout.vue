@@ -37,7 +37,7 @@ import Footer from "@/components/layouts/footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-
+import NewsletterModal from '@/components/newsLetterModal.vue';
 export default {
   components: {
     TopHeader,
@@ -78,14 +78,14 @@ export default {
       } else if (Notification.permission === "granted") {
         notification = new Notification(notific.title, {
           body: notific.body,
-          icon: '@/assets/images/logo.png'
+          icon: "@/assets/images/logo.png",
         });
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(function (permission) {
           if (permission === "granted") {
             notification = new Notification(notific.title, {
               body: notific.body,
-              icon: '@/assets/images/logo.png'
+              icon: "@/assets/images/logo.png",
             });
           }
         });
@@ -137,6 +137,19 @@ export default {
       this.notifyMe(data);
       this.$store.dispatch("getNotifications");
     });
+
+    // if (this.newsletterShow) {
+      setTimeout(() => {
+        // if (this.$route.path == "/" && this.newsletterShow) {
+        if (this.$route.path == "/") {
+          this.$modal.show(
+            NewsletterModal,
+            {},
+            { width: "970", height: "auto", adaptive: true }
+          );
+        }
+      }, 5000);
+    // }
   },
   created() {
     this.$store.dispatch("generateFirebaseToken");

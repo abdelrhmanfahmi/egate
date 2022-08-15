@@ -1,5 +1,5 @@
 <template>
-  <div class="my-5">
+  <div class="my-5 order-details">
     <div class="wrapper">
       <div class="container normaly">
         <div class="wrapper" v-if="!loading">

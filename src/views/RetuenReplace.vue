@@ -70,7 +70,7 @@
                     $t("cart.selectOption")
                   }}</b-form-select-option>
                   <b-form-select-option
-                    :value="reason.name"
+                    :value="reason.id"
                     v-for="(reason, index) in reasons"
                     :key="index"
                     >{{ reason.name }}</b-form-select-option
