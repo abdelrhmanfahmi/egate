@@ -478,15 +478,20 @@ img {
   --vsc-bg-header: #095e54;
   --vsc-bg-button: var(--whatsapp);
   --vsc-outline-color: var(--whatsapp);
-  --vsc-border-color-bottom-header: #289D37;
+  --vsc-border-color-bottom-header: #289d37;
 }
 
-.vsc-popup-body{
+.vsc-popup-body {
   padding: 0 !important;
 }
 
-.vsc-popup-button{
+.vsc-popup-button {
   width: 45px !important;
   height: 45px !important;
   padding: 4px !important;
+}
+
+// edit modal
+.vm--overlay {
+  background: rgb(0 0 0 / 50%);
 }

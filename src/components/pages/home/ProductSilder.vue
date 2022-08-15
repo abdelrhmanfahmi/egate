@@ -2,10 +2,18 @@
   <div class="product-silder">
     <div class="bestDeals" v-if="slidersLength > 0">
       <span class="product-info">
-        <h4 class="top-header">{{ $t("home.bestDeal") }}</h4>
+        <h4 class="top-header">{{ $t("home.monthlyOffers") }}</h4>
       </span>
       <div class="" v-if="deadline">
         <Countdown :deadline="deadline"></Countdown>
+      </div>
+
+      <div class="container mb-1">
+        <div class="d-flex justify-content-end">
+          <router-link to="/monthly-offers" class="showAllLink">
+            Show All
+          </router-link>
+        </div>
       </div>
       <VueSlickCarousel v-bind="settings" class="my-5">
         <div v-for="(slider, index) in sliders" :key="index">
@@ -50,8 +58,6 @@
             :to="`/suppliers/${supplier.id}`"
             class="d-flex justify-content-center align-items-center text-center"
           >
-            
-
             <div class="" v-if="supplier.image_path !== null">
               <b-img
                 :src="supplier.image_path"

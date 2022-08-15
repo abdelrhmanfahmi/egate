@@ -2,7 +2,7 @@
   <div class="product-silder text-center mt-2">
     <b-container v-if="slidersLength > 0">
       <div class="info">
-        <p>{{ $t("home.bestDeal") }}</p>
+        <p>{{ $t("home.dailyOffers") }}</p>
         <router-link to="/best-deals" class="showAllLink">{{
           $t("home.showAll")
         }}</router-link>
