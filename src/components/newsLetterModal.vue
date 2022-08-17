@@ -56,7 +56,7 @@
           <!-- <div class="col-xl-2-5col col-lg-5"> -->
           <div class="col-12">
             <img
-              src="https://img.freepik.com/free-vector/watercolor-bakery-sale-banner-design_23-2149439049.jpg?w=2000"
+              :src="newsletterShow.image_path"
               height="420"
               class="newsletter-img"
               width="800"
@@ -75,8 +75,18 @@
       <!-- <span>×</span> -->
       <font-awesome-icon icon="fa-solid fa-xmark" />
     </button>
-    <div class="viewProduct">
-      <router-link to="/"  class="">
+    <div class="viewProduct" v-if="newsletterShow.model_type ==='product'">
+      <router-link :to="{path:'details',query:{id:newsletterShow.model_id}}"  class="">
+        <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+      </router-link>
+    </div>
+    <div class="viewProduct" v-if="newsletterShow.model_type ==='category'">
+      <router-link :to="`categories/${newsletterShow.model_id}`"  class="">
+        <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+      </router-link>
+    </div>
+    <div class="viewProduct" v-if="newsletterShow.model_type ==='supplier'">
+      <router-link :to="`suppliers/${newsletterShow.model_id}`"  class="">
         <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
       </router-link>
     </div>
@@ -108,5 +118,6 @@ export default {
       this.$emit("close");
     },
   },
+  props:['newsletterShow']
 };
 </script>

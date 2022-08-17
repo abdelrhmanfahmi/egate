@@ -68,7 +68,15 @@ export default {
     return globalAxios.get("products/featured/offers");
   },
   getAdsModal(payload) {
-    return globalAxios.get(`admin/popups`, {
+    return globalAxios.get(`members/popups`, {
+      params: {
+        type: payload ? payload.type : null,
+        model_type:payload ? payload.model_type : null
+      },
+    });
+  },
+  getGuestAdsModal(payload) {
+    return globalAxios.get(`popups`, {
       params: {
         type: payload ? payload.type : null,
         model_type:payload ? payload.model_type : null
