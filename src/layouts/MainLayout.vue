@@ -37,7 +37,8 @@ import Footer from "@/components/layouts/footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-import NewsletterModal from '@/components/newsLetterModal.vue';
+import NewsletterModal from "@/components/newsLetterModal.vue";
+import auth from "@/services/auth";
 export default {
   components: {
     TopHeader,
@@ -118,12 +119,27 @@ export default {
         }
       });
     },
+    getAdsModal() {
+      // let payload = {
+      //   type: "b2b",
+      //   model_type: "product",
+      // };
+      auth
+        .getAdsModal()
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   data() {
     return {
       scTimer: 0,
       scY: 0,
       visible: false,
+      newsletterShow: null,
     };
   },
   mounted() {
@@ -139,17 +155,18 @@ export default {
     });
 
     // if (this.newsletterShow) {
-      setTimeout(() => {
-        // if (this.$route.path == "/" && this.newsletterShow) {
-        if (this.$route.path == "/") {
-          this.$modal.show(
-            NewsletterModal,
-            {},
-            { width: "970", height: "auto", adaptive: true }
-          );
-        }
-      }, 5000);
-    // }
+    setTimeout(() => {
+      // if (this.$route.path == "/" && this.newsletterShow) {
+      if (this.$route.path == "/") {
+        this.$modal.show(
+          NewsletterModal,
+          {},
+          { width: "970", height: "auto", adaptive: true }
+        );
+      }
+    }, 5000);
+
+    this.getAdsModal();
   },
   created() {
     this.$store.dispatch("generateFirebaseToken");
