@@ -151,7 +151,7 @@ export default {
       }
 
       if (
-        this.returnData.return_reason === 8
+        this.returnData.return_reason === 8 // last id
       ) {
         formData.append("return_reason", null);
 
