@@ -112,10 +112,14 @@ export default {
     },
     // Step 3 forget Password
     forgetPassWord() {
-      if (this.$route.query.email && this.$route.query.token) {
+      // if (this.$route.query.email && this.$route.query.token) {
         const payload = {
-          email: this.$route.query.email,
-          token: this.$route.query.token,
+          email: this.$route.query.email
+            ? this.$route.query.email
+            : this.buyerUserData.email,
+          token: this.$route.query.token
+            ? this.$route.query.token
+            : this.userInfo.access_token,
           ...this.form,
         };
         auth
@@ -131,13 +135,14 @@ export default {
             this.errors = err.items;
             this.errMsg(err.message);
           });
-      }
+      // }
     },
   },
   created() {
     let profileData = this.buyerUserData;
     if (!profileData) {
-      location.replace("/b2b-login");
+      // location.replace("");
+      this.$router.push("/b2b-login");
     }
   },
 };
