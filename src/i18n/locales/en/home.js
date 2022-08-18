@@ -8,6 +8,8 @@ export default {
     mySupply: "MySupply",
     allRightsReserved: "All Rights Reserved",
     bestDeal: "Best Deals",
+    dailyOffers: "Daily Offers",
+    monthlyOffers: "Monthly Offers",
     about: "About us",
     vision: "Vision",
     message: "Message",

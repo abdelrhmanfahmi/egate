@@ -78,7 +78,7 @@ globalAxios.interceptors.response.use(
       (error.response.status == 403 && userExist) ||
       (error.response.status == 401 && userExist)
     ) {
-      localStorage.clear()
+      // localStorage.clear()
 
       // router.push("/");
       // this.$router.push("/b2b-login");

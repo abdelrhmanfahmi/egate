@@ -26,7 +26,7 @@
           </b-col>
         </b-row>
         <div class="" v-else>
-          <h1 class="text-center my-5">{{ $t("home.dailyOffers") }}</h1>
+          <h1 class="text-center my-5">{{ $t("home.monthlyOffers") }}</h1>
           <div class="row suppliers-data">
             <div
             class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
@@ -68,7 +68,8 @@ import BestDeals from "@/components/pages/BestDeals.vue";
 import Paginate from "@/components/global/Paginate.vue";
 // import { baseURL } from "@/apis/Api";
 // import axios from "axios";
-import categories from "@/services/categories"
+import auth from "@/services/auth";
+// import categories from "@/services/categories"
 export default {
   components: {
     BestDeals,
@@ -107,18 +108,18 @@ export default {
   methods: {
     getBestDeals() {
       this.loading = true;
-      categories
-        .getBestDeals()
+      auth
+        .getHomeDeadline()
         .then((resp) => {
           console.log(resp);
-          this.deals = resp.data.items.data;
-          this.total = resp.data.items.total;
+          this.deals = resp.data.items.deals.data;
+          this.total = resp.data.items.deals.total;
           this.totalPages = Math.ceil(
-            resp.data.items.total / resp.data.items.per_page
+            resp.data.items.deals.total / resp.data.items.deals.per_page
           ); // Calculate total records
 
-          this.totalRecords = resp.data.items.total;
-          this.perPage = resp.data.items.per_page
+          this.totalRecords = resp.data.items.deals.total;
+          this.perPage = resp.data.items.deals.per_page
         })
         .catch((err) => {
           console.log(err);
