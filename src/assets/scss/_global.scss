@@ -499,3 +499,9 @@ img {
 .vm--overlay {
   background: rgb(0 0 0 / 50%);
 }
+
+.vm--modal {
+  background-color: inherit !important;
+
+  box-shadow: none !important;
+}
