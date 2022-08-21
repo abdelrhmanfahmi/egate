@@ -1055,19 +1055,41 @@
                     <b-button
                       type="submit"
                       class="login-button dark"
+                      disabled
+                      v-if="checkoutSubmitted"
+                    >
+                      {{ $t("payment.checkout") }} ... <span><b-spinner label="Spinning" small></b-spinner></span>
+                    </b-button>
+
+                    <b-button
+                      type="submit"
+                      class="login-button dark"
                       @click="payment"
+                      v-else
                     >
                       {{ $t("payment.checkout") }}
                     </b-button>
+                    
                   </div>
                   <div class="submit" v-else>
                     <b-button
                       type="submit"
                       class="login-button dark"
+                      disabled
+                      v-if="checkoutSubmitted"
+                    >
+                      {{ $t("payment.checkout") }} ... <span><b-spinner label="Spinning" small></b-spinner></span>
+                    </b-button>
+
+                    <b-button
+                      type="submit"
+                      class="login-button dark"
                       @click="guestPayment"
+                      v-else
                     >
                       {{ $t("payment.checkout") }}
                     </b-button>
+                    
                   </div>
 
                   <transition name="modal">
@@ -1226,6 +1248,7 @@ export default {
       postalError: false,
       localClicked: false,
       couponRemoved: false,
+      checkoutSubmitted:false
     };
   },
   mounted() {
@@ -2062,6 +2085,7 @@ export default {
     //payment
 
     async payment() {
+      this.checkoutSubmitted = true
       if (
         this.paymentFormData.address_uuid == "" ||
         !this.paymentFormData.address_uuid ||
@@ -2123,10 +2147,12 @@ export default {
           this.errors = errors.items;
           console.log(err);
           this.errMsg(errors.message);
-        });
+        }).finally(()=>{
+          this.checkoutSubmitted = false
+        })
     },
     guestPayment() {
-      // alert("clicked");
+      this.checkoutSubmitted = true
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -2199,7 +2225,9 @@ export default {
           this.errors = errors.items;
           console.log(err);
           this.errMsg(errors.message);
-        });
+        }).finally(()=>{
+          this.checkoutSubmitted = false
+        })
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {
