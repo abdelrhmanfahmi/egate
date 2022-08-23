@@ -55,13 +55,20 @@
                     </div> -->
           <!-- <div class="col-xl-2-5col col-lg-5"> -->
           <div class="col-12">
-            <img
+            <!-- <img
               :src="newsletterShow.image_path"
               height="420"
               class="newsletter-img"
               width="800"
               alt="newsletter"
-            />
+            /> -->
+            <b-img-lazy
+              :src="newsletterShow.image_path"
+              height="420"
+              class="newsletter-img"
+              width="800"
+              alt="newsletter"
+            ></b-img-lazy>
           </div>
         </div>
       </div>
@@ -75,19 +82,34 @@
       <!-- <span>×</span> -->
       <font-awesome-icon icon="fa-solid fa-xmark" />
     </button>
-    <div class="viewProduct" v-if="newsletterShow.model_type ==='product'">
-      <router-link :to="{path:'details',query:{id:newsletterShow.model_id}}"  class="">
-        <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+    <div class="viewProduct" v-if="newsletterShow.model_type === 'product'">
+      <router-link
+        :to="{ path: 'details', query: { id: newsletterShow.model_id } }"
+        class=""
+      >
+        <b
+          ><span
+            >{{ $t("profile.viewDetails") }}
+            <font-awesome-icon icon="fa-solid fa-store" /></span
+        ></b>
       </router-link>
     </div>
-    <div class="viewProduct" v-if="newsletterShow.model_type ==='category'">
-      <router-link :to="`categories/${newsletterShow.model_id}`"  class="">
-        <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+    <div class="viewProduct" v-if="newsletterShow.model_type === 'category'">
+      <router-link :to="`categories/${newsletterShow.model_id}`" class="">
+        <b
+          ><span
+            >{{ $t("profile.viewDetails") }}
+            <font-awesome-icon icon="fa-solid fa-store" /></span
+        ></b>
       </router-link>
     </div>
-    <div class="viewProduct" v-if="newsletterShow.model_type ==='supplier'">
-      <router-link :to="`suppliers/${newsletterShow.model_id}`"  class="">
-        <b><span>{{$t('profile.viewDetails')}} <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+    <div class="viewProduct" v-if="newsletterShow.model_type === 'supplier'">
+      <router-link :to="`suppliers/${newsletterShow.model_id}`" class="">
+        <b
+          ><span
+            >{{ $t("profile.viewDetails") }}
+            <font-awesome-icon icon="fa-solid fa-store" /></span
+        ></b>
       </router-link>
     </div>
   </div>
@@ -118,6 +140,6 @@ export default {
       this.$emit("close");
     },
   },
-  props:['newsletterShow']
+  props: ["newsletterShow"],
 };
 </script>

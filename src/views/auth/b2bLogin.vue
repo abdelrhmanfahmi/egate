@@ -68,8 +68,20 @@
                 </b-col>
               </b-row>
 
-              <router-link to="/forget-password">
+              
+              <router-link
+                to="/forget-password"
+                v-if="buyerUserData && buyerUserData.type === 'b2c'"
+              >
                 <b class="forget-password my-3" v-b-modal.ForgetPassword>
+                  {{ $t("login.fogetPassword") }}
+                </b>
+              </router-link>
+              <router-link
+                to="/forget-password"
+                v-else
+              >
+                <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>
               </router-link>
@@ -96,8 +108,8 @@ export default {
       form: {
         email: "",
         password: "",
-        token:"",
-        device_type:'web'
+        token: "",
+        device_type: "web",
       },
       errorMsg: "",
       fieldType: "password",
@@ -106,14 +118,14 @@ export default {
   },
   methods: {
     login() {
-       localStorage.removeItem('provider');
+      localStorage.removeItem("provider");
 
       let loginData = {
-        email:this.form.email,
+        email: this.form.email,
         password: this.form.password,
-        token : this.firebaseToken , 
-        device_type : this.form.device_type
-      }
+        token: this.firebaseToken,
+        device_type: this.form.device_type,
+      };
       auth
         .login("buyer", loginData)
         .then((res) => {
@@ -140,8 +152,6 @@ export default {
             location.reload();
           }
 
-          
-
           // location.reload();
         })
         .catch((error) => {
@@ -165,14 +175,13 @@ export default {
     //     // console.log(token);
     //   }
     // },
-    
   },
-  mounted(){},
-  computed:{
-    firebaseToken(){
-      return this.$store.state.firebaseToken
-    }
-  }
+  mounted() {},
+  computed: {
+    firebaseToken() {
+      return this.$store.state.firebaseToken;
+    },
+  },
 };
 </script>
 

@@ -195,6 +195,10 @@ export default {
     }, 5000);
 
     this.getAdsModal();
+
+    if(this.buyerUserData.is_verified){
+      localStorage.removeItem('massege')
+    }
   },
   created() {
     this.$store.dispatch("generateFirebaseToken");
