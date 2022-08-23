@@ -505,3 +505,9 @@ img {
 
   box-shadow: none !important;
 }
+
+
+// change button globals style 
+.btn:focus , button:focus{
+  box-shadow: none !important;
+}

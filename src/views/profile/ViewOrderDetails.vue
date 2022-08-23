@@ -464,6 +464,7 @@
                                 v-if="
                                   ord.status === 'Pending' &&
                                   ord.return_time !== null &&
+                                  ord.return_time !== 'null' && 
                                   ord.return_time !== 0
                                 "
                                 ><font-awesome-icon icon="fa-solid fa-x" />
