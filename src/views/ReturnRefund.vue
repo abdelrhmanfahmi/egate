@@ -237,7 +237,7 @@ export default {
         this.returnData.return === "others" ||
         this.returnData.return == "سبب اخر"
       ) {
-        formData.append("return", null);
+        formData.append("return", '');
 
         formData.append("return_reason", this.returnData.return_reason);
       } else {

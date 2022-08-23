@@ -158,7 +158,7 @@ export default {
         formData.append("return", this.returnData.return);
       } else {
         formData.append("return_reason", this.returnData.return_reason);
-        formData.append("return", null);
+        formData.append("return", '');
       }
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
