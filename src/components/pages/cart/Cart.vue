@@ -25,7 +25,13 @@
                               />
                               <span>{{ $t("profile.newAddress") }}</span>
                             </label>
-                            <label v-if="buyerUserData">
+                            <label
+                              v-if="
+                                buyerUserData &&
+                                addresses &&
+                                addresses.length != 0
+                              "
+                            >
                               <input
                                 type="radio"
                                 value="existingAddresses"
@@ -36,7 +42,11 @@
                               <span>{{ $t("payment.selectExist") }}</span>
                             </label>
                             <span
-                              v-if="selectAddressShape === 'existingAddresses'"
+                              v-if="
+                                selectAddressShape === 'existingAddresses' &&
+                                addresses &&
+                                addresses.length != 0
+                              "
                             >
                               <b-form-select
                                 v-model="selectedAddress"
@@ -683,10 +693,7 @@
                         }}</span>
                       </div>
                       <form class="row delivery-form">
-                        <div
-                          class="col-6 form-group required"
-                         
-                        >
+                        <div class="col-6 form-group required">
                           <label for="firstName">{{
                             $t("payment.firstName")
                           }}</label>
@@ -704,10 +711,7 @@
                             {{ error }}
                           </div>
                         </div>
-                        <div
-                          class="col-6 form-group required"
-                          
-                        >
+                        <div class="col-6 form-group required">
                           <label for="firstName">{{
                             $t("payment.lastName")
                           }}</label>
@@ -1058,7 +1062,10 @@
                       disabled
                       v-if="checkoutSubmitted"
                     >
-                      {{ $t("payment.checkout") }} ... <span><b-spinner label="Spinning" small></b-spinner></span>
+                      {{ $t("payment.checkout") }} ...
+                      <span
+                        ><b-spinner label="Spinning" small></b-spinner
+                      ></span>
                     </b-button>
 
                     <b-button
@@ -1069,7 +1076,6 @@
                     >
                       {{ $t("payment.checkout") }}
                     </b-button>
-                    
                   </div>
                   <div class="submit" v-else>
                     <b-button
@@ -1078,7 +1084,10 @@
                       disabled
                       v-if="checkoutSubmitted"
                     >
-                      {{ $t("payment.checkout") }} ... <span><b-spinner label="Spinning" small></b-spinner></span>
+                      {{ $t("payment.checkout") }} ...
+                      <span
+                        ><b-spinner label="Spinning" small></b-spinner
+                      ></span>
                     </b-button>
 
                     <b-button
@@ -1089,7 +1098,6 @@
                     >
                       {{ $t("payment.checkout") }}
                     </b-button>
-                    
                   </div>
 
                   <transition name="modal">
@@ -1248,7 +1256,7 @@ export default {
       postalError: false,
       localClicked: false,
       couponRemoved: false,
-      checkoutSubmitted:false
+      checkoutSubmitted: false,
     };
   },
   mounted() {
@@ -1310,9 +1318,12 @@ export default {
     // localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
 
     this.getWallet();
-    let addressUUID = localStorage.getItem('globalAddressUUID');
-    if(addressUUID == undefined || addressUUID == 'undefined'){
-      localStorage.setItem('globalAddressUUID' , this.buyerUserData.address_uuid)
+    let addressUUID = localStorage.getItem("globalAddressUUID");
+    if (addressUUID == undefined || addressUUID == "undefined") {
+      localStorage.setItem(
+        "globalAddressUUID",
+        this.buyerUserData.address_uuid
+      );
     }
   },
   methods: {
@@ -1376,7 +1387,7 @@ export default {
         .then(() => {
           // if (this.buyerUserData && this.buyerUserData.address_uuid) {
           if (this.buyerUserData) {
-            let address_uuid = this.buyerUserData.address_uuid
+            let address_uuid = this.buyerUserData.address_uuid;
             this.getLoggedFirstShippingFees(address_uuid);
           }
         })
@@ -1399,8 +1410,10 @@ export default {
             var existingAddresses =
               document.querySelector(".existingAddresses");
             for (var i = 0; i < checkboxes.length; i++) {
-              existingAddresses.click();
-              existingAddresses.checked = true;
+              if (existingAddresses) {
+                existingAddresses.click();
+                existingAddresses.checked = true;
+              }
             }
           }, 500);
 
@@ -1671,7 +1684,7 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.addresses = res.data.items;
-        // console.log("addresses", res);
+        console.log("addresses", res);
         for (let index = 0; index < res.data.items.length; index++) {
           const element = res.data.items[index];
           const element2 = element.is_default;
@@ -1682,6 +1695,14 @@ export default {
               this.selectedAddress.uuid
             );
           }
+        }
+        if (res.data.items.length == 0) {
+          setTimeout(() => {
+            let newInput = document.querySelector(".GuestNewAddress");
+            if (newInput) {
+              newInput.click();
+            }
+          }, 500);
         }
       });
     },
@@ -1856,7 +1877,7 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
-        address_uuid: localStorage.getItem('globalAddressUUID'),
+        address_uuid: localStorage.getItem("globalAddressUUID"),
         supplier_id: localStorage.getItem("s_id"),
       };
       suppliers
@@ -2032,7 +2053,10 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          this.errMsg(err.message);
+          if(err.response.status !== 422){
+            
+            this.errMsg(err.message);
+          }
         });
     },
     getGuestFirstShippingFees() {
@@ -2053,12 +2077,15 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          this.errMsg(err.message);
+          if(err.response.status !== 422){
+            
+            this.errMsg(err.message);
+          }
         });
     },
     checkSupplierFees(supplier) {
       let data = {
-        address_uuid: localStorage.getItem('globalAddressUUID'),
+        address_uuid: localStorage.getItem("globalAddressUUID"),
         supplier_id: supplier.supplier_id,
       };
       suppliers
@@ -2085,7 +2112,7 @@ export default {
     //payment
 
     async payment() {
-      this.checkoutSubmitted = true
+      this.checkoutSubmitted = true;
       if (
         this.paymentFormData.address_uuid == "" ||
         !this.paymentFormData.address_uuid ||
@@ -2097,7 +2124,11 @@ export default {
 
       // make sure address_uuid will not undefined
 
-      if (this.paymentFormData.address_uuid == "undefined") {
+      if (this.paymentFormData.address_uuid == "undefined" || 
+      this.paymentFormData.address_uuid == "null" || 
+      this.paymentFormData.address_uuid == null ||
+      !localStorage.getItem("globalAddressUUID")
+      ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
 
@@ -2147,12 +2178,13 @@ export default {
           this.errors = errors.items;
           console.log(err);
           this.errMsg(errors.message);
-        }).finally(()=>{
-          this.checkoutSubmitted = false
         })
+        .finally(() => {
+          this.checkoutSubmitted = false;
+        });
     },
     guestPayment() {
-      this.checkoutSubmitted = true
+      this.checkoutSubmitted = true;
       let data = {
         first_name: this.paymentFormData.first_name,
         last_name: this.paymentFormData.last_name,
@@ -2225,9 +2257,10 @@ export default {
           this.errors = errors.items;
           console.log(err);
           this.errMsg(errors.message);
-        }).finally(()=>{
-          this.checkoutSubmitted = false
         })
+        .finally(() => {
+          this.checkoutSubmitted = false;
+        });
     },
     paymentGetAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -2332,9 +2365,9 @@ export default {
       return this.$store.state.suppliers;
     },
   },
-  created(){
-    localStorage.setItem('globalAddressUUID' , this.buyerUserData.address_uuid)
-  }
+  created() {
+    localStorage.setItem("globalAddressUUID", this.buyerUserData.address_uuid);
+  },
 };
 </script>
 <style lang="scss" scoped>
