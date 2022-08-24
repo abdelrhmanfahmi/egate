@@ -155,6 +155,13 @@ export default {
         this.fieldTypeConfirm === "password" ? "text" : "password";
     },
   },
+  mounted() {
+    let profileData = this.buyerUserData;
+    if (!profileData) {
+      // location.replace("");
+      this.$router.push("/b2b-login");
+    }
+  },
 };
 </script>
 
