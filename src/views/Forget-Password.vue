@@ -139,11 +139,11 @@ export default {
     },
   },
   created() {
-    let profileData = this.buyerUserData;
-    if (!profileData) {
-      // location.replace("");
-      this.$router.push("/b2b-login");
-    }
+    // let profileData = this.buyerUserData;
+    // if (!profileData) {
+    //   // location.replace("");
+    //   this.$router.push("/b2b-login");
+    // }
   },
 };
 </script>
