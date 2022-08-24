@@ -2053,7 +2053,10 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          this.errMsg(err.message);
+          if(err.response.status !== 422){
+            
+            this.errMsg(err.message);
+          }
         });
     },
     getGuestFirstShippingFees() {
@@ -2074,7 +2077,10 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          this.errMsg(err.message);
+          if(err.response.status !== 422){
+            
+            this.errMsg(err.message);
+          }
         });
     },
     checkSupplierFees(supplier) {
@@ -2118,7 +2124,11 @@ export default {
 
       // make sure address_uuid will not undefined
 
-      if (this.paymentFormData.address_uuid == "undefined") {
+      if (this.paymentFormData.address_uuid == "undefined" || 
+      this.paymentFormData.address_uuid == "null" || 
+      this.paymentFormData.address_uuid == null ||
+      !localStorage.getItem("globalAddressUUID")
+      ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
 
