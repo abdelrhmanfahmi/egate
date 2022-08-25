@@ -98,7 +98,7 @@
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-bell" />
             </span>
-            <span class="cartLength"> {{notificationsLength > 0 ? notificationsLength : 0}} </span>
+            <span class="cartLength" v-if="notificationsLength > 0"> {{notificationsLength > 0 ? notificationsLength : 0}} </span>
             <Notify class="notify-body" :notifications="notifications" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
