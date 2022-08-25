@@ -145,7 +145,7 @@ export default new Vuex.Store({
           commit("SET_NOTIFICATIONS", res.data.items.notifications.data);
           commit(
             "SET_NOTIFICATIONS_LENGTH",
-            res.data.items.notifications.data.length
+            res.data.items.count
           );
         });
       } catch (error) {

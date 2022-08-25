@@ -6,6 +6,17 @@
           {{ $t("profile.Notifications") }}
         </h1>
       </div>
+      <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
+        <button
+          @click="readAllNotifications"
+          class="btn-light border-0 btn-outline-none"
+        >
+          <span class="font-weight-bold mr-2">{{
+            $t("profile.readAllNotifications")
+          }}</span>
+          <font-awesome-icon icon="fa-solid fa-rotate" />
+        </button>
+      </div>
       <!-- <div class="row data-holder">
         <div class="col-12">
           <div class="new-message-box">
@@ -274,6 +285,20 @@ export default {
           },
         });
       }
+    },
+    readAllNotifications() {
+      profile
+        .readAllNotifications()
+        .then((res) => {
+          // console.log(res);
+          if (res.status == 200) {
+            this.$store.dispatch("getNotifications");
+            this.getNotificatinos();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {

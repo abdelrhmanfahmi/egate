@@ -242,5 +242,6 @@ export default {
   minute: "دقيقة",
   second2: "ثانية",
   printIno:'اطبع طلب الشراء',
-  markRead:"ضع إشارة مقروء"
+  markRead:"ضع إشارة مقروء",
+  readAllNotifications:'قراءة الكل'
 };
