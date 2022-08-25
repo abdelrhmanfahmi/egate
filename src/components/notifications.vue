@@ -2,6 +2,17 @@
   <div class="notifications notifications-content">
     <div class="" v-if="notificationsLength > 0">
       <div class="notification-ui_dd-content">
+      <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
+        <button
+          @click="readAllNotifications"
+          class="btn-light border-0 btn-outline-none bg-white"
+        >
+          <span class="font-weight-bold mr-2">{{
+            $t("profile.readAllNotifications")
+          }}</span>
+          <font-awesome-icon icon="fa-solid fa-rotate" />
+        </button>
+      </div>
         <div
           class="notification-list"
           v-for="(notification, index) in notifications.slice(0, 5)"
@@ -25,8 +36,11 @@
               </div>
             </div>
             <div class="col-md-10 col-sm-12">
-              <div class="notification-list_detail" @click="goNotificationPage(notification)">
-                <h6  class="notification-title">
+              <div
+                class="notification-list_detail"
+                @click="goNotificationPage(notification)"
+              >
+                <h6 class="notification-title">
                   <b>{{ notification.title }}</b>
                 </h6>
                 <p v-if="notification.body" class="">
@@ -144,6 +158,19 @@ export default {
           },
         });
       }
+    },
+    readAllNotifications() {
+      profile
+        .readAllNotifications()
+        .then((res) => {
+          if (res.status == 200) {
+            this.$store.dispatch("getNotifications");
+            this.getNotificatinos();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
@@ -296,7 +323,8 @@ export default {
 .btn.focus {
   box-shadow: none !important;
 }
-.notification-title , .notification-body{
+.notification-title,
+.notification-body {
   cursor: pointer;
 }
 </style>
