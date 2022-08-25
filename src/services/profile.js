@@ -225,4 +225,7 @@ export default {
   readNotification(notification) {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
+  readAllNotifications() {
+    return globalAxios.get(`members/notifications/read-all`);
+  },
 };
