@@ -37,8 +37,8 @@ import Footer from "@/components/layouts/footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-import NewsletterModal from "@/components/newsLetterModal.vue";
-import auth from "@/services/auth";
+
+
 export default {
   components: {
     TopHeader,
@@ -119,56 +119,14 @@ export default {
         }
       });
     },
-    getAdsModal() {
-      if (this.buyerUserData && this.buyerUserData.type === "buyer") {
-        let payload = {
-          type: "b2b",
-          // model_type: "product",
-        };
-        auth
-          .getAdsModal(payload)
-          .then((res) => {
-            console.log(res);
-            this.newsletterShow = res.data.items;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else if (this.buyerUserData && this.buyerUserData.type === "b2c") {
-        let payload = {
-          type: "b2c",
-        };
-        auth
-          .getAdsModal(payload)
-          .then((res) => {
-            console.log(res);
-            this.newsletterShow = res.data.items;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else if (!this.buyerUserData) {
-        let payload = {
-          type: "b2c",
-        };
-        auth
-          .getGuestAdsModal(payload)
-          .then((res) => {
-            console.log(res);
-            this.newsletterShow = res.data.items;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
+   
   },
   data() {
     return {
       scTimer: 0,
       scY: 0,
       visible: false,
-      newsletterShow: null,
+      
     };
   },
   mounted() {
@@ -184,17 +142,9 @@ export default {
     });
 
     // if (this.newsletterShow) {
-    setTimeout(() => {
-      if (this.$route.path == "/" && this.newsletterShow) {
-        this.$modal.show(
-          NewsletterModal,
-          { newsletterShow: this.newsletterShow },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
+    
 
-    this.getAdsModal();
+    
 
     if(this.buyerUserData.is_verified){
       localStorage.removeItem('massege')
