@@ -511,3 +511,17 @@ img {
 .btn:focus , button:focus{
   box-shadow: none !important;
 }
+
+.svg-icon {
+  width: 30px;
+  svg {
+    fill: #fff;
+    width: inherit;
+  }
+}
+
+.variants {
+  .svg-icon {
+    width: 22px !important;
+  }
+}

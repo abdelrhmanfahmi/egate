@@ -27,7 +27,7 @@ export default {
     this.emailVerify();
     // this.checkEmailForgetPassWord()
     setTimeout(() => {
-      if (this.newsletterShow) {
+      if (this.$route.path =='/' && this.newsletterShow) {
         this.$modal.show(
           NewsletterModal,
           { newsletterShow: this.newsletterShow },
@@ -35,6 +35,7 @@ export default {
         );
       }
     }, 5000);
+
   },
   methods: {
     emailVerify() {
