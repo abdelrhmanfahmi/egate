@@ -146,7 +146,7 @@
                 <label>
                   {{ $t("profile.returnReason") }}
                 </label>
-                <b-form-select v-model="returnData.return" class="mb-3">
+                <b-form-select v-model="returnData.return_reason" class="mb-3">
                   <b-form-select-option disabled value="null">{{
                     $t("cart.selectOption")
                   }}</b-form-select-option>
@@ -162,12 +162,12 @@
 
             <b-form-textarea
               v-if="
-                returnData.return == 'others' || returnData.return == 'سبب اخر'
+              returnData.return_reason == 8
               "
               id="textarea-rows"
               :placeholder="$t('profile.returnReason')"
               rows="8"
-              v-model="returnData.return_reason"
+              v-model="returnData.return"
             ></b-form-textarea>
             <b-button
               type="submit"
