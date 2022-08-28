@@ -234,15 +234,14 @@ export default {
       }
 
       if (
-        this.returnData.return === "others" ||
-        this.returnData.return == "سبب اخر"
+        this.returnData.return_reason === 8
       ) {
-        formData.append("return", '');
-
-        formData.append("return_reason", this.returnData.return_reason);
-      } else {
-        formData.append("return", this.returnData.return);
         formData.append("return_reason", null);
+
+        formData.append("return", this.returnData.return);
+      } else {
+        formData.append("return_reason", this.returnData.return_reason);
+        formData.append("return", '');
       }
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
@@ -263,7 +262,6 @@ export default {
               });
             }, 500);
           }
-          console.log(res);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
