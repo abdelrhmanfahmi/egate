@@ -41,10 +41,10 @@
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
             <td>{{ myProduct.product_details_by_type.min_order_quantity.title }}</td>
           </tr>
-          <tr v-if="myProduct.delivery_time !== null">
+          <!-- <tr v-if="myProduct.delivery_time !== null">
             <th>{{ $t("singleProduct.delivery_time") }}</th>
             <td>{{ myProduct.delivery_time.title }}</td>
-          </tr>
+          </tr> -->
           <tr v-if="myProduct.return_time !== null">
             <th>{{ $t("singleProduct.return_time") }}</th>
             <td>{{ myProduct.return_time.title }}</td>
