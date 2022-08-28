@@ -12,7 +12,10 @@
         v-for="product in products.products"
         :key="product.id"
       >
-        <a @click="goProduct(product.product_supplier_id)" class="product-img-container">
+        <a
+          @click="goProduct(product.product_supplier_id)"
+          class="product-img-container"
+        >
           <img
             :src="product.product_image"
             alt="Cart Item"
@@ -48,8 +51,16 @@
             <b class="text-success">{{ product.quantity }} </b>
           </span>
         </div> -->
-        <div class="total mr-2">
-          {{ product.product_sub_total | fixedCurrency }} {{ currency }}
+        <div class="total mr-2 text-center">
+          <Counter
+            :minimum="
+              product.min_order_quantity ? product.min_order_quantity : 1
+            "
+            :quantity="product.quantity"
+            :product="product"
+            class="justify-content-center"
+          ></Counter>
+          <p class="product_sub_total mt-2">{{ product.product_sub_total | fixedCurrency }} {{ currency }}</p>
         </div>
         <div class="actions mr-2" @click="removeFromCart(product)">
           <span class="action-icon">
@@ -73,12 +84,14 @@
 <script>
 import { BIconTrash } from "bootstrap-vue";
 // import { mapActions } from "vuex";
+import Counter from "@/components/global/cartPopupCounter";
 export default {
   data() {
     return { count: 0, loading: false };
   },
   components: {
     BIconTrash,
+    Counter,
   },
   props: ["products"],
   methods: {
@@ -104,7 +117,7 @@ export default {
         path: "/details",
         query: { id: product },
       });
-      window.location.reload()
+      window.location.reload();
     },
   },
 };
@@ -149,18 +162,24 @@ export default {
   }
 }
 
-.product-img-container{
-        width: 90px;
-    height: 45px;
-    border-radius: 8px;
-    box-shadow: 0 0 4px grey;
-    margin-inline-end: 15px;
-    margin-inline-start: 1px;
-.product-image {
-  width: 100%;
+.product-img-container {
+  width: 90px;
+  height: 45px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px grey;
+  margin-inline-end: 15px;
+  margin-inline-start: 1px;
+  .product-image {
+    width: 100%;
     height: 100%;
-       object-fit: cover;
+    object-fit: cover;
     border-radius: 8px;
+  }
 }
+.product_sub_total{
+  font-size: 13px;
+}
+.cart-item .product-info .name{
+  margin-bottom: .5rem;
 }
 </style>

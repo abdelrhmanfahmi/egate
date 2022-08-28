@@ -1,5 +1,5 @@
 <template>
-  <div class="items-body">
+  <div class="items-body variants">
     <div class="container">
       <div
         class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
@@ -122,28 +122,22 @@
     </div>
     <div class="products" v-if="products.length > 0">
       <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="row justify-content-between align-items-center">
           <div class="col-md-6 col-sm-12">
-            <h4 class="header font-weight-bold my-5">
+            <h4 class="header font-weight-bold my-2">
               {{ $t("items.products") }}
             </h4>
           </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="row justify-content-center align-items-center">
-              <div class="col-md-3 col-sm-12 text-center">
-                <h5>
-                  {{ $t("cart.sortBy") }}
-                </h5>
-              </div>
-              <div class="col-md-9 col-sm-12">
-                <b-form-select
-                  class=""
-                  v-model="sortType"
-                  :options="options"
-                  @change="getCategoryProducts"
-                ></b-form-select>
-              </div>
-            </div>
+          <div class="col-md-6 col-sm-12 text-center my-2">
+            <h5>
+              {{ $t("cart.sortBy") }}
+            </h5>
+            <b-form-select
+              class=""
+              v-model="sortType"
+              :options="options"
+              @change="getCategoryProducts"
+            ></b-form-select>
           </div>
         </div>
       </div>
@@ -519,7 +513,7 @@
                         >
                           <!-- <span role="button" @click="loggedBidRequest"> -->
                           <!-- {{ $t("singleProduct.bidRequest") }} -->
-                          <font-awesome-icon icon="fa-solid fa-list" />
+                          <rfqIcon />
                         </button>
                       </div>
                     </button>
@@ -602,7 +596,7 @@
                     >
                       <!-- <span role="button" @click="loggedBidRequest"> -->
                       <!-- {{ $t("singleProduct.bidRequest") }} -->
-                      <font-awesome-icon icon="fa-solid fa-list" />
+                      <rfqIcon />
                     </button>
                   </div>
                 </div>
@@ -724,6 +718,8 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
+import rfqIcon from "@/components/global/rfqIcon.vue"
+
 export default {
   data() {
     return {
@@ -819,6 +815,7 @@ export default {
   },
   components: {
     VariantsCounter,
+    rfqIcon
     // Product,
     // modal,
   },
@@ -1193,6 +1190,21 @@ export default {
     overflow-y: scroll;
   }
 }
+.products-table {
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
 .item-media {
   img {
     height: 350px;
@@ -1233,7 +1245,7 @@ export default {
   background: #ff6000 !important;
   color: #fff !important;
 }
-@media screen and (max-width: 767px) {
+/*@media screen and (max-width: 767px) {
   table {
     tbody {
       tr {
@@ -1261,5 +1273,11 @@ export default {
     margin: 30px 0;
     display: block;
   }
+}*/
+@media (max-width: 992px) {
+  .table {
+    width: 800px;
+  }
 }
+
 </style>
