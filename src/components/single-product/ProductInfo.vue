@@ -88,7 +88,8 @@
                   <form>
                     <div class="form-group required">
                       <label for="subject">
-                        {{ $t("supplier.subject") }} <span class="text-danger">*</span>
+                        {{ $t("supplier.subject") }}
+                        <span class="text-danger">*</span>
                       </label>
                       <input
                         type="text"
@@ -106,7 +107,8 @@
                     </div>
                     <div class="form-group">
                       <label for="message">
-                        {{ $t("contactUs.formMessage") }} <span class="text-danger">*</span>
+                        {{ $t("contactUs.formMessage") }}
+                        <span class="text-danger">*</span>
                       </label>
                       <textarea
                         class="form-control"
@@ -126,7 +128,8 @@
                   </form>
                 </div>
               </div>
-              <b-button v-if="buyerUserData"
+              <b-button
+                v-if="buyerUserData"
                 class="mt-3"
                 variant="outline-success"
                 block
@@ -202,7 +205,10 @@
         v-if="myProduct.product_details_by_type"
         class="product-actions row justify-content-between align-items-center mt-4"
       >
-        <div class="col-2" v-if="myProduct.product_details_by_type.quantity > 0">
+        <div
+          class="col-2"
+          v-if="myProduct.product_details_by_type.quantity > 0"
+        >
           <div class="products mb-2 mr-1" v-if="buyerUserData">
             <a
               class="text-danger d-flex justify-content-center align-items-center bg-transparent text-white"
@@ -218,7 +224,10 @@
             /></a>
           </div>
         </div>
-        <div class="col-7" v-if="myProduct.product_details_by_type.quantity > 0">
+        <div
+          class="col-7"
+          v-if="myProduct.product_details_by_type.quantity > 0"
+        >
           <div
             class="mb-2 mr-1"
             v-if="
@@ -226,7 +235,8 @@
                 buyerUserData.profile_percentage == 100 &&
                 buyerUserData.type === 'buyer') ||
               buyerUserData.type === 'b2b' ||
-              (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
+              (buyerUserData.type === 'supplier' &&
+                buyerUserData.is_buyer == true)
             "
           >
             <b-button
@@ -238,7 +248,8 @@
                 myProduct.product_details_by_type.add_type === 'both'
               "
             >
-              {{ $t("singleProduct.addCart") }}
+            <span><font-awesome-icon icon="fa-solid fa-cart-shopping" /></span>
+              {{ $t("singleProduct.addCart") }} 
             </b-button>
 
             <!-- <transition name="modal">
@@ -267,7 +278,10 @@
               {{ $t("profile.completeAccount") }}
             </router-link>
           </div>
-          <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
+          <div
+            class="mb-2"
+            v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
+          >
             <b-button
               @ok="$refs.cartModal.onSubmit()"
               @click="addToCart(myProduct)"
@@ -277,11 +291,15 @@
                 myProduct.product_details_by_type.add_type === 'both'
               "
             >
+            <span><font-awesome-icon icon="fa-solid fa-cart-shopping" /></span>
               {{ $t("singleProduct.addCart") }}
             </b-button>
           </div>
         </div>
-        <div class="col-3" v-if="myProduct.product_details_by_type.quantity > 0">
+        <div
+          class="col-3"
+          v-if="myProduct.product_details_by_type.quantity > 0"
+        >
           <div
             class="product-counter mb-2"
             v-if="
@@ -291,14 +309,22 @@
           >
             <div class="value">
               <span class="product-counter-number">
-                {{ mySelectedOption  ? mySelectedOption : 1 }}</span
+                {{ mySelectedOption ? mySelectedOption : 1 }}</span
               >
             </div>
             <div class="actions d-flex flex-column">
               <button class="product-counter-btn" @click="incrementQuantity">
                 <b-icon-plus />
               </button>
-              <button class="product-counter-btn" @click="decrementQuantity(myProduct.product_details_by_type.min_order_quantity)" :disabled="mySelectedOption == 1">
+              <button
+                class="product-counter-btn"
+                @click="
+                  decrementQuantity(
+                    myProduct.product_details_by_type.min_order_quantity
+                  )
+                "
+                :disabled="mySelectedOption == 1"
+              >
                 <b-icon-dash />
               </button>
             </div>
@@ -321,8 +347,8 @@
               @click="$bvModal.show('bv-bidRequest')"
             >
               <!-- <span role="button" @click="loggedBidRequest"> -->
+              <span><rfqIcon class="mx-2" /></span>
               {{ $t("singleProduct.bidRequest") }}
-              <font-awesome-icon icon="fa-solid fa-list" />
             </button>
           </div>
         </button>
@@ -335,10 +361,8 @@
             !buyerUserData
           "
         >
+        <span><rfqIcon class="mx-2" /></span>
           {{ $t("singleProduct.bidRequest") }}
-          <span>
-            <font-awesome-icon icon="fa-solid fa-list" />
-          </span>
         </button>
         <button
           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100"
@@ -348,10 +372,10 @@
           "
         >
           <!-- <router-link to="/b2b-login"> -->
+            <span><rfqIcon class="mx-2" /></span>
+            
           {{ $t("singleProduct.bidRequest") }}
-          <span>
-            <font-awesome-icon icon="fa-solid fa-list" />
-          </span>
+         
           <!-- </router-link> -->
         </button>
         <!-- <button
@@ -484,6 +508,9 @@ import globalAxios from "@/services/global-axios";
 
 import categories from "@/services/categories";
 import profile from "@/services/profile";
+
+import rfqIcon from "@/components/global/rfqIcon.vue"
+
 import {
   Facebook,
   Twitter,
@@ -502,6 +529,7 @@ export default {
     Facebook,
     Twitter,
     WhatsApp,
+    rfqIcon
     // Linkedin,
     // Pinterest,
     // Reddit,
@@ -517,13 +545,16 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-          quantity: (this.mySelectedOption !== null || this.mySelectedOption > 0) ? this.mySelectedOption : 1,
+        quantity:
+          this.mySelectedOption !== null || this.mySelectedOption > 0
+            ? this.mySelectedOption
+            : 1,
       };
       // this.$store
       //   .dispatch("cart/addProductToCart", {
       //     product: item,
       //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
-      //   }) 
+      //   })
       //   .then((res) => {
       //     if (res.status == 200) {
       //       this.$modal.show(
@@ -616,15 +647,16 @@ export default {
       this.mySelectedOption += 1;
     },
     decrementQuantity(minimum) {
-      if(minimum){
-
-        this.mySelectedOption > minimum  ? this.mySelectedOption-- : null;
-        console.log('no minimum');
-        console.log("this.mySelectedOption" , this.mySelectedOption);
-      }else{
-        this.mySelectedOption >=1 ? this.mySelectedOption-- : this.mySelectedOption == 1
-        console.log('no minimum');
-        console.log("this.mySelectedOption" , this.mySelectedOption);
+      if (minimum) {
+        this.mySelectedOption > minimum ? this.mySelectedOption-- : null;
+        console.log("no minimum");
+        console.log("this.mySelectedOption", this.mySelectedOption);
+      } else {
+        this.mySelectedOption >= 1
+          ? this.mySelectedOption--
+          : this.mySelectedOption == 1;
+        console.log("no minimum");
+        console.log("this.mySelectedOption", this.mySelectedOption);
       }
     },
     closeModal() {
@@ -711,8 +743,11 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity ? this.myProduct.product_details_by_type.min_order_quantity : 1,
-      changedValue:null,
+      mySelectedOption: this.myProduct.product_details_by_type
+        .min_order_quantity
+        ? this.myProduct.product_details_by_type.min_order_quantity
+        : 1,
+      changedValue: null,
       showModal: false,
       suppliers: null,
       message: null,
@@ -967,4 +1002,11 @@ textarea {
 //     padding: 12px 10px !important;
 //   }
 // }
+.svg-icon {
+  width: 30px;
+  svg {
+    fill: #fff;
+    width: inherit;
+  }
+}
 </style>

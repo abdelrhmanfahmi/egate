@@ -7,7 +7,7 @@
       <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
-      <div class="cart-items-holder" v-if="cartItems">
+      <div v-if="cartItems" :class="classObject">
         <div
           v-for="products in cartItems"
           :key="products.id"
@@ -23,7 +23,7 @@
           v-if="cart_sub_total"
         >
           <span> {{ $t("cart.total") }}</span>
-          <span> {{ cart_sub_total  | fixedCurrency }} {{ currency }} </span>
+          <span> {{ cart_sub_total | fixedCurrency }} {{ currency }} </span>
         </div>
         <div class="navigation my-4" v-if="cart_sub_total">
           <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
@@ -78,12 +78,18 @@ export default {
     cartItemsLength() {
       return this.cartItems.length;
     },
+    classObject() {
+      return {
+        "small-cart": this.cartItemsLength && this.cartItemsLength <= 2,
+        "cart-items-holder": this.cartItemsLength && this.cartItemsLength > 2,
+      };
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 .cart-items-holder {
-  height: 346px;
+  height: 346px !important;
   overflow-y: scroll;
 }
 .cart-content {
@@ -103,5 +109,9 @@ export default {
     border: 5px solid #fdfdfd00;
     font-weight: bold;
   }
+}
+.small-cart {
+  height: 140px !important;
+  overflow-y: scroll;
 }
 </style>
