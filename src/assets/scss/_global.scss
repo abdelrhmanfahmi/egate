@@ -506,9 +506,9 @@ img {
   box-shadow: none !important;
 }
 
-
-// change button globals style 
-.btn:focus , button:focus{
+// change button globals style
+.btn:focus,
+button:focus {
   box-shadow: none !important;
 }
 
@@ -523,5 +523,12 @@ img {
 .variants {
   .svg-icon {
     width: 22px !important;
+  }
+}
+
+.swal2-icon.swal2-warning {
+  border-color: red !important;
+  .swal2-icon-content {
+    color: red !important;
   }
 }

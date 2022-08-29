@@ -718,7 +718,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-import rfqIcon from "@/components/global/rfqIcon.vue"
+import rfqIcon from "@/components/global/rfqIcon.vue";
 
 export default {
   data() {
@@ -815,7 +815,7 @@ export default {
   },
   components: {
     VariantsCounter,
-    rfqIcon
+    rfqIcon,
     // Product,
     // modal,
   },
@@ -1183,6 +1183,9 @@ export default {
   color: #403a37;
   font-size: 14pt;
   margin-bottom: 0.5rem;
+  @media (max-width: 767px) {
+    font-size: 10pt;
+  }
 }
 .products-table {
   @media (max-width: 992px) {
@@ -1279,5 +1282,4 @@ export default {
     width: 800px;
   }
 }
-
 </style>

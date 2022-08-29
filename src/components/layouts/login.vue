@@ -67,17 +67,19 @@
         <!-- social login -->
         <div class="social-login">
           <p>{{ $t("login.LoginSocial") }}</p>
-          <div class="social-icons">
+          <div
+            class="social-icons d-flex justify-content-center align-items-center"
+          >
             <button @click="getLink('facebook')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
             <button @click="getLink('google')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-google" size="lg" />
             </button>
-            <button @click="getLink('azure')" class="button-social">
+            <!-- <button @click="getLink('azure')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-            </button>
-            <button @click="getLink('apple')" class="button-social">
+            </button> -->
+            <button @click="getLink('apple')" class="button-social apple-login">
               <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
             </button>
           </div>
@@ -132,8 +134,8 @@ export default {
       form: {
         email: "",
         password: "",
-        token:"",
-        device_type:'web'
+        token: "",
+        device_type: "web",
       },
       errorMsg: "",
       fieldType: "password",
@@ -144,14 +146,14 @@ export default {
   },
   methods: {
     loginB2c() {
-       localStorage.removeItem('provider');
+      localStorage.removeItem("provider");
 
-        let loginData = {
-        email:this.form.email,
+      let loginData = {
+        email: this.form.email,
         password: this.form.password,
-        token : this.firebaseToken , 
-        device_type : this.form.device_type
-      }
+        token: this.firebaseToken,
+        device_type: this.form.device_type,
+      };
 
       auth
         .login("b2c", loginData)
@@ -170,7 +172,7 @@ export default {
         });
     },
     async getLink(provider) {
-      const backUrl = `${this.mainDoamin}complete-social-profile`
+      const backUrl = `${this.mainDoamin}complete-social-profile`;
       await localStorage.setItem("provider", provider);
       auth
         .getSocialLink("b2c", provider, backUrl)
@@ -214,20 +216,18 @@ export default {
     //   }
     // },
   },
-  mounted(){
+  mounted() {
     // const messaging = getMessaging();
-
     // onMessage(messaging , (payload) =>{
     //   console.log("message on clinet" , payload);
     // })
-
     // this.generateFirebaseToken()
   },
-   computed:{
-    firebaseToken(){
-      return this.$store.state.firebaseToken
-    }
-  }
+  computed: {
+    firebaseToken() {
+      return this.$store.state.firebaseToken;
+    },
+  },
 };
 </script>
 
@@ -300,5 +300,8 @@ export default {
 }
 .text-start {
   text-align: start;
+}
+.apple-login {
+  background: #666666 !important ;
 }
 </style>
