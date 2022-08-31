@@ -168,14 +168,15 @@ export default {
 
           // new after setting otp
 
-
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_mobile_required) {
-            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+            localStorage.setItem("massege", this.$t("register.otpVerify"));
             this.$router.push("/otp-verification");
             location.reload();
           } else if (
             !res.data.items.item.verify_mobile_required ||
-            !res.data.items.item.is_verified || res.data.items.item.verify_email_required
+            !res.data.items.item.is_verified ||
+            res.data.items.item.verify_email_required
           ) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             this.$router.push("/");
