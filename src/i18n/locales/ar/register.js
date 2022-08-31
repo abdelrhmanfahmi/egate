@@ -27,6 +27,7 @@ export default {
   verification: "تحقق",
   notArrive: "لم يصل ؟ إعادة إرسال",
   openEmail: "يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول",
+  otpVerify:' يجب عليك تفعيل رقم هاتفك عن طريق رسالة الهاتف',
   haveNotAccount: "ليس لدي حساب تسجيل حساب جديد",
   resetPassword: "يرجى كتابة كلمة المرور الجديدة",
   passwordConfirmation: "إعادة كلمة المرور",
