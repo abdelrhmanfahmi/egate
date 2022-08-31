@@ -158,12 +158,29 @@ export default {
       auth
         .login("b2c", loginData)
         .then((res) => {
-          if (!res.data.items.item.is_verified) {
+          //old codes before setting otp
+          // if (!res.data.items.item.is_verified) {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          // }
+          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          // this.$router.push("/");
+          // location.reload();
+
+          // new after setting otp
+
+
+          if (res.data.items.item.verify_mobile_required) {
+            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+            this.$router.push("/otp-verification");
+            location.reload();
+          } else if (
+            !res.data.items.item.verify_mobile_required ||
+            !res.data.items.item.is_verified || res.data.items.item.verify_email_required
+          ) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
+            this.$router.push("/");
+            location.reload();
           }
-          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          this.$router.push("/");
-          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
