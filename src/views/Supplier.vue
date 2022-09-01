@@ -1,38 +1,56 @@
 <template>
   <div class="supplier">
-    <div class="container">
+    <!-- <div
+      class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
+    >
+      <b-breadcrumb v-if="supplier">
+        <b-breadcrumb-item href="#home">
+          <router-link to="/">
+            {{ $t("supplier.home") }}
+          </router-link>
+        </b-breadcrumb-item>
+        <b-breadcrumb-item>
+          <router-link to="/suppliers">
+            {{ $t("supplier.suppliers") }}
+          </router-link>
+        </b-breadcrumb-item>
+        <b-breadcrumb-item active>
+          {{ supplier.company_name }}
+        </b-breadcrumb-item>
+      </b-breadcrumb>
+    </div> -->
+    <div
+      class="cover text-center mx-auto my-4 text-white"
+      :style="{ backgroundImage: `url(${supplierMSite.banner_path})` }"
+    >
       <div
-        class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
+        class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
       >
-        <!-- <button
-          class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
-          @click="prevPage"
-          :disabled="pageId == 1"
-        >
-          <span>&#60;</span>{{ $t("items.prev") }}
-        </button> -->
-        <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
-        <b-breadcrumb v-if="supplier">
-          <b-breadcrumb-item href="#home">
-            <router-link to="/">
-              {{ $t("supplier.home") }}
-            </router-link>
-          </b-breadcrumb-item>
-          <b-breadcrumb-item>
-            <router-link to="/suppliers">
-              {{ $t("supplier.suppliers") }}
-            </router-link>
-          </b-breadcrumb-item>
-          <b-breadcrumb-item active>
-            {{ supplier.company_name }}
-          </b-breadcrumb-item>
-        </b-breadcrumb>
-        <!-- <span
-          @click="nextPage"
-          class="next btn btn-light shadow-none bg-transparent border-none outline-none"
-          >{{ $t("items.next") }}<span>&#62;</span></span
-        > -->
+        <b-container>
+          <div class="cover-title text-white font-weight-bold">
+            <h2 class="font-weight-bold">
+              {{ pageTitle }}
+            </h2>
+            <b-breadcrumb v-if="supplier">
+              <b-breadcrumb-item href="#home">
+                <router-link to="/">
+                  {{ $t("supplier.home") }}
+                </router-link>
+              </b-breadcrumb-item>
+              <b-breadcrumb-item>
+                <router-link to="/suppliers">
+                  {{ $t("supplier.suppliers") }}
+                </router-link>
+              </b-breadcrumb-item>
+              <b-breadcrumb-item active>
+                {{ supplier.company_name }}
+              </b-breadcrumb-item>
+            </b-breadcrumb>
+          </div>
+        </b-container>
       </div>
+    </div>
+    <div class="container">
 
       <b-row v-if="loading">
         <b-col class="mb-2" lg="3" sm="6" v-for="x in 2" :key="x">
@@ -64,10 +82,12 @@
             :data="article"
             :supplier="supplier"
             :supplierMSite="supplierMSite"
-            
           ></Article>
         </div>
-        <div class="products text-center mt-5 pt-5" v-if="supplierProductsLength > 0">
+        <div
+          class="products text-center mt-5 pt-5"
+          v-if="supplierProductsLength > 0"
+        >
           <h1 class="title">{{ $t("supplier.supplierProducts") }}</h1>
           <div class="row">
             <div
@@ -138,7 +158,7 @@ export default {
       supplier: null,
       supplierProducts: null,
       supplierProductsLength: null,
-      supplierMSite:null
+      supplierMSite: null,
     };
   },
   methods: {
@@ -163,7 +183,7 @@ export default {
       suppliers
         .getSupplierProducts(id)
         .then((resp) => {
-          this.supplierProducts = resp.data.items.data.slice(0,4);
+          this.supplierProducts = resp.data.items.data.slice(0, 4);
           resp.data.items.data.length > 0
             ? (this.supplierProductsLength = resp.data.items.data.length)
             : (this.supplierProductsLength = 0);
@@ -201,7 +221,7 @@ export default {
         .supplierMicroSite(this.id)
         .then((res) => {
           console.log(res);
-          this.supplierMSite = res.data.items
+          this.supplierMSite = res.data.items;
         })
         .catch((err) => {
           console.log(err);
@@ -257,5 +277,18 @@ export default {
   #bv-modal-example {
     top: 6% !important;
   }
+}
+
+.cover {
+  background-repeat: no-repeat;
+    background-position: 50% 37%;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.cover-data {
+  background: rgba(0, 0, 0, 0.3);
+}
+.breadcrumb-item a{
+  color: #fff;
 }
 </style>
