@@ -29,6 +29,7 @@ export default {
   verification: "Verification",
   notArrive: "not arrived ? Resend",
   openEmail: "Please open your email to verify your account to can login",
+  otpVerify:'You must verify your Phone number by send otp',
   haveNotAccount: "Don't have account ? Create new account",
   resetPassword: "Type New Password",
   passwordConfirmation: "Password Confirmation",
