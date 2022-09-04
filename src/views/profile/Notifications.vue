@@ -7,12 +7,9 @@
         </h1>
       </div>
       <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
-        <button
-          @click="readAllNotifications"
-          class="btn-light border-0 btn-outline-none"
-        >
+        <button @click="readAllNotifications" class="btn-light border-0 btn-outline-none">
           <span class="font-weight-bold mr-2">{{
-            $t("profile.readAllNotifications")
+          $t("profile.readAllNotifications")
           }}</span>
           <font-awesome-icon icon="fa-solid fa-rotate" />
         </button>
@@ -72,37 +69,25 @@
         </div>
       </div> -->
       <!-- -->
-      <div
-        class="row data-holder"
-        v-for="(notify, index) in notifications"
-        :key="index"
-      >
+      <div class="row data-holder" v-for="(notify, index) in notifications" :key="index">
         <div class="col-12">
           <div class="new-message-box">
-            <div
-              class="new-message-box-warning"
-              :class="{
-                'new-message-box-warning': notify.status_type === 'warning',
-                'new-message-box-success': notify.status_type === 'success',
-              }"
-            >
-              <div
-                :class="{
-                  'info-tab tip-icon-warning': notify.status_type === 'warning',
-                  'info-tab tip-icon-success': notify.status_type === 'success',
-                }"
-                title="error"
-              >
+            <div class="new-message-box-warning" :class="{
+              'new-message-box-warning': notify.status_type === 'warning',
+              'new-message-box-success': notify.status_type === 'success',
+            }">
+              <div :class="{
+                'info-tab tip-icon-warning': notify.status_type === 'warning',
+                'info-tab tip-icon-success': notify.status_type === 'success',
+              }" title="error">
                 <i></i>
               </div>
-              <div
-                :class="{
-                  'tip-box-warning': notify.status_type === 'warning',
-                  'tip-box-success': notify.status_type === 'success',
-                  unread: notify.is_read == 0,
-                  readed: notify.is_read == 1,
-                }"
-              >
+              <div :class="{
+                'tip-box-warning': notify.status_type === 'warning',
+                'tip-box-success': notify.status_type === 'success',
+                unread: notify.is_read == 0,
+                readed: notify.is_read == 1,
+              }">
                 <div>
                   <div class="row justify-content-between">
                     <div class="col-12">
@@ -113,11 +98,7 @@
                       <span>{{ notify.created_at | formatDate }}</span>
                     </div> -->
                   </div>
-                  <div
-                    to=""
-                    class="btn btn-sm"
-                    @click="goNotificationPage(notify)"
-                  >
+                  <div to="" class="btn btn-sm" @click="goNotificationPage(notify)">
                     <h5>
                       <b>{{ notify.body }}</b>
                     </h5>
@@ -125,27 +106,19 @@
                 </div>
                 <div class="row justify-content-around align-items-center">
                   <div class="col-6">
-                    <span
-                      ><i>{{
-                        notify.created_at | timeDefer(notify.created_at)
-                      }}</i></span
-                    >
+                    <span><i>{{
+                    notify.created_at | timeDefer(notify.created_at)
+                    }}</i></span>
                   </div>
-                  <div
-                    class="col-6"
-                    :class="{
-                      'text-right': $i18n.locale == 'en',
-                      'text-left': $i18n.locale == 'ar',
-                    }"
-                  >
+                  <div class="col-6" :class="{
+                    'text-right': $i18n.locale == 'en',
+                    'text-left': $i18n.locale == 'ar',
+                  }">
                     <span v-if="notify.is_read == 0">
                       <b class="text-success">
-                        <button
-                          class="btn text-success m-0"
-                          @click="readNotification(notify)"
-                        >
+                        <button class="btn text-success m-0" @click="readNotification(notify)">
                           <b class="text-capitalize">{{
-                            $t("profile.markRead")
+                          $t("profile.markRead")
                           }}</b>
                         </button>
                       </b>
@@ -184,13 +157,8 @@
       <!-- -->
     </div>
     <div class="d-flex justify-content-center align-items-center mt-5">
-      <Paginate
-        v-if="notifications"
-        :total-pages="totalPages"
-        :per-page="totalPages"
-        :current-page="page"
-        @pagechanged="onPageChange"
-      />
+      <Paginate v-if="notifications" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+        @pagechanged="onPageChange" />
     </div>
   </div>
 </template>
@@ -302,7 +270,10 @@ export default {
     },
   },
   mounted() {
-    this.getNotificatinos();
+    
+    if(this.buyerUserData){
+      this.getNotificatinos();
+    }
   },
   data() {
     return {
@@ -330,64 +301,49 @@ export default {
   /*==========  Mobile First Method  ==========*/
 
   /* Custom, iPhone Retina */
-  @media only screen and (min-width: 320px) {
-  }
+  @media only screen and (min-width: 320px) {}
 
   /* Extra Small Devices, Phones */
-  @media only screen and (min-width: 480px) {
-  }
+  @media only screen and (min-width: 480px) {}
 
   /* Small Devices, Tablets */
-  @media only screen and (min-width: 768px) {
-  }
+  @media only screen and (min-width: 768px) {}
 
   /* Medium Devices, Desktops */
-  @media only screen and (min-width: 992px) {
-  }
+  @media only screen and (min-width: 992px) {}
 
   /* Large Devices, Wide Screens */
-  @media only screen and (min-width: 1200px) {
-  }
+  @media only screen and (min-width: 1200px) {}
 
   /*==========  Non-Mobile First Method  ==========*/
 
   /* Large Devices, Wide Screens */
-  @media only screen and (max-width: 1200px) {
-  }
+  @media only screen and (max-width: 1200px) {}
 
   /* Medium Devices, Desktops */
-  @media only screen and (max-width: 992px) {
-  }
+  @media only screen and (max-width: 992px) {}
 
   /* Small Devices, Tablets */
-  @media only screen and (max-width: 768px) {
-  }
+  @media only screen and (max-width: 768px) {}
 
   /* Extra Small Devices, Phones */
-  @media only screen and (max-width: 480px) {
-  }
+  @media only screen and (max-width: 480px) {}
 
   /* Custom, iPhone Retina */
-  @media only screen and (max-width: 320px) {
-  }
+  @media only screen and (max-width: 320px) {}
 
   /*=====================================================
 =            Bootstrap 2.3.2 Media Queries            =
 =====================================================*/
-  @media only screen and (max-width: 1200px) {
-  }
+  @media only screen and (max-width: 1200px) {}
 
-  @media only screen and (max-width: 979px) {
-  }
+  @media only screen and (max-width: 979px) {}
 
-  @media only screen and (max-width: 767px) {
-  }
+  @media only screen and (max-width: 767px) {}
 
-  @media only screen and (max-width: 480px) {
-  }
+  @media only screen and (max-width: 480px) {}
 
-  @media only screen and (max-width: 320px) {
-  }
+  @media only screen and (max-width: 320px) {}
 
   /* default styles here for older browsers. 
        I tend to go for a 600px - 960px width max but using percentages
@@ -395,18 +351,23 @@ export default {
   @media only screen and (min-width: 960px) {
     /* styles for browsers larger than 960px; */
   }
+
   @media only screen and (min-width: 1440px) {
     /* styles for browsers larger than 1440px; */
   }
+
   @media only screen and (min-width: 2000px) {
     /* for sumo sized (mac) screens */
   }
+
   @media only screen and (max-device-width: 480px) {
     /* styles for mobile browsers smaller than 480px; (iPhone) */
   }
+
   @media only screen and (device-width: 768px) {
     /* default iPad screens */
   }
+
   /* different techniques for iPad screening */
   @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
     /* For portrait layouts only */
@@ -633,6 +594,7 @@ export default {
   body {
     background-color: #ffffff;
   }
+
   .data-holder {
     width: 100%;
     margin: auto;
@@ -647,6 +609,7 @@ export default {
 .readed {
   background: #f4f4f4 !important;
 }
+
 .unreaded {
   background: #8bc34a !important;
 }
