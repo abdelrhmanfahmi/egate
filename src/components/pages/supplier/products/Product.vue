@@ -226,4 +226,7 @@ export default {
 .is_favorite {
   background: #ed2124 !important;
 }
+.Product-Image{
+  cursor: pointer;
+}
 </style>
