@@ -5,27 +5,22 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img
-              src="@/assets/images/logo.png"
-              class="img-fluid"
-              alt="logo"
-              @click="goToHome()"
-            />
+            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
-                $t("home.home")
+              $t("home.home")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/suppliers">{{
-                $t("home.suppliers")
+              $t("home.suppliers")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/about">{{
-                $t("home.about")
+              $t("home.about")
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
@@ -41,7 +36,7 @@
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                      $t("home.buyer")
+                    $t("home.buyer")
                     }}</router-link>
                   </li>
                 </ul>
@@ -49,7 +44,7 @@
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
-                $t("home.contactUs")
+              $t("home.contactUs")
               }}</router-link>
             </li>
           </ul>
@@ -60,10 +55,7 @@
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
             <b-button v-b-modal.modal-1 class="icon-search" size="md">
-              <font-awesome-icon
-                v-b-toggle.sidebar-1
-                icon="fa-solid fa-search"
-              />
+              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
             <b-modal id="modal-1" class="search">
               <!-- Using slots -->
@@ -71,16 +63,12 @@
                 <template #append>
                   <b-input-group-text>
                     <strong @click="search" class="search-eye">
-                      <font-awesome-icon
-                        v-b-toggle.sidebar-1
-                        icon="fa-solid fa-search" /></strong
-                  ></b-input-group-text>
+                      <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+                    </strong>
+                  </b-input-group-text>
                 </template>
                 <b-form @submit.prevent="search">
-                  <b-form-input
-                    :placeholder="$t('cart.search')"
-                    v-model="keyword"
-                  ></b-form-input>
+                  <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
                 </b-form>
               </b-input-group>
             </b-modal>
@@ -98,7 +86,8 @@
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-bell" />
             </span>
-            <span class="cartLength" v-if="notificationsLength > 0"> {{notificationsLength > 0 ? notificationsLength : 0}} </span>
+            <span class="cartLength" v-if="notificationsLength > 0"> {{notificationsLength > 0 ? notificationsLength :
+            0}} </span>
             <Notify class="notify-body" :notifications="notifications" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
@@ -144,11 +133,9 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item
-                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
-                >
+                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
                   <router-link to="/profile/categories">{{
-                    $t("profile.myProfile")
+                  $t("profile.myProfile")
                   }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
@@ -165,24 +152,12 @@
 
         <!--Start Mbile Nav -->
         <div class="icon" v-if="mobile">
-          <font-awesome-icon
-            v-b-toggle.sidebar-1
-            @click="toggleMobileNav"
-            icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }"
-          />
+          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }" />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar
-            :right="getDir === 'rtl'"
-            v-if="mobileNav"
-            @hidden="closeSideBar"
-            id="sidebar-1"
-            backdrop
-            width="300px"
-            shadow
-            z-index="3"
-          >
+          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
+            width="300px" shadow z-index="3">
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -226,7 +201,9 @@ export default {
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
     this.getCartProducts();
-    this.getWishlistProducts();
+    if(this.buyerUserData){
+      this.getWishlistProducts();
+    }
   },
   methods: {
     closeSideBar() {
@@ -323,6 +300,7 @@ export default {
   right: 0;
   z-index: 999;
   background: #fff;
+
   nav {
     align-items: center;
     font-size: 14px;
@@ -333,14 +311,17 @@ export default {
     padding-top: 12px;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
+
     .cart {
       padding: 0 1rem;
       position: relative;
+
       .cart-icon {
         color: #000000;
         font-size: 12pt;
         cursor: pointer;
       }
+
       .cart-body {
         right: 0;
         background: #fff;
@@ -355,6 +336,7 @@ export default {
         transform: translateY(10px);
         width: 23rem;
       }
+
       &:hover {
         .cart-body {
           opacity: 1;
@@ -364,18 +346,22 @@ export default {
         }
       }
     }
+
     .branding {
       text-align: center;
+
       img {
         width: 100px;
         padding: 11px 12px 13px 5px;
         cursor: pointer;
       }
     }
+
     ul li {
       text-transform: uppercase;
       padding: 10px;
       position: relative;
+
       .link {
         text-decoration: none;
         transition: 0.5s all ease-in-out;
@@ -384,6 +370,7 @@ export default {
         color: $text-color;
         font-weight: 700;
         font-size: 16px;
+
         &::before {
           content: "";
           position: absolute;
@@ -399,30 +386,37 @@ export default {
           width: 0%;
         }
       }
+
       &:hover {
         .link::before {
           width: 70%;
         }
       }
     }
+
     .navigation {
       display: flex;
       align-items: center;
     }
+
     .right-side {
       align-items: center;
+
       .login {
         padding: 0 0 0 15px;
         text-align: center;
       }
+
       .search-icon {
         .modal-header {
           display: none;
         }
+
         .icon-search {
           color: #212529;
           background-color: transparent;
           border-color: transparent;
+
           &:focus {
             box-shadow: 0 0 0 0;
           }
@@ -434,7 +428,9 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-    .cart-body , .notify-body {
+
+    .cart-body,
+    .notify-body {
       right: auto;
       left: 0;
     }
@@ -448,6 +444,7 @@ html:lang(ar) {
   top: 0;
   height: 100%;
   right: 24px;
+
   svg {
     cursor: pointer;
     transition: 0.8s all ease-in-out;
@@ -458,6 +455,7 @@ html:lang(ar) {
     transform: rotate(180deg);
   }
 }
+
 .cartLength {
   position: absolute;
   top: -11px;
@@ -473,18 +471,21 @@ html:lang(ar) {
   font-weight: bold;
   padding: 0px 4px;
 }
+
 .ar {
   .icon {
     left: 24px;
     right: auto;
   }
 }
+
 .search-eye {
   cursor: pointer;
 }
 
 .notify-holder {
   transition: all 0.3s ease-in-out;
+
   &:hover {
     .notifications {
       visibility: visible;

@@ -12,17 +12,8 @@
       <router-view class="view"></router-view>
     </transition>
     <div class="top-btn" @click="goTop" v-if="visible">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#4a5568"
-        stroke-width="1"
-        stroke-linecap="square"
-        stroke-linejoin="arcs"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4a5568"
+        stroke-width="1" stroke-linecap="square" stroke-linejoin="arcs">
         <path d="M18 15l-6-6-6 6" />
       </svg>
     </div>
@@ -37,7 +28,6 @@ import Footer from "@/components/layouts/footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-
 
 export default {
   components: {
@@ -119,14 +109,12 @@ export default {
         }
       });
     },
-   
   },
   data() {
     return {
       scTimer: 0,
       scY: 0,
       visible: false,
-      
     };
   },
   mounted() {
@@ -138,21 +126,25 @@ export default {
       // console.log("forground", payload);
       const { data } = payload;
       this.notifyMe(data);
-      this.$store.dispatch("getNotifications");
+
+      if (this.buyerUserData) {
+        this.$store.dispatch("getNotifications");
+      }
     });
 
     // if (this.newsletterShow) {
-    
 
-    
-
-    if(this.buyerUserData.is_verified){
-      localStorage.removeItem('massege')
+    if (this.buyerUserData.is_verified) {
+      localStorage.removeItem("massege");
     }
   },
   created() {
     this.$store.dispatch("generateFirebaseToken");
-    this.$store.dispatch("getNotifications");
+    
+
+    if (this.buyerUserData) {
+      this.$store.dispatch("getNotifications");
+      }
   },
 };
 </script>
@@ -160,14 +152,20 @@ export default {
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
+
 .slide-fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
+
+.slide-fade-enter,
+.slide-fade-leave-to
+
+/* .slide-fade-leave-active below version 2.1.8 */
+  {
   transform: translateX(10px);
   opacity: 0;
 }
+
 .top-btn {
   position: fixed;
   right: 110px;
@@ -183,6 +181,7 @@ export default {
   border: 1px solid #d4d5d8;
   z-index: 999999;
 }
+
 .view {
   min-height: 50vh;
 }
