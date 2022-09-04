@@ -479,7 +479,9 @@ export default {
     },
   },
   mounted() {
-    this.getWishlistProducts();
+    if(this.buyerUserData){
+      this.getWishlistProducts();
+    }
   },
 };
 </script>
