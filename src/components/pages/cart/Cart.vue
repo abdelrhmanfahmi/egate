@@ -684,7 +684,7 @@
               <div class="container">
                 <div class="content">
                   <div class="row payment-data">
-                    <div class="col-12 col-lg-7 col-xl-8 payment-delivery">
+                    <div class="col-12 payment-delivery">
                       <div
                         class="d-flex justify-content-between heading align-items-center mb-4"
                       >
@@ -836,184 +836,6 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-12 col-lg-5 col-xl-4 payment-method">
-                      <div class="heading mb-4">
-                        <span class="title">{{
-                          $t("payment.paymentData")
-                        }}</span>
-                      </div>
-                      <div class="methods-data">
-                        <div class="methods">
-                          <div
-                            class="method"
-                            v-if="
-                              buyerUserData &&
-                              walletData >= totalPaymentReplacement
-                            "
-                          >
-                            <div
-                              class="custom-control custom-radio custom-control-inline"
-                            >
-                              <input
-                                type="radio"
-                                id="paymentMethod0"
-                                name="paymentMethod"
-                                class="custom-control-input"
-                                v-model="paymentFormData.payment_type"
-                                value="wallet"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="paymentMethod0"
-                              >
-                                {{ $t("profile.wallet") }}
-                                <sup>*</sup>
-                              </label>
-                              <span>{{ walletData }} {{ currency }}</span>
-                            </div>
-                          </div>
-                          <div class="method" v-if="buyerUserData">
-                            <div
-                              class="custom-control custom-radio custom-control-inline"
-                            >
-                              <input
-                                type="radio"
-                                id="paymentMethod1"
-                                name="paymentMethod"
-                                class="custom-control-input"
-                                v-model="paymentFormData.payment_type"
-                                value="bank"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="paymentMethod1"
-                              >
-                                {{ $t("payment.bankTransfer") }}
-                                <sup>*</sup>
-                              </label>
-                              <span>{{ $t("payment.paymentByBank") }}</span>
-                            </div>
-                          </div>
-                          <div class="method">
-                            <div
-                              class="custom-control custom-radio custom-control-inline"
-                            >
-                              <input
-                                type="radio"
-                                id="paymentMethod2"
-                                name="paymentMethod"
-                                class="custom-control-input"
-                                v-model="paymentFormData.payment_type"
-                                value="cach"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="paymentMethod2"
-                              >
-                                {{ $t("payment.paymentWhenReceiving") }}
-                                <sup>*</sup>
-                              </label>
-                              <span>{{ $t("payment.requestReceipt") }}</span>
-                            </div>
-                          </div>
-                          <div
-                            class="method row justify-content-between align-content-center"
-                          >
-                            <div class="col-md-8 col-xs-12">
-                              <div
-                                class="custom-control custom-radio custom-control-inline"
-                              >
-                                <input
-                                  type="radio"
-                                  id="paymentMethod3"
-                                  name="paymentMethod"
-                                  class="custom-control-input"
-                                  v-model="paymentFormData.payment_type"
-                                  value="visa"
-                                />
-                                <label
-                                  class="custom-control-label"
-                                  for="paymentMethod3"
-                                >
-                                  {{ $t("payment.onlinePayment") }}
-                                  <sup>*</sup>
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-md-4 col-xs-12">
-                              <div class="online-media">
-                                <img
-                                  src="@/assets/images/cart.png"
-                                  alt=""
-                                  srcset=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="error text-center"
-                          v-for="(error, index) in errors.payment_type"
-                          :key="index"
-                        >
-                          {{ error }}
-                        </div>
-
-                        <b-form-checkbox
-                          v-model="paymentFormData.accept_terms"
-                          class="terms my-4 d-inline-block"
-                        >
-                          <span>
-                            {{ $t("payment.accept") }}
-                          </span>
-                        </b-form-checkbox>
-
-                        <a
-                          v-b-modal.terms&condation
-                          @click="$bvModal.show('modal-scoped')"
-                          class="text-decoration-underline"
-                        >
-                          {{ $t("payment.termsAndConditions") }}</a
-                        >
-                        <b-modal
-                          size="lg"
-                          id="modal-scoped"
-                          :title="condations.title"
-                        >
-                          <p v-html="condations.description">
-                            {{ condations.description }}
-                          </p>
-                          <template #modal-footer="{ ok }">
-                            <b-button
-                              size="sm"
-                              variant="outline-success"
-                              @click="
-                                ok();
-                                acceptMyTerms();
-                              "
-                            >
-                              <h6 class="m-0">
-                                <span class="mx-1">{{
-                                  $t("payment.accept")
-                                }}</span>
-                                <span class="mx-1">{{
-                                  $t("payment.termsAndConditions")
-                                }}</span>
-                              </h6>
-                            </b-button>
-                          </template>
-                        </b-modal>
-                        <sup>*</sup>
-
-                        <div
-                          class="error text-center"
-                          v-for="(error, index) in errors.accept_terms"
-                          :key="index"
-                        >
-                          {{ error }}
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1021,90 +843,290 @@
           </div>
           <div class="cart w-100">
             <div class="cart-detail p-4">
-              <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
-              <div class="data">
-                <table class="w-100">
-                  <tbody>
-                    <tr>
-                      <th>{{ $t("profile.subTotal") }}</th>
-                      <td v-if="cart_sub_total">
-                        {{ cart_sub_total | fixedCurrency }} {{ currency }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>{{ $t("cart.discount") }}</th>
-                      <td v-if="totalDiscount !== null && cart_sub_total">
-                        {{ totalDiscountReplacement | fixedCurrency }}
-                        {{ currency }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>{{ $t("cart.deleiveryFees") }}</th>
-                      <td v-if="shippingCartFee !== null">
-                        {{ shippingCartFee | fixedCurrency }} {{ currency }}
-                      </td>
-                    </tr>
+              <div class="row">
+                <div class="col-md-7 col-sm-12 my-2">
+                  <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
+                  <div class="data">
+                    <table class="w-100">
+                      <tbody>
+                        <tr>
+                          <th>{{ $t("profile.subTotal") }}</th>
+                          <td v-if="cart_sub_total" :class="{'float-right':$i18n.locale =='en' ,'float-left':$i18n.locale =='ar' }">
+                            {{ cart_sub_total | fixedCurrency }} {{ currency }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>{{ $t("cart.discount") }}</th>
+                          <td v-if="totalDiscount !== null && cart_sub_total" :class="{'float-right':$i18n.locale =='en' ,'float-left':$i18n.locale =='ar' }">
+                            {{ totalDiscountReplacement | fixedCurrency }}
+                            {{ currency }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>{{ $t("cart.deleiveryFees") }}</th>
+                          <td v-if="shippingCartFee !== null" :class="{'float-right':$i18n.locale =='en' ,'float-left':$i18n.locale =='ar' }">
+                            {{ shippingCartFee | fixedCurrency }} {{ currency }}
+                          </td>
+                        </tr>
 
-                    <tr>
-                      <th>{{ $t("cart.total") }}</th>
-                      <td v-if="totalPayment">
-                        {{ totalPaymentReplacement | fixedCurrency }}
-                        {{ currency }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div class="checkout d-flex">
-                  <div class="submit" v-if="buyerUserData">
-                    <b-button
-                      type="submit"
-                      class="login-button dark"
-                      disabled
-                      v-if="checkoutSubmitted"
-                    >
-                      {{ $t("payment.checkout") }} ...
-                      <span
-                        ><b-spinner label="Spinning" small></b-spinner
-                      ></span>
-                    </b-button>
+                        <tr>
+                          <th>{{ $t("cart.total") }}</th>
+                          <td v-if="totalPayment" :class="{'float-right':$i18n.locale =='en' ,'float-left':$i18n.locale =='ar' }">
+                            {{ totalPaymentReplacement | fixedCurrency }}
+                            {{ currency }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="checkout d-flex">
+                      <div class="submit" v-if="buyerUserData">
+                        <b-button
+                          type="submit"
+                          class="login-button dark"
+                          disabled
+                          v-if="checkoutSubmitted"
+                        >
+                          {{ $t("payment.checkout") }} ...
+                          <span
+                            ><b-spinner label="Spinning" small></b-spinner
+                          ></span>
+                        </b-button>
 
-                    <b-button
-                      type="submit"
-                      class="login-button dark"
-                      @click="payment"
-                      v-else
-                    >
-                      {{ $t("payment.checkout") }}
-                    </b-button>
-                  </div>
-                  <div class="submit" v-else>
-                    <b-button
-                      type="submit"
-                      class="login-button dark"
-                      disabled
-                      v-if="checkoutSubmitted"
-                    >
-                      {{ $t("payment.checkout") }} ...
-                      <span
-                        ><b-spinner label="Spinning" small></b-spinner
-                      ></span>
-                    </b-button>
+                        <b-button
+                          type="submit"
+                          class="login-button dark"
+                          @click="payment"
+                          v-else
+                        >
+                          {{ $t("payment.checkout") }}
+                        </b-button>
+                      </div>
+                      <div class="submit" v-else>
+                        <b-button
+                          type="submit"
+                          class="login-button dark"
+                          disabled
+                          v-if="checkoutSubmitted"
+                        >
+                          {{ $t("payment.checkout") }} ...
+                          <span
+                            ><b-spinner label="Spinning" small></b-spinner
+                          ></span>
+                        </b-button>
 
-                    <b-button
-                      type="submit"
-                      class="login-button dark"
-                      @click="guestPayment"
-                      v-else
-                    >
-                      {{ $t("payment.checkout") }}
-                    </b-button>
-                  </div>
+                        <b-button
+                          type="submit"
+                          class="login-button dark"
+                          @click="guestPayment"
+                          v-else
+                        >
+                          {{ $t("payment.checkout") }}
+                        </b-button>
+                      </div>
 
-                  <transition name="modal">
-                    <div class="modal-mask" v-if="showModal">
-                      <login-modal @close="closeModal" />
+                      <transition name="modal">
+                        <div class="modal-mask" v-if="showModal">
+                          <login-modal @close="closeModal" />
+                        </div>
+                      </transition>
                     </div>
-                  </transition>
+                  </div>
+                </div>
+                <div class="col-md-5 col-sm-12 my-2">
+                  <div class="payment w-100">
+                    <div class="payment">
+                      <div class="container">
+                        <div class="content">
+                          <div class="row payment-data">
+                            <div class="col-12 payment-method">
+                              <div class="heading mb-3">
+                                <span class="title">{{
+                                  $t("payment.paymentData")
+                                }}</span>
+                              </div>
+                              <div class="methods-data">
+                                <div class="methods">
+                                  <div
+                                    class="method"
+                                    v-if="
+                                      buyerUserData &&
+                                      walletData >= totalPaymentReplacement
+                                    "
+                                  >
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod0"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="wallet"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod0"
+                                      >
+                                        {{ $t("profile.wallet") }}
+                                        <sup>*</sup>
+                                      </label>
+                                      <span
+                                        >{{ walletData }} {{ currency }}</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div class="method" v-if="buyerUserData">
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod1"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="bank"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod1"
+                                      >
+                                        {{ $t("payment.bankTransfer") }}
+                                        <sup>*</sup>
+                                      </label>
+                                      <span>{{
+                                        $t("payment.paymentByBank")
+                                      }}</span>
+                                    </div>
+                                  </div>
+                                  <div class="method">
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod2"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="cach"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod2"
+                                      >
+                                        {{ $t("payment.paymentWhenReceiving") }}
+                                        <sup>*</sup>
+                                      </label>
+                                      <span>{{
+                                        $t("payment.requestReceipt")
+                                      }}</span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="method row justify-content-between align-content-center"
+                                  >
+                                    <div class="col-md-8 col-xs-12">
+                                      <div
+                                        class="custom-control custom-radio custom-control-inline"
+                                      >
+                                        <input
+                                          type="radio"
+                                          id="paymentMethod3"
+                                          name="paymentMethod"
+                                          class="custom-control-input"
+                                          v-model="paymentFormData.payment_type"
+                                          value="visa"
+                                        />
+                                        <label
+                                          class="custom-control-label"
+                                          for="paymentMethod3"
+                                        >
+                                          {{ $t("payment.onlinePayment") }}
+                                          <sup>*</sup>
+                                        </label>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                      <div class="online-media">
+                                        <img
+                                          src="@/assets/images/cart.png"
+                                          alt=""
+                                          srcset=""
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="error text-center"
+                                  v-for="(error, index) in errors.payment_type"
+                                  :key="index"
+                                >
+                                  {{ error }}
+                                </div>
+
+                                <b-form-checkbox
+                                  v-model="paymentFormData.accept_terms"
+                                  class="terms my-4 d-inline-block"
+                                >
+                                  <span>
+                                    {{ $t("payment.accept") }}
+                                  </span>
+                                </b-form-checkbox>
+
+                                <a
+                                  v-b-modal.terms&condation
+                                  @click="$bvModal.show('modal-scoped')"
+                                  class="text-decoration-underline"
+                                >
+                                  {{ $t("payment.termsAndConditions") }}</a
+                                >
+                                <b-modal
+                                  size="lg"
+                                  id="modal-scoped"
+                                  :title="condations.title"
+                                >
+                                  <p v-html="condations.description">
+                                    {{ condations.description }}
+                                  </p>
+                                  <template #modal-footer="{ ok }">
+                                    <b-button
+                                      size="sm"
+                                      variant="outline-success"
+                                      @click="
+                                        ok();
+                                        acceptMyTerms();
+                                      "
+                                    >
+                                      <h6 class="m-0">
+                                        <span class="mx-1">{{
+                                          $t("payment.accept")
+                                        }}</span>
+                                        <span class="mx-1">{{
+                                          $t("payment.termsAndConditions")
+                                        }}</span>
+                                      </h6>
+                                    </b-button>
+                                  </template>
+                                </b-modal>
+                                <sup>*</sup>
+
+                                <div
+                                  class="error text-center"
+                                  v-for="(error, index) in errors.accept_terms"
+                                  :key="index"
+                                >
+                                  {{ error }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2053,8 +2075,7 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          if(err.response.status !== 422){
-            
+          if (err.response.status !== 422) {
             this.errMsg(err.message);
           }
         });
@@ -2077,8 +2098,7 @@ export default {
           console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
-          if(err.response.status !== 422){
-            
+          if (err.response.status !== 422) {
             this.errMsg(err.message);
           }
         });
@@ -2124,10 +2144,11 @@ export default {
 
       // make sure address_uuid will not undefined
 
-      if (this.paymentFormData.address_uuid == "undefined" || 
-      this.paymentFormData.address_uuid == "null" || 
-      this.paymentFormData.address_uuid == null ||
-      !localStorage.getItem("globalAddressUUID")
+      if (
+        this.paymentFormData.address_uuid == "undefined" ||
+        this.paymentFormData.address_uuid == "null" ||
+        this.paymentFormData.address_uuid == null ||
+        !localStorage.getItem("globalAddressUUID")
       ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
@@ -2389,5 +2410,8 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
+}
+.float-right , .float-left{
+  line-height:57px
 }
 </style>

@@ -1,23 +1,22 @@
 <template>
   <div class="article" v-if="supplier && supplierMSite">
-    <div class="" v-if="supplierMSite">
+    <!-- <div class="" v-if="supplierMSite">
       <img
         :src="supplierMSite.banner_path"
         alt="Article Image"
         v-if="supplierMSite.banner_path"
       />
-    </div>
-    <p
+    </div> -->
+    <p v-html="supplierMSite.short_description_en"
       v-if="supplierMSite.short_description_en && $i18n.locale == 'en'"
       class="my-5 "
     >
-      {{ supplierMSite.short_description_en }}
+      
     </p>
-    <p
+    <p v-html="supplierMSite.short_description_ar"
       v-if="supplierMSite.short_description_ar && $i18n.locale == 'ar'"
       class="mt-2"
     >
-      {{ supplierMSite.short_description_ar }}
     </p>
 
     <div
@@ -27,11 +26,11 @@
       <h3>
         {{ $t("supplier.return_policy") }}
       </h3>
-      <p v-if="supplierMSite.return_policy_en && $i18n.locale == 'en'">
-        {{ supplierMSite.return_policy_en }}
+      <p v-html="supplierMSite.return_policy_en" v-if="supplierMSite.return_policy_en && $i18n.locale == 'en'">
+        
       </p>
-      <p v-if="supplierMSite.return_policy_ar && $i18n.locale == 'ar'">
-        {{ supplierMSite.return_policy_ar }}
+      <p v-html="supplierMSite.return_policy_ar" v-if="supplierMSite.return_policy_ar && $i18n.locale == 'ar'">
+        
       </p>
     </div>
     <div
