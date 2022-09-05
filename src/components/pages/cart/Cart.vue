@@ -156,17 +156,17 @@
                           $t("profile.streetNumber")
                         }}</label> -->
                                     <!-- <span class="requried">*</span> -->
-                                    <b-form-input id="streetNumber" v-model="form.address_line_one" :placeholder="
+                                    <b-form-input id="streetNumber" v-model="form.address_line_1" :placeholder="
                                       $t('contactUs.address') + '*'
                                     " />
                                     <div class="error" v-for="(
                                         error, index
-                                      ) in errors.address_line_one" :key="index">
+                                      ) in errors.address_line_1" :key="index">
                                       {{ error }}
                                     </div>
                                     <div class="error" v-if="
                                       localClicked &&
-                                      form.address_line_one == null
+                                      form.address_line_1 == null
                                     ">
                                       {{ $t("payment.AddressRequired") }}
                                     </div>
@@ -796,7 +796,7 @@ export default {
         pin_code: "",
         notes: null,
         // address_uuid: null,
-        address_line_one: null,
+        address_line_1: null,
       },
       newForm: {
         country_id: null,
@@ -807,7 +807,7 @@ export default {
         apartment: null,
         pin_code: null,
         notes: null,
-        address_line_one: null,
+        address_line_1: null,
       },
       countries: [],
       cities: [],
@@ -1389,7 +1389,7 @@ export default {
         this.form.country_id !== null &&
         this.form.region_id !== null &&
         this.form.city_id !== null &&
-        this.form.address_line_one !== null
+        this.form.address_line_1 !== null
       ) {
         this.sucessMsg(this.$t("cart.success"));
         this.submitted = true;
@@ -1682,8 +1682,8 @@ export default {
         country: this.form.country_id,
         governorate: this.form.region_id,
         city: this.form.city_id,
-        // address_line_one: this.form.address_line_one,
-        address_line_1: this.form.address_line_one,
+        // address_line_1: this.form.address_line_1,
+        address_line_1: this.form.address_line_1,
       };
       suppliers
         .getGuestFirstShippingFees(data)
@@ -1819,7 +1819,7 @@ export default {
         floor: this.form.floor,
         apartment: this.form.apartment,
         pin_code: this.form.pin_code,
-        address_line_one: this.form.address_line_one,
+        address_line_1: this.form.address_line_1,
         notes: this.paymentFormData.comment,
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
