@@ -1340,7 +1340,7 @@ export default {
                 existingAddresses.checked = true;
               }
             }
-          }, 1000);
+          }, 700);
         }
       });
 
