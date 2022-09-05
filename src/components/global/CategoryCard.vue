@@ -71,7 +71,7 @@ export default {
     font-size: 19px;
     background: #ed2124;
 
-    @media(min-width:767px) and (max-width:1340px) {
+    @media(min-width:767px) and (max-width:1450px) {
       font-size: 14px;
     }
   }
