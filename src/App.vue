@@ -68,12 +68,21 @@ export default {
 
 <style lang="scss">
 /* width */
-::-webkit-scrollbar {
+::-webkit-scrollbar{
+  width: 5px;
+}
+
+::-moz-scrollbar {
   width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
+  box-shadow: transparent;
+  border-radius: 10px;
+}
+
+::-moz-scrollbar-track {
   box-shadow: transparent;
   border-radius: 10px;
 }
@@ -84,8 +93,17 @@ export default {
   border-radius: 10px;
 }
 
+::-moz-scrollbar-thumb {
+  background: #262626;
+  border-radius: 10px;
+}
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
+}
+
+::-moz-scrollbar-thumb:hover {
   background: #b30000;
 }
 </style>
