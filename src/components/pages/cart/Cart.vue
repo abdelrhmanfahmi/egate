@@ -1792,6 +1792,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
+              location.reload()
             }, 500);
           } else {
             // console.log(res.data);
@@ -1809,6 +1810,7 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
+                location.reload()
               }, 500);
             }
           }
@@ -1867,6 +1869,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
+              location.reload()
             }, 500);
           } else {
             // console.log(res.data);
@@ -1884,10 +1887,12 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
+                location.reload()
               }, 500);
             } else {
               setTimeout(() => {
                 this.$router.push("/success-checkout");
+                location.reload()
               }, 500);
             }
           }
