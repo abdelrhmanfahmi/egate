@@ -201,7 +201,7 @@ export default {
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
     this.getCartProducts();
-    if(this.buyerUserData){
+    if (this.buyerUserData) {
       this.getWishlistProducts();
     }
   },
@@ -249,9 +249,9 @@ export default {
     loginNow() {
       document.$refs["b2cLogin"].show();
       document.querySelector(".login").click();
-      if (document.querySelector(".login")) {
-        alert("exist");
-      }
+      // if (document.querySelector(".login")) {
+      //   alert("exist");
+      // }
       this.$router.push({
         path: this.$router.path,
         query: { force_login: "false" },
@@ -265,10 +265,10 @@ export default {
     cartLength() {
       return this.$store.state.cart.cartLength;
     },
-    notifications(){
+    notifications() {
       return this.$store.state.notifications
     },
-    notificationsLength(){
+    notificationsLength() {
       return this.$store.state.notificationsLength
     },
   },

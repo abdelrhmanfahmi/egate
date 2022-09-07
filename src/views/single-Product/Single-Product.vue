@@ -1,13 +1,25 @@
 <template>
   <div class="container">
     <div class="" v-if="myProduct !== null && !notFound">
+      <div class="product-info">
+        <div class="content">
+
+
+          <nav aria-label="breadcrumb d-flex">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item" v-for="type in myProduct.product.categories" :key="type.id">{{ type.title }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
       <b-row align-h="center" class="mt-5">
-        <b-col cols="12" lg="6" xl="4">
-          <ProductInfo :myProduct="myProduct"></ProductInfo>
-        </b-col>
-        <b-col cols="12" lg="6">
+        <b-col cols="12" md="4" class="slider">
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
+        <b-col cols="12" md="8" class="product-info">
+          <ProductInfo :myProduct="myProduct"></ProductInfo>
+        </b-col>
+
       </b-row>
       <div class="humhum-tabs">
         <b-tabs content-class="mt-3">
@@ -15,7 +27,7 @@
             <Specs :myProduct="myProduct" v-if="myProduct"></Specs>
           </b-tab>
           <b-tab :title="$t('singleProduct.ratingHeader')">
-          <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
+            <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
             <Rating :myProduct="myProduct" v-if="myProduct"></Rating>
           </b-tab>
         </b-tabs>
@@ -38,18 +50,11 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img
-          src="@/assets/images/Loader.gif"
-          class="loading-img w-25"
-          alt="loading"
-        />
+        <img src="@/assets/images/Loader.gif" class="loading-img w-25" alt="loading" />
       </div>
     </div>
-    <div
-      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
-      v-if="notFound"
-    >
-      <img src="@/assets/images/New-Project.png" alt="product-not-found" />
+    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
+      -not-found" />
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
@@ -103,9 +108,9 @@ export default {
             breakpoint: 1191,
             settings: {
               slidesToShow: 3,
-              slidesToScroll: 3 ,
+              slidesToScroll: 3,
               arrows: false,
-              dots:false
+              dots: false
             },
           },
           {
@@ -114,7 +119,7 @@ export default {
               slidesToShow: 2,
               slidesToScroll: 2,
               arrows: false,
-              dots:false
+              dots: false
             },
           },
           {
@@ -123,7 +128,7 @@ export default {
               slidesToShow: 1,
               slidesToScroll: 1,
               arrows: false,
-              dots:false
+              dots: false
             },
           },
         ],
@@ -180,14 +185,34 @@ export default {
 .humhum-tabs {
   padding: 4rem;
   margin: 3rem 0;
+
   @media (max-width: 992px) {
     padding: 0;
   }
 }
+
 .notFound {
   min-height: 70vh;
 }
-.slick-slide{
+
+.slick-slide {
   padding: 0 2px;
+}
+
+@media(max-width:992px) {
+  .product-info {
+    order: 2
+  }
+
+  .slider {
+    order: 1
+  }
+}
+.breadcrumb{
+  font-size: 20px;
+  margin: 20px 0;
+  // li:last-of-type{
+  //   color: #ccc;
+  // }
 }
 </style>
