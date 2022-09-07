@@ -1,58 +1,26 @@
 <template>
   <div class="user-login">
-    <b-sidebar
-      id="login"
-      backdrop
-      width="450px"
-      :right="getDir === 'rtl'"
-      shadow
-      z-index="5"
-      body-class="sidebar-login"
-      bg-variant="#fff"
-    >
+    <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5" body-class="sidebar-login"
+      bg-variant="#fff">
       <template #default="{ hide }">
         <div class="user-login-form">
           <h6 class="title">{{ $t("login.login") }}</h6>
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
           <form @submit.prevent="loginB2c()">
-            <b-form-input
-              v-model="form.email"
-              type="email"
-              :placeholder="$t('register.email')"
-            />
-            <div
-              class="error text-start"
-              v-for="(error, index) in errorsLogin.email"
-              :key="index"
-            >
+            <b-form-input v-model="form.email" type="email" :placeholder="$t('register.email')" />
+            <div class="error text-start" v-for="(error, index) in errorsLogin.email" :key="index">
               {{ error }}
             </div>
             <div class="show-password">
-              <b-form-input
-                class="my-2"
-                v-model="form.password"
-                :type="fieldType"
-                :placeholder="$t('register.password')"
-              />
-              <div
-                class="error text-start"
-                v-for="(error, index) in errorsLogin.password"
-                :key="index"
-              >
+              <b-form-input class="my-2" v-model="form.password" :type="fieldType"
+                :placeholder="$t('register.password')" />
+              <div class="error text-start" v-for="(error, index) in errorsLogin.password" :key="index">
                 {{ error }}
               </div>
               <div class="icon-passowrd" @click="switchField()">
-                <font-awesome-icon
-                  icon="fa-solid fa-eye"
-                  v-if="fieldType === 'password'"
-                  size="lg"
-                />
-                <font-awesome-icon
-                  icon="fa-solid fa-eye-slash"
-                  v-else
-                  size="lg"
-                />
+                <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
               </div>
             </div>
 
@@ -67,9 +35,7 @@
         <!-- social login -->
         <div class="social-login">
           <p>{{ $t("login.LoginSocial") }}</p>
-          <div
-            class="social-icons d-flex justify-content-center align-items-center"
-          >
+          <div class="social-icons d-flex justify-content-center align-items-center">
             <button @click="getLink('facebook')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
@@ -94,30 +60,20 @@
         </div>
       </template>
     </b-sidebar>
-    <b-modal
-      id="ForgetPassword"
-      :title="$t('login.resetPassword')"
-      no-close-on-backdrop
-      no-close-on-esc
-      ref="b2cLogin"
-    >
+    <b-modal id="ForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc ref="b2cLogin">
       <form>
         <b-form-group>
           <label for="email">{{ $t("register.email") }}</label>
           <span class="requried">*</span>
           <b-form-input id="email" v-model="emailForget" maxlength="100" />
-          <div
-            class="error"
-            v-for="(error, index) in errors.email"
-            :key="index"
-          >
+          <div class="error" v-for="(error, index) in errors.email" :key="index">
             {{ error }}
           </div>
         </b-form-group>
       </form>
       <div slot="modal-footer" class="d-flex">
         <a @click="sendEmail()" class="reset-Link" type="submit">{{
-          $t("login.reset")
+        $t("login.reset")
         }}</a>
       </div>
     </b-modal>
@@ -146,7 +102,7 @@ export default {
   },
   methods: {
     loginB2c() {
-      localStorage.removeItem("provider");
+      localStorage.clear();
 
       let loginData = {
         email: this.form.email,
@@ -257,9 +213,11 @@ export default {
     border-radius: 4px;
     background-color: rgba(216, 220, 221, 0.251);
     padding: 40px 30px 20px;
+
     .title {
       padding-bottom: 10px;
       position: relative;
+
       &:after {
         margin: 0 auto;
         right: 0;
@@ -272,23 +230,28 @@ export default {
         background: #ed2124;
       }
     }
+
     .forget-password {
       font-weight: 500;
       color: $header-color;
       background-color: transparent;
       border: none;
+
       &:hover {
         color: $main-color;
       }
     }
   }
+
   .social-login {
     padding: 20px 0;
+
     .social-icons {
       display: flex;
       flex-wrap: wrap;
     }
   }
+
   .button-social {
     padding: 20px 30px;
     margin: 0 5px;
@@ -296,30 +259,37 @@ export default {
     border: 0;
     border-radius: 5px;
     margin-bottom: 10px;
+
     &:first-child {
       background-color: #3b5998;
     }
+
     &:nth-child(2) {
       background-color: #c5221f;
     }
+
     &:nth-child(3) {
       background-color: #3b5998;
     }
+
     &:last-child {
       background-color: #c5221f;
     }
   }
 }
+
 .reset-Link {
   color: #ffffff;
   background-color: #ff0e00;
   padding: 0.5rem 1.3rem;
   width: 100%;
 }
+
 .text-start {
   text-align: start;
 }
+
 .apple-login {
-  background: #666666 !important ;
+  background: #666666 !important;
 }
 </style>

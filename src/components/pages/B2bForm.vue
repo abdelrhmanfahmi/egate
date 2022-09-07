@@ -12,9 +12,8 @@
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-login" class="back">
                 <span>
-                  &#60; {{ $t("register.alreadyHaveAccount") }}</span
-                ></router-link
-              >
+                  &#60; {{ $t("register.alreadyHaveAccount") }}</span>
+              </router-link>
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
@@ -35,35 +34,21 @@
                     <div class="row">
                       <div class="col-md-6 col-sm-12">
                         <label for="f-name">{{
-                          $t("register.englishCompanyName")
+                        $t("register.englishCompanyName")
                         }}</label>
                         <span class="requried">*</span>
-                        <b-form-input
-                          id="f-name"
-                          v-model="form.company_name_en"
-                        />
-                        <div
-                          class="error"
-                          v-for="(error, index) in errors.company_name_en"
-                          :key="index"
-                        >
+                        <b-form-input id="f-name" v-model="form.company_name_en" />
+                        <div class="error" v-for="(error, index) in errors.company_name_en" :key="index">
                           {{ error }}
                         </div>
                       </div>
                       <div class="col-md-6 col-sm-12">
                         <label for="f-name">{{
-                          $t("register.arabicCompanyName")
+                        $t("register.arabicCompanyName")
                         }}</label>
                         <span class="requried">*</span>
-                        <b-form-input
-                          id="f-name"
-                          v-model="form.company_name_ar"
-                        />
-                        <div
-                          class="error"
-                          v-for="(error, index) in errors.company_name_ar"
-                          :key="index"
-                        >
+                        <b-form-input id="f-name" v-model="form.company_name_ar" />
+                        <div class="error" v-for="(error, index) in errors.company_name_ar" :key="index">
                           {{ error }}
                         </div>
                       </div>
@@ -77,29 +62,22 @@
                     <!-- <label for="l-name">{{ $t("register.jobTitle") }}</label> -->
                     <span class="requried">*</span>
                     <!-- <b-form-input id="l-name" v-model="form.job_title" /> -->
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.job_title"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.job_title" :key="index">
                       {{ error }}
                     </div>
                     <b-form-select v-model="form.job_title">
                       <b-form-select-option selected disabled value="null">{{
-                        $t("register.selectDept")
+                      $t("register.selectDept")
                       }}</b-form-select-option>
-                      <b-form-select-option
-                        v-for="department in departments"
-                        :key="department.id"
-                        :value="department.id"
-                      >
+                      <b-form-select-option v-for="department in departments" :key="department.id"
+                        :value="department.id">
                         <span v-if="$i18n.locale == 'en'">{{
-                          department.name_en
+                        department.name_en
                         }}</span>
                         <span v-if="$i18n.locale == 'ar'">{{
-                          department.name_ar
-                        }}</span></b-form-select-option
-                      >
+                        department.name_ar
+                        }}</span>
+                      </b-form-select-option>
                     </b-form-select>
                   </b-form-group>
                 </b-col>
@@ -109,11 +87,7 @@
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="email" v-model="form.email" />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.email"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.email" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -124,29 +98,13 @@
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input
-                        id="password"
-                        v-model="form.password"
-                        :type="fieldType"
-                      />
+                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
                       <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
+                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.password"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.password" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -155,33 +113,17 @@
                 <b-col lg="6">
                   <b-form-group>
                     <label for="confirmPassword">{{
-                      $t("register.confirmPassword")
+                    $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input
-                        :type="fieldType"
-                        id="confirmPassword"
-                        v-model="form.password_confirmation"
-                      />
+                      <b-form-input :type="fieldType" id="confirmPassword" v-model="form.password_confirmation" />
                       <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
+                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.password_confirmation"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.password_confirmation" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -190,23 +132,15 @@
                 <b-col lg="3" cols="4">
                   <b-form-group>
                     <label for="countryCode">{{
-                      $t("register.countryCode")
+                    $t("register.countryCode")
                     }}</label>
                     <span class="requried">*</span>
                     <b-form-select v-model="form.country_code">
-                      <b-form-select-option
-                        v-for="country in countries"
-                        :key="country.id"
-                        :value="country.iso"
-                        >{{ country.title }}
-                        {{ country.phone_prefix }}</b-form-select-option
-                      >
+                      <b-form-select-option v-for="country in countries" :key="country.id" :value="country.iso">{{
+                      country.title }}
+                        {{ country.phone_prefix }}</b-form-select-option>
                     </b-form-select>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.country_code"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.country_code" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -216,16 +150,8 @@
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      id="phone"
-                      v-model="form.mobile_number"
-                      type="number"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.mobile_number"
-                      :key="index"
-                    >
+                    <b-form-input id="phone" v-model="form.mobile_number" type="number" />
+                    <div class="error" v-for="(error, index) in errors.mobile_number" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -233,22 +159,15 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox
-                v-model="terms"
-                class="terms my-1 d-inline-block"
-              >
+              <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
                 <span>
                   {{ $t("register.PleaseReview") }}
                 </span>
               </b-form-checkbox>
               <div class="terms d-inline-block">
                 <span>
-                  <a
-                    v-b-modal.terms&condation
-                    @click="$bvModal.show('modal-scoped')"
-                  >
-                    {{ $t("register.termsConditions") }}</a
-                  >
+                  <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
+                    {{ $t("register.termsConditions") }}</a>
                 </span>
                 <span>
                   {{ $t("register.toCompleteTheRegistration") }}
@@ -260,26 +179,19 @@
                   {{ condations.description }}
                 </p>
                 <template #modal-footer="{ ok }">
-                  <b-button
-                    size="sm"
-                    variant="outline-success"
-                    @click="
-                      ok();
-                      acceptMyTerms();
-                    "
-                  >
+                  <b-button size="sm" variant="outline-success" @click="
+                    ok();
+                    acceptMyTerms();
+                  ">
                     <span class="mx-1">{{ $t("payment.accept") }}</span>
                     <span class="mx-1">{{
-                      $t("payment.termsAndConditions")
+                    $t("payment.termsAndConditions")
                     }}</span>
                   </b-button>
                 </template>
               </b-modal>
 
-              <b-form-checkbox
-                v-model="form.register_mailing_list"
-                class="py-3 my-1"
-              >
+              <b-form-checkbox v-model="form.register_mailing_list" class="py-3 my-1">
                 {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
 
@@ -384,6 +296,7 @@ export default {
         });
     },
     register() {
+      localStorage.clear()
       this.form.callback_url = `${this.mainDoamin}otp-verification`;
       auth
         .register("buyer", this.form)
@@ -428,15 +341,18 @@ export default {
     text-align: center;
     padding: 30px 0;
   }
+
   .user-register-form {
     .register-info {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       margin-bottom: 25px;
+
       .back {
         font-weight: 500;
         color: $header-color;
+
         &:hover {
           color: $main-color;
         }
@@ -450,6 +366,7 @@ export default {
         display: inline-block;
       }
     }
+
     .submition-box {
       text-align: center;
       border: 1px solid rgba(204, 204, 204, 0.251);
@@ -457,11 +374,14 @@ export default {
       background-color: rgba(216, 220, 221, 0.251);
       padding: 40px 30px;
     }
+
     .help {
       text-align: center;
+
       .main-header {
         text-transform: uppercase;
       }
+
       .tel {
         background-color: #3b5998;
         padding: 20px;
@@ -472,6 +392,7 @@ export default {
       }
     }
   }
+
   .error {
     color: red;
   }
