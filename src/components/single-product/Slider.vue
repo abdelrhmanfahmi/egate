@@ -1,22 +1,14 @@
 <template>
   <div class="product-slider" v-if="mediaExist">
-    <div class="content d-flex">
-      <div class="main-img mr-2">
+    <div class="content ">
+      <div class="main-img mb-2">
         <img id="main-img" :src="currentImage" v-if="currentImage" />
         <img id="main-img" :src="firstImage" v-else />
       </div>
-      <div class="images d-flex flex-column">
-        <div
-          class="product-img mb-2"
-          v-for="(img, index) in images"
-          :key="index"
-        >
-          <img
-            v-if="img.image_path"
-            :src="img.image_path"
-            @click="changeImage(index)"
-            :class="[index === active ? 'active' : null]"
-          />
+      <div class="images d-flex">
+        <div class="product-img mb-2" v-for="(img, index) in images" :key="index">
+          <img v-if="img.image_path" :src="img.image_path" @click="changeImage(index)"
+            :class="[index === active ? 'active' : null]" />
         </div>
       </div>
     </div>
@@ -57,7 +49,7 @@ export default {
 
           // product.image_path == null && product.product.image_path
           if (res.data.items.images.length !== 0) {
-            this.images = res.data.items.images;
+            this.images = res.data.items.images.slice(0, 6);
             this.firstImage = res.data.items.images[0].image_path;
             this.mediaExist = true;
           }
@@ -104,34 +96,50 @@ export default {
 <style lang="scss" scoped>
 .product-slider {
   color: #000;
+
   .content {
     color: #000;
+
     .images {
       margin-inline-end: 0.5rem;
+
       .product-img {
         color: #000;
+
         img {
-          width: 6rem;
-          height: 6rem;
+          width: 5rem;
+          height: 5rem;
           cursor: pointer;
           border-radius: 0.5rem;
           border: 3px solid #ebebeb;
           transition: all ease-out 0.5s;
+          margin: 0 10px;
 
           &.active {
             border-color: #ff6000;
           }
         }
       }
+
+      @media(max-width:992px) {
+        flex-direction: row !important;
+
+      }
     }
+
     .main-img {
       border-radius: 0.5rem;
+
       img {
         border-radius: 0.5rem;
         width: 35rem;
-        height: 35rem;
+        height: 30rem;
         transition: all ease-out 0.5s;
       }
+    }
+
+    @media(max-width:992px) {
+      display: block !important;
     }
   }
 }
