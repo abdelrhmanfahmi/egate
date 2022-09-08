@@ -36,16 +36,34 @@
       </div>
       <div class="content">
         <b-row align-h="center" align-v="start" class="py-5" v-if="productInfo">
-          <b-col cols="12" lg="6" xl="5" class="item-content">
+          <b-col cols="12" lg="6" xl="5" class="item-content product-info">
             <!-- <a href="#" class="link">{{ $t("items.category") }}</a> -->
             <h5 class="name" v-if="productInfo.title">
               {{ productInfo.title }}
             </h5>
-            <p
-              class="description"
-              v-if="productInfo.description"
-              v-html="productInfo.description"
-            ></p>
+            <div v-if="productInfo.description && !readMore">
+              <p
+                class="description d-inline-block short"
+                v-html="productInfo.description.substr(0, 1000)"
+              ></p>
+              <span class="readBtn"
+                @click="readMore = !readMore"
+                v-if="productInfo.description.length > 1000"
+              >
+                &nbsp; &nbsp; {{ $t("cart.readMore") }} &nbsp; ...</span
+              >
+            </div>
+            <div
+              v-else-if="productInfo.description && readMore"
+            >
+              <p
+                class="description  all"
+                v-html="productInfo.description"
+              ></p>
+              <span @click="readMore = !readMore" class="readBtn">
+                &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
+              >
+            </div>
             <!-- <p class="description">
               {{ $t("items.description") }}
             </p> -->
@@ -70,7 +88,7 @@
                         class="mb-3"
                       >
                         <b-form-select-option selected :value="''">
-                          {{ $t("cart.selectOption") }}
+                          {{ $t("home.All") }}
                         </b-form-select-option>
                         <b-form-select-option
                           v-for="pro in variant.options"
@@ -108,7 +126,7 @@
             cols="12"
             lg="6"
             xl="5"
-            class="item-media mt-3 m-lg-0"
+            class="item-media mt-3 m-lg-0 slider"
             v-if="productInfo.image_path !== null"
           >
             <img
@@ -299,10 +317,14 @@
               <td>
                 <router-link
                   class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  <!-- <router-link
+                  class="link"
                   :to="{
                     path: `/suppliers/${product.product_details_by_type.product_supplier_id}`,
                   }"
-                >
+                > -->
                   {{ product.client.company_name }}
                 </router-link>
               </td>
@@ -331,8 +353,12 @@
                 >
                   <router-link
                     class="link"
-                    :to="{ path: '/suppliers/', query: { id: product.id } }"
+                    :to="{ path: '/details', query: { id: product.id } }"
                   >
+                    <!-- <router-link
+                    class="link"
+                    :to="{ path: '/suppliers/', query: { id: product.id } }"
+                  > -->
                     <p class="m-0">
                       {{
                         product.product_details_by_type.customer_price
@@ -811,6 +837,7 @@ export default {
         { value: "asc", text: this.$t("cart.asc") },
         { value: "desc", text: this.$t("cart.desc") },
       ],
+      readMore: false,
     };
   },
   components: {
@@ -1117,6 +1144,9 @@ export default {
         color: #676565;
         margin-bottom: 1rem;
       }
+      .readBtn {
+        cursor: pointer;
+      }
       .customize {
         color: #000;
         .customize-selection {
@@ -1280,6 +1310,14 @@ export default {
 @media (max-width: 992px) {
   .table {
     width: 800px;
+  }
+
+  .product-info {
+    order: 2;
+  }
+
+  .slider {
+    order: 1;
   }
 }
 </style>

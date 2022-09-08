@@ -35,5 +35,6 @@ export default {
   passwordConfirmation: "Password Confirmation",
   save: "Save",
   department:'Department',
-  selectDept:'Select Department'
+  selectDept:'Select Department',
+  selectPrefixes:'Select Title'
 };

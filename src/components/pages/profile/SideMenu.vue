@@ -3,16 +3,16 @@
     <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
     <ul v-if="!buyerLinks">
-      <li v-for="(link, index) in buyerLinks" :key="index">
-        <router-link :to="link.to">
+      <li v-for="(link, index) in buyerLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
+        <router-link :to="link.to" >
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span></router-link
         >
       </li>
     </ul>
     <ul v-else>
-      <li v-for="(link, index) in socialLinks" :key="index">
-        <router-link :to="link.to">
+      <li v-for="(link, index) in socialLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
+        <router-link :to="link.to" >
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span></router-link
         >
@@ -114,11 +114,11 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-        {
-          to: "/profile/giftCardB2b",
-          name: this.$t("profile.giftCard"),
-          iconName: "gift",
-        },
+        // {
+        //   to: "/profile/giftCardB2b",
+        //   name: this.$t("profile.giftCard"),
+        //   iconName: "gift",
+        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -187,11 +187,11 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-        {
-          to: "/profile/giftCardB2b",
-          name: this.$t("profile.giftCard"),
-          iconName: "gift",
-        },
+        // {
+        //   to: "/profile/giftCardB2b",
+        //   name: this.$t("profile.giftCard"),
+        //   iconName: "gift",
+        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),

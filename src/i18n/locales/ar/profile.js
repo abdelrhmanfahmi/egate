@@ -15,6 +15,7 @@ export default {
   shop: "المتجر",
   shoppingCart: "السلة",
   accountInformation: "معلومات الحساب ",
+  accountInfo: "معلومات الحساب ",
   buyerInformation: "معلومات الحساب ",
   addressInfo: "معلومات العنوان",
   // categories

@@ -14,7 +14,7 @@
       <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
         <div class="form-input mb-4">
           <label for="CommercialLicense">
-            {{ $t("profile.commercialLicense") }} 
+            {{ $t("profile.commercialLicense") }}
             <span class="text-danger">*</span>
           </label>
           <div
@@ -26,7 +26,7 @@
                 <b-form-file
                   size="lg"
                   id="CommercialLicense"
-                  @change="CommercialLicense"
+                  v-model="buissnessinfo.ccl"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
                 ></b-form-file>
@@ -140,7 +140,7 @@
                 <b-form-file
                   id="CommissionerCard"
                   size="lg"
-                  @change="signatureAccreditation"
+                  v-model="buissnessinfo.auth_civil_copy"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
                 ></b-form-file>
@@ -259,7 +259,7 @@
               <b-form-group>
                 <b-form-file
                   size="lg"
-                  @change="commissionerCard"
+                  v-model="buissnessinfo.ccs"
                   id="SignatureAccreditation"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
@@ -368,7 +368,7 @@
               <b-form-group>
                 <b-form-file
                   size="lg"
-                  @change="certificateAdministration"
+                  v-model="buissnessinfo.rmcm"
                   id="certificateAdministration"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
@@ -493,7 +493,7 @@
               <b-form-group>
                 <b-form-file
                   size="lg"
-                  @change="suppDocUploadMoa"
+                  v-model="suppDocUploadInfo.moa"
                   id="establishmentContract"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
@@ -602,7 +602,7 @@
               <b-form-group>
                 <b-form-file
                   size="lg"
-                  @change="suppDocUploadSad"
+                  v-model="suppDocUploadInfo.sad"
                   id="CertificateAdministration"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
@@ -727,7 +727,7 @@
               <b-form-group>
                 <b-form-file
                   size="lg"
-                  @change="bankIbanUpload"
+                  v-model="bankIban.iban"
                   id="LetterAuthorization"
                   :placeholder="$t('profile.filePlaceHolder')"
                   drop-placeholder="Drop file here..."
@@ -1078,6 +1078,7 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.suppData = [];
+            this.getBuissnessinfodata()
             // setTimeout(() => {
             //   location.reload();
             // }, 1000);
@@ -1092,7 +1093,6 @@ export default {
         .finally(() => {
           this.buissnessinfoUploadLoading = false;
           this.btn1Disabled = false;
-          console.log("formData", formData);
         });
     },
 
@@ -1156,7 +1156,9 @@ export default {
         .finally(() => {
           this.suppDataLoading = false;
           this.btn2Disabled = false;
-          location.reload();
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
         });
       console.log(formData);
     },
@@ -1195,11 +1197,11 @@ export default {
         .ibanUpload(formData)
         .then((res) => {
           if (res.status == 200) {
-            this.sucessMsg(res.data.message);
-            this.getibanUploadData();
             // setTimeout(() => {
             //   location.reload();
             // }, 1000);
+            this.sucessMsg(res.data.message);
+            this.getibanUploadData();
           }
         })
         .catch((error) => {
@@ -1213,12 +1215,13 @@ export default {
               window.location.push("/");
             }, 1500);
           }
-          console.log("ibanUpload", err);
         })
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
-          location.reload(); //
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
         });
     },
 
