@@ -34,4 +34,5 @@ export default {
   save: "حفظ",
   department: "القسم",
   selectDept: "اختر القسم",
+  selectPrefixes:'اختر المسمى'
 };

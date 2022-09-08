@@ -16,8 +16,21 @@
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
-                <!-- First Name -->
-                <b-col lg="6">
+                
+                <b-col lg="2" class="">
+                  <label for="f-name">{{ $t("register.selectPrefixes") }}</label>
+
+                    <b-form-select v-model="form.perfix">
+                      <b-form-select-option value="null" disabled
+                        >{{$t('home.All')}}</b-form-select-option
+                      >
+                      <b-form-select-option :value="prefix" v-for="(prefix , index) in prefixes" :key="index"
+                        >{{prefix}}</b-form-select-option
+                      >
+                    </b-form-select>
+                 
+                </b-col>
+                <b-col lg="5">
                   <b-form-group>
                     <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
@@ -32,7 +45,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Last Name -->
-                <b-col lg="6">
+                <b-col lg="5">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.lastName") }}</label>
                     <span class="requried">*</span>
@@ -295,6 +308,7 @@ export default {
         mobile_number: "",
         active_with: "sms",
         register_mailing_list: false,
+        perfix:null
       },
       errors: {},
       terms: "",
@@ -306,12 +320,14 @@ export default {
       fieldType: "password",
       condations: {},
       contactPhone: "",
+      prefixes: null,
     };
   },
   mounted() {
     this.getTerms();
     this.getAllCountires();
     this.contactUsPhone();
+    this.getProfilePrefixes();
   },
   methods: {
     getAllCountires() {
@@ -371,7 +387,7 @@ export default {
 
     getProfilePrefixes() {
       profile.getProfilePrefixes().then((res) => {
-        console.log(res);
+        this.prefixes = res.data.items;
       });
     },
   },
