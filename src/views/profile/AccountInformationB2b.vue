@@ -9,8 +9,8 @@
             <label for="f-name">{{ $t("register.firstName") }}</label>
             <span class="requried">*</span>
             <!-- <b-form-input id="f-name" v-model="form.first_name" /> -->
-            <div class="row justify-content-start align-items-center">
-              <div class="col-3"><span>{{form.job_title}}</span></div>
+            <div class="row justify-content-start align-items-center" >
+              <div class="col-3" v-if="form.perfix"><span>{{form.perfix}}</span></div>
               <div class="col-9"><b-form-input id="f-name" v-model="form.first_name" /></div>
             </div>
             <div
@@ -190,7 +190,8 @@ export default {
         last_name: "",
         email: "",
         mobile_number: "",
-        job_title: "",
+        perfix: "",
+        // job_title: "",
         company_name_en: "",
         company_name_ar: "",
         reg_number: "",
