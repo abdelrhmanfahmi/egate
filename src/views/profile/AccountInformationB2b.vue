@@ -1,6 +1,6 @@
 <template>
   <div class="account-information">
-    <h4 class="main-header">{{ $t("profile.accountInformation") }}</h4>
+    <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row>
         <!-- First Name -->
@@ -8,7 +8,11 @@
           <b-form-group>
             <label for="f-name">{{ $t("register.firstName") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="f-name" v-model="form.first_name" />
+            <!-- <b-form-input id="f-name" v-model="form.first_name" /> -->
+            <div class="row justify-content-start align-items-center">
+              <div class="col-3"><span>{{form.job_title}}</span></div>
+              <div class="col-9"><b-form-input id="f-name" v-model="form.first_name" /></div>
+            </div>
             <div
               class="error"
               v-for="(error, index) in errors.first_name"
@@ -59,7 +63,11 @@
             <router-link to="/contact-us" class="mx-1 text-lowercase">
               {{ $t("profile.needPhoneContact") }}
             </router-link>
-            <b-form-input id="phone" v-model="form.mobile_number" disabled />
+            
+            <div class="row justify-content-start align-items-center">
+              <div class="col-2"><span>{{phonePrefix}}</span></div>
+              <div class="col-10"><b-form-input id="phone" v-model="form.mobile_number" disabled /></div>
+            </div>
             <div
               class="error"
               v-for="(error, index) in errors.mobile_number"
@@ -71,9 +79,10 @@
         </b-col>
 
         <!-- Job_title -->
-        <b-col lg="6">
+        <!-- <b-col lg="6">
           <b-form-group>
-            <label for="jobTitle">{{ $t("register.jobTitle") }}</label>
+            <label for="jobTitle" v-if="form.job_title">{{ form.job_title }}</label>
+            <label for="jobTitle" v-else>{{ $t("register.jobTitle") }}</label>
             <span class="requried">*</span>
             <b-form-input id="jobTitle" v-model="form.job_title" />
             <div
@@ -84,7 +93,7 @@
               {{ error }}
             </div>
           </b-form-group>
-        </b-col>
+        </b-col> -->
       </b-row>
 
       <div
@@ -188,11 +197,14 @@ export default {
       },
       countries: [],
       errors: {},
+      phonePrefix:null
     };
   },
   mounted() {
     this.getAllCountires();
     this.form = { ...this.buyerUserData };
+    this.phonePrefix = this.buyerUserData.phone_prefix
+    this.form.mobile_number = this.buyerUserData.phone
   },
   created() {
     this.reloadPage();

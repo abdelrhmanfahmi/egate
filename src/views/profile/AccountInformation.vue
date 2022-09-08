@@ -1,6 +1,6 @@
 <template>
   <div class="account-information">
-    <h4 class="main-header">{{ $t("profile.accountInformation") }}</h4>
+    <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row class="justify-content-center">
         <!-- First Name -->
@@ -84,7 +84,10 @@
               {{ $t("profile.needPhoneContact") }}
             </router-link>
 
-            <b-form-input disabled id="phone" v-model="form.mobile_number" />
+            <div class="row justify-content-start align-items-center">
+              <div class="col-1"><span>{{phonePrefix}}</span></div>
+              <div class="col-10"><b-form-input id="phone" v-model="form.mobile_number" disabled /></div>
+            </div>
             <div
               class="error"
               v-for="(error, index) in errors.mobile_number"
@@ -118,11 +121,15 @@ export default {
       },
       countries: [],
       errors: {},
+
+      phonePrefix:null
     };
   },
   mounted() {
     this.getAllCountires();
     this.form = { ...this.buyerUserData };
+    this.phonePrefix = this.buyerUserData.phone_prefix
+    this.form.mobile_number = this.buyerUserData.phone
   },
   methods: {
     getAllCountires() {

@@ -45,7 +45,7 @@
               </div> -->
             </vue-ellipse-progress>
             <h6 class="main-header mt-2" v-if="slider.product.title">
-              {{ slider.product.title }}
+              <span>{{ slider.product.title.substr(0,15) }} <span v-if="slider.product.title.length > 15">...</span> </span>
             </h6>
           </router-link>
         </div>

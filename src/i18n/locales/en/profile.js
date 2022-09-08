@@ -135,7 +135,7 @@ export default {
   buyMethod: "Payment Method",
   Actions: "Actions",
   printIno: "Purchase Order print",
-  accountInfo: "Account Information",
+  accountInfo: "User Information",
   customerName: "Customer Name",
   customerEmail: "Customer Email",
   tele: "Customer Phone",
