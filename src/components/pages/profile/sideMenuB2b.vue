@@ -1,19 +1,22 @@
 <template>
   <div class="profile-menu">
     <h5 class="my-3">
-      {{ $t("profile.company") }} {{ buyerUserData.company_name }}
+     {{ buyerUserData.company_name }}
     </h5>
+    <!-- <h5 class="my-3">
+      {{ $t("profile.company") }} {{ buyerUserData.company_name }}
+    </h5> -->
     <ul v-if="!socialLogin">
-      <li v-for="(link, index) in buyerLinks" :key="index">
-        <router-link :to="link.to">
+      <li v-for="(link, index) in buyerLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
+        <router-link :to="link.to" >
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span></router-link
         >
       </li>
     </ul>
     <ul v-else>
-      <li v-for="(link, index) in SocialLinks" :key="index">
-        <router-link :to="link.to">
+      <li v-for="(link, index) in SocialLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
+        <router-link :to="link.to" >
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span></router-link
         >

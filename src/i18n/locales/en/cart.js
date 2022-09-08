@@ -52,5 +52,7 @@ export default {
   desc:'High Price To Low Price',
   sortBy:'Sort By',
   selectPickupAddress:'Select Pickup Address',
-  viewAll:"View All"
+  viewAll:"View All",
+  readMore:'Read More',
+  readLess:'Read Less',
 };

@@ -228,4 +228,7 @@ export default {
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
   },
+  getProfilePrefixes(){
+    return globalAxios.get("lists/perfix")
+  }
 };

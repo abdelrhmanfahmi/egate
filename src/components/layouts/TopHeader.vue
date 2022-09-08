@@ -156,11 +156,21 @@ export default {
             });
           } else {
             // console.log("res.data.items" , res.data.items);
-            localStorage.setItem("country", JSON.stringify(res.data.items[0]));
-            localStorage.setItem(
-              "currency",
-              res.data.items[0].currencies[0].code
-            );
+            this.countries.forEach((country) => {
+              if (country.is_default == 1) {
+                window.localStorage.setItem("country", JSON.stringify(country));
+                if (localStorage.getItem("currency") === null) {
+                  localStorage.setItem("currency", country.currencies[0].code);
+                }
+                this.myCurrencies = country.currencies;
+              }
+            });
+
+            // localStorage.setItem("country", JSON.stringify(res.data.items[0]));
+            // localStorage.setItem(
+            //   "currency",
+            //   res.data.items[0].currencies[0].code
+            // );
             setTimeout(() => {
               location.reload();
             }, 500);
