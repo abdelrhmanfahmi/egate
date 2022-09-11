@@ -119,6 +119,12 @@ export default {
   max-height: 400px;
   overflow-y: scroll;
 }
+
+.action-holder::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa; /* or add it to the track */
+}
 .cart-item {
   &:not(:last-child) {
     margin-bottom: 1rem;

@@ -14,7 +14,7 @@
       >
         <a
           @click="goProduct(product.product_supplier_id)"
-          class="product-img-container"
+          class="product-img-container w-25"
         >
           <img
             :src="product.product_image"
@@ -22,7 +22,7 @@
             class="product-image"
           />
         </a>
-        <div class="product-info w-100">
+        <div class="product-info w-50">
           <a @click="goProduct(product.product_supplier_id)" class="name">
             {{ product.product_name }}
           </a>
@@ -51,7 +51,7 @@
             <b class="text-success">{{ product.quantity }} </b>
           </span>
         </div> -->
-        <div class="total mr-2 text-center">
+        <div class="total mx-1 text-center w-50">
           <Counter
             :minimum="
               product.min_order_quantity ? product.min_order_quantity : 1
@@ -62,7 +62,7 @@
           ></Counter>
           <p class="product_sub_total mt-2">{{ product.product_sub_total | fixedCurrency }} {{ currency }}</p>
         </div>
-        <div class="actions mr-2" @click="removeFromCart(product)">
+        <div class="actions mx-1" @click="removeFromCart(product)">
           <span class="action-icon">
             <b-icon-trash></b-icon-trash>
           </span>
@@ -127,6 +127,11 @@ export default {
   max-height: 400px;
   overflow-y: scroll;
 }
+
+.action-holder {
+  scrollbar-color:transparent transparent;
+  scrollbar-width: 1px;
+}
 .cart-item {
   &:not(:last-child) {
     margin-bottom: 1rem;
@@ -178,6 +183,7 @@ export default {
 }
 .product_sub_total{
   font-size: 13px;
+  word-break:break-word
 }
 .cart-item .product-info .name{
   margin-bottom: .5rem;

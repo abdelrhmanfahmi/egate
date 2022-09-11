@@ -60,12 +60,11 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
-      }, 500);
+        this.$emit("changeTitle", this.countValue);
+        this.quantity = this.countValue
+      }, 300);
       // this.$emit('changeTitle',this.countValue)
 
-      setTimeout(() => {
-        this.$emit("changeTitle", this.countValue);
-      }, 500);
     },
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
@@ -79,11 +78,10 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
+        this.$emit("changeTitle", this.countValue);
+        this.quantity = this.countValue
       }, 300);
 
-      setTimeout(() => {
-        this.$emit("changeTitle", this.countValue);
-      }, 500);
     },
   },
 };
