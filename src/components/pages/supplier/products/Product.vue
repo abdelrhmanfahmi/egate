@@ -136,7 +136,7 @@ export default {
       mySelectedOption: this.data.product_details_by_type.min_order_quantity
         ? this.data.product_details_by_type.min_order_quantity
         : 1,
-      selected: null,
+      selected: 1,
       options: [
         { value: null, text: "Please select an option" },
         { value: "a", text: "This is First option" },

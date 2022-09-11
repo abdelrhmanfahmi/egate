@@ -113,5 +113,7 @@ export default {
 .small-cart {
   height: 140px !important;
   overflow-y: scroll;
+  scrollbar-color:transparent transparent;
+  scrollbar-width: thin;
 }
 </style>
