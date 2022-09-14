@@ -166,11 +166,11 @@ export default {
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
-        // {
-        //   to: "/profile/change-password",
-        //   name: this.$t("profile.changePassword"),
-        //   iconName: "key",
-        // },
+        {
+          to: "/profile/change-password",
+          name: this.$t("profile.changePassword"),
+          iconName: "key",
+        },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
