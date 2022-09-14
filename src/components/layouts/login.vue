@@ -1,26 +1,58 @@
 <template>
   <div class="user-login">
-    <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5" body-class="sidebar-login"
-      bg-variant="#fff">
+    <b-sidebar
+      id="login"
+      backdrop
+      width="450px"
+      :right="getDir === 'rtl'"
+      shadow
+      z-index="5"
+      body-class="sidebar-login"
+      bg-variant="#fff"
+    >
       <template #default="{ hide }">
         <div class="user-login-form">
           <h6 class="title">{{ $t("login.login") }}</h6>
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
           <form @submit.prevent="loginB2c()">
-            <b-form-input v-model="form.email" type="email" :placeholder="$t('register.email')" />
-            <div class="error text-start" v-for="(error, index) in errorsLogin.email" :key="index">
+            <b-form-input
+              v-model="form.email"
+              type="email"
+              :placeholder="$t('register.email')"
+            />
+            <div
+              class="error text-start"
+              v-for="(error, index) in errorsLogin.email"
+              :key="index"
+            >
               {{ error }}
             </div>
             <div class="show-password">
-              <b-form-input class="my-2" v-model="form.password" :type="fieldType"
-                :placeholder="$t('register.password')" />
-              <div class="error text-start" v-for="(error, index) in errorsLogin.password" :key="index">
+              <b-form-input
+                class="my-2"
+                v-model="form.password"
+                :type="fieldType"
+                :placeholder="$t('register.password')"
+              />
+              <div
+                class="error text-start"
+                v-for="(error, index) in errorsLogin.password"
+                :key="index"
+              >
                 {{ error }}
               </div>
               <div class="icon-passowrd" @click="switchField()">
-                <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
-                <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                <font-awesome-icon
+                  icon="fa-solid fa-eye"
+                  v-if="fieldType === 'password'"
+                  size="lg"
+                />
+                <font-awesome-icon
+                  icon="fa-solid fa-eye-slash"
+                  v-else
+                  size="lg"
+                />
               </div>
             </div>
 
@@ -35,7 +67,9 @@
         <!-- social login -->
         <div class="social-login">
           <p>{{ $t("login.LoginSocial") }}</p>
-          <div class="social-icons d-flex justify-content-center align-items-center">
+          <div
+            class="social-icons d-flex justify-content-center align-items-center"
+          >
             <button @click="getLink('facebook')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
@@ -60,20 +94,30 @@
         </div>
       </template>
     </b-sidebar>
-    <b-modal id="ForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc ref="b2cLogin">
+    <b-modal
+      id="ForgetPassword"
+      :title="$t('login.resetPassword')"
+      no-close-on-backdrop
+      no-close-on-esc
+      ref="b2cLogin"
+    >
       <form>
         <b-form-group>
           <label for="email">{{ $t("register.email") }}</label>
           <span class="requried">*</span>
           <b-form-input id="email" v-model="emailForget" maxlength="100" />
-          <div class="error" v-for="(error, index) in errors.email" :key="index">
+          <div
+            class="error"
+            v-for="(error, index) in errors.email"
+            :key="index"
+          >
             {{ error }}
           </div>
         </b-form-group>
       </form>
       <div slot="modal-footer" class="d-flex">
         <a @click="sendEmail()" class="reset-Link" type="submit">{{
-        $t("login.reset")
+          $t("login.reset")
         }}</a>
       </div>
     </b-modal>
@@ -124,20 +168,44 @@ export default {
 
           // new after setting otp
 
+          // old 2nd code
+          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          // if (res.data.items.item.verify_mobile_required) {
+          //   localStorage.setItem("massege", this.$t("register.otpVerify"));
+          //   this.$router.push("/otp-verification");
+          //   location.reload();
+          // } else if (
+          //   !res.data.items.item.verify_mobile_required ||
+          //   !res.data.items.item.is_verified ||
+          //   res.data.items.item.verify_email_required
+          // ) {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          //   this.$router.push("/");
+          //   location.reload();
+          // }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          if (res.data.items.item.verify_mobile_required) {
+          if (
+            !res.data.items.item.is_verified &&
+            res.data.items.item.verify_mobile_required
+          ) {
             localStorage.setItem("massege", this.$t("register.otpVerify"));
             this.$router.push("/otp-verification");
             location.reload();
           } else if (
-            !res.data.items.item.verify_mobile_required ||
             !res.data.items.item.is_verified ||
-            res.data.items.item.verify_email_required
+            (!res.data.items.item.is_verified &&
+              res.data.items.item.verify_email_required)
           ) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             this.$router.push("/");
             location.reload();
+          } else {
+            this.$router.push("/");
+            location.reload();
           }
+        })
+        .then(()=>{
+          location.reload()
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
