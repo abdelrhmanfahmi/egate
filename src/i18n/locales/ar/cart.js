@@ -56,4 +56,5 @@ export default {
   viewAll: "عرض الكل",
   readMore: "قراءة المذيد",
   readLess: "قراءة أقل",
+  add:'اضافه'
 };
