@@ -86,7 +86,7 @@
                         </div>
                       </button>
                       <button @click="loginFirst(product)"
-                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100" v-else-if="
+                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq" v-else-if="
                           (product.product_details_by_type.add_type === 'rfq' ||
                             product.product_details_by_type.add_type === 'both') &&
                           !buyerUserData

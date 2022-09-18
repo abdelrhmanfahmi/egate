@@ -134,7 +134,7 @@ export default new Vuex.Store({
 
       // if (token) {
 
-      console.log("vuex token", token);
+      // console.log("vuex token", token);
       // }
 
       commit("SET_FIREBASE_TOKEN", token);
