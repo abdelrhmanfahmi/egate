@@ -55,4 +55,5 @@ export default {
   viewAll:"View All",
   readMore:'Read More',
   readLess:'Read Less',
+  add:'Add'
 };
