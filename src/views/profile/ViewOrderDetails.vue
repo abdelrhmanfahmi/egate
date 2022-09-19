@@ -265,7 +265,7 @@
                         {{ $t("payment.paymentStatus") }}
                       </div>
                       <div class="col-6" v-if="orderData.payment_status">
-                        {{ orderData.payment_status }}
+                        {{ orderData.payment_status_lang }}
                       </div>
                     </div>
 
