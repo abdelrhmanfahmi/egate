@@ -188,7 +188,7 @@ export default {
   deliveryFeesText: "sorry , no shipping fees data available",
   noPickupData: "Sorry ,this supplier does not support pick-up",
   pay: "Pay",
-  bankTransDocs: "Bank Transfer Docs",
+  bankTransDocs: "Upload Bank Transfer Proof",
   orderBack: "Back to orders",
   productImage: "Product Image",
 
