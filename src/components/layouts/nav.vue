@@ -268,22 +268,45 @@ export default {
     notificationsLength() {
       return this.$store.state.notificationsLength
     },
+    page() {
+      return this.$route.query.force_login == "true"
+    }
   },
   mounted() {
-    if (this.$route.query.force_login == "true") {
-      if (document.querySelector(".login")) {
-        setTimeout(() => {
-          document.querySelector(".login").click();
-        }, 0);
-        var newURL = location.href.split("?")[0];
-        window.history.pushState("object", document.title, newURL);
-        console.log(newURL);
-      }
-    }
+    // if (this.$route.query.force_login == "true") {
+    //   if (document.querySelector(".login")) {
+    //     setTimeout(() => {
+    //       document.querySelector(".login").click();
+    //     }, 0);
+    //     setTimeout(() => {
+    //       var newURL = location.href.split("?")[0];
+    //       window.history.pushState("object", document.title, newURL);
+    //       console.log(newURL);
+    //     }, 500);
+    //   }
+    // }
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
   },
+  watch: {
+    page() {
+      if (this.$route.query.force_login == "true") {
+        localStorage.removeItem('userInfo')
+        localStorage.removeItem('buyerUserData')
+        if (document.querySelector(".login")) {
+          setTimeout(() => {
+            document.querySelector(".login").click();
+          }, 0);
+          setTimeout(() => {
+            var newURL = location.href.split("?")[0];
+            window.history.pushState("object", document.title, newURL);
+            console.log(newURL);
+          }, 500);
+        }
+      }
+    }
+  }
 };
 </script>
 
