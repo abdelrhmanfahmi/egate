@@ -5,22 +5,27 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
+            <img
+              src="@/assets/images/logo.png"
+              class="img-fluid"
+              alt="logo"
+              @click="goToHome()"
+            />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
-              $t("home.home")
+                $t("home.home")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/suppliers">{{
-              $t("home.suppliers")
+                $t("home.suppliers")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/about">{{
-              $t("home.about")
+                $t("home.about")
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
@@ -28,12 +33,15 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a href="https://staging2.fabrica-dev.com/humhum-supplier/" target="_blank">{{ $t("home.suppliers")
-                    }}</a>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                      target="_blank"
+                      >{{ $t("home.suppliers") }}</a
+                    >
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                    $t("home.buyer")
+                      $t("home.buyer")
                     }}</router-link>
                   </li>
                 </ul>
@@ -41,7 +49,7 @@
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
-              $t("home.contactUs")
+                $t("home.contactUs")
               }}</router-link>
             </li>
           </ul>
@@ -52,7 +60,10 @@
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
             <b-button v-b-modal.modal-1 class="icon-search" size="md">
-              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+              <font-awesome-icon
+                v-b-toggle.sidebar-1
+                icon="fa-solid fa-search"
+              />
             </b-button>
             <b-modal id="modal-1" class="search">
               <!-- Using slots -->
@@ -60,12 +71,18 @@
                 <template #append>
                   <b-input-group-text>
                     <strong @click="search" class="search-eye">
-                      <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+                      <font-awesome-icon
+                        v-b-toggle.sidebar-1
+                        icon="fa-solid fa-search"
+                      />
                     </strong>
                   </b-input-group-text>
                 </template>
                 <b-form @submit.prevent="search">
-                  <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
+                  <b-form-input
+                    :placeholder="$t('cart.search')"
+                    v-model="keyword"
+                  ></b-form-input>
                 </b-form>
               </b-input-group>
             </b-modal>
@@ -83,8 +100,9 @@
             <span class="cart-icon">
               <font-awesome-icon icon="fa-solid fa-bell" />
             </span>
-            <span class="cartLength" v-if="notificationsLength > 0"> {{notificationsLength > 0 ? notificationsLength :
-            0}} </span>
+            <span class="cartLength" v-if="notificationsLength > 0">
+              {{ notificationsLength > 0 ? notificationsLength : 0 }}
+            </span>
             <Notify class="notify-body" :notifications="notifications" />
           </div>
           <!-- <div v-if="!mobile" class="cart">
@@ -130,9 +148,11 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
+                <b-dropdown-item
+                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
+                >
                   <router-link to="/profile/categories">{{
-                  $t("profile.myProfile")
+                    $t("profile.myProfile")
                   }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
@@ -149,12 +169,24 @@
 
         <!--Start Mbile Nav -->
         <div class="icon" v-if="mobile">
-          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }" />
+          <font-awesome-icon
+            v-b-toggle.sidebar-1
+            @click="toggleMobileNav"
+            icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }"
+          />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
-            width="300px" shadow z-index="3">
+          <b-sidebar
+            :right="getDir === 'rtl'"
+            v-if="mobileNav"
+            @hidden="closeSideBar"
+            id="sidebar-1"
+            backdrop
+            width="300px"
+            shadow
+            z-index="3"
+          >
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -263,28 +295,30 @@ export default {
       return this.$store.state.cart.cartLength;
     },
     notifications() {
-      return this.$store.state.notifications
+      return this.$store.state.notifications;
     },
     notificationsLength() {
-      return this.$store.state.notificationsLength
+      return this.$store.state.notificationsLength;
     },
     page() {
-      return this.$route.query.force_login == "true"
-    }
+      return this.$route.query.force_login == "true";
+    },
   },
   mounted() {
-    // if (this.$route.query.force_login == "true") {
-    //   if (document.querySelector(".login")) {
-    //     setTimeout(() => {
-    //       document.querySelector(".login").click();
-    //     }, 0);
-    //     setTimeout(() => {
-    //       var newURL = location.href.split("?")[0];
-    //       window.history.pushState("object", document.title, newURL);
-    //       console.log(newURL);
-    //     }, 500);
-    //   }
-    // }
+    if (this.$route.query.force_login == "true") {
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("buyerUserData");
+      if (document.querySelector(".login")) {
+        setTimeout(() => {
+          document.querySelector(".login").click();
+        }, 0);
+        setTimeout(() => {
+          var newURL = location.href.split("?")[0];
+          window.history.pushState("object", document.title, newURL);
+          console.log(newURL);
+        }, 500);
+      }
+    }
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
@@ -292,8 +326,8 @@ export default {
   watch: {
     page() {
       if (this.$route.query.force_login == "true") {
-        localStorage.removeItem('userInfo')
-        localStorage.removeItem('buyerUserData')
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("buyerUserData");
         if (document.querySelector(".login")) {
           setTimeout(() => {
             document.querySelector(".login").click();
@@ -305,8 +339,8 @@ export default {
           }, 500);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -448,7 +482,6 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-
     .cart-body,
     .notify-body {
       right: auto;
