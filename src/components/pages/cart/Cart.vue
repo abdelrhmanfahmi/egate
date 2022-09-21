@@ -1385,6 +1385,7 @@ export default {
         this.buyerUserData.address_uuid
       );
     }
+    
   },
   methods: {
     formatPin_code(e) {
@@ -1782,6 +1783,10 @@ export default {
             }
           }, 700);
         }
+
+        setTimeout(() => {
+          this.goTop()
+        }, 500);
       });
     },
     // Countires
@@ -2274,6 +2279,10 @@ export default {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
           console.log(err);
+          let addressesErrors = errors.items
+          if(addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1){
+            this.goTop()
+          }
           this.errMsg(errors.message);
         })
         .finally(() => {
@@ -2356,6 +2365,10 @@ export default {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
           console.log(err);
+          let addressesErrors = errors.items
+          if(addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1){
+            this.goTop()
+          }
           this.errMsg(errors.message);
         })
         .finally(() => {
@@ -2445,6 +2458,32 @@ export default {
         }
       }
     },
+    goTop() {
+      window.scrollTo({
+        top: 70,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    handleScroll: function () {
+      if (this.scTimer) return;
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY;
+        clearTimeout(this.scTimer);
+        this.scTimer = 0;
+      }, 100);
+      if (window.scrollY > 500) {
+        this.visible = true;
+      } else {
+        this.visible = false;
+      }
+    },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
   },
   computed: {
     newPrice() {
@@ -2472,6 +2511,7 @@ export default {
         this.buyerUserData.address_uuid
       );
     }
+    this.goTop()
   },
 };
 </script>
