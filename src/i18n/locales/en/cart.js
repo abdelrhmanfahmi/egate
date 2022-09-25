@@ -55,5 +55,6 @@ export default {
   viewAll:"View All",
   readMore:'Read More',
   readLess:'Read Less',
-  add:'Add'
+  add:'Add',
+  filter:'Filter By'
 };

@@ -1,6 +1,6 @@
 {
   "name": "humhum",
-  "version": "0.0.226",
+  "version": "0.0.227",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

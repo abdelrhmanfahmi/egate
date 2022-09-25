@@ -50,7 +50,7 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/Loader.gif" class="loading-img w-25" alt="loading" />
+        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
