@@ -692,7 +692,7 @@
                 v-if="loading"
               >
                 <img
-                  src="@/assets/images/Loader.gif"
+                  src="@/assets/images/BeanLoading2.gif"
                   alt="cart-image"
                   class="w-25"
                 />
@@ -943,7 +943,7 @@
                   v-else
                 >
                   <img
-                    src="@/assets/images/Loader.gif"
+                    src="@/assets/images/BeanLoading2.gif"
                     alt="cart-image"
                     class="w-25"
                   />
@@ -1608,7 +1608,7 @@
         class="d-flex justify-content-center align-items-center flex-column"
         v-else
       >
-        <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+        <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
       </div>
     </div>
     <div
