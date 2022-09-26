@@ -244,5 +244,7 @@ export default {
   second2: "ثانية",
   printIno:'اطبع طلب الشراء',
   markRead:"ضع إشارة مقروء",
-  readAllNotifications:'قراءة الكل'
+  readAllNotifications:'قراءة الكل',
+  charge:'اشحن محفظتك',
+  enterValue:'ادخل قيمة الشحن'
 };

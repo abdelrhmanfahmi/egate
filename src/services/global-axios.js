@@ -74,6 +74,7 @@ globalAxios.interceptors.request.use(
 globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("error" , error);
     if (
       (error.response.status == 403 && userExist) ||
       (error.response.status == 401 && userExist)
