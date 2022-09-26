@@ -2,10 +2,34 @@
   <div>
     <div class="wrabber">
       <div class="balance-holder py-5 px-3">
-        <h4 class="balanc_number">{{ walletData | fixedCurrency }} {{ currency }}</h4>
-        <h5 class="balance_text">
-          {{ $t("profile.balance") }}
-        </h5>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-6 col-sm-12">
+            <div>
+              <h5 class="balance_text">
+                {{ $t("profile.balance") }}
+              </h5>
+              <h4 class="balanc_number">{{ walletData | fixedCurrency }} {{ currency }}</h4>
+            </div>
+
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <form @submit.prevent="chargeWallet" class="">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-md-8 col-sm-12">
+                  <b-form-input type="number" v-model="chargeValue" :placeholder="$t('profile.enterValue')"
+                    class="mx-2"></b-form-input>
+                  <div class="error text-center" v-for="(error, index) in errors.value" :key="index">
+                    {{ error }}
+                  </div>
+
+                </div>
+                <div class="col-md-4 col-sm-12">
+                  <b-button variant="outline-danger" type="submit" class="py-2">{{$t('profile.charge')}}</b-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
 
       <div class="tabs-holder">
@@ -13,13 +37,7 @@
 
         <div class="tab-wrap">
           <!-- active tab on page load gets checked attribute -->
-          <input
-            type="radio"
-            id="recivables"
-            name="tabGroup1"
-            class="tab"
-            checked
-          />
+          <input type="radio" id="recivables" name="tabGroup1" class="tab" checked />
           <label for="recivables">
             <h5>{{ $t("profile.receivables") }}</h5>
           </label>
@@ -32,16 +50,10 @@
           <div class="tab__content">
             <div class="recivables py-3" v-if="recivablesLength > 0">
               <div class="holder text-center" v-if="recivables">
-                <table
-                  class="table table-striped table-hover table-bordered selectable"
-                >
+                <table class="table table-striped table-hover table-bordered selectable">
                   <thead>
                     <tr>
-                      <th
-                        scope="col"
-                        v-for="(tab, index) in recivablesHeader"
-                        :key="index"
-                      >
+                      <th scope="col" v-for="(tab, index) in recivablesHeader" :key="index">
                         {{ tab.label }}
                       </th>
                     </tr>
@@ -50,7 +62,7 @@
                     <tr v-for="(order, index) in recivables" :key="index">
                       <td v-if="order.serial">{{ order.serial }}</td>
                       <td v-if="order.value">
-                        {{ order.value | fixedCurrency  }} {{ currency }}
+                        {{ order.value | fixedCurrency }} {{ currency }}
                       </td>
                       <td v-if="order.value_date">
                         {{ order.value_date | formatDate }}
@@ -63,22 +75,13 @@
                     </tr>
                   </tbody>
                 </table>
-                <div
-                  class="d-flex justify-content-center align-items-center mt-5"
-                >
-                  <Paginate
-                    v-if="recivables && recivablesLength > 1"
-                    :total-pages="recivableTotalPages"
-                    :per-page="recivablePerPage"
-                    :current-page="recivableRecordsPerPage"
-                    @pagechanged="onRecivablesChange"
-                  />
+                <div class="d-flex justify-content-center align-items-center mt-5">
+                  <Paginate v-if="recivables && recivablesLength > 1" :total-pages="recivableTotalPages"
+                    :per-page="recivablePerPage" :current-page="recivableRecordsPerPage"
+                    @pagechanged="onRecivablesChange" />
                 </div>
               </div>
-              <div
-                class="spinner d-flex justify-content-center align-items-center"
-                v-else
-              >
+              <div class="spinner d-flex justify-content-center align-items-center" v-else>
                 <spinner />
               </div>
             </div>
@@ -90,16 +93,10 @@
           <div class="tab__content">
             <div class="payments py-3" v-if="paymentsLength > 0">
               <div class="holder text-center" v-if="payments">
-                <table
-                  class="table table-striped table-hover table-bordered selectable"
-                >
+                <table class="table table-striped table-hover table-bordered selectable">
                   <thead>
                     <tr>
-                      <th
-                        scope="col"
-                        v-for="(tab, index) in paymentsHeadrer"
-                        :key="index"
-                      >
+                      <th scope="col" v-for="(tab, index) in paymentsHeadrer" :key="index">
                         {{ tab.label }}
                       </th>
                     </tr>
@@ -112,67 +109,58 @@
                       </td>
                       <td>
                         <span v-if="order.created_at">{{
-                          order.created_at | formatDate
+                        order.created_at | formatDate
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.products_count">{{
-                          order.products_count
+                        order.products_count
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
-                        <span v-if="order.amount"
-                          >{{ order.amount | fixedCurrency }}
-                          {{ currency }}</span
-                        >
+                        <span v-if="order.amount">{{ order.amount | fixedCurrency }}
+                          {{ currency }}</span>
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.payment_status">{{
-                          order.payment_status
+                        order.payment_status
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.payment_type">{{
-                          order.payment_type
+                        order.payment_type
                         }}</span>
                         <span v-else></span>
                       </td>
 
                       <td>
 
-                        <router-link
-                          :to="{
-                            path: '/viewOrderDetails',
-                            query: { id: `${order.order_id}` },
-                          }"
-                          class="text-dark"
-                        >
+                        <router-link :to="{
+                          path: '/viewOrderDetails',
+                          query: { id: `${order.order_id}` },
+                        }" class="text-dark">
                           <b-button variant="outline-secondary" class="m-2">
                             {{ $t("profile.view") }}
                           </b-button>
                         </router-link>
-                        <router-link
-                          v-if="
-                            order.payment_status === 'Unpaid' &&
-                            order.payment_type === 'bank'
-                          "
-                          :to="{
-                            path: '/checkout-details',
-                            query: {
-                              order_serial: order.serial,
-                              date: order.created_at,
-                              total_price: order.total_price,
-                              payment_type: order.payment_type,
-                              payment: order.payment,
-                              uuid: order.uuid,
-                            },
-                          }"
-                          class="text-dark"
-                        >
+                        <router-link v-if="
+                          order.payment_status === 'Unpaid' &&
+                          order.payment_type === 'bank'
+                        " :to="{
+                          path: '/checkout-details',
+                          query: {
+                            order_serial: order.serial,
+                            date: order.created_at,
+                            total_price: order.total_price,
+                            payment_type: order.payment_type,
+                            payment: order.payment,
+                            uuid: order.uuid,
+                          },
+                        }" class="text-dark">
                           <b-button variant="outline-success" class="m-2">
                             {{ $t("profile.bankTransDocs") }}
                           </b-button>
@@ -181,22 +169,12 @@
                     </tr>
                   </tbody>
                 </table>
-                <div
-                  class="d-flex justify-content-center align-items-center mt-5"
-                >
-                  <Paginate
-                    v-if="payments && paymentsLength > 1"
-                    :total-pages="paymentTotalPages"
-                    :per-page="paymentPerPage"
-                    :current-page="paymentPage"
-                    @pagechanged="onPaymentsPageChange"
-                  />
+                <div class="d-flex justify-content-center align-items-center mt-5">
+                  <Paginate v-if="payments && paymentsLength > 1" :total-pages="paymentTotalPages"
+                    :per-page="paymentPerPage" :current-page="paymentPage" @pagechanged="onPaymentsPageChange" />
                 </div>
               </div>
-              <div
-                class="spinner d-flex justify-content-center align-items-center"
-                v-else
-              >
+              <div class="spinner d-flex justify-content-center align-items-center" v-else>
                 <spinner />
               </div>
             </div>
@@ -302,6 +280,7 @@ export default {
       walletData: null,
       paymentsLength: 0,
       recivablesLength: 0,
+      chargeValue: null,
       //
     };
   },
@@ -325,7 +304,7 @@ export default {
           this.paymentTotal = resp.data.items.payments.meta.total;
           this.paymentTotalPages = Math.ceil(
             resp.data.items.payments.meta.total /
-              resp.data.items.payments.meta.per_page
+            resp.data.items.payments.meta.per_page
           ); // Calculate total records
 
           this.paymentTotalRecords = resp.data.items.payments.meta.total;
@@ -344,7 +323,7 @@ export default {
           this.recivableTotal = resp.data.items.receivables.meta.total;
           this.precivableTotalPages = Math.ceil(
             resp.data.items.receivables.meta.total /
-              resp.data.items.receivables.meta.per_page
+            resp.data.items.receivables.meta.per_page
           ); // Calculate total records
 
           this.recivableTotalRecords = resp.data.items.receivables.meta.total;
@@ -373,6 +352,27 @@ export default {
     //     this.getWalletPayments();
     //   }
     // },
+    chargeWallet() {
+
+      const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`
+      let payload = {
+        value: this.chargeValue,
+        redirect_url: backUrl
+      }
+      profile.chargeMyWallet(payload).then(res => {
+        this.sucessMsg(res.data.message);
+        console.log(res);
+        if(res.status == 200){
+          this.getWallet()
+          window.location.href = res.data.items.url;
+        }
+      }).catch(err => {
+        let errors = Object.values(err)[2].data;
+        this.errors = errors.items
+        this.errMsg(err.message);
+        console.log(err);
+      })
+    }
   },
   mounted() {
     this.getWalletPayments();
@@ -392,41 +392,50 @@ export default {
     padding: 2rem;
     border-radius: 0.5rem;
     text-align: left;
+
     .info {
       border-bottom: 1px dashed #c5c6c6;
       padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
+
     .total {
       padding: 1rem 0;
       color: #312620;
       font-weight: bold;
+
       .title {
         font-size: 14pt;
       }
     }
+
     .methods {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
+
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
+
         .custom-radio {
           flex-wrap: wrap;
         }
+
         label {
           cursor: pointer;
         }
+
         span {
           width: 100%;
           font-size: 10pt;
           margin-top: -0.2rem;
           opacity: 0.7;
         }
+
         .online-media {
           img {
             object-fit: contain;
@@ -436,14 +445,17 @@ export default {
     }
   }
 }
+
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
 }
+
 .balance-holder {
   border: 1px solid #ccc;
   padding-left: 25px;
 }
+
 // tabs
 
 .tab-wrap {
@@ -459,6 +471,7 @@ export default {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 0;
 }
+
 .tab-wrap:hover {
   box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
 }
@@ -466,7 +479,8 @@ export default {
 .tab {
   display: none;
 }
-.tab:checked:nth-of-type(1) ~ .tab__content:nth-of-type(1) {
+
+.tab:checked:nth-of-type(1)~.tab__content:nth-of-type(1) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -475,7 +489,8 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
-.tab:checked:nth-of-type(2) ~ .tab__content:nth-of-type(2) {
+
+.tab:checked:nth-of-type(2)~.tab__content:nth-of-type(2) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -484,7 +499,8 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
-.tab:checked:nth-of-type(3) ~ .tab__content:nth-of-type(3) {
+
+.tab:checked:nth-of-type(3)~.tab__content:nth-of-type(3) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -493,7 +509,8 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
-.tab:checked:nth-of-type(4) ~ .tab__content:nth-of-type(4) {
+
+.tab:checked:nth-of-type(4)~.tab__content:nth-of-type(4) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -502,7 +519,8 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
-.tab:checked:nth-of-type(5) ~ .tab__content:nth-of-type(5) {
+
+.tab:checked:nth-of-type(5)~.tab__content:nth-of-type(5) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -511,27 +529,33 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
-.tab:first-of-type:not(:last-of-type) + label {
+
+.tab:first-of-type:not(:last-of-type)+label {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.tab:not(:first-of-type):not(:last-of-type) + label {
+
+.tab:not(:first-of-type):not(:last-of-type)+label {
   border-radius: 0;
 }
-.tab:last-of-type:not(:first-of-type) + label {
+
+.tab:last-of-type:not(:first-of-type)+label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.tab:checked + label {
+
+.tab:checked+label {
   background-color: #fff;
   box-shadow: 0 -1px 0 #fff inset;
   cursor: default;
 }
-.tab:checked + label:hover {
+
+.tab:checked+label:hover {
   box-shadow: 0 -1px 0 #fff inset;
   background-color: #fff;
 }
-.tab + label {
+
+.tab+label {
   box-shadow: 0 -1px 0 #eee inset;
   border-radius: 6px 6px 0 0;
   cursor: pointer;
@@ -551,10 +575,12 @@ export default {
   box-sizing: border-box;
   padding: 15px;
 }
-.tab + label:hover {
+
+.tab+label:hover {
   background-color: #f9f9f9;
   box-shadow: 0 1px 0 #f4f4f4 inset;
 }
+
 .tab__content {
   padding: 10px 25px;
   background-color: transparent;
@@ -597,15 +623,18 @@ p {
   line-height: 1.6;
   margin-bottom: 20px;
 }
+
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
   }
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -622,11 +651,13 @@ p {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+
+  .actions {
     justify-content: center;
     align-items: center;
   }

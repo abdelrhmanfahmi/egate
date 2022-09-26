@@ -35,9 +35,9 @@ export default {
       params: {
         category_id: id,
         sort_price: sorting,
-        country: country,
+        country_id: country,
         weight: weight,
-        unit: unit
+        unit_id: unit
       }
     });
   },

@@ -228,7 +228,18 @@ export default {
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
   },
-  getProfilePrefixes(){
+  getProfilePrefixes() {
     return globalAxios.get("lists/perfix")
+  },
+  chargeMyWallet(payLoad) {
+    return globalAxios.post(`members/wallet/charge`, payLoad)
+  },
+  checkWalletCharge(payload) {
+    return globalAxios.get(`members/wallet/charge-status`, {
+      params: {
+        tap_charge_id: payload.tap_charge_id,
+        id: payload.id,
+      },
+    });
   }
 };

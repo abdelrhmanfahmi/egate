@@ -252,5 +252,7 @@ export default {
   minute: "minute",
   second2: "second",
   markRead:"mark as read",
-  readAllNotifications:'Mark All Read'
+  readAllNotifications:'Mark All Read',
+  charge:'Charge Wallet',
+  enterValue:'Enter Charge Value'
 };

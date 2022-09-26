@@ -80,7 +80,7 @@
                   v-model="selectedProduct"
                   class="mb-3"
                 >
-                  <b-form-select-option selected disabled :value="null">
+                  <b-form-select-option selected disabled :value="null" disabled>
                     {{ $t("cart.selectOption") }}
                   </b-form-select-option>
                   <b-form-select-option
@@ -133,24 +133,42 @@
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="country">{{$t('profile.country')}}</label>
-                      <b-form-select id="country" v-if="filteredBy" class="" v-model="sortTypeCountry"
-                        :options="CountryOptions" @change="getCategoryProducts"></b-form-select>
+
+
+                      <b-form-select v-model="sortTypeCountry" class="mb-3" id="country" v-if="filteredBy"
+                        @change="getCategoryProducts">
+                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option :value="country.id" v-for="( country) in CountryOptions"
+                          :key="country.id">
+                          {{country.title}}</b-form-select-option>
+                      </b-form-select>
 
                     </div>
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="weight">{{$t('singleProduct.weight')}}</label>
-                      <b-form-select id="weight" v-if="filteredBy" class="" v-model="sortTypeWeight"
-                        :options="WeightOptions" @change="getCategoryProducts"></b-form-select>
+
+                      <b-form-select v-model="sortTypeWeight" class="mb-3" id="weight" v-if="filteredBy"
+                        @change="getCategoryProducts">
+                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option :value="weight.id" v-for="( weight) in WeightOptions" :key="weight.id">
+                          {{weight.title}}</b-form-select-option>
+                      </b-form-select>
 
                     </div>
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="unit">{{$t('items.unit')}}</label>
-                      <b-form-select id="unit" class="" v-model="sortTypeUnit" :options="UnitOptions"
-                        @change="getCategoryProducts"></b-form-select>
+
+
+                      <b-form-select v-model="sortTypeUnit" class="mb-3" id="unit" v-if="filteredBy"
+                        @change="getCategoryProducts">
+                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option :value="unit.id" v-for="( unit) in UnitOptions" :key="unit.id">
+                          {{unit.title}}</b-form-select-option>
+                      </b-form-select>
                     </div>
                   </div>
                 </div>
@@ -158,7 +176,7 @@
               <div class="col-md-4 col-sm-12">
                 <div class="" v-if="sortBy">
                   <label for="price">{{$t('cart.price')}}</label>
-                  <b-form-select id="price"  class="my-2" v-model="sortType" :options="options"
+                  <b-form-select id="price" class="my-2" v-model="sortType" :options="options"
                     @change="getCategoryProducts">
                   </b-form-select>
                 </div>
@@ -706,21 +724,12 @@ export default {
       readMore: false,
       sortBy: false,
       filteredBy: false,
-      sortTypeCountry: 'eg',
-      sortTypeWeight: '1kg',
-      sortTypeUnit: '5',
-      CountryOptions: [
-        { value: "eg", text: 'egypt' },
-        { value: "kwait", text: 'kwait' }
-      ],
-      WeightOptions: [
-        { value: "1kg", text: '1kg' },
-        { value: "5kg", text: '5kg' },
-      ],
-      UnitOptions: [
-        { value: "5", text: '5' },
-        { value: "10", text: '10' },
-      ]
+      sortTypeCountry: null,
+      sortTypeWeight: null,
+      sortTypeUnit: null,
+      CountryOptions: null,
+      WeightOptions: null,
+      UnitOptions: null
     };
   },
   components: {
@@ -985,10 +994,21 @@ export default {
     //       console.log(err);
     //     });
     // },
+    getFilters() {
+      suppliers.getFilters().then(res => {
+        console.log("filters", res);
+        this.CountryOptions = res.data.items.countries
+        this.WeightOptions = res.data.items.weights
+        this.UnitOptions = res.data.items.units
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   },
   mounted() {
     this.getCategoryProducts();
     this.getSingleProductDetails();
+    this.getFilters();
     // this.getSupplierProducts();
   },
   watch: {

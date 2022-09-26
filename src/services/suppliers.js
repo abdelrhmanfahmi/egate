@@ -94,5 +94,8 @@ export default {
   getProductReview(id){
     return globalAxios.get(`members/review/product-reviews/${id}`)
   },
+  getFilters(){
+    return globalAxios.get(`products/get-filter/attributes`)
+  }
   
 };
