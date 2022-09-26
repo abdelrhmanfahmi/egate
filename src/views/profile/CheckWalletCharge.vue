@@ -82,7 +82,7 @@
       checkWalletCharge() {
         let data = {
           id: this.$route.query.id,
-          tap_charge_id: this.$route.query.tap_charge_id,
+          tap_charge_id: this.$route.query.tap_id,
         };
         profile
           .checkWalletCharge(data)
