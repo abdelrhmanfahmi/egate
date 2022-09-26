@@ -21,6 +21,7 @@ import GiftCardB2b from "../views/profile/GiftCardB2b.vue";
 import ReturnRequests from "../views/profile/ReturnRequests.vue";
 import Wallet from "../views/profile/Wallet.vue";
 import Notifications from "../views/profile/Notifications.vue";
+import CheckWalletCharge from "../views/profile/CheckWalletCharge.vue";
 
 
 
@@ -122,6 +123,11 @@ export default {
       path: "/profile/Notifications",
       name: "Notifications",
       component: Notifications,
+    },
+    {
+      path: "/profile/CheckWalletCharge",
+      name: "CheckWalletCharge",
+      component: CheckWalletCharge,
     },
     
     
