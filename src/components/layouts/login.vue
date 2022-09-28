@@ -12,6 +12,23 @@
     >
       <template #default="{ hide }">
         <div class="user-login-form">
+          <div class="row flex-row justify-content-between align-items-center mb-4 text-dark">
+            <div class="col-md-4 col-sm-12">
+              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
+                $t("login.retailBuyer")
+              }}</router-link>
+            </div>
+            <div class="col-md-5 col-sm-12">
+              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
+                $t("login.wholeSaleBuyer")
+              }}</router-link>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
+                $t("home.suppliers")
+              }}</router-link>
+            </div>
+          </div>
           <h6 class="title">{{ $t("login.login") }}</h6>
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
@@ -65,6 +82,7 @@
           </form>
         </div>
         <!-- social login -->
+
         <div class="social-login">
           <p>{{ $t("login.LoginSocial") }}</p>
           <div
@@ -204,8 +222,8 @@ export default {
             location.reload();
           }
         })
-        .then(()=>{
-          location.reload()
+        .then(() => {
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -359,5 +377,8 @@ export default {
 
 .apple-login {
   background: #666666 !important;
+}
+.text-decoration-underline{
+  text-decoration:underline !important
 }
 </style>

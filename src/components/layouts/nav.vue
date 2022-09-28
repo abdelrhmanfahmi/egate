@@ -20,7 +20,7 @@
             </li>
             <li>
               <router-link class="link" to="/suppliers">{{
-                $t("home.suppliers")
+                $t("home.navSuppliers")
               }}</router-link>
             </li>
             <li>
