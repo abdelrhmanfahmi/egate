@@ -38,5 +38,6 @@ export default {
     siteSupport:'Typical response within one hour',
     hiThere:'Hi there',
     helpYou:'How can I help you?',
-    startCaht:'Start Chat'
+    startCaht:'Start Chat',
+    navSuppliers:'PARTNERS'
 };

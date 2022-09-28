@@ -1,13 +1,15 @@
 <template>
   <div class="product-counter">
-    <div class="actions d-flex ">
+    <div class="actions d-flex">
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
       </button>
       <div class="value">
         <main>
           <slot name="main">
-            <span class="product-counter-number"> {{ countValue }}</span>
+            <span class="product-counter-number">
+              {{ quantity == 0 ? countValue : quantity }}</span
+            >
           </slot>
         </main>
       </div>
@@ -61,10 +63,9 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
         this.$emit("changeTitle", this.countValue);
-        this.quantity = this.countValue
+        this.quantity = this.countValue;
       }, 300);
       // this.$emit('changeTitle',this.countValue)
-
     },
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
@@ -79,9 +80,8 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
         this.$emit("changeTitle", this.countValue);
-        this.quantity = this.countValue
+        this.quantity = this.countValue;
       }, 300);
-
     },
   },
 };
@@ -124,11 +124,11 @@ export default {
 }
 
 .product-counter .value {
-  width:1.5rem !important;
-  height:1.5rem !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
 }
 .product-counter .actions .product-counter-btn {
-  width:1.5rem !important;
+  width: 1.5rem !important;
   height: 1.5rem !important;
 }
 </style>
