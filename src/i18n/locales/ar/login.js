@@ -18,4 +18,7 @@ export default {
   logBtn1: " نعم ، أريد التسجيل",
   logBtn2: "لا ، المتابعة بدون تسجيل",
   actionComplete: "من فضلك اكمل العملية",
+  wholeSaleBuyer:'المشتري بالجملة',
+  retailBuyer:'مشتري التجزئة'
+
 };
