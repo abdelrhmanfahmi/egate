@@ -12,21 +12,30 @@
     >
       <template #default="{ hide }">
         <div class="user-login-form">
-          <div class="row flex-row justify-content-between align-items-center mb-4 text-dark">
+          <div
+            class="row flex-row justify-content-between align-items-center mb-4 text-dark"
+          >
             <div class="col-md-4 col-sm-12">
-              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
-                $t("login.retailBuyer")
-              }}</router-link>
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.retailBuyer") }}</router-link
+              >
             </div>
             <div class="col-md-5 col-sm-12">
-              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
-                $t("login.wholeSaleBuyer")
-              }}</router-link>
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.wholeSaleBuyer") }}</router-link
+              >
             </div>
             <div class="col-md-3 col-sm-12">
-              <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
-                $t("home.suppliers")
-              }}</router-link>
+              <a
+                href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                target="_blank"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("home.suppliers") }}</a
+              >
             </div>
           </div>
           <h6 class="title">{{ $t("login.login") }}</h6>
@@ -378,7 +387,7 @@ export default {
 .apple-login {
   background: #666666 !important;
 }
-.text-decoration-underline{
-  text-decoration:underline !important
+.text-decoration-underline {
+  text-decoration: underline !important;
 }
 </style>
