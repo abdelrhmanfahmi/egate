@@ -102,7 +102,7 @@ export default {
   supplier: "Supplier",
   residentsEmpty: "There are no residents",
   //SupplierCorrespondence
-  supplierCorrespondence: "Supplier Correspondence",
+  supplierCorrespondence: "Supplier Messages",
   supplierCorrespondenceEmpty: "There are no contacts",
   cancelSubscribe: "cancel subscribe",
   delete: "delete",

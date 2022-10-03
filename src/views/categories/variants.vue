@@ -137,7 +137,7 @@
 
                       <b-form-select v-model="sortTypeCountry" class="mb-3" id="country" v-if="filteredBy"
                         @change="getCategoryProducts">
-                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option value="null">{{$t('home.All')}}</b-form-select-option>
                         <b-form-select-option :value="country.id" v-for="( country) in CountryOptions"
                           :key="country.id">
                           {{country.title}}</b-form-select-option>
@@ -151,7 +151,7 @@
 
                       <b-form-select v-model="sortTypeWeight" class="mb-3" id="weight" v-if="filteredBy"
                         @change="getCategoryProducts">
-                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option value="null" >{{$t('home.All')}}</b-form-select-option>
                         <b-form-select-option :value="weight.id" v-for="( weight) in WeightOptions" :key="weight.id">
                           {{weight.title}}</b-form-select-option>
                       </b-form-select>
@@ -165,7 +165,7 @@
 
                       <b-form-select v-model="sortTypeUnit" class="mb-3" id="unit" v-if="filteredBy"
                         @change="getCategoryProducts">
-                        <b-form-select-option :value="null" disabled>{{$t('home.All')}}</b-form-select-option>
+                        <b-form-select-option value="null">{{$t('home.All')}}</b-form-select-option>
                         <b-form-select-option :value="unit.id" v-for="( unit) in UnitOptions" :key="unit.id">
                           {{unit.title}}</b-form-select-option>
                       </b-form-select>
