@@ -20,7 +20,7 @@
       </b-breadcrumb>
     </div> -->
     <div
-      class="cover text-center mx-auto my-4 text-white"
+      class="cover text-center mx-auto my-4 text-white" v-if="supplierMSite && supplierMSite.banner_path"
       :style="{ backgroundImage: `url(${supplierMSite.banner_path})` }"
     >
       <div
@@ -28,9 +28,9 @@
       >
         <b-container>
           <div class="cover-title text-white font-weight-bold">
-            <h2 class="font-weight-bold">
+            <!-- <h2 class="font-weight-bold">
               {{ pageTitle }}
-            </h2>
+            </h2> -->
             <b-breadcrumb v-if="supplier">
               <b-breadcrumb-item href="#home">
                 <router-link to="/">
