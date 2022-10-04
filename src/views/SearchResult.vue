@@ -7,12 +7,21 @@
         </h1>
         <h6>
           {{ $t("singleProduct.serchingResult") }}
-          <span class="word"><b>{{ keyword }}</b></span>
+          <span class="word"
+            ><b>{{ keyword }}</b></span
+          >
         </h6>
       </div>
-      <div class="my-5" v-if="categoriesLength == null || productsLength == null">
+      <div
+        class="my-5"
+        v-if="categoriesLength == null || productsLength == null"
+      >
         <div class="text-center">
-          <b-spinner style="width: 3rem; height: 3rem" variant="primary" label="Spinning"></b-spinner>
+          <b-spinner
+            style="width: 3rem; height: 3rem"
+            variant="primary"
+            label="Spinning"
+          ></b-spinner>
         </div>
       </div>
       <div class="px-5" v-else-if="categoriesLength > 0 || productsLength > 0">
@@ -21,110 +30,192 @@
             <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
               <b-skeleton-img></b-skeleton-img>
               <b-card>
-                <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
-                <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
+                <b-skeleton
+                  animation="fade"
+                  width="60%"
+                  class="border-none"
+                ></b-skeleton>
+                <b-skeleton
+                  animation="fade"
+                  width="85%"
+                  class="border-none"
+                ></b-skeleton>
               </b-card>
             </b-col>
           </b-row>
           <div class="" v-else>
+            <!-- categories  -->
             <div class="categories" v-if="categoriesLength > 0">
               <h2 class="my-4">
                 {{ $t("profile.categories") }}
               </h2>
               <div class="row">
-                <div :title="category.title" v-for="category in categories" :key="category.id"
-                  class="custum-padding mb-3 col-md-3 col-sm-12">
-                  <router-link :to="`/categories/${category.id}/variants`" v-if="category.id">
-                    <CategoryCard v-if="category" :card="{ type: category.title }" :image="category.image_path" />
+                <div
+                  :title="category.title"
+                  v-for="category in categories"
+                  :key="category.id"
+                  class="custum-padding mb-3 col-md-3 col-sm-12"
+                >
+                  <router-link
+                    :to="`/categories/${category.id}/variants`"
+                    v-if="category.id"
+                  >
+                    <CategoryCard
+                      v-if="category"
+                      :card="{ type: category.title }"
+                      :image="category.image_path"
+                    />
                   </router-link>
                 </div>
               </div>
             </div>
+
+            <!-- suppliers -->
+            <div class="categories" v-if="suppliersLength > 0">
+              <h2 class="my-4">
+                {{ $t("home.suppliers") }}
+              </h2>
+              <div class="row">
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content"
+                  v-for="supplier in suppliers"
+                  :key="supplier.id"
+                >
+                  <SingleSupplier :supplier="supplier"></SingleSupplier>
+                </div>
+              </div>
+              <div class="text-center" v-if="suppliersLength > 12">
+                <router-link
+                  class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block"
+                  :to="{
+                    path: `/suppliers`
+                  }"
+                >
+                  {{ $t("supplier.more") }}
+                </router-link>
+              </div>
+            </div>
+
+            <!-- products  -->
             <div class="products mt-5" v-if="productsLength > 0">
               <h2 class="my-4">
                 {{ $t("profile.products") }}
               </h2>
               <div class="row">
-                <div :title="product.title" v-for="product in products" :key="product.id"
-                  class="custum-padding mb-3 col-md-3 col-sm-12">
-
+                <div
+                  :title="product.title"
+                  v-for="product in products"
+                  :key="product.id"
+                  class="custum-padding mb-3 col-md-3 col-sm-12"
+                >
                   <div class="" v-if="product">
-                    <router-link :to="{ path: '/details', query: { id: product.id } }" v-if="product.id"
-                      class="text-dark">
-
+                    <router-link
+                      :to="{ path: '/details', query: { id: product.id } }"
+                      v-if="product.id"
+                      class="text-dark"
+                    >
                       <div>
-                        <b-img-lazy v-if="product.current_main_image_path" :src="product.current_main_image_path"
-                          class="img-fluid" alt="image"></b-img-lazy>
+                        <b-img-lazy
+                          v-if="product.current_main_image_path"
+                          :src="product.current_main_image_path"
+                          class="img-fluid"
+                          alt="image"
+                        ></b-img-lazy>
                       </div>
                     </router-link>
 
-                    <router-link :to="{ path: '/details', query: { id: product.id } }" v-if="product.id"
-                      class="text-dark">
-
+                    <router-link
+                      :to="{ path: '/details', query: { id: product.id } }"
+                      v-if="product.id"
+                      class="text-dark"
+                    >
                       <div class="" v-if="product.product">
                         <small>{{ product.product.title }}</small>
                       </div>
                       <div class="" v-if="product.product_details_by_type">
                         <small>
                           {{
-                          product.product_details_by_type.customer_price
-                          | fixedCurrency
+                            product.product_details_by_type.customer_price
+                              | fixedCurrency
                           }}
-                          {{ currency }}</small>
+                          {{ currency }}</small
+                        >
                         <br />
-                        <small class="price-after price m-0" v-if="
-                          product.product_details_by_type
-                            .price_before_discount &&
-                          product.product_details_by_type.customer_price >
+                        <small
+                          class="price-after price m-0"
+                          v-if="
                             product.product_details_by_type
-                              .price_before_discount
-                        ">
+                              .price_before_discount &&
+                            product.product_details_by_type.customer_price >
+                              product.product_details_by_type
+                                .price_before_discount
+                          "
+                        >
                           {{
-                          product.product_details_by_type
-                          .price_before_discount | fixedCurrency
+                            product.product_details_by_type
+                              .price_before_discount | fixedCurrency
                           }}
-                          {{ currency }}</small>
+                          {{ currency }}</small
+                        >
                       </div>
                     </router-link>
-
                   </div>
-                  <div class="row px-3 justify-content-center align-items-center" v-if="
-                    product.product_details_by_type.add_type === 'cart' ||
-                    product.product_details_by_type.add_type === 'both'
-                  ">
-                    <div class=" col-xl-4 col-sm-12 col-12 my-2">
-                      <Counter :minimum="
-                        product.min_order_quantity
-                          ? product.min_order_quantity
-                          : 1
-                      " :quantity="product.quantity" :product="product" class="justify-content-center"
-                        @changeTitle="ChangeQ($event)" />
+                  <div
+                    class="row px-3 justify-content-center align-items-center"
+                    v-if="
+                      product.product_details_by_type.add_type === 'cart' ||
+                      product.product_details_by_type.add_type === 'both'
+                    "
+                  >
+                    <div class="col-xl-4 col-sm-12 col-12 my-2">
+                      <Counter
+                        :minimum="
+                          product.min_order_quantity
+                            ? product.min_order_quantity
+                            : 1
+                        "
+                        :quantity="product.quantity"
+                        :product="product"
+                        class="justify-content-center"
+                        @changeTitle="ChangeQ($event)"
+                      />
                     </div>
-                    <div class="col-xl-4 col-sm-12 col-12 my-2 ">
-                      <b-button @click="addToCartAgain(product)"
+                    <div class="col-xl-4 col-sm-12 col-12 my-2">
+                      <b-button
+                        @click="addToCartAgain(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again p-2"
                         v-if="
                           product.product_details_by_type.add_type === 'cart' ||
                           product.product_details_by_type.add_type === 'both'
-                        ">
+                        "
+                      >
                         <span>
-                          <font-awesome-icon icon="fa-sharp fa-solid fa-cart-plus" /> <span>{{$t('cart.add')}}</span>
+                          <font-awesome-icon
+                            icon="fa-sharp fa-solid fa-cart-plus"
+                          />
+                          <span>{{ $t("cart.add") }}</span>
                         </span>
                       </b-button>
                     </div>
                     <div class="col-xl-4 col-sm-12 col-12 mt-2">
                       <div class="product-actions short-links mb-2">
-                        <button @click="chooseProduct(product)"
+                        <button
+                          @click="chooseProduct(product)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
-                            (product.product_details_by_type.add_type === 'rfq' ||
-                              product.product_details_by_type.add_type === 'both') &&
+                            (product.product_details_by_type.add_type ===
+                              'rfq' ||
+                              product.product_details_by_type.add_type ===
+                                'both') &&
                             buyerUserData
-                          ">
+                          "
+                        >
                           <div>
-                            <button id="show-btn"
+                            <button
+                              id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                              @click="$bvModal.show('bv-bidRequest')">
+                              @click="$bvModal.show('bv-bidRequest')"
+                            >
                               <!-- <span role="button" @click="loggedBidRequest"> -->
                               <span>
                                 <rfqIcon class="mx-2" />
@@ -132,12 +223,17 @@
                             </button>
                           </div>
                         </button>
-                        <button @click="loginFirst(product)"
-                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq" v-else-if="
-                            (product.product_details_by_type.add_type === 'rfq' ||
-                              product.product_details_by_type.add_type === 'both') &&
+                        <button
+                          @click="loginFirst(product)"
+                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
+                          v-else-if="
+                            (product.product_details_by_type.add_type ===
+                              'rfq' ||
+                              product.product_details_by_type.add_type ===
+                                'both') &&
                             !buyerUserData
-                          ">
+                          "
+                        >
                           <span>
                             <rfqIcon class="mx-2" />
                           </span>
@@ -145,15 +241,17 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
 
               <div class="text-center" v-if="productsLength > 16">
-                <router-link class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block" :to="{
-                  path: `/Search-Products`,
-                  query: { keyword: $route.query.keyword },
-                }">
+                <router-link
+                  class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block"
+                  :to="{
+                    path: `/Search-Products`,
+                    query: { keyword: $route.query.keyword },
+                  }"
+                >
                   {{ $t("supplier.more") }}
                 </router-link>
               </div>
@@ -174,32 +272,62 @@
         </template>
         <form>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.nameInput") }}
-              <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" v-model="requestData.name" />
-            <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.nameInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              v-model="requestData.name"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.qoute_name"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.min_order_quantity") }}
-              <span class="text-danger">*</span></label>
-            <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
-            <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.min_order_quantity") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              v-model="requestData.request_qty"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.request_qty"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.reviewInput") }}
-              <span class="text-danger">*</span></label>
-            <textarea class="form-control" v-model="requestData.comment"></textarea>
-            <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.reviewInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <textarea
+              class="form-control"
+              v-model="requestData.comment"
+            ></textarea>
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.comment"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
         </form>
         <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-        $t("cart.submit")
+          $t("cart.submit")
         }}</b-button>
       </b-modal>
     </div>
@@ -210,7 +338,7 @@
 import categories from "@/services/categories";
 import CategoryCard from "@/components/global/CategoryCard.vue";
 import globalAxios from "@/services/global-axios";
-import Counter from "@/components/global/searchCounter.vue"
+import Counter from "@/components/global/searchCounter.vue";
 import rfqIcon from "@/components/global/rfqIcon.vue";
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
@@ -218,12 +346,14 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 import suppliers from "@/services/suppliers";
+import SingleSupplier from "../components/pages/suppliers/SingleSupplier.vue";
 Vue.use(VueSweetalert2);
 export default {
   components: {
     CategoryCard,
     Counter,
-    rfqIcon
+    rfqIcon,
+    SingleSupplier,
   },
   data() {
     return {
@@ -240,7 +370,9 @@ export default {
         comment: null,
       },
       errors: [],
-      selectedProduct: null
+      selectedProduct: null,
+      suppliers: null,
+      suppliersLength:0
     };
   },
   methods: {
@@ -257,6 +389,8 @@ export default {
 
           this.products = resp.data.items.products;
           this.productsLength = resp.data.items.products.length;
+          this.suppliers = resp.data.items.suppliers.slice(0, 12);
+          this.suppliersLength = resp.data.items.suppliers.length;
         })
         .catch((err) => {
           console.log(err);
@@ -312,7 +446,6 @@ export default {
       }).then(() => {
         this.$router.push("/user-register");
       });
-
     },
     chooseProduct(product) {
       this.selectedProduct = product;
@@ -390,7 +523,7 @@ export default {
 }
 
 .cart-again {
-  background: #FB9100;
+  background: #fb9100;
   font-weight: bold;
 }
 
