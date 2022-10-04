@@ -19,6 +19,7 @@
         </b-breadcrumb-item>
       </b-breadcrumb>
     </div> -->
+    <!-- add rule for banner  -->
     <div
       class="cover text-center mx-auto my-4 text-white" v-if="supplierMSite && supplierMSite.banner_path"
       :style="{ backgroundImage: `url(${supplierMSite.banner_path})` }"
