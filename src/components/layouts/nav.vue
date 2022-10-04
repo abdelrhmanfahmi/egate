@@ -168,7 +168,45 @@
         </div>
 
         <!--Start Mbile Nav -->
-        <div class="icon" v-if="mobile">
+        <div class="icon right-side" v-if="mobile">
+          <div
+            class="row justify-content-center align-items-center search-icon"
+            v-if="mobile"
+          >
+            <div class="col-12">
+              <div class="search-icon">
+                <b-button v-b-modal.modal-1 class="icon-search" size="md">
+                  <font-awesome-icon
+                    v-b-toggle.sidebar-1
+                    icon="fa-solid fa-search"
+                    class="mobile-search-icon"
+                  />
+                </b-button>
+                <b-modal id="modal-1" class="search">
+                  <!-- Using slots -->
+                  <b-input-group class="mt-3">
+                    <template #append>
+                      <b-input-group-text>
+                        <strong @click="search" class="search-eye">
+                          <font-awesome-icon
+                            v-b-toggle.sidebar-1
+                            icon="fa-solid fa-search"
+                          />
+                        </strong>
+                      </b-input-group-text>
+                    </template>
+                    <b-form @submit.prevent="search">
+                      <b-form-input
+                        :placeholder="$t('cart.search')"
+                        v-model="keyword"
+                      ></b-form-input>
+                    </b-form>
+                  </b-input-group>
+                </b-modal>
+              </div>
+            </div>
+          </div>
+
           <font-awesome-icon
             v-b-toggle.sidebar-1
             @click="toggleMobileNav"
@@ -545,6 +583,18 @@ html:lang(ar) {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+.mobile-search-icon {
+  font-size: 20px !important;
+}
+
+@media(max-width:992px){
+  #modal-1 .input-group-text {
+    font-size: 25px ;
+  }
+  #modal-1 .form-control{
+    font-size: 30px;
   }
 }
 </style>
