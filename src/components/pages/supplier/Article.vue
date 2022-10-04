@@ -40,10 +40,10 @@
       <h3>
         {{ $t("supplier.shipping_and_payment_terms") }}
       </h3>
-      <p v-if="supplierMSite.return_policy_en && $i18n.locale == 'en'">
+      <p v-if="supplierMSite.shipping_and_payment_terms_en && $i18n.locale == 'en'">
         {{ supplierMSite.shipping_and_payment_terms_en }}
       </p>
-      <p v-if="supplierMSite.return_policy_ar && $i18n.locale == 'ar'">
+      <p v-if="supplierMSite.shipping_and_payment_terms_ar && $i18n.locale == 'ar'">
         {{ supplierMSite.shipping_and_payment_terms_ar }}
       </p>
     </div>
