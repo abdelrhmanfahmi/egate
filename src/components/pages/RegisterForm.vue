@@ -16,8 +16,21 @@
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
-                <!-- First Name -->
-                <b-col lg="6">
+                
+                <b-col lg="2" class="">
+                  <label for="f-name">{{ $t("register.selectPrefixes") }}</label>
+
+                    <b-form-select v-model="form.perfix">
+                      <b-form-select-option value="null" disabled
+                        >{{$t('home.All')}}</b-form-select-option
+                      >
+                      <b-form-select-option :value="prefix" v-for="(prefix , index) in prefixes" :key="index"
+                        >{{prefix}}</b-form-select-option
+                      >
+                    </b-form-select>
+                 
+                </b-col>
+                <b-col lg="5">
                   <b-form-group>
                     <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
@@ -32,7 +45,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Last Name -->
-                <b-col lg="6">
+                <b-col lg="5">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.lastName") }}</label>
                     <span class="requried">*</span>
@@ -273,7 +286,7 @@
           <h6 class="main-header">
             {{ $t("register.unableRegister") }}
           </h6>
-          <a class="tel pb-0"  v-html="contactPhone.description"></a>
+          <a class="tel pb-0" v-html="contactPhone.description"></a>
         </div>
       </div>
     </b-container>
@@ -295,6 +308,7 @@ export default {
         mobile_number: "",
         active_with: "sms",
         register_mailing_list: false,
+        perfix:null
       },
       errors: {},
       terms: "",
@@ -305,13 +319,15 @@ export default {
       countries: [],
       fieldType: "password",
       condations: {},
-      contactPhone:'',
+      contactPhone: "",
+      prefixes: null,
     };
   },
   mounted() {
     this.getTerms();
     this.getAllCountires();
     this.contactUsPhone();
+    this.getProfilePrefixes();
   },
   methods: {
     getAllCountires() {
@@ -325,6 +341,7 @@ export default {
         });
     },
     register() {
+      localStorage.clear();
       this.form.callback_url = `${this.mainDoamin}`;
       auth
         .register("b2c", this.form)
@@ -367,6 +384,12 @@ export default {
           console.log(err);
         });
     },
+
+    getProfilePrefixes() {
+      profile.getProfilePrefixes().then((res) => {
+        this.prefixes = res.data.items;
+      });
+    },
   },
 };
 </script>
@@ -377,20 +400,24 @@ export default {
     text-align: center;
     padding: 30px 0;
   }
+
   .user-register-form {
     .register-info {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       margin-bottom: 25px;
+
       .back {
         font-weight: 500;
         color: $header-color;
+
         &:hover {
           color: $main-color;
         }
       }
     }
+
     .terms {
       a {
         color: $main-color;
@@ -398,6 +425,7 @@ export default {
         display: inline-block;
       }
     }
+
     .submition-box {
       text-align: center;
       border: 1px solid rgba(204, 204, 204, 0.251);
@@ -405,11 +433,14 @@ export default {
       background-color: rgba(216, 220, 221, 0.251);
       padding: 40px 30px;
     }
+
     .help {
       text-align: center;
+
       .main-header {
         text-transform: uppercase;
       }
+
       .tel {
         background-color: #3b5998;
         padding: 20px;

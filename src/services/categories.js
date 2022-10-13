@@ -30,11 +30,14 @@ export default {
       },
     });
   },
-  getCategoryProducts(id,sorting , cat) {
-    return globalAxios.get(`products?${cat}` , {
-      params:{
+  getCategoryProducts(id, sorting, cat, country, weight, unit) {
+    return globalAxios.get(`products?${cat}`, {
+      params: {
         category_id: id,
-        sort_price:sorting
+        sort_price: sorting,
+        country_id: country,
+        weight: weight,
+        unit_id: unit
       }
     });
   },

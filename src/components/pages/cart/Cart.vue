@@ -16,41 +16,83 @@
                         <div class="addresses">
                           <form>
                             <label>
-                              <input type="radio" value="newAddress" name="radio" v-model="selectAddressShape"
-                                class="GuestNewAddress" />
+                              <input
+                                type="radio"
+                                value="newAddress"
+                                name="radio"
+                                v-model="selectAddressShape"
+                                class="GuestNewAddress"
+                              />
                               <span>{{ $t("profile.newAddress") }}</span>
                             </label>
-                            <label v-if="
-                              buyerUserData &&
-                              addresses &&
-                              addresses.length != 0
-                            ">
-                              <input type="radio" value="existingAddresses" name="radio" v-model="selectAddressShape"
-                                class="existingAddresses" />
+                            <label
+                              v-if="
+                                buyerUserData &&
+                                addresses &&
+                                addresses.length != 0
+                              "
+                            >
+                              <input
+                                type="radio"
+                                value="existingAddresses"
+                                name="radio"
+                                v-model="selectAddressShape"
+                                class="existingAddresses"
+                              />
                               <span>{{ $t("payment.selectExist") }}</span>
                             </label>
-                            <span v-if="
-                              selectAddressShape === 'existingAddresses' &&
-                              addresses &&
-                              addresses.length != 0
-                            ">
-                              <b-form-select v-model="selectedAddress" class="pickupAddresses" @change="changeAddress">
-                                <b-form-select-option selected disabled value="null">{{
+                            <span
+                              v-if="
+                                selectAddressShape === 'existingAddresses' &&
+                                addresses &&
+                                addresses.length != 0
+                              "
+                            >
+                              <b-form-select
+                                v-model="selectedAddress"
+                                class="pickupAddresses"
+                                @change="changeAddress"
+                              >
+                                <b-form-select-option
+                                  selected
+                                  disabled
+                                  value="null"
+                                  >{{
                                     $t("payment.selectExist")
-                                }}</b-form-select-option>
+                                  }}</b-form-select-option
+                                >
 
-                                <b-form-select-option v-for="(address, index) in addresses" :key="index"
-                                  :value="address">
-                                  <span class="mb-2" v-if="address.apartment">{{ address.apartment }} ,</span>
-                                  <span class="mb-2" v-if="address.floor">{{ address.floor }} ,</span>
-                                  <span class="mb-2" v-if="address.address_line1">{{ address.address_line1 }} ,</span>
-                                  <span class="mb-2" v-if="address.address_line2">{{ address.address_line2 }} ,</span>
+                                <b-form-select-option
+                                  v-for="(address, index) in addresses"
+                                  :key="index"
+                                  :value="address"
+                                >
+                                  <span class="mb-2" v-if="address.apartment"
+                                    >{{ address.apartment }} ,</span
+                                  >
+                                  <span class="mb-2" v-if="address.floor"
+                                    >{{ address.floor }} ,</span
+                                  >
+                                  <span
+                                    class="mb-2"
+                                    v-if="address.address_line1"
+                                    >{{ address.address_line1 }} ,</span
+                                  >
+                                  <span
+                                    class="mb-2"
+                                    v-if="address.address_line2"
+                                    >{{ address.address_line2 }} ,</span
+                                  >
 
-                                  <span class="mb-2" v-if="address.city">{{ address.city.title }} ,</span>
-                                  <span class="mb-2" v-if="address.region">{{ address.region.title }} ,</span>
+                                  <span class="mb-2" v-if="address.city"
+                                    >{{ address.city.title }} ,</span
+                                  >
+                                  <span class="mb-2" v-if="address.region"
+                                    >{{ address.region.title }} ,</span
+                                  >
 
                                   <span class="mb-2" v-if="address.country">{{
-                                      address.country.title
+                                    address.country.title
                                   }}</span>
                                 </b-form-select-option>
                               </b-form-select>
@@ -58,33 +100,58 @@
                           </form>
                         </div>
                         <div class="addressShape" v-if="expanded">
-                          <div class="newAddress mt-5" v-if="selectAddressShape === 'newAddress'">
+                          <div
+                            class="newAddress mt-5"
+                            v-if="selectAddressShape === 'newAddress'"
+                          >
                             <form class="account-information-form">
                               <b-row class="justify-content-center">
                                 <!-- country  -->
                                 <b-col lg="4">
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.country") }}</label> -->
-                                    <b-form-select v-model="form.country_id" @input="getAllRegions">
-                                      <b-form-select-option value="null" disabled>{{ $t("profile.country") }}
-                                        <span class="requried text-danger">*</span>
+                                    <b-form-select
+                                      v-model="form.country_id"
+                                      @input="getAllRegions"
+                                    >
+                                      <b-form-select-option
+                                        value="null"
+                                        disabled
+                                        >{{ $t("profile.country") }}
+                                        <span class="requried text-danger"
+                                          >*</span
+                                        >
                                       </b-form-select-option>
-                                      <b-form-select-option v-for="(country, index) in countries" :key="index"
-                                        :value="country.id">{{ country.title }}
+                                      <b-form-select-option
+                                        v-for="(country, index) in countries"
+                                        :key="index"
+                                        :value="country.id"
+                                        >{{ country.title }}
                                       </b-form-select-option>
                                     </b-form-select>
-                                    <div class="error" v-for="(
+                                    <div
+                                      class="error"
+                                      v-for="(
                                         error, index
-                                      ) in errors.country_id" :key="index">
+                                      ) in errors.country_id"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
 
-                                    <div class="error" v-for="(error, index) in errors.country" :key="index">
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.country"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
-                                    <div class="error" v-if="
-                                      localClicked && form.country_id == null
-                                    ">
+                                    <div
+                                      class="error"
+                                      v-if="
+                                        localClicked && form.country_id == null
+                                      "
+                                    >
                                       {{ $t("payment.CountryRequired") }}
                                     </div>
                                   </b-form-group>
@@ -94,28 +161,50 @@
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.region") }}</label>
                         <span class="requried">*</span> -->
-                                    <b-form-select v-model="form.region_id" :disabled="!form.country_id"
-                                      @input="getAllCities">
-                                      <b-form-select-option value="null" disabled>{{ $t("profile.region") }}
-                                        <span class="requried text-danger">*</span>
+                                    <b-form-select
+                                      v-model="form.region_id"
+                                      :disabled="!form.country_id"
+                                      @input="getAllCities"
+                                    >
+                                      <b-form-select-option
+                                        value="null"
+                                        disabled
+                                        >{{ $t("profile.region") }}
+                                        <span class="requried text-danger"
+                                          >*</span
+                                        >
                                       </b-form-select-option>
-                                      <b-form-select-option v-for="(region, index) in regions" :key="index"
-                                        :value="region.id">{{ region.title }}
+                                      <b-form-select-option
+                                        v-for="(region, index) in regions"
+                                        :key="index"
+                                        :value="region.id"
+                                        >{{ region.title }}
                                       </b-form-select-option>
                                     </b-form-select>
-                                    <div class="error" v-for="(error, index) in errors.region_id" :key="index">
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.region_id"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
 
-                                    <div class="error" v-if="
-                                      localClicked && form.region_id == null
-                                    ">
+                                    <div
+                                      class="error"
+                                      v-if="
+                                        localClicked && form.region_id == null
+                                      "
+                                    >
                                       {{ $t("payment.RegionRequired") }}
                                     </div>
 
-                                    <div class="error" v-for="(
+                                    <div
+                                      class="error"
+                                      v-for="(
                                         error, index
-                                      ) in errors.governorate" :key="index">
+                                      ) in errors.governorate"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -125,26 +214,48 @@
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.city") }}</label>
                         <span class="requried text-danger">*</span> -->
-                                    <b-form-select v-model="form.city_id" :disabled="
-                                      !form.country_id || !form.region_id
-                                    ">
-                                      <b-form-select-option value="null" disabled>{{ $t("profile.city") }}
-                                        <span class="requried text-danger">*</span>
+                                    <b-form-select
+                                      v-model="form.city_id"
+                                      :disabled="
+                                        !form.country_id || !form.region_id
+                                      "
+                                    >
+                                      <b-form-select-option
+                                        value="null"
+                                        disabled
+                                        >{{ $t("profile.city") }}
+                                        <span class="requried text-danger"
+                                          >*</span
+                                        >
                                       </b-form-select-option>
-                                      <b-form-select-option v-for="(city, index) in cities" :key="index"
-                                        :value="city.id">{{ city.title }}
+                                      <b-form-select-option
+                                        v-for="(city, index) in cities"
+                                        :key="index"
+                                        :value="city.id"
+                                        >{{ city.title }}
                                       </b-form-select-option>
                                     </b-form-select>
 
-                                    <div class="error" v-for="(error, index) in errors.city_id" :key="index">
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.city_id"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
-                                    <div class="error" v-for="(error, index) in errors.city" :key="index">
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.city"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
-                                    <div class="error" v-if="
-                                      localClicked && form.city_id == null
-                                    ">
+                                    <div
+                                      class="error"
+                                      v-if="
+                                        localClicked && form.city_id == null
+                                      "
+                                    >
                                       {{ $t("payment.CityRequired") }}
                                     </div>
                                   </b-form-group>
@@ -156,18 +267,29 @@
                           $t("profile.streetNumber")
                         }}</label> -->
                                     <!-- <span class="requried">*</span> -->
-                                    <b-form-input id="streetNumber" v-model="form.address_line_1" :placeholder="
-                                      $t('contactUs.address') + '*'
-                                    " />
-                                    <div class="error" v-for="(
+                                    <b-form-input
+                                      id="streetNumber"
+                                      v-model="form.address_line_1"
+                                      :placeholder="
+                                        $t('contactUs.address') + '*'
+                                      "
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(
                                         error, index
-                                      ) in errors.address_line_1" :key="index">
+                                      ) in errors.address_line_1"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
-                                    <div class="error" v-if="
-                                      localClicked &&
-                                      form.address_line_1 == null
-                                    ">
+                                    <div
+                                      class="error"
+                                      v-if="
+                                        localClicked &&
+                                        form.address_line_1 == null
+                                      "
+                                    >
                                       {{ $t("payment.AddressRequired") }}
                                     </div>
                                   </b-form-group>
@@ -179,11 +301,18 @@
                           $t("profile.homeNumber")
                         }}</label> -->
                                     <!-- <span class="requried">*</span> -->
-                                    <b-form-input id="homeNumber" v-model="form.building_number"
-                                      :placeholder="$t('profile.homeNumber')" />
-                                    <div class="error" v-for="(
+                                    <b-form-input
+                                      id="homeNumber"
+                                      v-model="form.building_number"
+                                      :placeholder="$t('profile.homeNumber')"
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(
                                         error, index
-                                      ) in errors.building_number" :key="index">
+                                      ) in errors.building_number"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -193,8 +322,16 @@
                                   <b-form-group>
                                     <!-- <label for="floor">{{ $t("profile.floor") }}</label>
                         <span class="requried">*</span> -->
-                                    <b-form-input id="floor" v-model="form.floor" :placeholder="$t('profile.floor')" />
-                                    <div class="error" v-for="(error, index) in errors.floor" :key="index">
+                                    <b-form-input
+                                      id="floor"
+                                      v-model="form.floor"
+                                      :placeholder="$t('profile.floor')"
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.floor"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -206,9 +343,16 @@
                           $t("profile.blockNumber")
                         }}</label>
                         <span class="requried">*</span> -->
-                                    <b-form-input id="blockNumber" v-model="form.apartment"
-                                      :placeholder="$t('profile.blockNumber')" />
-                                    <div class="error" v-for="(error, index) in errors.apartment" :key="index">
+                                    <b-form-input
+                                      id="blockNumber"
+                                      v-model="form.apartment"
+                                      :placeholder="$t('profile.blockNumber')"
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.apartment"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -220,12 +364,21 @@
                           $t("profile.postCode")
                         }}</label>
                         <span class="required text-danger">*</span> -->
-                                    <b-form-input id="postCode" type="number" v-model="form.pin_code"
-                                      :formatter="formatPin_code" :placeholder="$t('profile.zipCode')" />
+                                    <b-form-input
+                                      id="postCode"
+                                      type="number"
+                                      v-model="form.pin_code"
+                                      :formatter="formatPin_code"
+                                      :placeholder="$t('profile.zipCode')"
+                                    />
                                     <div class="error" v-if="postalError">
                                       {{ $t("payment.postalError") }}
                                     </div>
-                                    <div class="error" v-for="(error, index) in errors.pin_code" :key="index">
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.pin_code"
+                                      :key="index"
+                                    >
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -252,24 +405,39 @@
                             </b-col> -->
                               </b-row>
 
-                              <b-button v-if="buyerUserData" type="submit" @click.prevent="createAdress()"
-                                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto">
+                              <b-button
+                                v-if="buyerUserData"
+                                type="submit"
+                                @click.prevent="createAdress()"
+                                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+                              >
                                 {{ $t("register.submit") }} &
                                 {{ $t("cart.checkFees") }}
                               </b-button>
-                              <b-button v-else type="submit" @click.prevent="localStoreAdresses()"
-                                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2">
+                              <b-button
+                                v-else
+                                type="submit"
+                                @click.prevent="localStoreAdresses()"
+                                class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
+                              >
                                 {{ $t("register.submit") }} &
                                 {{ $t("cart.checkFees") }}
                               </b-button>
                             </form>
                           </div>
                         </div>
-                        <div class="close-options" v-if="expanded && selectAddressShape === 'newAddress'"
-                          @click="expanded = !expanded">
+                        <div
+                          class="close-options"
+                          v-if="expanded && selectAddressShape === 'newAddress'"
+                          @click="expanded = !expanded"
+                        >
                           <font-awesome-icon icon="fa-solid fa-xmark" />
                         </div>
-                        <div class="close-options" v-else-if="!expanded" @click="expanded = !expanded">
+                        <div
+                          class="close-options"
+                          v-else-if="!expanded"
+                          @click="expanded = !expanded"
+                        >
                           <font-awesome-icon icon="fa-solid fa-arrow-down" />
                         </div>
                       </div>
@@ -283,8 +451,15 @@
           </div>
           <div class="easy-trans col-12">
             <div class="cart">
-              <div class="d-flex justify-content-center align-items-center flex-column" v-if="loading">
-                <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+              <div
+                class="d-flex justify-content-center align-items-center flex-column"
+                v-if="loading"
+              >
+                <img
+                  src="@/assets/images/BeanLoading2.gif"
+                  alt="cart-image"
+                  class="w-25"
+                />
               </div>
               <div class="" v-else>
                 <div class="" v-if="cartItems !== null">
@@ -303,24 +478,41 @@
                           <th></th>
                         </tr>
                       </thead>
-                      <tbody class="supplier" v-for="(supplier, index) in cartItems" :key="index">
+                      <tbody
+                        class="supplier"
+                        v-for="(supplier, index) in cartItems"
+                        :key="index"
+                      >
                         <h5 class="name">
                           {{ supplier.supplier_name }}
                         </h5>
-                        <tr class="item-content" v-for="(item, index) in supplier.products" :key="index">
+                        <tr
+                          class="item-content"
+                          v-for="(item, index) in supplier.products"
+                          :key="index"
+                        >
                           <td class="media">
-                            <router-link :to="{
-                              path: '/details',
-                              query: { id: `${item.product_supplier_id}` },
-                            }" class="thumb">
-                              <img :src="item.product_image" :alt="item.name + ' image'" class="product-image" />
+                            <router-link
+                              :to="{
+                                path: '/details',
+                                query: { id: `${item.product_supplier_id}` },
+                              }"
+                              class="thumb"
+                            >
+                              <img
+                                :src="item.product_image"
+                                :alt="item.name + ' image'"
+                                class="product-image"
+                              />
                             </router-link>
                           </td>
                           <td>
-                            <router-link :to="{
-                              path: '/details',
-                              query: { id: `${item.product_supplier_id}` },
-                            }">
+                            <router-link
+                              :to="{
+                                path: '/details',
+                                query: { id: `${item.product_supplier_id}` },
+                              }"
+                            >
                               {{ item.product_name }}
                             </router-link>
                           </td>
@@ -329,12 +521,17 @@
                           </td>
                           <td v-else>-</td>
                           <td>
-                            <Counter :minimum="
-                              item.min_order_quantity
-                                ? item.min_order_quantity
-                                : 1
-                            " :quantity="item.quantity" :product="item" class="justify-content-center"
-                              @changeTitle="ChangeQ($event)"></Counter>
+                            <Counter
+                              :minimum="
+                                item.min_order_quantity
+                                  ? item.min_order_quantity
+                                  : 1
+                              "
+                              :quantity="item.quantity"
+                              :product="item"
+                              class="justify-content-center"
+                              @changeTitle="ChangeQ($event)"
+                            ></Counter>
                           </td>
                           <td v-if="item.product_sub_total">
                             {{ item.product_sub_total | fixedCurrency }}
@@ -352,50 +549,88 @@
                         </tr>
                         <tr>
                           <td colspan="4" v-if="buyerUserData">
-                            <div class="coupon my-4" v-for="(item, index) in supplier.products" :key="index">
-                              <Coupon :item="item" :supplier="supplier" @changeRate="ChangeRateValue($event, supplier)"
-                                @removeDiscount="changeCouponStatus(supplier)" />
+                            <div
+                              class="coupon my-4"
+                              v-for="(item, index) in supplier.products"
+                              :key="index"
+                            >
+                              <Coupon
+                                :item="item"
+                                :supplier="supplier"
+                                @changeRate="ChangeRateValue($event, supplier)"
+                                @removeDiscount="changeCouponStatus(supplier)"
+                              />
                             </div>
                           </td>
                           <td colspan="3">
                             <div class="order-shipping mt-5">
                               <div :class="$i18n.locale">
-                                <form @change="orderType(supplier.supplier_id)" class="d-flex align-items-baseline">
-                                  <label @click="shippingStore(supplier)" class="shipping-label">
-                                    <input @change="changeShipping($event)" @input="shippingStore(supplier)"
-                                      type="radio" value="0" :name="'types-' + index"
-                                      v-model="ratingNum[index].delivery_type" class="checkFirst" id="check" />
+                                <form
+                                  @change="orderType(supplier.supplier_id)"
+                                  class="d-flex align-items-baseline"
+                                >
+                                  <label
+                                    @click="shippingStore(supplier)"
+                                    class="shipping-label"
+                                  >
+                                    <input
+                                      @change="changeShipping($event)"
+                                      @input="shippingStore(supplier)"
+                                      type="radio"
+                                      value="0"
+                                      :name="'types-' + index"
+                                      v-model="ratingNum[index].delivery_type"
+                                      class="checkFirst"
+                                      id="check"
+                                    />
                                     <span class="mx-2">{{
-                                        $t("payment.delivery")
+                                      $t("payment.delivery")
                                     }}</span>
                                   </label>
                                   <label>
-                                    <input @input="changePickup($event, supplier)"
-                                      @click="changePickup($event, supplier)" type="radio" value="1"
-                                      :name="'types-' + index" v-model="ratingNum[index].delivery_type" />
+                                    <input
+                                      @input="changePickup($event, supplier)"
+                                      @click="changePickup($event, supplier)"
+                                      type="radio"
+                                      value="1"
+                                      :name="'types-' + index"
+                                      v-model="ratingNum[index].delivery_type"
+                                    />
                                     <span class="mx-2">{{
-                                        $t("payment.pickup")
+                                      $t("payment.pickup")
                                     }}</span>
                                   </label>
-                                  <b-form-select v-model="
-                                    ratingNum[index].supplier_address_id
-                                  " @input="selectAddressUUID" @change="selectType(supplier, index)"
-                                    class="w-100 mt-2 supplierAddresses d-none" :class="{
+                                  <b-form-select
+                                    v-model="
+                                      ratingNum[index].supplier_address_id
+                                    "
+                                    @input="selectAddressUUID"
+                                    @change="selectType(supplier, index)"
+                                    class="w-100 mt-2 supplierAddresses d-none"
+                                    :class="{
                                       'text-danger':
                                         ratingNum[index].supplier_address_id ===
                                         null,
                                       'text-dark d-block':
                                         ratingNum[index].supplier_address_id !==
                                         null,
-                                    }">
-                                    <b-form-select-option selected disabled value="null"><span>{{
+                                    }"
+                                  >
+                                    <b-form-select-option
+                                      selected
+                                      disabled
+                                      value="null"
+                                      ><span>{{
                                         $t("cart.selectPickupAddress")
-                                    }}</span></b-form-select-option>
-                                    <b-form-select-option v-for="(
+                                      }}</span></b-form-select-option
+                                    >
+                                    <b-form-select-option
+                                      v-for="(
                                         address, index
-                                      ) in supplier.supplier_addresses" :key="index" :value="address">{{
-                                          address.country.title
-                                      }} ,
+                                      ) in supplier.supplier_addresses"
+                                      :key="index"
+                                      :value="address"
+                                      >{{ address.country.title }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
                                     </b-form-select-option>
@@ -403,10 +638,19 @@
                                   <span class="feedsResult"></span>
                                   <h4 class="pickupNoData"></h4>
                                   <br />
-                                  <ul class="list-unstyled" v-if="firstFees || deliverType == true">
-                                    <li v-for="(fee, index) in firstFees" :key="index">
-                                      <h4 v-if="index == supplier.supplier_id" class="feedsResultShipping mb-0"
-                                        :value="fee.shipping_fee">
+                                  <ul
+                                    class="list-unstyled"
+                                    v-if="firstFees || deliverType == true"
+                                  >
+                                    <li
+                                      v-for="(fee, index) in firstFees"
+                                      :key="index"
+                                    >
+                                      <h4
+                                        v-if="index == supplier.supplier_id"
+                                        class="feedsResultShipping mb-0"
+                                        :value="fee.shipping_fee"
+                                      >
                                         {{ $t("profile.deleiveryFees") }}
                                         {{ fee.shipping_fee | fixedCurrency }}
                                         {{ currency }}
@@ -422,8 +666,15 @@
                     </table>
                   </div>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column" v-else>
-                  <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+                <div
+                  class="d-flex justify-content-center align-items-center flex-column"
+                  v-else
+                >
+                  <img
+                    src="@/assets/images/BeanLoading2.gif"
+                    alt="cart-image"
+                    class="w-25"
+                  />
                 </div>
               </div>
             </div>
@@ -434,36 +685,71 @@
                 <div class="content">
                   <div class="row payment-data">
                     <div class="col-12 payment-delivery">
-                      <div class="d-flex justify-content-between heading align-items-center mb-4">
+                      <div
+                        class="d-flex justify-content-between heading align-items-center mb-4"
+                      >
                         <span class="title">{{
-                            $t("payment.deliveryData")
+                          $t("payment.deliveryData")
                         }}</span>
                       </div>
                       <form class="row delivery-form">
                         <div class="col-6 form-group required">
                           <label for="firstName">{{
-                              $t("payment.firstName")
+                            $t("payment.firstName")
                           }}</label>
-                          <input type="text" class="form-control" id="firstName" v-model="paymentFormData.first_name" />
-                          <div class="error text-start" v-for="(error, index) in errors.first_name" :key="index">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="firstName"
+                            v-model="paymentFormData.first_name"
+                          />
+                          <div
+                            class="error text-start"
+                            v-for="(error, index) in errors.first_name"
+                            :key="index"
+                          >
                             {{ error }}
                           </div>
                         </div>
                         <div class="col-6 form-group required">
                           <label for="firstName">{{
-                              $t("payment.lastName")
+                            $t("payment.lastName")
                           }}</label>
-                          <input type="text" class="form-control" id="lastName" v-model="paymentFormData.last_name" />
-                          <div class="error text-start" v-for="(error, index) in errors.last_name" :key="index">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="lastName"
+                            v-model="paymentFormData.last_name"
+                          />
+                          <div
+                            class="error text-start"
+                            v-for="(error, index) in errors.last_name"
+                            :key="index"
+                          >
                             {{ error }}
                           </div>
                         </div>
 
                         <div class="col-md-5 col-sm-12 form-group">
-                          <label for="email">{{ $t("payment.email") }}
-                            <span class="requried text-danger" v-if="buyerUserData">*</span></label>
-                          <input type="email" class="form-control" id="email" v-model="paymentFormData.email" />
-                          <div class="error text-start" v-for="(error, index) in errors.email" :key="index">
+                          <label for="email"
+                            >{{ $t("payment.email") }}
+                            <span
+                              class="requried text-danger"
+                              v-if="buyerUserData"
+                              >*</span
+                            ></label
+                          >
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            v-model="paymentFormData.email"
+                          />
+                          <div
+                            class="error text-start"
+                            v-for="(error, index) in errors.email"
+                            :key="index"
+                          >
                             {{ error }}
                           </div>
                         </div>
@@ -471,21 +757,34 @@
                         <b-col md="3" sm="12">
                           <b-form-group>
                             <label for="countryCode">{{
-                                $t("register.countryCode")
+                              $t("register.countryCode")
                             }}</label>
                             <span class="requried text-danger">*</span>
 
-                            <b-form-select v-model="paymentFormData.country_code">
-                              <b-form-select-option value="null" disabled selected>{{ $t("register.countryCode") }}
+                            <b-form-select
+                              v-model="paymentFormData.country_code"
+                            >
+                              <b-form-select-option
+                                value="null"
+                                disabled
+                                selected
+                                >{{ $t("register.countryCode") }}
                                 <span class="requried text-danger">*</span>
                               </b-form-select-option>
-                              <b-form-select-option v-for="(country, index) in countries" :key="index"
-                                :value="country.phone_prefix">{{ country.title }}
+                              <b-form-select-option
+                                v-for="(country, index) in countries"
+                                :key="index"
+                                :value="country.phone_prefix"
+                                >{{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
                             </b-form-select>
 
-                            <div class="error" v-for="(error, index) in errors.country_code" :key="index">
+                            <div
+                              class="error"
+                              v-for="(error, index) in errors.country_code"
+                              :key="index"
+                            >
                               {{ error }}
                             </div>
                           </b-form-group>
@@ -493,25 +792,45 @@
 
                         <div class="col-md-4 col-sm-12 form-group required">
                           <label for="phoneNumber">{{
-                              $t("payment.phoneNumber")
+                            $t("payment.phoneNumber")
                           }}</label>
-                          <input type="number" class="form-control" id="phoneNumber" v-model="paymentFormData.phone"
-                            :placeholder="paymentFormData.phone" />
-                          <div class="error text-start" v-for="(error, index) in errors.phone" :key="index">
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="phoneNumber"
+                            v-model="paymentFormData.phone"
+                            :placeholder="paymentFormData.phone"
+                          />
+                          <div
+                            class="error text-start"
+                            v-for="(error, index) in errors.phone"
+                            :key="index"
+                          >
                             {{ error }}
                           </div>
                         </div>
 
-                        <div class="col-12 form-group custom-control custom-checkbox" v-if="!buyerUserData"></div>
+                        <div
+                          class="col-12 form-group custom-control custom-checkbox"
+                          v-if="!buyerUserData"
+                        ></div>
                         <div class="col-12 form-group">
                           <label for="notes">
                             {{ $t("payment.notes") }} ({{
-                                $t("payment.optional")
+                              $t("payment.optional")
                             }})
                           </label>
-                          <textarea class="form-control" id="notes" rows="3"
-                            v-model="paymentFormData.comment"></textarea>
-                          <div class="error text-start" v-for="(error, index) in errors.comment" :key="index">
+                          <textarea
+                            class="form-control"
+                            id="notes"
+                            rows="3"
+                            v-model="paymentFormData.comment"
+                          ></textarea>
+                          <div
+                            class="error text-start"
+                            v-for="(error, index) in errors.comment"
+                            :key="index"
+                          >
                             {{ error }}
                           </div>
                         </div>
@@ -532,77 +851,57 @@
                       <tbody>
                         <tr>
                           <th>{{ $t("profile.subTotal") }}</th>
-                          <td v-if="cart_sub_total" :class="{
-                            'float-right': $i18n.locale == 'en',
-                            'float-left': $i18n.locale == 'ar',
-                          }">
+                          <td
+                            v-if="cart_sub_total"
+                            :class="{
+                              'float-right': $i18n.locale == 'en',
+                              'float-left': $i18n.locale == 'ar',
+                            }"
+                          >
                             {{ cart_sub_total | fixedCurrency }} {{ currency }}
                           </td>
                         </tr>
                         <tr>
                           <th>{{ $t("cart.discount") }}</th>
-                          <td v-if="totalDiscount !== null && cart_sub_total" :class="{
-                            'float-right': $i18n.locale == 'en',
-                            'float-left': $i18n.locale == 'ar',
-                          }">
+                          <td
+                            v-if="totalDiscount !== null && cart_sub_total"
+                            :class="{
+                              'float-right': $i18n.locale == 'en',
+                              'float-left': $i18n.locale == 'ar',
+                            }"
+                          >
                             {{ totalDiscountReplacement | fixedCurrency }}
                             {{ currency }}
                           </td>
                         </tr>
                         <tr>
                           <th>{{ $t("cart.deleiveryFees") }}</th>
-                          <td v-if="shippingCartFee !== null" :class="{
-                            'float-right': $i18n.locale == 'en',
-                            'float-left': $i18n.locale == 'ar',
-                          }">
+                          <td
+                            v-if="shippingCartFee !== null"
+                            :class="{
+                              'float-right': $i18n.locale == 'en',
+                              'float-left': $i18n.locale == 'ar',
+                            }"
+                          >
                             {{ shippingCartFee | fixedCurrency }} {{ currency }}
                           </td>
                         </tr>
 
                         <tr>
                           <th>{{ $t("cart.total") }}</th>
-                          <td v-if="totalPayment" :class="{
-                            'float-right': $i18n.locale == 'en',
-                            'float-left': $i18n.locale == 'ar',
-                          }">
+                          <td
+                            v-if="totalPayment"
+                            :class="{
+                              'float-right': $i18n.locale == 'en',
+                              'float-left': $i18n.locale == 'ar',
+                            }"
+                          >
                             {{ totalPaymentReplacement | fixedCurrency }}
                             {{ currency }}
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    <div class="checkout d-flex">
-                      <div class="submit" v-if="buyerUserData">
-                        <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
-                          {{ $t("payment.checkout") }} ...
-                          <span>
-                            <b-spinner label="Spinning" small></b-spinner>
-                          </span>
-                        </b-button>
-
-                        <b-button type="submit" class="login-button dark" @click="payment" v-else>
-                          {{ $t("payment.checkout") }}
-                        </b-button>
-                      </div>
-                      <div class="submit" v-else>
-                        <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
-                          {{ $t("payment.checkout") }} ...
-                          <span>
-                            <b-spinner label="Spinning" small></b-spinner>
-                          </span>
-                        </b-button>
-
-                        <b-button type="submit" class="login-button dark" @click="guestPayment" v-else>
-                          {{ $t("payment.checkout") }}
-                        </b-button>
-                      </div>
-
-                      <transition name="modal">
-                        <div class="modal-mask" v-if="showModal">
-                          <login-modal @close="closeModal" />
-                        </div>
-                      </transition>
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-5 col-sm-12 my-2">
@@ -614,61 +913,108 @@
                             <div class="col-12 payment-method">
                               <div class="heading mb-3">
                                 <span class="title">{{
-                                    $t("payment.paymentData")
+                                  $t("payment.paymentData")
                                 }}</span>
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
-                                  <div class="method" v-if="
-                                    buyerUserData &&
-                                    walletData >= totalPaymentReplacement
-                                  ">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="paymentMethod0" name="paymentMethod"
-                                        class="custom-control-input" v-model="paymentFormData.payment_type"
-                                        value="wallet" />
-                                      <label class="custom-control-label" for="paymentMethod0">
+                                  <div
+                                    class="method"
+                                    v-if="
+                                      buyerUserData &&
+                                      walletData >= totalPaymentReplacement
+                                    "
+                                  >
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod0"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="wallet"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod0"
+                                      >
                                         {{ $t("profile.wallet") }}
                                         <sup>*</sup>
                                       </label>
-                                      <span>{{ walletData }} {{ currency }}</span>
+                                      <span
+                                        >{{ walletData }} {{ currency }}</span
+                                      >
                                     </div>
                                   </div>
                                   <div class="method" v-if="buyerUserData">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="paymentMethod1" name="paymentMethod"
-                                        class="custom-control-input" v-model="paymentFormData.payment_type"
-                                        value="bank" />
-                                      <label class="custom-control-label" for="paymentMethod1">
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod1"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="bank"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod1"
+                                      >
                                         {{ $t("payment.bankTransfer") }}
                                         <sup>*</sup>
                                       </label>
                                       <span>{{
-                                          $t("payment.paymentByBank")
+                                        $t("payment.paymentByBank")
                                       }}</span>
                                     </div>
                                   </div>
                                   <div class="method">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="paymentMethod2" name="paymentMethod"
-                                        class="custom-control-input" v-model="paymentFormData.payment_type"
-                                        value="cach" />
-                                      <label class="custom-control-label" for="paymentMethod2">
+                                    <div
+                                      class="custom-control custom-radio custom-control-inline"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id="paymentMethod2"
+                                        name="paymentMethod"
+                                        class="custom-control-input"
+                                        v-model="paymentFormData.payment_type"
+                                        value="cach"
+                                      />
+                                      <label
+                                        class="custom-control-label"
+                                        for="paymentMethod2"
+                                      >
                                         {{ $t("payment.paymentWhenReceiving") }}
                                         <sup>*</sup>
                                       </label>
                                       <span>{{
-                                          $t("payment.requestReceipt")
+                                        $t("payment.requestReceipt")
                                       }}</span>
                                     </div>
                                   </div>
-                                  <div class="method row justify-content-between align-content-center">
+                                  <div
+                                    class="method row justify-content-between align-content-center"
+                                  >
                                     <div class="col-md-8 col-xs-12">
-                                      <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="paymentMethod3" name="paymentMethod"
-                                          class="custom-control-input" v-model="paymentFormData.payment_type"
-                                          value="visa" />
-                                        <label class="custom-control-label" for="paymentMethod3">
+                                      <div
+                                        class="custom-control custom-radio custom-control-inline"
+                                      >
+                                        <input
+                                          type="radio"
+                                          id="paymentMethod3"
+                                          name="paymentMethod"
+                                          class="custom-control-input"
+                                          v-model="paymentFormData.payment_type"
+                                          value="visa"
+                                        />
+                                        <label
+                                          class="custom-control-label"
+                                          for="paymentMethod3"
+                                        >
                                           {{ $t("payment.onlinePayment") }}
                                           <sup>*</sup>
                                         </label>
@@ -676,41 +1022,62 @@
                                     </div>
                                     <div class="col-md-4 col-xs-12">
                                       <div class="online-media">
-                                        <img src="@/assets/images/cart.png" alt="" srcset="" />
+                                        <img
+                                          src="@/assets/images/cart.png"
+                                          alt=""
+                                          srcset=""
+                                        />
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                <div class="error text-center" v-for="(error, index) in errors.payment_type"
-                                  :key="index">
+                                <div
+                                  class="error text-center"
+                                  v-for="(error, index) in errors.payment_type"
+                                  :key="index"
+                                >
                                   {{ error }}
                                 </div>
 
-                                <b-form-checkbox v-model="paymentFormData.accept_terms"
-                                  class="terms my-4 d-inline-block">
+                                <b-form-checkbox
+                                  v-model="paymentFormData.accept_terms"
+                                  class="terms my-4 d-inline-block"
+                                >
                                   <span>
                                     {{ $t("payment.accept") }}
                                   </span>
                                 </b-form-checkbox>
 
-                                <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')"
-                                  class="text-decoration-underline">
-                                  {{ $t("payment.termsAndConditions") }}</a>
-                                <b-modal size="lg" id="modal-scoped" :title="condations.title">
+                                <a
+                                  v-b-modal.terms&condation
+                                  @click="$bvModal.show('modal-scoped')"
+                                  class="text-decoration-underline"
+                                >
+                                  {{ $t("payment.termsAndConditions") }}</a
+                                >
+                                <b-modal
+                                  size="lg"
+                                  id="modal-scoped"
+                                  :title="condations.title"
+                                >
                                   <p v-html="condations.description">
                                     {{ condations.description }}
                                   </p>
                                   <template #modal-footer="{ ok }">
-                                    <b-button size="sm" variant="outline-success" @click="
-  ok();
-acceptMyTerms();
-                                    ">
+                                    <b-button
+                                      size="sm"
+                                      variant="outline-success"
+                                      @click="
+                                        ok();
+                                        acceptMyTerms();
+                                      "
+                                    >
                                       <h6 class="m-0">
                                         <span class="mx-1">{{
-                                            $t("payment.accept")
+                                          $t("payment.accept")
                                         }}</span>
                                         <span class="mx-1">{{
-                                            $t("payment.termsAndConditions")
+                                          $t("payment.termsAndConditions")
                                         }}</span>
                                       </h6>
                                     </b-button>
@@ -718,9 +1085,70 @@ acceptMyTerms();
                                 </b-modal>
                                 <sup>*</sup>
 
-                                <div class="error text-center" v-for="(error, index) in errors.accept_terms"
-                                  :key="index">
+                                <div
+                                  class="error text-center"
+                                  v-for="(error, index) in errors.accept_terms"
+                                  :key="index"
+                                >
                                   {{ error }}
+                                </div>
+                                <div class="checkout">
+                                  <div class="submit" v-if="buyerUserData">
+                                    <b-button
+                                      type="submit"
+                                      class="login-button dark"
+                                      disabled
+                                      v-if="checkoutSubmitted"
+                                    >
+                                      {{ $t("payment.checkout") }} ...
+                                      <span>
+                                        <b-spinner
+                                          label="Spinning"
+                                          small
+                                        ></b-spinner>
+                                      </span>
+                                    </b-button>
+
+                                    <b-button
+                                      type="submit"
+                                      class="login-button dark"
+                                      @click="payment"
+                                      v-else
+                                    >
+                                      {{ $t("payment.checkout") }}
+                                    </b-button>
+                                  </div>
+                                  <div class="submit" v-else>
+                                    <b-button
+                                      type="submit"
+                                      class="login-button dark"
+                                      disabled
+                                      v-if="checkoutSubmitted"
+                                    >
+                                      {{ $t("payment.checkout") }} ...
+                                      <span>
+                                        <b-spinner
+                                          label="Spinning"
+                                          small
+                                        ></b-spinner>
+                                      </span>
+                                    </b-button>
+
+                                    <b-button
+                                      type="submit"
+                                      class="login-button dark"
+                                      @click="guestPayment"
+                                      v-else
+                                    >
+                                      {{ $t("payment.checkout") }}
+                                    </b-button>
+                                  </div>
+
+                                  <transition name="modal">
+                                    <div class="modal-mask" v-if="showModal">
+                                      <login-modal @close="closeModal" />
+                                    </div>
+                                  </transition>
                                 </div>
                               </div>
                             </div>
@@ -735,13 +1163,23 @@ acceptMyTerms();
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
-        <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-else
+      >
+        <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
       </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center py-5 my-5 text-center" v-else-if="!hasProducts">
+    <div
+      class="d-flex justify-content-center align-items-center py-5 my-5 text-center"
+      v-else-if="!hasProducts"
+    >
       <div>
-        <img src="@/assets/images/pngfind.com-cart-png-2727925.png" alt="no-data-in-cart" srcset="" />
+        <img
+          src="@/assets/images/pngfind.com-cart-png-2727925.png"
+          alt="no-data-in-cart"
+          srcset=""
+        />
         <h4 class="mt-3">
           {{ $t("cart.noCartProducts") }}
         </h4>
@@ -937,14 +1375,17 @@ export default {
       this.getWallet();
     }
 
-
     let addressUUID = localStorage.getItem("globalAddressUUID");
-    if (this.buyerUserData && addressUUID == undefined || this.buyerUserData && addressUUID == "undefined") {
+    if (
+      (this.buyerUserData && addressUUID == undefined) ||
+      (this.buyerUserData && addressUUID == "undefined")
+    ) {
       localStorage.setItem(
         "globalAddressUUID",
         this.buyerUserData.address_uuid
       );
     }
+    
   },
   methods: {
     formatPin_code(e) {
@@ -1263,7 +1704,7 @@ export default {
         // point_of_sell_uuid: this.supplierAddress,
         point_of_sell_uuid:
           localStorage.getItem("addressUUID") !== null ||
-            localStorage.getItem("addressUUID") !== undefined
+          localStorage.getItem("addressUUID") !== undefined
             ? localStorage.getItem("addressUUID")
             : "",
       };
@@ -1282,7 +1723,7 @@ export default {
           element.shipping_type = 1;
           element.point_of_sell_uuid =
             localStorage.getItem("addressUUID") !== null ||
-              localStorage.getItem("addressUUID") !== undefined
+            localStorage.getItem("addressUUID") !== undefined
               ? localStorage.getItem("addressUUID")
               : null;
         } else if (
@@ -1292,7 +1733,7 @@ export default {
           element.shipping_type = 1;
           element.point_of_sell_uuid =
             localStorage.getItem("addressUUID") !== null ||
-              localStorage.getItem("addressUUID") !== undefined
+            localStorage.getItem("addressUUID") !== undefined
               ? localStorage.getItem("addressUUID")
               : null;
         }
@@ -1342,10 +1783,11 @@ export default {
             }
           }, 700);
         }
+
+        setTimeout(() => {
+          this.goTop()
+        }, 500);
       });
-
-
-
     },
     // Countires
     getAllCountires() {
@@ -1382,7 +1824,7 @@ export default {
             this.errors = {};
             this.getAllAdresses();
             this.showForm = false;
-            // this.form = {};
+            this.form = {};
             if (res.status == 200) {
               this.submitted = true;
 
@@ -1396,6 +1838,23 @@ export default {
               let address_uuid = localStorage.getItem("globalAddressUUID");
               this.getLoggedFirstShippingFees(address_uuid);
             }, 500);
+          })
+          .then(() => {
+            setTimeout(() => {
+              if (this.addresses[this.addresses.length - 1]) {
+                this.selectedAddress =
+                  this.addresses[this.addresses.length - 1];
+                localStorage.setItem(
+                  "globalAddressUUID",
+                  this.selectedAddress.uuid
+                );
+              }
+              var existingAddresses =
+                document.querySelector(".existingAddresses");
+
+              existingAddresses.click();
+              existingAddresses.checked = true;
+            }, 1000);
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -1573,7 +2032,8 @@ export default {
 
       this.selectedInput.parentElement.parentElement.querySelector(
         ".feedsResult"
-      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency
+      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
+        this.currency
       }`;
 
       let myControler = this.$store.state.suppliers.suppliers;
@@ -1585,7 +2045,7 @@ export default {
           element.shipping_type = 1;
           element.point_of_sell_uuid =
             localStorage.getItem("addressUUID") !== null ||
-              localStorage.getItem("addressUUID") !== undefined
+            localStorage.getItem("addressUUID") !== undefined
               ? localStorage.getItem("addressUUID")
               : null;
         } else if (
@@ -1792,7 +2252,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
-              location.reload()
+              location.reload();
             }, 500);
           } else {
             // console.log(res.data);
@@ -1810,7 +2270,7 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
-                location.reload()
+                location.reload();
               }, 500);
             }
           }
@@ -1819,6 +2279,10 @@ export default {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
           console.log(err);
+          let addressesErrors = errors.items
+          if(addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1){
+            this.goTop()
+          }
           this.errMsg(errors.message);
         })
         .finally(() => {
@@ -1869,7 +2333,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
-              location.reload()
+              location.reload();
             }, 500);
           } else {
             // console.log(res.data);
@@ -1887,12 +2351,12 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
-                location.reload()
+                location.reload();
               }, 500);
             } else {
               setTimeout(() => {
                 this.$router.push("/success-checkout");
-                location.reload()
+                location.reload();
               }, 500);
             }
           }
@@ -1901,6 +2365,10 @@ export default {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
           console.log(err);
+          let addressesErrors = errors.items
+          if(addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1){
+            this.goTop()
+          }
           this.errMsg(errors.message);
         })
         .finally(() => {
@@ -1964,8 +2432,8 @@ export default {
           parseFloat(res.data.items.total_cart.total_discount);
         this.totalPaymentReplacement = parseFloat(
           this.totalPayment +
-          this.shippingCartFee -
-          this.totalDiscountReplacement
+            this.shippingCartFee -
+            this.totalDiscountReplacement
         );
         // console.log("total subtotal" , this.totalPayment);
         // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
@@ -1982,13 +2450,39 @@ export default {
           this.totalDiscountReplacement -= element.couponDisc;
           this.totalPaymentReplacement = parseFloat(
             this.totalPayment +
-            this.shippingCartFee -
-            this.totalDiscountReplacement
+              this.shippingCartFee -
+              this.totalDiscountReplacement
           );
 
           element.couponDisc = 0;
         }
       }
+    },
+    goTop() {
+      window.scrollTo({
+        top: 70,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    handleScroll: function () {
+      if (this.scTimer) return;
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY;
+        clearTimeout(this.scTimer);
+        this.scTimer = 0;
+      }, 100);
+      if (window.scrollY > 500) {
+        this.visible = true;
+      } else {
+        this.visible = false;
+      }
+    },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     },
   },
   computed: {
@@ -2012,8 +2506,12 @@ export default {
   },
   created() {
     if (this.buyerUserData) {
-      localStorage.setItem("globalAddressUUID", this.buyerUserData.address_uuid);
+      localStorage.setItem(
+        "globalAddressUUID",
+        this.buyerUserData.address_uuid
+      );
     }
+    this.goTop()
   },
 };
 </script>

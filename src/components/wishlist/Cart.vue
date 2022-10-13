@@ -4,7 +4,7 @@
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
-      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
       <div class="cart-items-holder" v-if="cartItems">

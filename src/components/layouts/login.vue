@@ -12,6 +12,32 @@
     >
       <template #default="{ hide }">
         <div class="user-login-form">
+          <div
+            class="row flex-row justify-content-between align-items-center mb-4 text-dark"
+          >
+            <div class="col-md-4 col-sm-12">
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.retailBuyer") }}</router-link
+              >
+            </div>
+            <div class="col-md-5 col-sm-12">
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.wholeSaleBuyer") }}</router-link
+              >
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <a
+                href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                target="_blank"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("home.suppliers") }}</a
+              >
+            </div>
+          </div>
           <h6 class="title">{{ $t("login.login") }}</h6>
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
@@ -65,6 +91,7 @@
           </form>
         </div>
         <!-- social login -->
+
         <div class="social-login">
           <p>{{ $t("login.LoginSocial") }}</p>
           <div
@@ -146,7 +173,7 @@ export default {
   },
   methods: {
     loginB2c() {
-      localStorage.removeItem("provider");
+      localStorage.clear();
 
       let loginData = {
         email: this.form.email,
@@ -168,20 +195,44 @@ export default {
 
           // new after setting otp
 
+          // old 2nd code
+          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          // if (res.data.items.item.verify_mobile_required) {
+          //   localStorage.setItem("massege", this.$t("register.otpVerify"));
+          //   this.$router.push("/otp-verification");
+          //   location.reload();
+          // } else if (
+          //   !res.data.items.item.verify_mobile_required ||
+          //   !res.data.items.item.is_verified ||
+          //   res.data.items.item.verify_email_required
+          // ) {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          //   this.$router.push("/");
+          //   location.reload();
+          // }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          if (res.data.items.item.verify_mobile_required) {
+          if (
+            !res.data.items.item.is_verified &&
+            res.data.items.item.verify_mobile_required
+          ) {
             localStorage.setItem("massege", this.$t("register.otpVerify"));
             this.$router.push("/otp-verification");
             location.reload();
           } else if (
-            !res.data.items.item.verify_mobile_required ||
             !res.data.items.item.is_verified ||
-            res.data.items.item.verify_email_required
+            (!res.data.items.item.is_verified &&
+              res.data.items.item.verify_email_required)
           ) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             this.$router.push("/");
             location.reload();
+          } else {
+            this.$router.push("/");
+            location.reload();
           }
+        })
+        .then(() => {
+          location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -257,9 +308,11 @@ export default {
     border-radius: 4px;
     background-color: rgba(216, 220, 221, 0.251);
     padding: 40px 30px 20px;
+
     .title {
       padding-bottom: 10px;
       position: relative;
+
       &:after {
         margin: 0 auto;
         right: 0;
@@ -272,23 +325,28 @@ export default {
         background: #ed2124;
       }
     }
+
     .forget-password {
       font-weight: 500;
       color: $header-color;
       background-color: transparent;
       border: none;
+
       &:hover {
         color: $main-color;
       }
     }
   }
+
   .social-login {
     padding: 20px 0;
+
     .social-icons {
       display: flex;
       flex-wrap: wrap;
     }
   }
+
   .button-social {
     padding: 20px 30px;
     margin: 0 5px;
@@ -296,30 +354,40 @@ export default {
     border: 0;
     border-radius: 5px;
     margin-bottom: 10px;
+
     &:first-child {
       background-color: #3b5998;
     }
+
     &:nth-child(2) {
       background-color: #c5221f;
     }
+
     &:nth-child(3) {
       background-color: #3b5998;
     }
+
     &:last-child {
       background-color: #c5221f;
     }
   }
 }
+
 .reset-Link {
   color: #ffffff;
   background-color: #ff0e00;
   padding: 0.5rem 1.3rem;
   width: 100%;
 }
+
 .text-start {
   text-align: start;
 }
+
 .apple-login {
-  background: #666666 !important ;
+  background: #666666 !important;
+}
+.text-decoration-underline {
+  text-decoration: underline !important;
 }
 </style>

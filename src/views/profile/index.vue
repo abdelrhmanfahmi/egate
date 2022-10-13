@@ -1,13 +1,17 @@
 <template>
   <div class="profile-body">
+    <ProgressSlider />
     <b-container
       v-if="
         userInfo.item.type === 'buyer' ||
         (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
       "
     >
-      <div class="row profile-header" v-if="buyerUserData.profile_percentage !== 100">
-        <div class="col-12 col-sm-8 continue-registration" >
+      <div
+        class="row profile-header"
+        v-if="buyerUserData.profile_percentage !== 100"
+      >
+        <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
@@ -28,6 +32,7 @@
           ></b-progress>
         </div>
       </div>
+
       <div class="v-else my-5 py-1"></div>
     </b-container>
     <div class="profile">
@@ -49,11 +54,12 @@
 <script>
 import SideMenu from "@/components/pages/profile/SideMenu.vue";
 import sideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
-
+import ProgressSlider from "@/components/pages/home/ProgressSlider";
 export default {
   components: {
     SideMenu,
     sideMenuB2b,
+    ProgressSlider,
   },
 };
 </script>

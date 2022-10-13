@@ -49,9 +49,13 @@ export default {
   checkFees: "معرفة رسوم الشحن",
   deliveryData: "معلومات التواصل",
   deleiveryFees: "مصاريف الشحن",
-  asc:'من الاقل للأعلى ',
-  desc:'من الاعلى للأقل',
-  sortBy:'تصفيه ب',
-  selectPickupAddress:'اختر عنوان استلام للمورد ',
-  viewAll:'عرض الكل'
+  asc: "من الاقل للأعلى ",
+  desc: "من الاعلى للأقل",
+  sortBy: "تصفيه ب",
+  selectPickupAddress: "اختر عنوان استلام للمورد ",
+  viewAll: "عرض الكل",
+  readMore: "قراءة المذيد",
+  readLess: "قراءة أقل",
+  add:'اضافه',
+  filter:'فلتر'
 };

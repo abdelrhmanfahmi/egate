@@ -4,7 +4,7 @@
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
-      <img src="@/assets/images/Loader.gif" alt="cart-image" class="w-25" />
+      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
       <div
@@ -118,6 +118,12 @@ export default {
 .action-holder {
   max-height: 400px;
   overflow-y: scroll;
+}
+
+.action-holder::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa; /* or add it to the track */
 }
 .cart-item {
   &:not(:last-child) {

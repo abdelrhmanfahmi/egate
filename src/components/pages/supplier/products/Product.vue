@@ -1,19 +1,20 @@
 <template>
   <div class="product position-relative w-100" v-if="data">
     <div class="thumb">
-      <a @click="goProduct(data)"
+      <a
+        @click="goProduct(data)"
         v-if="data.image_path !== null"
-        
         class="d-flex justify-content-center align-items-center product-image"
       >
-        <img  :src="data.image_path" alt="Product Image" class="Product-Image" />
+        <img :src="data.image_path" alt="Product Image" class="Product-Image" />
       </a>
-      <div @click="goProduct(data)"
+      <div
+        @click="goProduct(data)"
         v-else-if="data.image_path == null && data.product.image_path"
-        
         class="d-flex justify-content-center align-items-center product-image"
       >
-        <img @click="goPage2(data)"
+        <img
+          @click="goPage2(data)"
           :src="data.product.image_path"
           alt="Product Image"
           class="Product-Image"
@@ -33,9 +34,7 @@
             </a>
           </li>
           <li>
-            <a @click="goPage2(data)"
-              ><b-icon-eye></b-icon-eye
-            ></a>
+            <a @click="goPage2(data)"><b-icon-eye></b-icon-eye></a>
           </li>
         </ul>
       </div>
@@ -66,6 +65,52 @@
           </p>
         </div>
       </div>
+      <div
+        class="addToCartHolder d-flex justify-content-end align-items-center"
+        v-if="data.in_cart_quantity > 0"
+      >
+        <b-button
+          @click="addToCart(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
+          v-if="
+            data.product_details_by_type.add_type === 'cart' ||
+            data.product_details_by_type.add_type === 'both'
+          "
+        >
+          <span>
+            <font-awesome-icon icon="fa-solid fa-plus" />
+          </span>
+        </b-button>
+      </div>
+      <div
+        class="addToCartHolder d-flex justify-content-end align-items-center"
+        v-else
+      >
+        <div>
+          <div>
+            <b-form-select v-model="selected">
+              <b-form-select-option
+                :value="i"
+                v-for="(i, index) in 20"
+                :key="index"
+                >{{ i }}</b-form-select-option
+              >
+            </b-form-select>
+          </div>
+        </div>
+        <b-button
+          @click="addToCartAgain(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
+          v-if="
+            data.product_details_by_type.add_type === 'cart' ||
+            data.product_details_by_type.add_type === 'both'
+          "
+        >
+          <span>
+            <font-awesome-icon icon="fa-solid fa-plus" />
+          </span>
+        </b-button>
+      </div>
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
       </span>
@@ -78,14 +123,25 @@
 <script>
 import { BIconHeart, BIconEye } from "bootstrap-vue";
 import globalAxios from "@/services/global-axios";
-import suppliers from "@/services/suppliers"
+import suppliers from "@/services/suppliers";
 export default {
   components: {
     BIconHeart,
     BIconEye,
   },
   data() {
-    return { count: 0, errors: [] };
+    return {
+      count: 0,
+      errors: [],
+      mySelectedOption: this.data.product_details_by_type.min_order_quantity
+        ? this.data.product_details_by_type.min_order_quantity
+        : 1,
+      selected: 1,
+      options: [
+        { value: null, text: "Please select an option" },
+        { value: "a", text: "This is First option" },
+      ],
+    };
   },
   props: ["data"],
   methods: {
@@ -101,7 +157,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.getSupplierProducts()
+            this.getSupplierProducts();
           }
         })
         .catch((error) => {
@@ -125,24 +181,108 @@ export default {
           console.log(err);
         });
     },
-    goProduct(data){
+    goProduct(data) {
       this.$router.push({
-        path:'/details',
-        query:{
-          id:data.id
-        }
-      })
-      location.reload()
+        path: "/details",
+        query: {
+          id: data.id,
+        },
+      });
+      location.reload();
     },
-    goPage2(data){
+    goPage2(data) {
       this.$router.push({
-        path:'/details',
-        query:{
-          id:data.product_details_by_type.product_supplier_id
-        }
-      })
-      location.reload()
-    }
+        path: "/details",
+        query: {
+          id: data.product_details_by_type.product_supplier_id,
+        },
+      });
+      location.reload();
+    },
+    addToCart(myProduct) {
+      let data = {
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
+        quantity:
+          this.mySelectedOption !== null || this.mySelectedOption > 0
+            ? this.mySelectedOption
+            : 1,
+      };
+      // this.$store
+      //   .dispatch("cart/addProductToCart", {
+      //     product: item,
+      //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
+      //   })
+      //   .then((res) => {
+      //     if (res.status == 200) {
+      //       this.$modal.show(
+      //         () => import("@/components/cart/cartModal.vue"),
+      //         {
+      //           product: item,
+      //         },
+      //         { width: "700", height: "auto", adaptive: true }
+      //       );
+      //     }
+      //   });
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    addToCartAgain(myProduct) {
+      let data = {
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
+        quantity: this.selected > 0 ? this.selected : 1,
+      };
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
   },
 };
 </script>
@@ -226,7 +366,12 @@ export default {
 .is_favorite {
   background: #ed2124 !important;
 }
-.Product-Image{
+.Product-Image {
   cursor: pointer;
+}
+.custom-select,
+.custom-select:focus {
+  border: none;
+  box-shadow: none;
 }
 </style>

@@ -8,9 +8,8 @@
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
                 <span>
-                  &#60; {{ $t("register.haveNotAccount") }}</span
-                ></router-link
-              >
+                  &#60; {{ $t("register.haveNotAccount") }}</span>
+              </router-link>
             </div>
             <form @submit.prevent="login()">
               <b-row class="justify-content-center">
@@ -19,16 +18,8 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      type="email"
-                      id="email"
-                      v-model="form.email"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.email"
-                      :key="index"
-                    >
+                    <b-form-input type="email" id="email" v-model="form.email" />
+                    <div class="error" v-for="(error, index) in errors.email" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -39,48 +30,26 @@
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input
-                        id="password"
-                        v-model="form.password"
-                        :type="fieldType"
-                      />
+                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
                       <div class="icon-passowrd" @click.stop="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
+                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.password"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.password" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
               </b-row>
 
-              
-              <router-link
-                to="/forget-password"
-                v-if="buyerUserData && buyerUserData.type === 'b2c'"
-              >
+
+              <router-link to="/forget-password" v-if="buyerUserData && buyerUserData.type === 'b2c'">
                 <b class="forget-password my-3" v-b-modal.ForgetPassword>
                   {{ $t("login.fogetPassword") }}
                 </b>
               </router-link>
-              <router-link
-                to="/forget-password"
-                v-else
-              >
+              <router-link to="/forget-password" v-else>
                 <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>
@@ -118,7 +87,7 @@ export default {
   },
   methods: {
     login() {
-      localStorage.removeItem("provider");
+      localStorage.clear();
 
       let loginData = {
         email: this.form.email,
@@ -176,7 +145,7 @@ export default {
     //   }
     // },
   },
-  mounted() {},
+  mounted() { },
   computed: {
     firebaseToken() {
       return this.$store.state.firebaseToken;
@@ -191,20 +160,24 @@ export default {
     text-align: center;
     padding: 30px 0;
   }
+
   .user-register-form {
     .register-info {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       margin-bottom: 25px;
+
       .back {
         font-weight: 500;
         color: $header-color;
+
         &:hover {
           color: $main-color;
         }
       }
     }
+
     .submition-box {
       text-align: center;
       border: 1px solid rgba(204, 204, 204, 0.251);
@@ -221,10 +194,12 @@ export default {
   color: $header-color;
   background-color: transparent;
   border: none;
+
   &:hover {
     color: $main-color;
   }
 }
+
 // style arabic
 html:lang(ar) {
   .user-register {

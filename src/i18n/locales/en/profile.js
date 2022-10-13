@@ -102,7 +102,7 @@ export default {
   supplier: "Supplier",
   residentsEmpty: "There are no residents",
   //SupplierCorrespondence
-  supplierCorrespondence: "Supplier Correspondence",
+  supplierCorrespondence: "Supplier Messages",
   supplierCorrespondenceEmpty: "There are no contacts",
   cancelSubscribe: "cancel subscribe",
   delete: "delete",
@@ -135,7 +135,7 @@ export default {
   buyMethod: "Payment Method",
   Actions: "Actions",
   printIno: "Purchase Order print",
-  accountInfo: "Account Information",
+  accountInfo: "User Information",
   customerName: "Customer Name",
   customerEmail: "Customer Email",
   tele: "Customer Phone",
@@ -188,7 +188,7 @@ export default {
   deliveryFeesText: "sorry , no shipping fees data available",
   noPickupData: "Sorry ,this supplier does not support pick-up",
   pay: "Pay",
-  bankTransDocs: "Bank Transfer Docs",
+  bankTransDocs: "Upload Bank Transfer Proof",
   orderBack: "Back to orders",
   productImage: "Product Image",
 
@@ -252,5 +252,7 @@ export default {
   minute: "minute",
   second2: "second",
   markRead:"mark as read",
-  readAllNotifications:'Mark All Read'
+  readAllNotifications:'Mark All Read',
+  charge:'Charge Wallet',
+  enterValue:'Enter Charge Value'
 };

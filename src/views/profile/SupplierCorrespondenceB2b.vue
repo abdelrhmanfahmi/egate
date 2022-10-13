@@ -4,7 +4,7 @@
       {{ $t("profile.supplierCorrespondence") }}
     </h5>
     <div class="holder text-center" v-if="items">
-      <table class="table table-striped table-hover table-bordered selectable">
+      <table class="table table-striped table-hover table-bordered selectable" v-if="itemsLength > 0">
         <thead>
           <tr>
             <th scope="col" v-for="(tab, index) in fields" :key="index">
@@ -55,7 +55,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center align-items-center mt-5">
+      <div class="d-flex justify-content-center align-items-center mt-5" v-if="itemsLength > 0">
         <Paginate
           v-if="items"
           :total-pages="totalPages"
@@ -123,6 +123,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.items = resp.data.items.data;
+          this.itemsLength = resp.data.items.data.length;
 
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(

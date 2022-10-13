@@ -15,6 +15,7 @@ export default {
   shop: "المتجر",
   shoppingCart: "السلة",
   accountInformation: "معلومات الحساب ",
+  accountInfo: "معلومات الحساب ",
   buyerInformation: "معلومات الحساب ",
   addressInfo: "معلومات العنوان",
   // categories
@@ -243,5 +244,7 @@ export default {
   second2: "ثانية",
   printIno:'اطبع طلب الشراء',
   markRead:"ضع إشارة مقروء",
-  readAllNotifications:'قراءة الكل'
+  readAllNotifications:'قراءة الكل',
+  charge:'اشحن محفظتك',
+  enterValue:'ادخل قيمة الشحن'
 };

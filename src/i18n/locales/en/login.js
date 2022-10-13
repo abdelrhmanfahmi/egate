@@ -18,4 +18,7 @@ export default {
   logBtn1: "Yes, i want to register",
   logBtn2: "No, Continue as a guest",
   actionComplete: "Complete Action",
+  retailBuyer:'Retail Buyer',
+  wholeSaleBuyer:'WholeSale Buyer',
+
 };

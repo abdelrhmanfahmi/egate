@@ -1,12 +1,12 @@
 <template>
   <div class="specs">
     <div class="content">
-      <h5 class="header d-inline-block font-weight-bold mb-3">
+      <!-- <h5 class="header d-inline-block font-weight-bold mb-3">
         {{ $t("singleProduct.specsHeader") }}
       </h5>
       <p class="description" v-if="myProduct.description !== null" v-html="myProduct.description">
         
-      </p>
+      </p> -->
       <!-- <div class="side-data">
         <span
           >{{ $t("singleProduct.origin") }}:
