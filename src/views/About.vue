@@ -384,6 +384,11 @@ export default {
   }
 }
 
+.body {
+    word-break: unset !important;
+    text-align: initial;
+}
+
 // style arabic
 html:lang(ar) {
   .newsletter-form input {

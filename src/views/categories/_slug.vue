@@ -31,7 +31,7 @@
         </b-container>
       </div>
     </div>
-    <div class="data-holder py-5">
+    <div class="data-holder">
       <div class="container">
         <div class="row">
           <div class="col-md-9 col-sm-12 mb-3">
