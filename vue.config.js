@@ -1,6 +1,6 @@
 
 module.exports = {
-    publicPath: '/humhum-user/',
+    publicPath: '/',
     css: {
       loaderOptions: {
         sass: {
