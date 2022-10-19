@@ -275,7 +275,7 @@
                     <tbody>
                       <tr>
                         <td v-if="return_item.item_names">
-                          {{ return_item.item_names }}
+                          {{ return_item.item_names }} ({{supplier_oreder_item.status_lang}})
                         </td>
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.price">

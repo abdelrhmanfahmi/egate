@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fav">
     <!-- <b-table hover :items="wishlistItems" :fields="fields" stacked="lg">
       <template #cell(image)="data">
         <img :src="data.value" class="product-img" />
@@ -120,7 +120,7 @@
                 </thead>
                 <tbody v-for="(item, index) in wishlistItems" :key="index">
                   <tr v-if="item.product_supplier">
-                    <td class="text-center" >
+                    <td class="text-center">
                       <!-- <div
                         v-if="item.product_supplier.product"
                         class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
@@ -176,19 +176,22 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <p class="price" v-if="item.product_supplier.product_details_by_type">
+                      <p
+                        class="price"
+                        v-if="item.product_supplier.product_details_by_type"
+                      >
                         <span
-                          v-if="item.product_supplier.product_details_by_type
-                              .price"
+                          v-if="
+                            item.product_supplier.product_details_by_type.price
+                          "
                         >
-                          
                           {{
-                            item.product_supplier.product_details_by_type
-                              .price | fixedCurrency
+                            item.product_supplier.product_details_by_type.price
+                              | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
-                        <br>
+                        <br />
                         <span
                           class="price-after"
                           v-if="
@@ -197,7 +200,7 @@
                             item.product_supplier.product_details_by_type
                               .price_before_discount >
                               item.product_supplier.product_details_by_type
-                              .price
+                                .price
                           "
                         >
                           {{
@@ -228,6 +231,30 @@
                         >
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                         </b-button>
+                        <button
+                          @click="chooseProduct(item.product_supplier)"
+                          class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
+                          v-if="
+                            (item.product_supplier.product_details_by_type
+                              .add_type === 'rfq' ||
+                              item.product_supplier.product_details_by_type
+                                .add_type === 'both') &&
+                            buyerUserData
+                          "
+                        >
+                          <div>
+                            <button
+                              id="show-btn"
+                              class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
+                              @click="$bvModal.show('bv-bidRequest')"
+                            >
+                              <!-- <span role="button" @click="loggedBidRequest"> -->
+                              <span>
+                                <rfqIcon class="mx-2" />
+                              </span>
+                            </button>
+                          </div>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -272,6 +299,66 @@
         </h3> -->
       </div>
     </div>
+    <b-modal id="bv-bidRequest" hide-footer>
+      <template #modal-title>
+        {{ $t("singleProduct.bidRequest") }}
+      </template>
+      <form>
+        <div class="form-group">
+          <label for=""
+            >{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label
+          >
+          <input type="text" class="form-control" v-model="requestData.name" />
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.qoute_name"
+            :key="index"
+          >
+            {{ error }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for=""
+            >{{ $t("singleProduct.min_order_quantity") }}
+            <span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="1"
+            class="form-control"
+            v-model="requestData.request_qty"
+          />
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.request_qty"
+            :key="index"
+          >
+            {{ error }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for=""
+            >{{ $t("singleProduct.reviewInput") }}
+            <span class="text-danger">*</span></label
+          >
+          <textarea
+            class="form-control"
+            v-model="requestData.comment"
+          ></textarea>
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.comment"
+            :key="index"
+          >
+            {{ error }}
+          </div>
+        </div>
+      </form>
+      <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
+        $t("cart.submit")
+      }}</b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -279,6 +366,8 @@
 // import Counter from "../../components/global/Counter.vue";
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
+import rfqIcon from "@/components/global/rfqIcon.vue";
+import suppliers from "@/services/suppliers";
 export default {
   data() {
     return {
@@ -383,11 +472,20 @@ export default {
       recordsPerPage: 10,
       enterpageno: "",
       wishlistItems: null,
+      myQuantity: 1,
+      requestData: {
+        name: null,
+        request_qty: null,
+        comment: null,
+      },
+      errors: [],
+      selectedProduct: null,
     };
   },
   components: {
     // Counter,
     Paginate,
+    rfqIcon,
   },
   methods: {
     // removeItem(i) {
@@ -435,7 +533,10 @@ export default {
       console.log(item.product_supplier_id);
       let data = {
         product_supplier_id: item.product_supplier_id,
-        quantity: item.product_supplier.product_details_by_type.min_order_quantity ? item.product_supplier.product_details_by_type.min_order_quantity : 1,
+        quantity: item.product_supplier.product_details_by_type
+          .min_order_quantity
+          ? item.product_supplier.product_details_by_type.min_order_quantity
+          : 1,
       };
 
       return globalAxios
@@ -477,9 +578,42 @@ export default {
         this.getWishlistProducts();
       }
     },
+    chooseProduct(product) {
+      this.selectedProduct = product;
+    },
+    requestQuotation() {
+      let payload = {
+        qoute_name: this.requestData.name,
+        product_supplier_id:
+          this.selectedProduct.product_details_by_type.product_supplier_id,
+        request_qty: this.requestData.request_qty,
+        comment: this.requestData.comment,
+      };
+      suppliers
+        .requestQuotation(payload)
+        .then((resp) => {
+          this.errors = {};
+          this.sucessMsg(resp.data.message);
+          setTimeout(() => {
+            document.querySelector(".close").click();
+            this.requestData = [];
+            this.$router.push({
+              path: "/profile/quotationDetails",
+              query: {
+                id: resp.data.items.client_quote_id,
+              },
+            });
+          }, 500);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
   },
   mounted() {
-    if(this.buyerUserData){
+    if (this.buyerUserData) {
       this.getWishlistProducts();
     }
   },
@@ -516,8 +650,8 @@ export default {
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -538,13 +672,14 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+  .actions {
     justify-content: center;
     align-items: center;
   }
 }
+
 </style>
