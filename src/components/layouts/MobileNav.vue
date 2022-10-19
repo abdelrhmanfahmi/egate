@@ -9,7 +9,7 @@
       </li>
       <li>
         <a
-          href="https://staging2.fabrica-dev.com/humhum-supplier/"
+          href="https://supplier.humhum.work/"
           class="link"
         >
           {{ $t("home.corporat") }} - {{ $t("home.suppliers") }}

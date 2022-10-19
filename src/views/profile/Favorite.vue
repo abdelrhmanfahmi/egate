@@ -299,6 +299,7 @@
         </h3> -->
       </div>
     </div>
+    <!-- rfq modal  -->
     <b-modal id="bv-bidRequest" hide-footer>
       <template #modal-title>
         {{ $t("singleProduct.bidRequest") }}
