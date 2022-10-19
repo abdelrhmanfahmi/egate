@@ -90,30 +90,24 @@
         <div class="col-md-7 col-sm-12">
           <form class="returnData mb-5" @submit.prevent="returnOrder">
             <div class="form-input mb-4">
-              <label for="CommercialLicense">
-                {{ $t("profile.returnImage") }}
-                <span class="text-danger">*</span>
+              <label>
+                {{ $t("profile.returnReason") }}
               </label>
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  id="returnImage"
-                  @change="uploadImage"
-                  :placeholder="$t('profile.returnImage')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-              <div
-                class="error text-start"
-                v-for="(error, index) in uploadErrors.image"
-                :key="index"
-              >
-                {{ error }}
-              </div>
+              <b-form-select v-model="returnData.return_reason" class="mb-3">
+                <b-form-select-option disabled value="null">{{
+                  $t("cart.selectOption")
+                }}</b-form-select-option>
+                <b-form-select-option
+                  :value="reason.id"
+                  v-for="(reason, index) in reasons"
+                  :key="index"
+                  >{{ reason.name }}</b-form-select-option
+                >
+              </b-form-select>
             </div>
 
             <div class="row">
-              <div class="col-3">
+              <div class="col-4">
                 <label>
                   {{ $t("profile.ReturnedNumber") }}
                 </label>
@@ -142,28 +136,32 @@
                   </div>
                 </div>
               </div>
-              <div class="col-9">
-                <label>
-                  {{ $t("profile.returnReason") }}
+              <div class="col-8">
+                <label for="CommercialLicense">
+                  {{ $t("profile.returnImage") }}
+                  <span class="text-danger">*</span>
                 </label>
-                <b-form-select v-model="returnData.return_reason" class="mb-3">
-                  <b-form-select-option disabled value="null">{{
-                    $t("cart.selectOption")
-                  }}</b-form-select-option>
-                  <b-form-select-option
-                    :value="reason.id"
-                    v-for="(reason, index) in reasons"
-                    :key="index"
-                    >{{ reason.name }}</b-form-select-option
-                  >
-                </b-form-select>
+                <b-form-group>
+                  <b-form-file
+                    size="lg"
+                    id="returnImage"
+                    @change="uploadImage"
+                    :placeholder="$t('profile.returnImage')"
+                    drop-placeholder="Drop file here..."
+                  ></b-form-file>
+                </b-form-group>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.image"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
             </div>
 
             <b-form-textarea
-              v-if="
-              returnData.return_reason == 8
-              "
+              v-if="returnData.return_reason == 8"
               id="textarea-rows"
               :placeholder="$t('profile.returnReason')"
               rows="8"
@@ -205,7 +203,7 @@ export default {
         return_option: 0, // refund = 0  , replace = 1
         refund_option: null, // 0=Wallet,1=Visa,2=Bank,3=Cash
         return: null,
-        quantity:1
+        quantity: 1,
       },
       uploadErrors: [],
       btn1Disabled: false,
@@ -233,15 +231,13 @@ export default {
         formData.append("image", this.returnData.image);
       }
 
-      if (
-        this.returnData.return_reason === 8
-      ) {
+      if (this.returnData.return_reason === 8) {
         formData.append("return_reason", null);
 
         formData.append("return", this.returnData.return);
       } else {
         formData.append("return_reason", this.returnData.return_reason);
-        formData.append("return", '');
+        formData.append("return", "");
       }
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
@@ -388,5 +384,5 @@ export default {
     align-items: center;
     background-color: #fff;
   }
-} 
+}
 </style>
