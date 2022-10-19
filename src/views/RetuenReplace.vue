@@ -8,33 +8,27 @@
       </div>
       <div class="row justify-content-center align-items-center pb-5 my-5">
         <div class="col-7">
-          <form class="returnData mb-5 px-5" >
+          <form class="returnData mb-5 px-5">
             <div class="form-input mb-4">
-              <label for="CommercialLicense">
-                {{ $t("profile.returnImage") }}
-                <span class="text-danger">*</span>
+              <label>
+                {{ $t("profile.returnReason") }}
               </label>
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  id="returnImage"
-                  @change="uploadImage"
-                  :placeholder="$t('profile.returnImage')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-              <div
-                class="error text-start"
-                v-for="(error, index) in uploadErrors.image"
-                :key="index"
-              >
-                {{ error }}
-              </div>
+              <b-form-select v-model="returnData.return_reason" class="mb-3">
+                <b-form-select-option disabled value="null">{{
+                  $t("cart.selectOption")
+                }}</b-form-select-option>
+                <b-form-select-option
+                  :value="reason.id"
+                  v-for="(reason, index) in reasons"
+                  :key="index"
+                  >{{ reason.name }}</b-form-select-option
+                >
+              </b-form-select>
             </div>
             <div class="row">
-              <div class="col-3">
+              <div class="col-4">
                 <label>
-                  {{$t('profile.ReturnedNumber')}}
+                  {{ $t("profile.ReturnedNumber") }}
                 </label>
                 <div class="product-counter mb-2">
                   <div class="value">
@@ -61,29 +55,32 @@
                   </div>
                 </div>
               </div>
-              <div class="col-9">
-                 <label>
-                  {{$t('profile.returnReason')}}
+              <div class="col-8">
+                <label for="CommercialLicense">
+                  {{ $t("profile.returnImage") }}
+                  <span class="text-danger">*</span>
                 </label>
-                <b-form-select v-model="returnData.return_reason" class="mb-3">
-                  <b-form-select-option disabled value="null">{{
-                    $t("cart.selectOption")
-                  }}</b-form-select-option>
-                  <b-form-select-option
-                    :value="reason.id"
-                    v-for="(reason, index) in reasons"
-                    :key="index"
-                    >{{ reason.name }}</b-form-select-option
-                  >
-                </b-form-select>
+                <b-form-group>
+                  <b-form-file
+                    size="lg"
+                    id="returnImage"
+                    @change="uploadImage"
+                    :placeholder="$t('profile.returnImage')"
+                    drop-placeholder="Drop file here..."
+                  ></b-form-file>
+                </b-form-group>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.image"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
               </div>
-              
             </div>
 
             <b-form-textarea
-              v-if="
-                returnData.return_reason == 8
-              "
+              v-if="returnData.return_reason == 8"
               id="textarea-rows"
               :placeholder="$t('profile.returnReason')"
               rows="8"
@@ -158,7 +155,7 @@ export default {
         formData.append("return", this.returnData.return);
       } else {
         formData.append("return_reason", this.returnData.return_reason);
-        formData.append("return", '');
+        formData.append("return", "");
       }
       formData.append("item_uuid", this.returnData.item_uuid);
       formData.append("return_option", this.returnData.return_option);
