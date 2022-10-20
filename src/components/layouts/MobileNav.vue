@@ -9,7 +9,7 @@
       </li>
       <li>
         <a
-          href="https://supplier.humhum.work/"
+          :href="process.env.VUE_APP_SUPPLIER"
           class="link"
         >
           {{ $t("home.corporat") }} - {{ $t("home.suppliers") }}

@@ -34,7 +34,7 @@
                 <ul class="submenu">
                   <li>
                     <a
-                      href="https://supplier.humhum.work/"
+                      :href="process.env.VUE_APP_SUPPLIER"
                       target="_blank"
                       >{{ $t("home.suppliers") }}</a
                     >
