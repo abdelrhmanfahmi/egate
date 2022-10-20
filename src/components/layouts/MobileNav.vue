@@ -9,7 +9,7 @@
       </li>
       <li>
         <a
-          :href="process.env.VUE_APP_SUPPLIER"
+          href="https://staging2.fabrica-dev.com/humhum-supplier/"
           class="link"
         >
           {{ $t("home.corporat") }} - {{ $t("home.suppliers") }}
