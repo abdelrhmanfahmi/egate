@@ -84,7 +84,7 @@ export default {
         
         {
           to: "/profile/favorite",
-          name: this.$t("profile.favorite"),
+          name: this.$t("profile.b2bFav"),
           iconName: "heart",
         },
         {

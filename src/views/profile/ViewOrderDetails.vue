@@ -48,7 +48,7 @@
                     class="text-dark"
                   >
                     <b-button variant="outline-success" class="m-2">
-                      {{ $t("profile.bankTransDocs") }}
+                      <font-awesome-icon icon="fa-solid fa-upload" /> {{ $t("profile.bankTransDocs") }}
                     </b-button>
                   </router-link>
                 </div>
@@ -73,7 +73,7 @@
               </h4>
             </div>
             <div class="print" @click="printScreen">
-              <font-awesome-icon icon="fa-solid fa-print" />
+              <font-awesome-icon icon="fa-solid fa-print" class="text-danger" />
               <span class="mx-2">
                 {{ $t("profile.printIno") }}
               </span>
@@ -783,6 +783,7 @@
           </div>
         </div>
       </div>
+      <!-- chang print data  -->
       <div class="container printing">
         <h4 class="title text-center my-5">{{ $t("profile.orderSug") }}</h4>
         <div class="wrapper">
@@ -901,7 +902,7 @@
                   <div class="row">
                     <!-- <div class="col-md-6 col-sm-12 borderred-bottom"></div> -->
                     <div class="col-md-6 col-sm-12 offset-6">
-                      <div class="row borderred-bottom p-15">
+                      <div class="row borderred-bottom p-15" v-if="orderData.total_shipping_fee !==0 || orderData.total_discount !== 0">
                         <div class="col-md-6 col-sm-12">
                           <h5>{{ $t("profile.subTotal") }}</h5>
                         </div>
@@ -911,7 +912,7 @@
                           </h5>
                         </div>
                       </div>
-                      <div class="row borderred-bottom p-15">
+                      <div class="row borderred-bottom p-15" v-if="orderData.total_shipping_fee > 0">
                         <div class="col-md-6 col-sm-12">
                           <h5>{{ $t("profile.total_shipping_fee") }}</h5>
                         </div>
@@ -930,7 +931,7 @@
                         <h5>KWD0.250</h5>
                       </div>
                     </div> -->
-                      <div class="row borderred-bottom p-15">
+                      <div class="row borderred-bottom p-15" v-if="orderData.total_discount > 0">
                         <div class="col-md-6 col-sm-12">
                           <h5>{{ $t("profile.totalDiscount") }}</h5>
                         </div>

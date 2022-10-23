@@ -220,9 +220,20 @@ export default {
         ? this.returnData.quantity--
         : this.returnData.quantity == 1;
     },
+    checkReturnedProductQuantity() {
+      profile
+        .checkReturnedProductQuantity(this.$route.query.orderId)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.returnReasons();
+    this.checkReturnedProductQuantity();
   },
   components: {
     BIconPlus,

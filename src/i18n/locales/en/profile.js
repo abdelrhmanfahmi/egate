@@ -30,6 +30,7 @@ export default {
   subscribe: "Subscribe",
   // favorite
   favorite: "Favorite",
+  b2bFav:'Standing Order',
   // changePassword
   changePassword: "Change Password",
   changePasswordMessage: "Your password has been updated successfully",
@@ -254,5 +255,8 @@ export default {
   markRead:"mark as read",
   readAllNotifications:'Mark All Read',
   charge:'Charge Wallet',
-  enterValue:'Enter Charge Value'
+  enterValue:'Enter Charge Value',
+  limit:'Limit',
+  char:'Character',
+  remain:'Remaining'
 };

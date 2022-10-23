@@ -34,6 +34,7 @@ export default {
   subscribe: "اشتراك",
   // favorite
   favorite: "المفضلة",
+  b2bFav:'قائمة الانتظار',
   // changePassword
   changePassword: "تغير كلمه السر",
   changePasswordMessage: "تم تغيير كلمة السر بنجاح",
@@ -246,5 +247,8 @@ export default {
   markRead:"ضع إشارة مقروء",
   readAllNotifications:'قراءة الكل',
   charge:'اشحن محفظتك',
-  enterValue:'ادخل قيمة الشحن'
+  enterValue:'ادخل قيمة الشحن',
+  limit:'حد',
+  char:'حرف',
+  remain:'باقى'
 };

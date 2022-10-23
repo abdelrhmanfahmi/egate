@@ -247,6 +247,11 @@ export default {
         .getSocialLink("b2c", provider, backUrl)
         .then((res) => {
           window.location.href = res.data.items.url;
+          // window.open(
+          //   `${res.data.items.url}`,
+          //   "_blank" // <- This is what makes it open in a new window.
+          // );
+          // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
         })
         .catch((err) => {
           console.log(err);

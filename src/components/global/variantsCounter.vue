@@ -3,7 +3,17 @@
     <div class="value">
       <main>
         <slot name="main">
-          <span class="product-counter-number"> {{ countValue }}</span>
+          <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
+          <input
+            class="form-control text-center border-0"
+            type="text"
+            name=""
+            id=""
+            min="1"
+            @keyup="CustomIncrementQuantity"
+            v-model="countValue"
+            @keypress="isNumber($event)"
+          />
         </slot>
       </main>
     </div>
@@ -37,11 +47,11 @@ export default {
       required: true,
       default: 1,
     },
-    minimum:{
-      type:Number,
+    minimum: {
+      type: Number,
       required: true,
       default: 1,
-    }
+    },
   },
   mounted() {
     this.countValue = this.quantity;
@@ -49,11 +59,39 @@ export default {
   methods: {
     incrementQuantity() {
       this.countValue += 1;
-      this.$emit('changeCount',this.countValue)
+      this.$emit("changeCount", this.countValue);
     },
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
-      this.$emit('changeCount',this.countValue)
+      this.$emit("changeCount", this.countValue);
+    },
+    CustomIncrementQuantity() {
+      console.log(this.countValue);
+      if (this.countValue > 0) {
+        this.$emit("changeCount", this.countValue);
+        setTimeout(() => {
+          this.$store.dispatch("cart/getCartProducts");
+        }, 300);
+      }
+      if (this.countValue <= 0) {
+        this.$emit("changeCount", 1);
+        setTimeout(() => {
+          this.$store.dispatch("cart/getCartProducts");
+        }, 300);
+      }
+    },
+    isNumber: function (evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
     },
   },
 };

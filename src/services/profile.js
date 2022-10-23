@@ -241,5 +241,8 @@ export default {
         id: payload.id,
       },
     });
+  },
+  checkReturnedProductQuantity(UUID){
+    return globalAxios.get(`members/orders/supplier-order-item/${UUID}`)
   }
 };
