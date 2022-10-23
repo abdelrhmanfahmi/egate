@@ -4,6 +4,7 @@
       <div class="container">
         <div class="text-center my-5 py-5">
           <h1>{{ $t("payment.orderPlaced") }}</h1>
+          <h5 v-html="companyIban.description" v-if="companyIban"></h5>
         </div>
         <div class="data-holder p-5" v-if="this.payment_type === 'cach'">
           <ul class="list-data">
@@ -94,7 +95,9 @@
                 v-model="bankData.comment"
                 :maxlength="limit"
               ></b-form-textarea>
-              <p :class="{'text-danger': remaining==0}">{{instruction}}</p>
+              <p :class="{ 'text-danger': remaining == 0 }">
+                {{ instruction }}
+              </p>
               <div class="my-3">
                 <b-button
                   type="submit"
@@ -163,7 +166,7 @@ export default {
 
       bankData: {
         image: null,
-        comment: '',
+        comment: "",
         uuid: this.$route.query.uuid,
       },
       uploadErrors: [],
@@ -171,7 +174,8 @@ export default {
       loading: false,
       id: this.$route.query.id,
       bankInfo: null,
-      limit: 300 ,
+      limit: 300,
+      companyIban:null
     };
   },
   mounted() {
@@ -191,6 +195,7 @@ export default {
     //   this.payment = this.payment_type
     // }
     this.getBankComment();
+    this.getCompanyIban();
   },
   methods: {
     async checkoutbankUpload() {
@@ -266,17 +271,32 @@ export default {
     check: function () {
       this.bankData.comment = this.bankData.comment.substr(0, this.limit);
     },
+    getCompanyIban() {
+      profile
+        .companyIban()
+        .then((res) => {
+          console.log(res);
+          this.companyIban = res.data.items
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   computed: {
     // instruction: function () {
     //   return this.bankData.comment == ""
-    //     ? this.limit 
+    //     ? this.limit
     //     : this.remaining ;
     // },
     instruction: function () {
       return this.bankData.comment == ""
-        ? ` ${this.$t('profile.limit')}: ` + this.limit + ` ${this.$t('profile.char')}  `
-        : ` ${this.$t('profile.remain')}: ` + this.remaining + ` ${this.$t('profile.char')} `;
+        ? ` ${this.$t("profile.limit")}: ` +
+            this.limit +
+            ` ${this.$t("profile.char")}  `
+        : ` ${this.$t("profile.remain")}: ` +
+            this.remaining +
+            ` ${this.$t("profile.char")} `;
     },
 
     remaining: function () {
