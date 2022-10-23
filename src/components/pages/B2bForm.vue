@@ -129,7 +129,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
-                <b-col lg="3" cols="4">
+                <b-col sm="12" lg="3">
                   <b-form-group>
                     <label for="countryCode">{{
                     $t("register.countryCode")
@@ -146,7 +146,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col lg="9" cols="8">
+                <b-col  sm="12" lg="9">
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
