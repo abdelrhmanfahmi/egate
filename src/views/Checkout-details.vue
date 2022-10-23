@@ -90,8 +90,11 @@
                 id="textarea-rows"
                 :placeholder="$t('singleProduct.reviewInput')"
                 rows="8"
+                @input="check"
                 v-model="bankData.comment"
+                :maxlength="limit"
               ></b-form-textarea>
+              <p :class="{'text-danger': remaining==0}">{{instruction}}</p>
               <div class="my-3">
                 <b-button
                   type="submit"
@@ -160,7 +163,7 @@ export default {
 
       bankData: {
         image: null,
-        comment: null,
+        comment: '',
         uuid: this.$route.query.uuid,
       },
       uploadErrors: [],
@@ -168,6 +171,7 @@ export default {
       loading: false,
       id: this.$route.query.id,
       bankInfo: null,
+      limit: 300 ,
     };
   },
   mounted() {
@@ -213,10 +217,10 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.$router.push({
-              path:'/viewOrderDetails',
-              query:{
-                id:res.data.items.order_id
-              }
+              path: "/viewOrderDetails",
+              query: {
+                id: res.data.items.order_id,
+              },
             });
           }
           console.log(res);
@@ -258,6 +262,25 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    check: function () {
+      this.bankData.comment = this.bankData.comment.substr(0, this.limit);
+    },
+  },
+  computed: {
+    // instruction: function () {
+    //   return this.bankData.comment == ""
+    //     ? this.limit 
+    //     : this.remaining ;
+    // },
+    instruction: function () {
+      return this.bankData.comment == ""
+        ? ` ${this.$t('profile.limit')}: ` + this.limit + ` ${this.$t('profile.char')}  `
+        : ` ${this.$t('profile.remain')}: ` + this.remaining + ` ${this.$t('profile.char')} `;
+    },
+
+    remaining: function () {
+      return this.limit - this.bankData.comment.length;
     },
   },
 };

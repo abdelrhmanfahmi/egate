@@ -122,6 +122,7 @@
                       class="product-counter-btn"
                       @click="incrementQuantity"
                       type="button"
+                      :disabled="returnData.quantity >= maxQTY"
                     >
                       <b-icon-plus />
                     </button>
@@ -212,6 +213,7 @@ export default {
       selectedOption: null,
       reasons: null,
       cancelationReason: null,
+      maxQTY:null
     };
   },
   methods: {
@@ -325,6 +327,20 @@ export default {
         ? this.returnData.quantity--
         : this.returnData.quantity == 1;
     },
+    checkReturnedProductQuantity() {
+      profile
+        .checkReturnedProductQuantity(this.$route.query.orderId)
+        .then((res) => {
+          console.log(
+            this.$route.query.orderId
+          );
+          console.log(res);
+          this.maxQTY = res.data.items.quantity
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     if (!this.$route.query.orderId) {
@@ -332,6 +348,7 @@ export default {
     }
     this.getOrderData();
     this.returnReasons();
+    this.checkReturnedProductQuantity();
   },
   components: {
     BIconPlus,

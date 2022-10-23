@@ -3,7 +3,16 @@
     <div class="value">
       <main>
         <slot name="main">
-          <span class="product-counter-number"> {{ countValue }}</span>
+          <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
+          <input
+            class="form-control text-center border-0"
+            type="text"
+            name=""
+            id=""
+            min="1"
+            @keyup.enter="CustomIncrementQuantity"
+            v-model="countValue"
+          />
         </slot>
       </main>
     </div>
@@ -40,11 +49,11 @@ export default {
     product: {
       type: Object,
     },
-    minimum:{
-      type:Number,
-      required:true,
+    minimum: {
+      type: Number,
+      required: true,
       default: 1,
-    }
+    },
   },
   mounted() {
     this.countValue = this.quantity;
@@ -59,14 +68,13 @@ export default {
       };
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
-        this.$store.dispatch("cart/getCartProducts")
+        this.$store.dispatch("cart/getCartProducts");
       }, 500);
-        // this.$emit('changeTitle',this.countValue)
+      // this.$emit('changeTitle',this.countValue)
 
-        setTimeout(() => {
-        this.$emit('changeTitle',this.countValue)
+      setTimeout(() => {
+        this.$emit("changeTitle", this.countValue);
       }, 500);
-      
     },
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
@@ -83,9 +91,39 @@ export default {
       }, 300);
 
       setTimeout(() => {
-        this.$emit('changeTitle',this.countValue)
+        this.$emit("changeTitle", this.countValue);
       }, 500);
-      
+    },
+    CustomIncrementQuantity() {
+      console.log(this.countValue);
+      if (this.countValue > 0) {
+        let data = {
+        quantity: this.countValue,
+        uuid: this.product.uuid,
+      };
+        this.$store.dispatch("cart/updateProductFromCart", data);
+        setTimeout(() => {
+          this.$store.dispatch("cart/getCartProducts");
+        }, 300);
+
+        setTimeout(() => {
+          this.$emit("changeTitle", this.countValue);
+        }, 500);
+      }
+      if (this.countValue == 0) {
+        let data = {
+        quantity: 1,
+        uuid: this.product.uuid,
+      };
+        this.$store.dispatch("cart/updateProductFromCart", data);
+        setTimeout(() => {
+          this.$store.dispatch("cart/getCartProducts");
+        }, 300);
+
+        setTimeout(() => {
+          this.$emit("changeTitle", this.countValue);
+        }, 500);
+      }
     },
   },
 };

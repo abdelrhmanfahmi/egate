@@ -63,7 +63,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
         this.$emit("changeTitle", this.countValue);
-        this.quantity = this.countValue;
+        // this.quantity = this.countValue;
       }, 300);
       // this.$emit('changeTitle',this.countValue)
     },
@@ -80,7 +80,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
         this.$emit("changeTitle", this.countValue);
-        this.quantity = this.countValue;
+        // this.quantity = this.countValue;
       }, 300);
     },
   },
