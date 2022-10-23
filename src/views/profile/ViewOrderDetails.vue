@@ -783,6 +783,7 @@
           </div>
         </div>
       </div>
+      <!-- chang print data  -->
       <div class="container printing">
         <h4 class="title text-center my-5">{{ $t("profile.orderSug") }}</h4>
         <div class="wrapper">

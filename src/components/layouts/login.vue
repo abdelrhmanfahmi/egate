@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-3 col-sm-12">
               <a
-                href="https://supplier.humhum.work/"
+                href="https://staging2.fabrica-dev.com/humhum-supplier/"
                 target="_blank"
                 class="text-dark font-weight-bold text-decoration-underline"
                 >{{ $t("home.suppliers") }}</a
