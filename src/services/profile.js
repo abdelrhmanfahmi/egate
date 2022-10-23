@@ -244,5 +244,8 @@ export default {
   },
   checkReturnedProductQuantity(UUID){
     return globalAxios.get(`members/orders/supplier-order-item/${UUID}`)
+  },
+  companyIban(){
+    return globalAxios.get("statics/i-ban");
   }
 };

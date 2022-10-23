@@ -54,7 +54,6 @@
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
-      -not-found" />
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
