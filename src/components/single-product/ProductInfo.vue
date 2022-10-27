@@ -15,6 +15,7 @@
             <p class="serial" v-if="myProduct.product_details_by_type.sku">
               SKU : {{ myProduct.product_details_by_type.sku }}
             </p>
+            <!-- show price when product not rfq only  -->
             <p
               class="price"
               v-if="

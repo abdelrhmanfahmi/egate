@@ -454,6 +454,7 @@
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
+                  <!-- show price when product not rfq only  -->
                     <div
                       v-if="
                         product.product_details_by_type.add_type !== 'rfq'
