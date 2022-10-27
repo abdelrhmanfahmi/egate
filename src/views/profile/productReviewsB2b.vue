@@ -174,6 +174,7 @@ export default {
             let error = Object.values(err)[2].data;
             this.errors = error.items;
             this.errMsg(error.message);
+            this.errors.rate ? this.errMsg(this.errors.rate) : null
         });
     },
     getProductRate() {

@@ -211,7 +211,7 @@ export default {
       let formData = new FormData();
 
       if (this.bankData.image !== null) {
-        formData.append("image", this.bankData.image);
+        formData.append("file", this.bankData.image);
       }
       formData.append("comment", this.bankData.comment);
       formData.append("order_uuid", this.bankData.uuid);

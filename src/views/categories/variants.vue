@@ -1,7 +1,9 @@
 <template>
   <div class="items-body variants">
     <div class="container">
-      <div class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4">
+      <div
+        class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
+      >
         <!-- <button
           class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
           @click="prevPage"
@@ -40,14 +42,23 @@
               {{ productInfo.title }}
             </h5>
             <div v-if="productInfo.description && !readMore">
-              <p class="description d-inline-block short" v-html="productInfo.description.substr(0, 1000)"></p>
-              <span class="readBtn" @click="readMore = !readMore" v-if="productInfo.description.length > 1000">
-                &nbsp; &nbsp; {{ $t("cart.readMore") }} &nbsp; ...</span>
+              <p
+                class="description d-inline-block short"
+                v-html="productInfo.description.substr(0, 1000)"
+              ></p>
+              <span
+                class="readBtn"
+                @click="readMore = !readMore"
+                v-if="productInfo.description.length > 1000"
+              >
+                &nbsp; &nbsp; {{ $t("cart.readMore") }} &nbsp; ...</span
+              >
             </div>
             <div v-else-if="productInfo.description && readMore">
-              <p class="description  all" v-html="productInfo.description"></p>
+              <p class="description all" v-html="productInfo.description"></p>
               <span @click="readMore = !readMore" class="readBtn">
-                &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span>
+                &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
+              >
             </div>
             <!-- <p class="description">
               {{ $t("items.description") }}
@@ -59,15 +70,27 @@
                   v-for="product in productInfo.variants" :key="product.id"
                   :options="product.title"
                 ></b-form-select> -->
-                <div v-for="variant in productInfo.variants" :key="variant.id" class="mb-3">
+                <div
+                  v-for="variant in productInfo.variants"
+                  :key="variant.id"
+                  class="mb-3"
+                >
                   <form action="">
                     <label for="select">{{ variant.title }}</label>
                     <b-form-group>
-                      <b-form-select v-model="variant.selectedVariance" @change="changeVariance(variant)" class="mb-3">
+                      <b-form-select
+                        v-model="variant.selectedVariance"
+                        @change="changeVariance(variant)"
+                        class="mb-3"
+                      >
                         <b-form-select-option selected :value="''">
                           {{ $t("home.All") }}
                         </b-form-select-option>
-                        <b-form-select-option v-for="pro in variant.options" :key="pro.id" :value="pro.id">
+                        <b-form-select-option
+                          v-for="pro in variant.options"
+                          :key="pro.id"
+                          :value="pro.id"
+                        >
                           <span v-if="pro.title">{{ pro.title }}</span>
                         </b-form-select-option>
                       </b-form-select>
@@ -95,8 +118,18 @@
               </div>
             </div>
           </b-col>
-          <b-col cols="12" lg="6" xl="5" class="item-media mt-3 m-lg-0 slider" v-if="productInfo.image_path !== null">
-            <img :src="productInfo.image_path" alt="item-name" class="img-fluid" />
+          <b-col
+            cols="12"
+            lg="6"
+            xl="5"
+            class="item-media mt-3 m-lg-0 slider"
+            v-if="productInfo.image_path !== null"
+          >
+            <img
+              :src="productInfo.image_path"
+              alt="item-name"
+              class="img-fluid"
+            />
           </b-col>
         </b-row>
       </div>
@@ -112,14 +145,16 @@
           <div class="col-md-6 col-sm-12 text-center my-2">
             <div class="d-flex justify-content-end align-items-center">
               <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
-                <span>{{ $t("cart.filter") }}</span> <span>
+                <span>{{ $t("cart.filter") }}</span>
+                <span>
                   <small>
                     <font-awesome-icon icon="fa-solid fa-chevron-down" />
                   </small>
                 </span>
               </h5>
               <h5 @click="sortBy = !sortBy" class="sortBy m-2">
-                <span>{{ $t("cart.sortBy") }}</span> <span>
+                <span>{{ $t("cart.sortBy") }}</span>
+                <span>
                   <small>
                     <font-awesome-icon icon="fa-solid fa-chevron-down" />
                   </small>
@@ -132,42 +167,75 @@
                 <div class="row">
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="country">{{$t('profile.country')}}</label>
+                      <label for="country">{{ $t("profile.country") }}</label>
 
-
-                      <b-form-select v-model="sortTypeCountry" class="mb-3" id="country" v-if="filteredBy"
-                        @change="getCategoryProducts">
-                        <b-form-select-option value="null">{{$t('home.All')}}</b-form-select-option>
-                        <b-form-select-option :value="country.id" v-for="( country) in CountryOptions"
-                          :key="country.id">
-                          {{country.title}}</b-form-select-option>
+                      <b-form-select
+                        v-model="sortTypeCountry"
+                        class="mb-3"
+                        id="country"
+                        v-if="filteredBy"
+                        @change="getCategoryProducts"
+                      >
+                        <b-form-select-option value="null">{{
+                          $t("home.All")
+                        }}</b-form-select-option>
+                        <b-form-select-option
+                          :value="country.id"
+                          v-for="country in CountryOptions"
+                          :key="country.id"
+                        >
+                          {{ country.title }}</b-form-select-option
+                        >
                       </b-form-select>
-
                     </div>
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="weight">{{$t('singleProduct.weight')}}</label>
+                      <label for="weight">{{
+                        $t("singleProduct.weight")
+                      }}</label>
 
-                      <b-form-select v-model="sortTypeWeight" class="mb-3" id="weight" v-if="filteredBy"
-                        @change="getCategoryProducts">
-                        <b-form-select-option value="null" >{{$t('home.All')}}</b-form-select-option>
-                        <b-form-select-option :value="weight.id" v-for="( weight) in WeightOptions" :key="weight.id">
-                          {{weight.title}}</b-form-select-option>
+                      <b-form-select
+                        v-model="sortTypeWeight"
+                        class="mb-3"
+                        id="weight"
+                        v-if="filteredBy"
+                        @change="getCategoryProducts"
+                      >
+                        <b-form-select-option value="null">{{
+                          $t("home.All")
+                        }}</b-form-select-option>
+                        <b-form-select-option
+                          :value="weight.id"
+                          v-for="weight in WeightOptions"
+                          :key="weight.id"
+                        >
+                          {{ weight.title }}</b-form-select-option
+                        >
                       </b-form-select>
-
                     </div>
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="unit">{{$t('items.unit')}}</label>
+                      <label for="unit">{{ $t("items.unit") }}</label>
 
-
-                      <b-form-select v-model="sortTypeUnit" class="mb-3" id="unit" v-if="filteredBy"
-                        @change="getCategoryProducts">
-                        <b-form-select-option value="null">{{$t('home.All')}}</b-form-select-option>
-                        <b-form-select-option :value="unit.id" v-for="( unit) in UnitOptions" :key="unit.id">
-                          {{unit.title}}</b-form-select-option>
+                      <b-form-select
+                        v-model="sortTypeUnit"
+                        class="mb-3"
+                        id="unit"
+                        v-if="filteredBy"
+                        @change="getCategoryProducts"
+                      >
+                        <b-form-select-option value="null">{{
+                          $t("home.All")
+                        }}</b-form-select-option>
+                        <b-form-select-option
+                          :value="unit.id"
+                          v-for="unit in UnitOptions"
+                          :key="unit.id"
+                        >
+                          {{ unit.title }}</b-form-select-option
+                        >
                       </b-form-select>
                     </div>
                   </div>
@@ -175,23 +243,34 @@
               </div>
               <div class="col-md-4 col-sm-12">
                 <div class="" v-if="sortBy">
-                  <label for="price">{{$t('cart.price')}}</label>
-                  <b-form-select id="price" class="my-2" v-model="sortType" :options="options"
-                    @change="getCategoryProducts">
+                  <label for="price">{{ $t("cart.price") }}</label>
+                  <b-form-select
+                    id="price"
+                    class="my-2"
+                    v-model="sortType"
+                    :options="options"
+                    @change="getCategoryProducts"
+                  >
                   </b-form-select>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
       <b-row v-if="loading">
         <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
           <b-card>
-            <b-skeleton animation="fade" width="80%" class="border-none"></b-skeleton>
-            <b-skeleton animation="fade" width="95%" class="border-none"></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="80%"
+              class="border-none"
+            ></b-skeleton>
+            <b-skeleton
+              animation="fade"
+              width="95%"
+              class="border-none"
+            ></b-skeleton>
           </b-card>
         </b-col>
       </b-row>
@@ -288,7 +367,9 @@
             </div>
           </template>
         </b-table> -->
-        <table class="table table-striped table-hover table-bordered selectable">
+        <table
+          class="table table-striped table-hover table-bordered selectable"
+        >
           <thead>
             <tr>
               <th scope="col" v-for="(tab, index) in tableFields" :key="index">
@@ -299,24 +380,44 @@
           <tbody>
             <tr v-for="(product, index) in products" :key="index">
               <td>
-                <router-link class="link font-weight-bold text-danger"
-                  :to="{ path: '/details', query: { id: product.id } }">
+                <router-link
+                  class="link font-weight-bold text-danger"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
                   {{ product.product.title }}
                 </router-link>
               </td>
               <td>
-                <router-link v-if="product.image_path !== null" class="link"
-                  :to="{ path: '/details', query: { id: product.id } }">
-                  <img :src="product.image_path" class="product-image" alt="product-image" />
+                <router-link
+                  v-if="product.image_path !== null"
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  <img
+                    :src="product.image_path"
+                    class="product-image"
+                    alt="product-image"
+                  />
                 </router-link>
-                <router-link v-else-if="
-                  product.image_path == null && product.product.image_path
-                " class="link" :to="{ path: '/details', query: { id: product.id } }">
-                  <img :src="product.product.image_path" class="product-image" alt="product-image" />
+                <router-link
+                  v-else-if="
+                    product.image_path == null && product.product.image_path
+                  "
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                  <img
+                    :src="product.product.image_path"
+                    class="product-image"
+                    alt="product-image"
+                  />
                 </router-link>
               </td>
               <td>
-                <router-link class="link" :to="{ path: '/details', query: { id: product.id } }">
+                <router-link
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
                   <!-- <router-link
                   class="link"
                   :to="{
@@ -327,80 +428,114 @@
                 </router-link>
               </td>
               <td>
-                <router-link v-if="product.product_details_by_type.unit.title" class="link"
-                  :to="{ path: '/details', query: { id: product.id } }">
+                <router-link
+                  v-if="product.product_details_by_type.unit.title"
+                  class="link"
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
                   {{ product.product_details_by_type.weight }}
                   {{ product.product_details_by_type.unit.title }}
                 </router-link>
                 <div v-else class="link">-</div>
               </td>
               <td>
-                <div class="" v-if="
-                  (buyerUserData &&
-                    buyerUserData.profile_percentage == 100 &&
-                    buyerUserData.type === 'buyer') ||
-                  buyerUserData.type === 'b2b' ||
-                  (buyerUserData.type === 'supplier' &&
-                    buyerUserData.is_buyer == true)
-                ">
-                  <router-link class="link" :to="{ path: '/details', query: { id: product.id } }">
-                    <!-- <router-link
+                <div
+                  class=""
+                  v-if="
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage == 100 &&
+                      buyerUserData.type === 'buyer') ||
+                    buyerUserData.type === 'b2b' ||
+                    (buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer == true)
+                  "
+                >
+                  <router-link
                     class="link"
-                    :to="{ path: '/suppliers/', query: { id: product.id } }"
-                  > -->
-                    <p class="m-0 white-space-pre">
-                      {{
-                      product.product_details_by_type.customer_price
-                      | fixedCurrency
-                      }}
-                      {{ currency }}
-                    </p>
-                    <p class="price-after m-0 white-space-pre" v-if="
-                      product.product_details_by_type.price_before_discount &&
-                      product.product_details_by_type.price_before_discount >
-                        product.product_details_by_type.customer_price
-                    ">
-                      {{
-                      product.product_details_by_type.price_before_discount
-                      | fixedCurrency
-                      }}
-                      {{ currency }}
-                    </p>
+                    :to="{ path: '/details', query: { id: product.id } }"
+                  >
+                  <!-- show price when product not rfq only  -->
+                    <div
+                      v-if="
+                        product.product_details_by_type.add_type !== 'rfq'
+                      "
+                    >
+                      <!-- <router-link
+                      class="link"
+                      :to="{ path: '/suppliers/', query: { id: product.id } }"
+                    > -->
+                      <p class="m-0 white-space-pre">
+                        {{
+                          product.product_details_by_type.customer_price
+                            | fixedCurrency
+                        }}
+                        {{ currency }}
+                      </p>
+                      <p
+                        class="price-after m-0 white-space-pre"
+                        v-if="
+                          product.product_details_by_type
+                            .price_before_discount &&
+                          product.product_details_by_type
+                            .price_before_discount >
+                            product.product_details_by_type.customer_price
+                        "
+                      >
+                        {{
+                          product.product_details_by_type.price_before_discount
+                            | fixedCurrency
+                        }}
+                        {{ currency }}
+                      </p>
+                    </div>
+                    <div v-else>-</div>
                   </router-link>
                 </div>
-                <div class="" v-else-if="
-                  (buyerUserData &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'buyer' &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'b2b' &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'supplier' &&
-                    buyerUserData.is_buyer !== true &&
-                    buyerUserData.profile_percentage !== 100)
-                ">
+                <div
+                  class=""
+                  v-else-if="
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'buyer' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2b' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer !== true &&
+                      buyerUserData.profile_percentage !== 100)
+                  "
+                >
                   -
                 </div>
-                <div class="" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
-                  <router-link class="link" :to="{ path: '/details', query: { id: product.id } }">
+                <div
+                  class=""
+                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
+                >
+                  <router-link
+                    class="link"
+                    :to="{ path: '/details', query: { id: product.id } }"
+                  >
                     <p class="m-0">
                       {{
-                      product.product_details_by_type.customer_price
-                      | fixedCurrency
+                        product.product_details_by_type.customer_price
+                          | fixedCurrency
                       }}
                       {{ currency }}
                     </p>
-                    <p class="price-after m-0" v-if="
-                      product.product_details_by_type.price_before_discount &&
-                      product.product_details_by_type.price_before_discount >
-                        product.product_details_by_type.customer_price
-                    ">
+                    <p
+                      class="price-after m-0"
+                      v-if="
+                        product.product_details_by_type.price_before_discount &&
+                        product.product_details_by_type.price_before_discount >
+                          product.product_details_by_type.customer_price
+                      "
+                    >
                       {{
-                      product.product_details_by_type.price_before_discount
-                      | fixedCurrency
+                        product.product_details_by_type.price_before_discount
+                          | fixedCurrency
                       }}
                       {{ currency }}
                     </p>
@@ -408,77 +543,111 @@
                 </div>
               </td>
               <td>
-                <Variants-Counter :minimum="
-                  product.product_details_by_type.min_order_quantity
-                    ? product.product_details_by_type.min_order_quantity
-                    : 1
-                " v-if="
-                  product.product_details_by_type.add_type === 'cart' ||
-                  product.product_details_by_type.add_type === 'both'
-                " class="justify-content-center" :quantity="
-                  product.product_details_by_type.min_order_quantity > 0
-                    ? product.product_details_by_type.min_order_quantity
-                    : 1
-                " @changeCount="
-                  ChangeCounter(
-                    $event,
+                <Variants-Counter
+                  :minimum="
                     product.product_details_by_type.min_order_quantity
-                  )
-                "></Variants-Counter>
+                      ? product.product_details_by_type.min_order_quantity
+                      : 1
+                  "
+                  v-if="
+                    product.product_details_by_type.add_type === 'cart' ||
+                    product.product_details_by_type.add_type === 'both'
+                  "
+                  class="justify-content-center"
+                  :quantity="
+                    product.product_details_by_type.min_order_quantity > 0
+                      ? product.product_details_by_type.min_order_quantity
+                      : 1
+                  "
+                  @changeCount="
+                    ChangeCounter(
+                      $event,
+                      product.product_details_by_type.min_order_quantity
+                    )
+                  "
+                ></Variants-Counter>
                 <p v-else>-</p>
               </td>
               <td class="actions-holder">
-                <div class="add-to d-flex justify-content-center align-items-center" v-if="
-                  (buyerUserData &&
-                    buyerUserData.profile_percentage == 100 &&
-                    buyerUserData.type === 'buyer') ||
-                  (buyerUserData && buyerUserData.type === 'b2b') ||
-                  (buyerUserData.type === 'supplier' &&
-                    buyerUserData.is_buyer == true) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'b2c' &&
-                    buyerUserData.is_verified)
-                ">
-                  <a class="d-flex justify-content-center align-items-center cart-link" @click="addToCart(product)"
+                <div
+                  class="add-to d-flex justify-content-center align-items-center"
+                  v-if="
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage == 100 &&
+                      buyerUserData.type === 'buyer') ||
+                    (buyerUserData && buyerUserData.type === 'b2b') ||
+                    (buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer == true) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2c' &&
+                      buyerUserData.is_verified)
+                  "
+                >
+                  <a
+                    class="d-flex justify-content-center align-items-center cart-link"
+                    @click="addToCart(product)"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
                       product.product_details_by_type.add_type === 'both'
-                    " v-b-tooltip.hover :title="$t('items.addToCart')">
+                    "
+                    v-b-tooltip.hover
+                    :title="$t('items.addToCart')"
+                  >
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
                   <div class="" v-if="buyerUserData">
-                    <a class="text-danger d-flex justify-content-center align-items-center"
-                      @click="addToWishlist(product)" v-if="product.is_favorite == true" v-b-tooltip.hover
-                      :title="$t('items.addedToFavourite')">
+                    <a
+                      class="text-danger d-flex justify-content-center align-items-center"
+                      @click="addToWishlist(product)"
+                      v-if="product.is_favorite == true"
+                      v-b-tooltip.hover
+                      :title="$t('items.addedToFavourite')"
+                    >
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
-                    <a @click="addToWishlist(product)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
-                      class="d-flex justify-content-center align-items-center" v-else>
+                    <a
+                      @click="addToWishlist(product)"
+                      v-b-tooltip.hover
+                      :title="$t('items.addToFavourite')"
+                      class="d-flex justify-content-center align-items-center"
+                      v-else
+                    >
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div class="d-flex justify-content-center" v-if="
-                    (buyerUserData &&
-                      product.product_details_by_type.add_type === 'rfq') ||
-                    (buyerUserData &&
-                      product.product_details_by_type.add_type === 'both')
-                  ">
-                    <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
+                  <div
+                    class="d-flex justify-content-center"
+                    v-if="
+                      (buyerUserData &&
+                        product.product_details_by_type.add_type === 'rfq') ||
+                      (buyerUserData &&
+                        product.product_details_by_type.add_type === 'both')
+                    "
+                  >
+                    <button
+                      class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
                       v-if="
                         (buyerUserData.type === 'buyer' &&
                           buyerUserData.profile_percentage == 100) ||
                         (buyerUserData.type === 'b2c' &&
                           buyerUserData.is_verified)
-                      ">
-                      <div @click="
-                        storeProductSupplierId(
-                          product.product_details_by_type.product_supplier_id
-                        )
-                      ">
-                        <button id="show-btn" class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                          @click="$bvModal.show('bv-bidRequest')" v-b-tooltip.hover
-                          :title="$t('singleProduct.bidRequest')">
+                      "
+                    >
+                      <div
+                        @click="
+                          storeProductSupplierId(
+                            product.product_details_by_type.product_supplier_id
+                          )
+                        "
+                      >
+                        <button
+                          id="show-btn"
+                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                          @click="$bvModal.show('bv-bidRequest')"
+                          v-b-tooltip.hover
+                          :title="$t('singleProduct.bidRequest')"
+                        >
                           <!-- <span role="button" @click="loggedBidRequest"> -->
                           <!-- {{ $t("singleProduct.bidRequest") }} -->
                           <rfqIcon />
@@ -488,52 +657,83 @@
                   </div>
                   <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                 </div>
-                <div class="d-flex justify-content-center" v-if="
-                  (buyerUserData &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'buyer' &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'b2b' &&
-                    buyerUserData.profile_percentage !== 100) ||
-                  (buyerUserData &&
-                    buyerUserData.type === 'supplier' &&
-                    buyerUserData.is_buyer !== true &&
-                    buyerUserData.profile_percentage !== 100)
-                ">
+                <div
+                  class="d-flex justify-content-center"
+                  v-if="
+                    (buyerUserData &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'buyer' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'b2b' &&
+                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData &&
+                      buyerUserData.type === 'supplier' &&
+                      buyerUserData.is_buyer !== true &&
+                      buyerUserData.profile_percentage !== 100)
+                  "
+                >
                   <router-link to="/profile/account-information-b2b">
                     {{ $t("profile.completeAccount") }}
                   </router-link>
                 </div>
-                <div class="add-to d-flex justify-content-center" v-else-if="!buyerUserData">
-                  <a class="cart-link" @click="addToCart(product)" v-if="
-                    product.product_details_by_type.add_type === 'cart' ||
-                    product.product_details_by_type.add_type === 'both'
-                  " v-b-tooltip.hover :title="$t('items.addToCart')">
+                <div
+                  class="add-to d-flex justify-content-center"
+                  v-else-if="!buyerUserData"
+                >
+                  <a
+                    class="cart-link"
+                    @click="addToCart(product)"
+                    v-if="
+                      product.product_details_by_type.add_type === 'cart' ||
+                      product.product_details_by_type.add_type === 'both'
+                    "
+                    v-b-tooltip.hover
+                    :title="$t('items.addToCart')"
+                  >
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
-                  <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
-                    <a class="text-danger d-flex justify-content-center align-items-center"
-                      :title="`product in favourite`" @click="addToWishlist(product)"
-                      v-if="product.is_favorite == true">
+                  <div
+                    class=""
+                    v-if="buyerUserData && buyerUserData.type === 'b2c'"
+                  >
+                    <a
+                      class="text-danger d-flex justify-content-center align-items-center"
+                      :title="`product in favourite`"
+                      @click="addToWishlist(product)"
+                      v-if="product.is_favorite == true"
+                    >
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
-                    <a @click="addToWishlist(product)" class="d-flex justify-content-center align-items-center" v-else>
+                    <a
+                      @click="addToWishlist(product)"
+                      class="d-flex justify-content-center align-items-center"
+                      v-else
+                    >
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
                   <div class="" v-if="!buyerUserData">
-                    <a @click="loginFirst" v-b-tooltip.hover :title="$t('items.addToFavourite')"
-                      class="d-flex justify-content-center align-items-center">
+                    <a
+                      @click="loginFirst"
+                      v-b-tooltip.hover
+                      :title="$t('items.addToFavourite')"
+                      class="d-flex justify-content-center align-items-center"
+                    >
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
                   <div v-if="!buyerUserData">
-                    <button id="show-btn" class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                      @click="loginFirst" v-b-tooltip.hover :title="$t('singleProduct.bidRequest')">
+                    <button
+                      id="show-btn"
+                      class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                      @click="loginFirst"
+                      v-b-tooltip.hover
+                      :title="$t('singleProduct.bidRequest')"
+                    >
                       <!-- <span role="button" @click="loggedBidRequest"> -->
                       <!-- {{ $t("singleProduct.bidRequest") }} -->
                       <rfqIcon />
@@ -555,32 +755,62 @@
           </template>
           <form>
             <div class="form-group">
-              <label for="">{{ $t("singleProduct.nameInput") }}
-                <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" v-model="requestData.name" />
-              <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
+              <label for=""
+                >{{ $t("singleProduct.nameInput") }}
+                <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                v-model="requestData.name"
+              />
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.qoute_name"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </div>
             <div class="form-group">
-              <label for="">{{ $t("singleProduct.min_order_quantity") }}
-                <span class="text-danger">*</span></label>
-              <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
-              <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
+              <label for=""
+                >{{ $t("singleProduct.min_order_quantity") }}
+                <span class="text-danger">*</span></label
+              >
+              <input
+                type="number"
+                min="1"
+                class="form-control"
+                v-model="requestData.request_qty"
+              />
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.request_qty"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </div>
             <div class="form-group">
-              <label for="">{{ $t("singleProduct.reviewInput") }}
-                <span class="text-danger">*</span></label>
-              <textarea class="form-control" v-model="requestData.comment"></textarea>
-              <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+              <label for=""
+                >{{ $t("singleProduct.reviewInput") }}
+                <span class="text-danger">*</span></label
+              >
+              <textarea
+                class="form-control"
+                v-model="requestData.comment"
+              ></textarea>
+              <div
+                class="text-danger"
+                v-for="(error, index) in errors.comment"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </div>
           </form>
           <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-          $t("cart.submit")
+            $t("cart.submit")
           }}</b-button>
         </b-modal>
       </div>
@@ -729,7 +959,7 @@ export default {
       sortTypeUnit: null,
       CountryOptions: null,
       WeightOptions: null,
-      UnitOptions: null
+      UnitOptions: null,
     };
   },
   components: {
@@ -858,7 +1088,14 @@ export default {
 
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.sortType, this.selectedVariants, this.sortTypeCountry, this.sortTypeWeight, this.sortTypeUnit)
+        .getCategoryProducts(
+          this.pageId,
+          this.sortType,
+          this.selectedVariants,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit
+        )
         .then((res) => {
           // console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -873,7 +1110,14 @@ export default {
     getCategoryProducts() {
       this.loading = true;
       categories
-        .getCategoryProducts(this.pageId, this.sortType, this.selectedVariants, this.sortTypeCountry, this.sortTypeWeight, this.sortTypeUnit)
+        .getCategoryProducts(
+          this.pageId,
+          this.sortType,
+          this.selectedVariants,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit
+        )
         .then((res) => {
           console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
@@ -995,15 +1239,18 @@ export default {
     //     });
     // },
     getFilters() {
-      suppliers.getFilters().then(res => {
-        console.log("filters", res);
-        this.CountryOptions = res.data.items.countries
-        this.WeightOptions = res.data.items.weights
-        this.UnitOptions = res.data.items.units
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+      suppliers
+        .getFilters()
+        .then((res) => {
+          console.log("filters", res);
+          this.CountryOptions = res.data.items.countries;
+          this.WeightOptions = res.data.items.weights;
+          this.UnitOptions = res.data.items.units;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getCategoryProducts();
@@ -1124,7 +1371,12 @@ export default {
   object-fit: cover;
 }
 
-.items-body .content .item-content .customize .customize-selection select[data-v-74400477] {
+.items-body
+  .content
+  .item-content
+  .customize
+  .customize-selection
+  select[data-v-74400477] {
   height: 3rem;
 }
 
