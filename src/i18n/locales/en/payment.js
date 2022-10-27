@@ -56,7 +56,7 @@ export default {
   couponNotValid: "Coupon Not Valid",
   uploadImage:'Upload Image',
   paymentStatus:'Payment Status',
-  bankImageDownload:'Download Transfer Image',
+  bankImageDownload:'Download Transfer File',
   bankTransImage:'Bank transfer image',
   bankComment:'Bank transfer notes',
   orderStatus:'Order Status',

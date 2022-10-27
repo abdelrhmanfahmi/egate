@@ -3,7 +3,6 @@
     <div class="content" v-if="myProduct">
       <div class="row">
         <div class="col-xl-7 col-ms-12">
-         
           <h4 class="name" v-if="myProduct.product.title">
             {{ myProduct.product.title }}
           </h4>
@@ -16,61 +15,93 @@
             <p class="serial" v-if="myProduct.product_details_by_type.sku">
               SKU : {{ myProduct.product_details_by_type.sku }}
             </p>
-            <p class="price">
+            <p
+              class="price"
+              v-if="
+                myProduct.product_details_by_type.add_type !== 'rfq'
+              "
+            >
               <span>
                 {{ $t("singleProduct.price") }} :
                 {{
-                myProduct.product_details_by_type.customer_price | fixedCurrency
+                  myProduct.product_details_by_type.customer_price
+                    | fixedCurrency
                 }}
                 {{ currency }}
               </span>
-              <span class="price-after" v-if="
-                myProduct.product_details_by_type.price_before_discount &&
-                myProduct.product_details_by_type.price_before_discount >
-                  myProduct.product_details_by_type.customer_price
-              ">
+              <span
+                class="price-after"
+                v-if="
+                  myProduct.product_details_by_type.price_before_discount &&
+                  myProduct.product_details_by_type.price_before_discount >
+                    myProduct.product_details_by_type.customer_price
+                "
+              >
                 {{
-                myProduct.product_details_by_type.price_before_discount
-                | fixedCurrency
+                  myProduct.product_details_by_type.price_before_discount
+                    | fixedCurrency
                 }}
                 {{ currency }}
               </span>
             </p>
+            <p>-</p>
 
             <hr />
-            
+
             <div class="weight">
-              <span class="title mr-3" v-if="myProduct.product_details_by_type.weight">
+              <span
+                class="title mr-3"
+                v-if="myProduct.product_details_by_type.weight"
+              >
                 {{ $t("singleProduct.weight") }} :
               </span>
 
               <span>
-                <div class="available-weight d-flex justify-content-end" v-if="myProduct.product_details_by_type">
-                  <span v-if="myProduct.product_details_by_type.unit">{{ myProduct.product_details_by_type.weight }}
-                    {{ myProduct.product_details_by_type.unit.title }}</span>
+                <div
+                  class="available-weight d-flex justify-content-end"
+                  v-if="myProduct.product_details_by_type"
+                >
+                  <span v-if="myProduct.product_details_by_type.unit"
+                    >{{ myProduct.product_details_by_type.weight }}
+                    {{ myProduct.product_details_by_type.unit.title }}</span
+                  >
                 </div>
               </span>
             </div>
           </div>
-          <span class="is-available" v-if="myProduct.product_details_by_type.quantity > 0">{{
-          $t("singleProduct.available") }} :
-            <b>{{ myProduct.product_details_by_type.quantity }}</b></span>
+          <span
+            class="is-available"
+            v-if="myProduct.product_details_by_type.quantity > 0"
+            >{{ $t("singleProduct.available") }} :
+            <b>{{ myProduct.product_details_by_type.quantity }}</b></span
+          >
           <span class="is-available text-danger" v-else>
-            <b>{{ $t("singleProduct.outOfStock") }}</b></span>
-            <hr />
-            <ProductDescription :myProduct="myProduct" />
+            <b>{{ $t("singleProduct.outOfStock") }}</b></span
+          >
+          <hr />
+          <ProductDescription :myProduct="myProduct" />
           <!--  -->
           <div class="variants" v-if="myProduct.product.variants">
-            <p class="sort" v-for="type in myProduct.product.variants" :key="type.id">
+            <p
+              class="sort"
+              v-for="type in myProduct.product.variants"
+              :key="type.id"
+            >
               <b v-if="type.variant.title">
                 {{ type.variant.title }}
               </b>
             </p>
             <div class="weight" v-if="myProduct.product_details_by_type">
-              <div class="available-weight d-flex justify-content-end"
-                v-for="option in myProduct.product_details_by_type.options" :key="option.id">
-                <span v-if="option.price" @click="selectedOption(option.price)"
-                  :class="mySelectedOption == option.price ? 'active' : ''">
+              <div
+                class="available-weight d-flex justify-content-end"
+                v-for="option in myProduct.product_details_by_type.options"
+                :key="option.id"
+              >
+                <span
+                  v-if="option.price"
+                  @click="selectedOption(option.price)"
+                  :class="mySelectedOption == option.price ? 'active' : ''"
+                >
                   {{ option.price }}
                 </span>
               </div>
@@ -81,7 +112,6 @@
           <ProductActions :myProduct="myProduct" />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -100,14 +130,13 @@ import globalAxios from "@/services/global-axios";
 import categories from "@/services/categories";
 import profile from "@/services/profile";
 
-
-import ProductActions from "./ProductActions.vue"
-import ProductDescription from "./ProductDescription.vue"
+import ProductActions from "./ProductActions.vue";
+import ProductDescription from "./ProductDescription.vue";
 
 export default {
   components: {
     ProductActions,
-    ProductDescription
+    ProductDescription,
     // Linkedin,
     // Pinterest,
     // Reddit,
@@ -427,7 +456,6 @@ export default {
 
     .product-actions {
       .short-links {
-
         // margin-inline-end: 0.5rem;
         // min-width: 10rem;
         a {
