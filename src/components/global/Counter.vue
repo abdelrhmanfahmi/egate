@@ -51,7 +51,7 @@ export default {
     },
     minimum: {
       type: Number,
-      required: true,
+      required: false,
       default: 1,
     },
   },
