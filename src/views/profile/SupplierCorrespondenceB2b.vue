@@ -114,6 +114,7 @@ export default {
       recordsPerPage: 10,
       enterpageno: "",
       loading: false,
+      itemsLength:null
     };
   },
   methods: {

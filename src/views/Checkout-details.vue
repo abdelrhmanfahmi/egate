@@ -80,7 +80,7 @@
                 </b-form-group>
                 <div
                   class="error text-start"
-                  v-for="(error, index) in uploadErrors.image"
+                  v-for="(error, index) in uploadErrors.file"
                   :key="index"
                 >
                   {{ error }}

@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import Counter from "../../components/global/Counter.vue";
+import Counter from "@/components/global/Counter.vue";
 
 import globalAxios from "@/services/global-axios";
 export default {
