@@ -27,4 +27,7 @@ export default {
   relativeProducts: "منتجات ذات الصلة",
   addToFavourite: "اضف الى المفضلة",
   addedToFavourite: "موجودة بالفعل فى المفضلة",
+  addStandingOrders: "اضافه لقائمة الانتظار",
+  standingOrders: "قائمة الانتظار",
+  addNew:'اضافه'
 };

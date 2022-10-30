@@ -22,6 +22,7 @@ import ReturnRequests from "../views/profile/ReturnRequests.vue";
 import Wallet from "../views/profile/Wallet.vue";
 import Notifications from "../views/profile/Notifications.vue";
 import CheckWalletCharge from "../views/profile/CheckWalletCharge.vue";
+import StandingOrders from "../views/profile/StandingOrders.vue";
 
 
 
@@ -128,6 +129,11 @@ export default {
       path: "/profile/CheckWalletCharge",
       name: "CheckWalletCharge",
       component: CheckWalletCharge,
+    },
+    {
+      path: "/profile/StandingOrders",
+      name: "StandingOrders",
+      component: StandingOrders,
     },
     
     
