@@ -40,5 +40,6 @@ export default {
   hiThere: "مرحبا",
   helpYou: "كيف يمكننى مساعدتك ؟",
   startCaht: "ابدأ المحادثه",
-  navSuppliers:'الشركاء'
+  navSuppliers:'الشركاء',
+  clients:'العملاء'
 };

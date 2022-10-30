@@ -129,21 +129,13 @@
                         <span v-else>{{ item.product_supplier.product.title_ar }}</span>
                       </div> -->
 
-                      <router-link
-                        :to="{
-                          path: '/details',
-                          query: { id: item.product_supplier_id },
-                        }"
-                      >
-                        <div
-                          class="d-block text-center"
-                          v-if="item.product_supplier.product.image_path"
-                        >
-                          <img
-                            :src="item.product_supplier.product.image_path"
-                            alt="wishlist-product-image"
-                            class="product-img"
-                          />
+                      <router-link :to="{
+                        path: '/details',
+                        query: { id: item.product_supplier_id },
+                      }">
+                        <div class="d-block text-center" v-if="item.product_supplier.product.image_path">
+                          <img :src="item.product_supplier.product.image_path" alt="wishlist-product-image"
+                            class="product-img" />
                         </div>
                         <!-- <div class="" v-else>
                           <img
@@ -155,84 +147,63 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <router-link
-                        class="text-dark"
-                        :to="{
-                          path: '/details',
-                          query: { id: item.product_supplier_id },
-                        }"
-                      >
-                        <p
-                          v-if="item.product_supplier.product"
-                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
-                        >
-                          <span v-if="$i18n.locale == 'en'"
-                            >{{ item.product_supplier.product.title_en }}
+                      <router-link class="text-dark" :to="{
+                        path: '/details',
+                        query: { id: item.product_supplier_id },
+                      }">
+                        <p v-if="item.product_supplier.product"
+                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
+                          <span v-if="$i18n.locale == 'en'">{{ item.product_supplier.product.title_en }}
                           </span>
-                          <span v-if="$i18n.locale == 'ar'"
-                            >{{ item.product_supplier.product.title_ar }}
+                          <span v-if="$i18n.locale == 'ar'">{{ item.product_supplier.product.title_ar }}
                           </span>
                         </p>
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <p
-                        class="price"
-                        v-if="item.product_supplier.product_details_by_type"
-                      >
-                        <span
-                          v-if="
-                            item.product_supplier.product_details_by_type.price
-                          "
-                        >
+                      <p class="price" v-if="item.product_supplier.product_details_by_type">
+                        <span v-if="
+                          item.product_supplier.product_details_by_type.price
+                        ">
                           {{
-                            item.product_supplier.product_details_by_type.price
+                              item.product_supplier.product_details_by_type.price
                               | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                         <br />
-                        <span
-                          class="price-after"
-                          v-if="
-                            item.product_supplier.product_details_by_type
-                              .price_before_discount &&
-                            item.product_supplier.product_details_by_type
-                              .price_before_discount >
-                              item.product_supplier.product_details_by_type
-                                .price
-                          "
-                        >
+                        <span class="price-after" v-if="
+                          item.product_supplier.product_details_by_type
+                            .price_before_discount &&
+                          item.product_supplier.product_details_by_type
+                            .price_before_discount >
+                          item.product_supplier.product_details_by_type
+                            .price
+                        ">
                           {{
-                            item.product_supplier.product_details_by_type
-                              .price_before_discount | fixedCurrency
+                              item.product_supplier.product_details_by_type
+                                .price_before_discount | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                       </p>
                     </td>
                     <td class="text-center">
-                      <div
-                        v-if="item.product_supplier.product_details_by_type"
-                        class="actions d-flex justify-content-center align-items-center"
-                      >
+                      <div v-if="item.product_supplier.product_details_by_type"
+                        class="actions d-flex justify-content-center align-items-center">
                         <b-button @click="removeFromWishlist(item)">
                           <font-awesome-icon icon="fa-solid fa-trash-can" />
                         </b-button>
 
-                        <b-button
-                          @click="addToCart(item)"
-                          v-if="
-                            item.product_supplier.product_details_by_type
-                              .add_type === 'cart' ||
-                            item.product_supplier.product_details_by_type
-                              .add_type === 'both'
-                          "
-                        >
+                        <b-button @click="addToCart(item)" v-if="
+                          item.product_supplier.product_details_by_type
+                            .add_type === 'cart' ||
+                          item.product_supplier.product_details_by_type
+                            .add_type === 'both'
+                        ">
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                         </b-button>
-                        <button
-                          @click="chooseProduct(item.product_supplier)"
+                        <button @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
                             (item.product_supplier.product_details_by_type
@@ -240,14 +211,11 @@
                               item.product_supplier.product_details_by_type
                                 .add_type === 'both') &&
                             buyerUserData
-                          "
-                        >
+                          ">
                           <div>
-                            <button
-                              id="show-btn"
+                            <button id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                              @click="$bvModal.show('bv-bidRequest')"
-                            >
+                              @click="$bvModal.show('bv-bidRequest')">
                               <!-- <span role="button" @click="loggedBidRequest"> -->
                               <span>
                                 <rfqIcon class="mx-2" />
@@ -267,9 +235,7 @@
             " -->
               <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
-              <div
-                class="text-center d-flex justify-content-center align-items-center mt-5"
-              >
+              <div class="text-center d-flex justify-content-center align-items-center mt-5">
                 <!-- <b-pagination
             v-model="currentPage"
             pills
@@ -277,23 +243,18 @@
             :per-page="perPage"
             size="lg"
           ></b-pagination> -->
-                <Paginate
-                  v-if="wishlistItems"
-                  :total-pages="totalPages"
-                  :per-page="totalPages"
-                  :current-page="page"
-                  @pagechanged="onPageChange"
-                />
+                <Paginate v-if="wishlistItems" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+                  @pagechanged="onPageChange" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="d-flex justify-content-center align-items-center flex-column"
-        v-else
-      >
+      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
         <img src="@/assets/images/wishlist.png" alt="cart-image" />
+        <div class="spinner-border text-secondary" role="status">
+          <span class="sr-only"></span>
+        </div>
         <!-- <h3 class="m-0">
           {{ $t("cart.noCartProducts") }}
         </h3> -->
@@ -306,58 +267,32 @@
       </template>
       <form>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.nameInput") }}
-            <span class="text-danger">*</span></label
-          >
+          <label for="">{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label>
           <input type="text" class="form-control" v-model="requestData.name" />
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.qoute_name"
-            :key="index"
-          >
+          <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.min_order_quantity") }}
-            <span class="text-danger">*</span></label
-          >
-          <input
-            type="number"
-            min="1"
-            class="form-control"
-            v-model="requestData.request_qty"
-          />
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.request_qty"
-            :key="index"
-          >
+          <label for="">{{ $t("singleProduct.min_order_quantity") }}
+            <span class="text-danger">*</span></label>
+          <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
+          <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.reviewInput") }}
-            <span class="text-danger">*</span></label
-          >
-          <textarea
-            class="form-control"
-            v-model="requestData.comment"
-          ></textarea>
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.comment"
-            :key="index"
-          >
+          <label for="">{{ $t("singleProduct.reviewInput") }}
+            <span class="text-danger">*</span></label>
+          <textarea class="form-control" v-model="requestData.comment"></textarea>
+          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
             {{ error }}
           </div>
         </div>
       </form>
       <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-        $t("cart.submit")
+          $t("cart.submit")
       }}</b-button>
     </b-modal>
   </div>
@@ -626,37 +561,45 @@ export default {
   height: 4rem;
   border-radius: 0.5rem;
 }
+
 .product-name {
   color: #312620;
   font-weight: 600;
   font-size: 12pt;
 }
+
 .actions {
   text-align: center;
+
   button {
     color: #000 !important;
     background-color: transparent !important;
     border: 0 !important;
   }
+
   svg {
     font-size: 1.2rem;
     margin: 0 5px;
     cursor: pointer;
   }
 }
+
 .heading {
   color: #312620;
   font-size: 28pt;
 }
+
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
+
     tbody {
       tr {
         margin: 30px 0;
       }
     }
   }
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -673,14 +616,15 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
+
   .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
+
   .actions {
     justify-content: center;
     align-items: center;
   }
 }
-
 </style>
