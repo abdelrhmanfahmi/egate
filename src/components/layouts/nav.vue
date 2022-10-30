@@ -5,27 +5,40 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img
-              src="@/assets/images/logo.png"
-              class="img-fluid"
-              alt="logo"
-              @click="goToHome()"
-            />
+            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
-                $t("home.home")
+                  $t("home.home")
               }}</router-link>
             </li>
-            <li>
+            <!-- <li>
               <router-link class="link" to="/suppliers">{{
-                $t("home.navSuppliers")
+                  $t("home.navSuppliers")
               }}</router-link>
+            </li> -->
+            <!-- new dropdown  -->
+            <li class="humhum-dropdown">
+              <a class="link">
+                {{ $t("home.navSuppliers") }}
+                <ul class="submenu">
+                  <li>
+                    <router-link to="/suppliers">{{
+                        $t("home.suppliers")
+                    }}</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/Clients">
+                        {{$t('home.clients')}}
+                    </router-link>
+                  </li>
+                </ul>
+              </a>
             </li>
             <li>
               <router-link class="link" to="/about">{{
-                $t("home.about")
+                  $t("home.about")
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
@@ -33,15 +46,12 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a
-                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
-                      target="_blank"
-                      >{{ $t("home.suppliers") }}</a
-                    >
+                    <a href="https://staging2.fabrica-dev.com/humhum-supplier/" target="_blank">{{ $t("home.suppliers")
+                    }}</a>
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                      $t("home.buyer")
+                        $t("home.buyer")
                     }}</router-link>
                   </li>
                 </ul>
@@ -49,7 +59,7 @@
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
-                $t("home.contactUs")
+                  $t("home.contactUs")
               }}</router-link>
             </li>
           </ul>
@@ -60,10 +70,7 @@
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
             <b-button v-b-modal.modal-1 class="icon-search" size="md">
-              <font-awesome-icon
-                v-b-toggle.sidebar-1
-                icon="fa-solid fa-search"
-              />
+              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
             <b-modal id="modal-1" class="search">
               <!-- Using slots -->
@@ -71,18 +78,12 @@
                 <template #append>
                   <b-input-group-text>
                     <strong @click="search" class="search-eye">
-                      <font-awesome-icon
-                        v-b-toggle.sidebar-1
-                        icon="fa-solid fa-search"
-                      />
+                      <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
                     </strong>
                   </b-input-group-text>
                 </template>
                 <b-form @submit.prevent="search">
-                  <b-form-input
-                    :placeholder="$t('cart.search')"
-                    v-model="keyword"
-                  ></b-form-input>
+                  <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
                 </b-form>
               </b-input-group>
             </b-modal>
@@ -148,11 +149,9 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item
-                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
-                >
+                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
                   <router-link to="/profile/categories">{{
-                    $t("profile.myProfile")
+                      $t("profile.myProfile")
                   }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
@@ -169,18 +168,11 @@
 
         <!--Start Mbile Nav -->
         <div class="icon right-side" v-if="mobile">
-          <div
-            class="row justify-content-center align-items-center search-icon"
-            v-if="mobile"
-          >
+          <div class="row justify-content-center align-items-center search-icon" v-if="mobile">
             <div class="col-12">
               <div class="search-icon">
                 <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                  <font-awesome-icon
-                    v-b-toggle.sidebar-1
-                    icon="fa-solid fa-search"
-                    class="mobile-search-icon"
-                  />
+                  <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" class="mobile-search-icon" />
                 </b-button>
                 <b-modal id="modal-1" class="search">
                   <!-- Using slots -->
@@ -188,18 +180,12 @@
                     <template #append>
                       <b-input-group-text>
                         <strong @click="search" class="search-eye">
-                          <font-awesome-icon
-                            v-b-toggle.sidebar-1
-                            icon="fa-solid fa-search"
-                          />
+                          <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
                         </strong>
                       </b-input-group-text>
                     </template>
                     <b-form @submit.prevent="search">
-                      <b-form-input
-                        :placeholder="$t('cart.search')"
-                        v-model="keyword"
-                      ></b-form-input>
+                      <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
                     </b-form>
                   </b-input-group>
                 </b-modal>
@@ -207,24 +193,12 @@
             </div>
           </div>
 
-          <font-awesome-icon
-            v-b-toggle.sidebar-1
-            @click="toggleMobileNav"
-            icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }"
-          />
+          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }" />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar
-            :right="getDir === 'rtl'"
-            v-if="mobileNav"
-            @hidden="closeSideBar"
-            id="sidebar-1"
-            backdrop
-            width="300px"
-            shadow
-            z-index="3"
-          >
+          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
+            width="300px" shadow z-index="3">
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -520,6 +494,7 @@ export default {
 
 html:lang(ar) {
   .main-nav {
+
     .cart-body,
     .notify-body {
       right: auto;
@@ -585,15 +560,17 @@ html:lang(ar) {
     }
   }
 }
+
 .mobile-search-icon {
   font-size: 20px !important;
 }
 
-@media(max-width:992px){
+@media(max-width:992px) {
   #modal-1 .input-group-text {
-    font-size: 25px ;
+    font-size: 25px;
   }
-  #modal-1 .form-control{
+
+  #modal-1 .form-control {
     font-size: 30px;
   }
 }

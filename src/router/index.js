@@ -31,6 +31,7 @@ import returnRefund from "../views/ReturnRefund.vue";
 import privacyPolicy from "../views/privacyPolicy.vue";
 import termsConditions from "../views/termsConditions.vue";
 import faq from "../views/faq.vue";
+import Clients from "../views/Clients.vue";
 // import test from "@/components/test.vue";
 
 Vue.use(VueRouter);
@@ -231,6 +232,11 @@ const routes = [
     path: "/faq",
     name: "faq",
     component: faq,
+  },
+  {
+    path: "/Clients",
+    name: "Clients",
+    component: Clients,
   },
   // {
   //   path: "/test",

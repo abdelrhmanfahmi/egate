@@ -96,6 +96,9 @@ export default {
   },
   getFilters(){
     return globalAxios.get(`products/get-filter/attributes`)
-  }
+  },
+  getClients(page) {
+    return globalAxios.get(`suppliers-name?page=${page}`);
+  },
   
 };

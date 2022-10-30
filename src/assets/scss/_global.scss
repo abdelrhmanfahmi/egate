@@ -548,3 +548,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.clients .pagination .pagination-item{
+  @media(max-width:992px){
+    margin: 2px !important;
+  }
+}

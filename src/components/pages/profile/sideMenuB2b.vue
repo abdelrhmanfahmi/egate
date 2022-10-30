@@ -84,14 +84,15 @@ export default {
         
         {
           to: "/profile/favorite",
-          name: this.$t("profile.b2bFav"),
+          // name: this.$t("profile.b2bFav"),
+          name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-        {
-          to: "/profile/giftCardB2b",
-          name: this.$t("profile.giftCard"),
-          iconName: "gift",
-        },
+        // {
+        //   to: "/profile/giftCardB2b",
+        //   name: this.$t("profile.giftCard"),
+        //   iconName: "gift",
+        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -190,11 +191,11 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
-        {
-          to: "/profile/giftCardB2b",
-          name: this.$t("profile.giftCard"),
-          iconName: "gift",
-        },
+        // {
+        //   to: "/profile/giftCardB2b",
+        //   name: this.$t("profile.giftCard"),
+        //   iconName: "gift",
+        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
