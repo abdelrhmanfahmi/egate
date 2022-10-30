@@ -25,5 +25,8 @@ export default {
   new: "New",
   relativeProducts:'Related Products',
   addToFavourite:'Add To Favourite',
-  addedToFavourite:'Already in favourite'
+  addedToFavourite:'Already in favourite',
+  addStandingOrders:'Add To Standing Orders',
+  standingOrders:'Standing Orders',
+  addNew:'Add New'
 };

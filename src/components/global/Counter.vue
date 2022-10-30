@@ -4,15 +4,10 @@
       <main>
         <slot name="main">
           <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
-          <input
-            class="form-control text-center border-0"
-            type="text"
-            name=""
-            id=""
-            min="1"
-            @keyup.enter="CustomIncrementQuantity"
-            v-model="countValue"
-          />
+          <input class="form-control text-center border-0" type="text" name="" id="" min="1"
+            @keyup.enter="CustomIncrementQuantity" v-model="countValue" />
+
+            <!-- @keydown="delayChange"  -->
         </slot>
       </main>
     </div>
@@ -98,9 +93,9 @@ export default {
       console.log(this.countValue);
       if (this.countValue > 0) {
         let data = {
-        quantity: this.countValue,
-        uuid: this.product.uuid,
-      };
+          quantity: this.countValue,
+          uuid: this.product.uuid,
+        };
         this.$store.dispatch("cart/updateProductFromCart", data);
         setTimeout(() => {
           this.$store.dispatch("cart/getCartProducts");
@@ -112,9 +107,9 @@ export default {
       }
       if (this.countValue == 0) {
         let data = {
-        quantity: 1,
-        uuid: this.product.uuid,
-      };
+          quantity: 1,
+          uuid: this.product.uuid,
+        };
         this.$store.dispatch("cart/updateProductFromCart", data);
         setTimeout(() => {
           this.$store.dispatch("cart/getCartProducts");
@@ -125,6 +120,15 @@ export default {
         }, 500);
       }
     },
+    delayChange() {
+
+      let timeout = null;
+      clearTimeout(timeout);
+      // Make a new timeout set to go off in 800ms
+      timeout = setTimeout(() => {
+        this.CustomIncrementQuantity()
+      }, 1500);
+    }
   },
 };
 </script>
@@ -134,8 +138,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: left;
+
   .actions {
     color: #606266;
+
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -146,11 +152,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
+
   .value {
     border-radius: 0;
     border: 1px solid #f0f0f0;

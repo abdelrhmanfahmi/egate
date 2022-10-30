@@ -114,6 +114,11 @@ export default {
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
+        {
+          to: "/profile/StandingOrders",
+          name: this.$t("profile.b2bFav"),
+          iconName: "bag-shopping",
+        },
         // {
         //   to: "/profile/giftCardB2b",
         //   name: this.$t("profile.giftCard"),
@@ -186,6 +191,11 @@ export default {
           to: "/profile/favorite",
           name: this.$t("profile.favorite"),
           iconName: "heart",
+        },
+        {
+          to: "/profile/StandingOrders",
+          name: this.$t("profile.b2bFav"),
+          iconName: "bag-shopping",
         },
         // {
         //   to: "/profile/giftCardB2b",
