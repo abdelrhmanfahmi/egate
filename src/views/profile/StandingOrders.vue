@@ -7,7 +7,10 @@
             <!-- <div class="icon"></div> -->
             <h4 class="title">
               <span>{{x}} - Maruszczak</span>
-              <small>11 item(s)</small>
+              <div class="row">
+                <div class="col-12"><small>11 item(s)</small></div>
+                <div class="col-12"><small>time</small></div>
+              </div>
             </h4>
             <!-- <a href="#"></a> -->
           </div>
