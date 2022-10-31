@@ -32,6 +32,8 @@ import privacyPolicy from "../views/privacyPolicy.vue";
 import termsConditions from "../views/termsConditions.vue";
 import faq from "../views/faq.vue";
 import Clients from "../views/Clients.vue";
+import StandingOrder from "../views/StandingOrder.vue";
+
 // import test from "@/components/test.vue";
 
 Vue.use(VueRouter);
@@ -237,6 +239,11 @@ const routes = [
     path: "/Clients",
     name: "Clients",
     component: Clients,
+  },
+  {
+    path: "/StandingOrder",
+    name: "StandingOrder",
+    component: StandingOrder,
   },
   // {
   //   path: "/test",
