@@ -135,7 +135,5 @@ export default {
       name: "StandingOrders",
       component: StandingOrders,
     },
-    
-    
   ],
 };
