@@ -4,6 +4,12 @@
             <span>+ </span>{{ $t('items.addNew') }}
         </p>
         <form @submit.prevent="addNewStandingOrder()" class="account-information-form" v-if="showForm">
+            <b-row class="mb-3">
+                <b-col lg="5">
+                    <label for="">{{$t('cart.standQuantity')}}</label>
+                    <b-form-input id="name" v-model="standingOrder.qty" />
+                </b-col>
+            </b-row>
             <b-row class="justify-content-center align-items-center">
                 <!-- country  -->
                 <b-col lg="5" class="mb-3">
@@ -33,7 +39,9 @@
                         {{ $t("register.submit") }}
                     </b-button>
                 </b-col>
+                
             </b-row>
+            
 
 
         </form>
@@ -53,8 +61,9 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12" v-for="(x, index) in 20" :key="index">
                         <label class="plan basic-plan">
-                            <input type="radio" name="plan" :value="x" v-model="selectedPlan"
-                                @input="planSelected(x)" />
+                            <input type="radio" name="plan" :value="x" v-model="selectedPlan" />
+                            <!-- <input type="radio" name="plan" :value="x" v-model="selectedPlan"
+                                @input="planSelected(x)" /> -->
                             <div class="plan-content-holder">
                                 <div class="plan-content">
                                     <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
@@ -75,7 +84,11 @@
                         </label>
                     </div>
                 </div>
-
+                <div>
+                    <b-button type="submit" class="login-button " @click="planSelected">
+                        {{ $t("register.submit") }}
+                    </b-button>
+                </div>
             </div>
         </div>
     </div>
@@ -90,7 +103,8 @@ export default {
             showForm: false,
             standingOrder: {
                 name: null,
-                time: null
+                time: null,
+                qty:1
             },
             errors: [],
             selectedPlan: null
@@ -114,12 +128,12 @@ export default {
                     this.loading = false;
                 });
         },
-        planSelected(plan) {
+        planSelected() {
             setTimeout(() => {
                 this.$router.push({
                     path: '/StandingOrder',
                     query: {
-                        id: plan
+                        id: this.selectedPlan
                     }
                 })
             }, 700);

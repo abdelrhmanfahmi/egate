@@ -56,5 +56,6 @@ export default {
   readMore:'Read More',
   readLess:'Read Less',
   add:'Add',
-  filter:'Filter By'
+  filter:'Filter By',
+  standQuantity:'Quantity of this product'
 };

@@ -57,5 +57,6 @@ export default {
   readMore: "قراءة المذيد",
   readLess: "قراءة أقل",
   add:'اضافه',
-  filter:'فلتر'
+  filter:'فلتر',
+  standQuantity:'الكميه المطلوبه من المنتج'
 };
