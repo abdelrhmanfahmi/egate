@@ -294,7 +294,7 @@
                       <div class="col-6">
                         {{ $t("payment.bankTransImage") }}
                       </div>
-                      <div class="col-6">
+                      <div class="col-6" v-if="orderData.payment_image">
                         <div class="downloadArea">
                           <b-button
                             class="btn-block"
