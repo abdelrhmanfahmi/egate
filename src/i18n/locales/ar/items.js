@@ -29,5 +29,9 @@ export default {
   addedToFavourite: "موجودة بالفعل فى المفضلة",
   addStandingOrders: "اضافه لقائمة الانتظار",
   standingOrders: "قائمة الانتظار",
-  addNew:'اضافه'
+  addNew:'اضافه',
+  time:'المده',
+  edit:'تعديل',
+  editGroup:'تعديل مجموعه',
+  standingOrderProducts:'منتجات القائمه'
 };

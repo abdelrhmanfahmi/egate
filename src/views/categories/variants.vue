@@ -501,7 +501,7 @@
                   <div>
 
                     <button id="show-btn" class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                      @click="$bvModal.show('bv-standingOrders')" v-b-tooltip.hover :title="$t('items.standingOrders')">
+                      @click="$bvModal.show('bv-standingOrders') ; selectStandingProduct(product)" v-b-tooltip.hover :title="$t('items.standingOrders')">
                       <!-- <span role="button" @click="loggedBidRequest"> -->
                       <!-- {{ $t("singleProduct.bidRequest") }} -->
                       <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
@@ -612,7 +612,7 @@
           <template #modal-title>
             {{ $t("items.standingOrders") }}
           </template>
-          <standing-orders />
+          <standing-orders :variantOrder="selectedStandingOrder" />
         </b-modal>
       </div>
     </div>
@@ -763,6 +763,7 @@ export default {
       CountryOptions: null,
       WeightOptions: null,
       UnitOptions: null,
+      selectedStandingOrder:null
     };
   },
   components: {
@@ -1055,6 +1056,9 @@ export default {
           console.log(err);
         });
     },
+    selectStandingProduct(order){
+      this.selectedStandingOrder = order
+    }
     
   },
   mounted() {

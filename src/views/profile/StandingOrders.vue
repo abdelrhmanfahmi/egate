@@ -1,33 +1,391 @@
 <template>
-  <div class="standing-orders">
-    <div class="row">
-      <div class="col-md-3 col-sm-12" v-for="(x, index) in 20" :key="index">
-        <router-link :to="{ path: '/StandingOrder', query: { id: x } }">
-          <div class="b-box">
-            <!-- <div class="icon"></div> -->
-            <h4 class="title">
-              <span>{{x}} - Maruszczak</span>
-              <div class="row">
-                <div class="col-12"><small>11 item(s)</small></div>
-                <div class="col-12"><small>time</small></div>
-              </div>
-            </h4>
-            <!-- <a href="#"></a> -->
+  <div>
+    <p class="add-address" @click="showForm = !showForm">
+      <span>+ </span>{{ $t("items.addNew") }}
+    </p>
+    <form
+      @submit.prevent="CreateStandingOrders()"
+      class="account-information-form"
+      v-if="showForm"
+    >
+      <b-row class="justify-content-center align-items-center">
+        <!-- country  -->
+        <b-col lg="5" class="mb-3">
+          <label>{{ $t("profile.name") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="name" v-model="standingOrder.name" />
+          <div class="error" v-for="(error, index) in errors.name" :key="index">
+            {{ error }}
           </div>
-        </router-link>
+        </b-col>
+        <b-col lg="5">
+          <b-form-group>
+            <label>{{ $t("items.time") }}</label>
+            <span class="requried">*</span>
+            <b-form-select v-model="standingOrder.time">
+              <b-form-select-option :value="null" disabled>{{
+                $t("payment.selectExist")
+              }}</b-form-select-option>
+              <b-form-select-option
+                :value="time.id"
+                v-for="(time, index) in times"
+                :key="index"
+                >{{ time.title }}</b-form-select-option
+              >
+            </b-form-select>
+
+            <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
+            <div
+              class="error"
+              v-for="(error, index) in errors.time_id"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <b-col lg="2">
+          <b-button type="submit" class="login-button">
+            {{ $t("register.submit") }}
+          </b-button>
+        </b-col>
+      </b-row>
+    </form>
+    <div class="d-flex justify-content-center align-items-center">
+      <hr class="w-75" />
+    </div>
+
+    <div class="standing-orders">
+      <div class="plans" v-if="standingOrdersLength > 0">
+        <div class="row">
+          <div
+            class="col-md-3 col-sm-12"
+            v-for="(order, index) in standingOrders"
+            :key="index"
+          >
+            <!-- <router-link :to="{path:'/StandingOrder' , query:{id:order.id}}"> -->
+            <label class="plan basic-plan">
+              <input
+                type="radio"
+                name="plan"
+                :value="order.id"
+                v-model="selectedPlan"
+              />
+              <!-- <input type="radio" name="plan" :value="x" v-model="selectedPlan"
+                                  @input="planSelected(x)" /> -->
+              <div class="plan-content-holder">
+                <div class="plan-content">
+                  <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
+                  <div class="b-box">
+                    <div class="actions">
+                      <span
+                        class="removeOrder"
+                        @click="deleteStandingOrder(order)"
+                        ><font-awesome-icon icon="fa-solid fa-trash"
+                      /></span>
+                      <span
+                        role="button"
+                        id="show-btn"
+                        @click="
+                          showModal();
+                          selectGroupToEdit(order);
+                        "
+                        class="EditOrder"
+                        ><font-awesome-icon icon="fa-solid fa-pen-to-square"
+                      /></span>
+                    </div>
+                    <!-- <div class="icon"></div> -->
+                    <h4 class="title" @click="goToGroup(order)">
+                      <span>{{ order.name }}</span>
+                      <div class="row">
+                        <div class="col-12">
+                          <small
+                            >{{ order.items_count }}
+                            {{ $t("items.item") }}</small
+                          >
+                        </div>
+                        <div class="col-12">
+                          <small v-if="$i18n.locale == 'en'">{{
+                            order.time.title_en
+                          }}</small>
+                          <small v-else>{{ order.time.title_ar }}</small>
+                        </div>
+                      </div>
+                    </h4>
+                    <!-- <a href="#"></a> -->
+                  </div>
+                  <!-- </router-link> -->
+                </div>
+              </div>
+            </label>
+            <!-- </router-link> -->
+          </div>
+        </div>
+        <b-row class="mb-3" v-if="quantitySelected">
+          <b-col lg="5">
+            <label for="">{{ $t("cart.standQuantity") }}</label>
+            <b-form-input
+              id="quantity"
+              type="number"
+              min="0"
+              v-model="ProductQuantity"
+            />
+            <div
+              class="error"
+              v-for="(error, index) in errors.quantity"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-col>
+        </b-row>
+        <b-modal ref="my-modal" hide-footer :title="$t('items.editGroup')">
+          <div class="d-block">
+            <form @submit.prevent="editOrder" v-if="selectedOrder">
+              <label>{{ $t("profile.name") }}</label>
+              <span class="requried">*</span>
+              <b-form-input id="name" v-model="selectedOrder.name" />
+              <div
+                class="error"
+                v-for="(error, index) in errors.name"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <b-button
+                class="mt-3"
+                variant="outline-danger"
+                block
+                @click="hideModal"
+                >{{$t('cart.cancel')}}</b-button
+              >
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <b-button
+                class="mt-3"
+                variant="outline-success"
+                block
+                @click="editOrder"
+                >{{$t('items.edit')}}</b-button
+              >
+            </div>
+          </div>
+        </b-modal>
+      </div>
+      <div class="text-center" v-else>
+        <h2>{{ $t("home.noData") }}</h2>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import profile from "@/services/profile";
 export default {
+  data() {
+    return {
+      id: this.$route.query.id,
+      standingOrders: null,
+      standingOrdersLength: null,
+      showForm: false,
+      standingOrder: {
+        name: null,
+        time: null,
+      },
+      errors: [],
+      selectedPlan: null,
+      times: null,
+      quantitySelected: false,
+      ProductQuantity: 1,
+      selectedOrder: null,
+    };
+  },
+  methods: {
+    showModal() {
+      this.$refs["my-modal"].show();
+    },
+    hideModal() {
+      this.$refs["my-modal"].hide();
+    },
+    async getStandingOrders() {
+      await profile
+        .getStandingOrders()
+        .then((resp) => {
+          this.standingOrders = resp.data.items.data;
+          this.standingOrdersLength = resp.data.items.data.length;
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    async getStandingOrdersTimes() {
+      await profile
+        .getStandingOrdersTimes()
+        .then((resp) => {
+          this.times = resp.data.items;
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    addProductToStandingOrders() {
+      let payload = {
+        product_supplier_id: this.id,
+        client_standing_id: this.selectedPlan,
+        quantity: this.ProductQuantity,
+      };
+      profile
+        .addProductToStandingOrders(payload)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
 
-}
+            setTimeout(() => {
+              this.$router.push({
+                path: "/StandingOrder",
+                query: {
+                  id: this.selectedPlan,
+                },
+              });
+            }, 700);
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    selectPlan(plan) {
+      console.log(plan);
+      this.quantitySelected = true;
+    },
+    CreateStandingOrders() {
+      let payLoad = {
+        name: this.standingOrder.name,
+        time_id: this.standingOrder.time,
+      };
+      profile
+        .CreateStandingOrders(payLoad)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+          this.standingOrder.name = null;
+          this.standingOrder.time = null;
+          this.getStandingOrders();
+          this.errors = [];
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    // removeOrder(order) {
+    //   alert(`order ${order.id} removed`);
+    // },
+    editOrder() {
+      let payLoad = {
+        name: this.selectedOrder.name,
+        time_id: this.selectedOrder.time.id,
+        id:this.selectedOrder.id
+      };
+      profile
+        .CreateStandingOrders(payLoad)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+          this.standingOrder.name = null;
+          this.standingOrder.time = null;
+          this.getStandingOrders();
+          setTimeout(() => {
+            this.hideModal()
+          }, 500);
+          this.errors = [];
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    goToGroup(group) {
+      setTimeout(() => {
+        this.$router.push({
+          path: "/StandingOrder",
+          query: {
+            id: group.id,
+          },
+        });
+      }, 400);
+    },
+    deleteStandingOrder(order) {
+      profile
+        .deleteStandingOrder(order.id)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+            this.getStandingOrders();
+          }
+        })
+        .catch((err) => {
+          this.errMsg(err.message);
+          console.log(err);
+        });
+    },
+    selectGroupToEdit(order) {
+      this.selectedOrder = order;
+      console.log("order", order);
+    },
+  },
+  mounted() {
+    this.getStandingOrders();
+    this.getStandingOrdersTimes();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+.add-address {
+  font-size: 17px;
+  color: #312620;
+  margin: 15px 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $main-color;
+  }
+
+  span {
+    font-size: 23px;
+    font-weight: 600;
+  }
+}
+
+.login-button {
+  margin: 0 !important;
+  margin-top: 15px !important;
+}
+
 .standing-orders {
+  label {
+    width: 100%;
+  }
 
   .b-box {
     margin-bottom: 10px;
@@ -42,6 +400,7 @@ export default {
     perspective: 600px;
     perspective-origin: center bottom;
     transition: 0.3s ease;
+    z-index: 1;
 
     &:after {
       content: "";
@@ -52,7 +411,10 @@ export default {
       bottom: 0;
       border-radius: 6px;
       z-index: -1px;
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0), 0 4px 4px rgba(0, 0, 0, 0), 0 8px 8px rgba(0, 0, 0, 0), 0 16px 16px rgba(0, 0, 0, 0), 0 32px 32px rgba(0, 0, 0, 0), 0 64px 64px rgba(0, 0, 0, 0), 0 128px 128px rgba(0, 0, 0, 0);
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0), 0 4px 4px rgba(0, 0, 0, 0),
+        0 8px 8px rgba(0, 0, 0, 0), 0 16px 16px rgba(0, 0, 0, 0),
+        0 32px 32px rgba(0, 0, 0, 0), 0 64px 64px rgba(0, 0, 0, 0),
+        0 128px 128px rgba(0, 0, 0, 0);
       transition: 0.7s ease;
       opacity: 0;
       pointer-events: none;
@@ -66,7 +428,8 @@ export default {
       left: 0;
       height: 100%;
       background: #f3f4f7;
-      transition: transform 2.55s cubic-bezier(0.18, 0.79, 0.25, 1) 0s, opacity 0.2s ease 0s;
+      transition: transform 0.7s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
+        opacity 0.2s ease 0s;
       opacity: 0;
       transform-style: preserve-3d;
       border-radius: 6px;
@@ -113,6 +476,7 @@ export default {
       margin-bottom: 0;
       color: #555;
       line-height: 1.6;
+      word-break: break-all;
 
       span {
         display: block;
@@ -130,14 +494,24 @@ export default {
 
     &:hover {
       transform: scale(1.08);
+      .removeOrder,
+      .EditOrder {
+        opacity: 1;
+      }
 
       &:after {
-        box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05), 0 4px 4px rgba(50, 55, 60, 0.05), 0 8px 8px rgba(50, 55, 60, 0.05), 0 16px 16px rgba(50, 55, 60, 0.05), 0 32px 32px rgba(50, 55, 60, 0.0375), 0 64px 64px rgba(50, 55, 60, 0.025), 0 128px 128px rgba(50, 55, 60, 0.025);
+        box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05),
+          0 4px 4px rgba(50, 55, 60, 0.05), 0 8px 8px rgba(50, 55, 60, 0.05),
+          0 16px 16px rgba(50, 55, 60, 0.05),
+          0 32px 32px rgba(50, 55, 60, 0.0375),
+          0 64px 64px rgba(50, 55, 60, 0.025),
+          0 128px 128px rgba(50, 55, 60, 0.025);
         opacity: 1;
       }
 
       &:before {
-        transition: transform 0.45s cubic-bezier(0.18, 0.79, 0.25, 1) 0s, opacity 0.35s ease 0s;
+        transition: transform 0.45s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
+          opacity 0.35s ease 0s;
         transform: scale(1, 1) rotateX(0deg) translate3d(0, 0, 0);
         opacity: 1;
       }
@@ -162,6 +536,64 @@ export default {
         }
       }
     }
+  }
+
+  .plan-content {
+    cursor: pointer;
+  }
+
+  .plans
+    .plan
+    input[type="radio"]:checked
+    + .plan-content-holder
+    > .plan-content
+    > .b-box {
+    border: 2px solid #216ee0;
+    background: #eaf1fe;
+    -webkit-transition: ease-in 0.1s;
+    -o-transition: ease-in 0.1s;
+    transition: ease-in 0.1s;
+  }
+
+  /* inspiration */
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  opacity: 0;
+}
+.removeOrder {
+  background: red;
+  color: #fff;
+  z-index: 99;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  @media (max-width: 992px) {
+    opacity: 1;
+  }
+}
+.EditOrder {
+  background: #ccc;
+  color: #000;
+  z-index: 99;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  @media (max-width: 992px) {
+    opacity: 1;
   }
 }
 </style>
