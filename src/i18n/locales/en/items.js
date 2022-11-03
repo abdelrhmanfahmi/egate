@@ -28,5 +28,9 @@ export default {
   addedToFavourite:'Already in favourite',
   addStandingOrders:'Add To Standing Orders',
   standingOrders:'Standing Orders',
-  addNew:'Add New'
+  addNew:'Add New',
+  time:'Time',
+  edit:'Edit',
+  editGroup:'Edit Group',
+  standingOrderProducts:'Standing Order Products'
 };
