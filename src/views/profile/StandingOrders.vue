@@ -78,16 +78,26 @@
                   <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
                   <div class="b-box">
                     <div class="actions">
-                      <span
+                      <!-- <span
                         class="removeOrder"
                         @click="deleteStandingOrder(order)"
+                        ><font-awesome-icon icon="fa-solid fa-trash"
+                      /></span> -->
+                      <span
+                        role="button"
+                        id="show-btn"
+                        @click="
+                          showDeleteModal();
+                          selectGroupToEdit(order);
+                        "
+                        class="removeOrder"
                         ><font-awesome-icon icon="fa-solid fa-trash"
                       /></span>
                       <span
                         role="button"
                         id="show-btn"
                         @click="
-                          showModal();
+                          showEditModal();
                           selectGroupToEdit(order);
                         "
                         class="EditOrder"
@@ -139,7 +149,7 @@
             </div>
           </b-col>
         </b-row>
-        <b-modal ref="my-modal" hide-footer :title="$t('items.editGroup')">
+        <b-modal ref="edit-modal" id="modal-center" centered hide-footer :title="$t('items.editGroup')">
           <div class="d-block">
             <form @submit.prevent="editOrder" v-if="selectedOrder">
               <label>{{ $t("profile.name") }}</label>
@@ -160,7 +170,7 @@
                 class="mt-3"
                 variant="outline-danger"
                 block
-                @click="hideModal"
+                @click="hideEditModal"
                 >{{$t('cart.cancel')}}</b-button
               >
             </div>
@@ -171,6 +181,41 @@
                 block
                 @click="editOrder"
                 >{{$t('items.edit')}}</b-button
+              >
+            </div>
+          </div>
+        </b-modal>
+        <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('items.deleteGroup')">
+          <div class="d-block">
+            <form @submit.prevent="editOrder" v-if="selectedOrder">
+            
+              <h5>{{$t('items.sureDelete')}} <span>({{ selectedOrder.name }}) ?</span></h5>
+              <div
+                class="error"
+                v-for="(error, index) in errors.name"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <b-button
+                class="mt-3"
+                variant="outline-danger"
+                block
+                @click="hideDeleteModal"
+                >{{$t('cart.cancel')}}</b-button
+              >
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <b-button
+                class="mt-3"
+                variant="outline-success"
+                block
+                @click="deleteStandingOrder"
+                >{{$t('items.remove')}}</b-button
               >
             </div>
           </div>
@@ -205,11 +250,17 @@ export default {
     };
   },
   methods: {
-    showModal() {
-      this.$refs["my-modal"].show();
+    showEditModal() {
+      this.$refs["edit-modal"].show();
     },
-    hideModal() {
-      this.$refs["my-modal"].hide();
+    showDeleteModal() {
+      this.$refs["delete-modal"].show();
+    },
+    hideEditModal() {
+      this.$refs["edit-modal"].hide();
+    },
+    hideDeleteModal() {
+      this.$refs["delete-modal"].hide();
     },
     async getStandingOrders() {
       await profile
@@ -312,7 +363,7 @@ export default {
           this.standingOrder.time = null;
           this.getStandingOrders();
           setTimeout(() => {
-            this.hideModal()
+            this.hideEditModal()
           }, 500);
           this.errors = [];
         })
@@ -332,13 +383,14 @@ export default {
         });
       }, 400);
     },
-    deleteStandingOrder(order) {
+    deleteStandingOrder() {
       profile
-        .deleteStandingOrder(order.id)
+        .deleteStandingOrder(this.selectedOrder.id)
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
+            this.hideDeleteModal()
             this.getStandingOrders();
           }
         })

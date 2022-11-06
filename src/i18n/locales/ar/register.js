@@ -34,5 +34,6 @@ export default {
   save: "حفظ",
   department: "القسم",
   selectDept: "اختر القسم",
-  selectPrefixes:'اختر المسمى'
+  selectPrefixes:'اختر المسمى',
+  newPolicy:'من خلال التسجيل ، فإنك توافق على '
 };

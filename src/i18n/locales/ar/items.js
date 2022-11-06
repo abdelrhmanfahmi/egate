@@ -33,5 +33,8 @@ export default {
   time:'المده',
   edit:'تعديل',
   editGroup:'تعديل مجموعه',
-  standingOrderProducts:'منتجات القائمه'
+  standingOrderProducts:'منتجات القائمه',
+  deleteGroup:'حذف مجموعه',
+  sureDelete:'هل انت متأكد من حذف',
+  remove:'حذف'
 };

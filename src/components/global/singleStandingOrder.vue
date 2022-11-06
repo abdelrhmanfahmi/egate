@@ -5,7 +5,7 @@
         <h5 class="heading py-5 text-center">
           {{ $t("items.standingOrderProducts") }}
         </h5>
-        <div class="cart-table">
+        <div class="cart-table" v-if="ordersLength > 0">
           <div class="suppliers py-4">
             <div class="container">
               <table class="table table-bordered">
@@ -179,6 +179,7 @@
             </div>
           </div>
         </div>
+        <div class="text-center" v-else><h6>{{$t('cart.noData')}}</h6></div>
       </div>
       <div
         class="d-flex justify-content-center align-items-center flex-column"
@@ -414,7 +415,7 @@ export default {
         });
     },
   },
-  props: ["orders"],
+  props: ["orders","ordersLength"],
 };
 </script>
 <style lang="scss" scoped>

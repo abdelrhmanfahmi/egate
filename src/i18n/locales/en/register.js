@@ -36,5 +36,6 @@ export default {
   save: "Save",
   department:'Department',
   selectDept:'Select Department',
-  selectPrefixes:'Select Title'
+  selectPrefixes:'Select Title',
+  newPolicy:'By Submitting, you agree to the '
 };

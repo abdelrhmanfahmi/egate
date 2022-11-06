@@ -159,12 +159,12 @@
               </b-row>
               <!-- active_with -->
 
-              <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
+              <!-- <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
                 <span>
                   {{ $t("register.PleaseReview") }}
                 </span>
-              </b-form-checkbox>
-              <div class="terms d-inline-block">
+              </b-form-checkbox> -->
+              <!-- <div class="terms d-inline-block">
                 <span>
                   <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
                     {{ $t("register.termsConditions") }}</a>
@@ -172,6 +172,16 @@
                 <span>
                   {{ $t("register.toCompleteTheRegistration") }}
                 </span>
+              </div> -->
+              <div class="terms d-inline-block">
+                <span>
+                  {{ $t("register.newPolicy") }}
+                </span>
+                <span>
+                  <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
+                    {{ $t("register.termsConditions") }}</a>
+                </span>
+                
               </div>
 
               <b-modal size="lg" id="modal-scoped" :title="condations.title">
@@ -265,7 +275,7 @@ export default {
         },
       ],
       errors: {},
-      terms: "",
+      terms: true,
       connects: [
         { name: this.$t("register.phone"), value: "sms" },
         { name: this.$t("register.email"), value: "email" },

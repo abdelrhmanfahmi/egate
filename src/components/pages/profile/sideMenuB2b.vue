@@ -3,6 +3,13 @@
     <h5 class="my-3">
      {{ buyerUserData.company_name }}
     </h5>
+
+    <div class="my-2" v-if="buyerUserData.profile_percentage !== 100">
+      <h5>{{ $t("profile.completeRate") }}</h5>
+      <b-progress class="progress-rate" :class="{'mr-2':i18n.locale =='en' , 'ml-2':i18n.locale =='ar'}" :value="buyerUserData.profile_percentage" max="100" show-progress animated
+        variant="danger"></b-progress>
+    </div>
+    
     <!-- <h5 class="my-3">
       {{ $t("profile.company") }} {{ buyerUserData.company_name }}
     </h5> -->

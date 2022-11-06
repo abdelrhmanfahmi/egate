@@ -12,51 +12,33 @@
                     {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
                   </h5>
                   <ul v-if="!B2CbuyerLinks">
-                    <li
-                      v-for="(link, index) in B2CbuyerLinks"
-                      :key="index"
-                      :class="{
-                        'd-none':
-                          link.name === 'Subscribe to the newsletter' &&
-                          buyerUserData.register_mailing_list,
-                      }"
-                    >
-                      <router-link
-                        :to="link.to"
-                        :class="{
-                          'router-link-exact-active':
-                            link.name == 'Standing Order' ||
-                            link.name == 'قائمة الانتظار',
-                        }"
-                      >
-                        <font-awesome-icon
-                          :icon="`fa-solid fa-${link.iconName}`"
-                        />
+                    <li v-for="(link, index) in B2CbuyerLinks" :key="index" :class="{
+                      'd-none':
+                        link.name === 'Subscribe to the newsletter' &&
+                        buyerUserData.register_mailing_list,
+                    }">
+                      <router-link :to="link.to" :class="{
+                        'router-link-exact-active':
+                          link.name == 'Standing Order' ||
+                          link.name == 'قائمة الانتظار',
+                      }">
+                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
                         <span>{{ link.name }}</span>
                       </router-link>
                     </li>
                   </ul>
                   <ul v-else>
-                    <li
-                      v-for="(link, index) in B2CsocialLinks"
-                      :key="index"
-                      :class="{
-                        'd-none':
-                          link.name === 'Subscribe to the newsletter' &&
-                          buyerUserData.register_mailing_list,
-                      }"
-                    >
-                      <router-link
-                        :to="link.to"
-                        :class="{
-                          'router-link-exact-active':
-                            link.name == 'Standing Order' ||
-                            link.name == 'قائمة الانتظار',
-                        }"
-                      >
-                        <font-awesome-icon
-                          :icon="`fa-solid fa-${link.iconName}`"
-                        />
+                    <li v-for="(link, index) in B2CsocialLinks" :key="index" :class="{
+                      'd-none':
+                        link.name === 'Subscribe to the newsletter' &&
+                        buyerUserData.register_mailing_list,
+                    }">
+                      <router-link :to="link.to" :class="{
+                        'router-link-exact-active':
+                          link.name == 'Standing Order' ||
+                          link.name == 'قائمة الانتظار',
+                      }">
+                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
                         <span>{{ link.name }}</span>
                       </router-link>
                     </li>
@@ -70,53 +52,35 @@
                   </h5>
 
                   <ul v-if="!socialLogin">
-                    <li
-                      v-for="(link, index) in B2BbuyerLinks"
-                      :key="index"
-                      :class="{
-                        'd-none':
-                          link.name === 'Subscribe to the newsletter' &&
-                          buyerUserData.register_mailing_list,
+                    <li v-for="(link, index) in B2BbuyerLinks" :key="index" :class="{
+                      'd-none':
+                        link.name === 'Subscribe to the newsletter' &&
+                        buyerUserData.register_mailing_list,
+                      'router-link-exact-active':
+                        link.name == 'Standing Order',
+                    }">
+                      <router-link :to="link.to" :class="{
                         'router-link-exact-active':
-                          link.name == 'Standing Order',
-                      }"
-                    >
-                      <router-link
-                        :to="link.to"
-                        :class="{
-                          'router-link-exact-active':
-                            link.name == 'Standing Order' ||
-                            link.name == 'قائمة الانتظار',
-                        }"
-                      >
-                        <font-awesome-icon
-                          :icon="`fa-solid fa-${link.iconName}`"
-                        />
+                          link.name == 'Standing Order' ||
+                          link.name == 'قائمة الانتظار',
+                      }">
+                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
                         <span>{{ link.name }}</span>
                       </router-link>
                     </li>
                   </ul>
                   <ul v-else>
-                    <li
-                      v-for="(link, index) in SocialLinks"
-                      :key="index"
-                      :class="{
-                        'd-none':
-                          link.name === 'Subscribe to the newsletter' &&
-                          buyerUserData.register_mailing_list,
-                      }"
-                    >
-                      <router-link
-                        :to="link.to"
-                        :class="{
-                          'router-link-exact-active':
-                            link.name == 'Standing Order' ||
-                            link.name == 'قائمة الانتظار',
-                        }"
-                      >
-                        <font-awesome-icon
-                          :icon="`fa-solid fa-${link.iconName}`"
-                        />
+                    <li v-for="(link, index) in SocialLinks" :key="index" :class="{
+                      'd-none':
+                        link.name === 'Subscribe to the newsletter' &&
+                        buyerUserData.register_mailing_list,
+                    }">
+                      <router-link :to="link.to" :class="{
+                        'router-link-exact-active':
+                          link.name == 'Standing Order' ||
+                          link.name == 'قائمة الانتظار',
+                      }">
+                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
                         <span>{{ link.name }}</span>
                       </router-link>
                     </li>
@@ -124,7 +88,9 @@
                 </div>
               </div>
             </b-col>
-            <b-col lg="9" md="7"> <StandingOrder :orders="orders" /> </b-col>
+            <b-col lg="9" md="7">
+              <StandingOrder :orders="orders" :ordersLength="ordersLength" />
+            </b-col>
           </b-row>
         </b-container>
       </div>
@@ -518,7 +484,8 @@ export default {
           iconName: "bell",
         },
       ],
-      orders:null
+      orders: null,
+      ordersLength:null
     };
   },
   methods: {
@@ -528,19 +495,22 @@ export default {
         .then((res) => {
           console.log(res);
           this.orders = res.data.items.items
+          this.ordersLength = res.data.items.items.length;
         })
         .catch((err) => {
           console.log(err);
         });
     },
   },
-  mounted(){
+  mounted() {
     this.getSingleStandingOrder()
   },
-  components :{
+  components: {
     StandingOrder
   }
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
