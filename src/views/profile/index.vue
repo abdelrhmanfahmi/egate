@@ -21,7 +21,7 @@
           </p>
         </div>
         <div class="rate col-12 col-sm-4">
-          <h5>{{ $t("profile.completeRate") }}</h5>
+          <!-- <h5>{{ $t("profile.completeRate") }}</h5>
           <b-progress
             class="progress-rate"
             :value="buyerUserData.profile_percentage"
@@ -29,11 +29,11 @@
             show-progress
             animated
             variant="danger"
-          ></b-progress>
+          ></b-progress> -->
         </div>
       </div>
 
-      <div class="v-else my-5 py-1"></div>
+      <div class="v-else my-1 py-1"></div>
     </b-container>
     <div class="profile">
       <b-container>
@@ -65,7 +65,7 @@ export default {
 </script>
 <style lang="scss">
 .profile-header {
-  padding: 4rem 0;
+  padding: 4rem 0 0 0;
   text-align: start;
   .continue-registration {
     color: #000;

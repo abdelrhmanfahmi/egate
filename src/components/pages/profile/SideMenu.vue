@@ -2,20 +2,29 @@
   <div class="profile-menu">
     <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
+
+    <div class="my-2" v-if="buyerUserData.profile_percentage !== 100">
+      <h5>{{ $t("profile.completeRate") }}</h5>
+      <b-progress class="progress-rate" :class="{'mr-2':i18n.locale =='en' , 'ml-2':i18n.locale =='ar'}" :value="buyerUserData.profile_percentage" max="100" show-progress animated
+        variant="danger"></b-progress>
+    </div>
+
     <ul v-if="!buyerLinks">
-      <li v-for="(link, index) in buyerLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
-        <router-link :to="link.to" >
+      <li v-for="(link, index) in buyerLinks" :key="index"
+        :class="{ 'd-none': link.name === 'Subscribe to the newsletter' && buyerUserData.register_mailing_list }">
+        <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-          <span>{{ link.name }}</span></router-link
-        >
+          <span>{{ link.name }}</span>
+        </router-link>
       </li>
     </ul>
     <ul v-else>
-      <li v-for="(link, index) in socialLinks" :key="index" :class="{'d-none':link.name ==='Subscribe to the newsletter' && buyerUserData.register_mailing_list}">
-        <router-link :to="link.to" >
+      <li v-for="(link, index) in socialLinks" :key="index"
+        :class="{ 'd-none': link.name === 'Subscribe to the newsletter' && buyerUserData.register_mailing_list }">
+        <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-          <span>{{ link.name }}</span></router-link
-        >
+          <span>{{ link.name }}</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -81,7 +90,7 @@ export default {
         {
           to: "/profile/ReturnRequests",
           name: this.$t("profile.returnRequests"),
-          iconName: "arrow-rotate-left",  
+          iconName: "arrow-rotate-left",
         },
         {
           to: "/profile/Wallet",
@@ -159,7 +168,7 @@ export default {
         {
           to: "/profile/ReturnRequests",
           name: this.$t("profile.returnRequests"),
-          iconName: "arrow-rotate-left",  
+          iconName: "arrow-rotate-left",
         },
         {
           to: "/profile/Wallet",
@@ -217,7 +226,7 @@ export default {
           name: this.$t("profile.supplierCorrespondence"),
           iconName: "comments",
         },
-         {
+        {
           to: "/profile/Notifications",
           name: this.$t("profile.Notifications"),
           iconName: "bell",
@@ -233,15 +242,19 @@ export default {
   padding: 60px 0px 60px 25px;
   background-color: #303030;
   color: #fff;
+
   ul {
     li {
       padding: 10px 0;
+
       .router-link-exact-active {
         color: red;
       }
+
       a {
         display: inline-block;
         color: #fff;
+
         span {
           padding: 0 10px;
           text-transform: capitalize;
@@ -256,6 +269,7 @@ html:lang(ar) {
   .profile-menu {
     padding: 60px 60px 60px 0px;
     text-align: right;
+
     ul {
       text-align: right;
     }

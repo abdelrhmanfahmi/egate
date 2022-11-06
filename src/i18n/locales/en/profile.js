@@ -5,7 +5,7 @@ export default {
   //Header
   completeAccount: "Complete your account",
   completeMessage:
-    "Please complete the registration by downloading the required documents, now you can only insert your products.",
+    "Please complete the registration to acquire full access to buyer license now you can only have limited access.",
   completeLink: "Click here to complete the registration",
   completeRate: "Completion rate of registration data",
   // side Menu

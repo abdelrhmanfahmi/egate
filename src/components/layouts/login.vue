@@ -1,102 +1,73 @@
 <template>
   <div class="user-login">
-    <b-sidebar
-      id="login"
-      backdrop
-      width="450px"
-      :right="getDir === 'rtl'"
-      shadow
-      z-index="5"
-      body-class="sidebar-login"
-      bg-variant="#fff"
-    >
+    <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5" body-class="sidebar-login"
+      bg-variant="#fff">
       <template #default="{ hide }">
         <div class="user-login-form">
-          <div
-            class="row flex-row justify-content-between align-items-center mb-4 text-dark"
-          >
-            <div class="col-md-4 col-sm-12">
-              <router-link
+          <div class="row flex-row justify-content-between align-items-center mb-4 text-dark">
+            <div class="col-md-4 col-sm-12" @click="selectType('b2c')">
+              <!-- <router-link
                 to="/b2b-login"
                 class="text-dark font-weight-bold text-decoration-underline"
                 >{{ $t("login.retailBuyer") }}</router-link
-              >
+              > -->
+              <span class="text-dark font-weight-bold link"
+                :class="{ 'text-decoration-underline': selectedType === 'b2c' }">{{
+                    $t("login.retailBuyer")
+                }}</span>
             </div>
-            <div class="col-md-5 col-sm-12">
-              <router-link
-                to="/b2b-login"
-                class="text-dark font-weight-bold text-decoration-underline"
-                >{{ $t("login.wholeSaleBuyer") }}</router-link
-              >
+            <div class="col-md-5 col-sm-12" @click="selectType('b2b')">
+              <!-- <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
+                  $t("login.wholeSaleBuyer")
+              }}</router-link> -->
+
+              <span class="text-dark font-weight-bold link"
+                :class="{ 'text-decoration-underline': selectedType === 'b2b' }">{{
+                    $t("login.wholeSaleBuyer")
+                }}</span>
             </div>
             <div class="col-md-3 col-sm-12">
-              <a
-                href="https://staging2.fabrica-dev.com/humhum-supplier/"
-                target="_blank"
-                class="text-dark font-weight-bold text-decoration-underline"
-                >{{ $t("home.suppliers") }}</a
-              >
+              <a href="https://staging2.fabrica-dev.com/humhum-supplier/" target="_blank"
+                class="text-dark font-weight-bold">{{ $t("home.suppliers") }}</a>
             </div>
           </div>
           <h6 class="title">{{ $t("login.login") }}</h6>
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
-          <form @submit.prevent="loginB2c()">
-            <b-form-input
-              v-model="form.email"
-              type="email"
-              :placeholder="$t('register.email')"
-            />
-            <div
-              class="error text-start"
-              v-for="(error, index) in errorsLogin.email"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-            <div class="show-password">
-              <b-form-input
-                class="my-2"
-                v-model="form.password"
-                :type="fieldType"
-                :placeholder="$t('register.password')"
-              />
-              <div
-                class="error text-start"
-                v-for="(error, index) in errorsLogin.password"
-                :key="index"
-              >
+          <div v-if="selectedType === 'b2c'">
+
+            <form @submit.prevent="loginB2c()">
+              <b-form-input v-model="form.email" type="email" :placeholder="$t('register.email')" />
+              <div class="error text-start" v-for="(error, index) in errorsLogin.email" :key="index">
                 {{ error }}
               </div>
-              <div class="icon-passowrd" @click="switchField()">
-                <font-awesome-icon
-                  icon="fa-solid fa-eye"
-                  v-if="fieldType === 'password'"
-                  size="lg"
-                />
-                <font-awesome-icon
-                  icon="fa-solid fa-eye-slash"
-                  v-else
-                  size="lg"
-                />
+              <div class="show-password">
+                <b-form-input class="my-2" v-model="form.password" :type="fieldType"
+                  :placeholder="$t('register.password')" />
+                <div class="error text-start" v-for="(error, index) in errorsLogin.password" :key="index">
+                  {{ error }}
+                </div>
+                <div class="icon-passowrd" @click="switchField()">
+                  <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                  <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                </div>
               </div>
-            </div>
 
-            <b-button class="forget-password" v-b-modal.ForgetPassword>
-              {{ $t("login.fogetPassword") }}
-            </b-button>
-            <b-button type="submit" class="login-button">
-              {{ $t("login.login") }}
-            </b-button>
-          </form>
+              <b-button class="forget-password" v-b-modal.ForgetPassword>
+                {{ $t("login.fogetPassword") }}
+              </b-button>
+              <b-button type="submit" class="login-button">
+                {{ $t("login.login") }}
+              </b-button>
+            </form>
+          </div>
+          <div class="" v-else>
+            <B2bTab />
+          </div>
         </div>
-        <!-- social login -->
-
-        <div class="social-login">
+        <div class="social-login" v-if="selectedType === 'b2c'">
           <p>{{ $t("login.LoginSocial") }}</p>
-          <div
-            class="social-icons d-flex justify-content-center align-items-center"
-          >
+          <div class="social-icons d-flex justify-content-center align-items-center">
             <button @click="getLink('facebook')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
@@ -112,39 +83,31 @@
           </div>
         </div>
 
-        <div class="user-login-form">
+        <div class="user-login-form" v-if="selectedType === 'b2c'">
           <p class="title">{{ $t("login.DontHave") }}</p>
 
           <b-button to="/user-register" class="login-button my-2" @click="hide">
             {{ $t("login.createAccount") }}
           </b-button>
         </div>
+        <!-- social login -->
+
       </template>
     </b-sidebar>
-    <b-modal
-      id="ForgetPassword"
-      :title="$t('login.resetPassword')"
-      no-close-on-backdrop
-      no-close-on-esc
-      ref="b2cLogin"
-    >
+    <b-modal id="ForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc ref="b2cLogin">
       <form>
         <b-form-group>
           <label for="email">{{ $t("register.email") }}</label>
           <span class="requried">*</span>
           <b-form-input id="email" v-model="emailForget" maxlength="100" />
-          <div
-            class="error"
-            v-for="(error, index) in errors.email"
-            :key="index"
-          >
+          <div class="error" v-for="(error, index) in errors.email" :key="index">
             {{ error }}
           </div>
         </b-form-group>
       </form>
       <div slot="modal-footer" class="d-flex">
         <a @click="sendEmail()" class="reset-Link" type="submit">{{
-          $t("login.reset")
+            $t("login.reset")
         }}</a>
       </div>
     </b-modal>
@@ -155,6 +118,7 @@
 import auth from "@/services/auth";
 // import { getMessaging, onMessage, getToken } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
+import B2bTab from "../loginTabs/B2bTab.vue"
 export default {
   data() {
     return {
@@ -169,6 +133,7 @@ export default {
       emailForget: "",
       errorsLogin: {},
       errors: {},
+      selectedType: 'b2c'
     };
   },
   methods: {
@@ -289,6 +254,10 @@ export default {
     //     console.log(token);
     //   }
     // },
+    selectType(type) {
+      console.log('type', type);
+      this.selectedType = type
+    }
   },
   mounted() {
     // const messaging = getMessaging();
@@ -302,6 +271,9 @@ export default {
       return this.$store.state.firebaseToken;
     },
   },
+  components:{
+    B2bTab
+  }
 };
 </script>
 
@@ -392,7 +364,13 @@ export default {
 .apple-login {
   background: #666666 !important;
 }
+
 .text-decoration-underline {
   text-decoration: underline !important;
+}
+
+.link {
+
+  cursor: pointer;
 }
 </style>

@@ -30,7 +30,7 @@
                   </li>
                   <li>
                     <router-link to="/Clients">
-                        {{$t('home.clients')}}
+                      {{ $t('home.clients') }}
                     </router-link>
                   </li>
                 </ul>
@@ -69,11 +69,21 @@
         <div class="right-side d-flex">
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
-            <b-button v-b-modal.modal-1 class="icon-search" size="md">
+            <b-button class="icon-search" size="md" v-if="searchClicked" @click="closeSearch">
+              <font-awesome-icon icon="fa-solid fa-times" />
+            </b-button>
+            <span class="" v-if="searchClicked">
+              <b-form @submit.prevent="search">
+                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"></b-form-input>
+              </b-form>
+            </span>
+
+            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
               <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
-            <b-modal id="modal-1" class="search">
-              <!-- Using slots -->
+
+            <!-- <b-modal id="modal-1" class="search">
+              Using slots
               <b-input-group class="mt-3">
                 <template #append>
                   <b-input-group-text>
@@ -86,7 +96,7 @@
                   <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
                 </b-form>
               </b-input-group>
-            </b-modal>
+            </b-modal> -->
           </div>
           <div v-if="!mobile" class="cart">
             <span class="cart-icon">
@@ -229,6 +239,7 @@ export default {
       wishlistItems: null,
       wishlistLength: 0,
       keyword: "",
+      searchClicked: false
     };
   },
   components: {
@@ -280,12 +291,16 @@ export default {
       });
     },
     search() {
-      document.querySelector(".modal").click();
+      // document.querySelector(".modal").click();
       this.$router.push({
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
       location.reload();
+    },
+    closeSearch() {
+      this.searchClicked = false;
+      this.keyword = ''
     },
     loginNow() {
       document.$refs["b2cLogin"].show();
@@ -572,6 +587,15 @@ html:lang(ar) {
 
   #modal-1 .form-control {
     font-size: 30px;
+  }
+}
+
+.search-input {
+  border-radius: 20px;
+  width: 300px;
+  transition: all .3s ease-in-out;
+  @media(max-width:992px){
+    max-width: 170px;
   }
 }
 </style>

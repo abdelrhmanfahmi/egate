@@ -215,7 +215,7 @@
           </button> -->
         </div>
         <div class="row justify-content-center align-items-center">
-            <div class="col-5">
+            <div :class="{'col-5' :buyerUserData , 'col-1':!buyerUserData}">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div v-if="myProduct.product_details_by_type.quantity > 0" class="new-wishlist-method">
@@ -304,7 +304,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 new-wishlist-method">
+                    <div class="col-md-6 col-sm-12 new-wishlist-method" v-if="buyerUserData">
                         <div class=" products">
 
                             <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
@@ -319,7 +319,7 @@
                 </div>
 
             </div>
-            <div class="col-7">
+            <div class="col-7" :class="{'col-7' :buyerUserData , 'col-12':!buyerUserData}">
                 <div class="share-social d-flex align-items-center">
                     <span>{{ $t("singleProduct.sharing") }}</span>
                     <!-- <div class="social-sharing-icons">

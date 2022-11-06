@@ -1,0 +1,211 @@
+<template>
+  <section class="user-register text-center my-5">
+    
+      <div class="user-register-form">
+        <b-row class="justify-content-center">
+          <b-col lg="10">
+            <div class="register-info">
+              <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
+              <router-link to="/b2b-register" class="back">
+                <span>
+                  &#60; {{ $t("register.haveNotAccount") }}</span>
+              </router-link>
+            </div>
+            <form @submit.prevent="login()">
+              <b-row class="justify-content-center">
+                <!-- Email -->
+                <b-col lg="12">
+                  <b-form-group>
+                    <label for="email">{{ $t("register.email") }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input type="email" id="email" v-model="form.email" />
+                    <div class="error" v-for="(error, index) in errors.email" :key="index">
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- Password -->
+                <b-col lg="12">
+                  <b-form-group>
+                    <label for="password">{{ $t("register.password") }}</label>
+                    <span class="requried">*</span>
+                    <div class="show-password">
+                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
+                      <div class="icon-passowrd" @click.stop="switchField()">
+                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                      </div>
+                    </div>
+                    <div class="error" v-for="(error, index) in errors.password" :key="index">
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+
+              <router-link to="/forget-password" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+                <b class="forget-password my-3" v-b-modal.ForgetPassword>
+                  {{ $t("login.fogetPassword") }}
+                </b>
+              </router-link>
+              <router-link to="/forget-password" v-else>
+                <b class="forget-password my-3">
+                  {{ $t("login.fogetPassword") }}
+                </b>
+              </router-link>
+
+              <div class="submition-box">
+                <b-button type="submit" variant="danger">
+                  {{ $t("register.submit") }}
+                </b-button>
+              </div>
+            </form>
+          </b-col>
+        </b-row>
+      </div>
+  
+  </section>
+</template>
+<script>
+import auth from "@/services/auth";
+// import { getAuth, signInAnonymously } from "firebase/auth";
+
+export default {
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+        token: "",
+        device_type: "web",
+      },
+      errorMsg: "",
+      fieldType: "password",
+      errors: {},
+    };
+  },
+  methods: {
+    login() {
+      localStorage.clear();
+
+      let loginData = {
+        email: this.form.email,
+        password: this.form.password,
+        token: this.firebaseToken,
+        device_type: this.form.device_type,
+      };
+      auth
+        .login("buyer", loginData)
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          console.log("yes", res.data.items.item.verify_email_required);
+
+          // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
+
+          if (
+            (res.data.items.item.type === "buyer" &&
+              res.data.items.item.is_verified) ||
+            (res.data.items.item.type === "supplier" &&
+              res.data.items.item.is_buyer == 1 &&
+              res.data.items.item.is_verified)
+          ) {
+            localStorage.setItem("massege", "");
+            localStorage.removeItem("guest-id");
+            this.$router.push("/profile/categories");
+            location.reload();
+          } else {
+            localStorage.setItem("massege", this.$t("register.openEmail"));
+            localStorage.removeItem("guest-id");
+            this.$router.push("/profile/account-information-b2b");
+            location.reload();
+          }
+
+          // location.reload();
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    //
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
+    // async generateFirebaseToken() {
+    //   const token = await getToken(messaging, {
+    //     vapidKey:
+    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+    //   });
+
+    //   if (token) {
+    //     this.form.token = token;
+    //     // console.log(token);
+    //   }
+    // },
+  },
+  mounted() { },
+  computed: {
+    firebaseToken() {
+      return this.$store.state.firebaseToken;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.user-register {
+  .main-title {
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  .user-register-form {
+    .register-info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+
+      .back {
+        font-weight: 500;
+        color: $header-color;
+
+        &:hover {
+          color: $main-color;
+        }
+      }
+    }
+
+    .submition-box {
+      text-align: center;
+      border: 1px solid rgba(204, 204, 204, 0.251);
+      border-radius: 4px;
+      background-color: rgba(216, 220, 221, 0.251);
+      padding: 20px;
+    }
+  }
+}
+
+.forget-password {
+  display: block;
+  font-weight: 500;
+  color: $header-color;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    color: $main-color;
+  }
+}
+
+// style arabic
+html:lang(ar) {
+  .user-register {
+    .user-register-form {
+      text-align: right;
+    }
+  }
+}
+</style>

@@ -32,5 +32,8 @@ export default {
   time:'Time',
   edit:'Edit',
   editGroup:'Edit Group',
-  standingOrderProducts:'Standing Order Products'
+  standingOrderProducts:'Standing Order Products',
+  deleteGroup:'Delete Group',
+  sureDelete:'Are you Sure to Delete ',
+  remove:'Remove'
 };
