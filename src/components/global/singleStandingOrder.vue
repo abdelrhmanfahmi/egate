@@ -407,6 +407,7 @@ export default {
         .removeProductFromStandingOrder(payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
+          this.$emit('removeItem')
         })
         .catch((err) => {
           let errors = Object.values(err)[2].data;
