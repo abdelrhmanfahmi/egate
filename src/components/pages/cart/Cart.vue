@@ -351,7 +351,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td colspan="4" v-if="buyerUserData">
+                          <!-- <td colspan="4" v-if="buyerUserData">
                             <div class="coupon my-4" v-for="(item, index) in supplier.products" :key="index">
                               <Coupon :item="item" :supplier="supplier" @changeRate="ChangeRateValue($event, supplier)"
                                 @removeDiscount="changeCouponStatus(supplier)" />
@@ -411,6 +411,66 @@
                                         {{ fee.shipping_fee | fixedCurrency }}
                                         {{ currency }}
                                       </h4>
+                                    </li>
+                                  </ul>
+                                </form>
+                              </div>
+                            </div>
+                          </td> -->
+                          <td colspan="12" class="p-0 mt-0">
+                            <div class="order-shipping" :class="{'float-right':$i18n.locale =='en' , 'float-left':$i18n.locale =='ar'}">
+                              <div :class="$i18n.locale">
+                                <form @change="orderType(supplier.supplier_id)" class="d-flex align-items-baseline px-2 results-form">
+                                  <label @click="shippingStore(supplier)" class="shipping-label mt-2">
+                                    <input @change="changeShipping($event)" @input="shippingStore(supplier)"
+                                      type="radio" value="0" :name="'types-' + index"
+                                      v-model="ratingNum[index].delivery_type" class="checkFirst" id="check" />
+                                    <span class="mx-2">{{
+                                        $t("payment.delivery")
+                                    }}</span>
+                                  </label>
+                                  <label class="shipping-label mt-2">
+                                    <input @input="changePickup($event, supplier)"
+                                      @click="changePickup($event, supplier)" type="radio" value="1"
+                                      :name="'types-' + index" v-model="ratingNum[index].delivery_type" />
+                                    <span class="mx-2">{{
+                                        $t("payment.pickup")
+                                    }}</span>
+                                  </label>
+                                  <b-form-select v-model="
+                                    ratingNum[index].supplier_address_id
+                                  " @input="selectAddressUUID" @change="selectType(supplier, index)"
+                                    class="w-100 mt-2 supplierAddresses d-none" :class="{
+                                      'text-danger':
+                                        ratingNum[index].supplier_address_id ===
+                                        null,
+                                      'text-dark d-block':
+                                        ratingNum[index].supplier_address_id !==
+                                        null,
+                                    }">
+                                    <b-form-select-option selected disabled value="null"><span>{{
+                                        $t("cart.selectPickupAddress")
+                                    }}</span></b-form-select-option>
+                                    <b-form-select-option v-for="(
+                                        address, index
+                                      ) in supplier.supplier_addresses" :key="index" :value="address">{{
+                                          address.country.title
+                                      }} ,
+                                      {{ address.region.title }} ,
+                                      {{ address.city.title }}
+                                    </b-form-select-option>
+                                  </b-form-select>
+                                  <span class="feedsResult"></span>
+                                  <h4 class="pickupNoData"></h4>
+                                  <br />
+                                  <ul class="list-unstyled mb-0" v-if="firstFees || deliverType == true">
+                                    <li v-for="(fee, index) in firstFees" :key="index">
+                                      <h5 v-if="index == supplier.supplier_id" class="feedsResultShipping mb-0"
+                                        :value="fee.shipping_fee">
+                                        {{ $t("profile.deleiveryFees") }}
+                                        {{ fee.shipping_fee | fixedCurrency }}
+                                        {{ currency }}
+                                      </h5>
                                     </li>
                                   </ul>
                                 </form>
@@ -670,8 +730,8 @@
                                   </p>
                                   <template #modal-footer="{ ok }">
                                     <b-button size="sm" variant="outline-success" @click="
-                                      ok();
-                                    acceptMyTerms();
+  ok();
+acceptMyTerms();
                                     ">
                                       <h6 class="m-0">
                                         <span class="mx-1">{{
@@ -759,9 +819,13 @@ import loginModal from "@/components/global/loginModal.vue";
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 // import paymentPage from "@/views/Payment";
-import Coupon from "@/components/cart/Couon.vue";
+// import Coupon from "@/components/cart/Couon.vue";
 export default {
-  components: { Counter, loginModal, Coupon },
+  components: { 
+    Counter,
+     loginModal,
+      // Coupon
+     },
   data() {
     return {
       coupon: null,
@@ -1604,7 +1668,7 @@ export default {
       this.selectedInput.parentElement.parentElement.querySelector(
         ".feedsResult"
       ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency
-        }`;
+      }`;
 
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
@@ -2107,8 +2171,11 @@ export default {
   }
 }
 
-.float-right,
-.float-left {
-  line-height: 57px;
+// .float-right,
+// .float-left {
+//   line-height: 57px;
+// }
+.results-form{
+  background: rgba(236, 240, 241, 0.2);;
 }
 </style>

@@ -164,6 +164,23 @@ input[type="text"]:disabled {
 }
 .order-shipping {
   transition: all 0.3s ease-in-out;
+  width: 37%;
+  @media(max-width:767px){
+    width:100%;
+    margin:20px 0;
+    text-align: center !important;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px){
+    width:80%;
+    margin:20px 0;
+    text-align: center !important;
+  }
+  @media (min-width: 992px) and (max-width: 1600px){
+    width:60%;
+    margin:20px 0;
+    text-align: center !important;
+  }
+  
   form {
     display: flex;
     flex-wrap: wrap;
@@ -346,6 +363,7 @@ input[type="text"]:disabled {
     text-transform: capitalize;
     font-weight: bold;
     margin: 20px;
+    // margin: 0px;
     @media screen and (max-width: 767px) {
       margin: 10px 0px;
       font-size: 1rem;
@@ -357,7 +375,7 @@ input[type="text"]:disabled {
 }
 .supplierAddresses {
   border: 1px solid !important;
-  width: 50% !important;
+  width: 40% !important;
   @media screen and (max-width: 767px) {
     width: 100% !important;
   }
