@@ -1,100 +1,138 @@
 <template>
   <div>
-    <div class="container">
-      <div class="order">
-        <b-container>
-          <b-row>
-            <b-col lg="3" md="5">
-              <div v-if="userInfo.item.type === 'b2c'">
-                <div class="profile-menu">
-                  <h2>{{ $t("profile.myProfile") }}</h2>
-                  <h5 class="my-3">
-                    {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
-                  </h5>
-                  <ul v-if="!B2CbuyerLinks">
-                    <li v-for="(link, index) in B2CbuyerLinks" :key="index" :class="{
-                      'd-none':
-                        link.name === 'Subscribe to the newsletter' &&
-                        buyerUserData.register_mailing_list,
-                    }">
-                      <router-link :to="link.to" :class="{
-                        'router-link-exact-active':
-                          link.name == 'Standing Order' ||
-                          link.name == 'قائمة الانتظار',
-                      }">
-                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-                        <span>{{ link.name }}</span>
-                      </router-link>
-                    </li>
-                  </ul>
-                  <ul v-else>
-                    <li v-for="(link, index) in B2CsocialLinks" :key="index" :class="{
-                      'd-none':
-                        link.name === 'Subscribe to the newsletter' &&
-                        buyerUserData.register_mailing_list,
-                    }">
-                      <router-link :to="link.to" :class="{
-                        'router-link-exact-active':
-                          link.name == 'Standing Order' ||
-                          link.name == 'قائمة الانتظار',
-                      }">
-                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-                        <span>{{ link.name }}</span>
-                      </router-link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div v-else>
-                <div class="profile-menu">
-                  <h5 class="my-3">
-                    {{ buyerUserData.company_name }}
-                  </h5>
 
-                  <ul v-if="!socialLogin">
-                    <li v-for="(link, index) in B2BbuyerLinks" :key="index" :class="{
-                      'd-none':
-                        link.name === 'Subscribe to the newsletter' &&
-                        buyerUserData.register_mailing_list,
-                      'router-link-exact-active':
-                        link.name == 'Standing Order',
-                    }">
-                      <router-link :to="link.to" :class="{
-                        'router-link-exact-active':
-                          link.name == 'Standing Order' ||
-                          link.name == 'قائمة الانتظار',
+      <div class="order">
+        <div class="container">
+          
+          <div class="">
+            <ProgressSlider />
+          </div>
+          <div class="" v-if="buyerUserData.profile_percentage !== 100">
+  
+            <div class="col-12 col-sm-8 continue-registration">
+              <h5>{{ $t("profile.completeAccount") }}</h5>
+              <p>
+                {{ $t("profile.completeMessage") }}
+                <router-link to="/profile/account-information-b2b">{{
+                    $t("profile.completeLink")
+                }}</router-link>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-holder profile">
+
+          <b-container>
+            <b-row>
+              <b-col lg="3" md="5">
+                <div v-if="userInfo.item.type === 'b2c'">
+                  <div class="profile-menu">
+                    <h2>{{ $t("profile.myProfile") }}</h2>
+                    <h5 class="my-3">
+                      {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
+                    </h5>
+                    <div class="my-2" v-if="buyerUserData.profile_percentage !== 100">
+                      <h5>{{ $t("profile.completeRate") }}</h5>
+                      <b-progress class="progress-rate"
+                        :class="{ 'mr-2': $i18n.locale == 'en', 'ml-2': $i18n.locale == 'ar' }"
+                        :value="buyerUserData.profile_percentage" max="100" show-progress animated variant="danger">
+                      </b-progress>
+                    </div>
+                    <ul v-if="!B2CbuyerLinks">
+                      <li v-for="(link, index) in B2CbuyerLinks" :key="index" :class="{
+                        'd-none':
+                          link.name === 'Subscribe to the newsletter' &&
+                          buyerUserData.register_mailing_list,
                       }">
-                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-                        <span>{{ link.name }}</span>
-                      </router-link>
-                    </li>
-                  </ul>
-                  <ul v-else>
-                    <li v-for="(link, index) in SocialLinks" :key="index" :class="{
-                      'd-none':
-                        link.name === 'Subscribe to the newsletter' &&
-                        buyerUserData.register_mailing_list,
-                    }">
-                      <router-link :to="link.to" :class="{
-                        'router-link-exact-active':
-                          link.name == 'Standing Order' ||
-                          link.name == 'قائمة الانتظار',
+                        <router-link :to="link.to" :class="{
+                          'router-link-exact-active':
+                            link.name == 'Standing Order' ||
+                            link.name == 'قائمة الانتظار',
+                        }">
+                          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+                          <span>{{ link.name }}</span>
+                        </router-link>
+                      </li>
+                    </ul>
+                    <ul v-else>
+                      <li v-for="(link, index) in B2CsocialLinks" :key="index" :class="{
+                        'd-none':
+                          link.name === 'Subscribe to the newsletter' &&
+                          buyerUserData.register_mailing_list,
                       }">
-                        <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
-                        <span>{{ link.name }}</span>
-                      </router-link>
-                    </li>
-                  </ul>
+                        <router-link :to="link.to" :class="{
+                          'router-link-exact-active':
+                            link.name == 'Standing Order' ||
+                            link.name == 'قائمة الانتظار',
+                        }">
+                          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+                          <span>{{ link.name }}</span>
+                        </router-link>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </b-col>
-            <b-col lg="9" md="7">
-              <StandingOrder :orders="orders" :ordersLength="ordersLength" />
-            </b-col>
-          </b-row>
-        </b-container>
+                <div v-else>
+                  <div class="profile-menu">
+                    <h5 class="my-3">
+                      {{ buyerUserData.company_name }}
+                    </h5>
+
+                    <div class="my-2" v-if="buyerUserData.profile_percentage !== 100">
+                      <h5>{{ $t("profile.completeRate") }}</h5>
+                      <b-progress class="progress-rate"
+                        :class="{ 'mr-2': $i18n.locale == 'en', 'ml-2': $i18n.locale == 'ar' }"
+                        :value="buyerUserData.profile_percentage" max="100" show-progress animated variant="danger">
+                      </b-progress>
+                    </div>
+  
+                    <ul v-if="!socialLogin">
+                      <li v-for="(link, index) in B2BbuyerLinks" :key="index" :class="{
+                        'd-none':
+                          link.name === 'Subscribe to the newsletter' &&
+                          buyerUserData.register_mailing_list,
+                        'router-link-exact-active':
+                          link.name == 'Standing Order',
+                      }">
+                        <router-link :to="link.to" :class="{
+                          'router-link-exact-active':
+                            link.name == 'Standing Order' ||
+                            link.name == 'قائمة الانتظار',
+                        }">
+                          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+                          <span>{{ link.name }}</span>
+                        </router-link>
+                      </li>
+                    </ul>
+                    <ul v-else>
+                      <li v-for="(link, index) in SocialLinks" :key="index" :class="{
+                        'd-none':
+                          link.name === 'Subscribe to the newsletter' &&
+                          buyerUserData.register_mailing_list,
+                      }">
+                        <router-link :to="link.to" :class="{
+                          'router-link-exact-active':
+                            link.name == 'Standing Order' ||
+                            link.name == 'قائمة الانتظار',
+                        }">
+                          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+                          <span>{{ link.name }}</span>
+                        </router-link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </b-col>
+              <b-col lg="9" md="7">
+                <StandingOrder :orders="orders" :ordersLength="ordersLength" />
+              </b-col>
+            </b-row>
+          </b-container>
+        </div>
+
       </div>
-    </div>
+    
   </div>
 </template>
 
@@ -102,7 +140,7 @@
 import profile from "@/services/profile";
 
 import StandingOrder from "@/components/global/singleStandingOrder.vue"
-
+import ProgressSlider from "@/components/pages/home/ProgressSlider";
 export default {
   data() {
     return {
@@ -485,7 +523,7 @@ export default {
         },
       ],
       orders: null,
-      ordersLength:null
+      ordersLength: null
     };
   },
   methods: {
@@ -506,7 +544,8 @@ export default {
     this.getSingleStandingOrder()
   },
   components: {
-    StandingOrder
+    StandingOrder,
+    ProgressSlider
   }
 };
 </script>
