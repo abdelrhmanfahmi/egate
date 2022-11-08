@@ -418,9 +418,11 @@
                             </div>
                           </td> -->
                           <td colspan="12" class="p-0 mt-0">
-                            <div class="order-shipping" :class="{'float-right':$i18n.locale =='en' , 'float-left':$i18n.locale =='ar'}">
+                            <div class="order-shipping"
+                              :class="{ 'float-right': $i18n.locale == 'en', 'float-left': $i18n.locale == 'ar' }">
                               <div :class="$i18n.locale">
-                                <form @change="orderType(supplier.supplier_id)" class="d-flex align-items-baseline px-2 results-form">
+                                <form @change="orderType(supplier.supplier_id)"
+                                  class="d-flex align-items-baseline px-2 results-form">
                                   <label @click="shippingStore(supplier)" class="shipping-label mt-2">
                                     <input @change="changeShipping($event)" @input="shippingStore(supplier)"
                                       type="radio" value="0" :name="'types-' + index"
@@ -587,6 +589,41 @@
               <div class="row">
                 <div class="col-md-7 col-sm-12 my-2">
                   <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
+                  <!--  add new coupon  -->
+                  <!-- <div class="coupon-holder mb-3">
+                    <div class="row">
+                      <div class="col-md-8 col-sm-12">
+                        <div class="cart">
+                          <div class="cart-table">
+                            <div class="d-flex flex-wrap align-items-center coupon ">
+                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon">
+                                {{ $t("cart.couponDiscount") }}
+                              </b-button>
+                              <div class="input-holder">
+                                <form @submit.prevent="addCoupon">
+
+                                  <input type="text" :placeholder="$t('cart.addCoupon')"
+                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" />
+                                  <span :title="$t('cart.enableButton')" class="close">x</span>
+                                </form>
+                              </div>
+                            </div>
+
+                            <h6 class="couponValid text-success m-0 p-0"></h6>
+                            <h6 class="couponNotValid text-danger m-0 p-0"></h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-12 valid-coupons">
+                        <ul class="unstyled-order coupons-data-holder">
+                          <li v-for="(coupon, index) in coupons" :key="index">
+                            <span class="couponValue">{{ coupon.title }} </span> <span class="removeCoupon"
+                              @click="removeMyCoupon(coupon, index)">x</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div> -->
                   <div class="data">
                     <table class="w-100">
                       <tbody>
@@ -821,11 +858,11 @@ import profile from "@/services/profile";
 // import paymentPage from "@/views/Payment";
 // import Coupon from "@/components/cart/Couon.vue";
 export default {
-  components: { 
+  components: {
     Counter,
-     loginModal,
-      // Coupon
-     },
+    loginModal,
+    // Coupon
+  },
   data() {
     return {
       coupon: null,
@@ -913,6 +950,7 @@ export default {
         country_code: null,
         accept_terms: false,
         company_name: null,
+        coupons: []
       },
       paymentCountries: [],
       paymentCities: [],
@@ -935,6 +973,9 @@ export default {
       localClicked: false,
       couponRemoved: false,
       checkoutSubmitted: false,
+      couponText: null,
+      coupons: [],
+      existCoupons: []
     };
   },
   mounted() {
@@ -988,6 +1029,9 @@ export default {
       : "";
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email
+      : "";
+    this.paymentFormData.coupons = this.existCoupons
+      ? this.existCoupons
       : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
@@ -1945,6 +1989,7 @@ export default {
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
         redirect_url: this.paymentFormData.redirect_url,
+        coupons: this.existCoupons
       };
 
       suppliers
@@ -2118,6 +2163,151 @@ export default {
         behavior: "smooth",
       });
     },
+    addCoupon() {
+      if (this.couponText) {
+        console.log(this.coupons.length);
+        if (this.coupons.length == 0) {
+          console.log("this.existCoupons add", this.existCoupons);
+          let payload = {
+            coupon: this.couponText
+          }
+
+          suppliers
+            .checkNewCoupon(payload)
+            .then((res) => {
+              // let coupons = [];
+
+              // console.log(res.data.items.total_cart.total_discount);
+              if (res.status == 200) {
+                this.existCoupons.push(this.couponText)
+                this.coupons.unshift({
+                  title: this.couponText,
+                  value: res.data.items.total_cart.total_discount
+                });
+                this.sucessMsg(res.data.message)
+                this.couponText = null;
+                // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
+
+
+                this.totalDiscount =
+                  res.data.items.total_cart.total_discount.toFixed(3);
+
+
+                if (res.data.items.total_cart.total_discount == 0) {
+                  this.totalDiscountReplacement = parseFloat(this.totalDiscount);
+                  this.totalPaymentReplacement = parseFloat(
+                    this.totalDiscountReplacement
+                  );
+                } else {
+                  if (this.totalDiscountReplacement == 0) {
+
+                    this.totalDiscountReplacement = parseFloat(res.data.items.total_cart.total_discount).toFixed(3);
+
+                  } else {
+                    this.totalDiscountReplacement =
+                      parseFloat(this.totalDiscountReplacement) +
+                      parseFloat(res.data.items.total_cart.total_discount);
+                  }
+                  this.totalPaymentReplacement =
+                    parseFloat(this.totalPaymentReplacement) -
+                    parseFloat(res.data.items.total_cart.total_discount);
+                }
+              }
+            })
+            .catch((error) => {
+              if (error) {
+                const err = Object.values(error)[2].data;
+                this.errors = err.items;
+                this.errMsg(err.message);
+              }
+            });
+
+        } else {
+
+          if (this.existCoupons.indexOf(this.couponText) > -1) {
+            this.errMsg(this.$t('cart.couponExist'));
+          } else {
+            console.log("this.existCoupons add", this.existCoupons);
+            let payload = {
+              coupon: this.couponText
+            }
+
+            suppliers
+              .checkNewCoupon(payload)
+              .then((res) => {
+                // let coupons = [];
+
+                // console.log(res.data.items.total_cart.total_discount);
+                if (res.status == 200) {
+                  this.existCoupons.push(this.couponText)
+                  this.coupons.unshift({
+                    title: this.couponText,
+                    value: res.data.items.total_cart.total_discount
+                  });
+                  this.sucessMsg(res.data.message)
+                  this.couponText = null;
+                  // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
+
+
+                  this.totalDiscount =
+                    res.data.items.total_cart.total_discount.toFixed(3);
+
+
+                  if (res.data.items.total_cart.total_discount == 0) {
+                    this.totalDiscountReplacement = parseFloat(this.totalDiscount);
+                    this.totalPaymentReplacement = parseFloat(
+                      this.totalDiscountReplacement
+                    );
+                  } else {
+                    if (this.totalDiscountReplacement == 0) {
+
+                      this.totalDiscountReplacement = parseFloat(res.data.items.total_cart.total_discount).toFixed(3);
+
+                    } else {
+                      this.totalDiscountReplacement =
+                        parseFloat(this.totalDiscountReplacement) +
+                        parseFloat(res.data.items.total_cart.total_discount);
+                    }
+                    this.totalPaymentReplacement =
+                      parseFloat(this.totalPaymentReplacement) -
+                      parseFloat(res.data.items.total_cart.total_discount);
+                  }
+                }
+              })
+              .catch((error) => {
+                if (error) {
+                  const err = Object.values(error)[2].data;
+                  this.errors = err.items;
+                  this.errMsg(err.message);
+                }
+              });
+          }
+        }
+      }
+    },
+    removeMyCoupon(coupon, index) {
+      this.coupons.splice(index, 1);
+      // this.existCoupons.splice(index, 1);
+      for (let index = 0; index < this.existCoupons.length; index++) {
+        const element = this.existCoupons[index];
+
+        if (element == coupon.title) {
+          this.existCoupons.splice(index, 1);
+        }
+
+      }
+      console.log('this.existCoupons remove', this.existCoupons);
+      this.totalDiscountReplacement -= coupon.value;
+      // console.log('coupon', coupon);
+      // console.log('coupons', this.coupons);
+
+      // this.totalPaymentReplacement = parseFloat(
+      //   this.totalPayment +
+      //   this.shippingCartFee -
+      //   coupon.value
+      // );
+      this.totalPaymentReplacement += coupon.value;
+    }
   },
   computed: {
     newPrice() {
@@ -2175,7 +2365,31 @@ export default {
 // .float-left {
 //   line-height: 57px;
 // }
-.results-form{
-  background: rgba(236, 240, 241, 0.2);;
+.results-form {
+  background: rgba(236, 240, 241, 0.2);
+  ;
+}
+
+.coupons-data-holder {
+  span {
+    background: #0080007d;
+    padding: 2px 7px;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    word-break: break-all;
+    margin-bottom: 3px;
+
+    &:first-of-type {
+      width: 50%;
+    }
+  }
+
+  .removeCoupon {
+    background: red;
+    color: #fff;
+    cursor: pointer;
+  }
 }
 </style>
