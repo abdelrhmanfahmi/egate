@@ -58,5 +58,6 @@ export default {
   readLess: "قراءة أقل",
   add:'اضافه',
   filter:'فلتر',
-  standQuantity:'الكميه المطلوبه من المنتج'
+  standQuantity:'الكميه المطلوبه من المنتج',
+  couponExist:'الكود مستخدم بالفعل'
 };

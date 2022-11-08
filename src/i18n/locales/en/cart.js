@@ -57,5 +57,6 @@ export default {
   readLess:'Read Less',
   add:'Add',
   filter:'Filter By',
-  standQuantity:'Quantity of this product'
+  standQuantity:'Quantity of this product',
+  couponExist:'Coupon Already Exist'
 };
