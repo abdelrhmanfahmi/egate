@@ -1,12 +1,7 @@
 <template>
   <div class="subCategory" :class="$i18n.locale">
-    <div
-      class="cover text-center"
-      :style="{ backgroundImage: `url(${pageCover})` }"
-    >
-      <div
-        class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
-      >
+    <div class="cover text-center" :style="{ backgroundImage: `url(${pageCover})` }">
+      <div class="cover-data p-5 d-flex justify-content-center align-items-center flex-column">
         <b-container>
           <div class="cover-title text-white font-weight-bold">
             <h2 class="font-weight-bold">
@@ -115,42 +110,18 @@
                   <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                     <b-skeleton-img></b-skeleton-img>
                     <b-card>
-                      <b-skeleton
-                        animation="fade"
-                        width="60%"
-                        class="border-none"
-                      ></b-skeleton>
-                      <b-skeleton
-                        animation="fade"
-                        width="85%"
-                        class="border-none"
-                      ></b-skeleton>
+                      <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
+                      <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
                     </b-card>
                   </b-col>
                 </b-row>
-                 <b-row 
-                  align-h="center"
-                  align-v="center"
-                  v-else-if="!loading && allSubCategoriesLength > 0"
-                >
-                  <b-col
-                    lg="3"
-                    sm="6"
-                    class="custum-padding mb-3 p-0"
-                    :title="category.title"
-                    v-for="category in allSubCategories"
-                    :key="category.id"
-                  >
+                <b-row align-h="center" align-v="center" v-else-if="!loading && allSubCategoriesLength > 0">
+                  <b-col lg="3" sm="6" class="custum-padding mb-3 p-0" :title="category.title"
+                    v-for="category in allSubCategories" :key="category.id">
                     <div class="mb-4">
-                      <router-link
-                        :to="`/categories/${category.id}/variants`"
-                        v-if="category.id"
-                      >
-                        <OtherCategoryCard
-                          v-if="category"
-                          :card="{ type: category.title }"
-                          :image="category.image_path"
-                        />
+                      <router-link :to="`/categories/${category.id}/variants`" v-if="category.id">
+                        <OtherCategoryCard v-if="category" :card="{ type: category.title }"
+                          :image="category.image_path" />
                       </router-link>
                     </div>
                   </b-col>
@@ -161,29 +132,13 @@
                   </h3>
                 </div>
               </b-tab>
-              <b-tab
-                :title="category.title"
-                v-for="category in subCategories"
-                :key="category.id"
-              >
-                <b-row
-                  align-h="center"
-                  align-v="center"
-                  v-if="category.all_children.length > 0"
-                >
-                  <b-col
-                    lg="3"
-                    sm="6"
-                    class="custum-padding mb-3 p-0"
-                    v-for="cat in category.all_children"
-                    :key="cat.id"
-                  >
+              <b-tab :title="category.title" v-for="category in subCategories" :key="category.id"
+                @click="selectTab(category)">
+                <b-row align-h="center" align-v="center" v-if="category.all_children.length > 0">
+                  <b-col lg="3" sm="6" class="custum-padding mb-3 p-0" v-for="cat in category.all_children"
+                    :key="cat.id">
                     <router-link :to="`/categories/${cat.id}/variants`">
-                      <OtherCategoryCard
-                        :card="{ type: cat.title }"
-                        :image="cat.image_path"
-                        class="homecategories"
-                      />
+                      <OtherCategoryCard :card="{ type: cat.title }" :image="cat.image_path" class="homecategories" />
                     </router-link>
                   </b-col>
                 </b-row>
@@ -245,7 +200,7 @@ export default {
     OtherCategoryCard,
   },
   methods: {
-    filterAllChildren() {},
+    filterAllChildren() { },
     async getSubCategories() {
       let data = {
         parent_id: this.id,
@@ -311,6 +266,41 @@ export default {
     search() {
       this.getSubCategories();
     },
+    selectTab(item) {
+      let query = {};
+      if (this.$route.query.page) {
+        for (let key in this.$route.query) {
+          if (key !== 'page') {
+            query[key] = this.$route.query[key];
+          }
+        }
+      } else {
+        query = {
+          brand: item.title.trim()
+        };
+      }
+
+      if (!this.$route.query.brand) {
+        query = {
+          brand: item.title.trim()
+        };
+        console.log('third');
+      } else if (this.$route.query.brand.split(',').includes(item.title)) {
+        query = {
+          brand: query.brand
+        };
+        console.log('fourth');
+      } else {
+        query = {
+          brand: item.title.trim()
+        };
+      }
+
+      this.$router.push({
+        path: this.$route.path,
+        query: query
+      });
+    }
   },
   created() {
     this.getAllSubCategories();
@@ -318,6 +308,9 @@ export default {
     this.getCover();
     sessionStorage.setItem("catId", this.id);
   },
+  mounted(){
+    console.log(this.$route.query.brand);
+  }
 };
 </script>
 
@@ -327,21 +320,26 @@ export default {
   background-position: center;
   background-size: cover;
 }
+
 .cover-data {
   background: rgba(0, 0, 0, 0.35);
 }
+
 select {
   border: none;
   outline: none;
   box-shadow: none;
 }
+
 form {
   .xt-blog-form {
     margin-top: 50px;
   }
+
   .input-group {
     display: block !important;
   }
+
   .input-group-btn {
     position: absolute;
     right: 5%;
@@ -351,6 +349,7 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+
     button {
       display: flex;
       justify-content: center;
@@ -358,21 +357,26 @@ form {
     }
   }
 }
+
 input {
+
   &:hover,
   &:focus {
     box-shadow: none;
   }
 }
+
 div:empty {
   display: none !important;
   opacity: 0;
 }
+
 .custum-padding {
   .category-card {
     margin-right: 7px;
   }
 }
+
 .ar {
   form {
     .input-group-btn {
@@ -382,6 +386,7 @@ div:empty {
     }
   }
 }
+
 .en {
   form {
     .input-group-btn {
