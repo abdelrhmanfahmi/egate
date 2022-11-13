@@ -8,14 +8,14 @@
         <main>
           <slot name="main">
             <span class="product-counter-number">
-              {{ quantity == 0 ? countValue : quantity }}</span
-            >
+              {{ quantity == 0 ? countValue : quantity }}</span>
           </slot>
         </main>
       </div>
       <button class="product-counter-btn" @click="decrementQuantity">
         <b-icon-dash />
       </button>
+
     </div>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     incrementQuantity() {
-      this.countValue += 1;
+      this.countValue = Number(this.quantity) + 1;
 
       let data = {
         quantity: this.countValue,
@@ -92,8 +92,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: left;
+
   .actions {
     color: #606266;
+
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -104,11 +106,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
+
   .value {
     border-radius: 50%;
     border: none;
@@ -127,6 +131,7 @@ export default {
   width: 1.5rem !important;
   height: 1.5rem !important;
 }
+
 .product-counter .actions .product-counter-btn {
   width: 1.5rem !important;
   height: 1.5rem !important;

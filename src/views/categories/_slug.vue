@@ -409,7 +409,6 @@ export default {
     sessionStorage.setItem("catId", this.id);
   },
   mounted() {
-    console.log(this.$route.query.brand.replace(/\s/g, ""));
 
     if (this.$route.query.brand) {
       this.myActiveAtt = this.$route.query.brand;

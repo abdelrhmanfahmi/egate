@@ -6,14 +6,14 @@
           <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
           <input
             class="form-control text-center border-0"
-            type="text"
+            type="number"
             name=""
             id=""
             min="1"
             @keyup="CustomIncrementQuantity"
             v-model="countValue"
-            @keypress="isNumber($event)"
-          />
+            />
+            <!-- @keypress="isNumber($event)" -->
         </slot>
       </main>
     </div>
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     incrementQuantity() {
-      this.countValue += 1;
+      this.countValue = Number(this.countValue) + 1 ;
       this.$emit("changeCount", this.countValue);
     },
     decrementQuantity() {
