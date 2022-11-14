@@ -29,11 +29,14 @@ export default {
   addStandingOrders:'Add To Standing Orders',
   standingOrders:'Standing Orders',
   addNew:'Add New',
-  time:'Time',
+  time:'order frequency',
   edit:'Edit',
   editGroup:'Edit Group',
   standingOrderProducts:'Standing Order Products',
   deleteGroup:'Delete Group',
   sureDelete:'Are you Sure to Delete ',
-  remove:'Remove'
+  remove:'Remove',
+  addAllToCart:'Add All To Cart',
+  removeGroup:'Remove This Group',
+  backToStrandingList:'Back To Groups'
 };

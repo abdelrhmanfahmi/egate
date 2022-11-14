@@ -275,4 +275,7 @@ export default {
       },
     });
   },
+  addAllToCart(payload){
+    return globalAxios.post(`members/profile/standings/add-list/cart` , payload)
+  }
 };
