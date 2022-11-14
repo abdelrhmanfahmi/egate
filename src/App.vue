@@ -30,6 +30,10 @@ export default {
     // }else{
     //   console.log("gest exist");
     // }
+    // if (!localStorage.getItem("country")) {
+
+    //   this.getDefaultCaounrt()
+    // }
   },
   components: {
     MainLayout,
@@ -57,6 +61,33 @@ export default {
       //   (error) => Promise.reject(error)
       // );
     },
+    getDefaultCaounrt() {
+      globalAxios.get('site-settings/default/country').then(res => {
+
+        // this.countries.forEach((country) => {
+        //   if (country.is_default == 1) {
+        //     window.localStorage.setItem("country", JSON.stringify(country));
+        //     if (localStorage.getItem("currency") === null) {
+        //       localStorage.setItem("currency", country.currencies[0].code);
+        //     }
+        //     this.myCurrencies = country.currencies;
+        //   }
+        // });
+        window.localStorage.setItem("country", JSON.stringify(res.data.items));
+
+        if (localStorage.getItem("currency") === null) {
+          localStorage.setItem("currency", JSON.stringify(res.data.items.currencies[0].code));
+        }
+      })
+      .then(() =>{
+        setTimeout(() => {
+          location.reload()
+        }, 500);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
   },
   computed: {
     guestId() {
@@ -68,7 +99,7 @@ export default {
 
 <style lang="scss">
 /* width */
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 5px;
 }
 

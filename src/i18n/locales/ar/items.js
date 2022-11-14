@@ -36,5 +36,8 @@ export default {
   standingOrderProducts:'منتجات القائمه',
   deleteGroup:'حذف مجموعه',
   sureDelete:'هل انت متأكد من حذف',
-  remove:'حذف'
+  remove:'حذف',
+  addAllToCart:'اضافة الكل لسلة الشراء',
+  removeGroup:'حذف الكل',
+  backToStrandingList:'العوده للقوائم المتاحه'
 };
