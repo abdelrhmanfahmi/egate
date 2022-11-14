@@ -30,10 +30,10 @@ export default {
     // }else{
     //   console.log("gest exist");
     // }
-    if (!localStorage.getItem("country")) {
+    // if (!localStorage.getItem("country")) {
 
-      this.getDefaultCaounrt()
-    }
+    //   this.getDefaultCaounrt()
+    // }
   },
   components: {
     MainLayout,
