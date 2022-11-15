@@ -590,7 +590,7 @@
                 <div class="col-md-7 col-sm-12 my-2">
                   <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
                   <!--  add new coupon  -->
-                  <!-- <div class="coupon-holder mb-3">
+                  <div class="coupon-holder mb-3">
                     <div class="row">
                       <div class="col-md-8 col-sm-12">
                         <div class="cart">
@@ -611,10 +611,14 @@
 
                             <h6 class="couponValid text-success m-0 p-0"></h6>
                             <h6 class="couponNotValid text-danger m-0 p-0"></h6>
+                            <div class="error text-center" v-if="couponError">
+                              {{ couponError }}
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 col-sm-12 valid-coupons">
+                      <div class="col-md-4 col-sm-12 valid-coupons text-center">
+                        <h5 v-if="coupons && coupons.length > 0" class="text-center">{{$t('cart.validCoupons')}}</h5>
                         <ul class="unstyled-order coupons-data-holder">
                           <li v-for="(coupon, index) in coupons" :key="index">
                             <span class="couponValue">{{ coupon.title }} </span> <span class="removeCoupon"
@@ -623,7 +627,7 @@
                         </ul>
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                   <div class="data">
                     <table class="w-100">
                       <tbody>
@@ -975,7 +979,8 @@ export default {
       checkoutSubmitted: false,
       couponText: null,
       coupons: [],
-      existCoupons: []
+      existCoupons: [],
+      couponError:null
     };
   },
   mounted() {
@@ -2186,6 +2191,7 @@ export default {
                 });
                 this.sucessMsg(res.data.message)
                 this.couponText = null;
+                this.couponError = null
                 // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
 
 
@@ -2219,6 +2225,7 @@ export default {
                 const err = Object.values(error)[2].data;
                 this.errors = err.items;
                 this.errMsg(err.message);
+                this.couponError = err.message
               }
             });
 
@@ -2246,6 +2253,7 @@ export default {
                   });
                   this.sucessMsg(res.data.message)
                   this.couponText = null;
+                  this.couponError = null
                   // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
 
 
@@ -2279,6 +2287,7 @@ export default {
                   const err = Object.values(error)[2].data;
                   this.errors = err.items;
                   this.errMsg(err.message);
+                  this.couponError = err.message
                 }
               });
           }
@@ -2372,14 +2381,14 @@ export default {
 
 .coupons-data-holder {
   span {
-    background: #0080007d;
+    background: #008000b3;
     padding: 2px 7px;
-
     text-align: center;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     word-break: break-all;
     margin-bottom: 3px;
+    color: #fff;
+    font-weight: bold;
 
     &:first-of-type {
       width: 50%;
