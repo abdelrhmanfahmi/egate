@@ -9,21 +9,12 @@
           </button>
         </div>
         <div class="select-country">
-          <b-dropdown
-            id="dropdown-1"
-            variant="link"
-            toggle-class="text-decoration-none"
-            no-caret
-          >
+          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title">{{ countryName }}</span>
               <img :src="countryImg" :alt="countryName" />
             </template>
-            <b-dropdown-item
-              v-for="country in countries"
-              :key="country.id"
-              @click="onHandelCountry(country)"
-            >
+            <b-dropdown-item v-for="country in countries" :key="country.id" @click="onHandelCountry(country)">
               <span>{{ country.title }}</span>
               <img :src="country.flag" :alt="country.title" />
             </b-dropdown-item>
@@ -73,22 +64,14 @@
           </b-dropdown-item>
         </b-dropdown> -->
         <div class="select-country">
-          <b-dropdown
-            id="dropdown-1"
-            variant="link"
-            toggle-class="text-decoration-none"
-            no-caret
-          >
+          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title" id="myCurrency-code">{{
-                currentCurrency
+                  currentCurrency
               }}</span>
             </template>
-            <b-dropdown-item
-              v-for="(currency, index) in myCurrencies"
-              :key="index"
-              @click="handleCurrency(currency.code)"
-            >
+            <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index"
+              @click="handleCurrency(currency.code)">
               <span>{{ currency.code }}</span>
             </b-dropdown-item>
           </b-dropdown>
@@ -108,6 +91,7 @@
 
 <script>
 import auth from "@/services/auth";
+import axios from "axios"
 export default {
   data() {
     return {
@@ -124,6 +108,8 @@ export default {
       countryName: JSON.parse(localStorage.getItem("country"))
         ? JSON.parse(localStorage.getItem("country")).title
         : this.$t("home.kuwait"),
+      defaultCountry: null,
+      defaultCurrency: null
       // currentCurrency : localStorage.getItem('currency')
     };
   },
@@ -156,24 +142,26 @@ export default {
             });
           } else {
             // console.log("res.data.items" , res.data.items);
-            this.countries.forEach((country) => {
-              if (country.is_default == 1) {
-                window.localStorage.setItem("country", JSON.stringify(country));
-                if (localStorage.getItem("currency") === null) {
-                  localStorage.setItem("currency", country.currencies[0].code);
-                }
-                this.myCurrencies = country.currencies;
-              }
-            });
+
+            // this.countries.forEach((country) => {
+            //   if (country.is_default == 1) {
+            //     window.localStorage.setItem("country", JSON.stringify(country));
+            //     if (localStorage.getItem("currency") === null) {
+            //       localStorage.setItem("currency", country.currencies[0].code);
+            //     }
+            //     this.myCurrencies = country.currencies;
+            //   }
+            // });
+            this.getDefaultCountry()
 
             // localStorage.setItem("country", JSON.stringify(res.data.items[0]));
             // localStorage.setItem(
             //   "currency",
             //   res.data.items[0].currencies[0].code
             // );
-            setTimeout(() => {
-              location.reload();
-            }, 500);
+            // setTimeout(() => {
+            //   location.reload();
+            // }, 500);
           }
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);
@@ -250,6 +238,20 @@ export default {
       // }
       // this.getAllCountires();
     },
+    getDefaultCountry() {
+      axios.get('https://api.dev.humhum.work/api/v1/site-settings/default/country').then(res => {
+        console.log("getDefaultCountry", res);
+        this.defaultCountry = JSON.stringify(res.data.items);
+        window.localStorage.setItem("country", JSON.stringify(res.data.items));
+        if (localStorage.getItem("currency") === null) {
+          localStorage.setItem("currency", res.data.items.currencies[0].code);
+        }
+        this.defaultCurrency = res.data.items.currencies[0].code
+      })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   },
   computed: {
     currentCurrency() {
@@ -262,6 +264,7 @@ export default {
 <style lang="scss" scoped>
 .main-header {
   background: #202026;
+
   .top-nav {
     padding: 8px 0px;
     display: flex;
@@ -279,6 +282,7 @@ export default {
     }
   }
 }
+
 .btn-secondary {
   background: transparent !important;
   border: none !important;

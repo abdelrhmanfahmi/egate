@@ -538,10 +538,10 @@
                             <span class="requried text-danger">*</span>
 
                             <b-form-select v-model="paymentFormData.country_code">
-                              <b-form-select-option value="null" disabled selected>{{ $t("register.countryCode") }}
+                              <b-form-select-option value="null" disabled>{{ $t("register.countryCode") }}
                                 <span class="requried text-danger">*</span>
                               </b-form-select-option>
-                              <b-form-select-option v-for="(country, index) in countries" :key="index"
+                              <b-form-select-option v-for="(country, index) in countries" :key="index" v-bind="{selected :selectedPhonePrefix.phone_prefix == country.phone_prefix}"
                                 :value="country.phone_prefix">{{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
@@ -980,7 +980,8 @@ export default {
       couponText: null,
       coupons: [],
       existCoupons: [],
-      couponError:null
+      couponError:null,
+      selectedPhonePrefix:null
     };
   },
   mounted() {
@@ -1060,6 +1061,8 @@ export default {
         this.buyerUserData.address_uuid
       );
     }
+
+    this.selectedPhonePrefix = JSON.parse(localStorage.getItem('country'));
 
   },
   methods: {
