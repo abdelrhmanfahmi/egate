@@ -59,5 +59,6 @@ export default {
   add:'اضافه',
   filter:'فلتر',
   standQuantity:'الكميه المطلوبه من المنتج',
-  couponExist:'الكود مستخدم بالفعل'
+  couponExist:'الكود مستخدم بالفعل',
+  validCoupons:'الكوبونات المفعله'
 };

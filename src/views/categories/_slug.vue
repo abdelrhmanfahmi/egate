@@ -38,74 +38,18 @@
             <div class="container" id="people">
               <div class="row">
                 <div class="col-sm-4">
-                  <!-- <b-form-select
-                    v-model="category"
-                    class="mb-3"
-                    title="Please select an option"
-                  >
-                    <b-form-select-option-group label="Please select an option">
-                      <b-form-select-option value="Accessories"
-                        >AccessoriesA</b-form-select-option
-                      >
-                      <b-form-select-option value="Laptop"
-                        >Laptop</b-form-select-option
-                      >
-                      <b-form-select-option value="Stationary"
-                        >Stationary</b-form-select-option
-                      >
-                    </b-form-select-option-group>
-                  </b-form-select> -->
+
                 </div>
-                <!-- <select name="" id="" v-model="category" labeel="select"> -->
-                <!-- <select name="" id="" labeel="select">
-                  <option value="AccessoriesA">AccessoriesA</option>
-                  <option value="Laptop">Laptop</option>
-                  <option value="Stationary">Stationary</option>
-                </select> -->
+
               </div>
-              <!-- <ul>
-                <li
-                  v-for="product in filterProductsByCategory"
-                  :key="product.id"
-                >
-                  Product Name : {{ product.name }} - Price :
-                  {{ product.price }} ({{ product.category }})
-                </li>
-              </ul> -->
+
             </div>
           </div>
-          <!-- <div class="col-md-3 col-sm-12 mb-3">
-            <form class="xt-blog-form" role="search">
-              <div class="input-group add-on">
-                <form @submit.prevent="search">
-                  <div class="form-group">
-                    <input
-                      class="form-control"
-                      name="srch-term"
-                      id="srch-term"
-                      type="text"
-                      v-model="searchWord"
-                    />
-                    <div class="input-group-btn">
-                      <button
-                        class="btn btn-default"
-                        type="submit"
-                        @clicks="search"
-                      >
-                        <font-awesome-icon
-                          icon="fa-solid fa-magnifying-glass"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </form>
-          </div> -->
+
         </div>
       </div>
     </div>
-    <section>
+    <section v-if="subCategories">
       <div class="container">
         <div class="tabs-holder">
           <div class="tabs-content">
@@ -115,7 +59,7 @@
                 @click="selectDefaultTab"
                 id="All"
                 v-bind="{
-                  active: !$route.query.brand || $route.query.brand == 'All',
+                  active: !$route.query.brand || $route.query.brand === 'All',
                 }"
               >
                 <b-row v-if="loading">
@@ -176,7 +120,7 @@
                 :id="category.title.replace(/\s/g, '')"
                 v-bind="{
                   active:
-                    $route.query.brand == category.title.replace(/\s/g, ''),
+                  $route.query.brand && $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
               >
                 <b-row
@@ -414,6 +358,12 @@ export default {
       this.myActiveAtt = this.$route.query.brand;
     } else {
       this.myActiveAtt = "All";
+      this.$router.push({
+        path: this.$route.path,
+        query: {
+          brand:'All'
+        },
+      });
     }
   },
 };

@@ -58,5 +58,6 @@ export default {
   add:'Add',
   filter:'Filter By',
   standQuantity:'Quantity of this product',
-  couponExist:'Coupon Already Exist'
+  couponExist:'Coupon Already Exist',
+  validCoupons:'Valid Coupons'
 };
