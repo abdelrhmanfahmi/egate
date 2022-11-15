@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <section>
+    <section v-if="subCategories">
       <div class="container">
         <div class="tabs-holder">
           <div class="tabs-content">
