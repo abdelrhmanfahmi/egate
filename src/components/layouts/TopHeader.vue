@@ -126,6 +126,7 @@ export default {
         .getAllCountires()
         .then((res) => {
           this.countries = res.data.items;
+          localStorage.setItem('countries' ,JSON.stringify(res.data.items) )
           // console.log("res" , res);
           if (localStorage.getItem("country")) {
             let current_stored_country = JSON.parse(

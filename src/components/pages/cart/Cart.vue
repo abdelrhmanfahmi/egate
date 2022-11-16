@@ -541,7 +541,8 @@
                               <b-form-select-option value="null" disabled>{{ $t("register.countryCode") }}
                                 <span class="requried text-danger">*</span>
                               </b-form-select-option>
-                              <b-form-select-option v-for="(country, index) in countries" :key="index" v-bind="{selected :selectedPhonePrefix.phone_prefix == country.phone_prefix}"
+                              <b-form-select-option v-for="(country, index) in countries" :key="index"
+                                v-bind="{ selected: selectedPhonePrefix.phone_prefix == country.phone_prefix }"
                                 :value="country.phone_prefix">{{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
@@ -618,7 +619,7 @@
                         </div>
                       </div>
                       <div class="col-md-4 col-sm-12 valid-coupons text-center">
-                        <h5 v-if="coupons && coupons.length > 0" class="text-center">{{$t('cart.validCoupons')}}</h5>
+                        <h5 v-if="coupons && coupons.length > 0" class="text-center">{{ $t('cart.validCoupons') }}</h5>
                         <ul class="unstyled-order coupons-data-holder">
                           <li v-for="(coupon, index) in coupons" :key="index">
                             <span class="couponValue">{{ coupon.title }} </span> <span class="removeCoupon"
@@ -705,7 +706,7 @@
                                   </div>
                                   <div class="method" v-if="buyerUserData">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                      <input type="radio" id="paymentMethod1" name="paymentMethod"
+                                      <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
                                         value="bank" />
                                       <label class="custom-control-label" for="paymentMethod1">
@@ -831,6 +832,21 @@ acceptMyTerms();
                     </div>
                   </div>
                 </div>
+                <b-modal id="bankModal" :title="$t('payment.uploadImage')">
+                  <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
+                    <div class="form-input mb-4">
+                      <label for="bankImage">
+                        {{ $t("payment.uploadImage") }}
+                        
+                      </label>
+                      <b-form-group>
+                        <b-form-file size="lg" id="bankImage" @change="uploadBankImage"
+                          :placeholder="$t('profile.filePlaceHolder')" drop-placeholder="Drop file here...">
+                        </b-form-file>
+                      </b-form-group>
+                    </div>
+                  </form>
+                </b-modal>
               </div>
             </div>
           </div>
@@ -954,7 +970,8 @@ export default {
         country_code: null,
         accept_terms: false,
         company_name: null,
-        coupons: []
+        coupons: [],
+        file: null
       },
       paymentCountries: [],
       paymentCities: [],
@@ -980,8 +997,8 @@ export default {
       couponText: null,
       coupons: [],
       existCoupons: [],
-      couponError:null,
-      selectedPhonePrefix:null
+      couponError: null,
+      selectedPhonePrefix: null
     };
   },
   mounted() {
@@ -1917,6 +1934,7 @@ export default {
       ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
+      
 
       suppliers
         .payment(this.paymentFormData)
@@ -1997,7 +2015,8 @@ export default {
         suppliers: this.mySuppliers.suppliers,
         country_code: this.paymentFormData.country_code,
         redirect_url: this.paymentFormData.redirect_url,
-        coupons: this.existCoupons
+        coupons: this.existCoupons,
+        file: this.paymentFormData.file,
       };
 
       suppliers
@@ -2319,7 +2338,10 @@ export default {
       //   coupon.value
       // );
       this.totalPaymentReplacement += coupon.value;
-    }
+    },
+    uploadBankImage(event) {
+      this.paymentFormData.file = event.target.files[0];
+    },
   },
   computed: {
     newPrice() {

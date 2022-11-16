@@ -29,6 +29,12 @@ Vue.mixin({
     },
     socialLogin(){
       return localStorage.getItem('provider')
+    },
+    userCountries(){
+      return localStorage.getItem('countries')
+    },
+    selectedCountry(){
+      return localStorage.getItem('country')
     }
   },
   methods: {
