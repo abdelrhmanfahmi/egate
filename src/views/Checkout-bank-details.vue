@@ -169,7 +169,6 @@ export default {
     },
     uploadImage(event) {
       this.bankData.image = event.target.files[0];
-      console.log(this.bankData.image);
     },
   },
 };

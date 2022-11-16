@@ -17,6 +17,7 @@ export default {
     return globalAxios.post(`/members/product/rfq`, payload);
   },
   payment(payload) {
+    console.log("payload" , payload);
     let data = {
       comment: payload.comment,
       phone: payload.phone,
@@ -36,10 +37,19 @@ export default {
       country_code: payload.country_code,
       accept_terms: payload.accept_terms == true ? "1" : "0",
       company_name : payload.company_name,
-      coupons:payload.coupons
+      coupons:payload.coupons,
+      file:payload.file
     };
+    let formData = new FormData();
+    
+    for(let key in data){
+      if(key && data[key] && key != 'suppliers'){
+        formData.append(key , data[key])
+      }
+    }
+    formData.append('suppliers' , JSON.stringify(data.suppliers))
 
-    return globalAxios.post(`/order`, data);
+    return globalAxios.post(`/order`, formData);
   },
   guestPayment(payload) {
     return globalAxios.post(`/order`, payload);

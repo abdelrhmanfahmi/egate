@@ -11,6 +11,8 @@ lang = localStorage.getItem("lang") || "en";
 // let userExist = localStorage.getItem("currency");
 let userExist = localStorage.getItem("buyerUserData");
 
+
+
 // let currency_code = localStorage.getItem("currency");
 // let currency_id = localStorage.getItem("country");
 
@@ -45,7 +47,7 @@ const globalAxios = axios.create({
   headers: {
     Authorization: getToken(),
     "Accept-Language": lang,
-    "guest-id": guestUser ? guestUser : "",
+    "guest-id": guestUser ? guestUser : ""
     // currency_code: currency_code,
     // currency_id: currency_id,
   },
@@ -64,6 +66,7 @@ globalAxios.interceptors.request.use(
     if (country) {
       let country_parsed = JSON.parse(localStorage.getItem("country"));
       config.headers["currency_id"] = country_parsed.currencies[0].id || 1;
+      config.headers["country_id"] = country_parsed.id ? country_parsed.id : null;
     }
     // config.headers['currency_code'] = currency_code;
     return config;
