@@ -250,5 +250,7 @@ export default {
   enterValue:'ادخل قيمة الشحن',
   limit:'حد',
   char:'حرف',
-  remain:'باقى'
+  remain:'باقى',
+  lang:'اللغه',
+  currency:"العمله",
 };
