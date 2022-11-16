@@ -70,7 +70,7 @@
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.country" >
-              <b-form-select-option value="null" disabled>{{ $t("profile.country") }}
+              <b-form-select-option value="null" disabled>{{ $t("profile.defaultCountry") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id" @change="selectCountry(country)">{{
