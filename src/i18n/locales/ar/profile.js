@@ -252,5 +252,6 @@ export default {
   char:'حرف',
   remain:'باقى',
   lang:'اللغه',
-  currency:"العمله",
+  currency:"العمله الافتراضيه",
+  defaultCountry:'البلد الافتراضيه'
 };

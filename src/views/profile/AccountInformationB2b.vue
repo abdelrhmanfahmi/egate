@@ -66,7 +66,7 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">{{$t('profile.country')}} : {{userStoredData.title}}</label>
+            <label for="country">{{$t('profile.defaultCountry')}} : {{userStoredData.title}}</label>
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.country" >
@@ -87,10 +87,11 @@
         <b-col lg="4">
           <b-form-group>
             <label for="country">{{$t('profile.currency')}} : {{currency}} </label>
+
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.currency" >
-              <b-form-select-option value="null" disabled>{{ $t("profile.country") }}
+              <b-form-select-option value="null" disabled>{{ $t("profile.currency") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option v-for="(currency, index) in userStoredData.currencies" :key="index" :value="currency.code">{{

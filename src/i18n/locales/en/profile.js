@@ -259,6 +259,7 @@ export default {
   limit:'Limit',
   char:'Character',
   remain:'Remaining',
-  lang:'Language',
-  currency:"Currency",
+  lang:'default Language',
+  currency:"default Currency",
+  defaultCountry:'Default Country'
 };
