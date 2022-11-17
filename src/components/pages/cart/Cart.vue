@@ -709,6 +709,9 @@
                                       <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
                                         value="bank" />
+                                      <!-- <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
+                                        class="custom-control-input" v-model="paymentFormData.payment_type"
+                                        value="bank" /> -->
                                       <label class="custom-control-label" for="paymentMethod1">
                                         {{ $t("payment.bankTransfer") }}
                                         <sup>*</sup>
