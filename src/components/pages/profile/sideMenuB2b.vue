@@ -4,7 +4,7 @@
      {{ buyerUserData.company_name }}
     </h5>
 
-    <div class="my-2" v-if="buyerUserData.profile_percentage !== 100">
+    <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
       <h5>{{ $t("profile.completeRate") }}</h5>
       <b-progress class="progress-rate" :class="{'mr-2':$i18n.locale =='en' , 'ml-2':$i18n.locale =='ar'}" :value="buyerUserData.profile_percentage" max="100" show-progress animated
         variant="danger"></b-progress>

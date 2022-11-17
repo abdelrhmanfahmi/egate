@@ -9,7 +9,7 @@
     >
       <div
         class="row profile-header"
-        v-if="buyerUserData.profile_percentage !== 100"
+        v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
       >
         <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
