@@ -66,14 +66,14 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">country : egypt</label>
+            <label for="country">{{$t('profile.defaultCountry')}} : {{userStoredData.title}}</label>
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.country" >
-              <b-form-select-option value="null" disabled>{{ $t("profile.country") }}
+              <b-form-select-option value="null" disabled>{{ $t("profile.defaultCountry") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id">{{
+              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id" @change="selectCountry(country)">{{
                   country.title
               }}
               </b-form-select-option>
@@ -86,14 +86,15 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">currency : {{currency}} </label>
+            <label for="country">{{$t('profile.currency')}} : {{currency}} </label>
+
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.currency" >
-              <b-form-select-option value="null" disabled>{{ $t("profile.country") }}
+              <b-form-select-option value="null" disabled>{{ $t("profile.currency") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(currency, index) in userCurrencies.currencies" :key="index" :value="currency.country_id">{{
+              <b-form-select-option v-for="(currency, index) in userStoredData.currencies" :key="index" :value="currency.code">{{
                   currency.code
               }}
               </b-form-select-option>
@@ -106,7 +107,7 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">language : en</label>
+            <label for="country">{{$t('profile.lang')}} : {{form.language}}</label>
             <!-- <span class="requried">*</span> -->
 
             <b-form-select v-model="form.language">
@@ -235,10 +236,16 @@ export default {
     this.form = { ...this.buyerUserData };
     this.phonePrefix = this.buyerUserData.phone_prefix
     this.form.mobile_number = this.buyerUserData.phone
+
+    this.form.language = this.currentLang
+    this.form.currency = this.currency
+    this.form.country = this.userStoredData.id
+    
     // test 
   },
   created() {
     this.reloadPage();
+    
   },
   methods: {
     getAllCountires() {
@@ -259,6 +266,9 @@ export default {
         job_title: this.form.job_title,
         reg_number: this.form.reg_number,
         portal: "buyer",
+        country_id:this.form.country,
+        language:this.form.language,
+        currency_id:this.form.currency,
       };
       auth
         .storeInfo(payload)
@@ -294,7 +304,7 @@ export default {
     },
   },
   computed:{
-    userCurrencies(){
+    userStoredData(){
       return JSON.parse(localStorage.getItem('country'))
     }
   }

@@ -258,5 +258,8 @@ export default {
   enterValue:'Enter Charge Value',
   limit:'Limit',
   char:'Character',
-  remain:'Remaining'
+  remain:'Remaining',
+  lang:'default Language',
+  currency:"default Currency",
+  defaultCountry:'Default Country'
 };

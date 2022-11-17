@@ -38,18 +38,18 @@ export default {
       accept_terms: payload.accept_terms == true ? "1" : "0",
       company_name : payload.company_name,
       coupons:payload.coupons,
-      file:payload.file
+      // file:payload.file
     };
-    let formData = new FormData();
+    // let formData = new FormData();
     
-    for(let key in data){
-      if(key && data[key] && key != 'suppliers'){
-        formData.append(key , data[key])
-      }
-    }
-    formData.append('suppliers' , JSON.stringify(data.suppliers))
+    // for(let key in data){
+    //   if(key && data[key] && key != 'suppliers'){
+    //     formData.append(key , data[key])
+    //   }
+    // }
+    // formData.append('suppliers' , JSON.stringify(data.suppliers))
 
-    return globalAxios.post(`/order`, formData);
+    return globalAxios.post(`/order`, data);
   },
   guestPayment(payload) {
     return globalAxios.post(`/order`, payload);
