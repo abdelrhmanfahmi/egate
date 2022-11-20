@@ -35,5 +35,6 @@ export default {
   department: "القسم",
   selectDept: "اختر القسم",
   selectPrefixes:'اختر المسمى',
-  newPolicy:'من خلال التسجيل ، فإنك توافق على '
+  newPolicy:'من خلال التسجيل ، فإنك توافق على ',
+  verify:'التحقق'
 };

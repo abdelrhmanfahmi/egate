@@ -5,8 +5,8 @@ import cart from "./modules/cart";
 import wishlist from "./modules/wishlist";
 import suppliers from "./modules/suppliers";
 import auth from "@/services/auth";
-import { baseURL } from "@/apis/Api";
-import axios from "axios";
+// import { baseURL } from "@/apis/Api";
+import globalAxios from "../services/global-axios";
 
 // firebase
 import { getToken } from "firebase/messaging";
@@ -71,7 +71,6 @@ export default new Vuex.Store({
     getUserInfo({ commit }) {
       auth.getUserInfo().then((res) => {
         if (localStorage.getItem("globalAddressUUID") === null) {
-          console.log("false");
           localStorage.setItem(
             "globalAddressUUID",
             res.data.items.address_uuid
@@ -86,8 +85,8 @@ export default new Vuex.Store({
       let userExist = localStorage.getItem("buyerUserData");
       let guestUser = localStorage.getItem("guest-id");
       if (userExist === null && guestUser === null) {
-        axios
-          .post(`${baseURL}guest/generate-token`)
+        globalAxios
+          .post(`guest/generate-token`)
           .then((res) => {
             // console.log("SET_USER_DATA_INFO", res);
             commit("SET_USER_GUEST_ID", res.data.items.uuid);

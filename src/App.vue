@@ -25,7 +25,7 @@ export default {
     }
     // return
 
-    
+
   },
   components: {
     MainLayout,
@@ -53,13 +53,20 @@ export default {
       //   (error) => Promise.reject(error)
       // );
     },
-    
+
   },
   computed: {
     guestId() {
       return this.$store.state.guestId;
     },
   },
+  // mounted() {
+  //   window.addEventListener('beforeunload', function (e) {
+  //     alert('you closed the app')
+  //     e.preventDefault();
+  //     e.returnValue = '';
+  //   });
+  // }
 };
 </script>
 

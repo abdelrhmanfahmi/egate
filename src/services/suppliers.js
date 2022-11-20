@@ -1,4 +1,5 @@
 import globalAxios from "./global-axios";
+import {createdFormData} from "./helpers"
 
 export default {
   getSuppliers(page) {
@@ -38,7 +39,7 @@ export default {
       accept_terms: payload.accept_terms == true ? "1" : "0",
       company_name : payload.company_name,
       coupons:payload.coupons,
-      // file:payload.file
+      file:payload.file
     };
     // let formData = new FormData();
     
@@ -48,8 +49,9 @@ export default {
     //   }
     // }
     // formData.append('suppliers' , JSON.stringify(data.suppliers))
+    // createdFormData(data)
 
-    return globalAxios.post(`/order`, data);
+    return globalAxios.post(`/order`, createdFormData(data));
   },
   guestPayment(payload) {
     return globalAxios.post(`/order`, payload);

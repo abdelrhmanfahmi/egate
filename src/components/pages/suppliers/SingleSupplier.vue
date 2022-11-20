@@ -4,10 +4,7 @@
       <div class="thumb">
 
         <router-link :to="`/suppliers/${supplier.id}`" class="d-block text-center">
-          <img
-            :src="supplier.image_path"
-            alt="supplier image"
-          />
+          <img :src="supplier.image_path" alt="supplier image" />
         </router-link>
         <p class="supplier-name text-center mt-3 text-capitalize">
           {{ supplier.company_name }}
@@ -27,23 +24,32 @@ export default {
 <style lang="scss" scoped>
 .single-supplier {
   padding: 1rem;
+
   .supplier-data {
     .thumb {
       color: #000;
+
       a {
         display: block;
         text-align: center;
+
         img {
           color: #000;
+          // width: 100% !important;
+          // height: 273px;
+
           width: 100% !important;
-          height: 273px;
+          height: 222px;
+          object-fit: contain;
         }
       }
+
       .supplier-name {
         transition: all 0.3s ease 0s;
         margin: 0;
       }
     }
+
     &::before {
       background: rgba(255, 255, 255, 0.3);
       bottom: 50%;
@@ -59,6 +65,7 @@ export default {
       -o-transition: all 900ms linear;
       transition: all 900ms linear;
     }
+
     &:hover {
       &::before {
         top: 0;

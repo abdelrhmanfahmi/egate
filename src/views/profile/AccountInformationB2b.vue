@@ -36,9 +36,12 @@
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
-            <router-link to="/contact-us" class="mx-1 text-lowercase">
+            <a @click="showEmailModal" class="mx-1 text-lowercase">
               {{ $t("profile.needEmailContact") }}
-            </router-link>
+            </a>
+            <!-- <router-link to="/contact-us" class="mx-1 text-lowercase">
+              {{ $t("profile.needEmailContact") }}
+            </router-link> -->
             <b-form-input id="email" v-model="form.email" disabled />
             <div class="error" v-for="(error, index) in errors.email" :key="index">
               {{ error }}
@@ -50,10 +53,13 @@
           <b-form-group>
             <label for="phone">{{ $t("register.phone") }} (<span><b>{{ phonePrefix }}</b></span>)</label>
             <span class="requried">*</span>
-            <router-link to="/contact-us" class="mx-1 text-lowercase">
+            <a @click="showPhoneModal" class="mx-1 text-lowercase">
               {{ $t("profile.needPhoneContact") }}
-            </router-link>
-            
+            </a>
+            <!-- <router-link to="/contact-us" class="mx-1 text-lowercase">
+              {{ $t("profile.needPhoneContact") }}
+            </router-link> -->
+
             <div class="row justify-content-start align-items-center">
               <div class="col-12">
                 <b-form-input id="phone" v-model="form.mobile_number" disabled />
@@ -66,16 +72,17 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">{{$t('profile.defaultCountry')}} : {{userStoredData.title}}</label>
+            <label for="country">{{ $t('profile.defaultCountry') }} : {{ userStoredData.title }}</label>
             <!-- <span class="requried">*</span> -->
 
-            <b-form-select v-model="form.country" >
+            <b-form-select v-model="form.country_id" @change="selectCountry($event)">
               <b-form-select-option value="null" disabled>{{ $t("profile.defaultCountry") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id" @change="selectCountry(country)">{{
-                  country.title
-              }}
+              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id"
+                >{{
+                    country.title
+                }} 
               </b-form-select-option>
             </b-form-select>
 
@@ -86,17 +93,18 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">{{$t('profile.currency')}} : {{currency}} </label>
+            <label for="country">{{ $t('profile.currency') }} : {{ currency }} </label>
 
             <!-- <span class="requried">*</span> -->
 
-            <b-form-select v-model="form.currency" >
+            <b-form-select v-model="form.currency_id" @change="changeCurrency($event)">
               <b-form-select-option value="null" disabled>{{ $t("profile.currency") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(currency, index) in userStoredData.currencies" :key="index" :value="currency.code">{{
-                  currency.code
-              }}
+              <b-form-select-option v-for="(currency, index) in userStoredData.currencies" :key="index"
+                 :value="currency.id">{{
+                    currency.code
+                }}
               </b-form-select-option>
             </b-form-select>
 
@@ -107,11 +115,11 @@
         </b-col>
         <b-col lg="4">
           <b-form-group>
-            <label for="country">{{$t('profile.lang')}} : {{form.language}}</label>
+            <label for="country">{{ $t('profile.lang') }} : {{ form.language }}</label>
             <!-- <span class="requried">*</span> -->
 
-            <b-form-select v-model="form.language">
-              <b-form-select-option value="null" disabled>select language
+            <b-form-select v-model="form.language" @change="changeLang($event)">
+              <b-form-select-option value="null" disabled>{{ $t('profile.selectLang') }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option value="ar">ar</b-form-select-option>
@@ -203,6 +211,68 @@
         {{ $t("profile.save") }}
       </b-button>
     </form>
+    <b-modal ref="email-modal" hide-footer centered :title="$t('profile.emailVerify')">
+      <div class="d-block text-center">
+        <form action="">
+          <b-form-group>
+            <div class="" :class="{ 'text-left': $i18n.locale == 'en', 'text-right': $i18n.locale == 'ar' }">
+              <label for="email">{{ $t("profile.newEmail") }}</label>
+              <span class="requried">*</span>
+            </div>
+            <b-form-input id="email" v-model="newForm.email" />
+            <div class="error" v-for="(error, index) in errors.email" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+          <b-form-group>
+            <div class="" :class="{ 'text-left': $i18n.locale == 'en', 'text-right': $i18n.locale == 'ar' }">
+              <label for="email">{{ $t("profile.oldPhone") }}</label>
+              <span class="requried">*</span>
+            </div>
+            <b-form-input id="email" v-model="newForm.phone" />
+            <div class="error" v-for="(error, index) in errors.phone" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+        </form>
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <b-button class="mt-3" variant="outline-danger" @click="hideEmailModal">{{ $t('cart.cancel') }}</b-button>
+        <b-button class="mt-2" variant="outline-success" @click="goToVerify('email')">{{ $t('register.verify') }}
+        </b-button>
+      </div>
+    </b-modal>
+    <b-modal ref="phone-modal" hide-footer centered :title="$t('profile.phoneVerify')">
+      <div class="d-block text-center">
+        <form action="">
+          <b-form-group>
+            <div class="" :class="{ 'text-left': $i18n.locale == 'en', 'text-right': $i18n.locale == 'ar' }">
+              <label for="email">{{ $t("profile.oldEmail") }}</label>
+              <span class="requried">*</span>
+            </div>
+            <b-form-input id="email" v-model="newForm.email" />
+            <div class="error" v-for="(error, index) in errors.email" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+          <b-form-group>
+            <div class="" :class="{ 'text-left': $i18n.locale == 'en', 'text-right': $i18n.locale == 'ar' }">
+              <label for="email">{{ $t("profile.newPhone") }}</label>
+              <span class="requried">*</span>
+            </div>
+            <b-form-input id="email" v-model="newForm.phone" />
+            <div class="error" v-for="(error, index) in errors.phone" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+        </form>
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{ $t('cart.cancel') }}</b-button>
+        <b-button class="mt-2" variant="outline-success" @click="goToVerify('mobile')">{{ $t('register.verify') }}
+        </b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -222,13 +292,18 @@ export default {
         company_name_en: "",
         company_name_ar: "",
         reg_number: "",
-        country:"",
-        currency:"",
-        language:""
+        country_id: "",
+        currency_id: "",
+        language: ""
+      },
+      newForm: {
+        email: '',
+        phone: ''
       },
       countries: [],
       errors: {},
-      phonePrefix: null
+      phonePrefix: null,
+      modalShow: false
     };
   },
   mounted() {
@@ -237,15 +312,15 @@ export default {
     this.phonePrefix = this.buyerUserData.phone_prefix
     this.form.mobile_number = this.buyerUserData.phone
 
-    this.form.language = this.currentLang
-    this.form.currency = this.currency
-    this.form.country = this.userStoredData.id
-    
+    this.form.language = this.buyerUserData.language ? this.buyerUserData.language : 'en'
+    this.form.currency = this.buyerUserData.currency_name ? this.buyerUserData.currency_name : 'KWD'
+    this.form.country = this.userStoredData.country_code
+
     // test 
   },
   created() {
-    this.reloadPage();
-    
+    // this.reloadPage();
+
   },
   methods: {
     getAllCountires() {
@@ -266,9 +341,9 @@ export default {
         job_title: this.form.job_title,
         reg_number: this.form.reg_number,
         portal: "buyer",
-        country_id:this.form.country,
-        language:this.form.language,
-        currency_id:this.form.currency,
+        country_id: this.form.country,
+        language: this.form.language,
+        currency_id: this.form.currency,
       };
       auth
         .storeInfo(payload)
@@ -302,9 +377,47 @@ export default {
         }, 1200);
       }
     },
+    showEmailModal() {
+      this.$refs['email-modal'].show()
+    },
+    hideEmailModal() {
+      this.$refs['email-modal'].hide()
+    },
+    showPhoneModal() {
+      this.$refs['phone-modal'].show()
+    },
+    hidePhoneModal() {
+      this.$refs['phone-modal'].hide()
+    },
+    goToVerify(type) {
+      // this.form.callback_url = `${this.mainDoamin}otp-verification`;
+      console.log(`verify ${type} clicked`);
+    },
+    changeCurrency(event) {
+      localStorage.setItem("currency", event);
+    },
+    changeLang() {
+      // localStorage.setItem("lang", event);
+      localStorage.setItem("lang", this.form.language);
+      location.reload()
+    },
+    selectCountry() {
+      // localStorage.removeItem("currency");
+      // localStorage.setItem("country", JSON.stringify(data));
+      // // this.countryImg = data.flag;
+      // // this.countryName = data.title;
+      // localStorage.setItem("country", JSON.stringify(data));
+      // if (data) {
+      //   if (localStorage.getItem("is_default")) {
+      //     localStorage.setItem("is_default", data.currencies[0].id);
+      //   } else {
+      //     localStorage.setItem("is_default", data.currencies[0].is_default);
+      //   }
+      // }
+    }
   },
-  computed:{
-    userStoredData(){
+  computed: {
+    userStoredData() {
       return JSON.parse(localStorage.getItem('country'))
     }
   }

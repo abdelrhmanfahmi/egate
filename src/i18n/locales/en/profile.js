@@ -1,6 +1,8 @@
 export default {
-  needEmailContact: "To change email, contact us.",
-  needPhoneContact: "To change the phone, contact us.",
+  needEmailContact: "To change email, click here.",
+  // needEmailContact: "To change email, contact us.",
+  needPhoneContact: "To change Mobile number, click here.",
+  // needPhoneContact: "To change the phone, contact us.",
   needCompanyContact: "To change company, contact us.",
   //Header
   completeAccount: "Complete your account",
@@ -261,5 +263,12 @@ export default {
   remain:'Remaining',
   lang:'default Language',
   currency:"default Currency",
-  defaultCountry:'Default Country'
+  defaultCountry:'Default Country',
+  newEmail:'New Email',
+  oldEmail:'Old Email',
+  newPhone:'New Phone',
+  oldPhone:'Old Phone',
+  emailVerify:'Email Verify',
+  phoneVerify:'Phone Verify',
+  selectLang:'Select Language'
 };

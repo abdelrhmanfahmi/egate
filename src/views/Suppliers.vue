@@ -9,7 +9,7 @@
     <div class="suppliers py-4">
       <div class="container">
         <b-row v-if="loading">
-          <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
+          <b-col class="mb-2" lg="2" sm="6" v-for="x in 10" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
               <b-skeleton
@@ -25,9 +25,9 @@
             </b-card>
           </b-col>
         </b-row>
-        <div class="row suppliers-data" v-else>
+        <div class="row suppliers-data justify-content-center" v-else>
           <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content"
+            class="col-12 col-sm-6 col-md-4 col-lg-2 mx-2 supplier-content"
             v-for="supplier in suppliers"
             :key="supplier.id"
           >

@@ -1,6 +1,8 @@
 export default {
-  needEmailContact: "لتغير البريد الالكتروني اتصل بنا.",
-  needPhoneContact: "لتغير الهاتف اتصل بنا.",
+  needEmailContact: "لتغير البريد الالكتروني اضغط هنا.",
+  // needEmailContact: "لتغير البريد الالكتروني اتصل بنا.",
+  needPhoneContact: "لتغير الهاتف اضغط هنا.",
+  // needPhoneContact: "لتغير الهاتف اتصل بنا.",
   needCompanyContact: "لتغير الشركة اتصل بنا.",
   //Header
   completeAccount: "اكمل حسابك",
@@ -34,7 +36,7 @@ export default {
   subscribe: "اشتراك",
   // favorite
   favorite: "المفضلة",
-  b2bFav:'قائمة الانتظار',
+  b2bFav: 'قائمة الانتظار',
   // changePassword
   changePassword: "تغير كلمه السر",
   changePasswordMessage: "تم تغيير كلمة السر بنجاح",
@@ -243,15 +245,22 @@ export default {
   hour: "ساعة",
   minute: "دقيقة",
   second2: "ثانية",
-  printIno:'اطبع طلب الشراء',
-  markRead:"ضع إشارة مقروء",
-  readAllNotifications:'قراءة الكل',
-  charge:'اشحن محفظتك',
-  enterValue:'ادخل قيمة الشحن',
-  limit:'حد',
-  char:'حرف',
-  remain:'باقى',
-  lang:'اللغه',
-  currency:"العمله الافتراضيه",
-  defaultCountry:'البلد الافتراضيه'
+  printIno: 'اطبع طلب الشراء',
+  markRead: "ضع إشارة مقروء",
+  readAllNotifications: 'قراءة الكل',
+  charge: 'اشحن محفظتك',
+  enterValue: 'ادخل قيمة الشحن',
+  limit: 'حد',
+  char: 'حرف',
+  remain: 'باقى',
+  lang: 'اللغه',
+  currency: "العمله الافتراضيه",
+  defaultCountry: 'البلد الافتراضيه',
+  newEmail: 'الايميل الجديد',
+  oldEmail: 'الاليميل القديم',
+  newPhone: 'رقم الهاتف الجديد',
+  oldPhone: 'رقم الهاتف القديم',
+  emailVerify:'تحقق الايميل',
+  phoneVerify:'تحقق الهاتف',
+  selectLang:'اختر اللغه'
 };
