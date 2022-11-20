@@ -2019,7 +2019,7 @@ export default {
         country_code: this.paymentFormData.country_code,
         redirect_url: this.paymentFormData.redirect_url,
         coupons: this.existCoupons,
-        file: this.paymentFormData.file,
+        // file: this.paymentFormData.file,
       };
 
       suppliers

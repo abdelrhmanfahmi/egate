@@ -555,13 +555,16 @@ input[type="number"] {
   }
 }
 
-.dropdown-menu.show {
-  width: 100%;
-  overflow: scroll;
-  height: 500px;
-  position: absolute;
-  will-change: transform;
-  top: 0px;
-  left: 0px;
-  transform: translate3d(0px, 37px, 0px);
+.select-country {
+
+  .dropdown-menu.show {
+    width: 100%;
+    overflow: scroll;
+    height: 500px;
+    position: absolute;
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(0px, 37px, 0px);
+  }
 }

@@ -1,335 +1,362 @@
 <template>
-    <div class="notifications clients px-3 py-5 text-center">
-      <div class="container">
-        <div class="text-center">
-          <h1>
-            {{ $t("home.clients") }}
-          </h1>
-        </div>
-        <div class="row data-holder" >
-          <div class="col-md-3 col-sm-12" v-for="(client, index) in clients" :key="index">
-            <div class="new-message-box">
-              <div class="new-message-box-warning">
-                <div class="p-2">
-                  <div>
-                    <div to="" class="btn btn-sm" @click="goNotificationPage(client)">
-                      <h5>
-                        <b>{{ client.name }}</b>
-                      </h5>
-                    </div>
-                  </div>
+  <div class="notifications clients px-3 py-5 text-center">
+    <div class="container">
+      <div class="text-center">
+        <h1>
+          {{ $t("home.clients") }}
+        </h1>
+      </div>
+      <div class="row data-holder">
+        <div class="col-md-3 col-sm-12" v-for="(client, index) in clients" :key="index">
+          <div class="new-message-box">
+            <div class="new-message-box-warning">
+              <div class="p-2">
+                <div>
+                  <!-- <div to="" class="btn btn-sm" @click="goClientPage(client)"> -->
+
+                  <b-media>
+                    <template #aside>
+                      <img :src="client.image_path" alt="Media Aside" class="client_image" v-if="client.image_path" >
+                      <img src="@/assets/images/default-client-logo.jpeg" class="client_image" alt="Media Aside" v-else>
+                    </template>
+
+                    <h5>{{ client.name }}</h5>
+
+                    <!-- b-[Optional: add media children here for nesting] -->
+                  </b-media>
+                  <!-- <div to="" class="btn btn-sm">
+                    <h5>
+                      <b>{{ client.name }}</b>
+                    </h5>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center mt-5" v-if="clientsLength > 1">
-          <Paginate v-if="clients" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-            @pagechanged="onPageChange" />
-        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-5" v-if="clientsLength > 1">
+        <Paginate v-if="clients" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+          @pagechanged="onPageChange" />
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script>
-  import Paginate from "@/components/global/Paginate.vue";
-  import suppliers from "@/services/suppliers";
-  export default {
-    components: {
-      Paginate,
+<script>
+import Paginate from "@/components/global/Paginate.vue";
+import suppliers from "@/services/suppliers";
+export default {
+  components: {
+    Paginate,
+  },
+  methods: {
+    getClients() {
+      suppliers
+        .getClients(this.page)
+        .then((resp) => {
+          console.log("getClients", resp);
+          this.clients = resp.data.items.suppliers.data;
+          this.clientsLength = resp.data.items.suppliers.data.length;
+
+          this.total = resp.data.items.suppliers.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.suppliers.meta.total /
+            resp.data.items.suppliers.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.suppliers.meta.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    methods: {
-      getClients() {
-        suppliers
-          .getClients(this.page)
-          .then((resp) => {
-            console.log("getClients" , resp);
-            this.clients = resp.data.items.suppliers.data;
-            this.clientsLength = resp.data.items.suppliers.data.length;
-  
-            this.total = resp.data.items.suppliers.meta.total;
-            this.totalPages = Math.ceil(
-              resp.data.items.suppliers.meta.total /
-                resp.data.items.suppliers.meta.per_page
-            ); // Calculate total records
-  
-            this.totalRecords = resp.data.items.suppliers.meta.total;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-      onPageChange(page) {
-        this.page = page;
+    onPageChange(page) {
+      this.page = page;
+      this.getClients();
+    },
+    onChangeRecordsPerPage() {
+      this.getClients();
+    },
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
         this.getClients();
-      },
-      onChangeRecordsPerPage() {
-        this.getClients();
-      },
-      gotoPage() {
-        if (!isNaN(parseInt(this.enterpageno))) {
-          this.page = parseInt(this.enterpageno);
-          this.getClients();
-        }
-      },
+      }
     },
-    mounted() {
-        this.getClients();
-    },
-    data() {
-      return {
-        clients: [],
-        clientsLength: null,
-        perPage: 5,
-        total: 0,
-        currentPage: 1,
-  
-        page: 1,
-        totalPages: 0,
-        totalRecords: 0,
-        recordsPerPage: 10,
-        enterpageno: "",
-      };
-    },
-  };
-  </script>
-  
-  <style lang="scss" scoped>
-  .notifications {
-    .new-message-box {
-      margin: 15px 0;
-      padding-left: 20px;
-      margin-bottom: 25px !important;
+    goClientPage(client) {
+      this.$router.push({
+        path: `/suppliers/${client.id}`,
+
+      })
     }
+  },
+  mounted() {
+    this.getClients();
+  },
+  data() {
+    return {
+      clients: [],
+      clientsLength: null,
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
+    };
+  },
+};
+</script>
   
-    .new-message-box p {
-      font-size: 1.15em;
-      font-weight: 600;
-    }
-  
-    .info-tab {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      position: relative;
-      top: 8px;
-    }
-  
-    .info-tab {
-      float: left;
-      margin-left: -23px;
-    }
-  
-    .info-tab i::before {
-      width: 24px;
-      height: 24px;
-      box-shadow: inset 12px 0 13px rgba(0, 0, 0, 0.5);
-    }
-  
-    .info-tab i::after {
-      width: 0;
-      height: 0;
-      border: 12px solid transparent;
-      border-bottom-color: #fff;
-      border-left-color: #fff;
-      bottom: -18px;
-    }
-  
-    .info-tab i::before,
-    .info-tab i::after {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      left: 0;
-      bottom: -17px;
-      transform: rotateX(60deg);
-    }
-  
-    .note-box,
-    .warning-box,
-    .tip-box-success,
-    .tip-box-danger,
-    .tip-box-warning,
-    .tip-box-info,
-    .tip-box-alert {
-      padding: 12px 8px 3px 26px;
-    }
-  
-    /***Success****/
-  
-    .new-message-box-success {
-      background: #eeeeeeb3;
-      padding: 3px;
-      margin: 0;
-    }
-  
-    .tip-icon-success {
-      background: #8bc34a; //500
-    }
-  
-    .tip-box-success {
-      color: #33691e; //900
-      background: #dcedc8; //100
-    }
-  
-    .tip-icon-success::before {
-      font-size: 25px;
-      content: "\f00c";
-      top: 8px;
-      left: 11px;
-      font-family: FontAwesome;
-      position: absolute;
-      color: white;
-    }
-  
-    .tip-icon-success i::before {
-      background: #8bc34a; //500
-    }
-  
-    /*******Danger*******/
-    .new-message-box-danger {
-      background: #eeeeeeb3;
-      padding: 3px;
-      margin: 10px 0;
-    }
-  
-    .tip-icon-danger {
-      background: #f44336; //500
-    }
-  
-    .tip-box-danger {
-      color: #b71c1c; //900
-      background: #ffccbc; //100
-    }
-  
-    .tip-icon-danger::before {
-      font-size: 25px;
-      content: "\f00d";
-      top: 8px;
-      left: 11px;
-      font-family: FontAwesome;
-      position: absolute;
-      color: white;
-    }
-  
-    .tip-icon-danger i::before {
-      background: #f44336; //500
-    }
-  
-    /*******warning*******/
-    .new-message-box-warning {
-      background: #eeeeeeb3;
-      padding: 3px;
-      margin: 10px 0;
-    }
-  
-    .tip-icon-warning {
-      background: #ffeb3b; //500
-    }
-  
-    .tip-box-warning {
-      color: #212121; //900
-      background: #fff9c4; //100
-    }
-  
-    .tip-icon-warning::before {
-      font-size: 25px;
-      content: "\f071";
-      top: 8px;
-      left: 11px;
-      font-family: FontAwesome;
-      position: absolute;
-      color: #212121;
-    }
-  
-    .tip-icon-warning i::before {
-      background: #ffeb3b; //500
-    }
-  
-    /*******info*******/
-    .new-message-box-info {
-      background: #eeeeeeb3;
-      padding: 3px;
-      margin: 10px 0;
-    }
-  
-    .tip-box-info {
-      color: #01579b; //900
-      background: #b3e5fc; //100
-    }
-  
-    .tip-icon-info {
-      background: #03a9f4; //500
-    }
-  
-    .tip-icon-info::before {
-      font-size: 25px;
-      content: "\f129";
-      top: 8px;
-      left: 11px;
-      font-family: FontAwesome;
-      position: absolute;
-      color: white;
-    }
-  
-    .tip-icon-info i::before {
-      background: #03a9f4; //500
-    }
-  
-    /*******info*******/
-    .new-message-box-alert {
-      background: #ff6f00;
-      padding: 3px;
-      margin: 10px 0;
-    }
-  
-    .tip-box-alert {
-      color: #212121; //900
-      background: #fff8e1; //100
-    }
-  
-    .tip-icon-alert {
-      background: #ff6f00; //500
-    }
-  
-    .tip-icon-alert::before {
-      font-size: 25px;
-      content: "\f06a";
-      top: 8px;
-      left: 11px;
-      font-family: FontAwesome;
-      position: absolute;
-      color: white;
-    }
-  
-    .tip-icon-alert i::before {
-      background: #ff6f00; //500
-    }
-  
-    /*************************/
-  
-    body {
-      background-color: #ffffff;
-    }
-  
-    .data-holder {
-      width: 100%;
-      margin: auto;
-    }
+<style lang="scss" scoped>
+.notifications {
+  .new-message-box {
+    margin: 15px 0;
+    padding-left: 20px;
+    margin-bottom: 25px !important;
   }
-  
-  .btn:focus,
-  .btn.focus {
-    box-shadow: none !important;
+
+  .new-message-box p {
+    font-size: 1.15em;
+    font-weight: 600;
   }
-  
-  .readed {
-    background: #f4f4f4 !important;
+
+  .info-tab {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+    top: 8px;
   }
-  
-  .unreaded {
-    background: #8bc34a !important;
+
+  .info-tab {
+    float: left;
+    margin-left: -23px;
   }
- 
-  </style>
+
+  .info-tab i::before {
+    width: 24px;
+    height: 24px;
+    box-shadow: inset 12px 0 13px rgba(0, 0, 0, 0.5);
+  }
+
+  .info-tab i::after {
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-bottom-color: #fff;
+    border-left-color: #fff;
+    bottom: -18px;
+  }
+
+  .info-tab i::before,
+  .info-tab i::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: -17px;
+    transform: rotateX(60deg);
+  }
+
+  .note-box,
+  .warning-box,
+  .tip-box-success,
+  .tip-box-danger,
+  .tip-box-warning,
+  .tip-box-info,
+  .tip-box-alert {
+    padding: 12px 8px 3px 26px;
+  }
+
+  /***Success****/
+
+  .new-message-box-success {
+    background: #eeeeeeb3;
+    padding: 3px;
+    margin: 0;
+  }
+
+  .tip-icon-success {
+    background: #8bc34a; //500
+  }
+
+  .tip-box-success {
+    color: #33691e; //900
+    background: #dcedc8; //100
+  }
+
+  .tip-icon-success::before {
+    font-size: 25px;
+    content: "\f00c";
+    top: 8px;
+    left: 11px;
+    font-family: FontAwesome;
+    position: absolute;
+    color: white;
+  }
+
+  .tip-icon-success i::before {
+    background: #8bc34a; //500
+  }
+
+  /*******Danger*******/
+  .new-message-box-danger {
+    background: #eeeeeeb3;
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .tip-icon-danger {
+    background: #f44336; //500
+  }
+
+  .tip-box-danger {
+    color: #b71c1c; //900
+    background: #ffccbc; //100
+  }
+
+  .tip-icon-danger::before {
+    font-size: 25px;
+    content: "\f00d";
+    top: 8px;
+    left: 11px;
+    font-family: FontAwesome;
+    position: absolute;
+    color: white;
+  }
+
+  .tip-icon-danger i::before {
+    background: #f44336; //500
+  }
+
+  /*******warning*******/
+  .new-message-box-warning {
+    background: #eeeeeeb3;
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .tip-icon-warning {
+    background: #ffeb3b; //500
+  }
+
+  .tip-box-warning {
+    color: #212121; //900
+    background: #fff9c4; //100
+  }
+
+  .tip-icon-warning::before {
+    font-size: 25px;
+    content: "\f071";
+    top: 8px;
+    left: 11px;
+    font-family: FontAwesome;
+    position: absolute;
+    color: #212121;
+  }
+
+  .tip-icon-warning i::before {
+    background: #ffeb3b; //500
+  }
+
+  /*******info*******/
+  .new-message-box-info {
+    background: #eeeeeeb3;
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .tip-box-info {
+    color: #01579b; //900
+    background: #b3e5fc; //100
+  }
+
+  .tip-icon-info {
+    background: #03a9f4; //500
+  }
+
+  .tip-icon-info::before {
+    font-size: 25px;
+    content: "\f129";
+    top: 8px;
+    left: 11px;
+    font-family: FontAwesome;
+    position: absolute;
+    color: white;
+  }
+
+  .tip-icon-info i::before {
+    background: #03a9f4; //500
+  }
+
+  /*******info*******/
+  .new-message-box-alert {
+    background: #ff6f00;
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .tip-box-alert {
+    color: #212121; //900
+    background: #fff8e1; //100
+  }
+
+  .tip-icon-alert {
+    background: #ff6f00; //500
+  }
+
+  .tip-icon-alert::before {
+    font-size: 25px;
+    content: "\f06a";
+    top: 8px;
+    left: 11px;
+    font-family: FontAwesome;
+    position: absolute;
+    color: white;
+  }
+
+  .tip-icon-alert i::before {
+    background: #ff6f00; //500
+  }
+
+  /*************************/
+
+  body {
+    background-color: #ffffff;
+  }
+
+  .data-holder {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+.btn:focus,
+.btn.focus {
+  box-shadow: none !important;
+}
+
+.readed {
+  background: #f4f4f4 !important;
+}
+
+.unreaded {
+  background: #8bc34a !important;
+}
+.media{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.client_image{
+  width: 80px;
+  height: 50px;
+  object-fit: contain;
+}
+</style>
   
