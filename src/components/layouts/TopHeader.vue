@@ -8,7 +8,7 @@
             اللغة العربية
           </button>
         </div>
-        <div class="select-country">
+        <div class="select-country Allcountries">
           <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title">{{ countryName }}</span>

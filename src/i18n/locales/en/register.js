@@ -37,5 +37,6 @@ export default {
   department:'Department',
   selectDept:'Select Department',
   selectPrefixes:'Select Title',
-  newPolicy:'By Submitting, you agree to the '
+  newPolicy:'By Submitting, you agree to the ',
+  verify:'Verify'
 };
