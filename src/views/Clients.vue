@@ -20,7 +20,7 @@
                       <img src="@/assets/images/default-client-logo.jpeg" class="client_image" alt="Media Aside" v-else>
                     </template>
 
-                    <h5>{{ client.name }}</h5>
+                    <h5 class="text-capitalize">{{ client.name }}</h5>
 
                     <!-- b-[Optional: add media children here for nesting] -->
                   </b-media>
