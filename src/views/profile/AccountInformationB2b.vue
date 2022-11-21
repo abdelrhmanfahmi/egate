@@ -79,10 +79,9 @@
               <b-form-select-option value="null" disabled>{{ $t("profile.defaultCountry") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id"
-                >{{
-                    country.title
-                }} 
+              <b-form-select-option v-for="(country, index) in countries" :key="index" :value="country.id">{{
+                  country.title
+              }}
               </b-form-select-option>
             </b-form-select>
 
@@ -102,7 +101,7 @@
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option v-for="(currency, index) in userStoredData.currencies" :key="index"
-                 :value="currency.id">{{
+                :value="currency.id">{{
                     currency.code
                 }}
               </b-form-select-option>
@@ -219,8 +218,8 @@
               <label for="email">{{ $t("profile.newEmail") }}</label>
               <span class="requried">*</span>
             </div>
-            <b-form-input id="email" v-model="newForm.email" />
-            <div class="error" v-for="(error, index) in errors.email" :key="index">
+            <b-form-input id="newEmail" v-model="newForm.verify_email" />
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -229,8 +228,8 @@
               <label for="email">{{ $t("profile.oldPhone") }}</label>
               <span class="requried">*</span>
             </div>
-            <b-form-input id="email" v-model="newForm.phone" />
-            <div class="error" v-for="(error, index) in errors.phone" :key="index">
+            <b-form-input id="oldPhone" v-model="newForm.verify_mobile_number" type="number" />
+            <div class="error" v-for="(error, index) in errors.verify_mobile_number" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -238,7 +237,7 @@
       </div>
       <div class="row justify-content-around align-items-center">
         <b-button class="mt-3" variant="outline-danger" @click="hideEmailModal">{{ $t('cart.cancel') }}</b-button>
-        <b-button class="mt-2" variant="outline-success" @click="goToVerify('email')">{{ $t('register.verify') }}
+        <b-button class="mt-2" variant="outline-success" @click="goToVerify">{{ $t('register.verify') }}
         </b-button>
       </div>
     </b-modal>
@@ -250,8 +249,8 @@
               <label for="email">{{ $t("profile.oldEmail") }}</label>
               <span class="requried">*</span>
             </div>
-            <b-form-input id="email" v-model="newForm.email" />
-            <div class="error" v-for="(error, index) in errors.email" :key="index">
+            <b-form-input id="oldEmail" v-model="newForm.verify_email" />
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -260,8 +259,8 @@
               <label for="email">{{ $t("profile.newPhone") }}</label>
               <span class="requried">*</span>
             </div>
-            <b-form-input id="email" v-model="newForm.phone" />
-            <div class="error" v-for="(error, index) in errors.phone" :key="index">
+            <b-form-input id="newPhone" v-model="newForm.verify_mobile_number" type="number" />
+            <div class="error" v-for="(error, index) in errors.verify_mobile_number" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -269,7 +268,7 @@
       </div>
       <div class="row justify-content-around align-items-center">
         <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{ $t('cart.cancel') }}</b-button>
-        <b-button class="mt-2" variant="outline-success" @click="goToVerify('mobile')">{{ $t('register.verify') }}
+        <b-button class="mt-2" variant="outline-success" @click="goToVerify">{{ $t('register.verify') }}
         </b-button>
       </div>
     </b-modal>
@@ -278,6 +277,7 @@
 
 <script>
 import auth from "@/services/auth";
+import profile from "@/services/profile";
 
 export default {
   data() {
@@ -297,8 +297,9 @@ export default {
         language: ""
       },
       newForm: {
-        email: '',
-        phone: ''
+        email: "",
+        phone: "",
+        callback_url: ""
       },
       countries: [],
       errors: {},
@@ -314,7 +315,11 @@ export default {
 
     this.form.language = this.buyerUserData.language ? this.buyerUserData.language : 'en'
     this.form.currency = this.buyerUserData.currency_name ? this.buyerUserData.currency_name : 'KWD'
-    this.form.country = this.userStoredData.country_code
+    this.form.country = this.userStoredData.country_code;
+
+
+
+    this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
 
     // test 
   },
@@ -381,17 +386,32 @@ export default {
       this.$refs['email-modal'].show()
     },
     hideEmailModal() {
-      this.$refs['email-modal'].hide()
+      this.$refs['email-modal'].hide();
+      this.errors = {}
     },
     showPhoneModal() {
       this.$refs['phone-modal'].show()
-    },
+    },  
     hidePhoneModal() {
-      this.$refs['phone-modal'].hide()
+      this.$refs['phone-modal'].hide();
+      this.errors = {}
     },
-    goToVerify(type) {
-      // this.form.callback_url = `${this.mainDoamin}otp-verification`;
-      console.log(`verify ${type} clicked`);
+    goToVerify() {
+
+
+      let data = {
+        callback_url: this.newForm.callback_url,
+        verify_mobile_number: this.newForm.phone,
+        verify_email: this.newForm.email,
+        country_code: this.buyerUserData.country_code,
+      }
+      profile.changeProfileEmailMobile(data, this.buyerUserData.type).then((res) => {
+        console.log(res);
+      }).catch(error => {
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
     },
     changeCurrency(event) {
       localStorage.setItem("currency", event);
@@ -414,7 +434,7 @@ export default {
       //     localStorage.setItem("is_default", data.currencies[0].is_default);
       //   }
       // }
-    }
+    },
   },
   computed: {
     userStoredData() {

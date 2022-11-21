@@ -74,11 +74,12 @@
             </b-button>
             <span class="" v-if="searchClicked">
               <b-form @submit.prevent="search">
-                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"></b-form-input>
+                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword" ref="searchIcon"></b-form-input>
               </b-form>
             </span>
 
-            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
+            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked"
+              >
               <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
 
@@ -367,6 +368,15 @@ export default {
         }
       }
     },
+    searchClicked(){
+      setTimeout(() => {
+        console.log(this.$refs.searchIcon);
+        if(this.searchClicked && this.$refs.searchIcon){
+          console.log('exist');
+          this.$refs.searchIcon.focus()
+        }
+      }, 200);
+    }
   },
 };
 </script>
@@ -594,7 +604,8 @@ html:lang(ar) {
   border-radius: 20px;
   width: 300px;
   transition: all .3s ease-in-out;
-  @media(max-width:992px){
+
+  @media(max-width:992px) {
     max-width: 170px;
   }
 }

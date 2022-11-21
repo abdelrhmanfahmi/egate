@@ -27,10 +27,19 @@ export default {
     this.emailVerify();
     // this.checkEmailForgetPassWord()
     setTimeout(() => {
-      if (this.$route.path =='/' && this.newsletterShow) {
+      if (this.$route.path == '/' && this.newsletterShow) {
         this.$modal.show(
           NewsletterModal,
           { newsletterShow: this.newsletterShow },
+          { width: "970", height: "auto", adaptive: true }
+        );
+      }
+    }, 5000);
+    setTimeout(() => {
+      if (this.$route.path == '/' && this.supplierAds) {
+        this.$modal.show(
+          NewsletterModal,
+          { supplierAds: this.supplierAds },
           { width: "970", height: "auto", adaptive: true }
         );
       }
@@ -119,14 +128,25 @@ export default {
           });
       }
     },
+    getSupplierAds() {
+      auth.getSupplierAds().then(res => {
+        console.log(res);
+        this.supplierAds = res.data.items;
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    
   },
-  data(){
+  data() {
     return {
       newsletterShow: null,
+      supplierAds:null
     }
   },
-  created(){
+  created() {
     this.getAdsModal();
+    this.getSupplierAds();
   }
 };
 </script>

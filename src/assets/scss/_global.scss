@@ -566,5 +566,15 @@ input[type="number"] {
     top: 0px;
     left: 0px;
     transform: translate3d(0px, 37px, 0px);
+
+    // position: fixed !important;
+    // left: 50% !important;
+    // top: 20% !important;
+    // transform: translate(-50% , -20%) !important;
+    // width: 80% !important;
+    // -webkit-transform: translate(-50% , -20%) !important;
+    // -moz-transform: translate(-50% , -20%) !important;
+    // -ms-transform: translate(-50% , -20%) !important;
+    // -o-transform: translate(-50% , -20%) !important;
   }
 }

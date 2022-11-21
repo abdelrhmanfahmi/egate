@@ -304,11 +304,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 new-wishlist-method" v-if="buyerUserData">
+                    <div class="col-md-6 col-sm-12 new-wishlist-method">
                         <div class=" products">
 
                             <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
-                                @click="$bvModal.show('bv-standingOrders')" v-b-tooltip.hover
+                                @click="$bvModal.show('bv-standingOrders') ; loginFirst()" v-b-tooltip.hover
                                 :title="$t('items.standingOrders')">
                                 <!-- <span role="button" @click="loggedBidRequest"> -->
                                 <!-- {{ $t("singleProduct.bidRequest") }} -->
