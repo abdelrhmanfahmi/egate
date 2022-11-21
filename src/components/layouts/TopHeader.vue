@@ -15,7 +15,7 @@
               <img :src="countryImg" :alt="countryName" />
             </template>
             <b-dropdown-item v-for="country in countries" :key="country.id" @click="onHandelCountry(country)">
-              <span>{{ country.title }}</span>
+              <span>{{ country.title  }}</span>
               <img :src="country.flag" :alt="country.title" />
             </b-dropdown-item>
           </b-dropdown>

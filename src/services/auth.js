@@ -71,7 +71,7 @@ export default {
     return globalAxios.get(`members/popups`, {
       params: {
         type: payload ? payload.type : null,
-        model_type:payload ? payload.model_type : null
+        model_type: payload ? payload.model_type : null
       },
     });
   },
@@ -79,8 +79,15 @@ export default {
     return globalAxios.get(`popups`, {
       params: {
         type: payload ? payload.type : null,
-        model_type:payload ? payload.model_type : null
+        model_type: payload ? payload.model_type : null
       },
     });
   },
+  getSupplierAds() {
+    return globalAxios.get('supplier/popup')
+  },
+  postSupplierShowenAd(payload) {
+    return globalAxios.get(`supplier/popup/view/:${payload}`)
+
+  }
 };

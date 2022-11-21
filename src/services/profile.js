@@ -277,5 +277,8 @@ export default {
   },
   addAllToCart(payload){
     return globalAxios.post(`members/profile/standings/add-list/cart` , payload)
+  },
+  changeProfileEmailMobile(payLoad , userType){
+    return globalAxios.post(`members/${userType}/change-client-email-mobile`,payLoad)
   }
 };

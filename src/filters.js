@@ -68,3 +68,7 @@ Vue.filter("timeDefer", function (value) {
   }
   return value;
 });
+
+Vue.filter('shorten' , (value)=>{
+  return value.slice(0 , 15) + '...'
+})
