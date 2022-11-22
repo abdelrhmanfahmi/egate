@@ -14,6 +14,7 @@ import ProductSilder from "@/components/pages/home/ProductSilder";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
 import NewsletterModal from "@/components/newsLetterModal.vue";
+import supplierAdsModal from "@/components/supplierAdsModal.vue";
 
 export default {
   name: "Home",
@@ -23,29 +24,6 @@ export default {
     CatrgoriesHome,
   },
 
-  mounted() {
-    this.emailVerify();
-    // this.checkEmailForgetPassWord()
-    setTimeout(() => {
-      if (this.$route.path == '/' && this.newsletterShow) {
-        this.$modal.show(
-          NewsletterModal,
-          { newsletterShow: this.newsletterShow },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
-    setTimeout(() => {
-      if (this.$route.path == '/' && this.supplierAds) {
-        this.$modal.show(
-          NewsletterModal,
-          { supplierAds: this.supplierAds },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
-
-  },
   methods: {
     emailVerify() {
       if (this.$route.query.uuid) {
@@ -85,16 +63,31 @@ export default {
       }
     },
 
-    getAdsModal() {
+    async getSupplierAds() {
+      await auth.getSupplierAds().then(res => {
+        console.log(res);
+        this.supplierAds = res.data.items.ads[0];
+        if (res.data.items.ads.length > 0) {
+          this.existSupplierAds = true
+        } else {
+          this.existSupplierAds = false
+          this.getAdsModal()
+
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+
+    async getAdsModal() {
       if (this.buyerUserData && this.buyerUserData.type === "buyer") {
         let payload = {
           type: "b2b",
           // model_type: "product",
         };
-        auth
+        await auth
           .getAdsModal(payload)
           .then((res) => {
-            console.log(res);
             this.newsletterShow = res.data.items;
           })
           .catch((err) => {
@@ -104,10 +97,9 @@ export default {
         let payload = {
           type: "b2c",
         };
-        auth
+        await auth
           .getAdsModal(payload)
           .then((res) => {
-            console.log(res);
             this.newsletterShow = res.data.items;
           })
           .catch((err) => {
@@ -117,7 +109,7 @@ export default {
         let payload = {
           type: "b2c",
         };
-        auth
+        await auth
           .getGuestAdsModal(payload)
           .then((res) => {
             console.log(res);
@@ -128,25 +120,52 @@ export default {
           });
       }
     },
-    getSupplierAds() {
-      auth.getSupplierAds().then(res => {
-        console.log(res);
-        this.supplierAds = res.data.items;
-      }).catch(err => {
-        console.log(err);
-      })
-    },
-    
+
+
   },
   data() {
     return {
       newsletterShow: null,
-      supplierAds:null
+      supplierAds: null,
+      existSupplierAds: true
     }
   },
   created() {
-    this.getAdsModal();
     this.getSupplierAds();
+  },
+  mounted() {
+    console.log("this.existSupplierAds", this.existSupplierAds);
+
+    setTimeout(() => {
+      if (this.$route.path == '/' && this.supplierAds) {
+        this.$modal.show(
+          supplierAdsModal,
+          { supplierAds: this.supplierAds },
+          { width: "970", height: "auto", adaptive: true }
+        );
+      }
+    }, 5000);
+
+
+
+    setTimeout(() => {
+      if (this.$route.path == '/' && this.newsletterShow) {
+        this.$modal.show(
+          NewsletterModal,
+          { newsletterShow: this.newsletterShow },
+          { width: "970", height: "auto", adaptive: true }
+        );
+      }
+    }, 5000);
+
+
+
+    this.emailVerify();
+    // this.checkEmailForgetPassWord()
+
+
+
+
   }
 };
 </script>

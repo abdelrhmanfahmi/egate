@@ -301,6 +301,9 @@
           </thead>
           <tbody>
             <tr v-for="(product, index) in products" :key="index">
+              <td v-if="product.ads && product.ads.length > 0">{{$t('items.advertise')}}</td>
+              <!-- <td v-else>{{index + 1 }}</td> -->
+              <td v-else></td>
               <td>
                 <router-link class="link font-weight-bold text-danger"
                   :to="{ path: '/details', query: { id: product.id } }">
@@ -700,11 +703,11 @@ export default {
         { value: "d", text: "Fourth option" },
       ],
       tableFields: [
-        // {
-        //   key: "",
-        //   // key: "condition",
-        //   label: this.$t("items.item"),
-        // },
+        {
+          key: "#",
+          // key: "condition",
+          label: '#',
+        },
         {
           key: "product.title",
           label: this.$t("items.item"),

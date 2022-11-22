@@ -87,7 +87,6 @@ export default {
     return globalAxios.get('supplier/popup')
   },
   postSupplierShowenAd(payload) {
-    return globalAxios.get(`supplier/popup/view/:${payload}`)
-
+    return globalAxios.get(`supplier/popup/view/${payload}`)
   }
 };

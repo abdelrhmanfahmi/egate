@@ -11,19 +11,37 @@
       <div class="block-header my-3">
         {{ $t("register.verificationAccount") }}
       </div>
-      <form @submit.prevent="otpVerification()">
-        <b-form-group>
-          <label for="l-name">otp</label>
-          <span class="requried">*</span>
-          <b-form-input id="l-name" v-model="form.code" required />
-        </b-form-group>
-        <b-button type="submit" variant="danger"
-          ><font-awesome-icon icon="fas fa-lock" />
-          {{ $t("register.verification") }}
-        </b-button>
-      </form>
-      <div class="my-3 resend" @click="resendCode()">
-        {{ $t("register.notArrive") }}
+      <div class="" v-if="registerOTP">
+        <form @submit.prevent="otpVerification()">
+          <b-form-group>
+            <label for="l-name">otp</label>
+            <span class="requried">*</span>
+            <b-form-input id="l-name" v-model="form.code" required />
+          </b-form-group>
+          <b-button type="submit" variant="danger">
+            <font-awesome-icon icon="fas fa-lock" />
+            {{ $t("register.verification") }}
+          </b-button>
+        </form>
+        <div class="my-3 resend" @click="resendCode()">
+          {{ $t("register.notArrive") }}
+        </div>
+      </div>
+      <div class="" v-else>
+        <form @submit.prevent="otpChangingVerification()">
+          <b-form-group>
+            <label for="l-name">otp</label>
+            <span class="requried">*</span>
+            <b-form-input id="l-name" v-model="form.code" required />
+          </b-form-group>
+          <b-button type="submit" variant="danger">
+            <font-awesome-icon icon="fas fa-lock" />
+            {{ $t("register.verification") }}
+          </b-button>
+        </form>
+        <div class="my-3 resend" @click="resendCode()">
+          {{ $t("register.notArrive") }}
+        </div>
       </div>
     </div>
   </section>
@@ -39,10 +57,18 @@ export default {
         code: "",
       },
       massageErr: "",
+      registerOTP: true
     };
   },
   mounted() {
-    this.emailVerify();
+    if (!this.$route.query.type) {
+
+      this.emailVerify();
+    }
+    if (this.$route.query.type) {
+      this.registerOTP = false;
+      this.emailChangingVerify()
+    }
   },
   methods: {
     emailVerify() {
@@ -87,6 +113,41 @@ export default {
           this.errMsg(err.message);
         });
     },
+
+    // new changing 
+
+    emailChangingVerify() {
+      if (this.$route.query.uuid) {
+        const payload = {
+          uuid: this.$route.query.uuid,
+          email: this.$route.query.email,
+          code: this.$route.query.code,
+        };
+        auth
+          .emailVerify(payload)
+          .then((res) => {
+            this.sucessMsg(res.data.message);
+            localStorage.removeItem("massege");
+            location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    otpChangingVerification() {
+      auth
+        .verificationMobile(this.form)
+        .then(() => {
+          this.$router.push("/profile/account-information-b2b");
+          this.$store.dispatch("getUserInfo");
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data.message;
+          this.massageErr = err;
+        });
+    },
+
   },
 };
 </script>
@@ -94,9 +155,11 @@ export default {
 <style lang="scss" scoped>
 .otp-verification {
   text-align: center;
+
   h1 {
     color: black;
   }
+
   .otp-form {
     .block-header {
       background: linear-gradient(135deg, #bf2718 0, #ea6153 100%) !important;
@@ -105,13 +168,16 @@ export default {
       color: white;
       display: inline-block;
     }
+
     input {
       max-width: 50%;
       margin: auto;
     }
+
     .resend {
       transition: all 0.5s ease-in-out;
       cursor: pointer;
+
       &:hover {
         color: $main-color;
       }
