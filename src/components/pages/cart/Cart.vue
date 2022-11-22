@@ -1050,9 +1050,14 @@ export default {
       ? this.buyerUserData.mobile_number.replace("+20", "").replace("+965", "")
       : "";
 
+
+      this.selectedPhonePrefix = JSON.parse(localStorage.getItem('country'));
+
+
     this.paymentFormData.country_code = this.buyerUserData
       ? this.buyerUserData.phone_prefix
-      : "";
+      : this.selectedPhonePrefix.phone_prefix;
+
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email
       : "";
@@ -1082,7 +1087,7 @@ export default {
       );
     }
 
-    this.selectedPhonePrefix = JSON.parse(localStorage.getItem('country'));
+    
 
   },
   methods: {
