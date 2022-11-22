@@ -272,12 +272,21 @@
         </b-button>
       </div>
     </b-modal>
+    <b-modal ref="check-modal" hide-footer centered>
+      <div class="d-block text-center">
+        <checkMailModal />
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{ $t('home.ok') }}</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import auth from "@/services/auth";
 import profile from "@/services/profile";
+import checkMailModal from "@/components/changeprofileReply.vue"
 
 export default {
   data() {
@@ -324,7 +333,8 @@ export default {
     // test 
   },
   created() {
-    // this.reloadPage();
+    this.reloadPage();
+
 
   },
   methods: {
@@ -391,9 +401,16 @@ export default {
     },
     showPhoneModal() {
       this.$refs['phone-modal'].show()
-    },  
+    },
     hidePhoneModal() {
       this.$refs['phone-modal'].hide();
+      this.errors = {}
+    },
+    showCheckModal() {
+      this.$refs['check-modal'].show()
+    },
+    hideCheckModal() {
+      this.$refs['check-modal'].hide();
       this.errors = {}
     },
     goToVerify() {
@@ -401,16 +418,26 @@ export default {
 
       let data = {
         callback_url: this.newForm.callback_url,
-        verify_mobile_number: this.newForm.phone,
-        verify_email: this.newForm.email,
-        country_code: this.buyerUserData.country_code,
+        verify_mobile_number: this.newForm.verify_mobile_number,
+        verify_email: this.newForm.verify_email,
+        country_code: this.buyerUserData.country_code ? this.buyerUserData.country_code : this.userInfo.item.country_code,
       }
-      profile.changeProfileEmailMobile(data, this.buyerUserData.type).then((res) => {
-        console.log(res);
+      profile.changeProfileEmailMobile(data, this.buyerUserData.type ? this.buyerUserData.type : this.userInfo.item.type).then((res) => {
+        this.sucessMsg(res.data.message);
+        this.hideEmailModal()
+        this.hidePhoneModal()
+        // this.$router.push("/otp-verification");
+        // location.reload();
+        if(res.data.message == "Success" || res.data.message == "تم بنجاح"){
+          this.showCheckModal()
+        }
       }).catch(error => {
-        const err = Object.values(error)[2].data;
-        this.errors = err.items;
-        this.errMsg(err.message);
+        if (error) {
+          console.log("error", error);
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        }
       })
     },
     changeCurrency(event) {
@@ -440,6 +467,9 @@ export default {
     userStoredData() {
       return JSON.parse(localStorage.getItem('country'))
     }
+  },
+  components: {
+    checkMailModal
   }
 };
 </script>

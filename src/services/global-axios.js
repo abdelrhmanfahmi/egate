@@ -41,43 +41,53 @@ let guestUser = localStorage.getItem("guest-id");
 //   }
 // };
 
+
+const country = localStorage.getItem("country");
+
+
+let country_parsed = JSON.parse(country);
+
+
+
 // export { checkGuest };
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {
     Authorization: getToken(),
     "Accept-Language": lang,
-    "guest-id": guestUser ? guestUser : ""
+    "guest-id": guestUser ? guestUser : "",
+    "currency-id": country_parsed ? country_parsed.currencies[0].id || 1 : '',
+    "country-id": country_parsed ? (country_parsed.id ? country_parsed.id : null) : ''
     // currency_code: currency_code,
     // currency_id: currency_id,
   },
 });
 
-globalAxios.interceptors.request.use(
-  (config) => {
-    const guestId = localStorage.getItem("guest-id");
-    // const country_id = localStorage.getItem("is_default");
-    const country = localStorage.getItem("country");
-    // const currency_code = localStorage.getItem("currency");
-    // const default_id = localStorage.getItem("default_id");
-    if (guestId) {
-      config.headers["guest-id"] = guestId;
-    }
-    if (country) {
-      let country_parsed = JSON.parse(localStorage.getItem("country"));
-      config.headers["currency_id"] = country_parsed.currencies[0].id || 1;
-      config.headers["country_id"] = country_parsed.id ? country_parsed.id : null;
-    }
-    // config.headers['currency_code'] = currency_code;
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// globalAxios.interceptors.request.use(
+//   (config) => {
+//     const guestId = localStorage.getItem("guest-id");
+//     // const country_id = localStorage.getItem("is_default");
+//     const country = localStorage.getItem("country");
+//     // const currency_code = localStorage.getItem("currency");
+//     // const default_id = localStorage.getItem("default_id");
+//     if (guestId) {
+//       config.headers["guest-id"] = guestId;
+//     }
+//     if (country) {
+//       let country_parsed = JSON.parse(localStorage.getItem("country"));
+//       config.headers["currency-id"] = country_parsed.currencies[0].id || 1;
+//       config.headers["country-id"] = country_parsed.id ? country_parsed.id : null;
+//     }
+//     // config.headers['currency_code'] = currency_code;
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
 globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("error" , error);
+    console.log("error", error);
     if (
       (error.response.status == 403 && userExist) ||
       (error.response.status == 401 && userExist)
@@ -90,7 +100,7 @@ globalAxios.interceptors.response.use(
       // this.$store.dispatch('loginAgain')
       userExist.type === "buyer"
         ? router.push(`/b2b-login`) //routing changed  from b2b-login to /b2b-login
-        : router.push({path:'/' , query:{force_login : 'true'}});
+        : router.push({ path: '/', query: { force_login: 'true' } });
     }
 
     return Promise.reject(error);

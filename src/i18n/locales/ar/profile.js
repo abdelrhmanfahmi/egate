@@ -262,5 +262,6 @@ export default {
   oldPhone: 'رقم الهاتف القديم',
   emailVerify:'تحقق الايميل',
   phoneVerify:'تحقق الهاتف',
-  selectLang:'اختر اللغه'
+  selectLang:'اختر اللغه',
+  checkMail:'من فضلك تحقق من بريدك الالكترونى'
 };

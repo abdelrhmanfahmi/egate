@@ -39,5 +39,6 @@ export default {
   remove:'حذف',
   addAllToCart:'اضافة الكل لسلة الشراء',
   removeGroup:'حذف الكل',
-  backToStrandingList:'العوده للقوائم المتاحه'
+  backToStrandingList:'العوده للقوائم المتاحه',
+  advertise:'اعلان'
 };

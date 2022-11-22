@@ -270,5 +270,6 @@ export default {
   oldPhone:'Old Phone',
   emailVerify:'Email Verify',
   phoneVerify:'Phone Verify',
-  selectLang:'Select Language'
+  selectLang:'Select Language',
+  checkMail:"Check Your E-mail"
 };
