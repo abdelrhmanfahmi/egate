@@ -11,6 +11,11 @@ lang = localStorage.getItem("lang") || "en";
 // let userExist = localStorage.getItem("currency");
 let userExist = localStorage.getItem("buyerUserData");
 
+const country = localStorage.getItem("country");
+
+
+
+let country_parsed = JSON.parse(country);
 
 
 // let currency_code = localStorage.getItem("currency");
@@ -29,6 +34,18 @@ const getToken = function () {
   return "";
 };
 
+const getCurrency = function () {
+  if (country) {
+    const currencyId = localStorage.getItem("currencyId");
+    if(currencyId){
+      return currencyId ? currencyId : country.currencies[0].id || 3
+    }else{
+      return country.default_currency ? country.default_currency.id : 3
+    }
+  }
+  return "";
+}
+
 export { getToken };
 // let guestUser = null;
 let guestUser = localStorage.getItem("guest-id");
@@ -42,10 +59,7 @@ let guestUser = localStorage.getItem("guest-id");
 // };
 
 
-const country = localStorage.getItem("country");
 
-
-let country_parsed = JSON.parse(country);
 
 
 
@@ -56,7 +70,8 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     "guest-id": guestUser ? guestUser : "",
-    "currency-id": country_parsed ? country_parsed.currencies[0].id || 1 : '',
+    // "currency-id": country_parsed ? country_parsed.currencies[0].id || 1 : '',
+    "currency-id": getCurrency(),
     "country-id": country_parsed ? (country_parsed.id ? country_parsed.id : null) : ''
     // currency_code: currency_code,
     // currency_id: currency_id,
