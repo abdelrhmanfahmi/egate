@@ -354,8 +354,8 @@ export default {
     // },
     chargeWallet() {
 
-      // const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`
-      const backUrl = `${this.mainDoamin}profile/Wallet`
+      const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`
+      // const backUrl = `${this.mainDoamin}profile/Wallet`
       let payload = {
         value: this.chargeValue,
         redirect_url: backUrl
