@@ -689,7 +689,7 @@
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
-                                  <div class="method" v-if="
+                                  <div class="method wallet" v-if="
                                     buyerUserData &&
                                     walletData >= totalPaymentReplacement
                                   ">
@@ -704,7 +704,22 @@
                                       <span>{{ walletData }} {{ currency }}</span>
                                     </div>
                                   </div>
-                                  <div class="method" v-if="buyerUserData">
+                                  <div class="method wallet_visa" v-if="
+                                    buyerUserData &&
+                                    walletData < totalPaymentReplacement
+                                  ">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="paymentMethod5" name="paymentMethod"
+                                        class="custom-control-input" v-model="paymentFormData.payment_type"
+                                        value="wallet_visa" />
+                                      <label class="custom-control-label" for="paymentMethod5">
+                                        {{ $t("profile.wallet_visa") }}
+                                        <sup>*</sup>
+                                      </label>
+                                      <span>{{ walletData }} {{ currency }}</span>
+                                    </div>
+                                  </div>
+                                  <div class="method bank" v-if="buyerUserData">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -721,7 +736,7 @@
                                       }}</span>
                                     </div>
                                   </div>
-                                  <div class="method">
+                                  <div class="method cach">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod2" name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -735,7 +750,7 @@
                                       }}</span>
                                     </div>
                                   </div>
-                                  <div class="method row justify-content-between align-content-center">
+                                  <div class="method visa row justify-content-between align-content-center">
                                     <div class="col-md-8 col-xs-12">
                                       <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="paymentMethod3" name="paymentMethod"
@@ -1948,7 +1963,7 @@ export default {
         .payment(this.paymentFormData)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          if (this.paymentFormData.payment_type === "visa") {
+          if (this.paymentFormData.payment_type === "visa" || this.paymentFormData.payment_type === "wallet_visa") {
             setTimeout(() => {
               this.$router.push({
                 path: "/visa-checkout-details",
@@ -1960,6 +1975,8 @@ export default {
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
                   redirectURL: res.data.items.url,
+                  wallet_paied:res.data.items.wallet_paied , 
+                  visa_paied:res.data.items.visa_paied
 
                   // window.location.href = res.data.items.url;
                 },
@@ -2043,6 +2060,8 @@ export default {
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
                   redirectURL: res.data.items.url,
+                  
+
 
                   // window.location.href = res.data.items.url;
                 },

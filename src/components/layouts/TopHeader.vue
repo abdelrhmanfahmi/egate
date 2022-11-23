@@ -71,7 +71,7 @@
               }}</span>
             </template>
             <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index"
-              @click="handleCurrency(currency.code)">
+              @click="handleCurrency(currency)">
               <span>{{ currency.code }}</span>
             </b-dropdown-item>
           </b-dropdown>
@@ -137,6 +137,7 @@ export default {
                 window.localStorage.setItem("country", JSON.stringify(country));
                 if (localStorage.getItem("currency") === null) {
                   localStorage.setItem("currency", country.currencies[0].code);
+                  localStorage.setItem("currencyId", country.currencies[0].id);
                 }
                 this.myCurrencies = country.currencies;
               }
@@ -222,7 +223,8 @@ export default {
       }, 100);
     },
     handleCurrency(event) {
-      localStorage.setItem("currency", event);
+      localStorage.setItem("currency", event.code);
+      localStorage.setItem("currencyId", event.id);
       location.reload();
     },
     reloadPage() {
@@ -246,6 +248,7 @@ export default {
         window.localStorage.setItem("country", JSON.stringify(res.data.items));
         if (localStorage.getItem("currency") === null) {
           localStorage.setItem("currency", res.data.items.currencies[0].code);
+          localStorage.setItem("currencyId", res.data.items.currencies[0].id);
         }
         this.defaultCurrency = res.data.items.currencies[0].code
       })

@@ -43,6 +43,7 @@ export default {
       payment_type: this.$route.query.payment_type,
       payment: this.$route.query.payment,
       redirectURL: this.$route.query.redirectURL,
+      
     };
   },
   mounted(){

@@ -271,5 +271,8 @@ export default {
   emailVerify:'Email Verify',
   phoneVerify:'Phone Verify',
   selectLang:'Select Language',
-  checkMail:"Check Your E-mail"
+  checkMail:"Check Your E-mail",
+  wallet_visa:'Wallet + Visa',
+  visaPayment:'Visa Payment',
+  walletPayment:'Wallet Payment'
 };

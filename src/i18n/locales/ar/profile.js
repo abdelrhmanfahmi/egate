@@ -263,5 +263,8 @@ export default {
   emailVerify:'تحقق الايميل',
   phoneVerify:'تحقق الهاتف',
   selectLang:'اختر اللغه',
-  checkMail:'من فضلك تحقق من بريدك الالكترونى'
+  checkMail:'من فضلك تحقق من بريدك الالكترونى',
+  wallet_visa:'المحفظه + البطاقه المصرفيه',
+  visaPayment:'عن طؤيق البطاقة المصفرفيه',
+  walletPayment:'عن طريق المحفظه'
 };
