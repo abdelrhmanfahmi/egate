@@ -305,10 +305,20 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 new-wishlist-method">
-                        <div class=" products">
+                        <div class=" products" v-if="buyerUserData">
 
                             <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
-                                @click="$bvModal.show('bv-standingOrders') ; loginFirst()" v-b-tooltip.hover
+                                @click="$bvModal.show('bv-standingOrders')" v-b-tooltip.hover
+                                :title="$t('items.standingOrders')">
+                                <!-- <span role="button" @click="loggedBidRequest"> -->
+                                <!-- {{ $t("singleProduct.bidRequest") }} -->
+                                <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                            </button>
+                        </div>
+                        <div class=" products" v-else>
+
+                            <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                                @click="loginFirst()" v-b-tooltip.hover
                                 :title="$t('items.standingOrders')">
                                 <!-- <span role="button" @click="loggedBidRequest"> -->
                                 <!-- {{ $t("singleProduct.bidRequest") }} -->
