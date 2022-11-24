@@ -266,5 +266,7 @@ export default {
   checkMail:'من فضلك تحقق من بريدك الالكترونى',
   wallet_visa:'المحفظه + البطاقه المصرفيه',
   visaPayment:'عن طؤيق البطاقة المصفرفيه',
-  walletPayment:'عن طريق المحفظه'
+  walletPayment:'عن طريق المحفظه',
+  standOrderName:'اسم القائمه',
+  selectExistStandOrder:'اختر من القوائم المتاحه'
 };

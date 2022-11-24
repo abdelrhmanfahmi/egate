@@ -7,7 +7,7 @@
       <b-row class="justify-content-center align-items-center">
         <!-- country  -->
         <b-col lg="5" class="mb-3">
-          <label>name</label>
+          <label>{{$t('profile.standOrderName')}}</label>
           <span class="requried">*</span>
           <b-form-input id="name" v-model="standingOrder.name" />
           <div class="error" v-for="(error, index) in errors.name" :key="index">
@@ -44,7 +44,7 @@
     </div>
     <div class="my-3">
       <p class="add-address">
-        {{ $t("payment.selectExist") }}
+        {{ $t("profile.selectExistStandOrder") }}
       </p>
     </div>
     <div class="standing-orders">

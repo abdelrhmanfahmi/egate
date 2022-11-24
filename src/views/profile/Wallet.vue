@@ -8,23 +8,42 @@
               <h5 class="balance_text">
                 {{ $t("profile.balance") }}
               </h5>
-              <h4 class="balanc_number">{{ walletData | fixedCurrency }} {{ currency }}</h4>
+              <h4 class="balanc_number">
+                {{ walletData | fixedCurrency }} {{ currency }}
+              </h4>
             </div>
-
           </div>
           <div class="col-md-6 col-sm-12">
             <form @submit.prevent="chargeWallet" class="">
               <div class="row justify-content-center align-items-center">
                 <div class="col-md-8 col-sm-12">
-                  <b-form-input type="number" v-model="chargeValue" :placeholder="$t('profile.enterValue')"
-                    class="mx-2"></b-form-input>
-                  <div class="error text-center" v-for="(error, index) in errors.value" :key="index">
+                  <b-form-input
+                    type="number"
+                    v-model="chargeValue"
+                    :placeholder="$t('profile.enterValue')"
+                    class="mx-2"
+                  ></b-form-input>
+                  <div
+                    class="error text-center"
+                    v-for="(error, index) in errors.value"
+                    :key="index"
+                  >
                     {{ error }}
                   </div>
-
                 </div>
                 <div class="col-md-4 col-sm-12">
-                  <b-button variant="outline-danger" type="submit" class="py-2">{{$t('profile.charge')}}</b-button>
+                  <b-button
+                    variant="outline-danger"
+                    type="submit"
+                    class="py-2"
+                    :disabled="chargeClicked"
+                  >
+                    <span v-if="chargeClicked">
+                      <b-spinner label="Spinning" small></b-spinner>
+                    </span>
+
+                    <span v-else>{{ $t("profile.charge") }}</span>
+                  </b-button>
                 </div>
               </div>
             </form>
@@ -37,7 +56,13 @@
 
         <div class="tab-wrap">
           <!-- active tab on page load gets checked attribute -->
-          <input type="radio" id="recivables" name="tabGroup1" class="tab" checked />
+          <input
+            type="radio"
+            id="recivables"
+            name="tabGroup1"
+            class="tab"
+            checked
+          />
           <label for="recivables">
             <h5>{{ $t("profile.receivables") }}</h5>
           </label>
@@ -50,10 +75,16 @@
           <div class="tab__content">
             <div class="recivables py-3" v-if="recivablesLength > 0">
               <div class="holder text-center" v-if="recivables">
-                <table class="table table-striped table-hover table-bordered selectable">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
                   <thead>
                     <tr>
-                      <th scope="col" v-for="(tab, index) in recivablesHeader" :key="index">
+                      <th
+                        scope="col"
+                        v-for="(tab, index) in recivablesHeader"
+                        :key="index"
+                      >
                         {{ tab.label }}
                       </th>
                     </tr>
@@ -75,13 +106,22 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="d-flex justify-content-center align-items-center mt-5">
-                  <Paginate v-if="recivables && recivablesLength > 1" :total-pages="recivableTotalPages"
-                    :per-page="recivablePerPage" :current-page="recivableRecordsPerPage"
-                    @pagechanged="onRecivablesChange" />
+                <div
+                  class="d-flex justify-content-center align-items-center mt-5"
+                >
+                  <Paginate
+                    v-if="recivables && recivablesLength > 1"
+                    :total-pages="recivableTotalPages"
+                    :per-page="recivablePerPage"
+                    :current-page="recivableRecordsPerPage"
+                    @pagechanged="onRecivablesChange"
+                  />
                 </div>
               </div>
-              <div class="spinner d-flex justify-content-center align-items-center" v-else>
+              <div
+                class="spinner d-flex justify-content-center align-items-center"
+                v-else
+              >
                 <spinner />
               </div>
             </div>
@@ -93,10 +133,16 @@
           <div class="tab__content">
             <div class="payments py-3" v-if="paymentsLength > 0">
               <div class="holder text-center" v-if="payments">
-                <table class="table table-striped table-hover table-bordered selectable">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
                   <thead>
                     <tr>
-                      <th scope="col" v-for="(tab, index) in paymentsHeadrer" :key="index">
+                      <th
+                        scope="col"
+                        v-for="(tab, index) in paymentsHeadrer"
+                        :key="index"
+                      >
                         {{ tab.label }}
                       </th>
                     </tr>
@@ -109,58 +155,66 @@
                       </td>
                       <td>
                         <span v-if="order.created_at">{{
-                        order.created_at | formatDate
+                          order.created_at | formatDate
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.products_count">{{
-                        order.products_count
+                          order.products_count
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
-                        <span v-if="order.amount">{{ order.amount | fixedCurrency }}
-                          {{ currency }}</span>
+                        <span v-if="order.amount"
+                          >{{ order.amount | fixedCurrency }}
+                          {{ currency }}</span
+                        >
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.payment_status">{{
-                        order.payment_status
+                          order.payment_status
                         }}</span>
                         <span v-else></span>
                       </td>
                       <td>
                         <span v-if="order.payment_type">{{
-                        order.payment_type
+                          order.payment_type
                         }}</span>
                         <span v-else></span>
                       </td>
 
                       <td>
-
-                        <router-link :to="{
-                          path: '/viewOrderDetails',
-                          query: { id: `${order.order_id}` },
-                        }" class="text-dark">
+                        <router-link
+                          :to="{
+                            path: '/viewOrderDetails',
+                            query: { id: `${order.order_id}` },
+                          }"
+                          class="text-dark"
+                        >
                           <b-button variant="outline-secondary" class="m-2">
                             {{ $t("profile.view") }}
                           </b-button>
                         </router-link>
-                        <router-link v-if="
-                          order.payment_status === 'Unpaid' &&
-                          order.payment_type === 'bank'
-                        " :to="{
-                          path: '/checkout-details',
-                          query: {
-                            order_serial: order.serial,
-                            date: order.created_at,
-                            total_price: order.total_price,
-                            payment_type: order.payment_type,
-                            payment: order.payment,
-                            uuid: order.uuid,
-                          },
-                        }" class="text-dark">
+                        <router-link
+                          v-if="
+                            order.payment_status === 'Unpaid' &&
+                            order.payment_type === 'bank'
+                          "
+                          :to="{
+                            path: '/checkout-details',
+                            query: {
+                              order_serial: order.serial,
+                              date: order.created_at,
+                              total_price: order.total_price,
+                              payment_type: order.payment_type,
+                              payment: order.payment,
+                              uuid: order.uuid,
+                            },
+                          }"
+                          class="text-dark"
+                        >
                           <b-button variant="outline-success" class="m-2">
                             {{ $t("profile.bankTransDocs") }}
                           </b-button>
@@ -169,12 +223,22 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="d-flex justify-content-center align-items-center mt-5">
-                  <Paginate v-if="payments && paymentsLength > 1" :total-pages="paymentTotalPages"
-                    :per-page="paymentPerPage" :current-page="paymentPage" @pagechanged="onPaymentsPageChange" />
+                <div
+                  class="d-flex justify-content-center align-items-center mt-5"
+                >
+                  <Paginate
+                    v-if="payments && paymentsLength > 1"
+                    :total-pages="paymentTotalPages"
+                    :per-page="paymentPerPage"
+                    :current-page="paymentPage"
+                    @pagechanged="onPaymentsPageChange"
+                  />
                 </div>
               </div>
-              <div class="spinner d-flex justify-content-center align-items-center" v-else>
+              <div
+                class="spinner d-flex justify-content-center align-items-center"
+                v-else
+              >
                 <spinner />
               </div>
             </div>
@@ -281,6 +345,7 @@ export default {
       paymentsLength: 0,
       recivablesLength: 0,
       chargeValue: null,
+      chargeClicked:false
       //
     };
   },
@@ -304,7 +369,7 @@ export default {
           this.paymentTotal = resp.data.items.payments.meta.total;
           this.paymentTotalPages = Math.ceil(
             resp.data.items.payments.meta.total /
-            resp.data.items.payments.meta.per_page
+              resp.data.items.payments.meta.per_page
           ); // Calculate total records
 
           this.paymentTotalRecords = resp.data.items.payments.meta.total;
@@ -323,7 +388,7 @@ export default {
           this.recivableTotal = resp.data.items.receivables.meta.total;
           this.precivableTotalPages = Math.ceil(
             resp.data.items.receivables.meta.total /
-            resp.data.items.receivables.meta.per_page
+              resp.data.items.receivables.meta.per_page
           ); // Calculate total records
 
           this.recivableTotalRecords = resp.data.items.receivables.meta.total;
@@ -353,27 +418,30 @@ export default {
     //   }
     // },
     chargeWallet() {
-
-      const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`
+      this.chargeClicked = true
+      const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`;
       // const backUrl = `${this.mainDoamin}profile/Wallet`
       let payload = {
         value: this.chargeValue,
-        redirect_url: backUrl
-      }
-      profile.chargeMyWallet(payload).then(res => {
-        this.sucessMsg(res.data.message);
-        console.log(res);
-        if(res.status == 200){
-          this.getWallet()
-          window.location.href = res.data.items.url;
-        }
-      }).catch(err => {
-        let errors = Object.values(err)[2].data;
-        this.errors = errors.items
-        this.errMsg(err.message);
-        console.log(err);
-      })
-    }
+        redirect_url: backUrl,
+      };
+      profile
+        .chargeMyWallet(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          console.log(res);
+          if (res.status == 200) {
+            this.getWallet();
+            window.location.href = res.data.items.url;
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+          console.log(err);
+        })
+    },
   },
   mounted() {
     this.getWalletPayments();
@@ -481,7 +549,7 @@ export default {
   display: none;
 }
 
-.tab:checked:nth-of-type(1)~.tab__content:nth-of-type(1) {
+.tab:checked:nth-of-type(1) ~ .tab__content:nth-of-type(1) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -491,7 +559,7 @@ export default {
   text-shadow: 0 0 0;
 }
 
-.tab:checked:nth-of-type(2)~.tab__content:nth-of-type(2) {
+.tab:checked:nth-of-type(2) ~ .tab__content:nth-of-type(2) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -501,7 +569,7 @@ export default {
   text-shadow: 0 0 0;
 }
 
-.tab:checked:nth-of-type(3)~.tab__content:nth-of-type(3) {
+.tab:checked:nth-of-type(3) ~ .tab__content:nth-of-type(3) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -511,7 +579,7 @@ export default {
   text-shadow: 0 0 0;
 }
 
-.tab:checked:nth-of-type(4)~.tab__content:nth-of-type(4) {
+.tab:checked:nth-of-type(4) ~ .tab__content:nth-of-type(4) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -521,7 +589,7 @@ export default {
   text-shadow: 0 0 0;
 }
 
-.tab:checked:nth-of-type(5)~.tab__content:nth-of-type(5) {
+.tab:checked:nth-of-type(5) ~ .tab__content:nth-of-type(5) {
   opacity: 1;
   transition: 0.5s opacity ease-in, 0.8s transform ease;
   position: relative;
@@ -531,32 +599,32 @@ export default {
   text-shadow: 0 0 0;
 }
 
-.tab:first-of-type:not(:last-of-type)+label {
+.tab:first-of-type:not(:last-of-type) + label {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.tab:not(:first-of-type):not(:last-of-type)+label {
+.tab:not(:first-of-type):not(:last-of-type) + label {
   border-radius: 0;
 }
 
-.tab:last-of-type:not(:first-of-type)+label {
+.tab:last-of-type:not(:first-of-type) + label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.tab:checked+label {
+.tab:checked + label {
   background-color: #fff;
   box-shadow: 0 -1px 0 #fff inset;
   cursor: default;
 }
 
-.tab:checked+label:hover {
+.tab:checked + label:hover {
   box-shadow: 0 -1px 0 #fff inset;
   background-color: #fff;
 }
 
-.tab+label {
+.tab + label {
   box-shadow: 0 -1px 0 #eee inset;
   border-radius: 6px 6px 0 0;
   cursor: pointer;
@@ -577,7 +645,7 @@ export default {
   padding: 15px;
 }
 
-.tab+label:hover {
+.tab + label:hover {
   background-color: #f9f9f9;
   box-shadow: 0 1px 0 #f4f4f4 inset;
 }

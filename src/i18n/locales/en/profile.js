@@ -274,5 +274,7 @@ export default {
   checkMail:"Check Your E-mail",
   wallet_visa:'Wallet + Visa',
   visaPayment:'Visa Payment',
-  walletPayment:'Wallet Payment'
+  walletPayment:'Wallet Payment',
+  standOrderName:'Standing Order List Name',
+  selectExistStandOrder:'Select From Standing Order List'
 };
