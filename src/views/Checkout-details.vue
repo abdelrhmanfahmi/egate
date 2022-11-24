@@ -188,7 +188,7 @@ export default {
     };
   },
   mounted() {
-    if (this.payment_type === "cach" || this.payment_type === "wallet") {
+    if (this.payment_type === "cach" || this.payment_type === "wallet" || this.payment_type === "wallet_visa") {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
       }, 8000);

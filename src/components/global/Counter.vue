@@ -4,10 +4,17 @@
       <main>
         <slot name="main">
           <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
-          <input class="form-control text-center border-0" type="text" name="" id="" min="1"
-            @keyup.enter="CustomIncrementQuantity" v-model="countValue" />
+          <input
+            class="form-control text-center border-0"
+            type="text"
+            name=""
+            id=""
+            min="1"
+            @keyup="CustomIncrementQuantity"
+            v-model="countValue"
+          />
 
-            <!-- @keydown="delayChange"  -->
+          <!-- @keydown="delayChange"  -->
         </slot>
       </main>
     </div>
@@ -90,45 +97,45 @@ export default {
       }, 500);
     },
     CustomIncrementQuantity() {
-      console.log(this.countValue);
-      if (this.countValue > 0) {
-        let data = {
-          quantity: this.countValue,
-          uuid: this.product.uuid,
-        };
-        this.$store.dispatch("cart/updateProductFromCart", data);
-        setTimeout(() => {
-          this.$store.dispatch("cart/getCartProducts");
-        }, 300);
+      setTimeout(() => {
+        if (this.countValue > 0) {
+          let data = {
+            quantity: this.countValue,
+            uuid: this.product.uuid,
+          };
+          this.$store.dispatch("cart/updateProductFromCart", data);
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 300);
 
-        setTimeout(() => {
-          this.$emit("changeTitle", this.countValue);
-        }, 500);
-      }
-      if (this.countValue == 0) {
-        let data = {
-          quantity: 1,
-          uuid: this.product.uuid,
-        };
-        this.$store.dispatch("cart/updateProductFromCart", data);
-        setTimeout(() => {
-          this.$store.dispatch("cart/getCartProducts");
-        }, 300);
+          setTimeout(() => {
+            this.$emit("changeTitle", this.countValue);
+          }, 500);
+        }
+        if (this.countValue == 0) {
+          let data = {
+            quantity: 1,
+            uuid: this.product.uuid,
+          };
+          this.$store.dispatch("cart/updateProductFromCart", data);
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 300);
 
-        setTimeout(() => {
-          this.$emit("changeTitle", this.countValue);
-        }, 500);
-      }
+          setTimeout(() => {
+            this.$emit("changeTitle", this.countValue);
+          }, 500);
+        }
+      }, 500);
     },
     delayChange() {
-
       let timeout = null;
       clearTimeout(timeout);
       // Make a new timeout set to go off in 800ms
       timeout = setTimeout(() => {
-        this.CustomIncrementQuantity()
+        this.CustomIncrementQuantity();
       }, 1500);
-    }
+    },
   },
 };
 </script>

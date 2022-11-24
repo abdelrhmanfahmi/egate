@@ -347,6 +347,7 @@ export default {
         }, 500);
       }
     }
+    this.loginNow()
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
