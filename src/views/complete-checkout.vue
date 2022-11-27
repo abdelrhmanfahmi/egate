@@ -96,6 +96,7 @@ export default {
             this.success = false;
             this.fail = true;
           }
+          this.$store.dispatch("cart/getCartProducts")
         })
         .catch((err) => {
           console.log(err);

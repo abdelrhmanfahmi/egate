@@ -3,8 +3,8 @@ export default {
   WelcomeAgain: "مرحبا بك مجددا ",
   fogetPassword: "نسيت كلمة المرور ؟",
   DontHave: "ليس لديك حساب ؟",
-  createAccount: "تسجيل حساب",
-  LoginSocial: "الدخول للاشخاص",
+  createAccount: "انشاء حساب",
+  LoginSocial: "أو الاستمرار بواسطة",
   loginNav: "تسجيل الدخول",
   welcome: "مرحبا",
   logout: "تسجيل خروج",
@@ -19,6 +19,7 @@ export default {
   logBtn2: "لا ، المتابعة بدون تسجيل",
   actionComplete: "من فضلك اكمل العملية",
   wholeSaleBuyer:'المشتري بالجملة',
-  retailBuyer:'مشتري التجزئة'
+  retailBuyer:'عملاء التجزئة',
+  wholeSaleClients:'عملاء الجمله'
 
 };

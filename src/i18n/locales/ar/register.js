@@ -1,14 +1,14 @@
 export default {
-  createCustomerAccount: "تسجيل حساب عملاء",
+  createCustomerAccount: "انشاء حساب عميل تجزئه",
   mainInformation: "المعلومات الاساسية",
   alreadyHaveAccount: "لدي حساب تسجيل الدخول",
   firstName: "الاسم الاول",
   lastName: "اسم العائلة",
-  email: "البريد الالكترونى",
+  email: "البريد الاليكتروني",
   password: "كلمة المرور",
   confirmPassword: "تأكيد كلمة المرور",
-  countryCode: "كود الدولة",
-  phone: "رقم التلفون",
+  countryCode: "رمز الدولة",
+  phone: "رقم الهاتف",
   chooseOneOfTheWays: "اختار احد الطرق لتفعيل حسابك",
   PleaseReview: "يرجى الاطلاع و الموافقة علي",
   termsConditions: "الشروط و الأحكام",
@@ -28,7 +28,7 @@ export default {
   notArrive: "لم يصل ؟ إعادة إرسال",
   openEmail: "يرجى فتح بريدك الإلكتروني للتحقق من حسابك لتتمكن من تسجيل الدخول",
   otpVerify:' يجب عليك تفعيل رقم هاتفك عن طريق رسالة الهاتف',
-  haveNotAccount: "ليس لدي حساب تسجيل حساب جديد",
+  haveNotAccount: "ليس لدي حساب انشاء حساب جديد",
   resetPassword: "يرجى كتابة كلمة المرور الجديدة",
   passwordConfirmation: "إعادة كلمة المرور",
   save: "حفظ",
@@ -36,5 +36,6 @@ export default {
   selectDept: "اختر القسم",
   selectPrefixes:'اختر المسمى',
   newPolicy:'من خلال التسجيل ، فإنك توافق على ',
-  verify:'التحقق'
+  verify:'التحقق',
+  wholeSale:'عملاء الجمله'
 };

@@ -3,6 +3,9 @@
     <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5" body-class="sidebar-login"
       bg-variant="#fff">
       <template #default="{ hide }">
+        <div class="text-center">
+          <h2>{{$t('login.wholeSaleClients')}}</h2>
+        </div>
         <div class="user-login-form">
           <div class="row flex-row justify-content-between align-items-center mb-4 text-dark">
             <div class="col-md-4 col-sm-12" @click="selectType('b2c')">

@@ -4,7 +4,7 @@ export default {
   fogetPassword: "Forgot Password ?",
   DontHave: "Don't have account ?",
   createAccount: "Create account",
-  LoginSocial: "Login by social media",
+  LoginSocial: "Or Continue With",
   loginNav: "login",
   welcome: "welcome",
   logout: "Logout",
@@ -18,7 +18,8 @@ export default {
   logBtn1: "Yes, i want to register",
   logBtn2: "No, Continue as a guest",
   actionComplete: "Complete Action",
-  retailBuyer:'Retail Buyer',
+  retailBuyer:'Retail Clients',
   wholeSaleBuyer:'WholeSale Buyer',
+  wholeSaleClients:'WholeSale Clients',
 
 };
