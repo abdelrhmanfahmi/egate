@@ -159,6 +159,7 @@ export default {
         .then((res) => {
           console.log("getSingleOrders", res);
           this.bankData.uuid = res.data.items.order.uuid;
+          this.$store.dispatch("cart/getCartProducts")
         })
         .catch((err) => {
           console.log(err);

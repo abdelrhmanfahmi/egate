@@ -238,6 +238,7 @@ export default {
             });
           }
           console.log(res);
+          this.$store.dispatch("cart/getCartProducts")
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
