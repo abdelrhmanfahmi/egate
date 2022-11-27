@@ -1030,9 +1030,23 @@ export default {
     localStorage.removeItem("cou");
     // this.getLoggedFirstShippingFees()
 
-    this.paymentFormData.country = this.buyerUserData
-      ? this.buyerUserData.country_id
-      : "";
+    // this.paymentFormData.country = this.buyerUserData
+    //   ? this.buyerUserData.country_id
+    //   : "";
+
+    let selectedCountry = localStorage.getItem('country');
+    // this.getLoggedFirstShippingFees()
+
+      if(this.buyerUserData){
+        this.paymentFormData.country = this.buyerUserData.country_id
+        this.form.country_id = this.buyerUserData.country_id
+        this.getAllRegions()
+      }else if(!this.buyerUserData && selectedCountry){
+        this.paymentFormData.country = JSON.parse(selectedCountry).id
+        this.form.country_id = JSON.parse(selectedCountry).id
+        this.getAllRegions()
+      }
+
     this.paymentFormData.governorate = this.buyerUserData
       ? this.buyerUserData.region_id
       : "";
