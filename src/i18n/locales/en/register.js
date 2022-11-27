@@ -1,5 +1,5 @@
 export default {
-  createCustomerAccount: "create customer account",
+  createCustomerAccount: "Register Retail Custom Account",
   mainInformation: "main information",
   alreadyHaveAccount: "Already have account",
   firstName: "first name",
@@ -23,11 +23,11 @@ export default {
   arabicCompanyName: "Arabic Company Name",
   englishCompanyName: "English Company Name",
   jobTitle: "job title",
-  pleaseVerification: "Please Verification Account",
+  pleaseVerification: "Please Verify Your Account",
   codeSent: "The verification code has been sent to your phone",
-  verificationAccount: "Verification Account",
-  verification: "Verification",
-  notArrive: "not arrived ? Resend",
+  verificationAccount: "Verify Account",
+  verification: "Verify",
+  notArrive: "Did Not Receive ? Resend",
   openEmail: "Please open your email to verify your account to can login",
   otpVerify:'You must verify your Phone number by send otp',
   haveNotAccount: "Don't have account ? Create new account",
@@ -38,5 +38,6 @@ export default {
   selectDept:'Select Department',
   selectPrefixes:'Select Title',
   newPolicy:'By Submitting, you agree to the ',
-  verify:'Verify'
+  verify:'Verify',
+  wholeSale:'Whole Sale Clients'
 };
