@@ -323,8 +323,12 @@ export default {
     this.form.mobile_number = this.buyerUserData.phone
 
     this.form.language = this.buyerUserData.language ? this.buyerUserData.language : 'en'
-    this.form.currency = this.buyerUserData.currency_name ? this.buyerUserData.currency_name : 'KWD'
-    this.form.country = this.userStoredData.country_code;
+    this.form.currency_id = this.buyerUserData.currency_id ? this.buyerUserData.currency_id : '3'
+    this.form.country_id = this.buyerUserData.country_id;
+
+    if (!this.buyerUserData.country_id) {
+      this.reloadPage();
+    }
 
 
 
@@ -332,11 +336,11 @@ export default {
 
     // test 
   },
-  created() {
-    this.reloadPage();
+  // created() {
+  //   this.reloadPage();
 
 
-  },
+  // },
   methods: {
     getAllCountires() {
       auth
@@ -356,9 +360,9 @@ export default {
         job_title: this.form.job_title,
         reg_number: this.form.reg_number,
         portal: "buyer",
-        country_id: this.form.country,
+        country_id: this.form.country_id,
         language: this.form.language,
-        currency_id: this.form.currency,
+        currency_id: this.form.currency_id,
       };
       auth
         .storeInfo(payload)
@@ -428,7 +432,7 @@ export default {
         this.hidePhoneModal()
         // this.$router.push("/otp-verification");
         // location.reload();
-        if(res.data.message == "Success" || res.data.message == "تم بنجاح"){
+        if (res.data.message == "Success" || res.data.message == "تم بنجاح") {
           this.showCheckModal()
         }
       }).catch(error => {
@@ -445,8 +449,8 @@ export default {
     },
     changeLang() {
       // localStorage.setItem("lang", event);
-      localStorage.setItem("lang", this.form.language);
-      location.reload()
+      // localStorage.setItem("lang", this.form.language);
+      // location.reload()
     },
     selectCountry() {
       // localStorage.removeItem("currency");

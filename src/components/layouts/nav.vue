@@ -333,21 +333,22 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.force_login == "true") {
+    if (this.$route.query.force_login && this.$route.query.force_login == "true") {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("buyerUserData");
-      if (document.querySelector(".login")) {
-        setTimeout(() => {
-          document.querySelector(".login").click();
-        }, 0);
-        setTimeout(() => {
-          var newURL = location.href.split("?")[0];
-          window.history.pushState("object", document.title, newURL);
-          console.log(newURL);
-        }, 500);
-      }
+      // if (document.querySelector(".login")) {
+      //   setTimeout(() => {
+      //     document.querySelector(".login").click();
+      //   }, 0);
+      //   setTimeout(() => {
+      //     var newURL = location.href.split("?")[0];
+      //     window.history.pushState("object", document.title, newURL);
+      //     console.log(newURL);
+      //   }, 500);
+      // }
+      this.loginNow()
     }
-    this.loginNow()
+    // this.loginNow()
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);

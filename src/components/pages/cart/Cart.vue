@@ -1331,6 +1331,8 @@ export default {
 
       setTimeout(() => {
         this.getCartProducts();
+        this.existCoupons = []
+        this.coupons = []
       }, 100);
     },
     closeModal() {
@@ -1983,25 +1985,28 @@ export default {
               });
               location.reload();
             }, 500);
-          } else {
+          } 
+          else {
             // console.log(res.data);
-            if (this.buyerUserData) {
-              setTimeout(() => {
-                this.$router.push({
-                  path: "/checkout-details",
-                  query: {
-                    order_serial: res.data.items.order_serial,
-                    date: res.data.items.created_at,
-                    total_price: this.totalPaymentReplacement,
-                    payment_type: res.data.items.payment_type,
-                    payment: res.data.items.payment,
-                    uuid: res.data.items.uuid,
-                    orderId: res.data.items.id,
-                  },
-                });
-                location.reload();
-              }, 500);
-            }
+            // if (this.buyerUserData) {
+            //   setTimeout(() => {
+            //     this.$router.push({
+            //       path: "/checkout-details",
+            //       query: {
+            //         order_serial: res.data.items.order_serial,
+            //         date: res.data.items.created_at,
+            //         total_price: this.totalPaymentReplacement,
+            //         payment_type: res.data.items.payment_type,
+            //         payment: res.data.items.payment,
+            //         uuid: res.data.items.uuid,
+            //         orderId: res.data.items.id,
+            //       },
+            //     });
+            //     location.reload();
+            //   }, 500);
+            // }
+            this.$router.push('/');
+            location.reload()
           }
         })
         .catch((err) => {
