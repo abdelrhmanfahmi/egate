@@ -253,6 +253,10 @@ const routes = [
   ...auth,
   profileRoutes,
 ];
+// router.beforeEach((to, from, next) => {
+//   const lang = to.params.lang
+//   loadLanguageAsync(lang).then(() => next())
+// })
 
 const router = new VueRouter({
   mode: "history",
