@@ -50,26 +50,26 @@ export { getToken };
 // let guestUser = null;
 let guestUser = localStorage.getItem("guest-id");
 
-// let checkGuest = function () {
-//   if (localStorage.getItem("buyerUserData")) {
-//     localStorage.removeItem("guest-id");
-//   } else {
-//     return guestUser ? guestUser : "";
-//   }
-// };
+let checkGuest = function () {
+  if (localStorage.getItem("buyerUserData")) {
+    localStorage.removeItem("guest-id");
+  } else {
+    return guestUser ? guestUser : "";
+  }
+};
 
 
 
 
 
 
-// export { checkGuest };
+export { checkGuest };
 const globalAxios = axios.create({
   baseURL: process.env.VUE_APP_AXSIOS_LINK,
   headers: {
     Authorization: getToken(),
     "Accept-Language": lang,
-    "guest-id": guestUser ? guestUser : "",
+    "guest-id": checkGuest(),
     // "currency-id": country_parsed ? country_parsed.currencies[0].id || 1 : '',
     "currency-id": getCurrency(),
     "country-id": country_parsed ? (country_parsed.id ? country_parsed.id : null) : ''
