@@ -38,6 +38,6 @@ export default {
   remove:'Remove',
   addAllToCart:'Add All To Cart',
   removeGroup:'Remove This Group',
-  backToStrandingList:'Back To Groups',
+  backToStrandingList:'Back To Standing Orders',
   advertise:'Ad'
 };
