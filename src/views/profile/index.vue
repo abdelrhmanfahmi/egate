@@ -73,7 +73,7 @@ export default {
   },
   computed:{
     userBades(){
-      return this.$store.getters.userBadges
+      return this.$store.getters.userBadges // this represent user profile side menu states
     }
   }
 };
