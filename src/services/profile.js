@@ -280,5 +280,8 @@ export default {
   },
   changeProfileEmailMobile(payLoad , userType){
     return globalAxios.post(`members/${userType}/change-client-email-mobile`,payLoad)
+  },
+  getProfileBudges(){
+    return globalAxios.get('members/dashboard-index/client-side-bar')
   }
 };

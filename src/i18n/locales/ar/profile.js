@@ -114,7 +114,7 @@ export default {
   delete: "مسح",
   makeDefaultAddress: "اجعل العنوان الافتراضي",
   //Orders Lists
-  ordersLists: " طلباتى",
+  ordersLists: "طلباتى",
   ordersListsNew: "إنشاء قائمة طلبات جديدة",
   nameDescription: "الاسم والوصف",
   products: "المنتجات",

@@ -39,8 +39,8 @@
       <b-container>
         <b-row>
           <b-col lg="3" md="5">
-            <SideMenu v-if="userInfo.item.type === 'b2c'" />
-            <sideMenuB2b v-else />
+            <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
+            <sideMenuB2b :userBades="userBades" v-else />
           </b-col>
           <b-col lg="9" md="7">
             <router-view></router-view>
@@ -61,6 +61,21 @@ export default {
     sideMenuB2b,
     ProgressSlider,
   },
+  methods: {
+    getProfileBudges() {
+      this.$store.dispatch('getUserBadges')
+    },
+  },
+  mounted(){
+    if(this.buyerUserData){
+      this.getProfileBudges()
+    }
+  },
+  computed:{
+    userBades(){
+      return this.$store.getters.userBadges
+    }
+  }
 };
 </script>
 <style lang="scss">
