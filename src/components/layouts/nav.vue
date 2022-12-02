@@ -19,7 +19,7 @@
               }}</router-link>
             </li> -->
             <!-- new dropdown  -->
-            <li class="humhum-dropdown">
+            <!-- <li class="humhum-dropdown">
               <a class="link">
                 {{ $t("home.navSuppliers") }}
                 <ul class="submenu">
@@ -35,6 +35,9 @@
                   </li>
                 </ul>
               </a>
+            </li> -->
+            <li>
+              <router-link class="link" to="/partners">{{ $t("home.navSuppliers") }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/about">{{

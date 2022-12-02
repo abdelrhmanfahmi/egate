@@ -1,29 +1,105 @@
 <template>
   <div class="profile-menu">
     <h2>{{ $t("profile.myProfile") }}</h2>
-    <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
+    <h5 class="my-3">
+      {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
+    </h5>
 
-    <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
+    <div
+      class="my-2"
+      v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
+    >
       <h5>{{ $t("profile.completeRate") }}</h5>
-      <b-progress class="progress-rate" :class="{'mr-2':$i18n.locale =='en' , 'ml-2':$i18n.locale =='ar'}" :value="buyerUserData.profile_percentage" max="100" show-progress animated
-        variant="danger"></b-progress>
+      <b-progress
+        class="progress-rate"
+        :class="{ 'mr-2': $i18n.locale == 'en', 'ml-2': $i18n.locale == 'ar' }"
+        :value="buyerUserData.profile_percentage"
+        max="100"
+        show-progress
+        animated
+        variant="danger"
+      ></b-progress>
     </div>
 
     <ul v-if="!buyerLinks">
-      <li v-for="(link, index) in buyerLinks" :key="index"
-        :class="{ 'd-none': link.name === 'Subscribe to the newsletter' && buyerUserData.register_mailing_list }">
+      <li
+        v-for="(link, index) in buyerLinks"
+        :key="index"
+        :class="{
+          'd-none':
+            link.name === 'Subscribe to the newsletter' &&
+            buyerUserData.register_mailing_list,
+        }"
+      >
         <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="link.name === 'My Orders' || link.name === 'طلباتى'"
+            >{{ userBades.orders }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="
+              link.name === 'Return Requests' || link.name === 'طلبات الاسترجاع'
+            "
+            >{{ userBades.returns }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="
+              link.name === 'Supplier Messages' ||
+              link.name === 'مراسلات المورد'
+            "
+            >{{ userBades.client_messages }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="link.name === 'Quotations' || link.name === 'عروض الاسعار'"
+            >{{ userBades.rfqs }}</span
+          >
         </router-link>
       </li>
     </ul>
     <ul v-else>
-      <li v-for="(link, index) in socialLinks" :key="index"
-        :class="{ 'd-none': link.name === 'Subscribe to the newsletter' && buyerUserData.register_mailing_list }">
+      <li
+        v-for="(link, index) in socialLinks"
+        :key="index"
+        :class="{
+          'd-none':
+            link.name === 'Subscribe to the newsletter' &&
+            buyerUserData.register_mailing_list,
+        }"
+      >
         <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="link.name === 'My Orders' || link.name === 'طلباتى'"
+            >{{ userBades.orders }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="
+              link.name === 'Return Requests' || link.name === 'طلبات الاسترجاع'
+            "
+            >{{ userBades.returns }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="
+              link.name === 'Supplier Messages' ||
+              link.name === 'مراسلات المورد'
+            "
+            >{{ userBades.client_messages }}</span
+          >
+          <span
+            class="bg-danger border border-light rounded-circle"
+            v-if="link.name === 'Quotations' || link.name === 'عروض الاسعار'"
+            >{{ userBades.rfqs }}</span
+          >
         </router-link>
       </li>
     </ul>
@@ -234,6 +310,7 @@ export default {
       ],
     };
   },
+  props: ["userBades"],
 };
 </script>
 

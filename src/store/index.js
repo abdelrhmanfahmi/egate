@@ -35,6 +35,7 @@ export default new Vuex.Store({
     firebaseToken: null,
     notifications: null,
     notificationsLength: null,
+    badges: null,
   },
   getters: {
     userInfo(state) {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     userGuestId(state) {
       return state.guestId;
+    },
+    userBadges(state) {
+      return state.badges;
     },
   },
   mutations: {
@@ -65,6 +69,9 @@ export default new Vuex.Store({
     },
     SET_NOTIFICATIONS_LENGTH(state, notificationsLength) {
       state.notificationsLength = notificationsLength;
+    },
+    SET_USER_BADGES(state, userBadges) {
+      state.badges = userBadges;
     },
   },
   actions: {
@@ -104,7 +111,7 @@ export default new Vuex.Store({
     },
     async generateFirebaseToken({ commit }) {
       let serviceWorkerRegistration;
-      if ((process.env.NODE_ENV == "development")) {
+      if (process.env.NODE_ENV == "development") {
         serviceWorkerRegistration = await navigator.serviceWorker.register(
           `${process.env.VUE_APP_LOCAL}firebase-messaging-sw.js`
         );
@@ -142,14 +149,22 @@ export default new Vuex.Store({
       try {
         profile.getNotificatinos().then((res) => {
           commit("SET_NOTIFICATIONS", res.data.items.notifications.data);
-          commit(
-            "SET_NOTIFICATIONS_LENGTH",
-            res.data.items.count
-          );
+          commit("SET_NOTIFICATIONS_LENGTH", res.data.items.count);
         });
       } catch (error) {
         console.log(error);
       }
+    },
+    getUserBadges({commit}) {
+      profile
+        .getProfileBudges()
+        .then((res) => {
+          console.log(res);
+          commit('SET_USER_BADGES' , res.data.items)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   modules: {

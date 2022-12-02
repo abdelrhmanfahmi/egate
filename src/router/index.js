@@ -33,6 +33,7 @@ import termsConditions from "../views/termsConditions.vue";
 import faq from "../views/faq.vue";
 import Clients from "../views/Clients.vue";
 import StandingOrder from "../views/StandingOrder.vue";
+import Partners from "../views/Partners.vue";
 
 // import test from "@/components/test.vue";
 
@@ -244,6 +245,11 @@ const routes = [
     path: "/StandingOrder",
     name: "StandingOrder",
     component: StandingOrder,
+  },
+  {
+    path: "/Partners",
+    name: "Partners",
+    component: Partners,
   },
   // {
   //   path: "/test",
