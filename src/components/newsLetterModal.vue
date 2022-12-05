@@ -1,18 +1,22 @@
 <template>
-  <div class="container newsletter-popup-container" id="newsletter-popup-form">
+  <div
+    class="container newsletter-popup-container"
+    id="newsletter-popup-form"
+    v-if="isLoaded"
+  >
     <div class="row justify-content-center">
       <div class="col-12">
         <div
           class="row justify-content-center align-items-center newsletter-popup-content"
         >
           <div class="col-12">
-
             <b-img-lazy
               :src="newsletterShow.image_path"
               height="420"
               class="newsletter-img"
               width="800"
-              alt="newsletter"
+              alt="ad"
+              @load="onImgLoad"
             ></b-img-lazy>
           </div>
         </div>
@@ -65,6 +69,7 @@ export default {
   data: function () {
     return {
       checkState: false,
+      isLoaded: false,
     };
   },
   watch: {
@@ -83,6 +88,9 @@ export default {
       }
 
       this.$emit("close");
+    },
+    onImgLoad() {
+      return (this.isLoaded = true);
     },
   },
   props: ["newsletterShow"],

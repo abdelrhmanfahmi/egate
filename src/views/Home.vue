@@ -134,10 +134,9 @@ export default {
     this.getSupplierAds();
   },
   mounted() {
-    console.log("this.existSupplierAds", this.existSupplierAds);
 
     setTimeout(() => {
-      if (this.$route.path == '/' && this.supplierAds) {
+      if (this.$route.path == '/' && this.supplierAds &&  this.supplierAds.bannar) {
         this.$modal.show(
           supplierAdsModal,
           { supplierAds: this.supplierAds },
@@ -149,7 +148,7 @@ export default {
 
 
     setTimeout(() => {
-      if (this.$route.path == '/' && this.newsletterShow) {
+      if (this.$route.path == '/' && this.newsletterShow && this.newsletterShow.image_path) {
         this.$modal.show(
           NewsletterModal,
           { newsletterShow: this.newsletterShow },

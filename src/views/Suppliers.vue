@@ -60,7 +60,7 @@
   </div>
 </template>
 <script>
-import SingleSupplier from "../components/pages/suppliers/SingleSupplier.vue";
+import SingleSupplier from "@/components/pages/suppliers/SingleSupplier.vue";
 import suppliers from "@/services/suppliers";
 // import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";

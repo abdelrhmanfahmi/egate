@@ -6,14 +6,20 @@
           {{ $t("items.standingOrderProducts") }}
         </h5>
         <div class="d-flex float-right px-5 pb-5" v-if="ordersLength > 0">
-          <b-button @click="
-  showCartModal();
-          " variant="outline-success" class="mx-2">
-            {{ $t('items.addAllToCart') }}
+          <b-button
+            @click="showCartModal()"
+            variant="outline-success"
+            class="mx-2"
+          >
+            {{ $t("items.addAllToCart") }}
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </b-button>
-          <b-button @click="showDeleteModal()" variant="outline-danger" class="mx-2">
-            {{ $t('items.removeGroup') }}
+          <b-button
+            @click="showDeleteModal()"
+            variant="outline-danger"
+            class="mx-2"
+          >
+            {{ $t("items.removeGroup") }}
             <font-awesome-icon icon="fa-solid fa-trash-can" />
           </b-button>
         </div>
@@ -33,82 +39,132 @@
                 <tbody v-for="(item, index) in orders" :key="index">
                   <tr v-if="item.product_supplier">
                     <td class="text-center">
-                      <router-link :to="{
-                        path: '/details',
-                        query: { id: item.product_supplier_id },
-                      }">
-                        <div class="d-block text-center" v-if="item.product_supplier.current_main_image_path">
-                          <img :src="item.product_supplier.current_main_image_path" alt="wishlist-product-image"
-                            class="product-img" />
+                      <router-link
+                        :to="{
+                          path: '/details',
+                          query: { id: item.product_supplier_id },
+                        }"
+                      >
+                        <div
+                          class="d-block text-center"
+                          v-if="item.product_supplier.current_main_image_path"
+                        >
+                          <img
+                            :src="item.product_supplier.current_main_image_path"
+                            alt="wishlist-product-image"
+                            class="product-img"
+                          />
                         </div>
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <router-link class="text-dark" :to="{
-                        path: '/details',
-                        query: { id: item.product_supplier_id },
-                      }">
-                        <p v-if="item.product_supplier.product"
-                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
-                          <span>{{ item.product_supplier.product.title }}
+                      <router-link
+                        class="text-dark"
+                        :to="{
+                          path: '/details',
+                          query: { id: item.product_supplier_id },
+                        }"
+                      >
+                        <p
+                          v-if="item.product_supplier.product"
+                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+                        >
+                          <span
+                            >{{ item.product_supplier.product.title }}
                           </span>
                         </p>
                       </router-link>
                     </td>
-                    <td class="text-center">{{ item.quantity }}</td>
+                    <!-- <td class="text-center">{{ item.quantity }}</td> -->
                     <td class="text-center">
-                      <p class="price" v-if="item.product_supplier.product_details_by_type">
-                        <span v-if="
-                          item.product_supplier.product_details_by_type.price
-                        ">
+                      <Variants-Counter
+                        :minimum="1"
+                        class="justify-content-center"
+                        :quantity="item.quantity"
+                        @changeCount="
+                          ChangeCounter(
+                            $event,
+                            item
+                          )
+                        "
+                      ></Variants-Counter>
+                    </td>
+                    <td class="text-center">
+                      <p
+                        class="price"
+                        v-if="item.product_supplier.product_details_by_type"
+                      >
+                        <span
+                          v-if="
+                            item.product_supplier.product_details_by_type.price
+                          "
+                        >
                           {{
-                              item.product_supplier.product_details_by_type.price
+                            item.product_supplier.product_details_by_type.price
                               | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                         <br />
-                        <span class="price-after" v-if="
-                          item.product_supplier.product_details_by_type
-                            .price_before_discount &&
-                          item.product_supplier.product_details_by_type
-                            .price_before_discount >
-                          item.product_supplier.product_details_by_type
-                            .price
-                        ">
-                          {{
+                        <span
+                          class="price-after"
+                          v-if="
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount &&
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount >
                               item.product_supplier.product_details_by_type
-                                .price_before_discount | fixedCurrency
+                                .price
+                          "
+                        >
+                          {{
+                            item.product_supplier.product_details_by_type
+                              .price_before_discount | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                       </p>
                     </td>
                     <td class="text-center">
-                      <div v-if="item.product_supplier.product_details_by_type"
-                        class="actions d-flex justify-content-center align-items-center">
+                      <div
+                        v-if="item.product_supplier.product_details_by_type"
+                        class="actions d-flex justify-content-center align-items-center"
+                      >
                         <!-- <b-button @click="addToWishlist(item)">
                           <font-awesome-icon icon="fa-solid fa-star" />
                         </b-button> -->
-                        <a class="text-danger d-flex justify-content-center align-items-center"
-                          @click="addToWishlist(item)" v-if="item.product_supplier.is_favorite == true"
-                          v-b-tooltip.hover :title="$t('items.addedToFavourite')">
+                        <a
+                          class="text-danger d-flex justify-content-center align-items-center"
+                          @click="addToWishlist(item)"
+                          v-if="item.product_supplier.is_favorite == true"
+                          v-b-tooltip.hover
+                          :title="$t('items.addedToFavourite')"
+                        >
                           <font-awesome-icon icon="fa-solid fa-star" />
                         </a>
-                        <a @click="addToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
-                          class="d-flex justify-content-center align-items-center text-dark" v-else>
+                        <a
+                          @click="addToWishlist(item)"
+                          v-b-tooltip.hover
+                          :title="$t('items.addToFavourite')"
+                          class="d-flex justify-content-center align-items-center text-dark"
+                          v-else
+                        >
                           <font-awesome-icon icon="fa-solid fa-star" />
                         </a>
 
-                        <b-button @click="addToCart(item)" v-if="
-                          item.product_supplier.product_details_by_type
-                            .add_type === 'cart' ||
-                          item.product_supplier.product_details_by_type
-                            .add_type === 'both'
-                        ">
+                        <b-button
+                          @click="addToCart(item)"
+                          v-if="
+                            item.product_supplier.product_details_by_type
+                              .add_type === 'cart' ||
+                            item.product_supplier.product_details_by_type
+                              .add_type === 'both'
+                          "
+                        >
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                         </b-button>
-                        <button @click="chooseProduct(item.product_supplier)"
+                        <button
+                          @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
                             (item.product_supplier.product_details_by_type
@@ -116,11 +172,14 @@
                               item.product_supplier.product_details_by_type
                                 .add_type === 'both') &&
                             buyerUserData
-                          ">
+                          "
+                        >
                           <div>
-                            <button id="show-btn"
+                            <button
+                              id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                              @click="$bvModal.show('bv-bidRequest')">
+                              @click="$bvModal.show('bv-bidRequest')"
+                            >
                               <!-- <span role="button" @click="loggedBidRequest"> -->
                               <span>
                                 <rfqIcon class="mx-2" />
@@ -137,21 +196,32 @@
                 </tbody>
               </table>
 
-              <div class="text-center d-flex justify-content-center align-items-center mt-5">
-                <Paginate v-if="wishlistItems" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-                  @pagechanged="onPageChange" />
+              <div
+                class="text-center d-flex justify-content-center align-items-center mt-5"
+              >
+                <Paginate
+                  v-if="wishlistItems"
+                  :total-pages="totalPages"
+                  :per-page="totalPages"
+                  :current-page="page"
+                  @pagechanged="onPageChange"
+                />
               </div>
             </div>
           </div>
         </div>
         <div class="text-center" v-else>
-          <h6>{{ $t('cart.noData') }}</h6>
-          <b-button variant="outline-success" to="/profile/standingOrders">{{ $t('items.backToStrandingList') }}
+          <h6>{{ $t("cart.noData") }}</h6>
+          <b-button variant="outline-success" to="/profile/standingOrders"
+            >{{ $t("items.backToStrandingList") }}
             <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
           </b-button>
         </div>
       </div>
-      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-else
+      >
         <img src="@/assets/images/wishlist.png" alt="cart-image" />
         <div class="spinner-border text-secondary" role="status">
           <span class="sr-only"></span>
@@ -165,58 +235,114 @@
       </template>
       <form>
         <div class="form-group">
-          <label for="">{{ $t("singleProduct.nameInput") }}
-            <span class="text-danger">*</span></label>
+          <label for=""
+            >{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label
+          >
           <input type="text" class="form-control" v-model="requestData.name" />
-          <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.qoute_name"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for="">{{ $t("singleProduct.min_order_quantity") }}
-            <span class="text-danger">*</span></label>
-          <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
-          <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
+          <label for=""
+            >{{ $t("singleProduct.min_order_quantity") }}
+            <span class="text-danger">*</span></label
+          >
+          <input
+            type="number"
+            min="1"
+            class="form-control"
+            v-model="requestData.request_qty"
+          />
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.request_qty"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for="">{{ $t("singleProduct.reviewInput") }}
-            <span class="text-danger">*</span></label>
-          <textarea class="form-control" v-model="requestData.comment"></textarea>
-          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+          <label for=""
+            >{{ $t("singleProduct.reviewInput") }}
+            <span class="text-danger">*</span></label
+          >
+          <textarea
+            class="form-control"
+            v-model="requestData.comment"
+          ></textarea>
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.comment"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
       </form>
       <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-          $t("cart.submit")
+        $t("cart.submit")
       }}</b-button>
     </b-modal>
-    <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('items.deleteGroup')">
-      <div class="d-block">
-      </div>
+    <b-modal
+      ref="delete-modal"
+      id="modal-center"
+      centered
+      hide-footer
+      :title="$t('items.deleteGroup')"
+    >
+      <div class="d-block"></div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal">{{ $t('cart.cancel') }}
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            block
+            @click="hideDeleteModal"
+            >{{ $t("cart.cancel") }}
           </b-button>
         </div>
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-success" block @click="deleteStandingOrder">{{ $t('items.remove') }}
+          <b-button
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="deleteStandingOrder"
+            >{{ $t("items.remove") }}
           </b-button>
         </div>
       </div>
     </b-modal>
-    <b-modal ref="cart-modal" id="modal-center" centered hide-footer :title="$t('items.addAllToCart')">
-      <div class="d-block">
-      </div>
+    <b-modal
+      ref="cart-modal"
+      id="modal-center"
+      centered
+      hide-footer
+      :title="$t('items.addAllToCart')"
+    >
+      <div class="d-block"></div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-danger" block @click="hideCartModal">{{ $t('cart.cancel') }}
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            block
+            @click="hideCartModal"
+            >{{ $t("cart.cancel") }}
           </b-button>
         </div>
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-success" block @click="addAllToCart">{{ $t('items.addAllToCart') }}
+          <b-button
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="addAllToCart"
+            >{{ $t("items.addAllToCart") }}
           </b-button>
         </div>
       </div>
@@ -231,7 +357,7 @@ import Paginate from "@/components/global/Paginate.vue";
 import rfqIcon from "@/components/global/rfqIcon.vue";
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
-
+import VariantsCounter from "@/components/global/variantsCounter.vue";
 export default {
   data() {
     return {
@@ -255,12 +381,14 @@ export default {
       },
       errors: [],
       selectedProduct: null,
+      cartCounter:1
     };
   },
   components: {
     // Counter,
     Paginate,
     rfqIcon,
+    VariantsCounter,
   },
   methods: {
     addToWishlist(item) {
@@ -289,10 +417,13 @@ export default {
     addToCart(item) {
       let data = {
         product_supplier_id: item.product_supplier_id,
-        quantity: item.product_supplier.product_details_by_type
-          .min_order_quantity
-          ? item.product_supplier.product_details_by_type.min_order_quantity
+        quantity: this.cartCounter
+          ? this.cartCounter
           : 1,
+        // quantity: item.product_supplier.product_details_by_type
+        //   .min_order_quantity
+        //   ? item.product_supplier.product_details_by_type.min_order_quantity
+        //   : 1,
       };
 
       return globalAxios
@@ -319,6 +450,9 @@ export default {
           setTimeout(() => {
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
+          setTimeout(() => {
+            this.$router.go(this.$router.RouterLink)
+          }, 600);
         });
     },
     onPageChange(page) {
@@ -376,7 +510,7 @@ export default {
         .removeProductFromStandingOrder(payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          this.$emit('removeItem')
+          this.$emit("removeItem");
         })
         .catch((err) => {
           let errors = Object.values(err)[2].data;
@@ -386,20 +520,22 @@ export default {
     },
     addAllToCart() {
       let payload = {
-        client_standing_id : this.id
-      }
-      profile.addAllToCart(payload).then(res => {
-        console.log(res);
-        if(res.data.message){
-
-          this.sucessMsg(res.data.message);
-        }
-        this.hideCartModal()
-        this.$store.dispatch("cart/getCartProducts");
-      }).catch(err => {
-        this.errMsg(err.message);
-        console.log(err);
-      })
+        client_standing_id: this.id,
+      };
+      profile
+        .addAllToCart(payload)
+        .then((res) => {
+          console.log(res);
+          if (res.data.message) {
+            this.sucessMsg(res.data.message);
+          }
+          this.hideCartModal();
+          this.$store.dispatch("cart/getCartProducts");
+        })
+        .catch((err) => {
+          this.errMsg(err.message);
+          console.log(err);
+        });
     },
     deleteStandingOrder() {
       profile
@@ -410,10 +546,9 @@ export default {
             this.sucessMsg(res.data.message);
             this.hideDeleteModal();
             setTimeout(() => {
-              this.$router.push('/profile/StandingOrders')
+              this.$router.push("/profile/StandingOrders");
             }, 500);
           }
-
         })
         .catch((err) => {
           this.errMsg(err.message);
@@ -431,6 +566,10 @@ export default {
     },
     hideCartModal() {
       this.$refs["cart-modal"].hide();
+    },
+     ChangeCounter(cartCounter) {
+      this.cartCounter = cartCounter;
+      console.log(cartCounter);
     },
     // selectGroupToEdit(order) {
     //   this.selectedOrder = order;

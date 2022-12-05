@@ -1,54 +1,114 @@
 <template>
-  <div class="notifications clients px-3 py-5 text-center">
-    <div class="container">
+  <div class="suppliers-body suppliers clients px-3 py-5 text-center">
+    <!-- <div class="container">
       <div class="text-center">
         <h1>
           {{ $t("home.clients") }}
         </h1>
       </div>
       <div class="row data-holder">
-        <div class="col-md-3 col-sm-12" v-for="(client, index) in clients" :key="index">
+        <div
+          class="col-md-3 col-sm-12"
+          v-for="(client, index) in clients"
+          :key="index"
+        >
           <div class="new-message-box">
             <div class="new-message-box-warning">
               <div class="p-2">
                 <div>
-                  <!-- <div to="" class="btn btn-sm" @click="goClientPage(client)"> -->
 
                   <b-media>
                     <template #aside>
-                      <img :src="client.image_path" alt="Media Aside" class="client_image" v-if="client.image_path" >
-                      <img src="@/assets/images/default-client-logo.jpeg" class="client_image" alt="Media Aside" v-else>
+                      <img
+                        :src="client.image_path"
+                        alt="Media Aside"
+                        class="client_image"
+                        v-if="client.image_path"
+                      />
+                      <img
+                        src="@/assets/images/default-client-logo.jpeg"
+                        class="client_image"
+                        alt="Media Aside"
+                        v-else
+                      />
                     </template>
 
                     <h5 class="text-capitalize">{{ client.name }}</h5>
-
-                    <!-- b-[Optional: add media children here for nesting] -->
                   </b-media>
-                  <!-- <div to="" class="btn btn-sm">
-                    <h5>
-                      <b>{{ client.name }}</b>
-                    </h5>
-                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center align-items-center mt-5" v-if="clientsLength > 1">
-        <Paginate v-if="clients" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-          @pagechanged="onPageChange" />
+      <div
+        class="d-flex justify-content-center align-items-center mt-5"
+        v-if="clientsLength > 1"
+      >
+        <Paginate
+          v-if="clients"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
+    </div> -->
+    <div class="suppliers py-4">
+      <div class="container">
+        <b-row v-if="loading">
+          <b-col class="mb-2" lg="2" sm="6" v-for="x in 10" :key="x">
+            <b-skeleton-img></b-skeleton-img>
+            <b-card>
+              <b-skeleton
+                animation="fade"
+                width="60%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="85%"
+                class="border-none"
+              ></b-skeleton>
+            </b-card>
+          </b-col>
+        </b-row>
+        <div class="row suppliers-data justify-content-center" v-else>
+          <div
+            class="col-12 col-sm-6 col-md-4 col-lg-2 mx-2 supplier-content"
+            v-for="(client, index) in clients"
+            :key="index"
+          >
+            <SingleClient :supplier="client"></SingleClient>
+          </div>
+        </div>
+        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
+
+        <div
+        class="d-flex justify-content-center align-items-center mt-5"
+        v-if="clientsLength > 1"
+      >
+        <Paginate
+          v-if="clients"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
       </div>
     </div>
   </div>
 </template>
-  
+
 <script>
 import Paginate from "@/components/global/Paginate.vue";
 import suppliers from "@/services/suppliers";
+import SingleClient from "@/components/pages/suppliers/SingleClient.vue";
 export default {
   components: {
     Paginate,
+    SingleClient
   },
   methods: {
     getClients() {
@@ -62,7 +122,7 @@ export default {
           this.total = resp.data.items.suppliers.meta.total;
           this.totalPages = Math.ceil(
             resp.data.items.suppliers.meta.total /
-            resp.data.items.suppliers.meta.per_page
+              resp.data.items.suppliers.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.suppliers.meta.total;
@@ -87,9 +147,8 @@ export default {
     goClientPage(client) {
       this.$router.push({
         path: `/suppliers/${client.id}`,
-
-      })
-    }
+      });
+    },
   },
   mounted() {
     this.getClients();
@@ -111,7 +170,7 @@ export default {
   },
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .notifications {
   .new-message-box {
@@ -348,15 +407,21 @@ export default {
 .unreaded {
   background: #8bc34a !important;
 }
-.media{
+.media {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.client_image{
+.client_image {
   width: 80px;
   height: 50px;
   object-fit: contain;
 }
+.suppliers {
+  background-color: #f9f8f5;
+
+}
+.supplier-content{
+  padding: 0.6rem;
+}
 </style>
-  

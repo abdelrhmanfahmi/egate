@@ -36,27 +36,38 @@
           <span>{{ link.name }}</span>
           <span
             class="bg-danger border border-light rounded-circle"
-            v-if="link.name === 'My Orders' || link.name === 'طلباتى'"
+            v-if="
+              (userBades && userBades.orders && link.name === 'My Orders') ||
+              link.name === 'طلباتى'
+            "
             >{{ userBades.orders }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              link.name === 'Return Requests' || link.name === 'طلبات الاسترجاع'
+              (userBades &&
+                userBades.returns &&
+                link.name === 'Return Requests') ||
+              link.name === 'طلبات الاسترجاع'
             "
             >{{ userBades.returns }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              link.name === 'Supplier Messages' ||
+              (userBades &&
+                userBades.client_messages &&
+                link.name === 'Supplier Messages') ||
               link.name === 'مراسلات المورد'
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
-            v-if="link.name === 'Quotations' || link.name === 'عروض الاسعار'"
+            v-if="
+              (userBades && userBades.rfqs && link.name === 'Quotations') ||
+              link.name === 'عروض الاسعار'
+            "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
@@ -77,27 +88,38 @@
           <span>{{ link.name }}</span>
           <span
             class="bg-danger border border-light rounded-circle"
-            v-if="link.name === 'My Orders' || link.name === 'طلباتى'"
+            v-if="
+              (userBades && userBades.orders && link.name === 'My Orders') ||
+              link.name === 'طلباتى'
+            "
             >{{ userBades.orders }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              link.name === 'Return Requests' || link.name === 'طلبات الاسترجاع'
+              (userBades &&
+                userBades.returns &&
+                link.name === 'Return Requests') ||
+              link.name === 'طلبات الاسترجاع'
             "
             >{{ userBades.returns }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              link.name === 'Supplier Messages' ||
+              (userBades &&
+                userBades.client_messages &&
+                link.name === 'Supplier Messages') ||
               link.name === 'مراسلات المورد'
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
-            v-if="link.name === 'Quotations' || link.name === 'عروض الاسعار'"
+            v-if="
+              (userBades && userBades.rfqs && link.name === 'Quotations') ||
+              link.name === 'عروض الاسعار'
+            "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
