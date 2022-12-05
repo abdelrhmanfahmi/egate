@@ -72,10 +72,11 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 500);
-      // this.$emit('changeTitle',this.countValue)
+      
 
       setTimeout(() => {
         this.$emit("changeTitle", this.countValue);
+        this.$emit('changeStand') // if in standing order
       }, 500);
     },
     decrementQuantity() {
@@ -86,7 +87,7 @@ export default {
         uuid: this.product.uuid,
       };
 
-      // this.$emit('changeTitle',this.countValue)
+      
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
@@ -94,6 +95,7 @@ export default {
 
       setTimeout(() => {
         this.$emit("changeTitle", this.countValue);
+        this.$emit('changeStand') // if in standing order
       }, 500);
     },
     CustomIncrementQuantity() {

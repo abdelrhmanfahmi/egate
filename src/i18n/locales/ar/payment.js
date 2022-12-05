@@ -24,7 +24,7 @@ export default {
   paymentByBank: "الدفع عن طريق البنك",
   paymentWhenReceiving: "الدفع عند الاستلام",
   requestReceipt: "الدفع مع استلام الطلب",
-  onlinePayment: "الدفع الاونلاين",
+  onlinePayment: "التحويل لحسابى",
   accept: "انا موافق على",
   termsAndConditions: "الشروط والأحكام",
   checkout: "الدفع",
