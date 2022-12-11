@@ -176,6 +176,11 @@ export default {
           iconName: "shop",
         },
         {
+          to: "/profile/dashboard",
+          name: this.$t("profile.dashboard"),
+          iconName: "dashboard",
+        },
+        {
           to: "/profile/shopping-cart",
           name: this.$t("profile.shoppingCart"),
           iconName: "cart-shopping",
@@ -252,6 +257,11 @@ export default {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
           iconName: "shop",
+        },
+        {
+          to: "/profile/dashboard",
+          name: this.$t("profile.dashboard"),
+          iconName: "dashboard",
         },
         {
           to: "/profile/shopping-cart",
