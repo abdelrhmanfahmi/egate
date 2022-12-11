@@ -62,15 +62,18 @@ export async function loadLanguageAsync(lang) {
         lang:lang
       }
     });
-    let messages = jsonParser(data?.items?.translations);
+    let messages = jsonParser(data?.data?.items?.translation?.data);
 
+    
     if (messages != null) {
-      i18n.setLocaleMessage(lang, messages.default)
+      console.log('messages' , messages);
+      i18n.setLocaleMessage(lang, messages)
       loadedLanguages.push(lang)
       return setI18nLanguage(lang)
     }
 
   } catch (e) {
+    console.log('error' , e);
     i18n.setLocaleMessage(lang, locales[lang] ||locales['en'])
     loadedLanguages.push(lang)
     return setI18nLanguage(lang)
