@@ -458,8 +458,8 @@
                     buyerUserData.is_verified)
                 ">
                   <a class="d-flex justify-content-center align-items-center cart-link" @click="addToCart(product)"
-                    v-if="
-                      product.product_details_by_type.add_type === 'cart' ||
+                    v-if="cartAvailable  == 'available' && 
+                      product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
                       product.product_details_by_type.add_type === 'both'
                     " v-b-tooltip.hover :title="$t('items.addToCart')">
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
@@ -476,9 +476,9 @@
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div class="d-flex justify-content-center" v-if="
+                  <div class="d-flex justify-content-center" v-if="RfqAvailable  == 'available' && 
                     (buyerUserData &&
-                      product.product_details_by_type.add_type === 'rfq') ||
+                      product.product_details_by_type.add_type === 'rfq') || RfqAvailable  == 'available' &&
                     (buyerUserData &&
                       product.product_details_by_type.add_type === 'both')
                   ">
@@ -505,7 +505,7 @@
                     </button>
                   </div>
                   <!-- add standing orders  -->
-                  <div>
+                  <div v-if="RfqAvailable  == 'available'">
 
                     <button id="show-btn" class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
                       @click="$bvModal.show('bv-standingOrders') ; selectStandingProduct(product)" v-b-tooltip.hover :title="$t('items.standingOrders')">
@@ -536,8 +536,8 @@
                   </router-link>
                 </div>
                 <div class="add-to d-flex justify-content-center" v-else-if="!buyerUserData">
-                  <a class="cart-link" @click="addToCart(product)" v-if="
-                    product.product_details_by_type.add_type === 'cart' ||
+                  <a class="cart-link" @click="addToCart(product)" v-if="cartAvailable  == 'available' &&  
+                    product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
                     product.product_details_by_type.add_type === 'both'
                   " v-b-tooltip.hover :title="$t('items.addToCart')">
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
@@ -560,7 +560,7 @@
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div v-if="!buyerUserData">
+                  <div v-if="!buyerUserData && RfqAvailable  == 'available'">
                     <button v-b-modal.modal-xl id="show-btn"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart" @click="loginFirst"
                       v-b-tooltip.hover :title="$t('singleProduct.bidRequest')">

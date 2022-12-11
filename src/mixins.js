@@ -38,6 +38,12 @@ Vue.mixin({
     },
     currentLang(){
       return localStorage.getItem('lang')
+    },
+    cartAvailable(){
+      return localStorage.getItem('cartAvailable')
+    },
+    RfqAvailable(){
+      return localStorage.getItem('RfqAvailable')
     }
   },
   methods: {

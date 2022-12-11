@@ -154,9 +154,9 @@
 
                         <b-button
                           @click="addToCart(item)"
-                          v-if="
+                          v-if="cartAvailable  == 'available' && 
                             item.product_supplier.product_details_by_type
-                              .add_type === 'cart' ||
+                              .add_type === 'cart' || cartAvailable  == 'available' && 
                             item.product_supplier.product_details_by_type
                               .add_type === 'both'
                           "
@@ -166,9 +166,9 @@
                         <button
                           @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                          v-if="
+                          v-if="RfqAvailable  == 'available' && 
                             (item.product_supplier.product_details_by_type
-                              .add_type === 'rfq' ||
+                              .add_type === 'rfq' || RfqAvailable  == 'available' &&
                               item.product_supplier.product_details_by_type
                                 .add_type === 'both') &&
                             buyerUserData

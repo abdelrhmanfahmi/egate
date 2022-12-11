@@ -88,5 +88,8 @@ export default {
   },
   postSupplierShowenAd(payload) {
     return globalAxios.get(`supplier/popup/view/${payload}`)
+  },
+  checkCartValidity(){
+    return globalAxios.get('guest-sittings')
   }
 };
