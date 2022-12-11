@@ -36,6 +36,7 @@ import StandingOrder from "../views/StandingOrder.vue";
 import Partners from "../views/Partners.vue";
 
 // import test from "@/components/test.vue";
+import {loadLanguageAsync} from "../i18n/i18n"
 
 Vue.use(VueRouter);
 
@@ -259,10 +260,7 @@ const routes = [
   ...auth,
   profileRoutes,
 ];
-// router.beforeEach((to, from, next) => {
-//   const lang = to.params.lang
-//   loadLanguageAsync(lang).then(() => next())
-// })
+
 
 const router = new VueRouter({
   mode: "history",
@@ -272,5 +270,9 @@ const router = new VueRouter({
     window.scrollTo(0, 0);
   },
 });
+router.beforeEach((to, from, next) => {
+  const lang = localStorage.getItem('lang') || 'en'
+  loadLanguageAsync(lang).then(() => next())
+})
 
 export default router;
