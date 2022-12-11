@@ -12,37 +12,73 @@ import locales from "./locales/";
 
 Vue.use(VueI18n);
 
-export default new VueI18n({
+const i18n = new VueI18n({
   locale: localStorage.getItem("lang") || "en", // set default locale
   messages: locales,
 });
 
 
-// export async function loadLanguageAsync(lang) {
-//   // If the same language
-//   if (i18n.locale === lang) {
-//       return Promise.resolve(setI18nLanguage(lang))
-//   }
+import globalAxios from "../services/global-axios"
 
-//   // If the language was already loaded
-//   if (loadedLanguages.includes(lang)) {
-//       return Promise.resolve(setI18nLanguage(lang))
-//   }
+const loadedLanguages = [] // our default language that is preloaded
 
-//   // If the language hasn't been loaded yet
-//   try {
-//     let data = await axios.get();
-//     let messages = JSON.parse(data.data);
+function setI18nLanguage(lang) {
+  i18n.locale = lang
+  globalAxios.defaults.headers.common['Accept-Language'] = lang
+  document.querySelector('html').setAttribute('lang', lang)
+  return lang
+}
+
+function jsonParser(txt) {
+  if(!txt){
+    return null
+  }
+  
+  let parsed = JSON.parse(txt);
+  if (typeof parsed === 'string') parsed = this.jsonParser(parsed);
+  return parsed;
+}
+
+export async function loadLanguageAsync(lang) {
+  // If the same language
+  // if (i18n.locale === lang) {
+  //   console.log('test 1');
+  //   return Promise.resolve(setI18nLanguage(lang))
+  // }
+
+  lang = lang || 'en'
+
+  // If the language was already loaded
+  if (loadedLanguages.includes(lang)) {
+    console.log('test 2');
+    return Promise.resolve(setI18nLanguage(lang))
+  }
+
+  // If the language hasn't been loaded yet
+  try {
+    let data = await globalAxios.get('get-translation-by-type-and-lang', {
+      params:{
+        type:'buyer',
+        lang:lang
+      }
+    });
+    let messages = jsonParser(data?.data?.items?.translation?.data);
+
     
-//     if (messages != null) {
-//         i18n.setLocaleMessage(lang, messages.default)
-//         loadedLanguages.push(lang)
-//         return setI18nLanguage(lang)
-//     }
+    if (messages != null) {
+      console.log('messages' , messages);
+      i18n.setLocaleMessage(lang, messages)
+      loadedLanguages.push(lang)
+      return setI18nLanguage(lang)
+    }
 
-//   } catch(e) {
-//       i18n.setLocaleMessage(lang, locales.default)
-//       loadedLanguages.push(lang)
-//       return setI18nLanguage(lang)
-//   }
-// }
+  } catch (e) {
+    console.log('error' , e);
+    i18n.setLocaleMessage(lang, locales[lang] ||locales['en'])
+    loadedLanguages.push(lang)
+    return setI18nLanguage(lang)
+  }
+}
+
+
+export default i18n;

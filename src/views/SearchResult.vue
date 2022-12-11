@@ -184,8 +184,8 @@
                       <b-button
                         @click="addToCartAgain(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again p-2"
-                        v-if="
-                          product.product_details_by_type.add_type === 'cart' ||
+                        v-if="cartAvailable  == 'available' &&  
+                          product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
                           product.product_details_by_type.add_type === 'both'
                         "
                       >
@@ -202,9 +202,9 @@
                         <button
                           @click="chooseProduct(product)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                          v-if="
+                          v-if="RfqAvailable  == 'available' && 
                             (product.product_details_by_type.add_type ===
-                              'rfq' ||
+                              'rfq' || RfqAvailable  == 'available' &&
                               product.product_details_by_type.add_type ===
                                 'both') &&
                             buyerUserData
@@ -226,7 +226,7 @@
                         <button
                           @click="loginFirst(product)"
                           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                          v-else-if="
+                          v-else-if="RfqAvailable  == 'available' && 
                             (product.product_details_by_type.add_type ===
                               'rfq' ||
                               product.product_details_by_type.add_type ===

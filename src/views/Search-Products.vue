@@ -56,8 +56,8 @@
                   <div class="col-lg-6 col-12 my-2 ">
                     <b-button @click="addToCartAgain(product)"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again"
-                      v-if="
-                        product.product_details_by_type.add_type === 'cart' ||
+                      v-if="cartAvailable  == 'available' &&  
+                        product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
                         product.product_details_by_type.add_type === 'both'
                       ">
                       <span>
@@ -69,8 +69,8 @@
                     <div class="product-actions short-links mb-2">
                       <button @click="chooseProduct(product)"
                         class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                        v-if="
-                          (product.product_details_by_type.add_type === 'rfq' ||
+                        v-if="RfqAvailable  == 'available' && 
+                          (product.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
                             product.product_details_by_type.add_type === 'both') &&
                           buyerUserData
                         ">
@@ -86,8 +86,8 @@
                         </div>
                       </button>
                       <button @click="loginFirst(product)"
-                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq" v-else-if="
-                          (product.product_details_by_type.add_type === 'rfq' ||
+                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq" v-else-if=" RfqAvailable  == 'available' && 
+                          (product.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
                             product.product_details_by_type.add_type === 'both') &&
                           !buyerUserData
                         ">

@@ -8,6 +8,7 @@
 // @ is an alias to /src
 import MainLayout from "@/layouts/MainLayout.vue";
 import globalAxios from "@/services/global-axios";
+import auth from "@/services/auth"
 export default {
   name: "Home",
   created() {
@@ -24,6 +25,8 @@ export default {
       localStorage.removeItem("guest-id");
     }
     // return
+
+    this.checkCartValidity()
 
 
   },
@@ -53,6 +56,32 @@ export default {
       //   (error) => Promise.reject(error)
       // );
     },
+    checkCartValidity() {
+      auth.checkCartValidity().then(res => {
+        console.log(res);
+        let response = res.data.items.data
+        response.forEach(element => {
+          if (element.key === 'open_cart') {
+            if (element.status == 1) {
+              localStorage.setItem('cartAvailable', 'available')
+            } else {
+              localStorage.setItem('cartAvailable', 'notAvailable')
+
+            }
+          }
+          if (element.key === 'open_rfq') {
+            if (element.status == 1) {
+              localStorage.setItem('RfqAvailable', 'available')
+            } else {
+              localStorage.setItem('RfqAvailable', 'notAvailable')
+
+            }
+          }
+        });
+      }).catch(err => {
+        console.log(err);
+      })
+    }
 
   },
   computed: {

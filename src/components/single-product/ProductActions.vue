@@ -101,8 +101,8 @@
                 ">
                     <b-button @ok="$refs.cartModal.onSubmit()" @click="addToCart(myProduct)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
-                        v-if="
-                            myProduct.product_details_by_type.add_type === 'cart' ||
+                        v-if="cartAvailable  == 'available' &&  
+                            myProduct.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
                             myProduct.product_details_by_type.add_type === 'both'
                         ">
                         <span>
@@ -137,8 +137,9 @@
                 <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
                     <b-button @ok="$refs.cartModal.onSubmit()" @click="addToCart(myProduct)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn" v-if="
-                            myProduct.product_details_by_type.add_type === 'cart' ||
-                            myProduct.product_details_by_type.add_type === 'both'
+                        cartAvailable  == 'available' &&  
+                            myProduct.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
+                            myProduct.product_details_by_type.add_type === 'both' 
                         ">
                         <span>
                             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
@@ -151,8 +152,8 @@
         </div>
         <div class="product-actions short-links mb-2 mr-1">
             <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block"
-                v-if="
-                    (myProduct.product_details_by_type.add_type === 'rfq' ||
+                v-if="RfqAvailable  == 'available' && 
+                    (myProduct.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
                         myProduct.product_details_by_type.add_type === 'both') &&
                     buyerUserData
                 ">
@@ -168,7 +169,7 @@
                 </div>
             </button>
             <button @click="loginFirst"
-                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart btn-block w-100" v-else-if="
+                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart btn-block w-100" v-else-if="RfqAvailable  == 'available' && 
                     (myProduct.product_details_by_type.add_type === 'rfq' ||
                         myProduct.product_details_by_type.add_type === 'both') &&
                     !buyerUserData
@@ -179,8 +180,8 @@
                 {{ $t("singleProduct.bidRequest") }}
             </button>
             <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100"
-                v-else-if="
-                    myProduct.product_details_by_type.add_type === 'rfq' ||
+                v-else-if="RfqAvailable  == 'available' && 
+                    myProduct.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
                     myProduct.product_details_by_type.add_type === 'both'
                 ">
                 <!-- <router-link to="/b2b-login"> -->

@@ -119,6 +119,7 @@
           variant="outline-success"
           block
           @click="addToCart(quotations)"
+          v-if="cartAvailable  == 'available'"
           >{{ $t("cart.addToCart") }}</b-button
         >
         <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"

@@ -72,8 +72,8 @@
         <b-button
           @click="addToCart(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="
-            data.product_details_by_type.add_type === 'cart' ||
+          v-if=" cartAvailable && 
+            data.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
             data.product_details_by_type.add_type === 'both'
           "
         >
@@ -101,8 +101,8 @@
         <b-button
           @click="addToCartAgain(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="
-            data.product_details_by_type.add_type === 'cart' ||
+          v-if="cartAvailable  == 'available' && 
+            data.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
             data.product_details_by_type.add_type === 'both'
           "
         >
