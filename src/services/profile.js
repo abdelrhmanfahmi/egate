@@ -283,5 +283,8 @@ export default {
   },
   getProfileBudges(){
     return globalAxios.get('members/dashboard-index/client-side-bar')
+  },
+  changeStandingOrderQuantity(payload){
+    return globalAxios.put('members/profile/standings/change-quantity/item' , payload)
   }
 };
