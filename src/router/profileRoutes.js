@@ -23,6 +23,7 @@ import Wallet from "../views/profile/Wallet.vue";
 import Notifications from "../views/profile/Notifications.vue";
 import CheckWalletCharge from "../views/profile/CheckWalletCharge.vue";
 import StandingOrders from "../views/profile/StandingOrders.vue";
+import Dashboard from "../views/profile/Dashboard.vue";
 
 
 
@@ -134,6 +135,11 @@ export default {
       path: "/profile/StandingOrders",
       name: "StandingOrders",
       component: StandingOrders,
+    },
+    {
+      path: "/profile/Dashboard",
+      name: "Dashboard",
+      component: Dashboard,
     },
   ],
 };

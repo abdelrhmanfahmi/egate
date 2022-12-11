@@ -115,6 +115,10 @@ export default {
   makeDefaultAddress: "اجعل العنوان الافتراضي",
   //Orders Lists
   ordersLists: "طلباتى",
+  totalOrders:'مجموع الطلبات',
+  totalQuotations:'مجموع عروض الاسعار',
+  totalRefunds:'مجموع المرتجعات',
+
   ordersListsNew: "إنشاء قائمة طلبات جديدة",
   nameDescription: "الاسم والوصف",
   products: "المنتجات",
@@ -268,5 +272,13 @@ export default {
   visaPayment:'عن طؤيق البطاقة المصفرفيه',
   walletPayment:'عن طريق المحفظه',
   standOrderName:'اسم القائمه',
-  selectExistStandOrder:'اختر من القوائم المتاحه'
+  selectExistStandOrder:'اختر من القوائم المتاحه',
+  dashboard:'لوحة التحكم',
+
+  aprovedProducts:'المنتجات الموافق عليها',
+  lowInvenity:'منتجات منخفضة المخزون',
+  bestSeller:'الأكثر مبيعًا',
+  mostViewed:'المنتجات الأكثر مشاهدة',
+  orders:'منتج',
+  pending:'معلق'
 };

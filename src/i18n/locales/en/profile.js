@@ -112,6 +112,10 @@ export default {
   makeDefaultAddress: "make default address",
   //Orders Lists
   ordersLists: "My Orders",
+  totalOrders:'Total Orders',
+  totalQuotations:'Total Quotations',
+  totalRefunds:'Total Refunds',
+
   ordersListsNew: "New Orders list",
   nameDescription: "Name and description",
   products: "Products",
@@ -276,5 +280,13 @@ export default {
   visaPayment:'Visa Payment',
   walletPayment:'Wallet Payment',
   standOrderName:'Standing Order List Name',
-  selectExistStandOrder:'Select From Standing Order List'
+  selectExistStandOrder:'Select From Standing Order List',
+  dashboard:'Dashboard',
+
+  aprovedProducts:'Approved Products',
+  lowInvenity:'Low Inventory Products',
+  bestSeller:'Best Seller',
+  mostViewed:'Most Viewed Products',
+  orders:'Order(s)',
+  pending:'Pending'
 };

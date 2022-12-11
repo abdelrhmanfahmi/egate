@@ -29,7 +29,7 @@
         :key="index"
         :class="{
           'd-none':
-            link.name === 'Subscribe to the newsletter' &&
+            link.name.trim() === 'Subscribe to the newsletter' &&
             buyerUserData.register_mailing_list,
         }"
       >
@@ -39,8 +39,8 @@
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              (userBades && userBades.orders && link.name === 'My Orders') ||
-              link.name === 'طلباتى'
+              (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
+              link.name.trim() === 'طلباتى'
             "
             >{{ userBades.orders }}</span
           >
@@ -49,8 +49,8 @@
             v-if="
               (userBades &&
                 userBades.returns &&
-                link.name === 'Return Requests') ||
-              link.name === 'طلبات الاسترجاع'
+                link.name.trim() === 'Return Requests') ||
+              link.name.trim() === 'طلبات الاسترجاع'
             "
             >{{ userBades.returns }}</span
           >
@@ -59,16 +59,16 @@
             v-if="
               (userBades &&
                 userBades.client_messages &&
-                link.name === 'Supplier Messages') ||
-              link.name === 'مراسلات المورد'
+                link.name.trim() === 'Supplier Messages') ||
+              link.name.trim() === 'مراسلات المورد'
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              (userBades && userBades.rfqs && link.name === 'Quotations') ||
-              link.name === 'عروض الاسعار'
+              (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
+              link.name.trim() === 'عروض الاسعار'
             "
             >{{ userBades.rfqs }}</span
           >
@@ -81,7 +81,7 @@
         :key="index"
         :class="{
           'd-none':
-            link.name === 'Subscribe to the newsletter' &&
+            link.name.trim() === 'Subscribe to the newsletter' &&
             buyerUserData.register_mailing_list,
         }"
       >
@@ -91,8 +91,8 @@
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              (userBades && userBades.orders && link.name === 'My Orders') ||
-              link.name === 'طلباتى'
+              (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
+              link.name.trim() === 'طلباتى'
             "
             >{{ userBades.orders }}</span
           >
@@ -101,8 +101,8 @@
             v-if="
               (userBades &&
                 userBades.returns &&
-                link.name === 'Return Requests') ||
-              link.name === 'طلبات الاسترجاع'
+                link.name.trim() === 'Return Requests') ||
+              link.name.trim() === 'طلبات الاسترجاع'
             "
             >{{ userBades.returns }}</span
           >
@@ -111,16 +111,16 @@
             v-if="
               (userBades &&
                 userBades.client_messages &&
-                link.name === 'Supplier Messages') ||
-              link.name === 'مراسلات المورد'
+                link.name.trim() === 'Supplier Messages') ||
+              link.name.trim() === 'مراسلات المورد'
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="bg-danger border border-light rounded-circle"
             v-if="
-              (userBades && userBades.rfqs && link.name === 'Quotations') ||
-              link.name === 'عروض الاسعار'
+              (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
+              link.name.trim() === 'عروض الاسعار'
             "
             >{{ userBades.rfqs }}</span
           >
@@ -139,6 +139,11 @@ export default {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
           iconName: "shop",
+        },
+        {
+          to: "/profile/dashboard",
+          name: this.$t("profile.dashboard"),
+          iconName: "dashboard",
         },
         {
           to: "/profile/shopping-cart",
@@ -247,6 +252,11 @@ export default {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
           iconName: "shop",
+        },
+        {
+          to: "/profile/dashboard",
+          name: this.$t("profile.dashboard"),
+          iconName: "dashboard",
         },
         {
           to: "/profile/shopping-cart",
