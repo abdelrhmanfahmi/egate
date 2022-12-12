@@ -113,12 +113,16 @@ export default {
             localStorage.setItem("massege", "");
             localStorage.removeItem("guest-id");
             this.$router.push("/profile/categories");
-            location.reload();
+            setTimeout(() => {
+              location.reload();
+            }, 50);
           } else {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             localStorage.removeItem("guest-id");
             this.$router.push("/profile/account-information-b2b");
-            location.reload();
+            setTimeout(() => {
+              location.reload();
+            }, 50);
           }
 
           // location.reload();
