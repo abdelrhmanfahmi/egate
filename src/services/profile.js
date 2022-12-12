@@ -286,5 +286,8 @@ export default {
   },
   changeStandingOrderQuantity(payload){
     return globalAxios.put('members/profile/standings/change-quantity/item' , payload)
+  },
+  getDashboardData(){
+    return globalAxios.get('members/dashboard-index/client-dashboard')
   }
 };

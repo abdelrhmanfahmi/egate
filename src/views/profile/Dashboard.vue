@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard text-center">
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center" v-if="dashData">
       <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-2">
         <router-link to="/profile/ordersListsB2b" class="link">
           <div class="bordered">
@@ -14,11 +14,11 @@
 
             <div class="info">
               <div class="p-3" :class="{'border-right' :$i18n.locale =='en' , 'border-left' :$i18n.locale == 'ar'}">
-                <p class="number">1</p>
+                <p class="number">{{dashData.total_completed_orders}}</p>
                 <h5 class="text">{{$t('profile.orders')}}</h5>
               </div>
               <div class="p-3">
-                <p class="number">0</p>
+                <p class="number">{{dashData.total_Pending_orders}}</p>
                 <h5 class="text">{{$t('profile.pending')}}</h5>
               </div>
             </div>
@@ -34,14 +34,14 @@
             </span>
 
             <div class="info">
-              <div class="p-3" :class="{'border-right' :$i18n.locale =='en' , 'border-left' :$i18n.locale == 'ar'}">
-                <p class="number">1</p>
+              <div class="p-3">
+                <p class="number">{{dashData.total_completed_qoutes}}</p>
                 <h5 class="text">{{$t('profile.orders')}}</h5>
               </div>
-              <div class="p-3">
+              <!-- <div class="p-3">
                 <p class="number">0</p>
                 <h5 class="text">{{$t('profile.pending')}}</h5>
-              </div>
+              </div> -->
             </div>
           </div>
         </router-link>
@@ -58,14 +58,14 @@
             </span>
 
             <div class="info">
-              <div class="p-3" :class="{'border-right' :$i18n.locale =='en' , 'border-left' :$i18n.locale == 'ar'}">
-                <p class="number">1</p>
+              <div class="p-3">
+                <p class="number">{{dashData.total_completed_refund}}</p>
                 <h5 class="text">{{$t('profile.orders')}}</h5>
               </div>
-              <div class="p-3">
+              <!-- <div class="p-3">
                 <p class="number">0</p>
                 <h5 class="text">{{$t('profile.pending')}}</h5>
-              </div>
+              </div> -->
             </div>
           </div>
         </router-link>
@@ -79,14 +79,14 @@
             </span>
 
             <div class="info">
-              <div class="p-3" :class="{'border-right' :$i18n.locale =='en' , 'border-left' :$i18n.locale == 'ar'}">
-                <p class="number">1</p>
+              <div class="p-3">
+                <p class="number">{{dashData.total_completed_orders_money | fixedCurrency}} {{currency}}</p>
                 <h5 class="text">{{$t('profile.orders')}}</h5>
               </div>
-              <div class="p-3">
+              <!-- <div class="p-3">
                 <p class="number">0</p>
                 <h5 class="text">{{$t('profile.pending')}}</h5>
-              </div>
+              </div> -->
             </div>
           </div>
         </router-link>
@@ -181,6 +181,8 @@
 </template>
 
 <script>
+import  profile  from '@/services/profile';
+
 // import Paginate from "@/components/global/Paginate.vue";
 export default {
   components: {
@@ -211,8 +213,22 @@ export default {
           label: this.$t("profile.mostViewed"),
         },
       ],
+      dashData:null
     };
   },
+  methods:{
+    getDashboardData(){
+      profile.getDashboardData().then(res =>{
+        console.log(res);
+        this.dashData = res.data.items
+      }).catch(err =>{
+        console.log(err);
+      })
+    }
+  },
+  mounted(){
+    this.getDashboardData()
+  }
 };
 </script>
 
