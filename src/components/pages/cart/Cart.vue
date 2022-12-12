@@ -2022,7 +2022,7 @@ export default {
             // }
             this.$router.push('/');
             this.$store.dispatch("cart/getCartProducts")
-            location.reload()
+            // location.reload()
           }
         })
         .catch((err) => {
