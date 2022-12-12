@@ -1998,6 +1998,7 @@ export default {
                 },
               });
               // location.reload();
+              this.$store.dispatch("cart/getCartProducts")
             }, 500);
           } 
           else {
@@ -2020,6 +2021,7 @@ export default {
             //   }, 500);
             // }
             this.$router.push('/');
+            this.$store.dispatch("cart/getCartProducts")
             location.reload()
           }
         })
@@ -2086,6 +2088,7 @@ export default {
                 },
               });
               // location.reload();
+              this.$store.dispatch("cart/getCartProducts")
             }, 500);
           } else {
             // console.log(res.data);
@@ -2103,12 +2106,14 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
-                location.reload();
+                // location.reload();
+                this.$store.dispatch("cart/getCartProducts")
               }, 500);
             } else {
               setTimeout(() => {
                 this.$router.push("/success-checkout");
-                location.reload();
+                // location.reload();
+                this.$store.dispatch("cart/getCartProducts")
               }, 500);
             }
           }
