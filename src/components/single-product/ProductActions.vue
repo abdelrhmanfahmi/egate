@@ -66,7 +66,7 @@
         <div v-if="myProduct.product_details_by_type"
             class="product-actions row justify-content-between align-items-center mt-4">
 
-            <div class="col-3" v-if="myProduct.product_details_by_type.quantity > 0">
+            <div class="col-3" v-if="cartAvailable  == 'available' && myProduct.product_details_by_type.quantity > 0">
                 <div class="product-counter mb-2" v-if="
                     myProduct.product_details_by_type.add_type === 'cart' ||
                     myProduct.product_details_by_type.add_type === 'both'

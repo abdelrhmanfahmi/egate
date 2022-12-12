@@ -45,7 +45,7 @@
                   product.product_details_by_type.add_type === 'cart' ||
                   product.product_details_by_type.add_type === 'both'
                 ">
-                  <div class=" col-lg-6 col-12 my-2">
+                  <div class=" col-lg-6 col-12 my-2" v-if="cartAvailable  == 'available'">
                     <Counter :minimum="
                       product.min_order_quantity
                         ? product.min_order_quantity
