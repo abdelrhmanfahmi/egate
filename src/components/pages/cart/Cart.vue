@@ -1997,7 +1997,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
-              location.reload();
+              // location.reload();
             }, 500);
           } 
           else {
@@ -2085,7 +2085,7 @@ export default {
                   // window.location.href = res.data.items.url;
                 },
               });
-              location.reload();
+              // location.reload();
             }, 500);
           } else {
             // console.log(res.data);
