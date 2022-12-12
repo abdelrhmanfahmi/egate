@@ -59,7 +59,7 @@ export default {
     checkCartValidity() {
       auth.checkCartValidity().then(res => {
         console.log(res);
-        let response = res.data.items.data
+        let response = res.data.items
         response.forEach(element => {
           if (element.key === 'open_cart') {
             if (element.status == 1) {
