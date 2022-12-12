@@ -167,7 +167,7 @@
                       product.product_details_by_type.add_type === 'both'
                     "
                   >
-                    <div class="col-xl-4 col-sm-12 col-12 my-2">
+                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="cartAvailable  == 'available'">
                       <Counter
                         :minimum="
                           product.min_order_quantity

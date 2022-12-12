@@ -426,7 +426,7 @@
                 </div>
               </td>
               <td>
-                <Variants-Counter :minimum="
+                <Variants-Counter :minimum=" cartAvailable  == 'available' &&
                   product.product_details_by_type.min_order_quantity
                     ? product.product_details_by_type.min_order_quantity
                     : 1
