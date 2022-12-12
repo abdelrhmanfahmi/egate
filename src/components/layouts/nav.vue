@@ -77,12 +77,12 @@
             </b-button>
             <span class="" v-if="searchClicked">
               <b-form @submit.prevent="search">
-                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword" ref="searchIcon"></b-form-input>
+                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"
+                  ref="searchIcon"></b-form-input>
               </b-form>
             </span>
 
-            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked"
-              >
+            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
               <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
 
@@ -336,7 +336,8 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.force_login && this.$route.query.force_login == "true") {
+    const loc = document.location;
+    if (this.$route.query.force_login && this.$route.query.force_login == "true" || loc.href.includes('force_login')) {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("buyerUserData");
       // if (document.querySelector(".login")) {
@@ -350,6 +351,8 @@ export default {
       //   }, 500);
       // }
       this.loginNow()
+      
+      // console.log(loc.href.includes('force_login')); 
     }
     // this.loginNow()
   },
@@ -373,10 +376,10 @@ export default {
         }
       }
     },
-    searchClicked(){
+    searchClicked() {
       setTimeout(() => {
         console.log(this.$refs.searchIcon);
-        if(this.searchClicked && this.$refs.searchIcon){
+        if (this.searchClicked && this.$refs.searchIcon) {
           console.log('exist');
           this.$refs.searchIcon.focus()
         }

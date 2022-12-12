@@ -38,7 +38,6 @@ export default {
       globalAxios
         .post(`guest/generate-token`)
         .then((res) => {
-          console.log(res);
           localStorage.setItem("guest-id", res.data.items.uuid);
         })
         .catch((err) => {
@@ -58,7 +57,6 @@ export default {
     },
     checkCartValidity() {
       auth.checkCartValidity().then(res => {
-        console.log(res);
         let response = res.data.items
         response.forEach(element => {
           if (element.key === 'open_cart') {
