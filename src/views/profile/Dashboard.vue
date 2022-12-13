@@ -19,8 +19,9 @@
                   <h5 class="text">{{ $t("profile.orders") }}</h5>
                 </div>
                 <div class="p-3">
-                  <p class="number">{{ dashData.total_Pending_orders }}</p>
-                  <h5 class="text">{{ $t("profile.pending") }}</h5>
+                  <small class="number">{{ dashData.total_completed_money | fixedCurrency }}</small>
+                  <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
+                  <h5 class="text mt-2">{{ currency }}</h5>
                 </div>
               </div>
             </div>
@@ -80,7 +81,7 @@
                 <div class="p-3">
                   <p class="number">
                     {{ dashData.total_completed_orders_money | fixedCurrency }}
-                    
+
                   </p>
                   <h5 class="text">{{ currency }}</h5>
                 </div>
@@ -141,12 +142,12 @@
                   </b-button>
                 </router-link>
                 <b-button id="show-btn" @click="
-                  $bvModal.show('bv-modal-example');
-                saveUUID(order);
+  $bvModal.show('bv-modal-example');
+saveUUID(order);
                 " variant="outline-success" class="m-2" v-if="
-                    order.payment_status === 'Unpaid' &&
-                    order.payment_type === 'visa'
-                  ">
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'visa'
+                ">
                   {{ $t("profile.pay") }}
                 </b-button>
               </td>
@@ -374,8 +375,12 @@ export default {
       justify-content: center;
       align-items: center;
 
-      @media (min-width: 1200px) and (max-width: 1600px) {
-        display: block;
+      @media (min-width: 1200px) and (max-width: 1800px) {
+        // display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
 
         .border-right {
           border: none !important;
@@ -442,47 +447,57 @@ export default {
     align-items: center;
   }
 }
+
 .payment-method {
   .methods-data {
     background: #ecf0f1;
     padding: 2rem;
     border-radius: 0.5rem;
     text-align: left;
+
     .info {
       border-bottom: 1px dashed #c5c6c6;
       padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
+
     .total {
       padding: 1rem 0;
       color: #312620;
       font-weight: bold;
+
       .title {
         font-size: 14pt;
       }
     }
+
     .methods {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
+
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
+
         .custom-radio {
           flex-wrap: wrap;
         }
+
         label {
           cursor: pointer;
         }
+
         span {
           width: 100%;
           font-size: 10pt;
           margin-top: -0.2rem;
           opacity: 0.7;
         }
+
         .online-media {
           img {
             object-fit: contain;
@@ -492,6 +507,7 @@ export default {
     }
   }
 }
+
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
