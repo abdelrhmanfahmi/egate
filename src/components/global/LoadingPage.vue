@@ -16,7 +16,7 @@
 export default {
     created() {
         let perfData = window.performance.timing;
-        let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
+        let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.loadEventStart);
         this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
         this.doProgress();
     },
