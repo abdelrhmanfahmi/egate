@@ -37,7 +37,7 @@
               <div class="info">
                 <div class="p-3">
                   <p class="number">{{ dashData.total_completed_qoutes }}</p>
-                  <h5 class="text">{{ $t("profile.orders") }}</h5>
+                  <h5 class="text">{{ $t("profile.quotations") }}</h5>
                 </div>
                 <!-- <div class="p-3">
                   <p class="number">0</p>
@@ -58,7 +58,7 @@
               <div class="info">
                 <div class="p-3">
                   <p class="number">{{ dashData.total_completed_refund }}</p>
-                  <h5 class="text">{{ $t("profile.orders") }}</h5>
+                  <h5 class="text">{{ $t("profile.returnRequests") }}</h5>
                 </div>
                 <!-- <div class="p-3">
                   <p class="number">0</p>
@@ -80,9 +80,9 @@
                 <div class="p-3">
                   <p class="number">
                     {{ dashData.total_completed_orders_money | fixedCurrency }}
-                    {{ currency }}
+                    
                   </p>
-                  <h5 class="text">{{ $t("profile.orders") }}</h5>
+                  <h5 class="text">{{ currency }}</h5>
                 </div>
                 <!-- <div class="p-3">
                   <p class="number">0</p>
@@ -441,5 +441,59 @@ export default {
     justify-content: center;
     align-items: center;
   }
+}
+.payment-method {
+  .methods-data {
+    background: #ecf0f1;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+    .info {
+      border-bottom: 1px dashed #c5c6c6;
+      padding: 1rem 0.3rem;
+      color: #312620;
+      font-weight: bold;
+    }
+    .total {
+      padding: 1rem 0;
+      color: #312620;
+      font-weight: bold;
+      .title {
+        font-size: 14pt;
+      }
+    }
+    .methods {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      border: 1px dashed #cfd0d0;
+      .method {
+        padding: 1rem;
+        border-bottom: 1px dashed #cfd0d0;
+        font-size: 11pt;
+        color: #544842;
+        .custom-radio {
+          flex-wrap: wrap;
+        }
+        label {
+          cursor: pointer;
+        }
+        span {
+          width: 100%;
+          font-size: 10pt;
+          margin-top: -0.2rem;
+          opacity: 0.7;
+        }
+        .online-media {
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+.modal-header {
+  align-content: center !important;
+  justify-content: center !important;
 }
 </style>
