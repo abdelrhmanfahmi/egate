@@ -300,7 +300,7 @@ export default {
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
-      location.reload();
+      // location.reload();
     },
     closeSearch() {
       this.searchClicked = false;
@@ -378,9 +378,7 @@ export default {
     },
     searchClicked() {
       setTimeout(() => {
-        console.log(this.$refs.searchIcon);
         if (this.searchClicked && this.$refs.searchIcon) {
-          console.log('exist');
           this.$refs.searchIcon.focus()
         }
       }, 200);
