@@ -42,7 +42,7 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
-            <td>{{ order.serial }}</td>
+            <td>{{ order.id }}</td>
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td><span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span></td>
