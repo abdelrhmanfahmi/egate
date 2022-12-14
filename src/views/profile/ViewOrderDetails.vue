@@ -720,7 +720,7 @@ showModal(ord);
                     </div>
                   </div>
                 </div>
-                <div class="supplier-shipping-data pt-4 bor mb-5">
+                <div class="supplier-shipping-data pt-4 bor mb-1">
                   <div class="row">
                     <!-- <div class="col-md-6 col-sm-12 borderred-bottom"></div> -->
                     <div class="col-md-6 col-sm-12 offset-6">
@@ -1377,7 +1377,7 @@ export default {
 .printing {
   color: #000 !important;
 
-  display: none;
+  // display: none;
   .wrapper {
     border: 1px solid #000;
     -moz-border: 1px solid #000;
