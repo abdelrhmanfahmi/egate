@@ -1516,6 +1516,9 @@ export default {
   .normaly {
     display: none;
   }
+  .printing-normal{
+    display: block;
+  }
 
   .printing {
     display: block;
