@@ -1377,7 +1377,7 @@ export default {
 .printing {
   color: #000 !important;
 
-  // display: none;
+  display: none;
   .wrapper {
     border: 1px solid #000;
     -moz-border: 1px solid #000;
