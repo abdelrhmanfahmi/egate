@@ -37,7 +37,7 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
               link.name.trim() === 'طلباتى'
@@ -45,7 +45,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades &&
                 userBades.returns &&
@@ -55,7 +55,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades &&
                 userBades.client_messages &&
@@ -65,7 +65,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
               link.name.trim() === 'عروض الاسعار'
@@ -89,7 +89,7 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
               link.name.trim() === 'طلباتى'
@@ -97,7 +97,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades &&
                 userBades.returns &&
@@ -107,7 +107,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades &&
                 userBades.client_messages &&
@@ -117,7 +117,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
               (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
               link.name.trim() === 'عروض الاسعار'

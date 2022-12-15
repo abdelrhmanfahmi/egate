@@ -16,37 +16,27 @@
 
               <div class="">
                 <div>
-                  <b-button
-                    v-if="
-                      orderData.payment_status === 'Unpaid' &&
-                      orderData.payment_type === 'visa'
-                    "
-                    id="show-btn"
-                    @click="$bvModal.show('bv-modal-example')"
-                    variant="outline-success"
-                    class="m-2"
-                  >
+                  <b-button v-if="
+                    orderData.payment_status === 'Unpaid' &&
+                    orderData.payment_type === 'visa'
+                  " id="show-btn" @click="$bvModal.show('bv-modal-example')" variant="outline-success" class="m-2">
                     {{ $t("profile.pay") }}
                   </b-button>
 
-                  <router-link
-                    v-if="
-                      orderData.payment_status === 'Unpaid' &&
-                      orderData.payment_type === 'bank'
-                    "
-                    :to="{
-                      path: '/checkout-details',
-                      query: {
-                        order_serial: orderData.serial,
-                        date: orderData.created_at,
-                        total_price: orderData.total_price,
-                        payment_type: orderData.payment_type,
-                        payment: orderData.payment,
-                        uuid: orderData.uuid,
-                      },
-                    }"
-                    class="text-dark"
-                  >
+                  <router-link v-if="
+                    orderData.payment_status === 'Unpaid' &&
+                    orderData.payment_type === 'bank'
+                  " :to="{
+  path: '/checkout-details',
+  query: {
+    order_serial: orderData.serial,
+    date: orderData.created_at,
+    total_price: orderData.total_price,
+    payment_type: orderData.payment_type,
+    payment: orderData.payment,
+    uuid: orderData.uuid,
+  },
+}" class="text-dark">
                     <b-button variant="outline-success" class="m-2">
                       <font-awesome-icon icon="fa-solid fa-upload" /> {{ $t("profile.bankTransDocs") }}
                     </b-button>
@@ -55,17 +45,10 @@
               </div>
             </div>
             <div class="branding d-flex justify-content-center">
-              <img
-                src="@/assets/images/logo.png"
-                class="img-fluid w-25"
-                alt="logo"
-                @click="goToHome()"
-              />
+              <img src="@/assets/images/logo.png" class="img-fluid w-25" alt="logo" @click="goToHome()" />
             </div>
           </div>
-          <div
-            class="data-holder serial-holder d-flex justify-content-between align-items-center"
-          >
+          <div class="data-holder serial-holder d-flex justify-content-between align-items-center">
             <div class="serial" v-if="orderData">
               <h4 class="m-0">
                 <span>{{ $t("profile.orderSerial") }} :</span>
@@ -88,10 +71,7 @@
                 </h4>
                 <div class="" v-if="orderData">
                   <div class="info">
-                    <div
-                      class="row info-data info-colored"
-                      v-if="orderData.client_info"
-                    >
+                    <div class="row info-data info-colored" v-if="orderData.client_info">
                       <div class="col-6">
                         {{ $t("profile.customerName") }}
                       </div>
@@ -105,10 +85,7 @@
                         </span>
                       </div>
                     </div>
-                    <div
-                      class="row info-data"
-                      v-if="orderData.client_info.email"
-                    >
+                    <div class="row info-data" v-if="orderData.client_info.email">
                       <div class="col-6">
                         {{ $t("profile.customerEmail") }}
                       </div>
@@ -116,10 +93,7 @@
                         {{ orderData.client_info.email }}
                       </div>
                     </div>
-                    <div
-                      class="row info-data info-colored"
-                      v-if="orderData.client_info.phone"
-                    >
+                    <div class="row info-data info-colored" v-if="orderData.client_info.phone">
                       <div class="col-6">
                         {{ $t("profile.tele") }}
                       </div>
@@ -130,26 +104,17 @@
                   </div>
                 </div>
               </div>
-              <div
-                class="col-md-6 col-sm-12 mb-2"
-                v-if="orderData && shipingExist"
-              >
+              <div class="col-md-6 col-sm-12 mb-2" v-if="orderData && shipingExist">
                 <h4 class="data-holder">
                   {{ $t("profile.addressInfo") }}
                   <!-- <sub> ( {{ $t("profile.billingAddress") }} ) </sub> -->
                 </h4>
                 <div class="pl-2" v-if="orderData.client_info">
-                  <h6
-                    class="d-inline-block"
-                    v-if="orderData.client_info.apartment"
-                  >
+                  <h6 class="d-inline-block" v-if="orderData.client_info.apartment">
                     {{ $t("profile.aptNo") }} :
                     {{ orderData.client_info.apartment }}
                   </h6>
-                  <h6
-                    class="d-inline-block"
-                    v-if="orderData.client_info.building_number"
-                  >
+                  <h6 class="d-inline-block" v-if="orderData.client_info.building_number">
                     , {{ $t("profile.buildingNo") }} :
                     {{ orderData.client_info.building_number }}
                   </h6>
@@ -157,16 +122,10 @@
                     , {{ $t("profile.floor") }} :
                     {{ orderData.client_info.floor }}
                   </h6>
-                  <h6
-                    class="d-inline-block"
-                    v-if="orderData.client_info.address_line_1"
-                  >
+                  <h6 class="d-inline-block" v-if="orderData.client_info.address_line_1">
                     , {{ orderData.client_info.address_line_1 }} ,
                   </h6>
-                  <h6
-                    class="d-inline-block"
-                    v-if="orderData.client_info.address_line_2"
-                  >
+                  <h6 class="d-inline-block" v-if="orderData.client_info.address_line_2">
                     , {{ orderData.client_info.address_line_2 }}
                   </h6>
                   <h5 v-if="orderData.client_info.city">
@@ -184,9 +143,7 @@
           </section>
 
           <section class="supplier-info" v-if="orders && pickupExist">
-            <div
-              class="data-holder serial-holder d-flex justify-content-between align-items-center"
-            >
+            <div class="data-holder serial-holder d-flex justify-content-between align-items-center">
               <div class="serial">
                 <h4 class="m-0">{{ $t("profile.pickedAddresses") }}</h4>
               </div>
@@ -194,45 +151,23 @@
             <div class="">
               <div class="info">
                 <div class="info-data pl-2">
-                  <div
-                    class="row mb-2"
-                    v-for="(order, index) in orders"
-                    :key="index"
-                  >
-                    <div
-                      class="row w-100"
-                      v-if="order.supplier && order.bicked"
-                    >
+                  <div class="row mb-2" v-for="(order, index) in orders" :key="index">
+                    <div class="row w-100" v-if="order.supplier && order.bicked">
                       <div class="col-md-1 col-sm-6">
                         <span class="mb-2">{{ order.company }} : </span>
                       </div>
 
-                      <div
-                        class="col-md-10 col-sm-6"
-                        v-if="order.bicked !== null"
-                      >
-                        <span class="mb-2" v-if="order.bicked.apartment"
-                          >{{ order.bicked.apartment }} ,</span
-                        >
-                        <span class="mb-2" v-if="order.bicked.floor"
-                          >{{ order.bicked.floor }} ,</span
-                        >
-                        <span class="mb-2" v-if="order.bicked.address_line_1"
-                          >{{ order.bicked.address_line_1 }} ,</span
-                        >
-                        <span class="mb-2" v-if="order.bicked.address_line_2"
-                          >{{ order.bicked.address_line_2 }} ,</span
-                        >
+                      <div class="col-md-10 col-sm-6" v-if="order.bicked !== null">
+                        <span class="mb-2" v-if="order.bicked.apartment">{{ order.bicked.apartment }} ,</span>
+                        <span class="mb-2" v-if="order.bicked.floor">{{ order.bicked.floor }} ,</span>
+                        <span class="mb-2" v-if="order.bicked.address_line_1">{{ order.bicked.address_line_1 }} ,</span>
+                        <span class="mb-2" v-if="order.bicked.address_line_2">{{ order.bicked.address_line_2 }} ,</span>
 
-                        <span class="mb-2" v-if="order.bicked.city"
-                          >{{ order.bicked.city.title }} ,</span
-                        >
-                        <span class="mb-2" v-if="order.bicked.region"
-                          >{{ order.bicked.region.title }} ,</span
-                        >
+                        <span class="mb-2" v-if="order.bicked.city">{{ order.bicked.city.title }} ,</span>
+                        <span class="mb-2" v-if="order.bicked.region">{{ order.bicked.region.title }} ,</span>
 
                         <span class="mb-2" v-if="order.bicked.country">{{
-                          order.bicked.country.title
+                            order.bicked.country.title
                         }}</span>
                       </div>
                     </div>
@@ -284,43 +219,33 @@
                       <div class="col-6">{{ $t("payment.priceUnit") }}</div>
                     </div>
 
-                    <div
-                      class="row info-data"
-                      v-if="
-                        orderData.payment_type === 'bank' &&
-                        orderData.payment_image
-                      "
-                    >
+                    <div class="row info-data" v-if="
+                      orderData.payment_type === 'bank' &&
+                      orderData.payment_image
+                    ">
                       <div class="col-6">
                         {{ $t("payment.bankTransImage") }}
                       </div>
                       <div class="col-6" v-if="orderData.payment_image">
                         <div class="downloadArea">
-                          <b-button
-                            class="btn-block"
-                            variant="outline-success"
-                            @click="
-                              downloadImage(
-                                orderData.payment_image,
-                                (extension = orderData.payment_image
-                                  .split('.')
-                                  .pop()),
-                                $t('payment.bankImageDownload')
-                              )
-                            "
-                          >
+                          <b-button class="btn-block" variant="outline-success" @click="
+                            downloadImage(
+                              orderData.payment_image,
+                              (extension = orderData.payment_image
+                                .split('.')
+                                .pop()),
+                              $t('payment.bankImageDownload')
+                            )
+                          ">
                             <i class="fa fa-download"></i>
                             {{ $t("payment.bankImageDownload") }}
                           </b-button>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="row info-data info-colored"
-                      v-if="
-                        orderData.payment_type === 'bank' && orderData.comment
-                      "
-                    >
+                    <div class="row info-data info-colored" v-if="
+                      orderData.payment_type === 'bank' && orderData.comment
+                    ">
                       <div class="col-6">
                         {{ $t("payment.bankComment") }}
                       </div>
@@ -355,32 +280,23 @@
               <hr />
             </div>
             <div class="supplier-products-data">
-              <div
-                class="supplier-info mb-5"
-                v-for="(order, index) in orders"
-                :key="index"
-              >
+              <div class="supplier-info mb-5" v-for="(order, index) in orders" :key="index">
                 <!-- {{order.order_status_no}} -->
-                <div
-                  class="supplier-data info-data info-colored data-holder"
-                  v-if="order.supplier"
-                >
+                <div class="supplier-data info-data info-colored data-holder" v-if="order.supplier">
                   <div class="holder">
                     <div v-if="order.company">
                       {{ $t("profile.supplier") }} :
                       {{ order.company }}
                     </div>
                     <div class="" v-if="order">
-                      {{ $t("profile.supplierOrder") }} : {{ order.serial }}  , 
-                      {{ $t("payment.orderStatus") }} : {{ order.order_status }}  , 
+                      {{ $t("profile.supplierOrder") }} : {{ order.serial }} ,
+                      {{ $t("payment.orderStatus") }} : {{ order.order_status }} ,
                       {{ $t("payment.paymentStatus") }} : {{ order.payment_status }}
                     </div>
                   </div>
                 </div>
-                <div
-                  class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0"
-                  v-if="order.order_status_string === 'Cancelled'"
-                >
+                <div class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0"
+                  v-if="order.order_status_string === 'Cancelled'">
                   <p class="text-danger px-3 mb-0">
                     <span> {{ $t("profile.cancelReason") }} : </span>
                     <span class="mx-2">
@@ -389,33 +305,23 @@
                   </p>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <b-button
-                    @click="
-                      $bvModal.show('cancel_btn_modal');
-                      showModal(order);
-                    "
-                    variant="outline-danger mt-2 cancel-btn"
-                    v-if="
-                      order.order_status_string === 'Pending' ||
-                      order.order_status_string === 'Accepted'
-                    "
-                    ><font-awesome-icon icon="fa-solid fa-x" />
+                  <b-button @click="
+  $bvModal.show('cancel_btn_modal');
+showModal(order);
+                  " variant="outline-danger mt-2 cancel-btn" v-if="
+                    order.order_status_string === 'Pending' ||
+                    order.order_status_string === 'Accepted'
+                  "><font-awesome-icon icon="fa-solid fa-x" />
                     <span class="mx-2">{{
-                      $t("payment.cancelOrder")
-                    }}</span></b-button
-                  >
+                        $t("payment.cancelOrder")
+                    }}</span></b-button>
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
                   <div class="holder">
                     <table class="table table-striped table-hover selectable">
                       <thead class="font-weight-bold">
                         <tr>
-                          <th
-                            scope="col"
-                            class="text-center"
-                            v-for="(tab, index) in fields"
-                            :key="index"
-                          >
+                          <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
                             {{ tab.label }}
                           </th>
                         </tr>
@@ -448,30 +354,22 @@
                               $t("profile.return")
                             }}</span></b-button
                           > -->
-                            <div
-                              class=""
-                              v-if="
-                                order.order_status_string === 'Completed' ||
-                                order.order_status_string === 'Delivered'
-                              "
-                            >
-                              <b-button
-                                @click="
-                                  $bvModal.show('return');
-                                  showModal(ord);
-                                "
-                                variant="outline-danger mt-2 return-btn"
-                                v-if="
-                                  ord.status === 'Pending' &&
-                                  ord.return_time !== null &&
-                                  ord.return_time !== 'null' && 
-                                  ord.return_time !== 0
-                                "
-                                ><font-awesome-icon icon="fa-solid fa-x" />
+                            <div class="" v-if="
+                              order.order_status_string === 'Completed' ||
+                              order.order_status_string === 'Delivered'
+                            ">
+                              <b-button @click="
+  $bvModal.show('return');
+showModal(ord);
+                              " variant="outline-danger mt-2 return-btn" v-if="
+                                ord.status === 'Pending' &&
+                                ord.return_time !== null &&
+                                ord.return_time !== 'null' &&
+                                ord.return_time !== 0
+                              "><font-awesome-icon icon="fa-solid fa-x" />
                                 <span class="mx-2">{{
-                                  $t("profile.return")
-                                }}</span></b-button
-                              >
+                                    $t("profile.return")
+                                }}</span></b-button>
                             </div>
                           </td>
                         </tr>
@@ -484,8 +382,7 @@
               <b-modal id="return" centered hide-footer>
                 <template #modal-title>
                   <div class="d-flex justify-content-center align-items-center">
-                    <span class="text-center"
-                      >{{ $t("profile.returnReason") }}
+                    <span class="text-center">{{ $t("profile.returnReason") }}
                       <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" />
                     </span>
                   </div>
@@ -512,38 +409,28 @@
                     </div>
                   </form> -->
 
-                    <div
-                      class="d-flex justify-content-between align-items-center"
-                    >
+                    <div class="d-flex justify-content-between align-items-center">
                       <div class="">
-                        <router-link
-                          :to="{
-                            path: '/return-replace',
-                            query: { orderId: supplierUUID },
-                          }"
-                        >
+                        <router-link :to="{
+                          path: '/return-replace',
+                          query: { orderId: supplierUUID },
+                        }">
                           <b-button variant="outline-success" class="replace">
                             <span>{{ $t("profile.replace") }}</span>
                             <span class="mx-2">
-                              <font-awesome-icon
-                                icon="fa-solid fa-arrow-right-arrow-left"
-                              />
+                              <font-awesome-icon icon="fa-solid fa-arrow-right-arrow-left" />
                             </span>
                           </b-button>
                         </router-link>
                       </div>
                       <div class="">
-                        <router-link
-                          v-if="orderData"
-                          :to="{
-                            path: '/return-refund',
-                            query: {
-                              orderId: supplierUUID,
-                              prodId: orderData.id,
-                            },
-                          }"
-                          variant="outlin-danger"
-                        >
+                        <router-link v-if="orderData" :to="{
+                          path: '/return-refund',
+                          query: {
+                            orderId: supplierUUID,
+                            prodId: orderData.id,
+                          },
+                        }" variant="outlin-danger">
                           <b-button variant="outline-danger" class="refund">
                             <span>{{ $t("profile.refund") }}</span>
                             <!-- <span class="fa-stack">
@@ -552,9 +439,7 @@
                           </span> -->
                             <span class="mx-2">
                               <!-- <img src="@/assets/images/refund.png" alt="" class="refund-image"> -->
-                              <font-awesome-icon
-                                icon="fa-solid fa-money-bill-wave"
-                              />
+                              <font-awesome-icon icon="fa-solid fa-money-bill-wave" />
                             </span>
                           </b-button>
                         </router-link>
@@ -640,104 +525,54 @@
                 <div class="methods-data">
                   <div class="methods">
                     <div class="method">
-                      <div
-                        class="custom-control custom-radio custom-control-inline"
-                      >
-                        <input
-                          type="radio"
-                          id="paymentMethod1"
-                          name="paymentMethod"
-                          class="custom-control-input"
-                          v-model="paymentFormData.payment_type"
-                          value="bank"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="paymentMethod1"
-                        >
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="bank" />
+                        <label class="custom-control-label" for="paymentMethod1">
                           {{ $t("payment.bankTransfer") }}
                         </label>
                         <span>{{ $t("payment.paymentByBank") }}</span>
                       </div>
                     </div>
                     <div class="method">
-                      <div
-                        class="custom-control custom-radio custom-control-inline"
-                      >
-                        <input
-                          type="radio"
-                          id="paymentMethod2"
-                          name="paymentMethod"
-                          class="custom-control-input"
-                          v-model="paymentFormData.payment_type"
-                          value="cach"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="paymentMethod2"
-                        >
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="cach" />
+                        <label class="custom-control-label" for="paymentMethod2">
                           {{ $t("payment.paymentWhenReceiving") }}
                         </label>
                         <span>{{ $t("payment.requestReceipt") }}</span>
                       </div>
                     </div>
-                    <div
-                      class="method d-flex justify-content-between align-content-center"
-                    >
-                      <div
-                        class="custom-control custom-radio custom-control-inline"
-                      >
-                        <input
-                          type="radio"
-                          id="paymentMethod3"
-                          name="paymentMethod"
-                          class="custom-control-input"
-                          v-model="paymentFormData.payment_type"
-                          value="visa"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="paymentMethod3"
-                        >
+                    <div class="method d-flex justify-content-between align-content-center">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="visa" />
+                        <label class="custom-control-label" for="paymentMethod3">
                           {{ $t("payment.onlinePayment") }}
                         </label>
                         <div class="online-media">
-                          <img
-                            src="@/assets/images/cart.png"
-                            alt=""
-                            srcset=""
-                          />
+                          <img src="@/assets/images/cart.png" alt="" srcset="" />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="error text-center"
-                    v-for="(error, index) in errors.payment_type"
-                    :key="index"
-                  >
+                  <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
                     {{ error }}
                   </div>
                 </div>
               </div>
             </div>
 
-            <b-button
-              :disabled="paymentFormData.payment_type == null"
-              id="show-btn"
-              class="mt-3"
-              variant="outline-success"
-              block
-              @click="rePay"
-            >
+            <b-button :disabled="paymentFormData.payment_type == null" id="show-btn" class="mt-3"
+              variant="outline-success" block @click="rePay">
               {{ $t("profile.pay") }}
             </b-button>
           </b-modal>
           <b-modal id="cancel_btn_modal" centered hide-footer>
             <template #modal-title>
               <div class="d-flex justify-content-center align-items-center">
-                <span class="text-center"
-                  >{{ $t("profile.cancelReason") }}
+                <span class="text-center">{{ $t("profile.cancelReason") }}
                   <!-- <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" /> -->
                 </span>
               </div>
@@ -745,31 +580,15 @@
             <div class="d-block">
               <div class="">
                 <form>
-                  <textarea
-                    class="form-control"
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="10"
-                    v-model="message"
-                    required
-                  ></textarea>
+                  <textarea class="form-control" name="" id="" cols="30" rows="10" v-model="message"
+                    required></textarea>
                   <div class="error mt-2">
-                    <p
-                      v-for="(error, index) in errors.client_cancel_reason"
-                      :key="index"
-                    >
+                    <p v-for="(error, index) in errors.client_cancel_reason" :key="index">
                       {{ error }}
                     </p>
                   </div>
-                  <b-button
-                    :disabled="message == ''"
-                    id="show-btn"
-                    class="mt-3"
-                    variant="outline-success"
-                    block
-                    @click="cancelOrder"
-                  >
+                  <b-button :disabled="message == ''" id="show-btn" class="mt-3" variant="outline-success" block
+                    @click="cancelOrder">
                     {{ $t("profile.cancel") }}
                   </b-button>
                 </form>
@@ -789,16 +608,9 @@
         <div class="wrapper">
           <div class="data bb">
             <div class="row">
-              <div
-                class="col-md-6 col-sm-12 p-20"
-                :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
-              >
+              <div class="col-md-6 col-sm-12 p-20" :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }">
                 <div class="branding d-flex justify-content-center">
-                  <img
-                    src="@/assets/images/logo.png"
-                    class="img-fluid w-25"
-                    alt="logo"
-                  />
+                  <img src="@/assets/images/logo.png" class="img-fluid w-25" alt="logo" />
                 </div>
               </div>
               <div class="col-md-6 col-sm-12 p-20">
@@ -824,10 +636,7 @@
           </div>
           <div class="data bb">
             <div class="row">
-              <div
-                class="col-6"
-                :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
-              >
+              <div class="col-6" :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }">
                 <div class="holder bor">
                   <!-- <p>Invoice # 1-000001319-1027</p> -->
                   <p v-if="orderData">
@@ -845,23 +654,36 @@
               </div>
             </div>
           </div>
-          <div class="supplier-data p-15 mt-3">
+          <div class="supplier-data">
             <div class="colored">
-              <div
-                class="data-for-loop my-5"
-                v-for="(order, index) in orders"
-                :key="index"
-              >
-                <h5 class="mt-3 mb-5 data-heading">
-                  <span
-                    >{{ $t("profile.supplier") }} : {{ order.company }}</span
-                  >
-                  <span class="mx-5"
-                    >{{ $t("profile.supplierOrder") }} :
-                    {{ order.serial }}</span
-                  >
-                </h5>
-                <div class="row data-headings">
+              <div class="data-for-loop bt" v-for="(order, index) in orders" :key="index">
+                <div class="bb">
+                  <div class="row">
+                    <div class="col-6" :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }">
+                      <div class="holder bor py-1">
+                        <!-- <p>Invoice # 1-000001319-1027</p> -->
+                        <h2>{{ $t("profile.supplier") }} :</h2>
+                        <h5 class="my-2 data-heading">
+                          <span> {{ order.company }}</span>
+                          <!-- <span class="mx-5">{{ $t("profile.supplierOrder") }} :
+                            {{ order.serial }}</span> -->
+                        </h5>
+                        <p v-if="order.address">{{ order.address }}</p>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="holder py-1">
+                        <!-- <h5 class="" v-if="orderData">
+                          {{ $t("profile.orderSerial") }} : {{ orderData.id }} #
+                        </h5> -->
+                        <h5>{{ $t("profile.shippingMethod") }} : {{ order.shipping_type }}</h5>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="row data-headings bor ">
                   <div class="col-md-6 col-sm-12 mb-2">
                     <h5 class="data-heading">
                       {{ $t("profile.productName") }}
@@ -875,22 +697,22 @@
                   </div>
                 </div>
 
-                <div
-                  class="row holder-row"
-                  v-for="(ord, index) in order.items"
-                  :key="index"
-                >
-                  <div class="col-md-6 col-sm-12 py-2">
+                <div class="row holder-row bor mb-1" v-for="(ord, index) in order.items" :key="index">
+                  <div class="col-md-6 col-sm-12 py-1">
                     <div class="data-holder">
                       <h5 class="title">{{ ord.items.product.title }}</h5>
+                      <h6 v-if="buyerUserData.type == 'b2b' || buyerUserData.type == 'buyer'">SKU :
+                        {{ ord.items.product_details[0].sku }}</h6>
+                      <h6 v-if="buyerUserData.type == 'b2c' || !buyerUserData">SKU :
+                        {{ ord.items.product_details[1].sku }}</h6>
                     </div>
                   </div>
-                  <div class="col-md-3 col-sm-12 py-2">
+                  <div class="col-md-3 col-sm-12 py-1">
                     <div class="data-holder">
                       <h4 class="title">{{ ord.quantity }}</h4>
                     </div>
                   </div>
-                  <div class="col-md-3 col-sm-12 py-2">
+                  <div class="col-md-3 col-sm-12 py-1">
                     <div class="data-holder">
                       <h4 class="title">
                         {{ ord.price | fixedCurrency }} {{ currency }}
@@ -898,11 +720,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="supplier-shipping-data pt-4">
+                <div class="supplier-shipping-data pt-4 bor mb-1">
                   <div class="row">
                     <!-- <div class="col-md-6 col-sm-12 borderred-bottom"></div> -->
                     <div class="col-md-6 col-sm-12 offset-6">
-                      <div class="row borderred-bottom p-15" v-if="orderData.total_shipping_fee !==0 || orderData.total_discount !== 0">
+                      <div class="row borderred-bottom p-15"
+                        v-if="orderData.total_shipping_fee !== 0 || orderData.total_discount !== 0">
                         <div class="col-md-6 col-sm-12">
                           <h5>{{ $t("profile.subTotal") }}</h5>
                         </div>
@@ -955,7 +778,52 @@
                   </div>
                 </div>
               </div>
-              <div class="payment-data mt-5 px-5">
+              <section class="item-order normaly printing-normal">
+                <div class="row info">
+                  <div class="col-12 p-0">
+                    <div class="">
+                      <div class="info">
+                        <div class="row info-data info-colored">
+                          <div class="col-6">
+                            {{ $t("profile.subTotal") }}
+                          </div>
+                          <div class="col-6" v-if="orderData">
+                            KWD {{ orderData.sup_total_price | fixedCurrency }}
+                          </div>
+                        </div>
+                        <div class="row info-data">
+                          <div class="col-6">
+                            {{ $t("profile.total_shipping_fee") }}
+                          </div>
+                          <div class="col-6" v-if="orderData">
+                            KWD {{ orderData.total_shipping_fee | fixedCurrency }}
+                          </div>
+                        </div>
+
+                        <!-- <div class="row info-data">
+                  <div class="col-6">{{ $t("profile.total_commission") }}</div>
+                  <div class="col-6" v-if="orderData">
+                    KWD {{ orderData.total_commission }}
+                  </div>
+                </div> -->
+                        <div class="row info-data info-colored">
+                          <div class="col-6">{{ $t("profile.totalDiscount") }}</div>
+                          <div class="col-6" v-if="orderData">
+                            KWD {{ orderData.total_discount | fixedCurrency }}
+                          </div>
+                        </div>
+                        <div class="row info-data">
+                          <div class="col-6">{{ $t("profile.total_price") }}</div>
+                          <div class="col-6" v-if="orderData">
+                            KWD {{ orderData.total_price | fixedCurrency }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <div class="payment-data mt-2 p-2 pl-4">
                 <div class="row">
                   <div class="col-md-6 col-sm-12">
                     <h4>
@@ -963,117 +831,93 @@
                     </h4>
                     <h6 v-if="orderData">{{ orderData.payment }}</h6>
                   </div>
-                  <div class="col-md-6 col-sm-12">
+                  <!-- <div class="col-md-6 col-sm-12">
                     <h4>
                       <b>{{ $t("profile.shippingMethod") }}</b>
                     </h4>
                     <ul>
-                      <div
-                        v-for="(supplier, index) in orders"
-                        :key="index"
-                        class="px-2"
-                      >
+                      <div v-for="(supplier, index) in orders" :key="index" class="px-2">
                         <p>
                           <span>{{ supplier.company }}</span> -
                           <span>{{ supplier.shipping_type }}</span>
                         </p>
                       </div>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="bill mt-3">
-                  <h5>
+                  <h4>
+                    <b>{{ $t("profile.shippingInfo") }}</b>
+                  </h4>
+                  <!-- <h5>
                     <b>{{ $t("profile.billingInfo") }}</b>
-                  </h5>
-                  <div
-                    class="col-md-6 col-sm-12 mb-2 px-1"
-                    v-if="orderData && shipingExist"
-                  >
-                    <div class="" v-if="orderData.client_info">
-                      <h6
-                        class="d-inline-block"
-                        v-if="orderData.client_info.apartment"
-                      >
+                  </h5> -->
+                  <div class="col-md-6 col-sm-12 mb-2 px-1" v-if="orderData && shipingExist">
+                    <div class="d-flex" v-if="orderData.client_info">
+                      <h6 class="d-inline-block mx-1" v-if="orderData.client_info.apartment">
                         {{ $t("profile.aptNo") }} :
-                        {{ orderData.client_info.apartment }}
+                        {{ orderData.client_info.apartment }} ,
                       </h6>
-                      <h6
-                        class="d-inline-block"
-                        v-if="orderData.client_info.building_number"
-                      >
-                        , {{ $t("profile.buildingNo") }} :
-                        {{ orderData.client_info.building_number }}
+                      <h6 class="d-inline-block mx-1" v-if="orderData.client_info.building_number">
+                        {{ $t("profile.buildingNo") }} :
+                        {{ orderData.client_info.building_number }} ,
                       </h6>
-                      <h6
-                        class="d-inline-block"
-                        v-if="orderData.client_info.floor"
-                      >
-                        , {{ $t("profile.floor") }} :
-                        {{ orderData.client_info.floor }}
+                      <h6 class="d-inline-block mx-1" v-if="orderData.client_info.floor">
+                        {{ $t("profile.floor") }} :
+                        {{ orderData.client_info.floor }} ,
                       </h6>
-                      <h6
-                        class="d-inline-block"
-                        v-if="orderData.client_info.address_line_1"
-                      >
-                        , {{ orderData.client_info.address_line_1 }} ,
+                      <h6 class="d-inline-block mx-1" v-if="orderData.client_info.address_line_1">
+                        {{ orderData.client_info.address_line_1 }} ,
                       </h6>
-                      <h6
-                        class="d-inline-block"
-                        v-if="orderData.client_info.address_line_2"
-                      >
-                        , {{ orderData.client_info.address_line_2 }}
+                      <h6 class="d-inline-block mx-1" v-if="orderData.client_info.address_line_2">
+                        {{ orderData.client_info.address_line_2 }},
                       </h6>
-                      <h5 v-if="orderData.client_info.city">
-                        {{ orderData.client_info.city }}
+                      <h5 class="d-inline-block mx-1" v-if="orderData.client_info.city">
+                        {{ orderData.client_info.city }},
                       </h5>
-                      <h5 v-if="orderData.client_info.governorate">
-                        {{ orderData.client_info.governorate }}
+                      <h5 class="d-inline-block mx-1" v-if="orderData.client_info.governorate">
+                        {{ orderData.client_info.governorate }},
                       </h5>
-                      <h5 v-if="orderData.client_info.country">
+                      <h5 class="d-inline-block mx-1" v-if="orderData.client_info.country">
                         {{ orderData.client_info.country }}
                       </h5>
                     </div>
+                    <div v-if="orderData.client_info">
+                      <h6>Mobile No. :{{ orderData.client_info.country_code }}{{ orderData.client_info.phone }}</h6>
+                    </div>
                   </div>
                 </div>
+                <div class="d-fex text-center justify-content-center align-items-center mt-5">
+                  <h4>Thank you for your order</h4>
+                  <h3><b>HumHum, Block 7 Building 19 street 67, Fahaheel Kuwait</b></h3>
+                </div>
               </div>
-              <div class="social">
+              <!-- <div class="social">
                 <div class="ml-auto footer-social">
                   <ul>
                     <li v-if="twitter">
                       <a :href="twitter.value" target="_blank">
-                        <img
-                          src="@/assets/images/twitter.png"
-                          :alt="twitter.key"
-                        />
+                        <img src="@/assets/images/twitter.png" :alt="twitter.key" />
                       </a>
                     </li>
                     <li v-if="youtube">
                       <a :href="youtube.value" target="_blank">
-                        <img
-                          src="@/assets/images/youtube.png"
-                          :alt="youtube.key"
-                        />
+                        <img src="@/assets/images/youtube.png" :alt="youtube.key" />
                       </a>
                     </li>
                     <li v-if="instagram">
                       <a :href="instagram.value" target="_blank">
-                        <img
-                          src="@/assets/images/instagram.png"
-                          :alt="instagram.key"
-                        />
+                        <img src="@/assets/images/instagram.png" :alt="instagram.key" />
                       </a>
                     </li>
                     <li v-if="pinterest">
                       <a :href="pinterest.value" target="_blank">
-                        <img
-                          src="@/assets/images/pinterest.png"
-                          :alt="pinterest.key"
-                        />
+                        <img src="@/assets/images/pinterest.png" :alt="pinterest.key" />
                       </a>
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -1356,13 +1200,16 @@ export default {
     padding: 20px;
     background: #f7f7f7;
   }
+
   .serial-holder {
     font-size: 20px;
   }
+
   h4 {
     background: #f7f7f7;
     margin-bottom: 2%;
   }
+
   section {
     margin: 2% 0;
   }
@@ -1372,23 +1219,29 @@ export default {
     padding: 10px 0;
     margin: 0 15px;
   }
+
   .info-data {
     padding: 10px 0;
   }
+
   .info-colored {
     background: #f7f7f7;
   }
+
   .supplier-info {
     font-size: 20px;
   }
+
   table,
   table tr,
   table td {
     text-align: center !important;
   }
+
   .print {
     cursor: pointer;
   }
+
   .holder {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1399,9 +1252,11 @@ export default {
     //padding: 20px;
     font-size: 20px;
   }
+
   .supplier-data {
     padding: 20px;
   }
+
   .modal-content {
     display: none !important;
   }
@@ -1427,6 +1282,7 @@ export default {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
+
   .refund {
     padding: 8px 30px;
     background: $main-color;
@@ -1436,14 +1292,17 @@ export default {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
+
   .modal-header {
     position: relative !important;
+
     .close {
       position: absolute !important;
       right: 10px !important;
       top: 10px !important;
     }
   }
+
   .refund-image {
     width: 25px;
     height: 25px;
@@ -1457,44 +1316,53 @@ export default {
     padding: 2rem;
     border-radius: 0.5rem;
     text-align: left;
+
     .info {
       border-bottom: 1px dashed #c5c6c6;
       padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
+
     .total {
       padding: 1rem 0;
       color: #312620;
       font-weight: bold;
+
       .title {
         font-size: 14pt;
       }
     }
+
     .methods {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
       -moz-border: 1px dashed #cfd0d0;
+
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
         -moz-border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
+
         .custom-radio {
           -ms-flex-wrap: wrap;
           flex-wrap: wrap;
         }
+
         label {
           cursor: pointer;
         }
+
         span {
           width: 100%;
           font-size: 10pt;
           margin-top: -0.2rem;
           opacity: 0.7;
         }
+
         .online-media {
           img {
             -o-object-fit: contain;
@@ -1508,59 +1376,83 @@ export default {
 
 .printing {
   color: #000 !important;
+
   display: none;
   .wrapper {
     border: 1px solid #000;
     -moz-border: 1px solid #000;
+
     .bor {
       padding: 5px 20px;
     }
-    .supplier-data {
-      background: #f7f7f7;
-    }
+
+    // .supplier-data {
+    //   background: #f7f7f7;
+    // }
   }
+
   .p-15 {
-    padding: 15px;
+    padding: 0px;
   }
+
   .p-20 {
     padding: 20px;
   }
+
   .br {
     border-right: 1px solid #000;
     -moz-border-right: 1px solid #000;
   }
+
   .bl {
     border-left: 1px solid #000;
     -moz-border-left: 1px solid #000;
   }
+
   .bb {
     border-bottom: 1px solid #000;
     -moz-border-bottom: 1px solid #000;
   }
+
   .bt {
     border-top: 1px solid #000;
     -moz-border-top: 1px solid #000;
   }
+
   p {
     color: #000;
     font-weight: bold;
+
     &:last-of-type {
       margin-bottom: 0;
     }
   }
+
   .data-heading {
     font-weight: bold;
-    margin-bottom: 25px;
+    // margin-bottom: 25px;
   }
+
+  .data-headings {
+    .data-heading {
+      padding: 10px 0;
+    }
+  }
+
   .holder-row {
     background: #fff;
     border-bottom: 2px solid #ccc;
     -moz-border-bottom: 2px solid #ccc;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
   }
+
   .borderred-bottom {
     border-bottom: 2px solid #ccc;
     -moz-border-bottom: 2px solid #ccc;
   }
+
   .footer-social ul {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1572,22 +1464,46 @@ export default {
     -ms-flex-align: center;
     align-items: center;
   }
+
   .footer-social ul li {
     margin: 0 9px;
+  }
+
+  .data-headings {
+    overflow: hidden;
+    width: 100%;
+    margin: auto;
+    margin: 0;
+    padding: 0;
+    background: #ccc;
+  }
+  .printing-normal{
+    .info{
+      width: 100%;
+      margin: 0;
+    }
+    .info-colored , .info-colored +div{
+      background: #ccc;
+    }
+    .info-data{
+      margin: 2px 0;
+    }
   }
 }
 
 @media print {
-  
+
   .cancel-btn,
   .return-btn,
   .print,
   .order-back {
     display: none;
   }
+
   .mail {
     word-break: break-all;
   }
+
   .branding {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -1596,16 +1512,25 @@ export default {
     -ms-flex-pack: end;
     justify-content: flex-end;
   }
+
   .normaly {
     display: none;
   }
+  .printing-normal{
+    display: block;
+  }
+
   .printing {
     display: block;
   }
+
+
 }
+
 .cancelReason {
   background: #ff000042 !important;
 }
+
 textarea {
   -webkit-transition: al 0.5s ease-in-out;
   -o-transition: al 0.5s ease-in-out;
