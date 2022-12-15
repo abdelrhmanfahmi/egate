@@ -87,13 +87,14 @@ export default {
       return this.$store.state.guestId;
     },
   },
-  // mounted() {
-  //   window.addEventListener('beforeunload', function (e) {
-  //     alert('you closed the app')
-  //     e.preventDefault();
-  //     e.returnValue = '';
-  //   });
-  // }
+  mounted() {
+    // window.addEventListener('beforeunload', function (e) {
+    //   alert('you closed the app')
+    //   e.preventDefault();
+    //   e.returnValue = '';
+    // });
+    this.checkCartValidity()
+  }
 };
 </script>
 

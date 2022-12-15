@@ -733,6 +733,13 @@
                   drop-placeholder="Drop file here..."
                 ></b-form-file>
               </b-form-group>
+              <div
+            class="error text-start"
+            v-for="(error, index) in uploadErrors.bank_iban"
+            :key="index"
+          >
+            {{ error }}
+          </div>
             </div>
             <div class="col-md-4 col-sm-12 mb-3">
               <div

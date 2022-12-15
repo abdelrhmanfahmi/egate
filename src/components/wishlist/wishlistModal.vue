@@ -132,7 +132,7 @@ export default {
   color: #fff;
   padding: 5px 10px;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  //letter-spacing: 3px;
   a {
     color: inherit;
     &:hover {

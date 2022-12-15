@@ -72,7 +72,7 @@
         <b-button
           @click="addToCart(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if=" cartAvailable && 
+          v-if="cartAvailable  == 'available' &&
             data.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
             data.product_details_by_type.add_type === 'both'
           "
@@ -86,7 +86,7 @@
         class="addToCartHolder d-flex justify-content-end align-items-center"
         v-else
       >
-        <div>
+        <div v-if="cartAvailable  === 'available'">
           <div>
             <b-form-select v-model="selected">
               <b-form-select-option

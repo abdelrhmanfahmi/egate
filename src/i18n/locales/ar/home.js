@@ -34,7 +34,7 @@ export default {
   ok: "أوافق",
   privacyPolicy: "سياسة الخصوصيه",
   termsConditions: "الشروط و الاحكام",
-  faq: "لأسئلة الشائعة",
+  faq: "الأسئلة الشائعة",
   siteName: "فريق دعم HumHumm",
   siteSupport: "الرد غالبا يكون خلال ساعة",
   hiThere: "مرحبا",

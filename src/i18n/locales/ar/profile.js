@@ -274,7 +274,7 @@ export default {
   standOrderName:'اسم القائمه',
   selectExistStandOrder:'اختر من القوائم المتاحه',
   dashboard:'لوحة التحكم',
-
+  remainKnet :'يمكن دفع المبلغ المتبقي باستخدام الكي نت أو البطاقة',
   aprovedProducts:'المنتجات الموافق عليها',
   lowInvenity:'منتجات منخفضة المخزون',
   bestSeller:'الأكثر مبيعًا',
