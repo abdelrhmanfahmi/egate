@@ -282,6 +282,7 @@ export default {
   standOrderName:'Standing Order List Name',
   selectExistStandOrder:'Select From Standing Order List',
   dashboard:'Dashboard',
+  remainKnet:'The remaining amount can be paid using knet or card',
 
   aprovedProducts:'Approved Products',
   lowInvenity:'Low Inventory Products',

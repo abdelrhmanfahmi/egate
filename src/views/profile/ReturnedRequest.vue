@@ -282,9 +282,12 @@
                           {{ supplier_oreder_item.price | fixedCurrency }}
                           {{ currency }}
                         </td>
-                        <td v-if="supplier_oreder_item.quantity">
-                          {{ supplier_oreder_item.quantity }}
+                        <td v-if="return_item.quantity">
+                          {{ return_item.quantity }}
                         </td>
+                        <!-- <td v-if="supplier_oreder_item.quantity">
+                          {{ supplier_oreder_item.quantity }}
+                        </td> -->
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.sup_total">
                           {{ supplier_oreder_item.sup_total | fixedCurrency }}

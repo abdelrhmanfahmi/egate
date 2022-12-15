@@ -112,7 +112,6 @@ export default {
         await auth
           .getGuestAdsModal(payload)
           .then((res) => {
-            console.log(res);
             this.newsletterShow = res.data.items;
           })
           .catch((err) => {

@@ -426,12 +426,12 @@
                 </div>
               </td>
               <td>
-                <Variants-Counter :minimum=" cartAvailable  == 'available' &&
+                <Variants-Counter :minimum="
                   product.product_details_by_type.min_order_quantity
                     ? product.product_details_by_type.min_order_quantity
                     : 1
-                " v-if="
-  product.product_details_by_type.add_type === 'cart' ||
+                " v-if="cartAvailable  === 'available' &&
+  product.product_details_by_type.add_type === 'cart' || cartAvailable  === 'available' &&
   product.product_details_by_type.add_type === 'both'
 " class="justify-content-center" :quantity="
   product.product_details_by_type.min_order_quantity > 0

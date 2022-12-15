@@ -14,6 +14,7 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
+            <td>{{ order.serial }}</td>
             <td>{{ order.item_names }}</td>
             <td>{{ order.supplier }}</td>
             <td>
@@ -69,6 +70,10 @@ export default {
   data() {
     return {
       fields: [
+        {
+          key: "id",
+          label: this.$t("profile.serial"),
+        },
         {
           key: "id",
           label: this.$t("profile.productName"),

@@ -713,9 +713,11 @@
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
                                         value="wallet_visa" />
                                       <label class="custom-control-label" for="paymentMethod5">
-                                        {{ $t("profile.wallet_visa") }}
+                                        {{ $t("profile.wallet") }}
+                                        <!-- {{ $t("profile.wallet_visa") }} -->
                                         <sup>*</sup>
                                       </label>
+                                      <p v-if="paymentFormData.payment_type === 'wallet_visa'">{{$t('profile.remainKnet')}}</p>
                                       <span>{{ walletData }} {{ currency }}</span>
                                     </div>
                                   </div>

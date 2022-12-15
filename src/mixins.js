@@ -24,27 +24,27 @@ Vue.mixin({
     buyerUserData() {
       return this.$store.getters.buyerUserData;
     },
-    currency(){
-      return localStorage.getItem('currency')
+    currency() {
+      return localStorage.getItem("currency");
     },
-    socialLogin(){
-      return localStorage.getItem('provider')
+    socialLogin() {
+      return localStorage.getItem("provider");
     },
-    userCountries(){
-      return localStorage.getItem('countries')
+    userCountries() {
+      return localStorage.getItem("countries");
     },
-    selectedCountry(){
-      return localStorage.getItem('country')
+    selectedCountry() {
+      return localStorage.getItem("country");
     },
-    currentLang(){
-      return localStorage.getItem('lang')
+    currentLang() {
+      return localStorage.getItem("lang");
     },
-    cartAvailable(){
-      return localStorage.getItem('cartAvailable')
+    cartAvailable() {
+      return localStorage.getItem("cartAvailable");
     },
-    RfqAvailable(){
-      return localStorage.getItem('RfqAvailable')
-    }
+    RfqAvailable() {
+      return localStorage.getItem("RfqAvailable");
+    },
   },
   methods: {
     logout() {
@@ -53,6 +53,8 @@ Vue.mixin({
       localStorage.removeItem("buyerUserData");
       localStorage.removeItem("provider");
       localStorage.removeItem("massege");
+      localStorage.removeItem("cartAvailable");
+      localStorage.removeItem("RfqAvailable");
       this.$router.push("/");
       location.reload();
     },
