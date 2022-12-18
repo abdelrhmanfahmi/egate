@@ -47,55 +47,50 @@
             <td>{{ order.order_supplier_items_count }}</td>
             <td><span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span></td>
             <td>{{ order.payment_status_lang }}</td>
-            <td>{{ order.payment }}</td>
+            <td><span>{{ order.payment }}</span>
+              <span class="d-block"
+                v-if="order.payment_type === 'visa' || 
+                order.payment_charge_id || 
+                order.payment_type === 'wallet_visa' || 
+                order.payment_type === 'wallet'">
+                TID : {{ order.payment_charge_id }}
+              </span>
+            </td>
 
             <td>
-              <router-link
-                :to="{
-                  path: '/viewOrderDetails',
-                  query: { id: `${order.id}` },
-                }"
-                class="text-dark"
-              >
+              <router-link :to="{
+                path: '/viewOrderDetails',
+                query: { id: `${order.id}` },
+              }" class="text-dark">
                 <b-button variant="outline-secondary" class="m-2">
                   {{ $t("profile.view") }}
                 </b-button>
               </router-link>
-              <router-link
-                v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'bank'
-                "
-                :to="{
-                  path: '/checkout-details',
-                  query: {
-                    order_serial: order.serial,
-                    date: order.created_at,
-                    total_price: order.total_price,
-                    payment_type: order.payment_type,
-                    payment: order.payment,
-                    uuid: order.uuid,
-                  },
-                }"
-                class="text-dark"
-              >
+              <router-link v-if="
+                order.payment_status === 'Unpaid' &&
+                order.payment_type === 'bank'
+              " :to="{
+  path: '/checkout-details',
+  query: {
+    order_serial: order.serial,
+    date: order.created_at,
+    total_price: order.total_price,
+    payment_type: order.payment_type,
+    payment: order.payment,
+    uuid: order.uuid,
+  },
+}" class="text-dark">
                 <b-button variant="outline-success" class="m-2">
                   {{ $t("profile.bankTransDocs") }}
                 </b-button>
               </router-link>
-              <b-button
-                id="show-btn"
-                @click="
-                  $bvModal.show('bv-modal-example');
-                  saveUUID(order);
-                "
-                variant="outline-success"
-                class="m-2"
-                v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'visa'
-                "
-              >
+              <b-button id="show-btn" @click="
+  $bvModal.show('bv-modal-example');
+saveUUID(order);
+              " variant="outline-success" class="m-2" v-if="
+                order.payment_status === 'Unpaid' &&
+                order.payment_type === 'visa'
+              ">
                 {{ $t("profile.pay") }}
               </b-button>
             </td>
@@ -103,13 +98,8 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-center align-items-center mt-5">
-        <Paginate
-          v-if="orders"
-          :total-pages="totalPages"
-          :per-page="totalPages"
-          :current-page="page"
-          @pagechanged="onPageChange"
-        />
+        <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+          @pagechanged="onPageChange" />
       </div>
       <div>
         <b-modal centered id="bv-modal-example" hide-footer>
@@ -124,17 +114,9 @@
               <div class="methods-data">
                 <div class="methods">
                   <div class="method">
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
-                      <input
-                        type="radio"
-                        id="paymentMethod1"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="bank"
-                      />
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="bank" />
                       <label class="custom-control-label" for="paymentMethod1">
                         {{ $t("payment.bankTransfer") }}
                       </label>
@@ -142,37 +124,19 @@
                     </div>
                   </div>
                   <div class="method">
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
-                      <input
-                        type="radio"
-                        id="paymentMethod2"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="cach"
-                      />
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="cach" />
                       <label class="custom-control-label" for="paymentMethod2">
                         {{ $t("payment.paymentWhenReceiving") }}
                       </label>
                       <span>{{ $t("payment.requestReceipt") }}</span>
                     </div>
                   </div>
-                  <div
-                    class="method d-flex justify-content-between align-content-center"
-                  >
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
-                      <input
-                        type="radio"
-                        id="paymentMethod3"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="visa"
-                      />
+                  <div class="method d-flex justify-content-between align-content-center">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="visa" />
                       <label class="custom-control-label" for="paymentMethod3">
                         {{ $t("payment.onlinePayment") }}
                       </label>
@@ -182,34 +146,21 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="error text-center"
-                  v-for="(error, index) in errors.payment_type"
-                  :key="index"
-                >
+                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
                   {{ error }}
                 </div>
               </div>
             </div>
           </div>
 
-          <b-button
-            :disabled="paymentFormData.payment_type == null"
-            id="show-btn"
-            class="mt-3"
-            variant="outline-success"
-            block
-            @click="rePay"
-          >
+          <b-button :disabled="paymentFormData.payment_type == null" id="show-btn" class="mt-3"
+            variant="outline-success" block @click="rePay">
             {{ $t("profile.pay") }}
           </b-button>
         </b-modal>
       </div>
     </div>
-    <div
-      class="spinner d-flex justify-content-center align-items-center"
-      v-else
-    >
+    <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
   </div>
@@ -287,7 +238,7 @@ export default {
           this.total = resp.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
             resp.data.items.orders.meta.total /
-              resp.data.items.orders.meta.per_page
+            resp.data.items.orders.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.orders.meta.total;
@@ -368,41 +319,50 @@ export default {
     padding: 2rem;
     border-radius: 0.5rem;
     text-align: left;
+
     .info {
       border-bottom: 1px dashed #c5c6c6;
       padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
+
     .total {
       padding: 1rem 0;
       color: #312620;
       font-weight: bold;
+
       .title {
         font-size: 14pt;
       }
     }
+
     .methods {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
+
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
+
         .custom-radio {
           flex-wrap: wrap;
         }
+
         label {
           cursor: pointer;
         }
+
         span {
           width: 100%;
           font-size: 10pt;
           margin-top: -0.2rem;
           opacity: 0.7;
         }
+
         .online-media {
           img {
             object-fit: contain;
@@ -412,19 +372,23 @@ export default {
     }
   }
 }
+
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
 }
+
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
   }
+
   table thead {
     border: none;
     clip: rect(0 0 0 0);
@@ -441,11 +405,13 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+
+  .actions {
     justify-content: center;
     align-items: center;
   }

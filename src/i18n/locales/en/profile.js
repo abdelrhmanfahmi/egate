@@ -289,5 +289,6 @@ export default {
   bestSeller:'Best Seller',
   mostViewed:'Most Viewed Products',
   orders:'Order(s)',
-  pending:'Pending'
+  pending:'Pending',
+  WalletRedirect:'You Will Be redirect to your wallet after 5 seconds'
 };
