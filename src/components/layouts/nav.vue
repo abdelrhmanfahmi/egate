@@ -104,9 +104,10 @@
           </div>
           <div v-if="!mobile" class="cart">
             <span class="cart-icon">
-              <b-icon-minecart-loaded></b-icon-minecart-loaded>
+              <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
             </span>
-            <span class="cartLength" v-if="cartItems && cartLength">
+            <span class="cartLength cart-number" v-if="cartItems && cartLength">
               {{ cartLength }}
             </span>
             <Cart class="cart-body"></Cart>
@@ -229,7 +230,7 @@ import Cart from "../cart/Cart.vue";
 import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
 
-import { BIconMinecartLoaded } from "bootstrap-vue";
+// import { BIconMinecartLoaded } from "bootstrap-vue";
 
 export default {
   data() {
@@ -248,7 +249,7 @@ export default {
   },
   components: {
     Cart,
-    BIconMinecartLoaded,
+    // BIconMinecartLoaded,
     Login,
     MobileNav,
     Notify,
@@ -567,6 +568,9 @@ html:lang(ar) {
   font-size: 14px;
   font-weight: bold;
   padding: 0px 4px;
+}
+.cart-number{
+  background: #ff6000;
 }
 
 .ar {

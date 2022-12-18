@@ -274,11 +274,12 @@ export default {
   standOrderName:'اسم القائمه',
   selectExistStandOrder:'اختر من القوائم المتاحه',
   dashboard:'لوحة التحكم',
-  remainKnet :'يمكن دفع المبلغ المتبقي باستخدام الكي نت أو البطاقة',
+  remainKnet :'يمكن دفع المبلغ المتبقي باستخدام knet أو البطاقة',
   aprovedProducts:'المنتجات الموافق عليها',
   lowInvenity:'منتجات منخفضة المخزون',
   bestSeller:'الأكثر مبيعًا',
   mostViewed:'المنتجات الأكثر مشاهدة',
   orders:'منتج',
-  pending:'معلق'
+  pending:'معلق',
+  WalletRedirect:'سوف يتم توجيهك الى محفظتك خلال ٥ ثوان'
 };

@@ -689,7 +689,7 @@
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
-                                  <div class="method wallet" v-if="
+                                  <div class="method wallet" v-if="walletData > 0 && 
                                     buyerUserData &&
                                     walletData >= totalPaymentReplacement
                                   ">
@@ -704,7 +704,7 @@
                                       <span>{{ walletData }} {{ currency }}</span>
                                     </div>
                                   </div>
-                                  <div class="method wallet_visa" v-if="
+                                  <div class="method wallet_visa" v-if="walletData > 0 &&
                                     buyerUserData &&
                                     walletData < totalPaymentReplacement
                                   ">
@@ -717,8 +717,8 @@
                                         <!-- {{ $t("profile.wallet_visa") }} -->
                                         <sup>*</sup>
                                       </label>
-                                      <p v-if="paymentFormData.payment_type === 'wallet_visa'">{{$t('profile.remainKnet')}}</p>
                                       <span>{{ walletData }} {{ currency }}</span>
+                                      <p>{{$t('profile.remainKnet')}}</p>
                                     </div>
                                   </div>
                                   <div class="method bank" v-if="buyerUserData">
