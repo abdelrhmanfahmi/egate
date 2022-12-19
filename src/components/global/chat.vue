@@ -1,23 +1,8 @@
 <template>
   <div class="layout chat-holder">
-    <!-- ommited -->
+    <!-- popup chat  -->
     <SocialChat icon :attendants="attendants" class="whatsapp-chat">
       <div slot="header" class="haeder">
-        <!-- <div class="row align-items-center">
-          <div class="col-md-2 col-sm-12">
-            <div class="logo-holder">
-              <img src="@/assets/images/logo.png" alt="logo" />
-            </div>
-          </div>
-          <div class="col-md-10 col-sm-12">
-            <h5 class="font-weight-bold">
-              {{$t('home.siteName')}}
-            </h5>
-            <small class="font-italic">
-              {{$t('home.siteSupport')}}
-            </small>
-          </div>
-        </div> -->
         <div class="header-chat">
           <div class="row justify-content-center align-items-center">
             <div class="col-md-2 col-sm-12mb-3 img-col ">
@@ -103,12 +88,19 @@
 </template>
 
 <script>
+/**
+    * import SocialChat
+  */
+
 import { SocialChat } from "vue-social-chat";
 export default {
   components: {
     SocialChat,
   },
   data: () => ({
+    /**
+    *  SocialChat data
+  */
     attendants: [
       {
         app: "whatsapp",
@@ -128,15 +120,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// --vsc-bg-header: $bg;
-// --vsc-bg-footer: #fafafa;
-// --vsc-text-color-header: white;
-// --vsc-text-color-footer: inherit;
-// --vsc-bg-button: $bgButton;
-// --vsc-text-color-button: white;
-// --vsc-outline-color: #333;
-// --vsc-border-color-bottom-header: transparent;
-// --vsc-border-color-top-footer: #f3f3f3;
+/**
+    * page style
+  */
 .haeder {
   min-width: 300px;
   text-align: center;

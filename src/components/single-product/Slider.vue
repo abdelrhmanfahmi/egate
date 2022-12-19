@@ -94,7 +94,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+   * page style.
+   */
 .product-slider {
+   
   color: #000;
 
   .content {

@@ -1,5 +1,6 @@
 <template>
   <div class="user-login">
+    <!-- login component  -->
     <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5" body-class="sidebar-login"
       bg-variant="#fff">
       <template #default="{ hide }">
@@ -9,21 +10,12 @@
         <div class="user-login-form">
           <div class="row flex-row justify-content-between align-items-center mb-4 text-dark">
             <div class="col-md-4 col-sm-12" @click="selectType('b2c')">
-              <!-- <router-link
-                to="/b2b-login"
-                class="text-dark font-weight-bold text-decoration-underline"
-                >{{ $t("login.retailBuyer") }}</router-link
-              > -->
               <span class="text-dark font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2c' }">{{
                     $t("login.retailBuyer")
                 }}</span>
             </div>
             <div class="col-md-5 col-sm-12" @click="selectType('b2b')">
-              <!-- <router-link to="/b2b-login" class="text-dark font-weight-bold text-decoration-underline">{{
-                  $t("login.wholeSaleBuyer")
-              }}</router-link> -->
-
               <span class="text-dark font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }">{{
                     $t("login.wholeSaleBuyer")
@@ -77,9 +69,6 @@
             <button @click="getLink('google')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-google" size="lg" />
             </button>
-            <!-- <button @click="getLink('azure')" class="button-social">
-              <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-            </button> -->
             <button @click="getLink('apple')" class="button-social apple-login">
               <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
             </button>
@@ -93,8 +82,6 @@
             {{ $t("login.createAccount") }}
           </b-button>
         </div>
-        <!-- social login -->
-
       </template>
     </b-sidebar>
     <b-modal id="ForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc ref="b2cLogin">
@@ -119,8 +106,6 @@
 
 <script>
 import auth from "@/services/auth";
-// import { getMessaging, onMessage, getToken } from "firebase/messaging";
-// import {messaging} from "@/plugins/firebase"
 import B2bTab from "../loginTabs/B2bTab.vue"
 export default {
   data() {
@@ -153,31 +138,6 @@ export default {
       auth
         .login("b2c", loginData)
         .then((res) => {
-          //old codes before setting otp
-          // if (!res.data.items.item.is_verified) {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          // }
-          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          // this.$router.push("/");
-          // location.reload();
-
-          // new after setting otp
-
-          // old 2nd code
-          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          // if (res.data.items.item.verify_mobile_required) {
-          //   localStorage.setItem("massege", this.$t("register.otpVerify"));
-          //   this.$router.push("/otp-verification");
-          //   location.reload();
-          // } else if (
-          //   !res.data.items.item.verify_mobile_required ||
-          //   !res.data.items.item.is_verified ||
-          //   res.data.items.item.verify_email_required
-          // ) {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          //   this.$router.push("/");
-          //   location.reload();
-          // }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (
             !res.data.items.item.is_verified &&
@@ -246,17 +206,6 @@ export default {
           this.errMsg(err.message);
         });
     },
-    // async generateFirebaseToken() {
-    //   const token = await getToken(messaging, {
-    //     vapidKey:
-    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-    //   });
-
-    //   if (token) {
-    //     this.form.token = token;
-    //     console.log(token);
-    //   }
-    // },
     selectType(type) {
       console.log('type', type);
       this.selectedType = type
@@ -281,6 +230,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ /**
+    * component style
+  */
+
 .user-login {
   .user-login-form {
     text-align: center;

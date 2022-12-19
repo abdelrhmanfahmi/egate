@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- rate component  -->
     <b-form-rating
       id="rating-inline"
       inline
@@ -8,8 +9,6 @@
       @change="changevalue "
       @click="testMe()"
     ></b-form-rating>
-
-    
   </div>
 </template>
 
@@ -21,6 +20,9 @@ export default {
     };
   },
   methods: {
+    /**
+      * change rate value
+    */
     changevalue(rateValue) {
       this.rateValue = rateValue;
       this.$emit('changeRate',rateValue)
@@ -30,4 +32,3 @@ export default {
 };
 </script>
 
-<style></style>

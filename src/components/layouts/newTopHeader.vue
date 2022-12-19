@@ -1,5 +1,6 @@
 <template>
     <header class="main-header">
+      <!-- component for language and countries  -->
       <b-container>
         <div class="top-nav">
           <div class="lang">
@@ -20,49 +21,6 @@
               </b-dropdown-item>
             </b-dropdown>
           </div>
-          <!-- <ul class="list-unstyled d-flex m-0">
-            <li
-              v-for="(currency, index) in currencies"
-              :key="index"
-              class="list-unstyled d-flex"
-            >
-              <ul class="list-unstyled d-flex">
-                <li
-                  v-for="(curr, index) in currency.currencies"
-                  :key="index"
-                  class="d-flex"
-                >
-                  <button
-                    @click="handleCurrency(curr.code)"
-                    class="bg-transparent border-0 outline-0 text-white mr-2"
-                  >
-                    {{ curr.code }}
-                  </button>
-                </li>
-              </ul>
-            </li>
-          </ul> -->
-          <!-- <b-dropdown
-            :text="$t('payment.chooseCurrency')"
-            class="bg-transparent border-0 text-white"
-          >
-            <b-dropdown-item
-              v-for="(currency, index) in myCurrencies"
-              :key="index"
-              class="list-unstyled d-flex bg-transparent border-0"
-            >
-              <ul class="list-unstyled d-flex">
-                <li class="d-flex">
-                  <button
-                    @click="handleCurrency(currency.code)"
-                    class="bg-transparent border-0 bg-transparent border-0"
-                  >
-                    {{ currency.code }}
-                  </button>
-                </li>
-              </ul>
-            </b-dropdown-item>
-          </b-dropdown> -->
           <div class="select-country">
             <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
               <template #button-content>
@@ -76,14 +34,6 @@
               </b-dropdown-item>
             </b-dropdown>
           </div>
-          <!-- <div class="select-currency" @change="handleCurrency($event)">
-            <b-form-select
-              v-model="currencyValue"
-              :options="currencies"
-              sm
-            >
-            </b-form-select>
-          </div> -->
         </div>
       </b-container>
     </header>
@@ -91,7 +41,6 @@
   
   <script>
   import auth from "@/services/auth";
-  // import globalAxios from "@/services/global-axios";
   import axios from "axios"
   export default {
     data() {
@@ -115,18 +64,7 @@
       };
     },
     mounted() {
-      // this.getAllCountires();
-      // this.reloadPage();
-  
-      // if (localStorage.getItem("guest-id") === null) {
-      //   console.log("gest not exist");
-      // }else{
-      //   console.log("gest exist");
-      // }
-      // if (!localStorage.getItem("country")) {
-  
       this.getDefaultCaounrt()
-      // }
     },
     methods: {
       getAllCountires() {
@@ -135,7 +73,6 @@
           .then((res) => {
             console.log(`countries`, res.data.items)
             this.countries = res.data.items;
-            // console.log("res" , res);
             if (localStorage.getItem("country")) {
               let current_stored_country = JSON.parse(
                 localStorage.getItem("country")
@@ -150,7 +87,6 @@
                 }
               });
             } else {
-              // console.log("res.data.items" , res.data.items);
               window.localStorage.setItem("country", this.defaultCountry);
               console.log("this.defaultCountry", this.defaultCountry);
               this.countries.forEach((country) => {
@@ -161,14 +97,7 @@
                   localStorage.setItem("currency", this.defaultCurrency);
                 }
                 this.myCurrencies = country.currencies;
-                // }
               });
-  
-              // localStorage.setItem("country", JSON.stringify(res.data.items[0]));
-              // localStorage.setItem(
-              //   "currency",
-              //   res.data.items[0].currencies[0].code
-              // );
               setTimeout(() => {
                 location.reload();
               }, 500);
@@ -176,13 +105,7 @@
             if (localStorage.getItem("is_default") === null) {
               localStorage.setItem("is_default", res.data.items[0].is_default);
             }
-            // if (localStorage.getItem("currency") === null) {
-            //   localStorage.setItem("currency", res.data.items[0].currencies[0].code);
-  
-            // }
-  
             this.currencies = this.countries;
-            // console.log(this.currencies);
           })
           .then(() => {
             let myCurrency = document
@@ -210,8 +133,6 @@
         window.location.reload();
       },
       onHandelCountry(data) {
-        // localStorage.setItem("country_id", );
-        // console.log(data);
         localStorage.removeItem("currency");
         localStorage.setItem("country", JSON.stringify(data));
         this.countryImg = data.flag;
@@ -224,8 +145,6 @@
             localStorage.setItem("is_default", data.currencies[0].is_default);
           }
         }
-        // localStorage.setItem("currency", data.currencies[0].code);
-  
         setTimeout(() => {
           location.reload();
         }, 100);
@@ -271,6 +190,9 @@
   </script>
   
   <style lang="scss" scoped>
+  /**
+    * component style
+*/
   .main-header {
     background: #202026;
   

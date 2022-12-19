@@ -1,6 +1,6 @@
 <template>
     <div class="product-counter">
-
+        <!-- search component  -->
         <div class="actions d-flex">
             <button class="product-counter-btn" @click="decrementQuantity">
                 <b-icon-dash />
@@ -23,7 +23,6 @@
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 
 export default {
-    // name: "CCounter",
     components: {
         BIconPlus,
         BIconDash,
@@ -33,6 +32,9 @@ export default {
             countValue: 1,
         };
     },
+    /**
+      * props
+    */
     props: {
         quantity: {
             type: Number,
@@ -49,6 +51,9 @@ export default {
         }
     },
     mounted() {
+        /**
+            * set this.countValue = this.minimum ? this.minimum : this.quantity
+        */  
         this.countValue = this.minimum ? this.minimum : this.quantity;
     },
     methods: {
@@ -72,6 +77,9 @@ export default {
 </script>
   
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .product-counter {
     display: flex;
     align-items: center;

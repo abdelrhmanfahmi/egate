@@ -1,5 +1,6 @@
 <template>
   <div class="mobile-nav">
+    <!-- navbar for mobile  -->
     <div class="branding">
       <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
     </div>
@@ -58,6 +59,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ /**
+    * component style
+  */
 .mobile-nav {
   .branding {
     text-align: center;

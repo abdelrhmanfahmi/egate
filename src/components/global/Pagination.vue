@@ -125,6 +125,9 @@ export default {
 };
 </script>
 <style lang="scss">
+/**
+    * component style 
+  */
 /* Pagination */
 $primary-color: #ffb63e;
 .pagination {

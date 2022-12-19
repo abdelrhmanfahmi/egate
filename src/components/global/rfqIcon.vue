@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- rfq icon  -->
     <span class="svg-icon">
       <svg
         version="1.1"
@@ -104,6 +105,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .variants {
   .svg-icon {
     width: 22px !important;

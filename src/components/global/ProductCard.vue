@@ -39,114 +39,6 @@
           {{ currency }}
         </p>
       </div>
-      <!-- <div class="card-actions my-3">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-md-6 col-sm-12">
-            <div class="" v-if="buyerUserData">
-              <button
-                id="show-btn"
-                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart rfqBtn"
-                @click="$bvModal.show('bv-bidRequest')"
-                v-b-tooltip.hover
-                :title="$t('singleProduct.bidRequest')"
-              >
-
-                <rfqIcon />
-              </button>
-            </div>
-            <div v-else>
-              <button
-                id="show-btn"
-                class="btn btn-loght border-0 outline-none shadow-none d-block add-cart rfqBtn"
-                @click="loginFirst"
-                v-b-tooltip.hover
-                :title="$t('singleProduct.bidRequest')"
-              >
-
-                <rfqIcon />
-              </button>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <b-button
-              @click="addToCart(slider)"
-              class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new"
-              v-if="
-                slider.product_details_by_type.add_type === 'cart' ||
-                slider.product_details_by_type.add_type === 'both'
-              "
-            >
-              <span>
-                <font-awesome-icon icon="fa-sharp fa-solid fa-cart-plus" />
-              </span>
-            </b-button>
-          </div>
-        </div>
-      </div>
-      <b-modal id="bv-bidRequest" hide-footer>
-        <template #modal-title>
-          {{ $t("singleProduct.bidRequest") }}
-        </template>
-        <form>
-          <div class="form-group">
-            <label for=""
-              >{{ $t("singleProduct.nameInput") }}
-              <span class="text-danger">*</span></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              v-model="requestData.name"
-            />
-            <div
-              class="text-danger"
-              v-for="(error, index) in errors.qoute_name"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </div>
-          <div class="form-group">
-            <label for=""
-              >{{ $t("singleProduct.min_order_quantity") }}
-              <span class="text-danger">*</span></label
-            >
-            <input
-              type="number"
-              min="1"
-              class="form-control"
-              v-model="requestData.request_qty"
-            />
-            <div
-              class="text-danger"
-              v-for="(error, index) in errors.request_qty"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </div>
-          <div class="form-group">
-            <label for=""
-              >{{ $t("singleProduct.reviewInput") }}
-              <span class="text-danger">*</span></label
-            >
-            <textarea
-              class="form-control"
-              v-model="requestData.comment"
-            ></textarea>
-            <div
-              class="text-danger"
-              v-for="(error, index) in errors.comment"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </div>
-        </form>
-        <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-          $t("cart.submit")
-        }}</b-button>
-      </b-modal> -->
     </div>
   </div>
 </template>
@@ -154,16 +46,15 @@
 <script>
 import globalAxios from "@/services/global-axios";
 import suppliers from "@/services/suppliers";
-// import modal from "@/components/cart/cartModal.vue";
-// import { mapActions } from "vuex";
+
+/**
+      * import VueSweetalert2 for popups 
+    */
 
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
-// If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
-
-// import rfqIcon from "@/components/global/rfqIcon.vue";
 export default {
   props: ["slider"],
   methods: {
@@ -234,6 +125,9 @@ export default {
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
     },
+    /**
+      * login first if not logged in  
+    */
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
@@ -245,9 +139,6 @@ export default {
         this.$router.push("/user-register");
       });
     },
-  },
-  components: {
-    // rfqIcon,
   },
   data() {
     return {
@@ -264,6 +155,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .product-cart {
   margin: 0 10px;
   text-align: center;

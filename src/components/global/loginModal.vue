@@ -4,10 +4,10 @@
     centered
     class="modal-dialog modal-dialog-centered modal-dialog-scrollable text-center"
   >
+
+  <!-- login modal  -->
     <div class="modal-content">
       <div class="header-holder">
-        <!-- <div class="modal-header">Header</div> -->
-        <!-- <span>{{ $t("login.actionComplete") }}</span> -->
         <div class="cls-button">
           <button class="btn" @click="handleClose">x</button>
         </div>
@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     handleSave() {
-      //   console.log(this.dataObj);
       this.handleClose();
     },
     handleClose() {
@@ -74,6 +73,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+    * component style
+  */
 .header-holder {
   position: relative;
   background: #555555;

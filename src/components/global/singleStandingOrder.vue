@@ -1,5 +1,6 @@
 <template>
   <div class="fav">
+    <!-- single standing order design  -->
     <div class="">
       <div class="" v-if="orders !== null">
         <h5 class="heading py-5 text-center">
@@ -166,6 +167,8 @@
       </div>
     </div>
     <!-- rfq modal  -->
+
+    <!-- rfq modal  -->
     <b-modal id="bv-bidRequest" hide-footer>
       <template #modal-title>
         {{ $t("singleProduct.bidRequest") }}
@@ -200,6 +203,8 @@
       $t("cart.submit")
       }}</b-button>
     </b-modal>
+
+    <!-- delete modal  -->
     <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('items.deleteGroup')">
       <div class="d-block"></div>
       <div class="row">
@@ -213,6 +218,7 @@
         </div>
       </div>
     </b-modal>
+    <!-- add to cart modal  -->
     <b-modal ref="cart-modal" id="modal-center" centered hide-footer :title="$t('items.addAllToCart')">
       <div class="d-block"></div>
       <div class="row">
@@ -230,7 +236,6 @@
 </template>
 
 <script>
-// import Counter from "../../components/global/Counter.vue";
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
 import rfqIcon from "@/components/global/rfqIcon.vue";
@@ -264,7 +269,6 @@ export default {
     };
   },
   components: {
-    // Counter,
     Paginate,
     rfqIcon,
     VariantsCounter,
@@ -465,15 +469,17 @@ export default {
         this.errMsg(err.message);
       })
     }
-    // selectGroupToEdit(order) {
-    //   this.selectedOrder = order;
-    //   console.log("order", order);
-    // },
   },
+  /**
+            * props
+        */
   props: ["orders", "ordersLength"],
 };
 </script>
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .product-img {
   width: 4rem;
   height: 4rem;

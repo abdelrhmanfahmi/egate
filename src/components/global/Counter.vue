@@ -1,6 +1,7 @@
 <template>
   <div class="product-counter">
     <div class="value">
+      <!-- counter that appear in tables for cart  -->
       <main>
         <slot name="main">
           <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
@@ -13,8 +14,6 @@
             @keyup="CustomIncrementQuantity"
             v-model="countValue"
           />
-
-          <!-- @keydown="delayChange"  -->
         </slot>
       </main>
     </div>
@@ -32,7 +31,6 @@
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 
 export default {
-  // name: "CCounter",
   components: {
     BIconPlus,
     BIconDash,
@@ -42,6 +40,9 @@ export default {
       countValue: 1,
     };
   },
+  /**
+    * props
+  */
   props: {
     quantity: {
       type: Number,
@@ -58,6 +59,9 @@ export default {
     },
   },
   mounted() {
+    /**
+    * set countValue = quantity
+  */
     this.countValue = this.quantity;
   },
   methods: {
@@ -96,6 +100,9 @@ export default {
         this.$emit("changeTitle", this.countValue);
       }, 500);
     },
+    /**
+    * custom increament for input 
+  */
     CustomIncrementQuantity() {
       setTimeout(() => {
         if (this.countValue > 0) {
@@ -141,6 +148,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * page style 
+  */
 .product-counter {
   display: flex;
   align-items: center;

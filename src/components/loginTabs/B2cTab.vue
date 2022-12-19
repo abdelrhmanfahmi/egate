@@ -1,5 +1,6 @@
 <template>
     <div class="login-tabs">
+        <!-- login b2c tab  -->
         <div class="user-login">
             <b-sidebar id="login" backdrop width="450px" :right="getDir === 'rtl'" shadow z-index="5"
                 body-class="sidebar-login" bg-variant="#fff">
@@ -12,11 +13,9 @@
                                     <B2cTab />
                                 </b-tab>
                                 <b-tab :title="$t('login.wholeSaleBuyer')">
-                                    <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
                                     <B2bTab />
                                 </b-tab>
                                 <b-tab :title="$t('home.suppliers')">
-                                    <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
                                     tab3
                                 </b-tab>
                             </b-tabs>
@@ -81,9 +80,6 @@
                             <button @click="getLink('google')" class="button-social">
                                 <font-awesome-icon icon="fa-brands fa-google" size="lg" />
                             </button>
-                            <!-- <button @click="getLink('azure')" class="button-social">
-              <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-            </button> -->
                             <button @click="getLink('apple')" class="button-social apple-login">
                                 <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
                             </button>
@@ -123,8 +119,6 @@
 
 <script>
 import auth from "@/services/auth";
-// import { getMessaging, onMessage, getToken } from "firebase/messaging";
-// import {messaging} from "@/plugins/firebase"
 import B2cTab from "../loginTabs/B2cTab.vue"
 import B2bTab from "../loginTabs/B2bTab.vue"
 export default {
@@ -157,31 +151,6 @@ export default {
             auth
                 .login("b2c", loginData)
                 .then((res) => {
-                    //old codes before setting otp
-                    // if (!res.data.items.item.is_verified) {
-                    //   localStorage.setItem("massege", this.$t("register.openEmail"));
-                    // }
-                    // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-                    // this.$router.push("/");
-                    // location.reload();
-
-                    // new after setting otp
-
-                    // old 2nd code
-                    // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-                    // if (res.data.items.item.verify_mobile_required) {
-                    //   localStorage.setItem("massege", this.$t("register.otpVerify"));
-                    //   this.$router.push("/otp-verification");
-                    //   location.reload();
-                    // } else if (
-                    //   !res.data.items.item.verify_mobile_required ||
-                    //   !res.data.items.item.is_verified ||
-                    //   res.data.items.item.verify_email_required
-                    // ) {
-                    //   localStorage.setItem("massege", this.$t("register.openEmail"));
-                    //   this.$router.push("/");
-                    //   location.reload();
-                    // }
                     localStorage.setItem("userInfo", JSON.stringify(res.data.items));
                     if (
                         !res.data.items.item.is_verified &&
@@ -212,6 +181,9 @@ export default {
                     this.errMsg(err.message);
                 });
         },
+        /**
+        * social login  
+      */
         async getLink(provider) {
             const backUrl = `${this.mainDoamin}complete-social-profile`;
             await localStorage.setItem("provider", provider);
@@ -219,16 +191,11 @@ export default {
                 .getSocialLink("b2c", provider, backUrl)
                 .then((res) => {
                     window.location.href = res.data.items.url;
-                    // window.open(
-                    //   `${res.data.items.url}`,
-                    //   "_blank" // <- This is what makes it open in a new window.
-                    // );
-                    // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        },
+        }, 
         switchField() {
             this.fieldType = this.fieldType === "password" ? "text" : "password";
         },
@@ -250,24 +217,6 @@ export default {
                     this.errMsg(err.message);
                 });
         },
-        // async generateFirebaseToken() {
-        //   const token = await getToken(messaging, {
-        //     vapidKey:
-        //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-        //   });
-
-        //   if (token) {
-        //     this.form.token = token;
-        //     console.log(token);
-        //   }
-        // },
-    },
-    mounted() {
-        // const messaging = getMessaging();
-        // onMessage(messaging , (payload) =>{
-        //   console.log("message on clinet" , payload);
-        // })
-        // this.generateFirebaseToken()
     },
     computed: {
         firebaseToken() {
@@ -283,6 +232,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style
+*/
 .user-login {
     .user-login-form {
         text-align: center;

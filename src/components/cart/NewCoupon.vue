@@ -1,5 +1,6 @@
 <template>
     <div class="cart">
+        <!-- new coupon design  -->
         <div class="cart-table">
             <div class="d-flex flex-wrap align-items-center coupon ">
                 <b-button type="submit" @click="checkCoupon($event)" class="login-button my-2 py-3 px-4 w-auto">
@@ -23,6 +24,9 @@ import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 export default {
     methods: {
+    /**
+      * remove disable 
+    */
         removeDisabled(supplier) {
             let myInput = this.selectedInput;
 
@@ -254,6 +258,9 @@ export default {
 </script>
   
 <style lang="scss" scoped>
+/**
+  * import cart style 
+*/
 @import "~/src/assets/scss/_cartStyle.scss";
 </style>
   

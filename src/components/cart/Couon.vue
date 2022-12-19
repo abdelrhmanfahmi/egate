@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- this is old coupon  -->
     <div class="d-flex flex-wrap align-items-center">
       <b-button
         type="submit"
@@ -34,6 +35,9 @@ import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 export default {
   methods: {
+    /**
+      * remove coupon disabled button 
+    */
     removeDisabled(supplier) {
       let myInput = this.selectedInput;
 
@@ -116,6 +120,9 @@ export default {
         .querySelector(".login-button")
         .removeAttribute("disabled");
     },
+    /**
+      * add coupon disabled button 
+    */
     backDisable() {
       console.log(
         this.selectedInput.parentElement.parentElement.querySelector(
@@ -251,6 +258,9 @@ export default {
     changevalue(res) {
       this.$emit("changeRate", res);
     },
+    /**
+      * remove discount
+    */
     removeDiscount() {
       this.$emit("removeDiscount");
     },
@@ -270,5 +280,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+  * import cart style 
+*/
 @import "~/src/assets/scss/_cartStyle.scss";
 </style>
