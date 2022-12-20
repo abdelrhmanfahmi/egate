@@ -289,5 +289,8 @@ export default {
   },
   getDashboardData(){
     return globalAxios.get('members/dashboard-index/client-dashboard')
+  },
+  getNotificationSettings(){
+    return globalAxios.get('members/notification-settings/public-settings')
   }
 };

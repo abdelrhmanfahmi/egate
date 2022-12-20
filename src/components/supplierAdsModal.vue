@@ -1,5 +1,5 @@
 <template>
-  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded">
+  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded && supplierAds && supplierAds.bannar">
     <div class="row justify-content-center">
       <div class="col-12">
         <!-- <div class="row no-gutters bg-white newsletter-popup-content"> -->

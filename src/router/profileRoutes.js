@@ -24,6 +24,7 @@ import Notifications from "../views/profile/Notifications.vue";
 import CheckWalletCharge from "../views/profile/CheckWalletCharge.vue";
 import StandingOrders from "../views/profile/StandingOrders.vue";
 import Dashboard from "../views/profile/Dashboard.vue";
+import NotificationSettings from "../views/profile/NotificationSettings";
 
 
 
@@ -140,6 +141,11 @@ export default {
       path: "/profile/Dashboard",
       name: "Dashboard",
       component: Dashboard,
+    },
+    {
+      path: "/profile/NotificationSettings",
+      name: "NotificationSettings",
+      component: NotificationSettings,
     },
   ],
 };

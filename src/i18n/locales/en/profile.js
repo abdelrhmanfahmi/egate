@@ -290,5 +290,9 @@ export default {
   mostViewed:'Most Viewed Products',
   orders:'Order(s)',
   pending:'Pending',
-  WalletRedirect:'You Will Be redirect to your wallet after 5 seconds'
+  WalletRedirect:'You Will Be redirect to your wallet after 5 seconds',
+  NotificationSettings:'Notification settings',
+  others:'Others',
+  sms:"SMS",
+  Mail:"Mail",
 };

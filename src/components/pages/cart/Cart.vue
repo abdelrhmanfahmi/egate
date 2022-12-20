@@ -2,6 +2,7 @@
   <div>
     <div :class="$i18n.locale" v-if="hasProducts">
       <!-- cart component page  -->
+      <!-- first rule check if theres data or not  -->
       <div class="" v-if="!loading">
         <div class="row">
           <div class="col-12 order-shipping">
@@ -16,11 +17,14 @@
                       <div class="addresses-holder p-5">
                         <div class="addresses">
                           <form>
+                            <!-- add new address  -->
                             <label>
                               <input type="radio" value="newAddress" name="radio" v-model="selectAddressShape"
                                 class="GuestNewAddress" />
                               <span>{{ $t("profile.newAddress") }}</span>
                             </label>
+
+                            <!-- select from existing addresses  -->
                             <label v-if="
                               buyerUserData &&
                               addresses &&
@@ -30,6 +34,8 @@
                                 class="existingAddresses" />
                               <span>{{ $t("payment.selectExist") }}</span>
                             </label>
+
+                            <!-- existing addresses if it exist  -->
                             <span v-if="
                               selectAddressShape === 'existingAddresses' &&
                               addresses &&
@@ -58,6 +64,7 @@
                             </span>
                           </form>
                         </div>
+                        <!-- add new address data if you select add new address  -->
                         <div class="addressShape" v-if="expanded">
                           <div class="newAddress mt-5" v-if="selectAddressShape === 'newAddress'">
                             <form class="account-information-form">
@@ -266,10 +273,14 @@
                             </form>
                           </div>
                         </div>
+
+                        <!-- close icon select add new address  -->
+
                         <div class="close-options" v-if="expanded && selectAddressShape === 'newAddress'"
                           @click="expanded = !expanded">
                           <font-awesome-icon icon="fa-solid fa-xmark" />
                         </div>
+                        <!-- open add new address dropdown (option )  -->
                         <div class="close-options" v-else-if="!expanded" @click="expanded = !expanded">
                           <font-awesome-icon icon="fa-solid fa-arrow-down" />
                         </div>
@@ -282,11 +293,15 @@
               <!-- {{ ratingNum }} -->
             </div>
           </div>
+
+          <!-- cart data according listed by suppliers  -->
           <div class="easy-trans col-12">
             <div class="cart">
+              <!-- if data loading   -->
               <div class="d-flex justify-content-center align-items-center flex-column" v-if="loading">
                 <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
               </div>
+              <!-- after loading  -->
               <div class="" v-else>
                 <div class="" v-if="cartItems !== null">
                   <h5 class="heading py-5 text-center">
@@ -304,11 +319,15 @@
                           <th></th>
                         </tr>
                       </thead>
+                      <!-- list suppliers in cart data  -->
                       <tbody class="supplier" v-for="(supplier, index) in cartItems" :key="index">
+                        <!-- supplier_name  -->
                         <h5 class="name">
                           {{ supplier.supplier_name }}
                         </h5>
+                        <!-- list products by this supplier -->
                         <tr class="item-content" v-for="(item, index) in supplier.products" :key="index">
+                          <!-- product image and go to pproduct page with click  -->
                           <td class="media">
                             <router-link :to="{
                               path: '/details',
@@ -317,6 +336,7 @@
                               <img :src="item.product_image" :alt="item.name + ' image'" class="product-image" />
                             </router-link>
                           </td>
+                          <!-- product name  and go to pproduct page with click  -->
                           <td>
                             <router-link :to="{
                               path: '/details',
@@ -325,10 +345,13 @@
                               {{ item.product_name }}
                             </router-link>
                           </td>
+                          <!-- if product price exist -->
                           <td v-if="item.price">
                             {{ item.price | fixedCurrency }} {{ currency }}
                           </td>
+                          <!-- if product price not exist -->
                           <td v-else>-</td>
+                          <!-- counter to update product quantity -->
                           <td>
                             <Counter :minimum="
                               item.min_order_quantity
@@ -337,11 +360,14 @@
                             " :quantity="item.quantity" :product="item" class="justify-content-center"
                               @changeTitle="ChangeQ($event)"></Counter>
                           </td>
+                          <!-- product price * product quantity = total product price -->
                           <td v-if="item.product_sub_total">
                             {{ item.product_sub_total | fixedCurrency }}
                             {{ currency }}
                           </td>
                           <td v-else>-</td>
+
+                          <!-- remove product from cart -->
 
                           <td>
                             <div class="actions" @click="removeFromCart(item)">
@@ -352,78 +378,14 @@
                           </td>
                         </tr>
                         <tr>
-                          <!-- <td colspan="4" v-if="buyerUserData">
-                            <div class="coupon my-4" v-for="(item, index) in supplier.products" :key="index">
-                              <Coupon :item="item" :supplier="supplier" @changeRate="ChangeRateValue($event, supplier)"
-                                @removeDiscount="changeCouponStatus(supplier)" />
-                            </div>
-                          </td>
-                          <td colspan="3">
-                            <div class="order-shipping mt-5">
-                              <div :class="$i18n.locale">
-                                <form @change="orderType(supplier.supplier_id)" class="d-flex align-items-baseline">
-                                  <label @click="shippingStore(supplier)" class="shipping-label">
-                                    <input @change="changeShipping($event)" @input="shippingStore(supplier)"
-                                      type="radio" value="0" :name="'types-' + index"
-                                      v-model="ratingNum[index].delivery_type" class="checkFirst" id="check" />
-                                    <span class="mx-2">{{
-                                        $t("payment.delivery")
-                                    }}</span>
-                                  </label>
-                                  <label>
-                                    <input @input="changePickup($event, supplier)"
-                                      @click="changePickup($event, supplier)" type="radio" value="1"
-                                      :name="'types-' + index" v-model="ratingNum[index].delivery_type" />
-                                    <span class="mx-2">{{
-                                        $t("payment.pickup")
-                                    }}</span>
-                                  </label>
-                                  <b-form-select v-model="
-                                    ratingNum[index].supplier_address_id
-                                  " @input="selectAddressUUID" @change="selectType(supplier, index)"
-                                    class="w-100 mt-2 supplierAddresses d-none" :class="{
-                                      'text-danger':
-                                        ratingNum[index].supplier_address_id ===
-                                        null,
-                                      'text-dark d-block':
-                                        ratingNum[index].supplier_address_id !==
-                                        null,
-                                    }">
-                                    <b-form-select-option selected disabled value="null"><span>{{
-                                        $t("cart.selectPickupAddress")
-                                    }}</span></b-form-select-option>
-                                    <b-form-select-option v-for="(
-                                        address, index
-                                      ) in supplier.supplier_addresses" :key="index" :value="address">{{
-                                          address.country.title
-                                      }} ,
-                                      {{ address.region.title }} ,
-                                      {{ address.city.title }}
-                                    </b-form-select-option>
-                                  </b-form-select>
-                                  <span class="feedsResult"></span>
-                                  <h4 class="pickupNoData"></h4>
-                                  <br />
-                                  <ul class="list-unstyled" v-if="firstFees || deliverType == true">
-                                    <li v-for="(fee, index) in firstFees" :key="index">
-                                      <h4 v-if="index == supplier.supplier_id" class="feedsResultShipping mb-0"
-                                        :value="fee.shipping_fee">
-                                        {{ $t("profile.deleiveryFees") }}
-                                        {{ fee.shipping_fee | fixedCurrency }}
-                                        {{ currency }}
-                                      </h4>
-                                    </li>
-                                  </ul>
-                                </form>
-                              </div>
-                            </div>
-                          </td> -->
+                          <!-- select shipping or pick-up  -->
                           <td colspan="12" class="p-0 mt-0">
                             <div class="order-shipping"
                               :class="{ 'float-right': $i18n.locale == 'en', 'float-left': $i18n.locale == 'ar' }">
                               <div :class="$i18n.locale">
                                 <form @change="orderType(supplier.supplier_id)"
                                   class="d-flex align-items-baseline px-2 results-form">
+                                  <!-- if select shipping  -->
                                   <label @click="shippingStore(supplier)" class="shipping-label mt-2">
                                     <input @change="changeShipping($event)" @input="shippingStore(supplier)"
                                       type="radio" value="0" :name="'types-' + index"
@@ -432,6 +394,7 @@
                                         $t("payment.delivery")
                                     }}</span>
                                   </label>
+                                  <!-- if select pickup  -->
                                   <label class="shipping-label mt-2">
                                     <input @input="changePickup($event, supplier)"
                                       @click="changePickup($event, supplier)" type="radio" value="1"
@@ -440,6 +403,7 @@
                                         $t("payment.pickup")
                                     }}</span>
                                   </label>
+                                  <!-- if supplier has address in pickup  -->
                                   <b-form-select v-model="
                                     ratingNum[index].supplier_address_id
                                   " @input="selectAddressUUID" @change="selectType(supplier, index)"
@@ -463,9 +427,12 @@
                                       {{ address.city.title }}
                                     </b-form-select-option>
                                   </b-form-select>
+                                  <!-- print result of picked address cost price  -->
                                   <span class="feedsResult"></span>
                                   <h4 class="pickupNoData"></h4>
                                   <br />
+
+                                  <!-- list the available addresses to pickup for this supplier  -->
                                   <ul class="list-unstyled mb-0" v-if="firstFees || deliverType == true">
                                     <li v-for="(fee, index) in firstFees" :key="index">
                                       <h5 v-if="index == supplier.supplier_id" class="feedsResultShipping mb-0"
@@ -491,6 +458,9 @@
               </div>
             </div>
           </div>
+
+          <!-- user data for checkout  -->
+
           <div class="payment w-100">
             <div class="payment py-3">
               <div class="container">
@@ -586,23 +556,29 @@
               </div>
             </div>
           </div>
+
+          <!-- end user data for checkout  -->
+
           <div class="cart w-100">
             <div class="cart-detail p-4">
               <div class="row">
                 <div class="col-md-7 col-sm-12 my-2">
                   <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
-                  <!--  add new coupon  -->
+                  <!-- start add coupon  -->
                   <div class="coupon-holder mb-3">
                     <div class="row">
                       <div class="col-md-8 col-sm-12">
                         <div class="cart">
                           <div class="cart-table">
                             <div class="d-flex flex-wrap align-items-center coupon ">
+                              <!-- button dosnt work if input is empty  -->
                               <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon">
                                 {{ $t("cart.couponDiscount") }}
                               </b-button>
                               <div class="input-holder">
                                 <form @submit.prevent="addCoupon">
+
+                                  <!-- coupon input  -->
 
                                   <input type="text" :placeholder="$t('cart.addCoupon')"
                                     class="my-2 h-100 p-4 itemInput" v-model="couponText" />
@@ -611,8 +587,12 @@
                               </div>
                             </div>
 
+                            <!-- display coupon if valid  -->
+
                             <h6 class="couponValid text-success m-0 p-0"></h6>
                             <h6 class="couponNotValid text-danger m-0 p-0"></h6>
+
+                            <!-- display error if coupon is invalid  -->
                             <div class="error text-center" v-if="couponError">
                               {{ couponError }}
                             </div>
@@ -621,6 +601,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12 valid-coupons text-center">
                         <h5 v-if="coupons && coupons.length > 0" class="text-center">{{ $t('cart.validCoupons') }}</h5>
+                        <!-- list valid coupons  -->
                         <ul class="unstyled-order coupons-data-holder">
                           <li v-for="(coupon, index) in coupons" :key="index">
                             <span class="couponValue">{{ coupon.title }} </span> <span class="removeCoupon"
@@ -630,6 +611,10 @@
                       </div>
                     </div>
                   </div>
+                  <!-- end add coupon  -->
+
+                  <!-- display all coasts data  -->
+
                   <div class="data">
                     <table class="w-100">
                       <tbody>
@@ -676,6 +661,9 @@
                     </table>
                   </div>
                 </div>
+
+                <!-- display payment methods  -->
+
                 <div class="col-md-5 col-sm-12 my-2">
                   <div class="payment w-100">
                     <div class="payment">
@@ -690,7 +678,8 @@
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
-                                  <div class="method wallet" v-if="walletData > 0 && 
+                                  <!-- display when wallet amount equal or more than cart coast  -->
+                                  <div class="method wallet" v-if="walletData > 0 &&
                                     buyerUserData &&
                                     walletData >= totalPaymentReplacement
                                   ">
@@ -705,6 +694,7 @@
                                       <span>{{ walletData }} {{ currency }}</span>
                                     </div>
                                   </div>
+                                  <!-- display when wallet less than cart coast  -->
                                   <div class="method wallet_visa" v-if="walletData > 0 &&
                                     buyerUserData &&
                                     walletData < totalPaymentReplacement
@@ -719,17 +709,15 @@
                                         <sup>*</sup>
                                       </label>
                                       <span>{{ walletData }} {{ currency }}</span>
-                                      <p>{{$t('profile.remainKnet')}}</p>
+                                      <p>{{ $t('profile.remainKnet') }}</p>
                                     </div>
                                   </div>
+                                  <!-- bank option  -->
                                   <div class="method bank" v-if="buyerUserData">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
                                         value="bank" />
-                                      <!-- <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
-                                        class="custom-control-input" v-model="paymentFormData.payment_type"
-                                        value="bank" /> -->
                                       <label class="custom-control-label" for="paymentMethod1">
                                         {{ $t("payment.bankTransfer") }}
                                         <sup>*</sup>
@@ -739,6 +727,7 @@
                                       }}</span>
                                     </div>
                                   </div>
+                                  <!-- cach option  -->
                                   <div class="method cach">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod2" name="paymentMethod"
@@ -753,6 +742,7 @@
                                       }}</span>
                                     </div>
                                   </div>
+                                  <!-- visa option ( online payment)  -->
                                   <div class="method visa row justify-content-between align-content-center">
                                     <div class="col-md-8 col-xs-12">
                                       <div class="custom-control custom-radio custom-control-inline">
@@ -772,10 +762,13 @@
                                     </div>
                                   </div>
                                 </div>
+                                <!-- if error in choose payment method or not choosed  -->
                                 <div class="error text-center" v-for="(error, index) in errors.payment_type"
                                   :key="index">
                                   {{ error }}
                                 </div>
+
+                                <!-- terms and conditions  -->
 
                                 <b-form-checkbox v-model="paymentFormData.accept_terms"
                                   class="terms my-4 d-inline-block">
@@ -809,10 +802,13 @@ acceptMyTerms();
                                 </b-modal>
                                 <sup>*</sup>
 
+                                <!-- if terms and conditions not selected  -->
+
                                 <div class="error text-center" v-for="(error, index) in errors.accept_terms"
                                   :key="index">
                                   {{ error }}
                                 </div>
+                                <!-- checkout button if user exist  -->
                                 <div class="checkout">
                                   <div class="submit" v-if="buyerUserData">
                                     <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
@@ -826,6 +822,7 @@ acceptMyTerms();
                                       {{ $t("payment.checkout") }}
                                     </b-button>
                                   </div>
+                                  <!-- checkout button if user not exist (guest)  -->
                                   <div class="submit" v-else>
                                     <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
                                       {{ $t("payment.checkout") }} ...
@@ -838,6 +835,8 @@ acceptMyTerms();
                                       {{ $t("payment.checkout") }}
                                     </b-button>
                                   </div>
+
+                                  <!-- login modal if want to login if guest  -->
 
                                   <transition name="modal">
                                     <div class="modal-mask" v-if="showModal">
@@ -853,12 +852,13 @@ acceptMyTerms();
                     </div>
                   </div>
                 </div>
+                <!-- this modal apper when bank payment method checked  -->
                 <b-modal id="bankModal" :title="$t('payment.uploadImage')">
                   <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
                     <div class="form-input mb-4">
                       <label for="bankImage">
                         {{ $t("payment.uploadImage") }}
-                        
+
                       </label>
                       <b-form-group>
                         <b-form-file size="lg" id="bankImage" @change="uploadBankImage"
@@ -873,10 +873,15 @@ acceptMyTerms();
           </div>
         </div>
       </div>
+
+      <!-- second : when page loading  -->
+
       <div class="d-flex justify-content-center align-items-center flex-column" v-else>
         <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
       </div>
     </div>
+
+    <!-- last : when no data  -->
     <div class="d-flex justify-content-center align-items-center py-5 my-5 text-center" v-else-if="!hasProducts">
       <div>
         <img src="@/assets/images/pngfind.com-cart-png-2727925.png" alt="no-data-in-cart" srcset="" />
@@ -896,13 +901,10 @@ import loginModal from "@/components/global/loginModal.vue";
 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-// import paymentPage from "@/views/Payment";
-// import Coupon from "@/components/cart/Couon.vue";
 export default {
   components: {
     Counter,
     loginModal,
-    // Coupon
   },
   data() {
     return {
@@ -929,6 +931,10 @@ export default {
       deliverType: true,
       selectAddressShape: null,
 
+      /**
+       * // if logged in 
+       */
+
       form: {
         country_id: null,
         region_id: null,
@@ -938,9 +944,12 @@ export default {
         apartment: null,
         pin_code: "",
         notes: null,
-        // address_uuid: null,
         address_line_1: null,
       },
+
+      /**
+        *  if not logged in  
+      */
       newForm: {
         country_id: null,
         region_id: null,
@@ -968,10 +977,15 @@ export default {
       totalDiscount: null,
       cart_sub_total: null,
       totalPayment: null,
-
-      // payment
+      /**
+        *  payment 
+      */
       count: 0,
       storedData: null,
+      
+      /**
+        *  // collect all checkout data here 
+      */
       paymentFormData: {
         comment: null,
         phone: null,
@@ -982,9 +996,7 @@ export default {
         country: "",
         governorate: "",
         city: "",
-        // postal_code: null,
         email: null,
-        // coupons: [],
         address_uuid: null,
         suppliers: null,
         redirect_url: null,
@@ -1031,24 +1043,27 @@ export default {
     }
     localStorage.removeItem("s_id");
     localStorage.removeItem("cou");
-    // this.getLoggedFirstShippingFees()
 
-    // this.paymentFormData.country = this.buyerUserData
-    //   ? this.buyerUserData.country_id
-    //   : "";
+    
+    /**
+      *  // setting user or guest country from stored country  
+    */
 
     let selectedCountry = localStorage.getItem('country');
-    // this.getLoggedFirstShippingFees()
+    if (this.buyerUserData) {
+      this.paymentFormData.country = this.buyerUserData.country_id
+      this.form.country_id = this.buyerUserData.country_id
+      this.getAllRegions()
+    } else if (!this.buyerUserData && selectedCountry) {
+      this.paymentFormData.country = JSON.parse(selectedCountry).id
+      this.form.country_id = JSON.parse(selectedCountry).id
+      this.getAllRegions()
+    }
 
-      if(this.buyerUserData){
-        this.paymentFormData.country = this.buyerUserData.country_id
-        this.form.country_id = this.buyerUserData.country_id
-        this.getAllRegions()
-      }else if(!this.buyerUserData && selectedCountry){
-        this.paymentFormData.country = JSON.parse(selectedCountry).id
-        this.form.country_id = JSON.parse(selectedCountry).id
-        this.getAllRegions()
-      }
+    
+    /**
+      *  // start setting user form data from data comes from backend   
+    */
 
     this.paymentFormData.governorate = this.buyerUserData
       ? this.buyerUserData.region_id
@@ -1083,7 +1098,7 @@ export default {
       : "";
 
 
-      this.selectedPhonePrefix = JSON.parse(localStorage.getItem('country'));
+    this.selectedPhonePrefix = JSON.parse(localStorage.getItem('country'));
 
 
     this.paymentFormData.country_code = this.buyerUserData
@@ -1100,15 +1115,37 @@ export default {
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
 
+    
+
+    /**
+      *  // end setting user form data from data comes from backend  
+    */
+
     this.getTerms();
 
-    // localStorage.setItem("globalAddressUUID", this.buyerUserData.uuid);
+
+    
+
+    /**
+      *  // if user exist get wallet data  
+    */
 
     if (this.buyerUserData) {
       this.getWallet();
     }
 
+    
+    /**
+      *  // get address uuid form stored data if exist  
+    */
+
     let addressUUID = localStorage.getItem("globalAddressUUID");
+    
+
+    /**
+      *  // address uuid not exist setting the user uuid from user backend data  
+    */
+
     if (
       (this.buyerUserData && addressUUID == undefined) ||
       (this.buyerUserData && addressUUID == "undefined")
@@ -1119,17 +1156,22 @@ export default {
       );
     }
 
-    
+
 
   },
   methods: {
     formatPin_code(e) {
       return String(e).substring(0, 6);
     },
+    
+
+    /**
+      *  // when change coupon   
+    */
+
     changeCoupon($event) {
-      // console.log($event.target.value);
+
       this.selectedCoupon = $event.target.value;
-      // $event.target.setAttribute('disabled' , 'true')
 
       let input = $event.target;
 
@@ -1144,8 +1186,13 @@ export default {
       this.selectedSpan = span;
     },
 
+    
+
+    /**
+      *  // get cart data from backend 
+    */
+
     getCartProducts() {
-      // this.loading = true;
       globalAxios
         .post(`cart`)
         .then((res) => {
@@ -1164,7 +1211,8 @@ export default {
               supplier_addresses: [],
             };
           });
-          // console.log(this.cartItems);
+          // setting cart data and cheeckout coasts data 
+
           this.priceData = res.data.items;
           this.cart_sub_total = res.data.items.cart_sub_total;
           this.totalDiscount = res.data.items.cart_sub_total_disc.toFixed(3);
@@ -1181,26 +1229,20 @@ export default {
           });
         })
         .then(() => {
-          // if (this.buyerUserData && this.buyerUserData.address_uuid) {
           if (this.buyerUserData) {
+            // get shipping coast data 
             let address_uuid = this.buyerUserData.address_uuid;
             this.getLoggedFirstShippingFees(address_uuid);
           }
         })
         .finally(() => {
-          // this.loading = false;
           setTimeout(() => {
-            // checkAll
+            // select all shipping inputs to check them and get coasts
+
             var checkboxes = document.getElementsByClassName("checkFirst");
-
-            // checkboxes[0].parentElement.click();
-            // checkboxes[1].parentElement.click();
-            // console.log("checkboxes" , checkboxes);
-
             for (let index = 0; index < checkboxes.length; index++) {
               const element = checkboxes[index];
               element.parentElement.click();
-              // console.log(element);
             }
 
             var existingAddresses =
@@ -1223,17 +1265,25 @@ export default {
           }
         });
     },
+    
+    /**
+      *  // remove product from cart
+    */
     removeFromCart(product) {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
-      // this.loading = true;
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
+    
+    /**
+      *  // this fnction user when using the old coupon style to remove disaple input
+    */
+
     removeDisabled() {
       let myInput = this.selectedInput;
 
@@ -1266,6 +1316,11 @@ export default {
         }
       }
     },
+    
+    /**
+      *  // this fnction user when using the old coupon style to check coupon validity and dislay response and display data
+    */
+
     checkCoupon(supplier) {
       var data = {
         coupons: [
@@ -1279,9 +1334,6 @@ export default {
       suppliers
         .checkCoupon(data)
         .then((res) => {
-          // let coupons = [];
-
-          // console.log(res.data.items.total_cart.total_discount);
           if (res.status == 200) {
             localStorage.setItem("cou", this.selectedCoupon);
             if (res.data.items.total_cart.total_discount !== 0) {
@@ -1339,6 +1391,10 @@ export default {
           }
         });
     },
+     
+        /**
+      *  // change quantity of product that in table
+    */
     ChangeQ(myQuantity) {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
@@ -1352,13 +1408,25 @@ export default {
         this.coupons = []
       }, 100);
     },
+    
+      /**
+      *  // close modal 
+    */
+
     closeModal() {
       this.showModal = false;
     },
+    
+     /**
+      *  // open modal  
+    */
     openModal() {
       this.showModal = true;
     },
-
+     
+    /**
+      *  // change selected address and display the result of new address
+    */
     changeAddress() {
       document.getElementsByClassName("feedsResult").innerHTML = "";
 
@@ -1418,6 +1486,10 @@ export default {
           });
       }, 200);
     },
+    
+    /**
+      *  // select address uuid to pass it to ckeckout data and setting coasts data
+    */
     selectAddressUUID(myselectAddressUUID) {
       this.supplierAddress = myselectAddressUUID.uuid;
       this.address_uuid = myselectAddressUUID.uuid;
@@ -1430,10 +1502,13 @@ export default {
       this.shippingCartFee -= parseFloat(newFee);
       this.totalPaymentReplacement -= parseFloat(newFee);
     },
+
+    
+    /**
+      *  // select type (shipping or pickup ) and store it in store.js 
+    */
     selectType: function (supplier) {
-      // console.log(this.supplierAddress);
       let newRating = {
-        // name: supplier.supplier_name,
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
         shipping_type: 1,
@@ -1448,13 +1523,11 @@ export default {
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
-      // / console.log(this.ratingNum);
       this.checkSupplierFees(supplier);
 
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
         const element = myControler[index].supplier;
-        // console.log("element" , element.id);
 
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
           element.shipping_type = 1;
@@ -1477,7 +1550,10 @@ export default {
       }
     },
 
-    // address functions
+    
+    /**
+      *  // address functions 
+    */
 
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
@@ -1535,13 +1611,19 @@ export default {
         }, 500);
       });
     },
-    // Countires
+    
+    /**
+      *  // Countires 
+    */
     getAllCountires() {
       auth.getAllCountires().then((res) => {
         this.countries = res.data.items;
       });
     },
-    // getAllRegions
+   
+    /**
+      *   // getAllRegions 
+    */
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
@@ -1549,7 +1631,10 @@ export default {
         this.form.city_id = null;
       });
     },
-    // Cities
+    
+    /**
+      * // Cities
+    */
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
@@ -1557,9 +1642,16 @@ export default {
       });
     },
 
-    // order-shipping page functions
+    
+    /**
+      * // order-shipping page functions
+    */
 
-    // createAdress
+    
+    /**
+      * // createAdress
+    */
+
     createAdress() {
       let address_uuid = localStorage.getItem("globalAddressUUID");
       (this.form.is_sale_point = false),
@@ -1608,8 +1700,11 @@ export default {
             this.errMsg(err.message);
           });
     },
+    /**
+      * // store address if guest 
+    */
+
     localStoreAdresses() {
-      // localStorage.setItem("guestAddressData", JSON.stringify(this.form));
       this.localClicked = true;
 
       if (
@@ -1636,6 +1731,9 @@ export default {
         this.localStoreFail = false;
       }
     },
+    /**
+      *  // supplier addresses pickup addresses 
+    */
     getSupplierAddress(supplierId) {
       suppliers
         .getSupplierAddress(supplierId)
@@ -1693,6 +1791,10 @@ export default {
           console.log(err);
         });
     },
+   
+    /**
+      *   // choose shipping 
+    */
     changeShipping($event) {
       let input = $event.target;
 
@@ -1753,6 +1855,10 @@ export default {
           this.errMsg(err.message);
         });
     },
+    
+    /**
+      *   // choose pickup  
+    */
     changePickup($event, supplier) {
       let input = $event.target;
 
@@ -1802,9 +1908,10 @@ export default {
         }
       }
     },
-
-    //
-
+    
+    /**
+      * // store shipping data to store.js
+    */
     shippingStore(supplier) {
       let newRating = {
         id: supplier.supplier_id,
@@ -1816,9 +1923,6 @@ export default {
             : "",
         point_of_sell_uuid: null,
       };
-
-      // console.log(supplier);
-
       this.$store.dispatch("suppliers/addSupplierToCart", {
         supplier: newRating,
       });
@@ -1850,6 +1954,11 @@ export default {
         this.deliverType = false;
       }
     },
+    
+    /**
+      * // get first shipping fees of suppliers
+    */
+
     getShippingFeesExist() {
       let address_uuid = localStorage.getItem("globalAddressUUID");
 
@@ -1867,7 +1976,10 @@ export default {
           this.errMsg(error.message);
         });
     },
-
+    
+    /**
+      * // get shipping fee of supplier to user
+    */
     getLoggedFirstShippingFees() {
       let address_uuid = localStorage.getItem("globalAddressUUID")
         ? localStorage.getItem("globalAddressUUID")
@@ -1903,6 +2015,10 @@ export default {
           }
         });
     },
+    
+    /**
+      * // get shipping fee of supplier to guest
+    */
     getGuestFirstShippingFees() {
       let data = {
         country: this.form.country_id,
@@ -1935,11 +2051,9 @@ export default {
       suppliers
         .checkSupplierFees(data)
         .then((res) => {
-          // this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(err.message);
@@ -1949,14 +2063,18 @@ export default {
       this.showBtnClicked = true;
     },
     closeOptions() {
-      // this.showBtnClicked = false;
       this.expanded = false;
     },
 
-    //payment
+    
+    /**
+      * //user payment
+    */
 
     async payment() {
       this.checkoutSubmitted = true;
+
+      // check if data exist first 
       if (
         this.paymentFormData.address_uuid == "" ||
         !this.paymentFormData.address_uuid ||
@@ -1965,9 +2083,6 @@ export default {
         this.paymentFormData.address_uuid =
           localStorage.getItem("globalAddressUUID");
       }
-
-      // make sure address_uuid will not undefined
-
       if (
         this.paymentFormData.address_uuid == "undefined" ||
         this.paymentFormData.address_uuid == "null" ||
@@ -1976,12 +2091,13 @@ export default {
       ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
-      
+
 
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
           this.sucessMsg(res.data.message);
+          // if user select visa or wallet + visa 
           if (this.paymentFormData.payment_type === "visa" || this.paymentFormData.payment_type === "wallet_visa") {
             setTimeout(() => {
               this.$router.push({
@@ -1994,8 +2110,8 @@ export default {
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
                   redirectURL: res.data.items.url,
-                  wallet_paied:res.data.items.wallet_paied , 
-                  visa_paied:res.data.items.visa_paied
+                  wallet_paied: res.data.items.wallet_paied,
+                  visa_paied: res.data.items.visa_paied
 
                   // window.location.href = res.data.items.url;
                 },
@@ -2003,35 +2119,16 @@ export default {
               // location.reload();
               this.$store.dispatch("cart/getCartProducts")
             }, 500);
-          } 
+          }
           else {
-            // console.log(res.data);
-            // if (this.buyerUserData) {
-            //   setTimeout(() => {
-            //     this.$router.push({
-            //       path: "/checkout-details",
-            //       query: {
-            //         order_serial: res.data.items.order_serial,
-            //         date: res.data.items.created_at,
-            //         total_price: this.totalPaymentReplacement,
-            //         payment_type: res.data.items.payment_type,
-            //         payment: res.data.items.payment,
-            //         uuid: res.data.items.uuid,
-            //         orderId: res.data.items.id,
-            //       },
-            //     });
-            //     location.reload();
-            //   }, 500);
-            // }
             this.$router.push('/');
             this.$store.dispatch("cart/getCartProducts")
-            // location.reload()
           }
         })
         .catch((err) => {
+          // if error in ckeckout process 
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
-          console.log(err);
           let addressesErrors = errors.items
           if (addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1) {
             this.goTop()
@@ -2042,6 +2139,10 @@ export default {
           this.checkoutSubmitted = false;
         });
     },
+    
+    /**
+      * //guest  payment
+    */
     guestPayment() {
       this.checkoutSubmitted = true;
       let data = {
@@ -2084,13 +2185,9 @@ export default {
                   payment: res.data.items.order.payment,
                   uuid: res.data.items.order.uuid,
                   redirectURL: res.data.items.url,
-                  
-
-
                   // window.location.href = res.data.items.url;
                 },
               });
-              // location.reload();
               this.$store.dispatch("cart/getCartProducts")
             }, 500);
           } else {
@@ -2109,13 +2206,11 @@ export default {
                     orderId: res.data.items.id,
                   },
                 });
-                // location.reload();
                 this.$store.dispatch("cart/getCartProducts")
               }, 500);
             } else {
               setTimeout(() => {
                 this.$router.push("/success-checkout");
-                // location.reload();
                 this.$store.dispatch("cart/getCartProducts")
               }, 500);
             }
@@ -2124,7 +2219,6 @@ export default {
         .catch((err) => {
           const errors = Object.values(err)[2].data;
           this.errors = errors.items;
-          console.log(err);
           let addressesErrors = errors.items
           if (addressesErrors.country || addressesErrors.city || addressesErrors.governorate || addressesErrors.address_line_1) {
             this.goTop()
@@ -2140,7 +2234,10 @@ export default {
         this.paymentCountries = res.data.items;
       });
     },
-    // getAllRegions
+    
+    /**
+      * // getAllRegions
+    */
     paymentGetAllRegions() {
       profile.getAllRegions(this.paymentFormData.country).then((res) => {
         this.paymentRegions = res.data.items;
@@ -2148,22 +2245,36 @@ export default {
         this.form.city_id = null;
       });
     },
-    // Cities
+   
+    /**
+      *  // Cities
+    */
     paymentGetAllCities() {
       profile.getAllCities(this.paymentFormData.governorate).then((res) => {
         this.paymentCities = res.data.items;
         this.form.city_id = null;
       });
     },
+    
+    /**
+      *  // get terms 
+    */
     getTerms() {
       auth.termsAndCondations().then((res) => {
-        // console.log("terms", res);
         this.condations = res.data.items;
       });
     },
+    
+    /**
+      *  // check terms as true  
+    */
     acceptMyTerms() {
       this.paymentFormData.accept_terms = true;
     },
+     
+    /**
+      *  // get wallet data  
+    */
     getWallet() {
       profile
         .getWallet()
@@ -2174,6 +2285,11 @@ export default {
           console.log(err);
         });
     },
+
+    
+    /**
+      *  // change payment coasts after change quantity of product 
+    */
     ChangeRateValue(res) {
       this.totalDiscount = res.data.items.total_cart.total_discount;
 
@@ -2218,6 +2334,10 @@ export default {
         }
       }
     },
+    
+    /**
+      *  // got to the top of page  
+    */
     goTop() {
       window.scrollTo({
         top: 70,
@@ -2225,6 +2345,10 @@ export default {
         behavior: "smooth",
       });
     },
+    
+    /**
+      *  // handleScroll 
+    */
     handleScroll: function () {
       if (this.scTimer) return;
       this.scTimer = setTimeout(() => {
@@ -2244,6 +2368,10 @@ export default {
         behavior: "smooth",
       });
     },
+    
+    /**
+      *  // add new coupon 
+    */
     addCoupon() {
       if (this.couponText) {
         console.log(this.coupons.length);
@@ -2370,9 +2498,12 @@ export default {
         }
       }
     },
+    
+    /**
+      *  // remove exist coupon  
+    */
     removeMyCoupon(coupon, index) {
       this.coupons.splice(index, 1);
-      // this.existCoupons.splice(index, 1);
       for (let index = 0; index < this.existCoupons.length; index++) {
         const element = this.existCoupons[index];
 
@@ -2393,6 +2524,10 @@ export default {
       // );
       this.totalPaymentReplacement += coupon.value;
     },
+    
+    /**
+      *  // upload bank file when select bank payment method  
+    */ 
     uploadBankImage(event) {
       this.paymentFormData.file = event.target.files[0];
     },
@@ -2417,6 +2552,10 @@ export default {
     },
   },
   created() {
+    
+    /**
+      *  // sertting user address uuid 
+    */ 
     if (this.buyerUserData) {
       localStorage.setItem(
         "globalAddressUUID",
@@ -2428,8 +2567,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+    * component style
+  */
 @import "~/src/assets/scss/_cartStyle.scss";
 
+/**
+    * other component style
+  */
 @media screen and (max-width: 767px) {
   table thead {
     border: none;
