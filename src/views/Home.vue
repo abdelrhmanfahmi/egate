@@ -67,7 +67,7 @@ export default {
       await auth.getSupplierAds().then(res => {
         console.log(res);
         this.supplierAds = res.data.items.ads[0];
-        if (res.data.items.ads.length > 0) {
+        if (res.data.items.ads.length > 0 && res.data.items.ads[0].banner) {
           this.existSupplierAds = true
         } else {
           this.existSupplierAds = false
@@ -135,7 +135,7 @@ export default {
   mounted() {
 
     setTimeout(() => {
-      if (this.$route.path == '/' && this.supplierAds &&  this.supplierAds.bannar) {
+      if (this.$route.path == '/' && this.supplierAds &&  this.supplierAds[0]?.bannar) {
         this.$modal.show(
           supplierAdsModal,
           { supplierAds: this.supplierAds },
@@ -160,10 +160,6 @@ export default {
 
     this.emailVerify();
     // this.checkEmailForgetPassWord()
-
-
-
-
   }
 };
 </script>
