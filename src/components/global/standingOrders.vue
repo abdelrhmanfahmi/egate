@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- standing orders component  -->
     <p class="add-address" @click="showForm = !showForm">
       <span>+ </span>{{ $t("items.addNew") }}
     </p>
@@ -54,8 +55,6 @@
             @click="selectPlan(order)">
             <label class="plan basic-plan">
               <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" />
-              <!-- <input type="radio" name="plan" :value="x" v-model="selectedPlan"
-                                @input="planSelected(x)" /> -->
               <div class="plan-content-holder">
                 <div class="plan-content">
                   <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
@@ -216,11 +215,17 @@ export default {
     this.getStandingOrders();
     this.getStandingOrdersTimes();
   },
+  /**
+    * props
+  */
   props: ['variantOrder']
 };
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .add-address {
   font-size: 17px;
   color: #312620;

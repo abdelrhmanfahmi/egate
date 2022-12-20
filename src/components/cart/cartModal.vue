@@ -4,6 +4,7 @@
     centered
     class=" modal-dialog-centered modal-dialog-scrollable"
   >
+  <!-- cart modal that appear when add product to cart -->
     <div class="modal-content">
       <div class="header-holder">
         <!-- <div class="modal-header">Header</div> -->
@@ -66,25 +67,14 @@
 <script>
 export default {
   name: "Modal",
-  data: function () {
-    return {
-      // dataObj: {
-      //   title: "",
-      //   body: "",
-      // },
-    };
-  },
-  methods: {
-    // handleSave() {
-    //   console.log(this.dataObj);
-    //   this.handleClose();
-    // },
-    // handleClose() {
-    //   this.$emit("close");
-    // },
-  },
+  /**
+      * pass product as a prop
+    */
   props: ["product"],
   computed: {
+    /**
+      * get cart data from store
+    */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
@@ -94,9 +84,6 @@ export default {
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
-  },
-  mounted() {
-    console.log(this.product);
   },
   watch: {
     $route: function () {

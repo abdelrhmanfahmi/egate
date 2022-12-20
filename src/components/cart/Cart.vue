@@ -1,11 +1,13 @@
 <template>
   <div class="cart-content mb-2">
+    <!-- if cart data  -->
     <div
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
       <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
+    <!-- else  -->
     <div class="" v-else>
       <div v-if="cartItems" :class="classObject">
         <div
@@ -26,8 +28,6 @@
           <span> {{ cart_sub_total | fixedCurrency }} {{ currency }} </span>
         </div>
         <div class="navigation my-4" v-if="cart_sub_total">
-          <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
-
           <router-link
             to="/cart"
             class="login-button dark my-2 text-center text-white"
@@ -48,7 +48,6 @@
   </div>
 </template>
 <script>
-// import Product from "@/apis/Product";
 import CartItem from "./CartItem.vue";
 
 export default {
@@ -59,6 +58,9 @@ export default {
     CartItem,
   },
   methods: {
+  /**
+    * cart products from store.
+  */
     getCartProducts() {
       this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
@@ -69,6 +71,9 @@ export default {
     this.getCartProducts();
   },
   computed: {
+    /**
+      * cart products , length from store.
+    */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
@@ -88,6 +93,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+   * cart component style.
+   */
+
 .cart-items-holder {
   height: 346px !important;
   overflow-y: scroll;

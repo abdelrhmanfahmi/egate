@@ -1,11 +1,13 @@
 <template>
   <div class="action-holder mb-2">
+    <!-- if cart items data  -->
     <div
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
       <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
+     <!-- else  -->
     <div class="" v-else>
       <div
         class="d-flex cart-item"
@@ -35,22 +37,6 @@
             <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
           </span>
         </div>
-        <!-- <div class="product-info w-100" v-else>
-          <router-link
-            class="name"
-            :to="{
-              path: '/details',
-              query: { id: `${product.product_supplier_id}` },
-            }"
-          >
-            {{ product.product_name }}
-          </router-link>
-
-          <span class="price">
-            {{ product.price }} x
-            <b class="text-success">{{ product.quantity }} </b>
-          </span>
-        </div> -->
         <div class="total mx-1 text-center w-50">
           <Counter
             :minimum="
@@ -67,23 +53,12 @@
             <b-icon-trash></b-icon-trash>
           </span>
         </div>
-        <!-- <ul>
-        <li v-for="product in products" :key="product.id">
-          product.supplier_name : {{ product.product_name }}
-        </li>
-        <li>
-          {{ products.supplier_name }}
-          {{ products.supplier_sub_total }}
-          {{ products.products[0].product_name }}
-        </li>
-      </ul> -->
       </div>
     </div>
   </div>
 </template>
 <script>
 import { BIconTrash } from "bootstrap-vue";
-// import { mapActions } from "vuex";
 import Counter from "@/components/global/cartPopupCounter";
 export default {
   data() {
@@ -95,11 +70,8 @@ export default {
   },
   props: ["products"],
   methods: {
-    // ...mapActions("cart", ["removeProductFromCart"]),
+    
     removeFromCart(product) {
-      // this.removeProductFromCart({
-      //   product: product,
-      // });
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
@@ -112,6 +84,11 @@ export default {
       }, 1200);
       return (this.$store.state.cartItems = []);
     },
+
+    /**
+      * got to product page
+    */
+
     goProduct(product) {
       this.$router.push({
         path: "/details",

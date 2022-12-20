@@ -5,6 +5,11 @@
 </template>
 
 <script>
+/**
+   * The only true button.
+   * @displayName Best Button
+   */
+
 // @ is an alias to /src
 import MainLayout from "@/layouts/MainLayout.vue";
 import globalAxios from "@/services/global-axios";
@@ -13,6 +18,11 @@ export default {
   name: "Home",
   created() {
     // let gestUser = localStorage.getItem("guest-id");
+
+    /**
+       * dispatch user data if exist || check guest.
+    */
+
     this.$store.dispatch("getUserGuestId");
     this.$store.dispatch("getUserInfo")
     let userExist = localStorage.getItem("buyerUserData");

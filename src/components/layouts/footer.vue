@@ -1,5 +1,6 @@
 <template>
   <section class="user-footer">
+    <!-- footer  -->
     <footer class="dark-bg pt-50 pb-1">
       <div class="container">
         <div class="footer-top-wrap">
@@ -240,11 +241,13 @@ export default {
     };
   },
   methods: {
+     /**
+    * get footer links
+  */
     footerLinks() {
       profile
         .footerLinks()
         .then((res) => {
-          // console.log(res);
           this.links = res.data.items.data;
           for (let index = 0; index < res.data.items.data.length; index++) {
             const element = res.data.items.data[index];
@@ -257,93 +260,9 @@ export default {
           console.log(err);
         });
     },
-    // footerTwitterLink() {
-    //   profile
-    //     .footerTwitterLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.twitter = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerYoutubeLink() {
-    //   profile
-    //     .footerYoutubeLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.youtube = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerLinkedinLink() {
-    //   profile
-    //     .footerLinkedinLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.linkedin = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerInstagramLink() {
-    //   profile
-    //     .footerInstagramLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.instagram = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerPinterestLink() {
-    //   profile
-    //     .footerPinterestLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.pinterest = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerGoogleLink() {
-    //   profile
-    //     .storeGoogleLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.googlePlay = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // footerAppLink() {
-    //   profile
-    //     .storeAppLink()
-    //     .then((res) => {
-    //       // console.log(res);
-    //       this.appStore = res.data.items;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
   },
   mounted() {
     this.footerLinks();
-    // this.footerTwitterLink();
-    // this.footerYoutubeLink();
-    // this.footerLinkedinLink();
-    // this.footerInstagramLink();
-    // this.footerPinterestLink();
-    // this.footerGoogleLink();
-    // this.footerAppLink();
   },
   components: {
     ChatUs,

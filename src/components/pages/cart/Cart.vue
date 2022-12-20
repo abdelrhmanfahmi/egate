@@ -1,6 +1,7 @@
 <template>
   <div>
     <div :class="$i18n.locale" v-if="hasProducts">
+      <!-- cart component page  -->
       <div class="" v-if="!loading">
         <div class="row">
           <div class="col-12 order-shipping">

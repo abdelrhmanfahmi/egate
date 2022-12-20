@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <!-- loading component to know when  page loaded  -->
         <div v-if="loadingPercent < 100">
             <div class="progress-bar">
                 <div class="fill" :style="{ width: loaded }"> {{ loaded }}</div>

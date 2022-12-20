@@ -1,5 +1,6 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
+    <!-- navbar component  -->
     <b-container>
       <nav :class="$i18n.locale">
         <!-- Main Header -->
@@ -13,29 +14,6 @@
                   $t("home.home")
               }}</router-link>
             </li>
-            <!-- <li>
-              <router-link class="link" to="/suppliers">{{
-                  $t("home.navSuppliers")
-              }}</router-link>
-            </li> -->
-            <!-- new dropdown  -->
-            <!-- <li class="humhum-dropdown">
-              <a class="link">
-                {{ $t("home.navSuppliers") }}
-                <ul class="submenu">
-                  <li>
-                    <router-link to="/suppliers">{{
-                        $t("home.suppliers")
-                    }}</router-link>
-                  </li>
-                  <li>
-                    <router-link to="/Clients">
-                      {{ $t('home.clients') }}
-                    </router-link>
-                  </li>
-                </ul>
-              </a>
-            </li> -->
             <li>
               <router-link class="link" to="/partners">{{ $t("home.navSuppliers") }}</router-link>
             </li>
@@ -85,22 +63,6 @@
             <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
               <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
-
-            <!-- <b-modal id="modal-1" class="search">
-              Using slots
-              <b-input-group class="mt-3">
-                <template #append>
-                  <b-input-group-text>
-                    <strong @click="search" class="search-eye">
-                      <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
-                    </strong>
-                  </b-input-group-text>
-                </template>
-                <b-form @submit.prevent="search">
-                  <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
-                </b-form>
-              </b-input-group>
-            </b-modal> -->
           </div>
           <div v-if="!mobile" class="cart">
             <span class="cart-icon">
@@ -121,16 +83,6 @@
             </span>
             <Notify class="notify-body" :notifications="notifications" />
           </div>
-          <!-- <div v-if="!mobile" class="cart">
-            <span class="cart-icon">
-              <font-awesome-icon icon="fa-solid fa-heart" />
-            </span>
-            <span class="cartLength" v-if="wishlistItems">
-              {{ wishlistLength }}
-            </span>
-            <Cart class="cart-body"></Cart>
-          </div> -->
-
           <!-- user sign in -->
           <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
             <font-awesome-icon icon="fa-solid fa-user" size="2x" />
@@ -224,13 +176,15 @@
 </template>
 
 <script>
+/**
+    * import components
+  */
+
 import Login from "./login.vue";
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
 import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
-
-// import { BIconMinecartLoaded } from "bootstrap-vue";
 
 export default {
   data() {
@@ -249,7 +203,6 @@ export default {
   },
   components: {
     Cart,
-    // BIconMinecartLoaded,
     Login,
     MobileNav,
     Notify,
@@ -284,24 +237,20 @@ export default {
     },
     getCartProducts() {
       return globalAxios.post("/cart").then((res) => {
-        // console.log("cart res", res);
         this.cartItemsLength = res.data.items.cart_total_products_count;
       });
     },
     getWishlistProducts() {
       return globalAxios.get("members/profile/favorite").then((res) => {
-        // console.log("cart res", res);
         this.wishlistItems = res.data.items.data;
         this.wishlistLength = res.data.items.data.length;
       });
     },
     search() {
-      // document.querySelector(".modal").click();
       this.$router.push({
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
-      // location.reload();
     },
     closeSearch() {
       this.searchClicked = false;
@@ -310,9 +259,6 @@ export default {
     loginNow() {
       document.$refs["b2cLogin"].show();
       document.querySelector(".login").click();
-      // if (document.querySelector(".login")) {
-      //   alert("exist");
-      // }
       this.$router.push({
         path: this.$router.path,
         query: { force_login: "false" },
@@ -320,6 +266,9 @@ export default {
     },
   },
   computed: {
+    /**
+    * get cart data 
+  */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
@@ -341,21 +290,8 @@ export default {
     if (this.$route.query.force_login && this.$route.query.force_login == "true" || loc.href.includes('force_login')) {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("buyerUserData");
-      // if (document.querySelector(".login")) {
-      //   setTimeout(() => {
-      //     document.querySelector(".login").click();
-      //   }, 0);
-      //   setTimeout(() => {
-      //     var newURL = location.href.split("?")[0];
-      //     window.history.pushState("object", document.title, newURL);
-      //     console.log(newURL);
-      //   }, 500);
-      // }
       this.loginNow()
-      
-      // console.log(loc.href.includes('force_login')); 
     }
-    // this.loginNow()
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
@@ -389,6 +325,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style
+*/
 .main-nav {
   width: 100%;
   transition: 0.5s all ease-in-out;

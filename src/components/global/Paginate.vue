@@ -1,5 +1,6 @@
 <template>
   <ul class="pagination">
+    <!-- pagination component   -->
     <li class="pagination-item">
       <a
         href="#"
@@ -51,6 +52,9 @@
 <script>
 export default {
   name: "pagination",
+  /**
+    * props
+  */
   props: {
     maxVisibleButtons: {
       type: Number,
@@ -71,6 +75,9 @@ export default {
     },
   },
   computed: {
+    /**
+      * check if page is first or last 
+    */
     isInFirstPage() {
       return this.currentPage === 1;
     },
@@ -154,6 +161,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .pagination {
   list-style-type: none;
   float: right;

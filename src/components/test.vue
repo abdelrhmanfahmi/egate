@@ -919,6 +919,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+/**
+   * page style.
+   */
+   
 .data-holder {
   padding: 20px;
   background: #f7f7f7;

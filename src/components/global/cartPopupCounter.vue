@@ -1,5 +1,6 @@
 <template>
   <div class="product-counter">
+    <!-- cart popup counter  -->
     <div class="actions d-flex">
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
@@ -15,15 +16,12 @@
       <button class="product-counter-btn" @click="decrementQuantity">
         <b-icon-dash />
       </button>
-
     </div>
   </div>
 </template>
 <script>
 import { BIconPlus, BIconDash } from "bootstrap-vue";
-
 export default {
-  // name: "CCounter",
   components: {
     BIconPlus,
     BIconDash,
@@ -33,6 +31,9 @@ export default {
       countValue: 1,
     };
   },
+  /**
+    * props  
+  */
   props: {
     quantity: {
       type: Number,
@@ -49,6 +50,9 @@ export default {
     },
   },
   mounted() {
+    /**
+    * set countValue = quantity  
+  */
     this.countValue = this.quantity;
   },
   methods: {
@@ -88,6 +92,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * page style  
+  */
 .product-counter {
   display: flex;
   align-items: center;

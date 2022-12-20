@@ -1,12 +1,14 @@
 {
   "name": "humhum",
-  "version": "0.0.328",
+  "version": "0.0.329",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "versioning": "npm --no-git-tag-version version patch --force"
+    "versioning": "npm --no-git-tag-version version patch --force",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.0.0",
@@ -25,6 +27,7 @@
     "vue": "^2.6.11",
     "vue-ellipse-progress": "^1.3.1",
     "vue-i18n": "^8.27.0",
+    "vue-inbrowser-compiler": "^4.55.0",
     "vue-js-modal": "^2.0.1",
     "vue-router": "^3.2.0",
     "vue-slick-carousel": "^1.0.6",
@@ -44,10 +47,12 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "husky": "^4.3.8",
     "sass": "^1.49.7",
     "sass-loader": "^8.0.2",
+    "vue-styleguidist": "^4.54.3",
     "vue-template-compiler": "^2.6.11",
-    "husky": "^4.3.8"
+    "webpack": "^4.46.0"
   },
   "eslintConfig": {
     "root": true,

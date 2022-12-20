@@ -1,9 +1,9 @@
 <template>
   <div class="product-counter">
     <div class="value">
+      <!-- variants page counter that exist in table  -->
       <main>
         <slot name="main">
-          <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
           <input
             class="form-control text-center border-0"
             type="number"
@@ -13,7 +13,6 @@
             @keyup="CustomIncrementQuantity"
             v-model="countValue"
             />
-            <!-- @keypress="isNumber($event)" -->
         </slot>
       </main>
     </div>
@@ -31,7 +30,6 @@
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 
 export default {
-  // name: "CCounter",
   components: {
     BIconPlus,
     BIconDash,
@@ -41,6 +39,9 @@ export default {
       countValue: 1,
     };
   },
+  /**
+    * props
+  */
   props: {
     quantity: {
       type: Number,
@@ -54,6 +55,9 @@ export default {
     },
   },
   mounted() {
+    /**
+    * set countValue = quantity;
+  */
     this.countValue = this.quantity;
   },
   methods: {
@@ -65,6 +69,9 @@ export default {
       this.countValue > this.minimum ? this.countValue-- : null;
       this.$emit("changeCount", this.countValue);
     },
+     /**
+      * custom increament for input not buttons
+    */
     CustomIncrementQuantity() {
       console.log(this.countValue);
       if (this.countValue > 0) {
@@ -98,6 +105,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .product-counter {
   display: flex;
   align-items: center;

@@ -1,5 +1,6 @@
 <template>
     <div class="user-login">
+      <!-- old sidebar style  -->
       <b-sidebar
         id="login"
         backdrop

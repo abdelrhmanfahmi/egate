@@ -1,7 +1,7 @@
 <template>
   <div class="category-card">
     <div>
-
+      <!-- new style for category card  -->
       <b-img-lazy
         v-bind="mainProps"
         :src="image"
@@ -18,6 +18,9 @@
 
 <script>
 export default {
+  /**
+    * props 
+  */
   props: {
     card: {
       type: Object,
@@ -43,6 +46,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style 
+  */
 .category-card {
   color: #fff;
   border-radius: 0.25rem;

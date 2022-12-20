@@ -1,45 +1,29 @@
 <template>
   <div class="cart-content mb-2">
-    <div
-      class="d-flex justify-content-center align-items-center"
-      v-if="loading"
-    >
+    <div class="d-flex justify-content-center align-items-center" v-if="loading">
       <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <div class="" v-else>
       <div class="cart-items-holder" v-if="cartItems">
-        <div
-          v-for="products in cartItems"
-          :key="products.id"
-          class="cart-items"
-        >
+        <div v-for="products in cartItems" :key="products.id" class="cart-items">
           <CartItem :products="products"></CartItem>
         </div>
       </div>
       <div class="action-holder">
         <hr />
-        <div
-          class="total-price d-flex justify-content-between align-items-center"
-          v-if="cart_sub_total"
-        >
+        <div class="total-price d-flex justify-content-between align-items-center" v-if="cart_sub_total">
           <span> {{ $t("cart.total") }}</span>
           <span> {{ cart_sub_total | fixedCurrency }} {{ currency }} </span>
         </div>
         <div class="navigation my-4" v-if="cart_sub_total">
           <!-- <b-button class="login-button my-2">{{ $t("cart.shopping") }}</b-button> -->
 
-          <router-link
-            to="/cart"
-            class="login-button dark my-2 text-center text-white"
-          >
+          <router-link to="/cart" class="login-button dark my-2 text-center text-white">
             {{ $t("cart.purchase") }}
           </router-link>
         </div>
       </div>
-      <div
-        class="d-flex justify-content-center align-items-center"
-        v-if="!cartItems"
-      >
+      <div class="d-flex justify-content-center align-items-center" v-if="!cartItems">
         <p class="m-0">
           {{ $t("cart.noCartProducts") }}
         </p>
@@ -82,12 +66,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+   * page style.
+   */
+
 .cart-items-holder {
   height: 346px;
   overflow-y: scroll;
 }
+
 .cart-content {
   position: relative;
+
   .cartLength {
     position: absolute;
     top: -15px;

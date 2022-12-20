@@ -20,49 +20,6 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <!-- <ul class="list-unstyled d-flex m-0">
-          <li
-            v-for="(currency, index) in currencies"
-            :key="index"
-            class="list-unstyled d-flex"
-          >
-            <ul class="list-unstyled d-flex">
-              <li
-                v-for="(curr, index) in currency.currencies"
-                :key="index"
-                class="d-flex"
-              >
-                <button
-                  @click="handleCurrency(curr.code)"
-                  class="bg-transparent border-0 outline-0 text-white mr-2"
-                >
-                  {{ curr.code }}
-                </button>
-              </li>
-            </ul>
-          </li>
-        </ul> -->
-        <!-- <b-dropdown
-          :text="$t('payment.chooseCurrency')"
-          class="bg-transparent border-0 text-white"
-        >
-          <b-dropdown-item
-            v-for="(currency, index) in myCurrencies"
-            :key="index"
-            class="list-unstyled d-flex bg-transparent border-0"
-          >
-            <ul class="list-unstyled d-flex">
-              <li class="d-flex">
-                <button
-                  @click="handleCurrency(currency.code)"
-                  class="bg-transparent border-0 bg-transparent border-0"
-                >
-                  {{ currency.code }}
-                </button>
-              </li>
-            </ul>
-          </b-dropdown-item>
-        </b-dropdown> -->
         <div class="select-country">
           <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
@@ -76,14 +33,6 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <!-- <div class="select-currency" @change="handleCurrency($event)">
-          <b-form-select
-            v-model="currencyValue"
-            :options="currencies"
-            sm
-          >
-          </b-form-select>
-        </div> -->
       </div>
     </b-container>
   </header>
@@ -115,19 +64,18 @@ export default {
   },
   mounted() {
     this.getAllCountires();
-    this.reloadPage();
+    // this.reloadPage();
   },
-  // created(){
-  //   // console.log("this.countries" ,  this.countries);
-  // },
   methods: {
     getAllCountires() {
+      /**
+        * get countries and setting language and curreny and country
+      */
       auth
         .getAllCountires()
         .then((res) => {
           this.countries = res.data.items;
           localStorage.setItem('countries' ,JSON.stringify(res.data.items) )
-          // console.log("res" , res);
           if (localStorage.getItem("country")) {
             let current_stored_country = JSON.parse(
               localStorage.getItem("country")
@@ -143,38 +91,12 @@ export default {
               }
             });
           } else {
-            // console.log("res.data.items" , res.data.items);
-
-            // this.countries.forEach((country) => {
-            //   if (country.is_default == 1) {
-            //     window.localStorage.setItem("country", JSON.stringify(country));
-            //     if (localStorage.getItem("currency") === null) {
-            //       localStorage.setItem("currency", country.currencies[0].code);
-            //     }
-            //     this.myCurrencies = country.currencies;
-            //   }
-            // });
             this.getDefaultCountry()
-
-            // localStorage.setItem("country", JSON.stringify(res.data.items[0]));
-            // localStorage.setItem(
-            //   "currency",
-            //   res.data.items[0].currencies[0].code
-            // );
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 500);
           }
           if (localStorage.getItem("is_default") === null) {
             localStorage.setItem("is_default", res.data.items[0].is_default);
           }
-          // if (localStorage.getItem("currency") === null) {
-          //   localStorage.setItem("currency", res.data.items[0].currencies[0].code);
-
-          // }
-
           this.currencies = this.countries;
-          // console.log(this.currencies);
         })
         .then(() => {
           let myCurrency = document
@@ -191,6 +113,10 @@ export default {
         });
     },
     switchLang() {
+      /**
+        * switch language
+      */
+
       if (this.lang === "en") {
         this.lang = "ar";
       } else {
@@ -202,8 +128,9 @@ export default {
       window.location.reload();
     },
     onHandelCountry(data) {
-      // localStorage.setItem("country_id", );
-      // console.log(data);
+      /**
+        * handle country 
+      */
       localStorage.removeItem("currency");
       localStorage.setItem("country", JSON.stringify(data));
       this.countryImg = data.flag;
@@ -216,13 +143,15 @@ export default {
           localStorage.setItem("is_default", data.currencies[0].is_default);
         }
       }
-      // localStorage.setItem("currency", data.currencies[0].code);
-
       setTimeout(() => {
         location.reload();
       }, 100);
     },
     handleCurrency(event) {
+      /**
+        * handle currency from localstorage 
+      */
+
       localStorage.setItem("currency", event.code);
       localStorage.setItem("currencyId", event.id);
       location.reload();
@@ -242,6 +171,10 @@ export default {
       // this.getAllCountires();
     },
     getDefaultCountry() {
+      /**
+        * get default country according to ip address 
+      */
+
       axios.get('https://api.dev.humhum.work/api/v1/site-settings/default/country').then(res => {
         console.log("getDefaultCountry", res);
         this.defaultCountry = JSON.stringify(res.data.items);
@@ -266,6 +199,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+    * component style
+*/
 .main-header {
   background: #202026;
 
