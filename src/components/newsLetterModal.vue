@@ -1,5 +1,5 @@
 <template>
-  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded">
+  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded && newsletterShow && newsletterShow.image_path">
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="row justify-content-center align-items-center newsletter-popup-content">
@@ -90,6 +90,8 @@ export default {
     let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
     this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
     this.doProgress();
+
+    console.log('test me ' , this.newsletterShow.image_path);
 
   },
   computed: {

@@ -246,6 +246,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
+        {
+          to: "/profile/NotificationSettings",
+          name: this.$t("profile.NotificationSettings"),
+          iconName: "sliders",
+        },
       ],
       SocialLinks: [
         {
@@ -357,6 +362,11 @@ export default {
           to: "/profile/Notifications",
           name: this.$t("profile.Notifications"),
           iconName: "bell",
+        },
+        {
+          to: "/profile/NotificationSettings",
+          name: this.$t("profile.NotificationSettings"),
+          iconName: "sliders",
         },
       ],
     };

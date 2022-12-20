@@ -281,5 +281,9 @@ export default {
   mostViewed:'المنتجات الأكثر مشاهدة',
   orders:'منتج',
   pending:'معلق',
-  WalletRedirect:'سوف يتم توجيهك الى محفظتك خلال ٥ ثوان'
+  WalletRedirect:'سوف يتم توجيهك الى محفظتك خلال ٥ ثوان',
+  NotificationSettings:'اعدادات الاشعارات',
+  others:'أخرى',
+  sms:"الرسائل النصيه",
+  Mail:"البريد",
 };

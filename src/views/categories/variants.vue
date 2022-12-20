@@ -2,13 +2,6 @@
   <div class="items-body variants">
     <div class="container">
       <div class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4">
-        <!-- <button
-          class="prev btn btn-light shadow-none bg-transparent border-none outline-none"
-          @click="prevPage"
-          :disabled="pageId == 1"
-        >
-          <span>&#60;</span>{{ $t("items.prev") }}
-        </button> -->
         <nav aria-label="breadcrumb " v-if="productInfo">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -21,21 +14,12 @@
                 {{ productInfo.parent_category.title }}
               </router-link>
             </li>
-            <!-- <li class="breadcrumb-item active" aria-current="page">
-              {{ productInfo.title }}
-            </li> -->
           </ol>
         </nav>
-        <!-- <span
-          @click="nextPage"
-          class="next btn btn-light shadow-none bg-transparent border-none outline-none"
-          >{{ $t("items.next") }}<span>&#62;</span></span
-        > -->
       </div>
       <div class="content">
         <b-row align-h="center" align-v="start" class="py-5" v-if="productInfo">
           <b-col cols="12" lg="6" xl="5" class="item-content product-info">
-            <!-- <a href="#" class="link">{{ $t("items.category") }}</a> -->
             <h5 class="name" v-if="productInfo.title">
               {{ productInfo.title }}
             </h5>
@@ -49,16 +33,8 @@
               <span @click="readMore = !readMore" class="readBtn">
                 &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span>
             </div>
-            <!-- <p class="description">
-              {{ $t("items.description") }}
-            </p> -->
             <div class="customize">
               <div class="customize-selection">
-                <!-- <b-form-select
-                  v-model="product.id"
-                  v-for="product in productInfo.variants" :key="product.id"
-                  :options="product.title"
-                ></b-form-select> -->
                 <div v-for="variant in productInfo.variants" :key="variant.id" class="mb-3">
                   <form action="">
                     <label for="select">{{ variant.title }}</label>
@@ -74,24 +50,6 @@
                     </b-form-group>
                   </form>
                 </div>
-                <!-- <b-form-select
-                  v-for="product in productInfo.variants"
-                  :key="product.id"
-                  v-model="selectedProduct"
-                  class="mb-3"
-                >
-                  <b-form-select-option selected disabled :value="null" disabled>
-                    {{ $t("cart.selectOption") }}
-                  </b-form-select-option>
-                  <b-form-select-option
-                    v-for="pro in product.options"
-                    :key="pro.id"
-                    :value="pro.id"
-                  >
-                    <span v-if="pro.title">{{ pro.title }}</span>
-                  </b-form-select-option>
-                </b-form-select>
-                selectedProduct : {{ selectedProduct }} -->
               </div>
             </div>
           </b-col>
@@ -199,98 +157,6 @@
         </b-col>
       </b-row>
       <div class="products-table text-center" v-else>
-        <!-- <b-table
-          selectable
-          @row-clicked="onRowSelected"
-          bordered
-          hover
-          :items="products"
-          :fields="tableFields"
-          stacked="lg"
-        >
-          <template #cell(item)="data">
-            <a href="#">{{ data.value }}</a>
-          </template>
-          <template #cell(image_path)="data">
-            <img :src="data.value" class="product-image" />
-          </template>
-          <template #cell(supplier)="data">
-            <span v-if="data.value">{{ data.value }} </span>
-            <span v-else>
-              {{ $t("cart.noData") }}
-            </span>
-          </template>
-          <template #cell(unit)="data">
-            {{ data.value }}
-          </template>
-
-          <template #cell(price)="data">
-            <span
-              v-if="
-                (data.value > 0 &&
-                  buyerUserData.profile_percentage == 100 &&
-                  buyerUserData.type === 'buyer') ||
-                buyerUserData.type === 'b2b'
-              "
-              >{{ data.value }} {{ currency }}</span
-            >
-            <span v-else>
-              {{ $t("cart.noData") }}
-            </span>
-          </template>
-          <template #cell(currency) colspan="2">
-            {{ currency }}
-          </template>
-          <template #cell(quantity)="data">
-            <Variants-Counter
-              v-if="
-                data.item.product_details_by_type.add_type   == 'cart' ||
-                data.item.product_details_by_type.add_type   == 'both'
-              "
-              class="justify-content-center"
-              :quantity="1"
-              @changeCount="ChangeCounter($event)"
-            ></Variants-Counter>
-            <p
-              v-else-if="
-                data.item.product_details_by_type.add_type   !== 'cart' ||
-                data.item.product_details_by_type.add_type   !== 'both'
-              "
-            >
-              -
-            </p>
-          </template>
-          <template #cell(addTo)="data">
-            <div
-              class="add-to d-flex justify-content-center"
-              v-if="
-                (buyerUserData.profile_percentage === 100 &&
-                  buyerUserData.type === 'buyer') ||
-                buyerUserData.type === 'b2b'
-              "
-            >
-              <a
-                @click="addToCart(data.item)"
-                v-if="
-                  data.item.product_details_by_type.add_type   === 'cart' ||
-                  data.item.product_details_by_type.add_type   === 'both'
-                "
-              >
-                <span>{{ $t("items.addToCart") }}</span>
-                <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-              </a>
-              <a @click="addToWishlist()"
-                ><font-awesome-icon icon="fa-solid fa-star"
-              /></a>
-              <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a>
-            </div>
-            <div class="" v-else>
-              <router-link to="/profile/account-information-b2b">
-                {{ $t("profile.completeAccount") }}
-              </router-link>
-            </div>
-          </template>
-        </b-table> -->
         <table class="table table-striped table-hover table-bordered selectable">
           <thead>
             <tr>
