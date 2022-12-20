@@ -1,36 +1,40 @@
 <template>
-  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded && newsletterShow && newsletterShow.image_path">
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="row justify-content-center align-items-center newsletter-popup-content">
+  <div class="" v-if="newsletterShow && newsletterShow.image_path ">
+    <div class="" v-if="isLoaded" >
+      <div class="container newsletter-popup-container" id="newsletter-popup-form">
+        <div class="row justify-content-center">
           <div class="col-12">
-            <img :src="newsletterShow.image_path" height="420" class="newsletter-img" width="800" alt="ad"
-              @load="onImgLoad" />
+            <div class="row justify-content-center align-items-center newsletter-popup-content">
+              <div class="col-12">
+                <img :src="newsletterShow.image_path" height="420" class="newsletter-img" width="800" alt="ad"
+                  @load="onImgLoad" />
+              </div>
+            </div>
           </div>
         </div>
+        <button title="Close (Esc)" type="button" class="mfp-close" @click="closeModal">
+          <!-- <span>×</span> -->
+          <font-awesome-icon icon="fa-solid fa-xmark" />
+        </button>
+        <div class="viewProduct" v-if="newsletterShow.model_type === 'product'">
+          <router-link :to="{ path: 'details', query: { id: newsletterShow.model_id } }" class="">
+            <b><span>{{ $t("profile.viewDetails") }}
+                <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+          </router-link>
+        </div>
+        <div class="viewProduct" v-if="newsletterShow.model_type === 'category'">
+          <router-link :to="`categories/${newsletterShow.model_id}`" class="">
+            <b><span>{{ $t("profile.viewDetails") }}
+                <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+          </router-link>
+        </div>
+        <div class="viewProduct" v-if="newsletterShow.model_type === 'supplier'">
+          <router-link :to="`suppliers/${newsletterShow.model_id}`" class="">
+            <b><span>{{ $t("profile.viewDetails") }}
+                <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+          </router-link>
+        </div>
       </div>
-    </div>
-    <button title="Close (Esc)" type="button" class="mfp-close" @click="closeModal">
-      <!-- <span>×</span> -->
-      <font-awesome-icon icon="fa-solid fa-xmark" />
-    </button>
-    <div class="viewProduct" v-if="newsletterShow.model_type === 'product'">
-      <router-link :to="{ path: 'details', query: { id: newsletterShow.model_id } }" class="">
-        <b><span>{{ $t("profile.viewDetails") }}
-            <font-awesome-icon icon="fa-solid fa-store" /></span></b>
-      </router-link>
-    </div>
-    <div class="viewProduct" v-if="newsletterShow.model_type === 'category'">
-      <router-link :to="`categories/${newsletterShow.model_id}`" class="">
-        <b><span>{{ $t("profile.viewDetails") }}
-            <font-awesome-icon icon="fa-solid fa-store" /></span></b>
-      </router-link>
-    </div>
-    <div class="viewProduct" v-if="newsletterShow.model_type === 'supplier'">
-      <router-link :to="`suppliers/${newsletterShow.model_id}`" class="">
-        <b><span>{{ $t("profile.viewDetails") }}
-            <font-awesome-icon icon="fa-solid fa-store" /></span></b>
-      </router-link>
     </div>
   </div>
 </template>
@@ -91,7 +95,7 @@ export default {
     this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
     this.doProgress();
 
-    console.log('test me ' , this.newsletterShow.image_path);
+    console.log('test me ', this.newsletterShow);
 
   },
   computed: {
