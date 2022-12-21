@@ -1,4 +1,5 @@
 <template>
+  <!-- single client component  -->
     <div class="single-supplier bg-white position-relative">
       <div class="supplier-data">
         <div class="thumb">
@@ -18,10 +19,16 @@
     data() {
       return {};
     },
+    /**
+      *  client data sent as prop
+    */
     props: ["supplier"],
   };
   </script>
   <style lang="scss" scoped>
+  /**
+      *  component style 
+  */
   .single-supplier {
     padding: 1rem;
   

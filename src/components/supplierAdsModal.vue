@@ -1,8 +1,8 @@
 <template>
+  <!-- supplier add modal appears in home page -->
   <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded && supplierAds && supplierAds.bannar">
     <div class="row justify-content-center">
       <div class="col-12">
-        <!-- <div class="row no-gutters bg-white newsletter-popup-content"> -->
         <div class="row justify-content-center align-items-center newsletter-popup-content">
           <div class="col-12">
             <img :src="supplierAds.bannar" height="420" class="newsletter-img" width="800" alt="supplier-ad"
@@ -40,6 +40,9 @@ export default {
     $route: function () {
       this.$emit("close");
     },
+     /**
+      *   check when page loaded
+    */
     loadingPercent(val) {
       if (val >= 100) {
 
@@ -54,17 +57,16 @@ export default {
   },
   methods: {
     ...mapMutations("demo", { hideNewsletter: "HIDE_NEWSLETTER" }),
-    changeCheck: function () {
-      this.checkState = !this.checkState;
-    },
+    /**
+      *  close modal
+    */
     closeModal: function () {
-      if (this.checkState) {
-        this.hideNewsletter();
-      }
-
       this.$emit("close");
       this.postSupplierShowenAd();
     },
+    /**
+      *   send supplier wa shown the add to backend
+    */
     postSupplierShowenAd() {
       auth
         .postSupplierShowenAd(this.supplierAds.id)
@@ -79,9 +81,15 @@ export default {
           console.log(err);
         });
     },
+    /**
+      *   check when image loaded
+    */
     onImgLoad() {
       return (this.isLoaded = true);
     },
+    /**
+      *   check when page loaded
+    */
     doProgress() {
       let step = this.loadTime / 100;
       this.interval = setInterval(() => {
@@ -91,13 +99,23 @@ export default {
   },
   props: ["supplierAds"],
   mounted() {
+    /**
+      *   start check when page loaded
+    */
     let perfData = window.performance.timing;
     let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
     this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
     this.doProgress();
 
+    /**
+      *   end check when page loaded
+    */
+
   },
   computed: {
+    /**
+      *  check when page loaded
+    */
     loaded() {
       return this.loadingPercent + '%'
     }

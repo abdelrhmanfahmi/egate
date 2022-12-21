@@ -1,10 +1,13 @@
 <template>
+  <!-- product images slider  -->
   <div class="product-slider" v-if="mediaExist">
     <div class="content ">
+      <!-- curent image ( selected image to show ) -->
       <div class="main-img mb-2">
         <img id="main-img" :src="currentImage" v-if="currentImage" />
         <img id="main-img" :src="firstImage" v-else />
       </div>
+      <!-- other product images  -->
       <div class="images d-flex">
         <div class="product-img mb-2" v-for="(img, index) in images" :key="index">
           <img v-if="img.image_path" :src="img.image_path" @click="changeImage(index)"
@@ -24,31 +27,31 @@ export default {
       currentImage: "",
       myProduct: null,
       firstImage: null,
-      // images: [
-      //   "https://media.istockphoto.com/photos/orange-picture-id185284489",
-      //   "https://media.istockphoto.com/photos/red-apple-picture-id184276818",
-      //   "https://media.istockphoto.com/photos/green-apple-fruit-with-green-leaf-isolated-on-white-picture-id920478620",
-      // ],
       images: [],
-
       mediaExist: false,
     };
   },
   methods: {
+    /**
+    *  change product selected image
+  */
     changeImage(i) {
       this.currentImage = this.images[i].image_path;
       this.active = i;
     },
+  /**
+    *  get product details to show images
+  */
     productDetails() {
       this.loading = true;
       categories
         .productDetails(this.id)
         .then((res) => {
           this.myProduct = res.data.items;
-          // this.images = res.data.items.images;
-
-          // product.image_path == null && product.product.image_path
           if (res.data.items.images.length !== 0) {
+             /**
+                *  take 6 images only of product images for responsive view
+            */
             this.images = res.data.items.images.slice(0, 6);
             this.firstImage = res.data.items.images[0].image_path;
             this.mediaExist = true;
@@ -62,14 +65,6 @@ export default {
             this.firstImage = res.data.items.product.images[0].image_path;
             this.mediaExist = true;
           }
-
-          // this.images = res.data.items.images;
-          // if (res.data.items.images.length > 0) {
-          //   this.firstImage = res.data.items.images[0].image_path;
-          // }
-
-          // console.log(res.data.items.images.length == 0);
-
           if (
             res.data.items.images.length === 0 &&
             res.data.items.product.images.length === 0 &&
@@ -89,13 +84,16 @@ export default {
   },
   mounted() {
     this.productDetails();
+     /**
+    *  setting active = 0 to show first image of product images first
+  */
     this.active = 0;
   },
 };
 </script>
 <style lang="scss" scoped>
 /**
-   * page style.
+   * component style.
    */
 .product-slider {
    

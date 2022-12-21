@@ -1,4 +1,5 @@
 <template>
+  <!-- side section that appear in supplier page  -->
   <div class="side-sections" v-if="supplier">
     <p class="title" v-if="supplier.image_path">
       {{ $t("supplier.about") }}
@@ -11,9 +12,6 @@
         alt="Company Name"
         v-if="supplier.image_path"
       />
-      <!-- <h4 class="name" v-if="supplier.company_name">
-        {{ supplier.company_name }}
-      </h4> -->
       <div class="row justify-content-center align-items-center">
         <div class="col-md-6 col-sm-12 mb-2">
           <ul class="social-accounts d-flex flex-wrap" v-if="supplierMSite">
@@ -154,6 +152,9 @@ export default {
   },
   props: ["supplier", "supplierMSite"],
   methods: {
+    /**
+      *  send Supplier Message
+  */
     sendSupplierMessage() {
       let data = {
         supplier_id: this.id,
@@ -176,12 +177,14 @@ export default {
           console.log(error);
         });
     },
+    /**
+      *  if not logged in 
+  */
     loginFirst() {
      Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
@@ -191,6 +194,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+      *  component style
+  */
 .side-sections {
   .title {
     font-weight: bold;

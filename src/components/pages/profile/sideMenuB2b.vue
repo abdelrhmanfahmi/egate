@@ -1,5 +1,6 @@
 <template>
   <div class="profile-menu">
+    <!-- side bar for b2b or buyer user  -->
     <h5 class="my-3">
       {{ buyerUserData.company_name }}
     </h5>
@@ -19,10 +20,6 @@
         variant="danger"
       ></b-progress>
     </div>
-
-    <!-- <h5 class="my-3">
-      {{ $t("profile.company") }} {{ buyerUserData.company_name }}
-    </h5> -->
     <ul v-if="!socialLogin">
       <li
         v-for="(link, index) in buyerLinks"
@@ -134,6 +131,9 @@
 export default {
   data() {
     return {
+    /**
+      *  if logged in with email and pass
+    */
       buyerLinks: [
         {
           to: "/profile/categories",
@@ -194,7 +194,6 @@ export default {
 
         {
           to: "/profile/favorite",
-          // name: this.$t("profile.b2bFav"),
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
@@ -203,11 +202,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -218,24 +212,6 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
-
-        // {
-        //   to: "/profile/ResidentsB2b",
-        //   name: this.$t("profile.residents"),
-        //   iconName: "receipt",
-        // },
-        // {
-        //   to: "/profile/BankNotificationsB2b",
-        //   name: this.$t("profile.bankNotifications"),
-        //   iconName: "money-bill-wave",
-        // },
-
-        // {
-        //   to: "/profile/supplierRatingB2b",
-        //   name: this.$t("profile.supplierRatings"),
-        //   iconName: "star",
-        // },
-
         {
           to: "/profile/SupplierCorrespondenceB2b",
           name: this.$t("profile.supplierCorrespondence"),
@@ -252,6 +228,9 @@ export default {
           iconName: "sliders",
         },
       ],
+    /**
+      *  if logged in socially
+    */
       SocialLinks: [
         {
           to: "/profile/categories",
@@ -288,11 +267,6 @@ export default {
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
-        // {
-        //   to: "/profile/change-password",
-        //   name: this.$t("profile.changePassword"),
-        //   iconName: "key",
-        // },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
@@ -320,11 +294,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -335,24 +304,6 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
-
-        // {
-        //   to: "/profile/ResidentsB2b",
-        //   name: this.$t("profile.residents"),
-        //   iconName: "receipt",
-        // },
-        // {
-        //   to: "/profile/BankNotificationsB2b",
-        //   name: this.$t("profile.bankNotifications"),
-        //   iconName: "money-bill-wave",
-        // },
-
-        // {
-        //   to: "/profile/supplierRatingB2b",
-        //   name: this.$t("profile.supplierRatings"),
-        //   iconName: "star",
-        // },
-
         {
           to: "/profile/SupplierCorrespondenceB2b",
           name: this.$t("profile.supplierCorrespondence"),
@@ -376,6 +327,9 @@ export default {
 </script>
 
 <style lang="scss">
+/**
+      *  component style
+    */
 .profile-menu {
   padding: 60px 0px 60px 25px;
   background-color: #303030;

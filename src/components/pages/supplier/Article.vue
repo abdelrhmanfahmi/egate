@@ -1,12 +1,6 @@
 <template>
+  <!-- articel component  -->
   <div class="article" v-if="supplier && supplierMSite">
-    <!-- <div class="" v-if="supplierMSite">
-      <img
-        :src="supplierMSite.banner_path"
-        alt="Article Image"
-        v-if="supplierMSite.banner_path"
-      />
-    </div> -->
     <p v-html="supplierMSite.short_description_en"
       v-if="supplierMSite.short_description_en && $i18n.locale == 'en'"
       class="my-5 "
@@ -54,10 +48,16 @@ export default {
   data() {
     return { count: 0 };
   },
+  /**
+      *  supplier and supplierMSite as props
+  */
   props: ["supplier", "supplierMSite"],
 };
 </script>
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .article {
   img {
     height: 300px;

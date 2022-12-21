@@ -1,4 +1,5 @@
 <template>
+  <!-- b2c , b2b (buyer) , guest modal appears in home page  -->
   <div class="" v-if="newsletterShow && newsletterShow.image_path ">
     <div class="" v-if="isLoaded" >
       <div class="container newsletter-popup-container" id="newsletter-popup-form">
@@ -54,6 +55,9 @@ export default {
     $route: function () {
       this.$emit("close");
     },
+    /**
+      *   check when page loaded
+    */
     loadingPercent(val) {
       if (val >= 100) {
 
@@ -68,19 +72,21 @@ export default {
   },
   methods: {
     ...mapMutations("demo", { hideNewsletter: "HIDE_NEWSLETTER" }),
-    changeCheck: function () {
-      this.checkState = !this.checkState;
-    },
+    /**
+      *  close modal
+    */
     closeModal: function () {
-      if (this.checkState) {
-        this.hideNewsletter();
-      }
-
       this.$emit("close");
     },
+    /**
+      *   check when image loaded
+    */
     onImgLoad() {
       return (this.isLoaded = true);
     },
+    /**
+      *   check when page loaded
+    */
     doProgress() {
       let step = this.loadTime / 100;
       this.interval = setInterval(() => {
@@ -88,14 +94,23 @@ export default {
       }, step);
     }
   },
+  /**
+    *  pass add modal data as prop
+  */
   props: ["newsletterShow"],
   mounted() {
+
+    /**
+      *  start check when page loaded
+    */
     let perfData = window.performance.timing;
     let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
     this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
     this.doProgress();
 
-    console.log('test me ', this.newsletterShow);
+    /**
+      *  end check when page loaded
+    */
 
   },
   computed: {

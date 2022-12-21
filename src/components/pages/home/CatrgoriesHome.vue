@@ -4,6 +4,7 @@
       <span class="categories-info">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
+      <!-- when data loading  -->
       <div v-if="loading">
         <b-row class="holder">
           <b-col lg="3" sm="6" v-for="x in 10" :key="x">
@@ -23,6 +24,7 @@
           </b-col>
         </b-row>
       </div>
+      <!-- when data comes  -->
       <b-row v-else>
         <b-col
           v-for="category in categories"
@@ -46,13 +48,14 @@
 <script>
 import CategoryCard from "@/components/global/CategoryCard.vue";
 import categories from "@/services/categories";
-// import VueSkeletonLoader from "skeleton-loader-vue";
 export default {
   components: {
     CategoryCard,
-    // VueSkeletonLoader,
   },
   methods: {
+    /**
+      *  get all categories function 
+    */
     async getCategories() {
 
       await categories
@@ -82,6 +85,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+  *  component style  
+*/
 .profile-categories {
   text-align: center;
   padding-bottom: 30px;

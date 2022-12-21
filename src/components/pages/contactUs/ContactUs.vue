@@ -1,5 +1,6 @@
 <template>
   <div class="contact-form">
+    <!-- contact us page  -->
     <div class="container">
       <div class="row mb-4">
         <div class="col-12 col-lg-8 col-xl-9 form-body">
@@ -8,94 +9,56 @@
           <form class="row" @submit.prevent="contactUs">
             <div class="form-input col-6 required">
               <label for="full_name">
-                {{$t('contactUs.formName')}} <span class="required text-danger">*</span>
+                {{ $t('contactUs.formName') }} <span class="required text-danger">*</span>
               </label>
-              
-              <input
-                v-model="form.full_name"
-                type="text"
-                
-              />
+
+              <input v-model="form.full_name" type="text" />
               <div class="" v-if="errors">
-                <div
-                  class="error"
-                  v-for="(error, index) in errors.full_name"
-                  :key="index"
-                >
+                <div class="error" v-for="(error, index) in errors.full_name" :key="index">
                   <p>{{ error }}</p>
                 </div>
               </div>
             </div>
             <div class="form-input col-6">
               <label for="email">
-                {{$t('contactUs.formEmail')}} <span class="required text-danger">*</span>
+                {{ $t('contactUs.formEmail') }} <span class="required text-danger">*</span>
               </label>
-              <input
-                v-model="form.email"
-                type="text"
-              />
+              <input v-model="form.email" type="text" />
               <div class="" v-if="errors">
-                <div
-                  class="error"
-                  v-for="(error, index) in errors.email"
-                  :key="index"
-                >
+                <div class="error" v-for="(error, index) in errors.email" :key="index">
                   <p>{{ error }}</p>
                 </div>
               </div>
             </div>
             <div class="form-input col-6">
               <label for="mobile_number">
-                {{$t('contactUs.formPhone')}} <span class="required text-danger">*</span>
+                {{ $t('contactUs.formPhone') }} <span class="required text-danger">*</span>
               </label>
-              <input
-                v-model="form.mobile_number"
-                type="number"
-                min="0"
-              />
+              <input v-model="form.mobile_number" type="number" min="0" />
               <div class="" v-if="errors">
-                <div
-                  class="error"
-                  v-for="(error, index) in errors.mobile_number"
-                  :key="index"
-                >
+                <div class="error" v-for="(error, index) in errors.mobile_number" :key="index">
                   <p>{{ error }}</p>
                 </div>
               </div>
             </div>
             <div class="form-input col-6">
               <label for="subject">
-                {{$t('contactUs.formSubject')}} <span class="required text-danger">*</span>
+                {{ $t('contactUs.formSubject') }} <span class="required text-danger">*</span>
               </label>
-              <input
-                v-model="form.subject"
-                type="text"
-              />
+              <input v-model="form.subject" type="text" />
               <div class="" v-if="errors">
-                <div
-                  class="error"
-                  v-for="(error, index) in errors.subject"
-                  :key="index"
-                >
+                <div class="error" v-for="(error, index) in errors.subject" :key="index">
                   <p>{{ error }}</p>
                 </div>
               </div>
             </div>
             <div class="form-input col-12">
               <label for="message">
-                {{$t('contactUs.formMessage')}} <span class="required text-danger">*</span>
+                {{ $t('contactUs.formMessage') }} <span class="required text-danger">*</span>
               </label>
-              <b-form-textarea
-                v-model="form.message"
-                rows="5"
-                style="resize: none"
-              ></b-form-textarea>
+              <b-form-textarea v-model="form.message" rows="5" style="resize: none"></b-form-textarea>
               <div class="" v-if="errors">
-                <div
-                  class="error"
-                  v-for="(error, index) in errors.message"
-                  :key="index"
-                >
+                <div class="error" v-for="(error, index) in errors.message" :key="index">
                   <p>{{ error }}</p>
                 </div>
               </div>
@@ -110,17 +73,6 @@
         <div class="col-12 col-lg-4 col-xl-3 info-data">
           <div class="contact-info">
             <div class="info " v-if="contactPhone">
-              <!-- <div class="icon">
-                <b-icon-telephone-outbound></b-icon-telephone-outbound>
-              </div>
-              <div class="data">
-                <span class="title">{{ contactPhone.title }}</span>
-                <ul class="contact-data">
-                  <li>
-                    <p v-html="contactPhone.description"></p>
-                  </li>
-                </ul>
-              </div> -->
               <div class="row">
                 <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
@@ -140,21 +92,10 @@
               </div>
             </div>
             <div class="info" v-if="contactEmail">
-              <!-- <div class="icon">
-                <b-icon-telephone-outbound></b-icon-telephone-outbound>
-              </div>
-              <div class="data">
-                <span class="title">{{ contactEmail.title }}</span>
-                <ul class="contact-data">
-                  <li>
-                    <p v-html="contactEmail.description"></p>
-                  </li>
-                </ul>
-              </div> -->
               <div class="row">
                 <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
-                   <b-icon-envelope></b-icon-envelope>
+                    <b-icon-envelope></b-icon-envelope>
                   </div>
                 </div>
                 <div class="col-md-8 col-sm-12 mb-2">
@@ -170,17 +111,6 @@
               </div>
             </div>
             <div class="info" v-if="contactAddress">
-              <!-- <div class="icon">
-                <b-icon-telephone-outbound></b-icon-telephone-outbound>
-              </div>
-              <div class="data">
-                <span class="title">{{ contactAddress.title }}</span>
-                <ul class="contact-data">
-                  <li>
-                    <p v-html="contactAddress.description"></p>
-                  </li>
-                </ul>
-              </div> -->
               <div class="row">
                 <div class="col-md-4 col-sm-12 mb-2">
                   <div class="icon">
@@ -204,19 +134,13 @@
       </div>
     </div>
     <div class="map" v-if="contactMap">
-      <iframe
-        :src="contactMap.value"
-        width="100%"
-        height="450"
-        style="border: 0"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <iframe :src="contactMap.value" width="100%" height="450" style="border: 0" allowfullscreen
+        loading="lazy"></iframe>
     </div>
   </div>
 </template>
 <script>
-import { BIconTelephoneOutbound , BIconEnvelope , BIconMapFill } from "bootstrap-vue";
+import { BIconTelephoneOutbound, BIconEnvelope, BIconMapFill } from "bootstrap-vue";
 import profile from "@/services/profile";
 export default {
   components: {
@@ -241,6 +165,9 @@ export default {
     };
   },
   methods: {
+    /**
+      *  contact us method  ( send data to backend)
+    */
     contactUs() {
       profile
         .contactUs(this.form)
@@ -257,6 +184,9 @@ export default {
         });
     },
     contactUsMap() {
+      /**
+      *  contact us map  
+    */
       profile
         .contactUsMap()
         .then((res) => {
@@ -268,6 +198,9 @@ export default {
         });
     },
     contactUsPhone() {
+      /**
+      *  contact us phone  
+    */
       profile
         .contactUsPhone()
         .then((res) => {
@@ -279,6 +212,9 @@ export default {
         });
     },
     contactUsEmail() {
+      /**
+      *  contact us email  
+    */
       profile
         .contactUsEmail()
         .then((res) => {
@@ -290,6 +226,9 @@ export default {
         });
     },
     contactUsAddress() {
+      /**
+      *  contact us address  
+    */
       profile
         .contactUsAddress()
         .then((res) => {
@@ -310,16 +249,22 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .contact-form {
   color: #000;
+
   .form-body {
     color: #000;
+
     .side-info {
       display: block;
       font-size: 10pt;
       color: #ed2124;
       margin-bottom: 0.5rem;
     }
+
     .title {
       color: #444;
       font-weight: bold;
@@ -327,9 +272,11 @@ export default {
       font-size: 26pt;
       margin-bottom: 4rem;
     }
+
     form {
       .form-input {
         margin-bottom: 1rem;
+
         input,
         textarea {
           width: 100%;
@@ -340,23 +287,29 @@ export default {
           height: 60px;
           padding: 1rem 1.5rem;
         }
+
         textarea {
           height: unset;
         }
       }
     }
   }
+
   .info-data {
     color: #000;
+
     .contact-info {
       background-color: #ed2124;
       padding: 2rem;
+
       .info {
         align-items: center;
+
         &:not(:last-child) {
           border-bottom: 1px dashed #ebebeb;
           margin: 1rem 0 2rem 0;
         }
+
         .icon {
           width: 75px;
           height: 75px;
@@ -370,6 +323,7 @@ export default {
           justify-content: center;
           align-items: center;
           color: #ed2124;
+
           &::before {
             content: "";
             position: absolute;
@@ -382,21 +336,26 @@ export default {
             z-index: -1;
             border-radius: 50%;
           }
-          svg {
-          }
+
+          svg {}
         }
+
         .data {
           color: #000;
+
           .title {
             font-size: 13pt;
             color: #fff;
             font-weight: 600;
             margin-bottom: 0.4rem;
           }
+
           .contact-data {
             color: #000;
+
             li {
               color: #000;
+
               a,
               p {
                 color: #fff;
@@ -408,6 +367,7 @@ export default {
     }
   }
 }
+
 html:lang(ar) {
   svg {
     transform: rotateZ(260deg);

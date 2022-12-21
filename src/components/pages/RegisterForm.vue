@@ -1,4 +1,5 @@
 <template>
+  <!-- b2c register form  -->
   <section class="user-register">
     <b-container>
       <div class="main-title">
@@ -205,37 +206,7 @@
                   :value="connect.value"
                   >{{ connect.name }}</b-form-radio
                 >
-                <!-- <div
-                  class="error"
-                  v-for="(error, indx) in errors.active_with"
-                  :key="indx"
-                >
-                  {{ error }}
-                </div> -->
               </b-form-group>
-
-              <!-- <b-form-checkbox
-                v-model="terms"
-                class="terms my-1 d-inline-block"
-              >
-                <span>
-                  {{ $t("register.PleaseReview") }}
-                </span>
-              </b-form-checkbox> -->
-              <!-- <div class="terms d-inline-block">
-                <span>
-                  <a
-                    v-b-modal.terms&condation
-                    @click="$bvModal.show('modal-scoped')"
-                  >
-                    {{ $t("register.termsConditions") }}</a
-                  >
-                </span>
-                <span>
-                  {{ $t("register.toCompleteTheRegistration") }}
-                </span>
-              </div> -->
-
               <div class="terms d-inline-block">
                 <span>
                   {{ $t("register.newPolicy") }}
@@ -246,18 +217,6 @@
                 </span>
                 
               </div>
-
-              <!-- <b-modal
-                size="lg"
-                id="terms&condation"
-                :title="condations.title"
-                ok-only
-              >
-                <p v-html="condations.description">
-                  {{ condations.description }}
-                </p>
-              </b-modal> -->
-
               <b-modal size="lg" id="terms&condation" :title="condations.title">
                 <p v-html="condations.description">
                   {{ condations.description }}
@@ -341,6 +300,9 @@ export default {
     this.getProfilePrefixes();
   },
   methods: {
+    /**
+      *  get countries
+    */
     getAllCountires() {
       auth
         .getAllCountires()
@@ -351,6 +313,9 @@ export default {
           console.log(err);
         });
     },
+    /**
+      *  register function
+    */
     register() {
       localStorage.clear();
       this.form.callback_url = `${this.mainDoamin}`;
@@ -373,17 +338,29 @@ export default {
           this.errMsg(err.message);
         });
     },
+   /**
+      *  change type to show password
+    */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
+    /**
+      *  get terms
+    */
     getTerms() {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
       });
     },
+    /**
+      *  accept Terms
+    */
     acceptMyTerms() {
       this.terms = true;
     },
+    /**
+      *  contactUs Phone
+    */
     contactUsPhone() {
       profile
         .contactUsPhone()
@@ -406,6 +383,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .user-register {
   .main-title {
     text-align: center;
