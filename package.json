@@ -1,14 +1,14 @@
 {
   "name": "humhum",
-  "version": "0.0.331",
+  "version": "0.0.335",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "versioning": "npm --no-git-tag-version version patch --force",
-    "styleguide": "vue-styleguidist server",
-    "styleguide:build": "vue-styleguidist build"
+    "styleguide": "vue-styleguidist server --config styleguide.config.js",
+    "styleguide:build": "vue-styleguidist build --config styleguide.config.js"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.0.0",

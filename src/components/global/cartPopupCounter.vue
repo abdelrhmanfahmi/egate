@@ -20,6 +20,10 @@
   </div>
 </template>
 <script>
+/**
+ * cart popup counter component
+ * @author fabrica dev
+ */
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
   components: {
@@ -56,6 +60,9 @@ export default {
     this.countValue = this.quantity;
   },
   methods: {
+     /**
+      * increament function
+      */
     incrementQuantity() {
       this.countValue = Number(this.quantity) + 1;
 
@@ -71,6 +78,9 @@ export default {
       }, 300);
       // this.$emit('changeTitle',this.countValue)
     },
+    /**
+      * decreament function
+      */
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
 

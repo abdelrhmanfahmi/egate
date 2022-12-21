@@ -1,3 +1,7 @@
+/**
+	* breakpoints
+*/
+
 @mixin mq($mq-breakpoint, $mq-width: 'min-width', $mq-breakpoints: $breakpoints) {
 	@if $mq-width == 'max' {
 		$mq-width: 'max-width';

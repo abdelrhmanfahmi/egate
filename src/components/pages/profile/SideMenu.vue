@@ -1,5 +1,6 @@
 <template>
   <div class="profile-menu">
+    <!-- side menu for b2c user  -->
     <h2>{{ $t("profile.myProfile") }}</h2>
     <h5 class="my-3">
       {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
@@ -132,43 +133,9 @@
 export default {
   data() {
     return {
-      // links: [
-      //   {
-      //     to: "/profile/categories",
-      //     name: this.$t("profile.shop"),
-      //     iconName: "shop",
-      //   },
-      //   {
-      //     to: "/profile/shopping-cart",
-      //     name: this.$t("profile.shoppingCart"),
-      //     iconName: "cart-shopping",
-      //   },
-      //   {
-      //     to: "/profile/account-information",
-      //     name: this.$t("profile.accountInformation"),
-      //     iconName: "circle-info",
-      //   },
-      //   // {
-      //   //   to: "/profile/documents",
-      //   //   name: this.$t("profile.documents"),
-      //   //   iconName: "file"
-      //   // },
-      //   {
-      //     to: "/profile/adress-book",
-      //     name: this.$t("profile.addressBook"),
-      //     iconName: "location-dot",
-      //   },
-      //   {
-      //     to: "/profile/subscribe-newsletter",
-      //     name: this.$t("profile.subscribeNewsletter"),
-      //     iconName: "newspaper",
-      //   },
-      //   {
-      //     to: "/profile/favorite",
-      //     name: this.$t("profile.favorite"),
-      //     iconName: "heart",
-      //   },
-      // ],
+    /**
+      *  if logged in with email and pass 
+    */
       buyerLinks: [
         {
           to: "/profile/categories",
@@ -257,6 +224,9 @@ export default {
           iconName: "sliders",
         },
       ],
+    /**
+      *  if logged in socially
+    */
       socialLinks: [
         {
           to: "/profile/categories",
@@ -319,11 +289,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -357,6 +322,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+      *  component style
+    */
 .profile-menu {
   padding: 60px 0px 60px 25px;
   background-color: #303030;

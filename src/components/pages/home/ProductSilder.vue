@@ -1,5 +1,6 @@
 <template>
   <div class="product-silder">
+    <!-- if no data  -->
     <div class="bestDeals" v-if="slidersLength > 0">
       <span class="product-info">
         <h4 class="top-header">{{ $t("home.monthlyOffers") }}</h4>
@@ -21,6 +22,7 @@
         </div>
       </VueSlickCarousel>
     </div>
+    <!-- if there is suppliers  -->
     <div class="suppliers pt-2" v-if="suppliers">
       <span class="product-info">
         <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
@@ -32,6 +34,7 @@
           </router-link>
         </div>
       </div>
+      <!-- data loading  -->
       <b-row v-if="loading" class="px-5">
         <b-col lg="3" sm="6" v-for="x in 10" :key="x">
           <b-skeleton-img></b-skeleton-img>
@@ -49,6 +52,7 @@
           </b-card>
         </b-col>
       </b-row>
+      <!-- data comes from backend  -->
       <VueSlickCarousel
         v-bind="settings"
         v-if="!loading && suppliers && suppliers.length"
@@ -88,13 +92,8 @@ import VueSlickCarousel from "vue-slick-carousel";
 import Countdown from "vuejs-countdown";
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
-
 import globalAxios from "@/services/global-axios";
-// import axios from "axios";
-// import { baseURL } from "@/apis/Api";
-// import categories from "@/services/categories";
 import auth from "@/services/auth";
-// import moment from "moment";
 export default {
   components: {
     ProductCard,
@@ -149,6 +148,9 @@ export default {
     };
   },
   methods: {
+    /**
+      *  get Suppliers  
+    */
     getSuppliers() {
       this.loading = true;
       return globalAxios
@@ -163,6 +165,9 @@ export default {
           this.loading = false;
         });
     },
+    /**
+      *  get home deadline counter
+    */
     getHomeDeadline() {
       auth
         .getHomeDeadline()
@@ -190,6 +195,9 @@ export default {
     this.getHomeDeadline();
   },
   computed: {
+    /**
+      *  check if slider has data
+    */
     slidersLength() {
       return this.sliders ? this.sliders.length : 0;
     },
@@ -198,6 +206,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+      *  component style
+    */
 .product-silder {
   background-color: #f9f8f5;
   text-align: center;

@@ -1,22 +1,7 @@
 <template>
+  <!-- best daes component that appera in home page in middle after deadline  -->
   <div class="product position-relative w-100 text-center single-supplier bg-white position-relative">
     <div class="supplier-data">
-      <!-- <div class="thumb">
-
-        <router-link :to="{ path: '/details', query: { id: `${deal.id}` } }" class="d-block text-center">
-          <img v-if="deal.image_path"
-            :src="deal.image_path"
-            alt="supplier image"
-          />
-          <img v-else
-            :src="deal.product.image_path"
-            alt="supplier image"
-          />
-        </router-link>
-        <p class="supplier-name text-center mt-3 text-capitalize">
-          {{ deal.product.title }}
-        </p>
-      </div> -->
       <div class="thumb">
         <a
           @click="goProduct(deal)"
@@ -114,13 +99,13 @@ export default {
     BIconEye,
   },
   methods: {
+    /**
+      *  add product To Wishlist
+    */
     addToWishlist(item) {
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
       };
-      // this.addProductToWishlist({
-      //   product: this.product,
-      // });
       return globalAxios
         .post(`members/profile/favorite`, data)
         .then((res) => {
@@ -129,12 +114,12 @@ export default {
           }
         })
         .catch((error) => {
-          // const err = Object.values(error)[2].data;
-          // this.errors = err.items;
-          // this.errMsg(err.message);
           console.log(error);
         })
     },
+    /**
+      *  go to product page
+    */
     goProduct(data) {
       this.$router.push({
         path: "/details",
@@ -144,6 +129,9 @@ export default {
       });
       location.reload();
     },
+    /**
+      *  go to product page by supplier
+    */
     goPage2(data) {
       this.$router.push({
         path: "/details",
@@ -162,13 +150,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .product {
   margin: 1rem;
-  // background-color: #3a3a43;
   .thumb {
-    // .product-image {
-    //   padding: 20px 0;
-    // }
     .actions {
       position: absolute;
       top: 25px;

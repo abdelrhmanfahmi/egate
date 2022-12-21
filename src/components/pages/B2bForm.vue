@@ -1,4 +1,5 @@
 <template>
+  <!-- buyer or b2b register form  -->
   <section class="user-register">
     <b-container>
       <div class="main-title">
@@ -20,17 +21,6 @@
                 <!-- First Name -->
                 <b-col lg="12">
                   <b-form-group>
-                    <!-- <label for="f-name">{{ $t("register.companyName") }}</label> -->
-
-                    <!-- <span class="requried">*</span> -->
-                    <!-- <b-form-input id="f-name" v-model="form.company_name" />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.company_name"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div> -->
                     <div class="row">
                       <div class="col-md-6 col-sm-12">
                         <label for="f-name">{{
@@ -59,9 +49,7 @@
                 <b-col lg="12">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.department") }}</label>
-                    <!-- <label for="l-name">{{ $t("register.jobTitle") }}</label> -->
                     <span class="requried">*</span>
-                    <!-- <b-form-input id="l-name" v-model="form.job_title" /> -->
                     <div class="error" v-for="(error, index) in errors.job_title" :key="index">
                       {{ error }}
                     </div>
@@ -158,21 +146,6 @@
                 </b-col>
               </b-row>
               <!-- active_with -->
-
-              <!-- <b-form-checkbox v-model="terms" class="terms my-1 d-inline-block">
-                <span>
-                  {{ $t("register.PleaseReview") }}
-                </span>
-              </b-form-checkbox> -->
-              <!-- <div class="terms d-inline-block">
-                <span>
-                  <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
-                    {{ $t("register.termsConditions") }}</a>
-                </span>
-                <span>
-                  {{ $t("register.toCompleteTheRegistration") }}
-                </span>
-              </div> -->
               <div class="terms d-inline-block">
                 <span>
                   {{ $t("register.newPolicy") }}
@@ -292,9 +265,15 @@ export default {
     this.contactUsPhone();
   },
   methods: {
+    /**
+      *  change type to show password
+    */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
+    /**
+      *  get All Countires
+    */
     getAllCountires() {
       auth
         .getAllCountires()
@@ -305,6 +284,9 @@ export default {
           console.log(err);
         });
     },
+    /**
+      *  register function
+    */
     register() {
       localStorage.clear()
       this.form.callback_url = `${this.mainDoamin}otp-verification`;
@@ -322,14 +304,23 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+      *  get Terms
+    */
     getTerms() {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
       });
     },
+    /**
+      *  accept MyTerms
+    */
     acceptMyTerms() {
       this.terms = true;
     },
+    /**
+      *  contactUs Phone
+    */
     contactUsPhone() {
       profile
         .contactUsPhone()
@@ -346,6 +337,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .user-register {
   .main-title {
     text-align: center;

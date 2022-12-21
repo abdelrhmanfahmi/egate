@@ -1,4 +1,5 @@
 <template>
+  <!-- product component  -->
   <div class="product position-relative w-100" v-if="data">
     <div class="thumb">
       <a
@@ -143,15 +144,18 @@ export default {
       ],
     };
   },
+  /**
+      *  props
+    */
   props: ["data"],
   methods: {
+    /**
+      *  add product to wishlist (favorite)
+    */
     addToWishlist(item) {
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
       };
-      // this.addProductToWishlist({
-      //   product: this.product,
-      // });
       return globalAxios
         .post(`members/profile/favorite`, data)
         .then((res) => {
@@ -169,11 +173,13 @@ export default {
           this.getWishlistProducts();
         });
     },
+    /**
+      *  get supplier products
+    */
     getSupplierProducts() {
       suppliers
         .getSupplierProducts(this.supplierProductsId)
         .then((resp) => {
-          // console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
@@ -181,6 +187,9 @@ export default {
           console.log(err);
         });
     },
+    /**
+      *  go to product page
+    */
     goProduct(data) {
       this.$router.push({
         path: "/details",
@@ -190,6 +199,9 @@ export default {
       });
       location.reload();
     },
+    /**
+      *  gog to product page by supplier
+    */
     goPage2(data) {
       this.$router.push({
         path: "/details",
@@ -199,6 +211,9 @@ export default {
       });
       location.reload();
     },
+    /**
+      *  add product to cart if not select quantity from dropdown
+    */
     addToCart(myProduct) {
       let data = {
         product_supplier_id:
@@ -208,23 +223,6 @@ export default {
             ? this.mySelectedOption
             : 1,
       };
-      // this.$store
-      //   .dispatch("cart/addProductToCart", {
-      //     product: item,
-      //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
-      //   })
-      //   .then((res) => {
-      //     if (res.status == 200) {
-      //       this.$modal.show(
-      //         () => import("@/components/cart/cartModal.vue"),
-      //         {
-      //           product: item,
-      //         },
-      //         { width: "700", height: "auto", adaptive: true }
-      //       );
-      //     }
-      //   });
-
       return globalAxios
         .post(`cart/add`, data)
         .then((res) => {
@@ -251,6 +249,9 @@ export default {
           }, 500);
         });
     },
+    /**
+      *  add product to cart by select quantity from dropdown numbers
+    */
     addToCartAgain(myProduct) {
       let data = {
         product_supplier_id:
@@ -287,14 +288,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+      *  component style
+    */
 .product {
   margin: 1rem;
-  // background-color: #3a3a43;
   .thumb {
-    // .product-image {
-    //   img {
-    //   }
-    // }
     .actions {
       position: absolute;
       top: 25px;

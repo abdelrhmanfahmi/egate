@@ -1,4 +1,5 @@
 <template>
+  <!-- favorite page  component  -->
   <div class="cart text-center">
     <div class="d-flex justify-content-center align-items-center flex-column" v-if="loadingOne">
       <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
@@ -115,6 +116,9 @@ export default {
     }
   },
   methods: {
+    /**
+      *  add product to favorite
+    */
     getWishlistProducts() {
       this.loadingOne = false;
       this.loading = true;
@@ -137,10 +141,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+      *  remove product from favorite
+    */
     removeFromWishlist(product) {
-      // this.removeProductFromCart({
-      //   product: product,
-      // });
       this.$store.dispatch("wishlist/removeProductFromWishlist", {
         myItem: product.product_supplier,
       });
@@ -153,13 +157,22 @@ export default {
         this.loading = false;
       }, 1200);
     },
+    /**
+      *  when page changed  ,  refresh data
+    */
     onPageChange(page) {
       this.page = page;
       this.getWishlistProducts();
     },
+    /**
+      *  when paginate 
+    */
     onChangeRecordsPerPage() {
       this.getWishlistProducts();
     },
+    /**
+      *  when paginate 
+    */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
@@ -168,6 +181,9 @@ export default {
     },
   },
   computed: {
+    /**
+      *  get data from api 
+    */
     cart_sub_total() {
       return this.total_cart.cart_sub_total
         ? this.total_cart.cart_sub_total
@@ -194,6 +210,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+      *  component style
+    */
 .single-supplier {
   box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 11%);
   padding: 1rem;

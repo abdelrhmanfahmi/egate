@@ -112,10 +112,10 @@ export default {
   },
   methods: {
     getClients() {
+      this.loading = true
       suppliers
         .getClients(this.page)
         .then((resp) => {
-          console.log("getClients", resp);
           this.clients = resp.data.items.suppliers.data;
           this.clientsLength = resp.data.items.suppliers.data.length;
 
@@ -126,6 +126,7 @@ export default {
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.suppliers.meta.total;
+          this.loading = false
         })
         .catch((err) => {
           console.log(err);
@@ -166,6 +167,7 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+      loading:false
     };
   },
 };

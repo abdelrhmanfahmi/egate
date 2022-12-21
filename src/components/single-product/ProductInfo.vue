@@ -1,4 +1,5 @@
 <template>
+  <!-- product information  -->
   <div class="product-info">
     <div class="content" v-if="myProduct">
       <div class="row">
@@ -6,11 +7,6 @@
           <h4 class="name" v-if="myProduct.product.title">
             {{ myProduct.product.title }}
           </h4>
-          <!-- <p class="description" v-if="myProduct.short_description" v-html="myProduct.short_description">
-        
-      </p> -->
-          <!-- <b-form-rating></b-form-rating> -->
-
           <div class="" v-if="myProduct.product_details_by_type">
             <p class="serial" v-if="myProduct.product_details_by_type.sku">
               SKU : {{ myProduct.product_details_by_type.sku }}
@@ -122,14 +118,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
-import suppliers from "@/services/suppliers";
 
-// import modal from "@/components/cart/cartModal.vue";
-import globalAxios from "@/services/global-axios";
-// import CartModal from "@/components/cart/cartModal.vue"
-
-import categories from "@/services/categories";
-import profile from "@/services/profile";
 
 import ProductActions from "./ProductActions.vue";
 import ProductDescription from "./ProductDescription.vue";
@@ -138,210 +127,12 @@ export default {
   components: {
     ProductActions,
     ProductDescription,
-    // Linkedin,
-    // Pinterest,
-    // Reddit,
-    // Telegram,
-    // Email,
-    // Google,
-    // modal,
   },
+  /**
+        *  pass product data as prop
+     */
   props: ["myProduct"],
-  methods: {
-    // ...mapActions("cart", ["cart/addProductToCart"]),
-    addToCart(myProduct) {
-      let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
-        quantity:
-          this.mySelectedOption !== null || this.mySelectedOption > 0
-            ? this.mySelectedOption
-            : 1,
-      };
-      // this.$store
-      //   .dispatch("cart/addProductToCart", {
-      //     product: item,
-      //     quantity: this.cartCounter !== null ? this.cartCounter : 1,
-      //   })
-      //   .then((res) => {
-      //     if (res.status == 200) {
-      //       this.$modal.show(
-      //         () => import("@/components/cart/cartModal.vue"),
-      //         {
-      //           product: item,
-      //         },
-      //         { width: "700", height: "auto", adaptive: true }
-      //       );
-      //     }
-      //   });
 
-      return globalAxios
-        .post(`cart/add`, data)
-        .then((res) => {
-          if (res.status == 200) {
-            this.sucessMsg(res.data.message);
-
-            this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
-              {
-                product: myProduct,
-              },
-              { width: "700", height: "auto", adaptive: true }
-            );
-          }
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.$store.dispatch("cart/getCartProducts");
-          }, 500);
-        });
-    },
-    loginFirst() {
-      Vue.swal({
-        title: this.$t("singleProduct.loginFirst"),
-        text: this.$t("singleProduct.registerNow"),
-        icon: "warning",
-        // buttons: ["Oh noez!", true],
-        dangerMode: true,
-      }).then((willDelete) => {
-        if (willDelete) {
-          this.$router.push("/user-register");
-        }
-      });
-    },
-    requestQuotation() {
-      let payload = {
-        qoute_name: this.requestData.name,
-        product_supplier_id:
-          this.myProduct.product_details_by_type.product_supplier_id,
-        request_qty: this.requestData.request_qty,
-        comment: this.requestData.comment,
-      };
-      suppliers
-        .requestQuotation(payload)
-        .then((resp) => {
-          console.log(resp);
-          this.errors = {};
-          this.sucessMsg(resp.data.message);
-          setTimeout(() => {
-            document.querySelector(".close").click();
-            this.requestData = [];
-            this.$router.push({
-              path: "/profile/quotationDetails",
-              query: {
-                id: resp.data.items.client_quote_id,
-              },
-            });
-          }, 500);
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        });
-    },
-    loggedBidRequest() {
-      this.sucessMsg("request sent");
-    },
-    selectedOption(option) {
-      this.mySelectedOption = option;
-    },
-    incrementQuantity() {
-      this.mySelectedOption += 1;
-    },
-    decrementQuantity(minimum) {
-      if (minimum) {
-        this.mySelectedOption > minimum ? this.mySelectedOption-- : null;
-        console.log("no minimum");
-        console.log("this.mySelectedOption", this.mySelectedOption);
-      } else {
-        this.mySelectedOption >= 1
-          ? this.mySelectedOption--
-          : this.mySelectedOption == 1;
-        console.log("no minimum");
-        console.log("this.mySelectedOption", this.mySelectedOption);
-      }
-    },
-    closeModal() {
-      this.showModal = false;
-    },
-    openModal() {
-      this.showModal = true;
-    },
-    addToWishlist(item) {
-      let data = {
-        product_supplier_id: item.product_details_by_type.product_supplier_id,
-      };
-      // this.addProductToWishlist({
-      //   product: this.product,
-      // });
-
-      return globalAxios
-        .post(`members/profile/favorite`, data)
-        .then((res) => {
-          if (res.status == 200) {
-            this.sucessMsg(res.data.message);
-            this.productDetails();
-          }
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.$store.dispatch("cart/getCartProducts");
-          }, 500);
-        });
-    },
-    productDetails() {
-      this.loading = true;
-      categories
-        .productDetails(this.id)
-        .then((res) => {
-          // console.log("productDetails", res);
-          this.myProduct = res.data.items;
-        })
-        .catch((err) => {
-          if (err.response.data.code == 404) {
-            this.notFound = true;
-            this.loading = false;
-            this.myProduct = "";
-          }
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
-    sendSupplierMessage(supplierId) {
-      let data = {
-        supplier_id: supplierId,
-        message: this.message,
-        subject: this.subject,
-      };
-      profile
-        .sendSupplierMessage(data)
-        .then((res) => {
-          if (res.status == 200) {
-            this.sucessMsg(res.data.message);
-            document.querySelector(".close").click();
-            this.message = "";
-            this.subject = "";
-          }
-        })
-        .catch((error) => {
-          let err = Object.values(error)[2].data;
-          this.errors = err.items;
-          console.log(error);
-        });
-    },
-  },
   data() {
     return {
       requestData: {
@@ -371,6 +162,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/**
+    *  component style
+*/
 .product-info {
   .content {
     .category {

@@ -1,5 +1,6 @@
 <template>
   <div class="product-silder text-center mt-2">
+    <!-- home page top slider for offers -->
     <b-container v-if="slidersLength > 0">
       <div class="info">
         <p>{{ $t("home.dailyOffers") }}</p>
@@ -33,16 +34,6 @@
               <div class="" v-if="slider.current_main_image_path !== null">
                 <b-img :src="slider.current_main_image_path" class="offer-image"> </b-img>
               </div>
-              <!-- <div
-                class=""
-                v-else-if="
-                  slider.image_path == null &&
-                  slider.product.image_path !== null
-                "
-              >
-                <b-img :src="slider.product.image_path" class="offer-image">
-                </b-img>
-              </div> -->
             </vue-ellipse-progress>
             <h6 class="main-header mt-2" v-if="slider.product.title">
               <span>{{ slider.product.title.substr(0,15) }} <span v-if="slider.product.title.length > 15">...</span> </span>
@@ -59,8 +50,6 @@ import VueSlickCarousel from "vue-slick-carousel";
 
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
-// import { baseURL } from "@/apis/Api";
-// import axios from "axios";
 import categories from "@/services/categories";
 export default {
   components: {
@@ -120,6 +109,9 @@ export default {
     };
   },
   methods: {
+    /**
+      *  GET best deals from api
+    */  
     getBestDeals() {
       categories
         .getBestDeals()
@@ -133,6 +125,9 @@ export default {
   },
   mounted() {
     this.getBestDeals();
+    /**
+      *  setting slider
+    */
     if (this.progress === 0) this.nodata = true;
   },
   computed: {
@@ -144,6 +139,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .product-silder {
   padding: 0 75px;
   @media(max-width:991.98px){

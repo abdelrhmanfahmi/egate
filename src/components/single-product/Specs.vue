@@ -1,25 +1,12 @@
 <template>
+  <!-- product specs  -->
   <div class="specs">
     <div class="content">
-      <!-- <h5 class="header d-inline-block font-weight-bold mb-3">
-        {{ $t("singleProduct.specsHeader") }}
-      </h5>
-      <p class="description" v-if="myProduct.description !== null" v-html="myProduct.description">
-        
-      </p> -->
-      <!-- <div class="side-data">
-        <span
-          >{{ $t("singleProduct.origin") }}:
-          {{ $t("singleProduct.originData") }}</span
-        >
-        <span>{{ $t("singleProduct.importer") }}: عالم الفرضة</span>
-      </div> -->
       <div class="product-info">
         <table class="table table-bordered m-0">
           <tr v-if="myProduct.client !== null">
             <th>{{ $t("singleProduct.supplierName") }}</th>
             <td>
-
               <router-link :to="`/suppliers/${myProduct.client_id}`">
                 {{myProduct.client.company_name}}
               </router-link>
@@ -41,10 +28,6 @@
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
             <td>{{ myProduct.product_details_by_type.min_order_quantity.title }}</td>
           </tr>
-          <!-- <tr v-if="myProduct.delivery_time !== null">
-            <th>{{ $t("singleProduct.delivery_time") }}</th>
-            <td>{{ myProduct.delivery_time.title }}</td>
-          </tr> -->
           <tr v-if="myProduct.return_time !== null">
             <th>{{ $t("singleProduct.return_time") }}</th>
             <td>{{ myProduct.return_time.title }}</td>
@@ -53,10 +36,6 @@
             <th>{{ $t("singleProduct.PcsperUnit") }}</th>
             <td>{{ myProduct.product_details_by_type.pieces_number }}</td>
           </tr>
-          <!-- <tr v-if="myProduct.product_details_by_type !== null">
-            <th>{{ $t("singleProduct.expiration_date") }}</th>
-            <td>{{ myProduct.product_details_by_type.expiration_date }}</td>
-          </tr> -->
         </table>
       </div>
     </div>
@@ -67,10 +46,16 @@ export default {
   data() {
     return { count: 0 };
   },
+  /**
+      *  pass product data as prop
+    */
   props:['myProduct']
 };
 </script>
 <style lang="scss" scoped>
+/**
+  *  component style
+*/
 .specs {
   .content {
     .header {

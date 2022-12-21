@@ -1,11 +1,28 @@
+/**
+	* declare variables
+*/
 $main-color: red;
 $text-color: #565656;
+/**
+	* header-color
+*/
 $header-color: #312620;
+/**
+	* default-font-family
+*/
 $default-font-family: "Almarai";
+/**
+	* tabs-color
+*/
 $tabs-color: #6e6a67;
+/**
+	* pop-color
+*/
 $pop-color:#095e54;
 
-
+/**
+	* breakpoints
+*/
 $breakpoints: (
 	xs: 480px,
 	sm: 576px,
@@ -15,6 +32,10 @@ $breakpoints: (
 	xxl: 1600px,
 	xlst: 1920px
 );
+
+/**
+	* max-breakpoints
+*/
 
 $max-breakpoints: (
 	xs: 479px,
