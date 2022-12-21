@@ -59,6 +59,10 @@
 </template>
 <script>
 import { BIconTrash } from "bootstrap-vue";
+/**
+ * import cart counter
+ */
+
 import Counter from "@/components/global/cartPopupCounter";
 export default {
   data() {

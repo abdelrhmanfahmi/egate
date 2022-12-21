@@ -3,8 +3,8 @@ module.exports = {
     publicPath: '/humhum-user/',
     css: {
       loaderOptions: {
-        sass: {
-          prependData: `
+        scss: {
+          additionalData: `
           @import "@/assets/scss/_variables.scss";
           `
         }

@@ -39,9 +39,9 @@ export default {
       this.currentImage = this.images[i].image_path;
       this.active = i;
     },
-  /**
-    *  get product details to show images
-  */
+    /**
+      *  get product details to show images
+    */
     productDetails() {
       this.loading = true;
       categories
@@ -49,9 +49,9 @@ export default {
         .then((res) => {
           this.myProduct = res.data.items;
           if (res.data.items.images.length !== 0) {
-             /**
-                *  take 6 images only of product images for responsive view
-            */
+            /**
+               *  take 6 images only of product images for responsive view
+           */
             this.images = res.data.items.images.slice(0, 6);
             this.firstImage = res.data.items.images[0].image_path;
             this.mediaExist = true;
@@ -84,9 +84,9 @@ export default {
   },
   mounted() {
     this.productDetails();
-     /**
-    *  setting active = 0 to show first image of product images first
-  */
+    /**
+   *  setting active = 0 to show first image of product images first
+ */
     this.active = 0;
   },
 };
@@ -94,9 +94,10 @@ export default {
 <style lang="scss" scoped>
 /**
    * component style.
-   */
+   * @style
+*/
 .product-slider {
-   
+
   color: #000;
 
   .content {

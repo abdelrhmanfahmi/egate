@@ -160,6 +160,9 @@ export default {
 
       .back {
         font-weight: 500;
+        /**
+          * header-color  
+        */
         color: $header-color;
 
         &:hover {
