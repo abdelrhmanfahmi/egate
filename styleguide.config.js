@@ -107,7 +107,7 @@
 // 	codeSplit: false
 // })
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const vueLoader = require('vue-loader')
 const path = require('path')
 
@@ -133,6 +133,7 @@ module.exports = defineConfig({
 	title: 'Vue Styleguidist basic',
 	components: 'src/components/**/[a-zA-Z]/g*.vue',
 	defaultExample: true,
+	progressBar: true,
 	ribbon: {
 		text: 'Back to examples',
 		url: `${docSiteUrl}/Examples.html`
@@ -204,13 +205,8 @@ module.exports = defineConfig({
 			]
 		},
 
-		plugins: [new vueLoader.VueLoaderPlugin()].concat(
-			process.argv.includes('--analyze') ? [new BundleAnalyzerPlugin()] : []
-		)
+		plugins: [new vueLoader.VueLoaderPlugin()]
 	},
-	usageMode: 'expand',
-	exampleMode: 'expand',
-	styleguideDir: 'dist',
-	displayOrigins: true,
-	codeSplit: false
+	usageMode: "expand",
+	exampleMode: "expand"
 })

@@ -20,6 +20,10 @@
   </div>
 </template>
 <script>
+/**
+ * cart popup counter component
+ * @author fabrica dev
+ */
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
   components: {
