@@ -1,4 +1,5 @@
 <template>
+    <!-- complete social profile page if user logged in socially  -->
   <section class="user-register my-5">
     <b-container>
       <div class="user-register-form">
@@ -78,31 +79,6 @@
                   </b-form-group>
                 </b-col>
               </b-row>
-
-              <!-- active_with -->
-              <!-- <b-form-group
-                class="my-4"
-                :label="$t('register.chooseOneOfTheWays')"
-                v-if="!userInfo.item.mobile_number && !userInfo.item.email"
-              >
-                <b-form-radio
-                  class="pt-2"
-                  v-for="(connect, index) in connects"
-                  :key="index"
-                  v-model="form.active_with"
-                  name="some-radios"
-                  :value="connect.value"
-                  >{{ connect.name }}</b-form-radio
-                >
-                <div
-                  class="error"
-                  v-for="(error, indx) in errors.active_with"
-                  :key="indx"
-                >
-                  {{ error }}
-                </div>
-              </b-form-group> -->
-
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
                   {{ $t("register.submit") }}
@@ -138,6 +114,10 @@ export default {
     };
   },
   async created() {
+    /**
+     * sociall login
+     * @function
+    */
     await this.makeLoginSocail();
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
       this.$router.push("/");
@@ -145,6 +125,10 @@ export default {
     this.getAllCountires();
   },
   methods: {
+    /**
+     * get all countries function
+     * @function
+    */
     getAllCountires() {
       auth
         .getAllCountires()
@@ -155,6 +139,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * make Login Socail function
+     * @function
+    */
     makeLoginSocail() {
       if (this.$route.query.code) {
         const payload = {
@@ -173,6 +161,10 @@ export default {
           });
       }
     },
+    /**
+     * complete Profile function
+     * @function
+    */
     completeProfile() {
       auth
         .completeProfile(this.form)

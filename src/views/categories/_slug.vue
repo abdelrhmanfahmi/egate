@@ -1,4 +1,5 @@
 <template>
+  <!-- sub category page  -->
   <div class="subCategory" :class="$i18n.locale">
     <div
       class="cover text-center"
@@ -19,12 +20,6 @@
                     {{ $t("items.home") }}
                   </router-link>
                 </li>
-                <!-- <li class="breadcrumb-item active">
-                  {{ $t("Library") }}
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  {{ $t("Data") }}
-                </li> -->
               </ol>
             </nav>
           </div>
@@ -50,6 +45,7 @@
         <div class="tabs-holder">
           <div class="tabs-content">
             <b-tabs>
+              <!-- first tab that contain all sub-categories  -->
               <b-tab
                 :title="$t('home.All')"
                 @click="selectDefaultTab"
@@ -108,6 +104,7 @@
                   </h3>
                 </div>
               </b-tab>
+              <!-- second tab that contain classified sub-categories  -->
               <b-tab
                 :title="category.title"
                 v-for="(category , index) in subCategories"
@@ -189,6 +186,10 @@ export default {
     };
   },
   computed: {
+    /**
+     * filterProductsByCategory function
+     * @function
+     */
     filterProductsByCategory: function () {
       return this.products.filter(
         (product) => !product.category.iOf(this.category)
@@ -199,7 +200,10 @@ export default {
     OtherCategoryCard,
   },
   methods: {
-    filterAllChildren() {},
+    /**
+     * get SubCategories function
+     * @function
+     */
     async getSubCategories() {
       let data = {
         parent_id: this.id,
@@ -240,6 +244,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * get All SubCategories function
+     * @function
+     */
     async getAllSubCategories() {
       await categories
         .getAllSubCategories(this.id)
@@ -255,16 +263,27 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * get page Cover function
+     * @function
+     */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
-        // this.pageCover = res.data.items.cover_image_path;
         this.pageCover = res.data.items.image_path;
         this.pageTitle = res.data.items.title;
       });
     },
+    /**
+     * search function to get sub-categories
+     * @function
+     */
     search() {
       this.getSubCategories();
     },
+    /**
+     * selectTab function
+     * @function
+     */
     selectTab(item) {
       let query = {};
       if (this.$route.query.brand) {
@@ -303,6 +322,11 @@ export default {
         query: query,
       });
     },
+
+    /**
+     * set default tab  function
+     * @function
+     */
     selectDefaultTab() {
       let query = {};
       if (this.$route.query.page) {

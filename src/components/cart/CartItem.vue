@@ -72,6 +72,10 @@ export default {
     BIconTrash,
     Counter,
   },
+  /**
+   * products
+   * @values products
+   * */
   props: ["products"],
   methods: {
     

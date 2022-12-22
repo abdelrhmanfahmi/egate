@@ -1,19 +1,34 @@
 <template>
   <div class="main-layout">
+    <!-- top haeder that contain languages and countries  -->
     <TopHeader />
+    <!-- nav bar  -->
     <Nav />
+    <!-- alert div if user dosnt activate his account  -->
     <b-alert variant="danger" show v-if="massgeOfVerify">
       <b-container>
         {{ massgeOfVerify }}
       </b-container>
     </b-alert>
 
+    <!-- router that contain pages  -->
     <transition name="slide-fade">
       <router-view class="view"></router-view>
     </transition>
+
+    <!-- button to scroll to top  -->
     <div class="top-btn" @click="goTop" v-if="visible">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4a5568"
-        stroke-width="1" stroke-linecap="square" stroke-linejoin="arcs">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#4a5568"
+        stroke-width="1"
+        stroke-linecap="square"
+        stroke-linejoin="arcs"
+      >
         <path d="M18 15l-6-6-6 6" />
       </svg>
     </div>
@@ -36,6 +51,9 @@ export default {
     Footer,
   },
   methods: {
+    /**
+     * got to top function
+     * */
     goTop() {
       window.scrollTo({
         top: 0,
@@ -43,6 +61,9 @@ export default {
         behavior: "smooth",
       });
     },
+    /**
+     * handle scroll to top function
+     * */
     handleScroll: function () {
       if (this.scTimer) return;
       this.scTimer = setTimeout(() => {
@@ -62,6 +83,10 @@ export default {
         behavior: "smooth",
       });
     },
+
+    /**
+     * check notifications
+     * */
     notifyMe({ notification: notific, ...data }) {
       let notification;
       if (!("Notification" in window)) {
@@ -81,6 +106,9 @@ export default {
           }
         });
       }
+      /**
+     * notification click function 
+     * */
       notification.addEventListener("click", function (event) {
         console.log(event, data);
         if (data.type && data.type_id) {
@@ -118,9 +146,16 @@ export default {
     };
   },
   mounted() {
+    /**
+     * start handle scroll function with window scroll
+     * */
     window.addEventListener("scroll", this.handleScroll);
 
     const messaging = getMessaging();
+
+    /**
+     * onMessage function that belongs to notification function 
+     * */
 
     onMessage(messaging, (payload) => {
       // console.log("forground", payload);
@@ -139,16 +174,25 @@ export default {
     }
   },
   created() {
+    /**
+     * generate Firebase Token function 
+     * */
     this.$store.dispatch("generateFirebaseToken");
-    
 
+    /**
+     * get Notifications function if buyer
+     * */
+    
     if (this.buyerUserData) {
       this.$store.dispatch("getNotifications");
-      }
+    }
   },
 };
 </script>
 <style lang="scss" scoped>
+/**
+*layout style
+*/
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -160,8 +204,7 @@ export default {
 .slide-fade-enter,
 .slide-fade-leave-to
 
-/* .slide-fade-leave-active below version 2.1.8 */
-  {
+/* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
 }

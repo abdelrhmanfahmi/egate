@@ -1,4 +1,5 @@
 <template>
+  <!-- profile categories page  -->
   <div class="profile-categories">
     <div class="categories-info">
       <small>{{ $t("profile.welcomeAgain") }} </small>
@@ -39,13 +40,15 @@
 <script>
 import CategoryCard from "@/components/global/CategoryCard.vue";
 import categories from "@/services/categories";
-// import VueSkeletonLoader from "skeleton-loader-vue";
 export default {
   components: {
     CategoryCard,
-    // VueSkeletonLoader,
   },
   methods: {
+    /**
+     * get Categories function
+     * @function
+     */
     async getCategories() {
       await categories
         .getCategories("lists/categories")
@@ -73,6 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .profile-categories {
   text-align: center;
 

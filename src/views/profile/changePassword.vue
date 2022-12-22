@@ -1,4 +1,5 @@
 <template>
+  <!-- change password page  -->
   <div class="change-password py-4">
     <h4 class="main-header">{{ $t("profile.changePassword") }}</h4>
     <form class="py-3" @submit.prevent="changePassword()">
@@ -128,6 +129,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * change Password function
+     * @function
+     */
     changePassword() {
       auth
         .changePassword(this.form)
@@ -143,13 +148,25 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * switch Field function to show password
+     * @function
+     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
+    /**
+     * switch FieldNew function 
+     * @function
+     */
     switchFieldNew() {
       this.fieldTypeNew =
         this.fieldTypeNew === "password" ? "text" : "password";
     },
+     /**
+     * switch Field Confirm function 
+     * @function
+     */
     switchFieldConfirm() {
       this.fieldTypeConfirm =
         this.fieldTypeConfirm === "password" ? "text" : "password";
@@ -157,8 +174,11 @@ export default {
   },
   mounted() {
     let profileData = this.buyerUserData;
+    /**
+     * if profile Data not exist redirect to login page
+     * @function
+     */
     if (!profileData) {
-      // location.replace("");
       this.$router.push("/b2b-login");
     }
   },

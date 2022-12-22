@@ -1,4 +1,5 @@
 <template>
+  <!-- bank notifications for buyer  -->
   <div>
     <h5 class="profileB2b-header-table">
       {{ $t("profile.bankNotificationsHeader") }}
@@ -46,4 +47,3 @@ export default {
   },
 };
 </script>
-<style></style>

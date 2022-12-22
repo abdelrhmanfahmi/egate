@@ -1,4 +1,5 @@
 <template>
+  <!-- dashboard page  -->
   <div class="dashboard text-center">
     <div class="wrapper">
       <div class="row justify-content-center align-items-center" v-if="dashData">
@@ -40,10 +41,6 @@
                   <p class="number">{{ dashData.total_completed_qoutes }}</p>
                   <h5 class="text">{{ $t("profile.quotations") }}</h5>
                 </div>
-                <!-- <div class="p-3">
-                  <p class="number">0</p>
-                  <h5 class="text">{{$t('profile.pending')}}</h5>
-                </div> -->
               </div>
             </div>
           </router-link>
@@ -61,10 +58,6 @@
                   <p class="number">{{ dashData.total_completed_refund }}</p>
                   <h5 class="text">{{ $t("profile.returnRequests") }}</h5>
                 </div>
-                <!-- <div class="p-3">
-                  <p class="number">0</p>
-                  <h5 class="text">{{$t('profile.pending')}}</h5>
-                </div> -->
               </div>
             </div>
           </router-link>
@@ -85,10 +78,6 @@
                   </p>
                   <h5 class="text">{{ currency }}</h5>
                 </div>
-                <!-- <div class="p-3">
-                  <p class="number">0</p>
-                  <h5 class="text">{{$t('profile.pending')}}</h5>
-                </div> -->
               </div>
             </div>
           </router-link>
@@ -161,9 +150,6 @@ saveUUID(order);
             </template>
             <div class="d-block text-center">
               <div class="payment-method">
-                <!-- <div class="heading mb-4">
-                  <span class="title">{{ $t("payment.paymentData") }}</span>
-                </div> -->
                 <div class="methods-data">
                   <div class="methods">
                     <div class="method">
@@ -222,18 +208,15 @@ saveUUID(order);
         <spinner />
       </div>
     </div>
-    <!-- <loadingPage /> -->
   </div>
 </template>
 
 <script>
 import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
-// import loadingPage from "@/components/global/LoadingPage.vue"
 export default {
   components: {
     spinner,
-    // loadingPage
   },
   data() {
     return {
@@ -294,17 +277,17 @@ export default {
     };
   },
   methods: {
+    /**
+     * get Dashboard Data function 
+     * @function
+     */
     getDashboardData() {
       profile
         .getDashboardData()
         .then((res) => {
           console.log(res);
           this.dashData = res.data.items;
-
           this.orders = res.data.items.orders;
-          // onUploadProgress : (uploadEvent) =>{
-          //   console.log('upload progress' , (uplaodEvent.loaded / uploadEvent.total * 100));
-          // }
         })
         .catch((err) => {
           let error = Object.values(err)[2].data;
@@ -312,6 +295,10 @@ export default {
           this.errMsg(error.message);
         });
     },
+    /**
+     * rePay function 
+     * @function
+     */
     rePay() {
       profile
         .rePay(this.paymentFormData)

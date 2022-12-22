@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- register page for buyer   -->
+    <!-- register component for buyer   -->
     <RegisterForm />
   </div>
 </template>

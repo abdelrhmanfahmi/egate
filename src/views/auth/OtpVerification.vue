@@ -1,4 +1,5 @@
 <template>
+  <!-- otp verify page  -->
   <section class="otp-verification">
     <b-alert variant="danger" show v-if="massageErr">
       {{ massageErr }}
@@ -57,20 +58,23 @@ export default {
         code: "",
       },
       massageErr: "",
-      registerOTP: true
+      registerOTP: true,
     };
   },
   mounted() {
     if (!this.$route.query.type) {
-
       this.emailVerify();
     }
     if (this.$route.query.type) {
       this.registerOTP = false;
-      this.emailChangingVerify()
+      this.emailChangingVerify();
     }
   },
   methods: {
+    /**
+     * emailVerify function
+     * @function
+     */
     emailVerify() {
       if (this.$route.query.uuid) {
         const payload = {
@@ -90,6 +94,10 @@ export default {
           });
       }
     },
+    /**
+     * otpVerification function
+     * @function
+     */
     otpVerification() {
       auth
         .verificationMobile(this.form)
@@ -102,6 +110,10 @@ export default {
           this.massageErr = err;
         });
     },
+    /**
+     * resendCode function
+     * @function
+     */
     resendCode() {
       auth
         .resendCodeMobile()
@@ -114,8 +126,10 @@ export default {
         });
     },
 
-    // new changing 
-
+    /**
+     * emailChangingVerify function
+     * @function
+     */
     emailChangingVerify() {
       if (this.$route.query.uuid) {
         const payload = {
@@ -135,6 +149,10 @@ export default {
           });
       }
     },
+    /**
+     * otpChangingVerification function
+     * @function
+     */
     otpChangingVerification() {
       auth
         .verificationMobile(this.form)
@@ -147,12 +165,14 @@ export default {
           this.massageErr = err;
         });
     },
-
   },
 };
 </script>
 
 <style lang="scss" scoped>
+/**
+ * page style
+*/
 .otp-verification {
   text-align: center;
 
