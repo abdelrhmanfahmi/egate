@@ -3,11 +3,11 @@ module.exports = {
     publicPath: '/humhum-user/',
     css: {
       loaderOptions: {
-        scss: {
-          additionalData: `
+        sass: {
+          prependData: `
           @import "@/assets/scss/_variables.scss";
           `
         }
       }
-    }
+    },
   }
