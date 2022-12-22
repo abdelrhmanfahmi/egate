@@ -196,7 +196,7 @@ module.exports = defineConfig({
 						{
 							loader: "sass-loader",
 							options: {
-								data: '@import "@/assets/scss/variables.scss";',
+								data: '@import "@/assets/scss/_variables.scss',
 								outputStyle: "compressed"
 							}
 						}
