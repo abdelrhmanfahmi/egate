@@ -1,14 +1,9 @@
 <template>
+  <!-- buyer documents page  -->
   <div class="documentsB2b" :class="$i18n.locale">
     <div class="all-documents">
       <div class="header d-flex justify-content-between">
         <h5>{{ $t("profile.companyDocuments") }}</h5>
-        <!-- <a href="#">
-          {{ $t("profile.saveData") }}
-          <span class="save-icon">
-            <b-icon-arrow-right></b-icon-arrow-right>
-          </span>
-        </a> -->
       </div>
       <!-- buissnessinfoUpload -->
       <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
@@ -734,12 +729,12 @@
                 ></b-form-file>
               </b-form-group>
               <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.bank_iban"
-            :key="index"
-          >
-            {{ error }}
-          </div>
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.bank_iban"
+                :key="index"
+              >
+                {{ error }}
+              </div>
             </div>
             <div class="col-md-4 col-sm-12 mb-3">
               <div
@@ -856,9 +851,6 @@
 import axios from "axios";
 import profile from "@/services/profile";
 export default {
-  components: {
-    // BIconArrowRight,
-  },
   data() {
     return {
       uploadErrors: {},
@@ -901,7 +893,6 @@ export default {
   },
   mounted() {
     profile.getSuppDocUploadData().then((res) => {
-      // console.log("second", res.data);
       this.suppData = res.data.items;
       let url1 = res.data.items.moa_path;
       let url2 = res.data.items.sad_path;
@@ -919,7 +910,6 @@ export default {
     });
     profile.getBuissnessinfodata().then((res) => {
       this.buisnessData = res.data.items;
-      // console.log("first", res.data.items);
       let url1 = res.data.items.ccl_path;
       let url2 = res.data.items.auth_civil_copy_path;
       let url3 = res.data.items.ccs_path;
@@ -960,6 +950,10 @@ export default {
     });
   },
   methods: {
+    /**
+     * download Image function
+     * @function
+     */
     downloadImage(url, extension, label) {
       axios({
         url: url, // File URL Goes Here
@@ -976,6 +970,10 @@ export default {
         fileLink.click();
       });
     },
+     /**
+     * download item function
+     * @function
+     */
     downloadItem(url, extension, label) {
       console.log(url);
       axios({
@@ -993,9 +991,11 @@ export default {
         fileLink.click();
       });
     },
+    /**
+     * upload Picture function
+     * @function
+     */
     uploadPicture(e) {
-      // e.target.nextElementSibling.style.display = "flex";
-      // e.target.nextElementSibling.src = URL.createObjectURL(e.target.files[0]);
       let formData = new FormData();
 
       console.log(e.target.files[0].type);
@@ -1008,6 +1008,10 @@ export default {
         // return false
       }
     },
+     /**
+     * suppDocUpload function
+     * @function
+     */
     async suppDocUpload() {
       let formData = "";
       await profile
@@ -1022,43 +1026,46 @@ export default {
         });
     },
 
-    // buisness info change functions
+    
+
+    /**
+     * buisness info change choose file function
+     * @function
+     */
+
     CommercialLicense(e) {
       this.buissnessinfo.ccl = e.target.files[0];
-      // this.buissnessinfo.ccl.value = e.target.files[0];
-      // if (e.target.files[0].type.split("/")[0] === "image") {
-      //   this.buissnessinfo.ccl.image = true;
-      //   this.buissnessinfo.ccl.document = false;
-
-      //   setTimeout(() => {
-      //     e.target.nextElementSibling.style.display = "flex";
-      //     e.target.nextElementSibling.src = URL.createObjectURL(
-      //       e.target.files[0]
-      //     );
-      //   }, 300);
-
-      //   console.log("image");
-      // } else if (e.target.files[0].type.split("/")[0] === "application") {
-      //   this.buissnessinfo.ccl.image = false;
-      //   this.buissnessinfo.ccl.document = true;
-      //   this.buissnessinfo.ccl.url = e.target.files[0].ccl;
-      // }
-      // this.checkBtn1();
     },
+    /**
+     * signature Accreditation choose file function
+     * @function
+     */
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
-      // this.checkBtn1();
     },
+    /**
+     * commissionerCard choose file function
+     * @function
+     */
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
-      // this.checkBtn1();
-    },
-    certificateAdministration(e) {
-      this.buissnessinfo.rmcm = e.target.files[0];
-      // this.checkBtn1();
     },
 
-    // buisness info upload function
+    /**
+     * certificate Administration choose file function
+     * @function
+     */
+    certificateAdministration(e) {
+      this.buissnessinfo.rmcm = e.target.files[0];
+    },
+
+   
+
+    /**
+     * buisness info upload function function
+     * @function
+     */
+
     async buissnessinfoUpload() {
       this.buissnessinfoUploadLoading = true;
       this.btn1Disabled = true;
@@ -1085,10 +1092,7 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.suppData = [];
-            this.getBuissnessinfodata()
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 1000);
+            this.getBuissnessinfodata();
           }
           console.log(res);
         })
@@ -1103,7 +1107,12 @@ export default {
         });
     },
 
-    // buisness info get data function
+  
+
+     /**
+     * buisness info get data function
+     * @function
+     */
     async getBuissnessinfodata() {
       await profile
         .getBuissnessinfodata()
@@ -1117,17 +1126,32 @@ export default {
         });
     },
 
-    // suppDocUpload change functions
+    
+
+     /**
+     * suppDocUpload change function
+     * @function
+     */
+
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
       // this.checkBtn2();
     },
+    /**
+     * supp Doc UploadSad function
+     * @function
+     */
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
       // this.checkBtn2();
     },
 
     // suppDocUpload upload function
+
+    /**
+     * suppDocUploadForm function
+     * @function
+     */
 
     async suppDocUploadForm() {
       this.suppDataLoading = true;
@@ -1170,7 +1194,11 @@ export default {
       console.log(formData);
     },
 
-    // suppDocUpload get data function
+    
+    /**
+     * suppDocUpload get data function
+     * @function
+     */
     async getSuppDocUploadData() {
       await profile
         .getSuppDocUploadData()
@@ -1184,13 +1212,24 @@ export default {
         });
     },
 
-    // bankIbanUpload change function
+    
+    /**
+     *  bankIbanUpload change function
+     * @function
+     */
+
     bankIbanUpload(event) {
       this.bankIban.iban = event.target.files[0];
-      // this.checkBtn3();
     },
 
-    // bankIbanUpload upload function
+    
+    
+    /**
+     *  bankIbanUpload upload function
+     * @function
+     */
+
+
     async ibanUpload() {
       this.ibanUploadLoading = true;
       this.btn3Disabled = true;
@@ -1232,7 +1271,12 @@ export default {
         });
     },
 
-    // buisness info get data function
+    
+    /**
+     *  buisness info get data function
+     * @function
+     */
+
     async getibanUploadData() {
       await profile
         .getibanUploadData()
@@ -1245,45 +1289,21 @@ export default {
           this.errMsg(err.message);
         });
     },
-    //btn 1 check
-    // checkBtn1() {
-    //   if (
-    //     this.buissnessinfo.ccc !== null &&
-    //     this.buissnessinfo.auth_civil_copy !== null &&
-    //     this.buissnessinfo.ccs !== null &&
-    //     this.buissnessinfo.rmcm !== null
-    //   ) {
-    //     this.btn1Disabled = false;
-    //   }
-    // },
-    // //btn 2 check
-    // checkBtn2() {
-    //   if (
-    //     this.suppDocUploadInfo.moa !== null &&
-    //     this.suppDocUploadInfo.sad !== null
-    //   ) {
-    //     this.btn2Disabled = false;
-    //   }
-    // },
-    // //btn 3 check
-    // checkBtn3() {
-    //   if (this.bankIban.iban !== null) {
-    //     this.btn3Disabled = false;
-    //   }
-    // },
-
-    // checkURL(url) {
-    //   return url.match(/.(jpeg|jpg|gif|png)$/) != null;
-    // },
-
-    // suppDocUpload change functionsF
   },
   created() {
+    /**
+     *  this.userInfo === "b2c" back to home
+     * @function
+     */
     if (this.userInfo === "b2c") {
       this.$router.push("/");
     }
   },
   computed: {
+    /**
+     *  check userInfo type
+     * @function
+     */
     userInfo() {
       return this.$store.state.userInfo.item.type;
     },

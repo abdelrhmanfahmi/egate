@@ -1,4 +1,5 @@
 <template>
+  <!-- user addresses page  -->
   <div class="address-book">
     <h4 class="main-header">{{ $t("profile.addressBook") }}</h4>
     <p class="add-address" @click="showForm = !showForm">
@@ -85,7 +86,7 @@
         </b-col>
         <!-- street number  -->
         <b-col lg="12">
-          <b-form-group> 
+          <b-form-group>
             <label for="streetNumber">{{ $t("contactUs.address") }}</label>
             <!-- <span class="requried">*</span> -->
             <b-form-input id="streetNumber" v-model="form.address_line_1" />
@@ -285,6 +286,10 @@ export default {
     this.getAllAdresses();
   },
   methods: {
+    /**
+     * get All Adresses function
+     * @function
+     */
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.adresses = res.data.items;
@@ -292,12 +297,22 @@ export default {
       });
     },
     // Countires
+
+    /**
+     * get All Countires function
+     * @function
+     */
     getAllCountires() {
       auth.getAllCountires().then((res) => {
         this.countries = res.data.items;
       });
     },
     // getAllRegions
+
+    /**
+     * get All Regions function
+     * @function
+     */
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
@@ -306,6 +321,11 @@ export default {
       });
     },
     // Cities
+
+    /**
+     * get All Cities function
+     * @function
+     */
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
@@ -313,7 +333,12 @@ export default {
       });
     },
 
-    // createAdress
+    // createAddress
+
+    /**
+     * create Address function
+     * @function
+     */
     createAdress() {
       (this.form.is_sale_point = false),
         profile
@@ -324,12 +349,12 @@ export default {
             this.getAllAdresses();
             this.showForm = false;
             this.form = {};
-             if(res.status == 200){
-            setTimeout(() => {
-              // this.$router.replace('/profile/documents')
-              this.$router.replace('/')
-            }, 500);
-          }
+            if (res.status == 200) {
+              setTimeout(() => {
+                // this.$router.replace('/profile/documents')
+                this.$router.replace("/");
+              }, 500);
+            }
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -339,6 +364,11 @@ export default {
     },
 
     // deleteAdress
+    /**
+     * delete Address function
+     * @function
+     */
+
     deleteAdress(row) {
       profile
         .deleteAdress(row.item.uuid)
@@ -351,6 +381,11 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * edit Address function
+     * @function
+     */
+
     editAdress(row) {
       console.log(row);
       this.showForm = true;
@@ -368,6 +403,12 @@ export default {
         this.form.city_id = row.item.city.id;
       });
     },
+
+    /**
+     * make Default Address function
+     * @function
+     */
+
     makeDefaultAddress(row) {
       profile
         .makeDefaultAddress(row.item.uuid)

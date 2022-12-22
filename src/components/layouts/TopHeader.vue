@@ -156,23 +156,10 @@ export default {
       localStorage.setItem("currencyId", event.id);
       location.reload();
     },
-    reloadPage() {
-      // if (localStorage.getItem("reloadedCurrency")) {
-      //   // The page was just reloaded. Clear the value from local storage
-      //   // so that it will reload the next time this page is visited.
-      //   localStorage.removeItem("reloadedCurrency");
-      // } else {
-      //   // Set a flag so that we know not to reload the page twice.
-      //   localStorage.setItem("reloadedCurrency", "1");
-      //   setTimeout(() => {
-      //     location.reload();
-      //   }, 700);
-      // }
-      // this.getAllCountires();
-    },
     getDefaultCountry() {
       /**
         * get default country according to ip address 
+        * @function
       */
 
       axios.get('https://api.dev.humhum.work/api/v1/site-settings/default/country').then(res => {
@@ -183,7 +170,9 @@ export default {
           localStorage.setItem("currency", res.data.items.currencies[0].code);
           localStorage.setItem("currencyId", res.data.items.currencies[0].id);
         }
-        this.defaultCurrency = res.data.items.currencies[0].code
+        this.defaultCurrency = res.data.items.currencies[0].code;
+
+        location.reload()
       })
         .catch(err => {
           console.log(err);

@@ -1,4 +1,5 @@
 <template>
+  <!-- buyer login page  -->
   <section class="user-register my-5">
     <b-container>
       <div class="user-register-form">
@@ -69,8 +70,6 @@
 </template>
 <script>
 import auth from "@/services/auth";
-// import { getAuth, signInAnonymously } from "firebase/auth";
-
 export default {
   data() {
     return {
@@ -86,6 +85,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * login function 
+     * @function
+    */
     login() {
       localStorage.clear();
 
@@ -133,24 +136,19 @@ export default {
           this.errMsg(err.message);
         });
     },
-    //
+    /**
+     * switchField function to show password
+     * @function
+    */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
-    // async generateFirebaseToken() {
-    //   const token = await getToken(messaging, {
-    //     vapidKey:
-    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-    //   });
-
-    //   if (token) {
-    //     this.form.token = token;
-    //     // console.log(token);
-    //   }
-    // },
   },
-  mounted() { },
   computed: {
+     /**
+     * get firebaseToken
+     * @function
+    */
     firebaseToken() {
       return this.$store.state.firebaseToken;
     },

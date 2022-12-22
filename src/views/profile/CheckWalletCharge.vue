@@ -50,16 +50,6 @@
           </p>
           <p>{{ $t('profile.WalletRedirect') }}</p>
         </h1>
-        <!-- <p>
-            {{ $t("payment.waitPurchace1") }}
-            <br />
-            {{ $t("payment.waitPurchace2") }}
-          </p> -->
-        <!-- <router-link to="">
-            <b-button variant="outline-success mt-4">
-              {{ $t("payment.orderTrack") }}
-            </b-button>
-          </router-link> -->
       </div>
     </div>
   </div>
@@ -77,6 +67,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * check Wallet Charge function 
+     * @function
+     */
     checkWalletCharge() {
       let data = {
         id: this.$route.query.id,
@@ -106,6 +100,10 @@ export default {
     },
   },
   mounted() {
+    /**
+     * check Wallet Charge function  when page load
+     * @function
+     */
     this.checkWalletCharge();
   },
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="account-information">
+    <!-- b2c user  account information page  -->
     <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row class="justify-content-center">
@@ -126,12 +127,24 @@ export default {
     };
   },
   mounted() {
+    /**
+     * get AllCountires  function
+     * @function
+     */
     this.getAllCountires();
+    /**
+     * spread user data function ,  that comes from backend  
+     * @function
+     */
     this.form = { ...this.buyerUserData };
     this.phonePrefix = this.buyerUserData.phone_prefix
     this.form.mobile_number = this.buyerUserData.phone
   },
   methods: {
+     /**
+     * get AllCountires  function
+     * @function
+     */
     getAllCountires() {
       auth
         .getAllCountires()
@@ -142,7 +155,10 @@ export default {
           console.log(err);
         });
     },
-    // Update Profile
+     /**
+     * update Profile  function
+     * @function
+     */
     updateProfile() {
       const payload = {
         first_name: this.form.first_name,
@@ -166,6 +182,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+/**
+  * page style
+*/
 .account-information {
   padding-top: 40px;
   .main-header {

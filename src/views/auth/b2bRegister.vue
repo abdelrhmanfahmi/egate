@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- buyer register page  -->
+    <!-- buyer form component page  -->
     <B2bForm />
   </div>
 </template>
