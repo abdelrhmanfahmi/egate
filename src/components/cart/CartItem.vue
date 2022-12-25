@@ -64,6 +64,7 @@
   </div>
 </template>
 <script>
+
 // This is a description of the cart items data
 import { BIconTrash } from "bootstrap-vue";
 /**

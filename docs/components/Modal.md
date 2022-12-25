@@ -1,12 +1,16 @@
 # Modal
 
-This is a description of the cart modal
+## Events
 
-## Props
+<!-- @vuese:Modal:events:start -->
+|Event Name|Description|Parameters|
+|---|---|---|
+|close|-|-|
 
-<!-- @vuese:Modal:props:start -->
-|Name|Description|Type|Required|Default|
-|---|---|---|---|---|
+<!-- @vuese:Modal:events:end -->
+
+
+--|
 |product|product prop|`Object`|`true`|-|
 
 <!-- @vuese:Modal:props:end -->

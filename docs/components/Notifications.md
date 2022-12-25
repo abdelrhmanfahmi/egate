@@ -1,12 +1,12 @@
-# Notifications
+# notifications
 
 ## Props
 
-<!-- @vuese:Notifications:props:start -->
+<!-- @vuese:notifications:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |notifications|-|—|`false`|-|
 
-<!-- @vuese:Notifications:props:end -->
+<!-- @vuese:notifications:props:end -->
 
 

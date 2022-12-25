@@ -1,23 +1,23 @@
-# SingleStandingOrder
+# singleStandingOrder
 
 ## Props
 
-<!-- @vuese:SingleStandingOrder:props:start -->
+<!-- @vuese:singleStandingOrder:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |orders|-|—|`false`|-|
 |ordersLength|-|—|`false`|-|
 
-<!-- @vuese:SingleStandingOrder:props:end -->
+<!-- @vuese:singleStandingOrder:props:end -->
 
 
 ## Events
 
-<!-- @vuese:SingleStandingOrder:events:start -->
+<!-- @vuese:singleStandingOrder:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |removeItem|-|-|
 
-<!-- @vuese:SingleStandingOrder:events:end -->
+<!-- @vuese:singleStandingOrder:events:end -->
 
 

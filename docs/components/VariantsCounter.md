@@ -1,33 +1,33 @@
-# VariantsCounter
+# variantsCounter
 
 ## Props
 
-<!-- @vuese:VariantsCounter:props:start -->
+<!-- @vuese:variantsCounter:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |quantity|-|`Number`|`true`|1|
 |minimum|-|`Number`|`true`|1|
 
-<!-- @vuese:VariantsCounter:props:end -->
+<!-- @vuese:variantsCounter:props:end -->
 
 
 ## Events
 
-<!-- @vuese:VariantsCounter:events:start -->
+<!-- @vuese:variantsCounter:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |changeCount|-|-|
 
-<!-- @vuese:VariantsCounter:events:end -->
+<!-- @vuese:variantsCounter:events:end -->
 
 
 ## Slots
 
-<!-- @vuese:VariantsCounter:slots:start -->
+<!-- @vuese:variantsCounter:slots:start -->
 |Name|Description|Default Slot Content|
 |---|---|---|
 |main|@slot Use this slot header|-|
 
-<!-- @vuese:VariantsCounter:slots:end -->
+<!-- @vuese:variantsCounter:slots:end -->
 
 

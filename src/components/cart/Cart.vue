@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     // @vuese
+    
     //cart products from store.
     getCartProducts() {
       // Fire when page load

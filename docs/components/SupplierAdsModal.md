@@ -1,22 +1,22 @@
-# SupplierAdsModal
+# supplierAdsModal
 
 ## Props
 
-<!-- @vuese:SupplierAdsModal:props:start -->
+<!-- @vuese:supplierAdsModal:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |supplierAds|-|—|`false`|-|
 
-<!-- @vuese:SupplierAdsModal:props:end -->
+<!-- @vuese:supplierAdsModal:props:end -->
 
 
 ## Events
 
-<!-- @vuese:SupplierAdsModal:events:start -->
+<!-- @vuese:supplierAdsModal:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |close|-|-|
 
-<!-- @vuese:SupplierAdsModal:events:end -->
+<!-- @vuese:supplierAdsModal:events:end -->
 
 

@@ -75,6 +75,7 @@
 </template>
 
 <script>
+
 // This is a description of the cart modal
 export default {
   name: "Modal",

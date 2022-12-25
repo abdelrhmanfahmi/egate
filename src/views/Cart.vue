@@ -8,6 +8,8 @@
   </div>
 </template>
 <script>
+
+//cart page 
 import Cart from "../components/pages/cart/Cart.vue";
 export default {
   components: {
