@@ -154,7 +154,7 @@
         </div>
         <div class="text-center" v-else>
           <h6>{{ $t("cart.noData") }}</h6>
-          <b-button variant="outline-success" to="/profile/standingOrders">{{ $t("items.backToStrandingList") }}
+          <b-button variant="outline-success" to="/profile/StandingOrders">{{ $t("items.backToStrandingList") }}
             <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
           </b-button>
         </div>
@@ -238,10 +238,10 @@
 <script>
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
-import rfqIcon from "@/components/global/rfqIcon.vue";
+import rfqIcon from "@/components/global/RfqIcon.vue";
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
-import VariantsCounter from "@/components/global/variantsCounter.vue";
+import VariantsCounter from "@/components/global/VariantsCounter.vue";
 export default {
   data() {
     return {
@@ -316,7 +316,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
+              () => import("@/components/cart/CartModal.vue"),
               {
                 product: item,
               },
@@ -408,7 +408,6 @@ export default {
       profile
         .addAllToCart(payload)
         .then((res) => {
-          console.log(res);
           if (res.data.message) {
             this.sucessMsg(res.data.message);
           }
@@ -424,7 +423,6 @@ export default {
       profile
         .deleteStandingOrder(this.id)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.hideDeleteModal();
@@ -452,7 +450,6 @@ export default {
     },
     ChangeCounter(cartCounter , item) {
       this.cartCounter = cartCounter;
-      console.log(cartCounter);
       this.changeProductQuantity(item)
     },
     changeProductQuantity(product) {
@@ -461,7 +458,6 @@ export default {
         quantity:this.cartCounter
       }
       profile.changeStandingOrderQuantity(data).then(res => {
-        console.log(res);
         this.sucessMsg(res.data.message);
       }).catch(error => {
         const err = Object.values(error)[2].data;

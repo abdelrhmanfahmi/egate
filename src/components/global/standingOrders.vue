@@ -134,7 +134,6 @@ export default {
         .then((resp) => {
           this.standingOrders = resp.data.items.data;
           this.standingOrdersLength = resp.data.items.data.length;
-          console.log(resp);
         })
         .catch((err) => {
           console.log(err);
@@ -148,7 +147,6 @@ export default {
         .getStandingOrdersTimes()
         .then((resp) => {
           this.times = resp.data.items;
-          console.log(resp);
         })
         .catch((err) => {
           console.log(err);
@@ -166,7 +164,6 @@ export default {
       profile
         .addProductToStandingOrders(payload)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
 
             this.sucessMsg(res.data.message);
@@ -187,8 +184,7 @@ export default {
           this.errMsg(err.message);
         });
     },
-    selectPlan(plan) {
-      console.log(plan);
+    selectPlan() {
       this.quantitySelected = true;
     },
     CreateStandingOrders() {
@@ -199,7 +195,6 @@ export default {
       profile
         .CreateStandingOrders(payLoad)
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
           this.getStandingOrders();
           this.errors = []

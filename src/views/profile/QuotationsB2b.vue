@@ -1,4 +1,5 @@
 <template>
+  <!-- quotaions page  -->
   <div>
     <h5 class="profileB2b-header-table">{{ $t("profile.quotations") }}</h5>
     <b-table
@@ -17,7 +18,9 @@
         >
       </template>
       <template #cell(price)="data">
-        <span v-if="data.value">{{data.value | fixedCurrency}} {{currency}}</span>
+        <span v-if="data.value"
+          >{{ data.value | fixedCurrency }} {{ currency }}</span
+        >
         <span v-else> - </span>
       </template>
       <template #cell(supplier_product_name)="data">
@@ -33,8 +36,11 @@
 </template>
 
 <script>
+/**
+ * quotaions page
+ * @displayName quotaions page
+ */
 import profile from "@/services/profile";
-import Vue from "vue";
 export default {
   data() {
     return {
@@ -47,10 +53,6 @@ export default {
           key: "supplier_product_name",
           label: this.$t("profile.product"),
         },
-        // {
-        //   key: "product.id",
-        //   label: this.$t("profile.construction"),
-        // },
         {
           key: "created_by",
           label: this.$t("profile.createdBy"),
@@ -77,6 +79,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * get Quotations function
+     * @public this is public function
+     */
     getQuotations() {
       profile
         .getQuotations()
@@ -88,15 +94,10 @@ export default {
           console.log(err);
         });
     },
-    showMessage(product) {
-      Vue.swal({
-        text: product,
-        title: this.$t("profile.yourMessage"),
-        // icon: "info",
-        buttons: ["Oh noez!", true],
-        dangerMode: true,
-      });
-    },
+    /**
+     * go Product function
+     * @public this is public function
+     */
     goProduct(product) {
       this.$router.push({
         path: "/details",
@@ -105,6 +106,10 @@ export default {
         },
       });
     },
+    /**
+     * go Quotation function
+     * @public this is public function
+     */
     goQuotation(product) {
       this.$router.push({
         path: "/profile/quotationDetails",

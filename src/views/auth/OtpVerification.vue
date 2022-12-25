@@ -73,7 +73,7 @@ export default {
   methods: {
     /**
      * emailVerify function
-     * @function
+     * @public This is a public 
      */
     emailVerify() {
       if (this.$route.query.uuid) {
@@ -96,7 +96,7 @@ export default {
     },
     /**
      * otpVerification function
-     * @function
+     * @public This is a public 
      */
     otpVerification() {
       auth
@@ -112,7 +112,7 @@ export default {
     },
     /**
      * resendCode function
-     * @function
+     * @public This is a public 
      */
     resendCode() {
       auth
@@ -128,7 +128,7 @@ export default {
 
     /**
      * emailChangingVerify function
-     * @function
+     * @public This is a public 
      */
     emailChangingVerify() {
       if (this.$route.query.uuid) {
@@ -151,7 +151,7 @@ export default {
     },
     /**
      * otpChangingVerification function
-     * @function
+     * @public This is a public 
      */
     otpChangingVerification() {
       auth

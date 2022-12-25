@@ -159,8 +159,8 @@
 import categories from "@/services/categories";
 import Paginate from "@/components/global/Paginate.vue";
 import globalAxios from "@/services/global-axios";
-import Counter from "@/components/global/searchCounter.vue"
-import rfqIcon from "@/components/global/rfqIcon.vue";
+import Counter from "@/components/global/SearchCounter.vue"
+import rfqIcon from "@/components/global/RfqIcon.vue";
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
@@ -222,7 +222,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
+              () => import("@/components/cart/CartModal.vue"),
               {
                 product: myProduct,
               },

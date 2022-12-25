@@ -1,4 +1,5 @@
 <template>
+  <!-- notifications page  -->
   <div class="notifications">
     <div class="">
       <div class="text-center">
@@ -6,99 +7,61 @@
           {{ $t("profile.Notifications") }}
         </h1>
       </div>
-      <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
-        <button @click="readAllNotifications" class="btn-light border-0 btn-outline-none">
+      <div
+        class="readAllNotifications px-4 d-flex justify-content-end align-items-center"
+      >
+        <button
+          @click="readAllNotifications"
+          class="btn-light border-0 btn-outline-none"
+        >
           <span class="font-weight-bold mr-2">{{
-          $t("profile.readAllNotifications")
+            $t("profile.readAllNotifications")
           }}</span>
           <font-awesome-icon icon="fa-solid fa-rotate" />
         </button>
       </div>
-      <!-- <div class="row data-holder">
+      <div
+        class="row data-holder"
+        v-for="(notify, index) in notifications"
+        :key="index"
+      >
         <div class="col-12">
           <div class="new-message-box">
-            <div class="new-message-box-alert">
-              <div class="info-tab tip-icon-alert" title="error"><i></i></div>
-              <div class="tip-box-alert">
-                <p>
-                  Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555">
-                    intente nuevamente</router-link
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div class="row data-holder">
-        <div class="col-12">
-          <div class="new-message-box">
-            <div class="new-message-box-danger">
-              <div class="info-tab tip-icon-danger" title="error"><i></i></div>
-              <div class="tip-box-danger">
-                <p>
-                  Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555">
-                    intente nuevamente</router-link
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- -->
-      <!-- <div class="row data-holder">
-        <div class="col-12">
-          <div class="new-message-box">
-            <div class="new-message-box-success">
-              <div class="info-tab tip-icon-success" title="success">
+            <div
+              class="new-message-box-warning"
+              :class="{
+                'new-message-box-warning': notify.status_type === 'warning',
+                'new-message-box-success': notify.status_type === 'success',
+              }"
+            >
+              <div
+                :class="{
+                  'info-tab tip-icon-warning': notify.status_type === 'warning',
+                  'info-tab tip-icon-success': notify.status_type === 'success',
+                }"
+                title="error"
+              >
                 <i></i>
               </div>
-              <div class="tip-box-success">
-                <p>
-                  Ha ocurrido un problema por favor
-                  <router-link to="" class="btn btn-sm" href="555">
-                    intente nuevamente</router-link
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- -->
-      <div class="row data-holder" v-for="(notify, index) in notifications" :key="index">
-        <div class="col-12">
-          <div class="new-message-box">
-            <div class="new-message-box-warning" :class="{
-              'new-message-box-warning': notify.status_type === 'warning',
-              'new-message-box-success': notify.status_type === 'success',
-            }">
-              <div :class="{
-                'info-tab tip-icon-warning': notify.status_type === 'warning',
-                'info-tab tip-icon-success': notify.status_type === 'success',
-              }" title="error">
-                <i></i>
-              </div>
-              <div :class="{
-                'tip-box-warning': notify.status_type === 'warning',
-                'tip-box-success': notify.status_type === 'success',
-                unread: notify.is_read == 0,
-                readed: notify.is_read == 1,
-              }">
+              <div
+                :class="{
+                  'tip-box-warning': notify.status_type === 'warning',
+                  'tip-box-success': notify.status_type === 'success',
+                  unread: notify.is_read == 0,
+                  readed: notify.is_read == 1,
+                }"
+              >
                 <div>
                   <div class="row justify-content-between">
                     <div class="col-12">
                       <p>{{ notify.title }}</p>
                     </div>
-                    <!-- <div class="col-6">
-                      <span>{{ notify.created_at | timeDefer(notify.created_at) }}</span>
-                      <span>{{ notify.created_at | formatDate }}</span>
-                    </div> -->
                   </div>
-                  <div to="" class="btn btn-sm" @click="goNotificationPage(notify)">
+                  <div
+                    to=""
+                    class="btn btn-sm"
+                    @click="goNotificationPage(notify)"
+                  >
                     <h5>
                       <b>{{ notify.body }}</b>
                     </h5>
@@ -106,19 +69,27 @@
                 </div>
                 <div class="row justify-content-around align-items-center">
                   <div class="col-6">
-                    <span><i>{{
-                    notify.created_at | timeDefer(notify.created_at)
-                    }}</i></span>
+                    <span
+                      ><i>{{
+                        notify.created_at | timeDefer(notify.created_at)
+                      }}</i></span
+                    >
                   </div>
-                  <div class="col-6" :class="{
-                    'text-right': $i18n.locale == 'en',
-                    'text-left': $i18n.locale == 'ar',
-                  }">
+                  <div
+                    class="col-6"
+                    :class="{
+                      'text-right': $i18n.locale == 'en',
+                      'text-left': $i18n.locale == 'ar',
+                    }"
+                  >
                     <span v-if="notify.is_read == 0">
                       <b class="text-success">
-                        <button class="btn text-success m-0" @click="readNotification(notify)">
+                        <button
+                          class="btn text-success m-0"
+                          @click="readNotification(notify)"
+                        >
                           <b class="text-capitalize">{{
-                          $t("profile.markRead")
+                            $t("profile.markRead")
                           }}</b>
                         </button>
                       </b>
@@ -130,52 +101,35 @@
           </div>
         </div>
       </div>
-      <!-- -->
-      <!-- <div class="row data-holder">
-        <div
-          class="col-12"
-          v-for="(notify, index) in notifications"
-          :key="index"
-        >
-          <div class="new-message-box">
-            <div class="new-message-box-info">
-              <div class="info-tab tip-icon-info" title="error" :class="{}"><i></i></div>
-              <div class="tip-box-info">
-                <p>
-                  {{ notify.title }}
-                  <router-link to="" class="btn btn-sm" href="555">
-                    <h5>
-                      <b>{{ notify.body }}</b>
-                    </h5></router-link
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- -->
     </div>
     <div class="d-flex justify-content-center align-items-center mt-5">
-      <Paginate v-if="notifications" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-        @pagechanged="onPageChange" />
+      <Paginate
+        v-if="notifications"
+        :total-pages="totalPages"
+        :per-page="totalPages"
+        :current-page="page"
+        @pagechanged="onPageChange"
+      />
     </div>
   </div>
 </template>
 
 <script>
+/**
+ * Notificatinos page
+ * @displayName Notificatinos page
+ */
 import Paginate from "@/components/global/Paginate.vue";
 import profile from "@/services/profile";
 export default {
-  computed: {
-    // notifications() {
-    //   return this.$store.state.notifications;
-    // },
-  },
   components: {
     Paginate,
   },
   methods: {
+    /**
+     * get Notificatinos function
+     * @public this is public function
+     */
     getNotificatinos() {
       profile
         .getNotificatinos(this.page)
@@ -195,19 +149,35 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     onPageChange(page) {
       this.page = page;
       this.getNotificatinos();
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     onChangeRecordsPerPage() {
       this.getNotificatinos();
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getNotificatinos();
       }
     },
+    /**
+     * read Notification function
+     * @public this is public function
+     */
     readNotification(notification) {
       console.log(notification);
       profile
@@ -223,6 +193,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * go to Notification Page function
+     * @public this is public function
+     */
     goNotificationPage(notification) {
       if (notification.type === "return_item") {
         this.$router.push({
@@ -254,6 +228,10 @@ export default {
         });
       }
     },
+    /**
+     * read All Notifications function
+     * @public this is public function
+     */
     readAllNotifications() {
       profile
         .readAllNotifications()
@@ -270,8 +248,7 @@ export default {
     },
   },
   mounted() {
-    
-    if(this.buyerUserData){
+    if (this.buyerUserData) {
       this.getNotificatinos();
     }
   },
@@ -301,49 +278,64 @@ export default {
   /*==========  Mobile First Method  ==========*/
 
   /* Custom, iPhone Retina */
-  @media only screen and (min-width: 320px) {}
+  @media only screen and (min-width: 320px) {
+  }
 
   /* Extra Small Devices, Phones */
-  @media only screen and (min-width: 480px) {}
+  @media only screen and (min-width: 480px) {
+  }
 
   /* Small Devices, Tablets */
-  @media only screen and (min-width: 768px) {}
+  @media only screen and (min-width: 768px) {
+  }
 
   /* Medium Devices, Desktops */
-  @media only screen and (min-width: 992px) {}
+  @media only screen and (min-width: 992px) {
+  }
 
   /* Large Devices, Wide Screens */
-  @media only screen and (min-width: 1200px) {}
+  @media only screen and (min-width: 1200px) {
+  }
 
   /*==========  Non-Mobile First Method  ==========*/
 
   /* Large Devices, Wide Screens */
-  @media only screen and (max-width: 1200px) {}
+  @media only screen and (max-width: 1200px) {
+  }
 
   /* Medium Devices, Desktops */
-  @media only screen and (max-width: 992px) {}
+  @media only screen and (max-width: 992px) {
+  }
 
   /* Small Devices, Tablets */
-  @media only screen and (max-width: 768px) {}
+  @media only screen and (max-width: 768px) {
+  }
 
   /* Extra Small Devices, Phones */
-  @media only screen and (max-width: 480px) {}
+  @media only screen and (max-width: 480px) {
+  }
 
   /* Custom, iPhone Retina */
-  @media only screen and (max-width: 320px) {}
+  @media only screen and (max-width: 320px) {
+  }
 
   /*=====================================================
 =            Bootstrap 2.3.2 Media Queries            =
 =====================================================*/
-  @media only screen and (max-width: 1200px) {}
+  @media only screen and (max-width: 1200px) {
+  }
 
-  @media only screen and (max-width: 979px) {}
+  @media only screen and (max-width: 979px) {
+  }
 
-  @media only screen and (max-width: 767px) {}
+  @media only screen and (max-width: 767px) {
+  }
 
-  @media only screen and (max-width: 480px) {}
+  @media only screen and (max-width: 480px) {
+  }
 
-  @media only screen and (max-width: 320px) {}
+  @media only screen and (max-width: 320px) {
+  }
 
   /* default styles here for older browsers. 
        I tend to go for a 600px - 960px width max but using percentages

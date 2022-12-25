@@ -1,4 +1,5 @@
 <template>
+  <!-- check wallet charge page  -->
   <div>
     <div class="container">
       <div class="card success" v-if="success">
@@ -56,6 +57,10 @@
 </template>
   
 <script>
+/**
+ *  check wallet charge page
+ * @displayName  check wallet charge page
+ */
 import profile from "@/services/profile";
 export default {
   data() {
@@ -69,7 +74,7 @@ export default {
   methods: {
     /**
      * check Wallet Charge function 
-     * @function
+     * @public This is a public 
      */
     checkWalletCharge() {
       let data = {
@@ -102,7 +107,7 @@ export default {
   mounted() {
     /**
      * check Wallet Charge function  when page load
-     * @function
+     * @public This is a public 
      */
     this.checkWalletCharge();
   },

@@ -5,7 +5,11 @@
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
-      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
+      <img
+        src="@/assets/images/BeanLoading2.gif"
+        alt="cart-image"
+        class="w-25"
+      />
     </div>
     <!-- else  -->
     <div class="" v-else>
@@ -48,6 +52,10 @@
   </div>
 </template>
 <script>
+/**
+ * cart component
+ * @displayName cart component
+ */
 import CartItem from "./CartItem.vue";
 
 export default {
@@ -58,9 +66,10 @@ export default {
     CartItem,
   },
   methods: {
-  /**
-    * cart products from store.
-  */
+    /**
+     * cart products from store.
+     * @public This is a public method
+     */
     getCartProducts() {
       this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
@@ -72,8 +81,8 @@ export default {
   },
   computed: {
     /**
-      * cart products , length from store.
-    */
+     * cart products , length from store.
+     */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
@@ -122,7 +131,7 @@ export default {
 .small-cart {
   height: 140px !important;
   overflow-y: scroll;
-  scrollbar-color:transparent transparent;
+  scrollbar-color: transparent transparent;
   scrollbar-width: thin;
 }
 </style>

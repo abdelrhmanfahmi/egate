@@ -112,6 +112,10 @@
 </template>
 
 <script>
+/**
+ *  change password page
+ * @displayName  change password page
+ */
 import auth from "@/services/auth";
 
 export default {
@@ -131,7 +135,7 @@ export default {
   methods: {
     /**
      * change Password function
-     * @function
+     * @public This is a public 
      */
     changePassword() {
       auth
@@ -150,14 +154,14 @@ export default {
     },
     /**
      * switch Field function to show password
-     * @function
+     * @public This is a public 
      */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     /**
      * switch FieldNew function 
-     * @function
+     * @public This is a public 
      */
     switchFieldNew() {
       this.fieldTypeNew =
@@ -165,7 +169,7 @@ export default {
     },
      /**
      * switch Field Confirm function 
-     * @function
+     * @public This is a public 
      */
     switchFieldConfirm() {
       this.fieldTypeConfirm =
@@ -176,7 +180,7 @@ export default {
     let profileData = this.buyerUserData;
     /**
      * if profile Data not exist redirect to login page
-     * @function
+     * @public This is a public 
      */
     if (!profileData) {
       this.$router.push("/b2b-login");

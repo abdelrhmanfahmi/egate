@@ -6,25 +6,25 @@
 
 <script>
 /**
-   * The only true button.
-   * @displayName Best Button
-   */
+ * The only true button.
+ * @displayName Best Button
+ */
 
 // @ is an alias to /src
 import MainLayout from "@/layouts/MainLayout.vue";
 import globalAxios from "@/services/global-axios";
-import auth from "@/services/auth"
+import auth from "@/services/auth";
 export default {
   name: "Home",
   created() {
     // let gestUser = localStorage.getItem("guest-id");
 
     /**
-       * dispatch user data if exist || check guest.
-    */
+     * dispatch user data if exist || check guest.
+     */
 
     this.$store.dispatch("getUserGuestId");
-    this.$store.dispatch("getUserInfo")
+    this.$store.dispatch("getUserInfo");
     let userExist = localStorage.getItem("buyerUserData");
     let guestUser = localStorage.getItem("guest-id");
     if (userExist === null && guestUser === null) {
@@ -36,9 +36,7 @@ export default {
     }
     // return
 
-    this.checkCartValidity()
-
-
+    this.checkCartValidity();
   },
   components: {
     MainLayout,
@@ -66,31 +64,31 @@ export default {
       // );
     },
     checkCartValidity() {
-      auth.checkCartValidity().then(res => {
-        let response = res.data.items
-        response.forEach(element => {
-          if (element.key === 'open_cart') {
-            if (element.status == 1) {
-              localStorage.setItem('cartAvailable', 'available')
-            } else {
-              localStorage.setItem('cartAvailable', 'notAvailable')
-
+      auth
+        .checkCartValidity()
+        .then((res) => {
+          let response = res.data.items;
+          response.forEach((element) => {
+            if (element.key === "open_cart") {
+              if (element.status == 1) {
+                localStorage.setItem("cartAvailable", "available");
+              } else {
+                localStorage.setItem("cartAvailable", "notAvailable");
+              }
             }
-          }
-          if (element.key === 'open_rfq') {
-            if (element.status == 1) {
-              localStorage.setItem('RfqAvailable', 'available')
-            } else {
-              localStorage.setItem('RfqAvailable', 'notAvailable')
-
+            if (element.key === "open_rfq") {
+              if (element.status == 1) {
+                localStorage.setItem("RfqAvailable", "available");
+              } else {
+                localStorage.setItem("RfqAvailable", "notAvailable");
+              }
             }
-          }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }).catch(err => {
-        console.log(err);
-      })
-    }
-
+    },
   },
   computed: {
     guestId() {
@@ -103,8 +101,8 @@ export default {
     //   e.preventDefault();
     //   e.returnValue = '';
     // });
-    this.checkCartValidity()
-  }
+    this.checkCartValidity();
+  },
 };
 </script>
 

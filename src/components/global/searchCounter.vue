@@ -8,6 +8,7 @@
 
             <div class="value">
                 <main>
+                    <!-- @slot Use this slot header -->
                     <slot name="main">
                         <span class="product-counter-number"> {{ countValue }}</span>
                     </slot>

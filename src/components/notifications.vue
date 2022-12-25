@@ -117,11 +117,9 @@ export default {
       *  read single notification
     */
     readNotification(notification) {
-      console.log(notification);
       profile
         .readNotification(notification)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             this.$store.dispatch("getNotifications");
           }

@@ -70,8 +70,7 @@ export default {
     postSupplierShowenAd() {
       auth
         .postSupplierShowenAd(this.supplierAds.id)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.$router.push({
             path: "details",
             query: { id: this.supplierAds.product_id },

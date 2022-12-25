@@ -97,7 +97,7 @@
                     (buyerUserData.type === 'supplier' &&
                         buyerUserData.is_buyer == true)
                 ">
-                    <b-button @ok="$refs.cartModal.onSubmit()" @click="addToCart(myProduct)"
+                    <b-button @ok="$refs.CartModal.onSubmit()" @click="addToCart(myProduct)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
                         v-if="cartAvailable  == 'available' &&  
                             myProduct.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
@@ -129,7 +129,7 @@
                 </div>
                 <!-- add to cart if b2c or guest -->
                 <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
-                    <b-button @ok="$refs.cartModal.onSubmit()" @click="addToCart(myProduct)"
+                    <b-button @ok="$refs.CartModal.onSubmit()" @click="addToCart(myProduct)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn" v-if="
                         cartAvailable  == 'available' &&  
                             myProduct.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
@@ -372,9 +372,9 @@ import globalAxios from "@/services/global-axios";
 import categories from "@/services/categories";
 import profile from "@/services/profile";
 
-import rfqIcon from "@/components/global/rfqIcon.vue"
+import rfqIcon from "@/components/global/RfqIcon.vue"
 
-import StandingOrders from "@/components/global/standingOrders.vue"
+import StandingOrders from "@/components/global/StandingOrders.vue"
 
 import {
     Facebook,
@@ -416,7 +416,7 @@ export default {
             //   .then((res) => {
             //     if (res.status == 200) {
             //       this.$modal.show(
-            //         () => import("@/components/cart/cartModal.vue"),
+            //         () => import("@/components/cart/CartModal.vue"),
             //         {
             //           product: item,
             //         },
@@ -432,7 +432,7 @@ export default {
                         this.sucessMsg(res.data.message);
 
                         this.$modal.show(
-                            () => import("@/components/cart/cartModal.vue"),
+                            () => import("@/components/cart/CartModal.vue"),
                             {
                                 product: myProduct,
                             },

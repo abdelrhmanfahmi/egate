@@ -1,31 +1,40 @@
 <template>
+  <!-- single product data  -->
   <div class="container">
     <div class="" v-if="myProduct !== null && !notFound">
       <div class="product-info">
         <div class="content">
-
-
+          <!-- nav for product navigation  -->
           <nav aria-label="breadcrumb d-flex">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item" v-for="type in myProduct.product.categories" :key="type.id">{{ type.title }}</li>
+              <li
+                class="breadcrumb-item"
+                v-for="type in myProduct.product.categories"
+                :key="type.id"
+              >
+                {{ type.title }}
+              </li>
             </ol>
           </nav>
         </div>
       </div>
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider">
+          <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
+          <!-- product information  -->
           <ProductInfo :myProduct="myProduct"></ProductInfo>
         </b-col>
-
       </b-row>
       <div class="humhum-tabs">
         <b-tabs content-class="mt-3">
+          <!-- product specifications tab  -->
           <b-tab :title="$t('singleProduct.specsTitle')" active>
             <Specs :myProduct="myProduct" v-if="myProduct"></Specs>
           </b-tab>
+          <!-- product rating tab  -->
           <b-tab :title="$t('singleProduct.ratingHeader')">
             <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
             <Rating :myProduct="myProduct" v-if="myProduct"></Rating>
@@ -39,6 +48,7 @@
           </h4>
           <hr />
           <div class="my-5 py-5">
+            <!-- other products slider  -->
             <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
               <div v-for="item in supplierProducts" :key="item.id">
                 <Product :data="item"></Product>
@@ -50,10 +60,17 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
+        <img
+          src="@/assets/images/BeanLoading2.gif"
+          class="loading-img"
+          alt="loading"
+        />
       </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
+      v-if="notFound"
+    >
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
@@ -61,6 +78,10 @@
   </div>
 </template>
 <script>
+/**
+ * single product data
+ * @displayName single product data
+ */
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
@@ -109,7 +130,7 @@ export default {
               slidesToShow: 3,
               slidesToScroll: 3,
               arrows: false,
-              dots: false
+              dots: false,
             },
           },
           {
@@ -118,7 +139,7 @@ export default {
               slidesToShow: 2,
               slidesToScroll: 2,
               arrows: false,
-              dots: false
+              dots: false,
             },
           },
           {
@@ -127,7 +148,7 @@ export default {
               slidesToShow: 1,
               slidesToScroll: 1,
               arrows: false,
-              dots: false
+              dots: false,
             },
           },
         ],
@@ -136,6 +157,10 @@ export default {
   },
 
   methods: {
+    /**
+     * product Details function
+     * @public this is public function
+     */
     productDetails() {
       this.loading = true;
       categories
@@ -156,6 +181,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * get Supplier Products function
+     * @public this is public function
+     */
     getSupplierProducts() {
       // console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
@@ -198,16 +227,16 @@ export default {
   padding: 0 2px;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
   .product-info {
-    order: 2
+    order: 2;
   }
 
   .slider {
-    order: 1
+    order: 1;
   }
 }
-.breadcrumb{
+.breadcrumb {
   font-size: 20px;
   margin: 20px 0;
   // li:last-of-type{

@@ -3,35 +3,9 @@
     <h5 class="profileB2b-header-table">
       {{ $t("profile.ordersLists") }}
     </h5>
-    <!-- <div class="d-flex">
-      <div class="col-12 col-md-6 col-lg-3">
-        <a href="#" type="submit" class="login-button white my-3">
-          {{ $t("profile.ordersListsNew") }}
-        </a>
-      </div>
-    </div> -->
-    <!-- <b-table
-      hover
-      :items="items"
-      :fields="fields"
-      stacked="lg"
-      show-empty
-      :empty-text="$t('profile.ordersListsEmpty')"
-    >
-      <template #cell(Actions)="data">
-        <router-link
-          :to="{ path: '/viewOrderDetails', query: { id: `${data.value}` } }"
-          class="text-dark"
-        >
-          <b-button variant="outline-secondary" class="mx-2">
-            {{ $t("view") }}
-          </b-button>
-        </router-link>
-
-        <b-button variant="outline-danger">{{ $t("cancel") }}</b-button>
-      </template>
-    </b-table> -->
+    <!-- if there's orders  -->
     <div class="holder text-center" v-if="orders">
+      <!-- orders data table  -->
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -45,52 +19,74 @@
             <td>{{ order.id }}</td>
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
-            <td><span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span></td>
+            <td>
+              <span v-if="order.total_price"
+                >{{ order.total_price | fixedCurrency }} {{ currency }}</span
+              >
+            </td>
             <td>{{ order.payment_status_lang }}</td>
-            <td><span>{{ order.payment }}</span>
-              <span class="d-block"
-                v-if="order.payment_type === 'visa' || 
-                order.payment_charge_id || 
-                order.payment_type === 'wallet_visa' || 
-                order.payment_type === 'wallet'">
+            <td>
+              <span>{{ order.payment }}</span>
+              <span
+                class="d-block"
+                v-if="
+                  order.payment_type === 'visa' ||
+                  order.payment_charge_id ||
+                  order.payment_type === 'wallet_visa' ||
+                  order.payment_type === 'wallet'
+                "
+              >
                 TID : {{ order.payment_charge_id }}
               </span>
             </td>
 
             <td>
-              <router-link :to="{
-                path: '/viewOrderDetails',
-                query: { id: `${order.id}` },
-              }" class="text-dark">
+              <router-link
+                :to="{
+                  path: '/viewOrderDetails',
+                  query: { id: `${order.id}` },
+                }"
+                class="text-dark"
+              >
                 <b-button variant="outline-secondary" class="m-2">
                   {{ $t("profile.view") }}
                 </b-button>
               </router-link>
-              <router-link v-if="
-                order.payment_status === 'Unpaid' &&
-                order.payment_type === 'bank'
-              " :to="{
-  path: '/checkout-details',
-  query: {
-    order_serial: order.serial,
-    date: order.created_at,
-    total_price: order.total_price,
-    payment_type: order.payment_type,
-    payment: order.payment,
-    uuid: order.uuid,
-  },
-}" class="text-dark">
+              <router-link
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'bank'
+                "
+                :to="{
+                  path: '/checkout-details',
+                  query: {
+                    order_serial: order.serial,
+                    date: order.created_at,
+                    total_price: order.total_price,
+                    payment_type: order.payment_type,
+                    payment: order.payment,
+                    uuid: order.uuid,
+                  },
+                }"
+                class="text-dark"
+              >
                 <b-button variant="outline-success" class="m-2">
                   {{ $t("profile.bankTransDocs") }}
                 </b-button>
               </router-link>
-              <b-button id="show-btn" @click="
-  $bvModal.show('bv-modal-example');
-saveUUID(order);
-              " variant="outline-success" class="m-2" v-if="
-                order.payment_status === 'Unpaid' &&
-                order.payment_type === 'visa'
-              ">
+              <b-button
+                id="show-btn"
+                @click="
+                  $bvModal.show('bv-modal-example');
+                  saveUUID(order);
+                "
+                variant="outline-success"
+                class="m-2"
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'visa'
+                "
+              >
                 {{ $t("profile.pay") }}
               </b-button>
             </td>
@@ -98,25 +94,37 @@ saveUUID(order);
         </tbody>
       </table>
       <div class="d-flex justify-content-center align-items-center mt-5">
-        <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-          @pagechanged="onPageChange" />
+        <!-- pagination for orders  -->
+        <Paginate
+          v-if="orders"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
       </div>
       <div>
+        <!-- repay modal  -->
         <b-modal centered id="bv-modal-example" hide-footer>
           <template class="text-center" #modal-title>
             <h3>{{ $t("payment.paymentData") }}</h3>
           </template>
           <div class="d-block text-center">
             <div class="payment-method">
-              <!-- <div class="heading mb-4">
-                <span class="title">{{ $t("payment.paymentData") }}</span>
-              </div> -->
               <div class="methods-data">
                 <div class="methods">
                   <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="bank" />
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod1"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="bank"
+                      />
                       <label class="custom-control-label" for="paymentMethod1">
                         {{ $t("payment.bankTransfer") }}
                       </label>
@@ -124,19 +132,37 @@ saveUUID(order);
                     </div>
                   </div>
                   <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="cach" />
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod2"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="cach"
+                      />
                       <label class="custom-control-label" for="paymentMethod2">
                         {{ $t("payment.paymentWhenReceiving") }}
                       </label>
                       <span>{{ $t("payment.requestReceipt") }}</span>
                     </div>
                   </div>
-                  <div class="method d-flex justify-content-between align-content-center">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="visa" />
+                  <div
+                    class="method d-flex justify-content-between align-content-center"
+                  >
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod3"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="visa"
+                      />
                       <label class="custom-control-label" for="paymentMethod3">
                         {{ $t("payment.onlinePayment") }}
                       </label>
@@ -146,29 +172,48 @@ saveUUID(order);
                     </div>
                   </div>
                 </div>
-                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
+                <div
+                  class="error text-center"
+                  v-for="(error, index) in errors.payment_type"
+                  :key="index"
+                >
                   {{ error }}
                 </div>
               </div>
             </div>
           </div>
 
-          <b-button :disabled="paymentFormData.payment_type == null" id="show-btn" class="mt-3"
-            variant="outline-success" block @click="rePay">
+          <b-button
+            :disabled="paymentFormData.payment_type == null"
+            id="show-btn"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="rePay"
+          >
             {{ $t("profile.pay") }}
           </b-button>
         </b-modal>
       </div>
     </div>
-    <div class="spinner d-flex justify-content-center align-items-center" v-else>
+    <!-- if loading when getting data  -->
+    <div
+      class="spinner d-flex justify-content-center align-items-center"
+      v-else
+    >
       <spinner />
     </div>
   </div>
 </template>
 
 <script>
+/**
+ * orders list b2b page
+ * @displayName orders list b2b page
+ */
+
 import profile from "@/services/profile";
-import spinner from "@/components/spinner.vue";
+import spinner from "@/components/Spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
@@ -229,6 +274,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * get Orders function
+     * @public this is public function
+     */
     getOrders() {
       profile
         .getOrders(this.page)
@@ -238,7 +287,7 @@ export default {
           this.total = resp.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
             resp.data.items.orders.meta.total /
-            resp.data.items.orders.meta.per_page
+              resp.data.items.orders.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.orders.meta.total;
@@ -247,19 +296,36 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     onPageChange(page) {
       this.page = page;
       this.getOrders();
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     onChangeRecordsPerPage() {
       this.getOrders();
     },
+    /**
+     * function for pagination
+     * @public this is public function
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getOrders();
       }
     },
+
+    /**
+     * repay function
+     * @public this is public function
+     */
 
     rePay() {
       profile
@@ -297,6 +363,11 @@ export default {
           this.errMsg(error.message);
         });
     },
+
+    /**
+     * save product UUID for repay function
+     * @public this is public function
+     */
 
     saveUUID(order) {
       console.log(order);

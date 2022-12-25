@@ -1,4 +1,5 @@
 <template>
+  <!-- quotation details page  -->
   <div :class="$i18n.locale">
     <div class="container">
       <div class="my-5 py-5 text-center">
@@ -31,9 +32,6 @@
           }"
         >
           <tr>
-            <!-- <th scope="col" v-for="(field, index) in fields" :key="index">
-              {{ field.label }}
-            </th> -->
             <th scope="col" colspan="1">
               {{ $t("profile.sentBy") }}
             </th>
@@ -122,9 +120,6 @@
           v-if="cartAvailable  == 'available'"
           >{{ $t("cart.addToCart") }}</b-button
         >
-        <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
-          >{{$t('cart.addToCart')}}</b-button
-        > -->
       </b-modal>
       <b-modal id="bv-modal-example1" centered hide-footer>
         <template #modal-title> {{ $t("profile.yourMessage") }} </template>
@@ -155,15 +150,16 @@
           @click="sendMessage"
           >{{ $t("profile.send") }}</b-button
         >
-        <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
-          >{{$t('cart.addToCart')}}</b-button
-        > -->
       </b-modal>
     </div>
   </div>
 </template>
 
 <script>
+/**
+ * quotation details page
+ * @displayName quotation details page
+ */
 import profile from "@/services/profile";
 import globalAxios from "@/services/global-axios";
 export default {
@@ -190,6 +186,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * get Quotation Details function
+     * @public this is public function
+     */
     getQuotationDetail() {
       profile
         .getQuotationDetail(this.id)
@@ -201,12 +201,15 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * add To Cart function
+     * @public this is public function
+     */
     addToCart() {
       let data = {
         client_quote_id: this.id,
         approve: 1,
       };
-      // console.log(myProduct);
       return globalAxios
         .post(`members/product/rfq/approve`, data)
         .then((res) => {
@@ -215,7 +218,7 @@ export default {
             document.querySelector(".close").click();
 
             // this.$modal.show(
-            //   () => import("@/components/cart/cartModal.vue"),
+            //   () => import("@/components/cart/CartModal.vue"),
             //   {
             //     product: myProduct,
             //   },
@@ -234,6 +237,10 @@ export default {
           }, 500);
         });
     },
+    /**
+     * send Message to supplier function
+     * @public this is public function
+     */
     sendMessage() {
       let data = {
         client_quote_id: this.id,

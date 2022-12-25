@@ -1,15 +1,17 @@
 <template>
-  <div class="product-counter">
-    <!-- cart popup counter  -->
+  <!-- cart popup counter page  -->
+  <div class="product-counter CartPopupCounter">
     <div class="actions d-flex">
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
       </button>
       <div class="value">
         <main>
+          <!-- @slot Use this slot header -->
           <slot name="main">
             <span class="product-counter-number">
-              {{ quantity == 0 ? countValue : quantity }}</span>
+              {{ quantity == 0 ? countValue : quantity }}</span
+            >
           </slot>
         </main>
       </div>
@@ -24,8 +26,13 @@
  * cart popup counter component
  * @author fabrica dev
  */
+/**
+ *   cart popup counter component.
+ * @displayName  cart popup counter component
+ */
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
+  name:'CartPopupCounter',
   components: {
     BIconPlus,
     BIconDash,
@@ -35,18 +42,24 @@ export default {
       countValue: 1,
     };
   },
-  /**
-    * props  
-  */
   props: {
+    /**
+     * quantity
+     */
     quantity: {
       type: Number,
       required: true,
       default: 0,
     },
+    /**
+     * product
+     */
     product: {
       type: Object,
     },
+    /**
+     * minimum
+     */
     minimum: {
       type: Number,
       required: true,
@@ -55,14 +68,14 @@ export default {
   },
   mounted() {
     /**
-    * set countValue = quantity  
-  */
+     * set countValue = quantity
+     */
     this.countValue = this.quantity;
   },
   methods: {
-     /**
-      * increament function
-      */
+    /**
+     * increament function
+     */
     incrementQuantity() {
       this.countValue = Number(this.quantity) + 1;
 
@@ -79,8 +92,8 @@ export default {
       // this.$emit('changeTitle',this.countValue)
     },
     /**
-      * decreament function
-      */
+     * decreament function
+     */
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
 

@@ -1,4 +1,5 @@
 <template>
+  <!-- cart modal  -->
   <div
     id="modal-center"
     centered
@@ -65,6 +66,10 @@
 </template>
 
 <script>
+/**
+ *  cart modal.
+ * @displayName cart modal
+ */
 export default {
   name: "Modal",
   /**

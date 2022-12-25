@@ -401,9 +401,13 @@
 </template>
 
 <script>
+/**
+ *  b2b user  account information page
+ * @displayName  b2b user  account information page
+ */
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-import checkMailModal from "@/components/changeprofileReply.vue";
+import checkMailModal from "@/components/ChangeprofileReply.vue";
 
 export default {
   data() {
@@ -436,13 +440,13 @@ export default {
   mounted() {
     /**
      * get AllCountires  function
-     * @function
+     * @public This is a public 
      */
     this.getAllCountires();
 
     /**
      * spread user data function ,  that comes from backend
-     * @function
+     * @public This is a public 
      */
 
     this.form = { ...this.buyerUserData };
@@ -459,7 +463,7 @@ export default {
 
     /**
      * check if country exist function  , else reload page
-     * @function
+     * @public This is a public 
      */
 
     if (!this.buyerUserData.country_id) {
@@ -468,7 +472,7 @@ export default {
 
     /**
      * prepare callback_url to send it to backend with request
-     * @function
+     * @public This is a public 
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
@@ -486,7 +490,7 @@ export default {
     },
      /**
      * Update Profile function
-     * @function
+     * @public This is a public 
      */
     updateProfile() {
       const payload = {
@@ -521,7 +525,7 @@ export default {
 
     /**
      * reload Page function
-     * @function
+     * @public This is a public 
      */
     reloadPage() {
       if (localStorage.getItem("reloaded")) {
@@ -538,14 +542,14 @@ export default {
     },
     /**
      * show Email Modal function
-     * @function
+     * @public This is a public 
      */
     showEmailModal() {
       this.$refs["email-modal"].show();
     },
     /**
      * hide Email Modal function
-     * @function
+     * @public This is a public 
      */
     hideEmailModal() {
       this.$refs["email-modal"].hide();
@@ -553,14 +557,14 @@ export default {
     },
     /**
      * show Phone Modal function
-     * @function
+     * @public This is a public 
      */
     showPhoneModal() {
       this.$refs["phone-modal"].show();
     },
     /**
      * hide Phone Modal function
-     * @function
+     * @public This is a public 
      */
     hidePhoneModal() {
       this.$refs["phone-modal"].hide();
@@ -568,14 +572,14 @@ export default {
     },
     /**
      * show Check Modal function
-     * @function
+     * @public This is a public 
      */
     showCheckModal() {
       this.$refs["check-modal"].show();
     },
      /**
      * hide Check Modal function
-     * @function
+     * @public This is a public 
      */
     hideCheckModal() {
       this.$refs["check-modal"].hide();
@@ -583,7 +587,7 @@ export default {
     },
     /**
      * go To Verify function to send data to backend to verify new changes
-     * @function
+     * @public This is a public 
      */
     goToVerify() {
       let data = {
@@ -624,7 +628,7 @@ export default {
   computed: {
     /**
      * userStoredData
-     * @function
+     * @public This is a public 
      */
     userStoredData() {
       return JSON.parse(localStorage.getItem("country"));

@@ -1,6 +1,8 @@
 <template>
+  <!-- returned request page  -->
   <div class="my-5">
     <div class="container">
+      <!-- when data comes (not loading)  -->
       <div class="wrapper" v-if="!loading">
         <div class="my-4">
           <div class="d-flex justify-content-between align-items-center">
@@ -127,64 +129,6 @@
             </div>
           </div>
         </section>
-
-        <!-- <section class="supplier-info" v-if="orders && orders[0].bicked">
-          <div
-            class="data-holder serial-holder d-flex justify-content-between align-items-center"
-          >
-            <div class="serial">
-              <h4 class="m-0">{{ $t("profile.pickedAddresses") }}</h4>
-            </div>
-          </div>
-          <div class="">
-            <div class="info">
-              <div class="info-data pl-2">
-                <div
-                  class="row mb-2"
-                  v-for="(order, index) in orders"
-                  :key="index"
-                >
-                  <div class="row w-100" v-if="order.supplier && order.bicked">
-                    <div class="col-md-1 col-sm-6">
-                      <span class="mb-2">{{ order.company }} : </span>
-                    </div>
-
-                    <div
-                      class="col-md-10 col-sm-6"
-                      v-if="order.bicked !== null"
-                    >
-                      <span class="mb-2" v-if="order.bicked.apartment"
-                        >{{ order.bicked.apartment }} ,</span
-                      >
-                      <span class="mb-2" v-if="order.bicked.floor"
-                        >{{ order.bicked.floor }} ,</span
-                      >
-                      <span class="mb-2" v-if="order.bicked.address_line_1"
-                        >{{ order.bicked.address_line_1 }} ,</span
-                      >
-                      <span class="mb-2" v-if="order.bicked.address_line_2"
-                        >{{ order.bicked.address_line_2 }} ,</span
-                      >
-
-                      <span class="mb-2" v-if="order.bicked.city"
-                        >{{ order.bicked.city.title }} ,</span
-                      >
-                      <span class="mb-2" v-if="order.bicked.region"
-                        >{{ order.bicked.region.title }} ,</span
-                      >
-
-                      <span class="mb-2" v-if="order.bicked.country">{{
-                        order.bicked.country.title
-                      }}</span>
-                    </div>
-                  </div>
-                  <div class="" v-else-if="!order.bicked && index == 0">-</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> -->
-
         <section class="payment" v-if="return_item">
           <div class="row">
             <div class="col-md-6 col-sm-12 mb-2">
@@ -285,9 +229,6 @@
                         <td v-if="return_item.quantity">
                           {{ return_item.quantity }}
                         </td>
-                        <!-- <td v-if="supplier_oreder_item.quantity">
-                          {{ supplier_oreder_item.quantity }}
-                        </td> -->
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.sup_total">
                           {{ supplier_oreder_item.sup_total | fixedCurrency }}
@@ -305,6 +246,7 @@
           </div>
         </section>
       </div>
+      <!-- when data loading  -->
       <div class="" v-else>
         <div class="text-center">
           <b-spinner variant="primary" label="Spinning"></b-spinner>
@@ -315,6 +257,10 @@
 </template>
 
 <script>
+/**
+ * returned request page
+ * @displayName return requests page
+ */
 import profile from "@/services/profile";
 import axios from "axios";
 export default {
@@ -352,7 +298,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * returned Single Orders function
+     * @public this is public function
+     */
     returnedSingleOrders() {
+      // check if b2b or b2c or supplier 
       if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         this.loading = true;
         profile
@@ -389,6 +340,11 @@ export default {
           });
       }
     },
+
+    /**
+     * download Image function
+     * @public this is public function
+     */
 
     downloadImage(url, extension, label) {
       axios({

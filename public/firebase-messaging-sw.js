@@ -155,7 +155,6 @@ self.addEventListener("notificationclick", (event) => {
 // handel messages
 const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
-  console.log("background", payload);
   const notificationTitle = payload.data.notification.title;
   const notificationOptions = {
     body: payload.data.notification.body,

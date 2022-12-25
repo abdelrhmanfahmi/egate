@@ -38,7 +38,6 @@ export default {
     watch: {
         loadingPercent(val) {
             if (val >= 100) {
-                console.log('complete');
                 clearInterval(this.interval)
             }
         }

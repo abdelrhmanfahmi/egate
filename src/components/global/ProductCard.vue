@@ -71,7 +71,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
+              () => import("@/components/cart/CartModal.vue"),
               {
                 product: myProduct,
               },
@@ -100,7 +100,6 @@ export default {
       suppliers
         .requestQuotation(payload)
         .then((resp) => {
-          console.log(resp);
           this.errors = {};
           this.sucessMsg(resp.data.message);
           setTimeout(() => {

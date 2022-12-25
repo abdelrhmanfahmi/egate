@@ -1,5 +1,7 @@
 <template>
+  <!-- main profile page   -->
   <div class="profile-body">
+    <!-- products  progress  -->
     <ProgressSlider />
     <b-container
       v-if="
@@ -20,17 +22,6 @@
             }}</router-link>
           </p>
         </div>
-        <div class="rate col-12 col-sm-4">
-          <!-- <h5>{{ $t("profile.completeRate") }}</h5>
-          <b-progress
-            class="progress-rate"
-            :value="buyerUserData.profile_percentage"
-            max="100"
-            show-progress
-            animated
-            variant="danger"
-          ></b-progress> -->
-        </div>
       </div>
 
       <div class="v-else my-1 py-1"></div>
@@ -39,8 +30,13 @@
       <b-container>
         <b-row>
           <b-col lg="3" md="5">
-            <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
-            <sideMenuB2b :userBades="userBades" v-else />
+            <!-- side menu if user is b2c  -->
+            <SideMenu
+              v-if="userInfo.item.type === 'b2c'"
+              :userBades="userBades"
+            />
+            <!-- side menu if user is b2b (buyer)  -->
+            <SideMenuB2b :userBades="userBades" v-else />
           </b-col>
           <b-col lg="9" md="7">
             <router-view></router-view>
@@ -52,30 +48,38 @@
 </template>
 
 <script>
+/**
+ *  main profile page
+ * @displayName  main profile page
+ */
 import SideMenu from "@/components/pages/profile/SideMenu.vue";
-import sideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
+import SideMenuB2b from "@/components/pages/profile/SideMenuB2b.vue";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 export default {
   components: {
     SideMenu,
-    sideMenuB2b,
+    SideMenuB2b,
     ProgressSlider,
   },
   methods: {
+    /**
+     * ge tProfile Budges function
+     * @public this is public function
+     */
     getProfileBudges() {
-      this.$store.dispatch('getUserBadges')
+      this.$store.dispatch("getUserBadges");
     },
   },
-  mounted(){
-    if(this.buyerUserData){
-      this.getProfileBudges()
+  mounted() {
+    if (this.buyerUserData) {
+      this.getProfileBudges();
     }
   },
-  computed:{
-    userBades(){
-      return this.$store.getters.userBadges // this represent user profile side menu states
-    }
-  }
+  computed: {
+    userBades() {
+      return this.$store.getters.userBadges; // this represent user profile side menu states
+    },
+  },
 };
 </script>
 <style lang="scss">

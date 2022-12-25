@@ -1,4 +1,5 @@
 <template>
+  <!-- gift cards b2b page  (not working now) -->
   <div>
     <h5 class="profileB2b-header-table">
       {{ $t("profile.giftCard") }}
@@ -53,15 +54,15 @@
 </template>
 
 <script>
+/**
+ *  gift cards b2b page
+ * @displayName  gift cards b2b page
+ */
 import profile from "@/services/profile";
 export default {
   data() {
     return {
       fields: [
-        // {
-        //   key: "nameDescription",
-        //   label: this.$t("profile.validFor"),
-        // },
         {
           key: "products",
           label: this.$t("profile.discountvalue"),
@@ -85,6 +86,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * check Profile coupon function 
+     * @public this is public function
+     */
     checkProfilecoupon() {
       profile
         .checkCoupon(this.coupon)

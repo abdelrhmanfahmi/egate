@@ -29,41 +29,6 @@
             </div>
           </div>
         </div>
-        <!-- Second Section -->
-        <!-- <div class="about-content-sec">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="content">
-                <div class="body text-center m-auto">
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quos, neque. Ullam, assumenda accusamus harum, adipisci sint
-                    exercitationem deserunt, ex officiis ducimus nesciunt autem
-                    optio nisi atque quidem quo provident iure! ex officiis
-                    ducimus nesciunt autem optio nisi atque quidem quo provident
-                    iure! ex officiis ducimus nesciunt autem optio nisi atque
-                    quidem quo provident iure!
-                  </p>
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quos, neque. Ullam, assumenda accusamus harum, adipisci sint
-                    exercitationem deserunt, ex officiis ducimus nesciunt autem
-                    ex officiis ducimus nesciunt autem optio nisi atque quidem
-                    quo provident iure! optio
-                  </p>
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quos, neque. Ullam, assumenda accusamus harum ex officiis
-                    ducimus nesciunt autem optio nisi atque quidem quo provident
-                    iure!
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
         <!-- Third Section -->
         <div class="about-content-third text-center">
           <div class="container">
