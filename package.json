@@ -7,8 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "versioning": "npm --no-git-tag-version version patch --force",
-    "styleguide": "vue-styleguidist server --config styleguide.config.js",
-    "styleguide:build": "vue-styleguidist build --config styleguide.config.js"
+    "docs": "vuese gen"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.0.0",
@@ -51,9 +50,7 @@
     "husky": "^4.3.8",
     "sass": "^1.49.7",
     "sass-loader": "^8.0.2",
-    "vue-styleguidist": "^4.56.2",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.46.0"
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
