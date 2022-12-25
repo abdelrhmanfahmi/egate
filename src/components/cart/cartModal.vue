@@ -3,16 +3,21 @@
   <div
     id="modal-center"
     centered
-    class=" modal-dialog-centered modal-dialog-scrollable"
+    class="modal-dialog-centered modal-dialog-scrollable"
   >
-  <!-- cart modal that appear when add product to cart -->
+    <!-- cart modal that appear when add product to cart -->
     <div class="modal-content">
       <div class="header-holder">
         <!-- <div class="modal-header">Header</div> -->
         <span>{{ $t("cart.success") }}</span>
         <div class="cls-button">
           <!-- <button class="btn btn-outline-danger" @click="handleClose">x</button> -->
-          <button title="Close (Esc)" type="button" class="mfp-close btn btn-outline-danger" @click="$emit('close')">
+          <button
+            title="Close (Esc)"
+            type="button"
+            class="mfp-close btn btn-outline-danger"
+            @click="$emit('close')"
+          >
             <span>×</span>
           </button>
         </div>
@@ -26,10 +31,9 @@
         <h2 v-if="product.product">
           {{ product.product.title }}
         </h2>
-        <img v-if="product.current_main_image_path"
-          :src="
-            product.current_main_image_path
-          "
+        <img
+          v-if="product.current_main_image_path"
+          :src="product.current_main_image_path"
           alt="product-image"
         />
         <div class="mt-2">
@@ -46,14 +50,19 @@
             {{ $t("cart.cartInCart") }}
           </span>
         </div>
-        <h5>{{ $t("cart.cartSubTotal") }} : {{ cart_sub_total  | fixedCurrency }} {{currency}}</h5>
+        <h5>
+          {{ $t("cart.cartSubTotal") }} : {{ cart_sub_total | fixedCurrency }}
+          {{ currency }}
+        </h5>
       </div>
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
       >
         <button
           class="btn dark event-btn continue-shopping"
-          title="Close (Esc)" type="button" @click="$emit('close')"
+          title="Close (Esc)"
+          type="button"
+          @click="$emit('close')"
         >
           {{ $t("cart.contShopping") }}
         </button>
@@ -66,20 +75,23 @@
 </template>
 
 <script>
-/**
- *  cart modal.
- * @displayName cart modal
- */
+// This is a description of the cart modal
 export default {
   name: "Modal",
   /**
-      * pass product as a prop
-    */
-  props: ["product"],
+   * pass product as a prop
+   */
+  props: {
+    // product prop 
+    product:{
+      type:Object,
+      required:true
+    }
+  },
   computed: {
     /**
-      * get cart data from store
-    */
+     * get cart data from store
+     */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
@@ -134,8 +146,7 @@ export default {
   }
 }
 
-img{
+img {
   height: 250px;
 }
-
 </style>

@@ -118,9 +118,10 @@ export default {
   methods: {
     /**
      * @vuese
-     * get About Data function
+     * get About Data function when page load
      */
     getAboutData() {
+      // get About Data function when page load 
       profile
         .getAboutData()
         .then((res) => {
@@ -130,7 +131,12 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * get About Vision Data
+     */
     getAboutVisionData() {
+      // get About Vision Data 
       profile
         .getAboutVisionData()
         .then((res) => {
@@ -140,7 +146,12 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * get About Message Data
+     */
     getAboutMessageData() {
+      //get About Message Data
       profile
         .getAboutMessageData()
         .then((res) => {
@@ -150,7 +161,12 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * get About Principle Data
+     */
     getAboutPrincipleData() {
+      //get About Principle Data
       profile
         .getAboutPrincipleData()
         .then((res) => {

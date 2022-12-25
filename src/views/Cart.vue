@@ -1,6 +1,8 @@
 <template>
+  <!-- cart page  -->
   <div class="cart-page">
     <div class="container">
+      <!-- include cart comppnent  -->
       <Cart></Cart>
     </div>
   </div>
@@ -10,9 +12,6 @@ import Cart from "../components/pages/cart/Cart.vue";
 export default {
   components: {
     Cart,
-  },
-  data() {
-    return { count: 0 };
   },
 };
 </script>

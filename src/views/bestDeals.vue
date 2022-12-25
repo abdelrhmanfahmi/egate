@@ -1,4 +1,5 @@
 <template>
+  <!-- best deals page  -->
   <div class="suppliers-body">
     <div
       class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
@@ -29,26 +30,21 @@
           <h1 class="text-center my-5">{{ $t("home.dailyOffers") }}</h1>
           <div class="row suppliers-data">
             <div
-            class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
-            v-for="(deal , index) in deals"
-            :key="index"
-          >
-            <BestDeals :deal="deal" @getWishlistData="getWishlistData"></BestDeals>
-          </div>
+              class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
+              v-for="(deal, index) in deals"
+              :key="index"
+            >
+              <BestDeals
+                :deal="deal"
+                @getWishlistData="getWishlistData"
+              ></BestDeals>
+            </div>
           </div>
         </div>
-        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
         <div
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
-          <!-- <b-pagination
-            v-model="currentPage"
-            pills
-            :total-rows="total"
-            :per-page="perPage"
-            size="lg"
-          ></b-pagination> -->
           <Paginate
             v-if="deals && total > perPage"
             :total-pages="totalPages"
@@ -62,13 +58,10 @@
   </div>
 </template>
 <script>
+//bast deals page
 import BestDeals from "@/components/pages/BestDeals.vue";
-// import suppliers from "@/services/suppliers";
-// import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";
-// import { baseURL } from "@/apis/Api";
-// import axios from "axios";
-import categories from "@/services/categories"
+import categories from "@/services/categories";
 export default {
   components: {
     BestDeals,
@@ -86,9 +79,6 @@ export default {
           href: "#",
           active: true,
         },
-        // {
-        //   text: this.$t("supplier.company"),
-        // },
       ],
       deals: null,
       loading: false,
@@ -101,10 +91,14 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
-      errors:[]
+      errors: [],
     };
   },
   methods: {
+    /**
+     * @vuese
+     * get BestDeals data
+     */
     getBestDeals() {
       this.loading = true;
       categories
@@ -118,7 +112,7 @@ export default {
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
-          this.perPage = resp.data.items.per_page
+          this.perPage = resp.data.items.per_page;
         })
         .catch((err) => {
           console.log(err);
@@ -127,22 +121,38 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * on Page Change function for pagination
+     */
     onPageChange(page) {
       this.page = page;
       this.getBestDeals();
     },
+    /**
+     * @vuese
+     * on Change Records PerPage function for pagination
+     */
     onChangeRecordsPerPage() {
       this.getBestDeals();
     },
+    /**
+     * @vuese
+     * go to Page function for pagination
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getBestDeals();
       }
     },
-    getWishlistData(){
-      this.getBestDeals()
-    }
+    /**
+     * @vuese
+     * get favorite Data function
+     */
+    getWishlistData() {
+      this.getBestDeals();
+    },
   },
   mounted() {
     this.getBestDeals();
