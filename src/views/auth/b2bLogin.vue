@@ -138,7 +138,7 @@ export default {
     },
     /**
      * switchField function to show password
-     * @public This is a public 
+     * @public This is a public function
     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
