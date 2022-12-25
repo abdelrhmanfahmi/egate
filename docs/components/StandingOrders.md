@@ -1,12 +1,12 @@
-# standingOrders
+# StandingOrders
 
 ## Props
 
-<!-- @vuese:standingOrders:props:start -->
+<!-- @vuese:StandingOrders:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |variantOrder|-|—|`false`|-|
 
-<!-- @vuese:standingOrders:props:end -->
+<!-- @vuese:StandingOrders:props:end -->
 
 

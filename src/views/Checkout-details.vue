@@ -1,24 +1,25 @@
 <template>
+  <!-- checkout details page  -->
   <div>
     <div class="wrapper">
       <div class="container">
         <div class="text-center my-5 py-5">
           <h1>{{ $t("payment.orderPlaced") }}</h1>
+          <!-- company companyIban  -->
           <h5 v-html="companyIban.description" v-if="companyIban"></h5>
         </div>
+        <!-- if payment_type == cach  -->
         <div class="data-holder p-5" v-if="this.payment_type === 'cach'">
           <ul class="list-data">
-            <!-- <li v-if="order_serial">
-              {{ $t("payment.orderNumber") }} :
-              <span class="bold-result"> {{ order_serial }}</span>
-            </li> -->
             <li v-if="orderDate">
               {{ $t("payment.orderDate") }} :
               <span class="bold-result">{{ orderDate | formatDate }}</span>
             </li>
             <li v-if="total_price">
               {{ $t("payment.total") }} :
-              <span class="totalbuy">{{ total_price | fixedCurrency }} {{ currency }}</span>
+              <span class="totalbuy"
+                >{{ total_price | fixedCurrency }} {{ currency }}</span
+              >
             </li>
             <li v-if="payment">
               {{ $t("payment.paymentMethod") }} :
@@ -30,21 +31,20 @@
             {{ $t("payment.checkCachResult") }}
           </h4>
         </div>
+        <!-- if payment_type == bank  -->
         <div class="row" v-if="this.payment_type === 'bank'">
           <div class="col-md-6 col-sm-12 my-3">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <!-- <li v-if="order_serial">
-                  {{ $t("payment.orderNumber") }} :
-                  <span class="bold-result"> {{ order_serial }}</span>
-                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>
                 </li>
                 <li v-if="total_price">
                   {{ $t("payment.total") }} :
-                  <span class="totalbuy">{{ total_price | fixedCurrency }} {{ currency }}</span>
+                  <span class="totalbuy"
+                    >{{ total_price | fixedCurrency }} {{ currency }}</span
+                  >
                 </li>
                 <li v-if="payment">
                   {{ $t("payment.paymentMethod") }} :
@@ -52,7 +52,11 @@
                 </li>
               </ul>
             </div>
-            <div class="bankInfo" v-if="bankInfo" v-html="bankInfo.description"></div>
+            <div
+              class="bankInfo"
+              v-if="bankInfo"
+              v-html="bankInfo.description"
+            ></div>
           </div>
           <div class="col-md-6 col-sm-12">
             <form class="bankData mb-5" @submit.prevent="checkoutbankUpload">
@@ -62,22 +66,41 @@
                   <span class="text-danger">*</span>
                 </label>
                 <b-form-group>
-                  <b-form-file size="lg" id="bankImage" @change="uploadImage"
-                    :placeholder="$t('profile.filePlaceHolder')" drop-placeholder="Drop file here..."></b-form-file>
+                  <b-form-file
+                    size="lg"
+                    id="bankImage"
+                    @change="uploadImage"
+                    :placeholder="$t('profile.filePlaceHolder')"
+                    drop-placeholder="Drop file here..."
+                  ></b-form-file>
                 </b-form-group>
-                <div class="error text-start" v-for="(error, index) in uploadErrors.file" :key="index">
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.file"
+                  :key="index"
+                >
                   {{ error }}
                 </div>
               </div>
 
-              <b-form-textarea id="textarea-rows" :placeholder="$t('singleProduct.reviewInput')" rows="8" @input="check"
-                v-model="bankData.comment" :maxlength="limit"></b-form-textarea>
+              <b-form-textarea
+                id="textarea-rows"
+                :placeholder="$t('singleProduct.reviewInput')"
+                rows="8"
+                @input="check"
+                v-model="bankData.comment"
+                :maxlength="limit"
+              ></b-form-textarea>
               <p :class="{ 'text-danger': remaining == 0 }">
                 {{ instruction }}
               </p>
               <div class="my-3">
-                <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3"
-                  :disabled="btn1Disabled">
+                <b-button
+                  type="submit"
+                  variant="outline-danger"
+                  class="saveBtn btn-block py-3"
+                  :disabled="btn1Disabled"
+                >
                   <i class="fa fa-upload"></i> {{ $t("payment.uploadImage") }}
                   <span class="loader" v-if="loading"></span>
                 </b-button>
@@ -85,21 +108,20 @@
             </form>
           </div>
         </div>
+        <!-- if payment_type == wallet  -->
         <div v-if="this.payment_type === 'wallet'">
           <div class="">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <!-- <li v-if="order_serial">
-                  {{ $t("payment.orderNumber") }} :
-                  <span class="bold-result"> {{ order_serial }}</span>
-                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>
                 </li>
                 <li v-if="total_price">
                   {{ $t("payment.total") }} :
-                  <span class="totalbuy">{{ total_price | fixedCurrency }} {{ currency }}</span>
+                  <span class="totalbuy"
+                    >{{ total_price | fixedCurrency }} {{ currency }}</span
+                  >
                 </li>
                 <li v-if="payment">
                   {{ $t("payment.paymentMethod") }} :
@@ -112,30 +134,33 @@
             </h4>
           </div>
         </div>
+        <!-- if payment_type == wallet_visa  -->
         <div v-if="this.payment_type === 'wallet_visa'">
           <div class="">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <!-- <li v-if="order_serial">
-                  {{ $t("payment.orderNumber") }} :
-                  <span class="bold-result"> {{ order_serial }}</span>
-                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>
                 </li>
                 <li v-if="wallet_paied">
                   {{ $t("profile.walletPayment") }} :
-                  <span class="bold-result">{{ wallet_paied | fixedCurrency }} {{ currency }}</span>
+                  <span class="bold-result"
+                    >{{ wallet_paied | fixedCurrency }} {{ currency }}</span
+                  >
                 </li>
                 <li v-if="visa_paied">
                   {{ $t("profile.visaPayment") }} :
-                  <span class="bold-result">{{ visa_paied | fixedCurrency }} {{ currency }}</span>
+                  <span class="bold-result"
+                    >{{ visa_paied | fixedCurrency }} {{ currency }}</span
+                  >
                 </li>
 
                 <li v-if="total_price">
                   {{ $t("payment.total") }} :
-                  <span class="totalbuy">{{ total_price | fixedCurrency }} {{ currency }}</span>
+                  <span class="totalbuy"
+                    >{{ total_price | fixedCurrency }} {{ currency }}</span
+                  >
                 </li>
                 <li v-if="payment">
                   {{ $t("payment.paymentMethod") }} :
@@ -148,16 +173,13 @@
             </h4>
           </div>
         </div>
-
-        <!-- <h4 class="my-5" v-if="payment === 'bank'">
-          {{ $t("payment.checkBankResult") }}
-        </h4> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+//checkout details page
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
 export default {
@@ -170,8 +192,8 @@ export default {
       payment: this.$route.query.payment,
       // redirectURL: this.$route.query.redirectURL,
       orderId: this.$route.query.orderId,
-      wallet_paied : this.$route.query.wallet_paied,
-      visa_paied : this.$route.query.visa_paied,
+      wallet_paied: this.$route.query.wallet_paied,
+      visa_paied: this.$route.query.visa_paied,
 
       bankData: {
         image: null,
@@ -184,39 +206,30 @@ export default {
       id: this.$route.query.id,
       bankInfo: null,
       limit: 300,
-      companyIban: null
+      companyIban: null,
     };
   },
   mounted() {
-    if (this.payment_type === "cach" || this.payment_type === "wallet" || this.payment_type === "wallet_visa") {
+    if (
+      this.payment_type === "cach" ||
+      this.payment_type === "wallet" ||
+      this.payment_type === "wallet_visa"
+    ) {
       setTimeout(() => {
         this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
       }, 8000);
     }
-    if (this.payment_type === "bank") {
-      // setTimeout(() => {
-      //   this.$router.push(`Checkout-bank-details?id=${this.orderId}`);
-      // }, 12000);
-      // this.getSingleOrders();
-    }
-
-    // if(!this.payment || this.payment == null || this.payment == ''){
-    //   this.payment = this.payment_type
-    // }
     this.getBankComment();
     this.getCompanyIban();
   },
   methods: {
+    /**
+     * @vuese
+     * checkout bank Upload function
+     */
     async checkoutbankUpload() {
       this.loading = true;
       this.btn1Disabled = true;
-
-      // let data = {
-      //   image: this.bankData.image,
-      //   comment: this.bankData.comment,
-      //   uuid: this.bankData.uuid,
-      // };
-
       let formData = new FormData();
 
       if (this.bankData.image !== null) {
@@ -238,7 +251,7 @@ export default {
             });
           }
           console.log(res);
-          this.$store.dispatch("cart/getCartProducts")
+          this.$store.dispatch("cart/getCartProducts");
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -250,24 +263,18 @@ export default {
           this.btn1Disabled = false;
         });
     },
-    // getSingleOrders() {
-    //   profile
-    //     .getSingleOrders(this.id)
-    //     .then((res) => {
-    //       console.log("getSingleOrders", res);
-    //       this.bankData.uuid = res.data.items.order.uuid;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    //     .finally(() => {
-    //       this.loading = false;
-    //     });
-    // },
+    /**
+     * @vuese
+     * upload Image function
+     */
     uploadImage(event) {
       this.bankData.image = event.target.files[0];
       console.log(this.bankData.image);
     },
+    /**
+     * @vuese
+     * get Bank Comment function
+     */
     getBankComment() {
       profile
         .bankComment()
@@ -278,15 +285,23 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * checkt function to limit the input characters number
+     */
     check: function () {
       this.bankData.comment = this.bankData.comment.substr(0, this.limit);
     },
+    /**
+     * @vuese
+     * get Company Iban  function
+     */
     getCompanyIban() {
       profile
         .companyIban()
         .then((res) => {
           console.log(res);
-          this.companyIban = res.data.items
+          this.companyIban = res.data.items;
         })
         .catch((err) => {
           console.log(err);
@@ -294,19 +309,14 @@ export default {
     },
   },
   computed: {
-    // instruction: function () {
-    //   return this.bankData.comment == ""
-    //     ? this.limit
-    //     : this.remaining ;
-    // },
     instruction: function () {
       return this.bankData.comment == ""
         ? ` ${this.$t("profile.limit")}: ` +
-        this.limit +
-        ` ${this.$t("profile.char")}  `
+            this.limit +
+            ` ${this.$t("profile.char")}  `
         : ` ${this.$t("profile.remain")}: ` +
-        this.remaining +
-        ` ${this.$t("profile.char")} `;
+            this.remaining +
+            ` ${this.$t("profile.char")} `;
     },
 
     remaining: function () {

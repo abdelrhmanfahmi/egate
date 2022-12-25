@@ -99,7 +99,9 @@ export default {
      * @vuese
      * get BestDeals data
      */
+
     getBestDeals() {
+      //get best deals products
       this.loading = true;
       categories
         .getBestDeals()
@@ -126,6 +128,7 @@ export default {
      * on Page Change function for pagination
      */
     onPageChange(page) {
+      // on Page Change function for pagination
       this.page = page;
       this.getBestDeals();
     },
@@ -134,6 +137,7 @@ export default {
      * on Change Records PerPage function for pagination
      */
     onChangeRecordsPerPage() {
+      // on Change Records PerPage function for pagination to get data again
       this.getBestDeals();
     },
     /**
@@ -141,6 +145,7 @@ export default {
      * go to Page function for pagination
      */
     gotoPage() {
+      // go to Page function for pagination
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getBestDeals();
@@ -151,6 +156,7 @@ export default {
      * get favorite Data function
      */
     getWishlistData() {
+      // get favorite Data function
       this.getBestDeals();
     },
   },

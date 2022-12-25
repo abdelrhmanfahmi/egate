@@ -1,17 +1,13 @@
-# Pagination
+# pagination
 
 ## Props
 
-<!-- @vuese:Pagination:props:start -->
+<!-- @vuese:pagination:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|perPage|-|`Number`|`false`|-|
-|total|-|`Number`|`false`|-|
-
-<!-- @vuese:Pagination:props:end -->
-
-
-|-|
+|maxVisibleButtons|-|`Number`|`false`|3|
+|totalPages|-|`Number`|`true`|-|
+|perPage|-|`Number`|`true`|-|
 |currentPage|-|`Number`|`true`|-|
 
 <!-- @vuese:pagination:props:end -->

@@ -5,7 +5,7 @@
 <!-- @vuese:Cart:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
-|getCartProducts|cart products from store.|-|
+|getCartProducts|get cart products from store.|-|
 
 <!-- @vuese:Cart:methods:end -->
 

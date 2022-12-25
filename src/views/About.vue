@@ -94,6 +94,7 @@
 </template>
 
 <script>
+// about page 
 import profile from "@/services/profile";
 
 export default {

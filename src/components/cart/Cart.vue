@@ -64,9 +64,10 @@ export default {
     CartItem,
   },
   methods: {
-    // @vuese
-    
-    //cart products from store.
+    /**
+     * @vuese
+     * get cart products from store.
+     */
     getCartProducts() {
       // Fire when page load
       this.loading = true;
