@@ -10,7 +10,8 @@
 <!-- @vuese:Modal:events:end -->
 
 
-|
+--|
+|product|product prop|`Object`|`true`|-|
 
 <!-- @vuese:Modal:props:end -->
 

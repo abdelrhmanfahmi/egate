@@ -2,12 +2,7 @@
   <div class="category-card">
     <div>
       <!-- new style for category card  -->
-      <b-img-lazy
-        v-bind="mainProps"
-        :src="image"
-        
-        fluid
-      ></b-img-lazy>
+      <b-img-lazy v-bind="mainProps" :src="image" fluid></b-img-lazy>
     </div>
 
     <div class="card-footer">
@@ -19,15 +14,17 @@
 <script>
 export default {
   /**
-    * props 
-  */
+   * props
+   */
   props: {
+    // card prop
     card: {
       type: Object,
       default: () => {
         return {};
       },
     },
+    // image prop
     image: {
       type: String,
     },
@@ -62,9 +59,9 @@ export default {
     background-size: cover;
     width: 100%;
     opacity: 1;
-    transition: all .3s ease-in-out;
-    &:hover{
-      opacity: .5;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      opacity: 0.5;
     }
   }
 

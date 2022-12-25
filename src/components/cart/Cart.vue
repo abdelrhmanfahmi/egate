@@ -1,4 +1,5 @@
 <template>
+  <!-- cart component  -->
   <div class="cart-content mb-2">
     <!-- if cart data  -->
     <div
@@ -52,10 +53,7 @@
   </div>
 </template>
 <script>
-/**
- * cart component
- * @displayName cart component
- */
+// This is a description of the cart component
 import CartItem from "./CartItem.vue";
 
 export default {
@@ -67,10 +65,11 @@ export default {
   },
   methods: {
     /**
-     * cart products from store.
-     * @public This is a public method
+     * @vuese
+     * get cart products from store.
      */
     getCartProducts() {
+      // Fire when page load
       this.loading = true;
       this.$store.dispatch("cart/getCartProducts");
       this.loading = false;

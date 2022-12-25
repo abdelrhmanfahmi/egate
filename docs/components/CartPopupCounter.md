@@ -17,7 +17,7 @@
 <!-- @vuese:CartPopupCounter:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
-|changeTitle|-|-|
+|changeTitle|this event affected on the component main page|-|
 
 <!-- @vuese:CartPopupCounter:events:end -->
 

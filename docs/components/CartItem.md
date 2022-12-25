@@ -5,7 +5,7 @@
 <!-- @vuese:CartItem:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|products|-|—|`false`|-|
+|products|products prop|`Array`|`true`|-|
 
 <!-- @vuese:CartItem:props:end -->
 
