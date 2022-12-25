@@ -108,6 +108,10 @@
 </template>
 
 <script>
+/**
+ *  b2c user  account information page
+ * @displayName  b2c user  account information page
+ */
 import auth from "@/services/auth";
 
 export default {
@@ -129,12 +133,12 @@ export default {
   mounted() {
     /**
      * get AllCountires  function
-     * @function
+     * @public This is a public 
      */
     this.getAllCountires();
     /**
      * spread user data function ,  that comes from backend  
-     * @function
+     * @public This is a public 
      */
     this.form = { ...this.buyerUserData };
     this.phonePrefix = this.buyerUserData.phone_prefix
@@ -143,7 +147,7 @@ export default {
   methods: {
      /**
      * get AllCountires  function
-     * @function
+     * @public This is a public 
      */
     getAllCountires() {
       auth
@@ -157,7 +161,7 @@ export default {
     },
      /**
      * update Profile  function
-     * @function
+     * @public This is a public 
      */
     updateProfile() {
       const payload = {

@@ -1,4 +1,5 @@
 <template>
+  <!-- subscribe news letter page  -->
   <div class="subscribe-newsletter">
     <h4 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h4>
     <div class="sec-subscribe">
@@ -38,6 +39,10 @@
 </template>
 
 <script>
+/**
+ * subscribe news letter page
+ * @displayName subscribe news letter page
+ */
 import profile from "@/services/profile";
 
 export default {
@@ -54,13 +59,20 @@ export default {
     this.getSubscriptions();
   },
   methods: {
+    /**
+     * get Subscriptions function
+     * @public this is public function
+     */
     getSubscriptions() {
       profile.getSubscriptions().then((res) => {
         this.form.email = res.data.items.email;
         this.emailExaxt = res.data.items.email;
       });
     },
-    // makeSubscribe
+    /**
+     * make Subscribe function
+     * @public this is public function
+     */
     makeSubscribe() {
       profile
         .makeSubscribe(this.form)
@@ -75,6 +87,11 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * cancel Subscribe function
+     * @public this is public function
+     */
+
     cancelSubscribe() {
       profile
         .cancelSubscribe()
@@ -106,7 +123,7 @@ export default {
     .login-button {
       margin: 10px auto 0;
       width: 20%;
-      @media(max-width:992px){
+      @media (max-width: 992px) {
         width: 100%;
       }
     }

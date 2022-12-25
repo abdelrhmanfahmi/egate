@@ -1,4 +1,5 @@
 <template>
+  <!-- return requests page  -->
   <div>
     <h5 class="profileB2b-header-table">
       {{ $t("profile.returnRequests") }}
@@ -63,8 +64,12 @@
 </template>
 
 <script>
+/**
+ * return requests page
+ * @displayName return requests page
+ */
 import profile from "@/services/profile";
-import spinner from "@/components/spinner.vue";
+import spinner from "@/components/Spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
@@ -133,6 +138,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * returned Orders function
+     * @public this is public function
+     */
     returnedOrders() {
       if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
         profile
@@ -171,19 +180,37 @@ export default {
           });
       }
     },
+
+    /**
+     * pagination function
+     * @public this is public function
+     */
+
     onPageChange(page) {
       this.page = page;
       this.returnedOrders();
     },
+    /**
+     * pagination function
+     * @public this is public function
+     */
     onChangeRecordsPerPage() {
       this.returnedOrders();
     },
+    /**
+     * pagination function
+     * @public this is public function
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.returnedOrders();
       }
     },
+    /**
+     * save order UUID function
+     * @public this is public function
+     */
     saveUUID(order) {
       console.log(order);
       this.paymentFormData.order_uuid = order.uuid;

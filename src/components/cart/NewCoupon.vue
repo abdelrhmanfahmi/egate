@@ -107,11 +107,6 @@ export default {
                 .removeAttribute("disabled");
         },
         backDisable() {
-            console.log(
-                this.selectedInput.parentElement.parentElement.querySelector(
-                    ".login-button"
-                )
-            );
             this.selectedInput.parentElement.parentElement
                 .querySelector(".login-button")
                 .removeAttribute("disabled");

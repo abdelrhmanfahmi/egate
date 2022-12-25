@@ -38,6 +38,10 @@
 </template>
 
 <script>
+/**
+ *  profile categories page
+ * @displayName  profile categories page
+ */
 import CategoryCard from "@/components/global/CategoryCard.vue";
 import categories from "@/services/categories";
 export default {
@@ -47,7 +51,7 @@ export default {
   methods: {
     /**
      * get Categories function
-     * @function
+     * @public This is a public 
      */
     async getCategories() {
       await categories

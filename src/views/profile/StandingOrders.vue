@@ -1,4 +1,5 @@
 <template>
+  <!-- standing orders page  -->
   <div>
     <p class="add-address" @click="showForm = !showForm">
       <span>+ </span>{{ $t("items.addNew") }}
@@ -33,8 +34,6 @@
                 >{{ time.title }}</b-form-select-option
               >
             </b-form-select>
-
-            <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
             <div
               class="error"
               v-for="(error, index) in errors.time_id"
@@ -63,7 +62,6 @@
             v-for="(order, index) in standingOrders"
             :key="index"
           >
-            <!-- <router-link :to="{path:'/StandingOrder' , query:{id:order.id}}"> -->
             <label class="plan basic-plan">
               <input
                 type="radio"
@@ -71,18 +69,10 @@
                 :value="order.id"
                 v-model="selectedPlan"
               />
-              <!-- <input type="radio" name="plan" :value="x" v-model="selectedPlan"
-                                  @input="planSelected(x)" /> -->
               <div class="plan-content-holder">
                 <div class="plan-content">
-                  <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
                   <div class="b-box">
                     <div class="actions">
-                      <!-- <span
-                        class="removeOrder"
-                        @click="deleteStandingOrder(order)"
-                        ><font-awesome-icon icon="fa-solid fa-trash"
-                      /></span> -->
                       <span
                         role="button"
                         id="show-btn"
@@ -149,7 +139,14 @@
             </div>
           </b-col>
         </b-row>
-        <b-modal ref="edit-modal" id="modal-center" centered hide-footer :title="$t('items.editGroup')">
+        <!-- edit modal  -->
+        <b-modal
+          ref="edit-modal"
+          id="modal-center"
+          centered
+          hide-footer
+          :title="$t('items.editGroup')"
+        >
           <div class="d-block">
             <form @submit.prevent="editOrder" v-if="selectedOrder">
               <label>{{ $t("profile.name") }}</label>
@@ -171,7 +168,7 @@
                 variant="outline-danger"
                 block
                 @click="hideEditModal"
-                >{{$t('cart.cancel')}}</b-button
+                >{{ $t("cart.cancel") }}</b-button
               >
             </div>
             <div class="col-md-6 col-sm-12">
@@ -180,16 +177,25 @@
                 variant="outline-success"
                 block
                 @click="editOrder"
-                >{{$t('items.edit')}}</b-button
+                >{{ $t("items.edit") }}</b-button
               >
             </div>
           </div>
         </b-modal>
-        <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('items.deleteGroup')">
+        <!-- delete modal  -->
+        <b-modal
+          ref="delete-modal"
+          id="modal-center"
+          centered
+          hide-footer
+          :title="$t('items.deleteGroup')"
+        >
           <div class="d-block">
             <form @submit.prevent="editOrder" v-if="selectedOrder">
-            
-              <h5>{{$t('items.sureDelete')}} <span>({{ selectedOrder.name }}) ?</span></h5>
+              <h5>
+                {{ $t("items.sureDelete") }}
+                <span>({{ selectedOrder.name }}) ?</span>
+              </h5>
               <div
                 class="error"
                 v-for="(error, index) in errors.name"
@@ -206,7 +212,7 @@
                 variant="outline-danger"
                 block
                 @click="hideDeleteModal"
-                >{{$t('cart.cancel')}}</b-button
+                >{{ $t("cart.cancel") }}</b-button
               >
             </div>
             <div class="col-md-6 col-sm-12">
@@ -215,7 +221,7 @@
                 variant="outline-success"
                 block
                 @click="deleteStandingOrder"
-                >{{$t('items.remove')}}</b-button
+                >{{ $t("items.remove") }}</b-button
               >
             </div>
           </div>
@@ -229,6 +235,10 @@
 </template>
 
 <script>
+/**
+ * standing orders page
+ * @displayName standing orders page
+ */
 import profile from "@/services/profile";
 export default {
   data() {
@@ -250,18 +260,38 @@ export default {
     };
   },
   methods: {
+    /**
+     * show Edit Modal function
+     * @public this is public function
+     */
     showEditModal() {
       this.$refs["edit-modal"].show();
     },
+    /**
+     * show Delete Modal function
+     * @public this is public function
+     */
     showDeleteModal() {
       this.$refs["delete-modal"].show();
     },
+    /**
+     * hide Edit Modal function
+     * @public this is public function
+     */
     hideEditModal() {
       this.$refs["edit-modal"].hide();
     },
+    /**
+     * hide Delete Modal function
+     * @public this is public function
+     */
     hideDeleteModal() {
       this.$refs["delete-modal"].hide();
     },
+    /**
+     * get Standing Orders function
+     * @public this is public function
+     */
     async getStandingOrders() {
       await profile
         .getStandingOrders()
@@ -277,6 +307,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * get Standing Orders Times function
+     * @public this is public function
+     */
     async getStandingOrdersTimes() {
       await profile
         .getStandingOrdersTimes()
@@ -291,6 +325,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * add Product To Standing Orders function
+     * @public this is public function
+     */
     addProductToStandingOrders() {
       let payload = {
         product_supplier_id: this.id,
@@ -320,10 +358,18 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * select Plan function
+     * @public this is public function
+     */
     selectPlan(plan) {
       console.log(plan);
       this.quantitySelected = true;
     },
+    /**
+     * Create StandingOrders function
+     * @public this is public function
+     */
     CreateStandingOrders() {
       let payLoad = {
         name: this.standingOrder.name,
@@ -345,14 +391,15 @@ export default {
           this.errMsg(err.message);
         });
     },
-    // removeOrder(order) {
-    //   alert(`order ${order.id} removed`);
-    // },
+    /**
+     * edit Order function
+     * @public this is public function
+     */
     editOrder() {
       let payLoad = {
         name: this.selectedOrder.name,
         time_id: this.selectedOrder.time.id,
-        id:this.selectedOrder.id
+        id: this.selectedOrder.id,
       };
       profile
         .CreateStandingOrders(payLoad)
@@ -363,7 +410,7 @@ export default {
           this.standingOrder.time = null;
           this.getStandingOrders();
           setTimeout(() => {
-            this.hideEditModal()
+            this.hideEditModal();
           }, 500);
           this.errors = [];
         })
@@ -373,6 +420,10 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * go To standing order group function
+     * @public this is public function
+     */
     goToGroup(group) {
       setTimeout(() => {
         this.$router.push({
@@ -383,6 +434,10 @@ export default {
         });
       }, 400);
     },
+    /**
+     * delete Standing Order function
+     * @public this is public function
+     */
     deleteStandingOrder() {
       profile
         .deleteStandingOrder(this.selectedOrder.id)
@@ -390,7 +445,7 @@ export default {
           console.log(res);
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
-            this.hideDeleteModal()
+            this.hideDeleteModal();
             this.getStandingOrders();
           }
         })
@@ -399,6 +454,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * select Group To Edit function
+     * @public this is public function
+     */
     selectGroupToEdit(order) {
       this.selectedOrder = order;
       console.log("order", order);

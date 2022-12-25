@@ -188,7 +188,7 @@ export default {
   computed: {
     /**
      * filterProductsByCategory function
-     * @function
+     * @public This is a public 
      */
     filterProductsByCategory: function () {
       return this.products.filter(
@@ -202,7 +202,7 @@ export default {
   methods: {
     /**
      * get SubCategories function
-     * @function
+     * @public This is a public 
      */
     async getSubCategories() {
       let data = {
@@ -246,7 +246,7 @@ export default {
     },
     /**
      * get All SubCategories function
-     * @function
+     * @public This is a public 
      */
     async getAllSubCategories() {
       await categories
@@ -265,7 +265,7 @@ export default {
     },
     /**
      * get page Cover function
-     * @function
+     * @public This is a public 
      */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
@@ -275,14 +275,14 @@ export default {
     },
     /**
      * search function to get sub-categories
-     * @function
+     * @public This is a public 
      */
     search() {
       this.getSubCategories();
     },
     /**
      * selectTab function
-     * @function
+     * @public This is a public 
      */
     selectTab(item) {
       let query = {};
@@ -325,7 +325,7 @@ export default {
 
     /**
      * set default tab  function
-     * @function
+     * @public This is a public 
      */
     selectDefaultTab() {
       let query = {};

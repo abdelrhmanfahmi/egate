@@ -1,4 +1,5 @@
 <template>
+  <!-- View  Corresponse Details page  -->
   <div :class="$i18n.locale">
     <div class="container">
       <div class="my-5 py-5 text-center">
@@ -61,7 +62,8 @@
             <form>
               <div class="form-group">
                 <label for="subject">
-                  {{ $t("supplier.subject") }} <span class="text-danger">*</span>
+                  {{ $t("supplier.subject") }}
+                  <span class="text-danger">*</span>
                 </label>
                 <input type="text" class="form-control" v-model="subject" />
                 <div class="error mt-2">
@@ -72,7 +74,8 @@
               </div>
               <div class="form-group">
                 <label for="message">
-                  {{ $t("contactUs.formMessage") }} <span class="text-danger">*</span>
+                  {{ $t("contactUs.formMessage") }}
+                  <span class="text-danger">*</span>
                 </label>
                 <textarea
                   class="form-control"
@@ -99,15 +102,16 @@
           @click="sendSupplierMessage"
           >{{ $t("profile.send") }}</b-button
         >
-        <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
-          >{{$t('cart.addToCart')}}</b-button
-        > -->
       </b-modal>
     </div>
   </div>
 </template>
 
 <script>
+/**
+ * Corresponse Details page
+ * @displayName Corresponse Details page
+ */
 import profile from "@/services/profile";
 export default {
   data() {
@@ -121,14 +125,17 @@ export default {
     };
   },
   methods: {
+    /**
+     * supplier single Correspondence function
+     * @public this is public function
+     */
     suppliersingleCorrespondence() {
       profile
         .suppliersingleCorrespondence(this.id)
         .then((resp) => {
           console.log(resp);
           this.items = resp.data.items;
-          if(this.items){
-
+          if (this.items) {
             this.supplierId = resp.data.items[0].chat.supplier_id;
           }
         })
@@ -136,6 +143,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * send Supplier Message function
+     * @public this is public function
+     */
     sendSupplierMessage() {
       let data = {
         supplier_id: this.supplierId,
@@ -150,7 +161,7 @@ export default {
             document.querySelector(".close").click();
             this.message = "";
             this.subject = "";
-            this.suppliersingleCorrespondence()
+            this.suppliersingleCorrespondence();
           }
         })
         .catch((error) => {

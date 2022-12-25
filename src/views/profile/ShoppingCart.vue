@@ -1,45 +1,39 @@
 <template>
+  <!-- shopping cart page  -->
   <div>
-    <!-- <b-table hover :items="cartItems" :fields="fields" stacked="lg">
-      <template #cell(image)="data">
-        <img :src="data.value" class="product-img" />
-      </template>
-      <template #cell(product)="data">
-        <a href="#" class="product-name">{{ data.value }}</a>
-      </template>
-      <template #cell(price)="data">
-        <p>{{ data.value }} {{ currency }}</p>
-      </template>
-      <template #cell(quantity)="data">
-        <Counter
-          class="justify-content-center"
-          :quantity="data.value"
-        ></Counter>
-      </template>
-      <template #cell(totalPrice)="data">
-        <p>{{ data.value }} {{ currency }}</p>
-      </template>
-      <template #cell(action)="data">
-        <div class="actions d-flex">
-          <b-button @click="removeItem(data.index)">
-            <font-awesome-icon icon="fa-solid fa-trash-can" />
-          </b-button>
-
-          <b-button>
-            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-          </b-button>
-        </div>
-      </template>
-    </b-table> -->
     <div class="cart-table p-4" stacked="lg">
-      <table  class="table table-striped table-hover">
+      <table class="table table-striped table-hover">
         <thead>
           <tr class="data-holder">
             <th></th>
-            <th class="product"  :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.product") }}</th>
-            <th class="price " :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.price") }}</th>
-            <th class="quantity ">{{ $t("cart.quantity") }}</th>
-            <th class="total " :class="{'text-left' :$i18n.locale == 'en' ,'text-right' :$i18n.locale == 'ar' }">{{ $t("cart.total") }}</th>
+            <th
+              class="product"
+              :class="{
+                'text-left': $i18n.locale == 'en',
+                'text-right': $i18n.locale == 'ar',
+              }"
+            >
+              {{ $t("cart.product") }}
+            </th>
+            <th
+              class="price"
+              :class="{
+                'text-left': $i18n.locale == 'en',
+                'text-right': $i18n.locale == 'ar',
+              }"
+            >
+              {{ $t("cart.price") }}
+            </th>
+            <th class="quantity">{{ $t("cart.quantity") }}</th>
+            <th
+              class="total"
+              :class="{
+                'text-left': $i18n.locale == 'en',
+                'text-right': $i18n.locale == 'ar',
+              }"
+            >
+              {{ $t("cart.total") }}
+            </th>
             <th></th>
           </tr>
         </thead>
@@ -61,13 +55,18 @@
                 }"
                 class="thumb"
               >
-                <img v-if="item.product_image == undefined || item.product_image == 'undefined'"
+                <img
+                  v-if="
+                    item.product_image == undefined ||
+                    item.product_image == 'undefined'
+                  "
                   :src="item.product_image"
                   :alt="' image'"
                   class="product-img"
                   title="image"
                 />
-                <img v-else
+                <img
+                  v-else
                   :src="item.product_image"
                   :alt="item.name + ' image'"
                   :title="item.name + ' image'"
@@ -85,7 +84,9 @@
                 {{ item.product_name }}
               </router-link>
             </td>
-            <td v-if="item.price">{{ item.price | fixedCurrency }} {{ currency }}</td>
+            <td v-if="item.price">
+              {{ item.price | fixedCurrency }} {{ currency }}
+            </td>
             <td v-else>-</td>
             <td>
               <Counter
@@ -95,18 +96,16 @@
                 @changeTitle="ChangeQ($event)"
               ></Counter>
             </td>
-            <td v-if="item.product_sub_total">{{ item.product_sub_total | fixedCurrency }} {{ currency }}</td>
-            <td v-else >-</td>
+            <td v-if="item.product_sub_total">
+              {{ item.product_sub_total | fixedCurrency }} {{ currency }}
+            </td>
+            <td v-else>-</td>
 
             <td>
               <div class="actions d-flex">
                 <b-button @click="removeFromCart(item)">
                   <font-awesome-icon icon="fa-solid fa-trash-can" />
                 </b-button>
-
-                <!-- <b-button>
-                  <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-                </b-button> -->
               </div>
             </td>
           </tr>
@@ -117,6 +116,11 @@
 </template>
 
 <script>
+/**
+ * shopping cart page
+ * @displayName shopping cart page
+ */
+
 import Counter from "@/components/global/Counter.vue";
 
 import globalAxios from "@/services/global-axios";
@@ -229,9 +233,10 @@ export default {
     Counter,
   },
   methods: {
-    removeItem(i) {
-      this.items.splice(i, 1);
-    },
+    /**
+     * get Cart Products function
+     * @public this is public function
+     */
     getCartProducts() {
       this.loading = true;
       globalAxios.post(`cart`).then((res) => {
@@ -239,10 +244,11 @@ export default {
       });
       this.loading = false;
     },
+     /**
+     * remove From Cart function
+     * @public this is public function
+     */
     removeFromCart(product) {
-      // this.removeProductFromCart({
-      //   product: product,
-      // });
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
       });
@@ -255,9 +261,12 @@ export default {
         this.loading = false;
       }, 1200);
     },
+    /**
+     * Change Quantity function
+     * @public this is public function
+     */
     ChangeQ(myQuantity) {
       this.myQuantity = myQuantity;
-      // console.log(myQuantity);
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
@@ -300,8 +309,8 @@ export default {
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -322,11 +331,11 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+  .actions {
     justify-content: center;
     align-items: center;
   }

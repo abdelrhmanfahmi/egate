@@ -159,7 +159,7 @@ export default {
     getDefaultCountry() {
       /**
         * get default country according to ip address 
-        * @function
+        * @public This is a public 
       */
 
       axios.get('https://api.dev.humhum.work/api/v1/site-settings/default/country').then(res => {

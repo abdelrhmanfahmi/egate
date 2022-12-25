@@ -87,7 +87,7 @@ export default {
   methods: {
     /**
      * login function 
-     * @function
+     * @public This is a public 
     */
     login() {
       localStorage.clear();
@@ -138,7 +138,7 @@ export default {
     },
     /**
      * switchField function to show password
-     * @function
+     * @public This is a public function
     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
@@ -147,7 +147,7 @@ export default {
   computed: {
      /**
      * get firebaseToken
-     * @function
+     * @public This is a public 
     */
     firebaseToken() {
       return this.$store.state.firebaseToken;

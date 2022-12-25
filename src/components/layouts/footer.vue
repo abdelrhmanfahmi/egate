@@ -1,7 +1,7 @@
 <template>
   <section class="user-footer">
     <!-- footer  -->
-    <footer class="dark-bg pt-50 pb-1">
+    <Footer class="dark-bg pt-50 pb-1">
       <div class="container">
         <div class="footer-top-wrap">
           <div class="row">
@@ -216,14 +216,14 @@
         </div>
         <ChatUs :whatsapp="whatsapp" />
       </div>
-    </footer>
+    </Footer>
   </section>
 </template>
 
 <script>
 import profile from "@/services/profile";
 import { version } from "../../../package";
-import ChatUs from "@/components/global/chat.vue";
+import ChatUs from "@/components/global/Chat.vue";
 export default {
   data() {
     return {

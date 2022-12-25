@@ -3,6 +3,7 @@
     <div class="value">
       <!-- variants page counter that exist in table  -->
       <main>
+        <!-- @slot Use this slot header -->
         <slot name="main">
           <input
             class="form-control text-center border-0"

@@ -1,10 +1,15 @@
 <template>
+  <!-- Supplier CorrespondenceB2b page  -->
   <div>
     <h5 class="profileB2b-header-table">
       {{ $t("profile.supplierCorrespondence") }}
     </h5>
+    <!-- if items exist  -->
     <div class="holder text-center" v-if="items">
-      <table class="table table-striped table-hover table-bordered selectable" v-if="itemsLength > 0">
+      <table
+        class="table table-striped table-hover table-bordered selectable"
+        v-if="itemsLength > 0"
+      >
         <thead>
           <tr>
             <th scope="col" v-for="(tab, index) in fields" :key="index">
@@ -55,7 +60,10 @@
           </tr>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center align-items-center mt-5" v-if="itemsLength > 0">
+      <div
+        class="d-flex justify-content-center align-items-center mt-5"
+        v-if="itemsLength > 0"
+      >
         <Paginate
           v-if="items"
           :total-pages="totalPages"
@@ -65,6 +73,8 @@
         />
       </div>
     </div>
+    <!-- if items not exist  -->
+    <!-- when loading  -->
     <div
       class="spinner d-flex justify-content-center align-items-center"
       v-else
@@ -75,8 +85,12 @@
 </template>
 
 <script>
+/**
+ * Supplier CorrespondenceB2b page
+ * @displayName Supplier CorrespondenceB2b page
+ */
 import profile from "@/services/profile";
-import spinner from "@/components/spinner.vue";
+import spinner from "@/components/Spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
@@ -114,10 +128,14 @@ export default {
       recordsPerPage: 10,
       enterpageno: "",
       loading: false,
-      itemsLength:null
+      itemsLength: null,
     };
   },
   methods: {
+    /**
+     * get supplier All Correspondence function 
+     * @public this is public function
+     */
     supplierAllCorrespondence() {
       profile
         .supplierAllCorrespondence()
@@ -137,13 +155,25 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * function for pagination 
+     * @public this is public function
+     */
     onPageChange(page) {
       this.page = page;
       this.getOrders();
     },
+     /**
+     * function for pagination 
+     * @public this is public function
+     */
     onChangeRecordsPerPage() {
       this.getOrders();
     },
+     /**
+     * function for pagination 
+     * @public this is public function
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
@@ -164,8 +194,8 @@ export default {
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -186,11 +216,11 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+  .actions {
     justify-content: center;
     align-items: center;
   }

@@ -38,8 +38,8 @@
 
 <script>
 import TopHeader from "@/components/layouts/TopHeader";
-import Nav from "@/components/layouts/nav";
-import Footer from "@/components/layouts/footer";
+import Nav from "@/components/layouts/Nav";
+import Footer from "@/components/layouts/Footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"

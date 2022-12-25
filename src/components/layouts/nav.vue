@@ -180,10 +180,10 @@
     * import components
   */
 
-import Login from "./login.vue";
+// import Login from "./Login.vue";
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
-import Notify from "../notifications.vue";
+import Notify from "../Notifications.vue";
 import globalAxios from "@/services/global-axios";
 
 export default {
@@ -203,7 +203,7 @@ export default {
   },
   components: {
     Cart,
-    Login,
+    // Login,
     MobileNav,
     Notify,
   },

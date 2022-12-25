@@ -3,6 +3,7 @@
     <div class="value">
       <!-- counter that appear in tables for cart  -->
       <main>
+        <!-- @slot Use this slot header -->
         <slot name="main">
           <!-- <span class="product-counter-number"> {{ countValue }}</span> -->
           <input

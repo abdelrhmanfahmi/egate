@@ -13,8 +13,8 @@ import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
-import NewsletterModal from "@/components/newsLetterModal.vue";
-import supplierAdsModal from "@/components/supplierAdsModal.vue";
+import NewsLetterModal from "@/components/NewsLetterModal.vue";
+import supplierAdsModal from "@/components/SupplierAdsModal.vue";
 
 export default {
   name: "Home",
@@ -149,7 +149,7 @@ export default {
     setTimeout(() => {
       if (this.$route.path == '/' && this.newsletterShow && this.newsletterShow.image_path) {
         this.$modal.show(
-          NewsletterModal,
+          NewsLetterModal,
           { newsletterShow: this.newsletterShow },
           { width: "970", height: "auto", adaptive: true }
         );

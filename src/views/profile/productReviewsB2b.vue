@@ -1,44 +1,8 @@
 <template>
+  <!-- products reviews page  -->
   <div class="product-reviews">
     <h4 class="main-header my-4">{{ $t("profile.productReviews") }}</h4>
-    <!-- <b-table hover :items="items" :fields="fields" stacked="lg">
-      <template #cell(created_at)="data">
-        <span>
-          {{ new Date(data.value).toLocaleString() }}
-        </span>
-      </template>
-      <template #cell(product_supplier)="data">
-        <router-link
-          :to="{ path: '/details', query: { id: data.value.product_id } }"
-          v-if="$i18n.locale == 'en'"
-          >{{ data.value.short_description_en }}
-        </router-link>
-        <router-link
-          :to="{ path: '/details', query: { id: data.value.product_id } }"
-          v-if="$i18n.locale == 'ar'"
-          >{{ data.value.short_description_ar }}
-        </router-link>
-      </template>
-      <template #cell(evaluation)="data">
-        <b>{{ data.value }}</b>
-      </template>
-      <template #cell(review)>
-        <Rate @changeRate="ChangeRateValue($event)" @input="checkSupplier" />
-      </template>
-      <template #cell(is_reviewed)="data">
-        <b-button
-          class="login-button"
-          diabled
-          @click="rate(data)"
-          v-if="is_reviewed"
-        >
-          {{ $t("profile.review") }}
-        </b-button>
-        <b-button class="login-button" @click="rate(data)" v-if="!is_reviewed">
-          {{ $t("profile.review") }}
-        </b-button>
-      </template>
-    </b-table> -->
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -97,7 +61,6 @@
             <div class="" v-else>
               <Rate
                 @changeRate="ChangeRateValue($event)"
-                @input="checkSupplier"
               />
             </div>
           </td>
@@ -120,7 +83,11 @@
 </template>
 
 <script>
-import Rate from "@/components/global/rate.vue";
+/**
+ * products reviews page
+ * @displayName products reviews page
+ */
+import Rate from "@/components/global/Rate.vue";
 import profile from "@/services/profile";
 export default {
   data() {
@@ -158,6 +125,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * post ProductRate function
+     * @public this is public function
+     */
     postProductRate(data) {
       let requestData = {
         product_supplier_id: data,
@@ -167,16 +138,20 @@ export default {
         .postProductRate(requestData)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          this.getProductRate()
+          this.getProductRate();
         })
         .catch((err) => {
           console.log(err);
-            let error = Object.values(err)[2].data;
-            this.errors = error.items;
-            this.errMsg(error.message);
-            this.errors.rate ? this.errMsg(this.errors.rate) : null
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(error.message);
+          this.errors.rate ? this.errMsg(this.errors.rate) : null;
         });
     },
+    /**
+     * get Product Rate function
+     * @public this is public function
+     */
     getProductRate() {
       profile
         .getProductRate()
@@ -188,12 +163,13 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * Change Rate Value function
+     * @public this is public function
+     */
     ChangeRateValue(myRate) {
       this.myRate = myRate;
       console.log(myRate);
-    },
-    checkSupplier() {
-      alert("test");
     },
   },
   mounted() {
@@ -219,8 +195,8 @@ html:lang(ar) {
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -241,11 +217,11 @@ html:lang(ar) {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+  .actions {
     justify-content: center;
     align-items: center;
   }

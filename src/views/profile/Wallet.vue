@@ -1,9 +1,11 @@
 <template>
+  <!-- wallet page  -->
   <div>
     <div class="wrabber">
       <div class="balance-holder py-5 px-3">
         <div class="row justify-content-center align-items-center">
           <div class="col-md-6 col-sm-12">
+            <!-- current balance  -->
             <div>
               <h5 class="balance_text">
                 {{ $t("profile.balance") }}
@@ -14,6 +16,7 @@
             </div>
           </div>
           <div class="col-md-6 col-sm-12">
+            <!-- charge wallet  -->
             <form @submit.prevent="chargeWallet" class="">
               <div class="row justify-content-center align-items-center">
                 <div class="col-md-8 col-sm-12">
@@ -52,10 +55,8 @@
       </div>
 
       <div class="tabs-holder">
-        <!-- partial:index.partial.html -->
-
         <div class="tab-wrap">
-          <!-- active tab on page load gets checked attribute -->
+          <!-- receivables tab input  -->
           <input
             type="radio"
             id="recivables"
@@ -63,14 +64,23 @@
             class="tab"
             checked
           />
+
+          <!-- receivables tab label  -->
+
           <label for="recivables">
             <h5>{{ $t("profile.receivables") }}</h5>
           </label>
 
+          <!-- payments tab input  -->
+
           <input type="radio" id="payments" name="tabGroup1" class="tab" />
+
+          <!-- payments tab label  -->
           <label for="payments">
             <h5>{{ $t("profile.payments") }}</h5>
           </label>
+
+          <!-- receivables tab data  -->
 
           <div class="tab__content">
             <div class="recivables py-3" v-if="recivablesLength > 0">
@@ -129,6 +139,8 @@
               {{ $t("home.noData") }}
             </div>
           </div>
+
+          <!-- payments tab data  -->
 
           <div class="tab__content">
             <div class="payments py-3" v-if="paymentsLength > 0">
@@ -255,8 +267,12 @@
 </template>
 
 <script>
+/**
+ * wallet page
+ * @displayName wallet page
+ */
 import profile from "@/services/profile";
-import spinner from "@/components/spinner.vue";
+import spinner from "@/components/Spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
@@ -311,8 +327,6 @@ export default {
       ],
       items: [],
       recivables: null,
-
-      // payment paginate
       paymentPerPage: 5,
       paymentTotal: 0,
       paymentCurrentPage: 1,
@@ -345,11 +359,15 @@ export default {
       paymentsLength: 0,
       recivablesLength: 0,
       chargeValue: null,
-      chargeClicked:false
+      chargeClicked: false,
       //
     };
   },
   methods: {
+    /**
+     * get Wallet data  function
+     * @public this is public function
+     */
     getWallet() {
       profile
         .getWallet()
@@ -360,6 +378,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * get Wallet Payments  function
+     * @public this is public function
+     */
     getWalletPayments() {
       profile
         .getWalletPayments(this.paymentPage)
@@ -378,6 +400,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * get Wallet Recivables  function
+     * @public this is public function
+     */
     getWalletRecivables() {
       profile
         .getWalletRecivables(this.recivablePage)
@@ -397,28 +423,28 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * on Payments PageChange  function (for pagination)
+     * @public this is public function
+     */
     onPaymentsPageChange(page) {
       this.paymentPage = page;
       this.getWalletPayments();
     },
+    /**
+     * on Receivables Change  function (for pagination)
+     * @public this is public function
+     */
     onRecivablesChange(page) {
       this.recivablePage = page;
       this.onRecivablesChange();
     },
-    // onChangeRecordsPerPage() {
-    //   this.getWalletPayments();
-    // },
-    // onChangeRecordsPerPage() {
-    //   this.onRecivablesChange();
-    // },
-    // gotoPage() {
-    //   if (!isNaN(parseInt(this.enterpageno))) {
-    //     this.page = parseInt(this.enterpageno);
-    //     this.getWalletPayments();
-    //   }
-    // },
+    /**
+     * charge Wallet function
+     * @public this is public function
+     */
     chargeWallet() {
-      this.chargeClicked = true
+      this.chargeClicked = true;
       const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`;
       // const backUrl = `${this.mainDoamin}profile/Wallet`
       let payload = {
@@ -440,7 +466,7 @@ export default {
           this.errors = errors.items;
           this.errMsg(err.message);
           console.log(err);
-        })
+        });
     },
   },
   mounted() {

@@ -212,8 +212,12 @@ saveUUID(order);
 </template>
 
 <script>
+/**
+ *  dashboard page
+ * @displayName  dashboard page
+ */
 import profile from "@/services/profile";
-import spinner from "@/components/spinner.vue";
+import spinner from "@/components/Spinner.vue";
 export default {
   components: {
     spinner,
@@ -279,7 +283,7 @@ export default {
   methods: {
     /**
      * get Dashboard Data function 
-     * @function
+     * @public This is a public 
      */
     getDashboardData() {
       profile
@@ -297,7 +301,7 @@ export default {
     },
     /**
      * rePay function 
-     * @function
+     * @public This is a public 
      */
     rePay() {
       profile

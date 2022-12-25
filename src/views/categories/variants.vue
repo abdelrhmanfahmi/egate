@@ -503,7 +503,7 @@
 
 <script>
 import categories from "@/services/categories";
-import VariantsCounter from "@/components/global/variantsCounter.vue";
+import VariantsCounter from "@/components/global/VariantsCounter.vue";
 import globalAxios from "@/services/global-axios";
 import suppliers from "@/services/suppliers";
 
@@ -513,9 +513,9 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-import rfqIcon from "@/components/global/rfqIcon.vue";
+import rfqIcon from "@/components/global/RfqIcon.vue";
 
-import StandingOrders from "@/components/global/standingOrders.vue"
+import StandingOrders from "@/components/global/StandingOrders.vue"
 
 export default {
   data() {
@@ -622,7 +622,7 @@ export default {
   methods: {
     /**
      * add To Cart function
-     * @function
+     * @public This is a public 
      */
     addToCart(item) {
       let data = {
@@ -639,7 +639,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
+              () => import("@/components/cart/CartModal.vue"),
               {
                 product: item,
               },
@@ -660,7 +660,7 @@ export default {
     },
     /**
      * add To Wishlist function
-     * @function
+     * @public This is a public 
      */
     addToWishlist(item) {
       let data = {
@@ -687,21 +687,21 @@ export default {
     },
     /**
      * closeModal function
-     * @function
+     * @public This is a public 
      */
     closeModal() {
       this.showModal = false;
     },
     /**
      * openModal function
-     * @function
+     * @public This is a public 
      */
     openModal() {
       this.showModal = true;
     },
      /**
      * Change cart Counter function
-     * @function
+     * @public This is a public 
      */
     ChangeCounter(cartCounter, minimum) {
       if (cartCounter >= minimum) {
@@ -710,7 +710,7 @@ export default {
     },
     /**
      * change Variance function
-     * @function
+     * @public This is a public 
      */
     changeVariance() {
       let myVariants = [];
@@ -746,7 +746,7 @@ export default {
     },
      /**
      * get Category Products function
-     * @function
+     * @public This is a public 
      */
     getCategoryProducts() {
       this.loading = true;
@@ -772,7 +772,7 @@ export default {
     },
     /**
      * get Single Product Details function
-     * @function
+     * @public This is a public 
      */
     getSingleProductDetails() {
       categories
@@ -790,14 +790,14 @@ export default {
     },
     /**
      * updateId function
-     * @function
+     * @public This is a public 
      */
     updateId() {
       this.pageId = this.$route.params.slug;
     },
      /**
      * prev Page function
-     * @function
+     * @public This is a public 
      */
     prevPage() {
       let prevUrl = this.pageId;
@@ -813,7 +813,7 @@ export default {
     },
      /**
      * on Row Selected function to mark selected row to get product id
-     * @function
+     * @public This is a public 
      */
     onRowSelected(item) {
       this.$router.push({
@@ -823,7 +823,7 @@ export default {
     },
      /**
      * go to next Page function
-     * @function
+     * @public This is a public 
      */
     nextPage() {
       this.pageId = parseInt(this.pageId) + 1;
@@ -837,7 +837,7 @@ export default {
     },
      /**
      * request Quotation function
-     * @function
+     * @public This is a public 
      */
     requestQuotation() {
       let payload = {
@@ -873,14 +873,14 @@ export default {
     },
      /**
      * store Product SupplierId function
-     * @function
+     * @public This is a public 
      */
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
     },
      /**
      * login First function if not logged in and want RFQ
-     * @function
+     * @public This is a public 
      */
     loginFirst() {
       Vue.swal({
@@ -895,7 +895,7 @@ export default {
     },
      /**
      * get Filters function
-     * @function
+     * @public This is a public 
      */
     getFilters() {
       suppliers
@@ -912,7 +912,7 @@ export default {
     },
      /**
      * select Standing oerder Product function
-     * @function
+     * @public This is a public 
      */
     selectStandingProduct(order){
       this.selectedStandingOrder = order
@@ -931,7 +931,7 @@ export default {
     catId() {
       /**
      * get selected categoty id from sessionStorage
-     * @function
+     * @public This is a public 
      */
       
       return sessionStorage.getItem("catId")

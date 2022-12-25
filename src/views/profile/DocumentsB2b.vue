@@ -848,6 +848,10 @@
   </div>
 </template>
 <script>
+/**
+ *  buyer documents page
+ * @displayName  buyer documents page
+ */
 import axios from "axios";
 import profile from "@/services/profile";
 export default {
@@ -952,7 +956,7 @@ export default {
   methods: {
     /**
      * download Image function
-     * @function
+     * @public This is a public 
      */
     downloadImage(url, extension, label) {
       axios({
@@ -972,7 +976,7 @@ export default {
     },
      /**
      * download item function
-     * @function
+     * @public This is a public 
      */
     downloadItem(url, extension, label) {
       console.log(url);
@@ -993,7 +997,7 @@ export default {
     },
     /**
      * upload Picture function
-     * @function
+     * @public This is a public 
      */
     uploadPicture(e) {
       let formData = new FormData();
@@ -1010,7 +1014,7 @@ export default {
     },
      /**
      * suppDocUpload function
-     * @function
+     * @public This is a public 
      */
     async suppDocUpload() {
       let formData = "";
@@ -1030,7 +1034,7 @@ export default {
 
     /**
      * buisness info change choose file function
-     * @function
+     * @public This is a public 
      */
 
     CommercialLicense(e) {
@@ -1038,14 +1042,14 @@ export default {
     },
     /**
      * signature Accreditation choose file function
-     * @function
+     * @public This is a public 
      */
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
     },
     /**
      * commissionerCard choose file function
-     * @function
+     * @public This is a public 
      */
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
@@ -1053,7 +1057,7 @@ export default {
 
     /**
      * certificate Administration choose file function
-     * @function
+     * @public This is a public 
      */
     certificateAdministration(e) {
       this.buissnessinfo.rmcm = e.target.files[0];
@@ -1063,7 +1067,7 @@ export default {
 
     /**
      * buisness info upload function function
-     * @function
+     * @public This is a public 
      */
 
     async buissnessinfoUpload() {
@@ -1111,7 +1115,7 @@ export default {
 
      /**
      * buisness info get data function
-     * @function
+     * @public This is a public 
      */
     async getBuissnessinfodata() {
       await profile
@@ -1130,7 +1134,7 @@ export default {
 
      /**
      * suppDocUpload change function
-     * @function
+     * @public This is a public 
      */
 
     suppDocUploadMoa(event) {
@@ -1139,7 +1143,7 @@ export default {
     },
     /**
      * supp Doc UploadSad function
-     * @function
+     * @public This is a public 
      */
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
@@ -1150,7 +1154,7 @@ export default {
 
     /**
      * suppDocUploadForm function
-     * @function
+     * @public This is a public 
      */
 
     async suppDocUploadForm() {
@@ -1197,7 +1201,7 @@ export default {
     
     /**
      * suppDocUpload get data function
-     * @function
+     * @public This is a public 
      */
     async getSuppDocUploadData() {
       await profile
@@ -1215,7 +1219,7 @@ export default {
     
     /**
      *  bankIbanUpload change function
-     * @function
+     * @public This is a public 
      */
 
     bankIbanUpload(event) {
@@ -1226,7 +1230,7 @@ export default {
     
     /**
      *  bankIbanUpload upload function
-     * @function
+     * @public This is a public 
      */
 
 
@@ -1274,7 +1278,7 @@ export default {
     
     /**
      *  buisness info get data function
-     * @function
+     * @public This is a public 
      */
 
     async getibanUploadData() {
@@ -1293,7 +1297,7 @@ export default {
   created() {
     /**
      *  this.userInfo === "b2c" back to home
-     * @function
+     * @public This is a public 
      */
     if (this.userInfo === "b2c") {
       this.$router.push("/");
@@ -1302,7 +1306,7 @@ export default {
   computed: {
     /**
      *  check userInfo type
-     * @function
+     * @public This is a public 
      */
     userInfo() {
       return this.$store.state.userInfo.item.type;

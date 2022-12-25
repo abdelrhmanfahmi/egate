@@ -31,6 +31,10 @@
 </template>
 
 <script>
+/**
+ *  coupon.
+ * @displayName coupon
+ */
 import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 export default {
@@ -124,11 +128,6 @@ export default {
       * add coupon disabled button 
     */
     backDisable() {
-      console.log(
-        this.selectedInput.parentElement.parentElement.querySelector(
-          ".login-button"
-        )
-      );
       this.selectedInput.parentElement.parentElement
         .querySelector(".login-button")
         .removeAttribute("disabled");

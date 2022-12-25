@@ -116,7 +116,7 @@ export default {
   async created() {
     /**
      * sociall login
-     * @function
+     * @public This is a public 
     */
     await this.makeLoginSocail();
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
@@ -127,7 +127,7 @@ export default {
   methods: {
     /**
      * get all countries function
-     * @function
+     * @public This is a public 
     */
     getAllCountires() {
       auth
@@ -141,7 +141,7 @@ export default {
     },
     /**
      * make Login Socail function
-     * @function
+     * @public This is a public 
     */
     makeLoginSocail() {
       if (this.$route.query.code) {
@@ -163,7 +163,7 @@ export default {
     },
     /**
      * complete Profile function
-     * @function
+     * @public This is a public 
     */
     completeProfile() {
       auth

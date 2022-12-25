@@ -105,7 +105,7 @@
 <script>
 import profile from "@/services/profile";
 
-import StandingOrder from "@/components/global/singleStandingOrder.vue"
+import StandingOrder from "@/components/global/SingleStandingOrder.vue"
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 export default {
   data() {
