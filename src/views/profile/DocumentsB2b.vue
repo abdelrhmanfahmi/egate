@@ -956,7 +956,7 @@ export default {
   methods: {
     /**
      * download Image function
-     * @public This is a public 
+     * @vuese 
      */
     downloadImage(url, extension, label) {
       axios({
@@ -976,7 +976,7 @@ export default {
     },
      /**
      * download item function
-     * @public This is a public 
+     * @vuese 
      */
     downloadItem(url, extension, label) {
       console.log(url);
@@ -997,7 +997,7 @@ export default {
     },
     /**
      * upload Picture function
-     * @public This is a public 
+     * @vuese 
      */
     uploadPicture(e) {
       let formData = new FormData();
@@ -1014,7 +1014,7 @@ export default {
     },
      /**
      * suppDocUpload function
-     * @public This is a public 
+     * @vuese 
      */
     async suppDocUpload() {
       let formData = "";
@@ -1034,7 +1034,7 @@ export default {
 
     /**
      * buisness info change choose file function
-     * @public This is a public 
+     * @vuese 
      */
 
     CommercialLicense(e) {
@@ -1042,14 +1042,14 @@ export default {
     },
     /**
      * signature Accreditation choose file function
-     * @public This is a public 
+     * @vuese 
      */
     signatureAccreditation(e) {
       this.buissnessinfo.auth_civil_copy = e.target.files[0];
     },
     /**
      * commissionerCard choose file function
-     * @public This is a public 
+     * @vuese 
      */
     commissionerCard(e) {
       this.buissnessinfo.ccs = e.target.files[0];
@@ -1057,7 +1057,7 @@ export default {
 
     /**
      * certificate Administration choose file function
-     * @public This is a public 
+     * @vuese 
      */
     certificateAdministration(e) {
       this.buissnessinfo.rmcm = e.target.files[0];
@@ -1067,7 +1067,7 @@ export default {
 
     /**
      * buisness info upload function function
-     * @public This is a public 
+     * @vuese 
      */
 
     async buissnessinfoUpload() {
@@ -1115,7 +1115,7 @@ export default {
 
      /**
      * buisness info get data function
-     * @public This is a public 
+     * @vuese 
      */
     async getBuissnessinfodata() {
       await profile
@@ -1134,7 +1134,7 @@ export default {
 
      /**
      * suppDocUpload change function
-     * @public This is a public 
+     * @vuese 
      */
 
     suppDocUploadMoa(event) {
@@ -1143,7 +1143,7 @@ export default {
     },
     /**
      * supp Doc UploadSad function
-     * @public This is a public 
+     * @vuese 
      */
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
@@ -1154,7 +1154,7 @@ export default {
 
     /**
      * suppDocUploadForm function
-     * @public This is a public 
+     * @vuese 
      */
 
     async suppDocUploadForm() {
@@ -1201,7 +1201,7 @@ export default {
     
     /**
      * suppDocUpload get data function
-     * @public This is a public 
+     * @vuese 
      */
     async getSuppDocUploadData() {
       await profile
@@ -1219,7 +1219,7 @@ export default {
     
     /**
      *  bankIbanUpload change function
-     * @public This is a public 
+     * @vuese 
      */
 
     bankIbanUpload(event) {
@@ -1230,7 +1230,7 @@ export default {
     
     /**
      *  bankIbanUpload upload function
-     * @public This is a public 
+     * @vuese 
      */
 
 
@@ -1278,7 +1278,7 @@ export default {
     
     /**
      *  buisness info get data function
-     * @public This is a public 
+     * @vuese 
      */
 
     async getibanUploadData() {
@@ -1297,7 +1297,7 @@ export default {
   created() {
     /**
      *  this.userInfo === "b2c" back to home
-     * @public This is a public 
+     * @vuese 
      */
     if (this.userInfo === "b2c") {
       this.$router.push("/");
@@ -1306,7 +1306,7 @@ export default {
   computed: {
     /**
      *  check userInfo type
-     * @public This is a public 
+     * @vuese 
      */
     userInfo() {
       return this.$store.state.userInfo.item.type;

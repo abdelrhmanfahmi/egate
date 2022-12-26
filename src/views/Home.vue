@@ -1,4 +1,5 @@
 <template>
+  <!-- home page  -->
   <div class="home">
     <ProgressSlider />
     <CatrgoriesHome />
@@ -7,7 +8,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+// home page
 import auth from "@/services/auth";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
@@ -25,6 +26,10 @@ export default {
   },
 
   methods: {
+    /**
+     * @vuese
+     * this function used to Verify email
+     */
     emailVerify() {
       if (this.$route.query.uuid) {
         const payload = {
@@ -45,6 +50,10 @@ export default {
       }
     },
     // Step 2 forget Password
+    /**
+     * @vuese
+     * this function used to check Email Forget PassWord
+     */
     checkEmailForgetPassWord() {
       if (this.$route.query.email && this.$route.query.token) {
         const payload = {
@@ -62,23 +71,31 @@ export default {
           });
       }
     },
-
+    /**
+     * @vuese
+     * this function used to get Supplier Ads
+     */
     async getSupplierAds() {
-      await auth.getSupplierAds().then(res => {
-        console.log(res);
-        this.supplierAds = res.data.items.ads[0];
-        if (res.data.items.ads.length > 0 && res.data.items.ads[0].banner) {
-          this.existSupplierAds = true
-        } else {
-          this.existSupplierAds = false
-          this.getAdsModal()
-
-        }
-      }).catch(err => {
-        console.log(err);
-      })
+      await auth
+        .getSupplierAds()
+        .then((res) => {
+          console.log(res);
+          this.supplierAds = res.data.items.ads[0];
+          if (res.data.items.ads.length > 0 && res.data.items.ads[0].banner) {
+            this.existSupplierAds = true;
+          } else {
+            this.existSupplierAds = false;
+            this.getAdsModal();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-
+    /**
+     * @vuese
+     * this function used to get Ads for buyer and b2c and guest
+     */
     async getAdsModal() {
       if (this.buyerUserData && this.buyerUserData.type === "buyer") {
         let payload = {
@@ -119,23 +136,24 @@ export default {
           });
       }
     },
-
-
   },
   data() {
     return {
       newsletterShow: null,
       supplierAds: null,
-      existSupplierAds: true
-    }
+      existSupplierAds: true,
+    };
   },
   created() {
     this.getSupplierAds();
   },
   mounted() {
-
     setTimeout(() => {
-      if (this.$route.path == '/' && this.supplierAds &&  this.supplierAds[0]?.bannar) {
+      if (
+        this.$route.path == "/" &&
+        this.supplierAds &&
+        this.supplierAds[0]?.bannar
+      ) {
         this.$modal.show(
           supplierAdsModal,
           { supplierAds: this.supplierAds },
@@ -144,10 +162,12 @@ export default {
       }
     }, 5000);
 
-
-
     setTimeout(() => {
-      if (this.$route.path == '/' && this.newsletterShow && this.newsletterShow.image_path) {
+      if (
+        this.$route.path == "/" &&
+        this.newsletterShow &&
+        this.newsletterShow.image_path
+      ) {
         this.$modal.show(
           NewsLetterModal,
           { newsletterShow: this.newsletterShow },
@@ -156,11 +176,9 @@ export default {
       }
     }, 5000);
 
-
-
     this.emailVerify();
     // this.checkEmailForgetPassWord()
-  }
+  },
 };
 </script>
 <style scoped>

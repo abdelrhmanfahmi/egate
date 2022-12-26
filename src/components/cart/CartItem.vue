@@ -87,7 +87,7 @@ export default {
   props: {
     // products prop 
     products: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },

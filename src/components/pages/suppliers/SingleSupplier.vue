@@ -3,8 +3,10 @@
   <div class="single-supplier bg-white position-relative">
     <div class="supplier-data">
       <div class="thumb">
-
-        <router-link :to="`/suppliers/${supplier.id}`" class="d-block text-center">
+        <router-link
+          :to="`/suppliers/${supplier.id}`"
+          class="d-block text-center"
+        >
           <img :src="supplier.image_path" alt="supplier image" />
         </router-link>
         <p class="supplier-name text-center mt-3 text-capitalize">
@@ -20,9 +22,16 @@ export default {
     return {};
   },
   /**
-      *  supplier data sent as prop
-    */
-  props: ["supplier"],
+   * props
+   *  supplier data sent as prop
+   */
+  props: {
+    supplier: {
+      // supplier prop
+      type: Object,
+      required: false,
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

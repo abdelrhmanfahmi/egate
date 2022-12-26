@@ -13,7 +13,7 @@
             min="1"
             @keyup="CustomIncrementQuantity"
             v-model="countValue"
-            />
+          />
         </slot>
       </main>
     </div>
@@ -41,15 +41,17 @@ export default {
     };
   },
   /**
-    * props
-  */
+   * props
+   */
   props: {
     quantity: {
+      // quantity prop 
       type: Number,
       required: true,
       default: 1,
     },
     minimum: {
+      // minimum prop 
       type: Number,
       required: true,
       default: 1,
@@ -57,22 +59,31 @@ export default {
   },
   mounted() {
     /**
-    * set countValue = quantity;
-  */
+     * set countValue = quantity;
+     */
     this.countValue = this.quantity;
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to increment Quantity
+     */
     incrementQuantity() {
-      this.countValue = Number(this.countValue) + 1 ;
+      this.countValue = Number(this.countValue) + 1;
       this.$emit("changeCount", this.countValue);
     },
+    /**
+     * @vuese
+     * this function used to decrement Quantity
+     */
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
       this.$emit("changeCount", this.countValue);
     },
-     /**
-      * custom increament for input not buttons
-    */
+    /**
+     * @vuese
+     * custom increament for input not buttons
+     */
     CustomIncrementQuantity() {
       console.log(this.countValue);
       if (this.countValue > 0) {
@@ -88,6 +99,10 @@ export default {
         }, 300);
       }
     },
+    /**
+     * @vuese
+     * this function used to check if isNumber or not
+     */
     isNumber: function (evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode;

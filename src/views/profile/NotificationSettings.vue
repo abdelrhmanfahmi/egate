@@ -185,7 +185,7 @@ export default {
   methods: {
     /**
      * ge tNotification Settings function
-     * @public this is public function
+     * @vuese
      */
     getNotificationSettings() {
       profile

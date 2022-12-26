@@ -74,7 +74,7 @@ export default {
   methods: {
     /**
      * check Wallet Charge function 
-     * @public This is a public 
+     * @vuese 
      */
     checkWalletCharge() {
       let data = {
@@ -107,7 +107,7 @@ export default {
   mounted() {
     /**
      * check Wallet Charge function  when page load
-     * @public This is a public 
+     * @vuese 
      */
     this.checkWalletCharge();
   },

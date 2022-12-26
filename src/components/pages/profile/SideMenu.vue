@@ -133,9 +133,10 @@
 export default {
   data() {
     return {
-    /**
-      *  if logged in with email and pass 
-    */
+      /**
+       * @vuese
+       *  if logged in with email and pass
+       */
       buyerLinks: [
         {
           to: "/profile/categories",
@@ -224,9 +225,10 @@ export default {
           iconName: "sliders",
         },
       ],
-    /**
-      *  if logged in socially
-    */
+      /**
+       * @vuese
+       *  if logged in socially
+       */
       socialLinks: [
         {
           to: "/profile/categories",
@@ -317,7 +319,16 @@ export default {
       ],
     };
   },
-  props: ["userBades"],
+  /**
+   *  props
+   */
+  props: {
+    userBades: {
+      // userBades prop
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
@@ -362,5 +373,4 @@ html:lang(ar) {
     }
   }
 }
-
 </style>

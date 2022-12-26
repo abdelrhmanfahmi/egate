@@ -1,4 +1,5 @@
 <template>
+  <!-- return refund page  -->
   <div>
     <div class="container">
       <div class="row justify-content-center align-items-center py-5">
@@ -7,10 +8,10 @@
             <h2 class="title">
               {{ $t("profile.refundMethods") }}
             </h2>
-
             <div class="methods">
               <div class="d-flex justify-content-center align-items-center">
                 <div class="method">
+                  <!-- select option  -->
                   <div
                     class="custom-control custom-radio custom-control-inline"
                   >
@@ -27,6 +28,7 @@
                     </label>
                   </div>
                 </div>
+                <!-- if selected option is bank  -->
                 <div class="method" v-if="selectedOption == 'bank'">
                   <div
                     class="custom-control custom-radio custom-control-inline"
@@ -44,6 +46,7 @@
                     </label>
                   </div>
                 </div>
+                <!-- if selected option is cach  -->
                 <div class="method" v-if="selectedOption == 'cach'">
                   <div
                     class="custom-control custom-radio custom-control-inline"
@@ -61,6 +64,7 @@
                     </label>
                   </div>
                 </div>
+                <!-- if selected option is visa  -->
                 <div
                   v-if="selectedOption == 'visa'"
                   class="method d-flex justify-content-between align-content-center"
@@ -93,6 +97,7 @@
               <label>
                 {{ $t("profile.returnReason") }}
               </label>
+              <!-- select reasons   -->
               <b-form-select v-model="returnData.return_reason" class="mb-3">
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
@@ -112,12 +117,14 @@
                   {{ $t("profile.ReturnedNumber") }}
                 </label>
                 <div class="product-counter mb-2">
+                  <!-- quantity  -->
                   <div class="value">
                     <span class="product-counter-number">
                       {{ returnData.quantity ? returnData.quantity : 1 }}</span
                     >
                   </div>
                   <div class="actions d-flex flex-column">
+                    <!-- increment quantity  -->
                     <button
                       class="product-counter-btn"
                       @click="incrementQuantity"
@@ -126,6 +133,7 @@
                     >
                       <b-icon-plus />
                     </button>
+                    <!-- decrement quantity  -->
                     <button
                       class="product-counter-btn"
                       @click="decrementQuantity(returnData.quantity)"
@@ -143,6 +151,7 @@
                   <span class="text-danger">*</span>
                 </label>
                 <b-form-group>
+                  <!-- upload file  -->
                   <b-form-file
                     size="lg"
                     id="returnImage"
@@ -160,7 +169,7 @@
                 </div>
               </div>
             </div>
-
+            <!-- text your message  -->
             <b-form-textarea
               v-if="returnData.return_reason == 8"
               id="textarea-rows"
@@ -192,6 +201,7 @@
 </template>
 
 <script>
+//  return refund page 
 import profile from "@/services/profile";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
@@ -217,15 +227,13 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to call backend to return user Order
+     */
     async returnOrder() {
       this.loading = true;
       this.btn1Disabled = true;
-
-      // let data = {
-      //   image: this.returnData.image,
-      //   return_reason: this.returnData.return_reason,
-      //   uuid: this.returnData.uuid,
-      // };
 
       let formData = new FormData();
 
@@ -271,16 +279,28 @@ export default {
           this.btn1Disabled = false;
         });
     },
+     /**
+     * @vuese
+     * this function used to upload Image
+     */
     uploadImage(event) {
       // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
       // console.log(this.returnData.image);
     },
+    /**
+     * @vuese
+     * this function used to show length of files and names
+     */
     formatNames(files) {
       return files.length === 1
         ? files[0].name
         : `${files.length} files selected`;
     },
+    /**
+     * @vuese
+     * this function used to get Order Data
+     */
     getOrderData() {
       profile
         .getSingleOrders(this.id)
@@ -308,6 +328,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used to know return Reasons
+     */
     returnReasons() {
       profile
         .returnReasons()
@@ -319,14 +343,26 @@ export default {
           console.log(err);
         });
     },
+     /**
+     * @vuese
+     * this function used to increment Quantity
+     */
     incrementQuantity() {
       this.returnData.quantity += 1;
     },
+    /**
+     * @vuese
+     * this function used to check Returned Product Quantity
+     */
     decrementQuantity() {
       this.returnData.quantity > 1
         ? this.returnData.quantity--
         : this.returnData.quantity == 1;
     },
+    /**
+     * @vuese
+     * this function used to check Returned Product Quantity
+     */
     checkReturnedProductQuantity() {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)

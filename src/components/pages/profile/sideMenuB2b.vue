@@ -36,7 +36,9 @@
           <span
             class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
+              (userBades &&
+                userBades.orders &&
+                link.name.trim() === 'My Orders') ||
               link.name.trim() === 'طلباتى'
             "
             >{{ userBades.orders }}</span
@@ -64,7 +66,9 @@
           <span
             class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
+              (userBades &&
+                userBades.rfqs &&
+                link.name.trim() === 'Quotations') ||
               link.name.trim() === 'عروض الاسعار'
             "
             >{{ userBades.rfqs }}</span
@@ -88,7 +92,9 @@
           <span
             class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.orders && link.name.trim() === 'My Orders') ||
+              (userBades &&
+                userBades.orders &&
+                link.name.trim() === 'My Orders') ||
               link.name.trim() === 'طلباتى'
             "
             >{{ userBades.orders }}</span
@@ -116,7 +122,9 @@
           <span
             class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.rfqs && link.name.trim() === 'Quotations') ||
+              (userBades &&
+                userBades.rfqs &&
+                link.name.trim() === 'Quotations') ||
               link.name.trim() === 'عروض الاسعار'
             "
             >{{ userBades.rfqs }}</span
@@ -131,9 +139,10 @@
 export default {
   data() {
     return {
-    /**
-      *  if logged in with email and pass
-    */
+      /**
+       * @vuese
+       *  if logged in with email and pass
+       */
       buyerLinks: [
         {
           to: "/profile/categories",
@@ -228,9 +237,10 @@ export default {
           iconName: "sliders",
         },
       ],
-    /**
-      *  if logged in socially
-    */
+      /**
+       * @vuese
+       *  if logged in socially
+       */
       SocialLinks: [
         {
           to: "/profile/categories",
@@ -322,7 +332,16 @@ export default {
       ],
     };
   },
-  props: ["userBades"],
+  /**
+   *  props
+   */
+  props: {
+    userBades: {
+      // userBades prop
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 

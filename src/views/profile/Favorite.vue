@@ -244,10 +244,7 @@
 </template>
 
 <script>
-/**
- *  favorite page
- * @displayName  favorite page
- */
+//  favorite page 
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
 import rfqIcon from "@/components/global/RfqIcon.vue";
@@ -373,7 +370,7 @@ export default {
   methods: {
     /**
      * get favorite products
-     * @public this is public function
+     * @vuese
      */
     getWishlistProducts() {
       this.loadingOne = false;
@@ -399,7 +396,7 @@ export default {
     },
     /**
      * remove product from  favorite
-     * @public this is public function
+     * @vuese
      */
     removeFromWishlist(product) {
       this.$store.dispatch("wishlist/removeProductFromWishlist", {
@@ -416,7 +413,7 @@ export default {
     },
     /**
      * add product to  cart
-     * @public this is public function
+     * @vuese
      */
     addToCart(item) {
       console.log(item.product_supplier_id);
@@ -456,7 +453,7 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onPageChange(page) {
       this.page = page;
@@ -464,14 +461,14 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onChangeRecordsPerPage() {
       this.getWishlistProducts();
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
@@ -481,14 +478,14 @@ export default {
     },
     /**
      * choose product
-     * @public this is public function
+     * @vuese
      */
     chooseProduct(product) {
       this.selectedProduct = product;
     },
     /**
      * request Quotation function 
-     * @public this is public function
+     * @vuese
      */
     requestQuotation() {
       let payload = {

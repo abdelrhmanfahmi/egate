@@ -188,7 +188,7 @@ export default {
   methods: {
     /**
      * get Quotation Details function
-     * @public this is public function
+     * @vuese
      */
     getQuotationDetail() {
       profile
@@ -203,7 +203,7 @@ export default {
     },
     /**
      * add To Cart function
-     * @public this is public function
+     * @vuese
      */
     addToCart() {
       let data = {
@@ -239,7 +239,7 @@ export default {
     },
     /**
      * send Message to supplier function
-     * @public this is public function
+     * @vuese
      */
     sendMessage() {
       let data = {

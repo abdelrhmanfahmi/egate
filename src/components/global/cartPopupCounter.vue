@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     /**
+     * @vuese
      * increament function
      */
     incrementQuantity() {
@@ -86,6 +87,7 @@ export default {
       // this.$emit('changeTitle',this.countValue)
     },
     /**
+     * @vuese
      * decreament function
      */
     decrementQuantity() {

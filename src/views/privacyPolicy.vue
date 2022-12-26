@@ -1,4 +1,5 @@
 <template>
+  <!-- privacy & policy page  -->
   <div>
     <div class="container">
       <div class="text-center mt-3" v-if="privacy">
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+// privacy policy page 
 import profile from "@/services/profile";
 export default {
   data() {
@@ -20,6 +22,10 @@ export default {
     };
   },
   methods: {
+     /**
+     * @vuese
+     * this function used to get privacy and policy data
+     */
     privacyPage() {
       profile
         .privacyPage()

@@ -59,7 +59,11 @@
 </template>
 <script>
 //bast deals page
-// @group bast deals
+
+/** 
+ * @group bast deals
+ * This is a description of the component
+ */
 import BestDeals from "@/components/pages/BestDeals.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import categories from "@/services/categories";

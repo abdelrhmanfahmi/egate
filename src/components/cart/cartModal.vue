@@ -75,35 +75,49 @@
 </template>
 
 <script>
-
 // This is a description of the cart modal
 export default {
   name: "Modal",
   /**
-   * pass product as a prop
-   */
+   *  pass product as a prop
+   * @values  pass product as a prop
+   * */
   props: {
-    // product prop 
-    product:{
-      type:Object,
-      required:true
-    }
+    // product prop
+    product: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     /**
-     * get cart data from store
+     * @vuese
+     * this function used to get cartItems
      */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
+    /**
+     * @vuese
+     * this function used to get cart Items Length
+     */
+
     cartItemsLength() {
       return this.cart_sub_total > 0 ? this.$store.state.cart.cartLength : 0;
     },
+    /**
+     * @vuese
+     * this function used to get cart_sub_total
+     */
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
   },
   watch: {
+    /**
+     * @vuese
+     * this function used to watch modal 
+     */
     $route: function () {
       this.$modal.hideAll();
     },

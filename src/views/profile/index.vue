@@ -64,7 +64,7 @@ export default {
   methods: {
     /**
      * ge tProfile Budges function
-     * @public this is public function
+     * @vuese
      */
     getProfileBudges() {
       this.$store.dispatch("getUserBadges");
@@ -76,6 +76,10 @@ export default {
     }
   },
   computed: {
+    /**
+     * @vuese
+     * get user Bades for sidebar from store
+     */
     userBades() {
       return this.$store.getters.userBadges; // this represent user profile side menu states
     },

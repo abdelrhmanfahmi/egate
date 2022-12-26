@@ -46,6 +46,7 @@
 </template>
 
 <script>
+// home categories component
 import CategoryCard from "@/components/global/CategoryCard.vue";
 import categories from "@/services/categories";
 export default {
@@ -54,10 +55,10 @@ export default {
   },
   methods: {
     /**
-      *  get all categories function 
-    */
+     * @vuese
+     *  get all categories function
+     */
     async getCategories() {
-
       await categories
         .getCategories("lists/categories")
         .then((resp) => {
@@ -103,8 +104,8 @@ export default {
     padding-right: 0px;
     padding-left: 0px;
     padding-bottom: 0px;
-    img{
-      opacity: .5;
+    img {
+      opacity: 0.5;
     }
   }
 }
@@ -115,7 +116,7 @@ export default {
 .card-body {
   padding: 1.25rem 0 !important;
 }
-.holder{
+.holder {
   overflow: hidden;
 }
 </style>

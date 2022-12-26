@@ -1,4 +1,5 @@
 <template>
+  <!-- termas and conditions page  -->
   <div>
     <div class="container">
       <div class="text-center mt-3" v-if="terms">
@@ -20,6 +21,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get termsAndCondations
+     */
     termsAndCondations() {
       auth
         .termsAndCondations()

@@ -36,6 +36,7 @@
 </template>
 
 <script>
+// mobile nav component 
 export default {
   data() {
     return {
@@ -54,7 +55,6 @@ export default {
       ],
     };
   },
-  methods: {},
 };
 </script>
 

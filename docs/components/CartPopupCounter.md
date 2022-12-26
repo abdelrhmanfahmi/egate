@@ -32,3 +32,14 @@
 <!-- @vuese:CartPopupCounter:slots:end -->
 
 
+## Methods
+
+<!-- @vuese:CartPopupCounter:methods:start -->
+|Method|Description|Parameters|
+|---|---|---|
+|incrementQuantity|increament function|-|
+|decrementQuantity|decreament function|-|
+
+<!-- @vuese:CartPopupCounter:methods:end -->
+
+

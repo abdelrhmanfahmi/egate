@@ -262,35 +262,35 @@ export default {
   methods: {
     /**
      * show Edit Modal function
-     * @public this is public function
+     * @vuese
      */
     showEditModal() {
       this.$refs["edit-modal"].show();
     },
     /**
      * show Delete Modal function
-     * @public this is public function
+     * @vuese
      */
     showDeleteModal() {
       this.$refs["delete-modal"].show();
     },
     /**
      * hide Edit Modal function
-     * @public this is public function
+     * @vuese
      */
     hideEditModal() {
       this.$refs["edit-modal"].hide();
     },
     /**
      * hide Delete Modal function
-     * @public this is public function
+     * @vuese
      */
     hideDeleteModal() {
       this.$refs["delete-modal"].hide();
     },
     /**
      * get Standing Orders function
-     * @public this is public function
+     * @vuese
      */
     async getStandingOrders() {
       await profile
@@ -309,7 +309,7 @@ export default {
     },
     /**
      * get Standing Orders Times function
-     * @public this is public function
+     * @vuese
      */
     async getStandingOrdersTimes() {
       await profile
@@ -327,7 +327,7 @@ export default {
     },
     /**
      * add Product To Standing Orders function
-     * @public this is public function
+     * @vuese
      */
     addProductToStandingOrders() {
       let payload = {
@@ -360,7 +360,7 @@ export default {
     },
     /**
      * select Plan function
-     * @public this is public function
+     * @vuese
      */
     selectPlan(plan) {
       console.log(plan);
@@ -368,7 +368,7 @@ export default {
     },
     /**
      * Create StandingOrders function
-     * @public this is public function
+     * @vuese
      */
     CreateStandingOrders() {
       let payLoad = {
@@ -393,7 +393,7 @@ export default {
     },
     /**
      * edit Order function
-     * @public this is public function
+     * @vuese
      */
     editOrder() {
       let payLoad = {
@@ -422,7 +422,7 @@ export default {
     },
     /**
      * go To standing order group function
-     * @public this is public function
+     * @vuese
      */
     goToGroup(group) {
       setTimeout(() => {
@@ -436,7 +436,7 @@ export default {
     },
     /**
      * delete Standing Order function
-     * @public this is public function
+     * @vuese
      */
     deleteStandingOrder() {
       profile
@@ -456,7 +456,7 @@ export default {
     },
     /**
      * select Group To Edit function
-     * @public this is public function
+     * @vuese
      */
     selectGroupToEdit(order) {
       this.selectedOrder = order;

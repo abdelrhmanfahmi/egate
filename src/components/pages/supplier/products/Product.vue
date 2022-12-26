@@ -150,6 +150,7 @@ export default {
   props: ["data"],
   methods: {
     /**
+     * @vuese
       *  add product to wishlist (favorite)
     */
     addToWishlist(item) {
@@ -174,6 +175,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  get supplier products
     */
     getSupplierProducts() {
@@ -188,6 +190,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  go to product page
     */
     goProduct(data) {
@@ -200,6 +203,7 @@ export default {
       location.reload();
     },
     /**
+     * @vuese
       *  gog to product page by supplier
     */
     goPage2(data) {
@@ -212,6 +216,7 @@ export default {
       location.reload();
     },
     /**
+     * @vuese
       *  add product to cart if not select quantity from dropdown
     */
     addToCart(myProduct) {
@@ -250,6 +255,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  add product to cart by select quantity from dropdown numbers
     */
     addToCartAgain(myProduct) {

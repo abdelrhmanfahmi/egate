@@ -56,8 +56,21 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 export default {
-  props: ["slider"],
+   /**
+   * props
+   */
+  props:{
+    slider:{
+      // slider prop 
+      type:Object,
+      required:true
+    }
+  },
   methods: {
+     /**
+     * @vuese
+     * add To Cart function
+     */
     addToCart(myProduct) {
       let data = {
         product_supplier_id:
@@ -90,6 +103,10 @@ export default {
           }, 500);
         });
     },
+    /**
+     * @vuese
+     * request for Quotation function
+     */
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
@@ -124,9 +141,10 @@ export default {
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
     },
-    /**
-      * login first if not logged in  
-    */
+   /**
+     * @vuese
+     * login first if not logged in function
+     */
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),

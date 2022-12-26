@@ -5,7 +5,7 @@
       <div slot="header" class="haeder">
         <div class="header-chat">
           <div class="row justify-content-center align-items-center">
-            <div class="col-md-2 col-sm-12mb-3 img-col ">
+            <div class="col-md-2 col-sm-12mb-3 img-col">
               <div class="logo-holder">
                 <img src="@/assets/images/logo.png" alt="logo" />
               </div>
@@ -60,7 +60,9 @@
                   HumHumm
                 </div>
                 <div class="WhatsappChat__Text-sc-1wqac52-2 iSpIQi">
-                  <span>{{$t('home.hiThere')}} 👋 </span> <br /><br /><span>{{$t('home.helpYou')}}</span>
+                  <span>{{ $t("home.hiThere") }} 👋 </span> <br /><br /><span>{{
+                    $t("home.helpYou")
+                  }}</span>
                 </div>
                 <div class="WhatsappChat__Time-sc-1wqac52-5 cqCDVm">1:40</div>
               </div>
@@ -71,14 +73,19 @@
       <div slot="footer">
         <div class="">
           <div class="button-holder" v-if="whatsapp">
-            <a :href="whatsapp.value" target="_blank" class="d-flex justify-content-center align-items-center text-white" v-if="whatsapp.value">
+            <a
+              :href="whatsapp.value"
+              target="_blank"
+              class="d-flex justify-content-center align-items-center text-white"
+              v-if="whatsapp.value"
+            >
               <span class="mx-2">
                 <img
                   src="https://raw.githubusercontent.com/ktquez/vue-social-chat/master/src/icons/whatsapp.svg"
                   alt="whatsapp-img"
                 />
               </span>
-              <h6>{{$t('home.startCaht')}}</h6>
+              <h6>{{ $t("home.startCaht") }}</h6>
             </a>
           </div>
         </div>
@@ -88,9 +95,11 @@
 </template>
 
 <script>
+
+//chat component 
 /**
-    * import SocialChat
-  */
+ * import SocialChat
+ */
 
 import { SocialChat } from "vue-social-chat";
 export default {
@@ -99,8 +108,8 @@ export default {
   },
   data: () => ({
     /**
-    *  SocialChat data
-  */
+     *  SocialChat data
+     */
     attendants: [
       {
         app: "whatsapp",
@@ -115,7 +124,13 @@ export default {
       // ...
     ],
   }),
-  props:['whatsapp']
+  props:{
+    // whatsapp prop 
+    whatsapp:{
+      type:Object,
+      required:false
+    }
+  },
 };
 </script>
 
@@ -549,8 +564,8 @@ export default {
   border-radius: 20px;
   padding: 5px;
 }
-.img-col{
-  @media(max-width:767px){
+.img-col {
+  @media (max-width: 767px) {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;

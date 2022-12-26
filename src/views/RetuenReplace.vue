@@ -1,4 +1,5 @@
 <template>
+  <!-- return replace page  -->
   <div>
     <div class="container">
       <div class="row justify-content-center align-items-center pt-5 mt-5">
@@ -13,6 +14,7 @@
               <label>
                 {{ $t("profile.returnReason") }}
               </label>
+              <!-- dropdown for reasons  -->
               <b-form-select v-model="returnData.return_reason" class="mb-3">
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
@@ -32,11 +34,13 @@
                 </label>
                 <div class="product-counter mb-2">
                   <div class="value">
+                    <!-- display quantity  -->
                     <span class="product-counter-number">
                       {{ returnData.quantity ? returnData.quantity : 1 }}</span
                     >
                   </div>
                   <div class="actions d-flex flex-column">
+                    <!-- increment the quantity  -->
                     <button
                       class="product-counter-btn"
                       @click="incrementQuantity"
@@ -44,6 +48,7 @@
                     >
                       <b-icon-plus />
                     </button>
+                    <!-- decrement the quantity  -->
                     <button
                       class="product-counter-btn"
                       @click="decrementQuantity(returnData.quantity)"
@@ -55,6 +60,7 @@
                   </div>
                 </div>
               </div>
+              <!-- upload image of product  -->
               <div class="col-8">
                 <label for="CommercialLicense">
                   {{ $t("profile.returnImage") }}
@@ -78,6 +84,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- enter message  -->
 
             <b-form-textarea
               v-if="returnData.return_reason == 8"
@@ -109,6 +117,8 @@
 </template>
 
 <script>
+// return replace page
+// this page used when client need to return his products and using replace method
 import profile from "@/services/profile";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
@@ -131,16 +141,13 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to call backend to return user Order
+     */
     async returnOrder() {
       this.loading = true;
       this.btn1Disabled = true;
-
-      // let data = {
-      //   image: this.returnData.image,
-      //   return_reason: this.returnData.return_reason,
-      //   uuid: this.returnData.uuid,
-      // };
-
       let formData = new FormData();
 
       if (this.returnData.image !== null) {
@@ -191,16 +198,28 @@ export default {
           this.btn1Disabled = false;
         });
     },
+    /**
+     * @vuese
+     * this function used to upload Image
+     */
     uploadImage(event) {
       // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
       // console.log(this.returnData.image);
     },
+    /**
+     * @vuese
+     * this function used to show length of files and names
+     */
     formatNames(files) {
       return files.length === 1
         ? files[0].name
         : `${files.length} files selected`;
     },
+    /**
+     * @vuese
+     * this function used to know return Reasons
+     */
     returnReasons() {
       profile
         .returnReasons()
@@ -212,14 +231,26 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used to increment Quantity
+     */
     incrementQuantity() {
       this.returnData.quantity += 1;
     },
+    /**
+     * @vuese
+     * this function used to decrement Quantity
+     */
     decrementQuantity() {
       this.returnData.quantity > 1
         ? this.returnData.quantity--
         : this.returnData.quantity == 1;
     },
+    /**
+     * @vuese
+     * this function used to check Returned Product Quantity
+     */
     checkReturnedProductQuantity() {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)

@@ -1,25 +1,6 @@
 <template>
+  <!-- single supplier page  -->
   <div class="supplier">
-    <!-- <div
-      class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
-    >
-      <b-breadcrumb v-if="supplier">
-        <b-breadcrumb-item href="#home">
-          <router-link to="/">
-            {{ $t("supplier.home") }}
-          </router-link>
-        </b-breadcrumb-item>
-        <b-breadcrumb-item>
-          <router-link to="/suppliers">
-            {{ $t("supplier.suppliers") }}
-          </router-link>
-        </b-breadcrumb-item>
-        <b-breadcrumb-item active>
-          {{ supplier.company_name }}
-        </b-breadcrumb-item>
-      </b-breadcrumb>
-    </div> -->
-    <!-- add rule for banner  -->
     <div
       class="cover text-center mx-auto my-4 text-white" v-if="supplierMSite && supplierMSite.banner_path"
       :style="{ backgroundImage: `url(${supplierMSite.banner_path})` }"
@@ -29,9 +10,6 @@
       >
         <b-container>
           <div class="cover-title text-white font-weight-bold">
-            <!-- <h2 class="font-weight-bold">
-              {{ pageTitle }}
-            </h2> -->
             <b-breadcrumb v-if="supplier">
               <b-breadcrumb-item href="#home">
                 <router-link to="/">
@@ -73,11 +51,13 @@
 
       <div class="" v-else>
         <div class="row justify-content-between">
+          <!-- import side section data  -->
           <SideSection
             class="col-12 col-lg-4 order-1 order-lg-0"
             :supplier="supplier"
             :supplierMSite="supplierMSite"
           ></SideSection>
+          <!-- import other data  -->
           <Article
             class="col-12 col-lg-8 order-0 order-lg-1"
             :data="article"
@@ -117,6 +97,7 @@
   </div>
 </template>
 <script>
+// single supplier page 
 import SideSection from "@/components/pages/supplier/SideSection";
 import Article from "@/components/pages/supplier/Article";
 import Product from "@/components/pages/supplier/products/Product";
@@ -163,6 +144,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get Supplier data
+     */
     getSupplier() {
       this.loading = true;
       let id = this.id;
@@ -179,6 +164,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used to get Supplier Products
+     */
     getSupplierProducts() {
       let id = this.id;
       suppliers
@@ -193,6 +182,10 @@ export default {
           console.log(err);
         });
     },
+     /**
+     * @vuese
+     * this function used to goto next Page
+     */
     nextPage() {
       this.pageId = parseInt(this.pageId) + 1;
 
@@ -204,6 +197,10 @@ export default {
         location.reload();
       }, 200);
     },
+    /**
+     * @vuese
+     * this function used to goto prev Page
+     */
     prevPage() {
       let prevUrl = this.pageId;
       if (prevUrl > 0) {
@@ -217,11 +214,14 @@ export default {
         }, 200);
       }
     },
+    /**
+     * @vuese
+     * this function used get supplier MicroSite
+     */
     supplierMicroSite() {
       suppliers
         .supplierMicroSite(this.id)
         .then((res) => {
-          console.log(res);
           this.supplierMSite = res.data.items;
         })
         .catch((err) => {

@@ -100,6 +100,7 @@ export default {
   },
   methods: {
     /**
+     * @vuese
       *  add product To Wishlist
     */
     addToWishlist(item) {
@@ -118,6 +119,7 @@ export default {
         })
     },
     /**
+     * @vuese
       *  go to product page
     */
     goProduct(data) {
@@ -130,6 +132,7 @@ export default {
       location.reload();
     },
     /**
+     * @vuese
       *  go to product page by supplier
     */
     goPage2(data) {
@@ -141,6 +144,11 @@ export default {
       });
       location.reload();
     },
+
+    /**
+     * @vuese
+      *  change value function
+    */
 
     changevalue() {
       this.$emit('getWishlistData')

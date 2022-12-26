@@ -1,18 +1,17 @@
 <template>
+  <!-- wishlist page (favorite ) -->
   <div class="cart-page">
     <div class="container">
+      <!-- import wishlist (favorite ) component  -->
       <Wishlist></Wishlist>
     </div>
   </div>
 </template>
 <script>
-import Wishlist from "../components/pages/wishlist/Wishlist.vue";
+import Wishlist from "@/components/pages/wishlist/Wishlist.vue";
 export default {
   components: {
     Wishlist,
-  },
-  data() {
-    return { count: 0 };
   },
 };
 </script>

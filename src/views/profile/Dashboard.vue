@@ -283,7 +283,7 @@ export default {
   methods: {
     /**
      * get Dashboard Data function 
-     * @public This is a public 
+     * @vuese 
      */
     getDashboardData() {
       profile
@@ -301,7 +301,7 @@ export default {
     },
     /**
      * rePay function 
-     * @public This is a public 
+     * @vuese 
      */
     rePay() {
       profile

@@ -1,7 +1,7 @@
 <template>
   <!-- product images slider  -->
   <div class="product-slider" v-if="mediaExist">
-    <div class="content ">
+    <div class="content">
       <!-- curent image ( selected image to show ) -->
       <div class="main-img mb-2">
         <img id="main-img" :src="currentImage" v-if="currentImage" />
@@ -9,9 +9,17 @@
       </div>
       <!-- other product images  -->
       <div class="images d-flex">
-        <div class="product-img mb-2" v-for="(img, index) in images" :key="index">
-          <img v-if="img.image_path" :src="img.image_path" @click="changeImage(index)"
-            :class="[index === active ? 'active' : null]" />
+        <div
+          class="product-img mb-2"
+          v-for="(img, index) in images"
+          :key="index"
+        >
+          <img
+            v-if="img.image_path"
+            :src="img.image_path"
+            @click="changeImage(index)"
+            :class="[index === active ? 'active' : null]"
+          />
         </div>
       </div>
     </div>
@@ -33,15 +41,17 @@ export default {
   },
   methods: {
     /**
-    *  change product selected image
-  */
+     * @vuese
+     *  change product selected image
+     */
     changeImage(i) {
       this.currentImage = this.images[i].image_path;
       this.active = i;
     },
     /**
-      *  get product details to show images
-    */
+     * @vuese
+     *  get product details to show images
+     */
     productDetails() {
       this.loading = true;
       categories
@@ -50,8 +60,8 @@ export default {
           this.myProduct = res.data.items;
           if (res.data.items.images.length !== 0) {
             /**
-               *  take 6 images only of product images for responsive view
-           */
+             *  take 6 images only of product images for responsive view
+             */
             this.images = res.data.items.images.slice(0, 6);
             this.firstImage = res.data.items.images[0].image_path;
             this.mediaExist = true;
@@ -85,8 +95,9 @@ export default {
   mounted() {
     this.productDetails();
     /**
-   *  setting active = 0 to show first image of product images first
- */
+     * @vuese
+     *  setting active = 0 to show first image of product images first
+     */
     this.active = 0;
   },
 };
@@ -97,7 +108,6 @@ export default {
    * @style
 */
 .product-slider {
-
   color: #000;
 
   .content {
@@ -124,9 +134,8 @@ export default {
         }
       }
 
-      @media(max-width:992px) {
+      @media (max-width: 992px) {
         flex-direction: row !important;
-
       }
     }
 
@@ -141,7 +150,7 @@ export default {
       }
     }
 
-    @media(max-width:992px) {
+    @media (max-width: 992px) {
       display: block !important;
     }
   }

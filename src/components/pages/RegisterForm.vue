@@ -301,6 +301,7 @@ export default {
   },
   methods: {
     /**
+     * @vuese
       *  get countries
     */
     getAllCountires() {
@@ -314,6 +315,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  register function
     */
     register() {
@@ -339,12 +341,14 @@ export default {
         });
     },
    /**
+    * @vuese
       *  change type to show password
     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     /**
+     * @vuese
       *  get terms
     */
     getTerms() {
@@ -353,12 +357,14 @@ export default {
       });
     },
     /**
+     * @vuese
       *  accept Terms
     */
     acceptMyTerms() {
       this.terms = true;
     },
     /**
+     * @vuese
       *  contactUs Phone
     */
     contactUsPhone() {
@@ -372,6 +378,11 @@ export default {
           console.log(err);
         });
     },
+
+    /**
+     * @vuese
+      *  get Profile Prefixes function
+    */
 
     getProfilePrefixes() {
       profile.getProfilePrefixes().then((res) => {

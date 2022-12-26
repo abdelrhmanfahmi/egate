@@ -1,4 +1,5 @@
 <template>
+  <!-- 404 page  , page not found , used in routing error  -->
   <div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="text-center">

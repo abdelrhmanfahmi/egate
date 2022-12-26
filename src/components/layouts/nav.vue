@@ -6,20 +6,27 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
+            <img
+              src="@/assets/images/logo.png"
+              class="img-fluid"
+              alt="logo"
+              @click="goToHome()"
+            />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
-                  $t("home.home")
+                $t("home.home")
               }}</router-link>
             </li>
             <li>
-              <router-link class="link" to="/partners">{{ $t("home.navSuppliers") }}</router-link>
+              <router-link class="link" to="/partners">{{
+                $t("home.navSuppliers")
+              }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/about">{{
-                  $t("home.about")
+                $t("home.about")
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
@@ -27,12 +34,15 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a href="https://staging2.fabrica-dev.com/humhum-supplier/" target="_blank">{{ $t("home.suppliers")
-                    }}</a>
+                    <a
+                      href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                      target="_blank"
+                      >{{ $t("home.suppliers") }}</a
+                    >
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                        $t("home.buyer")
+                      $t("home.buyer")
                     }}</router-link>
                   </li>
                 </ul>
@@ -40,7 +50,7 @@
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
-                  $t("home.contactUs")
+                $t("home.contactUs")
               }}</router-link>
             </li>
           </ul>
@@ -50,18 +60,35 @@
         <div class="right-side d-flex">
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
-            <b-button class="icon-search" size="md" v-if="searchClicked" @click="closeSearch">
+            <b-button
+              class="icon-search"
+              size="md"
+              v-if="searchClicked"
+              @click="closeSearch"
+            >
               <font-awesome-icon icon="fa-solid fa-times" />
             </b-button>
             <span class="" v-if="searchClicked">
               <b-form @submit.prevent="search">
-                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"
-                  ref="searchIcon"></b-form-input>
+                <b-form-input
+                  :placeholder="$t('cart.search')"
+                  class="search-input"
+                  v-model="keyword"
+                  ref="searchIcon"
+                ></b-form-input>
               </b-form>
             </span>
 
-            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
-              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+            <b-button
+              v-b-modal.modal-1
+              class="icon-search"
+              size="md"
+              @click="searchClicked = !searchClicked"
+            >
+              <font-awesome-icon
+                v-b-toggle.sidebar-1
+                icon="fa-solid fa-search"
+              />
             </b-button>
           </div>
           <div v-if="!mobile" class="cart">
@@ -116,9 +143,11 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
+                <b-dropdown-item
+                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
+                >
                   <router-link to="/profile/categories">{{
-                      $t("profile.myProfile")
+                    $t("profile.myProfile")
                   }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
@@ -135,11 +164,18 @@
 
         <!--Start Mbile Nav -->
         <div class="icon right-side" v-if="mobile">
-          <div class="row justify-content-center align-items-center search-icon" v-if="mobile">
+          <div
+            class="row justify-content-center align-items-center search-icon"
+            v-if="mobile"
+          >
             <div class="col-12">
               <div class="search-icon">
                 <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                  <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" class="mobile-search-icon" />
+                  <font-awesome-icon
+                    v-b-toggle.sidebar-1
+                    icon="fa-solid fa-search"
+                    class="mobile-search-icon"
+                  />
                 </b-button>
                 <b-modal id="modal-1" class="search">
                   <!-- Using slots -->
@@ -147,12 +183,18 @@
                     <template #append>
                       <b-input-group-text>
                         <strong @click="search" class="search-eye">
-                          <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+                          <font-awesome-icon
+                            v-b-toggle.sidebar-1
+                            icon="fa-solid fa-search"
+                          />
                         </strong>
                       </b-input-group-text>
                     </template>
                     <b-form @submit.prevent="search">
-                      <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
+                      <b-form-input
+                        :placeholder="$t('cart.search')"
+                        v-model="keyword"
+                      ></b-form-input>
                     </b-form>
                   </b-input-group>
                 </b-modal>
@@ -160,12 +202,24 @@
             </div>
           </div>
 
-          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }" />
+          <font-awesome-icon
+            v-b-toggle.sidebar-1
+            @click="toggleMobileNav"
+            icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }"
+          />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
-            width="300px" shadow z-index="3">
+          <b-sidebar
+            :right="getDir === 'rtl'"
+            v-if="mobileNav"
+            @hidden="closeSideBar"
+            id="sidebar-1"
+            backdrop
+            width="300px"
+            shadow
+            z-index="3"
+          >
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -176,11 +230,7 @@
 </template>
 
 <script>
-/**
-    * import components
-  */
-
-// import Login from "./Login.vue";
+// nav component
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
 import Notify from "../Notifications.vue";
@@ -198,16 +248,19 @@ export default {
       wishlistItems: null,
       wishlistLength: 0,
       keyword: "",
-      searchClicked: false
+      searchClicked: false,
     };
   },
   components: {
     Cart,
-    // Login,
     MobileNav,
     Notify,
   },
   created() {
+    /**
+     * @vuese
+     * check Screen size
+     */
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
     this.getCartProducts();
@@ -216,12 +269,24 @@ export default {
     }
   },
   methods: {
+    /**
+     * @vuese
+     * close SideBar function
+     */
     closeSideBar() {
       this.mobileNav = null;
     },
+    /**
+     * @vuese
+     * toggle Mobile Nav function
+     */
     toggleMobileNav() {
       this.mobileNav = !this.mobileNav;
     },
+    /**
+     * @vuese
+     * check Screen function
+     */
     checkScreen() {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth <= 991) {
@@ -232,30 +297,54 @@ export default {
       this.mobileNav = false;
       return;
     },
+    /**
+     * @vuese
+     * go To Home function
+     */
     goToHome() {
       this.$router.push("/");
     },
+    /**
+     * @vuese
+     * get Cart Products function
+     */
     getCartProducts() {
       return globalAxios.post("/cart").then((res) => {
         this.cartItemsLength = res.data.items.cart_total_products_count;
       });
     },
+    /**
+     * @vuese
+     * get favorite Products function
+     */
     getWishlistProducts() {
       return globalAxios.get("members/profile/favorite").then((res) => {
         this.wishlistItems = res.data.items.data;
         this.wishlistLength = res.data.items.data.length;
       });
     },
+    /**
+     * @vuese
+     * search function
+     */
     search() {
       this.$router.push({
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
     },
+    /**
+     * @vuese
+     * close search function
+     */
     closeSearch() {
       this.searchClicked = false;
-      this.keyword = ''
+      this.keyword = "";
     },
+    /**
+     * @vuese
+     * login Now function if not logged in
+     */
     loginNow() {
       document.$refs["b2cLogin"].show();
       document.querySelector(".login").click();
@@ -267,30 +356,51 @@ export default {
   },
   computed: {
     /**
-    * get cart data 
-  */
+     * @vuese
+     * get cart items function
+     */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
+    /**
+     * @vuese
+     * get cart items length function
+     */
     cartLength() {
       return this.$store.state.cart.cartLength;
     },
+    /**
+     * @vuese
+     * get notifications function
+     */
     notifications() {
       return this.$store.state.notifications;
     },
+     /**
+     * @vuese
+     * get notifications length function
+     */
     notificationsLength() {
       return this.$store.state.notificationsLength;
     },
+    /**
+     * @vuese
+     * check logged in or not function
+     */
     page() {
       return this.$route.query.force_login == "true";
     },
   },
   mounted() {
     const loc = document.location;
-    if (this.$route.query.force_login && this.$route.query.force_login == "true" || loc.href.includes('force_login')) {
+    if (
+      (this.$route.query.force_login &&
+        this.$route.query.force_login == "true") ||
+      loc.href.includes("force_login")
+    ) {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("buyerUserData");
-      this.loginNow()
+      this.loginNow();
     }
   },
   destroyed() {
@@ -316,10 +426,10 @@ export default {
     searchClicked() {
       setTimeout(() => {
         if (this.searchClicked && this.$refs.searchIcon) {
-          this.$refs.searchIcon.focus()
+          this.$refs.searchIcon.focus();
         }
       }, 200);
-    }
+    },
   },
 };
 </script>
@@ -465,7 +575,6 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-
     .cart-body,
     .notify-body {
       right: auto;
@@ -508,7 +617,7 @@ html:lang(ar) {
   font-weight: bold;
   padding: 0px 4px;
 }
-.cart-number{
+.cart-number {
   background: #ff6000;
 }
 
@@ -539,7 +648,7 @@ html:lang(ar) {
   font-size: 20px !important;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
   #modal-1 .input-group-text {
     font-size: 25px;
   }
@@ -552,9 +661,9 @@ html:lang(ar) {
 .search-input {
   border-radius: 20px;
   width: 300px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     max-width: 170px;
   }
 }

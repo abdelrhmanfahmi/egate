@@ -8,8 +8,7 @@
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
-                <span>
-                  &#60; {{ $t("register.haveNotAccount") }}</span>
+                <span> &#60; {{ $t("register.haveNotAccount") }}</span>
               </router-link>
             </div>
             <form @submit.prevent="login()">
@@ -19,8 +18,16 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input type="email" id="email" v-model="form.email" />
-                    <div class="error" v-for="(error, index) in errors.email" :key="index">
+                    <b-form-input
+                      type="email"
+                      id="email"
+                      v-model="form.email"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.email"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -31,21 +38,39 @@
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
                       <div class="icon-passowrd" @click.stop="switchField()">
-                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
-                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
                       </div>
                     </div>
-                    <div class="error" v-for="(error, index) in errors.password" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
               </b-row>
 
-
-              <router-link to="/forget-password" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+              <router-link
+                to="/forget-password"
+                v-if="buyerUserData && buyerUserData.type === 'b2c'"
+              >
                 <b class="forget-password my-3" v-b-modal.ForgetPassword>
                   {{ $t("login.fogetPassword") }}
                 </b>
@@ -86,9 +111,9 @@ export default {
   },
   methods: {
     /**
-     * login function 
-     * @public This is a public 
-    */
+     * @vuese
+     * This is a public
+     */
     login() {
       localStorage.clear();
 
@@ -137,18 +162,18 @@ export default {
         });
     },
     /**
+     * @vuese
      * switchField function to show password
-     * @public This is a public function
-    */
+     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
   },
   computed: {
-     /**
+    /**
+     * @vuese
      * get firebaseToken
-     * @public This is a public 
-    */
+     */
     firebaseToken() {
       return this.$store.state.firebaseToken;
     },

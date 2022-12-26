@@ -1,14 +1,15 @@
 <template>
+  <!-- standing order page  -->
   <div>
-
     <div class="container">
-
+      <!-- progress slider for best products  -->
       <ProgressSlider />
     </div>
     <div class="order profile">
       <b-container>
         <b-row>
           <b-col lg="3" md="5">
+            <!-- if user is b2c  -->
             <div v-if="userInfo.item.type === 'b2c'">
               <div class="profile-menu">
                 <h2>{{ $t("profile.myProfile") }}</h2>
@@ -49,6 +50,7 @@
                 </ul>
               </div>
             </div>
+            <!-- else  -->
             <div v-else>
               <div class="profile-menu">
                 <h5 class="my-3">
@@ -93,6 +95,7 @@
             </div>
           </b-col>
           <b-col lg="9" md="7">
+            <!-- import standing order component  -->
             <StandingOrder :orders="orders" :ordersLength="ordersLength" @removeItem="removeStandingOrder" />
           </b-col>
         </b-row>
@@ -103,6 +106,7 @@
 </template>
 
 <script>
+// standing order page 
 import profile from "@/services/profile";
 
 import StandingOrder from "@/components/global/SingleStandingOrder.vue"
@@ -493,6 +497,10 @@ export default {
     };
   },
   methods: {
+     /**
+     * @vuese
+     * this function used to get Single Standing Order
+     */
     getSingleStandingOrder() {
       profile
         .getSingleStandingOrder(this.id)
@@ -505,6 +513,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used to get remove Standing Order
+     */
     removeStandingOrder() {
       this.getSingleStandingOrder()
     }

@@ -1,4 +1,5 @@
 <template>
+  <!-- forget password page  -->
   <section class="user-register">
     <b-container>
       <div class="main-title">
@@ -94,6 +95,7 @@
   </section>
 </template>
 <script>
+// forget password page 
 import auth from "@/services/auth";
 export default {
   data() {
@@ -107,10 +109,18 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to switch Field to show password
+     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     // Step 3 forget Password
+    /**
+     * @vuese
+     * forget PassWord function 
+     */
     forgetPassWord() {
       // if (this.$route.query.email && this.$route.query.token) {
         const payload = {
@@ -137,13 +147,6 @@ export default {
           });
       // }
     },
-  },
-  created() {
-    // let profileData = this.buyerUserData;
-    // if (!profileData) {
-    //   // location.replace("");
-    //   this.$router.push("/b2b-login");
-    // }
   },
 };
 </script>

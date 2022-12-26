@@ -5,9 +5,9 @@
 <!-- @vuese:SearchCounter:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|quantity|-|`Number`|`true`|1|
-|product|-|`Object`|`false`|-|
-|minimum|-|`Number`|`true`|1|
+|quantity|-|quantity prop|`true`|1|
+|product|-|product prop|`false`|-|
+|minimum|-|minimum prop|`true`|1|
 
 <!-- @vuese:SearchCounter:props:end -->
 
@@ -30,5 +30,16 @@
 |main|@slot Use this slot header|-|
 
 <!-- @vuese:SearchCounter:slots:end -->
+
+
+## Methods
+
+<!-- @vuese:SearchCounter:methods:start -->
+|Method|Description|Parameters|
+|---|---|---|
+|incrementQuantity|increment Quantity function|-|
+|decrementQuantity|decrement Quantity function|-|
+
+<!-- @vuese:SearchCounter:methods:end -->
 
 

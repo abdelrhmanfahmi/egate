@@ -12,6 +12,7 @@
           >
         </h6>
       </div>
+      <!-- loading when request data  -->
       <div
         class="my-5"
         v-if="categoriesLength == null || productsLength == null"
@@ -24,6 +25,7 @@
           ></b-spinner>
         </div>
       </div>
+      <!-- if data returned   -->
       <div class="px-5" v-else-if="categoriesLength > 0 || productsLength > 0">
         <div class="data-holder py-3">
           <b-row v-if="loading">
@@ -259,6 +261,7 @@
           </div>
         </div>
       </div>
+      <!-- if no data returned  -->
       <div class="" v-else>
         <div class="text-center my-5">
           <h4>
@@ -266,6 +269,7 @@
           </h4>
         </div>
       </div>
+      <!-- rfq modal  -->
       <b-modal id="bv-bidRequest" hide-footer>
         <template #modal-title>
           {{ $t("singleProduct.bidRequest") }}
@@ -376,6 +380,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get searchResult
+     */
     async searchResult() {
       this.loading = true;
       let data = {
@@ -399,6 +407,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used to add product To Cart
+     */
     addToCartAgain(myProduct) {
       let data = {
         product_supplier_id:
@@ -431,11 +443,19 @@ export default {
           }, 500);
         });
     },
+    /**
+     * @vuese
+     * this function used to Change Quantity
+     */
     ChangeQ(myQuantity) {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
       }
     },
+    /**
+     * @vuese
+     * this function used to login First when want rfq
+     */
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
@@ -447,9 +467,17 @@ export default {
         this.$router.push("/user-register");
       });
     },
+    /**
+     * @vuese
+     * this function used to select product to store to sure who product changed
+     */
     chooseProduct(product) {
       this.selectedProduct = product;
     },
+     /**
+     * @vuese
+     * this function used to request Quotation
+     */
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,

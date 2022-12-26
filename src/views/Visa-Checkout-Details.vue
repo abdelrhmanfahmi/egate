@@ -1,4 +1,5 @@
 <template>
+  <!-- Visa-Checkout-Details  -->
   <div>
     <div class="wrapper">
       <div class="text-center my-5 py-5">
@@ -7,10 +8,6 @@
       <div class="container">
         <div class="data-holder p-5">
           <ul class="list-data">
-            <!-- <li>
-              {{ $t("payment.orderNumber") }} :
-              <span class="bold-result"> {{order_serial}}</span>
-            </li> -->
             <li>
               {{ $t("payment.orderDate") }} :
               <span class="bold-result">{{orderDate | formatDate}}</span>
@@ -34,6 +31,7 @@
 </template>
 
 <script>
+// Visa-Checkout-Details 
 export default {
   data() {
     return {
@@ -48,6 +46,7 @@ export default {
   },
   mounted(){
     setTimeout(() => {
+      // redirect after 8 seconds 
       window.location.href = this.redirectURL
     }, 8000);
   }

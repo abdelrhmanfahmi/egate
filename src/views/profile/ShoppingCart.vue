@@ -235,7 +235,7 @@ export default {
   methods: {
     /**
      * get Cart Products function
-     * @public this is public function
+     * @vuese
      */
     getCartProducts() {
       this.loading = true;
@@ -246,7 +246,7 @@ export default {
     },
      /**
      * remove From Cart function
-     * @public this is public function
+     * @vuese
      */
     removeFromCart(product) {
       this.$store.dispatch("cart/removeProductFromCart", {
@@ -263,7 +263,7 @@ export default {
     },
     /**
      * Change Quantity function
-     * @public this is public function
+     * @vuese
      */
     ChangeQ(myQuantity) {
       this.myQuantity = myQuantity;

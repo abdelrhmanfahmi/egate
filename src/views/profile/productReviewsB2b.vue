@@ -127,7 +127,7 @@ export default {
   methods: {
     /**
      * post ProductRate function
-     * @public this is public function
+     * @vuese
      */
     postProductRate(data) {
       let requestData = {
@@ -150,7 +150,7 @@ export default {
     },
     /**
      * get Product Rate function
-     * @public this is public function
+     * @vuese
      */
     getProductRate() {
       profile
@@ -165,7 +165,7 @@ export default {
     },
     /**
      * Change Rate Value function
-     * @public this is public function
+     * @vuese
      */
     ChangeRateValue(myRate) {
       this.myRate = myRate;

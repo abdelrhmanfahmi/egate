@@ -77,7 +77,6 @@
 
 <script>
 // Checkout-bank-details page
-// @group Checkout-bank-details
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
 export default {

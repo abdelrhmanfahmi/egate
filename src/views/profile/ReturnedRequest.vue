@@ -300,7 +300,7 @@ export default {
   methods: {
     /**
      * returned Single Orders function
-     * @public this is public function
+     * @vuese
      */
     returnedSingleOrders() {
       // check if b2b or b2c or supplier 
@@ -343,7 +343,7 @@ export default {
 
     /**
      * download Image function
-     * @public this is public function
+     * @vuese
      */
 
     downloadImage(url, extension, label) {

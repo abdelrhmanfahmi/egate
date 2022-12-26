@@ -8,25 +8,31 @@
             <th>{{ $t("singleProduct.supplierName") }}</th>
             <td>
               <router-link :to="`/suppliers/${myProduct.client_id}`">
-                {{myProduct.client.company_name}}
+                {{ myProduct.client.company_name }}
               </router-link>
             </td>
           </tr>
-          <tr v-if="myProduct.country ">
+          <tr v-if="myProduct.country">
             <th>{{ $t("singleProduct.country") }}</th>
-            <td >{{ myProduct.country.title }}</td>
+            <td>{{ myProduct.country.title }}</td>
           </tr>
-          <tr v-if="myProduct.delivery_time !== null ">
+          <tr v-if="myProduct.delivery_time !== null">
             <th>{{ $t("singleProduct.deliveryTime") }}</th>
-            <td v-if="myProduct.delivery_time.title">{{ myProduct.delivery_time.title }}</td>
+            <td v-if="myProduct.delivery_time.title">
+              {{ myProduct.delivery_time.title }}
+            </td>
           </tr>
           <tr v-if="myProduct.warranty !== null">
             <th>{{ $t("singleProduct.warantyType") }}</th>
             <td>{{ myProduct.warranty.title }}</td>
           </tr>
-          <tr v-if="myProduct.product_details_by_type.min_order_quantity !== null">
+          <tr
+            v-if="myProduct.product_details_by_type.min_order_quantity !== null"
+          >
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
-            <td>{{ myProduct.product_details_by_type.min_order_quantity.title }}</td>
+            <td>
+              {{ myProduct.product_details_by_type.min_order_quantity.title }}
+            </td>
           </tr>
           <tr v-if="myProduct.return_time !== null">
             <th>{{ $t("singleProduct.return_time") }}</th>
@@ -46,10 +52,13 @@ export default {
   data() {
     return { count: 0 };
   },
-  /**
-      *  pass product data as prop
-    */
-  props:['myProduct']
+  props: {
+    // selected Product prop
+    myProduct: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -215,10 +215,7 @@
 </template>
 
 <script>
-/**
- *  user addresses page
- * @displayName  user addresses page
- */
+// user addresses page 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 
@@ -292,7 +289,7 @@ export default {
   methods: {
     /**
      * get All Adresses function
-     * @public This is a public 
+     * @vuese 
      */
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
@@ -304,7 +301,7 @@ export default {
 
     /**
      * get All Countires function
-     * @public This is a public 
+     * @vuese 
      */
     getAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -315,7 +312,7 @@ export default {
 
     /**
      * get All Regions function
-     * @public This is a public 
+     * @vuese 
      */
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
@@ -328,7 +325,7 @@ export default {
 
     /**
      * get All Cities function
-     * @public This is a public 
+     * @vuese 
      */
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
@@ -341,7 +338,7 @@ export default {
 
     /**
      * create Address function
-     * @public This is a public 
+     * @vuese 
      */
     createAdress() {
       (this.form.is_sale_point = false),
@@ -370,7 +367,7 @@ export default {
     // deleteAdress
     /**
      * delete Address function
-     * @public This is a public 
+     * @vuese 
      */
 
     deleteAdress(row) {
@@ -387,7 +384,7 @@ export default {
     },
     /**
      * edit Address function
-     * @public This is a public 
+     * @vuese 
      */
 
     editAdress(row) {
@@ -410,7 +407,7 @@ export default {
 
     /**
      * make Default Address function
-     * @public This is a public 
+     * @vuese 
      */
 
     makeDefaultAddress(row) {

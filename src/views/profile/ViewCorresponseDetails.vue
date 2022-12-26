@@ -127,7 +127,7 @@ export default {
   methods: {
     /**
      * supplier single Correspondence function
-     * @public this is public function
+     * @vuese
      */
     suppliersingleCorrespondence() {
       profile
@@ -145,7 +145,7 @@ export default {
     },
     /**
      * send Supplier Message function
-     * @public this is public function
+     * @vuese
      */
     sendSupplierMessage() {
       let data = {

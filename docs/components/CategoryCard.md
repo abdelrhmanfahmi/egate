@@ -5,8 +5,8 @@
 <!-- @vuese:CategoryCard:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|card|-|`Object`|`false`|{}|
-|image|-|`String`|`false`|-|
+|card|card prop|`Object`|`true`|{}|
+|image|image prop|`String`|`true`|-|
 
 <!-- @vuese:CategoryCard:props:end -->
 

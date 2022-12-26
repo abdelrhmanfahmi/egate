@@ -1,4 +1,5 @@
 <template>
+  <!-- suppliers page  -->
   <div class="suppliers-body">
     <div
       class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
@@ -34,25 +35,15 @@
             <SingleSupplier :supplier="supplier"></SingleSupplier>
           </div>
         </div>
-        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
-
         <div
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
-          <!-- <b-pagination
-            v-model="currentPage"
-            pills
-            :total-rows="total"
-            :per-page="perPage"
-            size="lg"
-          ></b-pagination> -->
           <Paginate
             v-if="suppliers"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
             @pagechanged="onPageChange"
-            
           />
         </div>
       </div>
@@ -60,12 +51,10 @@
   </div>
 </template>
 <script>
+// suppliers page
 import SingleSupplier from "@/components/pages/suppliers/SingleSupplier.vue";
 import suppliers from "@/services/suppliers";
-// import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";
-// import { baseURL } from "@/apis/Api";
-// import axios from "axios";
 export default {
   components: {
     SingleSupplier,
@@ -83,9 +72,6 @@ export default {
           href: "#",
           active: true,
         },
-        // {
-        //   text: this.$t("supplier.company"),
-        // },
       ],
       suppliers: null,
       loading: false,
@@ -101,14 +87,21 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used get Suppliers
+     */
     getSuppliers() {
       this.loading = true;
-      suppliers.getSuppliers(this.page)
+      suppliers
+        .getSuppliers(this.page)
         .then((resp) => {
           console.log(resp);
           this.suppliers = resp.data.items.data;
           this.total = resp.data.items.total;
-          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page) // Calculate total records
+          this.totalPages = Math.ceil(
+            resp.data.items.total / resp.data.items.per_page
+          ); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
         })
@@ -119,13 +112,27 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onPageChange(page) {
       this.page = page;
       this.getSuppliers();
     },
+
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onChangeRecordsPerPage() {
       this.getSuppliers();
     },
+
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);

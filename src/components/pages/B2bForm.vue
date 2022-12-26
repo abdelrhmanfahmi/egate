@@ -197,6 +197,7 @@
   </section>
 </template>
 <script>
+// buyer or b2b register form 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 export default {
@@ -266,12 +267,14 @@ export default {
   },
   methods: {
     /**
+     * @vuese
       *  change type to show password
     */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     /**
+     * @vuese
       *  get All Countires
     */
     getAllCountires() {
@@ -285,6 +288,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  register function
     */
     register() {
@@ -305,6 +309,7 @@ export default {
         });
     },
     /**
+     * @vuese
       *  get Terms
     */
     getTerms() {
@@ -313,12 +318,14 @@ export default {
       });
     },
     /**
+     * @vuese
       *  accept MyTerms
     */
     acceptMyTerms() {
       this.terms = true;
     },
     /**
+     * @vuese
       *  contactUs Phone
     */
     contactUsPhone() {

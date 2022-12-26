@@ -1,16 +1,16 @@
 <template>
+  <!-- app page that contain all pages  -->
   <div id="app">
+    <!-- import main layout that hold all pages  -->
     <MainLayout />
   </div>
 </template>
 
 <script>
 /**
- * The only true button.
- * @displayName Best Button
+ * app page .
  */
 
-// @ is an alias to /src
 import MainLayout from "@/layouts/MainLayout.vue";
 import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
@@ -42,6 +42,10 @@ export default {
     MainLayout,
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to check if theres user or guest 
+     */
     checkGuest() {
       globalAxios
         .post(`guest/generate-token`)
@@ -63,6 +67,10 @@ export default {
       //   (error) => Promise.reject(error)
       // );
     },
+     /**
+     * @vuese
+     * this function used to check Cart Validity (cart ,  rfq available or not )
+     */
     checkCartValidity() {
       auth
         .checkCartValidity()

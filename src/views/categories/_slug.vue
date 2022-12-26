@@ -187,8 +187,8 @@ export default {
   },
   computed: {
     /**
+     * @vuese
      * filterProductsByCategory function
-     * @public This is a public 
      */
     filterProductsByCategory: function () {
       return this.products.filter(
@@ -201,8 +201,8 @@ export default {
   },
   methods: {
     /**
+     * @vuese
      * get SubCategories function
-     * @public This is a public 
      */
     async getSubCategories() {
       let data = {
@@ -245,8 +245,8 @@ export default {
         });
     },
     /**
+     * @vuese
      * get All SubCategories function
-     * @public This is a public 
      */
     async getAllSubCategories() {
       await categories
@@ -264,8 +264,8 @@ export default {
         });
     },
     /**
+     * @vuese
      * get page Cover function
-     * @public This is a public 
      */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
@@ -274,15 +274,15 @@ export default {
       });
     },
     /**
+     * @vuese
      * search function to get sub-categories
-     * @public This is a public 
      */
     search() {
       this.getSubCategories();
     },
     /**
-     * selectTab function
-     * @public This is a public 
+     * @vuese
+     * selectTab function 
      */
     selectTab(item) {
       let query = {};
@@ -324,8 +324,8 @@ export default {
     },
 
     /**
+     * @vuese
      * set default tab  function
-     * @public This is a public 
      */
     selectDefaultTab() {
       let query = {};

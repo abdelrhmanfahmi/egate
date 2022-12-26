@@ -166,6 +166,7 @@ export default {
   },
   methods: {
     /**
+     * @vuese
       *  contact us method  ( send data to backend)
     */
     contactUs() {
@@ -185,6 +186,7 @@ export default {
     },
     contactUsMap() {
       /**
+       * @vuese
       *  contact us map  
     */
       profile
@@ -199,6 +201,7 @@ export default {
     },
     contactUsPhone() {
       /**
+       * @vuese
       *  contact us phone  
     */
       profile
@@ -213,6 +216,7 @@ export default {
     },
     contactUsEmail() {
       /**
+       * @vuese
       *  contact us email  
     */
       profile
@@ -227,6 +231,7 @@ export default {
     },
     contactUsAddress() {
       /**
+       * @vuese
       *  contact us address  
     */
       profile

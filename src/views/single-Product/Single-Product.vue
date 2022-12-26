@@ -159,7 +159,7 @@ export default {
   methods: {
     /**
      * product Details function
-     * @public this is public function
+     * @vuese
      */
     productDetails() {
       this.loading = true;
@@ -183,7 +183,7 @@ export default {
     },
     /**
      * get Supplier Products function
-     * @public this is public function
+     * @vuese
      */
     getSupplierProducts() {
       // console.log("this.supplierProductsId", this.supplierProductsId);

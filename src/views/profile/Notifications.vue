@@ -128,7 +128,7 @@ export default {
   methods: {
     /**
      * get Notificatinos function
-     * @public this is public function
+     * @vuese
      */
     getNotificatinos() {
       profile
@@ -151,7 +151,7 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onPageChange(page) {
       this.page = page;
@@ -159,14 +159,14 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onChangeRecordsPerPage() {
       this.getNotificatinos();
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
@@ -176,7 +176,7 @@ export default {
     },
     /**
      * read Notification function
-     * @public this is public function
+     * @vuese
      */
     readNotification(notification) {
       console.log(notification);
@@ -195,7 +195,7 @@ export default {
     },
     /**
      * go to Notification Page function
-     * @public this is public function
+     * @vuese
      */
     goNotificationPage(notification) {
       if (notification.type === "return_item") {
@@ -230,7 +230,7 @@ export default {
     },
     /**
      * read All Notifications function
-     * @public this is public function
+     * @vuese
      */
     readAllNotifications() {
       profile

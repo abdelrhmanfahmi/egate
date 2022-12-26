@@ -42,18 +42,22 @@ export default {
     };
   },
   /**
-    * props
-  */
+   * props
+   */
   props: {
+    // quantity prop
     quantity: {
       type: Number,
       required: true,
       default: 0,
     },
     product: {
+      // product prop
       type: Object,
+      required: true,
     },
     minimum: {
+      // minimum prop
       type: Number,
       required: false,
       default: 1,
@@ -61,11 +65,15 @@ export default {
   },
   mounted() {
     /**
-    * set countValue = quantity
-  */
+     * set countValue = quantity
+     */
     this.countValue = this.quantity;
   },
   methods: {
+    /**
+     * @vuese
+     * this function user for increment Quantity
+     */
     incrementQuantity() {
       this.countValue += 1;
 
@@ -83,6 +91,10 @@ export default {
         this.$emit("changeTitle", this.countValue);
       }, 500);
     },
+    /**
+     * @vuese
+     * this function user for decrement Quantity
+     */
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
 
@@ -102,8 +114,9 @@ export default {
       }, 500);
     },
     /**
-    * custom increament for input 
-  */
+     * @vuese
+     * custom increament for input
+     */
     CustomIncrementQuantity() {
       setTimeout(() => {
         if (this.countValue > 0) {
@@ -136,6 +149,10 @@ export default {
         }
       }, 500);
     },
+    /**
+     * @vuese
+     * this function user for delay Change
+     */
     delayChange() {
       let timeout = null;
       clearTimeout(timeout);

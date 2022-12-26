@@ -77,44 +77,9 @@
               </nav>
             </div>
             <div class="col-md-3 col-sm-12 mb-2">
-              <!-- <div class="footer-link-wrap">
-                <div class="pay-method-img">
-                  <img src="@/assets/images/payment.png" alt="image" />
-                </div>
-              </div> -->
               <div
                 class="footer-social d-flex justify-content-center align-items-center"
               >
-                <!-- <ul>
-                  <li>
-                    <router-link to=""><i class=""></i></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/f.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/t.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/y.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/i.png" alt=""
-                    /></router-link>
-                  </li>
-                  <li>
-                    <router-link to=""
-                      ><img src="@/assets/images/l.png" alt=""
-                    /></router-link>
-                  </li>
-                </ul> -->
                 <div v-for="(link, index) in links" :key="index">
                   <ul>
                     <li v-if="link.key === 'facebook'">
@@ -173,11 +138,6 @@
         </div>
         <div class="copyright-wrap">
           <div class="row justify-content-center align-items-center">
-            <!-- <div class="col-lg-8" style="">
-              <div class="pay-method-img">
-                <img src="@/assets/images/payment.png" alt="image" />
-              </div>
-            </div> -->
             <div class="col-12 text-center w-100">
               <div class="copyright-text">
                 <div v-for="(link, index) in links" :key="index">
@@ -221,6 +181,7 @@
 </template>
 
 <script>
+// footer component
 import profile from "@/services/profile";
 import { version } from "../../../package";
 import ChatUs from "@/components/global/Chat.vue";
@@ -241,9 +202,10 @@ export default {
     };
   },
   methods: {
-     /**
-    * get footer links
-  */
+    /**
+     * @vuese
+     * get footer links
+     */
     footerLinks() {
       profile
         .footerLinks()

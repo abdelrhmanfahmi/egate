@@ -72,8 +72,8 @@ export default {
   },
   methods: {
     /**
-     * emailVerify function
-     * @public This is a public 
+     * @vuese
+     * emailVerify function 
      */
     emailVerify() {
       if (this.$route.query.uuid) {
@@ -95,8 +95,8 @@ export default {
       }
     },
     /**
+     * @vuese
      * otpVerification function
-     * @public This is a public 
      */
     otpVerification() {
       auth
@@ -111,8 +111,8 @@ export default {
         });
     },
     /**
-     * resendCode function
-     * @public This is a public 
+     * @vuese
+     * resendCode function 
      */
     resendCode() {
       auth
@@ -127,8 +127,8 @@ export default {
     },
 
     /**
+     * @vuese
      * emailChangingVerify function
-     * @public This is a public 
      */
     emailChangingVerify() {
       if (this.$route.query.uuid) {
@@ -150,8 +150,8 @@ export default {
       }
     },
     /**
+     * @vuese
      * otpChangingVerification function
-     * @public This is a public 
      */
     otpChangingVerification() {
       auth
