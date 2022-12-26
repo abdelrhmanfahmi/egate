@@ -115,7 +115,6 @@ export default {
         path: "/details",
         query: { id: product },
       });
-      window.location.reload();
     },
   },
 };

@@ -339,7 +339,7 @@ export default {
     userBades: {
       // userBades prop
       type: Object,
-      required: true,
+      required: false,
     },
   },
 };
