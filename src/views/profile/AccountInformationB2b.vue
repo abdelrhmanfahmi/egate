@@ -94,9 +94,8 @@
           <b-form-group>
             <label for="country"
               >{{ $t("profile.defaultCountry") }} :
-              {{ userStoredData.title }}</label
+              {{ buyerUserData.country_name }}</label
             >
-
             <b-form-select
               v-model="form.country_id"
               
@@ -125,14 +124,14 @@
         <b-col lg="4">
           <b-form-group>
             <label for="country"
-              >{{ $t("profile.currency") }} : {{ currency }}
+              >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
             </label>
             <b-form-select
               v-model="form.currency_id"
               
             >
-              <b-form-select-option value="null" disabled
-                >{{ $t("profile.currency") }}
+              <b-form-select-option value="null" disabled selected
+                >{{ $t("profile.currency") }} ({{ buyerUserData.currency_name }})
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option
@@ -401,10 +400,7 @@
 </template>
 
 <script>
-/**
- *  b2b user  account information page
- * @displayName  b2b user  account information page
- */
+// b2b user  account information page 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 import checkMailModal from "@/components/ChangeprofileReply.vue";
@@ -440,13 +436,13 @@ export default {
   mounted() {
     /**
      * get AllCountires  function
-     * @public This is a public 
+     * @vuese 
      */
     this.getAllCountires();
 
     /**
      * spread user data function ,  that comes from backend
-     * @public This is a public 
+     * @vuese 
      */
 
     this.form = { ...this.buyerUserData };
@@ -463,7 +459,7 @@ export default {
 
     /**
      * check if country exist function  , else reload page
-     * @public This is a public 
+     * @vuese 
      */
 
     if (!this.buyerUserData.country_id) {
@@ -472,7 +468,7 @@ export default {
 
     /**
      * prepare callback_url to send it to backend with request
-     * @public This is a public 
+     * @vuese 
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
@@ -490,7 +486,7 @@ export default {
     },
      /**
      * Update Profile function
-     * @public This is a public 
+     * @vuese 
      */
     updateProfile() {
       const payload = {
@@ -525,7 +521,7 @@ export default {
 
     /**
      * reload Page function
-     * @public This is a public 
+     * @vuese 
      */
     reloadPage() {
       if (localStorage.getItem("reloaded")) {
@@ -542,14 +538,14 @@ export default {
     },
     /**
      * show Email Modal function
-     * @public This is a public 
+     * @vuese 
      */
     showEmailModal() {
       this.$refs["email-modal"].show();
     },
     /**
      * hide Email Modal function
-     * @public This is a public 
+     * @vuese 
      */
     hideEmailModal() {
       this.$refs["email-modal"].hide();
@@ -557,14 +553,14 @@ export default {
     },
     /**
      * show Phone Modal function
-     * @public This is a public 
+     * @vuese 
      */
     showPhoneModal() {
       this.$refs["phone-modal"].show();
     },
     /**
      * hide Phone Modal function
-     * @public This is a public 
+     * @vuese 
      */
     hidePhoneModal() {
       this.$refs["phone-modal"].hide();
@@ -572,14 +568,14 @@ export default {
     },
     /**
      * show Check Modal function
-     * @public This is a public 
+     * @vuese 
      */
     showCheckModal() {
       this.$refs["check-modal"].show();
     },
      /**
      * hide Check Modal function
-     * @public This is a public 
+     * @vuese 
      */
     hideCheckModal() {
       this.$refs["check-modal"].hide();
@@ -587,7 +583,7 @@ export default {
     },
     /**
      * go To Verify function to send data to backend to verify new changes
-     * @public This is a public 
+     * @vuese 
      */
     goToVerify() {
       let data = {
@@ -628,7 +624,7 @@ export default {
   computed: {
     /**
      * userStoredData
-     * @public This is a public 
+     * @vuese 
      */
     userStoredData() {
       return JSON.parse(localStorage.getItem("country"));

@@ -5,9 +5,9 @@
 <!-- @vuese:Counter:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|quantity|-|`Number`|`true`|0|
-|product|-|`Object`|`false`|-|
-|minimum|-|`Number`|`false`|1|
+|quantity|quantity prop|`Number`|`true`|0|
+|product|-|product prop|`true`|-|
+|minimum|-|minimum prop|`false`|1|
 
 <!-- @vuese:Counter:props:end -->
 
@@ -30,5 +30,18 @@
 |main|@slot Use this slot header|<span class="product-counter-number"> {{ countValue }}</span>|
 
 <!-- @vuese:Counter:slots:end -->
+
+
+## Methods
+
+<!-- @vuese:Counter:methods:start -->
+|Method|Description|Parameters|
+|---|---|---|
+|incrementQuantity|this function user for increment Quantity|-|
+|decrementQuantity|this function user for decrement Quantity|-|
+|CustomIncrementQuantity|custom increament for input|-|
+|delayChange|this function user for delay Change|-|
+
+<!-- @vuese:Counter:methods:end -->
 
 

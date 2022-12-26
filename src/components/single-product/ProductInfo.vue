@@ -129,9 +129,17 @@ export default {
     ProductDescription,
   },
   /**
-        *  pass product data as prop
-     */
-  props: ["myProduct"],
+   * @vuese
+   *  pass product data as prop
+   */
+
+   props: {
+    // selected Product prop
+    myProduct: {
+      type: Object,
+      required: true,
+    },
+  },
 
   data() {
     return {
@@ -155,6 +163,10 @@ export default {
     };
   },
   computed: {
+    /**
+     * @vuese
+     *  get url to share socially
+     */
     url() {
       return this.mainDoamin + `details?id=${this.id}`;
     },

@@ -5,7 +5,7 @@
 <!-- @vuese:Chat:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|whatsapp|-|—|`false`|-|
+|whatsapp|whatsapp prop|`Object`|`false`|-|
 
 <!-- @vuese:Chat:props:end -->
 

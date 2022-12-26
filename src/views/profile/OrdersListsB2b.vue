@@ -276,7 +276,7 @@ export default {
   methods: {
     /**
      * get Orders function
-     * @public this is public function
+     * @vuese
      */
     getOrders() {
       profile
@@ -298,7 +298,7 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onPageChange(page) {
       this.page = page;
@@ -306,14 +306,14 @@ export default {
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     onChangeRecordsPerPage() {
       this.getOrders();
     },
     /**
      * function for pagination
-     * @public this is public function
+     * @vuese
      */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
@@ -324,7 +324,7 @@ export default {
 
     /**
      * repay function
-     * @public this is public function
+     * @vuese
      */
 
     rePay() {
@@ -366,7 +366,7 @@ export default {
 
     /**
      * save product UUID for repay function
-     * @public this is public function
+     * @vuese
      */
 
     saveUUID(order) {

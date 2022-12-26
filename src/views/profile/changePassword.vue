@@ -135,7 +135,7 @@ export default {
   methods: {
     /**
      * change Password function
-     * @public This is a public 
+     * @vuese 
      */
     changePassword() {
       auth
@@ -154,14 +154,14 @@ export default {
     },
     /**
      * switch Field function to show password
-     * @public This is a public 
+     * @vuese 
      */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     /**
      * switch FieldNew function 
-     * @public This is a public 
+     * @vuese 
      */
     switchFieldNew() {
       this.fieldTypeNew =
@@ -169,7 +169,7 @@ export default {
     },
      /**
      * switch Field Confirm function 
-     * @public This is a public 
+     * @vuese 
      */
     switchFieldConfirm() {
       this.fieldTypeConfirm =
@@ -180,7 +180,7 @@ export default {
     let profileData = this.buyerUserData;
     /**
      * if profile Data not exist redirect to login page
-     * @public This is a public 
+     * @vuese 
      */
     if (!profileData) {
       this.$router.push("/b2b-login");

@@ -21,10 +21,12 @@ export default {
   },
   methods: {
     /**
-      * change rate value
+     * @vuese
+      * change rate value function
     */
     changevalue(rateValue) {
       this.rateValue = rateValue;
+      // change rate value 
       this.$emit('changeRate',rateValue)
     },
 

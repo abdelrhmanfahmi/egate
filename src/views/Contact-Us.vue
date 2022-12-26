@@ -1,6 +1,8 @@
 <template>
+  <!-- contact us page  -->
   <div class="contactUs">
     <div class="header">{{ $t("contactUs.contactUs") }}</div>
+    <!-- contact us component  -->
     <ContactUs></ContactUs>
   </div>
 </template>
@@ -9,9 +11,6 @@ import ContactUs from "@/components/pages/contactUs/ContactUs.vue";
 export default {
   components: {
     ContactUs,
-  },
-  data() {
-    return { count: 0 };
   },
 };
 </script>

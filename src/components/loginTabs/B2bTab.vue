@@ -84,6 +84,10 @@ export default {
     };
   },
   methods: {
+    //  /**
+    //  * @vuese
+    //  * login function
+    //  */
     login() {
       localStorage.clear();
 
@@ -127,7 +131,10 @@ export default {
           this.errMsg(err.message);
         });
     },
-    //
+    //  /**
+    //  * @vuese
+    //  * switchField function to show password
+    //  */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },

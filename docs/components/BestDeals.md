@@ -20,8 +20,16 @@
 <!-- @vuese:BestDeals:events:end -->
 
 
- favorite Data function|-|
+## Methods
 
-<!-- @vuese:bestDeals:methods:end -->
+<!-- @vuese:BestDeals:methods:start -->
+|Method|Description|Parameters|
+|---|---|---|
+|addToWishlist|add product To Wishlist|-|
+|goProduct|go to product page|-|
+|goPage2|go to product page by supplier|-|
+|changevalue|change value function|-|
+
+<!-- @vuese:BestDeals:methods:end -->
 
 

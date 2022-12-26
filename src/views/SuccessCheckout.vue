@@ -1,4 +1,5 @@
 <template>
+  <!-- success checkout page  -->
   <div>
     <div class="container">
       <div class="card success">
@@ -24,7 +25,6 @@
 
         <b-button
           variant="outline-success mt-4 text-capitalize"
-         
           id="show-btn"
           class="mx-2"
           @click="loginFirst"
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+// success checkout page
+// this page if user is a guest  , not logged in
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
@@ -51,6 +53,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to check order Complete
+     */
     checkComplete() {
       let data = {
         order_uuid: this.$route.query.order_uuid,
@@ -72,6 +78,10 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used to login First if user want to track his order
+     */
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),

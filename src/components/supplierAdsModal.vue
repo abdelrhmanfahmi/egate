@@ -41,6 +41,7 @@ export default {
       this.$emit("close");
     },
      /**
+      * @vuese
       *   check when page loaded
     */
     loadingPercent(val) {
@@ -58,6 +59,7 @@ export default {
   methods: {
     ...mapMutations("demo", { hideNewsletter: "HIDE_NEWSLETTER" }),
     /**
+     * @vuese
       *  close modal
     */
     closeModal: function () {
@@ -65,6 +67,7 @@ export default {
       this.postSupplierShowenAd();
     },
     /**
+     * @vuese
       *   send supplier wa shown the add to backend
     */
     postSupplierShowenAd() {
@@ -81,12 +84,14 @@ export default {
         });
     },
     /**
+     * @vuese
       *   check when image loaded
     */
     onImgLoad() {
       return (this.isLoaded = true);
     },
     /**
+     * @vuese
       *   check when page loaded
     */
     doProgress() {

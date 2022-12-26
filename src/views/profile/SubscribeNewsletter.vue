@@ -61,7 +61,7 @@ export default {
   methods: {
     /**
      * get Subscriptions function
-     * @public this is public function
+     * @vuese
      */
     getSubscriptions() {
       profile.getSubscriptions().then((res) => {
@@ -71,7 +71,7 @@ export default {
     },
     /**
      * make Subscribe function
-     * @public this is public function
+     * @vuese
      */
     makeSubscribe() {
       profile
@@ -89,7 +89,7 @@ export default {
     },
     /**
      * cancel Subscribe function
-     * @public this is public function
+     * @vuese
      */
 
     cancelSubscribe() {

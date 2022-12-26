@@ -54,10 +54,7 @@
 </template>
 
 <script>
-/**
- *  gift cards b2b page
- * @displayName  gift cards b2b page
- */
+//  gift cards b2b page 
 import profile from "@/services/profile";
 export default {
   data() {
@@ -88,7 +85,7 @@ export default {
   methods: {
     /**
      * check Profile coupon function 
-     * @public this is public function
+     * @vuese
      */
     checkProfilecoupon() {
       profile

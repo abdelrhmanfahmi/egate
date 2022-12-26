@@ -14,17 +14,21 @@
 <script>
 export default {
   /**
-    * props
-  */
+   * props
+   */
   props: {
+    //card prop
     card: {
       type: Object,
+      required: true,
       default: () => {
         return {};
       },
     },
+    // image prop
     image: {
       type: String,
+      required: true,
     },
   },
   data() {
@@ -66,10 +70,10 @@ export default {
     background-size: cover;
     width: 100%;
     opacity: 1;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-      opacity: .5;
+      opacity: 0.5;
     }
   }
 
@@ -78,7 +82,7 @@ export default {
     font-size: 19px;
     background: #ed2124;
 
-    @media(min-width:767px) and (max-width:1450px) {
+    @media (min-width: 767px) and (max-width: 1450px) {
       font-size: 14px;
     }
   }

@@ -1,6 +1,8 @@
 <template>
+  <!-- complete checkout page  -->
   <div>
     <div class="container">
+      <!-- fi order completed successfully  -->
       <div class="card success" v-if="success">
         <div
           style="
@@ -21,12 +23,16 @@
           <br />
           {{ $t("payment.waitPurchace2") }}
         </p>
-        <router-link :to="{path:'viewOrderDetails' , query:{id:orderId}}" v-if="buyerUserData">
+        <router-link
+          :to="{ path: 'viewOrderDetails', query: { id: orderId } }"
+          v-if="buyerUserData"
+        >
           <b-button variant="outline-success mt-4">
             {{ $t("payment.orderTrack") }}
           </b-button>
         </router-link>
       </div>
+      <!-- if order fail  -->
       <div class="card fail" v-if="fail">
         <div
           style="
@@ -48,37 +54,32 @@
           <p>
             {{ $t("payment.fail1") }}
           </p>
-           <p>
-             {{ failReason }}
-           </p>
+          <p>
+            {{ failReason }}
+          </p>
         </h1>
-        <!-- <p>
-          {{ $t("payment.waitPurchace1") }}
-          <br />
-          {{ $t("payment.waitPurchace2") }}
-        </p> -->
-        <!-- <router-link to="">
-          <b-button variant="outline-success mt-4">
-            {{ $t("payment.orderTrack") }}
-          </b-button>
-        </router-link> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// complete checkout page
 import auth from "@/services/auth";
 export default {
   data() {
     return {
       success: false,
       fail: false,
-      failReason:null,
-      orderId:null
+      failReason: null,
+      orderId: null,
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to check if order Completed or not
+     */
     checkComplete() {
       let data = {
         order_uuid: this.$route.query.order_uuid,
@@ -87,16 +88,16 @@ export default {
       auth
         .checkoutComplete(data)
         .then((res) => {
-          this.orderId = res.data.items.order_id
-          if (res.data.items.status === 'CAPTURED') {
+          this.orderId = res.data.items.order_id;
+          if (res.data.items.status === "CAPTURED") {
             this.success = true;
             this.fail = false;
           } else {
-            this.failReason = res.data.items.status_lang
+            this.failReason = res.data.items.status_lang;
             this.success = false;
             this.fail = true;
           }
-          this.$store.dispatch("cart/getCartProducts")
+          this.$store.dispatch("cart/getCartProducts");
         })
         .catch((err) => {
           console.log(err);

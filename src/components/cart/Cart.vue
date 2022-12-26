@@ -80,17 +80,30 @@ export default {
   },
   computed: {
     /**
-     * cart products , length from store.
+     * @vuese
+     * this function used to get cartItems
      */
     cartItems() {
       return this.$store.state.cart.cartItems;
     },
+    /**
+     * @vuese
+     * this function used to get cart_sub_total
+     */
     cart_sub_total() {
       return this.$store.state.cart.cart_sub_total;
     },
+    /**
+     * @vuese
+     * this function used to get cart Items Length
+     */
     cartItemsLength() {
       return this.cartItems.length;
     },
+    /**
+     * @vuese
+     * this function used to switch class according to length
+     */
     classObject() {
       return {
         "small-cart": this.cartItemsLength && this.cartItemsLength <= 2,

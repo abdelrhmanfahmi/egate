@@ -3,7 +3,7 @@
   <div class="specs">
     <div class="content">
       <h5 class="header d-inline-block font-weight-bold mb-3">
-        {{ $t("singleProduct.ratingHeader") }} ({{reviewsLength}}):
+        {{ $t("singleProduct.ratingHeader") }} ({{ reviewsLength }}):
       </h5>
       <div class="product-rate">
         <div class="my-3" v-if="reviewsLength > 0">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="" v-else>
-          <h6>{{$t('singleProduct.noReviews')}}</h6>
+          <h6>{{ $t("singleProduct.noReviews") }}</h6>
         </div>
       </div>
     </div>
@@ -49,13 +49,22 @@ export default {
     };
   },
   /**
-      *  pass product data as prop
-    */
-  props: ["myProduct"],
+   * @vuese
+   *  pass product data as prop
+   */
+
+  props: {
+    // selected Product prop
+    myProduct: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     /**
-      *  get product reviews
-    */ 
+     * @vuese
+     *  get product reviews
+     */
     getProductReview() {
       suppliers
         .getProductReview(this.id)

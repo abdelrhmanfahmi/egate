@@ -115,8 +115,8 @@ export default {
   },
   async created() {
     /**
+     * @vuese
      * sociall login
-     * @public This is a public 
     */
     await this.makeLoginSocail();
     if (this.userInfo.item.email && this.userInfo.item.mobile_number) {
@@ -126,8 +126,8 @@ export default {
   },
   methods: {
     /**
+     * @vuese
      * get all countries function
-     * @public This is a public 
     */
     getAllCountires() {
       auth
@@ -140,8 +140,8 @@ export default {
         });
     },
     /**
+     * @vuese
      * make Login Socail function
-     * @public This is a public 
     */
     makeLoginSocail() {
       if (this.$route.query.code) {
@@ -162,8 +162,8 @@ export default {
       }
     },
     /**
+     * @vuese
      * complete Profile function
-     * @public This is a public 
     */
     completeProfile() {
       auth

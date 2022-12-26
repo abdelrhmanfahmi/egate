@@ -1,4 +1,5 @@
 <template>
+  <!-- saerch page  -->
   <div>
     <div class="container">
       <div class="text-center my-5">
@@ -6,27 +7,50 @@
           {{ $t("profile.searchResult") }}
         </h1>
       </div>
+      <!-- hf search return products  -->
       <div class="" v-if="productsLength > 0">
+        <!-- if loading   -->
         <b-row v-if="loading">
           <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
-              <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
-              <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="60%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="85%"
+                class="border-none"
+              ></b-skeleton>
             </b-card>
           </b-col>
         </b-row>
+        <!-- when data comes  -->
         <div class="" v-else>
           <div class="products mt-5 px-5">
             <div class="row">
-              <div :title="product.title" v-for="product in products" :key="product.id"
-                class="custum-padding mb-3 col-md-3 col-sm-12">
-                <router-link :to="{ path: '/details', query: { id: product.id } }" v-if="product.id" class="text-dark">
-
+              <!-- list products  -->
+              <div
+                :title="product.title"
+                v-for="product in products"
+                :key="product.id"
+                class="custum-padding mb-3 col-md-3 col-sm-12"
+              >
+                <router-link
+                  :to="{ path: '/details', query: { id: product.id } }"
+                  v-if="product.id"
+                  class="text-dark"
+                >
                   <div class="" v-if="product">
                     <div>
-                      <b-img-lazy v-if="product.product.image_path" :src="product.product.image_path" class="img-fluid"
-                        alt="image"></b-img-lazy>
+                      <b-img-lazy
+                        v-if="product.product.image_path"
+                        :src="product.product.image_path"
+                        class="img-fluid"
+                        alt="image"
+                      ></b-img-lazy>
                     </div>
 
                     <div class="" v-if="product.product">
@@ -34,50 +58,82 @@
                     </div>
                     <div class="" v-if="product.product_details_by_type">
                       <small>
-                        {{ product.product_details_by_type.customer_price }}</small>
-                      <br>
+                        {{
+                          product.product_details_by_type.customer_price
+                        }}</small
+                      >
+                      <br />
                       <small>
-                        {{ product.product_details_by_type.price_before_discount }}</small>
+                        {{
+                          product.product_details_by_type.price_before_discount
+                        }}</small
+                      >
                     </div>
                   </div>
                 </router-link>
-                <div class="row px-3 justify-content-center align-items-center" v-if="
-                  product.product_details_by_type.add_type === 'cart' ||
-                  product.product_details_by_type.add_type === 'both'
-                ">
-                  <div class=" col-lg-6 col-12 my-2" v-if="cartAvailable  == 'available'">
-                    <Counter :minimum="
-                      product.min_order_quantity
-                        ? product.min_order_quantity
-                        : 1
-                    " :quantity="product.quantity" :product="product" class="justify-content-center"
-                      @changeTitle="ChangeQ($event)" />
+                <div
+                  class="row px-3 justify-content-center align-items-center"
+                  v-if="
+                    product.product_details_by_type.add_type === 'cart' ||
+                    product.product_details_by_type.add_type === 'both'
+                  "
+                >
+                  <div
+                    class="col-lg-6 col-12 my-2"
+                    v-if="cartAvailable == 'available'"
+                  >
+                    <Counter
+                      :minimum="
+                        product.min_order_quantity
+                          ? product.min_order_quantity
+                          : 1
+                      "
+                      :quantity="product.quantity"
+                      :product="product"
+                      class="justify-content-center"
+                      @changeTitle="ChangeQ($event)"
+                    />
                   </div>
-                  <div class="col-lg-6 col-12 my-2 ">
-                    <b-button @click="addToCartAgain(product)"
+                  <div class="col-lg-6 col-12 my-2">
+                    <b-button
+                      @click="addToCartAgain(product)"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again"
-                      v-if="cartAvailable  == 'available' &&  
-                        product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
-                        product.product_details_by_type.add_type === 'both'
-                      ">
+                      v-if="
+                        (cartAvailable == 'available' &&
+                          product.product_details_by_type.add_type ===
+                            'cart') ||
+                        (cartAvailable == 'available' &&
+                          product.product_details_by_type.add_type === 'both')
+                      "
+                    >
                       <span>
-                        <font-awesome-icon icon="fa-sharp fa-solid fa-cart-plus" /> <span>{{$t('cart.add')}}</span>
+                        <font-awesome-icon
+                          icon="fa-sharp fa-solid fa-cart-plus"
+                        />
+                        <span>{{ $t("cart.add") }}</span>
                       </span>
                     </b-button>
                   </div>
                   <div class="col-12">
                     <div class="product-actions short-links mb-2">
-                      <button @click="chooseProduct(product)"
+                      <button
+                        @click="chooseProduct(product)"
                         class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                        v-if="RfqAvailable  == 'available' && 
-                          (product.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
-                            product.product_details_by_type.add_type === 'both') &&
+                        v-if="
+                          RfqAvailable == 'available' &&
+                          (product.product_details_by_type.add_type === 'rfq' ||
+                            (RfqAvailable == 'available' &&
+                              product.product_details_by_type.add_type ===
+                                'both')) &&
                           buyerUserData
-                        ">
+                        "
+                      >
                         <div>
-                          <button id="show-btn"
+                          <button
+                            id="show-btn"
                             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                            @click="$bvModal.show('bv-bidRequest')">
+                            @click="$bvModal.show('bv-bidRequest')"
+                          >
                             <!-- <span role="button" @click="loggedBidRequest"> -->
                             <span>
                               <rfqIcon class="mx-2" />
@@ -85,12 +141,18 @@
                           </button>
                         </div>
                       </button>
-                      <button @click="loginFirst(product)"
-                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq" v-else-if=" RfqAvailable  == 'available' && 
-                          (product.product_details_by_type.add_type === 'rfq' || RfqAvailable  == 'available' &&
-                            product.product_details_by_type.add_type === 'both') &&
+                      <button
+                        @click="loginFirst(product)"
+                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
+                        v-else-if="
+                          RfqAvailable == 'available' &&
+                          (product.product_details_by_type.add_type === 'rfq' ||
+                            (RfqAvailable == 'available' &&
+                              product.product_details_by_type.add_type ===
+                                'both')) &&
                           !buyerUserData
-                        ">
+                        "
+                      >
                         <span>
                           <rfqIcon class="mx-2" />
                         </span>
@@ -99,17 +161,25 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
-          <div class="text-center d-flex justify-content-center align-items-center mt-5"
-            v-if="products.length >= perPage">
-            <Paginate v-if="products" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-              @pagechanged="onPageChange" />
+          <div
+            class="text-center d-flex justify-content-center align-items-center mt-5"
+            v-if="products.length >= perPage"
+          >
+            <!-- paginate the result  -->
+            <Paginate
+              v-if="products"
+              :total-pages="totalPages"
+              :per-page="totalPages"
+              :current-page="page"
+              @pagechanged="onPageChange"
+            />
           </div>
         </div>
       </div>
+      <!-- if no products  -->
       <div class="" v-else>
         <div class="text-center my-5">
           <h4>
@@ -117,38 +187,69 @@
           </h4>
         </div>
       </div>
+      <!-- rfq modal  -->
       <b-modal id="bv-bidRequest" hide-footer>
         <template #modal-title>
           {{ $t("singleProduct.bidRequest") }}
         </template>
         <form>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.nameInput") }}
-              <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" v-model="requestData.name" />
-            <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.nameInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              v-model="requestData.name"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.qoute_name"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.min_order_quantity") }}
-              <span class="text-danger">*</span></label>
-            <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
-            <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.min_order_quantity") }}
+              <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              min="1"
+              class="form-control"
+              v-model="requestData.request_qty"
+            />
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.request_qty"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
           <div class="form-group">
-            <label for="">{{ $t("singleProduct.reviewInput") }}
-              <span class="text-danger">*</span></label>
-            <textarea class="form-control" v-model="requestData.comment"></textarea>
-            <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+            <label for=""
+              >{{ $t("singleProduct.reviewInput") }}
+              <span class="text-danger">*</span></label
+            >
+            <textarea
+              class="form-control"
+              v-model="requestData.comment"
+            ></textarea>
+            <div
+              class="text-danger"
+              v-for="(error, index) in errors.comment"
+              :key="index"
+            >
               {{ error }}
             </div>
           </div>
         </form>
         <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-        $t("cart.submit")
+          $t("cart.submit")
         }}</b-button>
       </b-modal>
     </div>
@@ -159,7 +260,7 @@
 import categories from "@/services/categories";
 import Paginate from "@/components/global/Paginate.vue";
 import globalAxios from "@/services/global-axios";
-import Counter from "@/components/global/SearchCounter.vue"
+import Counter from "@/components/global/SearchCounter.vue";
 import rfqIcon from "@/components/global/RfqIcon.vue";
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
@@ -170,6 +271,10 @@ import suppliers from "@/services/suppliers";
 Vue.use(VueSweetalert2);
 export default {
   methods: {
+    /**
+     * @vuese
+     * this function used to get searchResult
+     */
     async searchResult() {
       this.loading = true;
       let data = {
@@ -196,19 +301,35 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onPageChange(page) {
       this.page = page;
       this.searchResult();
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onChangeRecordsPerPage() {
       this.searchResult();
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.searchResult();
       }
     },
+    /**
+     * @vuese
+     * this function used to add product To Cart
+     */
     addToCartAgain(myProduct) {
       let data = {
         product_supplier_id:
@@ -241,11 +362,21 @@ export default {
           }, 500);
         });
     },
+    /**
+     * @vuese
+     * this function used to Change Quantity
+     */
     ChangeQ(myQuantity) {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
       }
     },
+
+    /**
+     * @vuese
+     * this function used to login First when want rfq
+     */
+
     loginFirst() {
       Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
@@ -256,11 +387,18 @@ export default {
       }).then(() => {
         this.$router.push("/user-register");
       });
-
     },
+    /**
+     * @vuese
+     * this function used to select product to store to sure who product changed
+     */
     chooseProduct(product) {
       this.selectedProduct = product;
     },
+    /**
+     * @vuese
+     * this function used to request Quotation
+     */
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
@@ -314,7 +452,7 @@ export default {
         comment: null,
       },
       errors: [],
-      selectedProduct: null
+      selectedProduct: null,
     };
   },
   created() {
@@ -323,7 +461,7 @@ export default {
   components: {
     Paginate,
     Counter,
-    rfqIcon
+    rfqIcon,
   },
   computed: {
     rows() {
@@ -352,7 +490,7 @@ export default {
 }
 
 .cart-again {
-  background: #FB9100;
+  background: #fb9100;
   font-weight: bold;
 }
 

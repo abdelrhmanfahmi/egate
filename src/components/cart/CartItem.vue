@@ -87,7 +87,7 @@ export default {
   props: {
     // products prop 
     products: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
@@ -115,7 +115,6 @@ export default {
         path: "/details",
         query: { id: product },
       });
-      window.location.reload();
     },
   },
 };

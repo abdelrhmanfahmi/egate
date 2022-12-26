@@ -5,7 +5,7 @@
 <!-- @vuese:SingleSupplier:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|supplier|-|—|`false`|-|
+|supplier|-|supplier prop|`false`|-|
 
 <!-- @vuese:SingleSupplier:props:end -->
 

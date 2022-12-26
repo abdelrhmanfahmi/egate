@@ -4,8 +4,7 @@
     centered
     class="modal-dialog modal-dialog-centered modal-dialog-scrollable text-center"
   >
-
-  <!-- login modal  -->
+    <!-- login modal  -->
     <div class="modal-content">
       <div class="header-holder">
         <div class="cls-button">
@@ -25,8 +24,9 @@
       <div
         class="modal-footer d-flex justify-content-center align-items-center"
       >
-        <a v-b-toggle.login class="text-white" >
-          <button  @click="close"
+        <a v-b-toggle.login class="text-white">
+          <button
+            @click="close"
             class="login-button m-0 mt-4 py-3 px-2 mx-2 text-white text-center w-auto btn-secondary"
           >
             {{ $t("login.logBtn1") }}
@@ -57,17 +57,29 @@ export default {
     };
   },
   methods: {
+    // /**
+    //  * @vuese
+    //  * handleSave function
+    //  */
     handleSave() {
       this.handleClose();
     },
+    // /**
+    //  * @vuese
+    //  * handleClose function
+    //  */
     handleClose() {
       this.$emit("close");
     },
-    close(){
+     // /**
+    //  * @vuese
+    //  * Close function
+    //  */
+    close() {
       setTimeout(() => {
         this.$emit("close");
       }, 50);
-    }
+    },
   },
   //   props: ["product"],
 };

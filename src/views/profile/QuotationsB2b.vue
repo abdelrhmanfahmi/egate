@@ -81,7 +81,7 @@ export default {
   methods: {
     /**
      * get Quotations function
-     * @public this is public function
+     * @vuese
      */
     getQuotations() {
       profile
@@ -96,7 +96,7 @@ export default {
     },
     /**
      * go Product function
-     * @public this is public function
+     * @vuese
      */
     goProduct(product) {
       this.$router.push({
@@ -108,7 +108,7 @@ export default {
     },
     /**
      * go Quotation function
-     * @public this is public function
+     * @vuese
      */
     goQuotation(product) {
       this.$router.push({

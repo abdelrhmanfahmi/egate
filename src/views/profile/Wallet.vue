@@ -366,7 +366,7 @@ export default {
   methods: {
     /**
      * get Wallet data  function
-     * @public this is public function
+     * @vuese
      */
     getWallet() {
       profile
@@ -380,7 +380,7 @@ export default {
     },
     /**
      * get Wallet Payments  function
-     * @public this is public function
+     * @vuese
      */
     getWalletPayments() {
       profile
@@ -402,7 +402,7 @@ export default {
     },
     /**
      * get Wallet Recivables  function
-     * @public this is public function
+     * @vuese
      */
     getWalletRecivables() {
       profile
@@ -425,7 +425,7 @@ export default {
     },
     /**
      * on Payments PageChange  function (for pagination)
-     * @public this is public function
+     * @vuese
      */
     onPaymentsPageChange(page) {
       this.paymentPage = page;
@@ -433,7 +433,7 @@ export default {
     },
     /**
      * on Receivables Change  function (for pagination)
-     * @public this is public function
+     * @vuese
      */
     onRecivablesChange(page) {
       this.recivablePage = page;
@@ -441,7 +441,7 @@ export default {
     },
     /**
      * charge Wallet function
-     * @public this is public function
+     * @vuese
      */
     chargeWallet() {
       this.chargeClicked = true;

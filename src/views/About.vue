@@ -95,6 +95,10 @@
 
 <script>
 // about page 
+/** 
+ * @group About
+ * This is a description of the component
+ */
 import profile from "@/services/profile";
 
 export default {

@@ -5,8 +5,8 @@
 <!-- @vuese:Article:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|supplier|-|—|`false`|-|
-|supplierMSite|-|—|`false`|-|
+|supplier|-|supplier prop|`false`|-|
+|supplierMSite|-|supplier Micro Site data prop|`false`|-|
 
 <!-- @vuese:Article:props:end -->
 

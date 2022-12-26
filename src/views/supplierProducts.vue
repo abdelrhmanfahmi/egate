@@ -1,29 +1,16 @@
 <template>
+  <!-- supplier products page  -->
   <div class="subCategory">
     <div class="data-holder py-5">
       <div class="container">
         <div class="intro text-center">
           <h1 v-if="supplier">
-            <!-- {{ supplier.company_name }} {{ $t("supplier.OurShop") }} -->
              <span class="d-block">{{ $t("supplier.Shop") }}</span>
              <span>
                {{ supplier.company_name }}
              </span>
           </h1>
-          <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
-          <!-- <b-breadcrumb v-if="supplier">
-            <b-breadcrumb-item href="#home">
-              <router-link to="/">
-                {{ $t("supplier.home") }}
-              </router-link>
-            </b-breadcrumb-item>
-            <b-breadcrumb-item>
-              {{ $t("supplier.suppliers") }}
-            </b-breadcrumb-item>
-            <b-breadcrumb-item active>
-              {{ supplier.company_name }}
-            </b-breadcrumb-item>
-          </b-breadcrumb> -->
+
         </div>
         <div class="" v-if="supplierProductsLength">
           <div class="row justify-content-around align-items-center">
@@ -41,39 +28,6 @@
               </p>
             </div>
             <div class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end">
-              <!-- <select name="" id="" labeel="select">
-                <option value="AccessoriesA">AccessoriesA</option>
-                <option value="Laptop">Laptop</option>
-                <option value="Stationary">Stationary</option>
-              </select> -->
-
-              <!-- <div class="search-icon">
-                <b-button v-b-modal.modal-2 class="icon-search" size="md">
-                  <font-awesome-icon
-                    v-b-toggle.sidebar-1
-                    icon="fa-solid fa-search"
-                  />
-                </b-button>
-                <b-modal id="modal-2" class="search">
-                  Using slots
-                  <b-input-group class="mt-3">
-                    <template #append>
-                      <b-input-group-text>
-                        <strong>
-                          <font-awesome-icon
-                            v-b-toggle.sidebar-1
-                            icon="fa-solid fa-search" /></strong
-                      ></b-input-group-text>
-                    </template>
-                    <b-form @submit.prevent="search">
-                      <b-form-input
-                        placeholder="Search"
-                        v-model="searchWord"
-                      ></b-form-input>
-                    </b-form>
-                  </b-input-group>
-                </b-modal>
-              </div> -->
             </div>
           </div>
           <div class="data">
@@ -101,11 +55,10 @@
 </template>
 
 <script>
+// supplier products page 
 import { BIconGrid } from "bootstrap-vue";
 import Product from "@/components/pages/supplier/products/Product";
 import suppliers from "@/services/suppliers";
-// import { baseURL } from "@/apis/Api";
-// import axios from "axios";
 import globalAxios from "@/services/global-axios.js"
 export default {
   data() {
@@ -141,13 +94,16 @@ export default {
     },
   },
   methods: {
+    /**
+     * @vuese
+     * this function used get supplier data
+     */
     getSupplier() {
       this.loading = true;
 
       suppliers
         .getSupplier(this.client_id)
         .then((resp) => {
-          console.log("getSupplier", resp);
           this.supplier = resp.data.items;
         })
         .catch((err) => {
@@ -157,20 +113,11 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used get supplier products
+     */
     getSupplierProducts() {
-      // suppliers
-      //   .getSupplierProducts(this.categoryId)
-      //   .then((resp) => {
-      //     console.log("getSupplierProducts", resp);
-      //     this.supplierProducts = resp.data.items.data;
-      //     resp.data.items.data.length > 0
-      //       ? (this.supplierProductsLength = resp.data.items.data.length)
-      //       : (this.supplierProductsLength = 0);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-
       return globalAxios
         .get(`products`, {
           params: {
@@ -195,13 +142,14 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used get search and get Supplier Products
+     */
     search() {
       this.getSupplierProducts();
     },
   },
-  // created() {
-  //   this.getSupplier();
-  // },
   mounted() {
     this.getSupplierProducts();
     this.getSupplier();

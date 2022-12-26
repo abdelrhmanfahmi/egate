@@ -149,8 +149,9 @@ export default {
   },
   methods: {
     /**
-      *  get Suppliers  
-    */
+     * @vuese
+     *  get Suppliers
+     */
     getSuppliers() {
       this.loading = true;
       return globalAxios
@@ -166,8 +167,9 @@ export default {
         });
     },
     /**
-      *  get home deadline counter
-    */
+     * @vuese
+     *  get home deadline counter
+     */
     getHomeDeadline() {
       auth
         .getHomeDeadline()
@@ -196,8 +198,8 @@ export default {
   },
   computed: {
     /**
-      *  check if slider has data
-    */
+     *  check if slider has data
+     */
     slidersLength() {
       return this.sliders ? this.sliders.length : 0;
     },

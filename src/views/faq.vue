@@ -1,11 +1,11 @@
 <template>
+  <!-- faq page  -->
   <div>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-4">
           {{ $t("home.faq") }}
         </h1>
-        <!-- <p class="lead">This is a Sample FAQ page.</p> -->
       </div>
     </div>
 
@@ -26,7 +26,8 @@
   </div>
 </template>
 
-<script>
+<script>0
+// faq page 
 import profile from "@/services/profile";
 export default {
   data() {
@@ -35,6 +36,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get faq 
+     */
     faqPage() {
       profile
         .faqPage()

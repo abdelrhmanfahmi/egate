@@ -38,14 +38,16 @@
           </ul>
         </div>
         <div class="col-md-6 col-sm-12 mb-2">
-          <b-button v-if="buyerUserData"
+          <b-button
+            v-if="buyerUserData"
             variant="outline-success"
             id="show-btn"
             class="mx-2"
             @click="$bvModal.show('bv-modal-example')"
             >{{ $t("supplier.sendSupplierMessage") }}</b-button
           >
-          <b-button v-else
+          <b-button
+            v-else
             variant="outline-success"
             id="show-btn"
             class="mx-2"
@@ -88,7 +90,8 @@
             </div>
             <div class="form-group">
               <label for="message">
-                {{ $t("contactUs.formMessage") }} <span class="text-danger">*</span>
+                {{ $t("contactUs.formMessage") }}
+                <span class="text-danger">*</span>
               </label>
               <textarea
                 class="form-control"
@@ -115,13 +118,11 @@
         @click="sendSupplierMessage"
         >{{ $t("profile.send") }}</b-button
       >
-      <!-- <b-button class="mt-3" variant="outline-success" block @click="$bvModal.hide('bv-modal-example')"
-          >{{$t('cart.addToCart')}}</b-button
-        > -->
     </b-modal>
   </div>
 </template>
 <script>
+// side section that appear in supplier page
 import profile from "@/services/profile";
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
@@ -147,14 +148,30 @@ export default {
       message: null,
       subject: null,
       errors: [],
-      id:this.$route.params.id
+      id: this.$route.params.id,
     };
   },
-  props: ["supplier", "supplierMSite"],
+  /**
+   * @vuese
+   *  supplier and supplierMSite as props
+   */
+  props: {
+    supplier: {
+      // supplier prop
+      type: Object,
+      required: false,
+    },
+    supplierMSite: {
+      // supplier Micro Site data prop
+      type: Array,
+      required: false,
+    },
+  },
   methods: {
     /**
-      *  send Supplier Message
-  */
+     * @vuese
+     *  send Supplier Message
+     */
     sendSupplierMessage() {
       let data = {
         supplier_id: this.id,
@@ -178,10 +195,11 @@ export default {
         });
     },
     /**
-      *  if not logged in 
-  */
+     * @vuese
+     *  if not logged in
+     */
     loginFirst() {
-     Vue.swal({
+      Vue.swal({
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
@@ -279,7 +297,4 @@ export default {
     object-fit: cover;
   }
 }
-
-
-
 </style>

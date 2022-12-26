@@ -1,8 +1,15 @@
 <template>
   <!-- favorite page  component  -->
   <div class="cart text-center">
-    <div class="d-flex justify-content-center align-items-center flex-column" v-if="loadingOne">
-      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
+    <div
+      class="d-flex justify-content-center align-items-center flex-column"
+      v-if="loadingOne"
+    >
+      <img
+        src="@/assets/images/BeanLoading2.gif"
+        alt="cart-image"
+        class="w-25"
+      />
     </div>
     <div class="" v-else>
       <div class="" v-if="wishlistItems !== null">
@@ -14,34 +21,66 @@
                 <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                   <b-skeleton-img></b-skeleton-img>
                   <b-card>
-                    <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
-                    <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
+                    <b-skeleton
+                      animation="fade"
+                      width="60%"
+                      class="border-none"
+                    ></b-skeleton>
+                    <b-skeleton
+                      animation="fade"
+                      width="85%"
+                      class="border-none"
+                    ></b-skeleton>
                   </b-card>
                 </b-col>
               </b-row>
               <div class="row suppliers-data" v-else>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content" v-for="(item, index) in wishlistItems"
-                  :key="index">
-                  <div class="single-supplier bg-white position-relative" v-if="item">
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-lg-3 supplier-content"
+                  v-for="(item, index) in wishlistItems"
+                  :key="index"
+                >
+                  <div
+                    class="single-supplier bg-white position-relative"
+                    v-if="item"
+                  >
                     <div class="supplier-data">
                       <div class="thumb">
-                        <router-link :to="{ path: '/details', query: { id: item.id } }">
-                          <div class="d-block text-center" v-if="
-                            item.product_supplier.image_path
-                              ? item.product_supplier.image_path
-                              : item.product_supplier.image
-                          ">
-                            <img :src="item.image_path" alt="wishlist-product-image" />
+                        <router-link
+                          :to="{ path: '/details', query: { id: item.id } }"
+                        >
+                          <div
+                            class="d-block text-center"
+                            v-if="
+                              item.product_supplier.image_path
+                                ? item.product_supplier.image_path
+                                : item.product_supplier.image
+                            "
+                          >
+                            <img
+                              :src="item.image_path"
+                              alt="wishlist-product-image"
+                            />
                           </div>
                           <div class="" v-else>
-                            <img src="@/assets/images/wishlist.png" alt="wishlist-product" />
+                            <img
+                              src="@/assets/images/wishlist.png"
+                              alt="wishlist-product"
+                            />
                           </div>
                         </router-link>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <p class="supplier-name text-center mt-3 text-capitalize mb-0">
+                        <div
+                          class="d-flex justify-content-between align-items-center"
+                        >
+                          <p
+                            class="supplier-name text-center mt-3 text-capitalize mb-0"
+                          >
                             {{ item.product_supplier.company_name }}
                           </p>
-                          <div class="actions" @click="removeFromWishlist(item)">
+                          <div
+                            class="actions"
+                            @click="removeFromWishlist(item)"
+                          >
                             <span class="action-icon">
                               <font-awesome-icon icon="fa-solid fa-trash" />
                             </span>
@@ -58,34 +97,34 @@
                   </div>
                 </div>
               </div>
-              <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
-              <div class="text-center d-flex justify-content-center align-items-center mt-5">
-                <!-- <b-pagination
-            v-model="currentPage"
-            pills
-            :total-rows="total"
-            :per-page="perPage"
-            size="lg"
-          ></b-pagination> -->
-                <Paginate v-if="wishlistItems" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-                  @pagechanged="onPageChange" />
+              <div
+                class="text-center d-flex justify-content-center align-items-center mt-5"
+              >
+                <Paginate
+                  v-if="wishlistItems"
+                  :total-pages="totalPages"
+                  :per-page="totalPages"
+                  :current-page="page"
+                  @pagechanged="onPageChange"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-else
+      >
         <img src="@/assets/images/wishlist.png" alt="cart-image" />
-        <!-- <h3 class="m-0">
-          {{ $t("cart.noCartProducts") }}
-        </h3> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// favorite page  component
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
 
@@ -110,15 +149,15 @@ export default {
     };
   },
   mounted() {
-    
-    if(this.buyerUserData){
+    if (this.buyerUserData) {
       this.getWishlistProducts();
     }
   },
   methods: {
     /**
-      *  add product to favorite
-    */
+     * @vuese
+     *  add product to favorite
+     */
     getWishlistProducts() {
       this.loadingOne = false;
       this.loading = true;
@@ -142,8 +181,9 @@ export default {
         });
     },
     /**
-      *  remove product from favorite
-    */
+     * @vuese
+     *  remove product from favorite
+     */
     removeFromWishlist(product) {
       this.$store.dispatch("wishlist/removeProductFromWishlist", {
         myItem: product.product_supplier,
@@ -158,21 +198,24 @@ export default {
       }, 1200);
     },
     /**
-      *  when page changed  ,  refresh data
-    */
+     * @vuese
+     *  when page changed  ,  refresh data  , this function used for paginating
+     */
     onPageChange(page) {
       this.page = page;
       this.getWishlistProducts();
     },
     /**
-      *  when paginate 
-    */
+     * @vuese
+     *  when paginate  , this function used for paginating
+     */
     onChangeRecordsPerPage() {
       this.getWishlistProducts();
     },
     /**
-      *  when paginate 
-    */
+     * @vuese
+     *  when paginate  , this function used for paginating
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
@@ -182,26 +225,44 @@ export default {
   },
   computed: {
     /**
-      *  get data from api 
-    */
+     * @vuese
+     *  get data from api
+     */
     cart_sub_total() {
       return this.total_cart.cart_sub_total
         ? this.total_cart.cart_sub_total
         : this.$store.state.cart.cart_sub_total;
     },
+    /**
+     * @vuese
+     *  get total Discount
+     */
     totalDiscount() {
       return this.total_cart.cart_sub_total_disc
         ? this.total_cart.cart_sub_total_disc
         : this.discount;
     },
+    /**
+     * @vuese
+     *  get total Payment
+     */
     totalPayment() {
       return this.total_cart.cart_sub_total_after_disc
         ? this.total_cart.cart_sub_total_after_disc
         : this.cart_sub_total;
     },
+
+    /**
+     * @vuese
+     *  get new Price
+     */
     newPrice() {
       return this.total_cart;
     },
+    /**
+     * @vuese
+     *  get free Delivery Status
+     */
 
     freeDeliveryStatus() {
       return sessionStorage.setItem("freeDelivery", this.freeDelivery);

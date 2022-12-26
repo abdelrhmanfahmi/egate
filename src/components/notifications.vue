@@ -4,18 +4,20 @@
     <!-- if there is notifications  -->
     <div class="" v-if="notificationsLength > 0">
       <div class="notification-ui_dd-content">
-      <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
-        <button
-          @click="readAllNotifications"
-          class="btn-light border-0 btn-outline-none bg-white"
+        <div
+          class="readAllNotifications px-4 d-flex justify-content-end align-items-center"
         >
-          <span class="font-weight-bold mr-2">{{
-            $t("profile.readAllNotifications")
-          }}</span>
-          <font-awesome-icon icon="fa-solid fa-rotate" />
-        </button>
-      </div>
-      <!-- take 5 only of notifications in popup for responsive  -->
+          <button
+            @click="readAllNotifications"
+            class="btn-light border-0 btn-outline-none bg-white"
+          >
+            <span class="font-weight-bold mr-2">{{
+              $t("profile.readAllNotifications")
+            }}</span>
+            <font-awesome-icon icon="fa-solid fa-rotate" />
+          </button>
+        </div>
+        <!-- take 5 only of notifications in popup for responsive  -->
         <div
           class="notification-list"
           v-for="(notification, index) in notifications.slice(0, 5)"
@@ -90,16 +92,31 @@
 import moment from "moment";
 import profile from "@/services/profile";
 export default {
-  props: ["notifications"],
+  /**
+   * @vuese
+   *  pass product data as prop
+   */
+  props: {
+    notifications: {
+      // notifications prop
+      type: Array,
+      required: false,
+    },
+  },
   computed: {
+    /**
+     * @vuese
+     *  get notifications Length from store
+     */
     notificationsLength() {
       return this.$store.state.notificationsLength;
     },
   },
   methods: {
-     /**
-      *  check current time
-    */
+    /**
+     * @vuese
+     *  check current time
+     */
     myTimeNow(date1) {
       if (date1) {
         var c_date = moment(String(date1)).format("DD-MM-YYYY");
@@ -113,9 +130,10 @@ export default {
         return diff;
       }
     },
-     /**
-      *  read single notification
-    */
+    /**
+     * @vuese
+     *  read single notification
+     */
     readNotification(notification) {
       profile
         .readNotification(notification)
@@ -129,8 +147,9 @@ export default {
         });
     },
     /**
-      *  go to notification data in notifications page
-    */
+     * @vuese
+     *  go to notification data in notifications page
+     */
     goNotificationPage(notification) {
       if (notification.type === "return_item") {
         this.$router.push({
@@ -163,8 +182,9 @@ export default {
       }
     },
     /**
-      *  read all notifications
-    */
+     * @vuese
+     *  read all notifications
+     */
     readAllNotifications() {
       profile
         .readAllNotifications()
@@ -181,7 +201,6 @@ export default {
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 /**

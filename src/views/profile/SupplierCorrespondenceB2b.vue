@@ -134,7 +134,7 @@ export default {
   methods: {
     /**
      * get supplier All Correspondence function 
-     * @public this is public function
+     * @vuese
      */
     supplierAllCorrespondence() {
       profile
@@ -157,7 +157,7 @@ export default {
     },
     /**
      * function for pagination 
-     * @public this is public function
+     * @vuese
      */
     onPageChange(page) {
       this.page = page;
@@ -165,14 +165,14 @@ export default {
     },
      /**
      * function for pagination 
-     * @public this is public function
+     * @vuese
      */
     onChangeRecordsPerPage() {
       this.getOrders();
     },
      /**
      * function for pagination 
-     * @public this is public function
+     * @vuese
      */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {

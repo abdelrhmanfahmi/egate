@@ -1,9 +1,9 @@
 <template>
+  <!-- monthly-offers page  -->
   <div class="suppliers-body">
     <div
       class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
     >
-      <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
     </div>
 
     <div class="suppliers py-4">
@@ -37,18 +37,9 @@
           </div>
           </div>
         </div>
-        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
-
         <div
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
-          <!-- <b-pagination
-            v-model="currentPage"
-            pills
-            :total-rows="total"
-            :per-page="perPage"
-            size="lg"
-          ></b-pagination> -->
           <Paginate
             v-if="deals && total > perPage"
             :total-pages="totalPages"
@@ -62,14 +53,10 @@
   </div>
 </template>
 <script>
+// monthly-offers page 
 import BestDeals from "@/components/pages/BestDeals.vue";
-// import suppliers from "@/services/suppliers";
-// import Pagination from "@/components/global/Pagination";
 import Paginate from "@/components/global/Paginate.vue";
-// import { baseURL } from "@/apis/Api";
-// import axios from "axios";
 import auth from "@/services/auth";
-// import categories from "@/services/categories"
 export default {
   components: {
     BestDeals,
@@ -87,9 +74,6 @@ export default {
           href: "#",
           active: true,
         },
-        // {
-        //   text: this.$t("supplier.company"),
-        // },
       ],
       deals: null,
       loading: false,
@@ -106,6 +90,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get get Best Deals products
+     */
     getBestDeals() {
       this.loading = true;
       auth
@@ -128,19 +116,36 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onPageChange(page) {
       this.page = page;
       this.getBestDeals();
     },
+
+     /**
+     * @vuese
+     * this function used for pagination
+     */
     onChangeRecordsPerPage() {
       this.getBestDeals();
     },
+     /**
+     * @vuese
+     * this function used for pagination
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getBestDeals();
       }
     },
+     /**
+     * @vuese
+     * this function used to get favorite products
+     */
     getWishlistData(){
       this.getBestDeals()
     }

@@ -140,7 +140,7 @@ export default {
   methods: {
     /**
      * returned Orders function
-     * @public this is public function
+     * @vuese
      */
     returnedOrders() {
       if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
@@ -183,7 +183,7 @@ export default {
 
     /**
      * pagination function
-     * @public this is public function
+     * @vuese
      */
 
     onPageChange(page) {
@@ -192,14 +192,14 @@ export default {
     },
     /**
      * pagination function
-     * @public this is public function
+     * @vuese
      */
     onChangeRecordsPerPage() {
       this.returnedOrders();
     },
     /**
      * pagination function
-     * @public this is public function
+     * @vuese
      */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
@@ -209,7 +209,7 @@ export default {
     },
     /**
      * save order UUID function
-     * @public this is public function
+     * @vuese
      */
     saveUUID(order) {
       console.log(order);

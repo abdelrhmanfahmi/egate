@@ -1,43 +1,55 @@
 <template>
   <!-- articel component  -->
   <div class="article" v-if="supplier && supplierMSite">
-    <p v-html="supplierMSite.short_description_en"
+    <p
+      v-html="supplierMSite.short_description_en"
       v-if="supplierMSite.short_description_en && $i18n.locale == 'en'"
-      class="my-5 "
-    >
-      
-    </p>
-    <p v-html="supplierMSite.short_description_ar"
+      class="my-5"
+    ></p>
+    <p
+      v-html="supplierMSite.short_description_ar"
       v-if="supplierMSite.short_description_ar && $i18n.locale == 'ar'"
       class="mt-2"
-    >
-    </p>
+    ></p>
 
     <div
-      class="retunPolicy "
+      class="retunPolicy"
       v-if="supplierMSite.return_policy_ar && supplierMSite.return_policy_en"
     >
       <h3>
         {{ $t("supplier.return_policy") }}
       </h3>
-      <p v-html="supplierMSite.return_policy_en" v-if="supplierMSite.return_policy_en && $i18n.locale == 'en'">
-        
-      </p>
-      <p v-html="supplierMSite.return_policy_ar" v-if="supplierMSite.return_policy_ar && $i18n.locale == 'ar'">
-        
-      </p>
+      <p
+        v-html="supplierMSite.return_policy_en"
+        v-if="supplierMSite.return_policy_en && $i18n.locale == 'en'"
+      ></p>
+      <p
+        v-html="supplierMSite.return_policy_ar"
+        v-if="supplierMSite.return_policy_ar && $i18n.locale == 'ar'"
+      ></p>
     </div>
     <div
       class="shipping_and_payment_terms my-5 py-5"
-      v-if="supplierMSite.shipping_and_payment_terms_ar && supplierMSite.shipping_and_payment_terms_en"
+      v-if="
+        supplierMSite.shipping_and_payment_terms_ar &&
+        supplierMSite.shipping_and_payment_terms_en
+      "
     >
       <h3>
         {{ $t("supplier.shipping_and_payment_terms") }}
       </h3>
-      <p v-if="supplierMSite.shipping_and_payment_terms_en && $i18n.locale == 'en'">
+      <p
+        v-if="
+          supplierMSite.shipping_and_payment_terms_en && $i18n.locale == 'en'
+        "
+      >
         {{ supplierMSite.shipping_and_payment_terms_en }}
       </p>
-      <p v-if="supplierMSite.shipping_and_payment_terms_ar && $i18n.locale == 'ar'">
+      <p
+        v-if="
+          supplierMSite.shipping_and_payment_terms_ar && $i18n.locale == 'ar'
+        "
+      >
         {{ supplierMSite.shipping_and_payment_terms_ar }}
       </p>
     </div>
@@ -49,9 +61,21 @@ export default {
     return { count: 0 };
   },
   /**
-      *  supplier and supplierMSite as props
-  */
-  props: ["supplier", "supplierMSite"],
+   * @vuese
+   *  supplier and supplierMSite as props
+   */
+  props: {
+    supplier: {
+      // supplier prop 
+      type: Object,
+      required: false,
+    },
+    supplierMSite: {
+      // supplier Micro Site data prop
+      type: Array,
+      required: false,
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

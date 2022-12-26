@@ -1194,14 +1194,14 @@ export default {
   methods: {
     /**
      * print Screen function
-     * @public this is public function
+     * @vuese
      */
     printScreen() {
       window.print();
     },
     /**
      * get Single Order function
-     * @public this is public function
+     * @vuese
      */
     getSingleOrders() {
       this.loading = true;
@@ -1239,7 +1239,7 @@ export default {
     },
     /**
      * cancel Order function
-     * @public this is public function
+     * @vuese
      */
     cancelOrder() {
       let data = {
@@ -1263,7 +1263,7 @@ export default {
     },
     /**
      * repay function
-     * @public this is public function
+     * @vuese
      */
     rePay() {
       profile
@@ -1303,7 +1303,7 @@ export default {
     },
     /**
      * download Image function
-     * @public this is public function
+     * @vuese
      */
     downloadImage(url, extension, label) {
       axios({
@@ -1323,7 +1323,7 @@ export default {
     },
     /**
      * chooseSupplierUUID function
-     * @public this is public function
+     * @vuese
      */
     chooseSupplierUUID(ord) {
       this.supplierUUID = ord.uuid;
@@ -1331,7 +1331,7 @@ export default {
 
     /**
      * footerTwitterLink function
-     * @public this is public function
+     * @vuese
      */
     footerTwitterLink() {
       profile
@@ -1346,7 +1346,7 @@ export default {
     },
     /**
      * footerYoutubeLink function
-     * @public this is public function
+     * @vuese
      */
     footerYoutubeLink() {
       profile
@@ -1361,7 +1361,7 @@ export default {
     },
     /**
      * footerLinkedinLink function
-     * @public this is public function
+     * @vuese
      */
     footerLinkedinLink() {
       profile
@@ -1376,7 +1376,7 @@ export default {
     },
     /**
      * footerInstagramLink function
-     * @public this is public function
+     * @vuese
      */
     footerInstagramLink() {
       profile
@@ -1391,7 +1391,7 @@ export default {
     },
     /**
      * footerPinterestLink function
-     * @public this is public function
+     * @vuese
      */
     footerPinterestLink() {
       profile
@@ -1406,7 +1406,7 @@ export default {
     },
     /**
      * contact Us Phone function
-     * @public this is public function
+     * @vuese
      */
     contactUsPhone() {
       profile
@@ -1421,7 +1421,7 @@ export default {
     },
     /**
      * contact Us Email function
-     * @public this is public function
+     * @vuese
      */
     contactUsEmail() {
       profile

@@ -19,7 +19,12 @@
         ><font-awesome-icon icon="fas fa-chevron-left"
       /></a>
     </li>
-    <li :key="page.id" v-for="page in pages" class="pagination-item" :class="{ active: isPageActive(page.name) }">
+    <li
+      :key="page.id"
+      v-for="page in pages"
+      class="pagination-item"
+      :class="{ active: isPageActive(page.name) }"
+    >
       <a
         href="#"
         @click.prevent="onClickPage(page.name)"
@@ -53,40 +58,53 @@
 export default {
   name: "pagination",
   /**
-    * props
-  */
+   * props
+   */
   props: {
+    // maxVisibleButtons prop
     maxVisibleButtons: {
       type: Number,
       required: false,
       default: 3,
     },
     totalPages: {
+      // totalPages prop
       type: Number,
       required: true,
     },
     perPage: {
+      // perPage prop
       type: Number,
       required: true,
     },
     currentPage: {
+      // currentPage prop
       type: Number,
       required: true,
     },
   },
   computed: {
     /**
-      * check if page is first or last 
-    */
+     * @vuese
+     * check if page is first
+     */
     isInFirstPage() {
       return this.currentPage === 1;
     },
+     /**
+     * @vuese
+     * check if page is  last
+     */
     isInLastPage() {
       if (this.totalPages === 0) {
         return true;
       }
       return this.currentPage === this.totalPages;
     },
+    /**
+     * @vuese
+     * startPage function
+     */
     startPage() {
       // When on the first page
       if (this.currentPage === 1) {
@@ -102,6 +120,10 @@ export default {
       // When in between
       return this.currentPage - 1;
     },
+    /**
+     * @vuese
+     * endPage function
+     */
     endPage() {
       if (this.totalPages === 0) {
         return 1;
@@ -114,6 +136,10 @@ export default {
         this.totalPages
       );
     },
+    /**
+     * @vuese
+     * check pages function
+     */
     pages() {
       const range = [];
       for (let i = this.startPage; i <= this.endPage; i++) {
@@ -126,34 +152,60 @@ export default {
     },
   },
   methods: {
+    /**
+     * @vuese
+     * on Click First Page function
+     */
     onClickFirstPage() {
       if (this.isInFirstPage) {
         return false;
       }
       this.$emit("pagechanged", 1);
     },
+     /**
+     * @vuese
+     * on Click Previous Page function
+     */
     onClickPreviousPage() {
       if (this.isInFirstPage) {
         return false;
       }
       this.$emit("pagechanged", this.currentPage - 1);
     },
+    /**
+     * @vuese
+     * on Click Page function
+     */
     onClickPage(page) {
+      // change page , call api again
       this.$emit("pagechanged", page);
     },
+    /**
+     * @vuese
+     * on Click Next Page function
+     */
     onClickNextPage() {
       if (this.isInLastPage) {
         return false;
       }
       this.$emit("pagechanged", this.currentPage + 1);
     },
+    /**
+     * @vuese
+     * on Click last Page function
+     */
     onClickLastPage() {
       console.log("onClickLastPage");
       if (this.isInLastPage) {
         return false;
       }
+      //get total pages again
       this.$emit("pagechanged", this.totalPages);
     },
+    /**
+     * @vuese
+     * check is Page Active function
+     */
     isPageActive(page) {
       return this.currentPage === page;
     },
@@ -193,7 +245,7 @@ export default {
       color: #ffffff !important;
       font-weight: bold;
       // padding: 3px 8px;
-      a{
+      a {
         color: #fff;
       }
     }
@@ -204,5 +256,4 @@ html input[disabled] {
   cursor: no-drop !important;
   color: lightgray;
 }
-
 </style>

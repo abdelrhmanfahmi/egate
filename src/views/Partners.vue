@@ -1,12 +1,14 @@
 <template>
+  <!-- partners page  -->
   <div class="partners-page">
     <div class="tabs-holder">
         <b-tabs content-class="mt-3">
           <b-tab :title="$t('home.navSuppliers')" active>
+            <!-- suppliers page included like component  -->
             <Suppliers />
           </b-tab>
           <b-tab :title="$t('home.clients')">
-            <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
+            <!-- clients page  included like component -->
             <Clients />
           </b-tab>
         </b-tabs>

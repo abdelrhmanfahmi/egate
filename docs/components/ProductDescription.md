@@ -5,7 +5,7 @@
 <!-- @vuese:ProductDescription:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|myProduct|-|—|`false`|-|
+|myProduct|selected Product prop|`Object`|`true`|-|
 
 <!-- @vuese:ProductDescription:props:end -->
 

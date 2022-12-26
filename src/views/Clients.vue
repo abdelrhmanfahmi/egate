@@ -1,59 +1,6 @@
 <template>
+  <!-- clients page  -->
   <div class="suppliers-body suppliers clients px-3 py-5 text-center">
-    <!-- <div class="container">
-      <div class="text-center">
-        <h1>
-          {{ $t("home.clients") }}
-        </h1>
-      </div>
-      <div class="row data-holder">
-        <div
-          class="col-md-3 col-sm-12"
-          v-for="(client, index) in clients"
-          :key="index"
-        >
-          <div class="new-message-box">
-            <div class="new-message-box-warning">
-              <div class="p-2">
-                <div>
-
-                  <b-media>
-                    <template #aside>
-                      <img
-                        :src="client.image_path"
-                        alt="Media Aside"
-                        class="client_image"
-                        v-if="client.image_path"
-                      />
-                      <img
-                        src="@/assets/images/default-client-logo.jpeg"
-                        class="client_image"
-                        alt="Media Aside"
-                        v-else
-                      />
-                    </template>
-
-                    <h5 class="text-capitalize">{{ client.name }}</h5>
-                  </b-media>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="d-flex justify-content-center align-items-center mt-5"
-        v-if="clientsLength > 1"
-      >
-        <Paginate
-          v-if="clients"
-          :total-pages="totalPages"
-          :per-page="totalPages"
-          :current-page="page"
-          @pagechanged="onPageChange"
-        />
-      </div>
-    </div> -->
     <div class="suppliers py-4">
       <div class="container">
         <b-row v-if="loading">
@@ -102,6 +49,7 @@
 </template>
 
 <script>
+// clients page
 import Paginate from "@/components/global/Paginate.vue";
 import suppliers from "@/services/suppliers";
 import SingleClient from "@/components/pages/suppliers/SingleClient.vue";
@@ -111,6 +59,10 @@ export default {
     SingleClient
   },
   methods: {
+     /**
+     * @vuese
+     * get Clients function
+     */
     getClients() {
       this.loading = true
       suppliers
@@ -132,19 +84,35 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onPageChange(page) {
       this.page = page;
       this.getClients();
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     onChangeRecordsPerPage() {
       this.getClients();
     },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
         this.getClients();
       }
     },
+    /**
+     * @vuese
+     * this function used to go to Client Page
+     */
     goClientPage(client) {
       this.$router.push({
         path: `/suppliers/${client.id}`,
