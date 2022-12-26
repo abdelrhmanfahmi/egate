@@ -64,7 +64,7 @@
  */
 import { BIconTrash } from "bootstrap-vue";
 /**
- * import cart counter component
+ * import cart counter
  */
 
 import Counter from "@/components/global/CartPopupCounter";
