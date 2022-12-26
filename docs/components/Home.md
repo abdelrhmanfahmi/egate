@@ -5,13 +5,9 @@
 <!-- @vuese:Home:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
-|checkGuest|this function used to check if theres user or guest|-|
-|checkCartValidity|this function used to check Cart Validity (cart ,  rfq available or not )|-|
-
-<!-- @vuese:Home:methods:end -->
-
-
-lier Ads|-|
+|emailVerify|this function used to Verify email|-|
+|checkEmailForgetPassWord|Step 2 forget Password this function used to check Email Forget PassWord|-|
+|getSupplierAds|this function used to get Supplier Ads|-|
 |getAdsModal|this function used to get Ads for buyer and b2c and guest|-|
 
 <!-- @vuese:Home:methods:end -->
