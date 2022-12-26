@@ -5,9 +5,13 @@
       class="d-flex justify-content-center align-items-center"
       v-if="loading"
     >
-      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
+      <img
+        src="@/assets/images/BeanLoading2.gif"
+        alt="cart-image"
+        class="w-25"
+      />
     </div>
-     <!-- else  -->
+    <!-- else  -->
     <div class="" v-else>
       <div
         class="d-flex cart-item"
@@ -46,7 +50,9 @@
             :product="product"
             class="justify-content-center"
           ></Counter>
-          <p class="product_sub_total mt-2">{{ product.product_sub_total | fixedCurrency }} {{ currency }}</p>
+          <p class="product_sub_total mt-2">
+            {{ product.product_sub_total | fixedCurrency }} {{ currency }}
+          </p>
         </div>
         <div class="actions mx-1" @click="removeFromCart(product)">
           <span class="action-icon">
@@ -58,10 +64,8 @@
   </div>
 </template>
 <script>
-/**
- *  cart items data.
- * @displayName cart component
- */
+
+// This is a description of the cart items data
 import { BIconTrash } from "bootstrap-vue";
 /**
  * import cart counter
@@ -80,9 +84,14 @@ export default {
    * products
    * @values products
    * */
-  props: ["products"],
+  props: {
+    // products prop 
+    products: {
+      type: Array,
+      required: true,
+    },
+  },
   methods: {
-    
     removeFromCart(product) {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
@@ -98,8 +107,8 @@ export default {
     },
 
     /**
-      * got to product page
-    */
+     * got to product page
+     */
 
     goProduct(product) {
       this.$router.push({
@@ -118,7 +127,7 @@ export default {
 }
 
 .action-holder {
-  scrollbar-color:transparent transparent;
+  scrollbar-color: transparent transparent;
   scrollbar-width: 1px;
 }
 .cart-item {
@@ -170,11 +179,11 @@ export default {
     border-radius: 8px;
   }
 }
-.product_sub_total{
+.product_sub_total {
   font-size: 13px;
-  word-break:break-word
+  word-break: break-word;
 }
-.cart-item .product-info .name{
-  margin-bottom: .5rem;
+.cart-item .product-info .name {
+  margin-bottom: 0.5rem;
 }
 </style>

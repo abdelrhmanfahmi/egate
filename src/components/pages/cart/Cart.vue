@@ -894,6 +894,8 @@ acceptMyTerms();
 </template>
 
 <script>
+
+// cart component that contains all cart data 
 import Counter from "@/components/global/Counter.vue";
 import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";

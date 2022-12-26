@@ -1,4 +1,5 @@
 <template>
+  <!-- Checkout-bank-details page -->
   <div>
     <div class="wrapper">
       <div class="container">
@@ -9,10 +10,6 @@
           <div class="col-md-6 col-sm-12 my-3">
             <div class="data-holder p-5">
               <ul class="list-data">
-                <!-- <li v-if="order_serial">
-                  {{ $t("payment.orderNumber") }} :
-                  <span class="bold-result"> {{ order_serial }}</span>
-                </li> -->
                 <li v-if="orderDate">
                   {{ $t("payment.orderDate") }} :
                   <span class="bold-result">{{ orderDate | formatDate }}</span>
@@ -79,6 +76,7 @@
 </template>
 
 <script>
+// Checkout-bank-details page
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
 export default {
@@ -90,7 +88,7 @@ export default {
       payment: this.$route.query.payment,
       // redirectURL: this.$route.query.redirectURL,
       orderId: this.$route.query.orderId,
-      uuid:this.$route.query.uuid,
+      uuid: this.$route.query.uuid,
 
       bankData: {
         image: null,
@@ -104,28 +102,16 @@ export default {
     };
   },
   mounted() {
-    // if (this.payment === "cach") {
-    //   setTimeout(() => {
-    //     this.$router.push(`/viewOrderDetails?id=${this.orderId}`);
-    //   }, 12000);
-    // }
-    // if (this.payment === "bank") {
-    //   setTimeout(() => {
-    //     this.$router.push(`Checkout-bank-details?id=${this.orderId}`);
-    //   }, 12000);
-    // }
     this.getSingleOrders();
   },
   methods: {
+    /**
+     * @vuese
+     * checkout bank Upload function
+     */
     async checkoutbankUpload() {
       this.loading = true;
       this.btn1Disabled = true;
-
-      // let data = {
-      //   image: this.bankData.image,
-      //   comment: this.bankData.comment,
-      //   uuid: this.bankData.uuid,
-      // };
 
       let formData = new FormData();
 
@@ -153,13 +139,17 @@ export default {
           this.btn1Disabled = false;
         });
     },
+    /**
+     * @vuese
+     * get Single Orders function
+     */
     getSingleOrders() {
       profile
         .getSingleOrders(this.id)
         .then((res) => {
           console.log("getSingleOrders", res);
           this.bankData.uuid = res.data.items.order.uuid;
-          this.$store.dispatch("cart/getCartProducts")
+          this.$store.dispatch("cart/getCartProducts");
         })
         .catch((err) => {
           console.log(err);
@@ -168,6 +158,10 @@ export default {
           this.loading = false;
         });
     },
+    /**
+     * @vuese
+     * upload Image function
+     */
     uploadImage(event) {
       this.bankData.image = event.target.files[0];
     },

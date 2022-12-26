@@ -20,3 +20,8 @@
 <!-- @vuese:BestDeals:events:end -->
 
 
+ favorite Data function|-|
+
+<!-- @vuese:bestDeals:methods:end -->
+
+

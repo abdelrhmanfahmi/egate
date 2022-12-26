@@ -22,14 +22,7 @@
   </div>
 </template>
 <script>
-/**
- * cart popup counter component
- * @author fabrica dev
- */
-/**
- *   cart popup counter component.
- * @displayName  cart popup counter component
- */
+//cart popup counter component.
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
   name:'CartPopupCounter',
@@ -86,6 +79,7 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
+        // this event affected on the component main page
         this.$emit("changeTitle", this.countValue);
         // this.quantity = this.countValue;
       }, 300);
