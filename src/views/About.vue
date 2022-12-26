@@ -95,6 +95,7 @@
 
 <script>
 // about page 
+// @group About
 import profile from "@/services/profile";
 
 export default {
