@@ -3,7 +3,7 @@
   <div class="partners-page">
     <div class="tabs-holder">
         <b-tabs content-class="mt-3">
-          <b-tab :title="$t('home.navSuppliers')" active>
+          <b-tab :title="$t('supplier.suppliers')" active>
             <!-- suppliers page included like component  -->
             <Suppliers />
           </b-tab>
