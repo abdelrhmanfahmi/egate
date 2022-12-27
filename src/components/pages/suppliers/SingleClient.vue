@@ -3,12 +3,11 @@
   <div class="single-supplier bg-white position-relative">
     <div class="supplier-data">
       <div class="thumb">
-        <router-link
-          :to="`/suppliers/${supplier.id}`"
+        <div
           class="d-block text-center"
         >
           <img :src="supplier.image_path" alt="client image" />
-        </router-link>
+        </div>
         <p class="supplier-name text-center mt-3 text-capitalize">
           {{ supplier.name }}
         </p>
