@@ -235,7 +235,7 @@ import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
 import Notify from "../Notifications.vue";
 import globalAxios from "@/services/global-axios";
-
+import Login from "./Login.vue";
 export default {
   data() {
     return {
@@ -255,6 +255,7 @@ export default {
     Cart,
     MobileNav,
     Notify,
+    Login
   },
   created() {
     /**
