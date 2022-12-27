@@ -88,38 +88,38 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.orders && link.name === 'My Orders') ||
-              link.name === 'طلباتى'
+              userBades &&
+              userBades.orders &&
+              link.name.trim() == $t('profile.ordersLists')
             "
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades &&
-                userBades.returns &&
-                link.name === 'Return Requests') ||
-              link.name === 'طلبات الاسترجاع'
+              userBades &&
+              userBades.returns &&
+              link.name.trim() === $t('profile.returnRequests')
             "
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades &&
-                userBades.client_messages &&
-                link.name === 'Supplier Messages') ||
-              link.name === 'مراسلات المورد'
+              userBades &&
+              userBades.client_messages &&
+              link.name.trim() === $t('profile.supplierCorrespondence')
             "
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle"
+            class="bg-danger border border-light rounded-circle text-white"
             v-if="
-              (userBades && userBades.rfqs && link.name === 'Quotations') ||
-              link.name === 'عروض الاسعار'
+              userBades &&
+              userBades.rfqs &&
+              link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >

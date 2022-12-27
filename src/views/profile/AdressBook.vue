@@ -84,15 +84,104 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- street number  -->
-        <b-col lg="12">
+        <!-- name in english (new add)-->
+        <b-col lg="6" v-if="$i18n.locale =='en'">
+          <b-form-group>
+            <label>{{ $t("profile.name") }}</label>
+            <span class="requried">*</span>
+            <b-form-select v-model="form.name">
+              <b-form-select-option
+                v-for="(formName, index) in en_formNames"
+                :key="index"
+                :value="formName"
+                >{{ formName }}
+              </b-form-select-option>
+            </b-form-select>
+            <div
+              class="error"
+              v-for="(error, index) in errors.name"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <!-- name in arabic (new add)-->
+        <b-col lg="6" v-else>
+          <b-form-group>
+            <label>{{ $t("profile.name") }}</label>
+            <span class="requried">*</span>
+            <b-form-select v-model="form.name">
+              <b-form-select-option
+                v-for="(formName, index) in ar_formNames"
+                :key="index"
+                :value="formName"
+                >{{ formName }}
+              </b-form-select-option>
+            </b-form-select>
+            <div
+              class="error"
+              v-for="(error, index) in errors.name"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <!-- address number -->
+        <b-col lg="6">
           <b-form-group>
             <label for="streetNumber">{{ $t("contactUs.address") }}</label>
-            <!-- <span class="requried">*</span> -->
+            <span class="requried">*</span>
             <b-form-input id="streetNumber" v-model="form.address_line_1" />
             <div
               class="error"
               v-for="(error, index) in errors.address_line_1"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <!-- block  -->
+        <b-col lg="6">
+          <b-form-group>
+            <label for="floor">{{ $t("profile.blockNumber") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="floor" v-model="form.block" />
+            <div
+              class="error"
+              v-for="(error, index) in errors.block"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <!-- street  (new add)-->
+        <b-col lg="6">
+          <b-form-group>
+            <label for="street">{{ $t("profile.newStreetNumber") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="street" v-model="form.street" />
+            <div
+              class="error"
+              v-for="(error, index) in errors.street"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
+        <!-- avenue (new add)  -->
+        <b-col lg="6">
+          <b-form-group>
+            <label for="floor">{{ $t("profile.avenue") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="floor" v-model="form.avenue" />
+            <div
+              class="error"
+              v-for="(error, index) in errors.avenue"
               :key="index"
             >
               {{ error }}
@@ -114,7 +203,8 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- floor  -->
+         
+        <!-- floor   -->
         <b-col lg="6">
           <b-form-group>
             <label for="floor">{{ $t("profile.floor") }}</label>
@@ -129,11 +219,11 @@
             </div>
           </b-form-group>
         </b-col>
-        <!-- block number   -->
-        <b-col lg="6">
+        <!-- old block number   -->
+        <!-- <b-col lg="6">
           <b-form-group>
             <label for="blockNumber">{{ $t("profile.blockNumber") }}</label>
-            <!-- <span class="requried">*</span> -->
+            <span class="requried">*</span>
             <b-form-input id="blockNumber" v-model="form.apartment" />
             <div
               class="error"
@@ -143,11 +233,12 @@
               {{ error }}
             </div>
           </b-form-group>
-        </b-col>
+        </b-col> -->
         <!-- post code  -->
         <b-col lg="6">
           <b-form-group>
             <label for="postCode">{{ $t("profile.zipCode") }}</label>
+            <span class="requried">*</span>
             <b-form-input id="postCode" v-model="form.pin_code" />
             <div
               class="error"
@@ -215,7 +306,7 @@
 </template>
 
 <script>
-// user addresses page 
+// user addresses page
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 
@@ -231,6 +322,10 @@ export default {
         apartment: "",
         pin_code: "",
         notes: "",
+        name: "",
+        block:'',
+        street:'',
+        avenue:''
       },
       countries: [],
       cities: [],
@@ -280,6 +375,8 @@ export default {
         },
       ],
       adresses: [],
+      en_formNames: ["Headoffice", "Warehouse", "Retailshop"],
+      ar_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
     };
   },
   mounted() {
@@ -289,7 +386,7 @@ export default {
   methods: {
     /**
      * get All Adresses function
-     * @vuese 
+     * @vuese
      */
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
@@ -301,7 +398,7 @@ export default {
 
     /**
      * get All Countires function
-     * @vuese 
+     * @vuese
      */
     getAllCountires() {
       auth.getAllCountires().then((res) => {
@@ -312,7 +409,7 @@ export default {
 
     /**
      * get All Regions function
-     * @vuese 
+     * @vuese
      */
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
@@ -325,7 +422,7 @@ export default {
 
     /**
      * get All Cities function
-     * @vuese 
+     * @vuese
      */
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
@@ -338,7 +435,7 @@ export default {
 
     /**
      * create Address function
-     * @vuese 
+     * @vuese
      */
     createAdress() {
       (this.form.is_sale_point = false),
@@ -367,7 +464,7 @@ export default {
     // deleteAdress
     /**
      * delete Address function
-     * @vuese 
+     * @vuese
      */
 
     deleteAdress(row) {
@@ -384,7 +481,7 @@ export default {
     },
     /**
      * edit Address function
-     * @vuese 
+     * @vuese
      */
 
     editAdress(row) {
@@ -407,7 +504,7 @@ export default {
 
     /**
      * make Default Address function
-     * @vuese 
+     * @vuese
      */
 
     makeDefaultAddress(row) {

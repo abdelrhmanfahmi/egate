@@ -268,8 +268,9 @@
                                     </div>
                                   </b-form-group>
                                 </b-col>
+
                                 <!-- street number  -->
-                                <b-col lg="12">
+                                <b-col lg="6">
                                   <b-form-group>
                                     <!-- <label for="streetNumber">{{
                           $t("profile.streetNumber")
@@ -302,6 +303,116 @@
                                     </div>
                                   </b-form-group>
                                 </b-col>
+                                <!-- street  (new add)-->
+                                <b-col lg="6">
+                                  <b-form-group>
+                                    <b-form-input
+                                      id="street"
+                                      v-model="form.street"
+                                      :placeholder="
+                                        $t('profile.newStreetNumber') + '*'
+                                      "
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.street"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </b-form-group>
+                                </b-col>
+                                <!-- name in english (new add)-->
+                                <b-col lg="6" v-if="$i18n.locale == 'en'">
+                                  <b-form-group>
+                                    <b-form-select v-model="newForm.name">
+                                      <b-form-select-option
+                                        value="null"
+                                        disabled
+                                        >{{ $t("profile.name") }}
+                                        <span class="requried text-danger"
+                                          >*</span
+                                        >
+                                      </b-form-select-option>
+                                      <b-form-select-option
+                                        v-for="(
+                                          formName, index
+                                        ) in en_formNames"
+                                        :key="index"
+                                        :value="formName"
+                                        >{{ formName }}
+                                      </b-form-select-option>
+                                    </b-form-select>
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.name"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </b-form-group>
+                                </b-col>
+                                <!-- name in arabic (new add)-->
+                                <b-col lg="6" v-else>
+                                  <b-form-group>
+                                    <b-form-select v-model="newForm.name">
+                                      <b-form-select value="null" disabled>{{
+                                        $t("profile.name")
+                                      }}</b-form-select>
+                                      <b-form-select-option
+                                        v-for="(
+                                          formName, index
+                                        ) in ar_formNames"
+                                        :key="index"
+                                        :value="formName"
+                                        >{{ formName }}
+                                      </b-form-select-option>
+                                    </b-form-select>
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.name"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </b-form-group>
+                                </b-col>
+                                <!-- floor  -->
+                                <b-col lg="6">
+                                  <b-form-group>
+                                    <!-- <label for="floor">{{ $t("profile.floor") }}</label>
+<span class="requried">*</span> -->
+                                    <b-form-input
+                                      id="floor"
+                                      v-model="newForm.floor"
+                                      :placeholder="$t('profile.floor')"
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.floor"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </b-form-group>
+                                </b-col>
+                                <!-- avenue (new add)  -->
+                                <b-col lg="6">
+                                  <b-form-group>
+                                    <b-form-input
+                                      id="floor"
+                                      v-model="newForm.avenue"
+                                      :placeholder="$t('profile.avenue') + '*'"
+                                    />
+                                    <div
+                                      class="error"
+                                      v-for="(error, index) in errors.avenue"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
+                                  </b-form-group>
+                                </b-col>
                                 <!-- home number  -->
                                 <b-col lg="6">
                                   <b-form-group>
@@ -325,32 +436,10 @@
                                     </div>
                                   </b-form-group>
                                 </b-col>
-                                <!-- floor  -->
-                                <b-col lg="6">
-                                  <b-form-group>
-                                    <!-- <label for="floor">{{ $t("profile.floor") }}</label>
-                        <span class="requried">*</span> -->
-                                    <b-form-input
-                                      id="floor"
-                                      v-model="form.floor"
-                                      :placeholder="$t('profile.floor')"
-                                    />
-                                    <div
-                                      class="error"
-                                      v-for="(error, index) in errors.floor"
-                                      :key="index"
-                                    >
-                                      {{ error }}
-                                    </div>
-                                  </b-form-group>
-                                </b-col>
+
                                 <!-- block number   -->
                                 <b-col lg="6">
                                   <b-form-group>
-                                    <!-- <label for="blockNumber">{{
-                          $t("profile.blockNumber")
-                        }}</label>
-                        <span class="requried">*</span> -->
                                     <b-form-input
                                       id="blockNumber"
                                       v-model="form.apartment"
@@ -368,10 +457,6 @@
                                 <!-- post code  -->
                                 <b-col lg="6">
                                   <b-form-group>
-                                    <!-- <label for="postCode">{{
-                          $t("profile.postCode")
-                        }}</label>
-                        <span class="required text-danger">*</span> -->
                                     <b-form-input
                                       id="postCode"
                                       type="number"
@@ -391,26 +476,6 @@
                                     </div>
                                   </b-form-group>
                                 </b-col>
-                                <!-- note  -->
-                                <!-- <b-col lg="12">
-                              <b-form-group>
-                                <label for="textarea">{{
-                                  $t("profile.note")
-                                }}</label>
-                                <b-form-textarea
-                                  id="textarea"
-                                  size="lg"
-                                  v-model="form.notes"
-                                ></b-form-textarea>
-                                <div
-                                  class="error"
-                                  v-for="(error, index) in errors.notes"
-                                  :key="index"
-                                >
-                                  {{ error }}
-                                </div>
-                              </b-form-group>
-                            </b-col> -->
                               </b-row>
 
                               <b-button
@@ -1444,11 +1509,16 @@ export default {
         region_id: null,
         city_id: null,
         building_number: null,
-        floor: null,
         apartment: null,
         pin_code: null,
         notes: null,
         address_line_1: null,
+        floor: null,
+        // new adds
+        name: null,
+        street: null,
+        block: null,
+        avenue: null,
       },
       countries: [],
       cities: [],
@@ -1523,6 +1593,8 @@ export default {
       existCoupons: [],
       couponError: null,
       selectedPhonePrefix: null,
+      en_formNames: ["Headoffice", "Warehouse", "Retailshop"],
+      ar_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
     };
   },
   mounted() {
