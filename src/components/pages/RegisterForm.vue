@@ -371,7 +371,6 @@ export default {
       profile
         .contactUsPhone()
         .then((res) => {
-          console.log(res);
           this.contactPhone = res.data.items;
         })
         .catch((err) => {

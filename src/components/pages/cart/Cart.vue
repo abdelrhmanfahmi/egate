@@ -2532,7 +2532,6 @@ export default {
       suppliers
         .getLoggedFirstShippingFees(address_uuid)
         .then((res) => {
-          // console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
         })
@@ -2599,7 +2598,6 @@ export default {
       suppliers
         .getGuestFirstShippingFees(data)
         .then((res) => {
-          // console.log(res);
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
         })

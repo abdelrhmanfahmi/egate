@@ -250,7 +250,7 @@ export default {
               },
             });
           }
-          console.log(res);
+          
           this.$store.dispatch("cart/getCartProducts");
         })
         .catch((error) => {
@@ -300,7 +300,7 @@ export default {
       profile
         .companyIban()
         .then((res) => {
-          console.log(res);
+          
           this.companyIban = res.data.items;
         })
         .catch((err) => {

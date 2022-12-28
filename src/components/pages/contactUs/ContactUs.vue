@@ -173,7 +173,7 @@ export default {
       profile
         .contactUs(this.form)
         .then((res) => {
-          console.log(res);
+          
           this.sucessMsg(res.data.message);
           this.errors = []
         })
@@ -192,7 +192,7 @@ export default {
       profile
         .contactUsMap()
         .then((res) => {
-          console.log(res);
+          
           this.contactMap = res.data.items;
         })
         .catch((err) => {
@@ -207,7 +207,7 @@ export default {
       profile
         .contactUsPhone()
         .then((res) => {
-          console.log(res);
+          
           this.contactPhone = res.data.items;
         })
         .catch((err) => {
@@ -222,7 +222,7 @@ export default {
       profile
         .contactUsEmail()
         .then((res) => {
-          console.log(res);
+          
           this.contactEmail = res.data.items;
         })
         .catch((err) => {
@@ -237,7 +237,7 @@ export default {
       profile
         .contactUsAddress()
         .then((res) => {
-          console.log(res);
+          
           this.contactAddress = res.data.items;
         })
         .catch((err) => {

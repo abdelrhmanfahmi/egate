@@ -48,7 +48,6 @@ export const clearCartItems = ({ commit }) => {
 
 export const getCartProducts = ({ commit }) => {
     Product.all().then((res) => {
-        // console.log(res);
         commit("SET_CART_ITEMS", res.data.items.cart_items);
         commit("SET_CART_LENGTH", res.data.items.cart_total_products_count);
         commit("SET_CART_TOTAL", res.data.items.cart_sub_total);
