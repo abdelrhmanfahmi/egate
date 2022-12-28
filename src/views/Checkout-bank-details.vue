@@ -127,7 +127,7 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
           }
-          console.log(res);
+          
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

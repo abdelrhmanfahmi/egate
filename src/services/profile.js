@@ -291,6 +291,10 @@ export default {
     return globalAxios.get('members/dashboard-index/client-dashboard')
   },
   getNotificationSettings(){
-    return globalAxios.get('members/notification-settings/public-settings')
+    return globalAxios.get('members/notification-settings')
+    // return globalAxios.get('members/notification-settings/public-settings')
+  },
+  changeNotificationSettings(payload){
+    return globalAxios.post('members/notification-settings',payload)
   }
 };
