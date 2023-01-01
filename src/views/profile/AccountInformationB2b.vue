@@ -403,7 +403,7 @@
 // b2b user  account information page 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-import checkMailModal from "@/components/ChangeprofileReply.vue";
+import checkMailModal from "@/components/changeprofileReply.vue";
 
 export default {
   data() {

@@ -1,33 +1,33 @@
-# NewsLetterModal
+# newsLetterModal
 
 ## Props
 
-<!-- @vuese:NewsLetterModal:props:start -->
+<!-- @vuese:newsLetterModal:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |newsletterShow|-|—|`false`|-|
 
-<!-- @vuese:NewsLetterModal:props:end -->
+<!-- @vuese:newsLetterModal:props:end -->
 
 
 ## Events
 
-<!-- @vuese:NewsLetterModal:events:start -->
+<!-- @vuese:newsLetterModal:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |close|-|-|
 
-<!-- @vuese:NewsLetterModal:events:end -->
+<!-- @vuese:newsLetterModal:events:end -->
 
 
 ## Watch
 
-<!-- @vuese:NewsLetterModal:watch:start -->
+<!-- @vuese:newsLetterModal:watch:start -->
 |Name|Description|Parameters|
 |---|---|---|
 |$route|watch route|-|
 |loadingPercent|check when page loaded|-|
 
-<!-- @vuese:NewsLetterModal:watch:end -->
+<!-- @vuese:newsLetterModal:watch:end -->
 
 

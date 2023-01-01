@@ -247,7 +247,7 @@
 //  favorite page 
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
-import rfqIcon from "@/components/global/RfqIcon.vue";
+import rfqIcon from "@/components/global/rfqIcon.vue";
 import suppliers from "@/services/suppliers";
 export default {
   data() {
@@ -432,7 +432,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: item,
               },

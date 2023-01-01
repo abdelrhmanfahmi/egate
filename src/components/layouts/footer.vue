@@ -7,9 +7,12 @@
           <div class="row">
             <div class="col-12">
               <div class="footer-logo">
-                <a href="https://humhum.work/user-interface/public/en_kw"
+                <router-link to="/"
+                  ><img src="@/assets/images/mysupply-logo.png" alt="mysupply-logo.png"
+                /></router-link>
+                <!-- <a href="https://humhum.work/user-interface/public/en_kw"
                   ><img src="@/assets/images/mysupply-logo.png" alt=""
-                /></a>
+                /></a> -->
               </div>
             </div>
           </div>
@@ -184,7 +187,7 @@
 // footer component
 import profile from "@/services/profile";
 import { version } from "../../../package";
-import ChatUs from "@/components/global/Chat.vue";
+import ChatUs from "@/components/global/chat.vue";
 export default {
   data() {
     return {

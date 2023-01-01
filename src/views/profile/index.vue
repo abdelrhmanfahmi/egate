@@ -53,7 +53,7 @@
  * @displayName  main profile page
  */
 import SideMenu from "@/components/pages/profile/SideMenu.vue";
-import SideMenuB2b from "@/components/pages/profile/SideMenuB2b.vue";
+import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 export default {
   components: {

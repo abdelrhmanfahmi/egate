@@ -1,39 +1,39 @@
-# VariantsCounter
+# variantsCounter
 
 ## Props
 
-<!-- @vuese:VariantsCounter:props:start -->
+<!-- @vuese:variantsCounter:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |quantity|-|quantity prop|`true`|1|
 |minimum|-|minimum prop|`true`|1|
 
-<!-- @vuese:VariantsCounter:props:end -->
+<!-- @vuese:variantsCounter:props:end -->
 
 
 ## Events
 
-<!-- @vuese:VariantsCounter:events:start -->
+<!-- @vuese:variantsCounter:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |changeCount|-|-|
 
-<!-- @vuese:VariantsCounter:events:end -->
+<!-- @vuese:variantsCounter:events:end -->
 
 
 ## Slots
 
-<!-- @vuese:VariantsCounter:slots:start -->
+<!-- @vuese:variantsCounter:slots:start -->
 |Name|Description|Default Slot Content|
 |---|---|---|
 |main|@slot Use this slot header|-|
 
-<!-- @vuese:VariantsCounter:slots:end -->
+<!-- @vuese:variantsCounter:slots:end -->
 
 
 ## Methods
 
-<!-- @vuese:VariantsCounter:methods:start -->
+<!-- @vuese:variantsCounter:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |incrementQuantity|this function used to increment Quantity|-|
@@ -41,6 +41,6 @@
 |CustomIncrementQuantity|custom increament for input not buttons|-|
 |isNumber|this function used to check if isNumber or not|-|
 
-<!-- @vuese:VariantsCounter:methods:end -->
+<!-- @vuese:variantsCounter:methods:end -->
 
 

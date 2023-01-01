@@ -20,7 +20,7 @@
                   <h5 class="text">{{ $t("profile.orders") }}</h5>
                 </div>
                 <div class="p-3">
-                  <small class="number">{{ dashData.total_completed_money | fixedCurrency }}</small>
+                  <small class="number">{{ dashData.total_completed_orders_money | fixedCurrency }}</small>
                   <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
                   <h5 class="text mt-2">{{ currency }}</h5>
                 </div>
@@ -73,7 +73,7 @@
               <div class="info">
                 <div class="p-3">
                   <p class="number">
-                    {{ dashData.total_completed_orders_money | fixedCurrency }}
+                    {{ dashData.wallet | fixedCurrency }}
 
                   </p>
                   <h5 class="text">{{ currency }}</h5>
@@ -217,7 +217,7 @@ saveUUID(order);
  * @displayName  dashboard page
  */
 import profile from "@/services/profile";
-import spinner from "@/components/Spinner.vue";
+import spinner from "@/components/spinner.vue";
 export default {
   components: {
     spinner,

@@ -1,8 +1,8 @@
-# Nav
+# nav
 
 ## Methods
 
-<!-- @vuese:Nav:methods:start -->
+<!-- @vuese:nav:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |closeSideBar|close SideBar function|-|
@@ -15,12 +15,12 @@
 |closeSearch|close search function|-|
 |loginNow|login Now function if not logged in|-|
 
-<!-- @vuese:Nav:methods:end -->
+<!-- @vuese:nav:methods:end -->
 
 
 ## Computed
 
-<!-- @vuese:Nav:computed:start -->
+<!-- @vuese:nav:computed:start -->
 |Computed|Type|Description|From Store|
 |---|---|---|---|
 |cartItems|-|get cart items function|Yes|
@@ -29,6 +29,6 @@
 |notificationsLength|-|get notifications length function|Yes|
 |page|-|check logged in or not function|No|
 
-<!-- @vuese:Nav:computed:end -->
+<!-- @vuese:nav:computed:end -->
 
 

@@ -1,22 +1,22 @@
-# Rate
+# rate
 
 ## Events
 
-<!-- @vuese:Rate:events:start -->
+<!-- @vuese:rate:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |changeRate|change rate value|-|
 
-<!-- @vuese:Rate:events:end -->
+<!-- @vuese:rate:events:end -->
 
 
 ## Methods
 
-<!-- @vuese:Rate:methods:start -->
+<!-- @vuese:rate:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |changevalue|change rate value function|-|
 
-<!-- @vuese:Rate:methods:end -->
+<!-- @vuese:rate:methods:end -->
 
 

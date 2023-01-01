@@ -1,12 +1,12 @@
-# Chat
+# chat
 
 ## Props
 
-<!-- @vuese:Chat:props:start -->
+<!-- @vuese:chat:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |whatsapp|whatsapp prop|`Object`|`false`|-|
 
-<!-- @vuese:Chat:props:end -->
+<!-- @vuese:chat:props:end -->
 
 

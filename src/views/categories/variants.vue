@@ -727,7 +727,7 @@
 
 <script>
 import categories from "@/services/categories";
-import VariantsCounter from "@/components/global/VariantsCounter.vue";
+import VariantsCounter from "@/components/global/variantsCounter.vue";
 import globalAxios from "@/services/global-axios";
 import suppliers from "@/services/suppliers";
 
@@ -737,9 +737,9 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-import rfqIcon from "@/components/global/RfqIcon.vue";
+import rfqIcon from "@/components/global/rfqIcon.vue";
 
-import StandingOrders from "@/components/global/StandingOrders.vue";
+import StandingOrders from "@/components/global/standingOrders.vue";
 
 export default {
   data() {
@@ -863,7 +863,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: item,
               },

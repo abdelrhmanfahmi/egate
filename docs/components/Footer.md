@@ -1,12 +1,12 @@
-# Footer
+# footer
 
 ## Methods
 
-<!-- @vuese:Footer:methods:start -->
+<!-- @vuese:footer:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |footerLinks|get footer links|-|
 
-<!-- @vuese:Footer:methods:end -->
+<!-- @vuese:footer:methods:end -->
 
 

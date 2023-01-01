@@ -235,7 +235,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: myProduct,
               },
@@ -271,7 +271,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: myProduct,
               },

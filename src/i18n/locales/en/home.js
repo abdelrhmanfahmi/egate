@@ -40,5 +40,7 @@ export default {
     helpYou:'How can I help you?',
     startCaht:'Start Chat',
     navSuppliers:'PARTNERS',
-    clients:'Clients'
+    clients:'Clients',
+    consumerCategory:'Consumer Category',
+    corporateCategory:'Corporate Category'
 };

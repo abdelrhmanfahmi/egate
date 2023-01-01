@@ -2,7 +2,28 @@
   <!-- home page  -->
   <div class="home">
     <ProgressSlider />
-    <CatrgoriesHome />
+    <!-- if user is b2c or guest  -->
+    <div class="container text-center " v-if="!buyerUserData || (buyerUserData && buyerUserData.type !== 'buyer')">
+      <span class="categories-info py-5">
+        <h5 class="top-header">{{ $t("profile.categories") }}</h5>
+      </span>
+
+      <div class="tabs-holder">
+        <b-tabs content-class="mt-3">
+          <b-tab :title="$t('home.consumerCategory')" active>
+            <NewCatrgoriesHome />
+          </b-tab>
+          <b-tab :title="$t('home.corporateCategory')" @click="loginAsBuyer">
+            <span></span>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </div>
+    <!-- if user is buyer  -->
+    <div class="" v-else>
+      <CatrgoriesHome />
+    </div>
+
     <ProductSilder />
   </div>
 </template>
@@ -12,10 +33,11 @@
 import auth from "@/services/auth";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
+import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
-import NewsLetterModal from "@/components/NewsLetterModal.vue";
-import supplierAdsModal from "@/components/SupplierAdsModal.vue";
+import NewsLetterModal from "@/components/newsLetterModal.vue";
+import supplierAdsModal from "@/components/supplierAdsModal.vue";
 
 export default {
   name: "Home",
@@ -23,6 +45,7 @@ export default {
     ProgressSlider,
     ProductSilder,
     CatrgoriesHome,
+    NewCatrgoriesHome
   },
 
   methods: {
@@ -136,6 +159,13 @@ export default {
           });
       }
     },
+     /**
+     * @vuese
+     * this function used to login as buyer if you aren't and want to see corporate Categories
+     */
+    loginAsBuyer() {
+      this.$router.push('/b2b-register')
+    }
   },
   data() {
     return {
@@ -181,7 +211,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 h1:first-letter {
   text-transform: uppercase;
 }
