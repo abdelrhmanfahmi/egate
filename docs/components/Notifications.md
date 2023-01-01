@@ -18,16 +18,16 @@
 
  notifications|-|
 
-<!-- @vuese:Notifications:methods:end -->
+<!-- @vuese:notifications:methods:end -->
 
 
 ## Computed
 
-<!-- @vuese:Notifications:computed:start -->
+<!-- @vuese:notifications:computed:start -->
 |Computed|Type|Description|From Store|
 |---|---|---|---|
 |notificationsLength|-|get notifications Length from store|Yes|
 
-<!-- @vuese:Notifications:computed:end -->
+<!-- @vuese:notifications:computed:end -->
 
 

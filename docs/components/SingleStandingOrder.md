@@ -1,29 +1,29 @@
-# SingleStandingOrder
+# singleStandingOrder
 
 ## Props
 
-<!-- @vuese:SingleStandingOrder:props:start -->
+<!-- @vuese:singleStandingOrder:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |orders|-|orders prop|`false`|-|
 |ordersLength|-|orders Length prop|`false`|-|
 
-<!-- @vuese:SingleStandingOrder:props:end -->
+<!-- @vuese:singleStandingOrder:props:end -->
 
 
 ## Events
 
-<!-- @vuese:SingleStandingOrder:events:start -->
+<!-- @vuese:singleStandingOrder:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |removeItem|-|-|
 
-<!-- @vuese:SingleStandingOrder:events:end -->
+<!-- @vuese:singleStandingOrder:events:end -->
 
 
 ## Methods
 
-<!-- @vuese:SingleStandingOrder:methods:start -->
+<!-- @vuese:singleStandingOrder:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |addToWishlist|add To favorite function|-|
@@ -43,6 +43,6 @@
 |ChangeCounter|this function used to Change Counter|-|
 |changeProductQuantity|this function used to change Product Quantity|-|
 
-<!-- @vuese:SingleStandingOrder:methods:end -->
+<!-- @vuese:singleStandingOrder:methods:end -->
 
 

@@ -1,8 +1,8 @@
-# Login
+# login
 
 ## Methods
 
-<!-- @vuese:Login:methods:start -->
+<!-- @vuese:login:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |loginB2c|login B2c function|-|
@@ -10,6 +10,6 @@
 |switchField|switchField function to show password|-|
 |sendEmail|step One forget Password sendEmail function|-|
 
-<!-- @vuese:Login:methods:end -->
+<!-- @vuese:login:methods:end -->
 
 

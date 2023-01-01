@@ -40,6 +40,8 @@ export default {
   hiThere: "مرحبا",
   helpYou: "كيف يمكننى مساعدتك ؟",
   startCaht: "ابدأ المحادثه",
-  navSuppliers:'الشركاء',
-  clients:'العملاء'
+  navSuppliers: 'الشركاء',
+  clients: 'العملاء',
+  consumerCategory: 'فئة المستهلك',
+  corporateCategory: 'فئة الشركة'
 };

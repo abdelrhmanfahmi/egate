@@ -15,11 +15,22 @@
         <h1>
           {{ $t("payment.congrats") }}
         </h1>
-        <p>
-          {{ $t("payment.waitPurchace1") }}
+        <div>
+          <p>
+            {{ $t("payment.waitPurchace1") }}
+          </p>
+          <p>
+            <!-- order id  -->
+            <span>{{ $t("profile.orderSerial") }} :</span>
+            <span>{{ id }} #</span>
+          </p>
+          <!-- tab charge id  -->
+          <p>
+            TID : {{ tap_charge_id }}
+          </p>
           <br />
           {{ $t("payment.waitPurchace2") }}
-        </p>
+        </div>
         <router-link to="/profile/Wallet" v-if="buyerUserData">
           <b-button variant="outline-success mt-4">
             {{ $t("profile.wallet") }}
@@ -68,7 +79,9 @@ export default {
       success: false,
       fail: false,
       failReason: null,
-      orderId: null
+      orderId: null,
+      id: this.$route.query.id,
+      tap_charge_id: this.$route.query.tap_id
     };
   },
   methods: {

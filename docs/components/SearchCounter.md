@@ -1,45 +1,45 @@
-# SearchCounter
+# searchCounter
 
 ## Props
 
-<!-- @vuese:SearchCounter:props:start -->
+<!-- @vuese:searchCounter:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |quantity|-|quantity prop|`true`|1|
 |product|-|product prop|`false`|-|
 |minimum|-|minimum prop|`true`|1|
 
-<!-- @vuese:SearchCounter:props:end -->
+<!-- @vuese:searchCounter:props:end -->
 
 
 ## Events
 
-<!-- @vuese:SearchCounter:events:start -->
+<!-- @vuese:searchCounter:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |changeTitle|-|-|
 
-<!-- @vuese:SearchCounter:events:end -->
+<!-- @vuese:searchCounter:events:end -->
 
 
 ## Slots
 
-<!-- @vuese:SearchCounter:slots:start -->
+<!-- @vuese:searchCounter:slots:start -->
 |Name|Description|Default Slot Content|
 |---|---|---|
 |main|@slot Use this slot header|-|
 
-<!-- @vuese:SearchCounter:slots:end -->
+<!-- @vuese:searchCounter:slots:end -->
 
 
 ## Methods
 
-<!-- @vuese:SearchCounter:methods:start -->
+<!-- @vuese:searchCounter:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |incrementQuantity|increment Quantity function|-|
 |decrementQuantity|decrement Quantity function|-|
 
-<!-- @vuese:SearchCounter:methods:end -->
+<!-- @vuese:searchCounter:methods:end -->
 
 

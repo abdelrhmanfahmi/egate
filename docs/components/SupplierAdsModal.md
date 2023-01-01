@@ -1,28 +1,28 @@
-# SupplierAdsModal
+# supplierAdsModal
 
 ## Props
 
-<!-- @vuese:SupplierAdsModal:props:start -->
+<!-- @vuese:supplierAdsModal:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |supplierAds|-|—|`false`|-|
 
-<!-- @vuese:SupplierAdsModal:props:end -->
+<!-- @vuese:supplierAdsModal:props:end -->
 
 
 ## Events
 
-<!-- @vuese:SupplierAdsModal:events:start -->
+<!-- @vuese:supplierAdsModal:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
 |close|-|-|
 
-<!-- @vuese:SupplierAdsModal:events:end -->
+<!-- @vuese:supplierAdsModal:events:end -->
 
 
 ## Methods
 
-<!-- @vuese:SupplierAdsModal:methods:start -->
+<!-- @vuese:supplierAdsModal:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
 |closeModal|close modal|-|
@@ -30,16 +30,16 @@
 |onImgLoad|check when image loaded|-|
 |doProgress|check when page loaded|-|
 
-<!-- @vuese:SupplierAdsModal:methods:end -->
+<!-- @vuese:supplierAdsModal:methods:end -->
 
 
 ## Watch
 
-<!-- @vuese:SupplierAdsModal:watch:start -->
+<!-- @vuese:supplierAdsModal:watch:start -->
 |Name|Description|Parameters|
 |---|---|---|
 |loadingPercent|check when page loaded|-|
 
-<!-- @vuese:SupplierAdsModal:watch:end -->
+<!-- @vuese:supplierAdsModal:watch:end -->
 
 
