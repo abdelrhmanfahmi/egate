@@ -1449,7 +1449,7 @@
 import Counter from "@/components/global/Counter.vue";
 import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
-import LoginModal from "@/components/global/LoginModal.vue";
+import LoginModal from "@/components/global/loginModal.vue";
 
 import auth from "@/services/auth";
 import profile from "@/services/profile";

@@ -233,9 +233,9 @@
 // nav component
 import MobileNav from "./MobileNav.vue";
 import Cart from "../cart/Cart.vue";
-import Notify from "../Notifications.vue";
+import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
-import Login from "./Login.vue";
+import Login from "./login.vue";
 export default {
   data() {
     return {

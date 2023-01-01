@@ -87,7 +87,7 @@
  * products reviews page
  * @displayName products reviews page
  */
-import Rate from "@/components/global/Rate.vue";
+import Rate from "@/components/global/rate.vue";
 import profile from "@/services/profile";
 export default {
   data() {

@@ -218,7 +218,7 @@ export default {
             document.querySelector(".close").click();
 
             // this.$modal.show(
-            //   () => import("@/components/cart/CartModal.vue"),
+            //   () => import("@/components/cart/cartModal.vue"),
             //   {
             //     product: myProduct,
             //   },

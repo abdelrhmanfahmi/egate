@@ -526,9 +526,9 @@ import globalAxios from "@/services/global-axios";
 import categories from "@/services/categories";
 import profile from "@/services/profile";
 
-import rfqIcon from "@/components/global/RfqIcon.vue";
+import rfqIcon from "@/components/global/rfqIcon.vue";
 
-import StandingOrders from "@/components/global/StandingOrders.vue";
+import StandingOrders from "@/components/global/standingOrders.vue";
 
 import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
 export default {
@@ -573,7 +573,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: myProduct,
               },

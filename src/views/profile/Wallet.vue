@@ -272,7 +272,7 @@
  * @displayName wallet page
  */
 import profile from "@/services/profile";
-import spinner from "@/components/Spinner.vue";
+import spinner from "@/components/spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {

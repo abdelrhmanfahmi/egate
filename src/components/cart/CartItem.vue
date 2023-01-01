@@ -71,7 +71,7 @@ import { BIconTrash } from "bootstrap-vue";
  * import cart counter
  */
 
-import Counter from "@/components/global/CartPopupCounter";
+import Counter from "@/components/global/cartPopupCounter";
 export default {
   data() {
     return { count: 0, loading: false };

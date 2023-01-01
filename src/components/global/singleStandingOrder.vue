@@ -355,10 +355,10 @@
 <script>
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
-import rfqIcon from "@/components/global/RfqIcon.vue";
+import rfqIcon from "@/components/global/rfqIcon.vue";
 import suppliers from "@/services/suppliers";
 import profile from "@/services/profile";
-import VariantsCounter from "@/components/global/VariantsCounter.vue";
+import VariantsCounter from "@/components/global/variantsCounter.vue";
 export default {
   data() {
     return {
@@ -439,7 +439,7 @@ export default {
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
-              () => import("@/components/cart/CartModal.vue"),
+              () => import("@/components/cart/cartModal.vue"),
               {
                 product: item,
               },
