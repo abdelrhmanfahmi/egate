@@ -135,7 +135,7 @@
                 <div class="row">
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="country">{{ $t("profile.country") }}</label>
+                      <label for="country">{{ $t("profile.countryOrigin") }}</label>
 
                       <b-form-select
                         v-model="sortTypeCountry"
