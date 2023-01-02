@@ -100,7 +100,8 @@
       </div>
     </div>
     <!-- sub category image  -->
-    <div class="products" v-if="products.length > 0">
+    <!-- <div class="products" > -->
+    <div class="products" v-if="products">
       <!-- start category name and filters  -->
       <div class="container">
         <div class="row justify-content-between align-items-center">
@@ -248,7 +249,7 @@
       <!-- when data of relative products comes   -->
 
       <div class="products-table text-center" v-else>
-        <table
+        <table v-if="products.length > 0"
           class="table table-striped table-hover table-bordered selectable"
         >
           <thead>
@@ -648,6 +649,9 @@
             </tr>
           </tbody>
         </table>
+        <div class="my-5" v-else>
+          <h1>{{$t('home.noData')}}</h1>
+        </div>
         <b-modal id="bv-bidRequest" hide-footer>
           <template #modal-title>
             {{ $t("singleProduct.bidRequest") }}
