@@ -1,6 +1,6 @@
 <template>
     <div class="profile-categories">
-        <b-container>
+
             
             <!-- when data loading  -->
             <div v-if="loading">
@@ -23,7 +23,7 @@
                     </router-link>
                 </b-col>
             </b-row>
-        </b-container>
+
     </div>
 </template>
   
