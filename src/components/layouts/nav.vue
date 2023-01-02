@@ -305,7 +305,10 @@ export default {
      * login Now function if not logged in
      */
     loginNow() {
-      document.$refs["b2cLogin"].show();
+      if(document.$refs.b2cLogin){
+
+        document.$refs.b2cLogin.show();
+      }
       document.querySelector(".login").click();
       this.$router.push({
         path: this.$router.path,
