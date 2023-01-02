@@ -43,6 +43,7 @@ export default {
   shippingAddress: "Shipping Address",
   newAddress: "New address",
   country: "Country",
+  countryOrigin:'Country of Origin',
   region: "Province",
   city: "City ",
   streetNumber: "Address",

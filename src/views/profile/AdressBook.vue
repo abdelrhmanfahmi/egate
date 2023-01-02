@@ -450,7 +450,7 @@ export default {
             if (res.status == 200) {
               setTimeout(() => {
                 // this.$router.replace('/profile/documents')
-                this.$router.replace("/");
+                this.$router.replace("/profile/documents");
               }, 500);
             }
           })

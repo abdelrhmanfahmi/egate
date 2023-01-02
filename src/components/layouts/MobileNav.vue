@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-nav">
+  <div class="mobile-nav" ref="b2cLogin">
     <!-- navbar for mobile  -->
     <div class="branding">
       <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />

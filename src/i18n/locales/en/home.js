@@ -42,5 +42,6 @@ export default {
     navSuppliers:'PARTNERS',
     clients:'Clients',
     consumerCategory:'Consumer Category',
-    corporateCategory:'Corporate Category'
+    corporateCategory:'Corporate Category',
+    registerThank:'Thanks for Registeration'
 };

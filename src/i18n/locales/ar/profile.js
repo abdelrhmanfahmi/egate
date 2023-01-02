@@ -47,6 +47,7 @@ export default {
   shippingAddress: "بيانات التوصيل",
   newAddress: "عنوان جديد",
   country: "البلد",
+  countryOrigin:'بلد المنشأ',
   region: "المدينه",
   city: "الحى",
   streetNumber: "الشارع",

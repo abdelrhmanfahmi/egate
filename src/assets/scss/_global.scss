@@ -560,14 +560,21 @@ input[type="number"] {
 }
 
 .Allcountries {
+  .dropdown-menu{
+    left: -12rem !important;
+    min-width: 20rem !important;
+    @media(max-width:992px){
+      left: -3rem !important;
+      min-width: 15rem !important;
+    }
+  }
   .dropdown-menu.show {
     width: 100%;
     overflow: scroll;
     height: 500px;
     position: absolute;
     will-change: transform;
-    top: 0px;
-    left: 0px;
+    top:0;
     transform: translate3d(0px, 37px, 0px);
 
     // position: fixed !important;
@@ -597,7 +604,7 @@ input[type="number"] {
     width: 100% !important;
     margin: auto !important;
     .nav-item {
-      width: 43% !important;
+      width: 50% !important;
     }
     .nav-item .nav-link {
       margin: 0 !important;
@@ -618,5 +625,9 @@ input[type="number"] {
   }
   .nav.nav-tabs .nav-item + .nav-item {
     margin-left: 0 !important;
+  }
+  .tab-pane{
+    padding-left: 0;
+    padding-right: 0;
   }
 }

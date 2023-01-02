@@ -129,7 +129,7 @@ export default {
           id: data.id,
         },
       });
-      location.reload();
+      // location.reload();
     },
     /**
      * @vuese
@@ -142,7 +142,7 @@ export default {
           id: data.product_details_by_type.product_supplier_id,
         },
       });
-      location.reload();
+      // location.reload();
     },
 
     /**

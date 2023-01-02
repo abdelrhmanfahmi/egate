@@ -299,8 +299,10 @@ export default {
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           localStorage.setItem("massege", this.$t("register.openEmail"));
-          this.$router.push("/");
-          location.reload();
+          this.$router.push("/welcome");
+          setTimeout(() => {
+            location.reload();
+          }, 200);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
