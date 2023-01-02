@@ -333,6 +333,9 @@ export default {
         path: "/SearchResults",
         query: { keyword: this.keyword },
       });
+      setTimeout(() => {
+        location.reload()
+      }, 1200);
     },
     /**
      * @vuese
