@@ -4,6 +4,7 @@ import b2bRegister from "../views/auth/b2bRegister.vue";
 import b2bLogin from "../views/auth/b2bLogin.vue";
 import CompleteSocialProfile from "../views/auth/CompleteSocialProfile.vue";
 import CompleteCheckout from "../views/complete-checkout";
+import Welcome from "../views/auth/welcome";
 
 export default [
   {
@@ -35,5 +36,10 @@ export default [
     path: "/complete-checkout",
     name: "CompleteCheckout",
     component: CompleteCheckout,
+  },
+  {
+    path: "/Welcome",
+    name: "Welcome",
+    component: Welcome,
   },
 ];

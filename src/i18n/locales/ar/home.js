@@ -43,5 +43,6 @@ export default {
   navSuppliers: 'الشركاء',
   clients: 'العملاء',
   consumerCategory: 'فئة المستهلك',
-  corporateCategory: 'فئة الشركة'
+  corporateCategory: 'فئة الشركة',
+  registerThank:'شكرا على انشاء حساب'
 };
