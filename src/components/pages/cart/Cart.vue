@@ -2701,7 +2701,7 @@ export default {
               this.$store.dispatch("cart/getCartProducts");
             }, 500);
           } else {
-            this.$router.push("/");
+            this.$router.push("/CodBanckCheckoutDetails");
             this.$store.dispatch("cart/getCartProducts");
           }
         })
