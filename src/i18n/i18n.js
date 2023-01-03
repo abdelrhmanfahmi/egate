@@ -66,7 +66,7 @@ export async function loadLanguageAsync(lang) {
 
 
     if (messages != null) {
-      console.log('messages', messages);
+      // console.log('messages', messages);
       i18n.setLocaleMessage(lang, messages)
       loadedLanguages.push(lang)
       return setI18nLanguage(lang)

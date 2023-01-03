@@ -159,7 +159,7 @@ export default new Vuex.Store({
       profile
         .getProfileBudges()
         .then((res) => {
-          console.log("res" , res);
+          // console.log("res" , res);
           commit('SET_USER_BADGES' , res.data.items)
         })
         .catch((err) => {

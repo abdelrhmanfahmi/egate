@@ -26,7 +26,7 @@
         </div>
       </div>
       <!-- if data returned   -->
-      <div class="px-5" v-else-if="categoriesLength > 0 || productsLength > 0">
+      <div class="px-5" v-else-if="categoriesLength > 0 || productsLength > 0 || suppliersLength > 0">
         <div class="data-holder py-3">
           <b-row v-if="loading">
             <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">

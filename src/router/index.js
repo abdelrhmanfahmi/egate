@@ -18,6 +18,7 @@ import SearchProducts from "../views/Search-Products.vue";
 import QuotationDetails from "../views/profile/QuotationDetails.vue";
 import VisaCheckoutDetails from "../views/Visa-Checkout-Details.vue";
 import CheckoutDetails from "../views/Checkout-details.vue";
+import CodBanckCheckoutDetails from "../views/COD-Bank-Ckeckout.vue";
 import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
 import SuccessCheckout from "../views/SuccessCheckout";
 import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
@@ -164,6 +165,11 @@ const routes = [
     path: "/checkout-details",
     name: "CheckoutDetails",
     component: CheckoutDetails,
+  },
+  {
+    path: "/CodBanckCheckoutDetails",
+    name: "CodBanckCheckoutDetails",
+    component: CodBanckCheckoutDetails,
   },
   {
     path: "/Checkout-bank-details",
