@@ -69,7 +69,7 @@
 
               <router-link
                 to="/forget-password"
-                v-if="buyerUserData"
+                v-if="buyerUserData && buyerUserData.type === 'b2c'"
               >
                 <b class="forget-password my-3" v-b-modal.ForgetPassword>
                   {{ $t("login.fogetPassword") }}
