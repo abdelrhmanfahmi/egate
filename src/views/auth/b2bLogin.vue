@@ -75,11 +75,11 @@
                   {{ $t("login.fogetPassword") }}
                 </b>
               </router-link>
-              <router-link to="/forget-password" v-else>
+              <a  v-b-modal.ForgetPassword v-else>
                 <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>
-              </router-link>
+              </a>
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
