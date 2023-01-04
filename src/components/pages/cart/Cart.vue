@@ -113,7 +113,7 @@
                             v-if="selectAddressShape === 'newAddress'"
                           >
                             <form class="account-information-form">
-                              <b-row class="justify-content-center">
+                              <b-row class="justify-content-start">
                                 <!-- country  -->
                                 <b-col lg="4">
                                   <b-form-group>
@@ -323,7 +323,10 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in english (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'en'">
+                                <b-col
+                                  lg="6"
+                                  v-if="$i18n.locale == 'en' && buyerUserData"
+                                >
                                   <b-form-group>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select-option
@@ -353,7 +356,10 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in arabic (new add)-->
-                                <b-col lg="6" v-else>
+                                <b-col
+                                  lg="6"
+                                  v-if="$i18n.locale == 'ar' && buyerUserData"
+                                >
                                   <b-form-group>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
@@ -380,8 +386,6 @@
                                 <!-- floor  -->
                                 <b-col lg="6">
                                   <b-form-group>
-                                    <!-- <label for="floor">{{ $t("profile.floor") }}</label>
-<span class="requried">*</span> -->
                                     <b-form-input
                                       id="floor"
                                       v-model="newForm.floor"
@@ -402,7 +406,7 @@
                                     <b-form-input
                                       id="floor"
                                       v-model="newForm.avenue"
-                                      :placeholder="$t('profile.avenue') + '*'"
+                                      :placeholder="$t('profile.avenue')"
                                     />
                                     <div
                                       class="error"
@@ -1184,6 +1188,19 @@
                                         $t("payment.paymentByBank")
                                       }}</span>
                                     </div>
+                                    <p class="error text-center"
+                                      v-if="
+                                        paymentFormData.payment_type ===
+                                          'bank' && paymentFormData.file == null
+                                      "
+                                    >{{$t('profile.filePlaceHolder')}}</p>
+                                    <div
+                                      class="error text-center"
+                                      v-for="(error, index) in errors.file"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
                                   </div>
                                   <!-- cach option  -->
                                   <div class="method cach">
@@ -1231,7 +1248,9 @@
                                           for="paymentMethod3"
                                         >
                                           {{ $t("payment.onlinePayment") }}
-                                          <sup>*</sup>
+                                          <supuploadBankImage
+                                            >*</supuploadBankImage
+                                          >
                                         </label>
                                       </div>
                                     </div>
@@ -1334,6 +1353,10 @@
                                       type="submit"
                                       class="login-button dark"
                                       @click="payment"
+                                      :disabled="
+                                        paymentFormData.payment_type ===
+                                          'bank' && paymentFormData.file == null
+                                      "
                                       v-else
                                     >
                                       {{ $t("payment.checkout") }}
