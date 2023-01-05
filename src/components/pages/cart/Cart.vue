@@ -1409,6 +1409,10 @@
                     class="bankData mb-5"
                     @submit.prevent="checkoutbankUpload"
                   >
+                  <div class="d-flex">
+                    <p><b>IBan : </b></p>
+                    <p class="iban" v-if="companyIban" v-html="companyIban.description"></p>
+                  </div>
                     <div class="form-input mb-4">
                       <label for="bankImage">
                         {{ $t("payment.uploadImage") }}
@@ -1616,6 +1620,7 @@ export default {
       selectedPhonePrefix: null,
       en_formNames: ["Headoffice", "Warehouse", "Retailshop"],
       ar_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
+      companyIban:null
     };
   },
   mounted() {
@@ -1732,6 +1737,8 @@ export default {
         this.buyerUserData.address_uuid
       );
     }
+
+    this.getCompanyIban()
   },
   methods: {
     formatPin_code(e) {
@@ -3162,6 +3169,25 @@ export default {
      */
     uploadBankImage(event) {
       this.paymentFormData.file = event.target.files[0];
+    },
+
+    /**
+     *  @vuese
+     *   get Company Iban
+     */
+
+    getCompanyIban() {
+      profile
+        .companyIban()
+        .then((res) => {
+
+          console.log("companyIban" , res);
+          
+          this.companyIban = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   computed: {
