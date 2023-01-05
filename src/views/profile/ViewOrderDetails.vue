@@ -1417,7 +1417,7 @@ export default {
       profile
         .contactUsPhone()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.contactPhone = res.data.items;
         })
         .catch((err) => {
@@ -1432,7 +1432,7 @@ export default {
       profile
         .contactUsEmail()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.contactEmail = res.data.items;
         })
         .catch((err) => {

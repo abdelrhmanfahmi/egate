@@ -298,4 +298,5 @@ export default {
   others:'Others',
   sms:"SMS",
   Mail:"Mail",
+  accountDetails:'Enter bank account Details'
 };

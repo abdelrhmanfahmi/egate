@@ -289,4 +289,5 @@ export default {
   others:'أخرى',
   sms:"الرسائل النصيه",
   Mail:"البريد",
+  accountDetails:'ادخل بيانات حسابك البنكى'
 };
