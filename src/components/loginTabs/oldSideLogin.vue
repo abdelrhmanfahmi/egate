@@ -32,7 +32,7 @@
               </div>
               <div class="col-md-3 col-sm-12">
                 <a
-                  href="https://staging2.fabrica-dev.com/humhum-supplier/"
+                  :href="`${supplierDomain}`"
                   target="_blank"
                   class="text-dark font-weight-bold text-decoration-underline"
                   >{{ $t("home.suppliers") }}</a
