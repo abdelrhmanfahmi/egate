@@ -1248,9 +1248,7 @@
                                           for="paymentMethod3"
                                         >
                                           {{ $t("payment.onlinePayment") }}
-                                          <supuploadBankImage
-                                            >*</supuploadBankImage
-                                          >
+                                          
                                         </label>
                                       </div>
                                     </div>
@@ -2707,7 +2705,7 @@ export default {
               this.$router.push({
                 path: "/visa-checkout-details",
                 query: {
-                  order_serial: res.data.items.order.order_serial,
+                  order_serial: res.data.items.order_serial,
                   date: res.data.items.order.created_at,
                   total_price: this.totalPaymentReplacement,
                   payment_type: res.data.items.order.payment_type,
@@ -2724,7 +2722,12 @@ export default {
               this.$store.dispatch("cart/getCartProducts");
             }, 500);
           } else {
-            this.$router.push("/CodBanckCheckoutDetails");
+            this.$router.push({
+              path:"/CodBanckCheckoutDetails",
+              query: {
+                  orderId: res.data.items.id,
+                },
+            });
             this.$store.dispatch("cart/getCartProducts");
           }
         })

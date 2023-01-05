@@ -24,8 +24,7 @@
             {{ $t("payment.waitPurchace2") }}
           </p>
           <router-link
-            :to="{ path: 'viewOrderDetails', query: { id: orderId } }"
-            v-if="buyerUserData"
+            :to="{ path: '/viewOrderDetails', query: { id: orderId } }"
           >
             <b-button variant="outline-success mt-4">
               {{ $t("payment.orderTrack") }}
@@ -35,8 +34,15 @@
       </div>
     </div>
   </template>
-  
-  
+  <script>
+  export default {
+    data(){
+      return {
+        orderId:this.$route.query.orderId
+      }
+    }
+  }
+  </script>   
   <style lang="scss" scoped>
   .container {
     text-align: center;
