@@ -178,6 +178,8 @@
               v-model="returnData.return"
             ></b-form-textarea>
 
+            <!-- add new text area if user select bank   -->
+
 
             <div class="" v-if="selectedOption == 'bank' || returnData.refund_option == 2">
               <label for="accountDetails">{{$t('profile.accountDetails')}}</label>
