@@ -61,7 +61,7 @@
                   </li>
                   <li>
                     <a
-                      href="https://staging2.fabrica-dev.com/humhum-supplier/auth/login"
+                      :href="`${supplierDomain}auth/login`"
                       target="_blank"
                       >{{ $t("home.vendors") }}</a
                     >

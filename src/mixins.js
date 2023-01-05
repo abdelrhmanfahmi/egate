@@ -15,6 +15,9 @@ Vue.mixin({
     mainDoamin() {
       return process.env.VUE_APP_DOMAIN_NAME;
     },
+    supplierDomain(){
+      return process.env.VUE_APP_SUPPLIER
+    },
     massgeOfVerify() {
       return localStorage.getItem("massege");
     },

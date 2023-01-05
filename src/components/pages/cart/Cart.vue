@@ -1248,9 +1248,7 @@
                                           for="paymentMethod3"
                                         >
                                           {{ $t("payment.onlinePayment") }}
-                                          <supuploadBankImage
-                                            >*</supuploadBankImage
-                                          >
+                                          
                                         </label>
                                       </div>
                                     </div>
@@ -1411,6 +1409,10 @@
                     class="bankData mb-5"
                     @submit.prevent="checkoutbankUpload"
                   >
+                  <div class="d-flex">
+                    <p><b>IBan : </b></p>
+                    <p class="iban" v-if="companyIban" v-html="companyIban.description"></p>
+                  </div>
                     <div class="form-input mb-4">
                       <label for="bankImage">
                         {{ $t("payment.uploadImage") }}
@@ -1618,6 +1620,7 @@ export default {
       selectedPhonePrefix: null,
       en_formNames: ["Headoffice", "Warehouse", "Retailshop"],
       ar_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
+      companyIban:null
     };
   },
   mounted() {
@@ -1734,6 +1737,8 @@ export default {
         this.buyerUserData.address_uuid
       );
     }
+
+    this.getCompanyIban()
   },
   methods: {
     formatPin_code(e) {
@@ -2707,7 +2712,7 @@ export default {
               this.$router.push({
                 path: "/visa-checkout-details",
                 query: {
-                  order_serial: res.data.items.order.order_serial,
+                  order_serial: res.data.items.order_serial,
                   date: res.data.items.order.created_at,
                   total_price: this.totalPaymentReplacement,
                   payment_type: res.data.items.order.payment_type,
@@ -2724,7 +2729,12 @@ export default {
               this.$store.dispatch("cart/getCartProducts");
             }, 500);
           } else {
-            this.$router.push("/CodBanckCheckoutDetails");
+            this.$router.push({
+              path:"/CodBanckCheckoutDetails",
+              query: {
+                  orderId: res.data.items.id,
+                },
+            });
             this.$store.dispatch("cart/getCartProducts");
           }
         })
@@ -3159,6 +3169,25 @@ export default {
      */
     uploadBankImage(event) {
       this.paymentFormData.file = event.target.files[0];
+    },
+
+    /**
+     *  @vuese
+     *   get Company Iban
+     */
+
+    getCompanyIban() {
+      profile
+        .companyIban()
+        .then((res) => {
+
+          console.log("companyIban" , res);
+          
+          this.companyIban = res.data.items;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   computed: {

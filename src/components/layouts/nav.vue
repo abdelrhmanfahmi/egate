@@ -29,7 +29,7 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a href="https://staging2.fabrica-dev.com/humhum-supplier/" target="_blank">{{ $t("home.suppliers")
+                    <a :href="`${supplierDomain}`" target="_blank">{{ $t("home.suppliers")
                     }}</a>
                   </li>
                   <li>

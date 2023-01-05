@@ -1,7 +1,7 @@
 <template>
   <!-- single order details page  -->
   <div class="my-5 order-details">
-    <div class="wrapper">
+    <div class="wrapper" v-if="id">
       <!-- normal view   -->
       <div class="container normaly">
         <div class="wrapper" v-if="!loading">
@@ -1135,6 +1135,11 @@
         </div>
       </div>
     </div>
+    <div class="wrapper" v-else>
+      <div class="text-center">
+        <h2>{{ $t("home.noData") }}</h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1412,7 +1417,7 @@ export default {
       profile
         .contactUsPhone()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.contactPhone = res.data.items;
         })
         .catch((err) => {
@@ -1427,7 +1432,7 @@ export default {
       profile
         .contactUsEmail()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.contactEmail = res.data.items;
         })
         .catch((err) => {
@@ -1443,6 +1448,9 @@ export default {
     this.footerYoutubeLink();
     this.footerInstagramLink();
     this.footerPinterestLink();
+    if(!this.id){
+      this.$router.push('/404')
+    }
   },
 };
 </script>

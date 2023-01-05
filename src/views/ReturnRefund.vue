@@ -177,6 +177,19 @@
               rows="8"
               v-model="returnData.return"
             ></b-form-textarea>
+
+            <!-- add new text area if user select bank   -->
+
+
+            <div class="" v-if="selectedOption == 'bank' || returnData.refund_option == 2">
+              <label for="accountDetails">{{$t('profile.accountDetails')}}</label>
+              <b-form-textarea
+                id="accountDetails"
+                rows="8"
+                v-model="returnData.clinet_bank_info"
+              ></b-form-textarea>
+            </div>
+
             <b-button
               type="submit"
               variant="outline-danger"
@@ -215,6 +228,7 @@ export default {
         refund_option: null, // 0=Wallet,1=Visa,2=Bank,3=Cash
         return: null,
         quantity: 1,
+        clinet_bank_info:null
       },
       uploadErrors: [],
       btn1Disabled: false,
@@ -253,6 +267,7 @@ export default {
       formData.append("return_option", this.returnData.return_option);
       formData.append("refund_option", this.returnData.refund_option);
       formData.append("quantity", this.returnData.quantity);
+      formData.append("clinet_bank_info", this.returnData.clinet_bank_info);
 
       await profile
         .returnOrder(formData)
