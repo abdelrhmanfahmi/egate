@@ -61,7 +61,7 @@
                   </li>
                   <li>
                     <a
-                      :href="`${supplierDomain}auth/login`"
+                      :href="`${supplierDomain}auth/login&lang=${$i18n.locale}`"
                       target="_blank"
                       >{{ $t("home.vendors") }}</a
                     >

@@ -44,16 +44,16 @@
               </b-row>
 
 
-              <router-link to="/forget-password" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+              <a  v-if="buyerUserData && buyerUserData.type === 'b2c'">
                 <b class="forget-password my-3" v-b-modal.ForgetPassword>
                   {{ $t("login.fogetPassword") }}
                 </b>
-              </router-link>
-              <router-link to="/forget-password" v-else>
+              </a>
+              <a to="/forget-password" v-else v-b-modal.ForgetPassword>
                 <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>
-              </router-link>
+              </a>
 
               <div class="submition-box">
                 <b-button type="submit" variant="danger">
