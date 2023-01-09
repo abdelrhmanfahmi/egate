@@ -518,6 +518,8 @@
                       v-if="
                         (buyerUserData.type === 'buyer' &&
                           buyerUserData.profile_percentage == 100) ||
+                          (buyerUserData.type === 'supplier' &&
+                          buyerUserData.profile_percentage == 100) ||
                         (buyerUserData.type === 'b2c' &&
                           buyerUserData.is_verified)
                       "

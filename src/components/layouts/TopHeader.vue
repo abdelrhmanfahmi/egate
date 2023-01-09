@@ -11,43 +11,25 @@
           </button>
         </div>
         <div class="select-country Allcountries">
-          <b-dropdown
-            id="dropdown-1"
-            variant="link"
-            toggle-class="text-decoration-none"
-            no-caret
-          >
+          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title">{{ countryName }}</span>
               <img :src="countryImg" :alt="countryName" />
             </template>
-            <b-dropdown-item
-              v-for="country in countries"
-              :key="country.id"
-              @click="onHandelCountry(country)"
-            >
+            <b-dropdown-item v-for="country in countries" :key="country.id" @click="onHandelCountry(country)">
               <span>{{ country.title }}</span>
               <img :src="country.flag" :alt="country.title" />
             </b-dropdown-item>
           </b-dropdown>
         </div>
         <div class="select-country">
-          <b-dropdown
-            id="dropdown-1"
-            variant="link"
-            toggle-class="text-decoration-none"
-            no-caret
-          >
+          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title" id="myCurrency-code">{{
-                currentCurrency
+                  currentCurrency
               }}</span>
             </template>
-            <b-dropdown-item
-              v-for="(currency, index) in myCurrencies"
-              :key="index"
-              @click="handleCurrency(currency)"
-            >
+            <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index" @click="handleCurrency(currency)">
               <span>{{ currency.code }}</span>
             </b-dropdown-item>
           </b-dropdown>
@@ -85,6 +67,19 @@ export default {
   mounted() {
     this.getAllCountires();
     // this.reloadPage();
+    console.log(this.$route.query.lang);
+
+    document.onreadystatechange = () => {
+      if (document.readyState == "complete") {
+        // fetch to next page or some code
+        if (this.$route.query.lang && this.$route.query.lang == 'en') {
+          this.$refs.en.click()
+        } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
+          this.$refs.ar.click()
+        }
+
+      }
+    }
   },
   methods: {
     /**
@@ -195,7 +190,7 @@ export default {
             "country",
             JSON.stringify(res.data.items)
           );
-          window.localStorage.setItem('countryByIP' ,JSON.stringify(res.data.items) )
+          window.localStorage.setItem('countryByIP', JSON.stringify(res.data.items))
           if (localStorage.getItem("currency") === null) {
             localStorage.setItem("currency", res.data.items.currencies[0].code);
             localStorage.setItem("currencyId", res.data.items.currencies[0].id);
