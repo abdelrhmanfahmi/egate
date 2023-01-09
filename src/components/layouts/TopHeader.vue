@@ -5,8 +5,8 @@
     <b-container>
       <div class="top-nav">
         <div class="lang">
-          <button @click="switchLang()" v-if="lang == 'ar'">English</button>
-          <button @click="switchLang()" v-if="lang == 'en'">
+          <button @click="switchLang()" v-if="lang == 'ar'" id="en" ref="en">English</button>
+          <button @click="switchLang()" v-if="lang == 'en'" id="ar" ref="ar">
             اللغة العربية
           </button>
         </div>
@@ -195,6 +195,7 @@ export default {
             "country",
             JSON.stringify(res.data.items)
           );
+          window.localStorage.setItem('countryByIP' ,JSON.stringify(res.data.items) )
           if (localStorage.getItem("currency") === null) {
             localStorage.setItem("currency", res.data.items.currencies[0].code);
             localStorage.setItem("currencyId", res.data.items.currencies[0].id);

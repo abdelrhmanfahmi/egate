@@ -382,6 +382,10 @@ export default {
   mounted() {
     this.getAllCountires();
     this.getAllAdresses();
+    this.form.country_id = JSON.parse(this.selectedCountry).id;
+    if(this.form.country_id){
+      this.getAllRegions()
+    }
   },
   methods: {
     /**

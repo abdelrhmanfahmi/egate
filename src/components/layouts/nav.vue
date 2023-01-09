@@ -29,7 +29,7 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a :href="`${supplierDomain}auth/login&lang=${$i18n.locale}`" target="_blank">{{ $t("home.suppliers")
+                    <a :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`" target="_blank">{{ $t("home.suppliers")
                     }}</a>
                   </li>
                   <li>
