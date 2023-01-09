@@ -5,8 +5,8 @@
     <b-container>
       <div class="top-nav">
         <div class="lang">
-          <button @click="switchLang()" v-if="lang == 'ar'" id="en" ref="en">English</button>
-          <button @click="switchLang()" v-if="lang == 'en'" id="ar" ref="ar">
+          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
+          <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             اللغة العربية
           </button>
         </div>
@@ -67,15 +67,15 @@ export default {
   mounted() {
     this.getAllCountires();
     // this.reloadPage();
-    console.log(this.$route.query.lang);
 
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
-        // fetch to next page or some code
         if (this.$route.query.lang && this.$route.query.lang == 'en') {
-          this.$refs.en.click()
+          this.$refs.en ? this.$refs.en.click() : ''
+          document.querySelector('#enLang').click()
         } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-          this.$refs.ar.click()
+          this.$refs.ar ? this.$refs.ar.click() : '';
+          document.querySelector('#arLang').click()
         }
 
       }

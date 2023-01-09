@@ -275,7 +275,6 @@ export default {
     variantOrder: {
       // variantOrder prop 
       type: Array,
-      required: true,
     },
   },
 };
