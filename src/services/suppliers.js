@@ -8,8 +8,13 @@ export default {
   getSupplier(id) {
     return globalAxios.get(`suppliers/${id}`);
   },
-  getSupplierProducts(id) {
-    return globalAxios.get(`products?client_id=${id}`);
+  getSupplierProducts(id , productId) {
+    return globalAxios.get(`products` , {
+      params:{
+        client_id : id,
+        without_id:productId ? productId : null
+      }
+    });
   },
   SupplierProducts() {
     return globalAxios.get(`products`);

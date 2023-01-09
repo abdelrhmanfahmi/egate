@@ -188,7 +188,7 @@ export default {
     getSupplierProducts() {
       // console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
-        .getSupplierProducts(this.supplierProductsId)
+        .getSupplierProducts(this.supplierProductsId , this.id)
         .then((resp) => {
           // console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
