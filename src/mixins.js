@@ -39,6 +39,9 @@ Vue.mixin({
     selectedCountry() {
       return localStorage.getItem("country");
     },
+    countryByIP(){
+      return localStorage.getItem('countryByIP')
+    },
     currentLang() {
       return localStorage.getItem("lang");
     },

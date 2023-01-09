@@ -871,10 +871,10 @@
                                 :key="index"
                                 v-bind="{
                                   selected:
-                                    selectedPhonePrefix.phone_prefix ==
-                                    country.phone_prefix,
+                                    selectedPhonePrefix.id ==
+                                    country.id,
                                 }"
-                                :value="country.phone_prefix"
+                                :value="country.id"
                                 >{{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
@@ -1688,9 +1688,12 @@ export default {
 
     this.selectedPhonePrefix = JSON.parse(localStorage.getItem("country"));
 
-    this.paymentFormData.country_code = this.buyerUserData
-      ? this.buyerUserData.phone_prefix
-      : this.selectedPhonePrefix.phone_prefix;
+    // this.paymentFormData.country_code = this.buyerUserData
+    //   ? this.buyerUserData.phone_prefix
+    //   : this.selectedPhonePrefix.phone_prefix;
+
+      // this.paymentFormData.country_code = this.buyerUserData.country_id;
+      this.paymentFormData.country_code = JSON.parse(this.selectedCountry).id;
 
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email

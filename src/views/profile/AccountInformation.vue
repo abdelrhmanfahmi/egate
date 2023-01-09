@@ -118,7 +118,7 @@ export default {
         first_name: "",
         last_name: "",
         email: "",
-        country_code: "KW",
+        country_code: "",
         mobile_number: "",
       },
       countries: [],

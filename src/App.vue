@@ -12,7 +12,7 @@
  */
 
 import MainLayout from "@/layouts/MainLayout.vue";
-import globalAxios from "@/services/global-axios";
+// import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
 export default {
   name: "Home",
@@ -23,12 +23,12 @@ export default {
      * dispatch user data if exist || check guest.
      */
 
-    this.$store.dispatch("getUserGuestId");
+    // this.$store.dispatch("getUserGuestId");
     this.$store.dispatch("getUserInfo");
     let userExist = localStorage.getItem("buyerUserData");
     let guestUser = localStorage.getItem("guest-id");
     if (userExist === null && guestUser === null) {
-      this.checkGuest();
+      this.$store.dispatch("getUserGuestId");
     } else if (userExist === null && guestUser) {
       return guestUser;
     } else if (userExist) {
@@ -42,31 +42,6 @@ export default {
     MainLayout,
   },
   methods: {
-    /**
-     * @vuese
-     * this function used to check if theres user or guest 
-     */
-    checkGuest() {
-      globalAxios
-        .post(`guest/generate-token`)
-        .then((res) => {
-          localStorage.setItem("guest-id", res.data.items.uuid);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      // globalAxios.interceptors.request.use(
-      //   (config) => {
-      //     const guestId = localStorage.getItem("guest-id")
-      //     if (guestId) {
-      //       config.headers["guest-id"] = guestId;
-      //     }
-      //     return config;
-      //   },
-      //   (error) => Promise.reject(error)
-      // );
-    },
      /**
      * @vuese
      * this function used to check Cart Validity (cart ,  rfq available or not )
