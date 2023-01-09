@@ -397,23 +397,23 @@ input[type="checkbox"]+label>span {
 
 input:checked+label {
   background-position: 0 0;
-  transition: all 500ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 .en{
 
   input:checked+label>span {
     left: 28.8px;
-    transition: all 500ms ease-in-out;
+    transition: all 250ms ease-in-out;
   }
 }
 .ar{
   input[type=checkbox] + label > span{
     left: -28.8px;
-    transition: all 500ms ease-in-out;
+    transition: all 250ms ease-in-out;
   }
   input:checked+label>span {
     right: 0;
-    transition: all 500ms ease-in-out;
+    transition: all 250ms ease-in-out;
   }
 }
 </style>
