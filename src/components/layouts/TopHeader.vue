@@ -71,10 +71,10 @@ export default {
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
         if (this.$route.query.lang && this.$route.query.lang == 'en') {
-          this.$refs.en ? this.$refs.en.click() : ''
+          // this.$refs.en ? this.$refs.en.click() : ''
           document.querySelector('#enLang').click()
         } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-          this.$refs.ar ? this.$refs.ar.click() : '';
+          // this.$refs.ar ? this.$refs.ar.click() : '';
           document.querySelector('#arLang').click()
         }
 
