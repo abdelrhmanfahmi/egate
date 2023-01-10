@@ -67,14 +67,14 @@ export default {
   mounted() {
     this.getAllCountires();
     // this.reloadPage();
-    let enLang = document.querySelector('#enLang')
-    let arLang = document.querySelector('#arLang')
+    let enLang = document.querySelector('#enLang') || this.$refs.enLang
+    let arLang = document.querySelector('#arLang') || this.$refs.arLang
 
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
         if (this.$route.query.lang && this.$route.query.lang == 'en') {
           if (enLang) {
-            enLang.click()
+            enLang.click();
           }
         } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
           if (arLang) {
