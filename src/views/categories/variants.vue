@@ -990,7 +990,6 @@ export default {
           this.sortTypeUnit
         )
         .then((res) => {
-          console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -1131,7 +1130,6 @@ export default {
       suppliers
         .getFilters()
         .then((res) => {
-          console.log("filters", res);
           this.CountryOptions = res.data.items.countries;
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;

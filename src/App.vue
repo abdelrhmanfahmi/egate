@@ -37,7 +37,6 @@ export default {
     // return
 
     this.checkCartValidity();
-    this.checkUrlLang()
   },
   components: {
     MainLayout,
@@ -73,9 +72,6 @@ export default {
           console.log(err);
         });
     },
-    checkUrlLang(){
-      console.log('route' , this.$route.query.lang);
-    }
   },
   computed: {
     guestId() {

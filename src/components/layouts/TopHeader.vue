@@ -26,7 +26,7 @@
           <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title" id="myCurrency-code">{{
-                  currentCurrency
+                currentCurrency
               }}</span>
             </template>
             <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index" @click="handleCurrency(currency)">
@@ -68,18 +68,8 @@ export default {
     this.getAllCountires();
     // this.reloadPage();
 
-    document.onreadystatechange = () => {
-      if (document.readyState == "complete") {
-        if (this.$route.query.lang && this.$route.query.lang == 'en') {
-          // this.$refs.en ? this.$refs.en.click() : ''
-          document.querySelector('#enLang').click()
-        } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-          // this.$refs.ar ? this.$refs.ar.click() : '';
-          document.querySelector('#arLang').click()
-        }
+    this.handleLangeFromQuery();
 
-      }
-    }
   },
   methods: {
     /**
@@ -203,12 +193,42 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * handle Language From Query
+     */
+
+    handleLangeFromQuery() {
+      let enLang = document.querySelector('#enLang')
+      let arLang = document.querySelector('#arLang')
+
+      var query = document.location.href.substring(document.location.href.indexOf("lang") + 1);
+      var langValue = query.split("&" || "?")[0].split("=")[1];
+
+      if (langValue == 'en') {
+        if (enLang) {
+
+          enLang.click();
+        }
+      }
+      if (langValue == 'ar') {
+        if (arLang) {
+
+          arLang.click()
+        }
+      }
+    }
   },
   computed: {
     currentCurrency() {
       return localStorage.getItem("currency");
     },
   },
+  watch: {
+    '$i18n.locale': function () {
+      this.handleLangeFromQuery()
+    }
+  }
 };
 </script>
 
