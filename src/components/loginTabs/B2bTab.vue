@@ -101,7 +101,6 @@ export default {
         .login("buyer", loginData)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          console.log("yes", res.data.items.item.verify_email_required);
 
           // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
