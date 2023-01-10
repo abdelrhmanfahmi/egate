@@ -68,7 +68,8 @@ export default {
     this.getAllCountires();
     // this.reloadPage();
 
-    this.handleLangeFromQuery()
+    this.handleLangeFromQuery();
+
   },
   methods: {
     /**
@@ -198,23 +199,22 @@ export default {
      */
 
     handleLangeFromQuery() {
-      let enLang = document.querySelector('#enLang') || this.$refs.enLang
-      let arLang = document.querySelector('#arLang') || this.$refs.arLang
+      let enLang = document.querySelector('#enLang')
+      let arLang = document.querySelector('#arLang')
 
-      document.onreadystatechange = () => {
-        if (document.readyState == "complete") {
-          if (this.$route.query.lang && this.$route.query.lang == 'en') {
-            if (enLang) {
-              console.log('enLang', enLang);
-              enLang.click();
-            }
-          } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-            if (arLang) {
-              console.log('arLang', arLang);
-              arLang.click()
-            }
-          }
+      var query = document.location.href.substring(document.location.href.indexOf("lang") + 1);
+      var langValue = query.split("&")[0].split("=")[1];
 
+      if (langValue == 'en') {
+        if (enLang) {
+
+          enLang.click();
+        }
+      }
+      if (langValue == 'ar') {
+        if (arLang) {
+
+          arLang.click()
         }
       }
     }
