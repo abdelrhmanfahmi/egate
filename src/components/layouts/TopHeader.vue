@@ -67,23 +67,8 @@ export default {
   mounted() {
     this.getAllCountires();
     // this.reloadPage();
-    let enLang = document.querySelector('#enLang') || this.$refs.enLang
-    let arLang = document.querySelector('#arLang') || this.$refs.arLang
 
-    document.onreadystatechange = () => {
-      if (document.readyState == "complete") {
-        if (this.$route.query.lang && this.$route.query.lang == 'en') {
-          if (enLang) {
-            enLang.click();
-          }
-        } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-          if (arLang) {
-            arLang.click()
-          }
-        }
-
-      }
-    }
+    this.handleLangeFromQuery()
   },
   methods: {
     /**
@@ -207,12 +192,43 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * handle Language From Query
+     */
+
+    handleLangeFromQuery() {
+      let enLang = document.querySelector('#enLang') || this.$refs.enLang
+      let arLang = document.querySelector('#arLang') || this.$refs.arLang
+
+      document.onreadystatechange = () => {
+        if (document.readyState == "complete") {
+          if (this.$route.query.lang && this.$route.query.lang == 'en') {
+            if (enLang) {
+              console.log('enLang', enLang);
+              enLang.click();
+            }
+          } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
+            if (arLang) {
+              console.log('arLang', arLang);
+              arLang.click()
+            }
+          }
+
+        }
+      }
+    }
   },
   computed: {
     currentCurrency() {
       return localStorage.getItem("currency");
     },
   },
+  watch: {
+    '$i18n.locale': function () {
+      this.handleLangeFromQuery()
+    }
+  }
 };
 </script>
 
