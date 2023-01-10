@@ -203,7 +203,7 @@ export default {
       let arLang = document.querySelector('#arLang')
 
       var query = document.location.href.substring(document.location.href.indexOf("lang") + 1);
-      var langValue = query.split("&")[0].split("=")[1];
+      var langValue = query.split("&" || "?")[0].split("=")[1];
 
       if (langValue == 'en') {
         if (enLang) {

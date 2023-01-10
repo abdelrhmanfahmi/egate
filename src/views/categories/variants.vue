@@ -990,7 +990,6 @@ export default {
           this.sortTypeUnit
         )
         .then((res) => {
-          console.log("getCategoryProducts", res);
           this.products = res.data.items.data;
         })
         .catch((err) => {
