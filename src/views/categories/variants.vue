@@ -1130,7 +1130,6 @@ export default {
       suppliers
         .getFilters()
         .then((res) => {
-          console.log("filters", res);
           this.CountryOptions = res.data.items.countries;
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
