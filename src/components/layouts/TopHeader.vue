@@ -26,7 +26,7 @@
           <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
             <template #button-content>
               <span class="title" id="myCurrency-code">{{
-                  currentCurrency
+                currentCurrency
               }}</span>
             </template>
             <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index" @click="handleCurrency(currency)">
@@ -67,15 +67,19 @@ export default {
   mounted() {
     this.getAllCountires();
     // this.reloadPage();
+    let enLang = document.querySelector('#enLang')
+    let arLang = document.querySelector('#arLang')
 
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
         if (this.$route.query.lang && this.$route.query.lang == 'en') {
-          // this.$refs.en ? this.$refs.en.click() : ''
-          document.querySelector('#enLang').click()
+          if (enLang) {
+            enLang.click()
+          }
         } else if (this.$route.query.lang && this.$route.query.lang == 'ar') {
-          // this.$refs.ar ? this.$refs.ar.click() : '';
-          document.querySelector('#arLang').click()
+          if (arLang) {
+            arLang.click()
+          }
         }
 
       }
