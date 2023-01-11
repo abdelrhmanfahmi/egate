@@ -185,39 +185,33 @@ export default {
     this.getSupplierAds();
   },
   mounted() {
-    document.onreadystatechange = () => {
-      if (document.readyState == 'complete') {
-        setTimeout(() => {
-          if (
-            this.$route.path == "/" &&
-            this.supplierAds?.bannar
-          ) {
+    setTimeout(() => {
+      if (
+        this.$route.path == "/" &&
+        this.supplierAds?.bannar
+      ) {
 
-            this.$modal.show(
-              supplierAdsModal,
-              { supplierAds: this.supplierAds },
-              { width: "970", height: "auto", adaptive: true }
-            );
-          }
-        }, 5000);
-        setTimeout(() => {
-          if (
-            this.$route.path == "/" &&
-            this.newsletterShow &&
-            this.newsletterShow.image_path
-          ) {
-            this.$modal.show(
-              NewsLetterModal,
-              { newsletterShow: this.newsletterShow },
-              { width: "970", height: "auto", adaptive: true }
-            );
-          }
-        }, 5000);
+        this.$modal.show(
+          supplierAdsModal,
+          { supplierAds: this.supplierAds },
+          { width: "970", height: "auto", adaptive: true }
+        );
       }
-    }
+    }, 5000);
 
-
-
+    setTimeout(() => {
+      if (
+        this.$route.path == "/" &&
+        this.newsletterShow &&
+        this.newsletterShow.image_path
+      ) {
+        this.$modal.show(
+          NewsLetterModal,
+          { newsletterShow: this.newsletterShow },
+          { width: "970", height: "auto", adaptive: true }
+        );
+      }
+    }, 5000);
 
     this.emailVerify();
     // this.checkEmailForgetPassWord()
