@@ -9,7 +9,7 @@ export default {
   allRightsReserved: " جميع الحقوق محفوظة",
   bestDeal: "أفضل الصفقات",
   dailyOffers: "العروض اليومية",
-  monthlyOffers: "العروض الشهرية",
+  monthlyOffers: "العروض الخاصه",
   about: "عن الشركة",
   vision: "رؤية الشركة",
   message: "رسالة الشركة",

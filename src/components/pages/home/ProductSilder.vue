@@ -12,7 +12,7 @@
       <div class="container mb-1">
         <div class="d-flex justify-content-end">
           <router-link to="/monthly-offers" class="showAllLink">
-            Show All
+            {{ $t('home.showAll') }}
           </router-link>
         </div>
       </div>
@@ -22,74 +22,12 @@
         </div>
       </VueSlickCarousel>
     </div>
-    <!-- if there is suppliers  -->
-    <div class="suppliers pt-2" v-if="suppliers">
-      <span class="product-info">
-        <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
-      </span>
-      <div class="container mb-1">
-        <div class="d-flex justify-content-end">
-          <router-link to="/suppliers" class="showAllLink">
-            Show All
-          </router-link>
-        </div>
-      </div>
-      <!-- data loading  -->
-      <b-row v-if="loading" class="px-5">
-        <b-col lg="3" sm="6" v-for="x in 10" :key="x">
-          <b-skeleton-img></b-skeleton-img>
-          <b-card>
-            <b-skeleton
-              animation="fade"
-              width="60%"
-              class="border-none"
-            ></b-skeleton>
-            <b-skeleton
-              animation="fade"
-              width="85%"
-              class="border-none"
-            ></b-skeleton>
-          </b-card>
-        </b-col>
-      </b-row>
-      <!-- data comes from backend  -->
-      <VueSlickCarousel
-        v-bind="settings"
-        v-if="!loading && suppliers && suppliers.length"
-      >
-        <div v-for="(supplier, index) in suppliers" :key="index">
-          <router-link
-            :to="`/suppliers/${supplier.id}`"
-            class="d-flex justify-content-center align-items-center text-center"
-          >
-            <div class="" v-if="supplier.image_path !== null">
-              <b-img
-                :src="supplier.image_path"
-                class="supplier-image"
-                alt="supplier image"
-              >
-              </b-img>
-            </div>
-            <div
-              class=""
-              v-else-if="
-                supplier.image_path == null &&
-                supplier.product.image_path !== null
-              "
-            >
-              <b-img :src="supplier.product.image_path" class="offer-image">
-              </b-img>
-            </div>
-          </router-link>
-        </div>
-      </VueSlickCarousel>
-    </div>
   </div>
 </template>
 
 <script>
 import VueSlickCarousel from "vue-slick-carousel";
-import Countdown from "vuejs-countdown";
+// import Countdown from "vuejs-countdown";
 import ProductCard from "@/components/global/ProductCard";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import globalAxios from "@/services/global-axios";
@@ -98,7 +36,7 @@ export default {
   components: {
     ProductCard,
     VueSlickCarousel,
-    Countdown,
+    // Countdown,
   },
   data() {
     return {
@@ -215,36 +153,43 @@ export default {
   background-color: #f9f8f5;
   text-align: center;
   padding: 20px 5px;
+
   .product-info {
     padding-bottom: 20px;
+
     small {
       color: $main-color;
       font-size: 12px;
       text-transform: uppercase;
     }
   }
+
   .img-suplier {
     opacity: 1;
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     display: block;
     text-align: center;
+
     &:hover {
       opacity: 0.75;
     }
   }
 }
+
 .slick-current {
   img {
     opacity: 1;
   }
 }
+
 .supplier-image {
   width: 100px;
   // height: 150px;
   // border-radius: 50%;
   transition: all 0.3s ease-in-out;
   opacity: 1;
+
   &:hover {
     opacity: 0.5;
   }

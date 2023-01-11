@@ -560,10 +560,10 @@ input[type="number"] {
 }
 
 .Allcountries {
-  .dropdown-menu{
+  .dropdown-menu {
     left: -12rem !important;
     min-width: 20rem !important;
-    @media(max-width:992px){
+    @media (max-width: 992px) {
       left: -3rem !important;
       min-width: 15rem !important;
     }
@@ -574,7 +574,7 @@ input[type="number"] {
     height: 500px;
     position: absolute;
     will-change: transform;
-    top:0;
+    top: 0;
     transform: translate3d(0px, 37px, 0px);
 
     // position: fixed !important;
@@ -597,37 +597,55 @@ input[type="number"] {
 }
 
 .home {
-  .nav-tabs {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    margin: auto !important;
-    .nav-item {
-      width: 50% !important;
-    }
-    .nav-item .nav-link {
-      margin: 0 !important;
-      border: 2px solid $main-color !important;
-     
+  .home-tabs {
+    .nav-tabs {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      margin: auto !important;
+      .nav-item {
+        width: 50% !important;
+      }
+      .nav-item .nav-link {
+        margin: 0 !important;
+        border: 2px solid $main-color !important;
+
         border-radius: 0 !important;
         -webkit-border-radius: 0 !important;
         -moz-border-radius: 0 !important;
         -ms-border-radius: 0 !important;
         -o-border-radius: 0 !important;
-      
+      }
+      .nav-item .nav-link.active {
+        background: $main-color;
+        color: #fff;
+        border: 2px solid $main-color !important;
+      }
     }
+    .nav.nav-tabs .nav-item + .nav-item {
+      margin-left: 0 !important;
+    }
+    .tab-pane {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .specialOffers {
     .nav-item .nav-link.active {
-      background: $main-color;
-      color: #fff;
-      border: 2px solid $main-color !important;
+      background: transparent;
     }
-  }
-  .nav.nav-tabs .nav-item + .nav-item {
-    margin-left: 0 !important;
-  }
-  .tab-pane{
-    padding-left: 0;
-    padding-right: 0;
+
+    text-align: center;
+
+    .tabs {
+      padding: 20px 0;
+
+      .nav-tabs {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+    }
   }
 }

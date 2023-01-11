@@ -81,11 +81,11 @@
           <div class="variants" v-if="myProduct.product.variants">
             <p
               class="sort"
-              v-for="type in myProduct.product.variants"
-              :key="type.id"
+              v-for="mytype in myProduct.product.variants"
+              :key="mytype.id"
             >
-              <b v-if="type.variant.title">
-                {{ type.variant.title }}
+              <b v-if="mytype.variant.title">
+                {{ mytype.variant.title }}
               </b>
             </p>
             <div class="weight" v-if="myProduct.product_details_by_type">

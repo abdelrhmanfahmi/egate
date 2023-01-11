@@ -1,6 +1,7 @@
 <template>
   <!-- supplier add modal appears in home page -->
-  <div class="container newsletter-popup-container" id="newsletter-popup-form" v-if="isLoaded && supplierAds && supplierAds.bannar">
+  <div class="container newsletter-popup-container" id="newsletter-popup-form"
+    v-if="isLoaded && supplierAds && supplierAds.bannar">
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="row justify-content-center align-items-center newsletter-popup-content">
@@ -40,10 +41,10 @@ export default {
     $route: function () {
       this.$emit("close");
     },
-     /**
-      * @vuese
-      *   check when page loaded
-    */
+    /**
+     * @vuese
+     *   check when page loaded
+   */
     loadingPercent(val) {
       if (val >= 100) {
 
@@ -115,6 +116,7 @@ export default {
       *   end check when page loaded
     */
 
+    this.isLoaded = true
   },
   computed: {
     /**

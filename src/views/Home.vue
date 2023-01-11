@@ -1,9 +1,11 @@
 <template>
   <!-- home page  -->
   <div class="home">
+    <!-- remove this according to new edit  -->
     <ProgressSlider />
-    <!-- if user is b2c or guest  -->
-    <div class="container text-center " v-if="!buyerUserData || (buyerUserData && buyerUserData.type !== 'buyer')">
+    <!--(tabs) if user is b2c or guest  -->
+    <div class="container text-center home-tabs"
+      v-if="!buyerUserData || (buyerUserData && buyerUserData.type !== 'buyer')">
       <span class="categories-info py-5">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
@@ -25,6 +27,8 @@
     </div>
 
     <ProductSilder />
+    <!-- <NewProductSilder /> -->
+    <SuppliersSlider />
   </div>
 </template>
 
@@ -33,6 +37,8 @@
 import auth from "@/services/auth";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
+// import NewProductSilder from "@/components/pages/home/NewProductSlider";
+import SuppliersSlider from "@/components/pages/home/SuppliersSlider";
 import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
@@ -44,6 +50,8 @@ export default {
   components: {
     ProgressSlider,
     ProductSilder,
+    // NewProductSilder,
+    SuppliersSlider,
     CatrgoriesHome,
     NewCatrgoriesHome
   },
@@ -102,9 +110,8 @@ export default {
       await auth
         .getSupplierAds()
         .then((res) => {
-          console.log(res);
           this.supplierAds = res.data.items.ads[0];
-          if (res.data.items.ads.length > 0 && res.data.items.ads[0].banner) {
+          if (res.data.items.ads.length > 0 && res.data?.items?.ads[0]?.bannar) {
             this.existSupplierAds = true;
           } else {
             this.existSupplierAds = false;
@@ -159,10 +166,10 @@ export default {
           });
       }
     },
-     /**
-     * @vuese
-     * this function used to login as buyer if you aren't and want to see corporate Categories
-     */
+    /**
+    * @vuese
+    * this function used to login as buyer if you aren't and want to see corporate Categories
+    */
     loginAsBuyer() {
       this.$router.push('/b2b-register')
     }
@@ -178,33 +185,39 @@ export default {
     this.getSupplierAds();
   },
   mounted() {
-    setTimeout(() => {
-      if (
-        this.$route.path == "/" &&
-        this.supplierAds &&
-        this.supplierAds[0]?.bannar
-      ) {
-        this.$modal.show(
-          supplierAdsModal,
-          { supplierAds: this.supplierAds },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
+    document.onreadystatechange = () => {
+      if (document.readyState == 'complete') {
+        setTimeout(() => {
+          if (
+            this.$route.path == "/" &&
+            this.supplierAds?.bannar
+          ) {
 
-    setTimeout(() => {
-      if (
-        this.$route.path == "/" &&
-        this.newsletterShow &&
-        this.newsletterShow.image_path
-      ) {
-        this.$modal.show(
-          NewsLetterModal,
-          { newsletterShow: this.newsletterShow },
-          { width: "970", height: "auto", adaptive: true }
-        );
+            this.$modal.show(
+              supplierAdsModal,
+              { supplierAds: this.supplierAds },
+              { width: "970", height: "auto", adaptive: true }
+            );
+          }
+        }, 5000);
+        setTimeout(() => {
+          if (
+            this.$route.path == "/" &&
+            this.newsletterShow &&
+            this.newsletterShow.image_path
+          ) {
+            this.$modal.show(
+              NewsLetterModal,
+              { newsletterShow: this.newsletterShow },
+              { width: "970", height: "auto", adaptive: true }
+            );
+          }
+        }, 5000);
       }
-    }, 5000);
+    }
+
+
+
 
     this.emailVerify();
     // this.checkEmailForgetPassWord()
