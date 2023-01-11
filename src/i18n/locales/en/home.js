@@ -9,7 +9,7 @@ export default {
     allRightsReserved: "All Rights Reserved",
     bestDeal: "Best Deals",
     dailyOffers: "Daily Offers",
-    monthlyOffers: "Monthly Offers",
+    monthlyOffers: "Special Offers",
     about: "About us",
     vision: "Vision",
     message: "Message",
