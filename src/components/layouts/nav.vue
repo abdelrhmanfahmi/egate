@@ -163,7 +163,7 @@
           </div>
 
           <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }" />
+            :class="{ 'icon-active': mobileNav }" class="bar-icon" />
         </div>
         <transition name="mobile-nav">
           <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
@@ -630,5 +630,8 @@ html:lang(ar) {
   @media (max-width: 992px) {
     max-width: 170px;
   }
+}
+.bar-icon{
+  z-index: 1;
 }
 </style>

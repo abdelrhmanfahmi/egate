@@ -63,7 +63,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-6">
               <b-button type="submit" class="login-button">
                 {{ $t("contactUs.formSend") }}
               </b-button>
