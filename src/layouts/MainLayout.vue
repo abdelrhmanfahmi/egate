@@ -5,9 +5,11 @@
     <!-- nav bar  -->
     <Nav />
     <!-- alert div if user dosnt activate his account  -->
-    <b-alert variant="danger" show v-if="massgeOfVerify">
+    <b-alert variant="danger" show v-if="massgeOfVerify" >
       <b-container>
-        {{ massgeOfVerify }}
+        <router-link to="/otp-verification"  class="otp-link text-danger">
+          {{ $t('register.otpVerify') }} <font-awesome-icon icon="fa-solid fa-right-long" />
+        </router-link>
       </b-container>
     </b-alert>
 
@@ -227,5 +229,8 @@ export default {
 
 .view {
   min-height: 50vh;
+}
+.otp-link{
+  text-decoration: underline !important;
 }
 </style>
