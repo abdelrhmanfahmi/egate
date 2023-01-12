@@ -635,6 +635,10 @@ export default {
           }
         });
     },
+    /**
+     * close Modal used when click on close button to clear form data
+     * @vuese
+     */
     closeModal(){
       this.newForm = {}
     }
