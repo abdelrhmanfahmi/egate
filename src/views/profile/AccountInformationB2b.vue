@@ -549,6 +549,7 @@ export default {
      */
     hideEmailModal() {
       this.$refs["email-modal"].hide();
+      this.newForm = {}
       this.errors = {};
     },
     /**
@@ -564,6 +565,7 @@ export default {
      */
     hidePhoneModal() {
       this.$refs["phone-modal"].hide();
+      this.newForm = {}
       this.errors = {};
     },
     /**
@@ -579,6 +581,7 @@ export default {
      */
     hideCheckModal() {
       this.$refs["check-modal"].hide();
+      this.newForm = {}
       this.errors = {};
     },
     /**
