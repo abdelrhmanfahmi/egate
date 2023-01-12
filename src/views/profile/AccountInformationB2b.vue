@@ -96,10 +96,7 @@
               >{{ $t("profile.defaultCountry") }} :
               {{ buyerUserData.country_name }}</label
             >
-            <b-form-select
-              v-model="form.country_id"
-              
-            >
+            <b-form-select v-model="form.country_id">
               <b-form-select-option value="null" disabled
                 >{{ $t("profile.defaultCountry") }}
                 <span class="requried text-danger">*</span>
@@ -126,12 +123,11 @@
             <label for="country"
               >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
             </label>
-            <b-form-select
-              v-model="form.currency_id"
-              
-            >
+            <b-form-select v-model="form.currency_id">
               <b-form-select-option value="null" disabled selected
-                >{{ $t("profile.currency") }} ({{ buyerUserData.currency_name }})
+                >{{ $t("profile.currency") }} ({{
+                  buyerUserData.currency_name
+                }})
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option
@@ -156,7 +152,7 @@
             <label for="country"
               >{{ $t("profile.lang") }} : {{ form.language }}</label
             >
-            <b-form-select v-model="form.language" >
+            <b-form-select v-model="form.language">
               <b-form-select-option value="null" disabled
                 >{{ $t("profile.selectLang") }}
                 <span class="requried text-danger">*</span>
@@ -255,8 +251,15 @@
       ref="email-modal"
       hide-footer
       centered
-      :title="$t('profile.emailVerify')"
     >
+    <template #modal-header="{ close }">
+      <h5>{{$t('profile.emailVerify')}}</h5>
+      <!-- Emulate built in modal header close button action -->
+      <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
+        x
+      </b-button>
+      
+    </template>
       <div class="d-block text-center">
         <form action="">
           <b-form-group>
@@ -321,8 +324,15 @@
       ref="phone-modal"
       hide-footer
       centered
-      :title="$t('profile.phoneVerify')"
     >
+      <template #modal-header="{ close }">
+        <h5>{{$t('profile.phoneVerify')}}</h5>
+        <!-- Emulate built in modal header close button action -->
+        <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
+          x
+        </b-button>
+        
+      </template>
       <div class="d-block text-center">
         <form action="">
           <b-form-group>
@@ -400,7 +410,7 @@
 </template>
 
 <script>
-// b2b user  account information page 
+// b2b user  account information page
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 import checkMailModal from "@/components/changeprofileReply.vue";
@@ -426,6 +436,8 @@ export default {
         email: "",
         phone: "",
         callback_url: "",
+        verify_email: "",
+        verify_mobile_number: "",
       },
       countries: [],
       errors: {},
@@ -436,13 +448,13 @@ export default {
   mounted() {
     /**
      * get AllCountires  function
-     * @vuese 
+     * @vuese
      */
     this.getAllCountires();
 
     /**
      * spread user data function ,  that comes from backend
-     * @vuese 
+     * @vuese
      */
 
     this.form = { ...this.buyerUserData };
@@ -459,7 +471,7 @@ export default {
 
     /**
      * check if country exist function  , else reload page
-     * @vuese 
+     * @vuese
      */
 
     if (!this.buyerUserData.country_id) {
@@ -468,7 +480,7 @@ export default {
 
     /**
      * prepare callback_url to send it to backend with request
-     * @vuese 
+     * @vuese
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
@@ -484,9 +496,9 @@ export default {
           console.log(err); //
         });
     },
-     /**
+    /**
      * Update Profile function
-     * @vuese 
+     * @vuese
      */
     updateProfile() {
       const payload = {
@@ -521,7 +533,7 @@ export default {
 
     /**
      * reload Page function
-     * @vuese 
+     * @vuese
      */
     reloadPage() {
       if (localStorage.getItem("reloaded")) {
@@ -538,55 +550,55 @@ export default {
     },
     /**
      * show Email Modal function
-     * @vuese 
+     * @vuese
      */
     showEmailModal() {
       this.$refs["email-modal"].show();
     },
     /**
      * hide Email Modal function
-     * @vuese 
+     * @vuese
      */
     hideEmailModal() {
       this.$refs["email-modal"].hide();
-      this.newForm = {}
+      this.newForm = {};
       this.errors = {};
     },
     /**
      * show Phone Modal function
-     * @vuese 
+     * @vuese
      */
     showPhoneModal() {
       this.$refs["phone-modal"].show();
     },
     /**
      * hide Phone Modal function
-     * @vuese 
+     * @vuese
      */
     hidePhoneModal() {
       this.$refs["phone-modal"].hide();
-      this.newForm = {}
+      this.newForm = {};
       this.errors = {};
     },
     /**
      * show Check Modal function
-     * @vuese 
+     * @vuese
      */
     showCheckModal() {
       this.$refs["check-modal"].show();
     },
-     /**
+    /**
      * hide Check Modal function
-     * @vuese 
+     * @vuese
      */
     hideCheckModal() {
       this.$refs["check-modal"].hide();
-      this.newForm = {}
+      this.newForm = {};
       this.errors = {};
     },
     /**
      * go To Verify function to send data to backend to verify new changes
-     * @vuese 
+     * @vuese
      */
     goToVerify() {
       let data = {
@@ -623,11 +635,19 @@ export default {
           }
         });
     },
+    /**
+     * close Modal used when click on close button to clear form data
+     * @vuese
+     */
+    closeModal(){
+      this.newForm = {};
+      this.errors = {};
+    }
   },
   computed: {
     /**
      * userStoredData
-     * @vuese 
+     * @vuese
      */
     userStoredData() {
       return JSON.parse(localStorage.getItem("country"));
