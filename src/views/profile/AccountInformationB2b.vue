@@ -640,7 +640,8 @@ export default {
      * @vuese
      */
     closeModal(){
-      this.newForm = {}
+      this.newForm = {};
+      this.errors = {};
     }
   },
   computed: {
