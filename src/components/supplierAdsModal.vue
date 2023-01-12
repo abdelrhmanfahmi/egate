@@ -6,8 +6,11 @@
       <div class="col-12">
         <div class="row justify-content-center align-items-center newsletter-popup-content">
           <div class="col-12">
-            <img :src="supplierAds.bannar" height="420" class="newsletter-img" width="800" alt="supplier-ad"
-              @load="onImgLoad" />
+            <b-button :to="{path:'details' , query: { id: this.supplierAds.product_id }}" class="w-100 p-0 m-auto">
+              
+              <img :src="supplierAds.bannar" height="420" class="newsletter-img" width="800" alt="supplier-ad" 
+                @load="onImgLoad" />
+            </b-button>
           </div>
         </div>
       </div>
@@ -17,7 +20,7 @@
       <font-awesome-icon icon="fa-solid fa-xmark" />
     </button>
     <div class="viewProduct" v-if="supplierAds.product_id">
-      <b-button class="p-0 m-0" @click="postSupplierShowenAd">
+      <b-button class="p-0 m-0" :to="{path:'details' , query: { id: this.supplierAds.product_id }}">
         <b><span>{{ $t("profile.viewDetails") }}
             <font-awesome-icon icon="fa-solid fa-store" /> </span></b>
       </b-button>
@@ -74,12 +77,6 @@ export default {
     postSupplierShowenAd() {
       auth
         .postSupplierShowenAd(this.supplierAds.id)
-        .then(() => {
-          this.$router.push({
-            path: "details",
-            query: { id: this.supplierAds.product_id },
-          });
-        })
         .catch((err) => {
           console.log(err);
         });
