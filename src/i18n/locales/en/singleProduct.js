@@ -53,5 +53,9 @@ export default {
   noReviews:'No Reviews',
   noAvailQuant:'Available Quantity less than the minimum number for order',
   serchingResult:'You are searching for : ',
-  orderTrack2:'To track your order you must register with the same phone number you made the order with.'
+  orderTrack2:'To track your order you must register with the same phone number you made the order with.',
+  addcheckedProductToCart:'Add Selected To Cart',
+  removecheckedProductToCart:'Remove Selected From Group',
+  
+
 };

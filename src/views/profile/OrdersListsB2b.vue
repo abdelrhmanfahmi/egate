@@ -16,7 +16,12 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
-            <td>{{ order.id }}</td>
+            <td>
+              <div class="d-flex justify-content-around align-items-center">
+                <!-- <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />  -->
+                <span>{{ order.id }}</span>
+              </div>
+            </td>
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td>
@@ -271,6 +276,7 @@ export default {
         order_uuid: null,
       },
       errors: [],
+      checkedOrder:[]
     };
   },
   methods: {
@@ -486,5 +492,13 @@ export default {
     justify-content: center;
     align-items: center;
   }
+}
+/* checkbox */
+.myproject--checkbox {
+  height: 20px;
+  width: 20px;
+  accent-color: red;
+  display: inline-block;
+  cursor: pointer;
 }
 </style>
