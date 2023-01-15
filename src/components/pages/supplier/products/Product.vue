@@ -79,7 +79,7 @@
           "
         >
           <span>
-            <font-awesome-icon icon="fa-solid fa-plus" />
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
@@ -108,7 +108,7 @@
           "
         >
           <span>
-            <font-awesome-icon icon="fa-solid fa-plus" />
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
