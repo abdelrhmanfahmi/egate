@@ -12,17 +12,9 @@
               <div class="d-flex justify-content-center align-items-center">
                 <div class="method">
                   <!-- select option  -->
-                  <div
-                    class="custom-control custom-radio custom-control-inline"
-                  >
-                    <input
-                      type="radio"
-                      id="wallet"
-                      name="paymentMethod"
-                      class="custom-control-input"
-                      v-model="returnData.refund_option"
-                      value="0"
-                    />
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="wallet" name="paymentMethod" class="custom-control-input"
+                      v-model="returnData.refund_option" value="0" />
                     <label class="custom-control-label" for="wallet">
                       {{ $t("profile.wallet") }}
                     </label>
@@ -30,17 +22,9 @@
                 </div>
                 <!-- if selected option is bank  -->
                 <div class="method" v-if="selectedOption == 'bank'">
-                  <div
-                    class="custom-control custom-radio custom-control-inline"
-                  >
-                    <input
-                      type="radio"
-                      id="bank"
-                      name="paymentMethod"
-                      class="custom-control-input"
-                      v-model="returnData.refund_option"
-                      value="2"
-                    />
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="bank" name="paymentMethod" class="custom-control-input"
+                      v-model="returnData.refund_option" value="2" />
                     <label class="custom-control-label" for="bank">
                       {{ $t("payment.bankTransfer") }}
                     </label>
@@ -48,38 +32,19 @@
                 </div>
                 <!-- if selected option is cach  -->
                 <div class="method" v-if="selectedOption == 'cach'">
-                  <div
-                    class="custom-control custom-radio custom-control-inline"
-                  >
-                    <input
-                      type="radio"
-                      id="cach"
-                      name="paymentMethod"
-                      class="custom-control-input"
-                      v-model="returnData.refund_option"
-                      value="3"
-                    />
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="cach" name="paymentMethod" class="custom-control-input"
+                      v-model="returnData.refund_option" value="3" />
                     <label class="custom-control-label" for="cach">
                       {{ $t("payment.paymentWhenReceiving") }}
                     </label>
                   </div>
                 </div>
                 <!-- if selected option is visa  -->
-                <div
-                  v-if="selectedOption == 'visa'"
-                  class="method d-flex justify-content-between align-content-center"
-                >
-                  <div
-                    class="custom-control custom-radio custom-control-inline"
-                  >
-                    <input
-                      type="radio"
-                      id="visa"
-                      name="paymentMethod"
-                      class="custom-control-input"
-                      v-model="returnData.refund_option"
-                      value="1"
-                    />
+                <div v-if="selectedOption == 'visa'" class="method d-flex justify-content-between align-content-center">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="visa" name="paymentMethod" class="custom-control-input"
+                      v-model="returnData.refund_option" value="1" />
                     <label class="custom-control-label" for="visa">
                       {{ $t("payment.onlinePayment") }}
                     </label>
@@ -102,12 +67,9 @@
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
                 }}</b-form-select-option>
-                <b-form-select-option
-                  :value="reason.id"
-                  v-for="(reason, index) in reasons"
-                  :key="index"
-                  >{{ reason.name }}</b-form-select-option
-                >
+                <b-form-select-option :value="reason.id" v-for="(reason, index) in reasons" :key="index">{{
+                  reason.name
+                }}</b-form-select-option>
               </b-form-select>
             </div>
 
@@ -120,26 +82,17 @@
                   <!-- quantity  -->
                   <div class="value">
                     <span class="product-counter-number">
-                      {{ returnData.quantity ? returnData.quantity : 1 }}</span
-                    >
+                      {{ returnData.quantity ? returnData.quantity : 1 }}</span>
                   </div>
                   <div class="actions d-flex flex-column">
                     <!-- increment quantity  -->
-                    <button
-                      class="product-counter-btn"
-                      @click="incrementQuantity"
-                      type="button"
-                      :disabled="returnData.quantity >= maxQTY"
-                    >
+                    <button class="product-counter-btn" @click="incrementQuantity" type="button"
+                      :disabled="returnData.quantity >= maxQTY">
                       <b-icon-plus />
                     </button>
                     <!-- decrement quantity  -->
-                    <button
-                      class="product-counter-btn"
-                      @click="decrementQuantity(returnData.quantity)"
-                      :disabled="returnData.quantity == 1"
-                      type="button"
-                    >
+                    <button class="product-counter-btn" @click="decrementQuantity(returnData.quantity)"
+                      :disabled="returnData.quantity == 1" type="button">
                       <b-icon-dash />
                     </button>
                   </div>
@@ -152,50 +105,28 @@
                 </label>
                 <b-form-group>
                   <!-- upload file  -->
-                  <b-form-file
-                    size="lg"
-                    id="returnImage"
-                    @change="uploadImage"
-                    :placeholder="$t('profile.returnImage')"
-                    drop-placeholder="Drop file here..."
-                  ></b-form-file>
+                  <b-form-file size="lg" id="returnImage" @change="uploadImage" :placeholder="$t('profile.returnImage')"
+                    drop-placeholder="Drop file here..."></b-form-file>
                 </b-form-group>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in uploadErrors.image"
-                  :key="index"
-                >
+                <div class="error text-start" v-for="(error, index) in uploadErrors.image" :key="index">
                   {{ error }}
                 </div>
               </div>
             </div>
             <!-- text your message  -->
-            <b-form-textarea
-              v-if="returnData.return_reason == 8"
-              id="textarea-rows"
-              :placeholder="$t('profile.returnReason')"
-              rows="8"
-              v-model="returnData.return"
-            ></b-form-textarea>
+            <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
+              :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
 
             <!-- add new text area if user select bank   -->
 
 
             <div class="" v-if="selectedOption == 'bank' || returnData.refund_option == 2">
-              <label for="accountDetails">{{$t('profile.accountDetails')}}</label>
-              <b-form-textarea
-                id="accountDetails"
-                rows="8"
-                v-model="returnData.clinet_bank_info"
-              ></b-form-textarea>
+              <label for="accountDetails">{{ $t('profile.accountDetails') }}</label>
+              <b-form-textarea id="accountDetails" rows="8" v-model="returnData.clinet_bank_info"></b-form-textarea>
             </div>
 
-            <b-button
-              type="submit"
-              variant="outline-danger"
-              class="saveBtn btn-block py-3 mt-3"
-              :disabled="btn1Disabled"
-            >
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3"
+              :disabled="btn1Disabled">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>
@@ -228,7 +159,7 @@ export default {
         refund_option: null, // 0=Wallet,1=Visa,2=Bank,3=Cash
         return: null,
         quantity: 1,
-        clinet_bank_info:null
+        clinet_bank_info: null
       },
       uploadErrors: [],
       btn1Disabled: false,
@@ -237,7 +168,7 @@ export default {
       selectedOption: null,
       reasons: null,
       cancelationReason: null,
-      maxQTY:null
+      maxQTY: null
     };
   },
   methods: {
@@ -294,10 +225,10 @@ export default {
           this.btn1Disabled = false;
         });
     },
-     /**
-     * @vuese
-     * this function used to upload Image
-     */
+    /**
+    * @vuese
+    * this function used to upload Image
+    */
     uploadImage(event) {
       // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
@@ -326,18 +257,25 @@ export default {
             this.returnData.refund_option = 0;
             this.selectedOption = "wallet";
           }
-          if (res.data.items.order.payment_type === "visa") {
-            this.returnData.refund_option = 1;
-            this.selectedOption = "visa";
-          }
-          if (res.data.items.order.payment_type === "bank") {
+          // new edit there will no cach on delivery so it will be bank
+
+          // if (res.data.items.order.payment_type === "visa") {
+          //   this.returnData.refund_option = 1;
+          //   this.selectedOption = "visa";
+          // }
+
+
+          if (res.data.items.order.payment_type === "bank" || res.data.items.order.payment_type === "cach" || res.data.items.order.payment_type === "visa") {
             this.returnData.refund_option = 2;
             this.selectedOption = "bank";
           }
-          if (res.data.items.order.payment_type === "cach") {
-            this.returnData.refund_option = 3;
-            this.selectedOption = "cach";
-          }
+
+          // remove it according to last edit 
+
+          // if (res.data.items.order.payment_type === "cach") {
+          //   this.returnData.refund_option = 3;
+          //   this.selectedOption = "cach";
+          // }
         })
         .catch((err) => {
           console.log(err);
@@ -358,10 +296,10 @@ export default {
           console.log(err);
         });
     },
-     /**
-     * @vuese
-     * this function used to increment Quantity
-     */
+    /**
+    * @vuese
+    * this function used to increment Quantity
+    */
     incrementQuantity() {
       this.returnData.quantity += 1;
     },
@@ -414,6 +352,7 @@ export default {
   border: 1px solid #ccc;
   padding: 20px 30px;
   border-radius: 7px;
+
   .title {
     margin: 20px 0;
   }
@@ -422,9 +361,11 @@ export default {
 .product-counter {
   display: flex;
   align-items: center;
+
   // justify-content: left;
   .actions {
     color: #606266;
+
     .product-counter-btn {
       width: 2rem;
       height: 1.55rem;
@@ -435,11 +376,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
+
   .value {
     border-radius: 0;
     border: 1px solid #f0f0f0;
