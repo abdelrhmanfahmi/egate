@@ -43,7 +43,7 @@
                             ">
                               <b-form-select v-model="selectedAddress" class="pickupAddresses" @change="changeAddress">
                                 <b-form-select-option selected disabled value="null">{{
-                                    $t("payment.selectExist")
+                                  $t("payment.selectExist")
                                 }}</b-form-select-option>
 
                                 <b-form-select-option v-for="(address, index) in addresses" :key="index"
@@ -57,7 +57,7 @@
                                   <span class="mb-2" v-if="address.region">{{ address.region.title }} ,</span>
 
                                   <span class="mb-2" v-if="address.country">{{
-                                      address.country.title
+                                    address.country.title
                                   }}</span>
                                 </b-form-select-option>
                               </b-form-select>
@@ -214,7 +214,7 @@
                                   <b-form-group>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
-                                          $t("profile.name")
+                                        $t("profile.name")
                                       }}</b-form-select>
                                       <b-form-select-option v-for="(
                                           formName, index
@@ -421,7 +421,7 @@
                                       type="radio" value="0" :name="'types-' + index"
                                       v-model="ratingNum[index].delivery_type" class="checkFirst" id="check" />
                                     <span class="mx-2">{{
-                                        $t("payment.delivery")
+                                      $t("payment.delivery")
                                     }}</span>
                                   </label>
                                   <!-- if select pickup  -->
@@ -430,7 +430,7 @@
                                       @click="changePickup($event, supplier)" type="radio" value="1"
                                       :name="'types-' + index" v-model="ratingNum[index].delivery_type" />
                                     <span class="mx-2">{{
-                                        $t("payment.pickup")
+                                      $t("payment.pickup")
                                     }}</span>
                                   </label>
                                   <!-- if supplier has address in pickup  -->
@@ -446,12 +446,12 @@
                                         null,
                                     }">
                                     <b-form-select-option selected disabled value="null"><span>{{
-                                        $t("cart.selectPickupAddress")
+                                      $t("cart.selectPickupAddress")
                                     }}</span></b-form-select-option>
                                     <b-form-select-option v-for="(
                                         address, index
                                       ) in supplier.supplier_addresses" :key="index" :value="address">{{
-                                          address.country.title
+                                        address.country.title
                                       }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
@@ -499,13 +499,13 @@
                     <div class="col-12 payment-delivery">
                       <div class="d-flex justify-content-between heading align-items-center mb-4">
                         <span class="title">{{
-                            $t("payment.deliveryData")
+                          $t("payment.deliveryData")
                         }}</span>
                       </div>
                       <form class="row delivery-form">
                         <div class="col-6 form-group required">
                           <label for="firstName">{{
-                              $t("payment.firstName")
+                            $t("payment.firstName")
                           }}</label>
                           <input type="text" class="form-control" id="firstName" v-model="paymentFormData.first_name" />
                           <div class="error text-start" v-for="(error, index) in errors.first_name" :key="index">
@@ -514,7 +514,7 @@
                         </div>
                         <div class="col-6 form-group required">
                           <label for="firstName">{{
-                              $t("payment.lastName")
+                            $t("payment.lastName")
                           }}</label>
                           <input type="text" class="form-control" id="lastName" v-model="paymentFormData.last_name" />
                           <div class="error text-start" v-for="(error, index) in errors.last_name" :key="index">
@@ -534,7 +534,7 @@
                         <b-col md="3" sm="12">
                           <b-form-group>
                             <label for="countryCode">{{
-                                $t("register.countryCode")
+                              $t("register.countryCode")
                             }}</label>
                             <span class="requried text-danger">*</span>
 
@@ -559,7 +559,7 @@
 
                         <div class="col-md-4 col-sm-12 form-group required">
                           <label for="phoneNumber">{{
-                              $t("payment.phoneNumber")
+                            $t("payment.phoneNumber")
                           }}</label>
                           <input type="number" class="form-control" id="phoneNumber" v-model="paymentFormData.phone"
                             :placeholder="paymentFormData.phone" />
@@ -572,7 +572,7 @@
                         <div class="col-12 form-group">
                           <label for="notes">
                             {{ $t("payment.notes") }} ({{
-                                $t("payment.optional")
+                              $t("payment.optional")
                             }})
                           </label>
                           <textarea class="form-control" id="notes" rows="3"
@@ -708,7 +708,7 @@
                             <div class="col-12 payment-method">
                               <div class="heading mb-3">
                                 <span class="title">{{
-                                    $t("payment.paymentData")
+                                  $t("payment.paymentData")
                                 }}</span>
                               </div>
                               <div class="methods-data">
@@ -760,7 +760,7 @@
                                         <sup>*</sup>
                                       </label>
                                       <span>{{
-                                          $t("payment.paymentByBank")
+                                        $t("payment.paymentByBank")
                                       }}</span>
                                     </div>
                                     <p class="error text-center" v-if="
@@ -782,7 +782,7 @@
                                         <sup>*</sup>
                                       </label>
                                       <span>{{
-                                          $t("payment.requestReceipt")
+                                        $t("payment.requestReceipt")
                                       }}</span>
                                     </div>
                                   </div>
@@ -830,15 +830,15 @@
                                   </p>
                                   <template #modal-footer="{ ok }">
                                     <b-button size="sm" variant="outline-success" @click="
-                                      ok();
-                                    acceptMyTerms();
+  ok();
+acceptMyTerms();
                                     ">
                                       <h6 class="m-0">
                                         <span class="mx-1">{{
-                                            $t("payment.accept")
+                                          $t("payment.accept")
                                         }}</span>
                                         <span class="mx-1">{{
-                                            $t("payment.termsAndConditions")
+                                          $t("payment.termsAndConditions")
                                         }}</span>
                                       </h6>
                                     </b-button>
@@ -1971,7 +1971,7 @@ export default {
       this.selectedInput.parentElement.parentElement.querySelector(
         ".feedsResult"
       ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency
-        }`;
+      }`;
 
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
@@ -2593,6 +2593,15 @@ export default {
                     title: this.couponText,
                     value: res.data.items.total_cart.total_discount,
                   });
+
+
+                  // let finalCoupons = [];
+                  // this.coupons.forEach(element => {
+
+                  //   finalCoupons.push(element.title)
+                  // });
+                  // console.log('finalCoupons', finalCoupons);
+
                   this.sucessMsg(res.data.message);
                   this.couponText = null;
                   this.couponError = null;

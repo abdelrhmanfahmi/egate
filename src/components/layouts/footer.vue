@@ -7,9 +7,9 @@
           <div class="row">
             <div class="col-12">
               <div class="footer-logo">
-                <router-link to="/"
+                <a href="https://mysupply.me/" target="_blank"
                   ><img src="@/assets/images/mysupply-logo.png" alt="mysupply-logo.png"
-                /></router-link>
+                /></a>
                 <!-- <a href="https://humhum.work/user-interface/public/en_kw"
                   ><img src="@/assets/images/mysupply-logo.png" alt=""
                 /></a> -->

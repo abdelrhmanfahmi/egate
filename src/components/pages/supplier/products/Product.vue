@@ -79,7 +79,7 @@
           "
         >
           <span>
-            <font-awesome-icon icon="fa-solid fa-plus" />
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
@@ -108,7 +108,7 @@
           "
         >
           <span>
-            <font-awesome-icon icon="fa-solid fa-plus" />
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
@@ -194,26 +194,24 @@ export default {
       *  go to product page
     */
     goProduct(data) {
-      this.$router.push({
+      this.$router.replace({
         path: "/details",
         query: {
           id: data.id,
         },
       });
-      location.reload();
     },
     /**
      * @vuese
       *  gog to product page by supplier
     */
     goPage2(data) {
-      this.$router.push({
+      this.$router.replace({
         path: "/details",
         query: {
           id: data.product_details_by_type.product_supplier_id,
         },
       });
-      location.reload();
     },
     /**
      * @vuese

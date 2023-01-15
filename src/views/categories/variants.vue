@@ -23,6 +23,21 @@
       </div>
       <div class="content">
         <b-row align-h="center" align-v="start" class="py-5" v-if="productInfo">
+          <!-- sub category image  -->
+          <b-col
+            cols="12"
+            lg="6"
+            xl="5"
+            class="item-media mt-3 m-lg-0 slider"
+            v-if="productInfo.image_path !== null"
+          >
+            <img
+              :src="productInfo.image_path"
+              alt="item-name"
+              class="img-fluid"
+            />
+          </b-col>
+          
           <b-col cols="12" lg="6" xl="5" class="item-content product-info">
             <!-- subcategory data  -->
             <h5 class="name" v-if="productInfo.title">
@@ -82,20 +97,7 @@
               </div>
             </div>
           </b-col>
-          <!-- sub category image  -->
-          <b-col
-            cols="12"
-            lg="6"
-            xl="5"
-            class="item-media mt-3 m-lg-0 slider"
-            v-if="productInfo.image_path !== null"
-          >
-            <img
-              :src="productInfo.image_path"
-              alt="item-name"
-              class="img-fluid"
-            />
-          </b-col>
+          
         </b-row>
       </div>
     </div>

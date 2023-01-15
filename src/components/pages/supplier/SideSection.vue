@@ -163,8 +163,7 @@ export default {
     },
     supplierMSite: {
       // supplier Micro Site data prop
-      type: Array,
-      required: false,
+      type: Object,
     },
   },
   methods: {
