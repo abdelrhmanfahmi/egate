@@ -179,7 +179,6 @@ export default {
      * @vuese
      */
     readNotification(notification) {
-      console.log(notification);
       profile
         .readNotification(notification)
         .then((res) => {
@@ -199,6 +198,7 @@ export default {
      */
     goNotificationPage(notification) {
       if (notification.type === "return_item") {
+        this.readNotification(notification)
         this.$router.push({
           path: "/ReturnedRequest",
           query: {
@@ -206,6 +206,7 @@ export default {
           },
         });
       } else if (notification.type === "order") {
+        this.readNotification(notification)
         this.$router.push({
           path: "/viewOrderDetails",
           query: {
@@ -213,6 +214,7 @@ export default {
           },
         });
       } else if (notification.type === "RFQ") {
+        this.readNotification(notification)
         this.$router.push({
           path: "/profile/quotationDetails",
           query: {
@@ -220,6 +222,7 @@ export default {
           },
         });
       } else if (notification.type === "chat") {
+        this.readNotification(notification)
         this.$router.push({
           path: "/viewCorresponseDetails",
           query: {
