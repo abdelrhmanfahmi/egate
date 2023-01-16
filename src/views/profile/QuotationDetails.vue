@@ -57,7 +57,7 @@
             </th>
             <td>
               <div>
-                <span class="comment" v-if="quotate.comment">{{ quotate.comment }}</span>
+                <p class="comment" v-if="quotate.comment" v-html="quotate.comment"></p>
               </div>
             </td>
             <td></td>

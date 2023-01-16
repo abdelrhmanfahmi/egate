@@ -214,9 +214,9 @@ export default {
         });
       } else if (notification.type === "RFQ") {
         this.$router.push({
-          path: "/quotationDetails",
+          path: "/profile/quotationDetails",
           query: {
-            id: notification.itype_idd,
+            id: notification.type_id,
           },
         });
       } else if (notification.type === "chat") {

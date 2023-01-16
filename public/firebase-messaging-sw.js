@@ -119,7 +119,7 @@ self.addEventListener("notificationclick", (event) => {
     });
   } else if (type === "RFQ") {
     this.$router.push({
-      path: "/quotationDetails",
+      path: "/profile/quotationDetails",
       query: {
         id: itype_idd,
       },
