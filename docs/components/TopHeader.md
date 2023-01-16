@@ -10,6 +10,7 @@
 |onHandelCountry|handle country|-|
 |handleCurrency|handle currency from localstorage|-|
 |getDefaultCountry|get default country according to ip address|-|
+|handleLangeFromQuery|handle Language From Query|-|
 
 <!-- @vuese:TopHeader:methods:end -->
 

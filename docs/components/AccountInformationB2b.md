@@ -14,6 +14,7 @@
 |showCheckModal|show Check Modal function|-|
 |hideCheckModal|hide Check Modal function|-|
 |goToVerify|go To Verify function to send data to backend to verify new changes|-|
+|closeModal|close Modal used when click on close button to clear form data|-|
 
 <!-- @vuese:AccountInformationB2b:methods:end -->
 
