@@ -78,27 +78,6 @@ const globalAxios = axios.create({
   },
 });
 
-// globalAxios.interceptors.request.use(
-//   (config) => {
-//     const guestId = localStorage.getItem("guest-id");
-//     // const country_id = localStorage.getItem("is_default");
-//     const country = localStorage.getItem("country");
-//     // const currency_code = localStorage.getItem("currency");
-//     // const default_id = localStorage.getItem("default_id");
-//     if (guestId) {
-//       config.headers["guest-id"] = guestId;
-//     }
-//     if (country) {
-//       let country_parsed = JSON.parse(localStorage.getItem("country"));
-//       config.headers["currency-id"] = country_parsed.currencies[0].id || 1;
-//       config.headers["country-id"] = country_parsed.id ? country_parsed.id : null;
-//     }
-//     // config.headers['currency_code'] = currency_code;
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
-
 globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -113,6 +92,7 @@ globalAxios.interceptors.response.use(
       // this.$router.push("/b2b-login");
       // location.reload();
       // this.$store.dispatch('loginAgain')
+      this.logOut()
       userExist.type === "buyer"
         ? router.push(`/b2b-login`) //routing changed  from b2b-login to /b2b-login
         : router.push({ path: '/', query: { force_login: 'true' } });

@@ -11,17 +11,17 @@
           <ul v-if="!mobile" class="navigation">
             <li>
               <router-link class="link" to="/">{{
-                  $t("home.home")
+                $t("home.home")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/partners">{{
-                  $t("home.navSuppliers")
+                $t("home.navSuppliers")
               }}</router-link>
             </li>
             <li>
               <router-link class="link" to="/about">{{
-                  $t("home.about")
+                $t("home.about")
               }}</router-link>
             </li>
             <li class="humhum-dropdown">
@@ -29,12 +29,13 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`" target="_blank">{{ $t("home.suppliers")
+                    <a :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`" target="_blank">{{
+                      $t("home.suppliers")
                     }}</a>
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                        $t("home.buyer")
+                      $t("home.buyer")
                     }}</router-link>
                   </li>
                 </ul>
@@ -42,7 +43,7 @@
             </li>
             <li>
               <router-link class="link" to="/contact-us">{{
-                  $t("home.contactUs")
+                $t("home.contactUs")
               }}</router-link>
             </li>
           </ul>
@@ -101,7 +102,11 @@
                     <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        {{ userInfo.item.company_name }}
+                        <span v-if="$i18n.locale == 'en'">{{ userInfo.item.company_name_en }}</span>
+                        <span v-else-if="$i18n.locale == 'ar' && userInfo.item.company_name_ar">{{
+                          userInfo.item.company_name_ar
+                        }}</span>
+                        <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
                         {{ userInfo.item.first_name }}
@@ -110,7 +115,11 @@
                     <p v-else>
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        {{ userInfo.item.company_name }}
+                        <span v-if="$i18n.locale == 'en'">{{ userInfo.item.company_name_en }}</span>
+                        <span v-else-if="$i18n.locale == 'ar' && userInfo.item.company_name_ar">{{
+                          userInfo.item.company_name_ar
+                        }}</span>
+                        <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
                         {{ userInfo.item.first_name }}
@@ -120,7 +129,7 @@
                 </template>
                 <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
                   <router-link to="/profile/categories">{{
-                      $t("profile.myProfile")
+                    $t("profile.myProfile")
                   }}</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
@@ -305,7 +314,7 @@ export default {
      * login Now function if not logged in
      */
     loginNow() {
-      if(document.$refs.b2cLogin){
+      if (document.$refs.b2cLogin) {
 
         document.$refs.b2cLogin.show();
       }
@@ -631,7 +640,8 @@ html:lang(ar) {
     max-width: 170px;
   }
 }
-.bar-icon{
+
+.bar-icon {
   z-index: 1;
 }
 </style>

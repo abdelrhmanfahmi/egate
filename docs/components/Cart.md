@@ -10,6 +10,7 @@
 |removeFromCart|remove product from cart|-|
 |removeDisabled|this fnction user when using the old coupon style to remove disaple input|-|
 |checkCoupon|this fnction user when using the old coupon style to check coupon validity and dislay response and display data|-|
+|loginFirst|login First if you want to add coupon if you'r a guest|-|
 |ChangeQ|change quantity of product that in table|-|
 |closeModal|close modal|-|
 |openModal|open modal|-|
@@ -47,6 +48,7 @@
 |addCoupon|add new coupon|-|
 |removeMyCoupon|remove exist coupon|-|
 |uploadBankImage|upload bank file when select bank payment method|-|
+|getCompanyIban|get Company Iban|-|
 
 <!-- @vuese:Cart:methods:end -->
 
