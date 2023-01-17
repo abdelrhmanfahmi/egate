@@ -115,8 +115,16 @@ export default {
   getProductReview(id){
     return globalAxios.get(`members/review/product-reviews/${id}`)
   },
-  getFilters(){
-    return globalAxios.get(`products/get-filter/attributes`)
+  getFilters(id, sorting, country, weight, unit){
+    return globalAxios.get(`products/get-filter/attributes`,{
+      params: {
+        category_id: id ? id : null,
+        sort_price: sorting ? sorting : null,
+        country_id: country ? country : null,
+        weight: weight ? weight : null,
+        unit_id: unit ? unit : null
+      }
+    })
   },
   getClients(page) {
     return globalAxios.get(`suppliers-name?page=${page}`);

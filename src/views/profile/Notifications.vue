@@ -230,6 +230,15 @@ export default {
           },
         });
       }
+      else if (notification.type === "charge_wallet") {
+        this.readNotification(notification)
+        this.$router.push({
+          path: "/viewCorresponseDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      }
     },
     /**
      * read All Notifications function

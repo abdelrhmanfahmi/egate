@@ -4,13 +4,8 @@
     <!-- if there is notifications  -->
     <div class="" v-if="notificationsLength > 0">
       <div class="notification-ui_dd-content">
-        <div
-          class="readAllNotifications px-4 d-flex justify-content-end align-items-center"
-        >
-          <button
-            @click="readAllNotifications"
-            class="btn-light border-0 btn-outline-none bg-white"
-          >
+        <div class="readAllNotifications px-4 d-flex justify-content-end align-items-center">
+          <button @click="readAllNotifications" class="btn-light border-0 btn-outline-none bg-white">
             <span class="font-weight-bold mr-2">{{
               $t("profile.readAllNotifications")
             }}</span>
@@ -18,33 +13,18 @@
           </button>
         </div>
         <!-- take 5 only of notifications in popup for responsive  -->
-        <div
-          class="notification-list"
-          v-for="(notification, index) in notifications.slice(0, 5)"
-          :key="index"
-          :class="{
-            readed: notification.is_read == 1,
-            unreaded: notification.is_read == 0,
-          }"
-        >
+        <div class="notification-list" v-for="(notification, index) in notifications.slice(0, 5)" :key="index" :class="{
+          readed: notification.is_read == 1,
+          unreaded: notification.is_read == 0,
+        }">
           <div class="row">
             <div class="col-md-2 col-sm-12">
-              <div
-                class="notification-list_feature-img"
-                v-if="notification.status_type === 'success'"
-              >
-                <font-awesome-icon
-                  icon="fa-solid fa-circle-check"
-                  class="text-success"
-                  size="2x"
-                />
+              <div class="notification-list_feature-img" v-if="notification.status_type === 'success'">
+                <font-awesome-icon icon="fa-solid fa-circle-check" class="text-success" size="2x" />
               </div>
             </div>
             <div class="col-md-10 col-sm-12">
-              <div
-                class="notification-list_detail"
-                @click="goNotificationPage(notification)"
-              >
+              <div class="notification-list_detail" @click="goNotificationPage(notification)">
                 <h6 class="notification-title">
                   <b>{{ notification.title }}</b>
                 </h6>
@@ -58,10 +38,7 @@
             </div>
             <span class="ml-auto" v-if="notification.is_read == 0">
               <b class="text-success">
-                <button
-                  class="btn text-success m-0"
-                  @click="readNotification(notification)"
-                >
+                <button class="btn text-success m-0" @click="readNotification(notification)">
                   <small>{{ $t("profile.markRead") }}</small>
                 </button>
               </b>
@@ -70,11 +47,9 @@
         </div>
       </div>
       <div class="notification-ui_dd-footer">
-        <router-link
-          to="/profile/Notifications"
-          class="btn btn-success btn-block"
-          >{{ $t("cart.viewAll") }}</router-link
-        >
+        <router-link to="/profile/Notifications" class="btn btn-success btn-block">{{
+          $t("cart.viewAll")
+        }}</router-link>
       </div>
     </div>
 
@@ -176,6 +151,15 @@ export default {
           },
         });
       } else if (notification.type === "chat") {
+        this.readNotification(notification)
+        this.$router.push({
+          path: "/viewCorresponseDetails",
+          query: {
+            id: notification.type_id,
+          },
+        });
+      }
+      else if (notification.type === "charge_wallet") {
         this.readNotification(notification)
         this.$router.push({
           path: "/viewCorresponseDetails",
@@ -296,9 +280,11 @@ export default {
     margin: 0 25px;
     border-bottom: 1px solid #ddd;
   }
+
   .readed {
     background: #fff;
   }
+
   .unreaded {
     background: #f4f4f4;
   }
@@ -333,6 +319,7 @@ export default {
     width: 48px;
     border-radius: 5px;
     position: relative;
+
     &::after {
       position: absolute;
       top: 0;
@@ -343,19 +330,23 @@ export default {
       border-radius: 50%;
     }
   }
+
   .notification-ui_dd-footer {
     margin-top: 20px;
     padding: 0 1rem;
   }
+
   .notification-ui_dd-content {
     height: 360px;
     overflow-y: scroll;
   }
 }
+
 .btn:focus,
 .btn.focus {
   box-shadow: none !important;
 }
+
 .notification-title,
 .notification-body {
   cursor: pointer;
