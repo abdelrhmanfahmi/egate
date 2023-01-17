@@ -19,9 +19,9 @@
           <tr>
             <th scope="col" v-for="(tab, index) in fields" :key="index">
               <div class="d-flex justify-content-around align-items-center">
-                <span v-if="tab.label === $t('profile.serial')">
+                <!-- <span v-if="tab.label === $t('profile.serial')">
                   <input type="checkbox" class="myproject--checkbox" v-model="checkAll">
-                </span>
+                </span> -->
                 <span>{{ tab.label }}</span>
               </div>
             </th>
@@ -31,7 +31,7 @@
           <tr v-for="(order, index) in orders" :key="index">
             <td>
               <div class="d-flex justify-content-around align-items-center">
-                <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />
+                <!-- <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" /> -->
                 <span>{{ order.id }}</span>
               </div>
             </td>
