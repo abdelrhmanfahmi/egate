@@ -377,6 +377,8 @@ export default {
       adresses: [],
       en_formNames: ["Office", "Home"],
       ar_formNames: ["المنزل", "المكتب"],
+      en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
+      ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
     };
   },
   mounted() {
