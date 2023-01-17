@@ -2,54 +2,24 @@
   <ul class="pagination">
     <!-- pagination component   -->
     <li class="pagination-item">
-      <a
-        href="#"
-        @click.prevent="onClickFirstPage"
-        :class="isInFirstPage ? 'disabled' : ''"
-        :disabled="isInFirstPage"
-        ><font-awesome-icon icon="fas fa-angle-double-left   "
-      /></a>
+      <a href="#" @click.prevent="onClickFirstPage" :class="isInFirstPage ? 'disabled' : ''"
+        :disabled="isInFirstPage"><font-awesome-icon icon="fas fa-angle-double-left   " /></a>
     </li>
     <li class="pagination-item">
-      <a
-        href="#"
-        @click.prevent="onClickPreviousPage"
-        :class="isInFirstPage ? 'disabled' : ''"
-        :disabled="isInFirstPage"
-        ><font-awesome-icon icon="fas fa-chevron-left"
-      /></a>
+      <a href="#" @click.prevent="onClickPreviousPage" :class="isInFirstPage ? 'disabled' : ''"
+        :disabled="isInFirstPage"><font-awesome-icon icon="fas fa-chevron-left" /></a>
     </li>
-    <li
-      :key="page.id"
-      v-for="page in pages"
-      class="pagination-item"
-      :class="{ active: isPageActive(page.name) }"
-    >
-      <a
-        href="#"
-        @click.prevent="onClickPage(page.name)"
-        :disabled="page.isDisabled"
-        :class="{ active: isPageActive(page.name) }"
-        >{{ page.name }}</a
-      >
+    <li :key="page.id" v-for="page in pages" class="pagination-item" :class="{ active: isPageActive(page.name) }">
+      <a href="#" @click.prevent="onClickPage(page.name)" :disabled="page.isDisabled"
+        :class="{ active: isPageActive(page.name) }">{{ page.name }}</a>
     </li>
     <li class="pagination-item">
-      <a
-        href="#"
-        @click.prevent="onClickNextPage"
-        :class="isInLastPage ? 'disabled' : ''"
-        :disabled="isInLastPage"
-        ><font-awesome-icon icon="fas fa-chevron-right"
-      /></a>
+      <a href="#" @click.prevent="onClickNextPage" :class="isInLastPage ? 'disabled' : ''"
+        :disabled="isInLastPage"><font-awesome-icon icon="fas fa-chevron-right" /></a>
     </li>
     <li class="pagination-item">
-      <a
-        href="#"
-        @click.prevent="onClickLastPage"
-        :class="isInLastPage ? 'disabled' : ''"
-        :disabled="isInLastPage"
-        ><font-awesome-icon icon="fas fa-angle-double-right"
-      /></a>
+      <a href="#" @click.prevent="onClickLastPage" :class="isInLastPage ? 'disabled' : ''"
+        :disabled="isInLastPage"><font-awesome-icon icon="fas fa-angle-double-right" /></a>
     </li>
   </ul>
 </template>
@@ -91,10 +61,10 @@ export default {
     isInFirstPage() {
       return this.currentPage === 1;
     },
-     /**
-     * @vuese
-     * check if page is  last
-     */
+    /**
+    * @vuese
+    * check if page is  last
+    */
     isInLastPage() {
       if (this.totalPages === 0) {
         return true;
@@ -162,10 +132,10 @@ export default {
       }
       this.$emit("pagechanged", 1);
     },
-     /**
-     * @vuese
-     * on Click Previous Page function
-     */
+    /**
+    * @vuese
+    * on Click Previous Page function
+    */
     onClickPreviousPage() {
       if (this.isInFirstPage) {
         return false;
@@ -221,36 +191,45 @@ export default {
   float: right;
   margin: 10px 0;
   font-size: 20px;
+
   .pagination-item {
-    display: inline-block;
-    color: #ddd;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    background: #4f4f4f6e;
-    text-align: center;
-    margin: 0 9px;
+
     a {
       text-decoration: none;
       margin: 10px;
       color: #2c3e50;
+
+      display: inline-block;
+      color: #ddd;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 50%;
+      background: #4f4f4f6e;
+      text-align: center;
+      margin: 0 9px;
+
+      &.active {
+        background-color: tomato;
+        color: #ffffff !important;
+        font-weight: bold;
+
+        // padding: 3px 8px;
+        a {
+          color: #fff;
+        }
+      }
     }
+
     a.disabled {
       color: #ccc;
       cursor: no-drop !important;
     }
-    &.active {
-      background-color: tomato;
-      color: #ffffff !important;
-      font-weight: bold;
-      // padding: 3px 8px;
-      a {
-        color: #fff;
-      }
-    }
+
+
   }
 }
+
 button[disabled],
 html input[disabled] {
   cursor: no-drop !important;

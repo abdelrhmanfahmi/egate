@@ -208,11 +208,22 @@ export default {
       if (langValue == 'en') {
         if (enLang) {
 
+          const searchURL = new URL(window.location);
+          searchURL.searchParams.delete('lang');
+
+          window.history.pushState({}, '', searchURL);
+
+
           enLang.click();
         }
       }
       if (langValue == 'ar') {
         if (arLang) {
+
+          const searchURL = new URL(window.location);
+          searchURL.searchParams.delete('lang');
+
+          window.history.pushState({}, '', searchURL);
 
           arLang.click()
         }

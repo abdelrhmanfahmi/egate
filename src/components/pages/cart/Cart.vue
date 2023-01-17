@@ -199,10 +199,20 @@
                                       <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
                                         <span class="requried text-danger">*</span>
                                       </b-form-select-option>
-                                      <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in en_formNames" :key="index" :value="formName">{{ formName }}
-                                      </b-form-select-option>
+                                      <div v-if="buyerUserData.type == 'buyer'">
+
+                                        <b-form-select-option v-for="(
+                                            formName, index
+                                          ) in en_B2B_formNames" :key="index" :value="formName">{{ formName }}
+                                        </b-form-select-option>
+                                      </div>
+                                      <div v-else>
+
+                                        <b-form-select-option v-for="(
+                                            formName, index
+                                          ) in  en_formNames" :key="index" :value="formName">{{ formName }}
+                                        </b-form-select-option>
+                                      </div>
                                     </b-form-select>
                                     <div class="error" v-for="(error, index) in errors.name" :key="index">
                                       {{ error }}
@@ -216,10 +226,23 @@
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
                                       }}</b-form-select>
-                                      <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in ar_formNames" :key="index" :value="formName">{{ formName }}
-                                      </b-form-select-option>
+
+
+                                      <div v-if="buyerUserData.type == 'buyer'">
+
+                                        <b-form-select-option v-for="(
+    formName, index
+  ) in ar_B2B_formNames" :key="index" :value="formName">{{ formName }}
+                                        </b-form-select-option>
+                                      </div>
+                                      <div v-else>
+
+                                        <b-form-select-option v-for="(
+    formName, index
+  ) in  ar_formNames" :key="index" :value="formName">{{ formName }}
+                                        </b-form-select-option>
+                                      </div>
+
                                     </b-form-select>
                                     <div class="error" v-for="(error, index) in errors.name" :key="index">
                                       {{ error }}
@@ -1095,6 +1118,8 @@ export default {
       selectedPhonePrefix: null,
       en_formNames: ["Office", "Home"],
       ar_formNames: ["المنزل", "المكتب"],
+      en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
+      ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
       companyIban: null
     };
   },

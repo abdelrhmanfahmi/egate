@@ -30,14 +30,16 @@ export default {
       },
     });
   },
-  getCategoryProducts(id, sorting, cat, country, weight, unit) {
-    return globalAxios.get(`products?${cat}`, {
+  getCategoryProducts(id, sorting, country, weight, unit) {
+  // getCategoryProducts(id, sorting, cat, country, weight, unit) {
+    // return globalAxios.get(`products?${cat}`, {
+    return globalAxios.get(`products`, {
       params: {
-        category_id: id,
-        sort_price: sorting,
-        country_id: country,
-        weight: weight,
-        unit_id: unit
+        category_id: id ? id : null,
+        sort_price: sorting ? sorting : null,
+        country_id: country ? country : null,
+        weight: weight ? weight : null,
+        unit_id: unit ? unit : null
       }
     });
   },

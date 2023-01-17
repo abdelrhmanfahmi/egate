@@ -45,11 +45,11 @@
 
 
               <a  v-if="buyerUserData && buyerUserData.type === 'b2c'">
-                <b class="forget-password my-3" v-b-modal.ForgetPassword>
+                <b class="forget-password my-3" v-b-modal.B2BForgetPassword>
                   {{ $t("login.fogetPassword") }}
                 </b>
               </a>
-              <a to="/forget-password" v-else v-b-modal.ForgetPassword>
+              <a to="/forget-password" v-else v-b-modal.B2BForgetPassword>
                 <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>

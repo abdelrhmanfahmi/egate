@@ -296,5 +296,14 @@ export default {
   },
   changeNotificationSettings(payload){
     return globalAxios.post('members/notification-settings',payload)
+  },
+  addCheckedProductToCart(payload){
+    return globalAxios.post('addCheckedProductToCart',payload)
+  },
+  removeCheckedProductFromCart(payload){
+    return globalAxios.post('removeCheckedProductFromCart',payload)
+  },
+  exportSelectedOrders(payload){
+    return globalAxios.post('exportSelectedOrders',payload)
   }
 };

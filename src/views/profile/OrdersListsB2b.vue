@@ -5,12 +5,25 @@
     </h5>
     <!-- if there's orders  -->
     <div class="holder text-center" v-if="orders">
+      <div class="mb-3 d-flex justify-content-end" v-if="checkedOrder && checkedOrder.length > 0">
+
+        <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
+          {{ $t('singleProduct.exportSelectedOrders') }}
+          <font-awesome-icon icon="fa-solid fa-arrow-up" />
+        </b-button>
+      </div>
+
       <!-- orders data table  -->
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
             <th scope="col" v-for="(tab, index) in fields" :key="index">
-              {{ tab.label }}
+              <div class="d-flex justify-content-around align-items-center">
+                <!-- <span v-if="tab.label === $t('profile.serial')">
+                  <input type="checkbox" class="myproject--checkbox" v-model="checkAll">
+                </span> -->
+                <span>{{ tab.label }}</span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -18,7 +31,7 @@
           <tr v-for="(order, index) in orders" :key="index">
             <td>
               <div class="d-flex justify-content-around align-items-center">
-                <!-- <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />  -->
+                <!-- <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" /> -->
                 <span>{{ order.id }}</span>
               </div>
             </td>
@@ -68,12 +81,12 @@
                 </b-button>
               </router-link>
               <b-button id="show-btn" @click="
-                $bvModal.show('bv-modal-example');
-              saveUUID(order);
+  $bvModal.show('bv-modal-example');
+saveUUID(order);
               " variant="outline-success" class="m-2" v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'visa'
-                ">
+                order.payment_status === 'Unpaid' &&
+                order.payment_type === 'visa'
+              ">
                 {{ $t("profile.pay") }}
               </b-button>
             </td>
@@ -221,7 +234,7 @@ export default {
       },
       errors: [],
       checkedOrder: [],
-      repayClicked: false
+      repayClicked: false,
     };
   },
   methods: {
@@ -326,6 +339,22 @@ export default {
       console.log(order);
       this.paymentFormData.order_uuid = order.uuid;
     },
+
+    /**
+    * @vuese
+    * export Selected Orders to recive it as excel or pdf
+    */
+
+    exportSelectedOrders() {
+      profile.exportSelectedOrders(this.checkedOrder).then(res => {
+        console.log(res);
+      }).catch(error => {
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
+    },
+
   },
   mounted() {
     this.getOrders();
@@ -334,7 +363,23 @@ export default {
     spinner,
     Paginate,
   },
-};
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.orders ? this.checkedOrder.length == this.orders.length : false;
+      },
+      set: function (value) {
+        var checkedOrder = [];
+        if (value) {
+          this.orders.forEach(function (order) {
+            checkedOrder.push(order.id);
+          });
+        }
+        this.checkedOrder = checkedOrder;
+      }
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .payment-method {

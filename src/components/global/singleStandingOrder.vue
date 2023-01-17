@@ -12,14 +12,14 @@
             {{ $t("items.addAllToCart") }}
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </b-button>
-          <b-button variant="outline-success" class="mx-2" v-else>
-              {{ $t('singleProduct.addcheckedProductToCart') }}
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </b-button>
-          
+          <b-button variant="outline-success" class="mx-2" @click="addCheckedProductToCart" v-else>
+            {{ $t('singleProduct.addcheckedProductToCart') }}
+            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          </b-button>
+
           <div class="" v-if="checkedProduct && checkedProduct.length > 0">
-            
-            <b-button variant="outline-danger" class="mx-2">
+
+            <b-button variant="outline-danger" class="mx-2" @click="removeCheckedProductFromCart">
               {{ $t('singleProduct.removecheckedProductToCart') }}
               <font-awesome-icon icon="fa-solid fa-trash-can" />
             </b-button>
@@ -59,8 +59,7 @@
                           </div>
                           <div class="d-block text-center" v-else>
 
-                            <img src="@/assets/images/logo.png" alt="logo"
-                              class="product-img" />
+                            <img src="@/assets/images/logo.png" alt="logo" class="product-img" />
                           </div>
                         </router-link>
                       </div>
@@ -549,6 +548,37 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+    },
+
+    /**
+    * @vuese
+    * add Checked Product To Cart
+    */
+
+    addCheckedProductToCart() {
+      profile.addCheckedProductToCart(this.checkedProduct).then(res => {
+        console.log(res);
+      }).catch(error => {
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
+    },
+
+
+    /**
+    * @vuese
+    * remove Checked Products From Cart
+    */
+
+    removeCheckedProductFromCart() {
+      profile.removeCheckedProductFromCart(this.checkedProduct).then(res => {
+        console.log(res);
+      }).catch(error => {
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
     },
   },
   /**
