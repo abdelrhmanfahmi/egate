@@ -459,6 +459,7 @@ export default {
           if (res.status == 200) {
             this.getWallet();
             window.location.href = res.data.items.url;
+            this.chargeClicked = false;
           }
         })
         .catch((err) => {
@@ -466,6 +467,7 @@ export default {
           this.errors = errors.items;
           this.errMsg(err.message);
           console.log(err);
+          this.chargeClicked = false;
         });
     },
   },
