@@ -18,16 +18,8 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input
-                      type="email"
-                      id="email"
-                      v-model="form.email"
-                    />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.email"
-                      :key="index"
-                    >
+                    <b-form-input type="email" id="email" v-model="form.email" />
+                    <div class="error" v-for="(error, index) in errors.email" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -38,44 +30,25 @@
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input
-                        id="password"
-                        v-model="form.password"
-                        :type="fieldType"
-                      />
+                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
                       <div class="icon-passowrd" @click.stop="switchField()">
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye"
-                          v-if="fieldType === 'password'"
-                          size="lg"
-                        />
-                        <font-awesome-icon
-                          icon="fa-solid fa-eye-slash"
-                          v-else
-                          size="lg"
-                        />
+                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.password"
-                      :key="index"
-                    >
+                    <div class="error" v-for="(error, index) in errors.password" :key="index">
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
               </b-row>
 
-              <router-link
-                to="/forget-password"
-                v-if="buyerUserData && buyerUserData.type === 'b2c'"
-              >
-                <b class="forget-password my-3" v-b-modal.ForgetPassword>
+              <router-link to="/forget-password" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+                <b class="forget-password my-3" v-b-modal.B2BForgetPassword>
                   {{ $t("login.fogetPassword") }}
                 </b>
               </router-link>
-              <a  v-b-modal.ForgetPassword v-else>
+              <a v-b-modal.B2BForgetPassword v-else>
                 <b class="forget-password my-3">
                   {{ $t("login.fogetPassword") }}
                 </b>
@@ -90,6 +63,24 @@
           </b-col>
         </b-row>
       </div>
+      <b-modal id="B2BForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc
+        ref="b2cLogin">
+        <form>
+          <b-form-group>
+            <label for="email">{{ $t("register.email") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="email" v-model="emailForget" maxlength="100" />
+            <div class="error" v-for="(error, index) in errors.email" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+        </form>
+        <div slot="modal-footer" class="d-flex">
+          <a @click="sendEmail()" class="reset-Link" type="submit">{{
+            $t("login.reset")
+          }}</a>
+        </div>
+      </b-modal>
     </b-container>
   </section>
 </template>
@@ -107,6 +98,7 @@ export default {
       errorMsg: "",
       fieldType: "password",
       errors: {},
+      emailForget: "",
     };
   },
   methods: {
@@ -167,6 +159,24 @@ export default {
      */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
+    sendEmail() {
+      const payload = {
+        email: this.emailForget,
+        callback_url: `${this.mainDoamin}Forget-Password`,
+        type: 'buyer'
+      };
+      auth
+        .sendEmail(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.$bvModal.hide("ForgetPassword");
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
     },
   },
   computed: {
@@ -234,5 +244,11 @@ html:lang(ar) {
       text-align: right;
     }
   }
+}
+.reset-Link {
+  color: #ffffff;
+  background-color: #ff0e00;
+  padding: 0.5rem 1.3rem;
+  width: 100%;
 }
 </style>
