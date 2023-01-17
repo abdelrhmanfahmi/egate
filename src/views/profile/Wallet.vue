@@ -39,7 +39,7 @@
                     variant="outline-danger"
                     type="submit"
                     class="py-2"
-                    :disabled="chargeClicked"
+                    :disabled="chargeClicked || !chargeValue || chargeValue == 0"
                   >
                     <span v-if="chargeClicked">
                       <b-spinner label="Spinning" small></b-spinner>
