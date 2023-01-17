@@ -256,6 +256,7 @@ export default {
       const payload = {
         email: this.emailForget,
         callback_url: `${this.mainDoamin}Forget-Password`,
+        type:'b2c'
       };
       auth
         .sendEmail(payload)
