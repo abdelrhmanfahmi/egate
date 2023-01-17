@@ -1,70 +1,87 @@
 <template>
   <section class="user-register text-center my-5">
     <!-- login b2b tab     -->
-      <div class="user-register-form">
-        <b-row class="justify-content-center">
-          <b-col lg="10">
-            <div class="register-info">
-              <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
-              <router-link to="/b2b-register" class="back">
-                <span>
-                  &#60; {{ $t("register.haveNotAccount") }}</span>
-              </router-link>
+    <div class="user-register-form">
+      <b-row class="justify-content-center">
+        <b-col lg="10">
+          <div class="register-info">
+            <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
+            <router-link to="/b2b-register" class="back">
+              <span>
+                &#60; {{ $t("register.haveNotAccount") }}</span>
+            </router-link>
+          </div>
+          <form @submit.prevent="login()">
+            <b-row class="justify-content-center">
+              <!-- Email -->
+              <b-col lg="12">
+                <b-form-group>
+                  <label for="email">{{ $t("register.email") }}</label>
+                  <span class="requried">*</span>
+                  <b-form-input type="email" id="email" v-model="form.email" />
+                  <div class="error" v-for="(error, index) in errors.email" :key="index">
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- Password -->
+              <b-col lg="12">
+                <b-form-group>
+                  <label for="password">{{ $t("register.password") }}</label>
+                  <span class="requried">*</span>
+                  <div class="show-password">
+                    <b-form-input id="password" v-model="form.password" :type="fieldType" />
+                    <div class="icon-passowrd" @click.stop="switchField()">
+                      <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                      <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                    </div>
+                  </div>
+                  <div class="error" v-for="(error, index) in errors.password" :key="index">
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+            </b-row>
+
+
+            <a v-if="buyerUserData && buyerUserData.type === 'b2c'">
+              <b class="forget-password my-3" v-b-modal.B2BForgetPassword>
+                {{ $t("login.fogetPassword") }}
+              </b>
+            </a>
+            <a to="/forget-password" v-else v-b-modal.B2BForgetPassword>
+              <b class="forget-password my-3">
+                {{ $t("login.fogetPassword") }}
+              </b>
+            </a>
+
+            <div class="submition-box">
+              <b-button type="submit" variant="danger">
+                {{ $t("register.submit") }}
+              </b-button>
             </div>
-            <form @submit.prevent="login()">
-              <b-row class="justify-content-center">
-                <!-- Email -->
-                <b-col lg="12">
-                  <b-form-group>
-                    <label for="email">{{ $t("register.email") }}</label>
-                    <span class="requried">*</span>
-                    <b-form-input type="email" id="email" v-model="form.email" />
-                    <div class="error" v-for="(error, index) in errors.email" :key="index">
-                      {{ error }}
-                    </div>
-                  </b-form-group>
-                </b-col>
-                <!-- Password -->
-                <b-col lg="12">
-                  <b-form-group>
-                    <label for="password">{{ $t("register.password") }}</label>
-                    <span class="requried">*</span>
-                    <div class="show-password">
-                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
-                      <div class="icon-passowrd" @click.stop="switchField()">
-                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
-                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
-                      </div>
-                    </div>
-                    <div class="error" v-for="(error, index) in errors.password" :key="index">
-                      {{ error }}
-                    </div>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-
-
-              <a  v-if="buyerUserData && buyerUserData.type === 'b2c'">
-                <b class="forget-password my-3" v-b-modal.B2BForgetPassword>
-                  {{ $t("login.fogetPassword") }}
-                </b>
-              </a>
-              <a to="/forget-password" v-else v-b-modal.B2BForgetPassword>
-                <b class="forget-password my-3">
-                  {{ $t("login.fogetPassword") }}
-                </b>
-              </a>
-
-              <div class="submition-box">
-                <b-button type="submit" variant="danger">
-                  {{ $t("register.submit") }}
-                </b-button>
-              </div>
-            </form>
-          </b-col>
-        </b-row>
+          </form>
+        </b-col>
+      </b-row>
+    </div>
+    <b-modal id="B2BForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc
+      ref="b2cLogin">
+      <form>
+        <b-form-group>
+          <label for="email">{{ $t("register.email") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="email" v-model="emailForget" maxlength="100" />
+          <div class="error" v-for="(error, index) in errors.email" :key="index">
+            {{ error }}
+          </div>
+        </b-form-group>
+      </form>
+      <div slot="modal-footer" class="d-flex">
+        <a @click="sendEmail()" class="reset-Link" type="submit">{{
+          $t("login.reset")
+        }}</a>
       </div>
-  
+    </b-modal>
   </section>
 </template>
 <script>
@@ -81,6 +98,7 @@ export default {
       errorMsg: "",
       fieldType: "password",
       errors: {},
+      emailForget: "",
     };
   },
   methods: {
@@ -136,6 +154,24 @@ export default {
     //  */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
+    },
+    sendEmail() {
+      const payload = {
+        email: this.emailForget,
+        callback_url: `${this.mainDoamin}Forget-Password`,
+        type: 'buyer'
+      };
+      auth
+        .sendEmail(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.$bvModal.hide("ForgetPassword");
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
     },
   },
   mounted() { },
@@ -206,5 +242,11 @@ html:lang(ar) {
       text-align: right;
     }
   }
+}
+.reset-Link {
+  color: #ffffff;
+  background-color: #ff0e00;
+  padding: 0.5rem 1.3rem;
+  width: 100%;
 }
 </style>
