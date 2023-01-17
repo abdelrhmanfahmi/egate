@@ -54,4 +54,5 @@ export default {
   orderTrack2:'لتتبع طلبك يجب تسجيل الدخول برقم الهاتف الذى قمت باجراء الطلب من خلاله',
   addcheckedProductToCart:'اضافة العناصر المختارة الى السله',
   removecheckedProductToCart:'حذف العناصر المختارة من القائمه',
+  exportSelectedOrders:'تصدير الطلبات المختاره'
 };
