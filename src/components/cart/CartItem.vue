@@ -115,6 +115,9 @@ export default {
         path: "/details",
         query: { id: product },
       });
+      setTimeout(() => {
+        location.reload()
+      }, 100);
     },
   },
 };
