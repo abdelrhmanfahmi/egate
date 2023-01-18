@@ -212,6 +212,8 @@ export default {
     background-color: #fff;
   }
 }
+
+// new button style when minimum button is disabled
 .disabledBtn {
   background: #a6a6a6 !important;
   color: #fff !important;
