@@ -201,7 +201,9 @@ export default {
       this.$router.replace(
         {
           path: "/details",
-          query: { id: data.product_details_by_type.product_supplier_id },
+          query: {
+            id: data.id,
+          },
         },
         () => {
           this.$router.go(0);
@@ -216,7 +218,9 @@ export default {
       this.$router.replace(
         {
           path: "/details",
-          query: { id: data.product_details_by_type.product_supplier_id },
+          query: {
+            id: data.product_details_by_type.product_supplier_id,
+          },
         },
         () => {
           this.$router.go(0);
