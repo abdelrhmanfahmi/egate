@@ -267,7 +267,6 @@ export default {
     return globalAxios.delete(`members/profile/standings/${id}`);
   },
   removeProductFromStandingOrder(payload) {
-    console.log(payload);
     return globalAxios.delete("members/profile/standings/remove/item", {
       params: {
         product_supplier_id: payload.product_supplier_id,
@@ -275,35 +274,47 @@ export default {
       },
     });
   },
-  addAllToCart(payload){
-    return globalAxios.post(`members/profile/standings/add-list/cart` , payload)
+  addAllToCart(payload) {
+    return globalAxios.post(`members/profile/standings/add-list/cart`, payload);
   },
-  changeProfileEmailMobile(payLoad , userType){
-    return globalAxios.post(`members/${userType}/change-client-email-mobile`,payLoad)
+  changeProfileEmailMobile(payLoad, userType) {
+    return globalAxios.post(
+      `members/${userType}/change-client-email-mobile`,
+      payLoad
+    );
   },
-  getProfileBudges(){
-    return globalAxios.get('members/dashboard-index/client-side-bar')
+  getProfileBudges() {
+    return globalAxios.get("members/dashboard-index/client-side-bar");
   },
-  changeStandingOrderQuantity(payload){
-    return globalAxios.put('members/profile/standings/change-quantity/item' , payload)
+  changeStandingOrderQuantity(payload) {
+    return globalAxios.put(
+      "members/profile/standings/change-quantity/item",
+      payload
+    );
   },
-  getDashboardData(){
-    return globalAxios.get('members/dashboard-index/client-dashboard')
+  getDashboardData() {
+    return globalAxios.get("members/dashboard-index/client-dashboard");
   },
-  getNotificationSettings(){
-    return globalAxios.get('members/notification-settings')
+  getNotificationSettings() {
+    return globalAxios.get("members/notification-settings");
     // return globalAxios.get('members/notification-settings/public-settings')
   },
-  changeNotificationSettings(payload){
-    return globalAxios.post('members/notification-settings',payload)
+  changeNotificationSettings(payload) {
+    return globalAxios.post("members/notification-settings", payload);
   },
-  addCheckedProductToCart(payload){
-    return globalAxios.post('addCheckedProductToCart',payload)
+  addCheckedProductToCart(payload) {
+    return globalAxios.post(`members/profile/standings/add-list/cart`, payload);
   },
-  removeCheckedProductFromCart(payload){
-    return globalAxios.post('removeCheckedProductFromCart',payload)
+  removeCheckedProductFromCart(payload) {
+    console.log('payload' , payload);
+    return globalAxios.delete("members/profile/standings/remove/item", {
+      params: {
+        product_supplier_id: payload.product_supplier_id,
+        client_standing_id: payload.client_standing_id,
+      },
+    });
   },
-  exportSelectedOrders(payload){
-    return globalAxios.post('exportSelectedOrders',payload)
-  }
+  exportSelectedOrders(payload) {
+    return globalAxios.post("exportSelectedOrders", payload);
+  },
 };

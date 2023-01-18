@@ -22,7 +22,12 @@
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
       </button>
-      <button class="product-counter-btn" @click="decrementQuantity">
+      <button
+        class="product-counter-btn"
+        @click="decrementQuantity"
+        :disabled="countValue <= minimum"
+        :class="{ disabledBtn: countValue <= minimum }"
+      >
         <b-icon-dash />
       </button>
     </div>
@@ -206,5 +211,9 @@ export default {
     align-items: center;
     background-color: #fff;
   }
+}
+.disabledBtn {
+  background: #a6a6a6 !important;
+  color: #fff !important;
 }
 </style>
