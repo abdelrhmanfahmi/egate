@@ -86,7 +86,19 @@
         </b-col>
         <!-- name in english (new add)-->
         <b-col lg="6" v-if="$i18n.locale =='en'">
-          <b-form-group>
+          <b-form-group v-if="buyerUserData.type == 'buyer'">
+            <label>{{ $t("profile.name") }}</label>
+            <b-form-select v-model="form.name">
+              <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+                <span class="requried text-danger">*</span>
+              </b-form-select-option>
+              <b-form-select-option v-for="(
+                  formName, index
+                ) in en_B2B_formNames" :key="index" :value="formName">{{ formName }}
+              </b-form-select-option>
+            </b-form-select>
+          </b-form-group>
+          <b-form-group v-else>
             <label>{{ $t("profile.name") }}</label>
             <span class="requried">*</span>
             <b-form-select v-model="form.name">
@@ -108,6 +120,18 @@
         </b-col>
         <!-- name in arabic (new add)-->
         <b-col lg="6" v-else>
+          <b-form-group v-if="buyerUserData.type == 'buyer'">
+            <label>{{ $t("profile.name") }}</label>
+            <b-form-select v-model="form.name">
+              <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+                <span class="requried text-danger">*</span>
+              </b-form-select-option>
+              <b-form-select-option v-for="(
+                  formName, index
+                ) in ar_B2B_formNames" :key="index" :value="formName">{{ formName }}
+              </b-form-select-option>
+            </b-form-select>
+          </b-form-group>
           <b-form-group>
             <label>{{ $t("profile.name") }}</label>
             <span class="requried">*</span>
