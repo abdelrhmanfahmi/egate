@@ -2543,7 +2543,7 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
-              console.log('res');
+              // console.log('res'  , res);
               // let coupons = [];
 
               // console.log(res.data.items.total_cart.total_discount);
@@ -2586,6 +2586,7 @@ export default {
 
             })
             .catch((error) => {
+              console.log('error'  , error);
               if (error) {
                 const err = Object.values(error)[2].data;
                 this.errors = err.items;

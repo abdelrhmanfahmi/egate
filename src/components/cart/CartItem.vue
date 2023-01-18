@@ -64,7 +64,6 @@
   </div>
 </template>
 <script>
-
 // This is a description of the cart items data
 import { BIconTrash } from "bootstrap-vue";
 /**
@@ -85,7 +84,7 @@ export default {
    * @values products
    * */
   props: {
-    // products prop 
+    // products prop
     products: {
       type: Object,
       required: true,
@@ -111,13 +110,16 @@ export default {
      */
 
     goProduct(product) {
-      this.$router.push({
-        path: "/details",
-        query: { id: product },
-      });
-      setTimeout(() => {
-        location.reload()
-      }, 100);
+      this.$router.push(
+        {
+          path: "/details",
+          query: { id: product },
+        },
+        // reload after go to product page 
+        () => {
+          this.$router.go(0);
+        }
+      );
     },
   },
 };
