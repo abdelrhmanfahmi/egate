@@ -73,9 +73,11 @@
         <b-button
           @click="addToCart(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="cartAvailable  == 'available' &&
-            data.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
-            data.product_details_by_type.add_type === 'both'
+          v-if="
+            (cartAvailable == 'available' &&
+              data.product_details_by_type.add_type === 'cart') ||
+            (cartAvailable == 'available' &&
+              data.product_details_by_type.add_type === 'both')
           "
         >
           <span>
@@ -87,7 +89,7 @@
         class="addToCartHolder d-flex justify-content-end align-items-center"
         v-else
       >
-        <div v-if="cartAvailable  === 'available'">
+        <div v-if="cartAvailable === 'available'">
           <div>
             <b-form-select v-model="selected">
               <b-form-select-option
@@ -102,9 +104,11 @@
         <b-button
           @click="addToCartAgain(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="cartAvailable  == 'available' && 
-            data.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
-            data.product_details_by_type.add_type === 'both'
+          v-if="
+            (cartAvailable == 'available' &&
+              data.product_details_by_type.add_type === 'cart') ||
+            (cartAvailable == 'available' &&
+              data.product_details_by_type.add_type === 'both')
           "
         >
           <span>
@@ -145,14 +149,14 @@ export default {
     };
   },
   /**
-      *  props
-    */
+   *  props
+   */
   props: ["data"],
   methods: {
     /**
      * @vuese
-      *  add product to wishlist (favorite)
-    */
+     *  add product to wishlist (favorite)
+     */
     addToWishlist(item) {
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
@@ -176,8 +180,8 @@ export default {
     },
     /**
      * @vuese
-      *  get supplier products
-    */
+     *  get supplier products
+     */
     getSupplierProducts() {
       suppliers
         .getSupplierProducts(this.supplierProductsId)
@@ -191,32 +195,42 @@ export default {
     },
     /**
      * @vuese
-      *  go to product page
-    */
+     *  go to product page
+     */
     goProduct(data) {
-      this.$router.replace({
-        path: "/details",
-        query: {
-          id: data.id,
+      this.$router.replace(
+        {
+          path: "/details",
+          query: {
+            id: data.id,
+          },
         },
-      });
+        () => {
+          this.$router.go(0);
+        }
+      );
     },
     /**
      * @vuese
-      *  gog to product page by supplier
-    */
+     *  gog to product page by supplier
+     */
     goPage2(data) {
-      this.$router.replace({
-        path: "/details",
-        query: {
-          id: data.product_details_by_type.product_supplier_id,
+      this.$router.replace(
+        {
+          path: "/details",
+          query: {
+            id: data.product_details_by_type.product_supplier_id,
+          },
         },
-      });
+        () => {
+          this.$router.go(0);
+        }
+      );
     },
     /**
      * @vuese
-      *  add product to cart if not select quantity from dropdown
-    */
+     *  add product to cart if not select quantity from dropdown
+     */
     addToCart(myProduct) {
       let data = {
         product_supplier_id:
@@ -254,8 +268,8 @@ export default {
     },
     /**
      * @vuese
-      *  add product to cart by select quantity from dropdown numbers
-    */
+     *  add product to cart by select quantity from dropdown numbers
+     */
     addToCartAgain(myProduct) {
       let data = {
         product_supplier_id:

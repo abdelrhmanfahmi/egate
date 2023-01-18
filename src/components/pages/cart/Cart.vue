@@ -193,8 +193,19 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in english (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'en' && buyerUserData">
-                                  <b-form-group>
+                                <b-col lg="6" v-if="$i18n.locale == 'en'">
+                                  <b-form-group v-if="buyerUserData.type == 'buyer'">
+                                    <b-form-select v-model="newForm.name">
+                                      <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+                                        <span class="requried text-danger">*</span>
+                                      </b-form-select-option>
+                                      <b-form-select-option v-for="(
+                                          formName, index
+                                        ) in en_B2B_formNames" :key="index" :value="formName">{{ formName }}
+                                      </b-form-select-option>
+                                    </b-form-select>
+                                  </b-form-group>
+                                  <b-form-group v-else>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
                                         <span class="requried text-danger">*</span>
@@ -210,8 +221,19 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in arabic (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData">
-                                  <b-form-group>
+                                <b-col lg="6" v-if="$i18n.locale == 'ar'">
+                                  <b-form-group v-if="buyerUserData.type == 'buyer'">
+                                    <b-form-select v-model="newForm.name">
+                                      <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+                                        <span class="requried text-danger">*</span>
+                                      </b-form-select-option>
+                                      <b-form-select-option v-for="(
+                                          formName, index
+                                        ) in ar_B2B_formNames" :key="index" :value="formName">{{ formName }}
+                                      </b-form-select-option>
+                                    </b-form-select>
+                                  </b-form-group>
+                                  <b-form-group v-else>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
@@ -2521,7 +2543,7 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
-              console.log('res');
+              // console.log('res'  , res);
               // let coupons = [];
 
               // console.log(res.data.items.total_cart.total_discount);
@@ -2564,6 +2586,7 @@ export default {
 
             })
             .catch((error) => {
+              console.log('error'  , error);
               if (error) {
                 const err = Object.values(error)[2].data;
                 this.errors = err.items;
