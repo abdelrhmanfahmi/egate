@@ -18,8 +18,8 @@ Vue.mixin({
     mainAppApiLink() {
       return process.env.VUE_APP_AXSIOS_LINK;
     },
-    supplierDomain(){
-      return process.env.VUE_APP_SUPPLIER
+    supplierDomain() {
+      return process.env.VUE_APP_SUPPLIER;
     },
     massgeOfVerify() {
       return localStorage.getItem("massege");
@@ -42,8 +42,8 @@ Vue.mixin({
     selectedCountry() {
       return localStorage.getItem("country");
     },
-    countryByIP(){
-      return localStorage.getItem('countryByIP')
+    countryByIP() {
+      return localStorage.getItem("countryByIP");
     },
     currentLang() {
       return localStorage.getItem("lang");
@@ -64,8 +64,14 @@ Vue.mixin({
       localStorage.removeItem("massege");
       localStorage.removeItem("cartAvailable");
       localStorage.removeItem("RfqAvailable");
-      this.$router.push("/");
-      location.reload();
+      this.$router.push(
+        {
+          path: "/",
+        },
+        () => {
+          this.$router.go(0);
+        }
+      );
     },
     sucessMsg(text, icon = "success") {
       this.$swal({
