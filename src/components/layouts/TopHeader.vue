@@ -172,7 +172,7 @@ export default {
     getDefaultCountry() {
 
       axios
-        .get("https://api.dev.humhum.work/api/v1/site-settings/default/country")
+        .get(`${this.mainAppApiLink}site-settings/default/country`)
         .then((res) => {
           console.log("getDefaultCountry", res);
           this.defaultCountry = JSON.stringify(res.data.items);

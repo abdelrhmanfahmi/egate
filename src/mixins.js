@@ -15,6 +15,9 @@ Vue.mixin({
     mainDoamin() {
       return process.env.VUE_APP_DOMAIN_NAME;
     },
+    mainAppApiLink() {
+      return process.env.VUE_APP_AXSIOS_LINK;
+    },
     supplierDomain(){
       return process.env.VUE_APP_SUPPLIER
     },
