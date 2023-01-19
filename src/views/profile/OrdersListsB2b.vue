@@ -5,10 +5,16 @@
     </h5>
     <!-- if there's orders  -->
     <div class="holder text-center" v-if="orders">
-      <div class="mb-3 d-flex justify-content-end" v-if="checkedOrder && checkedOrder.length > 0">
-
-        <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
-          {{ $t('singleProduct.exportSelectedOrders') }}
+      <div
+        class="mb-3 d-flex justify-content-end"
+        v-if="checkedOrder && checkedOrder.length > 0"
+      >
+        <b-button
+          variant="outline-success"
+          class="mx-2"
+          @click="exportSelectedOrders"
+        >
+          {{ $t("singleProduct.exportSelectedOrders") }}
           <font-awesome-icon icon="fa-solid fa-arrow-up" />
         </b-button>
       </div>
@@ -20,7 +26,11 @@
             <th scope="col" v-for="(tab, index) in fields" :key="index">
               <div class="d-flex justify-content-around align-items-center">
                 <!-- <span v-if="tab.label === $t('profile.serial')">
-                  <input type="checkbox" class="myproject--checkbox" v-model="checkAll">
+                  <input
+                    type="checkbox"
+                    class="myproject--checkbox"
+                    v-model="checkAll"
+                  />
                 </span> -->
                 <span>{{ tab.label }}</span>
               </div>
@@ -31,62 +41,85 @@
           <tr v-for="(order, index) in orders" :key="index">
             <td>
               <div class="d-flex justify-content-around align-items-center">
-                <!-- <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" /> -->
+                <input
+                  type="checkbox"
+                  class="myproject--checkbox"
+                  :value="order.id"
+                  v-model="checkedOrder"
+                />
                 <span>{{ order.id }}</span>
               </div>
             </td>
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td>
-              <span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span>
+              <span v-if="order.total_price"
+                >{{ order.total_price | fixedCurrency }} {{ currency }}</span
+              >
             </td>
             <td>{{ order.payment_status_lang }}</td>
             <td>
               <span>{{ order.payment }}</span>
-              <span class="d-block" v-if="
-                order.payment_type === 'visa' ||
-                order.payment_charge_id ||
-                order.payment_type === 'wallet_visa' ||
-                order.payment_type === 'wallet'
-              ">
+              <span
+                class="d-block"
+                v-if="
+                  order.payment_type === 'visa' ||
+                  order.payment_charge_id ||
+                  order.payment_type === 'wallet_visa' ||
+                  order.payment_type === 'wallet'
+                "
+              >
                 TID : {{ order.payment_charge_id }}
               </span>
             </td>
 
             <td>
-              <router-link :to="{
-                path: '/viewOrderDetails',
-                query: { id: `${order.id}` },
-              }" class="text-dark">
+              <router-link
+                :to="{
+                  path: '/viewOrderDetails',
+                  query: { id: `${order.id}` },
+                }"
+                class="text-dark"
+              >
                 <b-button variant="outline-secondary" class="m-2">
                   {{ $t("profile.view") }}
                 </b-button>
               </router-link>
-              <router-link v-if="
-                order.payment_status === 'Unpaid' &&
-                order.payment_type === 'bank'
-              " :to="{
-  path: '/checkout-details',
-  query: {
-    order_serial: order.serial,
-    date: order.created_at,
-    total_price: order.total_price,
-    payment_type: order.payment_type,
-    payment: order.payment,
-    uuid: order.uuid,
-  },
-}" class="text-dark">
+              <router-link
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'bank'
+                "
+                :to="{
+                  path: '/checkout-details',
+                  query: {
+                    order_serial: order.serial,
+                    date: order.created_at,
+                    total_price: order.total_price,
+                    payment_type: order.payment_type,
+                    payment: order.payment,
+                    uuid: order.uuid,
+                  },
+                }"
+                class="text-dark"
+              >
                 <b-button variant="outline-success" class="m-2">
                   {{ $t("profile.bankTransDocs") }}
                 </b-button>
               </router-link>
-              <b-button id="show-btn" @click="
-  $bvModal.show('bv-modal-example');
-saveUUID(order);
-              " variant="outline-success" class="m-2" v-if="
-                order.payment_status === 'Unpaid' &&
-                order.payment_type === 'visa'
-              ">
+              <b-button
+                id="show-btn"
+                @click="
+                  $bvModal.show('bv-modal-example');
+                  saveUUID(order);
+                "
+                variant="outline-success"
+                class="m-2"
+                v-if="
+                  order.payment_status === 'Unpaid' &&
+                  order.payment_type === 'visa'
+                "
+              >
                 {{ $t("profile.pay") }}
               </b-button>
             </td>
@@ -95,8 +128,13 @@ saveUUID(order);
       </table>
       <div class="d-flex justify-content-center align-items-center mt-5">
         <!-- pagination for orders  -->
-        <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-          @pagechanged="onPageChange" />
+        <Paginate
+          v-if="orders"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
       </div>
       <div>
         <!-- repay modal  -->
@@ -109,9 +147,17 @@ saveUUID(order);
               <div class="methods-data">
                 <div class="methods">
                   <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="bank" />
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod1"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="bank"
+                      />
                       <label class="custom-control-label" for="paymentMethod1">
                         {{ $t("payment.bankTransfer") }}
                       </label>
@@ -119,19 +165,37 @@ saveUUID(order);
                     </div>
                   </div>
                   <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="cach" />
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod2"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="cach"
+                      />
                       <label class="custom-control-label" for="paymentMethod2">
                         {{ $t("payment.paymentWhenReceiving") }}
                       </label>
                       <span>{{ $t("payment.requestReceipt") }}</span>
                     </div>
                   </div>
-                  <div class="method d-flex justify-content-between align-content-center">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="visa" />
+                  <div
+                    class="method d-flex justify-content-between align-content-center"
+                  >
+                    <div
+                      class="custom-control custom-radio custom-control-inline"
+                    >
+                      <input
+                        type="radio"
+                        id="paymentMethod3"
+                        name="paymentMethod"
+                        class="custom-control-input"
+                        v-model="paymentFormData.payment_type"
+                        value="visa"
+                      />
                       <label class="custom-control-label" for="paymentMethod3">
                         {{ $t("payment.onlinePayment") }}
                       </label>
@@ -141,18 +205,36 @@ saveUUID(order);
                     </div>
                   </div>
                 </div>
-                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
+                <div
+                  class="error text-center"
+                  v-for="(error, index) in errors.payment_type"
+                  :key="index"
+                >
                   {{ error }}
                 </div>
               </div>
             </div>
           </div>
 
-          <b-button :disabled="paymentFormData.payment_type == null" v-if="!repayClicked" id="show-btn" class="mt-3"
-            variant="outline-success" block @click="rePay">
+          <b-button
+            :disabled="paymentFormData.payment_type == null"
+            v-if="!repayClicked"
+            id="show-btn"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="rePay"
+          >
             {{ $t("profile.pay") }}
           </b-button>
-          <b-button v-if="repayClicked" disabled id="show-btn" class="mt-3" variant="outline-success" block>
+          <b-button
+            v-if="repayClicked"
+            disabled
+            id="show-btn"
+            class="mt-3"
+            variant="outline-success"
+            block
+          >
             <span>{{ $t("profile.pay") }}</span>
             <span>
               <b-spinner label="Spinning" small></b-spinner>
@@ -162,7 +244,10 @@ saveUUID(order);
       </div>
     </div>
     <!-- if loading when getting data  -->
-    <div class="spinner d-flex justify-content-center align-items-center" v-else>
+    <div
+      class="spinner d-flex justify-content-center align-items-center"
+      v-else
+    >
       <spinner />
     </div>
   </div>
@@ -177,6 +262,7 @@ saveUUID(order);
 import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -251,7 +337,7 @@ export default {
           this.total = resp.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
             resp.data.items.orders.meta.total /
-            resp.data.items.orders.meta.per_page
+              resp.data.items.orders.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.orders.meta.total;
@@ -292,7 +378,7 @@ export default {
      */
 
     rePay() {
-      this.repayClicked = true
+      this.repayClicked = true;
       profile
         .rePay(this.paymentFormData)
         .then((res) => {
@@ -325,9 +411,10 @@ export default {
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);
-        }).finally(() => {
-          this.repayClicked = false
         })
+        .finally(() => {
+          this.repayClicked = false;
+        });
     },
 
     /**
@@ -341,20 +428,51 @@ export default {
     },
 
     /**
-    * @vuese
-    * export Selected Orders to recive it as excel or pdf
-    */
+     * @vuese
+     * export Selected Orders to recive it as excel or pdf
+     */
 
     exportSelectedOrders() {
-      profile.exportSelectedOrders(this.checkedOrder).then(res => {
-        console.log(res);
-      }).catch(error => {
-        const err = Object.values(error)[2].data;
-        this.errors = err.items;
-        this.errMsg(err.message);
-      })
-    },
+      let payload = {
+        ids: this.checkedOrder,
+      };
+      profile
+        .exportSelectedOrders(payload)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
 
+          // setting data comes from api response
+
+          let url = res.data.items.url;
+          let extension = res.data.items.url.split(".").pop();
+          let label = 'Orders-File';
+
+          this.downloadFile(url , extension , label);
+          this.checkedOrder = []
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    downloadFile(url, extension, label) {
+      axios({
+        url: url, // File URL Goes Here
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement("a");
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", `${label}.${extension}`);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      });
+    },
   },
   mounted() {
     this.getOrders();
@@ -366,7 +484,9 @@ export default {
   computed: {
     checkAll: {
       get: function () {
-        return this.orders ? this.checkedOrder.length == this.orders.length : false;
+        return this.orders
+          ? this.checkedOrder.length == this.orders.length
+          : false;
       },
       set: function (value) {
         var checkedOrder = [];
@@ -376,10 +496,10 @@ export default {
           });
         }
         this.checkedOrder = checkedOrder;
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .payment-method {

@@ -315,6 +315,10 @@ export default {
     });
   },
   exportSelectedOrders(payload) {
-    return globalAxios.post("exportSelectedOrders", payload);
+    return globalAxios.get("members/client-orders/export/excel",{
+      params:{
+        ids:payload.ids
+      }
+    });
   },
 };
