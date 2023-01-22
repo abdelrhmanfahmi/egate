@@ -74,6 +74,9 @@ export default {
   getQuotations() {
     return globalAxios.get(`members/product/rfq`);
   },
+  standingQuotation(payload) {
+    return globalAxios.post(`members/product/rfq/add/standing-order`, payload);
+  },
   checkCoupon(coupon) {
     return globalAxios.get(`members/products/coupon/check-coupons`, {
       params: {

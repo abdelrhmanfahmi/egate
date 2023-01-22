@@ -54,7 +54,7 @@
           <div class="col-md-3 col-sm-12" v-for="(order, index) in standingOrders" :key="index"
             @click="selectPlan(order)">
             <label class="plan basic-plan">
-              <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" />
+              <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" @change="sendStandID" />
               <div class="plan-content-holder">
                 <div class="plan-content">
                   <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
@@ -84,16 +84,23 @@
           </div>
         </div>
         <b-row class="mb-3" v-if="quantitySelected">
-          <b-col lg="5">
-            <label for="">{{ $t("cart.standQuantity") }}</label>
-            <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" />
-            <div class="error" v-for="(error, index) in errors.quantity" :key="index">
-              {{ error }}
-            </div>
-          </b-col>
+          
+
+            <b-col lg="5">
+              <label for="">{{ $t("cart.standQuantity") }}</label>
+              <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" v-if="!checkPage" />
+              <b-form-input id="quantity" type="number" min="0" v-model="quotationQuantity" disabled v-else />
+              <div class="error" v-for="(error, index) in errors.quantity" :key="index">
+                {{ error }}
+              </div>
+            </b-col>
+          
         </b-row>
         <div>
-          <b-button type="submit" class="login-button" @click="addProductToStandingOrders">
+          <b-button type="submit" class="login-button" @click="addProductToStandingOrders" v-if="!checkPage">
+            {{ $t("register.submit") }}
+          </b-button>
+          <b-button type="submit" class="login-button" @click="addProductToStandingOrders(); standingQuotation()" v-else>
             {{ $t("register.submit") }}
           </b-button>
         </div>
@@ -170,7 +177,7 @@ export default {
       let payload = {
         product_supplier_id: this.id ? this.id : this.variantOrder.id,
         client_standing_id: this.selectedPlan,
-        quantity: this.ProductQuantity,
+        quantity: !this.checkPage ? this.ProductQuantity : this.quotationQuantity,
       };
       profile
         .addProductToStandingOrders(payload)
@@ -228,6 +235,20 @@ export default {
           this.errMsg(err.message);
         });
     },
+    sendStandID() {
+      this.$emit('customEmit', this.selectedPlan)
+    },
+    standingQuotation() {
+      let data = {
+        client_quote_id: this.id,
+        client_standing_id: this.selectedPlan
+      }
+      profile.standingQuotation(data).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   },
   mounted() {
     this.getStandingOrders();
@@ -241,7 +262,16 @@ export default {
       // variantOrder prop 
       type: Array,
     },
+    quotationQuantity:{
+      // quotationQuantity prop
+      type:Number
+    }
   },
+  computed: {
+    checkPage() {
+      return this.$route.path.includes('quotationDetails')
+    }
+  }
 };
 </script>
 
