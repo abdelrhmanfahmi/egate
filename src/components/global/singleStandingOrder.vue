@@ -133,11 +133,11 @@
                       >
                         <span
                           v-if="
-                            item.product_supplier.product_details_by_type.price
+                            item.product_supplier.product_details_by_type.customer_price
                           "
                         >
                           {{
-                            item.product_supplier.product_details_by_type.price
+                            item.product_supplier.product_details_by_type.customer_price
                               | fixedCurrency
                           }}
                           {{ currency }}

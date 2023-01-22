@@ -384,6 +384,7 @@ export default {
           this.standingOrder.time = null;
           this.getStandingOrders();
           this.errors = [];
+          this.showForm = false
         })
         .catch((err) => {
           let errors = Object.values(err)[2].data;
