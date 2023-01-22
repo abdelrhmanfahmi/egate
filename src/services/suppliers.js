@@ -43,7 +43,7 @@ export default {
       country_code: payload.country_code,
       accept_terms: payload.accept_terms == true ? "1" : "0",
       company_name : payload.company_name,
-      coupons:payload.coupons,
+      coupon:payload.coupons[0],
       file:payload.file
     };
     // let formData = new FormData();

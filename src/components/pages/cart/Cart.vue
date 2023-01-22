@@ -608,13 +608,13 @@
                                   <!-- coupon input  -->
 
                                   <input type="text" :placeholder="$t('cart.addCoupon')"
-                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" />
+                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" :disabled="coupons.length >=1" />
                                   <span :title="$t('cart.enableButton')" class="close">x</span>
                                 </form>
                               </div>
 
                               <!-- button dosnt work if input is empty  -->
-                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon">
+                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon" :disabled="coupons.length >=1">
                                 {{ $t("cart.couponDiscount") }}
                               </b-button>
 
@@ -713,6 +713,19 @@
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
+                                  <!-- display when wallet amount equal or more than cart coast  -->
+                                  <div class="method coupon" v-if="buyerUserData && totalPaymentReplacement <=0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="paymentMethod0" name="paymentMethod"
+                                        class="custom-control-input" v-model="paymentFormData.payment_type"
+                                        value="coupon" />
+                                      <label class="custom-control-label" for="paymentMethod0">
+                                        {{ $t('cart.couponDiscount') }}
+                                        <sup>*</sup>
+                                      </label>
+                                    </div>
+                                  </div>
+
                                   <!-- display when wallet amount equal or more than cart coast  -->
                                   <div class="method wallet" v-if="
                                     walletData > 0 &&
