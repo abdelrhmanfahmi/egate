@@ -51,7 +51,7 @@
             <!-- other products slider  -->
             <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
               <div v-for="item in supplierProducts" :key="item.id">
-                <Product :data="item"></Product>
+                <Product :data="item" v-if="data.product_details_by_type.quantity >=1"></Product>
               </div>
             </VueSlickCarousel>
           </div>
