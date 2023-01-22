@@ -127,7 +127,7 @@ export default {
      * this function used to get Ads for buyer and b2c and guest
      */
     async getAdsModal() {
-      if (this.buyerUserData && this.buyerUserData.type === "buyer") {
+      if (this.buyerUserData && this.buyerUserData.type === "buyer" || this.buyerUserData && this.buyerUserData.type === "supplier") {
         let payload = {
           type: "b2b",
           // model_type: "product",

@@ -8,29 +8,17 @@
         </h1>
       </div>
       <div class="my-5" v-if="quotations">
-        <b-button
-          variant="outline-success"
-          v-if="quotations.price"
-          id="show-btn"
-          @click="$bvModal.show('bv-modal-example')"
-          >{{ $t("profile.offer") }}</b-button
-        >
-        <b-button
-          variant="outline-danger"
-          
-          id="show-btn"
-          class="mx-2"
-          @click="$bvModal.show('bv-modal-example1')"
-          >{{ $t("profile.sendMessage") }}</b-button
-        >
+        <b-button variant="outline-success" v-if="quotations.price" id="show-btn"
+          @click="$bvModal.show('bv-modal-example')">{{ $t("profile.offer") }}</b-button>
+        <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="$bvModal.show('bv-modal-example1')">{{
+          $t("profile.sendMessage")
+        }}</b-button>
       </div>
       <table class="table custom-margin">
-        <thead
-          :class="{
-            'text-left': $i18n.locale == 'en',
-            'text-right': $i18n.locale == 'ar',
-          }"
-        >
+        <thead :class="{
+          'text-left': $i18n.locale == 'en',
+          'text-right': $i18n.locale == 'ar',
+        }">
           <tr>
             <th scope="col" colspan="1">
               {{ $t("profile.sentBy") }}
@@ -40,16 +28,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="quotate in quotations.client_quote_comment"
-            :key="quotate.id"
-          >
+          <tr v-for="quotate in quotations.client_quote_comment" :key="quotate.id">
             <th>
               <div class="" v-if="quotate.comment_by === 'client'">
-                <span v-if="quotations.client"
-                  >{{ quotations.client.first_name }}
-                  {{ quotations.client.last_name }}</span
-                >
+                <span v-if="quotations.client">{{ quotations.client.first_name }}
+                  {{ quotations.client.last_name }}</span>
               </div>
               <div class="" v-if="quotate.comment_by === 'supplier'">
                 <span v-if="quotations.supplier">{{ quotations.supplier.company_name }}</span>
@@ -112,29 +95,20 @@
             </div>
           </div>
         </div>
-        <b-button
-          class="mt-3"
-          variant="outline-success"
-          block
-          @click="addToCart(quotations)"
-          v-if="cartAvailable  == 'available'"
-          >{{ $t("cart.addToCart") }}</b-button
-        >
+        <div class="d-flex justify-content-around align-items-center">
+
+          <b-button class="mt-3 mx-2" variant="outline-success" block @click="addToCart(quotations)"
+            v-if="cartAvailable == 'available'">{{ $t("cart.addToCart") }}</b-button>
+          <b-button class="mt-3 mx-2" variant="outline-danger" block @click="$bvModal.show('bv-standingOrders')"
+            v-b-tooltip.hover :title="$t('items.standingOrders')">{{ $t("items.addStandingOrders") }}</b-button>
+        </div>
       </b-modal>
       <b-modal id="bv-modal-example1" centered hide-footer>
         <template #modal-title> {{ $t("profile.yourMessage") }} </template>
         <div class="d-block">
           <div class="data-holder">
             <form>
-              <textarea
-                class="form-control"
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                v-model="message"
-                required
-              ></textarea>
+              <textarea class="form-control" name="" id="" cols="30" rows="10" v-model="message" required></textarea>
               <div class="error mt-2">
                 <p v-for="(error, index) in errors.comment" :key="index">
                   {{ error }}
@@ -143,13 +117,13 @@
             </form>
           </div>
         </div>
-        <b-button
-          class="mt-3"
-          variant="outline-success"
-          block
-          @click="sendMessage"
-          >{{ $t("profile.send") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-success" block @click="sendMessage">{{ $t("profile.send") }}</b-button>
+      </b-modal>
+      <b-modal id="bv-standingOrders" size="xl" hide-footer>
+        <template #modal-title>
+          {{ $t("items.standingOrders") }}
+        </template>
+        <standing-orders @customEmit="getClientStandingId($event)" :quotationQuantity="quotations.request_qty" />
       </b-modal>
     </div>
   </div>
@@ -162,6 +136,7 @@
  */
 import profile from "@/services/profile";
 import globalAxios from "@/services/global-axios";
+import StandingOrders from "@/components/global/standingOrders.vue";
 export default {
   data() {
     return {
@@ -183,6 +158,8 @@ export default {
       ],
       message: null,
       errors: [],
+      client_standing_id: null,
+      quotationQuantity:null
     };
   },
   methods: {
@@ -262,10 +239,22 @@ export default {
           console.log(error);
         });
     },
+    getClientStandingId(standId) {
+      this.client_standing_id = standId
+    },
+    
   },
   mounted() {
     this.getQuotationDetail();
   },
+  components: {
+    StandingOrders,
+  },
+  computed: {
+    checkPage() {
+      return this.$route.path.includes('quotationDetails')
+    }
+  }
 };
 </script>
 
@@ -275,15 +264,18 @@ export default {
     text-align: right !important;
   }
 }
+
 .en {
   thead th {
     text-align: left !important;
   }
 }
+
 .comment {
   word-break: break-all;
 }
-.custom-margin{
+
+.custom-margin {
   margin-bottom: 80px;
 }
 </style>
