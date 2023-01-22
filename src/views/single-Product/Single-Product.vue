@@ -9,10 +9,10 @@
             <ol class="breadcrumb">
               <li
                 class="breadcrumb-item"
-                v-for="type in myProduct.product.categories"
-                :key="type.id"
+                v-for="Type in myProduct.product.categories"
+                :key="Type.id"
               >
-                {{ type.title }}
+                {{ Type.title }}
               </li>
             </ol>
           </nav>

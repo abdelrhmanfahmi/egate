@@ -89,12 +89,23 @@
         class="addToCartHolder d-flex justify-content-end align-items-center"
         v-else
       >
+      
         <div v-if="cartAvailable === 'available'">
-          <div>
+          <div v-if="data.in_stock_quantity">
             <b-form-select v-model="selected">
               <b-form-select-option
                 :value="i"
-                v-for="(i, index) in 20"
+                v-for="(i, index) in Number(data.in_stock_quantity + selected)"
+                :key="index"
+                >{{ i }}</b-form-select-option
+              >
+            </b-form-select>
+          </div>
+          <div v-else>
+            <b-form-select v-model="selected">
+              <b-form-select-option
+                :value="i"
+                v-for="(i, index) in Number(data.in_stock_quantity + selected)"
                 :key="index"
                 >{{ i }}</b-form-select-option
               >
@@ -141,7 +152,9 @@ export default {
       mySelectedOption: this.data.product_details_by_type.min_order_quantity
         ? this.data.product_details_by_type.min_order_quantity
         : 1,
-      selected: 1,
+      selected: this.data.product_details_by_type.min_order_quantity
+        ? this.data.product_details_by_type.min_order_quantity
+        : 1,
       options: [
         { value: null, text: "Please select an option" },
         { value: "a", text: "This is First option" },
