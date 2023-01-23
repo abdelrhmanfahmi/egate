@@ -345,12 +345,6 @@
       }}</b-button>
     </b-modal>
 
-    <!-- <b-button @click="showDeleteModal()" variant="outline-danger" class="mx-2">
-      {{ $t("items.removeGroup") }}
-      <font-awesome-icon icon="fa-solid fa-trash-can" />
-    </b-button> -->
-
-
     <!-- delete modal  -->
     <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('singleProduct.addCart')">
       <div class="d-block">
