@@ -51,7 +51,7 @@
                     <label for="select">{{ variant.title }}</label>
                     <b-form-group>
                       <b-form-select v-model="variant.selectedVariance" @change="changeVariance(variant)" class="mb-3">
-                        <b-form-select-option selected :value="''">
+                        <b-form-select-option selected value="null">
                           {{ $t("home.All") }}
                         </b-form-select-option>
                         <b-form-select-option v-for="pro in variant.options" :key="pro.id" :value="pro.id">
