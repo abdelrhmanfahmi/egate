@@ -345,6 +345,30 @@
       }}</b-button>
     </b-modal>
 
+    <!-- <b-button @click="showDeleteModal()" variant="outline-danger" class="mx-2">
+      {{ $t("items.removeGroup") }}
+      <font-awesome-icon icon="fa-solid fa-trash-can" />
+    </b-button> -->
+
+
+    <!-- delete modal  -->
+    <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('singleProduct.addCart')">
+      <div class="d-block">
+        <h5><b>{{$t('singleProduct.replaceRFQProduct')}}</b></h5>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal">{{ $t("cart.cancel") }}
+          </b-button>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-success" block @click="addToCart">{{ $t("singleProduct.addCart") }}
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+
+
     <!-- standing orders modal -->
 
     <b-modal id="bv-standingOrders" size="xl" hide-footer>
@@ -400,6 +424,7 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
+      console.log('myProduct', myProduct);
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
@@ -658,6 +683,20 @@ export default {
 
         this.productDetails();
       }, 500);
+    },
+    /**
+     * @vuese
+     * this function used to show Delete Modal
+     */
+    showDeleteModal() {
+      this.$refs["delete-modal"].show();
+    },
+    /**
+     * @vuese
+     * this function used to hide Delete Modal
+     */
+    hideDeleteModal() {
+      this.$refs["delete-modal"].hide();
     },
   },
   data() {

@@ -60,7 +60,15 @@
             <b>{{ $t("singleProduct.outOfStock") }}</b></span>
           <hr />
           <div class="" v-if="myProduct.brand">
-            <span><p>{{ $t('singleProduct.brand') }} :</p></span> <span><img v-if="myProduct.brand.image_path" :src="myProduct.brand.image_path" class="brand-image" :alt="myProduct.brand.title"></span>
+            <span>
+              <p>{{ $t('singleProduct.brand') }} :</p>
+            </span> <span>
+              <img v-if="myProduct.brand.image_path" :src="myProduct.brand.image_path" class="brand-image"
+                :alt="myProduct.brand.title">
+              <div class="logo-holder" v-else>
+                <img src="@/assets/images/logo.png" alt="logo" />
+              </div>
+            </span>
             <hr />
           </div>
           <ProductDescription :myProduct="myProduct" />
@@ -435,7 +443,8 @@ textarea {
     width: inherit;
   }
 }
-.brand-image{
+
+.brand-image {
   width: 50px;
   height: 50px;
   object-fit: contain;

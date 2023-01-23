@@ -2187,6 +2187,7 @@ export default {
      */
 
     async payment() {
+      this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID")
       this.checkoutSubmitted = true;
 
       // check if data exist first
@@ -2202,10 +2203,12 @@ export default {
         this.paymentFormData.address_uuid == "undefined" ||
         this.paymentFormData.address_uuid == "null" ||
         this.paymentFormData.address_uuid == null ||
-        !localStorage.getItem("globalAddressUUID")
+        localStorage.getItem("globalAddressUUID") == null
       ) {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
+
+      console.log('this.paymentFormData' , this.paymentFormData);
 
       suppliers
         .payment(this.paymentFormData)

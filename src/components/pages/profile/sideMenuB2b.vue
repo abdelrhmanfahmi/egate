@@ -1,8 +1,14 @@
 <template>
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
-    <h5 class="my-3">
-      {{ buyerUserData.company_name }}
+    <h5 class="my-3" v-if="buyerUserData.company_name_en">
+      {{ buyerUserData.company_name_en }}
+    </h5>
+    <h5 class="my-3" v-else-if="buyerUserData.company_name_ar">
+      {{ buyerUserData.company_name_ar }}
+    </h5>
+    <h5 class="my-3" v-else>
+      {{ buyerUserData.company_name_en }}
     </h5>
 
     <div

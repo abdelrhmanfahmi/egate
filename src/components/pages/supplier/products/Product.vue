@@ -11,7 +11,10 @@
         <img @click="goPage2(data)" :src="data.product.image_path" alt="Product Image" class="Product-Image" />
       </div>
       <div class="Product-Image" @click="goPage2(data)" v-else>
-        <img :src="data.product.image_path" alt="Product-Image" />
+        <img :src="data.product.image_path" v-if="data.product.image_path" alt="Product-Image" />
+        <div class="logo-holder" v-else>
+          <img src="@/assets/images/logo.png" alt="logo" />
+        </div>
       </div>
       <div class="actions">
         <ul>
