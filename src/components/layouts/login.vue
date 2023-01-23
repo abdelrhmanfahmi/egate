@@ -201,7 +201,9 @@ export default {
           ) {
             localStorage.setItem("massege", this.$t("register.otpVerify"));
             this.$router.push("/otp-verification");
-            location.reload();
+            setTimeout(() => {
+              location.reload();
+            }, 50);
           } else if (
             !res.data.items.item.is_verified ||
             (!res.data.items.item.is_verified &&
@@ -209,14 +211,20 @@ export default {
           ) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             this.$router.push("/");
-            location.reload();
+            setTimeout(() => {
+              location.reload();
+            }, 50);
           } else {
             this.$router.push("/");
-            location.reload();
+            setTimeout(() => {
+              location.reload();
+            }, 50);
           }
         })
         .then(() => {
-          location.reload();
+          setTimeout(() => {
+            location.reload();
+          }, 50);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;

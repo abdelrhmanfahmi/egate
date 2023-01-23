@@ -64,6 +64,7 @@ Vue.mixin({
       localStorage.removeItem("massege");
       localStorage.removeItem("cartAvailable");
       localStorage.removeItem("RfqAvailable");
+      // change route after logout 
       this.$router.push("/");
       setTimeout(() => {
         location.reload();
