@@ -362,7 +362,7 @@
           </b-button>
         </div>
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-success" block @click="addToCart">{{ $t("singleProduct.addCart") }}
+          <b-button class="mt-3" variant="outline-success" block @click="addToCartWithRFQ(myProduct)">{{ $t("singleProduct.addCart") }}
           </b-button>
         </div>
       </div>
@@ -438,6 +438,55 @@ export default {
         .post(`cart/add`, data)
         .then((res) => {
           if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+          if (error.response.status == 401 || error.response.status == 403) {
+            location.reload()
+          }
+          if(error.response.status == 400 || error?.response?.data?.items?.exist_from_rfq == true){
+            this.force_replace = true
+            this.showDeleteModal()
+          }
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * @vuese
+     *  add product to cart with rfq
+     */
+     addToCartWithRFQ(myProduct) {
+      let data = {
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
+        quantity:
+          this.mySelectedOption !== null || this.mySelectedOption > 0
+            ? this.mySelectedOption
+            : 1,
+            force_replace:true
+      };
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.hideDeleteModal()
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
@@ -717,6 +766,7 @@ export default {
       suppliers: null,
       message: null,
       subject: null,
+      rfqCartAdd:null
       // url: this.mainDoamin
     };
   },

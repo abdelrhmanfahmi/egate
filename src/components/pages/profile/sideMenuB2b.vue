@@ -88,7 +88,7 @@
             buyerUserData.register_mailing_list,
         }"
       >
-        <router-link :to="link.to">
+      <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
@@ -96,8 +96,7 @@
             v-if="
               (userBades &&
                 userBades.orders &&
-                link.name.trim() === 'My Orders') ||
-              link.name.trim() === 'طلباتى'
+                link.name.trim() == $t('profile.ordersLists'))
             "
             >{{ userBades.orders }}</span
           >
@@ -106,8 +105,7 @@
             v-if="
               (userBades &&
                 userBades.returns &&
-                link.name.trim() === 'Return Requests') ||
-              link.name.trim() === 'طلبات الاسترجاع'
+                link.name.trim() === $t('profile.returnRequests'))
             "
             >{{ userBades.returns }}</span
           >
@@ -116,8 +114,7 @@
             v-if="
               (userBades &&
                 userBades.client_messages &&
-                link.name.trim() === 'Supplier Messages') ||
-              link.name.trim() === 'مراسلات المورد'
+                link.name.trim() === $t('profile.supplierCorrespondence'))
             "
             >{{ userBades.client_messages }}</span
           >
@@ -126,8 +123,7 @@
             v-if="
               (userBades &&
                 userBades.rfqs &&
-                link.name.trim() === 'Quotations') ||
-              link.name.trim() === 'عروض الاسعار'
+                link.name.trim() === $t('profile.quotations'))
             "
             >{{ userBades.rfqs }}</span
           >

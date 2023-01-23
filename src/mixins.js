@@ -65,7 +65,9 @@ Vue.mixin({
       localStorage.removeItem("cartAvailable");
       localStorage.removeItem("RfqAvailable");
       this.$router.push("/");
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     },
     sucessMsg(text, icon = "success") {
       this.$swal({
