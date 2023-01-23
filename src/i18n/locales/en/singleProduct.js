@@ -57,6 +57,7 @@ export default {
   addcheckedProductToCart:'Add Selected To Cart',
   removecheckedProductToCart:'Remove Selected From Group',
   exportSelectedOrders:'Export Selected Orders',
-  brand:'Brand'
+  brand:'Brand',
+  replaceRFQProduct:'The item is already in the cart, do you want to replace it'
 
 };

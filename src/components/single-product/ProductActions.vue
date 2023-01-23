@@ -345,6 +345,24 @@
       }}</b-button>
     </b-modal>
 
+    <!-- delete modal  -->
+    <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('singleProduct.addCart')">
+      <div class="d-block">
+        <h5><b>{{$t('singleProduct.replaceRFQProduct')}}</b></h5>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal">{{ $t("cart.cancel") }}
+          </b-button>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-success" block @click="addToCartWithRFQ(myProduct)">{{ $t("singleProduct.addCart") }}
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+
+
     <!-- standing orders modal -->
 
     <b-modal id="bv-standingOrders" size="xl" hide-footer>
@@ -400,6 +418,7 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
+      console.log('myProduct', myProduct);
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
@@ -413,6 +432,55 @@ export default {
         .post(`cart/add`, data)
         .then((res) => {
           if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+          if (error.response.status == 401 || error.response.status == 403) {
+            location.reload()
+          }
+          if(error.response.status == 400 || error?.response?.data?.items?.exist_from_rfq == true){
+            this.force_replace = true
+            this.showDeleteModal()
+          }
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * @vuese
+     *  add product to cart with rfq
+     */
+     addToCartWithRFQ(myProduct) {
+      let data = {
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
+        quantity:
+          this.mySelectedOption !== null || this.mySelectedOption > 0
+            ? this.mySelectedOption
+            : 1,
+            force_replace:true
+      };
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.hideDeleteModal()
             this.sucessMsg(res.data.message);
 
             this.$modal.show(
@@ -659,6 +727,20 @@ export default {
         this.productDetails();
       }, 500);
     },
+    /**
+     * @vuese
+     * this function used to show Delete Modal
+     */
+    showDeleteModal() {
+      this.$refs["delete-modal"].show();
+    },
+    /**
+     * @vuese
+     * this function used to hide Delete Modal
+     */
+    hideDeleteModal() {
+      this.$refs["delete-modal"].hide();
+    },
   },
   data() {
     return {
@@ -678,6 +760,7 @@ export default {
       suppliers: null,
       message: null,
       subject: null,
+      rfqCartAdd:null
       // url: this.mainDoamin
     };
   },

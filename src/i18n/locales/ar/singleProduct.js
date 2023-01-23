@@ -55,5 +55,6 @@ export default {
   addcheckedProductToCart:'اضافة العناصر المختارة الى السله',
   removecheckedProductToCart:'حذف العناصر المختارة من القائمه',
   exportSelectedOrders:'تصدير الطلبات المختاره',
-  brand:'العلامة التجارية'
+  brand:'العلامة التجارية',
+  replaceRFQProduct:'هذا المنتج موجود بالفعل فى السله , هل تريد استبداله ؟'
 };
