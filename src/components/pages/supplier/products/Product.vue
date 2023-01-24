@@ -70,7 +70,7 @@
         <div v-if="cartAvailable === 'available'">
           <div>
             <b-form-select v-model="selected">
-              <b-form-select-option :value="i" v-for="(i, index) in data.product_details_by_type.quantity"
+              <b-form-select-option :value="i" v-for="(i, index) in 30"
                 :key="index">{{ i }}</b-form-select-option>
             </b-form-select>
           </div>
