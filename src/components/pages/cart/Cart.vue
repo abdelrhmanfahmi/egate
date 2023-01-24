@@ -2187,6 +2187,7 @@ export default {
      */
 
     async payment() {
+      this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID");
       this.checkoutSubmitted = true;
 
       // check if data exist first
