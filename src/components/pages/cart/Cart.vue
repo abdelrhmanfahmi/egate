@@ -1349,6 +1349,9 @@ export default {
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
+        this.paymentFormData.coupons = []
+        this.existCoupons = []
+        this.coupons = []
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
