@@ -1349,6 +1349,9 @@ export default {
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
+        this.paymentFormData.coupons = []
+        this.existCoupons = []
+        this.coupons = []
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
@@ -2556,9 +2559,9 @@ export default {
                   this.totalDiscountReplacement = parseFloat(
                     this.totalDiscount
                   );
-                  this.totalPaymentReplacement = parseFloat(
-                    this.totalDiscountReplacement
-                  );
+                  this.totalDiscountReplacement =
+                      parseFloat(this.totalDiscountReplacement) +
+                      parseFloat(res.data.items.total_cart.total_discount);
                 } else {
                   if (this.totalDiscountReplacement == 0) {
                     this.totalDiscountReplacement = parseFloat(
