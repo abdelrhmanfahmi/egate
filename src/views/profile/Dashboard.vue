@@ -3,7 +3,7 @@
   <div class="dashboard text-center">
     <div class="wrapper">
       <div class="row justify-content-center align-items-center" v-if="dashData">
-        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
           <router-link to="/profile/ordersListsB2b" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.ordersLists") }}</h5>
@@ -28,7 +28,7 @@
             </div>
           </router-link>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
           <router-link to="/profile/QuotationsB2b" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.totalQuotations") }}</h5>
@@ -45,7 +45,7 @@
             </div>
           </router-link>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
           <router-link to="/profile/ReturnRequests" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.totalRefunds") }}</h5>
@@ -62,7 +62,7 @@
             </div>
           </router-link>
         </div>
-        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
           <router-link to="/profile/wallet" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.wallet") }}</h5>
@@ -371,7 +371,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
 
         .border-right {
           border: none !important;
@@ -502,5 +502,32 @@ export default {
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
+}
+
+@media (max-width:991.98px){
+  .large-screen{
+    max-width:100%
+  }
+}
+@media (min-width:992px) and(max-width:1199px){
+  .large-screen{
+    max-width:50%
+  }
+}
+@media (min-width:1200px) and (max-width:1399.99px){
+  .large-screen{
+    max-width:50%
+  }
+}
+
+@media(min-width:1400px) and (max-width:1699.98px){
+  .large-screen{
+    max-width:33%
+  }
+}
+@media(min-width:1700px){
+  .large-screen{
+    max-width:25%
+  }
 }
 </style>
