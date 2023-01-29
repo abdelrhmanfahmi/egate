@@ -1,28 +1,20 @@
 <template>
   <!-- product component  -->
-  <div class="product position-relative w-100" v-if="data">
+  <div class="product position-relative w-100" v-if="data && data.product_details_by_type.quantity >= 1">
     <div class="thumb">
-      <a
-        @click="goProduct(data)"
-        v-if="data.image_path !== null"
-        class="d-flex justify-content-center align-items-center product-image"
-      >
+      <a @click="goProduct(data)" v-if="data.image_path !== null"
+        class="d-flex justify-content-center align-items-center product-image">
         <img :src="data.image_path" alt="Product Image" class="Product-Image" />
       </a>
-      <div
-        @click="goProduct(data)"
-        v-else-if="data.image_path == null && data.product.image_path"
-        class="d-flex justify-content-center align-items-center product-image"
-      >
-        <img
-          @click="goPage2(data)"
-          :src="data.product.image_path"
-          alt="Product Image"
-          class="Product-Image"
-        />
+      <div @click="goProduct(data)" v-else-if="data.image_path == null && data.product.image_path"
+        class="d-flex justify-content-center align-items-center product-image">
+        <img @click="goPage2(data)" :src="data.product.image_path" alt="Product Image" class="Product-Image" />
       </div>
       <div class="Product-Image" @click="goPage2(data)" v-else>
-        <img :src="data.product.image_path" alt="Product-Image" />
+        <img :src="data.product.image_path" v-if="data.product.image_path" alt="Product-Image" />
+        <div class="logo-holder" v-else>
+          <img src="@/assets/images/logo.png" alt="logo" class="Product-Image" />
+        </div>
       </div>
       <div class="actions">
         <ul>
@@ -39,10 +31,7 @@
           </li>
         </ul>
       </div>
-      <div
-        class="info d-flex flex-column align-items-center my-3"
-        v-if="data.product"
-      >
+      <div class="info d-flex flex-column align-items-center my-3" v-if="data.product">
         <a @click="goPage2(data)" class="name" v-if="data.product.title">{{
           data.product.title
         }}</a>
@@ -51,14 +40,11 @@
             {{ data.product_details_by_type.customer_price | fixedCurrency }}
             {{ currency }}
           </h5>
-          <p
-            class="m-0 price-after"
-            v-if="
-              data.product_details_by_type.price_before_discount &&
-              data.product_details_by_type.price_before_discount >
-                data.product_details_by_type.customer_price
-            "
-          >
+          <p class="m-0 price-after" v-if="
+            data.product_details_by_type.price_before_discount &&
+            data.product_details_by_type.price_before_discount >
+            data.product_details_by_type.customer_price
+          ">
             {{
               data.product_details_by_type.price_before_discount | fixedCurrency
             }}
@@ -66,51 +52,36 @@
           </p>
         </div>
       </div>
-      <div
-        class="addToCartHolder d-flex justify-content-end align-items-center"
-        v-if="data.in_cart_quantity > 0"
-      >
-        <b-button
-          @click="addToCart(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="
+      <div class="addToCartHolder d-flex justify-content-end align-items-center"
+        v-if="data.product_details_by_type.quantity <= 1">
+        <b-button @click="addToCart(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
             (cartAvailable == 'available' &&
               data.product_details_by_type.add_type === 'cart') ||
             (cartAvailable == 'available' &&
               data.product_details_by_type.add_type === 'both')
-          "
-        >
+          ">
           <span>
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
-      <div
-        class="addToCartHolder d-flex justify-content-end align-items-center"
-        v-else
-      >
+      <div class="addToCartHolder d-flex justify-content-end align-items-center" v-else>
         <div v-if="cartAvailable === 'available'">
           <div>
             <b-form-select v-model="selected">
-              <b-form-select-option
-                :value="i"
-                v-for="(i, index) in 20"
-                :key="index"
-                >{{ i }}</b-form-select-option
-              >
+              <b-form-select-option :value="i" v-for="(i, index) in 30"
+                :key="index">{{ i }}</b-form-select-option>
             </b-form-select>
           </div>
         </div>
-        <b-button
-          @click="addToCartAgain(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="
+        <b-button @click="addToCartAgain(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
             (cartAvailable == 'available' &&
               data.product_details_by_type.add_type === 'cart') ||
             (cartAvailable == 'available' &&
               data.product_details_by_type.add_type === 'both')
-          "
-        >
+          ">
           <span>
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
@@ -141,7 +112,9 @@ export default {
       mySelectedOption: this.data.product_details_by_type.min_order_quantity
         ? this.data.product_details_by_type.min_order_quantity
         : 1,
-      selected: 1,
+      selected: this.data.product_details_by_type.min_order_quantity
+        ? this.data.product_details_by_type.min_order_quantity
+        : 1,
       options: [
         { value: null, text: "Please select an option" },
         { value: "a", text: "This is First option" },
@@ -235,10 +208,7 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-        quantity:
-          this.mySelectedOption !== null || this.mySelectedOption > 0
-            ? this.mySelectedOption
-            : 1,
+        quantity: this.selected > 0 ? this.selected : 1,
       };
       return globalAxios
         .post(`cart/add`, data)
@@ -311,6 +281,7 @@ export default {
     */
 .product {
   margin: 1rem;
+
   .thumb {
     .actions {
       position: absolute;
@@ -320,9 +291,11 @@ export default {
       transform: translateX(30px);
       transition: 0.3s linear;
       opacity: 0;
+
       ul {
         li {
           margin-bottom: 1rem;
+
           a {
             display: flex;
             justify-content: center;
@@ -332,6 +305,7 @@ export default {
             background: #3a3a43;
             border-radius: 50%;
             color: #fff;
+
             &:hover {
               background: #ed2124;
             }
@@ -339,22 +313,26 @@ export default {
         }
       }
     }
+
     &:hover {
       .actions {
         transform: translateX(0);
         opacity: 1;
       }
     }
+
     .info {
       .name {
         font-size: 16px;
         font-weight: 400;
         margin-bottom: 6px;
         color: #544842;
+
         &:hover {
           color: #ed2124;
         }
       }
+
       .price {
         display: block;
         font-size: 14px;
@@ -363,29 +341,36 @@ export default {
         font-family: "Almarai", sans-serif;
       }
     }
+
     .new,
     .discount {
       margin: 0.2rem 0;
     }
+
     .new {
       background: red;
     }
+
     .discount {
       background: #ca84ac;
     }
   }
 }
+
 .Product-Image {
   width: 100%;
   height: 200px;
   object-fit: contain;
 }
+
 .is_favorite {
   background: #ed2124 !important;
 }
+
 .Product-Image {
   cursor: pointer;
 }
+
 .custom-select,
 .custom-select:focus {
   border: none;

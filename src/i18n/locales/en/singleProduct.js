@@ -56,6 +56,8 @@ export default {
   orderTrack2:'To track your order you must register with the same phone number you made the order with.',
   addcheckedProductToCart:'Add Selected To Cart',
   removecheckedProductToCart:'Remove Selected From Group',
-  exportSelectedOrders:'Export Selected Orders'
+  exportSelectedOrders:'Export Selected Orders',
+  brand:'Brand',
+  replaceRFQProduct:'The item is already in the cart, do you want to replace it'
 
 };

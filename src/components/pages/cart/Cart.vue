@@ -193,19 +193,8 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in english (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'en'">
-                                  <b-form-group v-if="buyerUserData.type == 'buyer'">
-                                    <b-form-select v-model="newForm.name">
-                                      <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
-                                        <span class="requried text-danger">*</span>
-                                      </b-form-select-option>
-                                      <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in en_B2B_formNames" :key="index" :value="formName">{{ formName }}
-                                      </b-form-select-option>
-                                    </b-form-select>
-                                  </b-form-group>
-                                  <b-form-group v-else>
+                                <b-col lg="6" v-if="$i18n.locale == 'en' && buyerUserData">
+                                  <b-form-group>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
                                         <span class="requried text-danger">*</span>
@@ -221,19 +210,8 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in arabic (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'ar'">
-                                  <b-form-group v-if="buyerUserData.type == 'buyer'">
-                                    <b-form-select v-model="newForm.name">
-                                      <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
-                                        <span class="requried text-danger">*</span>
-                                      </b-form-select-option>
-                                      <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in ar_B2B_formNames" :key="index" :value="formName">{{ formName }}
-                                      </b-form-select-option>
-                                    </b-form-select>
-                                  </b-form-group>
-                                  <b-form-group v-else>
+                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData">
+                                  <b-form-group>
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
@@ -630,13 +608,13 @@
                                   <!-- coupon input  -->
 
                                   <input type="text" :placeholder="$t('cart.addCoupon')"
-                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" />
+                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" :disabled="coupons.length >=1" />
                                   <span :title="$t('cart.enableButton')" class="close">x</span>
                                 </form>
                               </div>
 
                               <!-- button dosnt work if input is empty  -->
-                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon">
+                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon" :disabled="coupons.length >=1">
                                 {{ $t("cart.couponDiscount") }}
                               </b-button>
 
@@ -735,6 +713,19 @@
                               </div>
                               <div class="methods-data">
                                 <div class="methods">
+                                  <!-- display when wallet amount equal or more than cart coast  -->
+                                  <div class="method coupon" v-if="buyerUserData && totalPaymentReplacement <=0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="paymentMethod0" name="paymentMethod"
+                                        class="custom-control-input" v-model="paymentFormData.payment_type"
+                                        value="coupon" />
+                                      <label class="custom-control-label" for="paymentMethod0">
+                                        {{ $t('cart.couponDiscount') }}
+                                        <sup>*</sup>
+                                      </label>
+                                    </div>
+                                  </div>
+
                                   <!-- display when wallet amount equal or more than cart coast  -->
                                   <div class="method wallet" v-if="
                                     walletData > 0 &&
@@ -1358,6 +1349,9 @@ export default {
       this.cartItems = null;
       setTimeout(() => {
         this.getCartProducts();
+        this.paymentFormData.coupons = []
+        this.existCoupons = []
+        this.coupons = []
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
@@ -2196,6 +2190,7 @@ export default {
      */
 
     async payment() {
+      this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID");
       this.checkoutSubmitted = true;
 
       // check if data exist first
@@ -2543,7 +2538,6 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
-              // console.log('res'  , res);
               // let coupons = [];
 
               // console.log(res.data.items.total_cart.total_discount);
@@ -2565,9 +2559,9 @@ export default {
                   this.totalDiscountReplacement = parseFloat(
                     this.totalDiscount
                   );
-                  this.totalPaymentReplacement = parseFloat(
-                    this.totalDiscountReplacement
-                  );
+                  this.totalDiscountReplacement =
+                      parseFloat(this.totalDiscountReplacement) +
+                      parseFloat(res.data.items.total_cart.total_discount);
                 } else {
                   if (this.totalDiscountReplacement == 0) {
                     this.totalDiscountReplacement = parseFloat(
@@ -2581,12 +2575,14 @@ export default {
                   this.totalPaymentReplacement =
                     parseFloat(this.totalPaymentReplacement) -
                     parseFloat(res.data.items.total_cart.total_discount);
+                  if (this.totalPaymentReplacement < 0) {
+                    this.totalPaymentReplacement = 0
+                  }
                 }
               }
 
             })
             .catch((error) => {
-              console.log('error'  , error);
               if (error) {
                 const err = Object.values(error)[2].data;
                 this.errors = err.items;
@@ -2655,6 +2651,9 @@ export default {
                     this.totalPaymentReplacement =
                       parseFloat(this.totalPaymentReplacement) -
                       parseFloat(res.data.items.total_cart.total_discount);
+                    if (this.totalPaymentReplacement < 0) {
+                      this.totalPaymentReplacement = 0
+                    }
                   }
                 }
               })

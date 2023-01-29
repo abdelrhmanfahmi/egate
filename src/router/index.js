@@ -32,6 +32,7 @@ import faq from "../views/faq.vue";
 import Clients from "../views/Clients.vue";
 import StandingOrder from "../views/StandingOrder.vue";
 import Partners from "../views/Partners.vue";
+import Basket from "../views/Basket-deals.vue";
 
 // import test from "@/components/test.vue";
 import {loadLanguageAsync} from "../i18n/i18n"
@@ -233,6 +234,11 @@ const routes = [
     path: "/Partners",
     name: "Partners",
     component: Partners,
+  },
+  {
+    path: "/basket-deals",
+    name: "basket-deals",
+    component: Basket,
   },
   // {
   //   path: "/test",

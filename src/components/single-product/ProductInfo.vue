@@ -12,12 +12,9 @@
               SKU : {{ myProduct.product_details_by_type.sku }}
             </p>
             <!-- show price when product not rfq only  -->
-            <p
-              class="price"
-              v-if="
-                myProduct.product_details_by_type.add_type !== 'rfq'
-              "
-            >
+            <p class="price" v-if="
+              myProduct.product_details_by_type.add_type !== 'rfq'
+            ">
               <span>
                 {{ $t("singleProduct.price") }} :
                 {{
@@ -26,14 +23,11 @@
                 }}
                 {{ currency }}
               </span>
-              <span
-                class="price-after"
-                v-if="
-                  myProduct.product_details_by_type.price_before_discount &&
-                  myProduct.product_details_by_type.price_before_discount >
-                    myProduct.product_details_by_type.customer_price
-                "
-              >
+              <span class="price-after" v-if="
+                myProduct.product_details_by_type.price_before_discount &&
+                myProduct.product_details_by_type.price_before_discount >
+                myProduct.product_details_by_type.customer_price
+              ">
                 {{
                   myProduct.product_details_by_type.price_before_discount
                     | fixedCurrency
@@ -46,59 +40,50 @@
             <hr />
 
             <div class="weight">
-              <span
-                class="title mr-3"
-                v-if="myProduct.product_details_by_type.weight"
-              >
+              <span class="title mr-3" v-if="myProduct.product_details_by_type.weight">
                 {{ $t("singleProduct.weight") }} :
               </span>
 
               <span>
-                <div
-                  class="available-weight d-flex justify-content-end"
-                  v-if="myProduct.product_details_by_type"
-                >
-                  <span v-if="myProduct.product_details_by_type.unit"
-                    >{{ myProduct.product_details_by_type.weight }}
-                    {{ myProduct.product_details_by_type.unit.title }}</span
-                  >
+                <div class="available-weight d-flex justify-content-end" v-if="myProduct.product_details_by_type">
+                  <span v-if="myProduct.product_details_by_type.unit">{{ myProduct.product_details_by_type.weight }}
+                    {{ myProduct.product_details_by_type.unit.title }}</span>
                 </div>
               </span>
             </div>
           </div>
-          <span
-            class="is-available"
-            v-if="myProduct.product_details_by_type.quantity > 0"
-            >{{ $t("singleProduct.available") }} :
-            <b>{{ myProduct.product_details_by_type.quantity }}</b></span
-          >
+          <span class="is-available" v-if="myProduct.product_details_by_type.quantity > 0">{{
+            $t("singleProduct.available")
+          }} :
+            <b>{{ myProduct.product_details_by_type.quantity }}</b></span>
           <span class="is-available text-danger" v-else>
-            <b>{{ $t("singleProduct.outOfStock") }}</b></span
-          >
+            <b>{{ $t("singleProduct.outOfStock") }}</b></span>
           <hr />
+          <div class="" v-if="myProduct.brand">
+            <span>
+              <p>{{ $t('singleProduct.brand') }} :</p>
+            </span> <span>
+              <img v-if="myProduct.brand.image_path" :src="myProduct.brand.image_path" class="brand-image"
+                :alt="myProduct.brand.title">
+              <div class="logo-holder" v-else>
+                <img src="@/assets/images/logo.png" alt="logo" />
+              </div>
+            </span>
+            <hr />
+          </div>
           <ProductDescription :myProduct="myProduct" />
           <!--  -->
           <div class="variants" v-if="myProduct.product.variants">
-            <p
-              class="sort"
-              v-for="mytype in myProduct.product.variants"
-              :key="mytype.id"
-            >
+            <p class="sort" v-for="mytype in myProduct.product.variants" :key="mytype.id">
               <b v-if="mytype.variant.title">
                 {{ mytype.variant.title }}
               </b>
             </p>
             <div class="weight" v-if="myProduct.product_details_by_type">
-              <div
-                class="available-weight d-flex justify-content-end"
-                v-for="option in myProduct.product_details_by_type.options"
-                :key="option.id"
-              >
-                <span
-                  v-if="option.price"
-                  @click="selectedOption(option.price)"
-                  :class="mySelectedOption == option.price ? 'active' : ''"
-                >
+              <div class="available-weight d-flex justify-content-end"
+                v-for="option in myProduct.product_details_by_type.options" :key="option.id">
+                <span v-if="option.price" @click="selectedOption(option.price)"
+                  :class="mySelectedOption == option.price ? 'active' : ''">
                   {{ option.price }}
                 </span>
               </div>
@@ -133,7 +118,7 @@ export default {
    *  pass product data as prop
    */
 
-   props: {
+  props: {
     // selected Product prop
     myProduct: {
       type: Object,
@@ -263,6 +248,7 @@ export default {
 
     .product-actions {
       .short-links {
+
         // margin-inline-end: 0.5rem;
         // min-width: 10rem;
         a {
@@ -456,5 +442,11 @@ textarea {
     fill: #fff;
     width: inherit;
   }
+}
+
+.brand-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 </style>

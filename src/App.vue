@@ -42,10 +42,10 @@ export default {
     MainLayout,
   },
   methods: {
-     /**
-     * @vuese
-     * this function used to check Cart Validity (cart ,  rfq available or not )
-     */
+    /**
+    * @vuese
+    * this function used to check Cart Validity (cart ,  rfq available or not )
+    */
     checkCartValidity() {
       auth
         .checkCartValidity()
@@ -72,6 +72,25 @@ export default {
           console.log(err);
         });
     },
+    /**
+    * @vuese
+    * logout Dynamically , use this function if you want to logout user according to the expiration_time comes from backend
+    */
+    logoutDynamically() {
+      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      let totalTime = userInfo.expires_in;
+      console.log('totalTime', totalTime);
+      let myInterval =  setInterval(() => {
+          totalTime -= 1
+          localStorage.setItem('logOutTime', totalTime)
+          if(totalTime  == 0){
+            clearInterval(myInterval)
+            this.logout()
+          }
+        }, 1);
+
+
+    }
   },
   computed: {
     guestId() {
@@ -88,6 +107,7 @@ export default {
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+    // this.logoutDynamically()
   },
 };
 </script>

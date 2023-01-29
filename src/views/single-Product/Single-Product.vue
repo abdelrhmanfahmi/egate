@@ -9,10 +9,10 @@
             <ol class="breadcrumb">
               <li
                 class="breadcrumb-item"
-                v-for="type in myProduct.product.categories"
-                :key="type.id"
+                v-for="Type in myProduct.product.categories"
+                :key="Type.id"
               >
-                {{ type.title }}
+                {{ Type.title }}
               </li>
             </ol>
           </nav>
@@ -50,7 +50,7 @@
           <div class="my-5 py-5">
             <!-- other products slider  -->
             <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
-              <div v-for="item in supplierProducts" :key="item.id">
+              <div v-for="item in supplierProducts.filter(product => product.product_details_by_type.quantity >=1)" :key="item.id">
                 <Product :data="item"></Product>
               </div>
             </VueSlickCarousel>
