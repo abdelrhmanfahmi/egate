@@ -1,6 +1,6 @@
 import axios from "axios";
 // import mixin from "../mixins"
-import auth from "@/services/auth";
+// import auth from "@/services/auth";
 // for token
 import router from "../router/index";
 
@@ -92,13 +92,6 @@ globalAxios.interceptors.response.use(
       // this.$router.push("/b2b-login");
       // location.reload();
       // this.$store.dispatch('loginAgain')
-      auth.logout();
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("buyerUserData");
-      localStorage.removeItem("provider");
-      localStorage.removeItem("massege");
-      localStorage.removeItem("cartAvailable");
-      localStorage.removeItem("RfqAvailable");
       userExist.type === "buyer"
         ? router.push(`/b2b-login`) //routing changed  from b2b-login to /b2b-login
         : router.push({ path: '/', query: { force_login: 'true' } });

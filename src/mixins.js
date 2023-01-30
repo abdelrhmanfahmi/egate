@@ -66,8 +66,9 @@ Vue.mixin({
       localStorage.removeItem("RfqAvailable");
       this.$router.push(
         {
-          path: "/",
+          path: "/"
         },
+        // reload after logout 
         () => {
           this.$router.go(0);
         }
