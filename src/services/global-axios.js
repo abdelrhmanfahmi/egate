@@ -92,7 +92,7 @@ globalAxios.interceptors.response.use(
       // this.$router.push("/b2b-login");
       // location.reload();
       // this.$store.dispatch('loginAgain')
-      this.logOut()
+      this.logout()
       userExist.type === "buyer"
         ? router.push(`/b2b-login`) //routing changed  from b2b-login to /b2b-login
         : router.push({ path: '/', query: { force_login: 'true' } });
