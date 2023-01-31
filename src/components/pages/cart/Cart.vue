@@ -1496,7 +1496,7 @@ export default {
         this.myQuantity = myQuantity;
       }
 
-      this.cartItems = null;
+      // this.cartItems = null;
 
       setTimeout(() => {
         this.getCartProducts();
@@ -2527,7 +2527,7 @@ export default {
     addCoupon() {
 
 
-      if (this.couponText) {
+      if (this.couponText && this.couponText.trim().length > 1) {
 
         if (this.coupons.length == 0) {
 
