@@ -1496,7 +1496,7 @@ export default {
         this.myQuantity = myQuantity;
       }
 
-      this.cartItems = null;
+      // this.cartItems = null;
 
       setTimeout(() => {
         this.getCartProducts();
