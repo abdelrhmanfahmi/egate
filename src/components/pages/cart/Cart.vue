@@ -2526,7 +2526,7 @@ export default {
      */
     addCoupon() {
 
-
+      // check if coupon exist and check if it's length > 1 (coupon not a blank)
       if (this.couponText && this.couponText.trim().length > 1) {
 
         if (this.coupons.length == 0) {
