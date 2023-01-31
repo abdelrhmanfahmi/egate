@@ -2527,7 +2527,7 @@ export default {
     addCoupon() {
 
 
-      if (this.couponText) {
+      if (this.couponText && this.couponText.trim().length > 1) {
 
         if (this.coupons.length == 0) {
 
