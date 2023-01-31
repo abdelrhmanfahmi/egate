@@ -608,13 +608,13 @@
                                   <!-- coupon input  -->
 
                                   <input type="text" :placeholder="$t('cart.addCoupon')"
-                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" :disabled="coupons.length >=1" />
+                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" :disabled="validCoupon" />
                                   <span :title="$t('cart.enableButton')" class="close">x</span>
                                 </form>
                               </div>
 
                               <!-- button dosnt work if input is empty  -->
-                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon" :disabled="coupons.length >=1">
+                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon" :disabled="validCoupon">
                                 {{ $t("cart.couponDiscount") }}
                               </b-button>
 
@@ -1110,7 +1110,8 @@ export default {
       ar_formNames: ["المنزل", "المكتب"],
       en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
       ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
-      companyIban: null
+      companyIban: null,
+      validCoupon:false
     };
   },
   mounted() {
@@ -2528,6 +2529,7 @@ export default {
 
       // check if coupon exist and check if it's length > 1 (coupon not a blank)
       if (this.couponText && this.couponText.trim().length > 1) {
+        this.validCoupon = true
 
         if (this.coupons.length == 0) {
 
@@ -2538,9 +2540,10 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
+              
               // let coupons = [];
 
-              // console.log(res.data.items.total_cart.total_discount);
+              // console.log(res.data.items.total_cart.total_discount);f
               if (res.status == 200) {
                 this.existCoupons.push(this.couponText);
                 this.coupons.unshift({
@@ -2579,10 +2582,13 @@ export default {
                     this.totalPaymentReplacement = 0
                   }
                 }
+              }else{
+                this.validCoupon = false
               }
 
             })
             .catch((error) => {
+              this.validCoupon = false
               if (error) {
                 const err = Object.values(error)[2].data;
                 this.errors = err.items;
@@ -2686,7 +2692,8 @@ export default {
           this.existCoupons.splice(index, 1);
         }
       }
-      console.log("this.existCoupons remove", this.existCoupons);
+      // console.log("this.existCoupons remove", this.existCoupons);
+      this.validCoupon = false
       this.totalDiscountReplacement -= coupon.value;
       // console.log('coupon', coupon);
       // console.log('coupons', this.coupons);
