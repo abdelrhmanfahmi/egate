@@ -1503,6 +1503,7 @@ export default {
         this.getCartProducts();
         this.existCoupons = [];
         this.coupons = [];
+        this.validCoupon = false
       }, 100);
     },
 
@@ -2683,16 +2684,17 @@ export default {
      *  @vuese
      *   remove exist coupon
      */
-    removeMyCoupon(coupon, index) {
-      this.coupons.splice(index, 1);
-      for (let index = 0; index < this.existCoupons.length; index++) {
-        const element = this.existCoupons[index];
+    removeMyCoupon(coupon) {
+      // this.coupons.splice(index, 1);
+      // for (let index = 0; index < this.existCoupons.length; index++) {
+      //   const element = this.existCoupons[index];
 
-        if (element == coupon.title) {
-          this.existCoupons.splice(index, 1);
-        }
-      }
+      //   if (element == coupon.title) {
+      //     this.existCoupons.splice(index, 1);
+      //   }
+      // }
       // console.log("this.existCoupons remove", this.existCoupons);
+      this.coupons = []
       this.validCoupon = false
       this.totalDiscountReplacement -= coupon.value;
       // console.log('coupon', coupon);
