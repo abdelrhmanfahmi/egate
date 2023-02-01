@@ -1189,7 +1189,7 @@ export default {
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email
       : "";
-    this.paymentFormData.coupons = this.existCoupons ? this.existCoupons : "";
+    // this.paymentFormData.coupons = this.existCoupons ? this.existCoupons : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
     this.paymentFormData.redirect_url = backUrl;
@@ -2213,6 +2213,7 @@ export default {
         this.paymentFormData.address_uuid = this.buyerUserData.uuid;
       }
 
+      this.paymentFormData.coupons = this.existCoupons;
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
@@ -2684,17 +2685,16 @@ export default {
      *  @vuese
      *   remove exist coupon
      */
-    removeMyCoupon(coupon) {
-      // this.coupons.splice(index, 1);
-      // for (let index = 0; index < this.existCoupons.length; index++) {
-      //   const element = this.existCoupons[index];
+    removeMyCoupon(coupon, index) {
+      this.coupons.splice(index, 1);
+      for (let index = 0; index < this.existCoupons.length; index++) {
+        const element = this.existCoupons[index];
 
-      //   if (element == coupon.title) {
-      //     this.existCoupons.splice(index, 1);
-      //   }
-      // }
+        if (element == coupon.title) {
+          this.existCoupons.splice(index, 1);
+        }
+      }
       // console.log("this.existCoupons remove", this.existCoupons);
-      this.coupons = []
       this.validCoupon = false
       this.totalDiscountReplacement -= coupon.value;
       // console.log('coupon', coupon);
