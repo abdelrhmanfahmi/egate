@@ -1502,7 +1502,7 @@ export default {
       setTimeout(() => {
         this.getCartProducts();
         this.existCoupons = [];
-        this.coupons = [];
+        // this.coupons = [];
       }, 100);
     },
 
