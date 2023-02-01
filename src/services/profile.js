@@ -326,5 +326,11 @@ export default {
   },
   buyToGetAnother(){
     return globalAxios.get('products/buy-x-get-y/offers')
+  },
+  getNewOffers(){
+    return globalAxios.get('products/basket/offers')
+  },
+  getNewSingleOffer(id){
+    return globalAxios.get(`products/basket/offers/${id}`)
   }
 };
