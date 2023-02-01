@@ -337,6 +337,8 @@ chooseSupplierUUID(order);
                             {{ ord.price | fixedCurrency }} {{ currency }}
                           </td>
                           <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                          <td v-if="ord.discount">{{ ord.discount | fixedCurrency }} {{ currency }}</td>
+                          <td v-else>-</td>
                           <td v-if="ord.total_price">
                             {{ ord.total_price | fixedCurrency }} {{ currency }}
                           </td>
@@ -360,6 +362,7 @@ chooseSupplierUUID(ord);
                                   $t("profile.return")
                                 }}</span></b-button>
                             </div>
+                            <div class="" v-else>-</div>
                           </td>
                         </tr>
                       </tbody>
@@ -929,6 +932,10 @@ export default {
         {
           key: "qty",
           label: this.$t("profile.qty"),
+        },
+        {
+          key: "discount",
+          label: this.$t("cart.discount"),
         },
         {
           key: "rowTotal",
