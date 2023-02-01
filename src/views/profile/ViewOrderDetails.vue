@@ -660,12 +660,12 @@ chooseSupplierUUID(ord);
                     <div class="data-holder">
                       <h5 class="title">{{ ord.items.product.title }}</h5>
                       <h6 v-if="
-                        buyerUserData.type == 'b2b' ||
-                        buyerUserData.type == 'buyer'
+                        buyerUserData.type == 'b2b' && ord.items.product_details[0] ||
+                        buyerUserData.type == 'buyer' && ord.items.product_details[0]
                       ">
                         SKU : {{ ord.items.product_details[0].sku }}
                       </h6>
-                      <h6 v-if="buyerUserData.type == 'b2c' || !buyerUserData">
+                      <h6 v-if="buyerUserData.type == 'b2c' && ord.items.product_details[1] || !buyerUserData && ord.items.product_details[1]">
                         SKU : {{ ord.items.product_details[1].sku }}
                       </h6>
                     </div>

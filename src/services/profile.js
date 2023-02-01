@@ -324,4 +324,7 @@ export default {
       }
     });
   },
+  buyToGetAnother(){
+    return globalAxios.get('products/buy-x-get-y/offers')
+  }
 };
