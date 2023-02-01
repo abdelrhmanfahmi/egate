@@ -21,6 +21,7 @@
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider">
           <!-- product slider  -->
+          <div class="floatingDiv" v-if="dealType">{{dealType}}</div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
@@ -106,6 +107,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
+      dealType: this.$route.query.type ? this.$route.query.type : null,
       loading: false,
       myProduct: null,
       product: [],
@@ -242,5 +244,15 @@ export default {
   // li:last-of-type{
   //   color: #ccc;
   // }
+}
+.floatingDiv{
+  position: absolute;
+  background: red;
+  color: #fff;
+  font-size: 22px;
+  padding: 13px;
+  left: -3rem;
+  top: 0rem;
+  transform: rotate(-45deg);
 }
 </style>
