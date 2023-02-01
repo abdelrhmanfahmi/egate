@@ -27,7 +27,7 @@
           </b-col>
         </b-row>
         <div class="" v-else>
-          <h1 class="text-center my-5">basket offers</h1>
+          <h1 class="text-center my-5">{{pageTitle}}</h1>
           <div class="row suppliers-data">
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
@@ -36,7 +36,8 @@
             >
               <BestDeals
                 :deal="deal"
-                @getWishlistData="getWishlistData"
+                :dealType="pageTitle"
+                @getWishlistData="buyToGetAnother"
               ></BestDeals>
             </div>
           </div>
@@ -71,6 +72,7 @@ import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
     return {
+      pageTitle:this.$route.query.type,
       basketOffer: null,
       loading: false,
       perPage: 5,
@@ -112,13 +114,6 @@ export default {
           console.log(err);
         });
     },
-    getNewOffers(){
-        profile.getNewOffers().then(res =>{
-            console.log(res);
-        }).catch(err =>{
-            console.log(err);
-        })
-    },
     /**
      * @vuese
      * on Page Change function for pagination
@@ -150,7 +145,6 @@ export default {
   },
   mounted() {
     this.buyToGetAnother();
-    this.getNewOffers();
   },
   components: {
     BestDeals,

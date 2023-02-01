@@ -31,12 +31,16 @@
               <a @click="addToWishlist(deal) ; changevalue()"  v-if="deal.is_favorite == false">
                 <b-icon-heart></b-icon-heart>
               </a>
-              <router-link :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id } }" v-if="deal.is_favorite == true"  class="is_favorite">
+              <router-link :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id , type:dealType } }" v-if="deal.is_favorite == true && dealType"  class="is_favorite">
+                <b-icon-heart></b-icon-heart>
+              </router-link>
+              <router-link :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id } }" v-else-if="deal.is_favorite == true && !dealType"  class="is_favorite">
                 <b-icon-heart></b-icon-heart>
               </router-link>
             </li>
             <li>
-              <router-link :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id } }" @click="goPage2(deal)"><b-icon-eye></b-icon-eye></router-link>
+              <router-link v-if="dealType" :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id , type:dealType } }" @click="goPage2(deal)"><b-icon-eye></b-icon-eye></router-link>
+              <router-link v-else :to="{ path: '/details', query: { id: deal.product_details_by_type.product_supplier_id , type:dealType } }" @click="goPage2(deal)"><b-icon-eye></b-icon-eye></router-link>
             </li>
           </ul>
         </div>
@@ -93,7 +97,7 @@ export default {
       errors:[]
     };
   },
-  props: ["deal"],
+  props: ["deal" , "dealType"],
   components: {
     BIconHeart,
     BIconEye,
@@ -127,6 +131,7 @@ export default {
         path: "/details",
         query: {
           id: data.id,
+          type:this.dealType ? this.dealType :'ordinary'
         },
       });
       // location.reload();
@@ -140,6 +145,7 @@ export default {
         path: "/details",
         query: {
           id: data.product_details_by_type.product_supplier_id,
+          type:this.dealType ? this.dealType :'ordinary'
         },
       });
       // location.reload();

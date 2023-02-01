@@ -298,5 +298,7 @@ export default {
   others:'Others',
   sms:"SMS",
   Mail:"Mail",
-  accountDetails:'Enter bank account Details'
+  accountDetails:'Enter bank account Details',
+  buy:'Buy',
+  get:'And Get'
 };

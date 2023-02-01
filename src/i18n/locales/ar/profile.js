@@ -289,5 +289,7 @@ export default {
   others:'أخرى',
   sms:"الرسائل النصيه",
   Mail:"البريد",
-  accountDetails:'ادخل بيانات حسابك البنكى'
+  accountDetails:'ادخل بيانات حسابك البنكى',
+  buy:'اشترى',
+  get:"و أحصل على "
 };

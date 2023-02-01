@@ -3,14 +3,29 @@
     <div v-if="slider">
       <router-link
         class="img-holder"
+        :to="{ path: '/details', query: { id: `${slider.id}` , type:dealType } }"
+        v-if="slider.current_main_image_path && dealType"
+      >
+        <b-img :src="slider.current_main_image_path"> </b-img>
+      </router-link>
+      <router-link
+        class="img-holder"
         :to="{ path: '/details', query: { id: `${slider.id}` } }"
-        v-if="slider.current_main_image_path"
+        v-else-if="slider.current_main_image_path && !dealType "
       >
         <b-img :src="slider.current_main_image_path"> </b-img>
       </router-link>
       <span v-else class="null-img-holder"></span>
       <div class="card-info">
-        <h4 class="main-header my-2" v-if="slider.product.title">
+        <h4 class="main-header my-2" v-if="slider.product.title && dealType">
+          <router-link
+            :to="{ path: '/details', query: { id: `${slider.id}` , type:dealType } }"
+          >
+            {{ slider.product.title }}
+          </router-link>
+          <!-- {{ slider.product.title }} -->
+        </h4>
+        <h4 class="main-header my-2" v-else-if="slider.product.title && !dealType">
           <router-link
             :to="{ path: '/details', query: { id: `${slider.id}` } }"
           >
@@ -64,6 +79,9 @@ export default {
       // slider prop 
       type:Object,
       required:true
+    },
+    dealType:{
+      type:String
     }
   },
   methods: {
