@@ -28,3 +28,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### docker initialization
+### run this command : docker compose -f docker-compose.yml up -d --build
+## app will work on port 5600

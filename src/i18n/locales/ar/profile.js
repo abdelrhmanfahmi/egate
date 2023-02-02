@@ -291,5 +291,8 @@ export default {
   Mail:"البريد",
   accountDetails:'ادخل بيانات حسابك البنكى',
   buy:'اشترى',
-  get:"و أحصل على "
+  get:"و أحصل على ",
+  basketDeals:'عروض السله',
+  dailyOffers:'العرووض اليومية',
+  monthlyOffers:'العروض الشهرية'
 };

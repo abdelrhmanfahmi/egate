@@ -1,5 +1,6 @@
 <template>
   <div class="product-cart">
+    <small class="floating" v-if="dealType">{{dealType}}</small>
     <div v-if="slider">
       <router-link
         class="img-holder"
@@ -17,7 +18,8 @@
       </router-link>
       <span v-else class="null-img-holder"></span>
       <div class="card-info">
-        <h4 class="main-header my-2" v-if="slider.product.title && dealType">
+        
+        <h4 class="main-header my-2" v-if="slider.product && slider.product.title && dealType">
           <router-link
             :to="{ path: '/details', query: { id: `${slider.id}` , type:dealType } }"
           >
@@ -25,7 +27,7 @@
           </router-link>
           <!-- {{ slider.product.title }} -->
         </h4>
-        <h4 class="main-header my-2" v-else-if="slider.product.title && !dealType">
+        <h4 class="main-header my-2" v-else-if="slider.product && slider.product.title && !dealType">
           <router-link
             :to="{ path: '/details', query: { id: `${slider.id}` } }"
           >
@@ -35,14 +37,14 @@
         </h4>
         <h5
           class="price m-0"
-          v-if="slider.product_details_by_type.customer_price"
+          v-if="slider.product_details_by_type && slider.product_details_by_type.customer_price"
         >
           {{ slider.product_details_by_type.customer_price | fixedCurrency }}
           {{ currency }}
         </h5>
         <p
           class="price-after price m-0"
-          v-if="
+          v-if="slider.product_details_by_type && 
             slider.product_details_by_type.price_before_discount &&
             slider.product_details_by_type.price_before_discount >
               slider.product_details_by_type.customer_price
@@ -197,6 +199,7 @@ export default {
   margin: 0 10px;
   text-align: center;
   display: inline-block;
+  position: relative;
   a {
     display: inline-block;
     opacity: 1;
@@ -212,7 +215,7 @@ export default {
       display: block;
     }
   }
-  .card-info {
+  .card-info {  
     h4 {
       a {
         opacity: 1;
@@ -238,5 +241,15 @@ button.new {
 }
 .rfqBtn{
   background: #000;
+}
+.floating{
+  position: absolute;
+  background: red;
+  color: #fff;
+  font-size: 15px;
+  padding: 6px;
+  left: 0;
+  top: 14%;
+  transform: rotate(-33deg);
 }
 </style>

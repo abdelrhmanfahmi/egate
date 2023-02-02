@@ -327,10 +327,10 @@ export default {
   buyToGetAnother(){
     return globalAxios.get('products/buy-x-get-y/offers')
   },
-  getNewOffers(){
+  getBasketOffers(){
     return globalAxios.get('products/basket/offers')
   },
-  getNewSingleOffer(id){
+  getBasketSingleOffers(id){
     return globalAxios.get(`products/basket/offers/${id}`)
   }
 };
