@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5600:80"
+    tty: true
+    expose:
+      - "80"
+    stdin_open: true
+    environment:
+      - MODE=dev

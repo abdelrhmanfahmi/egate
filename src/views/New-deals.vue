@@ -27,8 +27,56 @@
           </b-col>
         </b-row>
         <div class="" v-else>
-          <h1 class="text-center my-5">{{pageTitle}}</h1>
-          <div class="row suppliers-data">
+          <h1 class="text-center my-5">{{ pageTitle }}</h1>
+          <div
+            class="row suppliers-data"
+            v-if="pageTitle == $t('profile.basketDeals')"
+          >
+            <div
+              class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
+              v-for="(deal, index) in basketDealData"
+              :key="index"
+            >
+              <BasketBestDeals
+                :deal="deal"
+                :dealType="pageTitle"
+                @getWishlistData="getBasketOffers"
+              ></BasketBestDeals>
+            </div>
+          </div>
+          <div
+            class="row suppliers-data"
+            v-else-if="pageTitle == $t('profile.dailyOffers')"
+          >
+            <div
+              class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
+              v-for="(deal, index) in basketOffer"
+              :key="index"
+            >
+              <BestDeals
+                :deal="deal"
+                :dealType="pageTitle"
+                @getWishlistData="buyToGetAnother"
+              ></BestDeals>
+            </div>
+          </div>
+          <div
+            class="row suppliers-data"
+            v-else-if="pageTitle == $t('profile.monthlyOffers')"
+          >
+            <div
+              class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
+              v-for="(deal, index) in basketOffer"
+              :key="index"
+            >
+              <BestDeals
+                :deal="deal"
+                :dealType="pageTitle"
+                @getWishlistData="buyToGetAnother"
+              ></BestDeals>
+            </div>
+          </div>
+          <div class="row suppliers-data" v-else>
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
               v-for="(deal, index) in basketOffer"
@@ -44,6 +92,43 @@
         </div>
 
         <div
+          v-if="pageTitle == $t('profile.basketDeals')"
+          class="text-center d-flex justify-content-center align-items-center mt-5"
+        >
+          <Paginate
+            v-if="basketOffer && total > perPage"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
+        <div
+          v-else-if="pageTitle == $t('profile.dailyOffers')"
+          class="text-center d-flex justify-content-center align-items-center mt-5"
+        >
+          <Paginate
+            v-if="basketOffer && total > perPage"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
+        <div
+          v-else-if="pageTitle == $t('profile.monthlyOffers')"
+          class="text-center d-flex justify-content-center align-items-center mt-5"
+        >
+          <Paginate
+            v-if="basketOffer && total > perPage"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
+        <div
+          v-else
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
           <Paginate
@@ -68,11 +153,12 @@
  */
 import profile from "@/services/profile";
 import BestDeals from "@/components/pages/BestDeals.vue";
+import BasketBestDeals from "@/components/pages/BasketBestDeals.vue";
 import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
     return {
-      pageTitle:this.$route.query.type,
+      pageTitle: this.$route.query.type,
       basketOffer: null,
       loading: false,
       perPage: 5,
@@ -85,6 +171,8 @@ export default {
       recordsPerPage: 10,
       enterpageno: "",
       errors: [],
+      basketDealData: null,
+      basketDataLength: null,
     };
   },
   methods: {
@@ -97,8 +185,6 @@ export default {
       profile
         .buyToGetAnother()
         .then((resp) => {
-          
-
           console.log(resp);
           this.basketOffer = resp.data.items.data;
           this.total = resp.data.items.total;
@@ -108,7 +194,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
           this.perPage = resp.data.items.per_page;
-
         })
         .catch((err) => {
           console.log(err);
@@ -116,12 +201,33 @@ export default {
     },
     /**
      * @vuese
+     * basket deals
+     */
+
+    getBasketOffers() {
+      profile
+        .getBasketOffers()
+        .then((resp) => {
+          this.basketDealData = resp.data.items.data;
+          this.basketDataLength = resp.data.items.data.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    
+    /**
+     * @vuese
      * on Page Change function for pagination
      */
-     onPageChange(page) {
+    onPageChange(page) {
       // on Page Change function for pagination
       this.page = page;
-      this.buyToGetAnother();
+      if (this.pageTitle == this.$t("profile.basketDeals")) {
+        this.getBasketOffers();
+      } else {
+        this.buyToGetAnother();
+      }
     },
     /**
      * @vuese
@@ -129,7 +235,11 @@ export default {
      */
     onChangeRecordsPerPage() {
       // on Change Records PerPage function for pagination to get data again
-      this.buyToGetAnother();
+      if (this.pageTitle == this.$t("profile.basketDeals")) {
+        this.getBasketOffers();
+      } else {
+        this.buyToGetAnother();
+      }
     },
     /**
      * @vuese
@@ -139,16 +249,22 @@ export default {
       // go to Page function for pagination
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
+        if (this.pageTitle == this.$t("profile.basketDeals")) {
+        this.getBasketOffers();
+      } else {
         this.buyToGetAnother();
+      }
       }
     },
   },
   mounted() {
     this.buyToGetAnother();
+    this.getBasketOffers();
   },
   components: {
     BestDeals,
     Paginate,
+    BasketBestDeals,
   },
 };
 </script>

@@ -33,6 +33,7 @@ import Clients from "../views/Clients.vue";
 import StandingOrder from "../views/StandingOrder.vue";
 import Partners from "../views/Partners.vue";
 import NewDeals from "../views/New-deals.vue";
+import basketOfferDetails from "../views/basketOfferDetails.vue";
 
 // import test from "@/components/test.vue";
 import {loadLanguageAsync} from "../i18n/i18n"
@@ -239,6 +240,11 @@ const routes = [
     path: "/new-deals",
     name: "new-deals",
     component: NewDeals,
+  },
+  {
+    path: "/basketOfferDetails",
+    name: "basketOfferDetails",
+    component: basketOfferDetails,
   },
   // {
   //   path: "/test",

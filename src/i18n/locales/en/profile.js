@@ -300,5 +300,8 @@ export default {
   Mail:"Mail",
   accountDetails:'Enter bank account Details',
   buy:'Buy',
-  get:'And Get'
+  get:'And Get',
+  basketDeals:'Basket Deals',
+  dailyOffers:'Daily Offerrs',
+  monthlyOffers:'Monthly Offers'
 };
