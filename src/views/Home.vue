@@ -27,7 +27,7 @@
     </div>
 
     <ProductSilder />
-    <NewProductSilder />
+    <!-- <NewProductSilder /> -->
     <SuppliersSlider />
   </div>
 </template>
@@ -37,7 +37,7 @@
 import auth from "@/services/auth";
 import ProgressSlider from "@/components/pages/home/ProgressSlider";
 import ProductSilder from "@/components/pages/home/ProductSilder";
-import NewProductSilder from "@/components/pages/home/NewProductSlider";
+// import NewProductSilder from "@/components/pages/home/NewProductSlider";
 import SuppliersSlider from "@/components/pages/home/SuppliersSlider";
 import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
 import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
@@ -50,7 +50,7 @@ export default {
   components: {
     ProgressSlider,
     ProductSilder,
-    NewProductSilder,
+    // NewProductSilder,
     SuppliersSlider,
     CatrgoriesHome,
     NewCatrgoriesHome
