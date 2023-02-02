@@ -4,7 +4,7 @@
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider">
-          <div class="floatingDiv" v-if="dealType">{{ dealType }}</div>
+          <div class="floatingDiv" >{{ dealType }}</div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
-      dealType: this.$route.query.type ? this.$route.query.type : null,
+      dealType: this.$t('profile.basketDeals'),
       loading: false,
       myProduct: null,
       product: [],
@@ -165,8 +165,8 @@ export default {
   color: #fff;
   font-size: 22px;
   padding: 13px;
-  left: -3rem;
-  top: 0rem;
+  left: -1rem;
+  top: 1rem;
   transform: rotate(-45deg);
 }
 </style>
