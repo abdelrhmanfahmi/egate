@@ -81,6 +81,8 @@
     >
       <spinner />
     </div>
+    <div class="" v-if="!items">
+      {{ $t('profile.quotationsRatingsEmpty') }}</div>
   </div>
 </template>
 

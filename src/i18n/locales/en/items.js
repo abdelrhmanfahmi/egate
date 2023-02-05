@@ -39,5 +39,7 @@ export default {
   addAllToCart:'Add All To Cart',
   removeGroup:'Remove This Group',
   backToStrandingList:'Back To Standing Orders',
-  advertise:'Ad'
+  advertise:'Ad',
+  basketProducts:'Basket Products',
+  relatedBaskets:'Related Baskets'
 };

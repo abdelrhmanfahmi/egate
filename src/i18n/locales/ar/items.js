@@ -40,5 +40,7 @@ export default {
   addAllToCart:'اضافة الكل لسلة الشراء',
   removeGroup:'حذف الكل',
   backToStrandingList:'العوده للقوائم المتاحه',
-  advertise:'اعلان'
+  advertise:'اعلان',
+  basketProducts:'منتجات السلة',
+  relatedBaskets:'السلات ذات الصلة'
 };

@@ -7,11 +7,7 @@
           <!-- nav for product navigation  -->
           <nav aria-label="breadcrumb d-flex">
             <ol class="breadcrumb">
-              <li
-                class="breadcrumb-item"
-                v-for="Type in myProduct.product.categories"
-                :key="Type.id"
-              >
+              <li class="breadcrumb-item" v-for="Type in myProduct.product.categories" :key="Type.id">
                 {{ Type.title }}
               </li>
             </ol>
@@ -21,7 +17,7 @@
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider">
           <!-- product slider  -->
-          <div class="floatingDiv" v-if="dealType">{{dealType}}</div>
+          <div class="floatingDiv" v-if="dealType">{{ dealType }}</div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
@@ -51,7 +47,8 @@
           <div class="my-5 py-5">
             <!-- other products slider  -->
             <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
-              <div v-for="item in supplierProducts.filter(product => product.product_details_by_type.quantity >=1)" :key="item.id">
+              <div v-for="item in supplierProducts.filter(product => product.product_details_by_type.quantity >= 1)"
+                :key="item.id">
                 <Product :data="item"></Product>
               </div>
             </VueSlickCarousel>
@@ -61,17 +58,10 @@
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img
-          src="@/assets/images/BeanLoading2.gif"
-          class="loading-img"
-          alt="loading"
-        />
+        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
       </div>
     </div>
-    <div
-      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
-      v-if="notFound"
-    >
+    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
@@ -190,7 +180,7 @@ export default {
     getSupplierProducts() {
       // console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
-        .getSupplierProducts(this.supplierProductsId , this.id)
+        .getSupplierProducts(this.supplierProductsId, this.id)
         .then((resp) => {
           // console.log("resp", resp);
           this.supplierProducts = resp.data.items.data;
@@ -238,6 +228,7 @@ export default {
     order: 1;
   }
 }
+
 .breadcrumb {
   font-size: 20px;
   margin: 20px 0;
@@ -245,14 +236,5 @@ export default {
   //   color: #ccc;
   // }
 }
-.floatingDiv{
-  position: absolute;
-  background: red;
-  color: #fff;
-  font-size: 22px;
-  padding: 13px;
-  left: -3rem;
-  top: 0rem;
-  transform: rotate(-45deg);
-}
+
 </style>
