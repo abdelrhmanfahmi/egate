@@ -330,6 +330,13 @@ export default {
   getBasketOffers(){
     return globalAxios.get('products/basket/offers')
   },
+  getRelatedBasketOffers(id){
+    return globalAxios.get('products/basket/offers',{
+      params:{
+        without_id:id
+      }
+    })
+  },
   getBasketSingleOffers(id){
     return globalAxios.get(`products/basket/offers/${id}`)
   }
