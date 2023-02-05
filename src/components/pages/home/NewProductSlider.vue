@@ -28,7 +28,7 @@
                 <div v-for="(deal, index) in buyAndGet" :key="index">
                   <ProductCard
                     :slider="deal"
-                    :dealType="buyToGetAnotherTitle"
+                    :dealType="flagTitle"
                   />
                 </div>
               </VueSlickCarousel>
@@ -159,6 +159,7 @@ export default {
       //daily offers
       dailyOffers: null,
       dailyOffersLength: null,
+      flagTitle:''
     };
   },
   methods: {
@@ -181,6 +182,12 @@ export default {
             this.$t("profile.get") +
             " " +
             this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
+
+
+            this.flagTitle =  this.$t("profile.buy") +
+            " " +
+            " " +
+            this.$t("profile.get")
         })
         .catch((err) => {
           console.log(err);

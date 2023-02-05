@@ -1,7 +1,7 @@
 <template>
   <!-- shopping cart page  -->
   <div>
-    <div class="cart-table p-4" stacked="lg">
+    <div class="cart-table p-4" stacked="lg" v-if="cartItems">
       <table class="table table-striped table-hover">
         <thead>
           <tr class="data-holder">
@@ -111,6 +111,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="text-center" v-else>
+      <h3>{{ $t('profile.quotationsRatingsEmpty') }}</h3>
     </div>
   </div>
 </template>

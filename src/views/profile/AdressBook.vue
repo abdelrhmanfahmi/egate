@@ -297,7 +297,8 @@
         {{ $t("register.submit") }}
       </b-button>
     </form>
-    <b-table hover :items="adresses" :fields="fields" stacked="lg" class="my-4">
+    <b-table hover :items="adresses" :fields="fields" stacked="lg" show-empty
+      :empty-text="$t('profile.quotationsRatingsEmpty')" class="my-4">
       <template #cell(actions)="row">
         <div class="actions">
           <b-button

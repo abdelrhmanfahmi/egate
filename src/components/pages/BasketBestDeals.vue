@@ -7,7 +7,7 @@
           <a
             @click="goProduct(deal)"
             v-if="deal.image_path !== null"
-            class="d-flex justify-content-center align-items-center product-image"
+            class="product-image"
           >
             <img
               :src="deal.image_path"
@@ -18,7 +18,7 @@
           <a
             @click="goProduct(deal)"
             v-else
-            class="d-flex justify-content-center align-items-center product-image"
+            class="product-image"
           >
             <img
               :src="deal.image_path"

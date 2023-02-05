@@ -9,235 +9,102 @@
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
-          <ProductInfo :myProduct="myProduct"></ProductInfo>
+          <div class="px-2">
+            <BasketProductInfo :myProduct="myProduct"></BasketProductInfo>
+          </div>
         </b-col>
       </b-row>
 
       <!-- promotion_products table  -->
-      <!-- when data of relative products loading   -->
-      <b-row v-if="loading">
-        <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
-          <b-card>
-            <b-skeleton
-              animation="fade"
-              width="80%"
-              class="border-none"
-            ></b-skeleton>
-            <b-skeleton
-              animation="fade"
-              width="95%"
-              class="border-none"
-            ></b-skeleton>
-          </b-card>
-        </b-col>
-      </b-row>
+      <section class="py-3">
+        <h2 class="text-center header font-weight-bold mt-5 mb-3">
+          {{ $t("items.basketProducts") }}
+        </h2>
+        <!-- when data of relative products loading   -->
+        <b-row v-if="loading">
+          <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
+            <b-card>
+              <b-skeleton animation="fade" width="80%" class="border-none"></b-skeleton>
+              <b-skeleton animation="fade" width="95%" class="border-none"></b-skeleton>
+            </b-card>
+          </b-col>
+        </b-row>
 
-      <!-- when data of relative products comes   -->
+        <!-- when data of relative products comes   -->
 
-      <div class="products-table text-center" v-else>
-        <table
-          v-if="relatedProducts.length > 0"
-          class="table table-striped table-hover table-bordered selectable"
-        >
-          <thead>
-            <tr>
-              <th scope="col" v-for="(tab, index) in tableFields" :key="index">
-                {{ tab.label }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(product, index) in relatedProducts" :key="index">
-              <td v-if="product.ads && product.ads.length > 0">
-                {{ $t("items.advertise") }}
-              </td>
-              <!-- <td v-else>{{index + 1 }}</td> -->
-              <td v-else></td>
-              <td>
-                <router-link
-                  class="link font-weight-bold text-danger"
-                  :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                >
-                  {{ product.product_supplier.title }}
-                </router-link>
-              </td>
-              <td>
-                <router-link
-                  v-if="product.product_supplier.image_path !== null"
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                >
-                  <img
-                    :src="product.product_supplier.image_path"
-                    class="product-image"
-                    alt="product-image"
-                  />
-                </router-link>
-                <router-link
-                  v-else-if="
-                    product.product_supplier.image_path == null && product.product_supplier.image_path
-                  "
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                >
-                  <img
-                    :src="product.product_supplier.image_path"
-                    class="product-image"
-                    alt="product-image"
-                  />
-                </router-link>
-              </td>
-              <td>
-                <router-link
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                >
-                  {{ product.product_supplier.client.company_name }}
-                </router-link>
-              </td>
-              <td>
-                <router-link
-                  v-if="product.product_supplier.product_details_by_type.unit.title"
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  {{ product.product_supplier.product_details_by_type.weight }}
-                  {{ product.product_supplier.product_details_by_type.unit.title }}
-                </router-link>
-                <div v-else class="link">-</div>
-              </td>
-              <td>
-                <div
-                  class=""
-                  v-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage == 100 &&
-                      buyerUserData.type === 'buyer') ||
-                    buyerUserData.type === 'b2b' ||
-                    (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true)
-                  "
-                >
-                  <router-link
-                    class="link"
-                    :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                  >
-                    <!-- show price when product not rfq only  -->
-                    <div
-                      v-if="product.product_supplier.product_details_by_type.add_type !== 'rfq'"
-                    >
-                      <p class="m-0 white-space-pre">
-                        {{
-                          product.product_supplier.product_details_by_type.customer_price
-                            | fixedCurrency
-                        }}
-                        {{ currency }}
-                      </p>
-                      <p
-                        class="price-after m-0 white-space-pre"
-                        v-if="
-                          product.product_supplier.product_details_by_type
-                            .price_before_discount &&
-                          product.product_supplier.product_details_by_type
-                            .price_before_discount >
-                            product.product_supplier.product_details_by_type.customer_price
-                        "
-                      >
-                        {{
-                          product.product_supplier.product_details_by_type.price_before_discount
-                            | fixedCurrency
-                        }}
-                        {{ currency }}
-                      </p>
-                    </div>
-                    <div v-else>-</div>
-                  </router-link>
-                </div>
-                <div
-                  class=""
-                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
-                >
-                  <router-link
-                    class="link"
-                    :to="{ path: '/details', query: { id: product.product_supplier.id } }"
-                  >
-                    <div
-                      v-if="product.product_supplier.product_details_by_type.add_type !== 'rfq'"
-                    >
-                      <p class="m-0">
-                        {{
-                          product.product_supplier.product_details_by_type.customer_price
-                            | fixedCurrency
-                        }}
-                        {{ currency }}
-                      </p>
-                      <p
-                        class="price-after m-0"
-                        v-if="
-                          product.product_supplier.product_details_by_type
-                            .price_before_discount &&
-                          product.product_supplier.product_details_by_type
-                            .price_before_discount >
-                            product.product_supplier.product_details_by_type.customer_price
-                        "
-                      >
-                        {{
-                          product.product_supplier.product_details_by_type.price_before_discount
-                            | fixedCurrency
-                        }}
-                        {{ currency }}
-                      </p>
-                    </div>
-                    <div class="" v-else>-</div>
-                  </router-link>
-                </div>
-              </td>
-              <td>
-                <Variants-Counter
-                  :minimum="
-                    product.product_details_by_type.min_order_quantity
-                      ? product.product_details_by_type.min_order_quantity
-                      : 1
-                  "
-                  v-if="
-                    (cartAvailable === 'available' &&
-                      product.product_details_by_type.add_type === 'cart') ||
-                    (cartAvailable === 'available' &&
-                      product.product_details_by_type.add_type === 'both')
-                  "
-                  class="justify-content-center"
-                  :quantity="
-                    product.product_details_by_type.min_order_quantity > 0
-                      ? product.product_details_by_type.min_order_quantity
-                      : 1
-                  "
-                  @changeCount="
-                    ChangeCounter(
-                      $event,
-                      product.product_details_by_type.min_order_quantity
-                    )
-                  "
-                ></Variants-Counter>
-                <p v-else>-</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="my-5" v-else>
-          <h1>{{ $t("home.noData") }}</h1>
+        <div class="products-table text-center" v-else>
+          <table v-if="promotion_products" class="table table-striped table-hover table-bordered selectable ">
+            <thead>
+              <tr>
+                <th scope="col" v-for="(tab, index) in tableFields" :key="index">
+                  {{ tab.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(productTable, index) in promotion_products" :key="index" @click="goProduct(productTable)"
+                class="cursor-pointer">
+
+
+                <!-- <td v-if="productTable.ads && productTable.ads.length > 0" class="ads">
+                  {{ $t("items.advertise") }}
+                </td> -->
+                <!-- <td v-else class="ads-replace"></td> -->
+                <td v-if="productTable.product_supplier.product" class="title">
+                  <span v-if="$i18n.locale == 'en'">{{ productTable.product_supplier.product.title_en }}</span>
+                  <span v-else-if="$i18n.locale == 'ar'">{{ productTable.product_supplier.product.title_ar }}</span>
+                  <span v-else>-</span>
+                </td>
+                <td v-if="productTable.product_supplier.product" class="image">
+                  <img :src="productTable.product_supplier.product.image_path" alt="procuct image"
+                    class="product-image">
+                </td>
+                <td v-if="productTable.product_supplier.product" class="supplier">
+                  <span v-if="myProduct.client.company_name">{{ myProduct.client.company_name }}</span>
+                  <span v-else>-</span>
+                </td>
+                <td v-if="productTable.product_supplier.product" class="unit">
+                  <span v-if="productTable.product_supplier.product_details_by_type.weight">{{
+                    productTable.product_supplier.product_details_by_type.weight
+                  }}</span>
+                  <span v-if="productTable.product_supplier.product_details[0].unit">{{
+                    productTable.product_supplier.product_details[0].unit.title
+                  }}</span>
+                  <span v-else>-</span>
+                </td>
+                <td v-if="productTable.product_supplier.product" class="price">
+                  <span v-if="productTable.product_price">{{
+                    productTable.product_price | fixedCurrency
+                  }}
+                    {{ currency }}</span>
+                  <span v-else>-</span>
+                </td>
+                <td v-if="productTable.product_supplier.product" class="quantity">
+                  <span v-if="productTable.product_supplier.product_details_by_type.quantity">{{
+                    productTable.product_supplier.product_details_by_type.quantity
+                  }}</span>
+                  <span v-else>-</span>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          <div class="my-5" v-else>
+            <h1>{{ $t("home.noData") }}</h1>
+          </div>
         </div>
-      </div>
+      </section>
       <!-- related products  -->
       <div class="most-sold text-center" v-if="relatedProductsLength > 0">
         <div class="container">
-          <h4 class="header font-weight-bold mt-5 mb-3">
-            {{ $t("items.relativeProducts") }}
-          </h4>
+          <h2 class="header font-weight-bold mt-5 mb-3">
+            {{ $t("items.relatedBaskets") }}
+          </h2>
           <hr />
           <div class="my-5 py-5">
             <VueSlickCarousel v-bind="settings" v-if="relatedProductsLength">
               <div v-for="item in relatedProducts" :key="item.id">
-                <Product :data="item"></Product>
+                <BasketRelatedProducts :data="item" :dealType="dealType"></BasketRelatedProducts>
               </div>
             </VueSlickCarousel>
           </div>
@@ -245,18 +112,11 @@
       </div>
     </div>
     <div class="" v-else-if="myProduct == null">
-      <div class="d-flex justify-content-center align-items-center p-5">
-        <img
-          src="@/assets/images/BeanLoading2.gif"
-          class="loading-img"
-          alt="loading"
-        />
+      <div class="p-5">
+        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
       </div>
     </div>
-    <div
-      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
-      v-if="notFound"
-    >
+    <div class="flex-column p-5 notFound" v-if="notFound">
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
@@ -266,14 +126,14 @@
 
 <script>
 import profile from "@/services/profile";
-// import VueSlickCarousel from "vue-slick-carousel";
-// import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 import Slider from "@/components/pages/single-basket-product/Slider.vue";
-import ProductInfo from "@/components/pages/single-basket-product/ProductInfo.vue";
+import BasketProductInfo from "@/components/pages/single-basket-product/BasketProductInfo.vue";
 // import Specs from "@/components/pages/single-basket-product/Specs.vue";
 // import Rating from "@/components/pages/single-basket-product/Rating.vue";
-// import Product from "@/components/pages/supplier/products/Product.vue";
+import BasketRelatedProducts from "@/components/pages/single-basket-product/RelatedProducts.vue";
 export default {
   data() {
     return {
@@ -289,14 +149,15 @@ export default {
       basketDataLength: null,
       //relatedProducts
       relatedProducts: null,
+      promotion_products: null,
       // table data
       tableFields: [
+        // {
+        //   key: "#",
+        //   label: "#",
+        // },
         {
-          key: "#",
-          label: "#",
-        },
-        {
-          key: "product.title",
+          key: this.$i18n.locale == 'en' ? "product.title_en" : "product.title_ar",
           label: this.$t("items.item"),
         },
         {
@@ -320,6 +181,46 @@ export default {
           label: this.$t("items.quantity"),
         },
       ],
+      settings: {
+        dots: false,
+        infinite: true,
+        arrows: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: true,
+
+        responsive: [
+          {
+            breakpoint: 1191,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              arrows: false,
+              dots: false,
+            },
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              arrows: false,
+              dots: false,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: false,
+              dots: false,
+            },
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -328,6 +229,7 @@ export default {
         .getBasketSingleOffers(this.id)
         .then((res) => {
           this.myProduct = res.data.items;
+          this.promotion_products = res.data.items.promotion_products;
         })
         .catch((err) => {
           console.log(err);
@@ -350,6 +252,16 @@ export default {
           console.log(err);
         });
     },
+    goProduct(data) {
+      this.$router.push({
+        path: "/details",
+        query: {
+          id: data.id,
+          type: this.dealType ? this.dealType : 'ordinary'
+        },
+      });
+      // location.reload();
+    },
   },
   mounted() {
     this.getProductDetails();
@@ -357,11 +269,11 @@ export default {
   },
   components: {
     Slider,
-    ProductInfo,
+    BasketProductInfo,
     // Specs,
     // Rating,
-    // Product,
-    // VueSlickCarousel,
+    BasketRelatedProducts,
+    VueSlickCarousel,
   },
 };
 </script>
@@ -393,6 +305,7 @@ export default {
     order: 1;
   }
 }
+
 .breadcrumb {
   font-size: 20px;
   margin: 20px 0;
@@ -400,14 +313,12 @@ export default {
   //   color: #ccc;
   // }
 }
-.floatingDiv {
-  position: absolute;
-  background: red;
-  color: #fff;
-  font-size: 22px;
-  padding: 13px;
-  left: -1rem;
-  top: 1rem;
-  transform: rotate(-45deg);
+
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 </style>

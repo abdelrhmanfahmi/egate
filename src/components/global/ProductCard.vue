@@ -242,14 +242,5 @@ button.new {
 .rfqBtn{
   background: #000;
 }
-.floating{
-  position: absolute;
-  background: red;
-  color: #fff;
-  font-size: 15px;
-  padding: 6px;
-  left: 0;
-  top: 14%;
-  transform: rotate(-33deg);
-}
+
 </style>
