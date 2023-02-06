@@ -206,6 +206,11 @@
                 " class="link" :to="{ path: '/details', query: { id: product.id } }">
                   <img :src="product.product.image_path" class="product-image" alt="product-image" />
                 </router-link>
+                <router-link v-if="!product.product.image_path" class="link" :to="{ path: '/details', query: { id: product.id } }">
+                  <div class="logo-holder" >
+                    <img src="@/assets/images/logo.png" alt="logo" class="product-image" />
+                  </div>
+                </router-link>
               </td>
               <td>
                 <router-link class="link" :to="{ path: '/details', query: { id: product.id } }">
