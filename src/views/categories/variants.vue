@@ -208,7 +208,8 @@
                 </router-link>
                 <router-link v-if="!product.product.image_path" class="link" :to="{ path: '/details', query: { id: product.id } }">
                   <div class="logo-holder" >
-                    <img src="@/assets/images/logo.png" alt="logo" class="product-image" />
+                    <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo">
+                    <img src="@/assets/images/logo.png" v-else alt="logo" class="product-image" />
                   </div>
                 </router-link>
               </td>

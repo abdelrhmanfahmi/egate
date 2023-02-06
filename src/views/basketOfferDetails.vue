@@ -80,8 +80,8 @@
                   <span v-else>-</span>
                 </td>
                 <td v-if="productTable.product_supplier.product" class="quantity">
-                  <span v-if="productTable.product_supplier.product_details_by_type.quantity">{{
-                    productTable.product_supplier.product_details_by_type.quantity
+                  <span v-if="productTable.quantity">{{
+                    productTable.quantity
                   }}</span>
                   <span v-else>-</span>
                 </td>

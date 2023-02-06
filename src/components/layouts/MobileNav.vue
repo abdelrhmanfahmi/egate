@@ -2,7 +2,8 @@
   <div class="mobile-nav" ref="b2cLogin">
     <!-- navbar for mobile  -->
     <div class="branding">
-      <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" />
+      <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo">
+      <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" />
     </div>
     <ul class="drop-down">
       <li v-for="(link, index) in links" :key="index">

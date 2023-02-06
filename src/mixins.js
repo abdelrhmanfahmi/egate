@@ -54,6 +54,18 @@ Vue.mixin({
     RfqAvailable() {
       return localStorage.getItem("RfqAvailable");
     },
+    storedSiteLogo(){
+      return localStorage.getItem('siteLogo')
+    },
+    storedAdminLogo(){
+      return localStorage.getItem('adminLogo')
+    },
+    logoEnv(){
+      return this.storedSiteLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedSiteLogo : null
+    },
+    adminLogo(){
+      return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedAdminLogo : null
+    }
   },
   methods: {
     logout() {

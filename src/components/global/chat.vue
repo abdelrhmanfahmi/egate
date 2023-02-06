@@ -7,7 +7,8 @@
           <div class="row justify-content-center align-items-center">
             <div class="col-md-2 col-sm-12mb-3 img-col">
               <div class="logo-holder">
-                <img src="@/assets/images/logo.png" alt="logo" />
+                <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo">
+                <img src="@/assets/images/logo.png" v-else alt="logo" />
               </div>
             </div>
             <div class="col-md-10 col-sm-12">
