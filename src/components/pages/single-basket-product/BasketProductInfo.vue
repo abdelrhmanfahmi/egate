@@ -37,7 +37,8 @@
               <img v-if="myProduct.brand.image_path" :src="myProduct.brand.image_path" class="brand-image"
                 :alt="myProduct.brand.title">
               <div class="logo-holder" v-else>
-                <img src="@/assets/images/logo.png" alt="logo" />
+                <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo">
+                <img src="@/assets/images/logo.png" v-else alt="logo" />
               </div>
             </span>
           </div>

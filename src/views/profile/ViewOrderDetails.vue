@@ -50,7 +50,8 @@
               </div>
             </div>
             <div class="branding d-flex justify-content-center">
-              <img src="@/assets/images/logo.png" class="img-fluid w-25" alt="logo" />
+              <img :src="logoEnv" v-if="logoEnv" class="img-fluid w-25" alt="logo">
+              <img src="@/assets/images/logo.png" v-else class="img-fluid w-25" alt="logo" />
             </div>
           </div>
           <div class="data-holder serial-holder d-flex justify-content-between align-items-center">
@@ -576,7 +577,8 @@ chooseSupplierUUID(ord);
             <div class="row">
               <div class="col-md-6 col-sm-12 p-20" :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }">
                 <div class="branding d-flex justify-content-center">
-                  <img src="@/assets/images/logo.png" class="img-fluid w-25" alt="logo" />
+                  <img :src="logoEnv" v-if="logoEnv" class="img-fluid w-25" alt="logo">
+                  <img src="@/assets/images/logo.png" v-else class="img-fluid w-25" alt="logo" />
                 </div>
               </div>
               <div class="col-md-6 col-sm-12 p-20">
