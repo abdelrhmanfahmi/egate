@@ -227,19 +227,28 @@
                         {{ $t("payment.bankTransImage") }}
                       </div>
                       <div class="col-6" v-if="orderData.payment_image">
-                        <div class="downloadArea">
-                          <b-button class="btn-block" variant="outline-success" @click="
-                            downloadImage(
-                              orderData.payment_image,
-                              (extension = orderData.payment_image
-                                .split('.')
-                                .pop()),
-                              $t('payment.bankImageDownload')
-                            )
-                          ">
-                            <i class="fa fa-download"></i>
-                            {{ $t("payment.bankImageDownload") }}
-                          </b-button>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12">
+                            <a :href="orderData.payment_image" target="_blank">
+                              <canvas id="the-canvas" class="custom-canvas"></canvas>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                          <div class="downloadArea">
+                            <b-button class="btn-block" variant="outline-success" @click="
+                              downloadImage(
+                                orderData.payment_image,
+                                (extension = orderData.payment_image
+                                  .split('.')
+                                  .pop()),
+                                $t('payment.bankImageDownload')
+                              )
+                            ">
+                              <i class="fa fa-download"></i>
+                              {{ $t("payment.bankImageDownload") }}
+                            </b-button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -668,7 +677,8 @@ chooseSupplierUUID(ord);
                       ">
                         SKU : {{ ord.items.product_details[0].sku }}
                       </h6>
-                      <h6 v-if="buyerUserData.type == 'b2c' && ord.items.product_details[1] || !buyerUserData && ord.items.product_details[1]">
+                      <h6
+                        v-if="buyerUserData.type == 'b2c' && ord.items.product_details[1] || !buyerUserData && ord.items.product_details[1]">
                         SKU : {{ ord.items.product_details[1].sku }}
                       </h6>
                     </div>
@@ -917,6 +927,7 @@ chooseSupplierUUID(ord);
  */
 import profile from "@/services/profile";
 import axios from "axios";
+import { renderFirstPage } from "@/plugins/pdfJs"
 export default {
   data() {
     return {
@@ -965,7 +976,8 @@ export default {
       pinterest: null,
       contactPhone: null,
       contactEmail: null,
-      repayClicked: false
+      repayClicked: false,
+      CanvasUrl:null
     };
   },
   methods: {
@@ -1006,12 +1018,20 @@ export default {
               this.pickupExist = true;
             }
           }
+          this.CanvasUrl = res.data.items.order.payment_image;
+          console.log('this.CanvasUrl' , this.CanvasUrl);
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           this.loading = false;
+          setTimeout(() => {
+            let canvas = document.getElementById('the-canvas');
+            if (canvas && this.CanvasUrl) {
+              renderFirstPage(canvas, this.CanvasUrl);
+            }
+          }, 2000);
         });
     },
     /**
@@ -1582,5 +1602,9 @@ textarea {
   -o-transition: al 0.5s ease-in-out;
   transition: al 0.5s ease-in-out;
   resize: none;
+}
+#the-canvas{
+  height:100px !important;
+  border: 2px dashed #c9c6c6;
 }
 </style>

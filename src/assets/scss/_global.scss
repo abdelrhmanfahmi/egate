@@ -748,3 +748,8 @@ input[type="number"] {
 .cursor-pointer{
   cursor: pointer;
 }
+#the-canvas , .custom-canvas{
+  width: 200px ;
+  height: 200px;
+  object-fit: cover;
+}
