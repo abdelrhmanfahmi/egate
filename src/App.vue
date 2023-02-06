@@ -36,7 +36,7 @@ export default {
     }
     // return
 
-    this.checkCartValidity();
+   
   },
   components: {
     MainLayout,
@@ -80,16 +80,78 @@ export default {
       let userInfo = JSON.parse(localStorage.getItem('userInfo'));
       let totalTime = userInfo.expires_in;
       console.log('totalTime', totalTime);
-      let myInterval =  setInterval(() => {
-          totalTime -= 1
-          localStorage.setItem('logOutTime', totalTime)
-          if(totalTime  == 0){
-            clearInterval(myInterval)
-            this.logout()
+      let myInterval = setInterval(() => {
+        totalTime -= 1
+        localStorage.setItem('logOutTime', totalTime)
+        if (totalTime == 0) {
+          clearInterval(myInterval)
+          this.logout()
+        }
+      }, 1);
+
+
+    },
+    getSiteImages() {
+      auth.getSiteImages().then(res => {
+        let result = res.data.items
+        // result.forEach(element => {
+        //   if(element.key == 'Website Portal Logo' && element.key !== "null"  && element.key !== null){
+        //     this.siteLogo = element.value
+        //   }
+
+        // });
+        for (const key in result) {
+          if (result.hasOwnProperty.call(result, key)) {
+            let element = result[key];
+            if (element.key == 'Website Portal Logo') {
+              if (element.type == 'image' && element.value !== null && element.value !== "null") {
+                this.siteLogo = element.value;
+                localStorage.setItem('siteLogo', this.siteLogo)
+              } else {
+                let currentLogo = document.getElementById('siteLogo')
+                localStorage.setItem('siteLogo', currentLogo.src)
+              }
+            }
+            if (element.key == 'Admin Portal Logo') {
+              if (element.type == 'image' && element.value !== null && element.value !== "null") {
+                localStorage.setItem('adminLogo', element.value)
+              } else {
+                let currentLogo = document.getElementById('adminLogo')
+                localStorage.setItem('adminLogo', currentLogo.src)
+              }
+            }
+            if (element.key == 'Website Portal Title') {
+              let siteTitle = document.getElementById("siteTitle");
+              let siteTitleText = document.getElementById("siteTitle").textContent;
+              if (element.type == 'text' && element.value !== null && element.value !== "null") {
+                this.siteTitle = element.value;
+                siteTitle.textContent = element.value;
+              } else {
+                siteTitle.textContent = siteTitleText;
+              }
+            }
+            if (element.key == 'Website Portal Icon') {
+              let favicon = document.getElementById("favicon");
+              let faviconHref = document.getElementById("favicon").href;
+              if (element.type == 'icon' && element.value !== null && element.value !== "null") {
+                favicon.href = element.value;
+              } else {
+                favicon.href = faviconHref;
+              }
+            }
+
+            // const favicon = document.getElementById("favicon");
+            // favicon.href = "https://www.google.com/favicon.ico";
+            
+            // const siteTitle = document.getElementById("siteTitle");
+            // siteTitle.textContent = "Reda site";
+
           }
-        }, 1);
+        }
 
-
+      }).catch(err => {
+        console.log(err);
+      })
     }
   },
   computed: {
@@ -104,11 +166,19 @@ export default {
     //   e.returnValue = '';
     // });
     this.checkCartValidity();
+    this.getSiteImages()
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // this.logoutDynamically()
   },
+  data() {
+    return {
+      siteLogo: '@/assets/images/logo.png',
+      siteTitle: 'humhum',
+      siteIcon: '@/src/assets/images/ab.png',
+    }
+  }
 };
 </script>
 

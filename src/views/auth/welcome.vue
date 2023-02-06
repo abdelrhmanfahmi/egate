@@ -3,7 +3,8 @@
         <div class="container">
             <div class="data-holder">
                 <div class="branding">
-                    <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
+                    <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" @click="goToHome()">
+                    <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" @click="goToHome()" />
                 </div>
                 <h5 class="my-3" >
                     {{ $t('home.registerThank') }}

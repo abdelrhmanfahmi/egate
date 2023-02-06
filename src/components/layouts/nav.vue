@@ -6,7 +6,8 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img src="@/assets/images/logo.png" class="img-fluid" alt="logo" @click="goToHome()" />
+            <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" @click="goToHome()">
+            <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" @click="goToHome()" />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>

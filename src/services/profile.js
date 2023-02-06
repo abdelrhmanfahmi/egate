@@ -339,5 +339,6 @@ export default {
   },
   getBasketSingleOffers(id){
     return globalAxios.get(`products/basket/offers/${id}`)
-  }
+  },
+  
 };

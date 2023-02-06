@@ -58,7 +58,8 @@
                             " alt="wishlist-product-image" class="product-img" />
                           </div>
                           <div class="d-block text-center" v-else>
-                            <img src="@/assets/images/logo.png" alt="logo" class="product-img" />
+                            <img :src="logoEnv" v-if="logoEnv" class="product-img" alt="logo">
+                            <img src="@/assets/images/logo.png" v-else alt="logo" class="product-img" />
                           </div>
                         </router-link>
                       </div>

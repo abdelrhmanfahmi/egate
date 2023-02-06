@@ -91,5 +91,8 @@ export default {
   },
   checkCartValidity(){
     return globalAxios.get('guest-sittings')
+  },
+  getSiteImages(){
+    return globalAxios.get('guest-sittings/global_setting')
   }
 };
