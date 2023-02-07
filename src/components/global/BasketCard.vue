@@ -1,6 +1,6 @@
 <template>
     <div class="product-cart">
-      <small class="floating" v-if="dealType">{{dealType}}</small>
+      <small class="cr cr-top cr-left cr-sticky cr-red" v-if="dealType">{{dealType}}</small>
       <div v-if="slider">
         <router-link
           class="img-holder"
@@ -35,7 +35,7 @@
             </router-link>
             <!-- {{ slider.product.title }} -->
           </h4>
-          <p v-if="slider.description" v-html="slider.description"></p>
+          <!-- <p v-if="slider.description" v-html="slider.description"></p> -->
           <h5
             class="price m-0"
             v-if="slider && slider.basket_price"
@@ -197,10 +197,15 @@
       * component style 
     */
   .product-cart {
+    padding: 0;
     margin: 0 10px;
     text-align: center;
     display: inline-block;
     position: relative;
+    overflow: hidden;
+    background: #ebebeb52;
+    min-width:250px;
+    overflow: hidden;
     a {
       display: inline-block;
       opacity: 1;
@@ -210,13 +215,15 @@
         opacity: 0.5;
       }
       img {
-        width: 150px;
+        // width: 150px;
+        width: 100%;
         height: 150px;
-        border-radius: 50%;
+        border-radius: 0%;
         display: block;
       }
     }
-    .card-info {  
+    .card-info { 
+      padding: 25px; 
       h4 {
         a {
           opacity: 1;

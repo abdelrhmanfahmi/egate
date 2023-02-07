@@ -160,6 +160,84 @@
                       </div>
                     </td>
                   </tr>
+                  <tr v-else-if="!item.product_supplier && item.basket_promotion_id || item.basket_promotion">
+                    <td class="text-center">
+                      <div class="d-flex justify-content-around align-items-center">
+                        <input type="checkbox" class="myproject--checkbox" :value="item.id"
+                          v-model="checkedProduct" />
+                        <router-link :to="{
+                          path: '/basketOfferDetails',
+                          query: { id: item.basket_promotion.id },
+                        }">
+                          <div class="d-block text-center" v-if="item.basket_promotion.image_path">
+                            <img :src="
+                              item.basket_promotion.image_path
+                            " alt="wishlist-product-image" class="product-img" />
+                          </div>
+                          <div class="d-block text-center" v-else>
+                            <img :src="logoEnv" v-if="logoEnv" class="product-img" alt="logo">
+                            <img src="@/assets/images/logo.png" v-else alt="logo" class="product-img" />
+                          </div>
+                        </router-link>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <router-link class="text-dark" :to="{
+                        path: '/basketOfferDetails',
+                        query: { id: item.basket_promotion.id },
+                      }">
+                        <p v-if="item.basket_promotion.id"
+                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
+                          <span>{{ item.basket_promotion.title }}
+                          </span>
+                        </p>
+                      </router-link>
+                    </td>
+                    <!-- <td class="text-center">{{ item.quantity }}</td> -->
+                    <td class="text-center">
+                      <span v-if="item.basket_promotion.quantity">
+
+                        <Variants-Counter :minimum="1" class="justify-content-center" :quantity="item.basket_promotion.quantity"
+                          @changeCount="ChangeCounter($event, item)"></Variants-Counter>
+                      </span>
+                        <span v-else>-</span>
+                    </td>
+                    <td class="text-center">
+                      <p class="price" v-if="item">
+                        <span v-if="
+                          item.basket_promotion.basket_price
+                        ">
+                          {{
+                            item.basket_promotion.basket_price
+                              | fixedCurrency
+                          }}
+                          {{ currency }}
+                        </span>
+                        <br />
+                      </p>
+                    </td>
+                    <td class="text-center">
+                      <div 
+                        class="actions d-flex justify-content-center align-items-center">
+                        <a class="text-danger d-flex justify-content-center align-items-center"
+                          @click="basketAddToWishlist(item)" v-if="item.basket_promotion.is_favorite == true"
+                          v-b-tooltip.hover :title="$t('items.addedToFavourite')">
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+                        <a @click="basketAddToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
+                          class="d-flex justify-content-center align-items-center text-dark" v-else>
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+
+                        <b-button @click="basketAddToCart(item)" v-if="item.basket_promotion.in_stock == true">
+                          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                        </b-button>
+                        <b-button @click="basketRemoveProduct(item)">
+                          <font-awesome-icon icon="fa-solid fa-trash-can" />
+                        </b-button>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
 
@@ -322,11 +400,83 @@ export default {
     },
     /**
      * @vuese
+     * add basket To favorite function
+     */
+     basketAddToWishlist(item) {
+      let data = {
+        basket_promotion_id: item.basket_promotion.id,
+      };
+      return globalAxios
+        .post(`members/profile/favorite`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.getCategoryProducts();
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * @vuese
      * add To cart function
      */
     addToCart(item) {
       let data = {
         product_supplier_id: item.product_supplier_id,
+        quantity: this.handleQuantity(item),
+        client_standing_id: this.id
+        // quantity: item.product_supplier.product_details_by_type
+        //   .min_order_quantity
+        //   ? item.product_supplier.product_details_by_type.min_order_quantity
+        //   : 1,
+      };
+      console.log('quantity', data.quantity);
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+          // setTimeout(() => {
+          //   this.$router.go(this.$router.RouterLink);
+          // }, 600);
+        });
+    },
+    /**
+     * @vuese
+     * add To cart function
+     */
+    basketAddToCart(item) {
+      let data = {
+        basket_promotion_id: item.basket_promotion.id,
         quantity: this.handleQuantity(item),
         client_standing_id: this.id
         // quantity: item.product_supplier.product_details_by_type
@@ -463,6 +613,27 @@ export default {
     removeProduct(item) {
       let payload = {
         product_supplier_id: item.product_supplier.id,
+        client_standing_id: this.id,
+      };
+      profile
+        .removeProductFromStandingOrder(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.$emit("removeItem");
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    /**
+     * @vuese
+     * this function used to remove Product from standing orders
+     */
+     basketRemoveProduct(item) {
+      let payload = {
+        basket_promotion_id: item.basket_promotion.id,
         client_standing_id: this.id,
       };
       profile
