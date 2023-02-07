@@ -1,6 +1,7 @@
 <template>
   <!-- product information  -->
   <div class="product-info">
+    test again
     <div class="content" v-if="myProduct">
       <div class="row">
         <div class="col-xl-7 col-ms-12">

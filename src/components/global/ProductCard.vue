@@ -1,6 +1,6 @@
 <template>
   <div class="product-cart">
-    <small class="floating" v-if="dealType">{{dealType}}</small>
+    <small class="cr cr-top cr-left cr-sticky cr-red" v-if="dealType">{{dealType}}</small>
     <div v-if="slider">
       <router-link
         class="img-holder"
@@ -196,10 +196,15 @@ export default {
     * component style 
   */
 .product-cart {
-  margin: 0 10px;
-  text-align: center;
-  display: inline-block;
-  position: relative;
+  padding: 0;
+    margin: 0 10px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    background: #ebebeb52;
+    min-width:250px;
+    overflow: hidden;
   a {
     display: inline-block;
     opacity: 1;
@@ -209,13 +214,16 @@ export default {
       opacity: 0.5;
     }
     img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      display: block;
+       // width: 150px;
+       width: 100%;
+        height: 150px;
+        border-radius: 0%;
+        display: block;
+        object-fit: cover;
     }
   }
   .card-info {  
+    padding: 25px; 
     h4 {
       a {
         opacity: 1;
@@ -242,5 +250,8 @@ button.new {
 .rfqBtn{
   background: #000;
 }
+
+
+
 
 </style>

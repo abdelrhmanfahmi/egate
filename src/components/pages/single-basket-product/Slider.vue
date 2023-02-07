@@ -63,24 +63,23 @@ export default {
              *  take 6 images only of product images for responsive view
              */
             this.images = res.data.items.images.slice(0, 6);
-            this.firstImage = res.data.items.images[0].image_path;
+            this.firstImage = res.data.items.image_path ? res.data.items.image_path :  res.data.items.images[0].image_path;
             this.mediaExist = true;
           }
 
           if (
             res.data.items.images.length == 0 &&
-            res.data.items.product.images.length !== 0
+            res.data.items.images.length !== 0
           ) {
-            this.images = res.data.items.product.images;
-            this.firstImage = res.data.items.product.images[0].image_path;
+            this.images = res.data.items.images;
+            this.firstImage = res.data.items.image_path ? res.data.items.image_path :  res.data.items.images[0].image_path;
             this.mediaExist = true;
           }
           if (
             res.data.items.images.length === 0 &&
-            res.data.items.product.images.length === 0 &&
-            res.data.items.product.image_path
+            res.data.items.image_path
           ) {
-            this.firstImage = res.data.items.product.image_path;
+            this.firstImage = res.data.items.image_path ? res.data.items.image_path :  res.data.items.images[0].image_path;
             this.mediaExist = true;
           }
         })
