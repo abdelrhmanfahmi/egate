@@ -219,6 +219,7 @@ export default {
         height: 150px;
         border-radius: 0%;
         display: block;
+        object-fit: cover;
     }
   }
   .card-info {  
