@@ -61,15 +61,14 @@
         </b-modal>
       </div>
     </div>
-    <div v-if="myProduct.product_details_by_type"
+    <div v-if="myProduct"
       class="product-actions row justify-content-between align-items-center mt-4">
       <div class="col-3" v-if="
-        cartAvailable == 'available' &&
-        myProduct.product_details_by_type.quantity > 0
+        
+        myProduct.in_stock == true
       ">
         <div class="product-counter mb-2" v-if="
-          myProduct.product_details_by_type.add_type === 'cart' ||
-          myProduct.product_details_by_type.add_type === 'both'
+          myProduct.in_stock == true
         ">
           <div class="value">
             <span class="product-counter-number">
@@ -81,7 +80,7 @@
             </button>
             <button class="product-counter-btn" @click="
               decrementQuantity(
-                myProduct.product_details_by_type.min_order_quantity
+                myProduct.min_order_quantity
               )
             " :disabled="mySelectedOption == 1">
               <b-icon-dash />
@@ -90,7 +89,7 @@
         </div>
       </div>
 
-      <div class="col-9" v-if="myProduct.product_details_by_type.quantity > 0">
+      <div class="col-9" v-if="myProduct.in_stock == true">
         <!-- add to cart if logged in and profil percentage == 100 -->
         <div class="mb-2 mr-1" v-if="
           (buyerUserData &&
@@ -102,11 +101,7 @@
         ">
           <b-button @ok="$refs.CartModal.onSubmit()" @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block" v-if="
-              (cartAvailable == 'available' &&
-                myProduct.product_details_by_type.add_type === 'cart') ||
-              (cartAvailable == 'available' &&
-                myProduct.product_details_by_type.add_type === 'both')
-            ">
+              myProduct.in_stock == true">
             <span>
               <font-awesome-icon icon="fa-solid fa-cart-shopping" />
             </span>
@@ -135,10 +130,10 @@
         <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
           <b-button @ok="$refs.CartModal.onSubmit()" @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn" v-if="
-              (cartAvailable == 'available' &&
-                myProduct.product_details_by_type.add_type === 'cart') ||
-              (cartAvailable == 'available' &&
-                myProduct.product_details_by_type.add_type === 'both')
+              (
+                myProduct.add_type === 'cart') ||
+              (
+                myProduct.add_type === 'both')
             ">
             <span>
               <font-awesome-icon icon="fa-solid fa-cart-shopping" />
@@ -148,57 +143,11 @@
         </div>
       </div>
     </div>
-    <div class="product-actions short-links mb-2 mr-1">
-      <!-- rfq request if logged in -->
-      <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block" v-if="
-        RfqAvailable == 'available' &&
-        (myProduct.product_details_by_type.add_type === 'rfq' ||
-          (RfqAvailable == 'available' &&
-            myProduct.product_details_by_type.add_type === 'both')) &&
-        buyerUserData
-      ">
-        <div>
-          <button id="show-btn" class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100"
-            @click="$bvModal.show('bv-bidRequest')">
-            <span>
-              <rfqIcon class="mx-2" />
-            </span>
-            {{ $t("singleProduct.bidRequest") }}
-          </button>
-        </div>
-      </button>
-      <!-- rfq request if not logged in , login first  -->
-      <button @click="loginFirst"
-        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart btn-block w-100" v-else-if="
-          RfqAvailable == 'available' &&
-          (myProduct.product_details_by_type.add_type === 'rfq' ||
-            myProduct.product_details_by_type.add_type === 'both') &&
-          !buyerUserData
-        ">
-        <span>
-          <rfqIcon class="mx-2" />
-        </span>
-        {{ $t("singleProduct.bidRequest") }}
-      </button>
-      <!-- rfq request if logged in  -->
-      <button class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100" v-else-if="
-        (RfqAvailable == 'available' &&
-          myProduct.product_details_by_type.add_type === 'rfq') ||
-        (RfqAvailable == 'available' &&
-          myProduct.product_details_by_type.add_type === 'both')
-      ">
-        <span>
-          <rfqIcon class="mx-2" />
-        </span>
-
-        {{ $t("singleProduct.bidRequest") }}
-      </button>
-    </div>
     <div class="row justify-content-center align-items-center">
       <div class="col-5">
         <div class="row">
           <div class="col-md-6 col-sm-12">
-            <div v-if="myProduct.product_details_by_type.quantity > 0" class="new-wishlist-method">
+            <div v-if="myProduct.in_stock == true" class="new-wishlist-method">
               <div class="products mb-2" v-if="buyerUserData">
                 <!-- if product added to favorite  -->
                 <a class="button one active animate mobile button--secondary wishlist-btn"
@@ -309,41 +258,6 @@
       </div>
     </div>
 
-    <!-- rfq modal -->
-    <b-modal id="bv-bidRequest" hide-footer>
-      <template #modal-title>
-        {{ $t("singleProduct.bidRequest") }}
-      </template>
-      <form>
-        <div class="form-group">
-          <label for="">{{ $t("singleProduct.nameInput") }}
-            <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" v-model="requestData.name" />
-          <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
-            {{ error }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="">{{ $t("singleProduct.min_order_quantity") }}
-            <span class="text-danger">*</span></label>
-          <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
-          <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
-            {{ error }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="">{{ $t("singleProduct.reviewInput") }}
-            <span class="text-danger">*</span></label>
-          <textarea class="form-control" v-model="requestData.comment"></textarea>
-          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
-            {{ error }}
-          </div>
-        </div>
-      </form>
-      <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
-        $t("cart.submit")
-      }}</b-button>
-    </b-modal>
 
     <!-- delete modal  -->
     <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('singleProduct.addCart')">
@@ -353,10 +267,6 @@
       <div class="row">
         <div class="col-md-6 col-sm-12">
           <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal">{{ $t("cart.cancel") }}
-          </b-button>
-        </div>
-        <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-success" block @click="addToCartWithRFQ(myProduct)">{{ $t("singleProduct.addCart") }}
           </b-button>
         </div>
       </div>
@@ -369,7 +279,7 @@
       <template #modal-title>
         {{ $t("items.standingOrders") }}
       </template>
-      <standing-orders />
+      <Basket-standing-orders />
     </b-modal>
   </div>
 </template>
@@ -380,16 +290,14 @@ import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
-import suppliers from "@/services/suppliers";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 import globalAxios from "@/services/global-axios";
 
 import categories from "@/services/categories";
 import profile from "@/services/profile";
 
-import rfqIcon from "@/components/global/rfqIcon.vue";
 
-import StandingOrders from "@/components/global/standingOrders.vue";
+import BasketStandingOrders from "@/components/global/BasketStandingOrders.vue";
 
 import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
 export default {
@@ -399,8 +307,7 @@ export default {
     Facebook,
     Twitter,
     WhatsApp,
-    rfqIcon,
-    StandingOrders,
+    BasketStandingOrders,
   },
   /**
    *  pass product data as prop
@@ -418,10 +325,9 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
-      console.log('myProduct', myProduct);
       let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
+        basket_promotion_id:
+          myProduct.id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -463,51 +369,6 @@ export default {
     },
     /**
      * @vuese
-     *  add product to cart with rfq
-     */
-     addToCartWithRFQ(myProduct) {
-      let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
-        quantity:
-          this.mySelectedOption !== null || this.mySelectedOption > 0
-            ? this.mySelectedOption
-            : 1,
-            force_replace:true
-      };
-
-      return globalAxios
-        .post(`cart/add`, data)
-        .then((res) => {
-          if (res.status == 200) {
-            this.hideDeleteModal()
-            this.sucessMsg(res.data.message);
-
-            this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
-              {
-                product: myProduct,
-              },
-              { width: "700", height: "auto", adaptive: true }
-            );
-          }
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-          if (error.response.status == 401 || error.response.status == 403) {
-            location.reload()
-          }
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.$store.dispatch("cart/getCartProducts");
-          }, 500);
-        });
-    },
-    /**
-     * @vuese
      *  login first
      */
     loginFirst() {
@@ -524,49 +385,6 @@ export default {
       });
     },
 
-    /**
-     * @vuese
-     *  rfq request
-     */
-    requestQuotation() {
-      let payload = {
-        qoute_name: this.requestData.name,
-        product_supplier_id:
-          this.myProduct.product_details_by_type.product_supplier_id,
-        request_qty: this.requestData.request_qty,
-        comment: this.requestData.comment,
-      };
-      suppliers
-        .requestQuotation(payload)
-        .then((resp) => {
-          console.log(resp);
-          this.errors = {};
-          this.sucessMsg(resp.data.message);
-          setTimeout(() => {
-            document.querySelector(".close").click();
-            this.requestData = [];
-            this.$router.push({
-              path: "/profile/quotationDetails",
-              query: {
-                id: resp.data.items.client_quote_id,
-              },
-            });
-          }, 500);
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        });
-    },
-    /**
-     * @vuese
-     *  login rfq request
-     */
-
-    loggedBidRequest() {
-      this.sucessMsg("request sent");
-    },
     /**
      * @vuese
      *  select standing order option
@@ -621,7 +439,7 @@ export default {
      */
     addToWishlist(item) {
       let data = {
-        product_supplier_id: item.product_details_by_type.product_supplier_id,
+        basket_promotion_id: item.id,
       };
 
       return globalAxios
@@ -751,9 +569,9 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type
+      mySelectedOption: this.myProduct
         .min_order_quantity
-        ? this.myProduct.product_details_by_type.min_order_quantity
+        ? this.myProduct.min_order_quantity
         : 1,
       changedValue: null,
       showModal: false,

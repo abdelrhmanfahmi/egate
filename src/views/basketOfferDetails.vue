@@ -3,8 +3,8 @@
   <div class="container">
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
-        <b-col cols="12" md="4" class="slider">
-          <div class="floatingDiv">{{ dealType }}</div>
+        <b-col cols="12" md="4" class="slider p-0">
+          <div class="cr cr-top cr-left cr-sticky cr-red">{{ dealType }}</div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
@@ -111,7 +111,7 @@
         </div>
       </div>
     </div>
-    <div class="" v-else-if="myProduct == null">
+    <div class=" d-flex justify-content-center align-items-center flex-column" v-else-if="myProduct == null">
       <div class="p-5">
         <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
       </div>
@@ -320,5 +320,9 @@ export default {
   height: 60px;
   -o-object-fit: cover;
   object-fit: cover;
+}
+.slider{
+  position: relative;
+  overflow: hidden;
 }
 </style>

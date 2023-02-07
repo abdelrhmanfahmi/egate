@@ -47,7 +47,7 @@
           <!--  -->
         </div>
         <div class="col-xl-5 col-sm-12">
-          <!-- <BasketProductActions :myProduct="myProduct" /> -->
+          <BasketProductActions :myProduct="myProduct" />
         </div>
       </div>
     </div>
@@ -61,12 +61,12 @@ import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
 
-// import BasketProductActions from "./BasketProductActions.vue";
+import BasketProductActions from "./BasketProductActions.vue";
 import ProductDescription from "./ProductDescription.vue";
 
 export default {
   components: {
-    // BasketProductActions,
+    BasketProductActions,
     ProductDescription,
   },
   /**
