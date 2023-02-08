@@ -3,7 +3,7 @@ import axios from "axios";
 // import auth from "@/services/auth";
 // for token
 import router from "../router/index";
-
+import store from "../store"
 let lang = null;
 
 lang = localStorage.getItem("lang") || "en";
@@ -37,9 +37,9 @@ const getToken = function () {
 const getCurrency = function () {
   if (country) {
     const currencyId = localStorage.getItem("currencyId");
-    if(currencyId){
+    if (currencyId) {
       return currencyId ? currencyId : country.currencies[0].id || 3
-    }else{
+    } else {
       return country.default_currency ? country.default_currency.id : 3
     }
   }
@@ -55,6 +55,10 @@ let checkGuest = function () {
     localStorage.removeItem("guest-id");
   } else {
     return guestUser ? guestUser : "";
+  }
+  if (!userExist && !guestUser || !userExist && guestUser == undefined || !userExist && guestUser == "undefined") {
+    store.dispatch("getUserGuestId");
+    location.reload()
   }
 };
 

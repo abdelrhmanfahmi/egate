@@ -179,7 +179,7 @@ export default {
       siteTitle: 'humhum',
       siteIcon: '@/src/assets/images/ab.png',
     }
-  }
+  },
 };
 </script>
 
