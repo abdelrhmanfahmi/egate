@@ -1,6 +1,6 @@
 <template>
   <!-- single product data  -->
-  <div class="container">
+  <div class="container basketSinglePage">
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
@@ -324,5 +324,11 @@ export default {
 .slider{
   position: relative;
   overflow: hidden;
+}
+
+.basketSinglePage{
+  .cr-sticky{
+    left: -39% !important;
+  }
 }
 </style>

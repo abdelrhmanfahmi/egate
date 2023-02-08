@@ -92,6 +92,12 @@
                         <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
+                    <p for="passCheck1">
+                      {{ $t('register.passCheck1') }}
+                    </p>
+                    <p for="passCheck2">
+                      {{ $t('register.passCheck2') }}
+                    </p>
                     <div class="error" v-for="(error, index) in errors.password" :key="index">
                       {{ error }}
                     </div>

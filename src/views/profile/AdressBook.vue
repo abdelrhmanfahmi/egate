@@ -132,7 +132,7 @@
               </b-form-select-option>
             </b-form-select>
           </b-form-group>
-          <b-form-group>
+          <b-form-group v-else>
             <label>{{ $t("profile.name") }}</label>
             <span class="requried">*</span>
             <b-form-select v-model="form.name">

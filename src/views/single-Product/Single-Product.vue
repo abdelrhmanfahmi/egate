@@ -1,6 +1,6 @@
 <template>
   <!-- single product data  -->
-  <div class="container">
+  <div class="container single-product">
     <div class="" v-if="myProduct !== null && !notFound">
       <div class="product-info">
         <div class="content">
@@ -235,6 +235,12 @@ export default {
   // li:last-of-type{
   //   color: #ccc;
   // }
+}
+.single-product{
+
+  .cr-sticky{
+    left:-40% !important
+  }
 }
 
 </style>

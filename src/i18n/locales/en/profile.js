@@ -277,6 +277,7 @@ export default {
   oldPhone:'Old Phone',
   emailVerify:'Email Verify',
   phoneVerify:'Phone Verify',
+  newPhoneVerify:'Please Check Your Phone to Verify Your Account',
   selectLang:'Select Language',
   checkMail:"Check Your E-mail",
   wallet_visa:'Wallet + Visa',
@@ -300,7 +301,8 @@ export default {
   Mail:"Mail",
   accountDetails:'Enter bank account Details',
   buy:'Buy',
-  get:'And Get',
+  and:'And',
+  get:'Get',
   basketDeals:'Basket Deals',
   dailyOffers:'Daily Offerrs',
   monthlyOffers:'Monthly Offers'
