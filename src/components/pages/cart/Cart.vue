@@ -354,7 +354,7 @@
                           {{ supplier.supplier_name }}
                         </h5>
                         <!-- list products by this supplier -->
-                        <tr class="item-content" v-for="(item, index) in supplier.products" :key="index">
+                        <tr class="item-content" v-for="(item, index) in supplier.products.filter((item)=> !item.basket_promotion_id)" :key="index">
                           <!-- product image and go to pproduct page with click  -->
                           <td class="media">
                             <router-link :to="{
@@ -399,6 +399,53 @@
 
                           <td>
                             <div class="actions" @click="removeFromCart(item)">
+                              <span class="action-icon">
+                                <font-awesome-icon icon="fa-solid fa-trash" />
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="item-content" v-for="(item, index) in supplier.products.filter((item)=> item.basket_promotion_id)" :key="index">
+                          <!-- product image and go to pproduct page with click  -->
+                          <td class="media">
+                            <router-link :to="{
+                              path: '/basketOfferDetails',
+                              query: { id: `${item.basket_promotion_id}` },
+                            }" class="thumb">
+                              <img :src="item.basket_image" :alt="item.basket_name + ' image'" class="product-image" />
+                            </router-link>
+                          </td>
+                          <!-- product name  and go to pproduct page with click  -->
+                          <td>
+                            <router-link :to="{
+                              path: '/basketOfferDetails',
+                              query: { id: `${item.basket_promotion_id}` },
+                            }">
+                              {{ item.basket_name }}
+                            </router-link>
+                          </td>
+                          <!-- if product price exist -->
+                          <td v-if="item.price || item.price>=0 ">
+                            {{ item.price | fixedCurrency }} {{ currency }}
+                          </td>
+                          <!-- if product price not exist -->
+                          <td v-else>-</td>
+                          <!-- counter to update product quantity -->
+                          <td>
+                            <BasketCounter :minimum="1" :quantity="item.quantity" :product="item" class="justify-content-center"
+                              @changeTitle="ChangebasketQ($event)"></BasketCounter>
+                          </td>
+                          <!-- product price * product quantity = total product price -->
+                          <td v-if="item.product_sub_total || item.product_sub_total >=0">
+                            {{ item.product_sub_total | fixedCurrency }}
+                            {{ currency }}
+                          </td>
+                          <td v-else>-</td>
+
+                          <!-- remove product from cart -->
+
+                          <td>
+                            <div class="actions" @click="removebasketFromCart(item)">
                               <span class="action-icon">
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                               </span>
@@ -959,6 +1006,7 @@ acceptMyTerms();
 <script>
 // cart component that contains all cart data
 import Counter from "@/components/global/Counter.vue";
+import BasketCounter from "@/components/global/BasketCounter.vue";
 import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 import LoginModal from "@/components/global/loginModal.vue";
@@ -969,6 +1017,7 @@ import Vue from "vue";
 export default {
   components: {
     Counter,
+    BasketCounter,
     LoginModal,
   },
   data() {
@@ -1356,6 +1405,24 @@ export default {
         this.$store.dispatch("cart/getCartProducts");
       }, 1000);
     },
+    /**
+     * @vuese
+     *   remove basket product from cart
+     */
+     removebasketFromCart(product) {
+      this.$store.dispatch("cart/removeProductFromCart", {
+        product: product,
+        basket_promotion_id:product.basket_promotion_id
+      });
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+        this.paymentFormData.coupons = []
+        this.existCoupons = []
+        this.coupons = []
+        this.$store.dispatch("cart/getCartProducts");
+      }, 1000);
+    },
 
     /**
      * @vuese
@@ -1493,6 +1560,24 @@ export default {
      *   change quantity of product that in table
      */
     ChangeQ(myQuantity) {
+      if (myQuantity > 0) {
+        this.myQuantity = myQuantity;
+      }
+
+      // this.cartItems = null;
+
+      setTimeout(() => {
+        this.getCartProducts();
+        this.existCoupons = [];
+        this.coupons = [];
+        this.validCoupon = false
+      }, 100);
+    },
+    /**
+     * @vuese
+     *   change basket quantity  in table
+     */
+     ChangebasketQ(myQuantity) {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
       }

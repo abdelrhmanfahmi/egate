@@ -19,21 +19,29 @@
         :key="product.id"
       >
         <a
-          @click="goProduct(product.product_supplier_id)"
+          @click="goProduct(product)"
           class="product-img-container w-25"
         >
           <img
             :src="product.product_image"
             alt="Cart Item"
             class="product-image"
+            v-if="product.product_image"
+          />
+          <img
+          v-else-if="product.basket_image"
+            :src="product.basket_image"
+            alt="Cart Item"
+            class="product-image"
           />
         </a>
         <div class="product-info w-50">
-          <a @click="goProduct(product.product_supplier_id)" class="name">
-            {{ product.product_name }}
+          <a @click="goProduct(product)" class="name">
+            <span v-if="product.product_name">{{ product.product_name }}</span>
+            <span v-else-if="product.basket_name">{{ product.basket_name }}</span>
           </a>
 
-          <span class="price" v-if="product.price">
+          <span class="price" v-if="product.price || product.price >=0">
             {{ product.price | fixedCurrency }}
           </span>
           <span class="price"> x </span>
@@ -112,8 +120,8 @@ export default {
     goProduct(product) {
       this.$router.push(
         {
-          path: "/details",
-          query: { id: product },
+          path: product.basket_promotion_id ?  "/basketOfferDetails" : "/details" ,
+          query: { id: product.basket_promotion_id ? product.basket_promotion_id : product.product_supplier_id },
         },
         // reload after go to product page 
         () => {

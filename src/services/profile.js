@@ -274,6 +274,7 @@ export default {
       params: {
         product_supplier_id: payload.product_supplier_id,
         client_standing_id: payload.client_standing_id,
+        basket_promotion_id:payload.basket_promotion_id ? payload.basket_promotion_id : null
       },
     });
   },

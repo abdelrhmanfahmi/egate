@@ -633,7 +633,7 @@ export default {
      */
      basketRemoveProduct(item) {
       let payload = {
-        basket_promotion_id: item.basket_promotion.id,
+        basket_promotion_id: item.basket_promotion_id,
         client_standing_id: this.id,
       };
       profile
