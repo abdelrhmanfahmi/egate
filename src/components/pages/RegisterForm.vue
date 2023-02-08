@@ -242,6 +242,7 @@ export default {
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_mobile_required) {
+            localStorage.setItem("massege", this.$t("profile.newPhoneVerify"));
             this.$router.push("/otp-verification");
             setTimeout(() => {
               location.reload();

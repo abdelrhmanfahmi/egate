@@ -269,6 +269,7 @@ export default {
   oldPhone: 'رقم الهاتف القديم',
   emailVerify:'تحقق الايميل',
   phoneVerify:'تحقق الهاتف',
+  newPhoneVerify:'من فضلك قم بالتحقق من هاتفك لتفعيل الحساب',
   selectLang:'اختر اللغه',
   checkMail:'من فضلك تحقق من بريدك الالكترونى',
   wallet_visa:'المحفظه + البطاقه المصرفيه',

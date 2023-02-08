@@ -8,12 +8,12 @@
         </span>
         <div class="tabs-holder">
           <b-tabs content-class="mt-3">
-            <b-tab :title="buyToGetAnotherTitle" active>
+            <b-tab :title="`${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}`" active>
               <div class="d-flex justify-content-end">
                 <router-link
                   :to="{
                     path: '/new-deals',
-                    query: { type: buyToGetAnotherTitle },
+                    query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
                   }"
                   class="showAllLink"
                 >
@@ -30,6 +30,7 @@
                     :slider="deal"
                     :dealType="flagTitle"
                   />
+                  
                 </div>
               </VueSlickCarousel>
             </b-tab>
@@ -150,7 +151,7 @@ export default {
       },
       buyAndGet: null,
       dataLength: null,
-      buyToGetAnotherTitle: "",
+      // buyToGetAnotherTitle: "",
       basketDealData: null,
       basketDataLength: null,
       // monthly offers
@@ -174,7 +175,7 @@ export default {
         .then((resp) => {
           this.buyAndGet = resp.data.items.data.slice(0, 8);
           this.dataLength = resp.data.items.data.length;
-          this.buyToGetAnotherTitle =
+          this.flagTitle =
             this.$t("profile.buy") +
             " " +
             this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.buy_x +
@@ -184,10 +185,10 @@ export default {
             this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
 
 
-            this.flagTitle =  this.$t("profile.buy") +
-            " " +
-            " " +
-            this.$t("profile.get")
+            // this.flagTitle =  this.$t("profile.buy") +
+            // " " +
+            // " " +
+            // this.$t("profile.get")
         })
         .catch((err) => {
           console.log(err);

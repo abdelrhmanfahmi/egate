@@ -120,7 +120,7 @@
             <!-- add new text area if user select bank   -->
 
 
-            <div class="" v-if="selectedOption == 'bank' || returnData.refund_option == 2">
+            <div class="" v-if="returnData.refund_option == 2">
               <label for="accountDetails">{{ $t('profile.accountDetails') }}</label>
               <b-form-textarea id="accountDetails" rows="8" v-model="returnData.clinet_bank_info"></b-form-textarea>
             </div>
