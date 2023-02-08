@@ -35,8 +35,10 @@ import Partners from "../views/Partners.vue";
 import NewDeals from "../views/New-deals.vue";
 import basketOfferDetails from "../views/basketOfferDetails.vue";
 
+import store from "../store";
+
 // import test from "@/components/test.vue";
-import {loadLanguageAsync} from "../i18n/i18n"
+import { loadLanguageAsync } from "../i18n/i18n"
 
 Vue.use(VueRouter);
 
@@ -265,6 +267,11 @@ const router = new VueRouter({
   },
 });
 router.beforeEach((to, from, next) => {
+  let guestId = localStorage.getItem('guest-id');
+  let userExist = localStorage.getItem("buyerUserData");
+  if (!userExist && !guestId) {
+    store.dispatch("getUserGuestId");
+  }
   const lang = localStorage.getItem('lang') || 'en'
   loadLanguageAsync(lang).then(() => next())
 })
