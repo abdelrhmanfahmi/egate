@@ -42,7 +42,7 @@
             </b-tab>
             <b-tab :title="$t('profile.dailyOffers')">
               <div class="d-flex justify-content-end">
-                <router-link to="/best-deals" class="showAllLink">
+                <router-link to="/best-deals" class="showAllLink" v-if="dailyOffersLength > 0">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
@@ -64,7 +64,7 @@
             </b-tab>
             <b-tab :title="$t('profile.monthlyOffers')">
               <div class="d-flex justify-content-end">
-                <router-link to="/monthly-offers" class="showAllLink">
+                <router-link to="/monthly-offers" class="showAllLink" v-if="dealsLength > 0">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
