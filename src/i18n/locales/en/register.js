@@ -30,6 +30,7 @@ export default {
   notArrive: "Did Not Receive ? Resend",
   openEmail: "Please open your email to verify your account to can login",
   otpVerify:'You must verify your Phone number by send otp',
+  emailVerify:'Verify The Email',
   haveNotAccount: "Don't have account ? Create new account",
   resetPassword: "Type New Password",
   passwordConfirmation: "Password Confirmation",
@@ -39,5 +40,7 @@ export default {
   selectPrefixes:'Select Title',
   newPolicy:'By Submitting, you agree to the ',
   verify:'Verify',
-  wholeSale:'Whole Sale Clients'
+  wholeSale:'Whole Sale Clients',
+  passCheck1:'The password must be at least 8 characters.',
+  passCheck2:'At least contains one char (Upper Case, Lower Case, Special Char, and Number)',
 };

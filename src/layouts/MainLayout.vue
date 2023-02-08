@@ -8,7 +8,7 @@
     <b-alert variant="danger" show v-if="massgeOfVerify" >
       <b-container>
         <router-link to="/otp-verification"  class="otp-link text-danger">
-          {{ $t('register.otpVerify') }} <font-awesome-icon icon="fa-solid fa-right-long" />
+          {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
         </router-link>
       </b-container>
     </b-alert>

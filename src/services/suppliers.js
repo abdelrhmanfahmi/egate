@@ -23,7 +23,6 @@ export default {
     return globalAxios.post(`/members/product/rfq`, payload);
   },
   payment(payload) {
-    console.log("payload" , payload);
     let data = {
       comment: payload.comment,
       phone: payload.phone,

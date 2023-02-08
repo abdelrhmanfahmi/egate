@@ -8,65 +8,84 @@
         </span>
         <div class="tabs-holder">
           <b-tabs content-class="mt-3">
-            <b-tab :title="buyToGetAnotherTitle" active>
-              <div class="d-flex justify-content-end">
+            <b-tab :title="`${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}`" active>
+              <div class="d-flex justify-content-end" v-if="dataLength > 0">
                 <router-link
                   :to="{
                     path: '/new-deals',
-                    query: { type: buyToGetAnotherTitle },
+                    query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
                   }"
                   class="showAllLink"
                 >
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
-              <VueSlickCarousel
-                v-bind="settings"
-                class="my-5"
-                v-if="dataLength"
-              >
-                <div v-for="(deal, index) in buyAndGet" :key="index">
-                  <ProductCard
-                    :slider="deal"
-                    :dealType="flagTitle"
-                  />
-                </div>
-              </VueSlickCarousel>
+              <div class="" v-if="dataLength > 0">
+
+                <VueSlickCarousel
+                  v-bind="settings"
+                  class="my-5"
+                  v-if="dataLength"
+                >
+                  <div v-for="(deal, index) in buyAndGet" :key="index">
+                    <ProductCard
+                      :slider="deal"
+                      :dealType="flagTitle"
+                    />
+                    
+                  </div>
+                </VueSlickCarousel>
+              </div>
+              <div class="" v-else>
+                <h3>{{ $t('cart.noDataMatch') }}</h3>
+              </div>
             </b-tab>
             <b-tab :title="$t('profile.dailyOffers')">
               <div class="d-flex justify-content-end">
-                <router-link to="/best-deals" class="showAllLink">
+                <router-link to="/best-deals" class="showAllLink" v-if="dailyOffersLength > 0">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
-              <VueSlickCarousel
-                v-bind="settings"
-                class="my-5"
-                v-if="dailyOffersLength"
-              >
-                <div v-for="(deal, index) in dailyOffers" :key="index">
-                  <ProductCard :slider="deal" :dealType="$t('profile.dailyOffers')" />
-                </div>
-              </VueSlickCarousel>
+              <div class="" v-if="dailyOffersLength > 0">
+
+                <VueSlickCarousel
+                  v-bind="settings"
+                  class="my-5"
+                  v-if="dailyOffersLength"
+                >
+                  <div v-for="(deal, index) in dailyOffers" :key="index">
+                    <ProductCard :slider="deal" :dealType="$t('profile.dailyOffers')" />
+                  </div>
+                </VueSlickCarousel>
+              </div>
+              <div class="" v-else>
+                <h3>{{ $t('cart.noDataMatch') }}</h3>
+              </div>
             </b-tab>
             <b-tab :title="$t('profile.monthlyOffers')">
               <div class="d-flex justify-content-end">
-                <router-link to="/monthly-offers" class="showAllLink">
+                <router-link to="/monthly-offers" class="showAllLink" v-if="dealsLength > 0">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
-              <VueSlickCarousel
-                v-bind="settings"
-                class="my-5"
-                v-if="dealsLength"
-              >
-                <div v-for="(deal, index) in deals" :key="index">
-                  <ProductCard :slider="deal" :dealType="$t('profile.monthlyOffers')" />
-                </div>
-              </VueSlickCarousel>
+              <div class="" v-if="dealsLength > 0">
+
+                <VueSlickCarousel
+                  v-bind="settings"
+                  class="my-5"
+                  v-if="dealsLength"
+                >
+                  <div v-for="(deal, index) in deals" :key="index">
+                    <ProductCard :slider="deal" :dealType="$t('profile.monthlyOffers')" />
+                  </div>
+                </VueSlickCarousel>
+              </div>
+              <div class="" v-else>
+                <h3>{{ $t('cart.noDataMatch') }}</h3>
+              </div>
             </b-tab>
             <b-tab :title="$t('profile.basketDeals')">
-              <div class="d-flex justify-content-end">
+              <div class="d-flex justify-content-end" v-if="basketDataLength > 0">
                 <router-link
                   :to="{
                     path: '/new-deals',
@@ -77,15 +96,21 @@
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
-              <VueSlickCarousel
-                v-bind="settings"
-                class="my-5"
-                v-if="basketDataLength"
-              >
-                <div v-for="(deal, index) in basketDealData" :key="index">
-                  <BasketCard :slider="deal" :dealType="$t('profile.basketDeals')" />
-                </div>
-              </VueSlickCarousel>
+              <div class="" v-if="basketDataLength > 0">
+
+                <VueSlickCarousel
+                  v-bind="settings"
+                  class="my-5"
+                  v-if="basketDataLength"
+                >
+                  <div v-for="(deal, index) in basketDealData" :key="index">
+                    <BasketCard :slider="deal" :dealType="$t('profile.basketDeals')" />
+                  </div>
+                </VueSlickCarousel>
+              </div>
+              <div class="" v-else>
+                <h3>{{ $t('cart.noDataMatch') }}</h3>
+              </div>
             </b-tab>
           </b-tabs>
         </div>
@@ -150,7 +175,7 @@ export default {
       },
       buyAndGet: null,
       dataLength: null,
-      buyToGetAnotherTitle: "",
+      // buyToGetAnotherTitle: "",
       basketDealData: null,
       basketDataLength: null,
       // monthly offers
@@ -174,7 +199,7 @@ export default {
         .then((resp) => {
           this.buyAndGet = resp.data.items.data.slice(0, 8);
           this.dataLength = resp.data.items.data.length;
-          this.buyToGetAnotherTitle =
+          this.flagTitle =
             this.$t("profile.buy") +
             " " +
             this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.buy_x +
@@ -184,10 +209,10 @@ export default {
             this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
 
 
-            this.flagTitle =  this.$t("profile.buy") +
-            " " +
-            " " +
-            this.$t("profile.get")
+            // this.flagTitle =  this.$t("profile.buy") +
+            // " " +
+            // " " +
+            // this.$t("profile.get")
         })
         .catch((err) => {
           console.log(err);

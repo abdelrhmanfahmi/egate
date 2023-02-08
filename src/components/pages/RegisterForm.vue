@@ -71,6 +71,12 @@
                         <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
+                    <p for="passCheck1">
+                      {{ $t('register.passCheck1') }}
+                    </p>
+                    <p for="passCheck2">
+                      {{ $t('register.passCheck2') }}
+                    </p>
                     <div class="error" v-for="(error, index) in errors.password" :key="index">
                       {{ error }}
                     </div>
@@ -90,6 +96,7 @@
                         <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                       </div>
                     </div>
+                    
                     <div class="error" v-for="(error, index) in errors.password_confirmation" :key="index">
                       {{ error }}
                     </div>
@@ -242,6 +249,7 @@ export default {
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_mobile_required) {
+            localStorage.setItem("massege", this.$t("profile.newPhoneVerify"));
             this.$router.push("/otp-verification");
             setTimeout(() => {
               location.reload();
