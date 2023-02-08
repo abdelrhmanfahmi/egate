@@ -356,7 +356,7 @@ export default {
           if (error.response.status == 401 || error.response.status == 403) {
             location.reload()
           }
-          if(error.response.status == 400 || error?.response?.data?.items?.exist_from_rfq == true){
+          if(error.response.status == 400 && error?.response?.data?.items?.exist_from_rfq == true){
             this.force_replace = true
             this.showDeleteModal()
           }
