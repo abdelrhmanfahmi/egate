@@ -134,7 +134,8 @@ export default {
               let favicon = document.getElementById("favicon");
               let faviconHref = document.getElementById("favicon").href;
               if (element.type == 'icon' && element.value !== null && element.value !== "null") {
-                favicon.href = element.value;
+                favicon.href = process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + element.value
+                
               } else {
                 favicon.href = faviconHref;
               }
