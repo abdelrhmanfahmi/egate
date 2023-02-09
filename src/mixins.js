@@ -76,15 +76,10 @@ Vue.mixin({
       localStorage.removeItem("massege");
       localStorage.removeItem("cartAvailable");
       localStorage.removeItem("RfqAvailable");
-      this.$router.push(
-        {
-          path: "/"
-        },
-        // reload after logout 
-        () => {
-          this.$router.go(0);
-        }
-      );
+      this.$router.replace('/');
+      setTimeout(() => {
+        location.reload()
+      }, 150);
     },
     sucessMsg(text, icon = "success") {
       this.$swal({

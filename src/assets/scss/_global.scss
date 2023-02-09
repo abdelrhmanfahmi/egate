@@ -314,8 +314,8 @@ button:disabled {
   cursor: no-drop;
 }
 
-p {
-  word-break: break-word;
+p , span , div {
+  word-break: break-word !important;
 }
 
 .loading-img {
