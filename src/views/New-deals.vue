@@ -27,7 +27,8 @@
           </b-col>
         </b-row>
         <div class="" v-else>
-          <h1 class="text-center my-5">{{ pageTitle }}</h1>
+          <h1 class="text-center my-5">{{ 
+            $t('profile.buyXgetYOffer') }}</h1>
           <div
             class="row suppliers-data"
             v-if="pageTitle == $t('profile.basketDeals')"
@@ -84,7 +85,7 @@
             >
               <BestDeals
                 :deal="deal"
-                :dealType="pageTitle"
+                :dealType="`${$t('profile.buy')} ${deal.buy_get_promotion_running_by_type[0].buy_x} ${$t('profile.and')} ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type[0].get_y}`"
                 @getWishlistData="buyToGetAnother"
               ></BestDeals>
             </div>
