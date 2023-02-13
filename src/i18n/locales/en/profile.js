@@ -302,6 +302,7 @@ export default {
   accountDetails:'Enter bank account Details',
   buy:'Buy',
   and:'And',
+  buyXgetYOffer:'Buy X Get Y Offer',
   get:'Get',
   basketDeals:'Basket Deals',
   dailyOffers:'Daily Offerrs',

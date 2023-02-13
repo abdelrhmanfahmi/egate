@@ -4,7 +4,7 @@
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
-          <div class="cr cr-top cr-left cr-sticky cr-red">{{ dealType }}</div>
+          <div class="cr cr-top cr-left cr-sticky cr-red" :class="{'cr-left-arabic':dealType.length > 20}">{{ dealType }}</div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
