@@ -1,6 +1,6 @@
 <template>
   <div class="product-cart">
-    <small class="cr cr-top cr-left cr-sticky cr-red" v-if="dealType">{{dealType}}</small>
+    <small class="cr cr-top cr-left cr-sticky cr-red" :class="{'cr-left-arabic':dealType.length > 20}" v-if="dealType">{{dealType}}</small>
     <div v-if="slider">
       <router-link
         class="img-holder"

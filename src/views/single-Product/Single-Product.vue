@@ -17,7 +17,7 @@
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
           <!-- product slider  -->
-          <div class="cr cr-top cr-left cr-sticky cr-red" v-if="dealType">{{ dealType }}</div>
+          <div class="cr cr-top cr-left cr-sticky cr-red" :class="{'cr-left-arabic':dealType.length > 20}" v-if="dealType">{{ dealType }}</div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">

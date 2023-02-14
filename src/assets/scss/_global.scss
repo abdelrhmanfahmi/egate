@@ -314,7 +314,9 @@ button:disabled {
   cursor: no-drop;
 }
 
-p , span , div {
+p,
+span,
+div {
   word-break: break-word !important;
 }
 
@@ -656,7 +658,6 @@ input[type="number"] {
   text-align: center;
   color: #f0f0f0;
   font-size: 16px;
-  
 }
 
 .cr-sticky {
@@ -665,7 +666,9 @@ input[type="number"] {
 
 /* Positions */
 
-.cr-left   { left: -50px; }
+.cr-left {
+  left: -50px;
+}
 
 /* Rotations */
 
@@ -676,6 +679,11 @@ input[type="number"] {
   text-align: center;
   left: -34%;
   width: 100%;
+  z-index: 99;
+}
+.cr-left-arabic {
+  top: 17% !important;
+  left: -24% !important;
 }
 
 .cr-bottom.cr-left {
@@ -684,13 +692,16 @@ input[type="number"] {
 
 /* Colors */
 
-.cr-red       { background-color: $main-color; }
+.cr-red {
+  background-color: $main-color;
+}
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
-#the-canvas , .custom-canvas{
-  width: 200px ;
+#the-canvas,
+.custom-canvas {
+  width: 200px;
   height: 200px;
   object-fit: cover;
 }

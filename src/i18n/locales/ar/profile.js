@@ -293,6 +293,7 @@ export default {
   accountDetails:'ادخل بيانات حسابك البنكى',
   buy:'اشترى',
   get:"و أحصل على ",
+  buyXgetYOffer:'أشترى منتج و أحصل على اخر هدية',
   basketDeals:'عروض السله',
   dailyOffers:'العرووض اليومية',
   monthlyOffers:'العروض الشهرية'

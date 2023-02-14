@@ -8,7 +8,7 @@
         </span>
         <div class="tabs-holder">
           <b-tabs content-class="mt-3">
-            <b-tab :title="`${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}`" active>
+            <b-tab :title="$t('profile.buyXgetYOffer')" active>
               <div class="d-flex justify-content-end" v-if="dataLength > 0">
                 <router-link
                   :to="{
