@@ -131,7 +131,7 @@ export default {
         path: "/details",
         query: {
           id: data.id,
-          type:this.dealType ? this.dealType :'ordinary'
+          type:this.dealType ? this.dealType :null
         },
       });
       // location.reload();
@@ -145,7 +145,7 @@ export default {
         path: "/details",
         query: {
           id: data.product_details_by_type.product_supplier_id,
-          type:this.dealType ? this.dealType :'ordinary'
+          type:this.dealType ? this.dealType :null
         },
       });
       // location.reload();

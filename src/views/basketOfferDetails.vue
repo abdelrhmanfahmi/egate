@@ -4,7 +4,7 @@
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
-          <div class="cr cr-top cr-left cr-sticky cr-red" :class="{'cr-left-arabic':dealType.length > 20}">{{ dealType }}</div>
+          <div class="ribbon ribbon-top-left" ><span>{{dealType}}</span></div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
@@ -257,7 +257,7 @@ export default {
         path: "/details",
         query: {
           id: data.id,
-          type: this.dealType ? this.dealType : 'ordinary'
+          type: this.dealType ? this.dealType : null
         },
       });
       // location.reload();

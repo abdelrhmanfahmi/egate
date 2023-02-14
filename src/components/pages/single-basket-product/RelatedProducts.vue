@@ -143,7 +143,7 @@
             path: "/basketOfferDetails",
             query: {
               id: data.id,
-              type:this.dealType ? this.dealType :'ordinary'
+              type:this.dealType ? this.dealType :null
             },
           },
           () => {
@@ -161,7 +161,7 @@
             path: "/basketOfferDetails",
             query: {
               id: data.id,
-              type:this.dealType ? this.dealType :'ordinary'
+              type:this.dealType ? this.dealType :null
             },
           },
           () => {
