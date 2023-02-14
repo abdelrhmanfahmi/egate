@@ -185,9 +185,30 @@
           </thead>
           <tbody>
             <tr v-for="(product, index) in products" :key="index">
-              <td v-if="product.ads && product.ads.length > 0">
-                {{ $t("items.advertise") }}
+              <td
+                v-if="product.ads.length || product.basket_promotions_running_by_type || product.buy_get_promotion_running_by_type">
+                <h6 v-if="product.ads && product.ads.length > 0">{{ $t("items.advertise") }}</h6>
+                <h6 v-if="product.basket_promotions_running_by_type">
+                  <router-link
+                    :to="{ path: '/basketOfferDetails', query: { id: product.basket_promotions_running_by_type.basket_promotion_id } }">{{
+                      $t('profile.basketDeals')
+                    }}</router-link>
+
+                </h6>
+                <h6 v-if="product.buy_get_promotion_running_by_type">
+
+                  <router-link :to="{
+                    path: '/details', query: {
+                      id: product.id, type: `${$t('profile.buy')} 
+                                      ${product.buy_get_promotion_running_by_type.promotion.buy_x} 
+                                      ${$t('profile.get')} ${product.buy_get_promotion_running_by_type.promotion.get_y}`
+                    }
+                  }">{{
+  $t('profile.buyXgetYOffer')
+}}</router-link>
+                </h6>
               </td>
+
               <!-- <td v-else>{{index + 1 }}</td> -->
               <td v-else></td>
               <td>
@@ -206,8 +227,9 @@
                 " class="link" :to="{ path: '/details', query: { id: product.id } }">
                   <img :src="product.product.image_path" class="product-image" alt="product-image" />
                 </router-link>
-                <router-link v-if="!product.product.image_path" class="link" :to="{ path: '/details', query: { id: product.id } }">
-                  <div class="logo-holder" >
+                <router-link v-if="!product.product.image_path" class="link"
+                  :to="{ path: '/details', query: { id: product.id } }">
+                  <div class="logo-holder">
                     <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo">
                     <img src="@/assets/images/logo.png" v-else alt="logo" class="product-image" />
                   </div>

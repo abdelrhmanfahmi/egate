@@ -10,29 +10,21 @@
           <b-tabs content-class="mt-3">
             <b-tab :title="$t('profile.buyXgetYOffer')" active>
               <div class="d-flex justify-content-end" v-if="dataLength > 0">
-                <router-link
-                  :to="{
-                    path: '/new-deals',
-                    query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
-                  }"
-                  class="showAllLink"
-                >
+                <router-link :to="{
+                  path: '/new-deals',
+                  query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
+                }" class="showAllLink">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
               <div class="" v-if="dataLength > 0">
 
-                <VueSlickCarousel
-                  v-bind="settings"
-                  class="my-5"
-                  v-if="dataLength"
-                >
+                <VueSlickCarousel v-bind="settings" class="my-5" v-if="dataLength">
                   <div v-for="(deal, index) in buyAndGet" :key="index">
-                    <ProductCard
-                      :slider="deal"
-                      :dealType="flagTitle"
-                    />
-                    
+                    <ProductCard :slider="deal" :dealType="`${$t('profile.buy')} 
+                    ${deal.buy_get_promotion_running_by_type.promotion.buy_x} 
+                    ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type.promotion.get_y}`" />
+
                   </div>
                 </VueSlickCarousel>
               </div>
@@ -48,11 +40,7 @@
               </div>
               <div class="" v-if="dailyOffersLength > 0">
 
-                <VueSlickCarousel
-                  v-bind="settings"
-                  class="my-5"
-                  v-if="dailyOffersLength"
-                >
+                <VueSlickCarousel v-bind="settings" class="my-5" v-if="dailyOffersLength">
                   <div v-for="(deal, index) in dailyOffers" :key="index">
                     <ProductCard :slider="deal" :dealType="$t('profile.dailyOffers')" />
                   </div>
@@ -70,11 +58,7 @@
               </div>
               <div class="" v-if="dealsLength > 0">
 
-                <VueSlickCarousel
-                  v-bind="settings"
-                  class="my-5"
-                  v-if="dealsLength"
-                >
+                <VueSlickCarousel v-bind="settings" class="my-5" v-if="dealsLength">
                   <div v-for="(deal, index) in deals" :key="index">
                     <ProductCard :slider="deal" :dealType="$t('profile.monthlyOffers')" />
                   </div>
@@ -86,23 +70,16 @@
             </b-tab>
             <b-tab :title="$t('profile.basketDeals')">
               <div class="d-flex justify-content-end" v-if="basketDataLength > 0">
-                <router-link
-                  :to="{
-                    path: '/new-deals',
-                    query: { type: this.$t('profile.basketDeals') },
-                  }"
-                  class="showAllLink"
-                >
+                <router-link :to="{
+                  path: '/new-deals',
+                  query: { type: this.$t('profile.basketDeals') },
+                }" class="showAllLink">
                   {{ $t("home.showAll") }}
                 </router-link>
               </div>
               <div class="" v-if="basketDataLength > 0">
 
-                <VueSlickCarousel
-                  v-bind="settings"
-                  class="my-5"
-                  v-if="basketDataLength"
-                >
+                <VueSlickCarousel v-bind="settings" class="my-5" v-if="basketDataLength">
                   <div v-for="(deal, index) in basketDealData" :key="index">
                     <BasketCard :slider="deal" :dealType="$t('profile.basketDeals')" />
                   </div>
@@ -184,7 +161,7 @@ export default {
       //daily offers
       dailyOffers: null,
       dailyOffersLength: null,
-      flagTitle:''
+      flagTitle: ''
     };
   },
   methods: {
@@ -199,20 +176,20 @@ export default {
         .then((resp) => {
           this.buyAndGet = resp.data.items.data.slice(0, 8);
           this.dataLength = resp.data.items.data.length;
-          this.flagTitle =
-            this.$t("profile.buy") +
-            " " +
-            this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.buy_x +
-            " " +
-            this.$t("profile.get") +
-            " " +
-            this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
+          // this.flagTitle =
+          //   this.$t("profile.buy") +
+          //   " " +
+          //   this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.buy_x +
+          //   " " +
+          //   this.$t("profile.get") +
+          //   " " +
+          //   this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
 
 
-            // this.flagTitle =  this.$t("profile.buy") +
-            // " " +
-            // " " +
-            // this.$t("profile.get")
+          // this.flagTitle =  this.$t("profile.buy") +
+          // " " +
+          // " " +
+          // this.$t("profile.get")
         })
         .catch((err) => {
           console.log(err);
@@ -275,7 +252,7 @@ export default {
         });
     },
   },
-  created() {},
+  created() { },
   mounted() {
     this.buyToGetAnother();
     this.getBasketOffers();
