@@ -36,6 +36,7 @@
             >
               <BestDeals
                 :deal="deal"
+                :dealType="$t('home.dailyOffers')"
                 @getWishlistData="getWishlistData"
               ></BestDeals>
             </div>
