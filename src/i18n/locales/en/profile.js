@@ -306,5 +306,8 @@ export default {
   get:'Get',
   basketDeals:'Basket Deals',
   dailyOffers:'Daily Offerrs',
-  monthlyOffers:'Monthly Offers'
+  monthlyOffers:'Monthly Offers',
+  withdraw:'Withdraw',
+  enterwithdrawValue:'Ente Withdraw Value',
+  withdrowStatus:'Withdrow Status'
 };

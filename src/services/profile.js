@@ -341,5 +341,10 @@ export default {
   getBasketSingleOffers(id){
     return globalAxios.get(`products/basket/offers/${id}`)
   },
-  
+  walletPostWithdraw(payload){
+    return globalAxios.post(`members/wallet/withdraw` , payload)
+  },
+  walletGetWithdraw(){
+    return globalAxios.get(`members/wallet/withdraw`)
+  }
 };
