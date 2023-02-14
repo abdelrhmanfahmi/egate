@@ -85,7 +85,9 @@
             >
               <BestDeals
                 :deal="deal"
-                :dealType="`${$t('profile.buy')} ${deal.buy_get_promotion_running_by_type[0].buy_x} ${$t('profile.and')} ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type[0].get_y}`"
+                :dealType="`${$t('profile.buy')} 
+                    ${deal.buy_get_promotion_running_by_type.promotion.buy_x} 
+                    ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type.promotion.get_y}`"
                 @getWishlistData="buyToGetAnother"
               ></BestDeals>
             </div>
