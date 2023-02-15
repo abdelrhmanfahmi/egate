@@ -44,6 +44,7 @@
           </div>
         </div>
       </div>
+      <!-- withdraw modal  -->
       <b-modal ref="withdraw" hide-footer centered>
         <template #modal-header="{ close }">
           <h5>{{ $t('profile.withdraw') }}</h5>
@@ -246,6 +247,7 @@
 
         <!-- partial -->
       </div>
+      <!-- withdrowStatus  -->
       <div class="withdrowStatus">
         <h3>{{ $t('profile.withdrowStatus') }}</h3>
         <b-card>
