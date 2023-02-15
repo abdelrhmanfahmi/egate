@@ -354,7 +354,9 @@
                           {{ supplier.supplier_name }}
                         </h5>
                         <!-- list products by this supplier -->
-                        <tr class="item-content" v-for="(item, index) in supplier.products.filter((item)=> !item.basket_promotion_id)" :key="index">
+                        <tr class="item-content"
+                          v-for="(item, index) in supplier.products.filter((item) => !item.basket_promotion_id)"
+                          :key="index">
                           <!-- product image and go to pproduct page with click  -->
                           <td class="media">
                             <router-link :to="{
@@ -405,7 +407,9 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="item-content" v-for="(item, index) in supplier.products.filter((item)=> item.basket_promotion_id)" :key="index">
+                        <tr class="item-content"
+                          v-for="(item, index) in supplier.products.filter((item) => item.basket_promotion_id)"
+                          :key="index">
                           <!-- product image and go to pproduct page with click  -->
                           <td class="media">
                             <router-link :to="{
@@ -425,18 +429,18 @@
                             </router-link>
                           </td>
                           <!-- if product price exist -->
-                          <td v-if="item.price || item.price>=0 ">
+                          <td v-if="item.price || item.price >= 0">
                             {{ item.price | fixedCurrency }} {{ currency }}
                           </td>
                           <!-- if product price not exist -->
                           <td v-else>-</td>
                           <!-- counter to update product quantity -->
                           <td>
-                            <BasketCounter :minimum="1" :quantity="item.quantity" :product="item" class="justify-content-center"
-                              @changeTitle="ChangebasketQ($event)"></BasketCounter>
+                            <BasketCounter :minimum="1" :quantity="item.quantity" :product="item"
+                              class="justify-content-center" @changeTitle="ChangebasketQ($event)"></BasketCounter>
                           </td>
                           <!-- product price * product quantity = total product price -->
-                          <td v-if="item.product_sub_total || item.product_sub_total >=0">
+                          <td v-if="item.product_sub_total || item.product_sub_total >= 0">
                             {{ item.product_sub_total | fixedCurrency }}
                             {{ currency }}
                           </td>
@@ -661,7 +665,8 @@
                               </div>
 
                               <!-- button dosnt work if input is empty  -->
-                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon" :disabled="validCoupon">
+                              <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto" @click="addCoupon"
+                                :disabled="validCoupon">
                                 {{ $t("cart.couponDiscount") }}
                               </b-button>
 
@@ -761,7 +766,7 @@
                               <div class="methods-data">
                                 <div class="methods">
                                   <!-- display when wallet amount equal or more than cart coast  -->
-                                  <div class="method coupon" v-if="buyerUserData && totalPaymentReplacement <=0">
+                                  <div class="method coupon" v-if="buyerUserData && totalPaymentReplacement <= 0 && couponMethodAvailable == true">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod0" name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -778,6 +783,7 @@
                                     walletData > 0 &&
                                     buyerUserData &&
                                     walletData >= totalPaymentReplacement
+                                    && walletMethodAvailable == true
                                   ">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod0" name="paymentMethod"
@@ -794,7 +800,8 @@
                                   <div class="method wallet_visa" v-if="
                                     walletData > 0 &&
                                     buyerUserData &&
-                                    walletData < totalPaymentReplacement
+                                    walletData < totalPaymentReplacement &&
+                                    walletVisaMethodAvailable == true
                                   ">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod5" name="paymentMethod"
@@ -810,7 +817,7 @@
                                     </div>
                                   </div>
                                   <!-- bank option  -->
-                                  <div class="method bank" v-if="buyerUserData">
+                                  <div class="method bank" v-if="buyerUserData && bankMethodAvailable == true">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -832,7 +839,7 @@
                                     </div>
                                   </div>
                                   <!-- cach option  -->
-                                  <div class="method cach">
+                                  <div class="method cach" v-if="cachMethodAvailable == true">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod2" name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -847,7 +854,7 @@
                                     </div>
                                   </div>
                                   <!-- visa option ( online payment)  -->
-                                  <div class="method visa row justify-content-between align-content-center">
+                                  <div class="method visa row justify-content-between align-content-center" v-if="visaMethodAvailable == true">
                                     <div class="col-md-8 col-xs-12">
                                       <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="paymentMethod3" name="paymentMethod"
@@ -1160,7 +1167,13 @@ export default {
       en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
       ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
       companyIban: null,
-      validCoupon:false
+      validCoupon: false,
+      cachMethodAvailable: false,
+      visaMethodAvailable: false,
+      walletMethodAvailable: false,
+      walletVisaMethodAvailable: false,
+      bankMethodAvailable: false,
+      couponMethodAvailable: false,
     };
   },
   mounted() {
@@ -1282,6 +1295,7 @@ export default {
     }
 
     this.getCompanyIban()
+    this.checPaymentAvailableTypes()
   },
   methods: {
     formatPin_code(e) {
@@ -1409,10 +1423,10 @@ export default {
      * @vuese
      *   remove basket product from cart
      */
-     removebasketFromCart(product) {
+    removebasketFromCart(product) {
       this.$store.dispatch("cart/removeProductFromCart", {
         product: product,
-        basket_promotion_id:product.basket_promotion_id
+        basket_promotion_id: product.basket_promotion_id
       });
       this.cartItems = null;
       setTimeout(() => {
@@ -1577,7 +1591,7 @@ export default {
      * @vuese
      *   change basket quantity  in table
      */
-     ChangebasketQ(myQuantity) {
+    ChangebasketQ(myQuantity) {
       if (myQuantity > 0) {
         this.myQuantity = myQuantity;
       }
@@ -2627,7 +2641,7 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
-              
+
               // let coupons = [];
 
               // console.log(res.data.items.total_cart.total_discount);f
@@ -2650,8 +2664,8 @@ export default {
                     this.totalDiscount
                   );
                   this.totalDiscountReplacement =
-                      parseFloat(this.totalDiscountReplacement) +
-                      parseFloat(res.data.items.total_cart.total_discount);
+                    parseFloat(this.totalDiscountReplacement) +
+                    parseFloat(res.data.items.total_cart.total_discount);
                 } else {
                   if (this.totalDiscountReplacement == 0) {
                     this.totalDiscountReplacement = parseFloat(
@@ -2669,7 +2683,7 @@ export default {
                     this.totalPaymentReplacement = 0
                   }
                 }
-              }else{
+              } else {
                 this.validCoupon = false
               }
 
@@ -2817,6 +2831,104 @@ export default {
           console.log(err);
         });
     },
+    checPaymentAvailableTypes() {
+      // cach test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'cach'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.cachMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 50);
+      // wallet test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'wallet'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.walletMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 100);
+      // visa test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'visa'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.visaMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 150);
+      // bank test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'bank'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.bankMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 200);
+      // wallet_visa test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'wallet_visa'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.walletVisaMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 250);
+      // coupon test 
+      setTimeout(() => {
+        let data = {
+          payment_type: 'coupon'
+        }
+        suppliers.checPaymentAvailableTypes(data).then(res => {
+          if (res.status == 200) {
+
+            if (res.data.items.status == 1) {
+              this.couponMethodAvailable = true
+            }
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }, 250);
+    }
   },
   computed: {
     /**

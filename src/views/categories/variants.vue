@@ -200,8 +200,8 @@
                   <router-link :to="{
                     path: '/details', query: {
                       id: product.id, type: `${$t('profile.buy')} 
-                                      ${product.buy_get_promotion_running_by_type.promotion.buy_x} 
-                                      ${$t('profile.get')} ${product.buy_get_promotion_running_by_type.promotion.get_y}`
+                                                        ${product.buy_get_promotion_running_by_type.promotion.buy_x} 
+                                                        ${$t('profile.get')} ${product.buy_get_promotion_running_by_type.promotion.get_y}`
                     }
                   }">{{
   $t('profile.buyXgetYOffer')
@@ -223,11 +223,11 @@
                   <img :src="product.image_path" class="product-image" alt="product-image" />
                 </router-link>
                 <router-link v-else-if="
-                  product.image_path == null && product.product.image_path
+                  product.image_path == null && product.current_main_image_path
                 " class="link" :to="{ path: '/details', query: { id: product.id } }">
-                  <img :src="product.product.image_path" class="product-image" alt="product-image" />
+                  <img :src="product.current_main_image_path" class="product-image" alt="product-image" />
                 </router-link>
-                <router-link v-if="!product.product.image_path" class="link"
+                <router-link v-if="!product.current_main_image_path" class="link"
                   :to="{ path: '/details', query: { id: product.id } }">
                   <div class="logo-holder">
                     <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo">

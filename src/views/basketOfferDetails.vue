@@ -4,7 +4,7 @@
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
-          <div class="ribbon ribbon-top-left" ><span>{{dealType}}</span></div>
+          <div class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20}" ><span :class="{'long-rebbon-span':dealType.trim().length > 20}">{{dealType}}</span></div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
