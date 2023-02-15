@@ -1,6 +1,6 @@
 <template>
   <div class="product-cart">
-    <small class="ribbon ribbon-top-left"  v-if="dealType"><span>{{dealType}}</span></small>
+    <small class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20 , 'tall-rebbon':dealType.trim().length > 50}"  v-if="dealType"><span :class="{'long-rebbon-span':dealType.trim().length > 20,'tall-rebbon-span':dealType.trim().length > 50}">{{dealType}}</span></small>
     <div v-if="slider">
       <router-link
         class="img-holder"

@@ -296,5 +296,17 @@ export default {
   buyXgetYOffer:'أشترى منتج و أحصل على اخر هدية',
   basketDeals:'عروض السله',
   dailyOffers:'العرووض اليومية',
-  monthlyOffers:'العروض الشهرية'
+  monthlyOffers:'العروض الشهرية',
+  withdraw:'سحب',
+  enterwithdrawValue:'ادخل قيمة السحب',
+  withdrowStatus:'حالة السحب',
+  gift:'هدية',
+  buyAndGetGift:'اشترى و أحصل على هدية',
+  buXGetGift:'اشترى و أحصل على منتج هدية',
+  free:'مجانا',
+  withdrowAmount:'قيمة السحب',
+  bankData:'معلومات البنك',
+  reason:'السبب',
+  transferred:'تم السحب',
+  withdrowFile:'ملف السحب'
 };

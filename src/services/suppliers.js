@@ -60,6 +60,9 @@ export default {
   guestPayment(payload) {
     return globalAxios.post(`/order`, payload);
   },
+  checPaymentAvailableTypes(paymentMethod){
+    return globalAxios.get(`payment-sittings/${paymentMethod.payment_type}`)
+  },
   checkCoupon(checkData) {
     return globalAxios.post(`members/products/coupon/check`, checkData);
   },

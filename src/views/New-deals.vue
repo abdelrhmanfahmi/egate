@@ -27,12 +27,13 @@
           </b-col>
         </b-row>
         <div class="" v-else>
-          <h1 class="text-center my-5">{{ 
-            $t('profile.buyXgetYOffer') }}</h1>
+          <h1 class="text-center my-5">{{ pageTitle}}</h1>
+          <!-- basket offer  -->
           <div
             class="row suppliers-data"
             v-if="pageTitle == $t('profile.basketDeals')"
           >
+          
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
               v-for="(deal, index) in basketDealData"
@@ -45,10 +46,34 @@
               ></BasketBestDeals>
             </div>
           </div>
+          <!-- gift offer  -->
+          <div
+            class="row suppliers-data"
+            v-if="pageTitle == $t('profile.buyAndGetGift')"
+          >
+          
+            <div
+              class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
+              v-for="(deal, index) in giftOffers"
+              :key="index"
+            >
+            
+            
+              <BestDeals
+                :deal="deal"
+                :dealType="`${$t('profile.buy')} 
+                    ${deal.buy_gift_promotions_running_by_type.buy_x} 
+                    ${$t('profile.get')} ${deal.buy_gift_promotions_running_by_type.gift_product_supplier.product.title} ${$t('profile.free')}`"
+                @getWishlistData="giftOffers"
+              ></BestDeals>
+            </div>
+          </div>
+          <!-- dailyOffers  -->
           <div
             class="row suppliers-data"
             v-else-if="pageTitle == $t('profile.dailyOffers')"
           >
+          
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
               v-for="(deal, index) in basketOffer"
@@ -61,10 +86,12 @@
               ></BestDeals>
             </div>
           </div>
+          <!-- monthlyOffers -->
           <div
             class="row suppliers-data"
             v-else-if="pageTitle == $t('profile.monthlyOffers')"
           >
+          
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
               v-for="(deal, index) in basketOffer"
@@ -77,12 +104,14 @@
               ></BestDeals>
             </div>
           </div>
-          <div class="row suppliers-data" v-else>
+          <!-- buy and get  -->
+          <div class="row suppliers-data" v-else-if="pageTitle == `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}`">
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
-              v-for="(deal, index) in basketOffer"
+              v-for="(deal, index) in buyAndGet"
               :key="index"
             >
+            
               <BestDeals
                 :deal="deal"
                 :dealType="`${$t('profile.buy')} 
@@ -99,7 +128,7 @@
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
           <Paginate
-            v-if="basketOffer && total > perPage"
+            v-if="buyAndGet && total > perPage"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
@@ -111,7 +140,7 @@
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
           <Paginate
-            v-if="basketOffer && total > perPage"
+            v-if="buyAndGet && total > perPage"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
@@ -123,7 +152,19 @@
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
           <Paginate
-            v-if="basketOffer && total > perPage"
+            v-if="buyAndGet && total > perPage"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
+        <div
+          v-else-if="pageTitle == $t('profile.buyAndGetGift')"
+          class="text-center d-flex justify-content-center align-items-center mt-5"
+        >
+          <Paginate
+            v-if="giftOffers && total > perPage"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
@@ -135,7 +176,7 @@
           class="text-center d-flex justify-content-center align-items-center mt-5"
         >
           <Paginate
-            v-if="basketOffer && total > perPage"
+            v-if="buyAndGet && total > perPage"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
@@ -162,7 +203,7 @@ export default {
   data() {
     return {
       pageTitle: this.$route.query.type,
-      basketOffer: null,
+      buyAndGet: null,
       loading: false,
       perPage: 5,
       total: 0,
@@ -176,6 +217,8 @@ export default {
       errors: [],
       basketDealData: null,
       basketDataLength: null,
+      giftOffers:null,
+      giftOffersLength:null
     };
   },
   methods: {
@@ -189,7 +232,7 @@ export default {
         .buyToGetAnother()
         .then((resp) => {
           console.log(resp);
-          this.basketOffer = resp.data.items.data;
+          this.buyAndGet = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(
             resp.data.items.total / resp.data.items.per_page
@@ -216,6 +259,28 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        });
+    },
+    /**
+     * @vuese
+     * get Gift Offer
+     */
+
+    async getGiftOffer() {
+      //get best deals products
+      this.loading = true;
+      await profile
+        .getGiftOffer()
+        .then((resp) => {
+          console.log('getGiftOffer' , resp);
+          this.giftOffers = resp.data.items.data;
+          this.giftOffersLength = resp.data.items.data.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     
@@ -263,6 +328,7 @@ export default {
   mounted() {
     this.buyToGetAnother();
     this.getBasketOffers();
+    this.getGiftOffer();
   },
   components: {
     BestDeals,

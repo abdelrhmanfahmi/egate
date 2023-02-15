@@ -17,7 +17,7 @@
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
           <!-- product slider  -->
-          <div class="ribbon ribbon-top-left"  v-if="dealType"><span>{{dealType}}</span></div>
+          <div class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20}"  v-if="dealType"><span :class="{'long-rebbon-span':dealType.trim().length > 20}">{{dealType}}</span></div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">

@@ -3,11 +3,11 @@
   <div class="product position-relative w-100" v-if="data && data.product_details_by_type.quantity >= 1">
     <div class="thumb">
       <a @click="goProduct(data)" v-if="data.image_path !== null"
-        class="d-flex justify-content-center align-items-center product-image">
+        class="d-flex justify-content-center align-items-center">
         <img :src="data.image_path" alt="Product Image" class="Product-Image" />
       </a>
       <div @click="goProduct(data)" v-else-if="data.image_path == null && data.product.image_path"
-        class="d-flex justify-content-center align-items-center product-image">
+        class="d-flex justify-content-center align-items-center ">
         <img @click="goPage2(data)" :src="data.product.image_path" alt="Product Image" class="Product-Image" />
       </div>
       <div class="Product-Image" @click="goPage2(data)" v-else>
