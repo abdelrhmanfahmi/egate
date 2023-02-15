@@ -309,5 +309,9 @@ export default {
   monthlyOffers:'Monthly Offers',
   withdraw:'Withdraw',
   enterwithdrawValue:'Ente Withdraw Value',
-  withdrowStatus:'Withdrow Status'
+  withdrowStatus:'Withdrow Status',
+  gift:'Gift',
+  buyAndGetGift:'Buy And Get Gift',
+  buXGetGift:'Buy X Get Gift',
+  free:'Free'
 };

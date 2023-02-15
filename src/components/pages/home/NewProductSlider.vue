@@ -8,6 +8,7 @@
         </span>
         <div class="tabs-holder">
           <b-tabs content-class="mt-3">
+            <!-- buy x get y  -->
             <b-tab :title="$t('profile.buyXgetYOffer')" active>
               <div class="d-flex justify-content-end" v-if="dataLength > 0">
                 <router-link :to="{
@@ -32,6 +33,32 @@
                 <h3>{{ $t('cart.noDataMatch') }}</h3>
               </div>
             </b-tab>
+            <!-- giftOffers  -->
+            <b-tab :title="$t('profile.buXGetGift')">
+              <div class="d-flex justify-content-end" v-if="giftOffersLength > 0">
+                <router-link :to="{
+                  path: '/new-deals',
+                  query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')} ${$t('profile.gift')}` },
+                }" class="showAllLink">
+                  {{ $t("home.showAll") }}
+                </router-link>
+              </div>
+              <div class="" v-if="giftOffersLength > 0">
+
+                <VueSlickCarousel v-bind="settings" class="my-5" v-if="giftOffersLength">
+                  <div v-for="(deal, index) in giftOffers" :key="index">
+                    <ProductCard :slider="deal" :dealType="`${$t('profile.buy')} 
+                    ${deal.buy_gift_promotions_running_by_type.buy_x} 
+                    ${$t('profile.get')} ${deal.buy_gift_promotions_running_by_type.gift_product_supplier.product.title} ${$t('profile.free')}`" />
+
+                  </div>
+                </VueSlickCarousel>
+              </div>
+              <div class="" v-else>
+                <h3>{{ $t('cart.noDataMatch') }}</h3>
+              </div>
+            </b-tab>
+            <!-- daily offers  -->
             <b-tab :title="$t('profile.dailyOffers')">
               <div class="d-flex justify-content-end">
                 <router-link to="/best-deals" class="showAllLink" v-if="dailyOffersLength > 0">
@@ -50,6 +77,7 @@
                 <h3>{{ $t('cart.noDataMatch') }}</h3>
               </div>
             </b-tab>
+            <!-- monthly offers  -->
             <b-tab :title="$t('profile.monthlyOffers')">
               <div class="d-flex justify-content-end">
                 <router-link to="/monthly-offers" class="showAllLink" v-if="dealsLength > 0">
@@ -68,6 +96,7 @@
                 <h3>{{ $t('cart.noDataMatch') }}</h3>
               </div>
             </b-tab>
+            <!-- baskey offers  -->
             <b-tab :title="$t('profile.basketDeals')">
               <div class="d-flex justify-content-end" v-if="basketDataLength > 0">
                 <router-link :to="{
@@ -161,7 +190,9 @@ export default {
       //daily offers
       dailyOffers: null,
       dailyOffersLength: null,
-      flagTitle: ''
+      flagTitle: '',
+      giftOffers:null,
+      giftOffersLength:null
     };
   },
   methods: {
@@ -217,7 +248,6 @@ export default {
       await auth
         .getHomeDeadline()
         .then((resp) => {
-          console.log(resp);
           this.deals = resp.data.items.deals.data.slice(0, 8);
           this.dealsLength = resp.data.items.deals.data.length;
         })
@@ -240,9 +270,30 @@ export default {
       await categories
         .getBestDeals()
         .then((resp) => {
-          console.log(resp);
           this.dailyOffers = resp.data.items.data;
           this.dailyOffersLength = resp.data.items.data.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    /**
+     * @vuese
+     * get Gift Offer
+     */
+
+    async getGiftOffer() {
+      //get best deals products
+      this.loading = true;
+      await profile
+        .getGiftOffer()
+        .then((resp) => {
+          console.log('getGiftOffer' , resp);
+          this.giftOffers = resp.data.items.data;
+          this.giftOffersLength = resp.data.items.data.length;
         })
         .catch((err) => {
           console.log(err);
@@ -258,6 +309,7 @@ export default {
     this.getBasketOffers();
     this.getMonthlyOffers();
     this.getDailyOffers();
+    this.getGiftOffer();
   },
   computed: {
     /**

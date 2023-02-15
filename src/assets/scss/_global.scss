@@ -662,7 +662,7 @@ input[type="number"] {
 .ribbon::after {
   position: absolute;
   z-index: -1;
-  content: '';
+  content: "";
   display: block;
   // border: 5px solid $main-color;
 }
@@ -672,10 +672,10 @@ input[type="number"] {
   width: 225px;
   padding: 10px 0;
   background-color: $main-color;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #fff;
   // font: 700 18px/1 'Lato', sans-serif;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   // text-transform: uppercase;
   text-align: center;
   font-size: 15px;
@@ -704,7 +704,36 @@ input[type="number"] {
   top: 36px;
   transform: rotate(-45deg);
 }
+.long-rebbon {
+  left: -47px !important;
+  top: 40px !important;
+  width: 320px !important;
+  overflow: visible !important;
+}
+.long-rebbon-span {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100%;
+}
 
+.tall-rebbon {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  overflow: visible !important;
+  width: 100%;
+}
+.tall-rebbon-span{
+  transform: none !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  left: 0;
+  top: 0;
+  padding: 15px;
+  width: 100%;
+}
 .cursor-pointer {
   cursor: pointer;
 }

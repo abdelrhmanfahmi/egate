@@ -299,5 +299,9 @@ export default {
   monthlyOffers:'العروض الشهرية',
   withdraw:'سحب',
   enterwithdrawValue:'ادخل قيمة السحب',
-  withdrowStatus:'حالة السحب'
+  withdrowStatus:'حالة السحب',
+  gift:'هدية',
+  buyAndGetGift:'اشترى و أحصل على هدية',
+  buXGetGift:'اشترى و أحصل على منتج هدية',
+  free:'مجانا'
 };

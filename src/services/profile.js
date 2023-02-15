@@ -338,6 +338,9 @@ export default {
       }
     })
   },
+  getGiftOffer(){
+    return globalAxios.get('products/gift/offers')
+  },
   getBasketSingleOffers(id){
     return globalAxios.get(`products/basket/offers/${id}`)
   },
