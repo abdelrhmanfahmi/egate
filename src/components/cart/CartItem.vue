@@ -41,11 +41,11 @@
             <span v-else-if="product.basket_name">{{ product.basket_name }}</span>
           </a>
 
-          <span class="price" v-if="product.price || product.price >=0">
-            {{ product.price | fixedCurrency }}
+          <span class="price" v-if="product.price || product.price >=0" >
+            <span v-if="!product.gift_promotion_id">{{ product.price | fixedCurrency }}</span>
           </span>
-          <span class="price"> x </span>
-          <span class="price">
+          <span class="price" v-if="!product.gift_promotion_id"> x </span>
+          <span class="price" v-if="!product.gift_promotion_id">
             <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
           </span>
         </div>
@@ -59,9 +59,10 @@
             class="justify-content-center"
             v-if="!product.gift_promotion_id"
           ></Counter>
-          <p class="product_sub_total mt-2">
+          <p class="product_sub_total mt-2" v-if="!product.gift_promotion_id">
             {{ product.product_sub_total | fixedCurrency }} {{ currency }}
           </p>
+          <img src="@/assets/images/giftbox.png" v-if="product.gift_promotion_id" class="gift-product" alt="gift-product">
         </div>
         <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
           <span class="action-icon">
@@ -198,5 +199,10 @@ export default {
 }
 .cart-item .product-info .name {
   margin-bottom: 0.5rem;
+}
+.gift-product{
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
 }
 </style>
