@@ -313,5 +313,10 @@ export default {
   gift:'Gift',
   buyAndGetGift:'Buy And Get Gift',
   buXGetGift:'Buy X Get Gift',
-  free:'Free'
+  free:'Free',
+  withdrowAmount:'Amount',
+  bankData:'Bank Data',
+  reason:'Reason',
+  transferred:'Transferred',
+  withdrowFile:'Withdrow File'
 };

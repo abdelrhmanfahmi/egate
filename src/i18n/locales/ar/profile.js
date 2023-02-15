@@ -303,5 +303,10 @@ export default {
   gift:'هدية',
   buyAndGetGift:'اشترى و أحصل على هدية',
   buXGetGift:'اشترى و أحصل على منتج هدية',
-  free:'مجانا'
+  free:'مجانا',
+  withdrowAmount:'قيمة السحب',
+  bankData:'معلومات البنك',
+  reason:'السبب',
+  transferred:'تم السحب',
+  withdrowFile:'ملف السحب'
 };

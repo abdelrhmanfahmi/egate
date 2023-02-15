@@ -57,12 +57,13 @@
             :quantity="product.quantity"
             :product="product"
             class="justify-content-center"
+            v-if="!product.gift_promotion_id"
           ></Counter>
           <p class="product_sub_total mt-2">
             {{ product.product_sub_total | fixedCurrency }} {{ currency }}
           </p>
         </div>
-        <div class="actions mx-1" @click="removeFromCart(product)">
+        <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
           <span class="action-icon">
             <b-icon-trash></b-icon-trash>
           </span>
