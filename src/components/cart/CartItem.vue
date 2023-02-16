@@ -48,8 +48,10 @@
           <span class="price" v-if="!product.gift_promotion_id">
             <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
           </span>
+          <span class="text-danger font-weight-bold" v-if="product.gift_promotion_id">{{product.quantity}}</span>
         </div>
         <div class="total mx-1 text-center w-50">
+
           <Counter
             :minimum="
               product.min_order_quantity ? product.min_order_quantity : 1

@@ -389,7 +389,7 @@
                                 : 1
                             " :quantity="item.quantity" v-if="!item.gift_promotion_id" :product="item" class="justify-content-center"
                               @changeTitle="ChangeQ($event)"></Counter>
-                              <span v-else>-</span>
+                              <span v-else>{{item.quantity}}</span>
                           </td>
                           <!-- product price * product quantity = total product price -->
                           <td v-if="item.product_sub_total">
