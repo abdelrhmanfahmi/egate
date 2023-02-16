@@ -200,9 +200,5 @@ export default {
 .cart-item .product-info .name {
   margin-bottom: 0.5rem;
 }
-.gift-product{
-  width: 25px;
-  height: 25px;
-  object-fit: contain;
-}
+
 </style>
