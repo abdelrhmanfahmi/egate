@@ -363,7 +363,7 @@
                               path: '/details',
                               query: { id: `${item.product_supplier_id}` },
                             }" class="thumb">
-                              <img :src="item.product_image" :alt="item.name + ' image'" class="product-image" />
+                              <img :src="item.product_image" :alt="item.product_name + ' image'" class="product-image" />
                             </router-link>
                           </td>
                           <!-- product name  and go to pproduct page with click  -->
@@ -387,8 +387,9 @@
                               item.min_order_quantity
                                 ? item.min_order_quantity
                                 : 1
-                            " :quantity="item.quantity" :product="item" class="justify-content-center"
+                            " :quantity="item.quantity" v-if="!item.gift_promotion_id" :product="item" class="justify-content-center"
                               @changeTitle="ChangeQ($event)"></Counter>
+                              <span v-else>{{item.quantity}}</span>
                           </td>
                           <!-- product price * product quantity = total product price -->
                           <td v-if="item.product_sub_total">
@@ -400,10 +401,14 @@
                           <!-- remove product from cart -->
 
                           <td>
-                            <div class="actions" @click="removeFromCart(item)">
+                            <div class="actions" @click="removeFromCart(item)" v-if="!item.gift_promotion_id">
                               <span class="action-icon">
                                 <font-awesome-icon icon="fa-solid fa-trash" />
                               </span>
+                            </div>
+                            <div class="" v-else>
+          <img src="@/assets/images/giftbox.png"  class="gift-product" alt="gift-product">
+
                             </div>
                           </td>
                         </tr>
