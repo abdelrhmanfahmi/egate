@@ -22,7 +22,7 @@
       ></b-progress>
     </div>
 
-    <ul v-if="!buyerLinks">
+    <ul v-if="!socialLogin">
       <li
         v-for="(link, index) in buyerLinks"
         :key="index"
@@ -265,11 +265,11 @@ export default {
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
-        {
-          to: "/profile/change-password",
-          name: this.$t("profile.changePassword"),
-          iconName: "key",
-        },
+        // {
+        //   to: "/profile/change-password",
+        //   name: this.$t("profile.changePassword"),
+        //   iconName: "key",
+        // },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
