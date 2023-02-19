@@ -207,7 +207,7 @@
     min-width:250px;
     overflow: hidden;
     a {
-      display: inline-block;
+      display: block;
       opacity: 1;
   
       border-radius: 50%;

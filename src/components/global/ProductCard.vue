@@ -1,10 +1,27 @@
 <template>
   <div class="product-cart">
-    <small class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20 , 'tall-rebbon':dealType.trim().length > 50}"  v-if="dealType"><span :class="{'long-rebbon-span':dealType.trim().length > 20,'tall-rebbon-span':dealType.trim().length > 50}">{{dealType}}</span></small>
+    <small
+      class="ribbon ribbon-top-left"
+      :class="{
+        'long-rebbon': dealType.trim().length > 20,
+        'tall-rebbon': dealType.trim().length > 70,
+      }"
+      v-if="dealType"
+      ><span
+        :class="{
+          'long-rebbon-span': dealType.trim().length > 20,
+          'tall-rebbon-span': dealType.trim().length > 70,
+        }"
+        >{{ dealType }}</span
+      ></small
+    >
     <div v-if="slider">
       <router-link
         class="img-holder"
-        :to="{ path: '/details', query: { id: `${slider.id}` , type:dealType } }"
+        :to="{
+          path: '/details',
+          query: { id: `${slider.id}`, type: dealType },
+        }"
         v-if="slider.current_main_image_path && dealType"
       >
         <b-img :src="slider.current_main_image_path"> </b-img>
@@ -12,22 +29,30 @@
       <router-link
         class="img-holder"
         :to="{ path: '/details', query: { id: `${slider.id}` } }"
-        v-else-if="slider.current_main_image_path && !dealType "
+        v-else-if="slider.current_main_image_path && !dealType"
       >
         <b-img :src="slider.current_main_image_path"> </b-img>
       </router-link>
       <span v-else class="null-img-holder"></span>
       <div class="card-info">
-        
-        <h4 class="main-header my-2" v-if="slider.product && slider.product.title && dealType">
+        <h4
+          class="main-header my-2"
+          v-if="slider.product && slider.product.title && dealType"
+        >
           <router-link
-            :to="{ path: '/details', query: { id: `${slider.id}` , type:dealType } }"
+            :to="{
+              path: '/details',
+              query: { id: `${slider.id}`, type: dealType },
+            }"
           >
             {{ slider.product.title }}
           </router-link>
           <!-- {{ slider.product.title }} -->
         </h4>
-        <h4 class="main-header my-2" v-else-if="slider.product && slider.product.title && !dealType">
+        <h4
+          class="main-header my-2"
+          v-else-if="slider.product && slider.product.title && !dealType"
+        >
           <router-link
             :to="{ path: '/details', query: { id: `${slider.id}` } }"
           >
@@ -37,14 +62,18 @@
         </h4>
         <h5
           class="price m-0"
-          v-if="slider.product_details_by_type && slider.product_details_by_type.customer_price"
+          v-if="
+            slider.product_details_by_type &&
+            slider.product_details_by_type.customer_price
+          "
         >
           {{ slider.product_details_by_type.customer_price | fixedCurrency }}
           {{ currency }}
         </h5>
         <p
           class="price-after price m-0"
-          v-if="slider.product_details_by_type && 
+          v-if="
+            slider.product_details_by_type &&
             slider.product_details_by_type.price_before_discount &&
             slider.product_details_by_type.price_before_discount >
               slider.product_details_by_type.customer_price
@@ -65,29 +94,29 @@ import globalAxios from "@/services/global-axios";
 import suppliers from "@/services/suppliers";
 
 /**
-      * import VueSweetalert2 for popups 
-    */
+ * import VueSweetalert2 for popups
+ */
 
 import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 export default {
-   /**
+  /**
    * props
    */
-  props:{
-    slider:{
-      // slider prop 
-      type:Object,
-      required:true
+  props: {
+    slider: {
+      // slider prop
+      type: Object,
+      required: true,
     },
-    dealType:{
-      type:String
-    }
+    dealType: {
+      type: String,
+    },
   },
   methods: {
-     /**
+    /**
      * @vuese
      * add To Cart function
      */
@@ -161,7 +190,7 @@ export default {
     storeProductSupplierId(product_supplier_id) {
       this.supplierProductId = product_supplier_id;
     },
-   /**
+    /**
      * @vuese
      * login first if not logged in function
      */
@@ -185,7 +214,7 @@ export default {
         request_qty: null,
         comment: null,
       },
-      errors:[]
+      errors: [],
     };
   },
 };
@@ -197,14 +226,14 @@ export default {
   */
 .product-cart {
   padding: 0;
-    margin: 0 10px;
-    text-align: center;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    background: #ebebeb52;
-    min-width:250px;
-    overflow: hidden;
+  margin: 0 10px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background: #ebebeb52;
+  min-width: 250px;
+  overflow: hidden;
   a {
     display: inline-block;
     opacity: 1;
@@ -214,16 +243,16 @@ export default {
       opacity: 0.5;
     }
     img {
-       // width: 150px;
-       width: 100%;
-        height: 150px;
-        border-radius: 0%;
-        display: block;
-        object-fit: cover;
+      // width: 150px;
+      width: 100%;
+      height: 150px;
+      border-radius: 0%;
+      display: block;
+      object-fit: cover;
     }
   }
-  .card-info {  
-    padding: 25px; 
+  .card-info {
+    padding: 25px;
     h4 {
       a {
         opacity: 1;
@@ -241,17 +270,13 @@ export default {
     display: block;
   }
 }
-.product-silder button:not(:disabled){
+.product-silder button:not(:disabled) {
   display: block !important;
 }
 button.new {
   background: red;
 }
-.rfqBtn{
+.rfqBtn {
   background: #000;
 }
-
-
-
-
 </style>

@@ -21,7 +21,7 @@
               <div class="" v-if="dataLength > 0">
 
                 <VueSlickCarousel v-bind="settings" class="my-5" v-if="dataLength">
-                  <div v-for="(deal, index) in buyAndGet" :key="index">
+                  <div v-for="(deal, index) in buyAndGet" :key="index" class="slider-holder">
                     <ProductCard :slider="deal" :dealType="`${$t('profile.buy')} 
                     ${deal.buy_get_promotion_running_by_type.promotion.buy_x} 
                     ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type.promotion.get_y}`" />
