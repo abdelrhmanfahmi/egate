@@ -22,6 +22,10 @@
               <div class="notification-list_feature-img" v-if="notification.status_type === 'success'">
                 <font-awesome-icon icon="fa-solid fa-circle-check" class="text-success" size="2x" />
               </div>
+              <div class="notification-list_feature-img" v-if="notification.status_type === 'warning'">
+
+                <font-awesome-icon icon="fa-solid fa-warning" class="text-warning" size="2x" />
+              </div>
             </div>
             <div class="col-md-10 col-sm-12">
               <div class="notification-list_detail" @click="goNotificationPage(notification)">
