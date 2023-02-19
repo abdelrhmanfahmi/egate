@@ -155,7 +155,7 @@ export default {
           },
         });
       } else if (notification.type === "chat") {
-        this.readNotification(notification)
+        this.readNotification(notification) 
         this.$router.push({
           path: "/viewCorresponseDetails",
           query: {
