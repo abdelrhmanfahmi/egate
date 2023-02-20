@@ -594,7 +594,7 @@
                             }}</label>
                             <span class="requried text-danger">*</span>
 
-                            <b-form-select v-model="paymentFormData.country_code">
+                            <b-form-select v-model="paymentFormData.country_code" @change="paymentFormData.phone = null">
                               <b-form-select-option value="null" disabled>{{ $t("register.countryCode") }}
                                 <span class="requried text-danger">*</span>
                               </b-form-select-option>
