@@ -602,7 +602,8 @@
                                 selected:
                                   selectedPhonePrefix.id ==
                                   country.id,
-                              }" :value="country.id">{{ country.title }}
+                              }" :value="country.phone_prefix">
+                              {{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
                             </b-form-select>
@@ -1251,7 +1252,7 @@ export default {
     //   : this.selectedPhonePrefix.phone_prefix;
 
     // this.paymentFormData.country_code = this.buyerUserData.country_id;
-    this.paymentFormData.country_code = JSON.parse(this.selectedCountry).id;
+    this.paymentFormData.country_code = JSON.parse(this.selectedCountry).phone_prefix;
 
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email
