@@ -110,6 +110,9 @@
             <button @click="getLink('google')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-google" size="lg" />
             </button>
+            <button @click="getLink('azure')" class="button-social">
+                <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
+              </button>
             <button @click="getLink('apple')" class="button-social apple-login">
               <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
             </button>
