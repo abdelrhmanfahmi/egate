@@ -723,7 +723,7 @@ input[type="number"] {
   overflow: visible !important;
   width: 100%;
 }
-.tall-rebbon-span{
+.tall-rebbon-span {
   transform: none !important;
   -webkit-transform: none !important;
   -moz-transform: none !important;
@@ -744,8 +744,23 @@ input[type="number"] {
   object-fit: cover;
 }
 
-.gift-product{
+.gift-product {
   width: 25px !important;
   height: 25px !important;
   object-fit: contain !important;
+}
+
+.product-cart:hover,
+.long-rebbon-span:hover,
+.ribbon:hover,
+.slider-holder:hover {
+  .img-holder,
+  img {
+    z-index: 9999;
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+  }
 }

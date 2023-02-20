@@ -346,11 +346,18 @@ chooseSupplierUUID(order);
                           <td v-if="ord.price">
                             {{ ord.price | fixedCurrency }} {{ currency }}
                           </td>
+                          <td v-else>
+                            -
+                          </td>
                           <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                          <td v-else>-</td>
                           <td v-if="ord.discount">{{ ord.discount | fixedCurrency }} {{ currency }}</td>
                           <td v-else>-</td>
                           <td v-if="ord.total_price">
                             {{ ord.total_price | fixedCurrency }} {{ currency }}
+                          </td>
+                          <td v-else>
+                            -
                           </td>
                           <td>
                             <!-- return button will appera if order Completed || Delivered  -->
