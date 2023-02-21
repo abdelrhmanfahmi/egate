@@ -22,4 +22,6 @@ export default {
   supplierProducts: "منتجات المورد",
   subject: "الموضوع",
   sendSupplierMessage: "راسل المورد",
+  EstimatedPrice:'السعر المحدد',
+  by:'من خلال'
 };
