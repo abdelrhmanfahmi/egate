@@ -22,6 +22,8 @@ export default {
   shipping_and_payment_terms: "Shipping and payment terms",
   supplierProducts:'Supplier Products',
   subject:'Subject',
-  sendSupplierMessage:'Message Supplier'
+  sendSupplierMessage:'Message Supplier',
+  EstimatedPrice:'Estimated Price',
+  by:'By'
   
 };
