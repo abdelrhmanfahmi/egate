@@ -8,7 +8,7 @@ RUN npm i
 COPY . .
 
 RUN mv .env.docker .env
-RUN mv vue.config.docker.js vue.docker.js
+RUN mv vue.config.docker.js vue.config.js
 
 RUN npm run build
 #stage 2
