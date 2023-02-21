@@ -594,7 +594,7 @@
                             }}</label>
                             <span class="requried text-danger">*</span>
 
-                            <b-form-select v-model="paymentFormData.country_code">
+                            <b-form-select v-model="paymentFormData.country_code" @change="paymentFormData.phone = null">
                               <b-form-select-option value="null" disabled>{{ $t("register.countryCode") }}
                                 <span class="requried text-danger">*</span>
                               </b-form-select-option>
@@ -602,7 +602,8 @@
                                 selected:
                                   selectedPhonePrefix.id ==
                                   country.id,
-                              }" :value="country.id">{{ country.title }}
+                              }" :value="country.phone_prefix">
+                              {{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
                             </b-form-select>
@@ -1251,7 +1252,7 @@ export default {
     //   : this.selectedPhonePrefix.phone_prefix;
 
     // this.paymentFormData.country_code = this.buyerUserData.country_id;
-    this.paymentFormData.country_code = JSON.parse(this.selectedCountry).id;
+    this.paymentFormData.country_code = JSON.parse(this.selectedCountry).phone_prefix;
 
     this.paymentFormData.email = this.buyerUserData
       ? this.buyerUserData.email
