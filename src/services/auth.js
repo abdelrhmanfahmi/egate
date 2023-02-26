@@ -94,5 +94,16 @@ export default {
   },
   getSiteImages(){
     return globalAxios.get('guest-sittings/global_setting')
+  },
+  checkUserValidity(payload){
+    return globalAxios.get('auth/check-reset-password',{
+      params:{
+        email: payload.email,
+        token: payload.token,
+      }
+    })
+  },
+  changeAuthUserPass(payload){
+    return globalAxios.post('auth/reset-password',payload)
   }
 };

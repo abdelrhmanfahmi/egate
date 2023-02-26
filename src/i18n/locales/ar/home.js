@@ -44,5 +44,8 @@ export default {
   clients: 'العملاء',
   consumerCategory: 'فئة المستهلك',
   corporateCategory: 'فئة الشركة',
-  registerThank:'شكرا على انشاء حساب'
+  registerThank:'شكرا على انشاء حساب',
+  didMean:'هل تقصد:',
+  unAuthorized:'غير مصرح لك بالدخول',
+  authorized:'مصرح بدخولك'
 };
