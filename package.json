@@ -1,10 +1,11 @@
 {
   "name": "humhum",
-  "version": "0.0.479",
+  "version": "0.0.480",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "deploy:staging": "cd dist && scp -i ~/.ssh/Staging.pem -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/humhum-user",
     "lint": "vue-cli-service lint",
     "versioning": "npm --no-git-tag-version version patch --force",
     "docs": "vuese gen"
