@@ -6,8 +6,20 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" @click="goToHome()">
-            <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" @click="goToHome()" />
+            <img
+              :src="logoEnv"
+              v-if="logoEnv"
+              class="img-fluid"
+              alt="logo"
+              @click="goToHome()"
+            />
+            <img
+              src="@/assets/images/logo.png"
+              v-else
+              class="img-fluid"
+              alt="logo"
+              @click="goToHome()"
+            />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
@@ -30,9 +42,11 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`" target="_blank">{{
-                      $t("home.suppliers")
-                    }}</a>
+                    <a
+                      :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`"
+                      target="_blank"
+                      >{{ $t("home.suppliers") }}</a
+                    >
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
@@ -54,18 +68,48 @@
         <div class="right-side d-flex">
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
-            <b-button class="icon-search" size="md" v-if="searchClicked" @click="closeSearch">
+            <b-button
+              class="icon-search"
+              size="md"
+              v-if="searchClicked"
+              @click="closeSearch"
+            >
               <font-awesome-icon icon="fa-solid fa-times" />
             </b-button>
             <span class="" v-if="searchClicked">
-              <b-form @submit.prevent="search">
-                <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"
-                  ref="searchIcon"></b-form-input>
-              </b-form>
+              <div class="form-holder">
+                <b-form @submit.prevent="search">
+                  <b-form-input
+                    :placeholder="$t('cart.search')"
+                    class="search-input"
+                    v-model="keyword"
+                    ref="searchIcon"
+                  ></b-form-input>
+                </b-form>
+                <ul class="search-suggestions" v-if="suggestionsExist">
+                  <span class="meaning-span">Did you mean</span>
+                  <li
+                    v-for="(suggest, index) in suggestions"
+                    :key="index"
+                    role="button"
+                    @click="searchSuggestion(suggest)"
+                  >
+                    {{ suggest }}
+                  </li>
+                </ul>
+              </div>
             </span>
 
-            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
-              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+            <b-button
+              v-b-modal.modal-1
+              class="icon-search"
+              size="md"
+              @click="searchClicked = !searchClicked"
+            >
+              <font-awesome-icon
+                v-b-toggle.sidebar-1
+                icon="fa-solid fa-search"
+              />
             </b-button>
           </div>
           <div v-if="!mobile" class="cart">
@@ -103,10 +147,16 @@
                     <p v-if="buyerUserData.is_verified">
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        <span v-if="$i18n.locale == 'en'">{{ userInfo.item.company_name_en }}</span>
-                        <span v-else-if="$i18n.locale == 'ar' && userInfo.item.company_name_ar">{{
-                          userInfo.item.company_name_ar
+                        <span v-if="$i18n.locale == 'en'">{{
+                          userInfo.item.company_name_en
                         }}</span>
+                        <span
+                          v-else-if="
+                            $i18n.locale == 'ar' &&
+                            userInfo.item.company_name_ar
+                          "
+                          >{{ userInfo.item.company_name_ar }}</span
+                        >
                         <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
@@ -116,10 +166,16 @@
                     <p v-else>
                       {{ $t("login.welcome") }} ,
                       <span v-if="buyerUserData.type === 'buyer'">
-                        <span v-if="$i18n.locale == 'en'">{{ userInfo.item.company_name_en }}</span>
-                        <span v-else-if="$i18n.locale == 'ar' && userInfo.item.company_name_ar">{{
-                          userInfo.item.company_name_ar
+                        <span v-if="$i18n.locale == 'en'">{{
+                          userInfo.item.company_name_en
                         }}</span>
+                        <span
+                          v-else-if="
+                            $i18n.locale == 'ar' &&
+                            userInfo.item.company_name_ar
+                          "
+                          >{{ userInfo.item.company_name_ar }}</span
+                        >
                         <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
@@ -128,7 +184,9 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
+                <b-dropdown-item
+                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
+                >
                   <router-link to="/profile/categories">{{
                     $t("profile.myProfile")
                   }}</router-link>
@@ -147,11 +205,18 @@
 
         <!--Start Mbile Nav -->
         <div class="icon right-side" v-if="mobile">
-          <div class="row justify-content-center align-items-center search-icon" v-if="mobile">
+          <div
+            class="row justify-content-center align-items-center search-icon"
+            v-if="mobile"
+          >
             <div class="col-12">
               <div class="search-icon">
                 <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                  <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" class="mobile-search-icon" />
+                  <font-awesome-icon
+                    v-b-toggle.sidebar-1
+                    icon="fa-solid fa-search"
+                    class="mobile-search-icon"
+                  />
                 </b-button>
                 <b-modal id="modal-1" class="search">
                   <!-- Using slots -->
@@ -159,12 +224,18 @@
                     <template #append>
                       <b-input-group-text>
                         <strong @click="search" class="search-eye">
-                          <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
+                          <font-awesome-icon
+                            v-b-toggle.sidebar-1
+                            icon="fa-solid fa-search"
+                          />
                         </strong>
                       </b-input-group-text>
                     </template>
                     <b-form @submit.prevent="search">
-                      <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
+                      <b-form-input
+                        :placeholder="$t('cart.search')"
+                        v-model="keyword"
+                      ></b-form-input>
                     </b-form>
                   </b-input-group>
                 </b-modal>
@@ -172,12 +243,25 @@
             </div>
           </div>
 
-          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }" class="bar-icon" />
+          <font-awesome-icon
+            v-b-toggle.sidebar-1
+            @click="toggleMobileNav"
+            icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }"
+            class="bar-icon"
+          />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
-            width="300px" shadow z-index="3">
+          <b-sidebar
+            :right="getDir === 'rtl'"
+            v-if="mobileNav"
+            @hidden="closeSideBar"
+            id="sidebar-1"
+            backdrop
+            width="300px"
+            shadow
+            z-index="3"
+          >
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -194,6 +278,8 @@ import Cart from "../cart/Cart.vue";
 import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
 import Login from "./login.vue";
+import categories from "@/services/categories";
+
 export default {
   data() {
     return {
@@ -207,13 +293,14 @@ export default {
       wishlistLength: 0,
       keyword: "",
       searchClicked: false,
+      suggestionsExist: false,
     };
   },
   components: {
     Cart,
     MobileNav,
     Notify,
-    Login
+    Login,
   },
   created() {
     /**
@@ -295,12 +382,45 @@ export default {
       //   location.reload()
       // }, 1200);
 
+      let data = {
+        keyword: this.keyword,
+      };
+      categories
+        .searchResult(data)
+        .then((resp) => {
+          console.log(resp);
+          if (
+            resp.data.items.suggestions &&
+            resp.data.items.suggestions.length
+          ) {
+            this.suggestionsExist = true;
+            this.suggestions = resp.data.items.suggestions;
+          } else {
+            this.suggestionsExist = false;
+
+            let r = this.$router.resolve({
+              name: "SearchResults", // put your route information in
+              query: { keyword: this.keyword }, // put your route information in
+            });
+            window.location.assign(r.href);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // let r = this.$router.resolve({
+      //   name: "SearchResults", // put your route information in
+      //   query: { keyword: this.keyword }, // put your route information in
+      // });
+      // window.location.assign(r.href);
+    },
+    searchSuggestion(word) {
       let r = this.$router.resolve({
         name: "SearchResults", // put your route information in
-        query: { keyword: this.keyword }, // put your route information in
+        query: { keyword: word }, // put your route information in
       });
-      window.location.assign(r.href)
-
+      window.location.assign(r.href);
     },
     /**
      * @vuese
@@ -316,7 +436,6 @@ export default {
      */
     loginNow() {
       if (document.$refs.b2cLogin) {
-
         document.$refs.b2cLogin.show();
       }
       document.querySelector(".login").click();
@@ -349,9 +468,9 @@ export default {
       return this.$store.state.notifications;
     },
     /**
-    * @vuese
-    * get notifications length function
-    */
+     * @vuese
+     * get notifications length function
+     */
     notificationsLength() {
       return this.$store.state.notificationsLength;
     },
@@ -547,7 +666,6 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-
     .cart-body,
     .notify-body {
       right: auto;
@@ -644,5 +762,30 @@ html:lang(ar) {
 
 .bar-icon {
   z-index: 1;
+}
+.form-holder {
+  position: relative;
+  .search-suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 300px;
+    overflow: scroll;
+    background: #fff;
+    box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
+    padding: 15px;
+    z-index: 99;
+    li {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+  .meaning-span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
 }
 </style>
