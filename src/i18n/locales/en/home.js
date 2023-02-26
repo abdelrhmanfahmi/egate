@@ -44,5 +44,7 @@ export default {
     consumerCategory:'Consumer Category',
     corporateCategory:'Corporate Category',
     registerThank:'Thanks for Registeration',
-    didMean:'Did You Mean:'
+    didMean:'Did You Mean:',
+    unAuthorized:'You Are Unauthorized',
+    authorized:"Authorized"
 };

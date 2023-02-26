@@ -34,6 +34,7 @@ import StandingOrder from "../views/StandingOrder.vue";
 import Partners from "../views/Partners.vue";
 import NewDeals from "../views/New-deals.vue";
 import basketOfferDetails from "../views/basketOfferDetails.vue";
+import CheckUserValidity from "../views/CheckUserValidity.vue";
 
 import store from "../store";
 
@@ -247,6 +248,11 @@ const routes = [
     path: "/basketOfferDetails",
     name: "basketOfferDetails",
     component: basketOfferDetails,
+  },
+  {
+    path: "/CheckUserValidity",
+    name: "CheckUserValidity",
+    component: CheckUserValidity,
   },
   // {
   //   path: "/test",
