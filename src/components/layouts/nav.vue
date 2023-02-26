@@ -87,7 +87,7 @@
                   ></b-form-input>
                 </b-form>
                 <ul class="search-suggestions" v-if="suggestionsExist">
-                  <span class="meaning-span">Did you mean</span>
+                  <span class="meaning-span">{{ $t("home.didMean") }}</span>
                   <li
                     v-for="(suggest, index) in suggestions"
                     :key="index"
@@ -232,10 +232,25 @@
                       </b-input-group-text>
                     </template>
                     <b-form @submit.prevent="search">
-                      <b-form-input
-                        :placeholder="$t('cart.search')"
-                        v-model="keyword"
-                      ></b-form-input>
+                      <div class="form-holder">
+                        <b-form-input
+                          :placeholder="$t('cart.search')"
+                          v-model="keyword"
+                        ></b-form-input>
+                        <ul class="search-suggestions" v-if="suggestionsExist">
+                          <span class="meaning-span">{{
+                            $t("home.didMean")
+                          }}</span>
+                          <li
+                            v-for="(suggest, index) in suggestions"
+                            :key="index"
+                            role="button"
+                            @click="searchSuggestion(suggest)"
+                          >
+                            {{ suggest }}
+                          </li>
+                        </ul>
+                      </div>
                     </b-form>
                   </b-input-group>
                 </b-modal>

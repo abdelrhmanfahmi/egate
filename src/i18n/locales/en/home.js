@@ -43,5 +43,6 @@ export default {
     clients:'Clients',
     consumerCategory:'Consumer Category',
     corporateCategory:'Corporate Category',
-    registerThank:'Thanks for Registeration'
+    registerThank:'Thanks for Registeration',
+    didMean:'Did You Mean:'
 };

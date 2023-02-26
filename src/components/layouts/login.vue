@@ -192,6 +192,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
+        callback_url : `${this.mainDoamin}auth/check-reset-password`
       };
 
       auth
