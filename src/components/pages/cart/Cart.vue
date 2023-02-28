@@ -523,10 +523,12 @@
                                     <li v-for="(fee, index) in firstFees" :key="index">
                                       <h5 v-if="index == supplier.supplier_id" class="feedsResultShipping mb-0"
                                         :value="fee.shipping_fee">
-                                        {{ $t("profile.deleiveryFees") }}
-                                        {{ fee.shipping_fee | fixedCurrency }}
-                                        {{ currency }}
+                                        <span>{{ $t("profile.deleiveryFees") }}</span>
+                                        <span>{{ fee.shipping_fee | fixedCurrency }}</span>
+                                        <span>{{ currency }}</span>
+                                        <p v-if="fee.message">{{fee.message}}</p>
                                       </h5>
+                                      
                                     </li>
                                   </ul>
                                 </form>
