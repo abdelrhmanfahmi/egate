@@ -141,6 +141,17 @@ export default {
               }
             }
 
+            if(element.key == 'arabic_status'){
+              if(element.value == 0 || element.value == '0'){
+                localStorage.setItem('arabic','no');
+                let currentLang = localStorage.getItem('lang');
+                if(currentLang == 'ar'){
+                  localStorage.setItem('lang','en');
+                  location.reload()
+                }
+              }
+            }
+
             // const favicon = document.getElementById("favicon");
             // favicon.href = "https://www.google.com/favicon.ico";
             

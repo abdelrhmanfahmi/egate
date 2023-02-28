@@ -65,6 +65,9 @@ Vue.mixin({
     },
     adminLogo(){
       return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedAdminLogo : null
+    },
+    arabicAvailable(){
+      return localStorage.getItem('arabic')
     }
   },
   methods: {
