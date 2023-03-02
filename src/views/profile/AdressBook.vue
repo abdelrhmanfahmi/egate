@@ -120,7 +120,7 @@
         </b-col>
         <!-- name in arabic (new add)-->
         <b-col lg="6" v-else>
-          <b-form-group v-if="buyerUserData.type == 'buyer'">
+          <b-form-group v-if="buyerUserData.type == 'buyer' && arabicAvailable !=='no'">
             <label>{{ $t("profile.name") }}</label>
             <b-form-select v-model="form.name">
               <b-form-select-option value="null" disabled>{{ $t("profile.name") }}

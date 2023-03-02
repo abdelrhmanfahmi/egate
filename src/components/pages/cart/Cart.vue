@@ -210,8 +210,8 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in arabic (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData">
-                                  <b-form-group>
+                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData" >
+                                  <b-form-group v-if="arabicAvailable !=='no'">
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
