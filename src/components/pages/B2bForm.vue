@@ -32,6 +32,7 @@
                           {{ error }}
                         </div>
                       </div>
+                      <!-- show if arabicAvailable  -->
                       <div class="col-md-6 col-sm-12" v-if="arabicAvailable !=='no'">
                         <label for="f-name">{{
                         $t("register.arabicCompanyName")
