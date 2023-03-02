@@ -329,7 +329,7 @@ chooseSupplierUUID(order);
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
                   <div class="holder">
-                    <table class="table table-striped table-hover selectable">
+                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
@@ -364,6 +364,61 @@ chooseSupplierUUID(order);
                             <div class="" v-if="
                               order.order_status_string === 'Completed' ||
                               order.order_status_string === 'Delivered'
+                            ">
+                              <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
+                              <b-button @click="
+  $bvModal.show('return');
+chooseSupplierUUID(ord);
+                              " variant="outline-danger mt-2 return-btn" v-if="
+                                ord.status === 'Pending' &&
+                                ord.return_time !== null &&
+                                ord.return_time !== 'null' &&
+                                ord.return_time !== 0
+                              "><font-awesome-icon icon="fa-solid fa-x" />
+                                <span class="mx-2">{{
+                                  $t("profile.return")
+                                }}</span></b-button>
+                            </div>
+                            <div class="" v-else>-</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table class="table table-striped table-hover selectable" v-if="order.baskets || !order.items.length">
+                      <thead class="font-weight-bold">
+                        <tr>
+                          <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
+                            {{ tab.label }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody v-for="(ord, index) in order.baskets" :key="index">
+                        <tr>
+                          <td v-if="ord.basket_promotion.title">
+                            {{ ord.basket_promotion.title }}
+                          </td>
+                          <td v-else>-</td>
+                          <td v-if="ord.price">
+                            {{ ord.price | fixedCurrency }} {{ currency }}
+                          </td>
+                          <td v-else>
+                            -
+                          </td>
+                          <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                          <td v-else>-</td>
+                          <td v-if="ord.item_discount">{{ ord.item_discount | fixedCurrency }} {{ currency }}</td>
+                          <td v-else>-</td>
+                          <td v-if="ord.total_price">
+                            {{ ord.total_price | fixedCurrency }} {{ currency }}
+                          </td>
+                          <td v-else>
+                            -
+                          </td>
+                          <td>
+                            <!-- return button will appera if order Completed || Delivered  -->
+                            <div class="" v-if="
+                              order.order_status === 'Completed' ||
+                              order.order_status === 'Delivered'
                             ">
                               <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
                               <b-button @click="

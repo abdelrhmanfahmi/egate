@@ -5,7 +5,7 @@
       <!-- if data exist  -->
       <div class="" v-if="wishlistItems !== null">
         <h5 class="heading py-5 text-center">{{ $t("profile.favorite") }}</h5>
-        <div class="cart-table">
+        <div class="cart-table" v-if="wishlistItems.length">
           <div class="suppliers py-4">
             <div class="container">
               <!-- table contain favorite data  -->
@@ -149,6 +149,75 @@
                       </div>
                     </td>
                   </tr>
+                  <tr
+                    class="item-content text-center"
+                    v-for="(item, index) in wishlistItems"
+                    :key="index"
+                  >
+                    <!-- product image and go to pproduct page with click  -->
+                    <td class="media">
+                      <router-link
+                        :to="{
+                          path: '/basketOfferDetails',
+                          query: { id: `${item.basket_promotion_id}` },
+                        }"
+                        class="thumb w-100"
+                      >
+                        <img
+                          :src="item.basket_promotion.image_path"
+                          :alt="item.basket_promotion.image_path + ' image'"
+                          class="product-image"
+                        />
+                      </router-link>
+                    </td>
+                    <!-- product name  and go to pproduct page with click  -->
+                    <td>
+                      <router-link
+                        :to="{
+                          path: '/basketOfferDetails',
+                          query: { id: `${item.basket_promotion_id}` },
+                        }"
+                      >
+                        {{ item.basket_promotion.title }}
+                      </router-link>
+                    </td>
+                    <!-- if product price exist -->
+                    <td
+                      v-if="
+                        item.basket_promotion.basket_price ||
+                        item.basket_promotion.basket_price >= 0
+                      "
+                    >
+                      {{ item.basket_promotion.basket_price | fixedCurrency }}
+                      {{ currency }}
+                    </td>
+                    <!-- if product price not exist -->
+                    <td v-else>-</td>
+                    <!-- counter to update product quantity -->
+                    <!-- product price * product quantity = total product price -->
+
+                    <!-- remove product from cart -->
+
+                    <td >
+                      <div class="actions d-flex justify-content-center align-items-center">
+                        
+                        <div
+                          @click="addBasketToCart(item)"
+                          class="action"
+                          v-if="item.basket_promotion.in_stock == true"
+                        >
+                          <span class="action-icon">
+                            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                          </span>
+                        </div>
+                        <div class="actions" @click="removebasketFromCart(item)">
+                          <span class="action-icon">
+                            <font-awesome-icon icon="fa-solid fa-trash" />
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
 
@@ -165,6 +234,11 @@
                 />
               </div>
             </div>
+          </div>
+        </div>
+        <div class="" v-else>
+          <div class="text-center">
+            <h2>{{$t('cart.noProducts')}}</h2>
           </div>
         </div>
       </div>
@@ -244,7 +318,7 @@
 </template>
 
 <script>
-//  favorite page 
+//  favorite page
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
 import rfqIcon from "@/components/global/rfqIcon.vue";
@@ -484,7 +558,7 @@ export default {
       this.selectedProduct = product;
     },
     /**
-     * request Quotation function 
+     * request Quotation function
      * @vuese
      */
     requestQuotation() {
@@ -516,6 +590,70 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
         });
+    },
+    /**
+     * @vuese
+     *  add basket to cart
+     */
+    addBasketToCart(myProduct) {
+      console.log('myProduct' , myProduct);
+      let data = {
+        basket_promotion_id: myProduct.basket_promotion_id,
+        quantity: 1,
+      };
+
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: myProduct,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+          if (error.response.status == 401 || error.response.status == 403) {
+            location.reload();
+          }
+          if (
+            error.response.status == 400 &&
+            error?.response?.data?.items?.exist_from_rfq == true
+          ) {
+            this.force_replace = true;
+            this.showDeleteModal();
+          }
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * remove basket from  favorite
+     * @vuese
+     */
+     removebasketFromCart(product) {
+      this.$store.dispatch("wishlist/removeProductFromWishlist", {
+        myItem: product.basket_promotion.favorite_id,
+      });
+      this.loading = true;
+      this.wishlistItems = null;
+      setTimeout(() => {
+        this.getWishlistProducts();
+      }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1200);
     },
   },
   mounted() {
