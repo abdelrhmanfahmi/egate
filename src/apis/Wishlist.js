@@ -19,6 +19,7 @@ export default {
   },
 
   delete(id) {
+    console.log(`${END_POINT}/${id}`);
     return globalAxios
       .delete(`${END_POINT}/${id}`)
       .then((res) => {
