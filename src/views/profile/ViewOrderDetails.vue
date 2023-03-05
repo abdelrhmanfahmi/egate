@@ -328,8 +328,9 @@ chooseSupplierUUID(order);
                     }}</span></b-button>
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
-                  <div class="holder">
-                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets">
+                  <div class="holder
+                  d-block">
+                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets.length">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
@@ -384,7 +385,7 @@ chooseSupplierUUID(ord);
                         </tr>
                       </tbody>
                     </table>
-                    <table class="table table-striped table-hover selectable" v-if="order.baskets || !order.items.length">
+                    <table class="table table-striped table-hover selectable" v-if="order.baskets.length || !order.items.length">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
