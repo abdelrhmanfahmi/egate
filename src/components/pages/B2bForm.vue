@@ -22,7 +22,7 @@
                 <b-col lg="12">
                   <b-form-group>
                     <div class="row">
-                      <div class="col-md-6 col-sm-12">
+                      <div  :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
                         <label for="f-name">{{
                         $t("register.englishCompanyName")
                         }}</label>

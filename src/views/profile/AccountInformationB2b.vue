@@ -188,7 +188,7 @@
           <b-col lg="6">
             <b-form-group>
               <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div  :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
                   <label for="companyName">{{
                     $t("register.englishCompanyName")
                   }}</label>
@@ -199,7 +199,7 @@
                     disabled
                   />
                 </div>
-                <div class="col-md-6 col-sm-12" v-if="arabicAvailable !=='no'">
+                <div  v-if="arabicAvailable !=='no'" :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
                   <label for="companyName">{{
                     $t("register.arabicCompanyName")
                   }}</label>
