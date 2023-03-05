@@ -36,7 +36,7 @@ export default {
     }
     // return
 
-   
+
   },
   components: {
     MainLayout,
@@ -135,26 +135,53 @@ export default {
               let faviconHref = document.getElementById("favicon").href;
               if (element.type == 'icon' && element.value !== null && element.value !== "null") {
                 favicon.href = process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + element.value
-                
+
               } else {
                 favicon.href = faviconHref;
               }
             }
 
-            if(element.key == 'arabic_status'){
-              if(element.value == 0 || element.value == '0'){
-                localStorage.setItem('arabic','no');
-                let currentLang = localStorage.getItem('lang');
-                if(currentLang == 'ar'){
-                  localStorage.setItem('lang','en');
+            if (element.key == 'arabic_status') {
+              let availability = localStorage.getItem('arabic')
+              if (availability && availability == 'yes' && element.value == 1 || availability && availability == 'yes' && element.value == '1') {
+                localStorage.setItem('arabic', 'yes');
+              } else if (availability && availability == 'yes' && element.value == 0 || availability && availability == 'yes' && element.value == '0') {
+                localStorage.setItem('arabic', 'no');
+                localStorage.setItem('lang', 'en');
+                setTimeout(() => {
                   location.reload()
+                }, 250);
+              }
+              else if (availability && availability == 'no' && element.value == 1 || availability && availability == 'no' && element.value == '1') {
+                localStorage.setItem('arabic', 'yes');
+                setTimeout(() => {
+                  location.reload()
+                }, 250);
+              }
+              else if (availability && availability == 'no' && element.value == 0 || availability && availability == 'no' && element.value == '0') {
+                localStorage.setItem('arabic', 'no');
+
+              }
+              if (!availability) {
+                if (element.value == 1 || element.value == '1') {
+
+                  localStorage.setItem('arabic', 'yes');
+                  setTimeout(() => {
+                    location.reload()
+                  }, 250);
+                } else if (element.value == 0 || element.value == '0') {
+                  localStorage.setItem('arabic', 'no');
+                  setTimeout(() => {
+                    location.reload()
+                  }, 250);
                 }
+
               }
             }
 
             // const favicon = document.getElementById("favicon");
             // favicon.href = "https://www.google.com/favicon.ico";
-            
+
             // const siteTitle = document.getElementById("siteTitle");
             // siteTitle.textContent = "Reda site";
 
