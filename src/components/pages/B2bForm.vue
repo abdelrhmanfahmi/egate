@@ -22,9 +22,9 @@
                 <b-col lg="12">
                   <b-form-group>
                     <div class="row">
-                      <div class="col-md-6 col-sm-12">
+                      <div :class="{ 'col-md-6 col-sm-12': arabicAvailable !== 'no', 'col-12': arabicAvailable == 'no' }">
                         <label for="f-name">{{
-                        $t("register.englishCompanyName")
+                          $t("register.englishCompanyName")
                         }}</label>
                         <span class="requried">*</span>
                         <b-form-input id="f-name" v-model="form.company_name_en" />
@@ -33,9 +33,9 @@
                         </div>
                       </div>
                       <!-- show if arabicAvailable  -->
-                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !=='no'">
+                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no'">
                         <label for="f-name">{{
-                        $t("register.arabicCompanyName")
+                          $t("register.arabicCompanyName")
                         }}</label>
                         <span class="requried">*</span>
                         <b-form-input id="f-name" v-model="form.company_name_ar" />
@@ -56,15 +56,14 @@
                     </div>
                     <b-form-select v-model="form.job_title">
                       <b-form-select-option selected disabled value="null">{{
-                      $t("register.selectDept")
+                        $t("register.selectDept")
                       }}</b-form-select-option>
-                      <b-form-select-option v-for="department in departments" :key="department.id"
-                        :value="department.id">
+                      <b-form-select-option v-for="department in departments" :key="department.id" :value="department.id">
                         <span v-if="$i18n.locale == 'en'">{{
-                        department.name_en
+                          department.name_en
                         }}</span>
                         <span v-if="$i18n.locale == 'ar'">{{
-                        department.name_ar
+                          department.name_ar
                         }}</span>
                       </b-form-select-option>
                     </b-form-select>
@@ -108,7 +107,7 @@
                 <b-col lg="6">
                   <b-form-group>
                     <label for="confirmPassword">{{
-                    $t("register.confirmPassword")
+                      $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
@@ -127,12 +126,12 @@
                 <b-col sm="12" lg="3">
                   <b-form-group>
                     <label for="countryCode">{{
-                    $t("register.countryCode")
+                      $t("register.countryCode")
                     }}</label>
                     <span class="requried">*</span>
                     <b-form-select v-model="form.country_code">
                       <b-form-select-option v-for="country in countries" :key="country.id" :value="country.iso">{{
-                      country.title }}
+                        country.title }}
                         {{ country.phone_prefix }}</b-form-select-option>
                     </b-form-select>
                     <div class="error" v-for="(error, index) in errors.country_code" :key="index">
@@ -141,7 +140,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col  sm="12" lg="9">
+                <b-col sm="12" lg="9">
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
@@ -161,7 +160,7 @@
                   <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
                     {{ $t("register.termsConditions") }}</a>
                 </span>
-                
+
               </div>
 
               <b-modal size="lg" id="modal-scoped" :title="condations.title">
@@ -171,11 +170,11 @@
                 <template #modal-footer="{ ok }">
                   <b-button size="sm" variant="outline-success" @click="
                     ok();
-                    acceptMyTerms();
-                  ">
+                  acceptMyTerms();
+                                                          ">
                     <span class="mx-1">{{ $t("payment.accept") }}</span>
                     <span class="mx-1">{{
-                    $t("payment.termsAndConditions")
+                      $t("payment.termsAndConditions")
                     }}</span>
                   </b-button>
                 </template>
@@ -301,6 +300,11 @@ export default {
     register() {
       localStorage.clear()
       this.form.callback_url = `${this.mainDoamin}otp-verification`;
+      if (this.arabicAvailable == 'no') {
+        if (!this.form.company_name_ar) {
+          delete this.form.company_name_ar;
+        }
+      }
       auth
         .register("buyer", this.form)
         .then((res) => {

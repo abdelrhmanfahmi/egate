@@ -318,5 +318,6 @@ export default {
   bankData:'Bank Data',
   reason:'Reason',
   transferred:'Transferred',
-  withdrowFile:'Withdrow File'
+  withdrowFile:'Withdrow File',
+  basketName:'Basket Name'
 };

@@ -328,8 +328,9 @@ chooseSupplierUUID(order);
                     }}</span></b-button>
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
-                  <div class="holder">
-                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets">
+                  <div class="holder
+                  d-block">
+                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets.length">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
@@ -384,11 +385,11 @@ chooseSupplierUUID(ord);
                         </tr>
                       </tbody>
                     </table>
-                    <table class="table table-striped table-hover selectable" v-if="order.baskets || !order.items.length">
+                    <table class="table table-striped table-hover selectable" v-if="order.baskets.length || !order.items.length">
                       <thead class="font-weight-bold">
                         <tr>
-                          <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
-                            {{ tab.label }}
+                          <th scope="col" class="text-center" v-for="(tab, index) in basketfields" :key="index">
+                            <span>{{ tab.label }}</span>
                           </th>
                         </tr>
                       </thead>
@@ -999,6 +1000,32 @@ export default {
         {
           key: "product",
           label: this.$t("profile.productName"),
+        },
+        {
+          key: "price",
+          label: this.$t("profile.price"),
+        },
+        {
+          key: "qty",
+          label: this.$t("profile.qty"),
+        },
+        {
+          key: "discount",
+          label: this.$t("cart.discount"),
+        },
+        {
+          key: "rowTotal",
+          label: this.$t("profile.rowTotal"),
+        },
+        {
+          key: "",
+          label: this.$t("profile.actions"),
+        },
+      ],
+      basketfields: [
+        {
+          key: "product",
+          label: this.$t("profile.basketName"),
         },
         {
           key: "price",
