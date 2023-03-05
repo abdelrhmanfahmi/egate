@@ -308,5 +308,6 @@ export default {
   bankData:'معلومات البنك',
   reason:'السبب',
   transferred:'تم السحب',
-  withdrowFile:'ملف السحب'
+  withdrowFile:'ملف السحب',
+  basketName:'اسم السلة'
 };
