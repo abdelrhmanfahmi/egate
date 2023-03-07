@@ -317,20 +317,21 @@
                 </div>
                 <div class="d-flex justify-content-end">
                   <b-button @click="
-  $bvModal.show('cancel_btn_modal');
-chooseSupplierUUID(order);
-                  " variant="outline-danger mt-2 cancel-btn" v-if="
-                    order.order_status_string === 'Pending' ||
-                    order.order_status_string === 'Accepted'
-                  "><font-awesome-icon icon="fa-solid fa-x" />
+                    $bvModal.show('cancel_btn_modal');
+                  chooseSupplierUUID(order);
+                                      " variant="outline-danger mt-2 cancel-btn" v-if="
+                      order.order_status_string === 'Pending' ||
+                      order.order_status_string === 'Accepted'
+                    "><font-awesome-icon icon="fa-solid fa-x" />
                     <span class="mx-2">{{
                       $t("payment.cancelOrder")
                     }}</span></b-button>
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
                   <div class="holder
-                  d-block">
-                    <table class="table table-striped table-hover selectable" v-if="order.items.length || !order.baskets.length">
+                    d-block">
+                    <table class="table table-striped table-hover selectable"
+                      v-if="order.items.length || !order.baskets.length">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
@@ -341,7 +342,10 @@ chooseSupplierUUID(order);
                       <tbody v-for="(ord, index) in order.items" :key="index">
                         <tr>
                           <td v-if="ord.items">
-                            {{ ord.items.product.title }}
+                            <span>{{ ord.items.product.title }}</span> <span v-if="ord.gift_promotion_id"><sup><img
+                                  src="@/assets/images/giftbox.png" class="gift-product"
+                                  alt="gift-product"></sup></span>
+                                  <span v-if="ord.buy_get_promotion_id"><sup>({{ $t('profile.buyXgetYOffer') }})</sup></span>
                           </td>
                           <td v-else>-</td>
                           <td v-if="ord.price">
@@ -368,14 +372,14 @@ chooseSupplierUUID(order);
                             ">
                               <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
                               <b-button @click="
-  $bvModal.show('return');
-chooseSupplierUUID(ord);
-                              " variant="outline-danger mt-2 return-btn" v-if="
-                                ord.status === 'Pending' &&
-                                ord.return_time !== null &&
-                                ord.return_time !== 'null' &&
-                                ord.return_time !== 0
-                              "><font-awesome-icon icon="fa-solid fa-x" />
+                                $bvModal.show('return');
+                              chooseSupplierUUID(ord);
+                                                              " variant="outline-danger mt-2 return-btn" v-if="
+                                  ord.status === 'Pending' &&
+                                  ord.return_time !== null &&
+                                  ord.return_time !== 'null' &&
+                                  ord.return_time !== 0
+                                "><font-awesome-icon icon="fa-solid fa-x" />
                                 <span class="mx-2">{{
                                   $t("profile.return")
                                 }}</span></b-button>
@@ -385,7 +389,8 @@ chooseSupplierUUID(ord);
                         </tr>
                       </tbody>
                     </table>
-                    <table class="table table-striped table-hover selectable" v-if="order.baskets.length || !order.items.length">
+                    <table class="table table-striped table-hover selectable"
+                      v-if="order.baskets.length || !order.items.length">
                       <thead class="font-weight-bold">
                         <tr>
                           <th scope="col" class="text-center" v-for="(tab, index) in basketfields" :key="index">
@@ -423,14 +428,14 @@ chooseSupplierUUID(ord);
                             ">
                               <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
                               <b-button @click="
-  $bvModal.show('return');
-chooseSupplierUUID(ord);
-                              " variant="outline-danger mt-2 return-btn" v-if="
-                                ord.status === 'Pending' &&
-                                ord.return_time !== null &&
-                                ord.return_time !== 'null' &&
-                                ord.return_time !== 0
-                              "><font-awesome-icon icon="fa-solid fa-x" />
+                                $bvModal.show('return');
+                              chooseSupplierUUID(ord);
+                                                              " variant="outline-danger mt-2 return-btn" v-if="
+                                  ord.status === 'Pending' &&
+                                  ord.return_time !== null &&
+                                  ord.return_time !== 'null' &&
+                                  ord.return_time !== 0
+                                "><font-awesome-icon icon="fa-solid fa-x" />
                                 <span class="mx-2">{{
                                   $t("profile.return")
                                 }}</span></b-button>
@@ -608,8 +613,7 @@ chooseSupplierUUID(ord);
             <div class="d-block">
               <div class="">
                 <form>
-                  <textarea class="form-control" name="" id="" cols="30" rows="10" v-model="message"
-                    required></textarea>
+                  <textarea class="form-control" name="" id="" cols="30" rows="10" v-model="message" required></textarea>
                   <div class="error mt-2">
                     <p v-for="(error, index) in errors.client_cancel_reason" :key="index">
                       {{ error }}
@@ -1068,7 +1072,7 @@ export default {
       contactPhone: null,
       contactEmail: null,
       repayClicked: false,
-      CanvasUrl:null
+      CanvasUrl: null
     };
   },
   methods: {
@@ -1110,7 +1114,7 @@ export default {
             }
           }
           this.CanvasUrl = res.data.items.order.payment_image;
-          console.log('this.CanvasUrl' , this.CanvasUrl);
+          console.log('this.CanvasUrl', this.CanvasUrl);
         })
         .catch((err) => {
           console.log(err);
@@ -1694,8 +1698,8 @@ textarea {
   transition: al 0.5s ease-in-out;
   resize: none;
 }
-#the-canvas{
-  height:100px !important;
+
+#the-canvas {
+  height: 100px !important;
   border: 2px dashed #c9c6c6;
-}
-</style>
+}</style>
