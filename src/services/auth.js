@@ -105,5 +105,8 @@ export default {
   },
   changeAuthUserPass(payload){
     return globalAxios.post('auth/reset-password',payload)
+  },
+  dynamicInputs(form){
+    return globalAxios.get(`lists/dynamicInputs/${form}`)
   }
 };

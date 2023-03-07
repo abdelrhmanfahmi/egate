@@ -151,6 +151,9 @@
                   </b-form-group>
                 </b-col>
               </b-row>
+              <div v-if="dynamicInputs">
+                <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+              </div>
               <!-- active_with -->
               <div class="terms d-inline-block">
                 <span>
@@ -168,10 +171,11 @@
                   {{ condations.description }}
                 </p>
                 <template #modal-footer="{ ok }">
-                  <b-button size="sm" variant="outline-success" @click="
-                    ok();
-                  acceptMyTerms();
-                                                          ">
+                  <b-button size="sm" variant="outline-success"
+                    @click="
+                      ok();
+                    acceptMyTerms();
+                                                                                                                                                                                                                                                                                                      ">
                     <span class="mx-1">{{ $t("payment.accept") }}</span>
                     <span class="mx-1">{{
                       $t("payment.termsAndConditions")
@@ -206,6 +210,8 @@
 // buyer or b2b register form 
 import auth from "@/services/auth";
 import profile from "@/services/profile";
+import dynamicComponent from "@/components/global/dynamicComponent"
+import { createdFormData } from "@/services/helpers.js"
 export default {
   data() {
     return {
@@ -264,9 +270,11 @@ export default {
       fieldType: "password",
       condations: {},
       contactPhone: "", // add phone
+      dynamicInputs: null
     };
   },
   mounted() {
+    this.checkDynamicInputs()
     this.getTerms();
     this.getAllCountires();
     this.contactUsPhone();
@@ -306,7 +314,7 @@ export default {
         }
       }
       auth
-        .register("buyer", this.form)
+        .register("buyer", createdFormData(this.form))
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           localStorage.setItem("massege", this.$t("register.openEmail"));
@@ -351,7 +359,23 @@ export default {
           console.log(err);
         });
     },
+    checkDynamicInputs() {
+      auth.dynamicInputs('user-b2b-register').then(res => {
+        this.dynamicInputs = res.data.items
+        this.dynamicInputs.map(input => {
+          this.form[input.uuid] = null;
+          if (input.type == 'checkbox') {
+            this.form[input.uuid] = false;
+          }
+        })
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   },
+  components: {
+    dynamicComponent
+  }
 };
 </script>
 
