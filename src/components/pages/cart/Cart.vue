@@ -46,8 +46,7 @@
                                   $t("payment.selectExist")
                                 }}</b-form-select-option>
 
-                                <b-form-select-option v-for="(address, index) in addresses" :key="index"
-                                  :value="address">
+                                <b-form-select-option v-for="(address, index) in addresses" :key="index" :value="address">
                                   <span class="mb-2" v-if="address.apartment">{{ address.apartment }} ,</span>
                                   <span class="mb-2" v-if="address.floor">{{ address.floor }} ,</span>
                                   <span class="mb-2" v-if="address.address_line1">{{ address.address_line1 }} ,</span>
@@ -82,8 +81,8 @@
                                       </b-form-select-option>
                                     </b-form-select>
                                     <div class="error" v-for="(
-                                        error, index
-                                      ) in errors.country_id" :key="index">
+                                          error, index
+                                        ) in errors.country_id" :key="index">
                                       {{ error }}
                                     </div>
 
@@ -122,8 +121,8 @@
                                     </div>
 
                                     <div class="error" v-for="(
-                                        error, index
-                                      ) in errors.governorate" :key="index">
+                                          error, index
+                                        ) in errors.governorate" :key="index">
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -169,8 +168,8 @@
                                       $t('contactUs.address') + '*'
                                     " />
                                     <div class="error" v-for="(
-                                        error, index
-                                      ) in errors.address_line_1" :key="index">
+                                          error, index
+                                        ) in errors.address_line_1" :key="index">
                                       {{ error }}
                                     </div>
                                     <div class="error" v-if="
@@ -200,8 +199,8 @@
                                         <span class="requried text-danger">*</span>
                                       </b-form-select-option>
                                       <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in en_formNames" :key="index" :value="formName">{{ formName }}
+                                            formName, index
+                                          ) in en_formNames" :key="index" :value="formName">{{ formName }}
                                       </b-form-select-option>
                                     </b-form-select>
                                     <div class="error" v-for="(error, index) in errors.name" :key="index">
@@ -210,15 +209,15 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- name in arabic (new add)-->
-                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData" >
-                                  <b-form-group v-if="arabicAvailable !=='no'">
+                                <b-col lg="6" v-if="$i18n.locale == 'ar' && buyerUserData">
+                                  <b-form-group v-if="arabicAvailable !== 'no'">
                                     <b-form-select v-model="newForm.name">
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
                                       }}</b-form-select>
                                       <b-form-select-option v-for="(
-                                          formName, index
-                                        ) in ar_formNames" :key="index" :value="formName">{{ formName }}
+                                            formName, index
+                                          ) in ar_formNames" :key="index" :value="formName">{{ formName }}
                                       </b-form-select-option>
                                     </b-form-select>
                                     <div class="error" v-for="(error, index) in errors.name" :key="index">
@@ -229,8 +228,7 @@
                                 <!-- floor  -->
                                 <b-col lg="6">
                                   <b-form-group>
-                                    <b-form-input id="floor" v-model="newForm.floor"
-                                      :placeholder="$t('profile.floor')" />
+                                    <b-form-input id="floor" v-model="newForm.floor" :placeholder="$t('profile.floor')" />
                                     <div class="error" v-for="(error, index) in errors.floor" :key="index">
                                       {{ error }}
                                     </div>
@@ -256,8 +254,8 @@
                                     <b-form-input id="homeNumber" v-model="form.building_number"
                                       :placeholder="$t('profile.homeNumber')" />
                                     <div class="error" v-for="(
-                                        error, index
-                                      ) in errors.building_number" :key="index">
+                                          error, index
+                                        ) in errors.building_number" :key="index">
                                       {{ error }}
                                     </div>
                                   </b-form-group>
@@ -285,6 +283,12 @@
                                       {{ error }}
                                     </div>
                                   </b-form-group>
+                                </b-col>
+                                <b-col lg="12">
+                                  
+                                  <div v-if="dynamicInputs">
+                                    <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+                                  </div>
                                 </b-col>
                               </b-row>
 
@@ -387,9 +391,9 @@
                               item.min_order_quantity
                                 ? item.min_order_quantity
                                 : 1
-                            " :quantity="item.quantity" v-if="!item.gift_promotion_id" :product="item" class="justify-content-center"
-                              @changeTitle="ChangeQ($event)"></Counter>
-                              <span v-else>{{item.quantity}}</span>
+                            " :quantity="item.quantity" v-if="!item.gift_promotion_id" :product="item"
+                              class="justify-content-center" @changeTitle="ChangeQ($event)"></Counter>
+                            <span v-else>{{ item.quantity }}</span>
                           </td>
                           <!-- product price * product quantity = total product price -->
                           <td v-if="item.product_sub_total">
@@ -407,7 +411,7 @@
                               </span>
                             </div>
                             <div class="" v-else>
-          <img src="@/assets/images/giftbox.png"  class="gift-product" alt="gift-product">
+                              <img src="@/assets/images/giftbox.png" class="gift-product" alt="gift-product">
 
                             </div>
                           </td>
@@ -473,18 +477,18 @@
                                   class="d-flex align-items-baseline px-2 results-form">
                                   <!-- if select shipping  -->
                                   <label @click="shippingStore(supplier)" class="shipping-label mt-2">
-                                    <input @change="changeShipping($event)" @input="shippingStore(supplier)"
-                                      type="radio" value="0" :name="'types-' + index"
-                                      v-model="ratingNum[index].delivery_type" class="checkFirst" id="check" />
+                                    <input @change="changeShipping($event)" @input="shippingStore(supplier)" type="radio"
+                                      value="0" :name="'types-' + index" v-model="ratingNum[index].delivery_type"
+                                      class="checkFirst" id="check" />
                                     <span class="mx-2">{{
                                       $t("payment.delivery")
                                     }}</span>
                                   </label>
                                   <!-- if select pickup  -->
                                   <label class="shipping-label mt-2">
-                                    <input @input="changePickup($event, supplier)"
-                                      @click="changePickup($event, supplier)" type="radio" value="1"
-                                      :name="'types-' + index" v-model="ratingNum[index].delivery_type" />
+                                    <input @input="changePickup($event, supplier)" @click="changePickup($event, supplier)"
+                                      type="radio" value="1" :name="'types-' + index"
+                                      v-model="ratingNum[index].delivery_type" />
                                     <span class="mx-2">{{
                                       $t("payment.pickup")
                                     }}</span>
@@ -505,10 +509,10 @@
                                       $t("cart.selectPickupAddress")
                                     }}</span></b-form-select-option>
                                     <b-form-select-option v-for="(
-                                        address, index
-                                      ) in supplier.supplier_addresses" :key="index" :value="address">{{
-                                        address.country.title
-                                      }} ,
+                                          address, index
+                                        ) in supplier.supplier_addresses" :key="index" :value="address">{{
+                                          address.country.title
+                                        }} ,
                                       {{ address.region.title }} ,
                                       {{ address.city.title }}
                                     </b-form-select-option>
@@ -526,9 +530,9 @@
                                         <span>{{ $t("profile.deleiveryFees") }}</span>
                                         <span>{{ fee.shipping_fee | fixedCurrency }}</span>
                                         <span>{{ currency }}</span>
-                                        <p v-if="fee.message">{{fee.message}}</p>
+                                        <p v-if="fee.message">{{ fee.message }}</p>
                                       </h5>
-                                      
+
                                     </li>
                                   </ul>
                                 </form>
@@ -605,7 +609,7 @@
                                   selectedPhonePrefix.id ==
                                   country.id,
                               }" :value="country.phone_prefix">
-                              {{ country.title }}
+                                {{ country.title }}
                                 {{ country.phone_prefix }}
                               </b-form-select-option>
                             </b-form-select>
@@ -634,8 +638,7 @@
                               $t("payment.optional")
                             }})
                           </label>
-                          <textarea class="form-control" id="notes" rows="3"
-                            v-model="paymentFormData.comment"></textarea>
+                          <textarea class="form-control" id="notes" rows="3" v-model="paymentFormData.comment"></textarea>
                           <div class="error text-start" v-for="(error, index) in errors.comment" :key="index">
                             {{ error }}
                           </div>
@@ -666,8 +669,8 @@
                                 <form @submit.prevent="addCoupon">
                                   <!-- coupon input  -->
 
-                                  <input type="text" :placeholder="$t('cart.addCoupon')"
-                                    class="my-2 h-100 p-4 itemInput" v-model="couponText" :disabled="validCoupon" />
+                                  <input type="text" :placeholder="$t('cart.addCoupon')" class="my-2 h-100 p-4 itemInput"
+                                    v-model="couponText" :disabled="validCoupon" />
                                   <span :title="$t('cart.enableButton')" class="close">x</span>
                                 </form>
                               </div>
@@ -774,7 +777,8 @@
                               <div class="methods-data">
                                 <div class="methods">
                                   <!-- display when wallet amount equal or more than cart coast  -->
-                                  <div class="method coupon" v-if="buyerUserData && totalPaymentReplacement <= 0 && couponMethodAvailable == true">
+                                  <div class="method coupon"
+                                    v-if="buyerUserData && totalPaymentReplacement <= 0 && couponMethodAvailable == true">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod0" name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -862,7 +866,8 @@
                                     </div>
                                   </div>
                                   <!-- visa option ( online payment)  -->
-                                  <div class="method visa row justify-content-between align-content-center" v-if="visaMethodAvailable == true">
+                                  <div class="method visa row justify-content-between align-content-center"
+                                    v-if="visaMethodAvailable == true">
                                     <div class="col-md-8 col-xs-12">
                                       <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="paymentMethod3" name="paymentMethod"
@@ -882,15 +887,13 @@
                                   </div>
                                 </div>
                                 <!-- if error in choose payment method or not choosed  -->
-                                <div class="error text-center" v-for="(error, index) in errors.payment_type"
-                                  :key="index">
+                                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
                                   {{ error }}
                                 </div>
 
                                 <!-- terms and conditions  -->
 
-                                <b-form-checkbox v-model="paymentFormData.accept_terms"
-                                  class="terms my-4 d-inline-block">
+                                <b-form-checkbox v-model="paymentFormData.accept_terms" class="terms my-4 d-inline-block">
                                   <span>
                                     {{ $t("payment.accept") }}
                                   </span>
@@ -905,9 +908,9 @@
                                   </p>
                                   <template #modal-footer="{ ok }">
                                     <b-button size="sm" variant="outline-success" @click="
-  ok();
-acceptMyTerms();
-                                    ">
+                                      ok();
+                                    acceptMyTerms();
+                                                                          ">
                                       <h6 class="m-0">
                                         <span class="mx-1">{{
                                           $t("payment.accept")
@@ -923,8 +926,7 @@ acceptMyTerms();
 
                                 <!-- if terms and conditions not selected  -->
 
-                                <div class="error text-center" v-for="(error, index) in errors.accept_terms"
-                                  :key="index">
+                                <div class="error text-center" v-for="(error, index) in errors.accept_terms" :key="index">
                                   {{ error }}
                                 </div>
                                 <!-- checkout button if user exist  -->
@@ -1029,11 +1031,15 @@ import LoginModal from "@/components/global/loginModal.vue";
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 import Vue from "vue";
+import dynamicComponent from "@/components/global/dynamicComponent"
+import { createdFormData } from "@/services/helpers.js"
+
 export default {
   components: {
     Counter,
     BasketCounter,
     LoginModal,
+    dynamicComponent
   },
   data() {
     return {
@@ -1182,6 +1188,7 @@ export default {
       walletVisaMethodAvailable: false,
       bankMethodAvailable: false,
       couponMethodAvailable: false,
+      dynamicInputs: null
     };
   },
   mounted() {
@@ -1304,8 +1311,26 @@ export default {
 
     this.getCompanyIban()
     this.checPaymentAvailableTypes()
+    this.checkDynamicInputs()
   },
   methods: {
+    /**
+     * @vuese
+     *   check Dynamic Inputs
+     */
+    checkDynamicInputs() {
+      auth.dynamicInputs('user-address').then(res => {
+        this.dynamicInputs = res.data.items
+        this.dynamicInputs.map(input => {
+          this.form[input.uuid] = null;
+          if (input.type == 'checkbox') {
+            this.form[input.uuid] = false;
+          }
+        })
+      }).catch(err => {
+        console.log(err);
+      })
+    },
     formatPin_code(e) {
       return String(e).substring(0, 6);
     },
@@ -1865,7 +1890,7 @@ export default {
       let address_uuid = localStorage.getItem("globalAddressUUID");
       (this.form.is_sale_point = false),
         profile
-          .createAdress(this.form)
+          .createAdress(createdFormData(this.form))
           .then((res) => {
             this.sucessMsg(res.data.message);
             this.errors = {};

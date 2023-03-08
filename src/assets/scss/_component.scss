@@ -183,3 +183,17 @@
     }
   }
 }
+
+
+.dynamic-form-holder{
+
+  .dynamic-input , .b-custom-control-lg .custom-file-label {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      border-radius: 15px !important;
+      &:focus{
+          box-shadow: 0 0 0 0.1rem #6e6e6e;
+      }
+  }
+}

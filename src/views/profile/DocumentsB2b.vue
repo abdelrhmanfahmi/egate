@@ -551,9 +551,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="dynamicInputs">
-              <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
-            </div>
+
           </div>
           <div class="error text-start" v-for="(error, index) in uploadErrors.iban_code" :key="index">
             {{ error }}
@@ -570,6 +568,11 @@
 
         <!-- <img src="" alt="" /> -->
       </form>
+
+      <!-- dynamic components  -->
+      <div v-if="dynamicInputs" class="mt-5">
+        <dynamicComponent :dynamicInputs="dynamicInputs" :form="dynamicForm" :errors="errors" @btnClicked="dynamicButtonClicked" />
+      </div>
     </div>
   </div>
 </template>
@@ -582,6 +585,7 @@ import axios from "axios";
 import profile from "@/services/profile";
 import auth from "@/services/auth";
 import { renderFirstPage } from "@/plugins/pdfJs"
+import dynamicComponent from "@/components/global/dynamicComponent"
 export default {
   data() {
     return {
@@ -606,6 +610,7 @@ export default {
       bankIban: {
         iban: null,
       },
+      dynamicForm: {},
       // represent data
       suppData: null,
       buisnessData: null,
@@ -625,6 +630,7 @@ export default {
     };
   },
   mounted() {
+    this.checkDynamicInputs()
     profile.getSuppDocUploadData().then((res) => {
       this.suppData = res.data.items;
       let url1 = res.data.items.moa_path;
@@ -734,14 +740,19 @@ export default {
       await auth.dynamicInputs('user-b2b-document').then(res => {
         this.dynamicInputs = res.data.items
         this.dynamicInputs.map(input => {
-          this.form[input.uuid] = null;
+          this.dynamicForm[input.uuid] = null;
           if (input.type == 'checkbox') {
-            this.form[input.uuid] = false;
+            this.dynamicForm[input.uuid] = false;
           }
         })
+
       }).catch(err => {
         console.log(err);
       })
+    },
+
+    dynamicButtonClicked(){
+      console.log('button clicked')
     },
 
     /**
@@ -1103,6 +1114,9 @@ export default {
       return this.$store.state.userInfo.item.type;
     },
   },
+  components: {
+    dynamicComponent
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -1207,4 +1221,5 @@ button:disabled {
 /* Darker background on mouse-over */
 .savebtn:hover {
   background-color: RoyalBlue;
-}</style>
+}
+</style>

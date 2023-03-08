@@ -167,9 +167,7 @@
               </div>
 
               <b-modal size="lg" id="modal-scoped" :title="condations.title">
-                <p v-html="condations.description">
-                  {{ condations.description }}
-                </p>
+                <p v-html="condations.description"></p>
                 <template #modal-footer="{ ok }">
                   <b-button size="sm" variant="outline-success"
                     @click="
