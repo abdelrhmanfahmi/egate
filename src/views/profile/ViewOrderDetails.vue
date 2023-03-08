@@ -412,8 +412,8 @@
                           </td>
                           <td v-if="ord.quantity">{{ ord.quantity }}</td>
                           <td v-else>-</td>
-                          <td v-if="ord.item_discount">{{ ord.item_discount | fixedCurrency }} {{ currency }}</td>
-                          <td v-else>-</td>
+                          <td v-if="ord.discount" class="discount">{{ ord.discount | fixedCurrency }} {{ currency }}</td>
+                          <td v-else class="discount">-</td>
                           <td v-if="ord.total_price">
                             {{ ord.total_price | fixedCurrency }} {{ currency }}
                           </td>

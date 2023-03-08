@@ -61,7 +61,7 @@
                 <div class=" d-flex justify-content-center align-items-center flex-column" v-else-if="
                   ccl_pathType === 'document' && ccl_pathType !== null
                 ">
-                <a :href="buisnessData.ccl_path" target="_blank">
+                  <a :href="buisnessData.ccl_path" target="_blank">
                     <canvas id="ccl_pathType-canvas" class="custom-canvas"></canvas>
                   </a>
                   <b-button variant="outline-success" @click="
@@ -142,7 +142,7 @@
                   auth_civil_copyType === 'document' &&
                   auth_civil_copyType !== null
                 ">
-                <a :href="buisnessData.auth_civil_copy_path" target="_blank">
+                  <a :href="buisnessData.auth_civil_copy_path" target="_blank">
                     <canvas id="auth_civil_copyType-canvas" class="custom-canvas"></canvas>
                   </a>
                   <b-button variant="outline-success" @click="
@@ -217,7 +217,8 @@
                     </template>
                   </b-modal>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column" v-else-if="ccsType === 'document' && ccsType !== null">
+                <div class="d-flex justify-content-center align-items-center flex-column"
+                  v-else-if="ccsType === 'document' && ccsType !== null">
                   <a :href="buisnessData.ccs_path" target="_blank">
                     <canvas id="ccsType-canvas" class="custom-canvas"></canvas>
                   </a>
@@ -255,8 +256,7 @@
             <div class="col-md-4 col-sm-12 mb-3">
               <div class="d-flex justify-content-center align-content-center" v-if="buisnessData">
                 <div class="" v-if="rmcmType === 'image' && rmcmType !== null">
-                  <img v-b-modal.rmcm_path :src="buisnessData.rmcm_path" alt="moa-image"
-                    v-if="buisnessData.rmcm_path" />
+                  <img v-b-modal.rmcm_path :src="buisnessData.rmcm_path" alt="moa-image" v-if="buisnessData.rmcm_path" />
 
                   <b-modal id="rmcm_path" :title="$t('profile.certificateAdministration')">
                     <template #modal-header="{ close }">
@@ -292,7 +292,8 @@
                     </template>
                   </b-modal>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column" v-else-if="rmcmType === 'document' && rmcmType !== null">
+                <div class="d-flex justify-content-center align-items-center flex-column"
+                  v-else-if="rmcmType === 'document' && rmcmType !== null">
                   <a :href="buisnessData.rmcm_path" target="_blank">
                     <canvas id="rmcmType-canvas" class="custom-canvas"></canvas>
                   </a>
@@ -371,7 +372,8 @@
                     </template>
                   </b-modal>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column" v-else-if="moaType === 'document' && moaType !== null">
+                <div class="d-flex justify-content-center align-items-center flex-column"
+                  v-else-if="moaType === 'document' && moaType !== null">
                   <a :href="suppData.moa_path" target="_blank">
                     <canvas id="moaType-canvas" class="custom-canvas"></canvas>
                   </a>
@@ -443,7 +445,8 @@
                     </template>
                   </b-modal>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column" v-else-if="sadType === 'document' && sadType !== null">
+                <div class="d-flex justify-content-center align-items-center flex-column"
+                  v-else-if="sadType === 'document' && sadType !== null">
                   <a :href="suppData.sad_path" target="_blank">
                     <canvas id="sadType-canvas" class="custom-canvas"></canvas>
                   </a>
@@ -548,6 +551,7 @@
                 </div>
               </div>
             </div>
+
           </div>
           <div class="error text-start" v-for="(error, index) in uploadErrors.iban_code" :key="index">
             {{ error }}
@@ -564,6 +568,11 @@
 
         <!-- <img src="" alt="" /> -->
       </form>
+
+      <!-- dynamic components  -->
+      <div v-if="dynamicInputs" class="mt-5">
+        <dynamicComponent :dynamicInputs="dynamicInputs" :form="dynamicForm" :errors="errors" @btnClicked="dynamicButtonClicked" />
+      </div>
     </div>
   </div>
 </template>
@@ -574,7 +583,9 @@
  */
 import axios from "axios";
 import profile from "@/services/profile";
+import auth from "@/services/auth";
 import { renderFirstPage } from "@/plugins/pdfJs"
+import dynamicComponent from "@/components/global/dynamicComponent"
 export default {
   data() {
     return {
@@ -599,6 +610,7 @@ export default {
       bankIban: {
         iban: null,
       },
+      dynamicForm: {},
       // represent data
       suppData: null,
       buisnessData: null,
@@ -614,9 +626,11 @@ export default {
       sadType: null,
 
       ibanType: null,
+      dynamicInputs: null
     };
   },
   mounted() {
+    this.checkDynamicInputs()
     profile.getSuppDocUploadData().then((res) => {
       this.suppData = res.data.items;
       let url1 = res.data.items.moa_path;
@@ -717,6 +731,30 @@ export default {
     });
   },
   methods: {
+    /**
+    * check Dynamic Inputs
+    * @vuese 
+    */
+
+    async checkDynamicInputs() {
+      await auth.dynamicInputs('user-b2b-document').then(res => {
+        this.dynamicInputs = res.data.items
+        this.dynamicInputs.map(input => {
+          this.dynamicForm[input.uuid] = null;
+          if (input.type == 'checkbox') {
+            this.dynamicForm[input.uuid] = false;
+          }
+        })
+
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+
+    dynamicButtonClicked(){
+      console.log('button clicked')
+    },
+
     /**
      * download Image function
      * @vuese 
@@ -1056,6 +1094,7 @@ export default {
           this.errMsg(err.message);
         });
     },
+
   },
   created() {
     /**
@@ -1075,6 +1114,9 @@ export default {
       return this.$store.state.userInfo.item.type;
     },
   },
+  components: {
+    dynamicComponent
+  }
 };
 </script>
 <style lang="scss" scoped>

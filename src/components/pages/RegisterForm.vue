@@ -137,6 +137,9 @@
                 <b-form-radio class="pt-2" v-for="(connect, index) in connects" :key="index" v-model="form.active_with"
                   name="some-radios" :value="connect.value">{{ connect.name }}</b-form-radio>
               </b-form-group>
+              <div v-if="dynamicInputs">
+                <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+              </div>
               <div class="terms d-inline-block">
                 <span>
                   {{ $t("register.newPolicy") }}
@@ -188,6 +191,8 @@
 <script>
 import auth from "@/services/auth";
 import profile from "@/services/profile";
+import dynamicComponent from "@/components/global/dynamicComponent"
+import { createdFormData } from "@/services/helpers.js"
 export default {
   data() {
     return {
@@ -214,13 +219,18 @@ export default {
       condations: {},
       contactPhone: "",
       prefixes: null,
+      dynamicInputs: null
     };
   },
   mounted() {
+    this.checkDynamicInputs()
     this.getTerms();
     this.getAllCountires();
     this.contactUsPhone();
     this.getProfilePrefixes();
+  },
+  components:{
+    dynamicComponent
   },
   methods: {
     /**
@@ -245,7 +255,7 @@ export default {
       localStorage.clear();
       this.form.callback_url = `${this.mainDoamin}`;
       auth
-        .register("b2c", this.form)
+        .register("b2c", createdFormData(this.form))
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (res.data.items.item.verify_mobile_required) {
@@ -316,6 +326,19 @@ export default {
         this.prefixes = res.data.items;
       });
     },
+    checkDynamicInputs() {
+      auth.dynamicInputs('user-b2c-register').then(res => {
+        this.dynamicInputs = res.data.items
+        this.dynamicInputs.map(input => {
+          this.form[input.uuid] = null;
+          if (input.type == 'checkbox') {
+            this.form[input.uuid] = false;
+          }
+        })
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   },
 };
 </script>

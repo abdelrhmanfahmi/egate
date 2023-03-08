@@ -273,6 +273,9 @@
             </div>
           </b-form-group>
         </b-col>
+        <b-col lg="12" v-if="dynamicInputs">
+          <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+        </b-col>
         <!-- note  -->
         <b-col lg="12">
           <b-form-group>
@@ -334,7 +337,8 @@
 // user addresses page
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-
+import dynamicComponent from "@/components/global/dynamicComponent"
+import { createdFormData } from "@/services/helpers.js"
 export default {
   data() {
     return {
@@ -404,6 +408,7 @@ export default {
       ar_formNames: ["المنزل", "المكتب"],
       en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
       ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
+      dynamicInputs: null
     };
   },
   mounted() {
@@ -413,6 +418,7 @@ export default {
     if(this.form.country_id){
       this.getAllRegions()
     }
+    this.checkDynamicInputs()
   },
   methods: {
     /**
@@ -471,7 +477,7 @@ export default {
     createAdress() {
       (this.form.is_sale_point = false),
         profile
-          .createAdress(this.form)
+          .createAdress(createdFormData(this.form))
           .then((res) => {
             this.sucessMsg(res.data.message);
             this.errors = {};
@@ -550,7 +556,27 @@ export default {
           this.errMsg(err.message);
         });
     },
+    /**
+     * check Dynamic Inputs
+     * @vuese
+     */
+    checkDynamicInputs() {
+      auth.dynamicInputs('user-address').then(res => {
+        this.dynamicInputs = res.data.items
+        this.dynamicInputs.map(input => {
+          this.form[input.uuid] = null;
+          if (input.type == 'checkbox') {
+            this.form[input.uuid] = false;
+          }
+        })
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   },
+  components:{
+    dynamicComponent
+  }
 };
 </script>
 
