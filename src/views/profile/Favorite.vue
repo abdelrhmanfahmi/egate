@@ -18,79 +18,60 @@
                     <th scope="col">{{ $t("profile.actions") }}</th>
                   </tr>
                 </thead>
-                <tbody v-for="(item, index) in wishlistItems" :key="index">
-                  <tr v-if="item.product_supplier">
+                <tbody >
+                  <tr  v-for="(item) in wishlistItems.filter(item => !item.basket_promotion_id && item.product_supplier)" :key="item.id">
                     <td class="text-center">
                       <!-- go to product page  -->
-                      <router-link
-                        :to="{
-                          path: '/details',
-                          query: { id: item.product_supplier_id },
-                        }"
-                      >
-                        <div
-                          class="d-block text-center"
-                          v-if="item.product_supplier.product.image_path"
-                        >
-                          <img
-                            :src="item.product_supplier.product.image_path"
-                            alt="wishlist-product-image"
-                            class="product-img"
-                          />
+                      <router-link :to="{
+                        path: '/details',
+                        query: { id: item.product_supplier_id },
+                      }">
+                        <div class="d-block text-center" v-if="item.product_supplier.product.image_path">
+                          <img :src="item.product_supplier.product.image_path" alt="wishlist-product-image"
+                            class="product-img" />
+                        </div>
+                        <div class="d-block text-center" v-else>
+                          <img :src="logoEnv" alt="wishlist-product-image"
+                            class="product-img" />
                         </div>
                       </router-link>
                     </td>
                     <td class="text-center">
                       <!-- go to product page  -->
-                      <router-link
-                        class="text-dark"
-                        :to="{
-                          path: '/details',
-                          query: { id: item.product_supplier_id },
-                        }"
-                      >
-                        <p
-                          v-if="item.product_supplier.product"
-                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
-                        >
-                          <span v-if="$i18n.locale == 'en'"
-                            >{{ item.product_supplier.product.title_en }}
+                      <router-link class="text-dark" :to="{
+                        path: '/details',
+                        query: { id: item.product_supplier_id },
+                      }">
+                        <p v-if="item.product_supplier.product"
+                          class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
+                          <span v-if="$i18n.locale == 'en'">{{ item.product_supplier.product.title_en }}
                           </span>
-                          <span v-if="$i18n.locale == 'ar'"
-                            >{{ item.product_supplier.product.title_ar }}
+                          <span v-if="$i18n.locale == 'ar'">{{ item.product_supplier.product.title_ar }}
                           </span>
                         </p>
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <p
-                        class="price"
-                        v-if="item.product_supplier.product_details_by_type"
-                      >
-                        <span
-                          v-if="
-                            item.product_supplier.product_details_by_type.price
-                          "
-                        >
+                      <p class="price" v-if="item.product_supplier.product_details_by_type">
+                        <span v-if="
+                          item.product_supplier.product_details_by_type.price
+                        ">
                           {{
                             item.product_supplier.product_details_by_type.price
-                              | fixedCurrency
+                            | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                         <br />
                         <!-- if price exist & check discount  -->
-                        <span
-                          class="price-after"
-                          v-if="
-                            item.product_supplier.product_details_by_type
-                              .price_before_discount &&
-                            item.product_supplier.product_details_by_type
-                              .price_before_discount >
-                              item.product_supplier.product_details_by_type
-                                .price
-                          "
-                        >
+                        <span class="price-after" v-if="
+                          item.product_supplier.product_details_by_type
+                            .price_before_discount &&
+                          item.product_supplier.product_details_by_type
+                            .price_before_discount >
+                          item.product_supplier.product_details_by_type
+                            .price
+                        ">
                           {{
                             item.product_supplier.product_details_by_type
                               .price_before_discount | fixedCurrency
@@ -100,29 +81,23 @@
                       </p>
                     </td>
                     <td class="text-center">
-                      <div
-                        v-if="item.product_supplier.product_details_by_type"
-                        class="actions d-flex justify-content-center align-items-center"
-                      >
+                      <div v-if="item.product_supplier.product_details_by_type"
+                        class="actions d-flex justify-content-center align-items-center">
                         <b-button @click="removeFromWishlist(item)">
                           <font-awesome-icon icon="fa-solid fa-trash-can" />
                         </b-button>
 
-                        <b-button
-                          @click="addToCart(item)"
-                          v-if="
-                            (cartAvailable == 'available' &&
-                              item.product_supplier.product_details_by_type
-                                .add_type === 'cart') ||
-                            (cartAvailable == 'available' &&
-                              item.product_supplier.product_details_by_type
-                                .add_type === 'both')
-                          "
-                        >
+                        <b-button @click="addToCart(item)" v-if="
+                          (cartAvailable == 'available' &&
+                            item.product_supplier.product_details_by_type
+                              .add_type === 'cart') ||
+                          (cartAvailable == 'available' &&
+                            item.product_supplier.product_details_by_type
+                              .add_type === 'both')
+                        ">
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                         </b-button>
-                        <button
-                          @click="chooseProduct(item.product_supplier)"
+                        <button @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
                             RfqAvailable == 'available' &&
@@ -132,14 +107,11 @@
                                 item.product_supplier.product_details_by_type
                                   .add_type === 'both')) &&
                             buyerUserData
-                          "
-                        >
+                          ">
                           <div>
-                            <button
-                              id="show-btn"
+                            <button id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                              @click="$bvModal.show('bv-bidRequest')"
-                            >
+                              @click="$bvModal.show('bv-bidRequest')">
                               <span>
                                 <rfqIcon class="mx-2" />
                               </span>
@@ -149,63 +121,49 @@
                       </div>
                     </td>
                   </tr>
-                  <tr
-                    class="item-content text-center"
-                    v-for="(item, index) in wishlistItems"
-                    :key="index"
-                  >
+                  <tr class="item-content text-center" v-for="(item, index) in wishlistItems.filter(item => item.basket_promotion_id || !item.product_supplier)" :key="index">
                     <!-- product image and go to pproduct page with click  -->
                     <td class="media">
-                      <router-link
-                        :to="{
-                          path: '/basketOfferDetails',
-                          query: { id: `${item.basket_promotion_id}` },
-                        }"
-                        class="thumb w-100"
-                      >
-                        <img
-                          :src="item.basket_promotion.image_path"
-                          :alt="item.basket_promotion.image_path + ' image'"
-                          class="product-image"
-                        />
+                      <router-link :to="{
+                        path: '/basketOfferDetails',
+                        query: { id: `${item.basket_promotion_id}` },
+                      }" class="thumb w-100" v-if="item.basket_promotion && item.basket_promotion.image_path">
+                        <img :src="item.basket_promotion.image_path" :alt="item.basket_promotion.image_path + ' image'"
+                          class="product-image" />
                       </router-link>
+                      <span v-else>-</span>
                     </td>
                     <!-- product name  and go to pproduct page with click  -->
                     <td>
-                      <router-link
-                        :to="{
-                          path: '/basketOfferDetails',
-                          query: { id: `${item.basket_promotion_id}` },
-                        }"
-                      >
+                      <router-link v-if="item.basket_promotion && item.basket_promotion.title" :to="{
+                        path: '/basketOfferDetails',
+                        query: { id: `${item.basket_promotion_id}` },
+                      }">
                         {{ item.basket_promotion.title }}
                       </router-link>
+                      <span v-else>-</span>
                     </td>
                     <!-- if product price exist -->
-                    <td
-                      v-if="
+                    <td>
+                      <span v-if="item.basket_promotion && 
                         item.basket_promotion.basket_price ||
-                        item.basket_promotion.basket_price >= 0
-                      "
-                    >
-                      {{ item.basket_promotion.basket_price | fixedCurrency }}
-                      {{ currency }}
+                        item.basket_promotion && item.basket_promotion.basket_price >= 0
+                      ">
+                        {{ item.basket_promotion.basket_price | fixedCurrency }}
+                        {{ currency }}
+                      </span>
+                      <span v-else>-</span>
                     </td>
                     <!-- if product price not exist -->
-                    <td v-else>-</td>
                     <!-- counter to update product quantity -->
                     <!-- product price * product quantity = total product price -->
 
                     <!-- remove product from cart -->
 
-                    <td >
+                    <td>
                       <div class="actions d-flex justify-content-center align-items-center">
-                        
-                        <div
-                          @click="addBasketToCart(item)"
-                          class="action"
-                          v-if="item.basket_promotion.in_stock == true"
-                        >
+
+                        <div @click="addBasketToCart(item)" class="action" v-if="item.basket_promotion&& item.basket_promotion.in_stock == true">
                           <span class="action-icon">
                             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                           </span>
@@ -221,32 +179,22 @@
                 </tbody>
               </table>
 
-              <div
-                class="text-center d-flex justify-content-center align-items-center mt-5"
-              >
+              <div class="text-center d-flex justify-content-center align-items-center mt-5">
                 <!-- Pagination  -->
-                <Paginate
-                  v-if="wishlistItems"
-                  :total-pages="totalPages"
-                  :per-page="totalPages"
-                  :current-page="page"
-                  @pagechanged="onPageChange"
-                />
+                <Paginate v-if="wishlistItems" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+                  @pagechanged="onPageChange" />
               </div>
             </div>
           </div>
         </div>
         <div class="" v-else>
           <div class="text-center">
-            <h2>{{$t('cart.noProducts')}}</h2>
+            <h2>{{ $t('cart.noProducts') }}</h2>
           </div>
         </div>
       </div>
       <!-- if data not exist  -->
-      <div
-        class="d-flex justify-content-center align-items-center flex-column"
-        v-else
-      >
+      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
         <img src="@/assets/images/wishlist.png" alt="cart-image" />
         <div class="spinner-border text-secondary" role="status">
           <span class="sr-only"></span>
@@ -260,52 +208,26 @@
       </template>
       <form>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.nameInput") }}
-            <span class="text-danger">*</span></label
-          >
+          <label for="">{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label>
           <input type="text" class="form-control" v-model="requestData.name" />
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.qoute_name"
-            :key="index"
-          >
+          <div class="text-danger" v-for="(error, index) in errors.qoute_name" :key="index">
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.min_order_quantity") }}
-            <span class="text-danger">*</span></label
-          >
-          <input
-            type="number"
-            min="1"
-            class="form-control"
-            v-model="requestData.request_qty"
-          />
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.request_qty"
-            :key="index"
-          >
+          <label for="">{{ $t("singleProduct.min_order_quantity") }}
+            <span class="text-danger">*</span></label>
+          <input type="number" min="1" class="form-control" v-model="requestData.request_qty" />
+          <div class="text-danger" v-for="(error, index) in errors.request_qty" :key="index">
             {{ error }}
           </div>
         </div>
         <div class="form-group">
-          <label for=""
-            >{{ $t("singleProduct.reviewInput") }}
-            <span class="text-danger">*</span></label
-          >
-          <textarea
-            class="form-control"
-            v-model="requestData.comment"
-          ></textarea>
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.comment"
-            :key="index"
-          >
+          <label for="">{{ $t("singleProduct.reviewInput") }}
+            <span class="text-danger">*</span></label>
+          <textarea class="form-control" v-model="requestData.comment"></textarea>
+          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
             {{ error }}
           </div>
         </div>
@@ -596,7 +518,7 @@ export default {
      *  add basket to cart
      */
     addBasketToCart(myProduct) {
-      console.log('myProduct' , myProduct);
+      console.log('myProduct', myProduct);
       let data = {
         basket_promotion_id: myProduct.basket_promotion_id,
         quantity: 1,
@@ -642,7 +564,7 @@ export default {
      * remove basket from  favorite
      * @vuese
      */
-     removebasketFromCart(product) {
+    removebasketFromCart(product) {
       this.$store.dispatch("wishlist/removeProductFromWishlist", {
         myItem: product.basket_promotion.favorite_id,
       });
