@@ -1,5 +1,5 @@
 import globalAxios from "./global-axios";
-
+import {createdFormData} from "./helpers"
 export default {
   // profile Category
   getCategories() {
@@ -66,6 +66,13 @@ export default {
   },
   getibanUploadData() {
     return globalAxios.get(`members/profile/bank-info`);
+  },
+
+  getDynaimicInputsData() {
+    return globalAxios.get(`members/profile/documents/dynamic-info?form=user-b2b-document`);
+  },
+  dynaimicInputsDataUpload(payload) {
+    return globalAxios.post(`members/profile/documents/dynamic-info?form=user-b2b-document`,createdFormData(payload));
   },
 
   //end  bank info

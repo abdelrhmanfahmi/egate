@@ -6,20 +6,8 @@
         <!-- Main Header -->
         <div class="d-flex">
           <div class="branding">
-            <img
-              :src="logoEnv"
-              v-if="logoEnv"
-              class="img-fluid"
-              alt="logo"
-              @click="goToHome()"
-            />
-            <img
-              src="@/assets/images/logo.png"
-              v-else
-              class="img-fluid"
-              alt="logo"
-              @click="goToHome()"
-            />
+            <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" @click="goToHome()" />
+            <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" @click="goToHome()" />
           </div>
           <ul v-if="!mobile" class="navigation">
             <li>
@@ -42,11 +30,8 @@
                 {{ $t("home.corporat") }}
                 <ul class="submenu">
                   <li>
-                    <a
-                      :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`"
-                      target="_blank"
-                      >{{ $t("home.suppliers") }}</a
-                    >
+                    <a :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`" target="_blank">{{ $t("home.suppliers")
+                    }}</a>
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
@@ -68,48 +53,32 @@
         <div class="right-side d-flex">
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
-            <b-button
-              class="icon-search"
-              size="md"
-              v-if="searchClicked"
-              @click="closeSearch"
-            >
+            <b-button class="icon-search" size="md" v-if="searchClicked" @click="closeSearch">
               <font-awesome-icon icon="fa-solid fa-times" />
             </b-button>
             <span class="" v-if="searchClicked">
               <div class="form-holder">
-                <b-form @submit.prevent="search">
-                  <b-form-input
-                    :placeholder="$t('cart.search')"
-                    class="search-input"
-                    v-model="keyword"
-                    ref="searchIcon"
-                  ></b-form-input>
+                <b-form @submit.prevent="search" @keyup="search">
+                  <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"
+                    ref="searchIcon"></b-form-input>
+                  <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
+                    <button>
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                    </button>
+                  </div>
                 </b-form>
                 <ul class="search-suggestions" v-if="suggestionsExist">
                   <span class="meaning-span">{{ $t("home.didMean") }}</span>
-                  <li
-                    v-for="(suggest, index) in suggestions"
-                    :key="index"
-                    role="button"
-                    @click="searchSuggestion(suggest)"
-                  >
+                  <li v-for="(suggest, index) in suggestions" :key="index" role="button"
+                    @click="searchSuggestion(suggest)">
                     {{ suggest }}
                   </li>
                 </ul>
               </div>
             </span>
 
-            <b-button
-              v-b-modal.modal-1
-              class="icon-search"
-              size="md"
-              @click="searchClicked = !searchClicked"
-            >
-              <font-awesome-icon
-                v-b-toggle.sidebar-1
-                icon="fa-solid fa-search"
-              />
+            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
+              <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
           </div>
           <div v-if="!mobile" class="cart">
@@ -150,13 +119,10 @@
                         <span v-if="$i18n.locale == 'en'">{{
                           userInfo.item.company_name_en
                         }}</span>
-                        <span
-                          v-else-if="
-                            $i18n.locale == 'ar' &&
-                            userInfo.item.company_name_ar
-                          "
-                          >{{ userInfo.item.company_name_ar }}</span
-                        >
+                        <span v-else-if="
+                          $i18n.locale == 'ar' &&
+                          userInfo.item.company_name_ar
+                        ">{{ userInfo.item.company_name_ar }}</span>
                         <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
@@ -169,13 +135,10 @@
                         <span v-if="$i18n.locale == 'en'">{{
                           userInfo.item.company_name_en
                         }}</span>
-                        <span
-                          v-else-if="
-                            $i18n.locale == 'ar' &&
-                            userInfo.item.company_name_ar
-                          "
-                          >{{ userInfo.item.company_name_ar }}</span
-                        >
+                        <span v-else-if="
+                          $i18n.locale == 'ar' &&
+                          userInfo.item.company_name_ar
+                        ">{{ userInfo.item.company_name_ar }}</span>
                         <span v-else>{{ userInfo.item.company_name_en }}</span>
                       </span>
                       <span v-else>
@@ -184,9 +147,7 @@
                     </p>
                   </span>
                 </template>
-                <b-dropdown-item
-                  v-if="userInfo.item.is_verified || buyerUserData.is_verified"
-                >
+                <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
                   <router-link to="/profile/categories">{{
                     $t("profile.myProfile")
                   }}</router-link>
@@ -205,18 +166,11 @@
 
         <!--Start Mbile Nav -->
         <div class="icon right-side" v-if="mobile">
-          <div
-            class="row justify-content-center align-items-center search-icon"
-            v-if="mobile"
-          >
+          <div class="row justify-content-center align-items-center search-icon" v-if="mobile">
             <div class="col-12">
               <div class="search-icon">
                 <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                  <font-awesome-icon
-                    v-b-toggle.sidebar-1
-                    icon="fa-solid fa-search"
-                    class="mobile-search-icon"
-                  />
+                  <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" class="mobile-search-icon" />
                 </b-button>
                 <b-modal id="modal-1" class="search">
                   <!-- Using slots -->
@@ -224,29 +178,24 @@
                     <template #append>
                       <b-input-group-text>
                         <strong @click="search" class="search-eye">
-                          <font-awesome-icon
-                            v-b-toggle.sidebar-1
-                            icon="fa-solid fa-search"
-                          />
+                          <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-chevron-right" />
                         </strong>
                       </b-input-group-text>
                     </template>
-                    <b-form @submit.prevent="search">
+                    <b-form @submit.prevent="search" @keyup="search">
                       <div class="form-holder">
-                        <b-form-input
-                          :placeholder="$t('cart.search')"
-                          v-model="keyword"
-                        ></b-form-input>
+                        <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
+                        <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
+                          <button>
+                            <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                          </button>
+                        </div>
                         <ul class="search-suggestions" v-if="suggestionsExist">
                           <span class="meaning-span">{{
                             $t("home.didMean")
                           }}</span>
-                          <li
-                            v-for="(suggest, index) in suggestions"
-                            :key="index"
-                            role="button"
-                            @click="searchSuggestion(suggest)"
-                          >
+                          <li v-for="(suggest, index) in suggestions" :key="index" role="button"
+                            @click="searchSuggestion(suggest)">
                             {{ suggest }}
                           </li>
                         </ul>
@@ -258,25 +207,12 @@
             </div>
           </div>
 
-          <font-awesome-icon
-            v-b-toggle.sidebar-1
-            @click="toggleMobileNav"
-            icon="fa-solid fa-bars"
-            :class="{ 'icon-active': mobileNav }"
-            class="bar-icon"
-          />
+          <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
+            :class="{ 'icon-active': mobileNav }" class="bar-icon" />
         </div>
         <transition name="mobile-nav">
-          <b-sidebar
-            :right="getDir === 'rtl'"
-            v-if="mobileNav"
-            @hidden="closeSideBar"
-            id="sidebar-1"
-            backdrop
-            width="300px"
-            shadow
-            z-index="3"
-          >
+          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
+            width="300px" shadow z-index="3">
             <MobileNav />
           </b-sidebar>
         </transition>
@@ -396,14 +332,12 @@ export default {
       // setTimeout(() => {
       //   location.reload()
       // }, 1200);
-
       let data = {
         keyword: this.keyword,
       };
       categories
         .searchResult(data)
         .then((resp) => {
-          console.log(resp);
           if (
             resp.data.items.suggestions &&
             resp.data.items.suggestions.length
@@ -412,12 +346,6 @@ export default {
             this.suggestions = resp.data.items.suggestions;
           } else {
             this.suggestionsExist = false;
-
-            let r = this.$router.resolve({
-              name: "SearchResults", // put your route information in
-              query: { keyword: this.keyword }, // put your route information in
-            });
-            window.location.assign(r.href);
           }
         })
         .catch((err) => {
@@ -436,6 +364,16 @@ export default {
         query: { keyword: word }, // put your route information in
       });
       window.location.assign(r.href);
+    },
+    searchBtn() {
+      if (this.keyword.length > 1) {
+
+        let r = this.$router.resolve({
+          name: "SearchResults", // put your route information in
+          query: { keyword: this.keyword, }, // put your route information in
+        });
+        window.location.assign(r.href);
+      }
     },
     /**
      * @vuese
@@ -681,6 +619,7 @@ export default {
 
 html:lang(ar) {
   .main-nav {
+
     .cart-body,
     .notify-body {
       right: auto;
@@ -778,8 +717,10 @@ html:lang(ar) {
 .bar-icon {
   z-index: 1;
 }
+
 .form-holder {
   position: relative;
+
   .search-suggestions {
     position: absolute;
     left: 0;
@@ -791,16 +732,34 @@ html:lang(ar) {
     box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
     padding: 15px;
     z-index: 99;
+
     li {
       border-bottom: 1px solid #ccc;
     }
   }
+
   .meaning-span {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     font-size: 16px;
+  }
+}
+
+.floating-btn {
+  button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: $main-color;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
   }
 }
 </style>
