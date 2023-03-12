@@ -15,10 +15,10 @@ function buildFormData(formData, data, parentKey = '') {
         });
     } else {
         let value = data;
-        if (data && !(data instanceof String) && !(data instanceof Blob)) {
+        if (data && !(data instanceof String) && !(data instanceof Blob) && typeof data !== 'boolean') {
             value = data.toString();
         }
-        if(value){
+        if(value !== undefined && value !== null){
 
             formData.append(parentKey, value);
         }
