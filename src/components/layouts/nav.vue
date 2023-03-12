@@ -63,7 +63,7 @@
                     ref="searchIcon"></b-form-input>
                   <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
                     <button>
-                      {{ $t('cart.search') }}
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" />
                     </button>
                   </div>
                 </b-form>
@@ -187,7 +187,7 @@
                         <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
                         <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
                           <button>
-                            {{}}
+                            <font-awesome-icon icon="fa-solid fa-arrow-right" />
                           </button>
                         </div>
                         <ul class="search-suggestions" v-if="suggestionsExist">
@@ -758,8 +758,8 @@ html:lang(ar) {
     box-shadow: none;
     background: $main-color;
     color: #fff;
-    padding: 5px;
-    border-radius: 3px;
+    padding: 5px 10px;
+    border-radius: 10px;
   }
 }
 </style>
