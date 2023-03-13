@@ -359,6 +359,7 @@ export default {
     },
     checkDynamicInputs() {
       auth.dynamicInputs('user-b2b-register').then(res => {
+        console.log('user-b2b-register' , res);
         this.dynamicInputs = res.data.items
         this.dynamicInputs.map(input => {
           this.form[input.uuid] = null;
