@@ -34,6 +34,7 @@
         <path d="M18 15l-6-6-6 6" />
       </svg>
     </div>
+    <cookizComponent />
     <Footer />
   </div>
 </template>
@@ -45,12 +46,13 @@ import Footer from "@/components/layouts/footer";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-
+import cookizComponent from "@/components/global/cookizComponent.vue"
 export default {
   components: {
     TopHeader,
     Nav,
     Footer,
+    cookizComponent
   },
   methods: {
     /**
