@@ -1,7 +1,7 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
     <!-- navbar component  -->
-    <b-container>
+    <div :class="{'container':searchClicked == false , 'container-fluid':searchClicked == true}">
       <nav :class="$i18n.locale">
         <!-- Main Header -->
         <div class="d-flex">
@@ -53,7 +53,7 @@
         <div class="right-side d-flex">
           <!-- Search Icon -->
           <div class="search-icon" v-if="!mobile">
-            <b-button class="icon-search" size="md" v-if="searchClicked" @click="closeSearch">
+            <b-button class="icon-search" size="md" v-if="searchClicked == true" @click="closeSearch">
               <font-awesome-icon icon="fa-solid fa-times" />
             </b-button>
             <span class="" v-if="searchClicked">
@@ -77,7 +77,7 @@
               </div>
             </span>
 
-            <b-button v-b-modal.modal-1 class="icon-search" size="md" @click="searchClicked = !searchClicked">
+            <b-button v-b-modal.modal-1 class="icon-search" size="md" v-if="searchClicked == false" @click="searchClicked = !searchClicked">
               <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
             </b-button>
           </div>
@@ -176,8 +176,8 @@
                   <!-- Using slots -->
                   <b-input-group class="mt-3">
                     <template #append>
-                      <b-input-group-text>
-                        <strong @click="search" class="search-eye">
+                      <b-input-group-text class="floating-btn">
+                        <strong @click="searchBtn" class="search-eye">
                           <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-chevron-right" />
                         </strong>
                       </b-input-group-text>
@@ -185,11 +185,11 @@
                     <b-form @submit.prevent="search" @keyup="search">
                       <div class="form-holder">
                         <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
-                        <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
+                        <!-- <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
                           <button>
                             <font-awesome-icon icon="fa-solid fa-arrow-right" />
                           </button>
-                        </div>
+                        </div> -->
                         <ul class="search-suggestions" v-if="suggestionsExist">
                           <span class="meaning-span">{{
                             $t("home.didMean")
@@ -218,7 +218,7 @@
         </transition>
         <!--End Mbile Nav -->
       </nav>
-    </b-container>
+    </div>
   </header>
 </template>
 
@@ -286,7 +286,7 @@ export default {
      */
     checkScreen() {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth <= 991) {
+      if (this.windowWidth <= 1199) {
         this.mobile = true;
         return;
       }
@@ -561,6 +561,9 @@ export default {
         color: $text-color;
         font-weight: 700;
         font-size: 16px;
+        @media(min-width:1200px) and (max-width:1400px){
+          padding: 0 5px 0;
+        }
 
         &::before {
           content: "";
@@ -701,6 +704,7 @@ html:lang(ar) {
 
   #modal-1 .form-control {
     font-size: 30px;
+    width:285px
   }
 }
 
@@ -711,6 +715,9 @@ html:lang(ar) {
 
   @media (max-width: 992px) {
     max-width: 170px;
+  }
+  @media(min-width:1200px)and(max-width:1400px){
+    width:200px
   }
 }
 
@@ -762,4 +769,5 @@ html:lang(ar) {
     border-radius: 10px;
   }
 }
+
 </style>

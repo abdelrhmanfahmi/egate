@@ -145,10 +145,7 @@ export default {
         }
     },
     mounted() {
-
         this.firstCheckDynamicInputs()
-        // this.secondCheckDynamicInputs()
-
     },
     watch: {
         form: {
@@ -157,7 +154,8 @@ export default {
                 // do stuff
                 console.log('val' , val);
             },
-            deep: true
+            deep: true,
+            immediate:true
         }
     },
     methods: {
@@ -170,10 +168,7 @@ export default {
             await auth.dynamicInputs('user-b2b-document').then(res => {
                 this.dynamicInputs = res.data.items;
                 this.dynamicInputs.map((input) => {
-                    // Vue.set(this.form,input.uuid , null)
-                    // this.form[input.uuid] = null;
                     if (input.type == 'checkbox') {
-                        // this.form[input.uuid] = false;
                         Vue.set(this.form,input.uuid , false)
                     }else{
                         Vue.set(this.form,input.uuid , null)
@@ -181,7 +176,6 @@ export default {
                 })
                 
                 this.secondCheckDynamicInputs()
-                console.log('first from', this.form);
 
             }).catch(err => {
                 console.log(err);
@@ -212,7 +206,6 @@ export default {
                         }
                     }
                 })
-                // this.form = Object.assign({}, this.form);
                 console.log('form', this.form);
 
             }).catch(err => {
@@ -225,17 +218,6 @@ export default {
         */
 
         async uploadDunamicInputsData() {
-            // console.log('dynamicInputs' , this.dynamicInputs);
-            // for (let index = 0; index < this.dynamicInputs.length; index++) {
-            //     const dynamicInputsElement = this.dynamicInputs[index];
-            //     console.log('dynamicInputsElement' , dynamicInputsElement);
-            //     for (let index = 0; index < this.form.length; index++) {
-            //         const formElement = this.form[index];
-            //         console.log('formElement' , formElement);
-
-            //     }
-
-            // }
             this.dynamicBtnDisabled = true
             this.buttonClickedEffect = true
             await profile.dynaimicInputsDataUpload(this.form).then(res => {
@@ -247,8 +229,6 @@ export default {
             }).finally(() => {
                 this.dynamicBtnDisabled = false
                 this.buttonClickedEffect = false;
-              
-                // this.firstCheckDynamicInputs()
                 this.secondCheckDynamicInputs()
             })
         },
