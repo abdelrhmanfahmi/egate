@@ -59,7 +59,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
     position: fixed;
-    left: 50px;
+    left: -50%;
     bottom: 50px;
     max-width: 345px;
     width: 100%;
@@ -72,7 +72,7 @@ export default {
 }
 
 .wrapper.show {
-    right: 20px;
+    left: 20px;
 }
 
 .title-box {
