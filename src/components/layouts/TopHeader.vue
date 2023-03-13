@@ -4,7 +4,7 @@
   <header class="main-header">
     <b-container>
       <div class="top-nav">
-        <div class="lang" v-if="arabicAvailable !=='no'">
+        <div class="lang" v-if="arabicAvailable !== 'no'">
           <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             اللغة العربية
@@ -212,11 +212,11 @@ export default {
           searchURL.searchParams.delete('lang');
 
           window.history.pushState({}, '', searchURL);
-
+          localStorage.removeItem('currency')
 
           enLang.click();
         }
-      }
+      }   
       if (langValue == 'ar') {
         if (arLang) {
 
@@ -224,6 +224,7 @@ export default {
           searchURL.searchParams.delete('lang');
 
           window.history.pushState({}, '', searchURL);
+          localStorage.removeItem('currency')
 
           arLang.click()
         }
