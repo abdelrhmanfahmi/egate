@@ -116,6 +116,7 @@
             <!-- text your message  -->
             <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
               :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
+              
 
             <!-- add new text area if user select bank   -->
 
@@ -124,9 +125,11 @@
               <label for="accountDetails">{{ $t('profile.accountDetails') }}</label>
               <b-form-textarea id="accountDetails" rows="8" v-model="returnData.clinet_bank_info"></b-form-textarea>
             </div>
+            <div class="error text-start" v-for="(error, index) in uploadErrors.clinet_bank_info" :key="index">
+              {{ error }}
+            </div>
 
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3"
-              :disabled="btn1Disabled">
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>
