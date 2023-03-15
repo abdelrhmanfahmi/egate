@@ -3,7 +3,7 @@ import globalAxios from "./global-axios";
 export default {
   // register
   register(type, payload) {
-    return globalAxios.post(`auth/${type}/register`, payload);
+    return globalAxios.post(`auth/${type}/register?form=user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`, payload);
   },
   getAllCountires() {
     return globalAxios.get("lists/countries");

@@ -19,21 +19,21 @@
           <div
             class="row flex-row justify-content-between align-items-center mb-4 text-dark"
           >
-            <div class="col-md-4 col-sm-12" @click="selectType('b2c')">
+            <div class="col-md-4 col-sm-12 p-0 m-0" @click="selectType('b2c')">
               <span
                 class="text-dark font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2c' }"
                 >{{ $t("login.retailBuyer") }}</span
               >
             </div>
-            <div class="col-md-5 col-sm-12" @click="selectType('b2b')">
+            <div class="col-md-5 col-sm-12 p-0 m-0" @click="selectType('b2b')">
               <span
                 class="text-dark font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }"
                 >{{ $t("login.wholeSaleBuyer") }}</span
               >
             </div>
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-3 col-sm-12 p-0 m-0">
               <a
                 :href="`${supplierDomain}`"
                 target="_blank"

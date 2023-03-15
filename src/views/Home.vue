@@ -5,7 +5,8 @@
     <ProgressSlider />
     <!--(tabs) if user is b2c or guest  -->
     <div class="container text-center home-tabs"
-      v-if="!buyerUserData || (buyerUserData && buyerUserData.type !== 'buyer')">
+      v-if="!buyerUserData || (buyerUserData && buyerUserData.type == 'b2c') ||
+       (buyerUserData && buyerUserData.type == 'supplier' && buyerUserData.is_buyer !== 1)">
       <span class="categories-info py-5">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
