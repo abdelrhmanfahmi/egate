@@ -16,21 +16,21 @@
             <div
               class="row flex-row justify-content-between align-items-center mb-4 text-dark"
             >
-              <div class="col-md-4 col-sm-12">
+              <div class="col-md-4 col-sm-12 p-0">
                 <router-link
                   to="/b2b-login"
                   class="text-dark font-weight-bold text-decoration-underline"
                   >{{ $t("login.retailBuyer") }}</router-link
                 >
               </div>
-              <div class="col-md-5 col-sm-12">
+              <div class="col-md-5 col-sm-12 p-0">
                 <router-link
                   to="/b2b-login"
                   class="text-dark font-weight-bold text-decoration-underline"
                   >{{ $t("login.wholeSaleBuyer") }}</router-link
                 >
               </div>
-              <div class="col-md-3 col-sm-12">
+              <div class="col-md-3 col-sm-12 p-0">
                 <a
                   :href="`${supplierDomain}`"
                   target="_blank"
