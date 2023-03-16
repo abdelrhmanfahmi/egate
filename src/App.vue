@@ -172,7 +172,7 @@ export default {
                 } else if (element.value == 0 || element.value == '0') {
                   localStorage.setItem('arabic', 'no');
                   setTimeout(() => {
-                    location.reload()
+                    this.getSiteImages()
                   }, 250);
                 }
 
