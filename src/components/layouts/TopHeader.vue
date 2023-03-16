@@ -4,7 +4,7 @@
   <header class="main-header">
     <b-container>
       <div class="top-nav">
-        <div class="lang" v-if="arabicAvailable !== 'no'">
+        <div class="lang" v-if="arabicAvailable !== 'no' && arabicAvilability == true">
           <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             اللغة العربية
@@ -49,7 +49,9 @@ export default {
       currencyValue: null,
       currencies: [],
       countries: [],
-      myCurrencies: null,
+      myCurrencies: JSON.parse(localStorage.getItem("country"))
+        ? JSON.parse(localStorage.getItem("country")).currencies
+        : null,
       lang: localStorage.getItem("lang") || "en",
 
       countryImg: JSON.parse(localStorage.getItem("country"))
@@ -61,6 +63,10 @@ export default {
         : this.$t("home.kuwait"),
       defaultCountry: null,
       defaultCurrency: null,
+      loadingPercent: 0,
+      loadTime: 0,
+      interval: null,
+      arabicAvilability: false
       // currentCurrency : localStorage.getItem('currency')
     };
   },
@@ -70,8 +76,26 @@ export default {
 
     this.handleLangeFromQuery();
 
+    this.checkLang()
+
+  },
+  created() {
+    let perfData = window.performance.timing;
+    // let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.loadEventStart);
+    let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
+    this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
+    this.doProgress();
   },
   methods: {
+    doProgress() {
+      let step = this.loadTime / 100;
+      this.interval = setInterval(() => {
+        this.loadingPercent++;
+        if (this.loadingPercent >= 100) {
+          this.checkLang()
+        }
+      }, step);
+    },
     /**
      * @vuese
      * get countries and setting language and curreny and country
@@ -108,15 +132,42 @@ export default {
           let myCurrency = document
             .querySelector("#myCurrency-code")
             .innerText.trim();
-          if (myCurrency == "") {
-            setTimeout(() => {
-              location.reload();
-            }, 800);
+          if (this.loadingPercent >= 100) {
+            if (myCurrency == "") {
+              setTimeout(() => {
+
+                if (this.countryByIP && !this.selectedCountry) {
+
+                  localStorage.setItem("currency", this.countryByIP.currencies[0].code);
+                  localStorage.setItem("currencyId", this.countryByIP.currencies[0].id);
+                } else if (!this.countryByIP && this.selectedCountry || this.countryByIP && this.selectedCountry) {
+                  localStorage.setItem("currency", this.selectedCountry.currencies[0].code);
+                  localStorage.setItem("currencyId", this.selectedCountry.currencies[0].id);
+                }
+                else if (!this.countryByIP && !this.selectedCountry) {
+                  location.reload();
+                }
+              }, 800);
+            }
+
           }
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    checkLang() {
+
+      if (localStorage.getItem('arabic')) {
+        if (this.arabicAvailable) {
+          if (this.arabicAvailable == 'no') {
+            this.arabicAvilability = false
+          } else {
+            this.arabicAvilability = true
+          }
+        }
+      }
+
     },
     /**
      * @vuese
@@ -131,7 +182,6 @@ export default {
       }
       localStorage.setItem("lang", this.lang);
       localStorage.removeItem("currency");
-
       window.location.reload();
     },
     /**
@@ -151,9 +201,18 @@ export default {
           localStorage.setItem("is_default", data.currencies[0].is_default);
         }
       }
+      this.getAllCountires()
+      setTimeout(() => {
+        let currencyTrim = document.querySelector('#myCurrency-code').innerText.trim()
+        if (currencyTrim == '') {
+          let currency = document.querySelector('#myCurrency-code')
+          currency.innerText = data.currencies[0].code
+
+        }
+      }, 100);
       setTimeout(() => {
         location.reload();
-      }, 100);
+      }, 1000);
     },
     /**
      * @vuese
@@ -187,7 +246,26 @@ export default {
           }
           this.defaultCurrency = res.data.items.currencies[0].code;
 
-          location.reload();
+
+
+          this.countryName = res.data.items.title
+          this.countryImg = res.data.items.flag
+          this.myCurrencies = res.data.items.currencies;
+          setTimeout(() => {
+            let currencyTrim = document.querySelector('#myCurrency-code').innerText.trim()
+            if (currencyTrim == '') {
+              let currency = document.querySelector('#myCurrency-code')
+              currency.innerText = res.data.items.currencies[0].code
+
+            }
+
+          }, 100);
+
+
+
+          // alert('5')
+          // location.reload();
+
         })
         .catch((err) => {
           console.log(err);
@@ -216,7 +294,7 @@ export default {
 
           enLang.click();
         }
-      }   
+      }
       if (langValue == 'ar') {
         if (arLang) {
 
@@ -235,10 +313,18 @@ export default {
     currentCurrency() {
       return localStorage.getItem("currency");
     },
+    loaded() {
+      return this.loadingPercent + '%'
+    }
   },
   watch: {
     '$i18n.locale': function () {
       this.handleLangeFromQuery()
+    },
+    loadingPercent(val) {
+      if (val >= 100) {
+        clearInterval(this.interval)
+      }
     }
   }
 };
