@@ -129,7 +129,7 @@
               {{ error }}
             </div>
 
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || returnData.quantity >= maxQTY">
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || (returnData.quantity >= maxQTY && returnData.quantity >= maxQTY && returnData.quantity > 1)">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>

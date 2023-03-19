@@ -67,7 +67,7 @@
 
             <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
               :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || returnData.quantity >= maxQTY"
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || (returnData.quantity >= maxQTY && returnData.quantity > 1) "
               @click.prevent="returnOrder">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>

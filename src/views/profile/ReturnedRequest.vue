@@ -16,9 +16,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="data-holder serial-holder d-flex justify-content-between align-items-center"
-        >
+        <div class="data-holder serial-holder d-flex justify-content-between align-items-center">
           <div class="serial" v-if="return_item">
             <h4 class="m-0">
               <span>{{ $t("profile.returnSerial") }} :</span>
@@ -33,10 +31,8 @@
         </div>
 
 
-        <div
-          class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0 px-1"
-          v-if="return_item && return_item.return_status === 'Declined'"
-        >
+        <div class="cancelReason supplier-data info-data info-colored data-holder mt-1 mb-0 px-1"
+          v-if="return_item && return_item.return_status === 'Declined'">
           <h5 class="text-danger px-3 mb-0">
             <span> {{ $t("profile.rejectionReason") }} : </span>
             <span class="mx-2">
@@ -91,24 +87,17 @@
                   <h5 class="pt-2">{{ $t("profile.returnImage") }}</h5>
                 </div>
                 <div class="col-8 py-1 info-colored">
-                  <div
-                    class="downloadArea w-50"
-                    :class="{
-                      'ml-auto': $i18n.locale == 'en',
-                      'mr-auto': $i18n.locale == 'ar',
-                    }"
-                  >
-                    <b-button
-                      class="btn-block"
-                      variant="outline-success"
-                      @click="
-                        downloadImage(
-                          return_item.image,
-                          (extension = return_item.image.split('.').pop()),
-                          $t('profile.downloadImage')
-                        )
-                      "
-                    >
+                  <div class="downloadArea w-50" :class="{
+                    'ml-auto': $i18n.locale == 'en',
+                    'mr-auto': $i18n.locale == 'ar',
+                  }">
+                    <b-button class="btn-block" variant="outline-success" @click="
+                      downloadImage(
+                        return_item.image,
+                        (extension = return_item.image.split('.').pop()),
+                        $t('profile.downloadImage')
+                      )
+                    ">
                       <i class="fa fa-download"></i>
                       {{ $t("profile.downloadImage") }}
                     </b-button>
@@ -119,10 +108,7 @@
                 <div class="col-12 p-0">
                   <h5 class="pt-2">{{ $t("profile.returnReason") }}</h5>
                 </div>
-                <div
-                  class="col-12 return-reason"
-                  v-if="return_item.return_reason"
-                >
+                <div class="col-12 return-reason" v-if="return_item.return_reason">
                   {{ return_item.return_reason }}
                 </div>
               </div>
@@ -137,10 +123,7 @@
               </h4>
               <div class="">
                 <div class="info">
-                  <div
-                    class="row info-data info-colored"
-                    v-if="return_item.payment_type"
-                  >
+                  <div class="row info-data info-colored" v-if="return_item.payment_type">
                     <div class="col-6">
                       {{ $t("profile.paymentType") }}
                     </div>
@@ -185,10 +168,7 @@
           </div>
           <div class="supplier-products-data" v-if="return_item">
             <div class="supplier-info mb-5">
-              <div
-                class="supplier-data info-data info-colored data-holder"
-                v-if="return_item"
-              >
+              <div class="supplier-data info-data info-colored data-holder" v-if="return_item">
                 <div class="holder">
                   <div v-if="return_item.supplier">
                     {{ $t("profile.supplier") }} :
@@ -203,15 +183,11 @@
 
               <div class="supplier-products mt-3" v-if="fields">
                 <div class="holder">
-                  <table class="table table-striped table-hover selectable">
+                  <table class="table table-striped table-hover selectable"
+                    v-if="supplier_oreder_item.basket_promotion_id || supplier_oreder_item.baskets">
                     <thead class="font-weight-bold">
                       <tr>
-                        <th
-                          scope="col"
-                          class="text-center"
-                          v-for="(tab, index) in fields"
-                          :key="index"
-                        >
+                        <th scope="col" class="text-center" v-for="(tab, index) in basketFields" :key="index">
                           {{ tab.label }}
                         </th>
                       </tr>
@@ -219,7 +195,40 @@
                     <tbody>
                       <tr>
                         <td v-if="return_item.item_names">
-                          {{ return_item.item_names }} ({{supplier_oreder_item.status_lang}})
+                          {{ return_item.item_names }} ({{ supplier_oreder_item.status_lang }})
+                        </td>
+                        <td v-else>-</td>
+                        <td v-if="supplier_oreder_item.price">
+                          {{ supplier_oreder_item.price | fixedCurrency }}
+                          {{ currency }}
+                        </td>
+                        <td v-if="return_item.quantity">
+                          {{ return_item.quantity }}
+                        </td>
+                        <td v-else>-</td>
+                        <!-- <td v-if="supplier_oreder_item.sup_total"> -->
+                        <td v-if="supplier_oreder_item.total_price">
+                          <!-- {{ supplier_oreder_item.sup_total | fixedCurrency }} -->
+                          {{ supplier_oreder_item.total_price | fixedCurrency }}
+                          {{ currency }}
+                        </td>
+                        <td v-else>-</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="table table-striped table-hover selectable" v-else>
+                    <thead class="font-weight-bold">
+                      <tr>
+                        <th scope="col" class="text-center" v-for="(tab, index) in fields" :key="index">
+                          {{ tab.label }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td v-if="return_item.item_names">
+                          {{ return_item.item_names }} ({{ supplier_oreder_item.status_lang }})
                         </td>
                         <td v-else>-</td>
                         <td v-if="supplier_oreder_item.price">
@@ -272,6 +281,24 @@ export default {
         {
           key: "product",
           label: this.$t("profile.productName"),
+        },
+        {
+          key: "price",
+          label: this.$t("profile.price"),
+        },
+        {
+          key: "qty",
+          label: this.$t("profile.qty"),
+        },
+        {
+          key: "rowTotal",
+          label: this.$t("profile.rowTotal"),
+        },
+      ],
+      basketFields: [
+        {
+          key: "product",
+          label: this.$t("profile.basketName"),
         },
         {
           key: "price",
@@ -376,13 +403,16 @@ export default {
   padding: 20px;
   background: #f7f7f7;
 }
+
 .serial-holder {
   font-size: 20px;
 }
+
 h4 {
   background: #f7f7f7;
   margin-bottom: 2%;
 }
+
 section {
   margin: 2% 0;
 }
@@ -392,76 +422,94 @@ section {
   padding: 10px 0;
   margin: 0 15px;
 }
+
 .info-data {
   padding: 10px 0;
 }
+
 .info-colored {
   background: #f7f7f7;
 }
+
 .supplier-info {
   font-size: 20px;
 }
+
 table,
 table tr,
 table td {
   text-align: center !important;
 }
+
 .print {
   cursor: pointer;
 }
+
 .holder {
   display: flex;
   justify-content: space-between;
   // padding: 20px;
   font-size: 20px;
 }
+
 .supplier-data {
   padding: 20px;
 }
+
 .modal-content {
   display: none !important;
 }
+
 .payment-method {
   .methods-data {
     background: #ecf0f1;
     padding: 2rem;
     border-radius: 0.5rem;
     text-align: left;
+
     .info {
       border-bottom: 1px dashed #c5c6c6;
       padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
+
     .total {
       padding: 1rem 0;
       color: #312620;
       font-weight: bold;
+
       .title {
         font-size: 14pt;
       }
     }
+
     .methods {
       background-color: #fff;
       border-radius: 0.5rem;
       border: 1px dashed #cfd0d0;
+
       .method {
         padding: 1rem;
         border-bottom: 1px dashed #cfd0d0;
         font-size: 11pt;
         color: #544842;
+
         .custom-radio {
           flex-wrap: wrap;
         }
+
         label {
           cursor: pointer;
         }
+
         span {
           width: 100%;
           font-size: 10pt;
           margin-top: -0.2rem;
           opacity: 0.7;
         }
+
         .online-media {
           img {
             object-fit: contain;
@@ -471,6 +519,7 @@ table td {
     }
   }
 }
+
 .modal-header {
   align-content: center !important;
   justify-content: center !important;
@@ -481,23 +530,28 @@ table td {
 }
 
 @media print {
+
   .cancel-btn,
   .return-btn,
   .print,
   .order-back {
     display: none;
   }
+
   .mail {
     word-break: break-all;
   }
+
   .branding {
     display: flex !important;
     justify-content: flex-end;
   }
 }
+
 .return-reason {
   word-break: break-all;
 }
+
 .cancelReason {
   background: #ff000042 !important;
 }
