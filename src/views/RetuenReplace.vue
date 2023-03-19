@@ -19,12 +19,8 @@
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
                 }}</b-form-select-option>
-                <b-form-select-option
-                  :value="reason.id"
-                  v-for="(reason, index) in reasons"
-                  :key="index"
-                  >{{ reason.name }}</b-form-select-option
-                >
+                <b-form-select-option :value="reason.id" v-for="(reason, index) in reasons" :key="index">{{ reason.name
+                }}</b-form-select-option>
               </b-form-select>
             </div>
             <div class="row">
@@ -36,25 +32,16 @@
                   <div class="value">
                     <!-- display quantity  -->
                     <span class="product-counter-number">
-                      {{ returnData.quantity ? returnData.quantity : 1 }}</span
-                    >
+                      {{ returnData.quantity ? returnData.quantity : 1 }}</span>
                   </div>
                   <div class="actions d-flex flex-column">
                     <!-- increment the quantity  -->
-                    <button
-                      class="product-counter-btn"
-                      @click="incrementQuantity"
-                      type="button"
-                    >
+                    <button class="product-counter-btn" :class="{ disabledBtn: returnData.quantity >= maxQTY }" @click="incrementQuantity" type="button" :disabled="returnData.quantity >= maxQTY">
                       <b-icon-plus />
                     </button>
                     <!-- decrement the quantity  -->
-                    <button
-                      class="product-counter-btn"
-                      @click="decrementQuantity(returnData.quantity)"
-                      :disabled="returnData.quantity == 1"
-                      type="button"
-                    >
+                    <button class="product-counter-btn" @click="decrementQuantity(returnData.quantity)"
+                      :disabled="returnData.quantity == 1" type="button">
                       <b-icon-dash />
                     </button>
                   </div>
@@ -67,19 +54,10 @@
                   <span class="text-danger">*</span>
                 </label>
                 <b-form-group>
-                  <b-form-file
-                    size="lg"
-                    id="returnImage"
-                    @change="uploadImage"
-                    :placeholder="$t('profile.returnImage')"
-                    drop-placeholder="Drop file here..."
-                  ></b-form-file>
+                  <b-form-file size="lg" id="returnImage" @change="uploadImage" :placeholder="$t('profile.returnImage')"
+                    drop-placeholder="Drop file here..."></b-form-file>
                 </b-form-group>
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in uploadErrors.image"
-                  :key="index"
-                >
+                <div class="error text-start" v-for="(error, index) in uploadErrors.image" :key="index">
                   {{ error }}
                 </div>
               </div>
@@ -87,20 +65,10 @@
 
             <!-- enter message  -->
 
-            <b-form-textarea
-              v-if="returnData.return_reason == 8"
-              id="textarea-rows"
-              :placeholder="$t('profile.returnReason')"
-              rows="8"
-              v-model="returnData.return"
-            ></b-form-textarea>
-            <b-button
-              type="submit"
-              variant="outline-danger"
-              class="saveBtn btn-block py-3 mt-3"
-              :disabled="btn1Disabled"
-              @click.prevent="returnOrder"
-            >
+            <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
+              :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || returnData.quantity >= maxQTY"
+              @click.prevent="returnOrder">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>
@@ -138,9 +106,26 @@ export default {
       loading: false,
       // reasons: null,
       reasons: null,
+      id: this.$route.query.prodId,
+      orderData:null,
+      maxQTY: null,
     };
   },
   methods: {
+    /**
+     * @vuese
+     * this function used to get Order Data
+     */
+    getOrderData() {
+      profile
+        .getSingleOrders(this.id)
+        .then((res) => {
+          this.orderData = res.data.items.order;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     /**
      * @vuese
      * this function used to call backend to return user Order
@@ -255,7 +240,7 @@ export default {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)
         .then((res) => {
-          console.log(res);
+          this.maxQTY = res.data.items.quantity
         })
         .catch((err) => {
           console.log(err);
@@ -263,11 +248,12 @@ export default {
     },
   },
   mounted() {
+    // this.getOrderData()
     this.returnReasons();
     this.checkReturnedProductQuantity();
   },
   components: {
-    BIconPlus,
+    BIconPlus,    
     BIconDash,
   },
 };
@@ -277,9 +263,11 @@ export default {
 .product-counter {
   display: flex;
   align-items: center;
+
   // justify-content: left;
   .actions {
     color: #606266;
+
     .product-counter-btn {
       width: 2rem;
       height: 1.55rem;
@@ -290,11 +278,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
+
   .value {
     border-radius: 0;
     border: 1px solid #f0f0f0;
@@ -307,5 +297,9 @@ export default {
     align-items: center;
     background-color: #fff;
   }
+}
+.disabledBtn {
+  background: #a6a6a6 !important;
+  color: #fff !important;
 }
 </style>

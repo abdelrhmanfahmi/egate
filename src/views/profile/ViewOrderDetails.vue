@@ -319,7 +319,8 @@
                   <b-button @click="
                     $bvModal.show('cancel_btn_modal');
                   chooseSupplierUUID(order);
-                                      " variant="outline-danger mt-2 cancel-btn" v-if="
+                                                                                                  "
+                    variant="outline-danger mt-2 cancel-btn" v-if="
                       order.order_status_string === 'Pending' ||
                       order.order_status_string === 'Accepted'
                     "><font-awesome-icon icon="fa-solid fa-x" />
@@ -329,7 +330,7 @@
                 </div>
                 <div class="supplier-products mt-3" v-if="fields">
                   <div class="holder
-                    d-block">
+                          d-block">
                     <table class="table table-striped table-hover selectable"
                       v-if="order.items.length || !order.baskets.length">
                       <thead class="font-weight-bold">
@@ -343,9 +344,8 @@
                         <tr>
                           <td v-if="ord.items">
                             <span>{{ ord.items.product.title }}</span> <span v-if="ord.gift_promotion_id"><sup><img
-                                  src="@/assets/images/giftbox.png" class="gift-product"
-                                  alt="gift-product"></sup></span>
-                                  <span v-if="ord.buy_get_promotion_id"><sup>({{ $t('profile.buyXgetYOffer') }})</sup></span>
+                                  src="@/assets/images/giftbox.png" class="gift-product" alt="gift-product"></sup></span>
+                            <span v-if="ord.buy_get_promotion_id"><sup>({{ $t('profile.buyXgetYOffer') }})</sup></span>
                           </td>
                           <td v-else>-</td>
                           <td v-if="ord.price">
@@ -370,11 +370,14 @@
                               order.order_status_string === 'Completed' ||
                               order.order_status_string === 'Delivered'
                             ">
+
                               <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
-                              <b-button @click="
-                                $bvModal.show('return');
-                              chooseSupplierUUID(ord);
-                                                              " variant="outline-danger mt-2 return-btn" v-if="
+                              <b-button id="return-tolltip"
+                                @click="
+                                  $bvModal.show('return');
+                                chooseSupplierUUID(ord);
+                                                                                                                                                                "
+                                variant="outline-danger mt-2 return-btn" v-if="
                                   ord.status === 'Pending' &&
                                   ord.return_time !== null &&
                                   ord.return_time !== 'null' &&
@@ -383,6 +386,9 @@
                                 <span class="mx-2">{{
                                   $t("profile.return")
                                 }}</span></b-button>
+                              <b-tooltip target="return-tolltip" triggers="hover" v-if="ord.has_gift == 1">
+                                {{ $t('singleProduct.returnGiftOrder') }}
+                              </b-tooltip>
                             </div>
                             <div class="" v-else>-</div>
                           </td>
@@ -427,10 +433,12 @@
                               order.order_status === 'Delivered'
                             ">
                               <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
-                              <b-button @click="
-                                $bvModal.show('return');
-                              chooseSupplierUUID(ord);
-                                                              " variant="outline-danger mt-2 return-btn" v-if="
+                              <b-button
+                                @click="
+                                  $bvModal.show('return');
+                                chooseSupplierUUID(ord);
+                                                                                                                                                                "
+                                variant="outline-danger mt-2 return-btn" v-if="
                                   ord.status === 'Pending' &&
                                   ord.return_time !== null &&
                                   ord.return_time !== 'null' &&
@@ -459,6 +467,7 @@
                 </template>
                 <div class="d-block">
                   <div class="">
+                    <h5 class="text-center py-3" v-if="giftProduct == true">{{ $t('singleProduct.returnGiftOrder') }}</h5>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="">
                         <router-link :to="{
@@ -1072,7 +1081,8 @@ export default {
       contactPhone: null,
       contactEmail: null,
       repayClicked: false,
-      CanvasUrl: null
+      CanvasUrl: null,
+      giftProduct: false
     };
   },
   methods: {
@@ -1220,6 +1230,11 @@ export default {
      * @vuese
      */
     chooseSupplierUUID(ord) {
+      if (ord.has_gift == 1) {
+        this.giftProduct = true
+      } else {
+        this.giftProduct = false
+      }
       this.supplierUUID = ord.uuid;
     },
 

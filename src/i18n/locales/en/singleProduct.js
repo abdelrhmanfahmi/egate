@@ -58,6 +58,7 @@ export default {
   removecheckedProductToCart:'Remove Selected From Group',
   exportSelectedOrders:'Export Selected Orders',
   brand:'Brand',
-  replaceRFQProduct:'The item is already in the cart, do you want to replace it'
+  replaceRFQProduct:'The item is already in the cart, do you want to replace it',
+  returnGiftOrder:'if you do this action,prize product will return also'
 
 };
