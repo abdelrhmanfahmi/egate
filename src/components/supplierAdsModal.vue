@@ -3,7 +3,7 @@
   <div
     class="container newsletter-popup-container"
     id="newsletter-popup-form"
-    v-if="isLoaded && supplierAds && supplierAds.bannar"
+    v-if="supplierAds && ImageUrl"
   >
     <div class="row justify-content-center">
       <div class="col-12">
@@ -12,12 +12,11 @@
         >
           <div class="col-12">
             <img
-              :src="supplierAds.bannar"
+              :src="ImageUrl"
               height="420"
               class="newsletter-img"
               width="800"
               alt="supplier-ad"
-              @load="onImgLoad"
             />
           </div>
         </div>
@@ -68,11 +67,11 @@ export default {
       if (val >= 100) {
         clearInterval(this.interval);
       }
-      if (val >= 100 && this.newsletterShow?.image_path) {
-        setTimeout(() => {
-          this.onImgLoad();
-        }, 6000);
-      }
+      // if (val >= 100 && this.newsletterShow?.image_path) {
+      //   setTimeout(() => {
+      //     this.onImgLoad();
+      //   }, 6000);
+      // }
     },
   },
   methods: {
@@ -108,9 +107,9 @@ export default {
      * @vuese
      *   check when image loaded
      */
-    onImgLoad() {
-      return (this.isLoaded = true);
-    },
+    // onImgLoad() {
+    //   return (this.isLoaded = true);
+    // },
     /**
      * @vuese
      *   check when page loaded
@@ -122,7 +121,7 @@ export default {
       }, step);
     },
   },
-  props: ["supplierAds"],
+  props: ["supplierAds" , "ImageUrl"],
   mounted() {
     /**
      *   start check when page loaded

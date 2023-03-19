@@ -77,6 +77,15 @@ export default {
     this.handleLangeFromQuery();
 
     this.checkLang()
+    setTimeout(() => {
+      let currencyTrim = document.querySelector('#myCurrency-code').innerText.trim()
+      if (currencyTrim == '') {
+        let currency = document.querySelector('#myCurrency-code')
+        currency.innerText = localStorage.getItem('currency')
+
+      }
+    }, 5000);
+    
 
   },
   created() {
