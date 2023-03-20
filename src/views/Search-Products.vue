@@ -509,7 +509,7 @@ export default {
   border-radius: 5px;
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
   }
 }
 </style>

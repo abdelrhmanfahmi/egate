@@ -892,7 +892,7 @@ export default {
 .myproject--checkbox {
   height: 20px;
   width: 20px;
-  accent-color: red;
+  accent-color: $main-color;
   display: inline-block;
   cursor: pointer;
 }

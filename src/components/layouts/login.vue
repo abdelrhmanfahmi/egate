@@ -323,7 +323,7 @@ export default {
         bottom: 0;
         width: 20px;
         height: 3px;
-        background: #ed2124;
+        background: $main-color;
       }
     }
 

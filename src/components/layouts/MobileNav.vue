@@ -85,7 +85,7 @@ export default {
         border-top: 1px solid rgb(0 0 0 / 10%);
         transition: all 0.5s ease-in-out;
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
       &:last-child a {

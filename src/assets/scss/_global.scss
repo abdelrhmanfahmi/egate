@@ -2,14 +2,18 @@
 	* global style
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
+
+// inter font
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 // html , body {
 //   scroll-behavior: smooth;
 // }
 
 body {
-  font-family: $default-font-family, sans-serif;
+  // font-family: $default-font-family, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -60,7 +64,7 @@ label,
   vertical-align: baseline;
 }
 .error {
-  color: red;
+  color: $main-color;
 }
 ::placeholder {
   text-transform: capitalize;
@@ -124,13 +128,13 @@ label,
     border: none;
     border-bottom: 3px solid rgba(255, 255, 255, 0.1);
     border-radius: 0;
-    color: #ed2124;
+    color: $main-color;
     font-size: 35px;
   }
 }
 .select-country {
   .title {
-    color: #fff;
+    color: $text-color;
   }
   img {
     width: 25px;
@@ -145,7 +149,7 @@ label,
     padding: 5px;
     text-align: start;
     &:hover {
-      color: #ed2124;
+      color: $main-color;
       p {
         color: #000;
       }
@@ -177,7 +181,7 @@ label,
   }
 }
 .vuejs-countdown {
-  color: #ed2124;
+  color: $main-color;
   font-weight: 700;
   font-family: "Almarai", sans-serif;
   .digit {
@@ -215,7 +219,7 @@ label,
       }
       &:hover {
         a {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }
@@ -247,7 +251,7 @@ label,
   a {
     color: #5a5755;
     &:hover {
-      color: #ed2124;
+      color: $main-color;
     }
   }
 }
@@ -563,7 +567,7 @@ input[type="number"] {
 
 .Allcountries {
   .dropdown-menu {
-    left: -12rem !important;
+    left: -rem !important;
     min-width: 20rem !important;
     @media (max-width: 992px) {
       left: -3rem !important;

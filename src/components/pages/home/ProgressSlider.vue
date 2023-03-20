@@ -94,7 +94,7 @@ export default {
       sliders: null,
       progress: 90,
       options: {
-        color: "#ed2124",
+        color: "$main-color",
         "empty-color": "transparent",
         size: 60,
         thickness: 3,

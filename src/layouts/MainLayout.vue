@@ -1,7 +1,7 @@
 <template>
   <div class="main-layout">
     <!-- top haeder that contain languages and countries  -->
-    <TopHeader />
+    <!-- <TopHeader /> -->
     <!-- nav bar  -->
     <Nav />
     <!-- alert div if user dosnt activate his account  -->
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import TopHeader from "@/components/layouts/TopHeader";
+// import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
 import Footer from "@/components/layouts/footer";
 
@@ -49,7 +49,7 @@ import { getMessaging, onMessage } from "firebase/messaging";
 import cookizComponent from "@/components/global/cookizComponent.vue"
 export default {
   components: {
-    TopHeader,
+    // TopHeader,
     Nav,
     Footer,
     cookizComponent

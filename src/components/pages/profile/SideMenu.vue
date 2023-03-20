@@ -346,7 +346,7 @@ export default {
       padding: 10px 0;
 
       .router-link-exact-active {
-        color: red;
+        color: $main-color;
       }
 
       a {

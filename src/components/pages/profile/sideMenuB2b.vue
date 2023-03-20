@@ -355,7 +355,7 @@ export default {
     li {
       padding: 10px 0;
       .router-link-exact-active {
-        color: red;
+        color: $main-color;
       }
       a {
         display: inline-block;

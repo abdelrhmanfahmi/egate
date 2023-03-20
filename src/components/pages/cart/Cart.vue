@@ -3058,7 +3058,7 @@ export default {
   }
 
   .removeCoupon {
-    background: red;
+    background: $main-color;
     color: #fff;
     cursor: pointer;
   }

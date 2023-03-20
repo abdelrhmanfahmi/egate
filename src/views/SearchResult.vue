@@ -540,7 +540,7 @@ export default {
   box-shadow: 0px 3px 27px 0px rgb(0 0 0 / 17%);
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
     color: #fff;
   }
 }
@@ -570,7 +570,7 @@ export default {
   border-radius: 5px;
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
   }
 }
 </style>

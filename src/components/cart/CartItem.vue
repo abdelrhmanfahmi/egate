@@ -162,7 +162,7 @@ export default {
       margin-bottom: 0.8rem;
       display: block;
       &:hover {
-        color: #ed2124;
+        color: $main-color;
       }
     }
     .price {

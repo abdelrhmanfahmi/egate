@@ -128,7 +128,7 @@ export default {
     position: absolute;
     top: -15px;
     left: -15px;
-    background: red;
+    background: $main-color;
     color: #fff;
     width: 40px;
     height: 40px;

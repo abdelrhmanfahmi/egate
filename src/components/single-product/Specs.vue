@@ -91,7 +91,7 @@ export default {
         tr {
           th {
             font-weight: normal;
-            color: #ed2124;
+            color: $main-color;
             text-align: center;
           }
           td {

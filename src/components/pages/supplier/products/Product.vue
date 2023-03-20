@@ -308,7 +308,7 @@ export default {
             color: #fff;
 
             &:hover {
-              background: #ed2124;
+              background: $main-color;
             }
           }
         }
@@ -330,7 +330,7 @@ export default {
         color: #544842;
 
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
 
@@ -349,7 +349,7 @@ export default {
     }
 
     .new {
-      background: red;
+      background: $main-color;
     }
 
     .discount {
@@ -365,7 +365,7 @@ export default {
 }
 
 .is_favorite {
-  background: #ed2124 !important;
+  background: $main-color !important;
 }
 
 .Product-Image {

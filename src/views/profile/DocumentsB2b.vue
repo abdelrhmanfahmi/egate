@@ -1112,7 +1112,7 @@ export default {
         color: #312620;
 
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }

@@ -2,7 +2,12 @@
   <!-- app page that contain all pages  -->
   <div id="app">
     <!-- import main layout that hold all pages  -->
-    <MainLayout />
+    <div class="" v-if="checkLayout == true">
+      <ProfileLayout />
+    </div>
+    <div class="" v-else>
+      <MainLayout />
+    </div>
   </div>
 </template>
 
@@ -12,6 +17,7 @@
  */
 
 import MainLayout from "@/layouts/MainLayout.vue";
+import ProfileLayout from "@/layouts/ProfileLayout.vue";
 // import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
 export default {
@@ -40,6 +46,7 @@ export default {
   },
   components: {
     MainLayout,
+    ProfileLayout
   },
   methods: {
     /**
@@ -197,6 +204,9 @@ export default {
     guestId() {
       return this.$store.state.guestId;
     },
+    checkLayout() {
+      return this.$route.path.includes('profile') ? true : false
+    }
   },
   mounted() {
     // window.addEventListener('beforeunload', function (e) {
@@ -207,8 +217,8 @@ export default {
     this.checkCartValidity();
     this.getSiteImages()
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cWelcome To Using HumHum!" ,"color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+    // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+    // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // this.logoutDynamically()
   },
   data() {

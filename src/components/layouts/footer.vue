@@ -301,7 +301,7 @@ export default {
   text-transform: uppercase;
   padding: 10px 9px;
   &:hover {
-    color: #ed2124;
+    color: $main-color;
   }
 }
 .footer-social ul {
@@ -330,7 +330,7 @@ export default {
     font-family: "Almarai", sans-serif;
   }
   a {
-    color: #ed2124;
+    color: $main-color;
   }
 }
 .pay-method-img {

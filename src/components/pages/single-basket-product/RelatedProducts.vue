@@ -276,7 +276,7 @@
               color: #fff;
   
               &:hover {
-                background: #ed2124;
+                background: $main-color;
               }
             }
           }
@@ -298,7 +298,7 @@
           color: #544842;
   
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
   
@@ -317,7 +317,7 @@
       }
   
       .new {
-        background: red;
+        background: $main-color;
       }
   
       .discount {
@@ -333,7 +333,7 @@
   }
   
   .is_favorite {
-    background: #ed2124 !important;
+    background: $main-color !important;
   }
   
   .Product-Image {

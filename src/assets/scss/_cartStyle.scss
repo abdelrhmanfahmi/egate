@@ -72,7 +72,7 @@ $text-color: mix(#000, $primary-color, 64%);
             a {
               color: #a0a0a0;
               &:hover {
-                color: #ed2124;
+                color: $main-color;
               }
             }
           }
@@ -384,7 +384,7 @@ input[type="text"]:disabled {
   }
 }
 .supplierAddressesDanger{
-  border: 2px solid #ed2124 !important;
+  border: 2px solid $main-color !important;
 }
 .addresses-holder {
   position: relative;
@@ -426,7 +426,7 @@ input[type="text"]:disabled {
               margin-inline-start: 0.25rem;
             }
             &:hover {
-              color: #ed2124;
+              color: $main-color;
             }
           }
         }
@@ -519,7 +519,7 @@ input[type="text"]:disabled {
           margin-inline-start: 0.25rem;
         }
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }
@@ -554,7 +554,7 @@ a:not([href]):not([class]) {
 }
 sup {
   font-size: 95% !important;
-  color: red;
+  color: $main-color;
 }
 html:lang(ar) {
   .actions {

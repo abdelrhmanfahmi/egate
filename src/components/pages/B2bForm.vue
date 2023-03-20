@@ -440,7 +440,7 @@ export default {
   }
 
   .error {
-    color: red;
+    color: $main-color;
   }
 }
 

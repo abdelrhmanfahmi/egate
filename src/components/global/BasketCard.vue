@@ -246,7 +246,7 @@
     display: block !important;
   }
   button.new {
-    background: red;
+    background: $main-color;
   }
   .rfqBtn{
     background: #000;

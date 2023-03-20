@@ -129,7 +129,7 @@ export default {
           margin: 0 10px;
 
           &.active {
-            border-color: #ff6000;
+            border-color: $main-color;
           }
         }
       }

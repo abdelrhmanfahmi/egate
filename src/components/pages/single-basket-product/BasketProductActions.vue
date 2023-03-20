@@ -659,15 +659,15 @@ export default {
           // cursor: pointer;
           transition: all ease-out 0.3s;
           // &:hover {
-          //   background: #ff6000;
-          //   border-color: #ff6000;
+          //   background: $main-color;
+          //   border-color: $main-color;
           //   color: #fff;
           // }
         }
 
         span.active {
-          background: #ff6000;
-          border-color: #ff6000;
+          background: $main-color;
+          border-color: $main-color;
           color: #fff;
         }
       }
@@ -691,7 +691,7 @@ export default {
           font-size: 11pt;
 
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
 
           span {
@@ -714,7 +714,7 @@ export default {
         width: 100%;
 
         &:hover {
-          background: #ed2124;
+          background: $main-color;
         }
       }
     }
@@ -733,7 +733,7 @@ export default {
           margin-inline-end: 0.25rem;
 
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
       }
@@ -812,7 +812,7 @@ textarea {
 }
 
 .cart-btn {
-  background: #ff6000 !important;
+  background: $main-color !important;
 }
 
 .supplier-image {
@@ -848,7 +848,7 @@ textarea {
       margin: 0 0.3rem;
 
       &:hover {
-        color: #ed2124;
+        color: $main-color;
       }
 
       span {
@@ -893,7 +893,7 @@ textarea {
     text-shadow: none;
     transition: background 0.1s linear;
     font-weight: 400;
-    color: $red;
+    color: $main-color;
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: none;
@@ -924,8 +924,8 @@ textarea {
   }
 
   .icon-svg--color-blue {
-    fill: $red;
-    color: $red;
+    fill: $main-color;
+    color: $main-color;
   }
 
   .icon-svg {
@@ -1122,7 +1122,7 @@ textarea {
 
     50% {
       transform: scale(1.15);
-      fill: $red;
+      fill: $main-color;
     }
 
     100% {

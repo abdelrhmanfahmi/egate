@@ -675,7 +675,7 @@ input[type="checkbox"] {
   opacity: 0;
 }
 .removeOrder {
-  background: red;
+  background: $main-color;
   color: #fff;
   z-index: 99;
   position: absolute;

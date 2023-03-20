@@ -242,7 +242,7 @@ export default {
     a {
       color: #403a37;
       &:hover {
-        color: #ed2124;
+        color: $main-color;
       }
     }
     .prev span {
@@ -268,7 +268,7 @@ export default {
     font-size: 14px;
     box-shadow: 0px 3px 27px 0px rgb(0 0 0 / 17%);
     &:hover {
-      background: #ed2124;
+      background: $main-color;
       color: #fff;
     }
   }

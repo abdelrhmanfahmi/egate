@@ -1338,7 +1338,7 @@ export default {
       line-height: 0;
 
       &:hover {
-        color: #ed2124;
+        color: $main-color;
       }
 
       span {
@@ -1426,7 +1426,7 @@ export default {
   margin: 0 5px;
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
   }
 }
 
@@ -1437,7 +1437,7 @@ export default {
 }
 
 .cart-link {
-  background: #ff6000 !important;
+  background: $main-color !important;
   color: #fff !important;
 }
 

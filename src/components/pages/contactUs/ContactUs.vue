@@ -266,7 +266,7 @@ export default {
     .side-info {
       display: block;
       font-size: 10pt;
-      color: #ed2124;
+      color: $main-color;
       margin-bottom: 0.5rem;
     }
 
@@ -304,7 +304,7 @@ export default {
     color: #000;
 
     .contact-info {
-      background-color: #ed2124;
+      background-color: $main-color;
       padding: 2rem;
 
       .info {
@@ -327,7 +327,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          color: #ed2124;
+          color: $main-color;
 
           &::before {
             content: "";
