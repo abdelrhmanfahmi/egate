@@ -309,5 +309,8 @@ export default {
   reason:'السبب',
   transferred:'تم السحب',
   withdrowFile:'ملف السحب',
-  basketName:'اسم السلة'
+  basketName:'اسم السلة',
+  Account_number:'رقم الحساب',
+  iban:'Iban',
+  bank_name:'اسم البنك'
 };
