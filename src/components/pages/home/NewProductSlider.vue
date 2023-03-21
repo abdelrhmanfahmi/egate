@@ -13,7 +13,8 @@
               <div class="d-flex justify-content-end" v-if="dataLength > 0">
                 <router-link :to="{
                   path: '/new-deals',
-                  query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
+                  query: { type: `${$t('profile.buyXgetYOffer')}` },
+                  // query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
                 }" class="showAllLink">
                   {{ $t("home.showAll") }}
                 </router-link>
@@ -59,7 +60,7 @@
               </div>
             </b-tab>
             <!-- daily offers  -->
-            <b-tab :title="$t('profile.dailyOffers')">
+            <!-- <b-tab :title="$t('profile.dailyOffers')">
               <div class="d-flex justify-content-end">
                 <router-link to="/best-deals" class="showAllLink" v-if="dailyOffersLength > 0">
                   {{ $t("home.showAll") }}
@@ -76,7 +77,7 @@
               <div class="" v-else>
                 <h3>{{ $t('cart.noDataMatch') }}</h3>
               </div>
-            </b-tab>
+            </b-tab> -->
             <!-- monthly offers  -->
             <b-tab :title="$t('profile.monthlyOffers')">
               <div class="d-flex justify-content-end">

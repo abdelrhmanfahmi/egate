@@ -114,7 +114,7 @@
                 </b-form-group>
             </div>
             <b-button v-if="documentsPage == true" type="submit" variant="outline-danger" class="saveBtn btn-block py-3"
-                :disabled="buttonClickedEffect" @click="buttonClicked">
+                :disabled="dynamicBtnDisabled" @click="buttonClicked">
                 <i class="fa fa-upload"></i> {{ $t("profile.save") }}
                 <span class="loader" v-if="buttonClickedEffect"></span>
             </b-button>
@@ -124,7 +124,7 @@
 
 <script>
 export default {
-    props: ['dynamicInputs', 'form', 'errors'],
+    props: ['dynamicInputs','dynamicForm', 'form', 'errors' , 'dynamicBtnDisabled'],
     data() {
         return {
             currentRoute: this.$route,
@@ -140,6 +140,7 @@ export default {
         if (this.currentRoute.path.includes('cart')) {
             this.cartPage = true
         }
+        console.log('dynamicForm' , this.form);
     },
     methods: {
         buttonClicked() {

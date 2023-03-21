@@ -4,8 +4,8 @@
     <!-- remove this according to new edit  -->
     <ProgressSlider />
     <!--(tabs) if user is b2c or guest  -->
-    <div class="container text-center home-tabs"
-      v-if="!buyerUserData || (buyerUserData && buyerUserData.type !== 'buyer')">
+    <div class="container text-center home-tabs" v-if="!buyerUserData || (buyerUserData && buyerUserData.type == 'b2c') ||
+      (buyerUserData && buyerUserData.type == 'supplier' && buyerUserData.is_buyer !== 1)">
       <span class="categories-info py-5">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
@@ -113,6 +113,7 @@ export default {
           this.supplierAds = res.data.items.ads[0];
           if (res.data.items.ads.length > 0 && res.data?.items?.ads[0]?.bannar) {
             this.existSupplierAds = true;
+            this.showSupplierADsModal()
           } else {
             this.existSupplierAds = false;
             this.getAdsModal();
@@ -137,6 +138,9 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
+          .then(()=>{
+            this.showADsModal()
+          })
           .catch((err) => {
             console.log(err);
           });
@@ -149,6 +153,9 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
+          .then(()=>{
+            this.showADsModal()
+          })
           .catch((err) => {
             console.log(err);
           });
@@ -160,6 +167,8 @@ export default {
           .getGuestAdsModal(payload)
           .then((res) => {
             this.newsletterShow = res.data.items;
+          }).then(()=>{
+            this.showADsModal()
           })
           .catch((err) => {
             console.log(err);
@@ -172,6 +181,64 @@ export default {
     */
     loginAsBuyer() {
       this.$router.push('/b2b-register')
+    },
+    showSupplierADsModal() {
+      if (
+        this.$route.path == "/" &&
+        this.supplierAds?.bannar
+      ) {
+
+        setTimeout(() => {
+          let ImageUrl = ''
+          fetch(this.supplierAds.bannar)
+            //                         vvvv
+            .then(response => response.blob())
+            .then(imageBlob => {
+              // Then create a local URL for that image and print it 
+              const imageObjectURL = URL.createObjectURL(imageBlob);
+              ImageUrl = imageObjectURL
+            }).then(() => {
+              this.$modal.show(
+                supplierAdsModal,
+                {
+                  supplierAds: this.supplierAds,
+                  ImageUrl: ImageUrl
+                },
+                { width: "970", height: "auto", adaptive: true }
+              );
+            })
+        }, 5000);
+      }
+    },
+    showADsModal() {
+      if (
+        this.$route.path == "/" &&
+        this.newsletterShow &&
+        this.newsletterShow.image_path
+      ) {
+
+
+        setTimeout(() => {
+          let ImageUrl = ''
+          fetch(this.newsletterShow.image_path)
+            //                         vvvv
+            .then(response => response.blob())
+            .then(imageBlob => {
+              // Then create a local URL for that image and print it 
+              const imageObjectURL = URL.createObjectURL(imageBlob);
+              ImageUrl = imageObjectURL
+            }).then(() => {
+              this.$modal.show(
+                NewsLetterModal,
+                {
+                  newsletterShow: this.newsletterShow,
+                  ImageUrl: ImageUrl
+                },
+                { width: "970", height: "auto", adaptive: true }
+              );
+            })
+        }, 5000);
+      }
     }
   },
   data() {
@@ -185,33 +252,11 @@ export default {
     this.getSupplierAds();
   },
   mounted() {
-    setTimeout(() => {
-      if (
-        this.$route.path == "/" &&
-        this.supplierAds?.bannar
-      ) {
 
-        this.$modal.show(
-          supplierAdsModal,
-          { supplierAds: this.supplierAds },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
 
-    setTimeout(() => {
-      if (
-        this.$route.path == "/" &&
-        this.newsletterShow &&
-        this.newsletterShow.image_path
-      ) {
-        this.$modal.show(
-          NewsLetterModal,
-          { newsletterShow: this.newsletterShow },
-          { width: "970", height: "auto", adaptive: true }
-        );
-      }
-    }, 5000);
+
+
+
 
     this.emailVerify();
     // this.checkEmailForgetPassWord()

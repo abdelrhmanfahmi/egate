@@ -86,7 +86,7 @@
                   </div>
                   <div class="actions d-flex flex-column">
                     <!-- increment quantity  -->
-                    <button class="product-counter-btn" @click="incrementQuantity" type="button"
+                    <button class="product-counter-btn" :class="{ disabledBtn: returnData.quantity >= maxQTY }" @click="incrementQuantity" type="button"
                       :disabled="returnData.quantity >= maxQTY">
                       <b-icon-plus />
                     </button>
@@ -116,6 +116,7 @@
             <!-- text your message  -->
             <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
               :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
+              
 
             <!-- add new text area if user select bank   -->
 
@@ -124,9 +125,11 @@
               <label for="accountDetails">{{ $t('profile.accountDetails') }}</label>
               <b-form-textarea id="accountDetails" rows="8" v-model="returnData.clinet_bank_info"></b-form-textarea>
             </div>
+            <div class="error text-start" v-for="(error, index) in uploadErrors.clinet_bank_info" :key="index">
+              {{ error }}
+            </div>
 
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3"
-              :disabled="btn1Disabled">
+            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || (returnData.quantity >= maxQTY && returnData.quantity >= maxQTY && returnData.quantity > 1)">
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>
@@ -168,7 +171,7 @@ export default {
       selectedOption: null,
       reasons: null,
       cancelationReason: null,
-      maxQTY: null
+      maxQTY: null,
     };
   },
   methods: {
@@ -395,5 +398,9 @@ export default {
     align-items: center;
     background-color: #fff;
   }
+}
+.disabledBtn {
+  background: #a6a6a6 !important;
+  color: #fff !important;
 }
 </style>

@@ -56,5 +56,6 @@ export default {
   removecheckedProductToCart:'حذف العناصر المختارة من القائمه',
   exportSelectedOrders:'تصدير الطلبات المختاره',
   brand:'العلامة التجارية',
-  replaceRFQProduct:'هذا المنتج موجود بالفعل فى السله , هل تريد استبداله ؟'
+  replaceRFQProduct:'هذا المنتج موجود بالفعل فى السله , هل تريد استبداله ؟',
+  returnGiftOrder:'إذا قمت بهذا الإجراء ، فسيعود منتج الهدية أيضًا'
 };

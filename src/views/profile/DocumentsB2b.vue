@@ -570,8 +570,8 @@
       </form>
 
       <!-- dynamic components  -->
-      <div v-if="dynamicInputs" class="mt-5">
-        <dynamicComponent :dynamicInputs="dynamicInputs" :form="dynamicForm" :errors="errors" @btnClicked="dynamicButtonClicked" />
+      <div  class="mt-5">
+        <dynamicComponent  />
       </div>
     </div>
   </div>
@@ -583,9 +583,9 @@
  */
 import axios from "axios";
 import profile from "@/services/profile";
-import auth from "@/services/auth";
+
 import { renderFirstPage } from "@/plugins/pdfJs"
-import dynamicComponent from "@/components/global/dynamicComponent"
+import dynamicComponent from "@/components/global/profileDocumentsDynamicComponent"
 export default {
   data() {
     return {
@@ -626,11 +626,13 @@ export default {
       sadType: null,
 
       ibanType: null,
-      dynamicInputs: null
+      dynamicInputs: null,
+      dynamicErrors: {},
+      dynamicBtnDisabled: false,
+      documentsForm:[]
     };
   },
   mounted() {
-    this.checkDynamicInputs()
     profile.getSuppDocUploadData().then((res) => {
       this.suppData = res.data.items;
       let url1 = res.data.items.moa_path;
@@ -731,30 +733,6 @@ export default {
     });
   },
   methods: {
-    /**
-    * check Dynamic Inputs
-    * @vuese 
-    */
-
-    async checkDynamicInputs() {
-      await auth.dynamicInputs('user-b2b-document').then(res => {
-        this.dynamicInputs = res.data.items
-        this.dynamicInputs.map(input => {
-          this.dynamicForm[input.uuid] = null;
-          if (input.type == 'checkbox') {
-            this.dynamicForm[input.uuid] = false;
-          }
-        })
-
-      }).catch(err => {
-        console.log(err);
-      })
-    },
-
-    dynamicButtonClicked(){
-      console.log('button clicked')
-    },
-
     /**
      * download Image function
      * @vuese 
@@ -1094,6 +1072,8 @@ export default {
           this.errMsg(err.message);
         });
     },
+
+
 
   },
   created() {

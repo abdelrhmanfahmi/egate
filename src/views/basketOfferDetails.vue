@@ -45,7 +45,6 @@
               <tr v-for="(productTable, index) in promotion_products" :key="index" @click="goProduct(productTable)"
                 class="cursor-pointer">
 
-
                 <!-- <td v-if="productTable.ads && productTable.ads.length > 0" class="ads">
                   {{ $t("items.advertise") }}
                 </td> -->
