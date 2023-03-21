@@ -106,7 +106,7 @@
                 <label for="bank_name">
                   <h6>{{ $t('profile.bank_name') }}</h6>
                 </label>
-                <b-form-input type="number" id="bank_name" v-model="newForm.bank_name"></b-form-input>
+                <b-form-input type="text" id="bank_name" v-model="newForm.bank_name"></b-form-input>
               </div>
               <div class="error" v-for="(error, index) in errors.bank_name" :key="index">
                 {{ error }}
