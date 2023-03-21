@@ -79,12 +79,12 @@
             <!-- account_number -->
             <b-form-group>
               <div class="">
-                <label for="account_number">
+                <label for="Account_number">
                   <h6>{{ $t('profile.Account_number') }}</h6>
                 </label>
-                <b-form-input type="number" id="account_number" v-model="newForm.account_number"></b-form-input>
+                <b-form-input type="number" id="Account_number" v-model="newForm.Account_number"></b-form-input>
               </div>
-              <div class="error" v-for="(error, index) in errors.account_number" :key="index">
+              <div class="error" v-for="(error, index) in errors.Account_number" :key="index">
                 {{ error }}
               </div>
             </b-form-group>
@@ -481,7 +481,7 @@ export default {
       newForm: {
         amount: "",
         // bank_data: "",
-        account_number: "",
+        Account_number: "",
         iban: "",
         bank_name: ""
       },
