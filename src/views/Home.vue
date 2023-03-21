@@ -1,6 +1,12 @@
 <template>
   <!-- home page  -->
   <div class="home">
+
+    <!-- new search  -->
+
+    <NewHomeSearch />
+    <!-- new slider  -->
+    <NewHomeSlider />
     <!-- remove this according to new edit  -->
     <ProgressSlider />
     <!--(tabs) if user is b2c or guest  -->
@@ -44,6 +50,8 @@ import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
 
 import NewsLetterModal from "@/components/newsLetterModal.vue";
 import supplierAdsModal from "@/components/supplierAdsModal.vue";
+import NewHomeSearch from "@/components/pages/home/NewSearch.vue";
+import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 
 export default {
   name: "Home",
@@ -53,7 +61,9 @@ export default {
     NewProductSilder,
     SuppliersSlider,
     CatrgoriesHome,
-    NewCatrgoriesHome
+    NewCatrgoriesHome,
+    NewHomeSearch,
+    NewHomeSlider
   },
 
   methods: {

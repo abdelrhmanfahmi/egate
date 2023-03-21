@@ -11,6 +11,11 @@
 //   scroll-behavior: smooth;
 // }
 
+*::selection{
+  background-color: $main-color;
+  color: #fff;
+}
+
 body {
   // font-family: $default-font-family, sans-serif;
   font-family: 'Inter', sans-serif;
@@ -504,6 +509,7 @@ img {
   height: 45px !important;
   padding: 4px !important;
 }
+
 
 // edit modal
 .vm--overlay {

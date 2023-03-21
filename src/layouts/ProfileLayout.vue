@@ -1,5 +1,5 @@
 <template>
-    <div class="main-layout">
+    <div class="profile-layout">
         <div id="allTheNav">
             <nav id="navigator" class="navbar" :class="{ navbaropen: opened }">
                 <span class="open-slide">
@@ -16,7 +16,7 @@
                 </ul>
             </nav>
             <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
-                 <span @click.prevent="opened = !opened">hide menu</span>
+                <span @click.prevent="opened = !opened">hide menu</span>
                 <!-- side menu if user is b2c  -->
                 <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
                 <!-- side menu if user is b2b (buyer)  -->
@@ -36,9 +36,11 @@
                 </b-alert>
 
                 <!-- router that contain pages  -->
-                <transition name="slide-fade">
-                    <router-view class="view"></router-view>
-                </transition>
+                <div class="router-holder">
+                    <transition name="slide-fade">
+                        <router-view class="view"></router-view>
+                    </transition>
+                </div>
 
                 <!-- button to scroll to top  -->
                 <div class="top-btn" @click="goTop" v-if="visible">
@@ -217,17 +219,20 @@ export default {
         }
     },
     computed: {
-    /**
-     * @vuese
-     * get user Bades for sidebar from store
-     */
-    userBades() {
-      return this.$store.getters.userBadges; // this represent user profile side menu states
+        /**
+         * @vuese
+         * get user Bades for sidebar from store
+         */
+        userBades() {
+            return this.$store.getters.userBadges; // this represent user profile side menu states
+        },
     },
-  },
 };
 </script>
 <style lang="scss" scoped>
+.router-holder {
+  min-height: 70vh;
+}
 @import '../assets/scss/new-design-files/_navbar.scss';
 </style>
   

@@ -51,8 +51,9 @@ export default {
 .category-card {
   color: #fff;
   border-radius: 0.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  // border: 1px solid rgba(0, 0, 0, 0.125);
   transition: all 0.3s ease-out;
+  margin: 20px 30px;
 
   &:hover {
     box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
@@ -64,7 +65,8 @@ export default {
   img {
     //min-width: 350px;
     width: 100% !important;
-    height: 150px;
+    // height: 150px;
+    height: 270px;
     -o-object-fit: cover;
     object-fit: cover;
     background-size: cover;
@@ -80,7 +82,8 @@ export default {
   .card-footer {
     text-align: center;
     font-size: 19px;
-    background: $main-color;
+    background: transparent;
+    color: #000;
 
     @media (min-width: 767px) and (max-width: 1450px) {
       font-size: 14px;

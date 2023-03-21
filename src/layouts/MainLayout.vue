@@ -14,9 +14,11 @@
     </b-alert>
 
     <!-- router that contain pages  -->
-    <transition name="slide-fade">
+    <div class="router-holder">
+      <transition name="slide-fade">
       <router-view class="view"></router-view>
     </transition>
+    </div>
 
     <!-- button to scroll to top  -->
     <div class="top-btn" @click="goTop" v-if="visible">
@@ -229,8 +231,8 @@ export default {
   z-index: 999999;
 }
 
-.view {
-  min-height: 50vh;
+.router-holder {
+  min-height: 70vh;
 }
 .otp-link{
   text-decoration: underline !important;
