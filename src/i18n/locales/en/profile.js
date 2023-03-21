@@ -319,5 +319,8 @@ export default {
   reason:'Reason',
   transferred:'Transferred',
   withdrowFile:'Withdrow File',
-  basketName:'Basket Name'
+  basketName:'Basket Name',
+  Account_number:'Account Number',
+  iban:'Iban',
+  bank_name:'Bank Name'
 };
