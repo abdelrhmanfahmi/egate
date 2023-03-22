@@ -50,7 +50,7 @@ export default {
   */
 .category-card {
   color: #fff;
-  border-radius: 0.25rem;
+  border-radius: 5px;
   // border: 1px solid rgba(0, 0, 0, 0.125);
   transition: all 0.3s ease-out;
   margin: 20px 30px;
@@ -73,6 +73,7 @@ export default {
     width: 100%;
     opacity: 1;
     transition: all 0.3s ease-in-out;
+    border-radius: 5px;
 
     &:hover {
       opacity: 0.5;
@@ -84,6 +85,7 @@ export default {
     font-size: 19px;
     background: transparent;
     color: #000;
+    border-top: none;
 
     @media (min-width: 767px) and (max-width: 1450px) {
       font-size: 14px;

@@ -16,3 +16,54 @@
     background-color: $main-color !important;
   }
 }
+
+// .custom-arrow   {
+//   background: transparent;
+// }
+// .slick-next::before , .slick-prev::before{
+//   background-color: #000000;
+//   opacity: 1;
+//   visibility: visible;
+//   z-index: 99;
+// }
+        
+.slick-next{
+  right:25px !important
+}
+.slick-prev{
+  left:8px !important
+}
+
+.slick-next::before , .slick-prev::before {
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 20px solid transparent !important;
+  border-left: 38px solid #000 !important;
+  border-bottom: 20px solid transparent !important;
+  border-right: none !important;
+}
+.slick-next::before {
+
+  transform: rotate(115deg) !important;
+  -webkit-transform: rotate(115deg) !important;
+  -moz-transform: rotate(115deg) !important;
+  -ms-transform: rotate(115deg) !important;
+  -o-transform: rotate(115deg) !important;
+}
+.slick-prev::before {
+  transform: rotate(61deg) !important;
+  -webkit-transform: rotate(61deg) !important;
+  -moz-transform: rotate(61deg) !important;
+  -ms-transform: rotate(61deg) !important;
+  -o-transform: rotate(61deg) !important;
+}
+
+.main-color{
+  color:$main-color
+}
+
+.new-daily-offers-wrapper{
+  .slick-list{
+    margin: 0 35px;
+  }
+}

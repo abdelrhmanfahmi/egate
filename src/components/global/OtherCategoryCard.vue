@@ -48,7 +48,7 @@ export default {
   */
 .category-card {
   color: #fff;
-  border-radius: 0.25rem;
+  border-radius: 5px;
   margin: 0 10px;
   // border: 1px solid rgba(0, 0, 0, 0.125);
   img {
@@ -60,6 +60,7 @@ export default {
     width: 100%;
     opacity: 1;
     transition: all 0.3s ease-in-out;
+    border-radius: 5px;
     &:hover {
       opacity: 0.5;
     }
@@ -71,6 +72,7 @@ export default {
     background: transparent;
     color: #000;
     border: none;
+    border-top: none;
   }
 }
 </style>

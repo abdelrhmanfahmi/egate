@@ -1,9 +1,9 @@
 <template>
   <div class="profile-categories">
     <b-container>
-      <span class="categories-info">
+      <!-- <span class="categories-info">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
-      </span>
+      </span> -->
       <!-- when data loading  -->
       <div v-if="loading">
         <b-row class="holder">

@@ -1,0 +1,11 @@
+.home-categories-tabs{
+
+    .nav.nav-tabs .nav-item.show .nav-link, .nav.nav-tabs .nav-item .nav-link.active{
+        color: $main-color !important;
+        font-weight: bold;
+    }
+    .nav.nav-tabs .nav-item .nav-link.active{
+        border-bottom-color: $main-color !important;
+        font-weight: bold;
+    }
+}

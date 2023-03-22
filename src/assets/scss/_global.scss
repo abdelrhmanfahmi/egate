@@ -661,6 +661,14 @@ input[type="number"] {
     }
   }
 }
+.nav.nav-tabs .nav-item.show .nav-link, .nav.nav-tabs .nav-item .nav-link.active{
+  color: $main-color !important;
+  font-weight: bold;
+}
+.nav.nav-tabs .nav-item .nav-link.active{
+  border-bottom-color: $main-color !important;
+  font-weight: bold;
+}
 /* common */
 .ribbon {
   width: 150px;
@@ -787,3 +795,8 @@ input[type="number"] {
 //     width: 100% !important;
 //   }
 // }
+
+.bg-main{
+  background-color: $main-color;
+  border: 2px solid $main-color;
+}

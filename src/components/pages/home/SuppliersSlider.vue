@@ -4,7 +4,9 @@
       <!-- if there is suppliers  -->
       <div class="suppliers pt-2" v-if="suppliers">
         <span class="product-info">
-          <h4 class="top-header">{{ $t("home.suppliers") }}</h4>
+
+          <h4 class="text-dark">{{ $t("home.suppliers") }}</h4>
+          <!-- <h4 class="top-header">{{ $t("home.suppliers") }}</h4> -->
         </span>
         <div class="container mb-1">
           <div class="d-flex justify-content-end">
@@ -48,8 +50,9 @@
   
   <script>
   import VueSlickCarousel from "vue-slick-carousel";
-  // import Countdown from "vuejs-countdown";
-  import "vue-slick-carousel/dist/vue-slick-carousel.css";
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
   import globalAxios from "@/services/global-axios";
   import auth from "@/services/auth";
   export default {
@@ -60,7 +63,7 @@
     data() {
       return {
         settings: {
-          dots: true,
+          dots: false,
           infinite: true,
           arrows: true,
           speed: 500,
@@ -75,7 +78,6 @@
               settings: {
                 slidesToShow: 3,
                 slidesToScroll: 1,
-                arrows: true,
               },
             },
             {
@@ -83,8 +85,6 @@
               settings: {
                 slidesToShow: 2,
                 slidesToScroll: 1,
-                arrows: true,
-                dots: true,
               },
             },
             {
@@ -92,8 +92,6 @@
               settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                arrows: true,
-                dots: true,
               },
             },
           ],
@@ -203,9 +201,10 @@
   }
   
   .supplier-image {
-    width: 100px;
-    // height: 150px;
-    // border-radius: 50%;
+    // width: 100px;
+    height: 150px;
+  width: 150px;
+  border-radius: 50%;
     transition: all 0.3s ease-in-out;
     opacity: 1;
   

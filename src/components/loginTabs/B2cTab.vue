@@ -365,7 +365,7 @@ export default {
 
 .reset-Link {
   color: #ffffff;
-  background-color: #ff0e00;
+  background-color: $main-color;
   padding: 0.5rem 1.3rem;
   width: 100%;
 }

@@ -7,10 +7,12 @@
     <NewHomeSearch />
     <!-- new slider  -->
     <NewHomeSlider />
-    <!-- remove this according to new edit  -->
-    <ProgressSlider />
+    <!-- New Daily Offers section  -->
+    <NewDailyOffers />
+    <!-- <ProgressSlider /> -->
     <!--(tabs) if user is b2c or guest  -->
-    <div class="container text-center home-tabs" v-if="!buyerUserData || (buyerUserData && buyerUserData.type == 'b2c') ||
+    <!-- old tabs  -->
+    <!-- <div class="container text-center home-tabs" v-if="!buyerUserData || (buyerUserData && buyerUserData.type == 'b2c') ||
       (buyerUserData && buyerUserData.type == 'supplier' && buyerUserData.is_buyer !== 1)">
       <span class="categories-info py-5">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
@@ -27,43 +29,53 @@
         </b-tabs>
       </div>
     </div>
-    <!-- if user is buyer  -->
+    if user is buyer 
     <div class="" v-else>
       <CatrgoriesHome />
-    </div>
+    </div> -->
+
+    
+    <NewCategoriesTabs />
 
     <!-- <ProductSilder /> -->
-    <NewProductSilder />
+    <!-- <NewProductSilder /> -->
     <SuppliersSlider />
+    <ClientsSlider />
   </div>
 </template>
 
 <script>
 // home page
 import auth from "@/services/auth";
-import ProgressSlider from "@/components/pages/home/ProgressSlider";
+// import ProgressSlider from "@/components/pages/home/ProgressSlider";
 // import ProductSilder from "@/components/pages/home/ProductSilder";
-import NewProductSilder from "@/components/pages/home/NewProductSlider";
+// import NewProductSilder from "@/components/pages/home/NewProductSlider";
 import SuppliersSlider from "@/components/pages/home/SuppliersSlider";
-import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
-import CatrgoriesHome from "@/components/pages/home/CatrgoriesHome";
+import ClientsSlider from "@/components/pages/home/ClientsSlider";
+// import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
+
+import NewCategoriesTabs from "@/components/pages/home/NewCategoriesTabs.vue";
 
 import NewsLetterModal from "@/components/newsLetterModal.vue";
 import supplierAdsModal from "@/components/supplierAdsModal.vue";
 import NewHomeSearch from "@/components/pages/home/NewSearch.vue";
 import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
+import NewDailyOffers from "@/components/pages/home/NewDailyOffers.vue";
 
 export default {
   name: "Home",
   components: {
-    ProgressSlider,
+    // ProgressSlider,
     // ProductSilder,
-    NewProductSilder,
+    // NewProductSilder,
     SuppliersSlider,
-    CatrgoriesHome,
-    NewCatrgoriesHome,
+    ClientsSlider,
+    // CatrgoriesHome,
+    // NewCatrgoriesHome,
+    NewCategoriesTabs,
     NewHomeSearch,
-    NewHomeSlider
+    NewHomeSlider,
+    NewDailyOffers
   },
 
   methods: {
@@ -148,7 +160,7 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
-          .then(()=>{
+          .then(() => {
             this.showADsModal()
           })
           .catch((err) => {
@@ -163,7 +175,7 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
-          .then(()=>{
+          .then(() => {
             this.showADsModal()
           })
           .catch((err) => {
@@ -177,7 +189,7 @@ export default {
           .getGuestAdsModal(payload)
           .then((res) => {
             this.newsletterShow = res.data.items;
-          }).then(()=>{
+          }).then(() => {
             this.showADsModal()
           })
           .catch((err) => {
