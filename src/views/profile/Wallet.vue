@@ -94,7 +94,7 @@
                 <label for="iban">
                   <h6>{{ $t('profile.iban') }}</h6>
                 </label>
-                <b-form-input type="number" id="iban" v-model="newForm.iban"></b-form-input>
+                <b-form-input type="text" id="iban" v-model="newForm.iban"></b-form-input>
               </div>
               <div class="error" v-for="(error, index) in errors.iban" :key="index">
                 {{ error }}
