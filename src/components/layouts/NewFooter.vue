@@ -57,8 +57,7 @@
                         >
                       </p>
                     </div>
-                    <p>22986k
-                    </p>
+                    <p>22986001</p>
                     <p>
                       {{$t('profile.subscribeNewsletter')}}
                     </p>
