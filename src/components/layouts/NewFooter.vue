@@ -5,7 +5,7 @@
       <div class="container">
         <div class="footer-middle-wrap py-3">
           <div class="row">
-            <div class="col-md-8 col-sm-6">
+            <div class="col-md-8 col-sm-6 col-xs-6">
               <div class="row">
                 <div class="col-md-4 col-sm-12">
                   <h4>For Help</h4>
@@ -52,18 +52,20 @@
                     <h4>{{ $t("home.contactUs") }}</h4>
                     <div v-for="(link, index) in links" :key="index">
                       <p v-if="link.key === 'mysupply_link'">
-                        
-                        <a :href="link.value" target="_blank">Info@MySupply.com</a
+                        <a :href="link.value" target="_blank"
+                          >Info@MySupply.com</a
                         >
                       </p>
                     </div>
                     <p>22986001</p>
                     <p>
-                      {{$t('profile.subscribeNewsletter')}}
+                      {{ $t("profile.subscribeNewsletter") }}
                     </p>
                     <p>
-                        <span><font-awesome-icon icon="fa-solid fa-location-dot" /></span>
-                        <span class="mx-2">Kuwait , city</span>
+                      <span
+                        ><font-awesome-icon icon="fa-solid fa-location-dot"
+                      /></span>
+                      <span class="mx-2">Kuwait , city</span>
                     </p>
                   </div>
                 </div>
@@ -98,7 +100,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-xs-6">
               <div
                 class="footer-social d-flex justify-content-center align-items-end flex-column"
               >
@@ -106,50 +108,68 @@
                   <ul>
                     <li v-if="link.key && link.key === 'facebook'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/facebook.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-facebook-f"
+                        /></span>
                       </a>
                     </li>
                     <li v-if="link.key && link.key === 'twitter'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/twitter.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-twitter"
+                        /></span>
                       </a>
                     </li>
                     <li v-if="link.key && link.key === 'youtube'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/youtube.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-youtube"
+                        /></span>
                       </a>
                     </li>
                     <li v-if="link.key && link.key === 'instagram'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/instagram.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-instagram"
+                        /></span>
                       </a>
                     </li>
                     <li v-if="link.key && link.key === 'linkedin'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/linkedin.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-linkedin"
+                        /></span>
                       </a>
                     </li>
                     <li v-if="link.key && link.key === 'pinterest'">
                       <a :href="link.value" target="_blank">
-                        <img
+                        <!-- <img
                           src="@/assets/images/pinterest.png"
                           :alt="link.key"
-                        />
+                        /> -->
+                        <span
+                          ><font-awesome-icon icon="fa-brands fa-pinterest"
+                        /></span>
                       </a>
                     </li>
                   </ul>
@@ -162,6 +182,28 @@
         <ChatUs :whatsapp="whatsapp" />
       </div>
     </Footer>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="hold-it d-flex justify-content-between align-items-center">
+            <div>
+              <p>{{ $t("home.allRightsReserved") }} 2022</p>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <p>Powered By</p>
+              <figure class="mx-4">
+                <a href="https://mysupply.me/" target="_blank" class="mySUpplyImg">
+                  <img :src="adminLogo" v-if="adminLogo" alt="mysupply-logo.png" />
+                  <img
+                    src="@/assets/images/mysupply-logo.png"
+                    v-else
+                    alt="mysupply-logo.png"
+                  />
+                </a>
+              </figure>
+            </div>
+          </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -294,11 +336,19 @@ export default {
   height: 60px;
   border-radius: 50%;
   border: 1px solid;
-  padding: 8px;
+  //padding: 8px;
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  line-height: 60px;
   img {
     border-radius: 50%;
     height: 100%;
     width: 100%;
+  }
+  span,
+  i {
+    font-size: 25px;
   }
 }
 .footer-social ul li a {
@@ -443,6 +493,12 @@ export default {
   }
 }
 
+.footer-social{
+    @media(max-width:991.98px){
+        flex-direction: row !important;
+        flex-wrap: wrap;
+    }
+}
 // style arabic
 html:lang(ar) {
   // .footer-link-wrap .menu-links ul {
@@ -473,5 +529,21 @@ h4 {
 li {
   margin: 10px 0;
   font-size: 17px;
+}
+
+.footer-bottom{
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+    .mySUpplyImg{
+        img{
+            width: 80px;
+        }
+    }
+    .hold-it{
+        @media(max-width:767px){
+            flex-direction: column !important;
+        }
+    }
 }
 </style>
