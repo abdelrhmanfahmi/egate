@@ -26,14 +26,22 @@
   </div>
 </template>
 <script>
-import categories from "@/services/categories";
+// import categories from "@/services/categories";
+
 export default {
+  props: {
+    // selected Product prop
+    myProduct: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       id: this.$route.query.id,
       active: -1,
       currentImage: "",
-      myProduct: null,
+      // myProduct: null,
       firstImage: null,
       images: [],
       mediaExist: false,
@@ -52,48 +60,76 @@ export default {
      * @vuese
      *  get product details to show images
      */
-    productDetails() {
-      this.loading = true;
-      categories
-        .productDetails(this.id)
-        .then((res) => {
-          this.myProduct = res.data.items;
-          if (res.data.items.images.length !== 0) {
-            /**
-             *  take 6 images only of product images for responsive view
-             */
-            this.images = res.data.items.images.slice(0, 6);
-            this.firstImage = res.data.items.images[0].image_path;
-            this.mediaExist = true;
-          }
+    // productDetails() {
+    //   this.loading = true;
+    //   categories
+    //     .productDetails(this.id)
+    //     .then((res) => {
+    //       this.myProduct = res.data.items;
+    //       if (res.data.items.images.length !== 0) {
+    //         /**
+    //          *  take 6 images only of product images for responsive view
+    //          */
+    //         this.images = res.data.items.images.slice(0, 6);
+    //         this.firstImage = res.data.items.images[0].image_path;
+    //         this.mediaExist = true;
+    //       }
 
-          if (
-            res.data.items.images.length == 0 &&
-            res.data.items.product.images.length !== 0
-          ) {
-            this.images = res.data.items.product.images;
-            this.firstImage = res.data.items.product.images[0].image_path;
-            this.mediaExist = true;
-          }
-          if (
-            res.data.items.images.length === 0 &&
-            res.data.items.product.images.length === 0 &&
-            res.data.items.product.image_path
-          ) {
-            this.firstImage = res.data.items.product.image_path;
-            this.mediaExist = true;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+    //       if (
+    //         res.data.items.images.length == 0 &&
+    //         res.data.items.product.images.length !== 0
+    //       ) {
+    //         this.images = res.data.items.product.images;
+    //         this.firstImage = res.data.items.product.images[0].image_path;
+    //         this.mediaExist = true;
+    //       }
+    //       if (
+    //         res.data.items.images.length === 0 &&
+    //         res.data.items.product.images.length === 0 &&
+    //         res.data.items.product.image_path
+    //       ) {
+    //         this.firstImage = res.data.items.product.image_path;
+    //         this.mediaExist = true;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     })
+    //     .finally(() => {
+    //       this.loading = false;
+    //     });
+    // },
+    settingProduct() {
+      if (this.myProduct.images.length !== 0) {
+        /**
+         *  take 6 images only of product images for responsive view
+         */
+        this.images = this.myProduct.images.slice(0, 6);
+        this.firstImage = this.myProduct.images[0].image_path;
+        this.mediaExist = true;
+      }
+
+      if (
+        this.myProduct.images.length == 0 &&
+        this.myProduct.product.images.length !== 0
+      ) {
+        this.images = this.myProduct.product.images;
+        this.firstImage = this.myProduct.product.images[0].image_path;
+        this.mediaExist = true;
+      }
+      if (
+        this.myProduct.images.length === 0 &&
+        this.myProduct.product.images.length === 0 &&
+        this.myProduct.product.image_path
+      ) {
+        this.firstImage = this.myProduct.product.image_path;
+        this.mediaExist = true;
+      }
     },
   },
   mounted() {
-    this.productDetails();
+    // this.productDetails();
+    this.settingProduct();
     /**
      * @vuese
      *  setting active = 0 to show first image of product images first
