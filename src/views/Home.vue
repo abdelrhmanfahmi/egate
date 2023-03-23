@@ -39,6 +39,7 @@
 
     <!-- <ProductSilder /> -->
     <!-- <NewProductSilder /> -->
+    <NewAppsDownloadSec />
     <SuppliersSlider />
     <ClientsSlider />
   </div>
@@ -61,6 +62,7 @@ import supplierAdsModal from "@/components/supplierAdsModal.vue";
 import NewHomeSearch from "@/components/pages/home/NewSearch.vue";
 import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 import NewDailyOffers from "@/components/pages/home/NewDailyOffers.vue";
+import NewAppsDownloadSec from "@/components/pages/home/NewAppsDownloadSec.vue";
 
 export default {
   name: "Home",
@@ -75,7 +77,8 @@ export default {
     NewCategoriesTabs,
     NewHomeSearch,
     NewHomeSlider,
-    NewDailyOffers
+    NewDailyOffers,
+    NewAppsDownloadSec,
   },
 
   methods: {

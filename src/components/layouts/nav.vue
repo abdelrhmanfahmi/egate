@@ -1,44 +1,70 @@
 <template>
   <header :class="{ 'scrolled-nav': scrollPosition }" class="main-nav">
     <!-- navbar component  -->
-    <div :class="{ 'container': searchClicked == false, 'container-fluid': searchClicked == true }">
+    <div
+      :class="{
+        container: searchClicked == false,
+        'container-fluid': searchClicked == true,
+      }"
+    >
       <nav :class="$i18n.locale" class="text-center">
         <!-- Main Header -->
         <!-- top nav  -->
         <div class="row justify-content-center align-items-center">
-          <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center">
-            <div class="lang-currency-country d-flex justify-content-between align-items-center">
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+          >
+            <div
+              class="lang-currency-country d-flex justify-content-between align-items-center"
+            >
               <TopHeader />
             </div>
-            
           </div>
           <div class="col-lg-2 col-md-4 col-sm-6">
-            <div class="companies-router ">
+            <div class="companies-router">
               <router-link to="/b2b-login">
                 <div>Companies</div>
               </router-link>
             </div>
           </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center ">
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+          >
             <div class="middle">
               <!-- logo is centered  -->
               <div class="d-flex">
                 <div class="branding">
-                  <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" @click="goToHome()" />
-                  <img src="@/assets/images/logo.png" v-else class="img-fluid" alt="logo" @click="goToHome()" />
+                  <img
+                    :src="logoEnv"
+                    v-if="logoEnv"
+                    class="img-fluid"
+                    alt="logo"
+                    @click="goToHome()"
+                  />
+                  <img
+                    src="@/assets/images/logo.png"
+                    v-else
+                    class="img-fluid"
+                    alt="logo"
+                    @click="goToHome()"
+                  />
                 </div>
                 <!-- <navLinks /> -->
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-0 col-sm-0">
-
             <div class="toggleMenu">
               <!-- Right Side have user login and search   -->
               <div class="right-side d-flex" v-if="!mobile">
                 <!-- Search Icon -->
                 <div class="search-icon" v-if="!mobile">
-                  <b-button class="icon-search" size="md" v-if="searchClicked == true" @click="closeSearch">
+                  <b-button
+                    class="icon-search"
+                    size="md"
+                    v-if="searchClicked == true"
+                    @click="closeSearch"
+                  >
                     <font-awesome-icon icon="fa-solid fa-times" />
                   </b-button>
                   <!-- <span class="" v-if="searchClicked">
@@ -67,15 +93,24 @@
                 <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
               </b-button> -->
                 </div>
-                <div v-if="!mobile" class="cart d-flex justify-content-between align-items-center">
-                  <span class="cartLength cart-number" v-if="cartItems && cartLength">
+                <div
+                  v-if="!mobile"
+                  class="cart d-flex justify-content-between align-items-center"
+                >
+                  <span
+                    class="cartLength cart-number"
+                    v-if="cartItems && cartLength"
+                  >
                     {{ cartLength }}
                   </span>
                   <span class="cart-icon">
                     <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
+                    <font-awesome-icon
+                      icon="fa-solid fa-cart-shopping"
+                      size="xl"
+                    />
                   </span>
-    
+
                   <Cart class="cart-body"></Cart>
                 </div>
                 <div v-if="!mobile && buyerUserData" class="cart notify-holder">
@@ -88,7 +123,11 @@
                   <Notify class="notify-body" :notifications="notifications" />
                 </div>
                 <!-- user sign in -->
-                <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
+                <div
+                  class="login"
+                  v-if="!mobile && !isLoggined"
+                  v-b-toggle.login
+                >
                   <font-awesome-icon icon="fa-solid fa-user" size="xl" />
                   <!-- <h5>
                 <small>{{ $t("login.login") }}</small>
@@ -99,18 +138,26 @@
                     <b-dropdown id="dropdown-1">
                       <template #button-content>
                         <span>
-                          <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+                          <font-awesome-icon
+                            icon="fa-solid fa-user"
+                            size="2x"
+                          />
                           <p v-if="buyerUserData.is_verified">
                             {{ $t("login.welcome") }} ,
                             <span v-if="buyerUserData.type === 'buyer'">
                               <span v-if="$i18n.locale == 'en'">{{
                                 userInfo.item.company_name_en
                               }}</span>
-                              <span v-else-if="
-                                $i18n.locale == 'ar' &&
-                                userInfo.item.company_name_ar
-                              ">{{ userInfo.item.company_name_ar }}</span>
-                              <span v-else>{{ userInfo.item.company_name_en }}</span>
+                              <span
+                                v-else-if="
+                                  $i18n.locale == 'ar' &&
+                                  userInfo.item.company_name_ar
+                                "
+                                >{{ userInfo.item.company_name_ar }}</span
+                              >
+                              <span v-else>{{
+                                userInfo.item.company_name_en
+                              }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
@@ -122,11 +169,16 @@
                               <span v-if="$i18n.locale == 'en'">{{
                                 userInfo.item.company_name_en
                               }}</span>
-                              <span v-else-if="
-                                $i18n.locale == 'ar' &&
-                                userInfo.item.company_name_ar
-                              ">{{ userInfo.item.company_name_ar }}</span>
-                              <span v-else>{{ userInfo.item.company_name_en }}</span>
+                              <span
+                                v-else-if="
+                                  $i18n.locale == 'ar' &&
+                                  userInfo.item.company_name_ar
+                                "
+                                >{{ userInfo.item.company_name_ar }}</span
+                              >
+                              <span v-else>{{
+                                userInfo.item.company_name_en
+                              }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
@@ -134,7 +186,11 @@
                           </p>
                         </span>
                       </template>
-                      <b-dropdown-item v-if="userInfo.item.is_verified || buyerUserData.is_verified">
+                      <b-dropdown-item
+                        v-if="
+                          userInfo.item.is_verified || buyerUserData.is_verified
+                        "
+                      >
                         <router-link to="/profile/categories">{{
                           $t("profile.myProfile")
                         }}</router-link>
@@ -150,10 +206,13 @@
                 <!-- user Profile and name when login -->
                 <Login v-if="!isLoggined" />
               </div>
-    
+
               <!--Start Mbile Nav -->
               <div class="icon right-side" v-if="mobile">
-                <div class="row justify-content-center align-items-center search-icon" v-if="mobile">
+                <div
+                  class="row justify-content-center align-items-center search-icon"
+                  v-if="mobile"
+                >
                   <div class="col-12">
                     <div class="search-icon">
                       <!-- <b-button v-b-modal.modal-1 class="icon-search" size="md">
@@ -164,19 +223,32 @@
                           <template #append>
                             <b-input-group-text class="floating-btn">
                               <strong @click="searchBtn" class="search-eye">
-                                <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-chevron-right" />
+                                <font-awesome-icon
+                                  v-b-toggle.sidebar-1
+                                  icon="fa-chevron-right"
+                                />
                               </strong>
                             </b-input-group-text>
                           </template>
                           <b-form @submit.prevent="search" @keyup="search">
                             <div class="form-holder">
-                              <b-form-input :placeholder="$t('cart.search')" v-model="keyword"></b-form-input>
-                              <ul class="search-suggestions" v-if="suggestionsExist">
+                              <b-form-input
+                                :placeholder="$t('cart.search')"
+                                v-model="keyword"
+                              ></b-form-input>
+                              <ul
+                                class="search-suggestions"
+                                v-if="suggestionsExist"
+                              >
                                 <span class="meaning-span">{{
                                   $t("home.didMean")
                                 }}</span>
-                                <li v-for="(suggest, index) in suggestions" :key="index" role="button"
-                                  @click="searchSuggestion(suggest)">
+                                <li
+                                  v-for="(suggest, index) in suggestions"
+                                  :key="index"
+                                  role="button"
+                                  @click="searchSuggestion(suggest)"
+                                >
                                   {{ suggest }}
                                 </li>
                               </ul>
@@ -187,26 +259,35 @@
                     </div>
                   </div>
                 </div>
-    
-                <font-awesome-icon v-b-toggle.sidebar-1 @click="toggleMobileNav" icon="fa-solid fa-bars"
-                  :class="{ 'icon-active': mobileNav }" class="bar-icon" />
+
+                <font-awesome-icon
+                  v-b-toggle.sidebar-1
+                  @click="toggleMobileNav"
+                  icon="fa-solid fa-bars"
+                  :class="{ 'icon-active': mobileNav }"
+                  class="bar-icon"
+                />
               </div>
             </div>
           </div>
         </div>
 
-
-
-
         <transition name="mobile-nav">
-          <b-sidebar :right="getDir === 'rtl'" v-if="mobileNav" @hidden="closeSideBar" id="sidebar-1" backdrop
-            width="300px" shadow z-index="3">
+          <b-sidebar
+            :right="getDir === 'rtl'"
+            v-if="mobileNav"
+            @hidden="closeSideBar"
+            id="sidebar-1"
+            backdrop
+            width="300px"
+            shadow
+            z-index="3"
+          >
             <MobileNav />
           </b-sidebar>
         </transition>
         <!--End Mbile Nav -->
       </nav>
-
     </div>
     <div class="botton-nav">
       <BottomHeader />
@@ -249,7 +330,7 @@ export default {
     Login,
     // navLinks,
     TopHeader,
-    BottomHeader
+    BottomHeader,
   },
   created() {
     /**
@@ -365,10 +446,9 @@ export default {
     },
     searchBtn() {
       if (this.keyword.length > 1) {
-
         let r = this.$router.resolve({
           name: "SearchResults", // put your route information in
-          query: { keyword: this.keyword, }, // put your route information in
+          query: { keyword: this.keyword }, // put your route information in
         });
         window.location.assign(r.href);
       }
@@ -561,7 +641,7 @@ export default {
         font-weight: 700;
         font-size: 16px;
 
-        @media(min-width:1200px) and (max-width:1400px) {
+        @media (min-width: 1200px) and (max-width: 1400px) {
           padding: 0 5px 0;
         }
 
@@ -622,7 +702,6 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-
     .cart-body,
     .notify-body {
       right: auto;
@@ -705,7 +784,7 @@ html:lang(ar) {
 
   #modal-1 .form-control {
     font-size: 30px;
-    width: 285px
+    width: 285px;
   }
 }
 
@@ -718,8 +797,8 @@ html:lang(ar) {
     max-width: 170px;
   }
 
-  @media(min-width:1200px)and(max-width:1400px) {
-    width: 200px
+  @media (min-width: 1200px) and(max-width:1400px) {
+    width: 200px;
   }
 }
 
@@ -780,19 +859,19 @@ html:lang(ar) {
   padding: 0;
   margin: 0;
 
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     justify-content: inherit;
   }
 }
 
 .toggleMenu {
-  @media(max-width:766.98px){
-    top:15%;
+  @media (max-width: 766.98px) {
+    top: 15%;
     right: 2%;
     position: fixed;
   }
 
-  @media(min-width:767px) and (max-width:1200px) {
+  @media (min-width: 767px) and (max-width: 1200px) {
     position: fixed;
     top: 5%;
     right: 2%;
