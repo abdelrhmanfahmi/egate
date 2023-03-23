@@ -20,13 +20,13 @@ export default new Vuex.Store({
   state: {
     userInfo:
       localStorage.getItem("userInfo") &&
-        localStorage.getItem("userInfo") != "undefined"
+      localStorage.getItem("userInfo") != "undefined"
         ? JSON.parse(localStorage.getItem("userInfo"))
         : "",
 
     buyerUserData:
       localStorage.getItem("buyerUserData") &&
-        localStorage.getItem("buyerUserData") != "undefined"
+      localStorage.getItem("buyerUserData") != "undefined"
         ? JSON.parse(localStorage.getItem("buyerUserData"))
         : "",
 
@@ -110,43 +110,45 @@ export default new Vuex.Store({
       }
     },
     async generateFirebaseToken({ commit }) {
-      try {
-        let serviceWorkerRegistration;
-        if (process.env.NODE_ENV == "development") {
-          serviceWorkerRegistration = await navigator.serviceWorker.register(
-            `${process.env.VUE_APP_LOCAL}firebase-messaging-sw.js`
-          );
-        } else {
-          serviceWorkerRegistration = await navigator.serviceWorker.register(
-            `${process.env.VUE_APP_DOMAIN_NAME}firebase-messaging-sw.js`
-          );
-        }
-        navigator.serviceWorker.onmessage = ({ data }) => {
-          // console.log("sw event: ", data);
-          const { type } = data;
-          switch (type) {
-            case "NEW-HUMHUM-NOTIFICATION": {
-              // this.handelNotification(notification);
-              break;
-            }
+      if (messaging) {
+        try {
+          let serviceWorkerRegistration;
+          if (process.env.NODE_ENV == "development") {
+            serviceWorkerRegistration = await navigator.serviceWorker.register(
+              `${process.env.VUE_APP_LOCAL}firebase-messaging-sw.js`
+            );
+          } else {
+            serviceWorkerRegistration = await navigator.serviceWorker.register(
+              `${process.env.VUE_APP_DOMAIN_NAME}firebase-messaging-sw.js`
+            );
           }
-        };
-        // const messaging = getMessaging();
+          navigator.serviceWorker.onmessage = ({ data }) => {
+            // console.log("sw event: ", data);
+            const { type } = data;
+            switch (type) {
+              case "NEW-HUMHUM-NOTIFICATION": {
+                // this.handelNotification(notification);
+                break;
+              }
+            }
+          };
+          // const messaging = getMessaging();
 
-        const token = await getToken(messaging, {
-          vapidKey:
-            "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-          serviceWorkerRegistration: serviceWorkerRegistration,
-        });
+          const token = await getToken(messaging, {
+            vapidKey:
+              "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+            serviceWorkerRegistration: serviceWorkerRegistration,
+          });
 
-        // if (token) {
+          // if (token) {
 
-        // console.log("vuex token", token);
-        // }
+          // console.log("vuex token", token);
+          // }
 
-        commit("SET_FIREBASE_TOKEN", token);
-      } catch (error) {
-        console.log(error);
+          commit("SET_FIREBASE_TOKEN", token);
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
     getNotifications({ commit }) {
@@ -164,7 +166,7 @@ export default new Vuex.Store({
         .getProfileBudges()
         .then((res) => {
           // console.log("res" , res);
-          commit('SET_USER_BADGES', res.data.items)
+          commit("SET_USER_BADGES", res.data.items);
         })
         .catch((err) => {
           console.log(err);

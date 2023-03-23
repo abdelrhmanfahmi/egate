@@ -5,10 +5,11 @@
     <!-- nav bar  -->
     <Nav />
     <!-- alert div if user dosnt activate his account  -->
-    <b-alert variant="danger" show v-if="massgeOfVerify" >
+    <b-alert variant="danger" show v-if="massgeOfVerify">
       <b-container>
-        <router-link to="/otp-verification"  class="otp-link text-danger">
-          {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
+        <router-link to="/otp-verification" class="otp-link text-danger">
+          {{ massgeOfVerify }}
+          <font-awesome-icon icon="fa-solid fa-right-long" />
         </router-link>
       </b-container>
     </b-alert>
@@ -50,7 +51,7 @@ import NewFooter from "@/components/layouts/NewFooter";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
-import cookizComponent from "@/components/global/cookizComponent.vue"
+import cookizComponent from "@/components/global/cookizComponent.vue";
 export default {
   components: {
     // TopHeader,
@@ -116,8 +117,8 @@ export default {
         });
       }
       /**
-     * notification click function 
-     * */
+       * notification click function
+       * */
       notification.addEventListener("click", function (event) {
         console.log(event, data);
         if (data.type && data.type_id) {
@@ -160,22 +161,23 @@ export default {
      * */
     window.addEventListener("scroll", this.handleScroll);
 
-    const messaging = getMessaging();
+    if ("serviceWorker" in navigator) {
+      const messaging = getMessaging();
 
-    /**
-     * onMessage function that belongs to notification function 
-     * */
+      /**
+       * onMessage function that belongs to notification function
+       * */
 
-    onMessage(messaging, (payload) => {
-      // console.log("forground", payload);
-      const { data } = payload;
-      this.notifyMe(data);
+      onMessage(messaging, (payload) => {
+        // console.log("forground", payload);
+        const { data } = payload;
+        this.notifyMe(data);
 
-      if (this.buyerUserData) {
-        this.$store.dispatch("getNotifications");
-      }
-    });
-
+        if (this.buyerUserData) {
+          this.$store.dispatch("getNotifications");
+        }
+      });
+    }
     // if (this.newsletterShow) {
 
     if (this.buyerUserData.is_verified) {
@@ -184,14 +186,14 @@ export default {
   },
   created() {
     /**
-     * generate Firebase Token function 
+     * generate Firebase Token function
      * */
     this.$store.dispatch("generateFirebaseToken");
 
     /**
      * get Notifications function if buyer
      * */
-    
+
     if (this.buyerUserData) {
       this.$store.dispatch("getNotifications");
     }
@@ -237,7 +239,7 @@ export default {
 .router-holder {
   min-height: 70vh;
 }
-.otp-link{
+.otp-link {
   text-decoration: underline !important;
 }
 </style>

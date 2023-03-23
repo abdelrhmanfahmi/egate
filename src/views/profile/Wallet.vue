@@ -65,7 +65,7 @@
                 {{ error }}
               </div>
             </b-form-group>
-            <b-form-group>
+            <!-- <b-form-group>
               <div class="">
                 <label for="accountDetails">
                   <h6>{{ $t('profile.accountDetails') }}</h6>
@@ -73,6 +73,42 @@
                 <b-form-textarea id="accountDetails" rows="8" v-model="newForm.bank_data"></b-form-textarea>
               </div>
               <div class="error" v-for="(error, index) in errors.bank_data" :key="index">
+                {{ error }}
+              </div>
+            </b-form-group> -->
+            <!-- account_number -->
+            <b-form-group>
+              <div class="">
+                <label for="Account_number">
+                  <h6>{{ $t('profile.Account_number') }}</h6>
+                </label>
+                <b-form-input type="number" id="Account_number" v-model="newForm.Account_number"></b-form-input>
+              </div>
+              <div class="error" v-for="(error, index) in errors.Account_number" :key="index">
+                {{ error }}
+              </div>
+            </b-form-group>
+            <!-- iban  -->
+            <b-form-group>
+              <div class="">
+                <label for="iban">
+                  <h6>{{ $t('profile.iban') }}</h6>
+                </label>
+                <b-form-input type="text" id="iban" v-model="newForm.iban"></b-form-input>
+              </div>
+              <div class="error" v-for="(error, index) in errors.iban" :key="index">
+                {{ error }}
+              </div>
+            </b-form-group>
+            <!-- bank_name -->
+            <b-form-group>
+              <div class="">
+                <label for="bank_name">
+                  <h6>{{ $t('profile.bank_name') }}</h6>
+                </label>
+                <b-form-input type="text" id="bank_name" v-model="newForm.bank_name"></b-form-input>
+              </div>
+              <div class="error" v-for="(error, index) in errors.bank_name" :key="index">
                 {{ error }}
               </div>
             </b-form-group>
@@ -281,7 +317,7 @@
                     <td>
                       <span v-if="order.file">
                         <img :src="order.file" width="100" class="cursor-pointer" :alt="$t('profile.withdrowFile')"
-                          @click="showImage(order.file);showWithdrawFile()">
+                          @click="showImage(order.file); showWithdrawFile()">
                       </span>
                       <span v-else>-</span>
                     </td>
@@ -444,10 +480,13 @@ export default {
       chargeClicked: false,
       newForm: {
         amount: "",
-        bank_data: "",
+        // bank_data: "",
+        Account_number: "",
+        iban: "",
+        bank_name: ""
       },
       withdrowData: null,
-      selectedImage:null
+      selectedImage: null
       //
     };
   },
@@ -929,9 +968,10 @@ p {
   max-height: 50vh !important;
   overflow: scroll;
 }
-.withdrow-image{
+
+.withdrow-image {
   max-height: 50vh;
-  width:100%;
+  width: 100%;
   object-fit: contain;
 }
 </style>
