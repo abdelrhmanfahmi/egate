@@ -50,7 +50,8 @@
                     </svg>
                 </div>
                 <cookizComponent />
-                <Footer />
+                <NewFooter />
+                <!-- <Footer /> -->
             </div>
         </div>
 
@@ -60,7 +61,8 @@
 <script>
 
 import Nav from "@/components/layouts/nav";
-import Footer from "@/components/layouts/footer";
+// import Footer from "@/components/layouts/footer";
+import NewFooter from "@/components/layouts/NewFooter";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
@@ -75,7 +77,8 @@ import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
 export default {
     components: {
         Nav,
-        Footer,
+        // Footer,
+        NewFooter,
         cookizComponent,
         SideMenu,
         SideMenuB2b,

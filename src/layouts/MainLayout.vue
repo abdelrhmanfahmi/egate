@@ -37,14 +37,16 @@
       </svg>
     </div>
     <cookizComponent />
-    <Footer />
+    <NewFooter />
+    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
 // import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
-import Footer from "@/components/layouts/footer";
+// import Footer from "@/components/layouts/footer";
+import NewFooter from "@/components/layouts/NewFooter";
 
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
@@ -53,7 +55,8 @@ export default {
   components: {
     // TopHeader,
     Nav,
-    Footer,
+    // Footer,
+    NewFooter,
     cookizComponent
   },
   methods: {

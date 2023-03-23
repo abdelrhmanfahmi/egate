@@ -64,13 +64,13 @@
                                 <h6 class="mb-3">{{ $t('items.item') }} : fruits</h6>
                                 <!-- acions  -->
                                 <div class="row mb-3 align-items-center">
-                                    <div class="col-md-6  col-sm-12 mb-3">
+                                    <div class="col-md-6  col-sm-12 mb-3 px-1">
                                         <router-link :to="{ path: '/details', query: { id: `${item.id}` } }" v-if="item">
 
                                             <button class="outline-main">{{ $t('profile.details') }}</button>
                                         </router-link>
                                     </div>
-                                    <div class="col-md-6  col-sm-12 mb-3" v-if="
+                                    <div class="col-md-6  col-sm-12 mb-3 px-1" v-if="
                                         (cartAvailable == 'available' &&
                                             item.product_details_by_type
                                                 .add_type === 'cart') ||
