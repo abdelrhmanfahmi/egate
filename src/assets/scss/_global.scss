@@ -801,6 +801,8 @@ input[type="number"] {
   border: 2px solid $main-color;
 }
 
-section:empty , div:empty , a:empty, span:empty , ul:empty , li:empty{
-  display:none !important
+footer{
+  section:empty , div:empty , a:empty, span:empty , ul:empty , li:empty{
+    display:none !important
+  }
 }
