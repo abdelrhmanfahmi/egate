@@ -166,5 +166,8 @@ export default {
     font-size: 18px;
     background: transparent;
     text-transform: capitalize;
+    @media(max-width:992px){
+        width:95% !important
+    }
 }
 </style>

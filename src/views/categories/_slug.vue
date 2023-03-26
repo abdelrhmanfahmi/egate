@@ -1,7 +1,7 @@
 <template>
   <!-- sub category page  -->
   <div class="subCategory" :class="$i18n.locale">
-    <div
+    <!-- <div
       class="cover text-center"
       :style="{ backgroundImage: `url(${pageCover})` }"
     >
@@ -25,15 +25,15 @@
           </div>
         </b-container>
       </div>
-    </div>
+    </div> -->
+    <!-- <newCover :coverData="coverData" /> -->
     <div class="data-holder">
       <div class="container">
         <div class="row">
           <div class="col-md-9 col-sm-12 mb-3">
             <div class="container" id="people">
               <div class="row">
-                <div class="col-sm-4">
-                </div>
+                <div class="col-sm-4"></div>
               </div>
             </div>
           </div>
@@ -43,6 +43,11 @@
     <section>
       <div class="container">
         <div class="tabs-holder">
+          <!-- <VueSlickCarousel :arrows="true" v-bind="settings" v-if="5 > 2">
+            <div class="tabs-holder">
+              <div class="tabs-content">test</div>
+            </div>
+          </VueSlickCarousel> -->
           <div class="tabs-content">
             <b-tabs>
               <!-- first tab that contain all sub-categories  -->
@@ -107,7 +112,7 @@
               <!-- second tab that contain classified sub-categories  -->
               <b-tab
                 :title="category.title"
-                v-for="(category , index) in subCategories"
+                v-for="(category, index) in subCategories"
                 :key="index"
                 @click="selectTab(category)"
                 :id="`category-${index}`"
@@ -155,6 +160,13 @@
 <script>
 import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
+// import newCover from "@/components/pages/categories/categoriesCover.vue";
+
+// import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
 export default {
   data() {
     return {
@@ -183,6 +195,40 @@ export default {
       allSubCategories: null,
       allSubCategoriesLength: null,
       myActiveAtt: "All",
+      settings: {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: true,
+        arrows: true,
+
+        responsive: [
+          {
+            breakpoint: 1191,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -198,6 +244,8 @@ export default {
   },
   components: {
     OtherCategoryCard,
+    // VueSlickCarousel,
+    // newCover
   },
   methods: {
     /**
@@ -282,7 +330,7 @@ export default {
     },
     /**
      * @vuese
-     * selectTab function 
+     * selectTab function
      */
     selectTab(item) {
       let query = {};
@@ -337,26 +385,24 @@ export default {
         }
       } else {
         query = {
-          brand: 'All'
+          brand: "All",
         };
       }
 
       if (!this.$route.query.brand) {
         query = {
-          brand: 'All'
+          brand: "All",
         };
         console.log("third");
       } else if (
-        this.$route.query.brand
-          .split(",")
-          .includes(this.$route.query.brand)
+        this.$route.query.brand.split(",").includes(this.$route.query.brand)
       ) {
         query = {
           brand: query.brand,
         };
       } else {
         query = {
-          brand: 'All'
+          brand: "All",
         };
       }
 
@@ -373,7 +419,6 @@ export default {
     sessionStorage.setItem("catId", this.id);
   },
   mounted() {
-
     if (this.$route.query.brand) {
       this.myActiveAtt = this.$route.query.brand;
     } else {

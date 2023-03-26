@@ -79,7 +79,7 @@
                             <img
                               src="@/assets/images/play_store1.png"
                               :alt="link.key"
-                              class="img-fluid"
+                              class="download-img"
                             />
                           </a>
                         </li>
@@ -91,6 +91,7 @@
                             <img
                               src="@/assets/images/app_store1.png"
                               :alt="link.key"
+                              class="download-img"
                             />
                           </a>
                         </li>

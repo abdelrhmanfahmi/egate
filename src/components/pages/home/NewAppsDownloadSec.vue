@@ -1,12 +1,12 @@
 <template>
-  <div class="download-wrapper d-flex justify-content-center align-items-center">
+  <div
+    class="download-wrapper d-flex justify-content-center align-items-center foot py-4"
+  >
     <div class="container">
       <div class="row align-items-center">
-        <div
-          class="col-md-6 col-sm-12"
-        >
+        <div class="col-md-6 col-sm-12 my-5">
           <div class="title">
-            <h2 class="h1 mb-5 mt-0">Download App Now</h2>
+            <h2 class="h1 mb-5 mt-0">download our app!</h2>
           </div>
           <div class="footer-social d-flex">
             <div v-if="google_play">
@@ -14,6 +14,7 @@
                 <img
                   src="@/assets/images/play_store1.png"
                   :alt="google_play.key"
+                  class="download-img"
                 />
               </a>
             </div>
@@ -22,12 +23,13 @@
                 <img
                   src="@/assets/images/app_store1.png"
                   :alt="app_store.key"
+                  class="download-img"
                 />
               </a>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-12 ">
+        <div class="col-md-6 col-sm-12">
           <div class="imag-holder">
             <img
               src="@/assets/images/mobile.png"
@@ -93,4 +95,5 @@ export default {
   width: 100%;
   object-fit: contain;
 }
+
 </style>

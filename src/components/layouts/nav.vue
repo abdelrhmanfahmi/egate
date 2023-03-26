@@ -12,7 +12,7 @@
         <!-- top nav  -->
         <div class="row justify-content-center align-items-center">
           <div
-            class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+            class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
           >
             <div
               class="lang-currency-country d-flex justify-content-between align-items-center"
@@ -20,15 +20,8 @@
               <TopHeader />
             </div>
           </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <div class="companies-router">
-              <router-link to="/b2b-login">
-                <div>Companies</div>
-              </router-link>
-            </div>
-          </div>
           <div
-            class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+            class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
           >
             <div class="middle">
               <!-- logo is centered  -->
@@ -93,10 +86,16 @@
                 <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
               </b-button> -->
                 </div>
+                <div class="companies-router">
+                  <router-link to="/b2b-login">
+                    <div>corporate</div>
+                  </router-link>
+                </div>
                 <div
                   v-if="!mobile"
                   class="cart d-flex justify-content-between align-items-center"
                 >
+                
                   <span
                     class="cartLength cart-number"
                     v-if="cartItems && cartLength"
@@ -111,6 +110,7 @@
                     />
                   </span>
 
+                 
                   <Cart class="cart-body"></Cart>
                 </div>
                 <div v-if="!mobile && buyerUserData" class="cart notify-holder">

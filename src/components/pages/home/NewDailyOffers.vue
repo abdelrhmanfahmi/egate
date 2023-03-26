@@ -145,6 +145,7 @@ export default {
                         settings: {
                             slidesToShow: 1,
                             slidesToScroll: 1,
+                            arrows: false,
                         },
                     },
                     {
@@ -152,6 +153,7 @@ export default {
                         settings: {
                             slidesToShow: 1,
                             slidesToScroll: 1,
+                            arrows: false,
                         },
                     },
                 ],
@@ -267,12 +269,12 @@ button {
 .time-count {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 10px;
     font-size: 14px;
     background: $main-color;
     border-radius: 0 0 20px 20px;
     color: #fff;
-    right:0
+    right:10px
 }
 
 .row{
