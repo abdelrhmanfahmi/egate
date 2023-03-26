@@ -4,7 +4,15 @@
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
-          <div class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20}" ><span :class="{'long-rebbon-span':dealType.trim().length > 20}">{{dealType}}</span></div>
+          <div
+            class="ribbon ribbon-top-left"
+            :class="{ 'long-rebbon': dealType.trim().length > 20 }"
+          >
+            <span
+              :class="{ 'long-rebbon-span': dealType.trim().length > 20 }"
+              >{{ dealType }}</span
+            >
+          </div>
           <!-- product slider  -->
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
@@ -24,8 +32,16 @@
         <b-row v-if="loading">
           <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
             <b-card>
-              <b-skeleton animation="fade" width="80%" class="border-none"></b-skeleton>
-              <b-skeleton animation="fade" width="95%" class="border-none"></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="80%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="95%"
+                class="border-none"
+              ></b-skeleton>
             </b-card>
           </b-col>
         </b-row>
@@ -33,58 +49,103 @@
         <!-- when data of relative products comes   -->
 
         <div class="products-table text-center" v-else>
-          <table v-if="promotion_products" class="table table-striped table-hover table-bordered selectable ">
+          <table
+            v-if="promotion_products"
+            class="table table-striped table-hover table-bordered selectable"
+          >
             <thead>
               <tr>
-                <th scope="col" v-for="(tab, index) in tableFields" :key="index">
+                <th
+                  scope="col"
+                  v-for="(tab, index) in tableFields"
+                  :key="index"
+                >
                   {{ tab.label }}
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(productTable, index) in promotion_products" :key="index" @click="goProduct(productTable)"
-                class="cursor-pointer">
-
+              <tr
+                v-for="(productTable, index) in promotion_products"
+                :key="index"
+                @click="goProduct(productTable)"
+                class="cursor-pointer"
+              >
                 <!-- <td v-if="productTable.ads && productTable.ads.length > 0" class="ads">
                   {{ $t("items.advertise") }}
                 </td> -->
                 <!-- <td v-else class="ads-replace"></td> -->
                 <td v-if="productTable.product_supplier.product" class="title">
-                  <span v-if="$i18n.locale == 'en'">{{ productTable.product_supplier.product.title_en }}</span>
-                  <span v-else-if="$i18n.locale == 'ar'">{{ productTable.product_supplier.product.title_ar }}</span>
+                  <span v-if="$i18n.locale == 'en'">{{
+                    productTable.product_supplier.product.title
+                  }}</span>
+                  <span v-else-if="$i18n.locale == 'ar'">{{
+                    productTable.product_supplier.product.title
+                  }}</span>
                   <span v-else>-</span>
                 </td>
                 <td v-if="productTable.product_supplier.product" class="image">
-                  <img :src="productTable.product_supplier.product.image_path" alt="procuct image"
-                    class="product-image">
+                  <img
+                    :src="productTable.product_supplier.product.image_path"
+                    alt="procuct image"
+                    class="product-image"
+                    v-if="productTable.product_supplier.product.image_path"
+                  />
+                  <div class="" v-else-if="productTable.product_supplier.product.logoEnv">
+
+                    <img
+                      :src="logoEnv"
+                      class="img-fluid product-image"
+                      alt="logo"
+                    />
+                  </div>
+                  <img src="@/assets/images/logo.png" v-else alt="logo" class="img-fluid product-image" />
                 </td>
-                <td v-if="productTable.product_supplier.product" class="supplier">
-                  <span v-if="myProduct.client.company_name">{{ myProduct.client.company_name }}</span>
+                <td
+                  v-if="productTable.product_supplier.product"
+                  class="supplier"
+                >
+                  <span v-if="myProduct.client.company_name">{{
+                    myProduct.client.company_name
+                  }}</span>
                   <span v-else>-</span>
                 </td>
                 <td v-if="productTable.product_supplier.product" class="unit">
-                  <span v-if="productTable.product_supplier.product_details_by_type.weight">{{
-                    productTable.product_supplier.product_details_by_type.weight
-                  }}</span>
-                  <span v-if="productTable.product_supplier.product_details[0].unit">{{
-                    productTable.product_supplier.product_details[0].unit.title
-                  }}</span>
+                  <span
+                    v-if="
+                      productTable.product_supplier.product_details_by_type
+                        .weight
+                    "
+                    >{{
+                      productTable.product_supplier.product_details_by_type
+                        .weight
+                    }}</span
+                  >
+                  <span
+                    v-if="productTable.product_supplier.product_details[0].unit"
+                    >{{
+                      productTable.product_supplier.product_details[0].unit
+                        .title
+                    }}</span
+                  >
                   <span v-else>-</span>
                 </td>
                 <td v-if="productTable.product_supplier.product" class="price">
-                  <span v-if="productTable.product_price">{{
-                    productTable.product_price | fixedCurrency
-                  }}
-                    {{ currency }}</span>
+                  <span v-if="productTable.product_price"
+                    >{{ productTable.product_price | fixedCurrency }}
+                    {{ currency }}</span
+                  >
                   <span v-else>-</span>
                 </td>
-                <td v-if="productTable.product_supplier.product" class="quantity">
+                <td
+                  v-if="productTable.product_supplier.product"
+                  class="quantity"
+                >
                   <span v-if="productTable.quantity">{{
                     productTable.quantity
                   }}</span>
                   <span v-else>-</span>
                 </td>
-
               </tr>
             </tbody>
           </table>
@@ -103,16 +164,26 @@
           <div class="my-5 py-5">
             <VueSlickCarousel v-bind="settings" v-if="relatedProductsLength">
               <div v-for="item in relatedProducts" :key="item.id">
-                <BasketRelatedProducts :data="item" :dealType="dealType"></BasketRelatedProducts>
+                <BasketRelatedProducts
+                  :data="item"
+                  :dealType="dealType"
+                ></BasketRelatedProducts>
               </div>
             </VueSlickCarousel>
           </div>
         </div>
       </div>
     </div>
-    <div class=" d-flex justify-content-center align-items-center flex-column" v-else-if="myProduct == null">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column"
+      v-else-if="myProduct == null"
+    >
       <div class="p-5">
-        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
+        <img
+          src="@/assets/images/BeanLoading2.gif"
+          class="loading-img"
+          alt="loading"
+        />
       </div>
     </div>
     <div class="flex-column p-5 notFound" v-if="notFound">
@@ -156,7 +227,8 @@ export default {
         //   label: "#",
         // },
         {
-          key: this.$i18n.locale == 'en' ? "product.title_en" : "product.title_ar",
+          key:
+            this.$i18n.locale == "en" ? "product.title_en" : "product.title_ar",
           label: this.$t("items.item"),
         },
         {
@@ -256,7 +328,7 @@ export default {
         path: "/details",
         query: {
           id: data.id,
-          type: this.dealType ? this.dealType : null
+          type: this.dealType ? this.dealType : null,
         },
       });
       // location.reload();
@@ -313,20 +385,19 @@ export default {
   // }
 }
 
-
 .product-image {
   width: 60px;
   height: 60px;
   -o-object-fit: cover;
   object-fit: cover;
 }
-.slider{
+.slider {
   position: relative;
   overflow: hidden;
 }
 
-.basketSinglePage{
-  .cr-sticky{
+.basketSinglePage {
+  .cr-sticky {
     left: -39% !important;
   }
 }

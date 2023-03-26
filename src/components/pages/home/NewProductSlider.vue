@@ -146,10 +146,11 @@ export default {
         infinite: true,
         arrows: true,
         speed: 500,
-        slidesToShow: 6,
+        slidesToShow: 4,
         slidesToScroll: 1,
         swipeToSlide: true,
         autoplay: true,
+        centeredMode:true,
 
         responsive: [
           {
