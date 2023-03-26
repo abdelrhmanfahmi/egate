@@ -216,7 +216,7 @@
       }
       img {
         // width: 150px;
-        width: 100%;
+        min-width: 250px;
         height: 150px;
         border-radius: 0%;
         display: block;
