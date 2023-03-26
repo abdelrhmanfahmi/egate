@@ -21,10 +21,6 @@
       </transition>
     </div>
 
-    <!-- router that contain pages  -->
-    <transition name="slide-fade">
-      <router-view class="view"></router-view>
-    </transition>
 
     <!-- button to scroll to top  -->
     <div class="top-btn" @click="goTop" v-if="visible">
