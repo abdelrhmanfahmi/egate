@@ -15,6 +15,13 @@
     </b-alert>
 
     <!-- router that contain pages  -->
+    <div class="router-holder">
+      <transition name="slide-fade">
+        <router-view class="view"></router-view>
+      </transition>
+    </div>
+
+    <!-- router that contain pages  -->
     <transition name="slide-fade">
       <router-view class="view"></router-view>
     </transition>
@@ -236,5 +243,9 @@ export default {
 }
 .otp-link {
   text-decoration: underline !important;
+}
+
+.router-holder{
+  min-height: 70vh;
 }
 </style>
