@@ -49,7 +49,8 @@
           <div class="col-lg-4 col-md-0 col-sm-0">
             <div class="toggleMenu">
               <!-- Right Side have user login and search   -->
-              <div class="right-side d-flex" v-if="!mobile">
+              <!-- Right Side have user login and search   -->
+              <div class="right-side d-flex">
                 <!-- Search Icon -->
                 <div class="search-icon" v-if="!mobile">
                   <b-button
@@ -60,78 +61,95 @@
                   >
                     <font-awesome-icon icon="fa-solid fa-times" />
                   </b-button>
-                  <!-- <span class="" v-if="searchClicked">
-                <div class="form-holder">
-                  <b-form @submit.prevent="search" @keyup="search">
-                    <b-form-input :placeholder="$t('cart.search')" class="search-input" v-model="keyword"
-                      ref="searchIcon"></b-form-input>
-                    <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
-                      <button>
-                        <font-awesome-icon icon="fa-solid fa-arrow-right" />
-                      </button>
+                  <span class="" v-if="searchClicked">
+                    <div class="form-holder">
+                      <b-form @submit.prevent="search" @keyup="search">
+                        <b-form-input
+                          :placeholder="$t('cart.search')"
+                          class="search-input"
+                          v-model="keyword"
+                          ref="searchIcon"
+                        ></b-form-input>
+                        <div
+                          class="floating-btn"
+                          @click="searchBtn"
+                          v-if="suggestionsExist == false && keyword.length"
+                        >
+                          <button>
+                            <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                          </button>
+                        </div>
+                      </b-form>
+                      <ul class="search-suggestions" v-if="suggestionsExist">
+                        <span class="meaning-span">{{
+                          $t("home.didMean")
+                        }}</span>
+                        <li
+                          v-for="(suggest, index) in suggestions"
+                          :key="index"
+                          role="button"
+                          @click="searchSuggestion(suggest)"
+                        >
+                          {{ suggest }}
+                        </li>
+                      </ul>
                     </div>
-                  </b-form>
-                  <ul class="search-suggestions" v-if="suggestionsExist">
-                    <span class="meaning-span">{{ $t("home.didMean") }}</span>
-                    <li v-for="(suggest, index) in suggestions" :key="index" role="button"
-                      @click="searchSuggestion(suggest)">
-                      {{ suggest }}
-                    </li>
-                  </ul>
-                </div>
-              </span>
-    
-              <b-button v-b-modal.modal-1 class="icon-search" size="md" v-if="searchClicked == false"
-                @click="searchClicked = !searchClicked">
-                <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" />
-              </b-button> -->
-                </div>
-                <div class="companies-router">
-                  <router-link to="/b2b-login">
-                    <div>corporate</div>
-                  </router-link>
-                </div>
-                <div
-                  v-if="!mobile"
-                  class="cart d-flex justify-content-between align-items-center"
-                >
-                
-                  <span
-                    class="cartLength cart-number"
-                    v-if="cartItems && cartLength"
-                  >
-                    {{ cartLength }}
-                  </span>
-                  <span class="cart-icon">
-                    <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
-                    <font-awesome-icon
-                      icon="fa-solid fa-cart-shopping"
-                      size="xl"
-                    />
                   </span>
 
-                 
-                  <Cart class="cart-body"></Cart>
+                  <!-- <b-button
+                    v-b-modal.modal-1
+                    class="icon-search"
+                    size="md"
+                    v-if="searchClicked == false"
+                    @click="searchClicked = !searchClicked"
+                  >
+                    <font-awesome-icon
+                      v-b-toggle.sidebar-1
+                      icon="fa-solid fa-search"
+                    />
+                  </b-button> -->
                 </div>
-                <div v-if="!mobile && buyerUserData" class="cart notify-holder">
-                  <span class="cart-icon">
-                    <font-awesome-icon icon="fa-solid fa-bell" />
-                  </span>
-                  <span class="cartLength" v-if="notificationsLength > 0">
-                    {{ notificationsLength > 0 ? notificationsLength : 0 }}
-                  </span>
-                  <Notify class="notify-body" :notifications="notifications" />
-                </div>
+                <div
+                v-if="!mobile"
+                class="cart d-flex justify-content-between align-items-center"
+              >
+              
+                <span
+                  class="cartLength cart-number"
+                  v-if="cartItems && cartLength"
+                >
+                  {{ cartLength }}
+                </span>
+                <span class="cart-icon">
+                  <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
+                  <font-awesome-icon
+                    icon="fa-solid fa-cart-shopping"
+                    size="xl"
+                  />
+                </span>
+
+               
+                <Cart class="cart-body"></Cart>
+              </div>
+              <div v-if="!mobile && buyerUserData" class="cart notify-holder">
+                <span class="cart-icon">
+                  <font-awesome-icon icon="fa-solid fa-bell" />
+                </span>
+                <span class="cartLength" v-if="notificationsLength > 0">
+                  {{ notificationsLength > 0 ? notificationsLength : 0 }}
+                </span>
+                <Notify class="notify-body" :notifications="notifications" />
+              </div>
                 <!-- user sign in -->
                 <div
                   class="login"
                   v-if="!mobile && !isLoggined"
                   v-b-toggle.login
                 >
-                  <font-awesome-icon icon="fa-solid fa-user" size="xl" />
+                  <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                   <!-- <h5>
-                <small>{{ $t("login.login") }}</small>
-              </h5> -->
+                    <small>{{ $t("login.login") }}</small>
+                  </h5> -->
                 </div>
                 <div v-if="!mobile && isLoggined">
                   <div class="user-profile">
@@ -215,10 +233,15 @@
                 >
                   <div class="col-12">
                     <div class="search-icon">
-                      <!-- <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                    <font-awesome-icon v-b-toggle.sidebar-1 icon="fa-solid fa-search" class="mobile-search-icon" />
-                  </b-button> -->
+                      <b-button v-b-modal.modal-1 class="icon-search" size="md">
+                        <font-awesome-icon
+                          v-b-toggle.sidebar-1
+                          icon="fa-solid fa-search"
+                          class="mobile-search-icon"
+                        />
+                      </b-button>
                       <b-modal id="modal-1" class="search">
+                        <!-- Using slots -->
                         <b-input-group class="mt-3">
                           <template #append>
                             <b-input-group-text class="floating-btn">
@@ -236,6 +259,11 @@
                                 :placeholder="$t('cart.search')"
                                 v-model="keyword"
                               ></b-form-input>
+                              <!-- <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
+                  <button>
+                    <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                  </button>
+                </div> -->
                               <ul
                                 class="search-suggestions"
                                 v-if="suggestionsExist"
@@ -268,24 +296,25 @@
                   class="bar-icon"
                 />
               </div>
+              <transition name="mobile-nav">
+                <b-sidebar
+                  :right="getDir === 'rtl'"
+                  v-if="mobileNav"
+                  @hidden="closeSideBar"
+                  id="sidebar-1"
+                  backdrop
+                  width="300px"
+                  shadow
+                  z-index="3"
+                >
+                  <MobileNav />
+                </b-sidebar>
+              </transition>
+              <!--End Mbile Nav -->
             </div>
           </div>
         </div>
 
-        <transition name="mobile-nav">
-          <b-sidebar
-            :right="getDir === 'rtl'"
-            v-if="mobileNav"
-            @hidden="closeSideBar"
-            id="sidebar-1"
-            backdrop
-            width="300px"
-            shadow
-            z-index="3"
-          >
-            <MobileNav />
-          </b-sidebar>
-        </transition>
         <!--End Mbile Nav -->
       </nav>
     </div>
