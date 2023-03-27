@@ -1,26 +1,27 @@
 <template>
   <div class="product-counter">
-    <div class="value">
-      <!-- variants page counter that exist in table  -->
-      <main>
-        <!-- @slot Use this slot header -->
-        <slot name="main">
-          <input
-            class="form-control text-center border-0"
-            type="number"
-            name=""
-            id=""
-            min="1"
-            @keyup="CustomIncrementQuantity"
-            v-model="countValue"
-          />
-        </slot>
-      </main>
-    </div>
-    <div class="actions d-flex flex-column">
+    
+    <div class="actions d-flex justify-content-center align-items-center" :class="$i18n.locale">
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
       </button>
+      <div class="value">
+        <!-- variants page counter that exist in table  -->
+        <main>
+          <!-- @slot Use this slot header -->
+          <slot name="main">
+            <input
+              class="form-control text-center border-0 counter-input"
+              type="number"
+              name=""
+              id=""
+              min="1"
+              @keyup="CustomIncrementQuantity"
+              v-model="countValue"
+            />
+          </slot>
+        </main>
+      </div>
       <button class="product-counter-btn" @click="decrementQuantity">
         <b-icon-dash />
       </button>
@@ -129,7 +130,7 @@ export default {
   align-items: center;
   justify-content: left;
   .actions {
-    color: #606266;
+    //color: #606266;
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -150,12 +151,13 @@ export default {
     border: 1px solid #f0f0f0;
     color: #544842;
     font-weight: 500;
-    width: 6rem;
-    height: 3.5rem;
+    width: 4rem;
+    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
   }
 }
+
 </style>

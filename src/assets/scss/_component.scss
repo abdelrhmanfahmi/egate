@@ -38,6 +38,7 @@
 
 .custom-select {
   height: 3.2rem;
+  //min-width: 200px;
 }
 // .product-silder {
 //   button:not(:disabled),
@@ -170,6 +171,11 @@
   .nav.nav-tabs .nav-link{
     color: #fff !important;
     font-size: 14px !important;
+  }
+
+  .nav-tabs{
+    width:100%;
+    overflow-y:scroll
   }
   
 }

@@ -56,10 +56,13 @@ export default {
   margin: 20px 30px;
 
   &:hover {
-    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
-    transform: translateY(-5px);
-    border: 1px solid #cccccc;
-    background-color: white;
+    img{
+
+     // box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+      transform: translateY(-5px);
+      border: 4px solid $main-color;
+      //background-color: white;
+    }
   }
 
   img {
@@ -76,7 +79,7 @@ export default {
     border-radius: 5px;
 
     &:hover {
-      opacity: 0.5;
+      opacity: 1;
     }
   }
 

@@ -26,7 +26,7 @@
         </b-container>
       </div>
     </div> -->
-    <!-- <newCover :coverData="coverData" /> -->
+    <newCover />
     <div class="data-holder">
       <div class="container">
         <div class="row">
@@ -59,6 +59,13 @@
                   active: !$route.query.brand || $route.query.brand == 'All',
                 }"
               >
+                <template #title >
+                  <div  class="d-flex justify-content-center align-items-center flex-column">
+
+                    <font-awesome-icon icon="fa-solid fa-table-cells-large" size="xl" class="text-white" />
+                    <strong>{{$t('home.All')}}</strong>
+                  </div>
+                </template>
                 <b-row v-if="loading">
                   <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                     <b-skeleton-img></b-skeleton-img>
@@ -121,6 +128,13 @@
                     $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
               >
+              <template #title >
+                <div  class="d-flex justify-content-between align-items-center flex-column">
+
+                  <font-awesome-icon icon="fa-solid fa-apple-whole" size="3x" />
+                  <strong>{{category.title}}</strong>
+                </div>
+              </template>
                 <b-row
                   align-h="center"
                   align-v="center"
@@ -160,7 +174,7 @@
 <script>
 import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
-// import newCover from "@/components/pages/categories/categoriesCover.vue";
+import newCover from "@/components/pages/categories/categoriesCover.vue";
 
 // import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
@@ -245,7 +259,7 @@ export default {
   components: {
     OtherCategoryCard,
     // VueSlickCarousel,
-    // newCover
+    newCover,
   },
   methods: {
     /**

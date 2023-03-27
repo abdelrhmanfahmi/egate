@@ -2,10 +2,10 @@
   <!-- variants page after sub-categories page  -->
   <div class="items-body variants">
     <div class="container">
-      <div
+      <!-- <div
         class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
       >
-        <!-- navigation  -->
+        navigation 
         <nav aria-label="breadcrumb " v-if="productInfo">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -20,9 +20,14 @@
             </li>
           </ol>
         </nav>
-      </div>
+      </div> -->
       <div class="content">
-        <b-row align-h="center" align-v="start" class="py-5" v-if="productInfo">
+        <b-row
+          align-h="center"
+          align-v="center"
+          class="py-5 des-holder"
+          v-if="productInfo"
+        >
           <!-- sub category image  -->
           <b-col
             cols="12"
@@ -64,18 +69,45 @@
                 &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
               >
             </div>
-            <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to ">
-              {{ $t('supplier.EstimatedPrice') }} : {{ productInfo.estimate_price_from }} -
-              {{ productInfo.estimate_price_to }} {{ productInfo.estimate_currency }} {{ $t('supplier.by') }}
+            <p
+              v-if="
+                productInfo.estimate_price_from && productInfo.estimate_price_to
+              "
+            >
+              {{ $t("supplier.EstimatedPrice") }} :
+              {{ productInfo.estimate_price_from }} -
+              {{ productInfo.estimate_price_to }}
+              {{ productInfo.estimate_currency }} {{ $t("supplier.by") }}
               {{ productInfo.estimate_by }}
             </p>
+          </b-col>
+        </b-row>
+      </div>
+      <div class="filter-search">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-6 col-sm-12">
+            <div class="new-search">
+              <div class="field" id="searchform">
+                <input
+                  type="text"
+                  id="searchterm"
+                  :placeholder="`${$t('cart.search')}...`"
+                  class="form-control"
+                />
+                <button type="button" id="search">
+                  {{ $t("cart.search") }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
             <div class="customize">
               <div class="customize-selection">
                 <!-- loop for sub-category variant that comes dynamically from backend  -->
                 <div
                   v-for="variant in productInfo.variants"
                   :key="variant.id"
-                  class="mb-3"
+                  class="m-3"
                 >
                   <form action="">
                     <label for="select">{{ variant.title }}</label>
@@ -83,7 +115,7 @@
                       <b-form-select
                         v-model="variant.selectedVariance"
                         @change="changeVariance(variant)"
-                        class="mb-3"
+                        class="mb-3 beside-search"
                       >
                         <b-form-select-option selected value="null">
                           {{ $t("home.All") }}
@@ -101,8 +133,8 @@
                 </div>
               </div>
             </div>
-          </b-col>
-        </b-row>
+          </div>
+        </div>
       </div>
     </div>
     <!-- sub category image  -->
@@ -270,9 +302,9 @@
           </thead>
           <tbody>
             <tr v-for="(product, index) in products" :key="index">
-              <td
+              <!-- <td
                 v-if="
-                  product.ads.length ||
+                product.ads.length ||
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type
                 "
@@ -313,24 +345,60 @@
                     >{{ $t("profile.buyXgetYOffer") }}</router-link
                   >
                 </h6>
-              </td>
+              </td> -->
 
               <!-- <td v-else>{{index + 1 }}</td> -->
-              <td v-else></td>
-              <td>
-                <router-link
-                  class="link font-weight-bold text-danger"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  {{ product.product.title }}
-                </router-link>
-              </td>
+              <!-- <td v-else></td> -->
               <td>
                 <router-link
                   v-if="product.image_path !== null"
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
+                  <span
+                    v-if="
+                      product.ads.length ||
+                      product.basket_promotions_running_by_type ||
+                      product.buy_get_promotion_running_by_type
+                    "
+                  >
+                    <h6 v-if="product.ads && product.ads.length > 0">
+                      {{ $t("items.advertise") }}
+                    </h6>
+                    <h6 v-if="product.basket_promotions_running_by_type">
+                      <router-link
+                        :to="{
+                          path: '/basketOfferDetails',
+                          query: {
+                            id: product.basket_promotions_running_by_type
+                              .basket_promotion_id,
+                          },
+                        }"
+                        >{{ $t("profile.basketDeals") }}</router-link
+                      >
+                    </h6>
+                    <h6 v-if="product.buy_get_promotion_running_by_type">
+                      <router-link
+                        :to="{
+                          path: '/details',
+                          query: {
+                            id: product.id,
+                            type: `${$t('profile.buy')} 
+                                                        ${
+                                                          product
+                                                            .buy_get_promotion_running_by_type
+                                                            .promotion.buy_x
+                                                        } 
+                                                        ${$t('profile.get')} ${
+                              product.buy_get_promotion_running_by_type
+                                .promotion.get_y
+                            }`,
+                          },
+                        }"
+                        >{{ $t("profile.buyXgetYOffer") }}</router-link
+                      >
+                    </h6>
+                  </span>
                   <img
                     :src="product.image_path"
                     class="product-image"
@@ -374,11 +442,26 @@
               </td>
               <td>
                 <router-link
+                  class="link font-weight-bold "
+                  :to="{ path: '/details', query: { id: product.id } }"
+                >
+                {{ product.product.title }}
+                </router-link>
+              </td>
+
+              <td>
+                <router-link
+                  class="link"
+                  :to="{ path: `/suppliers/${product.client.id}` }"
+                >
+                  <ins>{{ product.client.company_name }}</ins>
+                </router-link>
+                <!-- <router-link
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
-                  {{ product.client.company_name }}
-                </router-link>
+                  <ins>{{ product.client.company_name }}</ins>
+                </router-link> -->
               </td>
               <td>
                 <router-link
@@ -552,7 +635,7 @@
                     :title="$t('items.addToCart')"
                   >
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
                   </a>
                   <div class="" v-if="buyerUserData">
                     <a
@@ -562,7 +645,7 @@
                       v-b-tooltip.hover
                       :title="$t('items.addedToFavourite')"
                     >
-                      <font-awesome-icon icon="fa-solid fa-star" />
+                      <font-awesome-icon icon="fa-solid fa-star" size="xl" />
                     </a>
                     <a
                       @click="addToWishlist(product)"
@@ -571,7 +654,8 @@
                       class="d-flex justify-content-center align-items-center"
                       v-else
                     >
-                      <font-awesome-icon icon="fa-solid fa-star" />
+                      <font-awesome-icon icon="fa-regular fa-star" size="xl" />
+                      
                     </a>
                   </div>
                   <div
@@ -605,12 +689,13 @@
                       >
                         <button
                           id="show-btn"
-                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart bg-gray"
                           @click="$bvModal.show('bv-bidRequest')"
                           v-b-tooltip.hover
                           :title="$t('singleProduct.bidRequest')"
                         >
-                          <rfqIcon />
+                          <!-- <rfqIcon /> -->
+                          RFQ
                         </button>
                       </div>
                     </button>
@@ -852,18 +937,19 @@ export default {
         { value: "d", text: "Fourth option" },
       ],
       tableFields: [
+        // {
+        //   key: "#",
+        //   label: "#",
+        // },
         {
-          key: "#",
-          label: "#",
+          key: "image_path",
+          label: this.$t("items.image"),
         },
         {
           key: "product.title",
           label: this.$t("items.item"),
         },
-        {
-          key: "image_path",
-          label: this.$t("items.image"),
-        },
+
         {
           key: "client.company_name",
           label: this.$t("items.supplier"),
@@ -1258,6 +1344,11 @@ export default {
 
   .content {
     color: #000;
+    margin: 4% 0;
+    .des-holder {
+      border: 2px solid #eeeeee;
+      border-radius: 5px;
+    }
 
     .item-content {
       color: #000;
@@ -1349,20 +1440,20 @@ export default {
 }
 
 .product-image {
-  width: 60px;
-  height: 60px;
+  width: 130px;
+  height: 123px;
   object-fit: cover;
+  border-radius: 5px;
 }
 
-.items-body
-  .content
-  .item-content
-  .customize
-  .customize-selection
-  select[data-v-74400477] {
+.items-body .content .item-content .customize .customize-selection select {
   height: 3rem;
 }
-
+.customize-selection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .link {
   color: #403a37;
   font-size: 14pt;
@@ -1398,7 +1489,7 @@ export default {
 
 .item-media {
   img {
-    height: 350px;
+    height: 250px;
     width: 100%;
     object-fit: contain;
   }
@@ -1489,5 +1580,30 @@ export default {
   border: 1px solid #ccc;
   padding: 12px 20px;
   border-radius: 5px;
+}
+
+.new-search {
+  .field {
+    position: relative;
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  .field > input {
+    width: 100%;
+  }
+
+  .field > button {
+    width: 120px;
+    border: none;
+  }
+}
+.beside-search {
+  min-width: 200px !important;
+  display: inline-block ;
 }
 </style>
