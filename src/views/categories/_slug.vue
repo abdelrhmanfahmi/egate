@@ -130,7 +130,7 @@
               >
               <template #title >
                 <div  class="d-flex justify-content-between align-items-center flex-column">
-
+                  <!-- section icon  -->
                   <font-awesome-icon icon="fa-solid fa-apple-whole" size="3x" />
                   <strong>{{category.title}}</strong>
                 </div>
