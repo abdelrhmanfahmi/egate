@@ -242,4 +242,8 @@ export default {
 .otp-link {
   text-decoration: underline !important;
 }
+
+.router-holder{
+  min-height: 70vh;
+}
 </style>
