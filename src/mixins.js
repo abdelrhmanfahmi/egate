@@ -48,27 +48,90 @@ Vue.mixin({
     currentLang() {
       return localStorage.getItem("lang");
     },
+
+    storedSiteLogo() {
+      return localStorage.getItem("siteLogo");
+    },
+    storedAdminLogo() {
+      return localStorage.getItem("adminLogo");
+    },
+    logoEnv() {
+      return this.storedSiteLogo
+        ? process.env.VUE_APP_FOR_IMAGES +
+            "storage/site_settings_image/" +
+            this.storedSiteLogo
+        : null;
+    },
+    adminLogo() {
+      return this.storedAdminLogo
+        ? process.env.VUE_APP_FOR_IMAGES +
+            "storage/site_settings_image/" +
+            this.storedAdminLogo
+        : null;
+    },
+    arabicAvailable() {
+      return localStorage.getItem("arabic");
+    },
+
+    // site  api controls
+
     cartAvailable() {
       return localStorage.getItem("cartAvailable");
     },
     RfqAvailable() {
       return localStorage.getItem("RfqAvailable");
     },
-    storedSiteLogo(){
-      return localStorage.getItem('siteLogo')
+    supplier_messages() {
+      return localStorage.getItem("supplier_messages");
     },
-    storedAdminLogo(){
-      return localStorage.getItem('adminLogo')
+    b2b_buyer_registration() {
+      return localStorage.getItem("b2b_buyer_registration");
     },
-    logoEnv(){
-      return this.storedSiteLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedSiteLogo : null
+    social_login_facebook() {
+      return localStorage.getItem("social_login_facebook");
     },
-    adminLogo(){
-      return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedAdminLogo : null
+    standing_order() {
+      return localStorage.getItem("standing_order");
     },
-    arabicAvailable(){
-      return localStorage.getItem('arabic')
-    }
+    product_table_ads() {
+      return localStorage.getItem("product_table_ads");
+    },
+    favourite() {
+      return localStorage.getItem("favourite");
+    },
+    bank_transfer_payment() {
+      return localStorage.getItem("bank_transfer_payment");
+    },
+    wallet_payment() {
+      return localStorage.getItem("wallet_payment");
+    },
+    banner_ads() {
+      return localStorage.getItem("banner_ads");
+    },
+    social_login_apple() {
+      return localStorage.getItem("social_login_apple");
+    },
+    online_payment() {
+      return localStorage.getItem("online_payment");
+    },
+    guest_checkout() {
+      return localStorage.getItem("guest_checkout");
+    },
+    cash_on_delivery_payment() {
+      return localStorage.getItem("cash_on_delivery_payment");
+    },
+    supplier_registration() {
+      return localStorage.getItem("supplier_registration");
+    },
+    social_login_microsoft() {
+      return localStorage.getItem("social_login_microsoft");
+    },
+    wallet_withdrawl() {
+      return localStorage.getItem("wallet_withdrawl");
+    },
+    social_login_google() {
+      return localStorage.getItem("social_login_google");
+    },
   },
   methods: {
     logout() {
@@ -79,9 +142,9 @@ Vue.mixin({
       localStorage.removeItem("massege");
       localStorage.removeItem("cartAvailable");
       localStorage.removeItem("RfqAvailable");
-      this.$router.replace('/');
+      this.$router.replace("/");
       setTimeout(() => {
-        location.reload()
+        location.reload();
       }, 150);
     },
     sucessMsg(text, icon = "success") {
