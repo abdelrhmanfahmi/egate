@@ -42,7 +42,7 @@
                   >{{ $t("login.wholeSaleBuyer") }}</router-link
                 >
               </div>
-              <div class="col-md-3 col-sm-12 p-0">
+              <div class="col-md-3 col-sm-12 p-0" v-if="supplier_messages">
                 <a
                   :href="`${supplierDomain}`"
                   target="_blank"
@@ -110,18 +110,31 @@
             <div
               class="social-icons d-flex justify-content-center align-items-center"
             >
-              <button @click="getLink('facebook')" class="button-social">
+              <button
+                @click="getLink('facebook')"
+                class="button-social"
+                v-if="social_login_facebook"
+              >
                 <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
               </button>
-              <button @click="getLink('azure')" class="button-social">
-                <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-              </button>
-              <button @click="getLink('google')" class="button-social">
+              <button
+                @click="getLink('google')"
+                class="button-social"
+                v-if="social_login_google"
+              >
                 <font-awesome-icon icon="fa-brands fa-google" size="lg" />
+              </button>
+              <button
+                @click="getLink('azure')"
+                class="button-social"
+                v-if="social_login_microsoft"
+              >
+                <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
               </button>
               <button
                 @click="getLink('apple')"
                 class="button-social apple-login"
+                v-if="social_login_apple"
               >
                 <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
               </button>
@@ -201,7 +214,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
-        callback_url : `${this.mainDoamin}CheckUserValidity`
+        callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
 
       auth
@@ -260,7 +273,7 @@ export default {
       const payload = {
         email: this.emailForget,
         callback_url: `${this.mainDoamin}Forget-Password`,
-        type:'b2c'
+        type: "b2c",
       };
       auth
         .sendEmail(payload)

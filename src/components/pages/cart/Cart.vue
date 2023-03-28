@@ -656,7 +656,7 @@
           <div class="cart w-100">
             <div class="cart-detail p-4">
               <div class="row">
-                <div class="col-md-7 col-sm-12 my-2">
+                <div class="col-11 my-2" :class="{'col-md-7 col-sm-12':online_payment || cash_on_delivery_payment || bank_transfer_payment || wallet_payment}">
                   <h5 class="heading mb-3">{{ $t("cart.totalCart") }}</h5>
                   <!-- start add coupon  -->
                   <div class="coupon-holder mb-3">
@@ -762,8 +762,8 @@
 
                 <!-- display payment methods  -->
 
-                <div class="col-md-5 col-sm-12 my-2">
-                  <div class="payment w-100">
+                <div class="col-1 my-2" :class="{'col-md-5 col-sm-12':online_payment || cash_on_delivery_payment || bank_transfer_payment || wallet_payment}">
+                  <div class="payment w-100" v-if="online_payment || cash_on_delivery_payment || bank_transfer_payment || wallet_payment">
                     <div class="payment">
                       <div class="container">
                         <div class="content">
@@ -774,7 +774,7 @@
                                   $t("payment.paymentData")
                                 }}</span>
                               </div>
-                              <div class="methods-data">
+                              <div class="methods-data" >
                                 <div class="methods">
                                   <!-- display when wallet amount equal or more than cart coast  -->
                                   <div class="method coupon"
@@ -796,6 +796,7 @@
                                     buyerUserData &&
                                     walletData >= totalPaymentReplacement
                                     && walletMethodAvailable == true
+                                    && wallet_payment
                                   ">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod0" name="paymentMethod"
@@ -814,6 +815,7 @@
                                     buyerUserData &&
                                     walletData < totalPaymentReplacement &&
                                     walletVisaMethodAvailable == true
+                                    && online_payment
                                   ">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod5" name="paymentMethod"
@@ -829,7 +831,7 @@
                                     </div>
                                   </div>
                                   <!-- bank option  -->
-                                  <div class="method bank" v-if="buyerUserData && bankMethodAvailable == true">
+                                  <div class="method bank" v-if="buyerUserData && bankMethodAvailable == true && bank_transfer_payment">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod1" v-b-modal.bankModal name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -851,7 +853,7 @@
                                     </div>
                                   </div>
                                   <!-- cach option  -->
-                                  <div class="method cach" v-if="cachMethodAvailable == true">
+                                  <div class="method cach" v-if="cachMethodAvailable == true && cash_on_delivery_payment">
                                     <div class="custom-control custom-radio custom-control-inline">
                                       <input type="radio" id="paymentMethod2" name="paymentMethod"
                                         class="custom-control-input" v-model="paymentFormData.payment_type"
@@ -867,7 +869,7 @@
                                   </div>
                                   <!-- visa option ( online payment)  -->
                                   <div class="method visa row justify-content-between align-content-center"
-                                    v-if="visaMethodAvailable == true">
+                                    v-if="visaMethodAvailable == true && online_payment">
                                     <div class="col-md-8 col-xs-12">
                                       <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="paymentMethod3" name="paymentMethod"
@@ -948,16 +950,26 @@
                                   </div>
                                   <!-- checkout button if user not exist (guest)  -->
                                   <div class="submit" v-else>
-                                    <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
-                                      {{ $t("payment.checkout") }} ...
-                                      <span>
-                                        <b-spinner label="Spinning" small></b-spinner>
-                                      </span>
-                                    </b-button>
+                                    <div class="" v-if="guest_checkout">
 
-                                    <b-button type="submit" class="login-button dark" @click="guestPayment" v-else>
-                                      {{ $t("payment.checkout") }}
-                                    </b-button>
+                                      <b-button type="submit" class="login-button dark" disabled v-if="checkoutSubmitted">
+                                        {{ $t("payment.checkout") }} ...
+                                        <span>
+                                          <b-spinner label="Spinning" small></b-spinner>
+                                        </span>
+                                      </b-button>
+  
+                                      <b-button type="submit" class="login-button dark" @click="guestPayment" v-else>
+                                        {{ $t("payment.checkout") }}
+                                      </b-button>
+                                    </div>
+
+                                    <div class="" v-else>
+                                      <b-button type="submit" class="login-button dark" @click="loginFirst">
+                                        {{ $t("payment.checkout") }}
+                                      </b-button>
+                                    </div>
+                                    
                                   </div>
 
                                   <!-- login modal if want to login if guest  -->

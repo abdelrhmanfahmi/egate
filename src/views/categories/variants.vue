@@ -64,9 +64,15 @@
                 &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
               >
             </div>
-            <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to ">
-              {{ $t('supplier.EstimatedPrice') }} : {{ productInfo.estimate_price_from }} -
-              {{ productInfo.estimate_price_to }} {{ productInfo.estimate_currency }} {{ $t('supplier.by') }}
+            <p
+              v-if="
+                productInfo.estimate_price_from && productInfo.estimate_price_to
+              "
+            >
+              {{ $t("supplier.EstimatedPrice") }} :
+              {{ productInfo.estimate_price_from }} -
+              {{ productInfo.estimate_price_to }}
+              {{ productInfo.estimate_currency }} {{ $t("supplier.by") }}
               {{ productInfo.estimate_by }}
             </p>
             <div class="customize">
@@ -277,7 +283,7 @@
                   product.buy_get_promotion_running_by_type
                 "
               >
-                <h6 v-if="product.ads && product.ads.length > 0">
+                <h6 v-if="product.ads && product.ads.length > 0 && product_table_ads">
                   {{ $t("items.advertise") }}
                 </h6>
                 <h6 v-if="product.basket_promotions_running_by_type">
@@ -310,7 +316,11 @@
                         }`,
                       },
                     }"
-                    >{{ $t("profile.buyXgetYOffer") }}</router-link
+                    >{{
+                      `${$t("profile.buy")} 
+                      ${product.buy_get_promotion_running_by_type.promotion.buy_x}
+                     ${$t('profile.get')} ${product.buy_get_promotion_running_by_type.promotion
+                      .get_y} ` }}</router-link
                   >
                 </h6>
               </td>
@@ -504,9 +514,9 @@
                       : 1
                   "
                   v-if="
-                    (cartAvailable === 'available' &&
+                    (add_to_cart === 'available' &&
                       product.product_details_by_type.add_type === 'cart') ||
-                    (cartAvailable === 'available' &&
+                    (add_to_cart === 'available' &&
                       product.product_details_by_type.add_type === 'both')
                   "
                   class="justify-content-center"
@@ -525,200 +535,210 @@
                 <p v-else>-</p>
               </td>
               <td class="actions-holder">
-                <div
-                  class="add-to d-flex justify-content-center align-items-center"
-                  v-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage == 100 &&
-                      buyerUserData.type === 'buyer') ||
-                    (buyerUserData && buyerUserData.type === 'b2b') ||
-                    (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true) ||
-                    (buyerUserData &&
-                      buyerUserData.type === 'b2c' &&
-                      buyerUserData.is_verified)
-                  "
-                >
-                  <a
-                    class="d-flex justify-content-center align-items-center cart-link"
-                    @click="addToCart(product)"
+                <div class="" v-if="add_to_cart || favourite || RFQ == 'available' || standing_order">
+
+                  <div
+                    class="add-to d-flex justify-content-center align-items-center"
                     v-if="
-                      (cartAvailable == 'available' &&
-                        product.product_details_by_type.add_type === 'cart') ||
-                      (cartAvailable == 'available' &&
-                        product.product_details_by_type.add_type === 'both')
+                      (buyerUserData &&
+                        buyerUserData.profile_percentage == 100 &&
+                        buyerUserData.type === 'buyer') ||
+                      (buyerUserData && buyerUserData.type === 'b2b') ||
+                      (buyerUserData.type === 'supplier' &&
+                        buyerUserData.is_buyer == true) ||
+                      (buyerUserData &&
+                        buyerUserData.type === 'b2c' &&
+                        buyerUserData.is_verified)
                     "
-                    v-b-tooltip.hover
-                    :title="$t('items.addToCart')"
                   >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-                  </a>
-                  <div class="" v-if="buyerUserData">
                     <a
-                      class="text-danger d-flex justify-content-center align-items-center"
-                      @click="addToWishlist(product)"
-                      v-if="product.is_favorite == true"
+                      class="d-flex justify-content-center align-items-center cart-link"
+                      @click="addToCart(product)"
+                      v-if="
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'cart') ||
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'both')
+                      "
                       v-b-tooltip.hover
-                      :title="$t('items.addedToFavourite')"
+                      :title="$t('items.addToCart')"
                     >
-                      <font-awesome-icon icon="fa-solid fa-star" />
+                      <!-- <span>{{ $t("items.addToCart") }}</span> -->
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
-                    <a
-                      @click="addToWishlist(product)"
-                      v-b-tooltip.hover
-                      :title="$t('items.addToFavourite')"
-                      class="d-flex justify-content-center align-items-center"
-                      v-else
+                    <div class="" v-if="buyerUserData">
+                      <div class="" v-if="favourite">
+  
+                        <a
+                          class="text-danger d-flex justify-content-center align-items-center"
+                          @click="addToWishlist(product)"
+                          v-if="product.is_favorite == true"
+                          v-b-tooltip.hover
+                          :title="$t('items.addedToFavourite')"
+                        >
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+                        <a
+                          @click="addToWishlist(product)"
+                          v-b-tooltip.hover
+                          :title="$t('items.addToFavourite')"
+                          class="d-flex justify-content-center align-items-center"
+                          v-else
+                        >
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+                      </div>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center"
+                      v-if="
+                        (RFQ == 'available' &&
+                          buyerUserData &&
+                          product.product_details_by_type.add_type === 'rfq') ||
+                        (RFQ == 'available' &&
+                          buyerUserData &&
+                          product.product_details_by_type.add_type === 'both')
+                      "
                     >
-                      <font-awesome-icon icon="fa-solid fa-star" />
-                    </a>
+                      <button
+                        class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
+                        v-if="
+                          (buyerUserData.type === 'buyer' &&
+                            buyerUserData.profile_percentage == 100) ||
+                          (buyerUserData.type === 'supplier' &&
+                            buyerUserData.profile_percentage == 100) ||
+                          (buyerUserData.type === 'b2c' &&
+                            buyerUserData.is_verified)
+                        "
+                      >
+                        <div
+                          @click="
+                            storeProductSupplierId(
+                              product.product_details_by_type.product_supplier_id
+                            )
+                          "
+                        >
+                          <button
+                            id="show-btn"
+                            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                            @click="$bvModal.show('bv-bidRequest')"
+                            v-b-tooltip.hover
+                            :title="$t('singleProduct.bidRequest')"
+                          >
+                            <rfqIcon />
+                          </button>
+                        </div>
+                      </button>
+                    </div>
+                    <!-- add standing orders  -->
+                    <div v-if="standing_order">
+                      <button
+                        id="show-btn"
+                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                        @click="
+                          $bvModal.show('bv-standingOrders');
+                          selectStandingProduct(product);
+                        "
+                        v-b-tooltip.hover
+                        :title="$t('items.standingOrders')"
+                      >
+                        <font-awesome-icon
+                          icon="fa-sharp fa-solid fa-bag-shopping"
+                        />
+                      </button>
+                    </div>
+  
+                    <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                   </div>
                   <div
                     class="d-flex justify-content-center"
                     v-if="
-                      (RfqAvailable == 'available' &&
-                        buyerUserData &&
-                        product.product_details_by_type.add_type === 'rfq') ||
-                      (RfqAvailable == 'available' &&
-                        buyerUserData &&
-                        product.product_details_by_type.add_type === 'both')
+                      (buyerUserData &&
+                        buyerUserData.profile_percentage !== 100) ||
+                      (buyerUserData &&
+                        buyerUserData.type === 'buyer' &&
+                        buyerUserData.profile_percentage !== 100) ||
+                      (buyerUserData &&
+                        buyerUserData.type === 'b2b' &&
+                        buyerUserData.profile_percentage !== 100) ||
+                      (buyerUserData &&
+                        buyerUserData.type === 'supplier' &&
+                        buyerUserData.is_buyer !== true &&
+                        buyerUserData.profile_percentage !== 100)
                     "
                   >
-                    <button
-                      class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in"
-                      v-if="
-                        (buyerUserData.type === 'buyer' &&
-                          buyerUserData.profile_percentage == 100) ||
-                        (buyerUserData.type === 'supplier' &&
-                          buyerUserData.profile_percentage == 100) ||
-                        (buyerUserData.type === 'b2c' &&
-                          buyerUserData.is_verified)
-                      "
-                    >
-                      <div
-                        @click="
-                          storeProductSupplierId(
-                            product.product_details_by_type.product_supplier_id
-                          )
-                        "
-                      >
-                        <button
-                          id="show-btn"
-                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                          @click="$bvModal.show('bv-bidRequest')"
-                          v-b-tooltip.hover
-                          :title="$t('singleProduct.bidRequest')"
-                        >
-                          <rfqIcon />
-                        </button>
-                      </div>
-                    </button>
+                    <router-link to="/profile/account-information-b2b">
+                      {{ $t("profile.completeAccount") }}
+                    </router-link>
                   </div>
-                  <!-- add standing orders  -->
-                  <div v-if="RfqAvailable == 'available'">
-                    <button
-                      id="show-btn"
-                      class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                      @click="
-                        $bvModal.show('bv-standingOrders');
-                        selectStandingProduct(product);
-                      "
-                      v-b-tooltip.hover
-                      :title="$t('items.standingOrders')"
-                    >
-                      <font-awesome-icon
-                        icon="fa-sharp fa-solid fa-bag-shopping"
-                      />
-                    </button>
-                  </div>
-
-                  <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
-                </div>
-                <div
-                  class="d-flex justify-content-center"
-                  v-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage !== 100) ||
-                    (buyerUserData &&
-                      buyerUserData.type === 'buyer' &&
-                      buyerUserData.profile_percentage !== 100) ||
-                    (buyerUserData &&
-                      buyerUserData.type === 'b2b' &&
-                      buyerUserData.profile_percentage !== 100) ||
-                    (buyerUserData &&
-                      buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer !== true &&
-                      buyerUserData.profile_percentage !== 100)
-                  "
-                >
-                  <router-link to="/profile/account-information-b2b">
-                    {{ $t("profile.completeAccount") }}
-                  </router-link>
-                </div>
-                <div
-                  class="add-to d-flex justify-content-center"
-                  v-else-if="!buyerUserData"
-                >
-                  <a
-                    class="cart-link"
-                    @click="addToCart(product)"
-                    v-if="
-                      (cartAvailable == 'available' &&
-                        product.product_details_by_type.add_type === 'cart') ||
-                      (cartAvailable == 'available' &&
-                        product.product_details_by_type.add_type === 'both')
-                    "
-                    v-b-tooltip.hover
-                    :title="$t('items.addToCart')"
-                  >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-                  </a>
-
                   <div
-                    class=""
-                    v-if="buyerUserData && buyerUserData.type === 'b2c'"
+                    class="add-to d-flex justify-content-center"
+                    v-else-if="!buyerUserData"
                   >
                     <a
-                      class="text-danger d-flex justify-content-center align-items-center"
-                      :title="`product in favourite`"
-                      @click="addToWishlist(product)"
-                      v-if="product.is_favorite == true"
-                    >
-                      <font-awesome-icon icon="fa-solid fa-star" />
-                    </a>
-                    <a
-                      @click="addToWishlist(product)"
-                      class="d-flex justify-content-center align-items-center"
-                      v-else
-                    >
-                      <font-awesome-icon icon="fa-solid fa-star" />
-                    </a>
-                  </div>
-                  <div class="" v-if="!buyerUserData">
-                    <a
-                      @click="loginFirst"
+                      class="cart-link"
+                      @click="addToCart(product)"
+                      v-if="
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'cart') ||
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'both')
+                      "
                       v-b-tooltip.hover
-                      :title="$t('items.addToFavourite')"
-                      class="d-flex justify-content-center align-items-center"
+                      :title="$t('items.addToCart')"
                     >
-                      <font-awesome-icon icon="fa-solid fa-star" />
+                      <!-- <span>{{ $t("items.addToCart") }}</span> -->
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
-                  </div>
-                  <div v-if="!buyerUserData && RfqAvailable == 'available'">
-                    <button
-                      v-b-modal.modal-xl
-                      id="show-btn"
-                      class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
-                      @click="loginFirst"
-                      v-b-tooltip.hover
-                      :title="$t('singleProduct.bidRequest')"
+  
+                    <div
+                      class=""
+                      v-if="buyerUserData && buyerUserData.type === 'b2c'"
                     >
-                      <rfqIcon />
-                    </button>
+                    <div class="" v-if="favourite">
+  
+                      <a
+                        class="text-danger d-flex justify-content-center align-items-center"
+                        :title="`product in favourite`"
+                        @click="addToWishlist(product)"
+                        v-if="product.is_favorite == true"
+                      >
+                        <font-awesome-icon icon="fa-solid fa-star" />
+                      </a>
+                      <a
+                        @click="addToWishlist(product)"
+                        class="d-flex justify-content-center align-items-center"
+                        v-else
+                      >
+                        <font-awesome-icon icon="fa-solid fa-star" />
+                      </a>
+                    </div>
+                    </div>
+                    <div class="" v-if="!buyerUserData">
+                      <a
+                        @click="loginFirst"
+                        v-b-tooltip.hover
+                        :title="$t('items.addToFavourite')"
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <font-awesome-icon icon="fa-solid fa-star" />
+                      </a>
+                    </div>
+                    <div v-if="!buyerUserData && RFQ == 'available'">
+                      <button
+                        v-b-modal.modal-xl
+                        id="show-btn"
+                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
+                        @click="loginFirst"
+                        v-b-tooltip.hover
+                        :title="$t('singleProduct.bidRequest')"
+                      >
+                        <rfqIcon />
+                      </button>
+                    </div>
                   </div>
                 </div>
+                <div class="" v-else>-</div>
               </td>
             </tr>
           </tbody>

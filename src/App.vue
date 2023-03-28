@@ -45,32 +45,32 @@ export default {
      * @vuese
      * this function used to check Cart Validity (cart ,  rfq available or not )
      */
-    checkCartValidity() {
-      auth
-        .checkCartValidity()
-        .then((res) => {
-          let response = res.data.items;
-          response.forEach((element) => {
-            if (element.key === "open_cart") {
-              if (element.status == 1) {
-                localStorage.setItem("cartAvailable", "available");
-              } else {
-                localStorage.setItem("cartAvailable", "notAvailable");
-              }
-            }
-            if (element.key === "open_rfq") {
-              if (element.status == 1) {
-                localStorage.setItem("RfqAvailable", "available");
-              } else {
-                localStorage.setItem("RfqAvailable", "notAvailable");
-              }
-            }
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // checkCartValidity() {
+    //   auth
+    //     .checkCartValidity()
+    //     .then((res) => {
+    //       let response = res.data.items;
+    //       response.forEach((element) => {
+    //         if (element.key === "open_cart") {
+    //           if (element.status == 1) {
+    //             localStorage.setItem("add_to_cart", "available");
+    //           } else {
+    //             localStorage.setItem("add_to_cart", "notAvailable");
+    //           }
+    //         }
+    //         if (element.key === "open_rfq") {
+    //           if (element.status == 1) {
+    //             localStorage.setItem("RFQ", "available");
+    //           } else {
+    //             localStorage.setItem("RFQ", "notAvailable");
+    //           }
+    //         }
+    //       });
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
     /**
      * @vuese
      * check Api Controls
@@ -92,9 +92,7 @@ export default {
           for (let index = 0; index < result.length; index++) {
             if (result[index].portal === 'client') {
               const element = result[index];
-              if(element.api_name === 'RFQ'){
-                continue;
-              }
+             
               if(element.status == 1){
                 localStorage.setItem(element.api_name , 'available')
               }else{
@@ -277,7 +275,7 @@ export default {
     //   e.preventDefault();
     //   e.returnValue = '';
     // });
-    this.checkCartValidity();
+    // this.checkCartValidity();
     this.getSiteImages();
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");

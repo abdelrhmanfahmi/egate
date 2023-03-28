@@ -80,7 +80,7 @@
                 >
                   <div
                     class="col-lg-6 col-12 my-2"
-                    v-if="cartAvailable == 'available'"
+                    v-if="add_to_cart"
                   >
                     <Counter
                       :minimum="
@@ -99,10 +99,10 @@
                       @click="addToCartAgain(product)"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again"
                       v-if="
-                        (cartAvailable == 'available' &&
+                        (add_to_cart &&
                           product.product_details_by_type.add_type ===
                             'cart') ||
-                        (cartAvailable == 'available' &&
+                        (add_to_cart &&
                           product.product_details_by_type.add_type === 'both')
                       "
                     >
@@ -120,9 +120,9 @@
                         @click="chooseProduct(product)"
                         class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                         v-if="
-                          RfqAvailable == 'available' &&
+                          RFQ == 'available' &&
                           (product.product_details_by_type.add_type === 'rfq' ||
-                            (RfqAvailable == 'available' &&
+                            (RFQ == 'available' &&
                               product.product_details_by_type.add_type ===
                                 'both')) &&
                           buyerUserData
@@ -145,9 +145,9 @@
                         @click="loginFirst(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
                         v-else-if="
-                          RfqAvailable == 'available' &&
+                          RFQ == 'available' &&
                           (product.product_details_by_type.add_type === 'rfq' ||
-                            (RfqAvailable == 'available' &&
+                            (RFQ == 'available' &&
                               product.product_details_by_type.add_type ===
                                 'both')) &&
                           !buyerUserData

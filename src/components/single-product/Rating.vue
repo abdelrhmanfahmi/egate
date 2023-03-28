@@ -78,7 +78,12 @@ export default {
     // },
     settingReviews() {
       this.reviews = this.myProduct.data;
-      this.reviewsLength = this.myProduct.data.length;
+      if(this.reviews){
+
+        this.reviewsLength = this.myProduct.data.length;
+      }else{
+        this.reviewsLength = 0
+      }
     },
   },
   mounted() {
