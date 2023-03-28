@@ -215,16 +215,16 @@ export default {
   data() {
     return {
       form: {
-        first_name: null,
-        job_title: null,  
-        email: null,
-        password: null,
-        password_confirmation: null,
-        country_code: null,
-        mobile_number: null,
+        first_name: '',
+        job_title: '',  
+        email: '',
+        password: '',
+        password_confirmation: '',
+        country_code: 'KW',
+        mobile_number: '',
         register_mailing_list: false,
-        company_name_en: null,
-        company_name_ar: null,
+        company_name_en: '',
+        company_name_ar: '',
       },
 
       selectedDepartment: null,
@@ -309,19 +309,14 @@ export default {
     */
     checkRegisterForm(){
       auth.checkRegisterForm('buyer').then(res =>{
-        this.formControl = res.data.items;
-        this.formControl.map(element => {
-          console.log('formControl' , element.input_key);
-          if(element.required !== 1){
+        let formControl = res.data.items;
+        formControl.map(element => {
+          
+          if(element.status !== 1){
             this.form[element.input_key] = null
           }else{
             this.form[element.input_key] = ''
           }
-        })
-        .then(()=>{
-          setTimeout(() => {
-            this.form.country_code = "KW"
-          }, 3000);
         })
       }).catch(err =>{
         console.log(err);

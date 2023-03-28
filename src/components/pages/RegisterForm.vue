@@ -290,16 +290,16 @@ export default {
   data() {
     return {
       form: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        password: null,
-        password_confirmation: null,
-        country_code: null,
-        mobile_number: null,
-        active_with: null,
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        country_code: 'KW',
+        mobile_number: '',
+        active_with: 'sms',
         register_mailing_list: false,
-        perfix: null,
+        perfix: '',
       },
       errors: {},
       terms: true,
@@ -349,22 +349,17 @@ export default {
       auth
         .checkRegisterForm("b2c")
         .then((res) => {
-          this.formControl = res.data.items;
-          this.formControl
+          let formControl = res.data.items;
+          formControl
             .map((element) => {
               console.log("formControl", element.input_key);
-              if (element.required !== 1) {
+              if (element.status !== 1) {
                 this.form[element.input_key] = null;
               } else {
                 this.form[element.input_key] = "";
               }
             })
-            .then(() => {
-              setTimeout(() => {
-                this.form.country_code = "KW";
-                this.form.active_with = "sms";
-              }, 3000);
-            });
+            console.log('this.form' , this.form);
         })
         .catch((err) => {
           console.log(err);
