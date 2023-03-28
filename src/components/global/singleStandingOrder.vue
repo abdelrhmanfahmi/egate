@@ -112,21 +112,24 @@
                     <td class="text-center">
                       <div v-if="item.product_supplier.product_details_by_type"
                         class="actions d-flex justify-content-center align-items-center">
-                        <a class="text-danger d-flex justify-content-center align-items-center"
-                          @click="addToWishlist(item)" v-if="item.product_supplier.is_favorite == true"
-                          v-b-tooltip.hover :title="$t('items.addedToFavourite')">
-                          <font-awesome-icon icon="fa-solid fa-star" />
-                        </a>
-                        <a @click="addToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
-                          class="d-flex justify-content-center align-items-center text-dark" v-else>
-                          <font-awesome-icon icon="fa-solid fa-star" />
-                        </a>
+                        <div class="" v-if="favourite">
+
+                          <a class="text-danger d-flex justify-content-center align-items-center"
+                            @click="addToWishlist(item)" v-if="item.product_supplier.is_favorite == true"
+                            v-b-tooltip.hover :title="$t('items.addedToFavourite')">
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                          </a>
+                          <a @click="addToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
+                            class="d-flex justify-content-center align-items-center text-dark" v-else>
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                          </a>
+                        </div>
 
                         <b-button @click="addToCart(item)" v-if="
-                          (cartAvailable == 'available' &&
+                          (add_to_cart &&
                             item.product_supplier.product_details_by_type
                               .add_type === 'cart') ||
-                          (cartAvailable == 'available' &&
+                          (add_to_cart &&
                             item.product_supplier.product_details_by_type
                               .add_type === 'both')
                         ">
@@ -135,10 +138,10 @@
                         <button @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
-                            RfqAvailable == 'available' &&
+                            RFQ == 'available' &&
                             (item.product_supplier.product_details_by_type
                               .add_type === 'rfq' ||
-                              (RfqAvailable == 'available' &&
+                              (RFQ == 'available' &&
                                 item.product_supplier.product_details_by_type
                                   .add_type === 'both')) &&
                             buyerUserData
@@ -219,15 +222,18 @@
                     <td class="text-center">
                       <div 
                         class="actions d-flex justify-content-center align-items-center">
-                        <a class="text-danger d-flex justify-content-center align-items-center"
-                          @click="basketAddToWishlist(item)" v-if="item.basket_promotion.is_favorite == true"
-                          v-b-tooltip.hover :title="$t('items.addedToFavourite')">
-                          <font-awesome-icon icon="fa-solid fa-star" />
-                        </a>
-                        <a @click="basketAddToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
-                          class="d-flex justify-content-center align-items-center text-dark" v-else>
-                          <font-awesome-icon icon="fa-solid fa-star" />
-                        </a>
+                        <div class="" v-if="favourite">
+
+                          <a class="text-danger d-flex justify-content-center align-items-center"
+                            @click="basketAddToWishlist(item)" v-if="item.basket_promotion.is_favorite == true"
+                            v-b-tooltip.hover :title="$t('items.addedToFavourite')">
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                          </a>
+                          <a @click="basketAddToWishlist(item)" v-b-tooltip.hover :title="$t('items.addToFavourite')"
+                            class="d-flex justify-content-center align-items-center text-dark" v-else>
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                          </a>
+                        </div>
 
                         <b-button @click="basketAddToCart(item)" v-if="item.basket_promotion.in_stock == true">
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />

@@ -35,7 +35,7 @@
 
                     <span v-else>{{ $t("profile.charge") }}</span>
                   </b-button>
-                  <b-button variant="outline-success" class="btn-block py-2" @click="showEmailModal">
+                  <b-button variant="outline-success" class="btn-block py-2" @click="showEmailModal" v-if="wallet_withdrawl">
                     {{ $t('profile.withdraw') }}
                   </b-button>
                 </div>

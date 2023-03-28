@@ -5,7 +5,7 @@
       <div class="user-register-form">
         <b-row class="justify-content-center">
           <b-col lg="10">
-            <div class="register-info">
+            <div class="register-info" v-if="b2b_buyer_registration">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
                 <span> &#60; {{ $t("register.haveNotAccount") }}</span>

@@ -169,7 +169,7 @@
                       product.product_details_by_type.add_type === 'both'
                     "
                   >
-                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="cartAvailable  == 'available'">
+                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="add_to_cart  == 'available'">
                       <Counter
                         :minimum="
                           product.min_order_quantity
@@ -186,8 +186,8 @@
                       <b-button
                         @click="addToCartAgain(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again p-2"
-                        v-if="cartAvailable  == 'available' &&  
-                          product.product_details_by_type.add_type === 'cart' || cartAvailable  == 'available' && 
+                        v-if="add_to_cart  == 'available' &&  
+                          product.product_details_by_type.add_type === 'cart' || add_to_cart  == 'available' && 
                           product.product_details_by_type.add_type === 'both'
                         "
                       >
@@ -204,9 +204,9 @@
                         <button
                           @click="chooseProduct(product)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                          v-if="RfqAvailable  == 'available' && 
+                          v-if="RFQ  == 'available' && 
                             (product.product_details_by_type.add_type ===
-                              'rfq' || RfqAvailable  == 'available' &&
+                              'rfq' || RFQ  == 'available' &&
                               product.product_details_by_type.add_type ===
                                 'both') &&
                             buyerUserData
@@ -228,7 +228,7 @@
                         <button
                           @click="loginFirst(product)"
                           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                          v-else-if="RfqAvailable  == 'available' && 
+                          v-else-if="RFQ  == 'available' && 
                             (product.product_details_by_type.add_type ===
                               'rfq' ||
                               product.product_details_by_type.add_type ===

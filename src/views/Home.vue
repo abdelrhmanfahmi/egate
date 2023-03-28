@@ -4,8 +4,16 @@
     <!-- remove this according to new edit  -->
     <ProgressSlider />
     <!--(tabs) if user is b2c or guest  -->
-    <div class="container text-center home-tabs" v-if="!buyerUserData || (buyerUserData && buyerUserData.type == 'b2c') ||
-      (buyerUserData && buyerUserData.type == 'supplier' && buyerUserData.is_buyer !== 1)">
+    <div
+      class="container text-center home-tabs"
+      v-if="
+        !buyerUserData ||
+        (buyerUserData && buyerUserData.type == 'b2c') ||
+        (buyerUserData &&
+          buyerUserData.type == 'supplier' &&
+          buyerUserData.is_buyer !== 1)
+      "
+    >
       <span class="categories-info py-5">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span>
@@ -53,7 +61,7 @@ export default {
     NewProductSilder,
     SuppliersSlider,
     CatrgoriesHome,
-    NewCatrgoriesHome
+    NewCatrgoriesHome,
   },
 
   methods: {
@@ -111,12 +119,17 @@ export default {
         .getSupplierAds()
         .then((res) => {
           this.supplierAds = res.data.items.ads[0];
-          if (res.data.items.ads.length > 0 && res.data?.items?.ads[0]?.bannar) {
+          if (
+            res.data.items.ads.length > 0 &&
+            res.data?.items?.ads[0]?.bannar
+          ) {
             this.existSupplierAds = true;
-            this.showSupplierADsModal()
+            this.showSupplierADsModal();
           } else {
             this.existSupplierAds = false;
-            this.getAdsModal();
+            if (this.main_banner) {
+              this.getAdsModal();
+            }
           }
         })
         .catch((err) => {
@@ -128,7 +141,10 @@ export default {
      * this function used to get Ads for buyer and b2c and guest
      */
     async getAdsModal() {
-      if (this.buyerUserData && this.buyerUserData.type === "buyer" || this.buyerUserData && this.buyerUserData.type === "supplier") {
+      if (
+        (this.buyerUserData && this.buyerUserData.type === "buyer") ||
+        (this.buyerUserData && this.buyerUserData.type === "supplier")
+      ) {
         let payload = {
           type: "b2b",
           // model_type: "product",
@@ -138,8 +154,8 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
-          .then(()=>{
-            this.showADsModal()
+          .then(() => {
+            this.showADsModal();
           })
           .catch((err) => {
             console.log(err);
@@ -153,8 +169,8 @@ export default {
           .then((res) => {
             this.newsletterShow = res.data.items;
           })
-          .then(()=>{
-            this.showADsModal()
+          .then(() => {
+            this.showADsModal();
           })
           .catch((err) => {
             console.log(err);
@@ -167,8 +183,9 @@ export default {
           .getGuestAdsModal(payload)
           .then((res) => {
             this.newsletterShow = res.data.items;
-          }).then(()=>{
-            this.showADsModal()
+          })
+          .then(() => {
+            this.showADsModal();
           })
           .catch((err) => {
             console.log(err);
@@ -176,37 +193,34 @@ export default {
       }
     },
     /**
-    * @vuese
-    * this function used to login as buyer if you aren't and want to see corporate Categories
-    */
+     * @vuese
+     * this function used to login as buyer if you aren't and want to see corporate Categories
+     */
     loginAsBuyer() {
-      this.$router.push('/b2b-register')
+      this.$router.push("/b2b-register");
     },
     showSupplierADsModal() {
-      if (
-        this.$route.path == "/" &&
-        this.supplierAds?.bannar
-      ) {
-
+      if (this.$route.path == "/" && this.supplierAds?.bannar) {
         setTimeout(() => {
-          let ImageUrl = ''
+          let ImageUrl = "";
           fetch(this.supplierAds.bannar)
             //                         vvvv
-            .then(response => response.blob())
-            .then(imageBlob => {
-              // Then create a local URL for that image and print it 
+            .then((response) => response.blob())
+            .then((imageBlob) => {
+              // Then create a local URL for that image and print it
               const imageObjectURL = URL.createObjectURL(imageBlob);
-              ImageUrl = imageObjectURL
-            }).then(() => {
+              ImageUrl = imageObjectURL;
+            })
+            .then(() => {
               this.$modal.show(
                 supplierAdsModal,
                 {
                   supplierAds: this.supplierAds,
-                  ImageUrl: ImageUrl
+                  ImageUrl: ImageUrl,
                 },
                 { width: "970", height: "auto", adaptive: true }
               );
-            })
+            });
         }, 5000);
       }
     },
@@ -216,30 +230,29 @@ export default {
         this.newsletterShow &&
         this.newsletterShow.image_path
       ) {
-
-
         setTimeout(() => {
-          let ImageUrl = ''
+          let ImageUrl = "";
           fetch(this.newsletterShow.image_path)
             //                         vvvv
-            .then(response => response.blob())
-            .then(imageBlob => {
-              // Then create a local URL for that image and print it 
+            .then((response) => response.blob())
+            .then((imageBlob) => {
+              // Then create a local URL for that image and print it
               const imageObjectURL = URL.createObjectURL(imageBlob);
-              ImageUrl = imageObjectURL
-            }).then(() => {
+              ImageUrl = imageObjectURL;
+            })
+            .then(() => {
               this.$modal.show(
                 NewsLetterModal,
                 {
                   newsletterShow: this.newsletterShow,
-                  ImageUrl: ImageUrl
+                  ImageUrl: ImageUrl,
                 },
                 { width: "970", height: "auto", adaptive: true }
               );
-            })
+            });
         }, 5000);
       }
-    }
+    },
   },
   data() {
     return {
@@ -249,15 +262,15 @@ export default {
     };
   },
   created() {
-    this.getSupplierAds();
+    if (this.banner_ads) {
+      this.getSupplierAds();
+    } else {
+      if (this.main_banner) {
+        this.getAdsModal();
+      }
+    }
   },
   mounted() {
-
-
-
-
-
-
     this.emailVerify();
     // this.checkEmailForgetPassWord()
   },

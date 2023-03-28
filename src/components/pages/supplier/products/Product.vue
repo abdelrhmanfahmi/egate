@@ -20,12 +20,15 @@
       <div class="actions">
         <ul>
           <li v-if="buyerUserData">
-            <a @click="addToWishlist(data)" v-if="data.is_favorite == false">
-              <b-icon-heart></b-icon-heart>
-            </a>
-            <a v-if="data.is_favorite == true" class="is_favorite">
-              <b-icon-heart></b-icon-heart>
-            </a>
+            <div class="" v-if="favourite">
+
+              <a @click="addToWishlist(data)" v-if="data.is_favorite == false">
+                <b-icon-heart></b-icon-heart>
+              </a>
+              <a v-if="data.is_favorite == true" class="is_favorite">
+                <b-icon-heart></b-icon-heart>
+              </a>
+            </div>
           </li>
           <li>
             <a @click="goPage2(data)"><b-icon-eye></b-icon-eye></a>
@@ -57,9 +60,9 @@
         v-if="data.product_details_by_type.quantity <= 1">
         <b-button @click="addToCart(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (cartAvailable == 'available' &&
+            (add_to_cart &&
               data.product_details_by_type.add_type === 'cart') ||
-            (cartAvailable == 'available' &&
+            (add_to_cart &&
               data.product_details_by_type.add_type === 'both')
           ">
           <span>
@@ -68,7 +71,7 @@
         </b-button>
       </div>
       <div class="addToCartHolder d-flex justify-content-end align-items-center" v-else>
-        <div v-if="cartAvailable === 'available'">
+        <div v-if="add_to_cart === 'available'">
           <div>
             <b-form-select v-model="selected">
               <b-form-select-option :value="i" v-for="(i, index) in 30"
@@ -78,9 +81,9 @@
         </div>
         <b-button @click="addToCartAgain(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (cartAvailable == 'available' &&
+            (add_to_cart &&
               data.product_details_by_type.add_type === 'cart') ||
-            (cartAvailable == 'available' &&
+            (add_to_cart &&
               data.product_details_by_type.add_type === 'both')
           ">
           <span>
