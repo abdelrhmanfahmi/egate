@@ -10,9 +10,9 @@
       class="account-information-form"
       v-if="showForm"
     >
-      <b-row class="justify-content-center">
+      <b-row class="justify-content-start">
         <!-- country  -->
-        <b-col lg="12">
+        <b-col lg="12" v-if="form.country_id !== null">
           <b-form-group>
             <label>{{ $t("profile.country") }}</label>
             <span class="requried">*</span>
@@ -34,7 +34,7 @@
           </b-form-group>
         </b-col>
         <!-- regions -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.region_id !== null">
           <b-form-group>
             <label>{{ $t("profile.region") }}</label>
             <span class="requried">*</span>
@@ -60,7 +60,7 @@
           </b-form-group>
         </b-col>
         <!-- cities -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.country_id !== null">
           <b-form-group>
             <label>{{ $t("profile.city") }}</label>
             <span class="requried">*</span>
@@ -85,7 +85,7 @@
           </b-form-group>
         </b-col>
         <!-- name in english (new add)-->
-        <b-col lg="6" v-if="$i18n.locale =='en'">
+        <b-col lg="6" v-if="$i18n.locale =='en' && form.name !== null">
           <b-form-group v-if="buyerUserData.type == 'buyer'">
             <label>{{ $t("profile.name") }}</label>
             <b-form-select v-model="form.name">
@@ -119,7 +119,7 @@
           </b-form-group>
         </b-col>
         <!-- name in arabic (new add)-->
-        <b-col lg="6" v-else>
+        <b-col lg="6" v-else-if="$i18n.locale =='ar' && form.name !== null">
           <b-form-group v-if="buyerUserData.type == 'buyer' && arabicAvailable !=='no'">
             <label>{{ $t("profile.name") }}</label>
             <b-form-select v-model="form.name">
@@ -153,7 +153,7 @@
           </b-form-group>
         </b-col>
         <!-- address number -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.address_line_1 !== null">
           <b-form-group>
             <label for="streetNumber">{{ $t("contactUs.address") }}</label>
             <span class="requried">*</span>
@@ -168,7 +168,7 @@
           </b-form-group>
         </b-col>
         <!-- block  -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.block !== null">
           <b-form-group>
             <label for="floor">{{ $t("profile.blockNumber") }}</label>
             <span class="requried">*</span>
@@ -183,7 +183,7 @@
           </b-form-group>
         </b-col>
         <!-- street  (new add)-->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.street !== null">
           <b-form-group>
             <label for="street">{{ $t("profile.newStreetNumber") }}</label>
             <span class="requried">*</span>
@@ -198,7 +198,7 @@
           </b-form-group>
         </b-col>
         <!-- avenue (new add)  -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.avenue !== null">
           <b-form-group>
             <label for="floor">{{ $t("profile.avenue") }}</label>
             <span class="requried">*</span>
@@ -213,7 +213,7 @@
           </b-form-group>
         </b-col>
         <!-- home number  -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.building_number !== null">
           <b-form-group>
             <label for="homeNumber">{{ $t("profile.homeNumber") }}</label>
             <!-- <span class="requried">*</span> -->
@@ -229,7 +229,7 @@
         </b-col>
          
         <!-- floor   -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.floor !== null">
           <b-form-group>
             <label for="floor">{{ $t("profile.floor") }}</label>
             <!-- <span class="requried">*</span> -->
@@ -259,7 +259,7 @@
           </b-form-group>
         </b-col> -->
         <!-- post code  -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.pin_code !== null">
           <b-form-group>
             <label for="postCode">{{ $t("profile.zipCode") }}</label>
             <span class="requried">*</span>
@@ -277,7 +277,7 @@
           <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
         </b-col>
         <!-- note  -->
-        <b-col lg="12">
+        <b-col lg="12" v-if="form.notes !== null">
           <b-form-group>
             <label for="textarea">{{ $t("profile.note") }}</label>
             <b-form-textarea
@@ -412,6 +412,7 @@ export default {
     };
   },
   mounted() {
+    this.checkAddressesForm()
     this.getAllCountires();
     this.getAllAdresses();
     this.form.country_id = JSON.parse(this.selectedCountry).id;
@@ -467,6 +468,30 @@ export default {
         this.form.city_id = null;
       });
     },
+
+    /**
+     * @vuese
+     *  checkAddressesForm
+     */
+     checkAddressesForm() {
+      profile
+        .checkAddressesForm()
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            
+            if (element.status !== 1) {
+              this.form[element.input_key] = null;
+            } else {
+              this.form[element.input_key] = "";
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
 
     // createAddress
 
