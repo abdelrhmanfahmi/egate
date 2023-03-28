@@ -347,7 +347,7 @@ export default {
      */
     checkRegisterForm() {
       auth
-        .checkRegisterForm("buyer")
+        .checkRegisterForm("b2c")
         .then((res) => {
           this.formControl = res.data.items;
           this.formControl
