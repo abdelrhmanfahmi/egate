@@ -2591,7 +2591,6 @@ export default {
 
 
           });
-          console.log("this.form", this.form);
         })
         .catch((err) => {
           console.log(err);
