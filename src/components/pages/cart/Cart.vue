@@ -2579,17 +2579,22 @@ export default {
                * setting user or guest country from stored country
                */
 
-               this.form.country_id = this.buyerUserData.country_id;
+              let selectedCountry = localStorage.getItem("country");
+              if (this.buyerUserData) {
+                this.paymentFormData.country = this.buyerUserData.country_id;
+                this.form.country_id = this.buyerUserData.country_id;
+              } else if (!this.buyerUserData && selectedCountry) {
+                this.paymentFormData.country = JSON.parse(selectedCountry).id;
+                this.form.country_id = JSON.parse(selectedCountry).id;
+              }
             }
-            if(element.input_key == "region_id" && element.status !== 1){
-              this.form.region_id = ''
+            if (element.input_key == "region_id" && element.status !== 1) {
+              this.form.region_id = "";
             }
 
-            if(element.input_key == "city_id" && element.status !== 1){
-              this.form.city_id = ''
+            if (element.input_key == "city_id" && element.status !== 1) {
+              this.form.city_id = "";
             }
-
-
           });
         })
         .catch((err) => {
