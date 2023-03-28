@@ -2,8 +2,20 @@ import globalAxios from "./global-axios";
 
 export default {
   // register
+  // register(type, payload) {
+  //   return globalAxios.post(`auth/${type}/register?form=user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`, payload);
+  // },
   register(type, payload) {
-    return globalAxios.post(`auth/${type}/register?form=user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`, payload);
+    return globalAxios.post(`auth/${type}/register`, payload,
+    {
+      params:{
+        form:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`,
+        form_control:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`
+      }
+    });
+  },
+  checkRegisterForm(type){
+    return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`)
   },
   getAllCountires() {
     return globalAxios.get("lists/countries");

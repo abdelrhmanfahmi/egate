@@ -79,8 +79,6 @@ export default {
       checkApiControls
         .checkApiControls()
         .then((res) => {
-          console.log("controls", res);
-          console.log(res);
           let result = res.data.items;
           // for (const key in result) {
           //   if (result.hasOwnProperty.call(result, key)) {

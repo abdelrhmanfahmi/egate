@@ -22,7 +22,7 @@
                 <b-col lg="12">
                   <b-form-group>
                     <div class="row">
-                      <div :class="{ 'col-md-6 col-sm-12': arabicAvailable !== 'no', 'col-12': arabicAvailable == 'no' }">
+                      <div :class="{ 'col-md-6 col-sm-12': arabicAvailable !== 'no', 'col-12': arabicAvailable == 'no' }" v-if="form.company_name_en !== null">
                         <label for="f-name">{{
                           $t("register.englishCompanyName")
                         }}</label>
@@ -33,7 +33,7 @@
                         </div>
                       </div>
                       <!-- show if arabicAvailable  -->
-                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no'">
+                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no' && form.company_name_ar !== null">
                         <label for="f-name">{{
                           $t("register.arabicCompanyName")
                         }}</label>
@@ -47,13 +47,11 @@
                   </b-form-group>
                 </b-col>
                 <!-- job title -->
-                <b-col lg="12">
+                <b-col lg="12" v-if="form.job_title !== null">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.department") }}</label>
                     <span class="requried">*</span>
-                    <div class="error" v-for="(error, index) in errors.job_title" :key="index">
-                      {{ error }}
-                    </div>
+                    
                     <b-form-select v-model="form.job_title">
                       <b-form-select-option selected disabled value="null">{{
                         $t("register.selectDept")
@@ -67,10 +65,13 @@
                         }}</span>
                       </b-form-select-option>
                     </b-form-select>
+                    <div class="error" v-for="(error, index) in errors.job_title" :key="index">
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
-                <b-col lg="12">
+                <b-col lg="12" v-if="form.email !== null">
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
@@ -81,7 +82,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
@@ -104,7 +105,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Confirm Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password_confirmation !== null">
                   <b-form-group>
                     <label for="confirmPassword">{{
                       $t("register.confirmPassword")
@@ -123,7 +124,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
-                <b-col sm="12" lg="3">
+                <b-col sm="12" lg="3" v-if="form.country_code !== null">
                   <b-form-group>
                     <label for="countryCode">{{
                       $t("register.countryCode")
@@ -140,7 +141,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col sm="12" lg="9">
+                <b-col sm="12" lg="9" v-if="form.mobile_number !== null">
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
@@ -214,17 +215,18 @@ export default {
   data() {
     return {
       form: {
-        first_name: "",
-        job_title: null,
-        email: "",
-        password: "",
-        password_confirmation: "",
-        country_code: "KW",
-        mobile_number: "",
+        first_name: null,
+        job_title: null,  
+        email: null,
+        password: null,
+        password_confirmation: null,
+        country_code: null,
+        mobile_number: null,
         register_mailing_list: false,
         company_name_en: null,
         company_name_ar: null,
       },
+
       selectedDepartment: null,
       departments: [
         {
@@ -268,10 +270,12 @@ export default {
       fieldType: "password",
       condations: {},
       contactPhone: "", // add phone
-      dynamicInputs: null
+      dynamicInputs: null,
+      formControl:null
     };
   },
   mounted() {
+    this.checkRegisterForm()
     this.checkDynamicInputs()
     this.getTerms();
     this.getAllCountires();
@@ -298,6 +302,30 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+     /**
+     * @vuese
+      *  check Register Form data
+    */
+    checkRegisterForm(){
+      auth.checkRegisterForm('buyer').then(res =>{
+        this.formControl = res.data.items;
+        this.formControl.map(element => {
+          console.log('formControl' , element.input_key);
+          if(element.required !== 1){
+            this.form[element.input_key] = null
+          }else{
+            this.form[element.input_key] = ''
+          }
+        })
+        .then(()=>{
+          setTimeout(() => {
+            this.form.country_code = "KW"
+          }, 3000);
+        })
+      }).catch(err =>{
+        console.log(err);
+      })
     },
     /**
      * @vuese
@@ -359,7 +387,6 @@ export default {
     },
     checkDynamicInputs() {
       auth.dynamicInputs('user-b2b-register').then(res => {
-        console.log('user-b2b-register' , res);
         this.dynamicInputs = res.data.items
         this.dynamicInputs.map(input => {
           this.form[input.uuid] = null;

@@ -12,162 +12,255 @@
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <a v-b-toggle.login class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a>
+                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
+              >
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
-
-                <b-col lg="2" class="">
-                  <label for="f-name">{{ $t("register.selectPrefixes") }}</label>
+                <b-col lg="2" class="" v-if="form.perfix !== null">
+                  <label for="f-name">{{
+                    $t("register.selectPrefixes")
+                  }}</label>
 
                   <b-form-select v-model="form.perfix">
-                    <b-form-select-option value="null" disabled>{{ $t('home.All') }}</b-form-select-option>
-                    <b-form-select-option :value="prefix" v-for="(prefix, index) in prefixes"
-                      :key="index">{{ prefix }}</b-form-select-option>
+                    <b-form-select-option value="null" disabled>{{
+                      $t("home.All")
+                    }}</b-form-select-option>
+                    <b-form-select-option
+                      :value="prefix"
+                      v-for="(prefix, index) in prefixes"
+                      :key="index"
+                      >{{ prefix }}</b-form-select-option
+                    >
                   </b-form-select>
-
                 </b-col>
-                <b-col lg="5">
+                <b-col lg="5" v-if="form.first_name !== null">
                   <b-form-group>
                     <label for="f-name">{{ $t("register.firstName") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="f-name" v-model="form.first_name" />
-                    <div class="error" v-for="(error, index) in errors.first_name" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.first_name"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- Last Name -->
-                <b-col lg="5">
+                <b-col lg="5" v-if="form.last_name !== null">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.lastName") }}</label>
                     <span class="requried">*</span>
                     <b-form-input id="l-name" v-model="form.last_name" />
-                    <div class="error" v-for="(error, index) in errors.last_name" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.last_name"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
-                <b-col lg="12">
+                <b-col lg="12" v-if="form.email !== null">
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="email" v-model="form.email" maxlength="100" />
-                    <div class="error" v-for="(error, index) in errors.email" :key="index">
+                    <b-form-input
+                      id="email"
+                      v-model="form.email"
+                      maxlength="100"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.email"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input id="password" v-model="form.password" :type="fieldType" />
+                      <b-form-input
+                        id="password"
+                        v-model="form.password"
+                        :type="fieldType"
+                      />
                       <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
-                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
                       </div>
                     </div>
                     <p for="passCheck1">
-                      {{ $t('register.passCheck1') }}
+                      {{ $t("register.passCheck1") }}
                     </p>
                     <p for="passCheck2">
-                      {{ $t('register.passCheck2') }}
+                      {{ $t("register.passCheck2") }}
                     </p>
-                    <div class="error" v-for="(error, index) in errors.password" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- Confirm Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password_confirmation !== null"> 
                   <b-form-group>
                     <label for="confirmPassword">{{
-                        $t("register.confirmPassword")
+                      $t("register.confirmPassword")
                     }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
-                      <b-form-input :type="fieldType" id="confirmPassword" v-model="form.password_confirmation" />
+                      <b-form-input
+                        :type="fieldType"
+                        id="confirmPassword"
+                        v-model="form.password_confirmation"
+                      />
                       <div class="icon-passowrd" @click="switchField()">
-                        <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
-                        <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye"
+                          v-if="fieldType === 'password'"
+                          size="lg"
+                        />
+                        <font-awesome-icon
+                          icon="fa-solid fa-eye-slash"
+                          v-else
+                          size="lg"
+                        />
                       </div>
                     </div>
-                    
-                    <div class="error" v-for="(error, index) in errors.password_confirmation" :key="index">
+
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.password_confirmation"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
-                <b-col lg="3" cols="4">
+                <b-col lg="3" cols="4" v-if="form.country_code !== null">
                   <b-form-group>
                     <label for="countryCode">{{
-                        $t("register.countryCode")
+                      $t("register.countryCode")
                     }}</label>
                     <span class="requried">*</span>
                     <b-form-select v-model="form.country_code">
-                      <b-form-select-option v-for="country in countries" :key="country.id" :value="country.iso">{{
-                          country.title
-                      }}
-                        {{ country.phone_prefix }}</b-form-select-option>
+                      <b-form-select-option
+                        v-for="country in countries"
+                        :key="country.id"
+                        :value="country.iso"
+                        >{{ country.title }}
+                        {{ country.phone_prefix }}</b-form-select-option
+                      >
                     </b-form-select>
-                    <div class="error" v-for="(error, index) in errors.country_code" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.country_code"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col lg="9" cols="8">
+                <b-col lg="9" cols="8" v-if="form.mobile_number !== null">
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="phone" v-model="form.mobile_number" type="number" />
-                    <div class="error" v-for="(error, index) in errors.mobile_number" :key="index">
+                    <b-form-input
+                      id="phone"
+                      v-model="form.mobile_number"
+                      type="number"
+                    />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.mobile_number"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
                 </b-col>
               </b-row>
               <!-- active_with -->
-              <b-form-group class="my-4" :label="$t('register.chooseOneOfTheWays')">
-                <b-form-radio class="pt-2" v-for="(connect, index) in connects" :key="index" v-model="form.active_with"
-                  name="some-radios" :value="connect.value">{{ connect.name }}</b-form-radio>
+              <b-form-group
+                class="my-4"
+                :label="$t('register.chooseOneOfTheWays')"
+                v-if="form.active_with !== null"
+              >
+                <b-form-radio
+                  class="pt-2"
+                  v-for="(connect, index) in connects"
+                  :key="index"
+                  v-model="form.active_with"
+                  name="some-radios"
+                  :value="connect.value"
+                  >{{ connect.name }}</b-form-radio
+                >
               </b-form-group>
               <div v-if="dynamicInputs">
-                <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+                <dynamicComponent
+                  :dynamicInputs="dynamicInputs"
+                  :form="form"
+                  :errors="errors"
+                />
               </div>
               <div class="terms d-inline-block">
                 <span>
                   {{ $t("register.newPolicy") }}
                 </span>
                 <span>
-                  <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
-                    {{ $t("register.termsConditions") }}</a>
+                  <a
+                    v-b-modal.terms&condation
+                    @click="$bvModal.show('modal-scoped')"
+                  >
+                    {{ $t("register.termsConditions") }}</a
+                  >
                 </span>
-
               </div>
               <b-modal size="lg" id="terms&condation" :title="condations.title">
-                <p v-html="condations.description">
-                  {{ condations.description }}
-                </p>
+                <p v-html="condations.description" v-if="condations.description"></p>
                 <template #modal-footer="{ ok }">
-                  <b-button size="sm" variant="outline-success" @click="
-                    ok();
-                  acceptMyTerms();
-                  ">
+                  <b-button
+                    size="sm"
+                    variant="outline-success"
+                    @click="
+                      ok();
+                      acceptMyTerms();
+                    "
+                  >
                     <span class="mx-1">{{ $t("payment.accept") }}</span>
                     <span class="mx-1">{{
-                        $t("payment.termsAndConditions")
+                      $t("payment.termsAndConditions")
                     }}</span>
                   </b-button>
                 </template>
               </b-modal>
 
-              <b-form-checkbox v-model="form.register_mailing_list" class="py-3">
+              <b-form-checkbox
+                v-model="form.register_mailing_list"
+                class="py-3"
+              >
                 {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
               <div class="submition-box">
@@ -191,22 +284,22 @@
 <script>
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-import dynamicComponent from "@/components/global/dynamicComponent"
-import { createdFormData } from "@/services/helpers.js"
+import dynamicComponent from "@/components/global/dynamicComponent";
+import { createdFormData } from "@/services/helpers.js";
 export default {
   data() {
     return {
       form: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        country_code: "KW",
-        mobile_number: "",
-        active_with: "sms",
+        first_name: null,
+        last_name: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
+        country_code: null,
+        mobile_number: null,
+        active_with: null,
         register_mailing_list: false,
-        perfix: null
+        perfix: null,
       },
       errors: {},
       terms: true,
@@ -219,24 +312,25 @@ export default {
       condations: {},
       contactPhone: "",
       prefixes: null,
-      dynamicInputs: null
+      dynamicInputs: null,
     };
   },
   mounted() {
-    this.checkDynamicInputs()
+    this.checkRegisterForm()
+    this.checkDynamicInputs();
     this.getTerms();
     this.getAllCountires();
     this.contactUsPhone();
     this.getProfilePrefixes();
   },
-  components:{
-    dynamicComponent
+  components: {
+    dynamicComponent,
   },
   methods: {
     /**
      * @vuese
-      *  get countries
-    */
+     *  get countries
+     */
     getAllCountires() {
       auth
         .getAllCountires()
@@ -249,8 +343,37 @@ export default {
     },
     /**
      * @vuese
-      *  register function
-    */
+     *  check Register Form data
+     */
+    checkRegisterForm() {
+      auth
+        .checkRegisterForm("buyer")
+        .then((res) => {
+          this.formControl = res.data.items;
+          this.formControl
+            .map((element) => {
+              console.log("formControl", element.input_key);
+              if (element.required !== 1) {
+                this.form[element.input_key] = null;
+              } else {
+                this.form[element.input_key] = "";
+              }
+            })
+            .then(() => {
+              setTimeout(() => {
+                this.form.country_code = "KW";
+                this.form.active_with = "sms";
+              }, 3000);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    /**
+     * @vuese
+     *  register function
+     */
     register() {
       localStorage.clear();
       this.form.callback_url = `${this.mainDoamin}`;
@@ -280,15 +403,15 @@ export default {
     },
     /**
      * @vuese
-       *  change type to show password
+     *  change type to show password
      */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
     /**
      * @vuese
-      *  get terms
-    */
+     *  get terms
+     */
     getTerms() {
       auth.termsAndCondations().then((res) => {
         this.condations = res.data.items;
@@ -296,15 +419,15 @@ export default {
     },
     /**
      * @vuese
-      *  accept Terms
-    */
+     *  accept Terms
+     */
     acceptMyTerms() {
       this.terms = true;
     },
     /**
      * @vuese
-      *  contactUs Phone
-    */
+     *  contactUs Phone
+     */
     contactUsPhone() {
       profile
         .contactUsPhone()
@@ -318,8 +441,8 @@ export default {
 
     /**
      * @vuese
-      *  get Profile Prefixes function
-    */
+     *  get Profile Prefixes function
+     */
 
     getProfilePrefixes() {
       profile.getProfilePrefixes().then((res) => {
@@ -327,18 +450,21 @@ export default {
       });
     },
     checkDynamicInputs() {
-      auth.dynamicInputs('user-b2c-register').then(res => {
-        this.dynamicInputs = res.data.items
-        this.dynamicInputs.map(input => {
-          this.form[input.uuid] = null;
-          if (input.type == 'checkbox') {
-            this.form[input.uuid] = false;
-          }
+      auth
+        .dynamicInputs("user-b2c-register")
+        .then((res) => {
+          this.dynamicInputs = res.data.items;
+          this.dynamicInputs.map((input) => {
+            this.form[input.uuid] = null;
+            if (input.type == "checkbox") {
+              this.form[input.uuid] = false;
+            }
+          });
         })
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
