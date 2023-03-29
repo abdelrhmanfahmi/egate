@@ -507,6 +507,7 @@
                 </div>
               </td>
               <td>
+                <!-- check cart first -->
                 <Variants-Counter
                   :minimum="
                     product.product_details_by_type.min_order_quantity
