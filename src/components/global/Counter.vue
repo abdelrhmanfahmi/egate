@@ -168,6 +168,7 @@ export default {
     },
   },
   computed:{
+    // check if quantity greater than or not in case of buy x get y offers 
     currentValue(){
       return this.countValue > this.quantity ? this.countValue : this.quantity 
     }
