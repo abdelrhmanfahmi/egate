@@ -122,7 +122,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Confirm Password -->
-                <b-col lg="6" v-if="form.password_confirmation !== null"> 
+                <b-col lg="6" v-if="form.password_confirmation !== null">
                   <b-form-group>
                     <label for="confirmPassword">{{
                       $t("register.confirmPassword")
@@ -239,7 +239,10 @@
                 </span>
               </div>
               <b-modal size="lg" id="terms&condation" :title="condations.title">
-                <p v-html="condations.description" v-if="condations.description"></p>
+                <p
+                  v-html="condations.description"
+                  v-if="condations.description"
+                ></p>
                 <template #modal-footer="{ ok }">
                   <b-button
                     size="sm"
@@ -290,16 +293,16 @@ export default {
   data() {
     return {
       form: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        password: null,
-        password_confirmation: null,
-        country_code: null,
-        mobile_number: null,
-        active_with: null,
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        country_code: "KW",
+        mobile_number: "",
+        active_with: "sms",
         register_mailing_list: false,
-        perfix: null,
+        perfix: "",
       },
       errors: {},
       terms: true,
@@ -316,7 +319,7 @@ export default {
     };
   },
   mounted() {
-    this.checkRegisterForm()
+    this.checkRegisterForm();
     this.checkDynamicInputs();
     this.getTerms();
     this.getAllCountires();
@@ -349,22 +352,15 @@ export default {
       auth
         .checkRegisterForm("b2c")
         .then((res) => {
-          this.formControl = res.data.items;
-          this.formControl
-            .map((element) => {
-              console.log("formControl", element.input_key);
-              if (element.required !== 1) {
-                this.form[element.input_key] = null;
-              } else {
-                this.form[element.input_key] = "";
-              }
-            })
-            .then(() => {
-              setTimeout(() => {
-                this.form.country_code = "KW";
-                this.form.active_with = "sms";
-              }, 3000);
-            });
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            console.log("formControl", element.input_key);
+            if (element.status !== 1) {
+              this.form[element.input_key] = null;
+            } else {
+              this.form[element.input_key] = "";
+            }
+          });
         })
         .catch((err) => {
           console.log(err);
