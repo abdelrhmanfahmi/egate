@@ -1066,7 +1066,7 @@
             <div class="cart-detail p-4">
               <div class="row">
                 <div
-                  class="col-11 my-2"
+                  class="my-2"
                   :class="{
                     'col-md-7 col-sm-12':
                       online_payment ||
@@ -1214,7 +1214,7 @@
                 <!-- display payment methods  -->
 
                 <div
-                  class="col-1 my-2"
+                  class="my-2"
                   :class="{
                     'col-md-5 col-sm-12':
                       online_payment ||
