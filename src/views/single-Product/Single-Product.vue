@@ -2,9 +2,9 @@
   <!-- single product data  -->
   <div class="container single-product">
     <div class="" v-if="myProduct !== null && !notFound">
-      <div class="product-info">
+      <!-- <div class="product-info">
         <div class="content">
-          <!-- nav for product navigation  -->
+          nav for product navigation 
           <nav aria-label="breadcrumb d-flex">
             <ol class="breadcrumb">
               <li class="breadcrumb-item" v-for="Type in myProduct.product.categories" :key="Type.id">
@@ -13,11 +13,47 @@
             </ol>
           </nav>
         </div>
+      </div> -->
+      <div
+        class="navigation d-none d-lg-flex justify-content-start align-items-center"
+      >
+        <!-- navigation -->
+        <nav aria-label="breadcrumb ">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <router-link to="/">
+                {{ $t("items.home") }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/"> Category </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/"> Sub category </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/"> Sub sub-category </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/" class="main-color"> Product </router-link>
+            </li>
+          </ol>
+        </nav>
       </div>
+
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">
           <!-- product slider  -->
-          <div class="ribbon ribbon-top-left" :class="{'long-rebbon':dealType.trim().length > 20}"  v-if="dealType"><span :class="{'long-rebbon-span':dealType.trim().length > 20}">{{dealType}}</span></div>
+          <div
+            class="ribbon ribbon-top-left"
+            :class="{ 'long-rebbon': dealType.trim().length > 20 }"
+            v-if="dealType"
+          >
+            <span
+              :class="{ 'long-rebbon-span': dealType.trim().length > 20 }"
+              >{{ dealType }}</span
+            >
+          </div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
@@ -25,7 +61,7 @@
           <ProductInfo :myProduct="myProduct"></ProductInfo>
         </b-col>
       </b-row>
-      <div class="humhum-tabs">
+      <div class="humhum-tabs mt-5">
         <b-tabs content-class="mt-3">
           <!-- product specifications tab  -->
           <b-tab :title="$t('singleProduct.specsTitle')" active>
@@ -38,30 +74,60 @@
           </b-tab>
         </b-tabs>
       </div>
-      <div class="most-sold text-center" v-if="supplierProductsLength > 0">
-        <div class="container">
-          <h4 class="header font-weight-bold mt-5 mb-3">
-            {{ $t("items.relativeProducts") }}
-          </h4>
-          <hr />
-          <div class="my-5 py-5">
-            <!-- other products slider  -->
-            <VueSlickCarousel v-bind="settings" v-if="supplierProductsLength">
-              <div v-for="item in supplierProducts.filter(product => product.product_details_by_type.quantity >= 1)"
-                :key="item.id">
-                <Product :data="item"></Product>
+      <section class="my-4">
+        <div class="humhum-tabs">
+          <b-tabs content-class="mt-3">
+            <b-tab :title="$t('singleProduct.otherSuppliers')" active>
+              <suppliersTab />
+            </b-tab>
+            <!-- product rating tab  -->
+            <b-tab :title="$t('items.relativeProducts')">
+              <div
+                class="most-sold text-center related-products"
+                v-if="supplierProductsLength > 0"
+              >
+                <div class="">
+                  <!-- <h4 class="header font-weight-bold mt-5 mb-3">
+                    {{ $t("items.relativeProducts") }}
+                  </h4> -->
+                  <!-- <hr /> -->
+                  <div class="my-5 py-5">
+                    <!-- other products slider  -->
+                    <VueSlickCarousel
+                      v-bind="settings"
+                      v-if="supplierProductsLength"
+                    >
+                      <div
+                        v-for="item in supplierProducts.filter(
+                          (product) =>
+                            product.product_details_by_type.quantity >= 1
+                        )"
+                        :key="item.id"
+                      >
+                        <Product :data="item"></Product>
+                      </div>
+                    </VueSlickCarousel>
+                  </div>
+                </div>
               </div>
-            </VueSlickCarousel>
-          </div>
+            </b-tab>
+          </b-tabs>
         </div>
-      </div>
+      </section>
     </div>
     <div class="" v-else-if="myProduct == null">
       <div class="d-flex justify-content-center align-items-center p-5">
-        <img src="@/assets/images/BeanLoading2.gif" class="loading-img" alt="loading" />
+        <img
+          src="@/assets/images/BeanLoading2.gif"
+          class="loading-img"
+          alt="loading"
+        />
       </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center flex-column p-5 notFound" v-if="notFound">
+    <div
+      class="d-flex justify-content-center align-items-center flex-column p-5 notFound"
+      v-if="notFound"
+    >
       <h2>
         {{ $t("profile.notFound") }}
       </h2>
@@ -73,8 +139,10 @@
  * single product data
  * @displayName single product data
  */
-import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
+ import VueSlickCarousel from "vue-slick-carousel";
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import Slider from "@/components/single-product/Slider.vue";
 import ProductInfo from "@/components/single-product/ProductInfo.vue";
@@ -84,7 +152,7 @@ import Product from "@/components/pages/supplier/products/Product.vue";
 import categories from "@/services/categories";
 
 import suppliers from "@/services/suppliers";
-
+import suppliersTab from "@/components/single-product/SuppliersTab.vue"
 export default {
   components: {
     Slider,
@@ -93,6 +161,7 @@ export default {
     Rating,
     Product,
     VueSlickCarousel,
+    suppliersTab
   },
   data() {
     return {
@@ -121,7 +190,7 @@ export default {
             settings: {
               slidesToShow: 3,
               slidesToScroll: 3,
-              arrows: false,
+              arrows: true,
               dots: false,
             },
           },
@@ -130,7 +199,7 @@ export default {
             settings: {
               slidesToShow: 2,
               slidesToScroll: 2,
-              arrows: false,
+              arrows: true,
               dots: false,
             },
           },
@@ -139,7 +208,7 @@ export default {
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
-              arrows: false,
+              arrows: true,
               dots: false,
             },
           },
@@ -203,8 +272,8 @@ export default {
 </script>
 <style lang="scss">
 .humhum-tabs {
-  padding: 4rem;
-  margin: 3rem 0;
+  //padding: 4rem;
+  //margin: 3rem 0;
 
   @media (max-width: 992px) {
     padding: 0;
@@ -236,12 +305,10 @@ export default {
   //   color: #ccc;
   // }
 }
-.single-product{
-
-  .cr-sticky{
-    left:-40% !important;
+.single-product {
+  .cr-sticky {
+    left: -40% !important;
     text-indent: 13%;
   }
 }
-
 </style>

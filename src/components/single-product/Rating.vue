@@ -45,7 +45,7 @@ export default {
       ratingValue: null,
       id: this.$route.query.id,
       reviews: null,
-      reviewsLength: null,
+      reviewsLength: 0,
     };
   },
   /**
@@ -78,7 +78,12 @@ export default {
     // },
     settingReviews() {
       this.reviews = this.myProduct.data;
-      this.reviewsLength = this.myProduct.data.length;
+      if(this.reviews && this.reviews.length > 0){
+
+        this.reviewsLength = this.myProduct.data.length;
+      }else{
+        this.reviewsLength = 0;
+      }
     },
   },
   mounted() {

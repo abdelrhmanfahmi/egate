@@ -351,8 +351,8 @@ export default {
 
 <style lang="scss">
 .humhum-tabs {
-  padding: 4rem;
-  margin: 3rem 0;
+  //padding: 4rem;
+  //margin: 3rem 0;
 
   @media (max-width: 992px) {
     padding: 0;

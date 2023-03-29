@@ -75,7 +75,7 @@
 .humhum-tabs {
   .tabs {
     .nav-tabs {
-      justify-content: center;
+      justify-content: start;
       border-width: 1px 0 0 0;
       .nav-item {
         .nav-link {
@@ -92,8 +92,8 @@
     }
   }
   .tab-content {
-    background: #f2f5f6;
-    padding: 3rem;
+    //background: #f2f5f6;
+    padding: 1rem 0;
     .tab-pane {
       &.active {
         animation: slide-down 0.3s ease-out;

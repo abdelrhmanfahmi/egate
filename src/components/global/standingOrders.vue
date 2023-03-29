@@ -260,7 +260,7 @@ export default {
   props: {
     variantOrder: {
       // variantOrder prop 
-      type: Array,
+      type: Object,
     },
     quotationQuantity:{
       // quotationQuantity prop

@@ -57,5 +57,6 @@ export default {
   exportSelectedOrders:'تصدير الطلبات المختاره',
   brand:'العلامة التجارية',
   replaceRFQProduct:'هذا المنتج موجود بالفعل فى السله , هل تريد استبداله ؟',
-  returnGiftOrder:'إذا قمت بهذا الإجراء ، فسيعود منتج الهدية أيضًا'
+  returnGiftOrder:'إذا قمت بهذا الإجراء ، فسيعود منتج الهدية أيضًا',
+  otherSuppliers:'موردون اخرون'
 };

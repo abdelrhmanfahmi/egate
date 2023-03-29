@@ -1,98 +1,178 @@
 <template>
   <!-- product information  -->
   <div class="product-info">
-    test again
     <div class="content" v-if="myProduct">
       <div class="row">
-        <div class="col-xl-7 col-ms-12">
-          <h4 class="name" v-if="myProduct.product.title">
-            {{ myProduct.product.title }}
-          </h4>
-          <div class="" v-if="myProduct.product_details_by_type">
-            <p class="serial" v-if="myProduct.product_details_by_type.sku">
-              SKU : {{ myProduct.product_details_by_type.sku }}
-            </p>
-            <!-- show price when product not rfq only  -->
-            <p class="price" v-if="
-              myProduct.product_details_by_type.add_type !== 'rfq'
-            ">
-              <span>
-                {{ $t("singleProduct.price") }} :
-                {{
-                  myProduct.product_details_by_type.customer_price
-                    | fixedCurrency
-                }}
-                {{ currency }}
-              </span>
-              <span class="price-after" v-if="
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-start align-items-center">
+              <h4 class="name m-0 p-0" v-if="myProduct.product.title">
+                {{ myProduct.product.title }}
+              </h4>
+              <h4
+                class="text-success mx-5 mb-0 p-0"
+                v-if="myProduct.product_details_by_type.quantity > 0"
+              >
+                {{ $t("singleProduct.available") }}
+                <span
+                  >(<small>{{
+                    myProduct.product_details_by_type.quantity
+                  }}</small
+                  >)</span
+                >
+              </h4>
+              <span class="is-available text-danger" v-else>
+                <b>{{ $t("singleProduct.outOfStock") }}</b></span
+              >
+            </div>
+            <div class="category-name">
+              <router-link to="/" class="text-dark font-weight-bold serial">
+                <ins>Category-name</ins>
+              </router-link>
+            </div>
+          </div>
+          <p
+            class="price mt-4"
+            v-if="myProduct.product_details_by_type.add_type !== 'rfq'"
+          >
+            <span
+              class="price-after description ml-0"
+              v-if="
                 myProduct.product_details_by_type.price_before_discount &&
                 myProduct.product_details_by_type.price_before_discount >
-                myProduct.product_details_by_type.customer_price
-              ">
-                {{
-                  myProduct.product_details_by_type.price_before_discount
-                    | fixedCurrency
-                }}
-                {{ currency }}
-              </span>
+                  myProduct.product_details_by_type.customer_price
+              "
+            >
+              {{
+                myProduct.product_details_by_type.price_before_discount
+                  | fixedCurrency
+              }}
+              {{ currency }}
+            </span>
+            <span class="price-before">
+              <!-- {{ $t("singleProduct.price") }} : -->
+              {{
+                myProduct.product_details_by_type.customer_price | fixedCurrency
+              }}
+              {{ currency }}
+            </span>
+          </p>
+
+          <!-- sku  -->
+          <div class="mt-4" v-if="myProduct.product_details_by_type">
+            <p class="serial" v-if="myProduct.product_details_by_type.sku">
+              SKU :
+              <span class="mx-2">{{
+                myProduct.product_details_by_type.sku
+              }}</span>
             </p>
-            <p>-</p>
+            <!-- show price when product not rfq only  -->
 
-            <hr />
+            <!-- <hr /> -->
 
-            <div class="weight">
-              <span class="title mr-3" v-if="myProduct.product_details_by_type.weight">
-                {{ $t("singleProduct.weight") }} :
+            <div class="weight mb-0">
+              <span
+                class="title mr-3 mb-2"
+                v-if="myProduct.product_details_by_type.weight"
+              >
+                <!-- {{ $t("singleProduct.weight") }} : -->
+                {{ $t("items.unit") }} :
               </span>
 
               <span>
-                <div class="available-weight d-flex justify-content-end" v-if="myProduct.product_details_by_type">
-                  <span v-if="myProduct.product_details_by_type.unit">{{ myProduct.product_details_by_type.weight }}
-                    {{ myProduct.product_details_by_type.unit.title }}</span>
+                <div
+                  class="available-weight d-flex justify-content-end"
+                  v-if="myProduct.product_details_by_type"
+                >
+                  <span v-if="myProduct.product_details_by_type.unit"
+                    >{{ myProduct.product_details_by_type.weight }}
+                    {{ myProduct.product_details_by_type.unit.title }}</span
+                  >
                 </div>
               </span>
             </div>
           </div>
-          <span class="is-available" v-if="myProduct.product_details_by_type.quantity > 0">{{
-            $t("singleProduct.available")
-          }} :
-            <b>{{ myProduct.product_details_by_type.quantity }}</b></span>
-          <span class="is-available text-danger" v-else>
-            <b>{{ $t("singleProduct.outOfStock") }}</b></span>
-          <hr />
-          <div class="" v-if="myProduct.brand">
+          <!-- <span
+            class="is-available"
+            v-if="myProduct.product_details_by_type.quantity > 0"
+            >{{ $t("singleProduct.available") }} :
+            <b>{{ myProduct.product_details_by_type.quantity }}</b></span
+          > -->
+          <!-- <span class="is-available text-danger" v-else>
+            <b>{{ $t("singleProduct.outOfStock") }}</b></span
+          > -->
+          <!-- <hr /> -->
+
+          <!-- country of origin  -->
+
+          <div class="serial text-black mt-0" v-if="myProduct.brand">
             <span>
-              <p>{{ $t('singleProduct.brand') }} :</p>
-            </span> <span>
-              <img v-if="myProduct.brand.image_path" :src="myProduct.brand.image_path" class="brand-image"
-                :alt="myProduct.brand.title">
+              <p>{{ $t("profile.countryOrigin") }} :</p>
+            </span>
+            <span class="mx-3">
+              <img
+                v-if="myProduct.brand.image_path"
+                :src="myProduct.brand.image_path"
+                class="brand-image"
+                :alt="myProduct.brand.title"
+              />
               <div class="logo-holder" v-else>
-              <img :src="logoEnv" v-if="logoEnv"  alt="logo">
+                <img :src="logoEnv" v-if="logoEnv" alt="logo" />
                 <img src="@/assets/images/logo.png" v-else alt="logo" />
               </div>
             </span>
-            <hr />
+            <span>Egypt</span>
+            <!-- <hr /> -->
           </div>
-          <ProductDescription :myProduct="myProduct" />
+
+          <!-- brand  -->
+          <!-- <div class="serial text-black" v-if="myProduct.brand">
+            <span>
+              <p>{{ $t("singleProduct.brand") }} :</p>
+            </span>
+            <span class="mx-3">
+              <img
+                v-if="myProduct.brand.image_path"
+                :src="myProduct.brand.image_path"
+                class="brand-image"
+                :alt="myProduct.brand.title"
+              />
+              <div class="logo-holder" v-else>
+                <img :src="logoEnv" v-if="logoEnv" alt="logo" />
+                <img src="@/assets/images/logo.png" v-else alt="logo" />
+              </div>
+            </span>
+          </div> -->
+          <ProductDescription :myProduct="myProduct" class="my-4 mb-5" />
           <!--  -->
           <div class="variants" v-if="myProduct.product.variants">
-            <p class="sort" v-for="mytype in myProduct.product.variants" :key="mytype.id">
+            <p
+              class="sort"
+              v-for="mytype in myProduct.product.variants"
+              :key="mytype.id"
+            >
               <b v-if="mytype.variant.title">
                 {{ mytype.variant.title }}
               </b>
             </p>
             <div class="weight" v-if="myProduct.product_details_by_type">
-              <div class="available-weight d-flex justify-content-end"
-                v-for="option in myProduct.product_details_by_type.options" :key="option.id">
-                <span v-if="option.price" @click="selectedOption(option.price)"
-                  :class="mySelectedOption == option.price ? 'active' : ''">
+              <div
+                class="available-weight d-flex justify-content-end"
+                v-for="option in myProduct.product_details_by_type.options"
+                :key="option.id"
+              >
+                <span
+                  v-if="option.price"
+                  @click="selectedOption(option.price)"
+                  :class="mySelectedOption == option.price ? 'active' : ''"
+                >
                   {{ option.price }}
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xl-5 col-sm-12">
+        <div class="col-12">
           <ProductActions :myProduct="myProduct" />
         </div>
       </div>
@@ -105,7 +185,6 @@ import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
-
 
 import ProductActions from "./ProductActions.vue";
 import ProductDescription from "./ProductDescription.vue";
@@ -168,7 +247,8 @@ export default {
   .content {
     .category {
       color: #403a37;
-      font-size: 11pt;
+      font-size: 16px;
+      color: #000;
       margin-bottom: 0.3rem;
       display: block;
     }
@@ -207,23 +287,25 @@ export default {
 
     .weight {
       .title {
-        font-size: 11pt;
+        font-size: 16px;
+        color: #000;
         margin-bottom: 1.5rem;
         padding-inline-start: 0rem;
-        font-weight: bold;
+        //font-weight: bold;
       }
 
       .available-weight {
         span {
-          width: 6rem;
-          height: 2rem;
-          border: 3px solid #ebebeb;
-          font-size: 11pt;
-          color: #544842;
+          //width: 6rem;
+          //height: 2rem;
+          //border: 3px solid #ebebeb;
+          font-size: 16px;
+          color: #000;
+          //color: #544842;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin: 0 0.2rem;
+          //margin: 0 0.2rem;
           // cursor: pointer;
           transition: all ease-out 0.3s;
           // &:hover {
@@ -242,21 +324,22 @@ export default {
     }
 
     .is-available {
-      font-size: 11pt;
+      font-size: 16px;
+      color: #000;
       margin-bottom: 1.3rem;
       //padding-inline-start: 35px;
-      font-weight: bold;
+      //font-weight: bold;
     }
 
     .product-actions {
       .short-links {
-
         // margin-inline-end: 0.5rem;
         // min-width: 10rem;
         a {
           display: block;
           color: #676565;
-          font-size: 11pt;
+          font-size: 16px;
+          color: #000;
 
           &:hover {
             color: $main-color;

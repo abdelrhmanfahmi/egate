@@ -370,11 +370,13 @@ div {
 .spinner {
   min-height: 50vh;
 }
-
+.price , .price-before{
+  color:$main_color
+}
 .price-after {
   text-decoration: line-through;
   margin: 0 5px;
-  color: $main_color;
+  color: $gray;
   font-size: 12pt;
 }
 
@@ -813,3 +815,9 @@ footer{
 //   height: auto !important;
 //   min-height: 60px !important;
 // }
+
+.bg-gray{
+  background-color: #CACACA !important;
+  color: #000 !important;
+  font-weight: bold;
+}

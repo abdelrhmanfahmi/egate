@@ -26,6 +26,30 @@
         </b-container>
       </div>
     </div> -->
+    <div
+      class="navigation d-none d-lg-flex justify-content-start align-items-center "
+    >
+      <!-- navigation -->
+      <nav aria-label="breadcrumb " >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <router-link to="/">
+              {{ $t("items.home") }}
+            </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/" >
+              Category
+            </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/" class="main-color">
+              Sub category
+            </router-link>
+          </li>
+        </ol>
+      </nav>
+    </div>
     <newCover />
     <div class="data-holder">
       <div class="container">
@@ -59,11 +83,16 @@
                   active: !$route.query.brand || $route.query.brand == 'All',
                 }"
               >
-                <template #title >
-                  <div  class="d-flex justify-content-center align-items-center flex-column">
-
-                    <font-awesome-icon icon="fa-solid fa-table-cells-large" size="xl" class="text-white" />
-                    <strong>{{$t('home.All')}}</strong>
+                <template #title>
+                  <div
+                    class="d-flex justify-content-center align-items-center flex-column"
+                  >
+                    <font-awesome-icon
+                      icon="fa-solid fa-table-cells-large"
+                      size="xl"
+                      class="text-white"
+                    />
+                    <strong>{{ $t("home.All") }}</strong>
                   </div>
                 </template>
                 <b-row v-if="loading">
@@ -128,13 +157,18 @@
                     $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
               >
-              <template #title >
-                <div  class="d-flex justify-content-between align-items-center flex-column">
-                  <!-- section icon  -->
-                  <font-awesome-icon icon="fa-solid fa-apple-whole" size="3x" />
-                  <strong>{{category.title}}</strong>
-                </div>
-              </template>
+                <template #title>
+                  <div
+                    class="d-flex justify-content-between align-items-center flex-column"
+                  >
+                    <!-- section icon  -->
+                    <font-awesome-icon
+                      icon="fa-solid fa-apple-whole"
+                      size="3x"
+                    />
+                    <strong>{{ category.title }}</strong>
+                  </div>
+                </template>
                 <b-row
                   align-h="center"
                   align-v="center"
@@ -522,5 +556,8 @@ div:empty {
       top: 0px;
     }
   }
+}
+.navigation{
+  background-color: #F3F4F6
 }
 </style>

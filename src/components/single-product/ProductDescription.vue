@@ -25,3 +25,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description{
+  font-size: 16px;
+}
+</style>
