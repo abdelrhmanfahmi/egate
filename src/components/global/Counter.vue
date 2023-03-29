@@ -13,7 +13,7 @@
             id=""
             min="1"
             @keyup="CustomIncrementQuantity"
-            v-model="countValue"
+            v-model="currentValue"
           />
         </slot>
       </main>
@@ -167,6 +167,12 @@ export default {
       }, 1500);
     },
   },
+  computed:{
+    // check if quantity greater than or not in case of buy x get y offers 
+    currentValue(){
+      return this.countValue > this.quantity ? this.countValue : this.quantity 
+    }
+  }
 };
 </script>
 
