@@ -44,6 +44,10 @@ export default {
     return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
   },
 
+  checkDocumentsForm(){
+    return globalAxios.get('lists/formControls/user-b2b-document')
+  },
+
   // buisness info
 
   buissnessinfoUpload(payload) {
