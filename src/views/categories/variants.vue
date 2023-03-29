@@ -514,9 +514,9 @@
                       : 1
                   "
                   v-if="
-                    (add_to_cart === 'available' &&
+                    (add_to_cart == true &&
                       product.product_details_by_type.add_type === 'cart') ||
-                    (add_to_cart === 'available' &&
+                    (add_to_cart == true &&
                       product.product_details_by_type.add_type === 'both')
                   "
                   class="justify-content-center"

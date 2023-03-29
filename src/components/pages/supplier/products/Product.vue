@@ -71,7 +71,7 @@
         </b-button>
       </div>
       <div class="addToCartHolder d-flex justify-content-end align-items-center" v-else>
-        <div v-if="add_to_cart === 'available'">
+        <div v-if="add_to_cart == true">
           <div>
             <b-form-select v-model="selected">
               <b-form-select-option :value="i" v-for="(i, index) in 30"
