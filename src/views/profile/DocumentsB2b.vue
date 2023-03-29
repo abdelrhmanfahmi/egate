@@ -6,15 +6,15 @@
         <h5>{{ $t("profile.companyDocuments") }}</h5>
       </div>
       <!-- buissnessinfoUpload -->
-      <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
-        <div class="form-input mb-4">
+      <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload" v-if="allDocFiles.ccl !== '' || allDocFiles.auth_civil_copy !== '' || allDocFiles.ccs !== '' || allDocFiles.rmcm !== ''">
+        <div class="form-input mb-4" v-if="allDocFiles.ccl !== ''">
           <label for="CommercialLicense">
             {{ $t("profile.commercialLicense") }}
             <span class="text-danger">*</span>
           </label>
           <div class="row justify-content-center align-content-center" v-if="buisnessData">
             <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
+              <b-form-group >
                 <b-form-file size="lg" id="CommercialLicense" v-model="buissnessinfo.ccl"
                   :placeholder="$t('profile.filePlaceHolder')" drop-placeholder="Drop file here..."></b-form-file>
               </b-form-group>
@@ -82,7 +82,7 @@
           </div>
         </div>
 
-        <div class="form-input mb-4">
+        <div class="form-input mb-4" v-if="allDocFiles.auth_civil_copy !== ''">
           <label for="signatureAccreditation">
             {{ $t("profile.signatureAccreditation") }}
             <span class="text-danger">*</span>
@@ -165,7 +165,7 @@
           </div>
         </div>
 
-        <div class="form-input mb-4">
+        <div class="form-input mb-4" v-if="allDocFiles.ccs !== ''">
           <label for="commissionerCard">
             {{ $t("profile.commissionerCard") }}
             <span class="text-danger">*</span>
@@ -241,7 +241,7 @@
           </div>
         </div>
 
-        <div class="form-input mb-4">
+        <div class="form-input mb-4" v-if="allDocFiles.rmcm !== ''">
           <label for="certificateAdministration">
             {{ $t("profile.certificateAdministration") }}
           </label>
@@ -323,8 +323,8 @@
 
       <!-- suppDocUpload -->
 
-      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm">
-        <div class="form-input mb-4">
+      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm" v-if="allDocFiles.moa !== '' || allDocFiles.sad !== ''">
+        <div class="form-input mb-4" v-if="allDocFiles.moa !== ''">
           <label for="establishmentContract">
             {{ $t("profile.establishmentContract") }}
           </label>
@@ -395,7 +395,7 @@
             {{ error }}
           </div>
         </div>
-        <div class="form-input mb-4">
+        <div class="form-input mb-4" v-if="allDocFiles.sad !== ''">
           <label for="IbanCertificate">
             {{ $t("profile.letterAuthorization") }}
           </label>
@@ -476,8 +476,8 @@
 
       <!-- bank iban  -->
 
-      <form lass="suppDoc" @submit.prevent="ibanUpload">
-        <div class="form-input mb-4">
+      <form lass="suppDoc" @submit.prevent="ibanUpload" v-if="allDocFiles.iban_number_certificate !== ''">
+        <div class="form-input mb-4" >
           <label for="LetterAuthorization">
             {{ $t("profile.ibanCertificate") }}
             <span class="text-danger">*</span>
@@ -610,6 +610,15 @@ export default {
       bankIban: {
         iban: null,
       },
+      allDocFiles:{
+        ccl: null,
+        auth_civil_copy: null,
+        ccs: null,
+        rmcm: null,
+        moa: null,
+        sad: null,
+        iban_number_certificate: null,
+      },
       dynamicForm: {},
       // represent data
       suppData: null,
@@ -716,7 +725,6 @@ export default {
       }
     });
     profile.getibanUploadData().then((res) => {
-      console.log("third", res.data.items);
       this.ibanData = res.data.items;
       let url = res.data.items.iban_number_certificate_path;
       if (url.match(/.(jpeg|jpg|gif|png)$/)) {
@@ -733,6 +741,29 @@ export default {
     });
   },
   methods: {
+    /**
+     * @vuese
+     *  check Documents Form
+     */
+     checkDocumentsForm() {
+      profile
+        .checkDocumentsForm()
+        .then((res) => {
+          let formControl = res.data.items;
+          console.log('doc res' , res);
+          formControl.map((element) => {
+            if (element.status !== 1) {
+              this.allDocFiles[element.input_key] = '';
+            } else {
+              this.allDocFiles[element.input_key] = null;
+            }
+          });
+          console.log('this.allDocFiles' , this.allDocFiles);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     /**
      * download Image function
      * @vuese 
@@ -1073,6 +1104,7 @@ export default {
         });
     },
 
+    
 
 
   },
@@ -1084,6 +1116,7 @@ export default {
     if (this.userInfo === "b2c") {
       this.$router.push("/");
     }
+    this.checkDocumentsForm()
   },
   computed: {
     /**

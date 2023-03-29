@@ -136,7 +136,7 @@
 
                 </b-form-group>
             </div>
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3" :disabled="dynamicBtnDisabled"
+            <b-button v-if="dynamicInputsLength > 0" type="submit" variant="outline-danger" class="saveBtn btn-block py-3" :disabled="dynamicBtnDisabled"
                 @click="uploadDunamicInputsData">
                 <i class="fa fa-upload"></i> {{ $t("profile.save") }}
                 <span class="loader" v-if="buttonClickedEffect"></span>
@@ -159,7 +159,8 @@ export default {
             form: {},
             errors: {},
             dynamicBtnDisabled: false,
-            imagesPaths: {}
+            imagesPaths: {},
+            dynamicInputsLength:null
         }
     },
     mounted() {
@@ -174,6 +175,7 @@ export default {
         async firstCheckDynamicInputs() {
             await auth.dynamicInputs('user-b2b-document').then(res => {
                 this.dynamicInputs = res.data.items;
+                this.dynamicInputsLength = res.data.items.length;
                 this.dynamicInputs.map((input) => {
                     if (input.type == 'checkbox') {
                         Vue.set(this.form, input.uuid, false)
