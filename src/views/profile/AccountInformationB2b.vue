@@ -91,7 +91,7 @@
           </b-form-group>
         </b-col>
         <!-- country_name -->
-        <b-col lg="4" v-if="form.country_name !== null">
+        <b-col lg="4" v-if="form.country_id !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.defaultCountry") }} :
@@ -112,7 +112,7 @@
 
             <div
               class="error"
-              v-for="(error, index) in errors.country"
+              v-for="(error, index) in errors.country_name"
               :key="index"
             >
               {{ error }}
@@ -120,7 +120,7 @@
           </b-form-group>
         </b-col>
         <!-- currency_id -->
-        <b-col lg="4" v-if="form.country !== null">
+        <b-col lg="4" v-if="form.currency_id !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
@@ -142,7 +142,7 @@
 
             <div
               class="error"
-              v-for="(error, index) in errors.country"
+              v-for="(error, index) in errors.currency_id"
               :key="index"
             >
               {{ error }}
@@ -166,7 +166,7 @@
 
             <div
               class="error"
-              v-for="(error, index) in errors.country"
+              v-for="(error, index) in errors.language"
               :key="index"
             >
               {{ error }}
@@ -188,10 +188,21 @@
         </h4>
         <b-row>
           <!-- Company Name -->
-          <b-col lg="6" v-if="form.company_name_en !== null">
+          <b-col
+            lg="6"
+            v-if="
+              form.company_name_en !== null || form.company_name_ar !== null
+            "
+          >
             <b-form-group>
               <div class="row">
-                <div  :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
+                <div
+                  v-if="form.company_name_en !== null"
+                  :class="{
+                    'col-md-6 col-sm-12': arabicAvailable !== 'no',
+                    'col-12': arabicAvailable == 'no',
+                  }"
+                >
                   <label for="companyName">{{
                     $t("register.englishCompanyName")
                   }}</label>
@@ -202,7 +213,15 @@
                     disabled
                   />
                 </div>
-                <div  v-if="arabicAvailable !=='no'" :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
+                <div
+                  v-if="
+                    form.company_name_ar !== null && arabicAvailable !== 'no'
+                  "
+                  :class="{
+                    'col-md-6 col-sm-12': arabicAvailable !== 'no',
+                    'col-12': arabicAvailable == 'no',
+                  }"
+                >
                   <label for="companyName">{{
                     $t("register.arabicCompanyName")
                   }}</label>
@@ -250,19 +269,21 @@
         {{ $t("profile.save") }}
       </b-button>
     </form>
-    <b-modal
-      ref="email-modal"
-      hide-footer
-      centered
-    >
-    <template #modal-header="{ close }">
-      <h5>{{$t('profile.emailVerify')}}</h5>
-      <!-- Emulate built in modal header close button action -->
-      <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
-        x
-      </b-button>
-      
-    </template>
+    <b-modal ref="email-modal" hide-footer centered>
+      <template #modal-header="{ close }">
+        <h5>{{ $t("profile.emailVerify") }}</h5>
+        <!-- Emulate built in modal header close button action -->
+        <b-button
+          size="sm"
+          variant="outline-danger"
+          @click="
+            close();
+            closeModal();
+          "
+        >
+          x
+        </b-button>
+      </template>
       <div class="d-block text-center">
         <form action="">
           <b-form-group>
@@ -323,18 +344,20 @@
         </b-button>
       </div>
     </b-modal>
-    <b-modal
-      ref="phone-modal"
-      hide-footer
-      centered
-    >
+    <b-modal ref="phone-modal" hide-footer centered>
       <template #modal-header="{ close }">
-        <h5>{{$t('profile.phoneVerify')}}</h5>
+        <h5>{{ $t("profile.phoneVerify") }}</h5>
         <!-- Emulate built in modal header close button action -->
-        <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
+        <b-button
+          size="sm"
+          variant="outline-danger"
+          @click="
+            close();
+            closeModal();
+          "
+        >
           x
         </b-button>
-        
       </template>
       <div class="d-block text-center">
         <form action="">
@@ -450,29 +473,6 @@ export default {
   },
   mounted() {
     /**
-     * get AllCountires  function
-     * @vuese
-     */
-    this.getAllCountires();
-
-    /**
-     * spread user data function ,  that comes from backend
-     * @vuese
-     */
-
-    this.form = { ...this.buyerUserData };
-    this.phonePrefix = this.buyerUserData.phone_prefix;
-    this.form.mobile_number = this.buyerUserData.phone;
-
-    this.form.language = this.buyerUserData.language
-      ? this.buyerUserData.language
-      : "en";
-    this.form.currency_id = this.buyerUserData.currency_id
-      ? this.buyerUserData.currency_id
-      : "3";
-    this.form.country_id = this.buyerUserData.country_id;
-
-    /**
      * check if country exist function  , else reload page
      * @vuese
      */
@@ -487,7 +487,7 @@ export default {
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
-    this.checkProfileForm()
+    this.checkProfileForm();
   },
   methods: {
     getAllCountires() {
@@ -504,20 +504,46 @@ export default {
      * @vuese
      *  checkProfileForm
      */
-    
-     checkProfileForm() {
+
+    checkProfileForm() {
       auth
         .checkProfileForm(this.buyerUserData.type)
         .then((res) => {
           let formControl = res.data.items;
           formControl.map((element) => {
-            
             if (element.status !== 1) {
               this.form[element.input_key] = null;
             } else {
               this.form[element.input_key] = "";
             }
           });
+        })
+        .then(() => {
+          /**
+           * get AllCountires  function
+           * @vuese
+           */
+          this.getAllCountires();
+          /**
+           * spread user data function ,  that comes from backend
+           * @vuese
+           */
+
+          this.form = { ...this.buyerUserData };
+          if (this.buyerUserData.company_name_ar == null) {
+            this.form.company_name_ar = "";
+          }
+          this.phonePrefix = this.buyerUserData.phone_prefix;
+          this.form.mobile_number = this.buyerUserData.phone;
+
+          this.form.language = this.buyerUserData.language
+            ? this.buyerUserData.language
+            : "en";
+          this.form.currency_id = this.buyerUserData.currency_id
+            ? this.buyerUserData.currency_id
+            : "3";
+          this.form.country_id = this.buyerUserData.country_id;
+          
         })
         .catch((err) => {
           console.log(err);
@@ -539,7 +565,7 @@ export default {
         currency_id: this.form.currency_id,
       };
       auth
-        .storeInfo(this.buyerUserData.type , payload)
+        .storeInfo(this.buyerUserData.type, payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};
@@ -666,10 +692,10 @@ export default {
      * close Modal used when click on close button to clear form data
      * @vuese
      */
-    closeModal(){
+    closeModal() {
       this.newForm = {};
       this.errors = {};
-    }
+    },
   },
   computed: {
     /**
