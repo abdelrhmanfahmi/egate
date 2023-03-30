@@ -18,7 +18,7 @@ $text-color: mix(#000, $main-color, 64%);
           th {
             font-size: 11pt;
             font-weight: bold;
-            color: #565656;
+            //color: #565656;
             border-bottom: 1px solid #dee2e6;
           }
         }
@@ -112,7 +112,14 @@ $text-color: mix(#000, $main-color, 64%);
           tr {
             color: #312620;
             font-weight: 600;
-            border-bottom: 1px dashed #c5c6c6;
+            // border-bottom: 1px dashed #c5c6c6;
+
+            // new style 
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
             th {
               padding: 1rem 0;
               width: 25%;
@@ -167,22 +174,24 @@ input[type="text"]:disabled {
 }
 .order-shipping {
   transition: all 0.3s ease-in-out;
-  width: 37%;
-  @media(max-width:767px){
-    width:100%;
-    margin:20px 0;
-    text-align: center !important;
-  }
-  @media (min-width: 768px) and (max-width: 991.98px){
-    width:80%;
-    margin:20px 0;
-    text-align: center !important;
-  }
-  @media (min-width: 992px) and (max-width: 1600px){
-    width:60%;
-    margin:20px 0;
-    text-align: center !important;
-  }
+  background: #fff;
+  margin-top: 3%;
+  // width: 37%;
+  // @media(max-width:767px){
+  //   width:100%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
+  // @media (min-width: 768px) and (max-width: 991.98px){
+  //   width:80%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
+  // @media (min-width: 992px) and (max-width: 1600px){
+  //   width:60%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
   
   form {
     display: flex;
@@ -324,10 +333,10 @@ input[type="text"]:disabled {
   // }
   .cart-table,
   .addresses-holder {
-    background: #ecf0f1;
-    padding: 5% 2%;
-    margin: 2% 0;
-    border-radius: 20px;
+    // background: #ecf0f1;
+    // padding: 5% 2%;
+    // margin: 2% 0;
+    // border-radius: 20px;
   }
   .supplier {
     position: relative;
@@ -397,7 +406,8 @@ input[type="text"]:disabled {
   position: relative;
   .close-options {
     position: absolute;
-    top: 20px;
+    // top: 20px;
+    top: 0px;
     right: 20px;
     width: 25px;
     height: 25px;
@@ -465,9 +475,9 @@ input[type="text"]:disabled {
       }
       .payment-method {
         .methods-data {
-          background: #ecf0f1;
-          padding: 2rem;
-          border-radius: 0.5rem;
+          // background: #ecf0f1;
+          // padding: 2rem;
+          // border-radius: 0.5rem;
           .info {
             border-bottom: 1px dashed #c5c6c6;
             padding: 1rem 0.3rem;
@@ -483,12 +493,12 @@ input[type="text"]:disabled {
             }
           }
           .methods {
-            background-color: #fff;
-            border-radius: 0.5rem;
-            border: 1px dashed #cfd0d0;
+            // background-color: #fff;
+            // border-radius: 0.5rem;
+            // border: 1px dashed #cfd0d0;
             .method {
               padding: 1rem;
-              border-bottom: 1px dashed #cfd0d0;
+              // border-bottom: 1px dashed #cfd0d0;
               font-size: 11pt;
               color: #544842;
               .custom-radio {
@@ -517,7 +527,8 @@ input[type="text"]:disabled {
       .title {
         color: #312620;
         font-weight: 600;
-        font-size: 18pt;
+        font-size: 15pt;
+        text-transform: capitalize;
       }
       a {
         font-size: 11pt;
@@ -608,3 +619,6 @@ html:lang(ar) {
   }
 }
 
+.accordion > .card > .card-header{
+  background: transparent !important;
+}

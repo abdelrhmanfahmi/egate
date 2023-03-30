@@ -192,3 +192,11 @@ input[type="radio"]:checked::before , .custom-control-input:checked ~ .custom-co
 .custom-control-label::after{
   display: none;
 }
+
+
+.custom-checkbox .custom-control-label::before , input[type="checkbox"]::before {
+  border-radius: 0.25rem;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+}

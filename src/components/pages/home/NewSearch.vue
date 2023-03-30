@@ -249,7 +249,9 @@ export default {
     border: none;
     color: #000;
     font-size: 1rem;
-
+    @media(max-width:992px){
+        height: 40px;
+    }
 }
 
 

@@ -18,7 +18,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.cart-page {
-  padding: 2rem;
-}
+
 </style>
