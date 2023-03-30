@@ -17,6 +17,9 @@ export default {
   checkRegisterForm(type){
     return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`)
   },
+  checkProfileForm(type){
+    return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-info`)
+  },
   getAllCountires() {
     return globalAxios.get("lists/countries");
   },
@@ -46,8 +49,14 @@ export default {
   getUserInfo() {
     return globalAxios.get("members/profile/info");
   },
-  storeInfo(payload) {
-    return globalAxios.post("members/profile/info", payload);
+  storeInfo(type,payload) {
+    return globalAxios.post("members/profile/info", payload ,
+    {
+      params:{
+        form_control:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-info`
+      }
+    }
+    );
   },
   changePassword(payload) {
     return globalAxios.post("members/profile/info/change_password", payload);
