@@ -539,7 +539,7 @@ export default {
         currency_id: this.form.currency_id,
       };
       auth
-        .storeInfo(payload)
+        .storeInfo(this.buyerUserData.type , payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};
