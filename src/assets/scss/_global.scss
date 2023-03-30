@@ -317,6 +317,7 @@ html:lang(ar) {
   .custom-control-label::after {
     left: unset;
     right: -1.5rem;
+    background-color: red !important;
   }
 }
 button:disabled {
