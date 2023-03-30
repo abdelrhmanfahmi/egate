@@ -504,7 +504,7 @@ export default {
       const payload = {
         first_name: this.form.first_name,
         last_name: this.form.last_name,
-        job_title: this.form.job_title,
+        //job_title: this.form.job_title,
         reg_number: this.form.reg_number,
         portal: "buyer",
         country_id: this.form.country_id,
