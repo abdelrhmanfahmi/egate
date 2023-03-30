@@ -5,7 +5,7 @@
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row>
         <!-- First Name -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.first_name !== null">
           <b-form-group>
             <label for="f-name">{{ $t("register.firstName") }}</label>
             <span class="requried">*</span>
@@ -28,7 +28,7 @@
           </b-form-group>
         </b-col>
         <!-- Last Name -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.last_name !== null">
           <b-form-group>
             <label for="l-name">{{ $t("register.lastName") }}</label>
             <span class="requried">*</span>
@@ -43,7 +43,7 @@
           </b-form-group>
         </b-col>
         <!-- Email -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.email !== null">
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
@@ -61,7 +61,7 @@
           </b-form-group>
         </b-col>
         <!-- phone -->
-        <b-col lg="6">
+        <b-col lg="6" v-if="form.mobile_number !== null">
           <b-form-group>
             <label for="phone"
               >{{ $t("register.phone") }} (<span
@@ -90,7 +90,8 @@
             </div>
           </b-form-group>
         </b-col>
-        <b-col lg="4">
+        <!-- country_name -->
+        <b-col lg="4" v-if="form.country_name !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.defaultCountry") }} :
@@ -118,7 +119,8 @@
             </div>
           </b-form-group>
         </b-col>
-        <b-col lg="4">
+        <!-- currency_id -->
+        <b-col lg="4" v-if="form.country !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
@@ -147,7 +149,8 @@
             </div>
           </b-form-group>
         </b-col>
-        <b-col lg="4">
+        <!-- language -->
+        <b-col lg="4" v-if="form.language !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.lang") }} : {{ form.language }}</label
@@ -185,7 +188,7 @@
         </h4>
         <b-row>
           <!-- Company Name -->
-          <b-col lg="6">
+          <b-col lg="6" v-if="form.company_name_en !== null">
             <b-form-group>
               <div class="row">
                 <div  :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
@@ -224,7 +227,7 @@
             </b-form-group>
           </b-col>
           <!-- Registration number -->
-          <b-col lg="6">
+          <b-col lg="6" v-if="form.reg_number !== null">
             <b-form-group>
               <label for="RegistrationNumber">{{
                 $t("profile.RegistrationNumber")
@@ -484,6 +487,7 @@ export default {
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
+    this.checkProfileForm()
   },
   methods: {
     getAllCountires() {
@@ -494,6 +498,29 @@ export default {
         })
         .catch((err) => {
           console.log(err); //
+        });
+    },
+    /**
+     * @vuese
+     *  checkProfileForm
+     */
+    
+     checkProfileForm() {
+      auth
+        .checkProfileForm(this.buyerUserData.type)
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            
+            if (element.status !== 1) {
+              this.form[element.input_key] = null;
+            } else {
+              this.form[element.input_key] = "";
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
     /**

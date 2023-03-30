@@ -17,6 +17,9 @@ export default {
   checkRegisterForm(type){
     return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`)
   },
+  checkProfileForm(type){
+    return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-info`)
+  },
   getAllCountires() {
     return globalAxios.get("lists/countries");
   },
