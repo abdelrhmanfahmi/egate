@@ -533,6 +533,9 @@ export default {
           if (this.buyerUserData.company_name_ar == null) {
             this.form.company_name_ar = "";
           }
+          if (this.buyerUserData.company_name_en == null) {
+            this.form.company_name_en = "";
+          }
           this.phonePrefix = this.buyerUserData.phone_prefix;
           this.form.mobile_number = this.buyerUserData.phone;
 
