@@ -10,6 +10,11 @@ textarea {
     box-shadow: none !important;
   }
 }
+input , input[type='radio']{
+  &:focus , &:active{
+    box-shadow:none !important
+  }
+}
 
 // custom home page search input
 .search-local input {
@@ -200,3 +205,4 @@ input[type="radio"]:checked::before , .custom-control-input:checked ~ .custom-co
   height: 20px;
   padding: 3px;
 }
+

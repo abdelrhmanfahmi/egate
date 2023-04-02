@@ -168,7 +168,7 @@ export default {
     .price {
       color: #676565;
       font-size: 11pt;
-      margin-inline-start: 6px;
+      //margin-inline-start: 6px;
       opacity: 0.7;
     }
   }

@@ -1004,10 +1004,13 @@
                                         'float-left': $i18n.locale == 'ar',
                                       }"
                                     >
-                                      {{
-                                        totalDiscountReplacement | fixedCurrency
-                                      }}
-                                      {{ currency }}
+                                      <span v-if="totalDiscountReplacement == 0">-</span>
+                                      <span v-else>
+                                        {{
+                                          totalDiscountReplacement | fixedCurrency
+                                        }}
+                                        {{ currency }}
+                                      </span>
                                     </td>
                                   </tr>
                                   <tr>
@@ -1019,13 +1022,14 @@
                                         'float-left': $i18n.locale == 'ar',
                                       }"
                                     >
-                                      {{ shippingCartFee | fixedCurrency }}
-                                      {{ currency }}
+                                    <span v-if="shippingCartFee == 0">-</span>
+                                      <span v-else >{{ shippingCartFee | fixedCurrency }}
+                                        {{ currency }}</span>
                                     </td>
                                   </tr>
 
                                   <tr>
-                                    <th>{{ $t("cart.total") }}</th>
+                                    <th><h4 class="main-color">{{ $t("cart.total") }}</h4></th>
                                     <td
                                       v-if="totalPayment"
                                       :class="{
@@ -1033,10 +1037,10 @@
                                         'float-left': $i18n.locale == 'ar',
                                       }"
                                     >
-                                      {{
+                                      <h4 class="main-color">{{
                                         totalPaymentReplacement | fixedCurrency
                                       }}
-                                      {{ currency }}
+                                      {{ currency }}</h4>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -1344,7 +1348,7 @@
                                                 "
                                                 class="terms my-4 d-inline-block custom-input"
                                               >
-                                                <span>
+                                                <span class="text-dark">
                                                   {{ $t("payment.accept") }}
                                                 </span>
                                               </b-form-checkbox>
@@ -1354,7 +1358,7 @@
                                                 @click="
                                                   $bvModal.show('modal-scoped')
                                                 "
-                                                class="text-decoration-underline"
+                                                class="text-decoration-underline text-dark"
                                               >
                                                 {{
                                                   $t(
@@ -1603,6 +1607,7 @@
                                   <th>{{ $t("profile.productImage") }}</th>
                                   <!-- <th>{{ $t("cart.product") }}</th> -->
                                   <th>{{ $t("profile.productName") }}</th>
+                                  <!-- <th>{{ $t("items.supplier") }}</th> -->
                                   <th>{{ $t("cart.price") }}</th>
                                   <th>{{ $t("cart.quantity") }}</th>
                                   <th>{{ $t("cart.total") }}</th>
@@ -1657,6 +1662,9 @@
                                       {{ item.product_name }}
                                     </router-link>
                                   </td>
+                                  <!-- <td v-if="supplier.supplier_name">
+                                    {{supplier.supplier_name}}
+                                  </td> -->
                                   <!-- if product price exist -->
                                   <td v-if="item.price">
                                     {{ item.price | fixedCurrency }}
@@ -1696,7 +1704,7 @@
                                       v-if="!item.gift_promotion_id"
                                     >
                                       <span class="action-icon">
-                                        <font-awesome-icon icon="fa-solid fa-trash" />
+                                        <font-awesome-icon icon="fa-solid fa-xmark"  size="xl" />
                                       </span>
                                     </div>
                                     <div class="" v-else>
@@ -1783,7 +1791,7 @@
                                       @click="removebasketFromCart(item)"
                                     >
                                       <span class="action-icon">
-                                        <font-awesome-icon icon="fa-solid fa-trash" />
+                                        <font-awesome-icon icon="fa-solid fa-xmark"  size="xl" />
                                       </span>
                                     </div>
                                   </td>
@@ -1798,9 +1806,10 @@
                                       <div :class="$i18n.locale">
                                         <form
                                           @change="orderType(supplier.supplier_id)"
-                                          class="d-flex align-items-baseline px-2 results-form"
+                                          class="d-flex align-items-start justify-content-start px-2 results-form flex-column"
                                         >
                                           <!-- if select shipping  -->
+                                          <p class="h5">choose your delivery method:</p>
                                           <label
                                             @click="shippingStore(supplier)"
                                             class="shipping-label mt-2"
@@ -1817,7 +1826,7 @@
                                             />
                                             <span class="mx-2 ml-0">{{
                                               $t("payment.delivery")
-                                            }}</span>
+                                            }} :  <b class="mx-2"><b class="main-color">2.00 kwd</b>  next day delivery  </b></span>
                                           </label>
                                           <!-- if select pickup  -->
                                           <label class="shipping-label mt-2">
@@ -1829,9 +1838,9 @@
                                               :name="'types-' + index"
                                               v-model="ratingNum[index].delivery_type"
                                             />
-                                            <span class="mx-2">{{
-                                              $t("payment.pickup")
-                                            }}</span>
+                                            <span class="mx-2">
+                                              {{$t("payment.pickup") }} : <b class="main-color mx-2">Pick-up location</b> 
+                                            </span>
                                           </label>
                                           <!-- if supplier has address in pickup  -->
                                           <b-form-select
@@ -1870,13 +1879,13 @@
                                             </b-form-select-option>
                                           </b-form-select>
                                           <!-- print result of picked address cost price  -->
-                                          <span class="feedsResult"></span>
+                                          <span class="feedsResult m-0"></span>
                                           <h4 class="pickupNoData"></h4>
-                                          <br />
+                                          <!-- <br /> -->
       
                                           <!-- list the available addresses to pickup for this supplier  -->
                                           <ul
-                                            class="list-unstyled mb-0"
+                                            class="list-unstyled m-0 px-3"
                                             v-if="firstFees || deliverType == true"
                                           >
                                             <li
@@ -2366,14 +2375,22 @@ export default {
               element.parentElement.click();
             }
 
-            var existingAddresses =
-              document.querySelector(".existingAddresses");
+            var GuestNewAddress =
+              document.querySelector(".GuestNewAddress");
             for (var i = 0; i < checkboxes.length; i++) {
-              if (existingAddresses) {
-                existingAddresses.click();
-                existingAddresses.checked = true;
+              if (GuestNewAddress) {
+                GuestNewAddress.click();
+                GuestNewAddress.checked = true;
               }
             }
+            // var existingAddresses =
+            //   document.querySelector(".existingAddresses");
+            // for (var i = 0; i < checkboxes.length; i++) {
+            //   if (existingAddresses) {
+            //     existingAddresses.click();
+            //     existingAddresses.checked = true;
+            //   }
+            // }
           }, 500);
 
           if (localStorage.getItem("buyerUserData") === null) {
@@ -2779,14 +2796,22 @@ export default {
               // console.log(element);
             }
 
-            var existingAddresses =
-              document.querySelector(".existingAddresses");
+            var GuestNewAddress =
+              document.querySelector(".GuestNewAddress");
             for (var i = 0; i < res.data.items.length; i++) {
-              if (res.data.items.length > 0) {
-                existingAddresses.click();
-                existingAddresses.checked = true;
+              if (GuestNewAddress) {
+                GuestNewAddress.click();
+                GuestNewAddress.checked = true;
               }
             }
+            // var existingAddresses =
+            //   document.querySelector(".existingAddresses");
+            // for (var i = 0; i < res.data.items.length; i++) {
+            //   if (res.data.items.length > 0) {
+            //     existingAddresses.click();
+            //     existingAddresses.checked = true;
+            //   }
+            // }
           }, 700);
         }
 

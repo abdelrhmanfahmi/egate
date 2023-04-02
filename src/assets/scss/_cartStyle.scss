@@ -213,6 +213,9 @@ input[type="text"]:disabled {
 				outline: .125em solid $main-color;
 		}
 	*/
+
+
+
     input {
       position: absolute;
       
@@ -225,6 +228,8 @@ input[type="text"]:disabled {
           box-shadow: 0 0 0 2px $gray;
           border: 3px solid #fff;
           background-color: $main-color;
+          width: 20px;
+          height: 20px;
         }
       }
     }
