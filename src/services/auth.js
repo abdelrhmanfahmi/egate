@@ -17,8 +17,16 @@ export default {
   checkRegisterForm(type){
     return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`)
   },
-  checkProfileForm(type){
-    return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-info`)
+  checkProfileForm(buyerUserData){
+    let myType = ''
+    if(buyerUserData.type == 'buyer'){
+      myType = 'b2b'
+    }else if(buyerUserData.type == 'supplier' && buyerUserData.is_buyer == 1 ){
+      myType = 'b2b'
+    }else{
+      myType = 'b2c'
+    }
+    return globalAxios.get(`lists/formControls/user-${myType}-info`)
   },
   getAllCountires() {
     return globalAxios.get("lists/countries");
@@ -49,11 +57,19 @@ export default {
   getUserInfo() {
     return globalAxios.get("members/profile/info");
   },
-  storeInfo(type,payload) {
+  storeInfo(buyerUserData,payload) {
+    let myType = ''
+    if(buyerUserData.type == 'buyer'){
+      myType = 'b2b'
+    }else if(buyerUserData.type == 'supplier' && buyerUserData.is_buyer == 1 ){
+      myType = 'b2b'
+    }else{
+      myType = 'b2c'
+    }
     return globalAxios.post("members/profile/info", payload ,
     {
       params:{
-        form_control:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-info`
+        form_control:`user-${myType}-info`
       }
     }
     );
