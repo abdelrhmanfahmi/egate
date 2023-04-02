@@ -1308,7 +1308,7 @@ export default {
 .new-wishlist-method {
   // VARIABLES
   // colours
-  $red: #dc3545;
+  $red: $main-color;
   $silver: #cccccc;
   // fireworks
   $fireworks--width: 3px;

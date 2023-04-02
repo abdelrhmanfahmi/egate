@@ -1146,7 +1146,7 @@ textarea {
 .new-wishlist-method {
   // VARIABLES
   // colours
-  $red: #dc3545;
+  $red: $main-color;
   $silver: #cccccc;
   // fireworks
   $fireworks--width: 3px;
@@ -1264,7 +1264,7 @@ textarea {
         right: 0;
         border-radius: $fireworks--border;
         height: $fireworks--height;
-        background: #dc3545;
+        background: $main-color;
       }
 
       &:after {

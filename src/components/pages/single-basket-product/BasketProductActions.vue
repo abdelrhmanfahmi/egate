@@ -129,7 +129,7 @@
                     </svg>
                     <svg class="broken-heart" xmlns="http://www.w3.org/2000/svg" width="48" height="16"
                       viewBox="5.707 17 48 16">
-                      <g fill="#dc3545">
+                      <g fill="$main-color">
                         <path class="broken-heart--left"
                           d="M29.865 32.735V18.703a4.562 4.562 0 0 0-3.567-1.476c-2.916.017-4.378 2.403-4.538 4.756-.118 1.781.227 4.006 5.672 9.737a3.544 3.544 0 0 0 2.428 1.025l-.008-.008.013-.002z" />
                         <path class="broken-heart--right"
@@ -165,7 +165,7 @@
                     </svg>
                     <svg class="broken-heart" xmlns="http://www.w3.org/2000/svg" width="48" height="16"
                       viewBox="5.707 17 48 16">
-                      <g fill="#dc3545">
+                      <g fill="$main-color">
                         <path class="broken-heart--left"
                           d="M29.865 32.735V18.703a4.562 4.562 0 0 0-3.567-1.476c-2.916.017-4.378 2.403-4.538 4.756-.118 1.781.227 4.006 5.672 9.737a3.544 3.544 0 0 0 2.428 1.025l-.008-.008.013-.002z" />
                         <path class="broken-heart--right"
@@ -202,7 +202,7 @@
                     </svg>
                     <svg class="broken-heart" xmlns="http://www.w3.org/2000/svg" width="48" height="16"
                       viewBox="5.707 17 48 16">
-                      <g fill="#dc3545">
+                      <g fill="$main-color">
                         <path class="broken-heart--left"
                           d="M29.865 32.735V18.703a4.562 4.562 0 0 0-3.567-1.476c-2.916.017-4.378 2.403-4.538 4.756-.118 1.781.227 4.006 5.672 9.737a3.544 3.544 0 0 0 2.428 1.025l-.008-.008.013-.002z" />
                         <path class="broken-heart--right"
@@ -870,7 +870,7 @@ textarea {
 .new-wishlist-method {
   // VARIABLES
   // colours
-  $red: #dc3545;
+  $red: $main-color;
   $silver: #cccccc;
   // fireworks
   $fireworks--width: 3px;
@@ -988,7 +988,7 @@ textarea {
         right: 0;
         border-radius: $fireworks--border;
         height: $fireworks--height;
-        background: #dc3545;
+        background: $main-color;
       }
 
       &:after {

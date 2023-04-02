@@ -1,43 +1,56 @@
 <template>
   <!-- dashboard page  -->
-  <div class="dashboard text-center">
+  <div class="dashboard ">
     <div class="wrapper">
-      <div class="row justify-content-center align-items-center" v-if="dashData">
-        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
+      <div
+        class="row justify-content-start align-items-center"
+        v-if="dashData"
+      >
+        <!-- <div class="large-screen col-md-3 col-sm-12 mb-2">
           <router-link to="/profile/ordersListsB2b" class="link">
             <div class="bordered">
-              <h5 class="title">{{ $t("profile.ordersLists") }}</h5>
-              <span class="icon">
-                <font-awesome-icon icon="fa-solid fa-money-bill-1" class="fa-2x" />
-              </span>
-
-              <div class="info">
-                <div class="p-3" :class="{
-                  'border-right': $i18n.locale == 'en',
-                  'border-left': $i18n.locale == 'ar',
-                }">
-                  <p class="number">{{ dashData.total_completed_orders }}</p>
-                  <h5 class="text">{{ $t("profile.orders") }}</h5>
+              <h5 class="title main-color">
+                <span><font-awesome-icon icon="fa-solid fa-cart-shopping" /></span>
+                <span class="mx-2">{{ $t("profile.shoppingCart") }}</span>
+              </h5>
+              <div class="info pt-3">
+                <div
+                  class="p-0"
+                  
+                >
+                  <p class="number text-dark">{{ cartLength }} Products</p>
                 </div>
-                <div class="p-3">
-                  <small class="number">{{ dashData.total_completed_orders_money | fixedCurrency }}</small>
-                  <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
-                  <h5 class="text mt-2">{{ currency }}</h5>
+                <div class="p-0">
+                  <span class="main-color h5">!!</span>
+                  <span class="mx-1 h5">pending orders</span>
+                  <div class="action my-3 mb-0">
+                    <div class="row align-c">
+                      <div class="col-md-4 col-sm-12">
+                        <h4>1</h4>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                        <router-link to="/cart" class="main-color">
+                          <h5><ins>{{ $t('cart.purchaseCart') }}</ins></h5>
+                        </router-link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </router-link>
-        </div>
-        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
+        </div> -->
+        
+        <div class="large-screen col-md-3 col-sm-12 mb-2">
           <router-link to="/profile/QuotationsB2b" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.totalQuotations") }}</h5>
-              <span class="icon">
+              <!-- <span class="icon">
                 <font-awesome-icon icon="fa-solid fa-list-ol" class="fa-2x" />
-              </span>
+              </span> -->
 
-              <div class="info">
-                <div class="p-3">
+              <div class="info pt-3">
+                <div class="p-0">
                   <p class="number">{{ dashData.total_completed_qoutes }}</p>
                   <h5 class="text">{{ $t("profile.quotations") }}</h5>
                 </div>
@@ -45,16 +58,19 @@
             </div>
           </router-link>
         </div>
-        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-md-3 col-sm-12 mb-2">
           <router-link to="/profile/ReturnRequests" class="link">
             <div class="bordered">
               <h5 class="title">{{ $t("profile.totalRefunds") }}</h5>
-              <span class="icon">
-                <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" class="fa-2x" />
-              </span>
+              <!-- <span class="icon">
+                <font-awesome-icon
+                  icon="fa-solid fa-arrow-rotate-left"
+                  class="fa-2x"
+                />
+              </span> -->
 
-              <div class="info">
-                <div class="p-3">
+              <div class="info pt-3">
+                <div class="p-0">
                   <p class="number">{{ dashData.total_completed_refund }}</p>
                   <h5 class="text">{{ $t("profile.returnRequests") }}</h5>
                 </div>
@@ -62,21 +78,54 @@
             </div>
           </router-link>
         </div>
-        <div class="large-screen col-lg-6 col-md-12 col-sm-12 mb-2">
+        <div class="large-screen col-md-3 col-sm-12 mb-2">
+          <router-link to="/profile/ordersListsB2b" class="link">
+            <div class="bordered">
+              <h5 class="title main-color">
+                <span><font-awesome-icon icon="fa-solid fa-cart-shopping" /></span>
+                <span class="mx-2">{{ $t("profile.totalOrders") }}</span>
+              </h5>
+              <div class="info pt-3">
+                <div
+                  class="p-0"
+                  
+                >
+                
+                  <span class="number text-dark h5">{{ dashData.total_completed_orders }}</span>
+                  <!-- <span class="text text-dark mx-2 h5">{{ $t("profile.orders") }}</span> -->
+                </div>
+                <div class="p-0">
+                  <!-- <small class="number">{{
+                    dashData.total_completed_orders_money | fixedCurrency
+                  }}</small> -->
+                  <p class="h5">
+                    <span class="main-color">!!</span>
+                    <span>pending standing orders</span>
+                  </p>
+                  <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
+                  <!-- <h5 class="text mt-2">{{ currency }}</h5> -->
+                </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
+        <div class="large-screen col-md-3 col-sm-12 mb-2">
           <router-link to="/profile/wallet" class="link">
             <div class="bordered">
-              <h5 class="title">{{ $t("profile.wallet") }}</h5>
-              <span class="icon">
+              <h5 class="title main-color">
+                <span><font-awesome-icon icon="fa-solid fa-wallet" /></span>
+                <span class="mx-2">{{ $t("profile.wallet") }}</span>
+              </h5>
+              <!-- <span class="icon">
                 <font-awesome-icon icon="fa-solid fa-wallet" class="fa-2x" />
-              </span>
+              </span> -->
 
-              <div class="info">
-                <div class="p-3">
+              <div class="info pt-3">
+                <div class="p-0">
                   <p class="number">
-                    {{ dashData.wallet | fixedCurrency }}
-
+                    {{ dashData.wallet | fixedCurrency }} {{ currency }}
                   </p>
-                  <h5 class="text">{{ currency }}</h5>
+                  <button class="bg-main py-2 px-4">Deposite</button>
                 </div>
               </div>
             </div>
@@ -84,7 +133,9 @@
         </div>
       </div>
       <div class="holder text-center mt-5" v-if="orders">
-        <table class="table table-striped table-hover table-bordered selectable">
+        <table
+          class="table table-striped table-hover table-bordered selectable"
+        >
           <thead>
             <tr>
               <th scope="col" v-for="(tab, index) in fields" :key="index">
@@ -98,46 +149,61 @@
               <td>{{ order.created_at | formatDate }}</td>
               <td>{{ order.order_supplier_items_count }}</td>
               <td>
-                <span v-if="order.total_price">{{ order.total_price | fixedCurrency }} {{ currency }}</span>
+                <span v-if="order.total_price"
+                  >{{ order.total_price | fixedCurrency }} {{ currency }}</span
+                >
                 <span v-else>-</span>
               </td>
               <td>{{ order.payment_status_lang }}</td>
               <td>{{ order.payment }}</td>
 
               <td>
-                <router-link :to="{
-                  path: '/viewOrderDetails',
-                  query: { id: `${order.id}` },
-                }" class="text-dark">
+                <router-link
+                  :to="{
+                    path: '/viewOrderDetails',
+                    query: { id: `${order.id}` },
+                  }"
+                  class="text-dark"
+                >
                   <b-button variant="outline-secondary" class="m-2">
                     {{ $t("profile.view") }}
                   </b-button>
                 </router-link>
-                <router-link v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'bank'
-                " :to="{
-  path: '/checkout-details',
-  query: {
-    order_serial: order.serial,
-    date: order.created_at,
-    total_price: order.total_price,
-    payment_type: order.payment_type,
-    payment: order.payment,
-    uuid: order.uuid,
-  },
-}" class="text-dark">
+                <router-link
+                  v-if="
+                    order.payment_status === 'Unpaid' &&
+                    order.payment_type === 'bank'
+                  "
+                  :to="{
+                    path: '/checkout-details',
+                    query: {
+                      order_serial: order.serial,
+                      date: order.created_at,
+                      total_price: order.total_price,
+                      payment_type: order.payment_type,
+                      payment: order.payment,
+                      uuid: order.uuid,
+                    },
+                  }"
+                  class="text-dark"
+                >
                   <b-button variant="outline-success" class="m-2">
                     {{ $t("profile.bankTransDocs") }}
                   </b-button>
                 </router-link>
-                <b-button id="show-btn" @click="
-  $bvModal.show('bv-modal-example');
-saveUUID(order);
-                " variant="outline-success" class="m-2" v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'visa'
-                ">
+                <b-button
+                  id="show-btn"
+                  @click="
+                    $bvModal.show('bv-modal-example');
+                    saveUUID(order);
+                  "
+                  variant="outline-success"
+                  class="m-2"
+                  v-if="
+                    order.payment_status === 'Unpaid' &&
+                    order.payment_type === 'visa'
+                  "
+                >
                   {{ $t("profile.pay") }}
                 </b-button>
               </td>
@@ -154,58 +220,105 @@ saveUUID(order);
                 <div class="methods-data">
                   <div class="methods">
                     <div class="method">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
-                          v-model="paymentFormData.payment_type" value="bank" />
-                        <label class="custom-control-label" for="paymentMethod1">
+                      <div
+                        class="custom-control custom-radio custom-control-inline"
+                      >
+                        <input
+                          type="radio"
+                          id="paymentMethod1"
+                          name="paymentMethod"
+                          class="custom-control-input"
+                          v-model="paymentFormData.payment_type"
+                          value="bank"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="paymentMethod1"
+                        >
                           {{ $t("payment.bankTransfer") }}
                         </label>
                         <span>{{ $t("payment.paymentByBank") }}</span>
                       </div>
                     </div>
                     <div class="method">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
-                          v-model="paymentFormData.payment_type" value="cach" />
-                        <label class="custom-control-label" for="paymentMethod2">
+                      <div
+                        class="custom-control custom-radio custom-control-inline"
+                      >
+                        <input
+                          type="radio"
+                          id="paymentMethod2"
+                          name="paymentMethod"
+                          class="custom-control-input"
+                          v-model="paymentFormData.payment_type"
+                          value="cach"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="paymentMethod2"
+                        >
                           {{ $t("payment.paymentWhenReceiving") }}
                         </label>
                         <span>{{ $t("payment.requestReceipt") }}</span>
                       </div>
                     </div>
-                    <div class="
-                        method
-                        d-flex
-                        justify-content-between
-                        align-content-center
-                      ">
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
-                          v-model="paymentFormData.payment_type" value="visa" />
-                        <label class="custom-control-label" for="paymentMethod3">
+                    <div
+                      class="method d-flex justify-content-between align-content-center"
+                    >
+                      <div
+                        class="custom-control custom-radio custom-control-inline"
+                      >
+                        <input
+                          type="radio"
+                          id="paymentMethod3"
+                          name="paymentMethod"
+                          class="custom-control-input"
+                          v-model="paymentFormData.payment_type"
+                          value="visa"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="paymentMethod3"
+                        >
                           {{ $t("payment.onlinePayment") }}
                         </label>
                         <div class="online-media">
-                          <img src="@/assets/images/cart.png" alt="" srcset="" />
+                          <img
+                            src="@/assets/images/cart.png"
+                            alt=""
+                            srcset=""
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
+                  <div
+                    class="error text-center"
+                    v-for="(error, index) in errors.payment_type"
+                    :key="index"
+                  >
                     {{ error }}
                   </div>
                 </div>
               </div>
             </div>
 
-            <b-button :disabled="paymentFormData.payment_type == null" id="show-btn" class="mt-3"
-              variant="outline-success" block @click="rePay">
+            <b-button
+              :disabled="paymentFormData.payment_type == null"
+              id="show-btn"
+              class="mt-3"
+              variant="outline-success"
+              block
+              @click="rePay"
+            >
               {{ $t("profile.pay") }}
             </b-button>
           </b-modal>
         </div>
       </div>
-      <div class="spinner d-flex justify-content-center align-items-center" v-else>
+      <div
+        class="spinner d-flex justify-content-center align-items-center"
+        v-else
+      >
         <spinner />
       </div>
     </div>
@@ -283,8 +396,8 @@ export default {
   },
   methods: {
     /**
-     * get Dashboard Data function 
-     * @vuese 
+     * get Dashboard Data function
+     * @vuese
      */
     getDashboardData() {
       profile
@@ -301,8 +414,8 @@ export default {
         });
     },
     /**
-     * rePay function 
-     * @vuese 
+     * rePay function
+     * @vuese
      */
     rePay() {
       profile
@@ -344,40 +457,47 @@ export default {
   mounted() {
     this.getDashboardData();
   },
+  computed:{
+    cartLength(){
+      return this.$store.state.cart.cartLength
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .dashboard {
   .bordered {
-    border: 1px solid #ccc;
-    padding: 30px 15px 15px;
-    position: relative;
+    background: #ffffff;
+    box-shadow: 0px 1.67091px 8.35456px rgba(0, 0, 0, 0.25);
+    border-radius: 6.68365px;
+    padding:30px 20px;
+    //position: relative;
 
-    .icon {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
+    //.icon {
+      //position: absolute;
+      //top: 5px;
+      //right: 5px;
+    //}
 
     .info {
-      padding: 20px;
+      //padding: 20px;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
 
-      @media (min-width: 1200px) and (max-width: 1800px) {
+      //@media (min-width: 1200px) and (max-width: 1800px) {
         // display: block;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
+        //display: flex;
+        ///justify-content: center;
+        //align-items: center;
+        //flex-direction: row;
 
-        .border-right {
-          border: none !important;
-        }
-      }
+        //.border-right {
+          //border: none !important;
+        //}
+      //}
     }
 
     .number {
@@ -403,7 +523,7 @@ export default {
 
 @media screen and (max-width: 767px) {
   table {
-    text-align: center;
+    //text-align: center;
 
     tbody {
       tr {
@@ -449,7 +569,7 @@ export default {
 
     .info {
       border-bottom: 1px dashed #c5c6c6;
-      padding: 1rem 0.3rem;
+      //padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
@@ -505,30 +625,30 @@ export default {
   justify-content: center !important;
 }
 
-@media (max-width:991.98px){
-  .large-screen{
-    max-width:100%
+@media (max-width: 991.98px) {
+  .large-screen {
+    max-width: 100%;
   }
 }
-@media (min-width:992px) and(max-width:1199px){
-  .large-screen{
-    max-width:50%
+@media (min-width: 992px) and(max-width:1199px) {
+  .large-screen {
+    max-width: 50%;
   }
 }
-@media (min-width:1200px) and (max-width:1399.99px){
-  .large-screen{
-    max-width:50%
+@media (min-width: 1200px) and (max-width: 1399.99px) {
+  .large-screen {
+    max-width: 50%;
   }
 }
 
-@media(min-width:1400px) and (max-width:1699.98px){
-  .large-screen{
-    max-width:33%
+@media (min-width: 1400px) and (max-width: 1699.98px) {
+  .large-screen {
+    max-width: 33%;
   }
 }
-@media(min-width:1700px){
-  .large-screen{
-    max-width:25%
+@media (min-width: 1700px) {
+  .large-screen {
+    max-width: 25%;
   }
 }
 </style>

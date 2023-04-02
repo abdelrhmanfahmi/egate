@@ -52,12 +52,12 @@ export default {
 <style lang="scss" scoped>
 
 .slider-holder {
-    height: 50vh;
+    min-height: 500px;
     width: 100%;
     margin-bottom: 10px;
 
     img {
-        height: 50vh;
+        height: 500px;
         width: 100%;
     }
 }

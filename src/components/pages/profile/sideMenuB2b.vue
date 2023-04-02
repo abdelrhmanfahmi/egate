@@ -1,15 +1,20 @@
 <template>
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
-    <h5 class="my-3" v-if="buyerUserData.company_name_en">
-      {{ buyerUserData.company_name_en }}
-    </h5>
-    <h5 class="my-3" v-else-if="buyerUserData.company_name_ar">
-      {{ buyerUserData.company_name_ar }}
-    </h5>
-    <h5 class="my-3" v-else>
-      {{ buyerUserData.company_name_en }}
-    </h5>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <img :src="buyerUserData.image_path" alt="" srcset="">
+      <h5 class="my-3" v-if="buyerUserData.company_name_en">
+        {{ buyerUserData.company_name_en }}
+      </h5>
+      <h5 class="my-3" v-else-if="buyerUserData.company_name_ar">
+        {{ buyerUserData.company_name_ar }}
+      </h5>
+      <h5 class="my-3" v-else>
+        {{ buyerUserData.company_name_en }}
+      </h5>
+    </div>
+
+    
 
     <div
       class="my-2"
@@ -37,10 +42,10 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" size="2x" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.orders &&
@@ -49,7 +54,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.returns &&
@@ -58,7 +63,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.client_messages &&
@@ -67,7 +72,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.rfqs &&
@@ -92,7 +97,7 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.orders &&
@@ -101,7 +106,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.returns &&
@@ -110,7 +115,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.client_messages &&
@@ -119,7 +124,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               (userBades &&
                 userBades.rfqs &&
@@ -144,8 +149,8 @@ export default {
       buyerLinks: [
         {
           to: "/profile/categories",
-          name: this.$t("profile.shop"),
-          iconName: "shop",
+          name: this.$t("profile.categories"),
+          iconName: "border-all",
         },
         {
           to: "/profile/dashboard",
@@ -348,12 +353,18 @@ export default {
       *  component style
     */
 .profile-menu {
-  padding: 60px 0px 60px 25px;
-  background-color: #303030;
+  //padding: 60px 0px 60px 25px;
+  //background-color: #303030;
+  background-color: #1F1F1F;
   color: #fff;
+  font-size: 16px;
   ul {
     li {
-      padding: 10px 0;
+      padding: 10px 20px;
+      border-bottom: 2px solid #4D4D4D;
+      &:first-of-type{
+        border-top: 2px solid #4D4D4D;
+      }
       .router-link-exact-active {
         color: $main-color;
       }
@@ -372,7 +383,7 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    padding: 60px 60px 60px 0px;
+    //padding: 60px 60px 60px 0px;
     text-align: right;
   }
 }

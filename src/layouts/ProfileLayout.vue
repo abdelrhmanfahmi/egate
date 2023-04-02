@@ -1,7 +1,7 @@
 <template>
     <div class="profile-layout">
         <div id="allTheNav">
-            <nav id="navigator" class="navbar" :class="{ navbaropen: opened }">
+            <nav id="navigator" class="navbar" :class="{ navbaropen: opened }" title="open menu">
                 <span class="open-slide">
                     <a @click.prevent="opened = !opened">
                         <div>
@@ -12,11 +12,14 @@
                     </a>
                 </span>
                 <ul class="navbar-nav">
-                    top nav
+                    <!-- top nav -->
                 </ul>
             </nav>
             <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
-                <span @click.prevent="opened = !opened">hide menu</span>
+                <div @click.prevent="opened = !opened" class="d-flex align-items-center toggle-menu">
+                    <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
+                    <span class="mx-2 h4">Hide Menu</span>
+                </div>
                 <!-- side menu if user is b2c  -->
                 <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
                 <!-- side menu if user is b2b (buyer)  -->
@@ -176,7 +179,7 @@ export default {
             scTimer: 0,
             scY: 0,
             visible: false,
-            opened: false
+            opened: true
         };
     },
     mounted() {
@@ -237,5 +240,9 @@ export default {
   min-height: 70vh;
 }
 @import '../assets/scss/new-design-files/_navbar.scss';
+.toggle-menu{
+    cursor:pointer;
+    padding: 20px;
+}
 </style>
   

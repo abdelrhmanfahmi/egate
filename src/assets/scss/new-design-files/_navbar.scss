@@ -50,16 +50,17 @@
 
 
 .navbar {
-    background-color: #3b5998;
+    background-color: #F0F0F0;
     overflow: hidden;
     height: 63px;
 }
 
 .navbaropen {
-    background-color: #3b5998;
+    background-color: #F0F0F0;
     overflow: hidden;
     height: 63px;
     margin-left: 300px;
+    width: 100%;
 }
 
 .navbar a {
@@ -89,26 +90,27 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #1F1F1F;
     opacity: 0.9;
     overflow-x: hidden;
     // padding-top: 60px;
     padding-top: 15px;
     transition: 0.3s;
+    color:#fff
 }
 
 .sidenavopen {
     height: 100%;
     width: 300px;
     position: fixed;
-    z-index: 1;
+    z-index: 9999;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #1F1F1F;
     opacity: 0.9;
     overflow-x: hidden;
     // padding-top: 60px;
-    padding: 15px;
+    //padding: 15px;
     transition: 0.3s;
 }
 

@@ -2,9 +2,12 @@
   <div class="profile-menu">
     <!-- side menu for b2c user  -->
     <h2>{{ $t("profile.myProfile") }}</h2>
-    <h5 class="my-3">
-      {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
-    </h5>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <img :src="buyerUserData.image_path" alt="" srcset="">
+      <h5 class="my-3">
+        {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
+      </h5>
+    </div>
 
     <div
       class="my-2"
@@ -36,7 +39,7 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.orders &&
@@ -45,7 +48,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.returns &&
@@ -54,7 +57,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.client_messages &&
@@ -63,7 +66,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.rfqs &&
@@ -88,7 +91,7 @@
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.orders &&
@@ -97,7 +100,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.returns &&
@@ -106,7 +109,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.client_messages &&
@@ -115,7 +118,7 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.rfqs &&
@@ -141,7 +144,7 @@ export default {
         {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
-          iconName: "shop",
+          iconName: "list",
         },
         {
           to: "/profile/dashboard",
@@ -337,13 +340,18 @@ export default {
       *  component style
     */
 .profile-menu {
-  padding: 60px 0px 60px 25px;
-  background-color: #303030;
+  //padding: 60px 0px 60px 25px;
+  background-color: #1F1F1F;
   color: #fff;
 
   ul {
     li {
-      padding: 10px 0;
+      padding: 10px 20px;
+      border-bottom: 2px solid #4D4D4D;
+      font-size: 16px;
+      &:first-of-type{
+        border-top: 2px solid #4D4D4D;
+      }
 
       .router-link-exact-active {
         color: $main-color;
@@ -365,7 +373,7 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    padding: 60px 60px 60px 0px;
+    //padding: 60px 60px 60px 0px;
     text-align: right;
 
     ul {
