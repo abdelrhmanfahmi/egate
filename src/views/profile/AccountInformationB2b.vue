@@ -507,7 +507,7 @@ export default {
 
     checkProfileForm() {
       auth
-        .checkProfileForm(this.buyerUserData.type)
+        .checkProfileForm(this.buyerUserData)
         .then((res) => {
           let formControl = res.data.items;
           formControl.map((element) => {
@@ -568,7 +568,7 @@ export default {
         currency_id: this.form.currency_id,
       };
       auth
-        .storeInfo(this.buyerUserData.type, payload)
+        .storeInfo(this.buyerUserData, payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};
