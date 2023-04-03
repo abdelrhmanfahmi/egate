@@ -86,8 +86,13 @@ export default {
       },
     });
   },
-  getFirstShippingFees(data) {
-    return globalAxios.get(`shipping/cart-shipping-fee?address_uuid=${data}`);
+  getFirstShippingFees(data , country) {
+    return globalAxios.get(`shipping/cart-shipping-fee`, {
+      params:{
+        address_uuid: data,
+        country_id:country
+      }
+    });
   },
   getGuestFirstShippingFees(data) {
     return globalAxios.get(`shipping/cart-shipping-fee`, {
