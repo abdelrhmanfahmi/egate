@@ -9,11 +9,7 @@
         class="mb-3 d-flex justify-content-end"
         v-if="checkedOrder && checkedOrder.length > 0"
       >
-        <b-button
-          variant="outline-success"
-          class="mx-2"
-          @click="exportSelectedOrders"
-        >
+        <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
           {{ $t("singleProduct.exportSelectedOrders") }}
           <font-awesome-icon icon="fa-solid fa-arrow-up" />
         </b-button>
@@ -53,11 +49,20 @@
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td>
-              <span v-if="order.total_price"
-                >{{ order.total_price | fixedCurrency }} {{ currency }}</span
+              <span v-if="order.total_price" class="main-color"
+                ><b>{{ order.total_price | fixedCurrency }} {{ currency }}</b></span
               >
             </td>
-            <td>{{ order.payment_status_lang }}</td>
+            <td>
+              <span
+                :class="{
+                  'text-success':
+                    order.payment_status_lang == 'Paid' ||
+                    order.payment_status_lang == 'تم الدفع',
+                }"
+                >{{ order.payment_status_lang }}</span
+              >
+            </td>
             <td>
               <span>{{ order.payment }}</span>
               <span
@@ -86,10 +91,7 @@
                 </b-button>
               </router-link>
               <router-link
-                v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'bank'
-                "
+                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'bank'"
                 :to="{
                   path: '/checkout-details',
                   query: {
@@ -115,10 +117,7 @@
                 "
                 variant="outline-success"
                 class="m-2"
-                v-if="
-                  order.payment_status === 'Unpaid' &&
-                  order.payment_type === 'visa'
-                "
+                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'"
               >
                 {{ $t("profile.pay") }}
               </b-button>
@@ -126,7 +125,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center align-items-center mt-5">
+      <div class="d-flex justify-content-start align-items-center mt-5">
         <!-- pagination for orders  -->
         <Paginate
           v-if="orders"
@@ -147,9 +146,7 @@
               <div class="methods-data">
                 <div class="methods">
                   <div class="method">
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
+                    <div class="custom-control custom-radio custom-control-inline">
                       <input
                         type="radio"
                         id="paymentMethod1"
@@ -165,9 +162,7 @@
                     </div>
                   </div>
                   <div class="method">
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
+                    <div class="custom-control custom-radio custom-control-inline">
                       <input
                         type="radio"
                         id="paymentMethod2"
@@ -182,12 +177,8 @@
                       <span>{{ $t("payment.requestReceipt") }}</span>
                     </div>
                   </div>
-                  <div
-                    class="method d-flex justify-content-between align-content-center"
-                  >
-                    <div
-                      class="custom-control custom-radio custom-control-inline"
-                    >
+                  <div class="method d-flex justify-content-between align-content-center">
+                    <div class="custom-control custom-radio custom-control-inline">
                       <input
                         type="radio"
                         id="paymentMethod3"
@@ -244,10 +235,7 @@
       </div>
     </div>
     <!-- if loading when getting data  -->
-    <div
-      class="spinner d-flex justify-content-center align-items-center"
-      v-else
-    >
+    <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
   </div>
@@ -336,8 +324,7 @@ export default {
 
           this.total = resp.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
-            resp.data.items.orders.meta.total /
-              resp.data.items.orders.meta.per_page
+            resp.data.items.orders.meta.total / resp.data.items.orders.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.orders.meta.total;
@@ -446,10 +433,10 @@ export default {
 
           let url = res.data.items.url;
           let extension = res.data.items.url.split(".").pop();
-          let label = 'Orders-File';
+          let label = "Orders-File";
 
-          this.downloadFile(url , extension , label);
-          this.checkedOrder = []
+          this.downloadFile(url, extension, label);
+          this.checkedOrder = [];
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -484,9 +471,7 @@ export default {
   computed: {
     checkAll: {
       get: function () {
-        return this.orders
-          ? this.checkedOrder.length == this.orders.length
-          : false;
+        return this.orders ? this.checkedOrder.length == this.orders.length : false;
       },
       set: function (value) {
         var checkedOrder = [];

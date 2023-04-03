@@ -22,35 +22,27 @@
         </nav>
       </div> -->
 
-      <div
-      class="navigation d-none d-lg-flex justify-content-start align-items-center "
-    >
-      <!-- navigation -->
-      <nav aria-label="breadcrumb " v-if="productInfo">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <router-link to="/">
-              {{ $t("items.home") }}
-            </router-link>
-          </li>
-          <li class="breadcrumb-item">
-            <router-link to="/" >
-              Category
-            </router-link>
-          </li>
-          <li class="breadcrumb-item">
-            <router-link to="/" >
-              Sub category
-            </router-link>
-          </li>
-          <li class="breadcrumb-item">
-            <router-link to="/" class="main-color">
-              Sub sub-category
-            </router-link>
-          </li>
-        </ol>
-      </nav>
-    </div>
+      <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
+        <!-- navigation -->
+        <nav aria-label="breadcrumb " v-if="productInfo">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <router-link to="/">
+                {{ $t("items.home") }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/"> Category </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/"> Sub category </router-link>
+            </li>
+            <li class="breadcrumb-item">
+              <router-link to="/" class="main-color"> Sub sub-category </router-link>
+            </li>
+          </ol>
+        </nav>
+      </div>
 
       <div class="progressSlider">
         <NewProgressSlider />
@@ -70,11 +62,7 @@
             class="item-media mt-3 m-lg-0 slider"
             v-if="productInfo.image_path !== null"
           >
-            <img
-              :src="productInfo.image_path"
-              alt="item-name"
-              class="img-fluid"
-            />
+            <img :src="productInfo.image_path" alt="item-name" class="img-fluid" />
           </b-col>
 
           <b-col cols="12" lg="6" xl="5" class="item-content product-info">
@@ -103,11 +91,7 @@
                 &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
               >
             </div>
-            <p
-              v-if="
-                productInfo.estimate_price_from && productInfo.estimate_price_to
-              "
-            >
+            <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to">
               {{ $t("supplier.EstimatedPrice") }} :
               {{ productInfo.estimate_price_from }} -
               {{ productInfo.estimate_price_to }}
@@ -134,7 +118,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-6 col-sm-12" v-if="productInfo.variants">
             <div class="customize">
               <div class="customize-selection">
                 <!-- loop for sub-category variant that comes dynamically from backend  -->
@@ -207,9 +191,7 @@
                 <div class="row">
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="country">{{
-                        $t("profile.countryOrigin")
-                      }}</label>
+                      <label for="country">{{ $t("profile.countryOrigin") }}</label>
 
                       <b-form-select
                         v-model="sortTypeCountry"
@@ -233,9 +215,7 @@
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="weight">{{
-                        $t("singleProduct.weight")
-                      }}</label>
+                      <label for="weight">{{ $t("singleProduct.weight") }}</label>
 
                       <b-form-select
                         v-model="sortTypeWeight"
@@ -306,16 +286,8 @@
       <b-row v-if="loading">
         <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
           <b-card>
-            <b-skeleton
-              animation="fade"
-              width="80%"
-              class="border-none"
-            ></b-skeleton>
-            <b-skeleton
-              animation="fade"
-              width="95%"
-              class="border-none"
-            ></b-skeleton>
+            <b-skeleton animation="fade" width="80%" class="border-none"></b-skeleton>
+            <b-skeleton animation="fade" width="95%" class="border-none"></b-skeleton>
           </b-card>
         </b-col>
       </b-row>
@@ -404,8 +376,9 @@
                         :to="{
                           path: '/basketOfferDetails',
                           query: {
-                            id: product.basket_promotions_running_by_type
-                              .basket_promotion_id,
+                            id:
+                              product.basket_promotions_running_by_type
+                                .basket_promotion_id,
                           },
                         }"
                         >{{ $t("profile.basketDeals") }}</router-link
@@ -424,8 +397,7 @@
                                                             .promotion.buy_x
                                                         } 
                                                         ${$t('profile.get')} ${
-                              product.buy_get_promotion_running_by_type
-                                .promotion.get_y
+                              product.buy_get_promotion_running_by_type.promotion.get_y
                             }`,
                           },
                         }"
@@ -441,8 +413,7 @@
                 </router-link>
                 <router-link
                   v-else-if="
-                    product.image_path == null &&
-                    product.current_main_image_path
+                    product.image_path == null && product.current_main_image_path
                   "
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
@@ -459,12 +430,7 @@
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
                   <div class="logo-holder">
-                    <img
-                      :src="logoEnv"
-                      v-if="logoEnv"
-                      class="product-image"
-                      alt="logo"
-                    />
+                    <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo" />
                     <img
                       src="@/assets/images/logo.png"
                       v-else
@@ -476,10 +442,10 @@
               </td>
               <td>
                 <router-link
-                  class="link font-weight-bold "
+                  class="link font-weight-bold"
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
-                {{ product.product.title }}
+                  {{ product.product.title }}
                 </router-link>
               </td>
 
@@ -516,8 +482,7 @@
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
                     buyerUserData.type === 'b2b' ||
-                    (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true)
+                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
                   "
                 >
                   <router-link
@@ -525,23 +490,18 @@
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
                     <!-- show price when product not rfq only  -->
-                    <div
-                      v-if="product.product_details_by_type.add_type !== 'rfq'"
-                    >
+                    <div v-if="product.product_details_by_type.add_type !== 'rfq'">
                       <p class="m-0 white-space-pre">
                         {{
-                          product.product_details_by_type.customer_price
-                            | fixedCurrency
+                          product.product_details_by_type.customer_price | fixedCurrency
                         }}
                         {{ currency }}
                       </p>
                       <p
                         class="price-after m-0 white-space-pre"
                         v-if="
-                          product.product_details_by_type
-                            .price_before_discount &&
-                          product.product_details_by_type
-                            .price_before_discount >
+                          product.product_details_by_type.price_before_discount &&
+                          product.product_details_by_type.price_before_discount >
                             product.product_details_by_type.customer_price
                         "
                       >
@@ -558,8 +518,7 @@
                 <div
                   class=""
                   v-else-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
                       buyerUserData.type === 'buyer' &&
                       buyerUserData.profile_percentage !== 100) ||
@@ -574,31 +533,23 @@
                 >
                   -
                 </div>
-                <div
-                  class=""
-                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
-                >
+                <div class="" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
                   <router-link
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
-                    <div
-                      v-if="product.product_details_by_type.add_type !== 'rfq'"
-                    >
+                    <div v-if="product.product_details_by_type.add_type !== 'rfq'">
                       <p class="m-0">
                         {{
-                          product.product_details_by_type.customer_price
-                            | fixedCurrency
+                          product.product_details_by_type.customer_price | fixedCurrency
                         }}
                         {{ currency }}
                       </p>
                       <p
                         class="price-after m-0"
                         v-if="
-                          product.product_details_by_type
-                            .price_before_discount &&
-                          product.product_details_by_type
-                            .price_before_discount >
+                          product.product_details_by_type.price_before_discount &&
+                          product.product_details_by_type.price_before_discount >
                             product.product_details_by_type.customer_price
                         "
                       >
@@ -689,7 +640,6 @@
                       v-else
                     >
                       <font-awesome-icon icon="fa-regular fa-star" size="xl" />
-                      
                     </a>
                   </div>
                   <div
@@ -710,8 +660,7 @@
                           buyerUserData.profile_percentage == 100) ||
                         (buyerUserData.type === 'supplier' &&
                           buyerUserData.profile_percentage == 100) ||
-                        (buyerUserData.type === 'b2c' &&
-                          buyerUserData.is_verified)
+                        (buyerUserData.type === 'b2c' && buyerUserData.is_verified)
                       "
                     >
                       <div
@@ -746,9 +695,7 @@
                       v-b-tooltip.hover
                       :title="$t('items.standingOrders')"
                     >
-                      <font-awesome-icon
-                        icon="fa-sharp fa-solid fa-bag-shopping"
-                      />
+                      <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
                     </button>
                   </div>
 
@@ -757,8 +704,7 @@
                 <div
                   class="d-flex justify-content-center"
                   v-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
                       buyerUserData.type === 'buyer' &&
                       buyerUserData.profile_percentage !== 100) ||
@@ -795,10 +741,7 @@
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
-                  <div
-                    class=""
-                    v-if="buyerUserData && buyerUserData.type === 'b2c'"
-                  >
+                  <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
                       :title="`product in favourite`"
@@ -855,11 +798,7 @@
                 >{{ $t("singleProduct.nameInput") }}
                 <span class="text-danger">*</span></label
               >
-              <input
-                type="text"
-                class="form-control"
-                v-model="requestData.name"
-              />
+              <input type="text" class="form-control" v-model="requestData.name" />
               <div
                 class="text-danger"
                 v-for="(error, index) in errors.qoute_name"
@@ -892,10 +831,7 @@
                 >{{ $t("singleProduct.reviewInput") }}
                 <span class="text-danger">*</span></label
               >
-              <textarea
-                class="form-control"
-                v-model="requestData.comment"
-              ></textarea>
+              <textarea class="form-control" v-model="requestData.comment"></textarea>
               <div
                 class="text-danger"
                 v-for="(error, index) in errors.comment"
@@ -1042,7 +978,7 @@ export default {
     VariantsCounter,
     rfqIcon,
     StandingOrders,
-    NewProgressSlider
+    NewProgressSlider,
   },
   methods: {
     /**
@@ -1139,12 +1075,14 @@ export default {
      */
     changeVariance() {
       let myVariants = [];
-      for (let index = 0; index < this.productInfo.variants.length; index++) {
-        const element = this.productInfo.variants[index].selectedVariance;
-        let myNewData = `category_options[${index}]=${element}`;
+      if (this.productInfo?.variants) {
+        for (let index = 0; index < this.productInfo.variants.length; index++) {
+          const element = this.productInfo.variants[index].selectedVariance;
+          let myNewData = `category_options[${index}]=${element}`;
 
-        if (!myNewData.includes("null")) {
-          myVariants.push(myNewData);
+          if (!myNewData.includes("null")) {
+            myVariants.push(myNewData);
+          }
         }
       }
       this.selectedVariants = myVariants.join("&");
@@ -1205,8 +1143,10 @@ export default {
         .then((res) => {
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
-          for (let index = 0; index < variantData.length; index++) {
-            this.productInfo.variants[index].selectedVariance = null;
+          if (this.productInfo?.variants) {
+            for (let index = 0; index < variantData.length; index++) {
+              this.productInfo.variants[index].selectedVariance = null;
+            }
           }
         })
         .catch((err) => {
@@ -1641,6 +1581,6 @@ export default {
 }
 .beside-search {
   min-width: 200px !important;
-  display: inline-block ;
+  display: inline-block;
 }
 </style>

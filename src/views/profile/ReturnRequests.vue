@@ -44,7 +44,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center align-items-center mt-5">
+      <div class="d-flex justify-content-start align-items-center mt-5">
         <Paginate
           v-if="orders"
           :total-pages="totalPages"
@@ -54,10 +54,7 @@
         />
       </div>
     </div>
-    <div
-      class="spinner d-flex justify-content-center align-items-center"
-      v-else
-    >
+    <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
   </div>
@@ -151,8 +148,7 @@ export default {
 
             this.total = resp.data.items.items.meta.total;
             this.totalPages = Math.ceil(
-              resp.data.items.items.meta.total /
-                resp.data.items.items.meta.per_page
+              resp.data.items.items.meta.total / resp.data.items.items.meta.per_page
             ); // Calculate total records
 
             this.totalRecords = resp.data.items.items.meta.total;
@@ -160,8 +156,8 @@ export default {
           .catch((err) => {
             console.log(err);
           });
-      } 
-       if (this.buyerUserData.type === "supplier") {
+      }
+      if (this.buyerUserData.type === "supplier") {
         profile
           .returneSupplierOrders(this.page)
           .then((resp) => {
@@ -169,8 +165,7 @@ export default {
 
             this.total = resp.data.items.items.meta.total;
             this.totalPages = Math.ceil(
-              resp.data.items.items.meta.total /
-                resp.data.items.items.meta.per_page
+              resp.data.items.items.meta.total / resp.data.items.items.meta.per_page
             ); // Calculate total records
 
             this.totalRecords = resp.data.items.items.meta.total;
@@ -283,8 +278,8 @@ export default {
 @media screen and (max-width: 767px) {
   table {
     text-align: center;
-    tbody{
-      tr{
+    tbody {
+      tr {
         margin: 30px 0;
       }
     }
@@ -305,11 +300,11 @@ export default {
     font-size: 0.8rem;
     border-top: none !important;
   }
-  .table-striped tbody tr:nth-of-type(odd){
+  .table-striped tbody tr:nth-of-type(odd) {
     margin: 30px 0;
     display: block;
   }
-  .actions{
+  .actions {
     justify-content: center;
     align-items: center;
   }
