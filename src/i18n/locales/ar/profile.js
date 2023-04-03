@@ -295,6 +295,7 @@ export default {
   get:"و أحصل على ",
   buyXgetYOffer:'أشترى منتج و أحصل على اخر هدية',
   basketDeals:'عروض السله',
+  basketDeal:'عرض السله',
   dailyOffers:'العرووض اليومية',
   monthlyOffers:'العروض الشهرية',
   withdraw:'سحب',
