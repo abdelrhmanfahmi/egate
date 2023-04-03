@@ -31,11 +31,7 @@
             class="item-media mt-3 m-lg-0 slider"
             v-if="productInfo.image_path !== null"
           >
-            <img
-              :src="productInfo.image_path"
-              alt="item-name"
-              class="img-fluid"
-            />
+            <img :src="productInfo.image_path" alt="item-name" class="img-fluid" />
           </b-col>
 
           <b-col cols="12" lg="6" xl="5" class="item-content product-info">
@@ -64,11 +60,7 @@
                 &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
               >
             </div>
-            <p
-              v-if="
-                productInfo.estimate_price_from && productInfo.estimate_price_to
-              "
-            >
+            <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to">
               {{ $t("supplier.EstimatedPrice") }} :
               {{ productInfo.estimate_price_from }} -
               {{ productInfo.estimate_price_to }}
@@ -147,9 +139,7 @@
                 <div class="row">
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="country">{{
-                        $t("profile.countryOrigin")
-                      }}</label>
+                      <label for="country">{{ $t("profile.countryOrigin") }}</label>
 
                       <b-form-select
                         v-model="sortTypeCountry"
@@ -173,9 +163,7 @@
                   </div>
                   <div class="col-md-4 col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
-                      <label for="weight">{{
-                        $t("singleProduct.weight")
-                      }}</label>
+                      <label for="weight">{{ $t("singleProduct.weight") }}</label>
 
                       <b-form-select
                         v-model="sortTypeWeight"
@@ -246,16 +234,8 @@
       <b-row v-if="loading">
         <b-col class="mb-2 mx-auto" sm="12" v-for="x in 4" :key="x">
           <b-card>
-            <b-skeleton
-              animation="fade"
-              width="80%"
-              class="border-none"
-            ></b-skeleton>
-            <b-skeleton
-              animation="fade"
-              width="95%"
-              class="border-none"
-            ></b-skeleton>
+            <b-skeleton animation="fade" width="80%" class="border-none"></b-skeleton>
+            <b-skeleton animation="fade" width="95%" class="border-none"></b-skeleton>
           </b-card>
         </b-col>
       </b-row>
@@ -291,12 +271,13 @@
                     :to="{
                       path: '/basketOfferDetails',
                       query: {
-                        id: product.basket_promotions_running_by_type
-                          .basket_promotion_id,
+                        id: product.basket_promotions_running_by_type.basket_promotion_id,
                       },
                     }"
-                    >{{ $t("profile.basketDeals") }}</router-link
                   >
+                    <!-- {{ $t("profile.basketDeals") }} -->
+                    {{ product.basket_promotions_running_by_type.promotion.title }}
+                  </router-link>
                 </h6>
                 <h6 v-if="product.buy_get_promotion_running_by_type">
                   <router-link
@@ -311,16 +292,17 @@
                                                             .promotion.buy_x
                                                         } 
                                                         ${$t('profile.get')} ${
-                          product.buy_get_promotion_running_by_type.promotion
-                            .get_y
+                          product.buy_get_promotion_running_by_type.promotion.get_y
                         }`,
                       },
                     }"
                     >{{
                       `${$t("profile.buy")} 
                       ${product.buy_get_promotion_running_by_type.promotion.buy_x}
-                     ${$t('profile.get')} ${product.buy_get_promotion_running_by_type.promotion
-                      .get_y} ` }}</router-link
+                     ${$t("profile.get")} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } `
+                    }}</router-link
                   >
                 </h6>
               </td>
@@ -349,8 +331,7 @@
                 </router-link>
                 <router-link
                   v-else-if="
-                    product.image_path == null &&
-                    product.current_main_image_path
+                    product.image_path == null && product.current_main_image_path
                   "
                   class="link"
                   :to="{ path: '/details', query: { id: product.id } }"
@@ -367,12 +348,7 @@
                   :to="{ path: '/details', query: { id: product.id } }"
                 >
                   <div class="logo-holder">
-                    <img
-                      :src="logoEnv"
-                      v-if="logoEnv"
-                      class="product-image"
-                      alt="logo"
-                    />
+                    <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo" />
                     <img
                       src="@/assets/images/logo.png"
                       v-else
@@ -409,8 +385,7 @@
                       buyerUserData.profile_percentage == 100 &&
                       buyerUserData.type === 'buyer') ||
                     buyerUserData.type === 'b2b' ||
-                    (buyerUserData.type === 'supplier' &&
-                      buyerUserData.is_buyer == true)
+                    (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
                   "
                 >
                   <router-link
@@ -418,23 +393,18 @@
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
                     <!-- show price when product not rfq only  -->
-                    <div
-                      v-if="product.product_details_by_type.add_type !== 'rfq'"
-                    >
+                    <div v-if="product.product_details_by_type.add_type !== 'rfq'">
                       <p class="m-0 white-space-pre">
                         {{
-                          product.product_details_by_type.customer_price
-                            | fixedCurrency
+                          product.product_details_by_type.customer_price | fixedCurrency
                         }}
                         {{ currency }}
                       </p>
                       <p
                         class="price-after m-0 white-space-pre"
                         v-if="
-                          product.product_details_by_type
-                            .price_before_discount &&
-                          product.product_details_by_type
-                            .price_before_discount >
+                          product.product_details_by_type.price_before_discount &&
+                          product.product_details_by_type.price_before_discount >
                             product.product_details_by_type.customer_price
                         "
                       >
@@ -451,8 +421,7 @@
                 <div
                   class=""
                   v-else-if="
-                    (buyerUserData &&
-                      buyerUserData.profile_percentage !== 100) ||
+                    (buyerUserData && buyerUserData.profile_percentage !== 100) ||
                     (buyerUserData &&
                       buyerUserData.type === 'buyer' &&
                       buyerUserData.profile_percentage !== 100) ||
@@ -467,31 +436,23 @@
                 >
                   -
                 </div>
-                <div
-                  class=""
-                  v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
-                >
+                <div class="" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
                   <router-link
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
-                    <div
-                      v-if="product.product_details_by_type.add_type !== 'rfq'"
-                    >
+                    <div v-if="product.product_details_by_type.add_type !== 'rfq'">
                       <p class="m-0">
                         {{
-                          product.product_details_by_type.customer_price
-                            | fixedCurrency
+                          product.product_details_by_type.customer_price | fixedCurrency
                         }}
                         {{ currency }}
                       </p>
                       <p
                         class="price-after m-0"
                         v-if="
-                          product.product_details_by_type
-                            .price_before_discount &&
-                          product.product_details_by_type
-                            .price_before_discount >
+                          product.product_details_by_type.price_before_discount &&
+                          product.product_details_by_type.price_before_discount >
                             product.product_details_by_type.customer_price
                         "
                       >
@@ -536,8 +497,10 @@
                 <p v-else>-</p>
               </td>
               <td class="actions-holder">
-                <div class="" v-if="add_to_cart || favourite || RFQ == 'available' || standing_order">
-
+                <div
+                  class=""
+                  v-if="add_to_cart || favourite || RFQ == 'available' || standing_order"
+                >
                   <div
                     class="add-to d-flex justify-content-center align-items-center"
                     v-if="
@@ -569,7 +532,6 @@
                     </a>
                     <div class="" v-if="buyerUserData">
                       <div class="" v-if="favourite">
-  
                         <a
                           class="text-danger d-flex justify-content-center align-items-center"
                           @click="addToWishlist(product)"
@@ -608,8 +570,7 @@
                             buyerUserData.profile_percentage == 100) ||
                           (buyerUserData.type === 'supplier' &&
                             buyerUserData.profile_percentage == 100) ||
-                          (buyerUserData.type === 'b2c' &&
-                            buyerUserData.is_verified)
+                          (buyerUserData.type === 'b2c' && buyerUserData.is_verified)
                         "
                       >
                         <div
@@ -643,19 +604,16 @@
                         v-b-tooltip.hover
                         :title="$t('items.standingOrders')"
                       >
-                        <font-awesome-icon
-                          icon="fa-sharp fa-solid fa-bag-shopping"
-                        />
+                        <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
                       </button>
                     </div>
-  
+
                     <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                   </div>
                   <div
                     class="d-flex justify-content-center"
                     v-if="
-                      (buyerUserData &&
-                        buyerUserData.profile_percentage !== 100) ||
+                      (buyerUserData && buyerUserData.profile_percentage !== 100) ||
                       (buyerUserData &&
                         buyerUserData.type === 'buyer' &&
                         buyerUserData.profile_percentage !== 100) ||
@@ -691,29 +649,25 @@
                       <!-- <span>{{ $t("items.addToCart") }}</span> -->
                       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
-  
-                    <div
-                      class=""
-                      v-if="buyerUserData && buyerUserData.type === 'b2c'"
-                    >
-                    <div class="" v-if="favourite">
-  
-                      <a
-                        class="text-danger d-flex justify-content-center align-items-center"
-                        :title="`product in favourite`"
-                        @click="addToWishlist(product)"
-                        v-if="product.is_favorite == true"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-star" />
-                      </a>
-                      <a
-                        @click="addToWishlist(product)"
-                        class="d-flex justify-content-center align-items-center"
-                        v-else
-                      >
-                        <font-awesome-icon icon="fa-solid fa-star" />
-                      </a>
-                    </div>
+
+                    <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
+                      <div class="" v-if="favourite">
+                        <a
+                          class="text-danger d-flex justify-content-center align-items-center"
+                          :title="`product in favourite`"
+                          @click="addToWishlist(product)"
+                          v-if="product.is_favorite == true"
+                        >
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+                        <a
+                          @click="addToWishlist(product)"
+                          class="d-flex justify-content-center align-items-center"
+                          v-else
+                        >
+                          <font-awesome-icon icon="fa-solid fa-star" />
+                        </a>
+                      </div>
                     </div>
                     <div class="" v-if="!buyerUserData">
                       <a
@@ -757,11 +711,7 @@
                 >{{ $t("singleProduct.nameInput") }}
                 <span class="text-danger">*</span></label
               >
-              <input
-                type="text"
-                class="form-control"
-                v-model="requestData.name"
-              />
+              <input type="text" class="form-control" v-model="requestData.name" />
               <div
                 class="text-danger"
                 v-for="(error, index) in errors.qoute_name"
@@ -794,10 +744,7 @@
                 >{{ $t("singleProduct.reviewInput") }}
                 <span class="text-danger">*</span></label
               >
-              <textarea
-                class="form-control"
-                v-model="requestData.comment"
-              ></textarea>
+              <textarea class="form-control" v-model="requestData.comment"></textarea>
               <div
                 class="text-danger"
                 v-for="(error, index) in errors.comment"
