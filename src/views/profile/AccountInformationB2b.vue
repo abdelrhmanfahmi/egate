@@ -5,7 +5,7 @@
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row>
         <!-- First Name -->
-        <b-col lg="6" v-if="form.first_name !== null">
+        <b-col lg="6" v-if="myFormControl.first_name !== null">
           <b-form-group>
             <label for="f-name">{{ $t("register.firstName") }}</label>
             <span class="requried">*</span>
@@ -18,32 +18,24 @@
                 <b-form-input id="f-name" v-model="form.first_name" />
               </div>
             </div>
-            <div
-              class="error"
-              v-for="(error, index) in errors.first_name"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.first_name" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- Last Name -->
-        <b-col lg="6" v-if="form.last_name !== null">
+        <b-col lg="6" v-if="myFormControl.last_name !== null">
           <b-form-group>
             <label for="l-name">{{ $t("register.lastName") }}</label>
             <span class="requried">*</span>
             <b-form-input id="l-name" v-model="form.last_name" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.last_name"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.last_name" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- Email -->
-        <b-col lg="6" v-if="form.email !== null">
+        <b-col lg="6" v-if="myFormControl.email !== null">
           <b-form-group>
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
@@ -51,17 +43,13 @@
               {{ $t("profile.needEmailContact") }}
             </a>
             <b-form-input id="email" v-model="form.email" disabled />
-            <div
-              class="error"
-              v-for="(error, index) in errors.email"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- phone -->
-        <b-col lg="6" v-if="form.mobile_number !== null">
+        <b-col lg="6" v-if="myFormControl.mobile_number !== null">
           <b-form-group>
             <label for="phone"
               >{{ $t("register.phone") }} (<span
@@ -74,11 +62,7 @@
             </a>
             <div class="row justify-content-start align-items-center">
               <div class="col-12">
-                <b-form-input
-                  id="phone"
-                  v-model="form.mobile_number"
-                  disabled
-                />
+                <b-form-input id="phone" v-model="form.mobile_number" disabled />
               </div>
             </div>
             <div
@@ -91,7 +75,7 @@
           </b-form-group>
         </b-col>
         <!-- country_name -->
-        <b-col lg="4" v-if="form.country_id !== null">
+        <b-col lg="4" v-if="myFormControl.country_id !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.defaultCountry") }} :
@@ -110,26 +94,20 @@
               </b-form-select-option>
             </b-form-select>
 
-            <div
-              class="error"
-              v-for="(error, index) in errors.country_name"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.country_name" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- currency_id -->
-        <b-col lg="4" v-if="form.currency_id !== null">
+        <b-col lg="4" v-if="myFormControl.currency_id !== null">
           <b-form-group>
             <label for="country"
               >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
             </label>
             <b-form-select v-model="form.currency_id">
               <b-form-select-option value="null" disabled selected
-                >{{ $t("profile.currency") }} ({{
-                  buyerUserData.currency_name
-                }})
+                >{{ $t("profile.currency") }} ({{ buyerUserData.currency_name }})
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
               <b-form-select-option
@@ -140,21 +118,15 @@
               </b-form-select-option>
             </b-form-select>
 
-            <div
-              class="error"
-              v-for="(error, index) in errors.currency_id"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.currency_id" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- language -->
-        <b-col lg="4" v-if="form.language !== null">
+        <b-col lg="4" v-if="myFormControl.language !== null">
           <b-form-group>
-            <label for="country"
-              >{{ $t("profile.lang") }} : {{ form.language }}</label
-            >
+            <label for="country">{{ $t("profile.lang") }} : {{ form.language }}</label>
             <b-form-select v-model="form.language">
               <b-form-select-option value="null" disabled
                 >{{ $t("profile.selectLang") }}
@@ -164,11 +136,7 @@
               <b-form-select-option value="en">en</b-form-select-option>
             </b-form-select>
 
-            <div
-              class="error"
-              v-for="(error, index) in errors.language"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.language" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -191,21 +159,20 @@
           <b-col
             lg="6"
             v-if="
-              form.company_name_en !== null || form.company_name_ar !== null
+              myFormControl.company_name_en !== null ||
+              myFormControl.company_name_ar !== null
             "
           >
             <b-form-group>
               <div class="row">
                 <div
-                  v-if="form.company_name_en !== null"
+                  v-if="myFormControl.company_name_en !== null"
                   :class="{
                     'col-md-6 col-sm-12': arabicAvailable !== 'no',
                     'col-12': arabicAvailable == 'no',
                   }"
                 >
-                  <label for="companyName">{{
-                    $t("register.englishCompanyName")
-                  }}</label>
+                  <label for="companyName">{{ $t("register.englishCompanyName") }}</label>
                   <span class="requried">*</span>
                   <b-form-input
                     id="companyName"
@@ -215,16 +182,14 @@
                 </div>
                 <div
                   v-if="
-                    form.company_name_ar !== null && arabicAvailable !== 'no'
+                    myFormControl.company_name_ar !== null && arabicAvailable !== 'no'
                   "
                   :class="{
                     'col-md-6 col-sm-12': arabicAvailable !== 'no',
                     'col-12': arabicAvailable == 'no',
                   }"
                 >
-                  <label for="companyName">{{
-                    $t("register.arabicCompanyName")
-                  }}</label>
+                  <label for="companyName">{{ $t("register.arabicCompanyName") }}</label>
                   <span class="requried">*</span>
                   <b-form-input
                     id="companyName"
@@ -246,18 +211,14 @@
             </b-form-group>
           </b-col>
           <!-- Registration number -->
-          <b-col lg="6" v-if="form.reg_number !== null">
+          <b-col lg="6" v-if="myFormControl.reg_number !== null">
             <b-form-group>
               <label for="RegistrationNumber">{{
                 $t("profile.RegistrationNumber")
               }}</label>
               <span class="requried">*</span>
               <b-form-input id="RegistrationNumber" v-model="form.reg_number" />
-              <div
-                class="error"
-                v-for="(error, index) in errors.reg_number"
-                :key="index"
-              >
+              <div class="error" v-for="(error, index) in errors.reg_number" :key="index">
                 {{ error }}
               </div>
             </b-form-group>
@@ -298,11 +259,7 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="newEmail" v-model="newForm.verify_email" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.verify_email"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -333,12 +290,9 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-danger"
-          @click="hideEmailModal"
-          >{{ $t("cart.cancel") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-danger" @click="hideEmailModal">{{
+          $t("cart.cancel")
+        }}</b-button>
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -373,11 +327,7 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="oldEmail" v-model="newForm.verify_email" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.verify_email"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -408,12 +358,9 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-danger"
-          @click="hidePhoneModal"
-          >{{ $t("cart.cancel") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
+          $t("cart.cancel")
+        }}</b-button>
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -424,12 +371,9 @@
         <checkMailModal />
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-success"
-          @click="hideCheckModal"
-          >{{ $t("home.ok") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
+          $t("home.ok")
+        }}</b-button>
       </div>
     </b-modal>
   </div>
@@ -469,6 +413,7 @@ export default {
       errors: {},
       phonePrefix: null,
       modalShow: false,
+      myFormControl: [],
     };
   },
   mounted() {
@@ -512,11 +457,12 @@ export default {
           let formControl = res.data.items;
           formControl.map((element) => {
             if (element.status !== 1) {
-              this.form[element.input_key] = null;
+              this.myFormControl[element.input_key] = null;
             } else {
-              this.form[element.input_key] = "";
+              this.myFormControl[element.input_key] = "";
             }
           });
+          console.log("myFormControl", this.myFormControl);
         })
         .then(() => {
           /**
@@ -546,7 +492,6 @@ export default {
             ? this.buyerUserData.currency_id
             : "3";
           this.form.country_id = this.buyerUserData.country_id;
-          
         })
         .catch((err) => {
           console.log(err);
@@ -668,9 +613,7 @@ export default {
       profile
         .changeProfileEmailMobile(
           data,
-          this.buyerUserData.type
-            ? this.buyerUserData.type
-            : this.userInfo.item.type
+          this.buyerUserData.type ? this.buyerUserData.type : this.userInfo.item.type
         )
         .then((res) => {
           this.sucessMsg(res.data.message);
