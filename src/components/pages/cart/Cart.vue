@@ -21,7 +21,7 @@
       <div class="my-5">
         <div class="row justify-content-between align-items-center">
           <div class="px-2">
-            <h2 class="text-dark">My Cart(2):</h2>
+            <h2 class="text-dark">My Cart({{cartLength}}):</h2>
           </div>
           <div class="px-2">
             <p class="text-dark" role="button" @click="clearAll">
@@ -3977,6 +3977,9 @@ export default {
     mySuppliers() {
       return this.$store.state.suppliers;
     },
+    cartLength(){
+      return this.$store.getters["cart/cartLength"];
+    }
   },
   created() {
     /**

@@ -1,119 +1,158 @@
 <template>
   <!-- shopping cart page  -->
   <div>
-    <div class="cart-table p-4" stacked="lg" v-if="cartItems">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr class="data-holder">
-            <th></th>
-            <th
-              class="product"
-              :class="{
-                'text-left': $i18n.locale == 'en',
-                'text-right': $i18n.locale == 'ar',
-              }"
-            >
-              {{ $t("cart.product") }}
-            </th>
-            <th
-              class="price"
-              :class="{
-                'text-left': $i18n.locale == 'en',
-                'text-right': $i18n.locale == 'ar',
-              }"
-            >
-              {{ $t("cart.price") }}
-            </th>
-            <th class="quantity">{{ $t("cart.quantity") }}</th>
-            <th
-              class="total"
-              :class="{
-                'text-left': $i18n.locale == 'en',
-                'text-right': $i18n.locale == 'ar',
-              }"
-            >
-              {{ $t("cart.total") }}
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody
-          class="supplier"
-          v-for="(supplier, index) in cartItems"
-          :key="index"
-        >
-          <tr
-            class="item-content"
-            v-for="(item, index) in supplier.products"
-            :key="index"
-          >
-            <td class="media">
-              <router-link
-                :to="{
-                  path: '/details',
-                  query: { id: `${item.product_supplier_id}` },
-                }"
-                class="thumb"
-              >
-                <img
-                  v-if="
-                    item.product_image == undefined ||
-                    item.product_image == 'undefined'
-                  "
-                  :src="item.product_image"
-                  :alt="' image'"
-                  class="product-img"
-                  title="image"
-                />
-                <img
-                  v-else
-                  :src="item.product_image"
-                  :alt="item.name + ' image'"
-                  :title="item.name + ' image'"
-                  class="product-img"
-                />
-              </router-link>
-            </td>
-            <td>
-              <router-link
-                :to="{
-                  path: '/details',
-                  query: { id: `${item.product_supplier_id}` },
+    <!-- <div class="old-shopping-cart">
+      <div class="cart-table p-4" stacked="lg" v-if="cartItems">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr class="data-holder">
+              <th></th>
+              <th
+                class="product"
+                :class="{
+                  'text-left': $i18n.locale == 'en',
+                  'text-right': $i18n.locale == 'ar',
                 }"
               >
-                {{ item.product_name }}
-              </router-link>
-            </td>
-            <td v-if="item.price">
-              {{ item.price | fixedCurrency }} {{ currency }}
-            </td>
-            <td v-else>-</td>
-            <td>
-              <Counter
-                :quantity="item.quantity"
-                :product="item"
-                class="justify-content-center"
-                @changeTitle="ChangeQ($event)"
-              ></Counter>
-            </td>
-            <td v-if="item.product_sub_total">
-              {{ item.product_sub_total | fixedCurrency }} {{ currency }}
-            </td>
-            <td v-else>-</td>
+                {{ $t("cart.product") }}
+              </th>
+              <th
+                class="price"
+                :class="{
+                  'text-left': $i18n.locale == 'en',
+                  'text-right': $i18n.locale == 'ar',
+                }"
+              >
+                {{ $t("cart.price") }}
+              </th>
+              <th class="quantity">{{ $t("cart.quantity") }}</th>
+              <th
+                class="total"
+                :class="{
+                  'text-left': $i18n.locale == 'en',
+                  'text-right': $i18n.locale == 'ar',
+                }"
+              >
+                {{ $t("cart.total") }}
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="supplier" v-for="(supplier, index) in cartItems" :key="index">
+            <tr
+              class="item-content"
+              v-for="(item, index) in supplier.products"
+              :key="index"
+            >
+              <td class="media">
+                <router-link
+                  :to="{
+                    path: '/details',
+                    query: { id: `${item.product_supplier_id}` },
+                  }"
+                  class="thumb"
+                >
+                  <img
+                    v-if="
+                      item.product_image == undefined || item.product_image == 'undefined'
+                    "
+                    :src="item.product_image"
+                    :alt="' image'"
+                    class="product-img"
+                    title="image"
+                  />
+                  <img
+                    v-else
+                    :src="item.product_image"
+                    :alt="item.name + ' image'"
+                    :title="item.name + ' image'"
+                    class="product-img"
+                  />
+                </router-link>
+              </td>
+              <td>
+                <router-link
+                  :to="{
+                    path: '/details',
+                    query: { id: `${item.product_supplier_id}` },
+                  }"
+                >
+                  {{ item.product_name }}
+                </router-link>
+              </td>
+              <td v-if="item.price">{{ item.price | fixedCurrency }} {{ currency }}</td>
+              <td v-else>-</td>
+              <td>
+                <Counter
+                  :quantity="item.quantity"
+                  :product="item"
+                  class="justify-content-center"
+                  @changeTitle="ChangeQ($event)"
+                ></Counter>
+              </td>
+              <td v-if="item.product_sub_total">
+                {{ item.product_sub_total | fixedCurrency }} {{ currency }}
+              </td>
+              <td v-else>-</td>
 
-            <td>
-              <div class="actions d-flex">
-                <b-button @click="removeFromCart(item)">
-                  <font-awesome-icon icon="fa-solid fa-trash-can" />
-                </b-button>
+              <td>
+                <div class="actions d-flex">
+                  <b-button @click="removeFromCart(item)">
+                    <font-awesome-icon icon="fa-solid fa-trash-can" />
+                  </b-button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center" v-else>
+        <h3>{{ $t("profile.quotationsRatingsEmpty") }}</h3>
+      </div>
+    </div> -->
+    <div class="new-shopping-cart">
+      <div class="row justify-content-between align-items-center my-4 mt-2">
+        <div class="px-2">
+          <h2 class="text-dark">{{ $t("profile.shoppingCart") }} ({{ cartLength }})</h2>
+        </div>
+        <div class="px-2">
+          <p class="text-dark" role="button" @click="clearAll">
+            <ins>Clear All</ins>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <h5>{{ $t("profile.shippingInfo") }}</h5>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="input-holder">
+                <form @submit.prevent="searchAddresses">
+                  <!-- coupon input  -->
+
+                  <input
+                    type="text"
+                    :placeholder="'Search address...'"
+                    class="my-2 h-100 p-3 w-100 itemInput"
+                    v-model="couponText"
+                  />
+                  <b-button
+                    type="submit"
+                    class="login-button my-2 py-3 px-4 w-auto"
+                    @click="searchAddresses"
+                  >
+                    <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
+                    <span>search</span>
+                  </b-button>
+                </form>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="text-center" v-else>
-      <h3>{{ $t('profile.quotationsRatingsEmpty') }}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">right</div>
+      </div>
     </div>
   </div>
 </template>
@@ -124,7 +163,7 @@
  * @displayName shopping cart page
  */
 
-import Counter from "@/components/global/Counter.vue";
+// import Counter from "@/components/global/Counter.vue";
 
 import globalAxios from "@/services/global-axios";
 export default {
@@ -230,12 +269,16 @@ export default {
       ],
       cartItems: null,
       myQuantity: null,
+      errors: {},
     };
   },
   components: {
-    Counter,
+    // Counter,
   },
   methods: {
+    clearAll() {
+      this.errors = {};
+    },
     /**
      * get Cart Products function
      * @vuese
@@ -247,7 +290,7 @@ export default {
       });
       this.loading = false;
     },
-     /**
+    /**
      * remove From Cart function
      * @vuese
      */
@@ -275,9 +318,17 @@ export default {
         this.getCartProducts();
       }, 300);
     },
+    searchAddresses() {
+      alert("clicked");
+    },
   },
   mounted() {
-    this.getCartProducts();
+    // this.getCartProducts();
+  },
+  computed: {
+    cartLength() {
+      return this.$store.getters["cart/cartLength"];
+    },
   },
 };
 </script>
@@ -341,6 +392,17 @@ export default {
   .actions {
     justify-content: center;
     align-items: center;
+  }
+}
+
+.input-holder {
+  position: relative;
+  button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
     <div class="d-flex justify-content-center align-items-center flex-column">
-      <img :src="buyerUserData.image_path" alt="" srcset="">
+      <img :src="buyerUserData.image_path" alt="" srcset="" />
       <h5 class="my-3" v-if="buyerUserData.company_name_en">
         {{ buyerUserData.company_name_en }}
       </h5>
@@ -14,12 +14,7 @@
       </h5>
     </div>
 
-    
-
-    <div
-      class="my-2"
-      v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
-    >
+    <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
       <h5>{{ $t("profile.completeRate") }}</h5>
       <b-progress
         class="progress-rate"
@@ -42,41 +37,39 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" size="2x" />
+          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" size="1x" />
           <span>{{ link.name }}</span>
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.orders &&
-                link.name.trim() == $t('profile.ordersLists'))
+              userBades &&
+              userBades.orders &&
+              link.name.trim() == $t('profile.ordersLists')
             "
             >{{ userBades.orders }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.returns &&
-                link.name.trim() === $t('profile.returnRequests'))
+              userBades &&
+              userBades.returns &&
+              link.name.trim() === $t('profile.returnRequests')
             "
             >{{ userBades.returns }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.client_messages &&
-                link.name.trim() === $t('profile.supplierCorrespondence'))
+              userBades &&
+              userBades.client_messages &&
+              link.name.trim() === $t('profile.supplierCorrespondence')
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.rfqs &&
-                link.name.trim() === $t('profile.quotations'))
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
@@ -93,42 +86,40 @@
             buyerUserData.register_mailing_list,
         }"
       >
-      <router-link :to="link.to">
+        <router-link :to="link.to">
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
           <span>{{ link.name }}</span>
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.orders &&
-                link.name.trim() == $t('profile.ordersLists'))
+              userBades &&
+              userBades.orders &&
+              link.name.trim() == $t('profile.ordersLists')
             "
             >{{ userBades.orders }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.returns &&
-                link.name.trim() === $t('profile.returnRequests'))
+              userBades &&
+              userBades.returns &&
+              link.name.trim() === $t('profile.returnRequests')
             "
             >{{ userBades.returns }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.client_messages &&
-                link.name.trim() === $t('profile.supplierCorrespondence'))
+              userBades &&
+              userBades.client_messages &&
+              link.name.trim() === $t('profile.supplierCorrespondence')
             "
             >{{ userBades.client_messages }}</span
           >
           <span
             class="side-number"
             v-if="
-              (userBades &&
-                userBades.rfqs &&
-                link.name.trim() === $t('profile.quotations'))
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
@@ -355,15 +346,15 @@ export default {
 .profile-menu {
   //padding: 60px 0px 60px 25px;
   //background-color: #303030;
-  background-color: #1F1F1F;
+  background-color: #1f1f1f;
   color: #fff;
   font-size: 16px;
   ul {
     li {
       padding: 10px 20px;
-      border-bottom: 2px solid #4D4D4D;
-      &:first-of-type{
-        border-top: 2px solid #4D4D4D;
+      border-bottom: 2px solid #4d4d4d;
+      &:first-of-type {
+        border-top: 2px solid #4d4d4d;
       }
       .router-link-exact-active {
         color: $main-color;

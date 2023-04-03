@@ -14,7 +14,7 @@
         <b-button
           @click="goQuotation(data.item.id)"
           class="mr-2 btn btn-light bg-transparent link"
-          >{{ $t("profile.view") }}</b-button
+          ><font-awesome-icon icon="fa-regular fa-eye" /></b-button
         >
       </template>
       <template #cell(price)="data">
