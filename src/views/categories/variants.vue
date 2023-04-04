@@ -275,8 +275,10 @@
                       },
                     }"
                   >
-                    <!-- {{ $t("profile.basketDeals") }} -->
-                    {{ product.basket_promotions_running_by_type.promotion.title }}
+                    <span>{{
+                      product.basket_promotions_running_by_type.promotion.title
+                    }}</span>
+                    <small class="mx-2">({{ $t("profile.basketDeal") }})</small>
                   </router-link>
                 </h6>
                 <h6 v-if="product.buy_get_promotion_running_by_type">
