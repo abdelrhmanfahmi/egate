@@ -807,7 +807,7 @@
                                           v-if="buyerUserData"
                                           type="submit"
                                           @click.prevent="createAdress()"
-                                          class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto"
+                                          class="login-button bg-main m-0 mt-4 py-3 px-5 text-white text-center w-auto"
                                         >
                                           {{ $t("register.submit") }} &
                                           {{ $t("cart.checkFees") }}
@@ -816,7 +816,7 @@
                                           v-else
                                           type="submit"
                                           @click.prevent="localStoreAdresses()"
-                                          class="login-button dark m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
+                                          class="login-button bg-main m-0 mt-4 py-3 px-5 text-white text-center w-auto mx-2"
                                         >
                                           {{ $t("register.submit") }} &
                                           {{ $t("cart.checkFees") }}
@@ -888,7 +888,7 @@
                             <div class="data">
                               <!-- start add coupon  -->
                               <div class="coupon-holder mb-3">
-                                <h4 class="text-dark">got a coupon code?</h4>
+                                <h4 class="text-dark">{{ $t("payment.haveCoupon") }}</h4>
                                 <div class="">
                                   <div class="">
                                     <div class="cart">
@@ -921,7 +921,7 @@
                                               :disabled="validCoupon"
                                             >
                                               <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
-                                              <span>Apply</span>
+                                              <span>{{$t('payment.Apply')}}</span>
                                             </b-button>
                                             </form>
                                           </div>
@@ -1421,7 +1421,7 @@
                                                 >
                                                   <b-button
                                                     type="submit"
-                                                    class="login-button dark"
+                                                    class="login-button bg-main"
                                                     disabled
                                                     v-if="checkoutSubmitted"
                                                   >
@@ -1439,7 +1439,7 @@
 
                                                   <b-button
                                                     type="submit"
-                                                    class="login-button dark"
+                                                    class="login-button bg-main"
                                                     @click="payment"
                                                     :disabled="
                                                       paymentFormData.payment_type ===
@@ -1456,7 +1456,7 @@
                                                 <div class="submit" v-else>
                                                   <b-button
                                                     type="submit"
-                                                    class="login-button dark"
+                                                    class="login-button bg-main"
                                                     disabled
                                                     v-if="checkoutSubmitted"
                                                   >
@@ -1474,7 +1474,7 @@
 
                                                   <b-button
                                                     type="submit"
-                                                    class="login-button dark"
+                                                    class="login-button bg-main"
                                                     @click="guestPayment"
                                                     v-else
                                                   >

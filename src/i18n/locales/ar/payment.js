@@ -64,4 +64,8 @@ export default {
   RegionRequired: "حقل المحافظه الزامى ",
   CityRequired: "حقل المدينه الزامى ",
   AddressRequired: "حقل العنوان الزامى ",
+  choosePaymentMethod:'اختر طريقة الدفع',
+  haveCoupon:'هل تمتلك كوبون ؟',
+  Apply:'تطبيق',
+  search:'بحث'
 };

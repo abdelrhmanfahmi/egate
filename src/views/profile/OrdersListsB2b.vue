@@ -52,6 +52,7 @@
               <span v-if="order.total_price" class="main-color"
                 ><b>{{ order.total_price | fixedCurrency }} {{ currency }}</b></span
               >
+              <span v-else>-</span>
             </td>
             <td>
               <span

@@ -193,7 +193,7 @@ export default {
       scTimer: 0,
       scY: 0,
       visible: false,
-      opened: true,
+      opened: false,
     };
   },
   mounted() {

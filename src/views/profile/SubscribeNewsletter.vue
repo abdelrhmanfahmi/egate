@@ -28,7 +28,7 @@
 
       <b-button
         type="submit"
-        class="login-button dark"
+        class="login-button bg-main"
         v-if="emailExaxt"
         @click="cancelSubscribe()"
       >

@@ -35,7 +35,7 @@
         <div class="navigation my-4" v-if="cart_sub_total || cart_sub_total >=0">
           <router-link
             to="/cart"
-            class="login-button dark my-2 text-center text-white"
+            class="login-button bg-main my-2 text-center text-white"
           >
             {{ $t("cart.purchase") }}
           </router-link>
