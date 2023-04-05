@@ -1406,9 +1406,9 @@
                                           fee.shipping_fee | fixedCurrency
                                         }}</span>
                                         <span>{{ currency }}</span>
-                                        <p v-if="fee.message">
+                                        <!-- <p v-if="fee.message">
                                           {{ fee.message }}
-                                        </p>
+                                        </p> -->
                                       </h5>
                                     </li>
                                   </ul>

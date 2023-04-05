@@ -1,265 +1,324 @@
 <template>
   <!-- buyer user  account information page  -->
   <div class="account-information">
-    <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
-    <form @submit.prevent="updateProfile()" class="account-information-form">
-      <b-row>
-        <!-- First Name -->
-        <b-col lg="6">
-          <b-form-group>
-            <label for="f-name">{{ $t("register.firstName") }}</label>
-            <span class="requried">*</span>
-            <!-- <b-form-input id="f-name" v-model="form.first_name" /> -->
-            <div class="row justify-content-start align-items-center">
-              <div class="col-3" v-if="form.perfix">
-                <span>{{ form.perfix }}</span>
-              </div>
-              <div class="col-12">
-                <b-form-input id="f-name" v-model="form.first_name" />
-              </div>
-            </div>
-            <div
-              class="error"
-              v-for="(error, index) in errors.first_name"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <!-- Last Name -->
-        <b-col lg="6">
-          <b-form-group>
-            <label for="l-name">{{ $t("register.lastName") }}</label>
-            <span class="requried">*</span>
-            <b-form-input id="l-name" v-model="form.last_name" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.last_name"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <!-- Email -->
-        <b-col lg="6">
-          <b-form-group>
-            <label for="email">{{ $t("register.email") }}</label>
-            <span class="requried">*</span>
-            <a @click="showEmailModal" class="mx-1 text-lowercase">
-              {{ $t("profile.needEmailContact") }}
-            </a>
-            <b-form-input id="email" v-model="form.email" disabled />
-            <div
-              class="error"
-              v-for="(error, index) in errors.email"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <!-- phone -->
-        <b-col lg="6">
-          <b-form-group>
-            <label for="phone"
-              >{{ $t("register.phone") }} (<span
-                ><b>{{ phonePrefix }}</b></span
-              >)</label
-            >
-            <span class="requried">*</span>
-            <a @click="showPhoneModal" class="mx-1 text-lowercase">
-              {{ $t("profile.needPhoneContact") }}
-            </a>
-            <div class="row justify-content-start align-items-center">
-              <div class="col-12">
-                <b-form-input
-                  id="phone"
-                  v-model="form.mobile_number"
-                  disabled
-                />
-              </div>
-            </div>
-            <div
-              class="error"
-              v-for="(error, index) in errors.mobile_number"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <b-col lg="4">
-          <b-form-group>
-            <label for="country"
-              >{{ $t("profile.defaultCountry") }} :
-              {{ buyerUserData.country_name }}</label
-            >
-            <b-form-select v-model="form.country_id">
-              <b-form-select-option value="null" disabled
-                >{{ $t("profile.defaultCountry") }}
-                <span class="requried text-danger">*</span>
-              </b-form-select-option>
-              <b-form-select-option
-                v-for="(country, index) in countries"
-                :key="index"
-                :value="country.id"
-                >{{ country.title }}
-              </b-form-select-option>
-            </b-form-select>
+    <div class="row align-items-center">
+      <div class="col-md-8 col-sm-12">
+        <form @submit.prevent="updateProfile()" class="account-information-form">
+          <section class="user-info">
+            <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
 
-            <div
-              class="error"
-              v-for="(error, index) in errors.country"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <b-col lg="4">
-          <b-form-group>
-            <label for="country"
-              >{{ $t("profile.currency") }} : {{ buyerUserData.currency_name }}
-            </label>
-            <b-form-select v-model="form.currency_id">
-              <b-form-select-option value="null" disabled selected
-                >{{ $t("profile.currency") }} ({{
-                  buyerUserData.currency_name
-                }})
-                <span class="requried text-danger">*</span>
-              </b-form-select-option>
-              <b-form-select-option
-                v-for="(currency, index) in userStoredData.currencies"
-                :key="index"
-                :value="currency.id"
-                >{{ currency.code }}
-              </b-form-select-option>
-            </b-form-select>
-
-            <div
-              class="error"
-              v-for="(error, index) in errors.country"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <b-col lg="4">
-          <b-form-group>
-            <label for="country"
-              >{{ $t("profile.lang") }} : {{ form.language }}</label
-            >
-            <b-form-select v-model="form.language">
-              <b-form-select-option value="null" disabled
-                >{{ $t("profile.selectLang") }}
-                <span class="requried text-danger">*</span>
-              </b-form-select-option>
-              <b-form-select-option value="ar">ar</b-form-select-option>
-              <b-form-select-option value="en">en</b-form-select-option>
-            </b-form-select>
-
-            <div
-              class="error"
-              v-for="(error, index) in errors.country"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-      </b-row>
-
-      <div
-        class="work-info my-5"
-        v-if="
-          (buyerUserData && buyerUserData.type === 'buyer') ||
-          buyerUserData.type === 'b2b' ||
-          (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1)
-        "
-      >
-        <h4 class="main-header my-4">
-          {{ $t("profile.businessInformation") }}
-        </h4>
-        <b-row>
-          <!-- Company Name -->
-          <b-col lg="6">
-            <b-form-group>
-              <div class="row">
-                <div  :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
-                  <label for="companyName">{{
-                    $t("register.englishCompanyName")
-                  }}</label>
+            <b-row>
+              <!-- First Name -->
+              <b-col lg="6">
+                <b-form-group>
+                  <label for="f-name">{{ $t("register.firstName") }}</label>
                   <span class="requried">*</span>
-                  <b-form-input
-                    id="companyName"
-                    v-model="form.company_name_en"
-                    disabled
-                  />
-                </div>
-                <div  v-if="arabicAvailable !=='no'" :class="{'col-md-6 col-sm-12':arabicAvailable !=='no','col-12':arabicAvailable =='no'}">
-                  <label for="companyName">{{
-                    $t("register.arabicCompanyName")
-                  }}</label>
+                  <!-- <b-form-input id="f-name" v-model="form.first_name" /> -->
+                  <div class="row justify-content-start align-items-center">
+                    <div class="col-3" v-if="form.perfix">
+                      <span>{{ form.perfix }}</span>
+                    </div>
+                    <div class="col-12">
+                      <b-form-input id="f-name" v-model="form.first_name" />
+                    </div>
+                  </div>
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.first_name"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- Last Name -->
+              <b-col lg="6">
+                <b-form-group>
+                  <label for="l-name">{{ $t("register.lastName") }}</label>
                   <span class="requried">*</span>
-                  <b-form-input
-                    id="companyName"
-                    v-model="form.company_name_ar"
-                    disabled
-                  />
-                </div>
-              </div>
-              <router-link to="/contact-us" class="mx-1 text-lowercase">
-                {{ $t("profile.needCompanyContact") }}
-              </router-link>
-              <div
-                class="error"
-                v-for="(error, index) in errors.company_name"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </b-form-group>
-          </b-col>
-          <!-- Registration number -->
-          <b-col lg="6">
-            <b-form-group>
-              <label for="RegistrationNumber">{{
-                $t("profile.RegistrationNumber")
-              }}</label>
-              <span class="requried">*</span>
-              <b-form-input id="RegistrationNumber" v-model="form.reg_number" />
-              <div
-                class="error"
-                v-for="(error, index) in errors.reg_number"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </b-form-group>
-          </b-col>
-        </b-row>
+                  <b-form-input id="l-name" v-model="form.last_name" />
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.last_name"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- Email -->
+              <b-col lg="6">
+                <b-form-group>
+                  <label for="email">{{ $t("register.email") }}</label>
+                  <span class="requried">*</span>
+                  <a @click="showEmailModal" class="mx-1 text-lowercase">
+                    {{ $t("profile.needEmailContact") }}
+                  </a>
+                  <b-form-input id="email" v-model="form.email" disabled />
+                  <div class="error" v-for="(error, index) in errors.email" :key="index">
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- phone -->
+              <b-col lg="6">
+                <b-form-group>
+                  <label for="phone"
+                    >{{ $t("register.phone") }} (<span
+                      ><b>{{ phonePrefix }}</b></span
+                    >)</label
+                  >
+                  <span class="requried">*</span>
+                  <a @click="showPhoneModal" class="mx-1 text-lowercase">
+                    {{ $t("profile.needPhoneContact") }}
+                  </a>
+                  <div class="row justify-content-start align-items-center">
+                    <div class="col-12">
+                      <b-form-input id="phone" v-model="form.mobile_number" disabled />
+                    </div>
+                  </div>
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.mobile_number"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+            </b-row>
+          </section>
+          <section class="company-info">
+            <div
+              class="work-info my-5"
+              v-if="
+                (buyerUserData && buyerUserData.type === 'buyer') ||
+                buyerUserData.type === 'b2b' ||
+                (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1)
+              "
+            >
+              <h4 class="main-header my-4">
+                {{ $t("profile.businessInformation") }}
+              </h4>
+              <b-row>
+                <!-- Company Name -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <div class="row">
+                      <div
+                        :class="{
+                          'col-md-6 col-sm-12': arabicAvailable !== 'no',
+                          'col-12': arabicAvailable == 'no',
+                        }"
+                      >
+                        <label for="companyName">{{
+                          $t("register.englishCompanyName")
+                        }}</label>
+                        <span class="requried">*</span>
+                        <b-form-input
+                          id="companyName"
+                          v-model="form.company_name_en"
+                          disabled
+                        />
+                      </div>
+                      <div
+                        v-if="arabicAvailable !== 'no'"
+                        :class="{
+                          'col-md-6 col-sm-12': arabicAvailable !== 'no',
+                          'col-12': arabicAvailable == 'no',
+                        }"
+                      >
+                        <label for="companyName">{{
+                          $t("register.arabicCompanyName")
+                        }}</label>
+                        <span class="requried">*</span>
+                        <b-form-input
+                          id="companyName"
+                          v-model="form.company_name_ar"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <router-link to="/contact-us" class="mx-1 text-lowercase">
+                      {{ $t("profile.needCompanyContact") }}
+                    </router-link>
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.company_name"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+                <!-- Registration number -->
+                <b-col lg="6">
+                  <b-form-group>
+                    <label for="RegistrationNumber">{{
+                      $t("profile.RegistrationNumber")
+                    }}</label>
+                    <span class="requried">*</span>
+                    <b-form-input id="RegistrationNumber" v-model="form.reg_number" />
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.reg_number"
+                      :key="index"
+                    >
+                      {{ error }}
+                    </div>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </div>
+          </section>
+
+          <section class="settings">
+            <h4 class="main-header">settings</h4>
+            <div class="row flex-column">
+              <!-- country_name  -->
+              <b-col lg="4">
+                <b-form-group>
+                  <label for="country"
+                    >{{ $t("profile.defaultCountry") }} :
+                    {{ buyerUserData.country_name }}</label
+                  >
+                  <b-form-select v-model="form.country_id">
+                    <b-form-select-option value="null" disabled
+                      >{{ $t("profile.defaultCountry") }}
+                      <span class="requried text-danger">*</span>
+                    </b-form-select-option>
+                    <b-form-select-option
+                      v-for="(country, index) in countries"
+                      :key="index"
+                      :value="country.id"
+                      >{{ country.title }}
+                    </b-form-select-option>
+                  </b-form-select>
+
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.country"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- currency_name  -->
+              <b-col lg="4">
+                <b-form-group>
+                  <label for="country"
+                    >{{ $t("profile.currency") }} :
+                    {{ buyerUserData.currency_name }}
+                  </label>
+                  <b-form-select v-model="form.currency_id">
+                    <b-form-select-option value="null" disabled selected
+                      >{{ $t("profile.currency") }} ({{ buyerUserData.currency_name }})
+                      <span class="requried text-danger">*</span>
+                    </b-form-select-option>
+                    <b-form-select-option
+                      v-for="(currency, index) in userStoredData.currencies"
+                      :key="index"
+                      :value="currency.id"
+                      >{{ currency.code }}
+                    </b-form-select-option>
+                  </b-form-select>
+
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.country"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+              <!-- language  -->
+              <b-col lg="4">
+                <b-form-group>
+                  <label for="country"
+                    >{{ $t("profile.lang") }} : {{ form.language }}</label
+                  >
+                  <b-form-select v-model="form.language">
+                    <b-form-select-option value="null" disabled
+                      >{{ $t("profile.selectLang") }}
+                      <span class="requried text-danger">*</span>
+                    </b-form-select-option>
+                    <b-form-select-option value="ar">ar</b-form-select-option>
+                    <b-form-select-option value="en">en</b-form-select-option>
+                  </b-form-select>
+
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.country"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </b-form-group>
+              </b-col>
+            </div>
+          </section>
+
+          <div class="d-flex align-items-center">
+            <b-button type="submit" class="login-button">
+              {{ $t("profile.save") }}
+            </b-button>
+            <b-button
+              class="login-button border-main bg-transparent main-color mx-3"
+              role="button"
+              to="/profile/change-password"
+            >
+              <b>{{ $t("profile.changePassword") }}</b>
+            </b-button>
+          </div>
+        </form>
       </div>
-
-      <b-button type="submit" class="login-button">
-        {{ $t("profile.save") }}
-      </b-button>
-    </form>
-    <b-modal
-      ref="email-modal"
-      hide-footer
-      centered
-    >
-    <template #modal-header="{ close }">
-      <h5>{{$t('profile.emailVerify')}}</h5>
-      <!-- Emulate built in modal header close button action -->
-      <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
-        x
-      </b-button>
-      
-    </template>
+      <div class="col-md-4 col-sm-12">
+        <div class="company-logo">
+          <main>
+            <div @dragover.prevent @drop.prevent class="data-holder">
+              <div @drop="handleFileDrop">
+                <p class="h5">Company Logo</p>
+                <br />
+                <div class="file-wrapper">
+                  <input type="file" name="file-input" @change="handleFileInput" />
+                  <div class="d-flex flex-column text-holder">
+                    <p class="text-shown sign m-0 h2">+</p>
+                    <p class="text-shown text h2">Upload</p>
+                  </div>
+                </div>
+                <ul class="files mt-4">
+                  <li v-for="(file, index) in files" :key="index">
+                    <div class="file-data">
+                      <span class="file-name">{{ file.name }}</span>
+                      <span class="file-size">({{ file.size }} b)</span>
+                      <button @click="removeFile(index)" title="Remove">X</button>
+                    </div>
+                  </li>
+                </ul>
+                <img v-if="CompanyImage" :src="CompanyImage" alt="" srcset="" />
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <b-modal ref="email-modal" hide-footer centered>
+      <template #modal-header="{ close }">
+        <h5>{{ $t("profile.emailVerify") }}</h5>
+        <!-- Emulate built in modal header close button action -->
+        <b-button
+          size="sm"
+          variant="outline-danger"
+          @click="
+            close();
+            closeModal();
+          "
+        >
+          x
+        </b-button>
+      </template>
       <div class="d-block text-center">
         <form action="">
           <b-form-group>
@@ -274,11 +333,7 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="newEmail" v-model="newForm.verify_email" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.verify_email"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -309,29 +364,28 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-danger"
-          @click="hideEmailModal"
-          >{{ $t("cart.cancel") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-danger" @click="hideEmailModal">{{
+          $t("cart.cancel")
+        }}</b-button>
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
       </div>
     </b-modal>
-    <b-modal
-      ref="phone-modal"
-      hide-footer
-      centered
-    >
+    <b-modal ref="phone-modal" hide-footer centered>
       <template #modal-header="{ close }">
-        <h5>{{$t('profile.phoneVerify')}}</h5>
+        <h5>{{ $t("profile.phoneVerify") }}</h5>
         <!-- Emulate built in modal header close button action -->
-        <b-button size="sm" variant="outline-danger" @click="close();closeModal()">
+        <b-button
+          size="sm"
+          variant="outline-danger"
+          @click="
+            close();
+            closeModal();
+          "
+        >
           x
         </b-button>
-        
       </template>
       <div class="d-block text-center">
         <form action="">
@@ -347,11 +401,7 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="oldEmail" v-model="newForm.verify_email" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.verify_email"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -382,12 +432,9 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-danger"
-          @click="hidePhoneModal"
-          >{{ $t("cart.cancel") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
+          $t("cart.cancel")
+        }}</b-button>
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -398,12 +445,9 @@
         <checkMailModal />
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button
-          class="mt-3"
-          variant="outline-success"
-          @click="hideCheckModal"
-          >{{ $t("home.ok") }}</b-button
-        >
+        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
+          $t("home.ok")
+        }}</b-button>
       </div>
     </b-modal>
   </div>
@@ -443,6 +487,8 @@ export default {
       errors: {},
       phonePrefix: null,
       modalShow: false,
+      files: [],
+      CompanyImage: null,
     };
   },
   mounted() {
@@ -461,9 +507,7 @@ export default {
     this.phonePrefix = this.buyerUserData.phone_prefix;
     this.form.mobile_number = this.buyerUserData.phone;
 
-    this.form.language = this.buyerUserData.language
-      ? this.buyerUserData.language
-      : "en";
+    this.form.language = this.buyerUserData.language ? this.buyerUserData.language : "en";
     this.form.currency_id = this.buyerUserData.currency_id
       ? this.buyerUserData.currency_id
       : "3";
@@ -612,9 +656,7 @@ export default {
       profile
         .changeProfileEmailMobile(
           data,
-          this.buyerUserData.type
-            ? this.buyerUserData.type
-            : this.userInfo.item.type
+          this.buyerUserData.type ? this.buyerUserData.type : this.userInfo.item.type
         )
         .then((res) => {
           this.sucessMsg(res.data.message);
@@ -639,10 +681,33 @@ export default {
      * close Modal used when click on close button to clear form data
      * @vuese
      */
-    closeModal(){
+    closeModal() {
       this.newForm = {};
       this.errors = {};
-    }
+    },
+    handleFileDrop(e) {
+      let droppedFiles = e.dataTransfer.files[0];
+      if (!droppedFiles) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      this.files = [];
+      this.files.push(droppedFiles);
+      let myFile = droppedFiles;
+      this.CompanyImage = URL.createObjectURL(myFile);
+    },
+    handleFileInput(e) {
+      let files = e.target.files[0];
+      files = e.target.files[0];
+      if (!files) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      this.files = [];
+      this.files.push(files);
+      let myFile = files;
+      this.CompanyImage = URL.createObjectURL(myFile);
+    },
+    removeFile(fileKey) {
+      this.files.splice(fileKey, 1);
+      this.CompanyImage = null;
+    },
   },
   computed: {
     /**
@@ -683,6 +748,53 @@ export default {
 html:lang(ar) {
   .account-information {
     text-align: right;
+  }
+}
+.company-logo {
+  main {
+    margin-top: 30px;
+    height: 100%;
+  }
+
+  .file-wrapper {
+    text-align: center;
+    height: 5em;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* and other things to make it pretty */
+  }
+
+  .file-wrapper input {
+    position: absolute;
+    top: 0;
+    right: 0; /* not left, because only the right part of the input seems to
+                   be clickable in some browser I can't remember */
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(
+      opacity=0
+    ); /* and all the other old opacity stuff you
+                                   want to support */
+    font-size: 300px; /* wtf, but apparently the most reliable way to make
+                           a large part of the input clickable in most browsers */
+    height: 200px;
+  }
+  .data-holder {
+    border: 2px solid #f0f0f0;
+    border-radius: 5px;
+    color: #545454;
+    padding: 20px;
+  }
+  .file-input {
+    color: #f0f0f0;
+  }
+  .text-holder {
+    color: #bebebe;
+    margin: 20px 0;
   }
 }
 </style>
