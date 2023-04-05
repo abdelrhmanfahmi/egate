@@ -230,7 +230,7 @@
 
               <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
                 @click="$bvModal.show('bv-standingOrders')" v-b-tooltip.hover :title="$t('items.standingOrders')">
-                <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
               </button>
             </div>
 
@@ -238,7 +238,7 @@
             <div class="products" v-else>
               <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-1"
                 @click="loginFirst()" v-b-tooltip.hover :title="$t('items.standingOrders')">
-                <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
               </button>
             </div>
           </div>

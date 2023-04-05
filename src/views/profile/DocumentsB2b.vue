@@ -3,9 +3,7 @@
   <div class="documentsB2b" :class="$i18n.locale">
     <div class="all-documents">
       <div class="header d-flex justify-content-between">
-        <h5>
-          <b>{{ $t("profile.companyDocuments") }}</b>
-        </h5>
+        <h5>{{ $t("profile.companyDocuments") }}</h5>
       </div>
       <!-- buissnessinfoUpload -->
       <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">

@@ -695,7 +695,11 @@
                       v-b-tooltip.hover
                       :title="$t('items.standingOrders')"
                     >
-                      <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                      <img
+                        src="@/assets/images/new-design/standing-order-sign.png"
+                        class="standing-order-sign"
+                        alt="standing-order-sign"
+                      />
                     </button>
                   </div>
 
