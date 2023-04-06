@@ -16,7 +16,7 @@
           >{{ $t("supplier.sendSupplierMessage") }}</b-button
         >
       </div>
-      <table class="table custom-margin">
+      <!-- <table class="table custom-margin">
         <thead
           :class="{
             'text-left': $i18n.locale == 'en',
@@ -54,7 +54,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
       <b-modal id="bv-modal-example" centered hide-footer>
         <template #modal-title> {{ $t("profile.yourMessage") }} </template>
         <div class="d-block">
@@ -106,19 +106,29 @@
     </div>
     <div class="new-design">
       <div class="container">
-        <div class="row w-75 m-auto">
-          <div class="col-12" v-for="(item, index) in items" :key="index">
-            <div
-              class="mb-5"
+        <ul class="chat row">
+          <!-- <li class="stamp">
+            Saturday
+            <span>20:32</span>
+          </li> -->
+          <li
+            :class="{
+              'col-sm-12': item.sent_by == 'supplier',
+              'col-sm-6 offset-sm-6 ': item.sent_by == 'client',
+            }"
+            v-for="(item, index) in items"
+            :key="index"
+          >
+            <p
               :class="{
-                'text-left supplier-message': item.sent_by == 'supplier',
-                'text-right client-message': item.sent_by == 'client',
+                'left w-50': item.sent_by == 'supplier',
+                'right w-100': item.sent_by == 'client',
               }"
             >
-              {{ item.message }}
-            </div>
-          </div>
-        </div>
+              <span>{{ item.message }}</span>
+            </p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -190,6 +200,9 @@ export default {
   },
   mounted() {
     this.suppliersingleCorrespondence();
+    if (!this.id) {
+      this.$router.push("/profile/SupplierCorrespondenceB2b");
+    }
   },
 };
 </script>
@@ -213,18 +226,82 @@ export default {
 }
 
 .new-design {
-  .supplier-message {
-    background: #e8e8e8;
-    color: #000;
-    padding: 20px;
-    border-radius: 30px 30px 30px 0;
+  ul.chat {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 50%;
+    max-height: 500px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      -webkit-box-shadow: inset 0 0 6px $main-color;
+    }
+
+    @media (max-width: 992px) {
+      width: 100%;
+    }
+
+    p {
+      margin-bottom: 10px;
+      display: inline-block;
+      border-radius: 8px;
+      padding: 10px;
+      width: 50%;
+
+      min-height: 90px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .left {
+      background: #e3e3e3;
+      //float: left;
+      width: 100%;
+      border-top-left-radius: 0;
+      border-radius: 30px 30px 30px 0;
+    }
+
+    .right {
+      background: transparent;
+      border: 2px solid #e3e3e3;
+      border-top-right-radius: 0;
+      //float: right;
+      width: 100%;
+      border-radius: 30px 30px 0px 30px;
+    }
+
+    &.stamp {
+      color: #666;
+      font-size: 80%;
+      text-align: center;
+      width: 100%;
+      span {
+        color: #999;
+      }
+    }
   }
-  .client-message {
-    background: transparent;
-    border: 2px solid #e8e8e8;
-    color: #000;
-    padding: 20px;
-    border-radius: 30px 30px 0 30px;
+}
+.en .chat,
+.ar .chat {
+  direction: ltr !important;
+}
+.ar .chat {
+  text-align: right !important;
+  p {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
   }
 }
 </style>
