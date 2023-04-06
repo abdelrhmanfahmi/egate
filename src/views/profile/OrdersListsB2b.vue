@@ -593,11 +593,5 @@ export default {
 }
 
 /* checkbox */
-.myproject--checkbox {
-  height: 20px;
-  width: 20px;
-  accent-color: $main-color;
-  display: inline-block;
-  cursor: pointer;
-}
+
 </style>

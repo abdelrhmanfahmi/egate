@@ -13,9 +13,34 @@
 }
 
 .border-main{
-    border:1px solid $main-color
+    border:1px solid $main-color;
+    background: transparent;
+    color: $main-color;
+    &:hover{
+        background-color: $main-color;
+        color: #fff !important;
+        border-color: $main-color;
+    }
 }
 .standing-order-sign{
     width: 22px !important;
     height: 22px !important;
 }
+
+.myproject--checkbox {
+    height: 20px;
+    width: 20px;
+    accent-color: $main-color;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .rfq-page{
+    table{
+        tr{
+            td{
+                padding: 25px 0;
+            }
+        }
+    }
+  }

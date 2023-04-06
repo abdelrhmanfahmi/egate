@@ -37,7 +37,13 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" size="1x" />
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+          <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" size="1x" />
           <span>{{ link.name }}</span>
           <span
             class="side-number"
@@ -87,7 +93,13 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" v-else />
           <span>{{ link.name }}</span>
           <span
             class="side-number"

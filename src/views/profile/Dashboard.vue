@@ -191,26 +191,26 @@
           </div>
         </div>
         <div class="large-screen my-5">
-          <router-link to="/profile/wallet" class="link">
-            <div class="bordered">
-              <h5 class="title main-color">
-                <span><font-awesome-icon icon="fa-solid fa-wallet" /></span>
-                <span class="mx-2">{{ $t("profile.wallet") }}</span>
-              </h5>
-              <!-- <span class="icon">
+          <!-- <router-link to="/profile/wallet" class="link"> -->
+          <div class="bordered">
+            <h5 class="title main-color">
+              <span><font-awesome-icon icon="fa-solid fa-wallet" /></span>
+              <span class="mx-2">{{ $t("profile.wallet") }}</span>
+            </h5>
+            <!-- <span class="icon">
                 <font-awesome-icon icon="fa-solid fa-wallet" class="fa-2x" />
               </span> -->
 
-              <div class="info pt-3">
-                <div class="p-0">
-                  <p class="number">
-                    {{ dashData.wallet | fixedCurrency }} {{ currency }}
-                  </p>
-                  <button class="bg-main py-2 px-4">Deposite</button>
-                </div>
+            <div class="info pt-3">
+              <div class="p-0">
+                <p class="number">{{ dashData.wallet | fixedCurrency }} {{ currency }}</p>
+                <button v-b-modal.charge class="bg-main py-2 px-4">
+                  {{ $t("profile.charge") }}
+                </button>
               </div>
             </div>
-          </router-link>
+          </div>
+          <!-- </router-link> -->
         </div>
       </div>
       <div class="holder text-center mt-5" v-if="orders">
@@ -298,7 +298,7 @@
         </table>
         <div>
           <b-modal centered id="bv-modal-example" hide-footer>
-            <template class="text-center" #modal-title>
+            <template #modal-title>
               <h3>{{ $t("payment.paymentData") }}</h3>
             </template>
             <div class="d-block text-center">
@@ -386,6 +386,64 @@
         <spinner />
       </div>
     </div>
+    <div class="deposit-modal">
+      <!-- withdraw modal  -->
+      <b-modal ref="charge" id="charge" hide-footer centered>
+        <template #modal-header="{ close }">
+          <h5>{{ $t("profile.charge") }}</h5>
+          <!-- Emulate built in modal header close button action -->
+          <b-button size="sm" variant="outline-danger" @click="close()"> x </b-button>
+        </template>
+        <div class="d-block" v-if="!chargeClicked">
+          <div class="">
+            <!-- charge wallet  -->
+            <form @submit.prevent="chargeWallet" class="">
+              <div class="">
+                <div class="">
+                  <div class="input-holder">
+                    <b-form-input
+                      type="number"
+                      v-model="chargeValue"
+                      min="0"
+                      :placeholder="$t('profile.enterValue')"
+                    ></b-form-input>
+                    <span class="currency">{{ currency }}</span>
+                  </div>
+                  <div
+                    class="error text-center"
+                    v-for="(error, index) in errors.value"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row justify-content-around align-items-center" v-if="!chargeClicked">
+          <b-button class="mt-3 m-0" variant="outline-danger" @click="hideChargeModal">{{
+            $t("cart.cancel")
+          }}</b-button>
+
+          <b-button
+            class="border-main main-color bg-transparent m-0 mt-3"
+            @click="chargeWallet"
+            :disabled="!chargeValue || chargeValue == 0"
+          >
+            <b>{{ $t("profile.charge") }}</b>
+          </b-button>
+        </div>
+        <span
+          v-if="chargeClicked"
+          class="text-center d-flex justify-content-center align-items-center"
+        >
+          <div>
+            <b-spinner label="Spinning" variant="red" large></b-spinner>
+          </div>
+        </span>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -457,9 +515,44 @@ export default {
       },
       errors: [],
       selectedOption: null,
+      chargeValue: null,
+      chargeClicked: false,
     };
   },
   methods: {
+    hideChargeModal() {
+      this.$refs["charge"].hide();
+    },
+    /**
+     * charge Wallet function
+     * @vuese
+     */
+    chargeWallet() {
+      this.chargeClicked = true;
+      const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`;
+      // const backUrl = `${this.mainDoamin}profile/Wallet`
+      let payload = {
+        value: this.chargeValue,
+        redirect_url: backUrl,
+      };
+      profile
+        .chargeMyWallet(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          console.log(res);
+          if (res.status == 200) {
+            window.location.href = res.data.items.url;
+            this.chargeClicked = false;
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+          console.log(err);
+          this.chargeClicked = false;
+        });
+    },
     /**
      * get Dashboard Data function
      * @vuese
@@ -715,5 +808,21 @@ export default {
   .large-screen {
     max-width: 25%;
   }
+}
+
+.input-holder {
+  position: relative;
+  .currency {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: 0;
+    font-size: 16px;
+  }
+}
+.tab-title {
+  font-weight: bold;
+  font-size: 22px;
 }
 </style>

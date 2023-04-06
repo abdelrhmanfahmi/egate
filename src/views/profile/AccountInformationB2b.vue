@@ -293,7 +293,13 @@
                     <div class="file-data">
                       <span class="file-name">{{ file.name }}</span>
                       <span class="file-size">({{ file.size }} b)</span>
-                      <button @click="removeFile(index)" title="Remove">X</button>
+                      <button
+                        @click="removeFile(index)"
+                        class="border-none mx-2"
+                        title="Remove"
+                      >
+                        X
+                      </button>
                     </div>
                   </li>
                 </ul>

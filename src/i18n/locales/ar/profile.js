@@ -312,5 +312,9 @@ export default {
   basketName:'اسم السلة',
   Account_number:'رقم الحساب',
   iban:'Iban',
-  bank_name:'اسم البنك'
+  bank_name:'اسم البنك',
+  frequently:"التكرار",
+  lastOrder:'اخر طلب',
+  upload:"رفع",
+  lastMessage:'اخر رسالة'
 };

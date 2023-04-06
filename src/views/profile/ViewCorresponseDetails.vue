@@ -104,6 +104,23 @@
         >
       </b-modal>
     </div>
+    <div class="new-design">
+      <div class="container">
+        <div class="row w-75 m-auto">
+          <div class="col-12" v-for="(item, index) in items" :key="index">
+            <div
+              class="mb-5"
+              :class="{
+                'text-left supplier-message': item.sent_by == 'supplier',
+                'text-right client-message': item.sent_by == 'client',
+              }"
+            >
+              {{ item.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -193,5 +210,21 @@ export default {
 }
 .custom-margin {
   margin-bottom: 80px;
+}
+
+.new-design {
+  .supplier-message {
+    background: #e8e8e8;
+    color: #000;
+    padding: 20px;
+    border-radius: 30px 30px 30px 0;
+  }
+  .client-message {
+    background: transparent;
+    border: 2px solid #e8e8e8;
+    color: #000;
+    padding: 20px;
+    border-radius: 30px 30px 0 30px;
+  }
 }
 </style>

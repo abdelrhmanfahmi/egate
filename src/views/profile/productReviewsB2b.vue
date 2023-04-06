@@ -3,7 +3,7 @@
   <div class="product-reviews">
     <h4 class="main-header my-4">{{ $t("profile.productReviews") }}</h4>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped" v-if="items">
       <thead>
         <tr>
           <th scope="col" v-for="(field, index) in fields" :key="index">
@@ -11,36 +11,47 @@
           </th>
         </tr>
       </thead>
-      <tbody v-for="item in items" :key="item.id">
-        <tr>
+      <tbody>
+        <tr
+          v-for="item in items.filter((item) => !item.basket_promotion_id)"
+          :key="item.id"
+        >
           <td class="text-center">
-            <p
-              v-if="item.product_supplier.product"
-              class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
-            >
-              <span>{{ new Date(item.created_at).toLocaleString() }}</span>
-            </p>
-          </td>
-          <td class="text-center">
-            <router-link
-              class="text-dark"
-              :to="{
-                path: '/details',
-                query: { id: item.product_supplier.id },
-              }"
-            >
+            <div class="" v-if="item.product_supplier">
               <p
                 v-if="item.product_supplier.product"
                 class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
               >
-                <span v-if="$i18n.locale == 'en'"
-                  >{{ item.product_supplier.product.title_en }}
-                </span>
-                <span v-if="$i18n.locale == 'ar'"
-                  >{{ item.product_supplier.product.title_ar }}
-                </span>
+                <span>{{ new Date(item.created_at).toLocaleString() }}</span>
               </p>
-            </router-link>
+              <div class="" v-else>-</div>
+            </div>
+            <div class="" v-else>-</div>
+          </td>
+          <td class="text-center">
+            <div class="" v-if="item.product_supplier">
+              <router-link
+                class="text-dark"
+                :to="{
+                  path: '/details',
+                  query: { id: item.product_supplier.id },
+                }"
+              >
+                <p
+                  v-if="item.product_supplier.product"
+                  class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3"
+                >
+                  <span v-if="$i18n.locale == 'en'"
+                    >{{ item.product_supplier.product.title_en }}
+                  </span>
+                  <span v-if="$i18n.locale == 'ar'"
+                    >{{ item.product_supplier.product.title_ar }}
+                  </span>
+                </p>
+                <div class="" v-else>-</div>
+              </router-link>
+            </div>
+            <div class="" v-else>-</div>
           </td>
           <td class="text-center" v-if="item.review">
             {{ new Date(item.review.created_at).toLocaleString() }}
@@ -54,14 +65,13 @@
                 id="rating-inline"
                 inline
                 :value="item.review.rate"
-                color="#000"
+                color="#EF4923"
                 disabled
+                size="lg"
               ></b-form-rating>
             </div>
             <div class="" v-else>
-              <Rate
-                @changeRate="ChangeRateValue($event)"
-              />
+              <Rate @changeRate="ChangeRateValue($event)" />
             </div>
           </td>
           <td class="text-center">
@@ -169,7 +179,6 @@ export default {
      */
     ChangeRateValue(myRate) {
       this.myRate = myRate;
-      console.log(myRate);
     },
   },
   mounted() {

@@ -1,39 +1,49 @@
 <template>
   <!-- subscribe news letter page  -->
   <div class="subscribe-newsletter">
-    <h4 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h4>
+    <div class="img-holder text-center">
+      <img
+        src="@/assets/images/new-design/newsletter.png"
+        alt="newsletter"
+        class="img-fluid"
+      />
+    </div>
+    <!-- <h4 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h4>  -->
     <div class="sec-subscribe">
-      <h6 class="main-header">{{ $t("profile.notSubscribed") }}</h6>
-      <p>{{ $t("profile.exclusiveOffers") }}</p>
+      <!-- <h6 class="main-header">{{ $t("profile.notSubscribed") }}</h6> -->
+      <!-- <p>{{ $t("profile.exclusiveOffers") }}</p> -->
+      <h1 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h1>
+      <p>Receive special offers and exclusive coupons</p>
 
-      <!-- Email -->
-      <b-col lg="6 subscribe-newsletter-form">
-        <b-form-group>
-          <label for="email">{{ $t("register.email") }}</label>
-          <span class="requried">*</span>
-          <b-form-input id="email" v-model="form.email" />
-          <div
-            class="error"
-            v-for="(error, index) in errors.email"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </b-form-group>
-      </b-col>
+      <div
+        class="hold-it"
+        :class="{ 'text-left': $i18n.locale == 'en', 'text-right': $i18n.locale == 'ar' }"
+      >
+        <!-- Email -->
+        <b-col lg="6 subscribe-newsletter-form">
+          <b-form-group>
+            <label for="email">{{ $t("register.email") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="email" v-model="form.email" />
+            <div class="error" v-for="(error, index) in errors.email" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
 
-      <b-button type="submit" class="login-button" @click="makeSubscribe()">
-        {{ $t("profile.subscribe") }}
-      </b-button>
+        <b-button type="submit" class="login-button" @click="makeSubscribe()">
+          {{ $t("profile.subscribe") }}
+        </b-button>
 
-      <b-button
+        <!-- <b-button
         type="submit"
         class="login-button bg-main"
         v-if="emailExaxt"
         @click="cancelSubscribe()"
       >
         {{ $t("profile.cancelSubscribe") }}
-      </b-button>
+      </b-button> -->
+      </div>
     </div>
   </div>
 </template>
@@ -118,8 +128,8 @@ export default {
     margin: 30px 0;
     padding: 30px 0;
     text-align: center;
-    border-bottom: 2px solid #dee2e6;
-    border-top: 2px solid #dee2e6;
+    //border-bottom: 2px solid #dee2e6;
+    //border-top: 2px solid #dee2e6;
     .login-button {
       margin: 10px auto 0;
       width: 20%;

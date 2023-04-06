@@ -206,3 +206,23 @@ input[type="radio"]:checked::before , .custom-control-input:checked ~ .custom-co
   padding: 3px;
 }
 
+.documentsB2b{
+  .custom-file-input ~ .custom-file-label[data-browse]::after{
+    display:none
+  }
+  .b-custom-control-lg .custom-file-label, .input-group-lg .custom-file-label{
+    border:none;
+    
+  }
+  .b-custom-control-lg.custom-file, .b-custom-control-lg .custom-file-input, .b-custom-control-lg .custom-file-label, .input-group-lg.custom-file, .input-group-lg .custom-file-input, .input-group-lg .custom-file-label{
+    &:focus{
+      box-shadow: none;
+    }
+  }
+}
+.modal-body{
+  img{
+    max-height: 30rem !important;
+    object-fit: contain;
+  }
+}

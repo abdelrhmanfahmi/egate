@@ -322,5 +322,9 @@ export default {
   basketName:'Basket Name',
   Account_number:'Account Number',
   iban:'Iban',
-  bank_name:'Bank Name'
+  bank_name:'Bank Name',
+  frequently:"Frequently",
+  lastOrder:'Last Order',
+  upload:"Upload",
+  lastMessage:'Last Message'
 };

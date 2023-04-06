@@ -20,10 +20,18 @@
         <tbody>
           <tr v-for="(order, index) in items" :key="index">
             <td>
-              {{ order.supplier.first_name }} {{ order.supplier.last_name }}
+              <div class="d-flex justify-content-around align-items-center">
+                <div class="supplier-image-holder">
+                  <img :src="order.supplier.image_path" alt="" class="supplier-img" />
+                </div>
+                <div class="supplier-info">
+                  <span>{{ order.supplier.first_name }}</span>
+                  <span>{{ order.supplier.last_name }}</span>
+                </div>
+              </div>
             </td>
-            <td>{{ order.last_message | formatDate }}</td>
-            <td>
+            <!-- <td>{{ order.last_message | formatDate }}</td> -->
+            <!-- <td>
               <div v-if="order.status === 'Submitted'">
                 <div class="" v-if="$i18n.locale == 'en'">
                   <span>{{ buyerUserData.first_name }}</span>
@@ -38,10 +46,13 @@
               </div>
               <div v-if="order.status === 'UpdatedBySupplier'">
                 <span
-                  >{{ order.supplier.first_name }}
-                  {{ order.supplier.last_name }}</span
+                  >{{ order.supplier.first_name }} {{ order.supplier.last_name }}</span
                 >
               </div>
+            </td> -->
+
+            <td>
+              {{ order.last_message_text }}
             </td>
 
             <td>
@@ -75,14 +86,12 @@
     </div>
     <!-- if items not exist  -->
     <!-- when loading  -->
-    <div
-      class="spinner d-flex justify-content-center align-items-center"
-      v-else
-    >
+    <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
     <div class="" v-if="!items">
-      {{ $t('profile.quotationsRatingsEmpty') }}</div>
+      {{ $t("profile.quotationsRatingsEmpty") }}
+    </div>
   </div>
 </template>
 
@@ -102,13 +111,17 @@ export default {
           key: "first",
           label: this.$t("profile.supplierName"),
         },
-        {
-          key: "supplier",
-          label: this.$t("profile.lastUpdate"),
-        },
+        // {
+        //   key: "supplier",
+        //   label: this.$t("profile.lastUpdate"),
+        // },
+        // {
+        //   key: "Product",
+        //   label: this.$t("profile.lastUpdateUser"),
+        // },
         {
           key: "Product",
-          label: this.$t("profile.lastUpdateUser"),
+          label: this.$t("profile.lastMessage"),
         },
         {
           key: "actions",
@@ -135,7 +148,7 @@ export default {
   },
   methods: {
     /**
-     * get supplier All Correspondence function 
+     * get supplier All Correspondence function
      * @vuese
      */
     supplierAllCorrespondence() {
@@ -147,9 +160,7 @@ export default {
           this.itemsLength = resp.data.items.data.length;
 
           this.total = resp.data.items.total;
-          this.totalPages = Math.ceil(
-            resp.data.items.total / resp.data.items.per_page
-          ); // Calculate total records
+          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
         })
@@ -158,22 +169,22 @@ export default {
         });
     },
     /**
-     * function for pagination 
+     * function for pagination
      * @vuese
      */
     onPageChange(page) {
       this.page = page;
       this.getOrders();
     },
-     /**
-     * function for pagination 
+    /**
+     * function for pagination
      * @vuese
      */
     onChangeRecordsPerPage() {
       this.getOrders();
     },
-     /**
-     * function for pagination 
+    /**
+     * function for pagination
      * @vuese
      */
     gotoPage() {
@@ -226,5 +237,10 @@ export default {
     justify-content: center;
     align-items: center;
   }
+}
+.supplier-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 </style>
