@@ -81,6 +81,16 @@
           >
         </router-link>
       </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
+      </li>
     </ul>
     <ul v-else>
       <li
@@ -136,6 +146,16 @@
             >{{ userBades.rfqs }}</span
           >
         </router-link>
+      </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
       </li>
     </ul>
   </div>
@@ -389,5 +409,8 @@ html:lang(ar) {
     //padding: 60px 60px 60px 0px;
     text-align: right;
   }
+}
+.logout {
+  cursor: pointer;
 }
 </style>
