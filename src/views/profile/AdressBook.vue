@@ -24,11 +24,7 @@
                 >{{ country.title }}
               </b-form-select-option>
             </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.country_id"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.country_id" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -50,11 +46,7 @@
                 >{{ region.title }}
               </b-form-select-option>
             </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.region_id"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.region_id" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -68,33 +60,29 @@
               v-model="form.city_id"
               :disabled="!form.country_id || !form.region_id"
             >
-              <b-form-select-option
-                v-for="city in cities"
-                :key="city.id"
-                :value="city.id"
+              <b-form-select-option v-for="city in cities" :key="city.id" :value="city.id"
                 >{{ city.title }}
               </b-form-select-option>
             </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.city_id"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.city_id" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- name in english (new add)-->
-        <b-col lg="6" v-if="$i18n.locale =='en' && form.name !== null">
+        <b-col lg="6" v-if="$i18n.locale == 'en' && form.name !== null">
           <b-form-group v-if="buyerUserData.type == 'buyer'">
             <label>{{ $t("profile.name") }}</label>
             <b-form-select v-model="form.name">
-              <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+              <b-form-select-option value="null" disabled
+                >{{ $t("profile.name") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(
-                  formName, index
-                ) in en_B2B_formNames" :key="index" :value="formName">{{ formName }}
+              <b-form-select-option
+                v-for="(formName, index) in en_B2B_formNames"
+                :key="index"
+                :value="formName"
+                >{{ formName }}
               </b-form-select-option>
             </b-form-select>
           </b-form-group>
@@ -109,26 +97,25 @@
                 >{{ formName }}
               </b-form-select-option>
             </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.name"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.name" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <!-- name in arabic (new add)-->
-        <b-col lg="6" v-else-if="$i18n.locale =='ar' && form.name !== null">
-          <b-form-group v-if="buyerUserData.type == 'buyer' && arabicAvailable !=='no'">
+        <b-col lg="6" v-else-if="$i18n.locale == 'ar' && form.name !== null">
+          <b-form-group v-if="buyerUserData.type == 'buyer' && arabicAvailable !== 'no'">
             <label>{{ $t("profile.name") }}</label>
             <b-form-select v-model="form.name">
-              <b-form-select-option value="null" disabled>{{ $t("profile.name") }}
+              <b-form-select-option value="null" disabled
+                >{{ $t("profile.name") }}
                 <span class="requried text-danger">*</span>
               </b-form-select-option>
-              <b-form-select-option v-for="(
-                  formName, index
-                ) in ar_B2B_formNames" :key="index" :value="formName">{{ formName }}
+              <b-form-select-option
+                v-for="(formName, index) in ar_B2B_formNames"
+                :key="index"
+                :value="formName"
+                >{{ formName }}
               </b-form-select-option>
             </b-form-select>
           </b-form-group>
@@ -143,11 +130,7 @@
                 >{{ formName }}
               </b-form-select-option>
             </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.name"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.name" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -173,11 +156,7 @@
             <label for="floor">{{ $t("profile.blockNumber") }}</label>
             <span class="requried">*</span>
             <b-form-input id="floor" v-model="form.block" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.block"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.block" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -188,11 +167,7 @@
             <label for="street">{{ $t("profile.newStreetNumber") }}</label>
             <span class="requried">*</span>
             <b-form-input id="street" v-model="form.street" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.street"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.street" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -203,11 +178,7 @@
             <label for="floor">{{ $t("profile.avenue") }}</label>
             <span class="requried">*</span>
             <b-form-input id="floor" v-model="form.avenue" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.avenue"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.avenue" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -227,18 +198,14 @@
             </div>
           </b-form-group>
         </b-col>
-         
+
         <!-- floor   -->
         <b-col lg="6" v-if="form.floor !== null">
           <b-form-group>
             <label for="floor">{{ $t("profile.floor") }}</label>
             <!-- <span class="requried">*</span> -->
             <b-form-input id="floor" v-model="form.floor" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.floor"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.floor" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -264,17 +231,17 @@
             <label for="postCode">{{ $t("profile.zipCode") }}</label>
             <span class="requried">*</span>
             <b-form-input id="postCode" v-model="form.pin_code" />
-            <div
-              class="error"
-              v-for="(error, index) in errors.pin_code"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.pin_code" :key="index">
               {{ error }}
             </div>
           </b-form-group>
         </b-col>
         <b-col lg="12" v-if="dynamicInputs">
-          <dynamicComponent :dynamicInputs="dynamicInputs" :form="form" :errors="errors" />
+          <dynamicComponent
+            :dynamicInputs="dynamicInputs"
+            :form="form"
+            :errors="errors"
+          />
         </b-col>
         <!-- note  -->
         <b-col lg="12" v-if="form.notes !== null">
@@ -285,11 +252,7 @@
               size="lg"
               v-model="form.notes"
             ></b-form-textarea>
-            <div
-              class="error"
-              v-for="(error, index) in errors.notes"
-              :key="index"
-            >
+            <div class="error" v-for="(error, index) in errors.notes" :key="index">
               {{ error }}
             </div>
           </b-form-group>
@@ -300,15 +263,18 @@
         {{ $t("register.submit") }}
       </b-button>
     </form>
-    <b-table hover :items="adresses" :fields="fields" stacked="lg" show-empty
-      :empty-text="$t('profile.quotationsRatingsEmpty')" class="my-4">
+    <b-table
+      hover
+      :items="adresses"
+      :fields="fields"
+      stacked="lg"
+      show-empty
+      :empty-text="$t('profile.quotationsRatingsEmpty')"
+      class="my-4"
+    >
       <template #cell(actions)="row">
         <div class="actions">
-          <b-button
-            v-b-tooltip.hover
-            :title="$t('profile.edit')"
-            @click="editAdress(row)"
-          >
+          <b-button v-b-tooltip.hover :title="$t('items.edit')" @click="editAdress(row)">
             <font-awesome-icon icon="fa-solid fa-edit" />
           </b-button>
           <b-button
@@ -337,8 +303,8 @@
 // user addresses page
 import auth from "@/services/auth";
 import profile from "@/services/profile";
-import dynamicComponent from "@/components/global/dynamicComponent"
-import { createdFormData } from "@/services/helpers.js"
+import dynamicComponent from "@/components/global/dynamicComponent";
+import { createdFormData } from "@/services/helpers.js";
 export default {
   data() {
     return {
@@ -352,9 +318,9 @@ export default {
         pin_code: "",
         notes: "",
         name: "",
-        block:'',
-        street:'',
-        avenue:''
+        block: "",
+        street: "",
+        avenue: "",
       },
       countries: [],
       cities: [],
@@ -408,18 +374,18 @@ export default {
       ar_formNames: ["المنزل", "المكتب"],
       en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
       ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
-      dynamicInputs: null
+      dynamicInputs: null,
     };
   },
   mounted() {
-    this.checkAddressesForm()
+    this.checkAddressesForm();
     this.getAllCountires();
     this.getAllAdresses();
     this.form.country_id = JSON.parse(this.selectedCountry).id;
-    if(this.form.country_id){
-      this.getAllRegions()
+    if (this.form.country_id) {
+      this.getAllRegions();
     }
-    this.checkDynamicInputs()
+    this.checkDynamicInputs();
   },
   methods: {
     /**
@@ -473,13 +439,12 @@ export default {
      * @vuese
      *  checkAddressesForm
      */
-     checkAddressesForm() {
+    checkAddressesForm() {
       profile
         .checkAddressesForm()
         .then((res) => {
           let formControl = res.data.items;
           formControl.map((element) => {
-            
             if (element.status !== 1) {
               this.form[element.input_key] = null;
             } else {
@@ -491,7 +456,6 @@ export default {
           console.log(err);
         });
     },
-
 
     // createAddress
 
@@ -586,22 +550,25 @@ export default {
      * @vuese
      */
     checkDynamicInputs() {
-      auth.dynamicInputs('user-address').then(res => {
-        this.dynamicInputs = res.data.items
-        this.dynamicInputs.map(input => {
-          this.form[input.uuid] = null;
-          if (input.type == 'checkbox') {
-            this.form[input.uuid] = false;
-          }
+      auth
+        .dynamicInputs("user-address")
+        .then((res) => {
+          this.dynamicInputs = res.data.items;
+          this.dynamicInputs.map((input) => {
+            this.form[input.uuid] = null;
+            if (input.type == "checkbox") {
+              this.form[input.uuid] = false;
+            }
+          });
         })
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
-  components:{
-    dynamicComponent
-  }
+  components: {
+    dynamicComponent,
+  },
 };
 </script>
 
