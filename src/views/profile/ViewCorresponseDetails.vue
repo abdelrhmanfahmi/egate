@@ -144,13 +144,37 @@
         </ul>
         <div class="my-5 sendMessageHolder" v-if="items">
           <div class="row justify-content-center align-content-center">
-            <div class="col-md-10 col-sm-12 mb-2">
-              <input
-                v-model="message"
-                type="text"
-                class="form-control"
-                :placeholder="$t('supplier.sendSupplierMessage')"
-              />
+            <div class="col-md-9 col-sm-9 mb-2">
+              <div class="input-holder">
+                <input
+                  v-model="message"
+                  type="text"
+                  class="form-control"
+                  :placeholder="$t('supplier.sendSupplierMessage')"
+                />
+
+                <div class="company-logo">
+                  <main>
+                    <div @dragover.prevent @drop.prevent class="data-holder">
+                      <div @drop="handleFileDrop">
+                        <div class="file-wrapper">
+                          <input
+                            type="file"
+                            name="file-input"
+                            @change="handleFileInput"
+                          />
+                          <div class="d-flex flex-column text-holder">
+                            <font-awesome-icon
+                              icon="fa-solid fa-paperclip"
+                              class="myIcon"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              </div>
             </div>
             <div class="col-md-2 col-sm-12 mb-2">
               <b-button
@@ -160,6 +184,30 @@
                 >{{ $t("profile.send") }}</b-button
               >
             </div>
+          </div>
+          <div class="company-logo">
+            <main>
+              <div @dragover.prevent @drop.prevent class="data-holder">
+                <div @drop="handleFileDrop">
+                  <ul class="files mt-4">
+                    <li v-for="(file, index) in files" :key="index">
+                      <div class="file-data">
+                        <span class="file-name">{{ file.name }}</span>
+                        <span class="file-size">({{ file.size }} b)</span>
+                        <button
+                          @click="removeFile(index)"
+                          class="border-none mx-2"
+                          title="Remove"
+                        >
+                          X
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                  <img v-if="chatImage" :src="chatImage" alt="" srcset="" />
+                </div>
+              </div>
+            </main>
           </div>
           <div class="error mt-2">
             <p v-for="(error, index) in errors.message" :key="index">
@@ -187,9 +235,34 @@ export default {
       subject: null,
       errors: {},
       supplierId: null,
+      chatImage: null,
+      files: [],
     };
   },
   methods: {
+    handleFileDrop(e) {
+      let droppedFiles = e.dataTransfer.files[0];
+      if (!droppedFiles) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      this.files = [];
+      this.files.push(droppedFiles);
+      let myFile = droppedFiles;
+      this.chatImage = URL.createObjectURL(myFile);
+    },
+    handleFileInput(e) {
+      let files = e.target.files[0];
+      files = e.target.files[0];
+      if (!files) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      this.files = [];
+      this.files.push(files);
+      let myFile = files;
+      this.chatImage = URL.createObjectURL(myFile);
+    },
+    removeFile(fileKey) {
+      this.files.splice(fileKey, 1);
+      this.chatImage = null;
+    },
     /**
      * supplier single Correspondence function
      * @vuese
@@ -383,5 +456,50 @@ li {
     bottom: 5px;
     opacity: 0.5;
   }
+}
+
+.company-logo {
+  .data-holder {
+    width: 40%;
+  }
+  button {
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    border: none;
+  }
+  .file-wrapper {
+    text-align: center;
+    height: 20px;
+    vertical-align: middle;
+    position: absolute;
+    right: 35px;
+    top: -5px;
+    font-size: 20px;
+  }
+
+  .file-wrapper input {
+    position: absolute;
+    top: 5px;
+    right: -12px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 50px;
+    //width: 36px;
+    cursor: pointer;
+  }
+
+  .file-input {
+    color: #f0f0f0;
+  }
+  .text-holder {
+    color: #bebebe;
+    margin: 20px 0;
+    cursor: pointer;
+  }
+}
+.myIcon {
+  cursor: pointer;
 }
 </style>
