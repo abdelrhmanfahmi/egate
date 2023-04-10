@@ -218,7 +218,13 @@
           <thead>
             <tr>
               <th scope="col" v-for="(tab, index) in fields" :key="index">
-                {{ tab.label }}
+                <span>{{ tab.label }}</span>
+                <!-- <span
+                  v-if="tab.label == $t('profile.amount')"
+                  class="mx-2"
+                  @click="sortList('total_price')"
+                  >&#8597;</span
+                > -->
               </th>
             </tr>
           </thead>
@@ -529,9 +535,19 @@ export default {
       selectedOption: null,
       chargeValue: null,
       chargeClicked: false,
+      sortedbyASC: true,
     };
   },
   methods: {
+    sortList(sortBy) {
+      if (this.sortedbyASC) {
+        this.orders.sort((x, y) => (x[sortBy] > y[sortBy] ? -1 : 1));
+        this.sortedbyASC = false;
+      } else {
+        this.orders.sort((x, y) => (x[sortBy] < y[sortBy] ? -1 : 1));
+        this.sortedbyASC = true;
+      }
+    },
     hideChargeModal() {
       this.$refs["charge"].hide();
     },
@@ -869,4 +885,7 @@ export default {
   font-weight: bold;
   font-size: 22px;
 }
+//th {
+// cursor: pointer;
+//}
 </style>

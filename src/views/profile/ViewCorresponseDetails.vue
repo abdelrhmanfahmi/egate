@@ -7,7 +7,7 @@
           {{ $t("profile.corresponceDetail") }}
         </h1>
       </div>
-      <div class="my-5" v-if="items">
+      <!-- <div class="my-5" v-if="items">
         <b-button
           variant="outline-danger"
           id="show-btn"
@@ -15,7 +15,7 @@
           @click="$bvModal.show('bv-modal-example')"
           >{{ $t("supplier.sendSupplierMessage") }}</b-button
         >
-      </div>
+      </div> -->
       <!-- <table class="table custom-margin">
         <thead
           :class="{
@@ -105,7 +105,7 @@
       </b-modal>
     </div>
     <div class="new-design">
-      <div class="container">
+      <div class="chat-holder">
         <ul class="chat row">
           <!-- <li class="stamp">
             Saturday
@@ -119,26 +119,54 @@
             v-for="(item, index) in items"
             :key="index"
           >
-          
             <p
               :class="{
                 'left w-50': item.sent_by == 'supplier',
                 'right w-100': item.sent_by == 'client',
               }"
             >
-            <span v-if="item.sent_by == 'supplier'" class="main-color">
-              <span v-if="item.chat.supplier.company_name">{{item.chat.supplier.company_name}}</span>
-              <span v-else >{{item.chat.supplier.company_name_en}}</span>
-            </span>
-            <span v-if="item.sent_by == 'client'" class="main-color">
-              <span v-if="item.chat.client.company_name">{{item.chat.client.company_name}}</span>
-              <span v-else >{{item.chat.client.company_name_en}}</span>
-              
+              <span v-if="item.sent_by == 'supplier'" class="main-color">
+                <span v-if="item.chat.supplier.company_name">{{
+                  item.chat.supplier.company_name
+                }}</span>
+                <span v-else>{{ item.chat.supplier.company_name_en }}</span>
               </span>
-              <span>{{ item.message }}</span>
+              <span v-if="item.sent_by == 'client'" class="main-color">
+                <span v-if="item.chat.client.company_name">{{
+                  item.chat.client.company_name
+                }}</span>
+                <span v-else>{{ item.chat.client.company_name_en }}</span>
+              </span>
+              <span class="message">{{ item.message }}</span>
+              <span class="messageDate">{{ item.created_at | formatDate }}</span>
             </p>
           </li>
         </ul>
+        <div class="my-5 sendMessageHolder" v-if="items">
+          <div class="row justify-content-center align-content-center">
+            <div class="col-md-10 col-sm-12 mb-2">
+              <input
+                v-model="message"
+                type="text"
+                class="form-control"
+                :placeholder="$t('supplier.sendSupplierMessage')"
+              />
+            </div>
+            <div class="col-md-2 col-sm-12 mb-2">
+              <b-button
+                id="show-btn"
+                class="p-2 border-main"
+                @click="sendSupplierMessage"
+                >{{ $t("profile.send") }}</b-button
+              >
+            </div>
+          </div>
+          <div class="error mt-2">
+            <p v-for="(error, index) in errors.message" :key="index">
+              {{ error }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -240,7 +268,7 @@ export default {
     list-style: none;
     margin: 0 auto;
     padding: 0;
-    width: 50%;
+    width: 70%;
     max-height: 500px;
     overflow-y: scroll;
 
@@ -309,17 +337,51 @@ export default {
 .ar .chat {
   text-align: right !important;
   //p {
-   // display: flex !important;
-    //justify-content: flex-end !important;
-    //align-items: center !important;
+  // display: flex !important;
+  //justify-content: flex-end !important;
+  //align-items: center !important;
   //}
 }
-li{
+li {
   p {
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    align-items:flex-start !important
+    align-items: flex-start !important;
+  }
+}
+.sendMessageHolder {
+  //display: flex;
+  //justify-content: center;
+  width: 70%;
+  margin: auto;
+  button {
+    height: 53px;
+    width: 100%;
+  }
+  //align-items: center;
+  @media (max-width: 767px) {
+    width: 100%;
+    .row {
+      text-align: center;
+      button {
+        width: 50%;
+        margin: auto;
+      }
+    }
+  }
+}
+.left,
+.right {
+  position: relative;
+  .message {
+    margin-bottom: 20px;
+  }
+  .messageDate {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    opacity: 0.5;
   }
 }
 </style>
