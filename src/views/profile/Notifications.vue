@@ -96,8 +96,13 @@
     </div> -->
 
     <div class="new-style">
-      <div>
+      <div class="d-flex justify-content-between align-items-center">
         <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+        <h6>
+          <router-link to="/profile/NotificationSettings" class="text-dark">
+            <ins>{{ $t("profile.NotificationSettings") }}</ins>
+          </router-link>
+        </h6>
       </div>
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>

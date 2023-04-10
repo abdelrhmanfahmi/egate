@@ -119,12 +119,22 @@
             v-for="(item, index) in items"
             :key="index"
           >
+          
             <p
               :class="{
                 'left w-50': item.sent_by == 'supplier',
                 'right w-100': item.sent_by == 'client',
               }"
             >
+            <span v-if="item.sent_by == 'supplier'" class="main-color">
+              <span v-if="item.chat.supplier.company_name">{{item.chat.supplier.company_name}}</span>
+              <span v-else >{{item.chat.supplier.company_name_en}}</span>
+            </span>
+            <span v-if="item.sent_by == 'client'" class="main-color">
+              <span v-if="item.chat.client.company_name">{{item.chat.client.company_name}}</span>
+              <span v-else >{{item.chat.client.company_name_en}}</span>
+              
+              </span>
               <span>{{ item.message }}</span>
             </p>
           </li>
@@ -298,10 +308,18 @@ export default {
 }
 .ar .chat {
   text-align: right !important;
+  //p {
+   // display: flex !important;
+    //justify-content: flex-end !important;
+    //align-items: center !important;
+  //}
+}
+li{
   p {
     display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items:flex-start !important
   }
 }
 </style>

@@ -23,7 +23,7 @@ import StandingOrders from "../views/profile/StandingOrders.vue";
 import SingleStandingOrder from "../views/profile/SingleStandingOrder.vue";
 import Dashboard from "../views/profile/Dashboard.vue";
 import NotificationSettings from "../views/profile/NotificationSettings";
-
+import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
 
 
 
@@ -44,6 +44,11 @@ export default {
       path: "/profile/SupplierCorrespondenceB2b",
       name: "SupplierCorrespondenceB2b",
       component: SupplierCorrespondenceB2b,
+    },
+    {
+      path: "/profile/viewCorresponseDetails",
+      name: "ViewCorresponseDetails",
+      component: ViewCorresponseDetails,
     },
     {
       path: "/profile/OrdersListsB2b",

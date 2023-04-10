@@ -46,6 +46,16 @@
         >
       </template>
     </b-table>
+    <div class="d-flex justify-content-start align-items-center mt-5">
+      <!-- pagination for orders  -->
+      <Paginate
+        v-if="items"
+        :total-pages="totalPages"
+        :per-page="totalPages"
+        :current-page="page"
+        @pagechanged="onPageChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -55,6 +65,7 @@
  * @displayName quotaions page
  */
 import profile from "@/services/profile";
+import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
     return {
@@ -94,6 +105,15 @@ export default {
         },
       ],
       items: [],
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
     };
   },
   methods: {
@@ -104,9 +124,12 @@ export default {
     getQuotations() {
       profile
         .getQuotations()
-        .then((res) => {
-          console.log(res);
-          this.items = res.data.items.data;
+        .then((resp) => {
+          this.items = resp.data.items.data;
+          this.total = resp.data.items.total;
+          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page); // Calculate total records
+
+          this.totalRecords = resp.data.items.total;
         })
         .catch((err) => {
           console.log(err);
@@ -139,9 +162,37 @@ export default {
         },
       });
     },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onPageChange(page) {
+      this.page = page;
+      this.getQuotations();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onChangeRecordsPerPage() {
+      this.getQuotations();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getQuotations();
+      }
+    },
   },
   mounted() {
     this.getQuotations();
+  },
+  components: {
+    Paginate,
   },
 };
 </script>

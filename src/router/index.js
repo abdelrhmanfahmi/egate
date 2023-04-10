@@ -21,7 +21,7 @@ import CheckoutDetails from "../views/Checkout-details.vue";
 import CodBanckCheckoutDetails from "../views/COD-Bank-Ckeckout.vue";
 import CheckoutBankDetails from "../views/Checkout-bank-details.vue";
 import SuccessCheckout from "../views/SuccessCheckout";
-import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
+
 import returnReplace from "../views/RetuenReplace.vue";
 import returnRefund from "../views/ReturnRefund.vue";
 
@@ -186,11 +186,7 @@ const routes = [
     name: "SuccessCheckout",
     component: SuccessCheckout,
   },
-  {
-    path: "/viewCorresponseDetails",
-    name: "ViewCorresponseDetails",
-    component: ViewCorresponseDetails,
-  },
+ 
   { path: '*', beforeEnter: (to, from, next) => { next('/404') } },
   {
     path: '/404',

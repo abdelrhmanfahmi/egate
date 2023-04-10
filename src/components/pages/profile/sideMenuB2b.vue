@@ -257,11 +257,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
       /**
        * @vuese
@@ -350,11 +350,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
     };
   },

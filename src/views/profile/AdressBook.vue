@@ -85,7 +85,13 @@
                 <div class="edit-address" @click="editSliderAdress(address)">
                   <font-awesome-icon icon="fa-solid fa-pen" />
                 </div>
-                <div class="remove-address mx-2" @click="deleteSliderAdress(address)">
+                <div
+                  class="remove-address mx-2"
+                  @click="
+                    selectAddress(address);
+                    showDeleteModal();
+                  "
+                >
                   <font-awesome-icon icon="fa-solid fa-trash" />
                 </div>
               </div>
@@ -401,6 +407,21 @@
           {{ $t("cart.submit") }}
         </b-button>
       </b-modal>
+      <b-modal id="delete-modal" hide-footer ref="delete-modal">
+        <div class="d-block text-center">
+          <h3>{{ $t("items.sureDelete") }}</h3>
+        </div>
+        <b-button
+          class="mt-3 bg-main"
+          block
+          @click="
+            hideDeleteModal();
+            deleteSliderAdress();
+          "
+        >
+          {{ $t("cart.submit") }}
+        </b-button>
+      </b-modal>
     </div>
     <!-- <b-table
       hover
@@ -582,6 +603,12 @@ export default {
     },
     showModal() {
       this.$refs["default-modal"].show();
+    },
+    hideDeleteModal() {
+      this.$refs["delete-modal"].hide();
+    },
+    showDeleteModal() {
+      this.$refs["delete-modal"].show();
     },
     searchAddresses() {
       alert("clicked");

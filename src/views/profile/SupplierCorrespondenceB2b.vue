@@ -58,7 +58,7 @@
             <td>
               <router-link
                 :to="{
-                  path: `/viewCorresponseDetails`,
+                  path: `/profile/viewCorresponseDetails`,
                   query: { id: `${order.id}` },
                 }"
                 class="text-dark"
