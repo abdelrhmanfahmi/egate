@@ -2208,9 +2208,8 @@ export default {
 
       setTimeout(() => {
         let address_uuid = localStorage.getItem("globalAddressUUID");
-
         suppliers
-          .getFirstShippingFees(address_uuid, this.selectedAddress.country_id)
+          .getFirstShippingFees(address_uuid, JSON.parse(this.selectedCountry).id)
           .then((res) => {
             this.firstFees = res.data.items;
             this.sucessMsg(res.data.message);
