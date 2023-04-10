@@ -1,82 +1,50 @@
 <template>
-  <div class="profile-layout">
-    <div id="allTheNav">
-      <nav
-        id="navigator"
-        class="navbar"
-        :class="{ navbaropen: opened }"
-        title="open menu"
-      >
-        <span class="open-slide" v-if="!opened">
-          <a @click.prevent="opened = !opened">
-            <div>
-              <div class="bar" :class="{ topopen: opened }"></div>
-              <div class="bar" :class="{ midopen: opened }"></div>
-              <div class="bar" :class="{ botopen: opened }"></div>
-            </div>
-          </a>
-        </span>
-        <ul class="navbar-nav">
-          <!-- top nav -->
-        </ul>
-      </nav>
-      <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
-        <div
-          @click.prevent="opened = !opened"
-          class="d-flex align-items-center toggle-menu"
-        >
-          <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
-          <span class="mx-2 h4">Hide Menu</span>
-        </div>
-        <!-- side menu if user is b2c  -->
-        <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
-        <!-- side menu if user is b2b (buyer)  -->
-        <SideMenuB2b :userBades="userBades" v-else />
-      </div>
-      <div id="main" :class="{ mainopen: opened }">
-        <!-- nav bar  -->
-        <Nav />
-        <!-- alert div if user dosnt activate his account  -->
-        <b-alert variant="danger" show v-if="massgeOfVerify">
-          <b-container>
-            <router-link to="/otp-verification" class="otp-link text-danger">
-              {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
-            </router-link>
-          </b-container>
-        </b-alert>
+  <div class="main-layout">
+    <!-- top haeder that contain languages and countries  -->
+    <!-- <TopHeader /> -->
+    <!-- nav bar  -->
+    <Nav />
+    <!-- alert div if user dosnt activate his account  -->
+    <b-alert variant="danger" show v-if="massgeOfVerify">
+      <b-container>
+        <router-link to="/otp-verification" class="otp-link text-danger">
+          {{ massgeOfVerify }}
+          <font-awesome-icon icon="fa-solid fa-right-long" />
+        </router-link>
+      </b-container>
+    </b-alert>
 
-        <!-- router that contain pages  -->
-        <div class="router-holder">
-          <transition name="slide-fade">
-            <router-view class="view"></router-view>
-          </transition>
-        </div>
-
-        <!-- button to scroll to top  -->
-        <div class="top-btn" @click="goTop" v-if="visible">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#4a5568"
-            stroke-width="1"
-            stroke-linecap="square"
-            stroke-linejoin="arcs"
-          >
-            <path d="M18 15l-6-6-6 6" />
-          </svg>
-        </div>
-        <cookizComponent />
-        <NewFooter />
-        <!-- <Footer /> -->
-      </div>
+    <!-- router that contain pages  -->
+    <div class="router-holder">
+      <transition name="slide-fade">
+        <router-view class="view"></router-view>
+      </transition>
     </div>
+
+    <!-- button to scroll to top  -->
+    <div class="top-btn" @click="goTop" v-if="visible">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#4a5568"
+        stroke-width="1"
+        stroke-linecap="square"
+        stroke-linejoin="arcs"
+      >
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </div>
+    <cookizComponent />
+    <NewFooter />
+    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
+// import TopHeader from "@/components/layouts/TopHeader";
 import Nav from "@/components/layouts/nav";
 // import Footer from "@/components/layouts/footer";
 import NewFooter from "@/components/layouts/NewFooter";
@@ -84,21 +52,13 @@ import NewFooter from "@/components/layouts/NewFooter";
 import { getMessaging, onMessage } from "firebase/messaging";
 // import {messaging} from "@/plugins/firebase"
 import cookizComponent from "@/components/global/cookizComponent.vue";
-/**
- *  main profile page
- * @displayName  main profile page
- */
-import SideMenu from "@/components/pages/profile/SideMenu.vue";
-import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
-
 export default {
   components: {
+    // TopHeader,
     Nav,
     // Footer,
     NewFooter,
     cookizComponent,
-    SideMenu,
-    SideMenuB2b,
   },
   methods: {
     /**
@@ -193,7 +153,6 @@ export default {
       scTimer: 0,
       scY: 0,
       visible: false,
-      opened: false,
     };
   },
   mounted() {
@@ -202,22 +161,23 @@ export default {
      * */
     window.addEventListener("scroll", this.handleScroll);
 
-    const messaging = getMessaging();
+    if ("serviceWorker" in navigator) {
+      const messaging = getMessaging();
 
-    /**
-     * onMessage function that belongs to notification function
-     * */
+      /**
+       * onMessage function that belongs to notification function
+       * */
 
-    onMessage(messaging, (payload) => {
-      // console.log("forground", payload);
-      const { data } = payload;
-      this.notifyMe(data);
+      onMessage(messaging, (payload) => {
+        // console.log("forground", payload);
+        const { data } = payload;
+        this.notifyMe(data);
 
-      if (this.buyerUserData) {
-        this.$store.dispatch("getNotifications");
-      }
-    });
-
+        if (this.buyerUserData) {
+          this.$store.dispatch("getNotifications");
+        }
+      });
+    }
     // if (this.newsletterShow) {
 
     if (this.buyerUserData.is_verified) {
@@ -238,24 +198,52 @@ export default {
       this.$store.dispatch("getNotifications");
     }
   },
-  computed: {
-    /**
-     * @vuese
-     * get user Bades for sidebar from store
-     */
-    userBades() {
-      return this.$store.getters.userBadges; // this represent user profile side menu states
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>
+/**
+  *layout style
+  */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter,
+  .slide-fade-leave-to
+  
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.top-btn {
+  position: fixed;
+  right: 110px;
+  bottom: 50px;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  border: none;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  border-radius: 50%;
+  border: 1px solid #d4d5d8;
+  z-index: 999999;
+}
+
 .router-holder {
   min-height: 70vh;
 }
-@import "../assets/scss/new-design-files/_navbar.scss";
-.toggle-menu {
-  cursor: pointer;
-  padding: 20px;
+.otp-link {
+  text-decoration: underline !important;
+}
+
+.router-holder {
+  min-height: 70vh;
 }
 </style>

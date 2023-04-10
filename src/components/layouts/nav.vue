@@ -81,9 +81,7 @@
                         </div>
                       </b-form>
                       <ul class="search-suggestions" v-if="suggestionsExist">
-                        <span class="meaning-span">{{
-                          $t("home.didMean")
-                        }}</span>
+                        <span class="meaning-span">{{ $t("home.didMean") }}</span>
                         <li
                           v-for="(suggest, index) in suggestions"
                           :key="index"
@@ -110,42 +108,30 @@
                   </b-button> -->
                 </div>
                 <div
-                v-if="!mobile"
-                class="cart d-flex justify-content-between align-items-center"
-              >
-              
-                <span
-                  class="cartLength cart-number"
-                  v-if="cartItems && cartLength"
+                  v-if="!mobile"
+                  class="cart d-flex justify-content-between align-items-center"
                 >
-                  {{ cartLength }}
-                </span>
-                <span class="cart-icon">
-                  <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
-                  <font-awesome-icon
-                    icon="fa-solid fa-cart-shopping"
-                    size="xl"
-                  />
-                </span>
+                  <span class="cartLength cart-number" v-if="cartItems && cartLength">
+                    {{ cartLength }}
+                  </span>
+                  <span class="cart-icon">
+                    <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
+                  </span>
 
-               
-                <Cart class="cart-body"></Cart>
-              </div>
-              <div v-if="!mobile && buyerUserData" class="cart notify-holder">
-                <span class="cart-icon">
-                  <font-awesome-icon icon="fa-solid fa-bell" />
-                </span>
-                <span class="cartLength" v-if="notificationsLength > 0">
-                  {{ notificationsLength > 0 ? notificationsLength : 0 }}
-                </span>
-                <Notify class="notify-body" :notifications="notifications" />
-              </div>
+                  <Cart class="cart-body"></Cart>
+                </div>
+                <div v-if="!mobile && buyerUserData" class="cart notify-holder">
+                  <span class="cart-icon">
+                    <font-awesome-icon icon="fa-solid fa-bell" />
+                  </span>
+                  <span class="cartLength" v-if="notificationsLength > 0">
+                    {{ notificationsLength > 0 ? notificationsLength : 0 }}
+                  </span>
+                  <Notify class="notify-body" :notifications="notifications" />
+                </div>
                 <!-- user sign in -->
-                <div
-                  class="login"
-                  v-if="!mobile && !isLoggined"
-                  v-b-toggle.login
-                >
+                <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
                   <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                   <!-- <h5>
                     <small>{{ $t("login.login") }}</small>
@@ -156,10 +142,7 @@
                     <b-dropdown id="dropdown-1">
                       <template #button-content>
                         <span>
-                          <font-awesome-icon
-                            icon="fa-solid fa-user"
-                            size="2x"
-                          />
+                          <font-awesome-icon icon="fa-solid fa-user" size="2x" />
                           <p v-if="buyerUserData.is_verified">
                             {{ $t("login.welcome") }} ,
                             <span v-if="buyerUserData.type === 'buyer'">
@@ -168,14 +151,11 @@
                               }}</span>
                               <span
                                 v-else-if="
-                                  $i18n.locale == 'ar' &&
-                                  userInfo.item.company_name_ar
+                                  $i18n.locale == 'ar' && userInfo.item.company_name_ar
                                 "
                                 >{{ userInfo.item.company_name_ar }}</span
                               >
-                              <span v-else>{{
-                                userInfo.item.company_name_en
-                              }}</span>
+                              <span v-else>{{ userInfo.item.company_name_en }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
@@ -189,14 +169,11 @@
                               }}</span>
                               <span
                                 v-else-if="
-                                  $i18n.locale == 'ar' &&
-                                  userInfo.item.company_name_ar
+                                  $i18n.locale == 'ar' && userInfo.item.company_name_ar
                                 "
                                 >{{ userInfo.item.company_name_ar }}</span
                               >
-                              <span v-else>{{
-                                userInfo.item.company_name_en
-                              }}</span>
+                              <span v-else>{{ userInfo.item.company_name_en }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
@@ -205,9 +182,7 @@
                         </span>
                       </template>
                       <b-dropdown-item
-                        v-if="
-                          userInfo.item.is_verified || buyerUserData.is_verified
-                        "
+                        v-if="userInfo.item.is_verified || buyerUserData.is_verified"
                       >
                         <router-link to="/profile/categories">{{
                           $t("profile.myProfile")
@@ -264,13 +239,8 @@
                     <font-awesome-icon icon="fa-solid fa-arrow-right" />
                   </button>
                 </div> -->
-                              <ul
-                                class="search-suggestions"
-                                v-if="suggestionsExist"
-                              >
-                                <span class="meaning-span">{{
-                                  $t("home.didMean")
-                                }}</span>
+                              <ul class="search-suggestions" v-if="suggestionsExist">
+                                <span class="meaning-span">{{ $t("home.didMean") }}</span>
                                 <li
                                   v-for="(suggest, index) in suggestions"
                                   :key="index"
@@ -446,10 +416,7 @@ export default {
       categories
         .searchResult(data)
         .then((resp) => {
-          if (
-            resp.data.items.suggestions &&
-            resp.data.items.suggestions.length
-          ) {
+          if (resp.data.items.suggestions && resp.data.items.suggestions.length) {
             this.suggestionsExist = true;
             this.suggestions = resp.data.items.suggestions;
           } else {
@@ -545,8 +512,7 @@ export default {
   mounted() {
     const loc = document.location;
     if (
-      (this.$route.query.force_login &&
-        this.$route.query.force_login == "true") ||
+      (this.$route.query.force_login && this.$route.query.force_login == "true") ||
       loc.href.includes("force_login")
     ) {
       localStorage.removeItem("userInfo");

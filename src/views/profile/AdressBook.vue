@@ -73,7 +73,10 @@
               <div
                 class="col-md-9 col-sm-12 d-flex align-items-center make-default"
                 v-if="!address.is_default"
-                @click="makeDefaultSliderAddress(address)"
+                @click="
+                  showModal();
+                  selectAddress(address);
+                "
               >
                 <span><font-awesome-icon icon="fa-regular fa-circle-check" /></span>
                 <span class="mx-1">{{ $t("profile.makeDefaultAddress") }}</span>
@@ -382,6 +385,23 @@
         </div>
       </div>
     </div>
+    <div class="confirm-default-address">
+      <b-modal id="default-modal" hide-footer ref="default-modal">
+        <div class="d-block text-center">
+          <h3>{{ $t("profile.makeDefaultAddress") }}</h3>
+        </div>
+        <b-button
+          class="mt-3 bg-main"
+          block
+          @click="
+            hideModal();
+            makeDefaultSliderAddress();
+          "
+        >
+          {{ $t("cart.submit") }}
+        </b-button>
+      </b-modal>
+    </div>
     <!-- <b-table
       hover
       :items="adresses"
@@ -541,6 +561,7 @@ export default {
           },
         ],
       },
+      selectedAddress: null,
     };
   },
   mounted() {
@@ -553,6 +574,15 @@ export default {
     this.checkDynamicInputs();
   },
   methods: {
+    selectAddress(address) {
+      this.selectedAddress = address;
+    },
+    hideModal() {
+      this.$refs["default-modal"].hide();
+    },
+    showModal() {
+      this.$refs["default-modal"].show();
+    },
     searchAddresses() {
       alert("clicked");
     },
@@ -720,9 +750,9 @@ export default {
           this.errMsg(err.message);
         });
     },
-    makeDefaultSliderAddress(row) {
+    makeDefaultSliderAddress() {
       profile
-        .makeDefaultAddress(row.uuid)
+        .makeDefaultAddress(this.selectedAddress.uuid)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.getAllAdresses();

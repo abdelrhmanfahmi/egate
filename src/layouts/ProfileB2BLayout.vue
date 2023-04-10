@@ -1,12 +1,11 @@
 <template>
-  <div class="profile-layout b2cLayout" :class="$i18n.locale">
+  <div class="profile-layout" :class="$i18n.locale">
     <div id="allTheNav">
       <nav
         id="navigator"
         class="navbar"
         :class="{ navbaropen: opened }"
         title="open menu"
-        v-if="buyerUserData && ProfileLayout == true"
       >
         <span class="open-slide" v-if="!opened">
           <a @click.prevent="opened = !opened">
@@ -30,11 +29,9 @@
           <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
         </div>
         <!-- side menu if user is b2c  -->
-        <div class="" v-if="buyerUserData">
-          <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
-          <!-- side menu if user is b2b (buyer)  -->
-          <SideMenuB2b :userBades="userBades" v-else />
-        </div>
+        <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
+        <!-- side menu if user is b2b (buyer)  -->
+        <SideMenuB2b :userBades="userBades" v-else />
       </div>
       <div id="main" :class="{ mainopen: opened }">
         <!-- nav bar  -->
@@ -248,9 +245,6 @@ export default {
      */
     userBades() {
       return this.$store.getters.userBadges; // this represent user profile side menu states
-    },
-    ProfileLayout() {
-      return this.$route.path.includes("profile") ? true : false;
     },
   },
 };

@@ -593,5 +593,4 @@ export default {
 }
 
 /* checkbox */
-
 </style>

@@ -326,5 +326,6 @@ export default {
   frequently:"Frequently",
   lastOrder:'Last Order',
   upload:"Upload",
-  lastMessage:'Last Message'
+  lastMessage:'Last Message',
+  hideMenu:'Hide Menu'
 };

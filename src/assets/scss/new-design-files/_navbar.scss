@@ -60,9 +60,21 @@
     overflow: hidden;
     height: 63px;
     // when layout moves 
-    //margin-left: 300px;
     width: 100%;
 }
+.en{
+    .navbaropen {
+        margin-left: 270px;
+    }
+
+}
+.ar{
+    .navbaropen {
+        margin-right: 270px;
+    }
+
+}
+
 
 .navbar a {
     float: left;
@@ -99,10 +111,22 @@
     transition: 0.3s;
     color:#fff
 }
+.en{
+    .side-nav {
+        left: 0;
+        right: auto;
+    }
+}
+.ar{
+    .side-nav {
+        right: 0;
+        left: auto;
+    }
+}
 
 .sidenavopen {
     height: 100%;
-    width: 300px;
+    width: 270px;
     position: fixed;
     z-index: 9999;
     top: 0;
@@ -113,6 +137,18 @@
     // padding-top: 60px;
     //padding: 15px;
     transition: 0.3s;
+}
+.en{
+    .sidenavopen {
+        left: 0;
+        right:auto
+    }
+}
+.ar{
+    .sidenavopen {
+        right: 0;
+        left: auto;
+    }
 }
 
 .side-nav a {
@@ -148,8 +184,18 @@
     // padding: 20px;
     overflow: hidden;
     width: 100%;
-    // when layout moves 
-    //margin-left: 300px;
+}
+.en{
+    .mainopen {
+        margin-left: 270px;
+    }
+
+}
+.ar{
+    .mainopen {
+        margin-right: 270px;
+    }
+
 }
 
 nav {

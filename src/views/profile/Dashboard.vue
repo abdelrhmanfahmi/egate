@@ -296,6 +296,16 @@
             </tr>
           </tbody>
         </table>
+        <div class="text-center d-flex justify-content-start align-items-center mt-5">
+          <!-- Pagination  -->
+          <Paginate
+            v-if="fields"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
         <div>
           <b-modal centered id="bv-modal-example" hide-footer>
             <template #modal-title>
@@ -454,9 +464,11 @@
  */
 import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
+import Paginate from "@/components/global/Paginate.vue";
 export default {
   components: {
     spinner,
+    Paginate,
   },
   data() {
     return {
@@ -564,6 +576,13 @@ export default {
           console.log(res);
           this.dashData = res.data.items;
           this.orders = res.data.items.orders;
+
+          this.total = res.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            res.data.items.orders.meta.total / res.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = res.data.items.orders.meta.total;
         })
         .catch((err) => {
           let error = Object.values(err)[2].data;
@@ -610,6 +629,31 @@ export default {
           this.errors = error.items;
           this.errMsg(error.message);
         });
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onPageChange(page) {
+      this.page = page;
+      this.getDashboardData();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onChangeRecordsPerPage() {
+      this.getDashboardData();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getDashboardData();
+      }
     },
   },
   mounted() {

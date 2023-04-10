@@ -64,7 +64,7 @@
                 class="text-dark"
               >
                 <b-button variant="outline-light main-color border-main" class="m-2">
-                  <font-awesome-icon icon="fa-regular fa-eye" />
+                  <font-awesome-icon icon="fa-regular fa-message" />
                 </b-button>
               </router-link>
             </td>

@@ -316,5 +316,6 @@ export default {
   frequently:"التكرار",
   lastOrder:'اخر طلب',
   upload:"رفع",
-  lastMessage:'اخر رسالة'
+  lastMessage:'اخر رسالة',
+  hideMenu:'اخفاء القائمة'
 };

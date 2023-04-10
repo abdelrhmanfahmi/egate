@@ -1,20 +1,26 @@
 <template>
   <div class="bottom-nav-holder">
     <div class="container">
-      <div class="categories-dropdown d-flex  align-items-center ">
+      <div class="categories-dropdown d-flex align-items-center">
         <div class="wrapper">
           <div class="data-wrapper d-flex justify0content-center align-items-center">
             <div class="grid-icon">
-              <font-awesome-icon icon="fa-solid fa-table-cells-large" size="xl" class="text-white" />
+              <font-awesome-icon
+                icon="fa-solid fa-table-cells-large"
+                size="xl"
+                class="text-white"
+              />
             </div>
             <select name="categories" id="categories" @change="selectCategory($event)">
               <option value="" selected disabled>Categories</option>
-              <option :value="category.id" v-for="(category, index) in categories" :key="index">
+              <option
+                :value="category.id"
+                v-for="(category, index) in categories"
+                :key="index"
+              >
                 <router-link :to="`/categories/${category.id}`">
-
                   {{ category.title }}
                 </router-link>
-
               </option>
             </select>
 
@@ -24,7 +30,7 @@
           </div>
         </div>
         <div class="other-catrgories">
-          <ul class="d-flex justify-content-center align-items-center m-0 p-0 mx-4">
+          <!-- <ul class="d-flex justify-content-center align-items-center m-0 p-0 mx-4">
             <li class="h5 mx-2 mb-0 text-dark offer-link">
               <router-link to="/" class="text-dark">
                 Ramadan offers
@@ -41,7 +47,10 @@
               </router-link>
 
             </li>
-          </ul>
+          </ul> -->
+          <div class="middle">
+            <navLinks />
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +59,7 @@
 
 <script>
 import categories from "@/services/categories";
+import navLinks from "./navLinks.vue";
 export default {
   methods: {
     /**
@@ -72,28 +82,31 @@ export default {
     selectCategory(event) {
       this.$router.push(
         {
-          path: `/categories/${event.target.value}`
+          path: `/categories/${event.target.value}`,
         },
         () => {
-          this.$router.go(0)
+          this.$router.go(0);
         }
-      )
-    }
+      );
+    },
   },
   mounted() {
-    this.getCategories()
+    this.getCategories();
   },
   data() {
     return {
-      categories: null
-    }
-  }
-}
+      categories: null,
+    };
+  },
+  components: {
+    navLinks,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .bottom-nav-holder {
-  background: #E2E2E2;
+  background: #e2e2e2;
 
   .wrapper {
     background-color: $main-color;
@@ -104,7 +117,7 @@ export default {
 
   select {
     padding: 0.7em 2rem;
-    border-radius: .2em;
+    border-radius: 0.2em;
     border: none;
     color: #fff;
 
@@ -126,11 +139,10 @@ export default {
   //   background-color: $main-color;
   //   color: #fff;
   // }
-
 }
 
 .offer-link {
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
   &:hover {
     background-color: $main-color;
@@ -144,16 +156,15 @@ export default {
 }
 
 .categories-dropdown {
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     flex-direction: column;
   }
 }
 
 .other-catrgories {
-  @media(max-width:992px) {
+  @media (max-width: 992px) {
     margin: 10px;
   }
 }
-
 
 </style>

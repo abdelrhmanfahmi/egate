@@ -2,8 +2,8 @@
   <!-- app page that contain all pages  -->
   <div id="app">
     <!-- import main layout that hold all pages  -->
-    <div class="" v-if="checkLayout == true">
-      <ProfileLayout />
+    <div class="" v-if="checkLayout == 'B2B'">
+      <ProfileB2BLayout />
     </div>
     <div class="" v-else>
       <MainLayout />
@@ -17,7 +17,7 @@
  */
 
 import MainLayout from "@/layouts/MainLayout.vue";
-import ProfileLayout from "@/layouts/ProfileLayout.vue";
+import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
 // import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
 export default {
@@ -41,18 +41,16 @@ export default {
       localStorage.removeItem("guest-id");
     }
     // return
-
-
   },
   components: {
     MainLayout,
-    ProfileLayout
+    ProfileB2BLayout,
   },
   methods: {
     /**
-    * @vuese
-    * this function used to check Cart Validity (cart ,  rfq available or not )
-    */
+     * @vuese
+     * this function used to check Cart Validity (cart ,  rfq available or not )
+     */
     checkCartValidity() {
       auth
         .checkCartValidity()
@@ -80,133 +78,173 @@ export default {
         });
     },
     /**
-    * @vuese
-    * logout Dynamically , use this function if you want to logout user according to the expiration_time comes from backend
-    */
+     * @vuese
+     * logout Dynamically , use this function if you want to logout user according to the expiration_time comes from backend
+     */
     logoutDynamically() {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       let totalTime = userInfo.expires_in;
-      console.log('totalTime', totalTime);
+      console.log("totalTime", totalTime);
       let myInterval = setInterval(() => {
-        totalTime -= 1
-        localStorage.setItem('logOutTime', totalTime)
+        totalTime -= 1;
+        localStorage.setItem("logOutTime", totalTime);
         if (totalTime == 0) {
-          clearInterval(myInterval)
-          this.logout()
+          clearInterval(myInterval);
+          this.logout();
         }
       }, 1);
-
-
     },
     getSiteImages() {
-      auth.getSiteImages().then(res => {
-        let result = res.data.items
-        // result.forEach(element => {
-        //   if(element.key == 'Website Portal Logo' && element.key !== "null"  && element.key !== null){
-        //     this.siteLogo = element.value
-        //   }
+      auth
+        .getSiteImages()
+        .then((res) => {
+          let result = res.data.items;
+          // result.forEach(element => {
+          //   if(element.key == 'Website Portal Logo' && element.key !== "null"  && element.key !== null){
+          //     this.siteLogo = element.value
+          //   }
 
-        // });
-        for (const key in result) {
-          if (result.hasOwnProperty.call(result, key)) {
-            let element = result[key];
-            if (element.key == 'Website Portal Logo') {
-              if (element.type == 'image' && element.value !== null && element.value !== "null") {
-                this.siteLogo = element.value;
-                localStorage.setItem('siteLogo', this.siteLogo)
-              } else {
-                let currentLogo = document.getElementById('siteLogo')
-                localStorage.setItem('siteLogo', currentLogo.src)
-              }
-            }
-            if (element.key == 'Admin Portal Logo') {
-              if (element.type == 'image' && element.value !== null && element.value !== "null") {
-                localStorage.setItem('adminLogo', element.value)
-              } else {
-                let currentLogo = document.getElementById('adminLogo')
-                localStorage.setItem('adminLogo', currentLogo.src)
-              }
-            }
-            if (element.key == 'Website Portal Title') {
-              let siteTitle = document.getElementById("siteTitle");
-              let siteTitleText = document.getElementById("siteTitle").textContent;
-              if (element.type == 'text' && element.value !== null && element.value !== "null") {
-                this.siteTitle = element.value;
-                siteTitle.textContent = element.value;
-              } else {
-                siteTitle.textContent = siteTitleText;
-              }
-            }
-            if (element.key == 'Website Portal Icon') {
-              let favicon = document.getElementById("favicon");
-              let faviconHref = document.getElementById("favicon").href;
-              if (element.type == 'icon' && element.value !== null && element.value !== "null") {
-                favicon.href = process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + element.value
-
-              } else {
-                favicon.href = faviconHref;
-              }
-            }
-
-            if (element.key == 'arabic_status') {
-              let availability = localStorage.getItem('arabic')
-              if (availability && availability == 'yes' && element.value == 1 || availability && availability == 'yes' && element.value == '1') {
-                localStorage.setItem('arabic', 'yes');
-              } else if (availability && availability == 'yes' && element.value == 0 || availability && availability == 'yes' && element.value == '0') {
-                localStorage.setItem('arabic', 'no');
-                localStorage.setItem('lang', 'en');
-                setTimeout(() => {
-                  location.reload()
-                }, 250);
-              }
-              else if (availability && availability == 'no' && element.value == 1 || availability && availability == 'no' && element.value == '1') {
-                localStorage.setItem('arabic', 'yes');
-                setTimeout(() => {
-                  location.reload()
-                }, 250);
-              }
-              else if (availability && availability == 'no' && element.value == 0 || availability && availability == 'no' && element.value == '0') {
-                localStorage.setItem('arabic', 'no');
-
-              }
-              if (!availability) {
-                if (element.value == 1 || element.value == '1') {
-
-                  localStorage.setItem('arabic', 'yes');
-                  setTimeout(() => {
-                    location.reload()
-                  }, 250);
-                } else if (element.value == 0 || element.value == '0') {
-                  localStorage.setItem('arabic', 'no');
-                  setTimeout(() => {
-                    this.getSiteImages()
-                  }, 250);
+          // });
+          for (const key in result) {
+            if (result.hasOwnProperty.call(result, key)) {
+              let element = result[key];
+              if (element.key == "Website Portal Logo") {
+                if (
+                  element.type == "image" &&
+                  element.value !== null &&
+                  element.value !== "null"
+                ) {
+                  this.siteLogo = element.value;
+                  localStorage.setItem("siteLogo", this.siteLogo);
+                } else {
+                  let currentLogo = document.getElementById("siteLogo");
+                  localStorage.setItem("siteLogo", currentLogo.src);
                 }
-
               }
+              if (element.key == "Admin Portal Logo") {
+                if (
+                  element.type == "image" &&
+                  element.value !== null &&
+                  element.value !== "null"
+                ) {
+                  localStorage.setItem("adminLogo", element.value);
+                } else {
+                  let currentLogo = document.getElementById("adminLogo");
+                  localStorage.setItem("adminLogo", currentLogo.src);
+                }
+              }
+              if (element.key == "Website Portal Title") {
+                let siteTitle = document.getElementById("siteTitle");
+                let siteTitleText = document.getElementById("siteTitle").textContent;
+                if (
+                  element.type == "text" &&
+                  element.value !== null &&
+                  element.value !== "null"
+                ) {
+                  this.siteTitle = element.value;
+                  siteTitle.textContent = element.value;
+                } else {
+                  siteTitle.textContent = siteTitleText;
+                }
+              }
+              if (element.key == "Website Portal Icon") {
+                let favicon = document.getElementById("favicon");
+                let faviconHref = document.getElementById("favicon").href;
+                if (
+                  element.type == "icon" &&
+                  element.value !== null &&
+                  element.value !== "null"
+                ) {
+                  favicon.href =
+                    process.env.VUE_APP_FOR_IMAGES +
+                    "storage/site_settings_image/" +
+                    element.value;
+                } else {
+                  favicon.href = faviconHref;
+                }
+              }
+
+              if (element.key == "arabic_status") {
+                let availability = localStorage.getItem("arabic");
+                if (
+                  (availability && availability == "yes" && element.value == 1) ||
+                  (availability && availability == "yes" && element.value == "1")
+                ) {
+                  localStorage.setItem("arabic", "yes");
+                } else if (
+                  (availability && availability == "yes" && element.value == 0) ||
+                  (availability && availability == "yes" && element.value == "0")
+                ) {
+                  localStorage.setItem("arabic", "no");
+                  localStorage.setItem("lang", "en");
+                  setTimeout(() => {
+                    location.reload();
+                  }, 250);
+                } else if (
+                  (availability && availability == "no" && element.value == 1) ||
+                  (availability && availability == "no" && element.value == "1")
+                ) {
+                  localStorage.setItem("arabic", "yes");
+                  setTimeout(() => {
+                    location.reload();
+                  }, 250);
+                } else if (
+                  (availability && availability == "no" && element.value == 0) ||
+                  (availability && availability == "no" && element.value == "0")
+                ) {
+                  localStorage.setItem("arabic", "no");
+                }
+                if (!availability) {
+                  if (element.value == 1 || element.value == "1") {
+                    localStorage.setItem("arabic", "yes");
+                    setTimeout(() => {
+                      location.reload();
+                    }, 250);
+                  } else if (element.value == 0 || element.value == "0") {
+                    localStorage.setItem("arabic", "no");
+                    setTimeout(() => {
+                      this.getSiteImages();
+                    }, 250);
+                  }
+                }
+              }
+
+              // const favicon = document.getElementById("favicon");
+              // favicon.href = "https://www.google.com/favicon.ico";
+
+              // const siteTitle = document.getElementById("siteTitle");
+              // siteTitle.textContent = "Reda site";
             }
-
-            // const favicon = document.getElementById("favicon");
-            // favicon.href = "https://www.google.com/favicon.ico";
-
-            // const siteTitle = document.getElementById("siteTitle");
-            // siteTitle.textContent = "Reda site";
-
           }
-        }
-
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    theming() {
+      let colors = this.$cookiz.get("site_info");
+      if (colors) {
+        document.documentElement.style.setProperty(
+          "--main-color",
+          `${colors.main_color}`
+        );
+      }
+      // console.log('colors', colors)
+    },
   },
   computed: {
     guestId() {
       return this.$store.state.guestId;
     },
     checkLayout() {
-      return this.$route.path.includes('profile') ? true : false
-    }
+      return (this.$route.path.includes("profile") &&
+        this.buyerUserData.type == "buyer") ||
+        (this.$route.path.includes("profile") &&
+          this.buyerUserData.type == "supplier" &&
+          this.buyerUserData.is_buyer == 1)
+        ? "B2B"
+        : "B2C";
+    },
   },
   mounted() {
     // window.addEventListener('beforeunload', function (e) {
@@ -215,7 +253,8 @@ export default {
     //   e.returnValue = '';
     // });
     this.checkCartValidity();
-    this.getSiteImages()
+    this.getSiteImages();
+    // this.theming()
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
@@ -223,10 +262,10 @@ export default {
   },
   data() {
     return {
-      siteLogo: '@/assets/images/logo.png',
-      siteTitle: 'humhum',
-      siteIcon: '@/src/assets/images/ab.png',
-    }
+      siteLogo: "@/assets/images/logo.png",
+      siteTitle: "humhum",
+      siteIcon: "@/src/assets/images/ab.png",
+    };
   },
 };
 </script>

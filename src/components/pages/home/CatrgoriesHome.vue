@@ -1,6 +1,6 @@
 <template>
   <div class="profile-categories">
-    <b-container>
+    <div>
       <!-- <span class="categories-info">
         <h5 class="top-header">{{ $t("profile.categories") }}</h5>
       </span> -->
@@ -10,16 +10,8 @@
           <b-col lg="3" sm="6" v-for="x in 10" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
-              <b-skeleton
-                animation="fade"
-                width="60%"
-                class="border-none"
-              ></b-skeleton>
-              <b-skeleton
-                animation="fade"
-                width="85%"
-                class="border-none"
-              ></b-skeleton>
+              <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
+              <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
             </b-card>
           </b-col>
         </b-row>
@@ -34,14 +26,11 @@
           class="homecategories custum-padding"
         >
           <router-link :to="`/categories/${category.id}`">
-            <CategoryCard
-              :card="{ type: category.title }"
-              :image="category.image_path"
-            />
+            <CategoryCard :card="{ type: category.title }" :image="category.image_path" />
           </router-link>
         </b-col>
       </b-row>
-    </b-container>
+    </div>
   </div>
 </template>
 

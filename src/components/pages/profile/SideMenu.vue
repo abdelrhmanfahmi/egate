@@ -1,11 +1,11 @@
 <template>
   <div class="profile-menu">
     <!-- side menu for b2c user  -->
-    <h2>{{ $t("profile.myProfile") }}</h2>
-    <div class="d-flex justify-content-center align-items-center flex-column">
+    <!-- <h2>{{ $t("profile.myProfile") }}</h2> -->
+    <!-- <div class="d-flex justify-content-center align-items-center flex-column">
       <img :src="buyerUserData.image_path" alt="" srcset="" />
       <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
-    </div>
+    </div> -->
 
     <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
       <h5>{{ $t("profile.completeRate") }}</h5>
@@ -31,13 +31,13 @@
         }"
       >
         <router-link :to="link.to">
-          <img
+          <!-- <img
             src="@/assets/images/new-design/standing-order-sign.png"
             v-if="link.name == $t('profile.b2bFav')"
             class="standing-order-sign"
             alt="standing-order-sign"
-          />
-          <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" />
+          /> -->
+          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
             class="side-number"
@@ -97,13 +97,13 @@
         }"
       >
         <router-link :to="link.to">
-          <img
+          <!-- <img
             src="@/assets/images/new-design/standing-order-sign.png"
             v-if="link.name == $t('profile.b2bFav')"
             class="standing-order-sign"
             alt="standing-order-sign"
-          />
-          <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" />
+          /> -->
+          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
             class="side-number"

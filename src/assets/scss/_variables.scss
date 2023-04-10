@@ -1,3 +1,21 @@
+
+:root {
+	--main-color: #EF4923;
+	--text-color: #040303;
+	--header-color: #312620;
+	--gray:#ADACAB;
+	--tabs-color: #6e6a67;
+  }
+  
+  $main-color: var(--main-color);
+  $text-color: var(--text-color);
+  // $main-color: #9e0000 ;
+  $header-color: var(--header-color);
+  $gray: var(--gray);
+  $tabs-color: var(--tabs-color);
+
+
+
 /**
 	* declare variables
 */

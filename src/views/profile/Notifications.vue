@@ -96,6 +96,9 @@
     </div> -->
 
     <div class="new-style">
+      <div>
+        <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+      </div>
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
