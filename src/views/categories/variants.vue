@@ -951,10 +951,6 @@ export default {
      * add To Cart function
      */
     addPromotionToCart(item) {
-      console.log(
-        "item.buy_get_promotion_running_by_type.buy_get_promotion_id",
-        item.buy_get_promotion_running_by_type.buy_get_promotion_id
-      );
       let data = {
         product_supplier_id: item.product_details_by_type.product_supplier_id,
         quantity:
