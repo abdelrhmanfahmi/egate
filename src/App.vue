@@ -1,6 +1,7 @@
 <template>
   <!-- app page that contain all pages  -->
   <div id="app">
+    <LoadingScreen v-if="isLoading"></LoadingScreen>
     <!-- import main layout that hold all pages  -->
     <div class="" v-if="checkLayout == 'B2B'">
       <ProfileB2BLayout />
@@ -20,6 +21,7 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
 // import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
+import LoadingScreen from "@/components/global/LoadingScreen.vue";
 export default {
   name: "Home",
   created() {
@@ -45,6 +47,7 @@ export default {
   components: {
     MainLayout,
     ProfileB2BLayout,
+    LoadingScreen,
   },
   methods: {
     /**
@@ -259,12 +262,16 @@ export default {
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // this.logoutDynamically()
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
   },
   data() {
     return {
       siteLogo: "@/assets/images/logo.png",
       siteTitle: "humhum",
       siteIcon: "@/src/assets/images/ab.png",
+      isLoading: true,
     };
   },
 };

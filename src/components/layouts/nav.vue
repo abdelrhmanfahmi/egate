@@ -108,6 +108,18 @@
                   </b-button> -->
                 </div>
                 <div
+                  class="d-flex justify-content-between align-items-center"
+                  v-if="!mobile"
+                >
+                  <router-link
+                    to="/b2b-login"
+                    class="border-main color-main br-5 p-2"
+                    v-if="!buyerUserData || buyerUserData.type == 'b2c'"
+                  >
+                    <b>{{ $t("home.corporate") }}</b>
+                  </router-link>
+                </div>
+                <div
                   v-if="!mobile"
                   class="cart d-flex justify-content-between align-items-center"
                 >
@@ -116,14 +128,17 @@
                   </span>
                   <span class="cart-icon">
                     <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
+                    <!-- <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" /> -->
+                    <BIconCartDash width="25" height="25" />
                   </span>
 
                   <Cart class="cart-body"></Cart>
                 </div>
+
                 <div v-if="!mobile && buyerUserData" class="cart notify-holder">
                   <span class="cart-icon">
-                    <font-awesome-icon icon="fa-solid fa-bell" />
+                    <!-- <font-awesome-icon icon="fa-solid fa-bell" /> -->
+                    <BIconBell width="25" height="25" />
                   </span>
                   <span class="cartLength" v-if="notificationsLength > 0">
                     {{ notificationsLength > 0 ? notificationsLength : 0 }}
@@ -132,7 +147,8 @@
                 </div>
                 <!-- user sign in -->
                 <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
-                  <font-awesome-icon icon="fa-solid fa-user" size="2x" />
+                  <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
+                  <BIconPerson width="25" height="25" />
                   <!-- <h5>
                     <small>{{ $t("login.login") }}</small>
                   </h5> -->
@@ -142,8 +158,9 @@
                     <b-dropdown id="dropdown-1">
                       <template #button-content>
                         <span>
-                          <font-awesome-icon icon="fa-solid fa-user" size="2x" />
-                          <p v-if="buyerUserData.is_verified">
+                          <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
+                          <BIconPerson width="25" height="25" />
+                          <!-- <p v-if="buyerUserData.is_verified">
                             {{ $t("login.welcome") }} ,
                             <span v-if="buyerUserData.type === 'buyer'">
                               <span v-if="$i18n.locale == 'en'">{{
@@ -178,7 +195,7 @@
                             <span v-else>
                               {{ userInfo.item.first_name }}
                             </span>
-                          </p>
+                          </p> -->
                         </span>
                       </template>
                       <b-dropdown-item
@@ -306,6 +323,9 @@ import categories from "@/services/categories";
 // import navLinks from "./navLinks.vue"
 import TopHeader from "@/components/layouts/TopHeader";
 import BottomHeader from "@/components/layouts/BottomHeader";
+
+import { BIconBell, BIconCartDash, BIconPerson } from "bootstrap-vue";
+
 export default {
   data() {
     return {
@@ -330,6 +350,9 @@ export default {
     // navLinks,
     TopHeader,
     BottomHeader,
+    BIconCartDash,
+    BIconPerson,
+    BIconBell,
   },
   created() {
     /**
@@ -578,7 +601,7 @@ export default {
     margin: 0 auto;
 
     .cart {
-      padding: 0 1rem;
+      padding: 0 0.7rem;
       position: relative;
 
       .cart-icon {
@@ -599,7 +622,7 @@ export default {
         box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
         visibility: hidden;
         transform: translateY(10px);
-        width: 23rem;
+        width: 25rem;
       }
 
       &:hover {

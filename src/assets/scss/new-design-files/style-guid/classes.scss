@@ -20,4 +20,12 @@
 
 .text-gray{
     color: #e2e2e2;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    &:hover{
+        color: #000;
+    }
 }

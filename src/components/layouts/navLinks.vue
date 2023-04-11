@@ -5,15 +5,15 @@
       <li>
         <router-link class="link" to="/">{{ $t("home.home") }}</router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link class="link" to="/partners">{{
           $t("home.navSuppliers")
         }}</router-link>
-      </li>
+      </li> -->
       <li>
         <router-link class="link" to="/about">{{ $t("home.about") }}</router-link>
       </li>
-      <li class="humhum-dropdown">
+      <!-- <li class="humhum-dropdown">
         <a class="link">
           {{ $t("home.corporat") }}
           <ul class="submenu">
@@ -29,7 +29,7 @@
             </li>
           </ul>
         </a>
-      </li>
+      </li> -->
       <li>
         <router-link class="link" to="/contact-us">{{
           $t("home.contactUs")

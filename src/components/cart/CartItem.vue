@@ -1,27 +1,16 @@
 <template>
   <div class="action-holder mb-2">
     <!-- if cart items data  -->
-    <div
-      class="d-flex justify-content-center align-items-center"
-      v-if="loading"
-    >
-      <img
-        src="@/assets/images/BeanLoading2.gif"
-        alt="cart-image"
-        class="w-25"
-      />
+    <div class="d-flex justify-content-center align-items-center" v-if="loading">
+      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <!-- else  -->
     <div class="" v-else>
-      <div
-        class="cart-item"
-        v-for="product in products.products"
-        :key="product.id"
-      >
+      <div class="cart-item" v-for="product in products.products" :key="product.id">
         <div class="row">
           <div class="col-md-8 col-sm-12 mb-3">
             <div class="d-flex justify-content-start align-items-center">
-              <a @click="goProduct(product)" class="product-img-container ">
+              <a @click="goProduct(product)" class="product-img-container">
                 <img
                   :src="product.product_image"
                   alt="Cart Item"
@@ -36,18 +25,12 @@
                 />
               </a>
               <div class="product-info">
-                <a @click="goProduct(product)" class="name">
-                  <span v-if="product.product_name">{{
-                    product.product_name
-                  }}</span>
-                  <span v-else-if="product.basket_name">{{
-                    product.basket_name
-                  }}</span>
+                <a @click="goProduct(product)" class="name d-flex">
+                  <span v-if="product.product_name">{{ product.product_name }}</span>
+                  <span v-else-if="product.basket_name">{{ product.basket_name }}</span>
                 </a>
                 <Counter
-                  :minimum="
-                    product.min_order_quantity ? product.min_order_quantity : 1
-                  "
+                  :minimum="product.min_order_quantity ? product.min_order_quantity : 1"
                   :quantity="product.quantity"
                   :product="product"
                   class="justify-content-center"
@@ -63,7 +46,6 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-12">
-
             <div class="total mx-1 text-center">
               <!-- <span class="price" v-if="product.price || product.price >=0" >
                 <span v-if="!product.gift_promotion_id">{{ product.price | fixedCurrency }}</span>
@@ -72,9 +54,12 @@
               <span class="price" v-if="!product.gift_promotion_id">
                 <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
               </span> -->
-    
-              <p class="product_sub_total mt-0" v-if="!product.gift_promotion_id">
-                {{ product.product_sub_total | fixedCurrency }} {{ currency }}
+
+              <p
+                class="product_sub_total mt-0 main-color"
+                v-if="!product.gift_promotion_id"
+              >
+                <b>{{ product.product_sub_total | fixedCurrency }} {{ currency }} </b>
               </p>
               <img
                 src="@/assets/images/giftbox.png"
@@ -87,7 +72,7 @@
                 @click="removeFromCart(product)"
                 v-if="!product.gift_promotion_id"
               >
-                <span class="action-icon">
+                <span class="action-icon text-gray">
                   <!-- <b-icon-trash></b-icon-trash> -->
                   {{ $t("items.remove") }}
                 </span>
@@ -148,9 +133,7 @@ export default {
     goProduct(product) {
       this.$router.push(
         {
-          path: product.basket_promotion_id
-            ? "/basketOfferDetails"
-            : "/details",
+          path: product.basket_promotion_id ? "/basketOfferDetails" : "/details",
           query: {
             id: product.basket_promotion_id
               ? product.basket_promotion_id
@@ -170,7 +153,7 @@ export default {
 .action-holder {
   max-height: 430px;
   overflow-x: hidden;
-  width:100%
+  width: 100%;
 }
 
 .action-holder {
@@ -214,7 +197,7 @@ export default {
 
 .product-img-container {
   width: 90px;
-  height: 45px;
+  height: 100%;
   border-radius: 8px;
   box-shadow: 0 0 4px grey;
   margin-inline-end: 15px;
