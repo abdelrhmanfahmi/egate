@@ -1,15 +1,8 @@
 <template>
   <div class="action-holder mb-2">
     <!-- if cart items data  -->
-    <div
-      class="d-flex justify-content-center align-items-center"
-      v-if="loading"
-    >
-      <img
-        src="@/assets/images/BeanLoading2.gif"
-        alt="cart-image"
-        class="w-25"
-      />
+    <div class="d-flex justify-content-center align-items-center" v-if="loading">
+      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <!-- else  -->
     <div class="" v-else>
@@ -18,10 +11,7 @@
         v-for="product in products.products"
         :key="product.id"
       >
-        <a
-          @click="goProduct(product)"
-          class="product-img-container w-25"
-        >
+        <a @click="goProduct(product)" class="product-img-container w-25">
           <img
             :src="product.product_image"
             alt="Cart Item"
@@ -29,7 +19,7 @@
             v-if="product.product_image"
           />
           <img
-          v-else-if="product.basket_image"
+            v-else-if="product.basket_image"
             :src="product.basket_image"
             alt="Cart Item"
             class="product-image"
@@ -39,23 +29,33 @@
           <a @click="goProduct(product)" class="name">
             <span v-if="product.product_name">{{ product.product_name }}</span>
             <span v-else-if="product.basket_name">{{ product.basket_name }}</span>
+            <span v-if="product.buy_get_promotion_running_by_type.promotion.buy_x"
+              ><small>{{
+                `${$t("profile.buy")} 
+              ${product.buy_get_promotion_running_by_type.promotion.buy_x}
+             ${$t("profile.get")} ${
+                  product.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }}</small></span
+            >
           </a>
 
-          <span class="price" v-if="product.price || product.price >=0" >
-            <span v-if="!product.gift_promotion_id">{{ product.price | fixedCurrency }}</span>
+          <span class="price" v-if="product.price || product.price >= 0">
+            <span v-if="!product.gift_promotion_id">{{
+              product.price | fixedCurrency
+            }}</span>
           </span>
           <span class="price" v-if="!product.gift_promotion_id"> x </span>
           <span class="price" v-if="!product.gift_promotion_id">
             <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
           </span>
-          <span class="text-danger font-weight-bold" v-if="product.gift_promotion_id">{{product.quantity}}</span>
+          <span class="text-danger font-weight-bold" v-if="product.gift_promotion_id">{{
+            product.quantity
+          }}</span>
         </div>
         <div class="total mx-1 text-center w-50">
-
           <Counter
-            :minimum="
-              product.min_order_quantity ? product.min_order_quantity : 1
-            "
+            :minimum="product.min_order_quantity ? product.min_order_quantity : 1"
             :quantity="product.quantity"
             :product="product"
             class="justify-content-center"
@@ -64,9 +64,18 @@
           <p class="product_sub_total mt-2" v-if="!product.gift_promotion_id">
             {{ product.product_sub_total | fixedCurrency }} {{ currency }}
           </p>
-          <img src="@/assets/images/giftbox.png" v-if="product.gift_promotion_id" class="gift-product" alt="gift-product">
+          <img
+            src="@/assets/images/giftbox.png"
+            v-if="product.gift_promotion_id"
+            class="gift-product"
+            alt="gift-product"
+          />
         </div>
-        <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
+        <div
+          class="actions mx-1"
+          @click="removeFromCart(product)"
+          v-if="!product.gift_promotion_id"
+        >
           <span class="action-icon">
             <b-icon-trash></b-icon-trash>
           </span>
@@ -124,10 +133,14 @@ export default {
     goProduct(product) {
       this.$router.push(
         {
-          path: product.basket_promotion_id ?  "/basketOfferDetails" : "/details" ,
-          query: { id: product.basket_promotion_id ? product.basket_promotion_id : product.product_supplier_id },
+          path: product.basket_promotion_id ? "/basketOfferDetails" : "/details",
+          query: {
+            id: product.basket_promotion_id
+              ? product.basket_promotion_id
+              : product.product_supplier_id,
+          },
         },
-        // reload after go to product page 
+        // reload after go to product page
         () => {
           this.$router.go(0);
         }
@@ -202,5 +215,4 @@ export default {
 .cart-item .product-info .name {
   margin-bottom: 0.5rem;
 }
-
 </style>
