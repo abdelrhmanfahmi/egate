@@ -544,7 +544,11 @@
                           product.buy_get_promotion_running_by_type)
                       "
                       v-b-tooltip.hover
-                      :title="'add promotion to cart'"
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
                     >
                       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
@@ -665,6 +669,26 @@
                       :title="$t('items.addToCart')"
                     >
                       <!-- <span>{{ $t("items.addToCart") }}</span> -->
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    </a>
+                    <a
+                      class="d-flex justify-content-center align-items-center add-cart"
+                      @click="addPromotionToCart(product)"
+                      v-if="
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'cart' &&
+                          product.buy_get_promotion_running_by_type) ||
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'both' &&
+                          product.buy_get_promotion_running_by_type)
+                      "
+                      v-b-tooltip.hover
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
+                    >
                       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
 

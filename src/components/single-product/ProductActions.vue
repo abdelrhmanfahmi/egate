@@ -142,7 +142,7 @@
           <b-button
             @ok="$refs.CartModal.onSubmit()"
             @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block mb-2"
             v-if="
               (add_to_cart && myProduct.product_details_by_type.add_type === 'cart') ||
               (add_to_cart && myProduct.product_details_by_type.add_type === 'both')
@@ -170,7 +170,16 @@
             <span>
               <font-awesome-icon icon="fa-solid fa-cart-shopping" />
             </span>
-            {{ $t("singleProduct.addCart") }}
+            <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
+            <span
+              >({{
+                `${$t("profile.buy")} 
+          ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+         ${$t("profile.get")} ${
+                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }})</span
+            >
           </b-button>
         </div>
         <!-- add to cart if logged in and profil percentage !== 100 -->

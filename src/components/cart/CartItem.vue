@@ -29,15 +29,6 @@
           <a @click="goProduct(product)" class="name">
             <span v-if="product.product_name">{{ product.product_name }}</span>
             <span v-else-if="product.basket_name">{{ product.basket_name }}</span>
-            <span v-if="product.buy_get_promotion_running_by_type.promotion.buy_x"
-              ><small>{{
-                `${$t("profile.buy")} 
-              ${product.buy_get_promotion_running_by_type.promotion.buy_x}
-             ${$t("profile.get")} ${
-                  product.buy_get_promotion_running_by_type.promotion.get_y
-                } `
-              }}</small></span
-            >
           </a>
 
           <span class="price" v-if="product.price || product.price >= 0">
@@ -52,6 +43,19 @@
           <span class="text-danger font-weight-bold" v-if="product.gift_promotion_id">{{
             product.quantity
           }}</span>
+          <span v-if="product.buy_get_promotion_id"
+            ><small>
+              <b>
+                ({{
+                  `${$t("profile.buy")} 
+                ${product.buy_get_promotion_running_by_type.promotion.buy_x}
+               ${$t("profile.get")} ${
+                    product.buy_get_promotion_running_by_type.promotion.get_y
+                  } `
+                }})
+              </b>
+            </small></span
+          >
         </div>
         <div class="total mx-1 text-center w-50">
           <Counter
