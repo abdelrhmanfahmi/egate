@@ -556,6 +556,23 @@
                                 :alt="item.product_name + ' image'"
                                 class="product-image"
                               />
+                              <span
+                                v-if="item.buy_get_promotion_running_by_type"
+                                class="mx-2"
+                              >
+                                <b>
+                                  (
+                                  {{ $t("profile.buy") }}
+                                  {{
+                                    item.buy_get_promotion_running_by_type.promotion.buy_x
+                                  }}
+                                  {{ $t("profile.get") }}
+                                  {{
+                                    item.buy_get_promotion_running_by_type.promotion.get_y
+                                  }}
+                                  )
+                                </b>
+                              </span>
                             </router-link>
                           </td>
                           <!-- product name  and go to pproduct page with click  -->

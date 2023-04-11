@@ -532,6 +532,26 @@
                       <!-- <span>{{ $t("items.addToCart") }}</span> -->
                       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
+                    <a
+                      class="d-flex justify-content-center align-items-center add-cart"
+                      @click="addPromotionToCart(product)"
+                      v-if="
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'cart' &&
+                          product.buy_get_promotion_running_by_type) ||
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'both' &&
+                          product.buy_get_promotion_running_by_type)
+                      "
+                      v-b-tooltip.hover
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    </a>
                     <div class="" v-if="buyerUserData">
                       <div class="" v-if="favourite">
                         <a
@@ -649,6 +669,26 @@
                       :title="$t('items.addToCart')"
                     >
                       <!-- <span>{{ $t("items.addToCart") }}</span> -->
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    </a>
+                    <a
+                      class="d-flex justify-content-center align-items-center add-cart"
+                      @click="addPromotionToCart(product)"
+                      v-if="
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'cart' &&
+                          product.buy_get_promotion_running_by_type) ||
+                        (add_to_cart &&
+                          product.product_details_by_type.add_type === 'both' &&
+                          product.buy_get_promotion_running_by_type)
+                      "
+                      v-b-tooltip.hover
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
+                    >
                       <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                     </a>
 
@@ -903,6 +943,45 @@ export default {
           this.cartCounter > item.product_details_by_type.min_order_quantity
             ? this.cartCounter
             : item.product_details_by_type.min_order_quantity,
+      };
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * @vuese
+     * add To Cart function
+     */
+    addPromotionToCart(item) {
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
+        quantity:
+          this.cartCounter > item.product_details_by_type.min_order_quantity
+            ? this.cartCounter
+            : item.product_details_by_type.min_order_quantity,
+        buy_get_promotion_id: item.buy_get_promotion_running_by_type.buy_get_promotion_id,
       };
       return globalAxios
         .post(`cart/add`, data)
