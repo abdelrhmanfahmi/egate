@@ -96,10 +96,7 @@
     >
       <div
         class="col-3"
-        v-if="
-          add_to_cart &&
-          myProduct.product_details_by_type.quantity > 0
-        "
+        v-if="add_to_cart && myProduct.product_details_by_type.quantity > 0"
       >
         <div
           class="product-counter mb-2"
@@ -120,9 +117,7 @@
             <button
               class="product-counter-btn"
               @click="
-                decrementQuantity(
-                  myProduct.product_details_by_type.min_order_quantity
-                )
+                decrementQuantity(myProduct.product_details_by_type.min_order_quantity)
               "
               :disabled="mySelectedOption == 1"
             >
@@ -141,8 +136,7 @@
               buyerUserData.profile_percentage == 100 &&
               buyerUserData.type === 'buyer') ||
             buyerUserData.type === 'b2b' ||
-            (buyerUserData.type === 'supplier' &&
-              buyerUserData.is_buyer == true)
+            (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
           "
         >
           <b-button
@@ -150,10 +144,27 @@
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
             v-if="
+              (add_to_cart && myProduct.product_details_by_type.add_type === 'cart') ||
+              (add_to_cart && myProduct.product_details_by_type.add_type === 'both')
+            "
+          >
+            <span>
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </span>
+            {{ $t("singleProduct.addCart") }}
+          </b-button>
+
+          <b-button
+            @ok="$refs.CartModal.onSubmit()"
+            @click="addPromotionToCart(myProduct)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+            v-if="
               (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'cart') ||
+                myProduct.product_details_by_type.add_type === 'cart' &&
+                myProduct.buy_get_promotion_running_by_type) ||
               (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'both')
+                myProduct.product_details_by_type.add_type === 'both' &&
+                myProduct.buy_get_promotion_running_by_type)
             "
           >
             <span>
@@ -184,19 +195,32 @@
           </router-link>
         </div>
         <!-- add to cart if b2c or guest -->
-        <div
-          class="mb-2"
-          v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
-        >
+        <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
           <b-button
             @ok="$refs.CartModal.onSubmit()"
             @click="addToCart(myProduct)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
             v-if="
+              (add_to_cart && myProduct.product_details_by_type.add_type === 'cart') ||
+              (add_to_cart && myProduct.product_details_by_type.add_type === 'both')
+            "
+          >
+            <span>
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </span>
+            {{ $t("singleProduct.addCart") }}
+          </b-button>
+          <b-button
+            @ok="$refs.CartModal.onSubmit()"
+            @click="addPromotionToCart(myProduct)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+            v-if="
               (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'cart') ||
+                myProduct.product_details_by_type.add_type === 'cart' &&
+                myProduct.buy_get_promotion_running_by_type) ||
               (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'both')
+                myProduct.product_details_by_type.add_type === 'both' &&
+                myProduct.buy_get_promotion_running_by_type)
             "
           >
             <span>
@@ -252,10 +276,8 @@
       <button
         class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100"
         v-else-if="
-          (RFQ == 'available' &&
-            myProduct.product_details_by_type.add_type === 'rfq') ||
-          (RFQ == 'available' &&
-            myProduct.product_details_by_type.add_type === 'both')
+          (RFQ == 'available' && myProduct.product_details_by_type.add_type === 'rfq') ||
+          (RFQ == 'available' && myProduct.product_details_by_type.add_type === 'both')
         "
       >
         <span>
@@ -275,7 +297,6 @@
             >
               <div class="products mb-2" v-if="buyerUserData">
                 <div class="" v-if="favourite">
-
                   <!-- if product added to favorite  -->
                   <a
                     class="button one active animate mobile button--secondary wishlist-btn"
@@ -454,8 +475,7 @@
       <form>
         <div class="form-group">
           <label for=""
-            >{{ $t("singleProduct.nameInput") }}
-            <span class="text-danger">*</span></label
+            >{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label
           >
           <input type="text" class="form-control" v-model="requestData.name" />
           <div
@@ -490,15 +510,8 @@
             >{{ $t("singleProduct.reviewInput") }}
             <span class="text-danger">*</span></label
           >
-          <textarea
-            class="form-control"
-            v-model="requestData.comment"
-          ></textarea>
-          <div
-            class="text-danger"
-            v-for="(error, index) in errors.comment"
-            :key="index"
-          >
+          <textarea class="form-control" v-model="requestData.comment"></textarea>
+          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
             {{ error }}
           </div>
         </div>
@@ -523,11 +536,7 @@
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <b-button
-            class="mt-3"
-            variant="outline-danger"
-            block
-            @click="hideDeleteModal"
+          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal"
             >{{ $t("cart.cancel") }}
           </b-button>
         </div>
@@ -598,10 +607,8 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
-      console.log("myProduct", myProduct);
       let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -646,12 +653,51 @@ export default {
     },
     /**
      * @vuese
+     * add To Cart function
+     */
+    addPromotionToCart(item) {
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
+        quantity:
+          this.mySelectedOption !== null || this.mySelectedOption > 0
+            ? this.mySelectedOption
+            : 1,
+        buy_get_promotion_id: item.buy_get_promotion_running_by_type.buy_get_promotion_id,
+      };
+      console.log("data", data);
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+    /**
+     * @vuese
      *  add product to cart with rfq
      */
     addToCartWithRFQ(myProduct) {
       let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -714,8 +760,7 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id:
-          this.myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id: this.myProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -777,9 +822,7 @@ export default {
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       } else {
-        this.mySelectedOption >= 1
-          ? this.mySelectedOption--
-          : this.mySelectedOption == 1;
+        this.mySelectedOption >= 1 ? this.mySelectedOption-- : this.mySelectedOption == 1;
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       }
@@ -934,8 +977,7 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type
-        .min_order_quantity
+      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity
         ? this.myProduct.product_details_by_type.min_order_quantity
         : 1,
       changedValue: null,
@@ -954,6 +996,9 @@ export default {
      */
     url() {
       return this.mainDoamin + `details?id=${this.id}`;
+    },
+    promotion() {
+      return this.$route.query.type ? true : false;
     },
   },
 };
@@ -1424,14 +1469,12 @@ textarea {
     }
 
     .broken-heart--left {
-      animation: crackLeft 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s
-          forwards,
+      animation: crackLeft 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s forwards,
         hide 0.25s ease-in 0.55s forwards;
     }
 
     .broken-heart--right {
-      animation: crackRight 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s
-          forwards,
+      animation: crackRight 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s forwards,
         hide 0.25s ease-in 0.55s forwards;
     }
 
