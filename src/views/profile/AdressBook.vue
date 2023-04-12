@@ -394,8 +394,8 @@ export default {
      */
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
+        console.log('adresses' , res);
         this.adresses = res.data.items;
-        console.log(res);
       });
     },
     // Countires
