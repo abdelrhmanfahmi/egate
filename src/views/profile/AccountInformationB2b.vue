@@ -4,8 +4,32 @@
     <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
     <form @submit.prevent="updateProfile()" class="account-information-form">
       <b-row>
+        <!-- job_title  -->
+        <b-col lg="4" v-if="myFormControl.job_title !== null">
+          <b-form-group>
+            <label for="l-name">{{ $t("register.department") }}</label>
+            <span class="requried">*</span>
+
+            <b-form-select v-model="form.job_title">
+              <b-form-select-option selected disabled value="null">{{
+                $t("register.selectDept")
+              }}</b-form-select-option>
+              <b-form-select-option
+                v-for="department in departments"
+                :key="department.id"
+                :value="department.id"
+              >
+                <span v-if="$i18n.locale == 'en'">{{ department.name_en }}</span>
+                <span v-if="$i18n.locale == 'ar'">{{ department.name_ar }}</span>
+              </b-form-select-option>
+            </b-form-select>
+            <div class="error" v-for="(error, index) in errors.job_title" :key="index">
+              {{ error }}
+            </div>
+          </b-form-group>
+        </b-col>
         <!-- First Name -->
-        <b-col lg="6" v-if="myFormControl.first_name !== null">
+        <b-col lg="4" v-if="myFormControl.first_name !== null">
           <b-form-group>
             <label for="f-name">{{ $t("register.firstName") }}</label>
             <span class="requried">*</span>
@@ -24,7 +48,7 @@
           </b-form-group>
         </b-col>
         <!-- Last Name -->
-        <b-col lg="6" v-if="myFormControl.last_name !== null">
+        <b-col lg="4" v-if="myFormControl.last_name !== null">
           <b-form-group>
             <label for="l-name">{{ $t("register.lastName") }}</label>
             <span class="requried">*</span>
@@ -394,7 +418,7 @@ export default {
         email: "",
         mobile_number: "",
         perfix: "",
-        // job_title: "",
+        job_title: "",
         company_name_en: "",
         company_name_ar: "",
         reg_number: "",
@@ -414,6 +438,38 @@ export default {
       phonePrefix: null,
       modalShow: false,
       myFormControl: [],
+      departments: [
+        {
+          id: "Marketing",
+          name_ar: "التسويق",
+          name_en: "Marketing",
+        },
+        {
+          id: "Sales",
+          name_ar: "المبيعات",
+          name_en: "Sales",
+        },
+        {
+          id: "HR",
+          name_ar: "الموارد البشرية",
+          name_en: "HR",
+        },
+        {
+          id: "Accounting",
+          name_ar: "الحسابات",
+          name_en: "Accounting",
+        },
+        {
+          id: "IT",
+          name_ar: "تكنولوجيا المعلومات",
+          name_en: "IT",
+        },
+        {
+          id: "Law",
+          name_ar: "القانون",
+          name_en: "Law",
+        },
+      ],
     };
   },
   mounted() {
@@ -505,7 +561,7 @@ export default {
       const payload = {
         first_name: this.form.first_name,
         last_name: this.form.last_name,
-        //job_title: this.form.job_title,
+        job_title: this.form.job_title,
         reg_number: this.form.reg_number,
         portal: "buyer",
         country_id: this.form.country_id,
