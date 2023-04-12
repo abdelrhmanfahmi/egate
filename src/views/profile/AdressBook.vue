@@ -418,8 +418,8 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = null;
-        this.form.city_id = null;
+        this.form.region_id = "";
+        this.form.city_id = "";
       });
     },
     // Cities
@@ -431,7 +431,7 @@ export default {
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = null;
+        this.form.city_id = "";
       });
     },
 
