@@ -102,7 +102,7 @@
                             <form class="account-information-form">
                               <b-row class="justify-content-start">
                                 <!-- country  -->
-                                <b-col lg="4" v-if="form.country_id !== ''">
+                                <b-col lg="4" v-if="form.country_id !== undefined">
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.country") }}</label> -->
                                     <b-form-select
@@ -144,7 +144,7 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- regions -->
-                                <b-col lg="4" v-if="form.region_id !== ''">
+                                <b-col lg="4" v-if="form.region_id !== undefined">
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.region") }}</label>
                         <span class="requried">*</span> -->
@@ -189,7 +189,7 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- cities -->
-                                <b-col lg="4" v-if="form.city_id !== ''">
+                                <b-col lg="4" v-if="form.city_id !== undefined">
                                   <b-form-group>
                                     <!-- <label>{{ $t("profile.city") }}</label>
                         <span class="requried text-danger">*</span> -->
@@ -233,7 +233,7 @@
                                 </b-col>
 
                                 <!-- street number  -->
-                                <b-col lg="6" v-if="form.address_line_1 !== ''">
+                                <b-col lg="6" v-if="form.address_line_1 !== undefined">
                                   <b-form-group>
                                     <!-- <label for="streetNumber">{{
                           $t("profile.streetNumber")
@@ -260,7 +260,7 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- street  (new add)-->
-                                <b-col lg="6" v-if="form.street !== ''">
+                                <b-col lg="6" v-if="form.street !== undefined">
                                   <b-form-group>
                                     <b-form-input
                                       id="street"
@@ -282,11 +282,11 @@
                                   v-if="
                                     $i18n.locale == 'en' &&
                                     buyerUserData &&
-                                    form.name !== ''
+                                    form.name !== undefined
                                   "
                                 >
                                   <b-form-group>
-                                    <b-form-select v-model="newForm.name">
+                                    <b-form-select v-model="form.name">
                                       <b-form-select-option value="null" disabled
                                         >{{ $t("profile.name") }}
                                         <span class="requried text-danger">*</span>
@@ -313,11 +313,11 @@
                                   v-if="
                                     $i18n.locale == 'ar' &&
                                     buyerUserData &&
-                                    form.name !== ''
+                                    form.name !== undefined
                                   "
                                 >
                                   <b-form-group v-if="arabicAvailable !== 'no'">
-                                    <b-form-select v-model="newForm.name">
+                                    <b-form-select v-model="form.name">
                                       <b-form-select value="null" disabled>{{
                                         $t("profile.name")
                                       }}</b-form-select>
@@ -338,11 +338,11 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- floor  -->
-                                <b-col lg="6" v-if="form.floor !== ''">
+                                <b-col lg="6" v-if="form.floor !== undefined">
                                   <b-form-group>
                                     <b-form-input
                                       id="floor"
-                                      v-model="newForm.floor"
+                                      v-model="form.floor"
                                       :placeholder="$t('profile.floor')"
                                     />
                                     <div
@@ -355,11 +355,11 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- avenue (new add)  -->
-                                <b-col lg="6" v-if="form.avenue !== ''">
+                                <b-col lg="6" v-if="form.avenue !== undefined">
                                   <b-form-group>
                                     <b-form-input
                                       id="floor"
-                                      v-model="newForm.avenue"
+                                      v-model="form.avenue"
                                       :placeholder="$t('profile.avenue')"
                                     />
                                     <div
@@ -372,7 +372,7 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- home number  -->
-                                <b-col lg="6" v-if="form.building_number !== ''">
+                                <b-col lg="6" v-if="form.building_number !== undefined">
                                   <b-form-group>
                                     <!-- <label for="homeNumber">{{
                           $t("profile.homeNumber")
@@ -394,16 +394,16 @@
                                 </b-col>
 
                                 <!-- block number   -->
-                                <b-col lg="6" v-if="form.apartment !== ''">
+                                <b-col lg="6" v-if="form.block !== undefined">
                                   <b-form-group>
                                     <b-form-input
                                       id="blockNumber"
-                                      v-model="form.apartment"
+                                      v-model="form.block"
                                       :placeholder="$t('profile.blockNumber')"
                                     />
                                     <div
                                       class="error"
-                                      v-for="(error, index) in errors.apartment"
+                                      v-for="(error, index) in errors.block"
                                       :key="index"
                                     >
                                       {{ error }}
@@ -411,7 +411,7 @@
                                   </b-form-group>
                                 </b-col>
                                 <!-- post code  -->
-                                <b-col lg="6" v-if="form.pin_code !== ''">
+                                <b-col lg="6" v-if="form.pin_code !== undefined">
                                   <b-form-group>
                                     <b-form-input
                                       id="postCode"
@@ -431,6 +431,15 @@
                                       {{ error }}
                                     </div>
                                   </b-form-group>
+                                </b-col>
+                                <b-col lg="12" v-if="form.notes !== undefined">
+                                  <textarea
+                                    class="form-control"
+                                    id="notes"
+                                    rows="3"
+                                    :placeholder="$t('payment.notes')"
+                                    v-model="form.notes"
+                                  ></textarea>
                                 </b-col>
                                 <b-col lg="12">
                                   <div v-if="dynamicInputs">
@@ -1632,6 +1641,7 @@ export default {
         pin_code: "",
         notes: null,
         address_line_1: null,
+        avenue: null,
       },
 
       /**
@@ -2429,7 +2439,7 @@ export default {
           let formControl = res.data.items;
           formControl.map((element) => {
             if (element.status !== 1) {
-              this.form[element.input_key] = "";
+              this.form[element.input_key] = undefined;
             } else {
               this.form[element.input_key] = null;
             }
@@ -2449,11 +2459,11 @@ export default {
               }
             }
             if (element.input_key == "region_id" && element.status !== 1) {
-              this.form.region_id = "";
+              this.form.region_id = undefined;
             }
 
             if (element.input_key == "city_id" && element.status !== 1) {
-              this.form.city_id = "";
+              this.form.city_id = undefined;
             }
           });
         })
@@ -2478,6 +2488,7 @@ export default {
             this.getAllAdresses();
             this.showForm = false;
             this.form = {};
+            this.checkAddressesForm()
             if (res.status == 200) {
               this.submitted = true;
 
@@ -2502,6 +2513,7 @@ export default {
 
               existingAddresses.click();
               existingAddresses.checked = true;
+              this.expanded = false;
             }, 1000);
           })
           .catch((error) => {
@@ -2517,6 +2529,8 @@ export default {
 
     localStoreAdresses() {
       this.localClicked = true;
+    
+      console.log('form' , this.form)
 
       if (
         this.form.country_id !== null &&
@@ -2538,7 +2552,7 @@ export default {
         this.getGuestFirstShippingFees();
 
         this.localStoreFail = true;
-      } else if (this.form.pin_code.length < 6 && this.form.pin_code !== "") {
+      } else if (this.form?.pin_code?.length < 6 && this.form?.pin_code !== "") {
         this.postalError = true;
       } else {
         this.postalError = false;
@@ -2995,6 +3009,7 @@ export default {
         country_code: this.paymentFormData.country_code,
         redirect_url: this.paymentFormData.redirect_url,
         coupons: this.existCoupons,
+        avenue: this.form.avenue,
         // file: this.paymentFormData.file,
       };
 
