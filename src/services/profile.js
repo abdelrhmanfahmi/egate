@@ -309,7 +309,7 @@ export default {
   getDashboardDataFilter(payload) {
     return globalAxios.get("members/dashboard-index/client-dashboard",{
       params:{
-        form:payload.from,
+        from:payload.from,
         to:payload.to
       }
     });
