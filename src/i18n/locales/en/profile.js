@@ -327,5 +327,9 @@ export default {
   lastOrder:'Last Order',
   upload:"Upload",
   lastMessage:'Last Message',
-  hideMenu:'Hide Menu'
+  hideMenu:'Hide Menu',
+  responses:'Responses',
+  pendingReturns:'Pending Returns',
+  pendingStands:'Pending standing orders'
+
 };

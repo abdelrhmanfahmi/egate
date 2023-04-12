@@ -7,8 +7,7 @@
           <div class="register-info">
             <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
             <router-link to="/b2b-register" class="back">
-              <span>
-                &#60; {{ $t("register.haveNotAccount") }}</span>
+              <span> &#60; {{ $t("register.haveNotAccount") }}</span>
             </router-link>
           </div>
           <form @submit.prevent="login()">
@@ -30,19 +29,30 @@
                   <label for="password">{{ $t("register.password") }}</label>
                   <span class="requried">*</span>
                   <div class="show-password">
-                    <b-form-input id="password" v-model="form.password" :type="fieldType" />
+                    <b-form-input
+                      id="password"
+                      v-model="form.password"
+                      :type="fieldType"
+                    />
                     <div class="icon-passowrd" @click.stop="switchField()">
-                      <font-awesome-icon icon="fa-solid fa-eye" v-if="fieldType === 'password'" size="lg" />
+                      <font-awesome-icon
+                        icon="fa-solid fa-eye"
+                        v-if="fieldType === 'password'"
+                        size="lg"
+                      />
                       <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                     </div>
                   </div>
-                  <div class="error" v-for="(error, index) in errors.password" :key="index">
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.password"
+                    :key="index"
+                  >
                     {{ error }}
                   </div>
                 </b-form-group>
               </b-col>
             </b-row>
-
 
             <a v-if="buyerUserData && buyerUserData.type === 'b2c'">
               <b class="forget-password my-3" v-b-modal.B2BForgetPassword>
@@ -56,7 +66,7 @@
             </a>
 
             <div class="submition-box">
-              <b-button type="submit" variant="danger">
+              <b-button type="submit" class="bg-main">
                 {{ $t("register.submit") }}
               </b-button>
             </div>
@@ -64,8 +74,13 @@
         </b-col>
       </b-row>
     </div>
-    <b-modal id="B2BForgetPassword" :title="$t('login.resetPassword')" no-close-on-backdrop no-close-on-esc
-      ref="b2cLogin">
+    <b-modal
+      id="B2BForgetPassword"
+      :title="$t('login.resetPassword')"
+      no-close-on-backdrop
+      no-close-on-esc
+      ref="b2cLogin"
+    >
       <form>
         <b-form-group>
           <label for="email">{{ $t("register.email") }}</label>
@@ -114,7 +129,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
-        callback_url : `${this.mainDoamin}CheckUserValidity`
+        callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
       auth
         .login("buyer", loginData)
@@ -124,8 +139,7 @@ export default {
           // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
           if (
-            (res.data.items.item.type === "buyer" &&
-              res.data.items.item.is_verified) ||
+            (res.data.items.item.type === "buyer" && res.data.items.item.is_verified) ||
             (res.data.items.item.type === "supplier" &&
               res.data.items.item.is_buyer == 1 &&
               res.data.items.item.is_verified)
@@ -160,7 +174,7 @@ export default {
       const payload = {
         email: this.emailForget,
         callback_url: `${this.mainDoamin}Forget-Password`,
-        type: 'buyer'
+        type: "buyer",
       };
       auth
         .sendEmail(payload)
@@ -175,7 +189,7 @@ export default {
         });
     },
   },
-  mounted() { },
+  mounted() {},
   computed: {
     firebaseToken() {
       return this.$store.state.firebaseToken;
@@ -216,10 +230,16 @@ export default {
 
     .submition-box {
       text-align: center;
-      border: 1px solid rgba(204, 204, 204, 0.251);
-      border-radius: 4px;
-      background-color: rgba(216, 220, 221, 0.251);
+      //border: 1px solid rgba(204, 204, 204, 0.251);
+      //border-radius: 4px;
+      //background-color: rgba(216, 220, 221, 0.251);
       padding: 20px;
+      button {
+        width: 100%;
+        padding: 14px;
+        background: $main-color;
+        color: #fff;
+      }
     }
   }
 }

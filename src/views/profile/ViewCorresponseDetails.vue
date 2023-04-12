@@ -138,6 +138,16 @@
                 <span v-else>{{ item.chat.client.company_name_en }}</span>
               </span>
               <span class="message">{{ item.message }}</span>
+              <span
+                class="message-image"
+                v-if="chatImageBaseUrl && item.file"
+                @click="
+                  showImage(chatImageBaseUrl + item.file);
+                  showWithdrawFile();
+                "
+              >
+                <img :src="chatImageBaseUrl + item.file" alt="" />
+              </span>
               <span class="messageDate">{{ item.created_at | formatDate }}</span>
             </p>
           </li>
@@ -181,8 +191,16 @@
                 id="show-btn"
                 class="p-2 border-main"
                 @click="sendSupplierMessage"
-                >{{ $t("profile.send") }}</b-button
+                :disabled="requestInProgress"
               >
+                <span>{{ $t("profile.send") }}</span>
+                <span v-if="requestInProgress">
+                  ...
+                  <span>
+                    <b-spinner label="Spinning" small></b-spinner>
+                  </span>
+                </span>
+              </b-button>
             </div>
           </div>
           <div class="company-logo">
@@ -217,6 +235,21 @@
         </div>
       </div>
     </div>
+    <b-modal ref="withdrawFile" hide-footer centered>
+      <template #modal-header="{ close }">
+        <h5>{{ $t("profile.message") }}</h5>
+        <!-- Emulate built in modal header close button action -->
+        <b-button size="sm" variant="outline-danger" @click="close()"> x </b-button>
+      </template>
+      <div class="d-block">
+        <img :src="selectedImage" class="withdrow-image" alt="withdrow-image" />
+      </div>
+      <div class="row justify-content-around align-items-center">
+        <b-button class="mt-3" variant="outline-danger" @click="hideWithdrawFile">{{
+          $t("home.ok")
+        }}</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -226,6 +259,7 @@
  * @displayName Corresponse Details page
  */
 import profile from "@/services/profile";
+import { createdFormData } from "@/services/helpers.js";
 export default {
   data() {
     return {
@@ -233,10 +267,13 @@ export default {
       items: null,
       message: null,
       subject: null,
+      file: null,
       errors: {},
       supplierId: null,
       chatImage: null,
       files: [],
+      requestInProgress: false,
+      selectedImage: null,
     };
   },
   methods: {
@@ -271,7 +308,6 @@ export default {
       profile
         .suppliersingleCorrespondence(this.id)
         .then((resp) => {
-          console.log(resp);
           this.items = resp.data.items;
           if (this.items) {
             this.supplierId = resp.data.items[0].chat.supplier_id;
@@ -286,13 +322,15 @@ export default {
      * @vuese
      */
     sendSupplierMessage() {
+      this.requestInProgress = true;
       let data = {
         supplier_id: this.supplierId,
         message: this.message,
-        subject: this.subject,
+        // subject: this.subject,
+        file: this.files[0],
       };
       profile
-        .sendsupplierCorrespondenceMessage(data)
+        .sendsupplierCorrespondenceMessage(createdFormData(data))
         .then((res) => {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
@@ -306,7 +344,35 @@ export default {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
           console.log(error);
+        })
+        .finally(() => {
+          this.message = null;
+          this.files = [];
+          this.chatImage = null;
+          this.requestInProgress = false;
+          this.suppliersingleCorrespondence();
         });
+    },
+    /**
+     * show withdrow Image
+     * @vuese
+     */
+    showImage(fileImage) {
+      this.selectedImage = fileImage;
+    },
+    /**
+     * hide WithdrawFile modal
+     * @vuese
+     */
+    hideWithdrawFile() {
+      this.$refs["withdrawFile"].hide();
+    },
+    /**
+     * show show Withdraw File
+     * @vuese
+     */
+    showWithdrawFile() {
+      this.$refs["withdrawFile"].show();
     },
   },
   mounted() {
@@ -501,5 +567,28 @@ li {
 }
 .myIcon {
   cursor: pointer;
+}
+.message-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 30px;
+  cursor: pointer;
+  img {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+}
+
+.withdrow-image {
+  max-height: 50vh;
+  width: 100%;
+  object-fit: contain;
 }
 </style>

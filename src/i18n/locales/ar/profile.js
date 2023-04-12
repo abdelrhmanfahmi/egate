@@ -317,5 +317,8 @@ export default {
   lastOrder:'اخر طلب',
   upload:"رفع",
   lastMessage:'اخر رسالة',
-  hideMenu:'اخفاء القائمة'
+  hideMenu:'اخفاء القائمة',
+  responses:'استجابات',
+  pendingReturns:'عوائد معلقة',
+  pendingStands:'قائمةالانتظارالمعلقة'
 };

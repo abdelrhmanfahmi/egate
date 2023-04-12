@@ -464,7 +464,7 @@
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 import checkMailModal from "@/components/changeprofileReply.vue";
-
+import { createdFormData } from "@/services/helpers.js";
 export default {
   data() {
     return {
@@ -560,9 +560,10 @@ export default {
         country_id: this.form.country_id,
         language: this.form.language,
         currency_id: this.form.currency_id,
+        logo: this.files[0],
       };
       auth
-        .storeInfo(payload)
+        .storeInfo(createdFormData(payload))
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};

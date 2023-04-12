@@ -12,32 +12,36 @@
       bg-variant="#fff"
     >
       <template #default="{ hide }">
-        <div class="text-center">
-          <h2>{{ $t("login.wholeSaleClients") }}</h2>
+        <!-- <div class="text-center"> -->
+        <div class="d-flex justify-content-start px-4">
+          <!-- <h2>{{ $t("login.wholeSaleClients") }}</h2> -->
+          <h2>{{ $t("login.login") }}</h2>
         </div>
         <div class="user-login-form">
           <div
-            class="row flex-row justify-content-between align-items-center mb-4 text-dark"
+            class="row flex-row justify-content-between align-items-center mb-4 main-color"
           >
-            <div class="col-md-4 col-sm-12 p-0 m-0" @click="selectType('b2c')">
+            <div class="col-md-4 col-sm-12 p-0 m-0 my-col" @click="selectType('b2c')">
               <span
-                class="text-dark font-weight-bold link"
+                class="main-color font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2c' }"
                 >{{ $t("login.retailBuyer") }}</span
               >
             </div>
-            <div class="col-md-5 col-sm-12 p-0 m-0" @click="selectType('b2b')">
+            <div class="col-md-5 col-sm-12 p-0 m-0 my-col" @click="selectType('b2b')">
               <span
-                class="text-dark font-weight-bold link"
+                class="main-color font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }"
-                >{{ $t("login.wholeSaleBuyer") }}</span
               >
+                <!-- {{ $t("login.wholeSaleBuyer") }} -->
+                {{ $t("home.corporate") }}
+              </span>
             </div>
-            <div class="col-md-3 col-sm-12 p-0 m-0">
+            <div class="col-md-3 col-sm-12 p-0 m-0 my-col">
               <a
                 :href="`${supplierDomain}`"
                 target="_blank"
-                class="text-dark font-weight-bold"
+                class="main-color font-weight-bold"
                 >{{ $t("home.suppliers") }}</a
               >
             </div>
@@ -79,18 +83,16 @@
                     v-if="fieldType === 'password'"
                     size="lg"
                   />
-                  <font-awesome-icon
-                    icon="fa-solid fa-eye-slash"
-                    v-else
-                    size="lg"
-                  />
+                  <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
                 </div>
               </div>
 
-              <b-button class="forget-password" v-b-modal.ForgetPassword>
-                {{ $t("login.fogetPassword") }}
-              </b-button>
-              <b-button type="submit" class="login-button">
+              <div class="d-flex justify-content-end">
+                <b-button class="forget-password main-color" v-b-modal.ForgetPassword>
+                  {{ $t("login.fogetPassword") }}
+                </b-button>
+              </div>
+              <b-button type="submit" class="login-button w-50 br-5">
                 {{ $t("login.login") }}
               </b-button>
             </form>
@@ -101,9 +103,7 @@
         </div>
         <div class="social-login" v-if="selectedType === 'b2c'">
           <p>{{ $t("login.LoginSocial") }}</p>
-          <div
-            class="social-icons d-flex justify-content-center align-items-center"
-          >
+          <div class="social-icons d-flex justify-content-center align-items-center">
             <button @click="getLink('facebook')" class="button-social">
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
@@ -111,8 +111,8 @@
               <font-awesome-icon icon="fa-brands fa-google" size="lg" />
             </button>
             <button @click="getLink('azure')" class="button-social">
-                <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-              </button>
+              <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
+            </button>
             <button @click="getLink('apple')" class="button-social apple-login">
               <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
             </button>
@@ -120,12 +120,21 @@
         </div>
 
         <div class="user-login-form" v-if="selectedType === 'b2c'">
+          <b-button
+            to="/user-register"
+            class="login-button my-2 border-main"
+            @click="hide"
+          >
+            {{ $t("login.DontHave") }} {{ $t("login.createAccount") }}
+          </b-button>
+        </div>
+        <!-- <div class="user-login-form" v-if="selectedType === 'b2c'">
           <p class="title">{{ $t("login.DontHave") }}</p>
 
           <b-button to="/user-register" class="login-button my-2" @click="hide">
             {{ $t("login.createAccount") }}
           </b-button>
-        </div>
+        </div> -->
       </template>
     </b-sidebar>
     <b-modal
@@ -140,11 +149,7 @@
           <label for="email">{{ $t("register.email") }}</label>
           <span class="requried">*</span>
           <b-form-input id="email" v-model="emailForget" maxlength="100" />
-          <div
-            class="error"
-            v-for="(error, index) in errors.email"
-            :key="index"
-          >
+          <div class="error" v-for="(error, index) in errors.email" :key="index">
             {{ error }}
           </div>
         </b-form-group>
@@ -192,7 +197,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
-        callback_url : `${this.mainDoamin}CheckUserValidity`
+        callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
 
       auth
@@ -262,13 +267,13 @@ export default {
     // step One forget Password
     /**
      * @vuese
-     * sendEmail function 
+     * sendEmail function
      */
     sendEmail() {
       const payload = {
         email: this.emailForget,
         callback_url: `${this.mainDoamin}Forget-Password`,
-        type:'b2c'
+        type: "b2c",
       };
       auth
         .sendEmail(payload)
@@ -305,10 +310,11 @@ export default {
 .user-login {
   .user-login-form {
     text-align: center;
-    border: 1px solid rgba(204, 204, 204, 0.251);
-    border-radius: 4px;
-    background-color: rgba(216, 220, 221, 0.251);
-    padding: 40px 30px 20px;
+    //border: 1px solid rgba(204, 204, 204, 0.251);
+    //border-radius: 4px;
+    // background-color: rgba(216, 220, 221, 0.251);
+    //padding: 40px 30px 20px;
+    padding: 20px;
 
     .title {
       padding-bottom: 10px;
@@ -349,27 +355,29 @@ export default {
   }
 
   .button-social {
-    padding: 20px 30px;
+    //padding: 20px 30px;
+    padding: 15px 20px;
     margin: 0 5px;
     color: #fff;
     border: 0;
     border-radius: 5px;
     margin-bottom: 10px;
+    background-color: #f5f5f5 !important;
 
     &:first-child {
-      background-color: #3b5998;
+      color: #3b5998;
     }
 
     &:nth-child(2) {
-      background-color: #c5221f;
+      color: #c5221f;
     }
 
     &:nth-child(3) {
-      background-color: #3b5998;
+      color: #3b5998;
     }
 
     &:last-child {
-      background-color: #c5221f;
+      color: #c5221f;
     }
   }
 }
@@ -395,5 +403,8 @@ export default {
 
 .link {
   cursor: pointer;
+}
+.my-col {
+  font-size: 16px;
 }
 </style>

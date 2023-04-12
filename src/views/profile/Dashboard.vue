@@ -87,12 +87,12 @@
                   <div class="p-0">
                     <p class="h5">
                       <span class="main-color">!!</span>
-                      <span>Responses</span>
+                      <span>{{ $t("profile.responses") }}</span>
                     </p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                      <h5>2</h5>
+                      <h5>{{ dashData.total_responses_qoutes }}</h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/QuotationsB2b" class="main-color">
@@ -129,12 +129,12 @@
                   <div class="p-0">
                     <p class="h5">
                       <span class="main-color">!!</span>
-                      <span>Pending Returns</span>
+                      <span>{{ $t("profile.pendingReturns") }}</span>
                     </p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                      <h5>2</h5>
+                      <h5>{{ dashData.total_pending_refund }}</h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/ReturnRequests" class="main-color">
@@ -168,14 +168,14 @@
                     }}</small> -->
                     <p class="h5">
                       <span class="main-color">!!</span>
-                      <span>pending standing orders</span>
+                      <span>{{ $t("profile.pendingStands") }}</span>
                     </p>
                     <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
                     <!-- <h5 class="text mt-2">{{ currency }}</h5> -->
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                      <h5>2</h5>
+                      <h5>{{ dashData.total_Pending_orders }}</h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/StandingOrders" class="main-color">

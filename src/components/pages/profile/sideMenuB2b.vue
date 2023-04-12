@@ -2,7 +2,7 @@
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
     <div class="d-flex justify-content-center align-items-center flex-column">
-      <img :src="buyerUserData.image_path" alt="" srcset="" />
+      <img :src="buyerUserData.image_path" alt="" srcset="" class="company-img" />
       <h5 class="my-3" v-if="buyerUserData.company_name_en">
         {{ buyerUserData.company_name_en }}
       </h5>
@@ -412,5 +412,11 @@ html:lang(ar) {
 }
 .logout {
   cursor: pointer;
+}
+.company-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: fill;
 }
 </style>

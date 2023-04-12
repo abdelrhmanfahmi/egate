@@ -14,9 +14,7 @@
                 <!-- password -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{
-                      $t("profile.NewPassword")
-                    }}</label>
+                    <label for="password">{{ $t("profile.NewPassword") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
@@ -49,9 +47,7 @@
                 <!--password_confirmation -->
                 <b-col lg="12">
                   <b-form-group>
-                    <label for="password">{{
-                      $t("profile.NewPassword")
-                    }}</label>
+                    <label for="password">{{ $t("profile.NewPassword") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
@@ -95,7 +91,7 @@
   </section>
 </template>
 <script>
-// forget password page 
+// forget password page
 import auth from "@/services/auth";
 export default {
   data() {
@@ -119,32 +115,32 @@ export default {
     // Step 3 forget Password
     /**
      * @vuese
-     * forget PassWord function 
+     * forget PassWord function
      */
     forgetPassWord() {
       // if (this.$route.query.email && this.$route.query.token) {
-        const payload = {
-          email: this.$route.query.email
-            ? this.$route.query.email
-            : this.buyerUserData.email,
-          token: this.$route.query.token
-            ? this.$route.query.token
-            : this.userInfo.access_token,
-          ...this.form,
-        };
-        auth
-          .forgetPassWord(payload)
-          .then((res) => {
-            this.sucessMsg(res.data.message);
-            setTimeout(() => {
-              this.$router.push("/");
-            }, 1000);
-          })
-          .catch((error) => {
-            const err = Object.values(error)[2].data;
-            this.errors = err.items;
-            this.errMsg(err.message);
-          });
+      const payload = {
+        email: this.$route.query.email
+          ? this.$route.query.email
+          : this.buyerUserData.email,
+        token: this.$route.query.token
+          ? this.$route.query.token
+          : this.userInfo.access_token,
+        ...this.form,
+      };
+      auth
+        .forgetPassWord(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 1000);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
       // }
     },
   },
@@ -160,10 +156,16 @@ export default {
   .user-register-form {
     .submition-box {
       text-align: center;
-      border: 1px solid rgba(204, 204, 204, 0.251);
-      border-radius: 4px;
-      background-color: rgba(216, 220, 221, 0.251);
+      //border: 1px solid rgba(204, 204, 204, 0.251);
+      //border-radius: 4px;
+      //background-color: rgba(216, 220, 221, 0.251);
       padding: 40px 30px;
+      button {
+        width: 100%;
+        padding: 14px;
+        background: $main-color !important;
+        color: #fff;
+      }
     }
   }
 }
