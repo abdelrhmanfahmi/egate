@@ -330,6 +330,11 @@ export default {
   hideMenu:'Hide Menu',
   responses:'Responses',
   pendingReturns:'Pending Returns',
-  pendingStands:'Pending standing orders'
+  pendingStands:'Pending standing orders',
+  selectDate:"Select Date",
+  from:'From',
+  to:"to",
+  dateFrom:'Date From',
+  dateTo:"Date to"
 
 };

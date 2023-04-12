@@ -18,7 +18,7 @@ export default {};
 #loading {
   position: fixed;
   z-index: 1000;
-  background-color: white;
+  background-color: #fbfbfb;
   inset: 0;
   display: flex;
   justify-content: center;

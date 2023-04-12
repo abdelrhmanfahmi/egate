@@ -39,27 +39,26 @@
         </div> -->
         <div class="filter mb-5">
           <div class="row justify-content-between align-items-center">
-            <div class="col-md-8 col-sm-12">
+            <div class="col-md-7 col-sm-12">
               <div class="title">
                 <h2>{{ $t("profile.dashboard") }}</h2>
               </div>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-5 col-sm-12">
               <div class="filter-holder">
                 <div class="row align-items-center">
                   <div class="col-md-3 col-sm-12">
                     <h5>Period :</h5>
                   </div>
-                  <div class="col-md-9 col-sm-12">
-                    <b-form-select v-model="selectedOption">
-                      <b-form-select-option selected disabled value="null"
-                        ><span>{{
-                          $t("payment.selectExist")
-                        }}</span></b-form-select-option
-                      >
-                      <b-form-select-option value="a">Option A</b-form-select-option>
-                      <b-form-select-option value="b">Option B </b-form-select-option>
-                    </b-form-select>
+                  <div class="col-md-9 col-sm-12" @click="selectPeriod">
+                    <p v-if="!periodClicked" class="selectDate">
+                      {{ $t("profile.selectDate") }}
+                    </p>
+                    <DatePicker
+                      v-if="periodClicked"
+                      @filterWithDate="getDashboardDataFilter($event)"
+                      @cancelDateFilter="cancelDateFilter($event)"
+                    />
                   </div>
                 </div>
               </div>
@@ -471,10 +470,12 @@
 import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
+import DatePicker from "@/components/pages/profile/DatePicker.vue";
 export default {
   components: {
     spinner,
     Paginate,
+    DatePicker,
   },
   data() {
     return {
@@ -536,9 +537,15 @@ export default {
       chargeValue: null,
       chargeClicked: false,
       sortedbyASC: true,
+      periodClicked: false,
     };
   },
   methods: {
+    selectPeriod() {
+      setTimeout(() => {
+        this.periodClicked = true;
+      }, 100);
+    },
     sortList(sortBy) {
       if (this.sortedbyASC) {
         this.orders.sort((x, y) => (x[sortBy] > y[sortBy] ? -1 : 1));
@@ -605,6 +612,39 @@ export default {
           this.errors = error.items;
           this.errMsg(error.message);
         });
+    },
+    /**
+     * get Dashboard Data function
+     * @vuese
+     */
+    getDashboardDataFilter(filterData) {
+      profile
+        .getDashboardDataFilter(filterData)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.dashData = res.data.items;
+          this.orders = res.data.items.orders;
+
+          this.total = res.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            res.data.items.orders.meta.total / res.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = res.data.items.orders.meta.total;
+        })
+        .catch((err) => {
+          let error = Object.values(err)[2].data;
+          this.errors = error.items;
+          this.errMsg(error.message);
+        })
+        .finally(() => {
+          this.periodClicked = false;
+        });
+    },
+    cancelDateFilter() {
+      setTimeout(() => {
+        this.periodClicked = false;
+      }, 200);
     },
     /**
      * rePay function
@@ -888,4 +928,15 @@ export default {
 //th {
 // cursor: pointer;
 //}
+.selectDate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $gray;
+  border-radius: 5px;
+  padding: 20px;
+  color: $main-color;
+  font-weight: bold;
+  cursor: pointer;
+}
 </style>

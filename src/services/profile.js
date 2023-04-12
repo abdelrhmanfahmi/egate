@@ -306,6 +306,14 @@ export default {
   getDashboardData() {
     return globalAxios.get("members/dashboard-index/client-dashboard");
   },
+  getDashboardDataFilter(payload) {
+    return globalAxios.get("members/dashboard-index/client-dashboard",{
+      params:{
+        form:payload.from,
+        to:payload.to
+      }
+    });
+  },
   getNotificationSettings() {
     return globalAxios.get("members/notification-settings");
     // return globalAxios.get('members/notification-settings/public-settings')
