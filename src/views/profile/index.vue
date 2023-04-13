@@ -74,6 +74,8 @@ export default {
   mounted() {
     if (this.buyerUserData) {
       this.getProfileBudges();
+    } else {
+      this.$router.push("/b2b-login");
     }
   },
   computed: {
