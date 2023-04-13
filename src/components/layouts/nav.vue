@@ -622,7 +622,7 @@ export default {
         box-shadow: 0px 12px 24px 0px rgb(120 120 120 / 30%);
         visibility: hidden;
         transform: translateY(10px);
-        width: 25rem;
+        width: 27rem;
       }
 
       &:hover {

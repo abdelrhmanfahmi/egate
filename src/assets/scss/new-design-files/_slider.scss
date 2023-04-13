@@ -130,3 +130,10 @@
     }
   }
 }
+
+[dir='rtl'] .slick-next{
+  left:auto !important
+}
+[dir='rtl'] .slick-prev{
+  right:auto !important
+}

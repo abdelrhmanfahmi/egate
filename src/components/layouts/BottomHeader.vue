@@ -12,7 +12,9 @@
               />
             </div>
             <select name="categories" id="categories" @change="selectCategory($event)">
-              <option value="" selected disabled>Categories</option>
+              <option value="" selected disabled>
+                {{ $t("profile.categories") }}
+              </option>
               <option
                 :value="category.id"
                 v-for="(category, index) in categories"
@@ -166,5 +168,4 @@ export default {
     margin: 10px;
   }
 }
-
 </style>

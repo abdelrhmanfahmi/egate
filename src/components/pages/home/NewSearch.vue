@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" :class="$i18n.locale">
     <div class="text-center pt-5">
-      <h1 class="mb-0">All your purchases at wholesale price</h1>
+      <h1 class="mb-0">{{ $t("home.newSearchText") }}</h1>
     </div>
     <div class="container d-flex align-items-center my-4">
       <div class="new-search-design w-100">
@@ -21,7 +21,7 @@
                   id="categories"
                   @change="selectCategory($event)"
                 >
-                  <option value="" selected disabled>All items</option>
+                  <option value="" selected disabled>{{ $t("home.All") }}</option>
                   <option
                     :value="category.id"
                     v-for="(category, index) in categories"
@@ -92,7 +92,9 @@
             </div>
           </div>
 
-          <b-button class="icon-search" size="md" @click="searchBtn"> Search </b-button>
+          <b-button class="icon-search" size="md" @click="searchBtn">
+            {{ $t("cart.search") }}
+          </b-button>
         </div>
 
         <!-- icons -->
