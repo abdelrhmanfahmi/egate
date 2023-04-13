@@ -67,5 +67,6 @@ export default {
   choosePaymentMethod:'اختر طريقة الدفع',
   haveCoupon:'هل تمتلك كوبون ؟',
   Apply:'تطبيق',
-  search:'بحث'
+  search:'بحث',
+  resetDate:'حذف المدة'
 };

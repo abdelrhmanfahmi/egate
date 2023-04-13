@@ -78,7 +78,7 @@
       <li>
         <div class="logout" @click="logout()">
           <span class="logout-sign">
-            <font-awesome-icon icon="fa-solid fa-power-off" />
+            <!-- <font-awesome-icon icon="fa-solid fa-power-off" /> -->
           </span>
           <span class="mx-2">
             {{ $t("login.logout") }}

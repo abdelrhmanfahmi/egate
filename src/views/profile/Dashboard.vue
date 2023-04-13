@@ -50,10 +50,27 @@
                   <div class="col-md-3 col-sm-12">
                     <h5>Period :</h5>
                   </div>
-                  <div class="col-md-9 col-sm-12" @click="selectPeriod">
-                    <p v-if="!periodClicked" class="selectDate">
-                      {{ $t("profile.selectDate") }}
-                    </p>
+                  <div class="col-md-9 col-sm-12">
+                    <div class="row" v-if="!periodClicked">
+                      <div
+                        :class="{
+                          'col-md-6 col-sm-12': rangeClicked,
+                          'col-12': !rangeClicked,
+                        }"
+                      >
+                        <p class="selectDate" @click="selectPeriod">
+                          {{ $t("profile.selectDate") }}
+                        </p>
+                      </div>
+                      <div class="col-md-6 col-sm-12" v-if="rangeClicked">
+                        <button
+                          class="btn border-main reset-btn"
+                          @click="getDashboardData"
+                        >
+                          {{ $t("profile.resetDate") }}
+                        </button>
+                      </div>
+                    </div>
                     <DatePicker
                       v-if="periodClicked"
                       @filterWithDate="getDashboardDataFilter($event)"
@@ -212,7 +229,7 @@
           <!-- </router-link> -->
         </div>
       </div>
-      <div class="holder text-center mt-5" v-if="orders">
+      <div class="holder text-center mt-5" v-if="ordersLength > 0">
         <table class="table table-striped table-hover table-bordered selectable">
           <thead>
             <tr>
@@ -397,7 +414,10 @@
           </b-modal>
         </div>
       </div>
-      <div class="spinner d-flex justify-content-center align-items-center" v-else>
+      <div
+        class="spinner d-flex justify-content-center align-items-center"
+        v-if="loading"
+      >
         <spinner />
       </div>
     </div>
@@ -538,10 +558,14 @@ export default {
       chargeClicked: false,
       sortedbyASC: true,
       periodClicked: false,
+      rangeClicked: false,
+      ordersLength: 0,
+      loading: false,
     };
   },
   methods: {
     selectPeriod() {
+      this.rangeClicked = true;
       setTimeout(() => {
         this.periodClicked = true;
       }, 100);
@@ -593,12 +617,15 @@ export default {
      * @vuese
      */
     getDashboardData() {
+      this.rangeClicked = false;
+      this.loading = true;
       profile
         .getDashboardData()
         .then((res) => {
           console.log(res);
           this.dashData = res.data.items;
           this.orders = res.data.items.orders;
+          this.ordersLength = res.data.items.orders.length;
 
           this.total = res.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
@@ -606,6 +633,7 @@ export default {
           ); // Calculate total records
 
           this.totalRecords = res.data.items.orders.meta.total;
+          this.loading = false;
         })
         .catch((err) => {
           let error = Object.values(err)[2].data;
@@ -618,12 +646,14 @@ export default {
      * @vuese
      */
     getDashboardDataFilter(filterData) {
+      this.loading = true;
       profile
         .getDashboardDataFilter(filterData)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.dashData = res.data.items;
           this.orders = res.data.items.orders;
+          this.ordersLength = res.data.items.orders.length;
 
           this.total = res.data.items.orders.meta.total;
           this.totalPages = Math.ceil(
@@ -639,6 +669,7 @@ export default {
         })
         .finally(() => {
           this.periodClicked = false;
+          this.loading = false;
         });
     },
     cancelDateFilter() {
@@ -938,5 +969,9 @@ export default {
   color: $main-color;
   font-weight: bold;
   cursor: pointer;
+}
+.reset-btn {
+  padding: 20px;
+  width: 100%;
 }
 </style>

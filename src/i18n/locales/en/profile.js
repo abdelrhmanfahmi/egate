@@ -335,6 +335,7 @@ export default {
   from:'From',
   to:"to",
   dateFrom:'Date From',
-  dateTo:"Date to"
+  dateTo:"Date to",
+  resetDate:"Remove Range"
 
 };
