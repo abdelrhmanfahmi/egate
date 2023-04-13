@@ -336,6 +336,8 @@ export default {
   to:"to",
   dateFrom:'Date From',
   dateTo:"Date to",
-  resetDate:"Remove Range"
+  resetDate:"Remove Range",
+  searchAddress:'Search address...',
+  search:'Search'
 
 };

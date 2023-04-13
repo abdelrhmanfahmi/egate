@@ -12,6 +12,14 @@ export default {
       },
     });
   },
+  searchAddresses(payload) {
+    return globalAxios.get("members/profile/shipping-info", {
+      params: {
+        portal: "buyer",
+        keyword: payload.keyword,
+      },
+    });
+  },
   getAllCities(countryId) {
     return globalAxios.get(`lists/cities/${countryId}`);
   },

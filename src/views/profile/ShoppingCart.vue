@@ -129,22 +129,19 @@
             </div>
             <div class="col-md-6 col-sm-12">
               <div class="input-holder">
-                <form @submit.prevent="searchAddresses">
+                <form @keyup.prevent="searchAddresses">
+                  <!-- <span class="remove-search" role="button">x</span> -->
                   <!-- coupon input  -->
 
                   <input
                     type="text"
-                    :placeholder="'Search address...'"
+                    :placeholder="$t('profile.searchAddress')"
                     class="my-2 h-100 p-3 w-100 itemInput"
                     v-model="addressSearchText"
                   />
-                  <b-button
-                    type="submit"
-                    class="login-button my-2 py-3 px-4 w-auto"
-                    @click="searchAddresses"
-                  >
+                  <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
                     <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
-                    <span>search</span>
+                    <span>{{ $t("profile.search") }}</span>
                   </b-button>
                 </form>
               </div>
@@ -169,8 +166,16 @@
               </b-col>
             </b-row>
             <!-- data comes from backend  -->
-            <VueSlickCarousel v-bind="settings" v-if="adresses && adresses.length">
-              <div v-for="(address, index) in adresses" :key="index" class="slider-data">
+            <VueSlickCarousel
+              v-bind="settings"
+              v-if="adresses && adresses.length && !addressLoading"
+            >
+              <div
+                v-for="(address, index) in adresses"
+                :key="index"
+                class="slider-data"
+                @click.prevent="selectMe(address)"
+              >
                 <div class="sign my-2 d-flex align-items-center">
                   <span
                     ><font-awesome-icon icon="fa-regular fa-circle-check" size="2x"
@@ -210,6 +215,17 @@
                 </div>
               </div>
             </VueSlickCarousel>
+            <div class="" v-if="addressLoading">
+              <div class="text-center">
+                <b-spinner variant="danger" label="Spinning"></b-spinner>
+              </div>
+            </div>
+            <div
+              class="d-flex justify-content-center align-items-center"
+              v-if="adresses.length <= 0"
+            >
+              <h4 v-if="!addressLoading">{{ $t("profile.quotationsRatingsEmpty") }}</h4>
+            </div>
           </div>
           <div class="add-new-address">
             <p class="add-address" @click="showForm = !showForm">
@@ -231,8 +247,8 @@
                       @input="getAllRegions"
                     >
                       <b-form-select-option
-                        v-for="country in countries"
-                        :key="country.id"
+                        v-for="(country, index) in countries"
+                        :key="index"
                         :value="country.id"
                         >{{ country.title }}
                       </b-form-select-option>
@@ -257,8 +273,8 @@
                       @input="getAllCities"
                     >
                       <b-form-select-option
-                        v-for="region in regions"
-                        :key="region.id"
+                        v-for="(region, index) in regions"
+                        :key="index"
                         :value="region.id"
                         >{{ region.title }}
                       </b-form-select-option>
@@ -282,8 +298,8 @@
                       :disabled="!addressesForm.country_id || !addressesForm.region_id"
                     >
                       <b-form-select-option
-                        v-for="city in cities"
-                        :key="city.id"
+                        v-for="(city, index) in cities"
+                        :key="index"
                         :value="city.id"
                         >{{ city.title }}
                       </b-form-select-option>
@@ -1116,12 +1132,12 @@
             <div class="accordion" role="tablist">
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-3 pb-0" role="tab">
-                  <h5 class="name mb-0" v-b-toggle="`accordion-${index}`">
+                  <h5 class="name mb-0" v-b-toggle="`accordion-${index + 1}`">
                     {{ supplier.supplier_name }}
                   </h5>
                 </b-card-header>
                 <b-collapse
-                  :id="`accordion-${index}`"
+                  :id="`accordion-${index + 1}`"
                   visible
                   accordion="my-accordion"
                   role="tabpanel"
@@ -1234,14 +1250,14 @@
                           </td>
                         </tr>
                         <tr
-                          class="item-content"
-                          v-for="(item, index) in supplier.products.filter(
+                          class="item-content text-center"
+                          v-for="item in supplier.products.filter(
                             (item) => item.basket_promotion_id
                           )"
-                          :key="index"
+                          :key="item.id"
                         >
                           <!-- product image and go to pproduct page with click  -->
-                          <td class="media">
+                          <td>
                             <router-link
                               :to="{
                                 path: '/basketOfferDetails',
@@ -1274,8 +1290,9 @@
                           </td>
                           <!-- if product price exist -->
                           <td v-if="item.price || item.price >= 0">
-                            {{ item.price | fixedCurrency }}
-                            {{ currency }}
+                            <p class="main-color">
+                              <b>{{ item.price | fixedCurrency }} {{ currency }}</b>
+                            </p>
                           </td>
                           <!-- if product price not exist -->
                           <td v-else>-</td>
@@ -1447,6 +1464,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import { createdFormData } from "@/services/helpers.js";
+import BasketCounter from "@/components/global/BasketCounter.vue";
 export default {
   data() {
     return {
@@ -1525,7 +1543,7 @@ export default {
 
       // checkout data
       errors: {},
-      addressSearchText: null,
+      addressSearchText: "",
       couponText: null,
       coupons: [],
       existCoupons: [],
@@ -1574,7 +1592,7 @@ export default {
       // slider settings
       settings: {
         dots: false,
-        infinite: true,
+        infinite: false,
         arrows: true,
         speed: 500,
         slidesToShow: 2,
@@ -1582,6 +1600,10 @@ export default {
         swipeToSlide: true,
         autoplay: false,
         centerMode: false,
+        clickable: true,
+        accessibility: true,
+        draggable: true,
+        focusOnSelect: true,
 
         responsive: [
           {
@@ -1633,13 +1655,18 @@ export default {
       en_B2B_formNames: ["Head office", "Ware house", "Retail shop"],
       ar_B2B_formNames: ["مدير المكتب", "مستودع", "محل بيع بالتجزئه"],
       showForm: false,
+      addressLoading: false,
     };
   },
   components: {
     Counter,
     VueSlickCarousel,
+    BasketCounter,
   },
   methods: {
+    selectMe(address) {
+      this.selectedAddress = address;
+    },
     /**
      * edit Address function
      * @vuese
@@ -1714,7 +1741,12 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.adresses = res.data.items;
-        console.log(res);
+        for (let index = 0; index < res.data.items.length; index++) {
+          const element = res.data.items[index];
+          if (element.is_default == true) {
+            this.selectedAddress = element;
+          }
+        }
       });
     },
     clearAll() {
@@ -1810,6 +1842,11 @@ export default {
             // get shipping coast data
             let address_uuid = this.buyerUserData.address_uuid;
             this.getLoggedFirstShippingFees(address_uuid);
+            var checkboxes = document.getElementsByClassName("checkFirst");
+            for (let index = 0; index < checkboxes.length; index++) {
+              const element = checkboxes[index];
+              element.parentElement.click();
+            }
           }
         });
     },
@@ -1881,7 +1918,19 @@ export default {
       }, 300);
     },
     searchAddresses() {
-      alert("clicked");
+      this.addressLoading = true;
+      let payload = {
+        keyword: this.addressSearchText,
+      };
+      profile
+        .searchAddresses(payload)
+        .then((res) => {
+          this.adresses = res.data.items;
+        })
+        .finally(() => {
+          // this.addressSearchText = "";
+          this.addressLoading = false;
+        });
     },
 
     // methods of new design
@@ -2211,6 +2260,13 @@ export default {
       }
 
       this.paymentFormData.coupons = this.existCoupons;
+      this.paymentFormData.country_code = this.buyerUserData.country_code;
+      this.paymentFormData.first_name = this.buyerUserData.first_name;
+      this.paymentFormData.last_name = this.buyerUserData.last_name;
+      this.paymentFormData.phone = this.buyerUserData.phone;
+      this.paymentFormData.email = this.buyerUserData.email;
+
+      // this.paymentFormData = { ...this.selectedAddress };
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
@@ -2624,6 +2680,42 @@ export default {
         }
       }
     },
+    /**
+     * @vuese
+     *   change basket quantity  in table
+     */
+    ChangebasketQ(myQuantity) {
+      if (myQuantity > 0) {
+        this.myQuantity = myQuantity;
+      }
+
+      // this.cartItems = null;
+
+      setTimeout(() => {
+        this.getCartProducts();
+        this.existCoupons = [];
+        this.coupons = [];
+        this.validCoupon = false;
+      }, 100);
+    },
+    /**
+     * @vuese
+     *   remove basket product from cart
+     */
+    removebasketFromCart(product) {
+      this.$store.dispatch("cart/removeProductFromCart", {
+        product: product,
+        basket_promotion_id: product.basket_promotion_id,
+      });
+      this.cartItems = null;
+      setTimeout(() => {
+        this.getCartProducts();
+        this.paymentFormData.coupons = [];
+        this.existCoupons = [];
+        this.coupons = [];
+        this.$store.dispatch("cart/getCartProducts");
+      }, 1000);
+    },
   },
   mounted() {
     /**
@@ -2650,6 +2742,7 @@ export default {
     this.checkPaymentAvailableTypes();
     this.getAllCountires();
     this.getAllAdresses();
+    this.paymentFormData.suppliers = this.mySuppliers.suppliers;
   },
   computed: {
     /**
@@ -2825,11 +2918,18 @@ export default {
     border-radius: 5px;
   }
 }
+.remove-search {
+  position: absolute;
+}
 .ar {
   .input-holder {
     button {
       left: 0;
       right: auto;
+    }
+    .remove-search {
+      right: 0;
+      left: auto;
     }
   }
 }
@@ -2838,6 +2938,10 @@ export default {
     button {
       right: 0;
       left: auto;
+    }
+    .remove-search {
+      right: auto;
+      left: 0;
     }
   }
 }

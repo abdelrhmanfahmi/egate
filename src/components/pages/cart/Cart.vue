@@ -21,7 +21,7 @@
       <div class="my-5">
         <div class="row justify-content-between align-items-center">
           <div class="px-2">
-            <h2 class="text-dark">My Cart({{cartLength}}):</h2>
+            <h2 class="text-dark">My Cart({{ cartLength }}):</h2>
           </div>
           <div class="px-2">
             <p class="text-dark" role="button" @click="clearAll">
@@ -93,9 +93,7 @@
                               <div class="col-md-5 col-sm-12 form-group">
                                 <label for="email"
                                   >{{ $t("payment.email") }}
-                                  <span
-                                    class="requried text-danger"
-                                    v-if="buyerUserData"
+                                  <span class="requried text-danger" v-if="buyerUserData"
                                     >*</span
                                   ></label
                                 >
@@ -127,16 +125,13 @@
                                   >
                                     <b-form-select-option value="null" disabled
                                       >{{ $t("register.countryCode") }}
-                                      <span class="requried text-danger"
-                                        >*</span
-                                      >
+                                      <span class="requried text-danger">*</span>
                                     </b-form-select-option>
                                     <b-form-select-option
                                       v-for="(country, index) in countries"
                                       :key="index"
                                       v-bind="{
-                                        selected:
-                                          selectedPhonePrefix.id == country.id,
+                                        selected: selectedPhonePrefix.id == country.id,
                                       }"
                                       :value="country.phone_prefix"
                                     >
@@ -147,9 +142,7 @@
 
                                   <div
                                     class="error"
-                                    v-for="(
-                                      error, index
-                                    ) in errors.country_code"
+                                    v-for="(error, index) in errors.country_code"
                                     :key="index"
                                   >
                                     {{ error }}
@@ -157,9 +150,7 @@
                                 </b-form-group>
                               </b-col>
 
-                              <div
-                                class="col-md-4 col-sm-12 form-group required"
-                              >
+                              <div class="col-md-4 col-sm-12 form-group required">
                                 <label for="phoneNumber">{{
                                   $t("payment.phoneNumber")
                                 }}</label>
@@ -185,9 +176,7 @@
                               ></div>
                               <div class="col-12 form-group">
                                 <label for="notes">
-                                  {{ $t("payment.notes") }} ({{
-                                    $t("payment.optional")
-                                  }})
+                                  {{ $t("payment.notes") }} ({{ $t("payment.optional") }})
                                 </label>
                                 <textarea
                                   class="form-control"
@@ -217,9 +206,7 @@
               <!-- step 2 shipping addresses  -->
               <div class="step2 my-3">
                 <div class="" v-if="!loading">
-                  <h4 class="text-dark">
-                    Step 2 : {{ $t("payment.delivery") }}
-                  </h4>
+                  <h4 class="text-dark">Step 2 : {{ $t("payment.delivery") }}</h4>
                   <div class="row">
                     <div class="col-12 order-shipping">
                       <div :class="$i18n.locale">
@@ -239,9 +226,7 @@
                                           v-model="selectAddressShape"
                                           class="GuestNewAddress"
                                         />
-                                        <span>{{
-                                          $t("profile.newAddress")
-                                        }}</span>
+                                        <span>{{ $t("profile.newAddress") }}</span>
                                       </label>
 
                                       <!-- select from existing addresses  -->
@@ -259,16 +244,13 @@
                                           v-model="selectAddressShape"
                                           class="existingAddresses"
                                         />
-                                        <span>{{
-                                          $t("payment.selectExist")
-                                        }}</span>
+                                        <span>{{ $t("payment.selectExist") }}</span>
                                       </label>
 
                                       <!-- existing addresses if it exist  -->
                                       <span
                                         v-if="
-                                          selectAddressShape ===
-                                            'existingAddresses' &&
+                                          selectAddressShape === 'existingAddresses' &&
                                           addresses &&
                                           addresses.length != 0
                                         "
@@ -288,58 +270,37 @@
                                           >
 
                                           <b-form-select-option
-                                            v-for="(
-                                              address, index
-                                            ) in addresses"
+                                            v-for="(address, index) in addresses"
                                             :key="index"
                                             :value="address"
                                           >
-                                            <span
-                                              class="mb-2"
-                                              v-if="address.apartment"
+                                            <span class="mb-2" v-if="address.apartment"
                                               >{{ address.apartment }} ,</span
                                             >
-                                            <span
-                                              class="mb-2"
-                                              v-if="address.floor"
+                                            <span class="mb-2" v-if="address.floor"
                                               >{{ address.floor }} ,</span
                                             >
                                             <span
                                               class="mb-2"
                                               v-if="address.address_line1"
-                                              >{{
-                                                address.address_line1
-                                              }}
-                                              ,</span
+                                              >{{ address.address_line1 }} ,</span
                                             >
                                             <span
                                               class="mb-2"
                                               v-if="address.address_line2"
-                                              >{{
-                                                address.address_line2
-                                              }}
-                                              ,</span
+                                              >{{ address.address_line2 }} ,</span
                                             >
 
-                                            <span
-                                              class="mb-2"
-                                              v-if="address.city"
+                                            <span class="mb-2" v-if="address.city"
                                               >{{ address.city.title }} ,</span
                                             >
-                                            <span
-                                              class="mb-2"
-                                              v-if="address.region"
-                                              >{{
-                                                address.region.title
-                                              }}
-                                              ,</span
+                                            <span class="mb-2" v-if="address.region"
+                                              >{{ address.region.title }} ,</span
                                             >
 
-                                            <span
-                                              class="mb-2"
-                                              v-if="address.country"
-                                              >{{ address.country.title }}</span
-                                            >
+                                            <span class="mb-2" v-if="address.country">{{
+                                              address.country.title
+                                            }}</span>
                                           </b-form-select-option>
                                         </b-form-select>
                                       </span>
@@ -365,15 +326,12 @@
                                                   value="null"
                                                   disabled
                                                   >{{ $t("profile.country") }}
-                                                  <span
-                                                    class="requried text-danger"
+                                                  <span class="requried text-danger"
                                                     >*</span
                                                   >
                                                 </b-form-select-option>
                                                 <b-form-select-option
-                                                  v-for="(
-                                                    country, index
-                                                  ) in countries"
+                                                  v-for="(country, index) in countries"
                                                   :key="index"
                                                   :value="country.id"
                                                   >{{ country.title }}
@@ -391,9 +349,7 @@
 
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.country"
+                                                v-for="(error, index) in errors.country"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -401,13 +357,10 @@
                                               <div
                                                 class="error"
                                                 v-if="
-                                                  localClicked &&
-                                                  form.country_id == null
+                                                  localClicked && form.country_id == null
                                                 "
                                               >
-                                                {{
-                                                  $t("payment.CountryRequired")
-                                                }}
+                                                {{ $t("payment.CountryRequired") }}
                                               </div>
                                             </b-form-group>
                                           </b-col>
@@ -425,15 +378,12 @@
                                                   value="null"
                                                   disabled
                                                   >{{ $t("profile.region") }}
-                                                  <span
-                                                    class="requried text-danger"
+                                                  <span class="requried text-danger"
                                                     >*</span
                                                   >
                                                 </b-form-select-option>
                                                 <b-form-select-option
-                                                  v-for="(
-                                                    region, index
-                                                  ) in regions"
+                                                  v-for="(region, index) in regions"
                                                   :key="index"
                                                   :value="region.id"
                                                   >{{ region.title }}
@@ -441,9 +391,7 @@
                                               </b-form-select>
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.region_id"
+                                                v-for="(error, index) in errors.region_id"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -452,13 +400,10 @@
                                               <div
                                                 class="error"
                                                 v-if="
-                                                  localClicked &&
-                                                  form.region_id == null
+                                                  localClicked && form.region_id == null
                                                 "
                                               >
-                                                {{
-                                                  $t("payment.RegionRequired")
-                                                }}
+                                                {{ $t("payment.RegionRequired") }}
                                               </div>
 
                                               <div
@@ -480,23 +425,19 @@
                                               <b-form-select
                                                 v-model="form.city_id"
                                                 :disabled="
-                                                  !form.country_id ||
-                                                  !form.region_id
+                                                  !form.country_id || !form.region_id
                                                 "
                                               >
                                                 <b-form-select-option
                                                   value="null"
                                                   disabled
                                                   >{{ $t("profile.city") }}
-                                                  <span
-                                                    class="requried text-danger"
+                                                  <span class="requried text-danger"
                                                     >*</span
                                                   >
                                                 </b-form-select-option>
                                                 <b-form-select-option
-                                                  v-for="(
-                                                    city, index
-                                                  ) in cities"
+                                                  v-for="(city, index) in cities"
                                                   :key="index"
                                                   :value="city.id"
                                                   >{{ city.title }}
@@ -505,18 +446,14 @@
 
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.city_id"
+                                                v-for="(error, index) in errors.city_id"
                                                 :key="index"
                                               >
                                                 {{ error }}
                                               </div>
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.city"
+                                                v-for="(error, index) in errors.city"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -524,8 +461,7 @@
                                               <div
                                                 class="error"
                                                 v-if="
-                                                  localClicked &&
-                                                  form.city_id == null
+                                                  localClicked && form.city_id == null
                                                 "
                                               >
                                                 {{ $t("payment.CityRequired") }}
@@ -563,9 +499,7 @@
                                                   form.address_line_1 == null
                                                 "
                                               >
-                                                {{
-                                                  $t("payment.AddressRequired")
-                                                }}
+                                                {{ $t("payment.AddressRequired") }}
                                               </div>
                                             </b-form-group>
                                           </b-col>
@@ -576,16 +510,12 @@
                                                 id="street"
                                                 v-model="form.street"
                                                 :placeholder="
-                                                  $t(
-                                                    'profile.newStreetNumber'
-                                                  ) + '*'
+                                                  $t('profile.newStreetNumber') + '*'
                                                 "
                                               />
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.street"
+                                                v-for="(error, index) in errors.street"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -595,21 +525,15 @@
                                           <!-- name in english (new add)-->
                                           <b-col
                                             lg="6"
-                                            v-if="
-                                              $i18n.locale == 'en' &&
-                                              buyerUserData
-                                            "
+                                            v-if="$i18n.locale == 'en' && buyerUserData"
                                           >
                                             <b-form-group>
-                                              <b-form-select
-                                                v-model="newForm.name"
-                                              >
+                                              <b-form-select v-model="newForm.name">
                                                 <b-form-select-option
                                                   value="null"
                                                   disabled
                                                   >{{ $t("profile.name") }}
-                                                  <span
-                                                    class="requried text-danger"
+                                                  <span class="requried text-danger"
                                                     >*</span
                                                   >
                                                 </b-form-select-option>
@@ -624,9 +548,7 @@
                                               </b-form-select>
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.name"
+                                                v-for="(error, index) in errors.name"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -636,24 +558,13 @@
                                           <!-- name in arabic (new add)-->
                                           <b-col
                                             lg="6"
-                                            v-if="
-                                              $i18n.locale == 'ar' &&
-                                              buyerUserData
-                                            "
+                                            v-if="$i18n.locale == 'ar' && buyerUserData"
                                           >
-                                            <b-form-group
-                                              v-if="arabicAvailable !== 'no'"
-                                            >
-                                              <b-form-select
-                                                v-model="newForm.name"
-                                              >
-                                                <b-form-select
-                                                  value="null"
-                                                  disabled
-                                                  >{{
-                                                    $t("profile.name")
-                                                  }}</b-form-select
-                                                >
+                                            <b-form-group v-if="arabicAvailable !== 'no'">
+                                              <b-form-select v-model="newForm.name">
+                                                <b-form-select value="null" disabled>{{
+                                                  $t("profile.name")
+                                                }}</b-form-select>
                                                 <b-form-select-option
                                                   v-for="(
                                                     formName, index
@@ -665,9 +576,7 @@
                                               </b-form-select>
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.name"
+                                                v-for="(error, index) in errors.name"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -680,15 +589,11 @@
                                               <b-form-input
                                                 id="floor"
                                                 v-model="newForm.floor"
-                                                :placeholder="
-                                                  $t('profile.floor')
-                                                "
+                                                :placeholder="$t('profile.floor')"
                                               />
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.floor"
+                                                v-for="(error, index) in errors.floor"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -701,15 +606,11 @@
                                               <b-form-input
                                                 id="floor"
                                                 v-model="newForm.avenue"
-                                                :placeholder="
-                                                  $t('profile.avenue')
-                                                "
+                                                :placeholder="$t('profile.avenue')"
                                               />
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.avenue"
+                                                v-for="(error, index) in errors.avenue"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -726,9 +627,7 @@
                                               <b-form-input
                                                 id="homeNumber"
                                                 v-model="form.building_number"
-                                                :placeholder="
-                                                  $t('profile.homeNumber')
-                                                "
+                                                :placeholder="$t('profile.homeNumber')"
                                               />
                                               <div
                                                 class="error"
@@ -748,15 +647,11 @@
                                               <b-form-input
                                                 id="blockNumber"
                                                 v-model="form.apartment"
-                                                :placeholder="
-                                                  $t('profile.blockNumber')
-                                                "
+                                                :placeholder="$t('profile.blockNumber')"
                                               />
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.apartment"
+                                                v-for="(error, index) in errors.apartment"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -771,21 +666,14 @@
                                                 type="number"
                                                 v-model="form.pin_code"
                                                 :formatter="formatPin_code"
-                                                :placeholder="
-                                                  $t('profile.zipCode')
-                                                "
+                                                :placeholder="$t('profile.zipCode')"
                                               />
-                                              <div
-                                                class="error"
-                                                v-if="postalError"
-                                              >
+                                              <div class="error" v-if="postalError">
                                                 {{ $t("payment.postalError") }}
                                               </div>
                                               <div
                                                 class="error"
-                                                v-for="(
-                                                  error, index
-                                                ) in errors.pin_code"
+                                                v-for="(error, index) in errors.pin_code"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -829,15 +717,10 @@
 
                                   <div
                                     class="close-options"
-                                    v-if="
-                                      expanded &&
-                                      selectAddressShape === 'newAddress'
-                                    "
+                                    v-if="expanded && selectAddressShape === 'newAddress'"
                                     @click="expanded = !expanded"
                                   >
-                                    <font-awesome-icon
-                                      icon="fa-solid fa-xmark"
-                                    />
+                                    <font-awesome-icon icon="fa-solid fa-xmark" />
                                   </div>
                                   <!-- open add new address dropdown (option )  -->
                                   <div
@@ -845,9 +728,7 @@
                                     v-else-if="!expanded"
                                     @click="expanded = !expanded"
                                   >
-                                    <font-awesome-icon
-                                      icon="fa-solid fa-arrow-down"
-                                    />
+                                    <font-awesome-icon icon="fa-solid fa-arrow-down" />
                                   </div>
                                 </div>
                               </div>
@@ -893,18 +774,14 @@
                                   <div class="">
                                     <div class="cart">
                                       <div class="cart-table">
-                                        <div
-                                          class=""
-                                        >
+                                        <div class="">
                                           <div class="input-holder">
                                             <form @submit.prevent="addCoupon">
                                               <!-- coupon input  -->
 
                                               <input
                                                 type="text"
-                                                :placeholder="
-                                                  $t('cart.addCoupon')
-                                                "
+                                                :placeholder="$t('cart.addCoupon')"
                                                 class="my-2 h-100 p-3 w-100 itemInput"
                                                 v-model="couponText"
                                                 :disabled="validCoupon"
@@ -915,35 +792,29 @@
                                                 >x</span
                                               >
                                               <b-button
-                                              type="submit"
-                                              class="login-button my-2 py-3 px-4 w-auto"
-                                              @click="addCoupon"
-                                              :disabled="validCoupon"
-                                            >
-                                              <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
-                                              <span>{{$t('payment.Apply')}}</span>
-                                            </b-button>
+                                                type="submit"
+                                                class="login-button my-2 py-3 px-4 w-auto"
+                                                @click="addCoupon"
+                                                :disabled="validCoupon"
+                                              >
+                                                <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
+                                                <span>{{ $t("payment.Apply") }}</span>
+                                              </b-button>
                                             </form>
                                           </div>
 
                                           <!-- button dosnt work if input is empty  -->
-                                         
                                         </div>
 
                                         <!-- display coupon if valid  -->
 
-                                        <h6
-                                          class="couponValid text-success m-0 p-0"
-                                        ></h6>
+                                        <h6 class="couponValid text-success m-0 p-0"></h6>
                                         <h6
                                           class="couponNotValid text-danger m-0 p-0"
                                         ></h6>
 
                                         <!-- display error if coupon is invalid  -->
-                                        <div
-                                          class="error text-center"
-                                          v-if="couponError"
-                                        >
+                                        <div class="error text-center" v-if="couponError">
                                           {{ couponError }}
                                         </div>
                                       </div>
@@ -957,13 +828,8 @@
                                       {{ $t("cart.validCoupons") }}
                                     </h5>
                                     <!-- list valid coupons  -->
-                                    <ul
-                                      class="unstyled-order coupons-data-holder"
-                                    >
-                                      <li
-                                        v-for="(coupon, index) in coupons"
-                                        :key="index"
-                                      >
+                                    <ul class="unstyled-order coupons-data-holder">
+                                      <li v-for="(coupon, index) in coupons" :key="index">
                                         <span class="couponValue"
                                           >{{ coupon.title }}
                                         </span>
@@ -996,9 +862,7 @@
                                   <tr>
                                     <th>{{ $t("cart.discount") }}</th>
                                     <td
-                                      v-if="
-                                        totalDiscount !== null && cart_sub_total
-                                      "
+                                      v-if="totalDiscount !== null && cart_sub_total"
                                       :class="{
                                         'float-right': $i18n.locale == 'en',
                                         'float-left': $i18n.locale == 'ar',
@@ -1006,9 +870,7 @@
                                     >
                                       <span v-if="totalDiscountReplacement == 0">-</span>
                                       <span v-else>
-                                        {{
-                                          totalDiscountReplacement | fixedCurrency
-                                        }}
+                                        {{ totalDiscountReplacement | fixedCurrency }}
                                         {{ currency }}
                                       </span>
                                     </td>
@@ -1022,14 +884,18 @@
                                         'float-left': $i18n.locale == 'ar',
                                       }"
                                     >
-                                    <span v-if="shippingCartFee == 0">-</span>
-                                      <span v-else >{{ shippingCartFee | fixedCurrency }}
-                                        {{ currency }}</span>
+                                      <span v-if="shippingCartFee == 0">-</span>
+                                      <span v-else
+                                        >{{ shippingCartFee | fixedCurrency }}
+                                        {{ currency }}</span
+                                      >
                                     </td>
                                   </tr>
 
                                   <tr>
-                                    <th><h4 class="main-color">{{ $t("cart.total") }}</h4></th>
+                                    <th>
+                                      <h4 class="main-color">{{ $t("cart.total") }}</h4>
+                                    </th>
                                     <td
                                       v-if="totalPayment"
                                       :class="{
@@ -1037,10 +903,10 @@
                                         'float-left': $i18n.locale == 'ar',
                                       }"
                                     >
-                                      <h4 class="main-color">{{
-                                        totalPaymentReplacement | fixedCurrency
-                                      }}
-                                      {{ currency }}</h4>
+                                      <h4 class="main-color">
+                                        {{ totalPaymentReplacement | fixedCurrency }}
+                                        {{ currency }}
+                                      </h4>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -1055,7 +921,9 @@
                                         <div class="payment-data">
                                           <div class="payment-method">
                                             <div class="heading mb-3">
-                                              <span class="title">choose your payment method:</span>
+                                              <span class="title"
+                                                >choose your payment method:</span
+                                              >
                                             </div>
                                             <div class="methods-data">
                                               <div class="methods">
@@ -1064,10 +932,8 @@
                                                   class="method coupon"
                                                   v-if="
                                                     buyerUserData &&
-                                                    totalPaymentReplacement <=
-                                                      0 &&
-                                                    couponMethodAvailable ==
-                                                      true
+                                                    totalPaymentReplacement <= 0 &&
+                                                    couponMethodAvailable == true
                                                   "
                                                 >
                                                   <div
@@ -1087,11 +953,7 @@
                                                       class="custom-control-label"
                                                       for="paymentMethod0"
                                                     >
-                                                      {{
-                                                        $t(
-                                                          "cart.couponDiscount"
-                                                        )
-                                                      }}
+                                                      {{ $t("cart.couponDiscount") }}
                                                       <sup>*</sup>
                                                     </label>
                                                   </div>
@@ -1105,8 +967,7 @@
                                                     buyerUserData &&
                                                     walletData >=
                                                       totalPaymentReplacement &&
-                                                    walletMethodAvailable ==
-                                                      true
+                                                    walletMethodAvailable == true
                                                   "
                                                 >
                                                   <div
@@ -1143,8 +1004,7 @@
                                                     buyerUserData &&
                                                     walletData <
                                                       totalPaymentReplacement &&
-                                                    walletVisaMethodAvailable ==
-                                                      true
+                                                    walletVisaMethodAvailable == true
                                                   "
                                                 >
                                                   <div
@@ -1173,9 +1033,7 @@
                                                       {{ currency }}</span
                                                     >
                                                     <p>
-                                                      {{
-                                                        $t("profile.remainKnet")
-                                                      }}
+                                                      {{ $t("profile.remainKnet") }}
                                                     </p>
                                                   </div>
                                                 </div>
@@ -1205,17 +1063,11 @@
                                                       class="custom-control-label"
                                                       for="paymentMethod1"
                                                     >
-                                                      {{
-                                                        $t(
-                                                          "payment.bankTransfer"
-                                                        )
-                                                      }}
+                                                      {{ $t("payment.bankTransfer") }}
                                                       <sup>*</sup>
                                                     </label>
                                                     <span>{{
-                                                      $t(
-                                                        "payment.paymentByBank"
-                                                      )
+                                                      $t("payment.paymentByBank")
                                                     }}</span>
                                                   </div>
                                                   <p
@@ -1223,21 +1075,14 @@
                                                     v-if="
                                                       paymentFormData.payment_type ===
                                                         'bank' &&
-                                                      paymentFormData.file ==
-                                                        null
+                                                      paymentFormData.file == null
                                                     "
                                                   >
-                                                    {{
-                                                      $t(
-                                                        "profile.filePlaceHolder"
-                                                      )
-                                                    }}
+                                                    {{ $t("profile.filePlaceHolder") }}
                                                   </p>
                                                   <div
                                                     class="error text-center"
-                                                    v-for="(
-                                                      error, index
-                                                    ) in errors.file"
+                                                    v-for="(error, index) in errors.file"
                                                     :key="index"
                                                   >
                                                     {{ error }}
@@ -1246,9 +1091,7 @@
                                                 <!-- cach option  -->
                                                 <div
                                                   class="method cach"
-                                                  v-if="
-                                                    cachMethodAvailable == true
-                                                  "
+                                                  v-if="cachMethodAvailable == true"
                                                 >
                                                   <div
                                                     class="custom-control custom-radio custom-control-inline"
@@ -1268,29 +1111,21 @@
                                                       for="paymentMethod2"
                                                     >
                                                       {{
-                                                        $t(
-                                                          "payment.paymentWhenReceiving"
-                                                        )
+                                                        $t("payment.paymentWhenReceiving")
                                                       }}
                                                       <sup>*</sup>
                                                     </label>
                                                     <span>{{
-                                                      $t(
-                                                        "payment.requestReceipt"
-                                                      )
+                                                      $t("payment.requestReceipt")
                                                     }}</span>
                                                   </div>
                                                 </div>
                                                 <!-- visa option ( online payment)  -->
                                                 <div
                                                   class="method visa row justify-content-between align-content-center"
-                                                  v-if="
-                                                    visaMethodAvailable == true
-                                                  "
+                                                  v-if="visaMethodAvailable == true"
                                                 >
-                                                  <div
-                                                    class="col-md-8 col-xs-12"
-                                                  >
+                                                  <div class="col-md-8 col-xs-12">
                                                     <div
                                                       class="custom-control custom-radio custom-control-inline"
                                                     >
@@ -1308,17 +1143,11 @@
                                                         class="custom-control-label"
                                                         for="paymentMethod3"
                                                       >
-                                                        {{
-                                                          $t(
-                                                            "payment.onlinePayment"
-                                                          )
-                                                        }}
+                                                        {{ $t("payment.onlinePayment") }}
                                                       </label>
                                                     </div>
                                                   </div>
-                                                  <div
-                                                    class="col-md-4 col-xs-12"
-                                                  >
+                                                  <div class="col-md-4 col-xs-12">
                                                     <div class="online-media">
                                                       <img
                                                         src="@/assets/images/cart.png"
@@ -1343,9 +1172,7 @@
                                               <!-- terms and conditions  -->
 
                                               <b-form-checkbox
-                                                v-model="
-                                                  paymentFormData.accept_terms
-                                                "
+                                                v-model="paymentFormData.accept_terms"
                                                 class="terms my-4 d-inline-block custom-input"
                                               >
                                                 <span class="text-dark">
@@ -1355,30 +1182,18 @@
 
                                               <a
                                                 v-b-modal.terms&condation
-                                                @click="
-                                                  $bvModal.show('modal-scoped')
-                                                "
+                                                @click="$bvModal.show('modal-scoped')"
                                                 class="text-decoration-underline text-dark"
                                               >
-                                                {{
-                                                  $t(
-                                                    "payment.termsAndConditions"
-                                                  )
-                                                }}</a
+                                                {{ $t("payment.termsAndConditions") }}</a
                                               >
                                               <b-modal
                                                 size="lg"
                                                 id="modal-scoped"
                                                 :title="condations.title"
                                               >
-                                                <p
-                                                  v-html="
-                                                    condations.description
-                                                  "
-                                                ></p>
-                                                <template
-                                                  #modal-footer="{ ok }"
-                                                >
+                                                <p v-html="condations.description"></p>
+                                                <template #modal-footer="{ ok }">
                                                   <b-button
                                                     size="sm"
                                                     variant="outline-success"
@@ -1392,9 +1207,7 @@
                                                         $t("payment.accept")
                                                       }}</span>
                                                       <span class="mx-1">{{
-                                                        $t(
-                                                          "payment.termsAndConditions"
-                                                        )
+                                                        $t("payment.termsAndConditions")
                                                       }}</span>
                                                     </h6>
                                                   </b-button>
@@ -1415,19 +1228,14 @@
                                               </div>
                                               <!-- checkout button if user exist  -->
                                               <div class="checkout">
-                                                <div
-                                                  class="submit"
-                                                  v-if="buyerUserData"
-                                                >
+                                                <div class="submit" v-if="buyerUserData">
                                                   <b-button
                                                     type="submit"
                                                     class="login-button bg-main"
                                                     disabled
                                                     v-if="checkoutSubmitted"
                                                   >
-                                                    {{
-                                                      $t("payment.checkout")
-                                                    }}
+                                                    {{ $t("payment.checkout") }}
                                                     ...
                                                     <span>
                                                       <b-spinner
@@ -1444,8 +1252,7 @@
                                                     :disabled="
                                                       paymentFormData.payment_type ===
                                                         'bank' &&
-                                                      paymentFormData.file ==
-                                                        null
+                                                      paymentFormData.file == null
                                                     "
                                                     v-else
                                                   >
@@ -1460,9 +1267,7 @@
                                                     disabled
                                                     v-if="checkoutSubmitted"
                                                   >
-                                                    {{
-                                                      $t("payment.checkout")
-                                                    }}
+                                                    {{ $t("payment.checkout") }}
                                                     ...
                                                     <span>
                                                       <b-spinner
@@ -1489,9 +1294,7 @@
                                                     class="modal-mask"
                                                     v-if="showModal"
                                                   >
-                                                    <login-modal
-                                                      @close="closeModal"
-                                                    />
+                                                    <login-modal @close="closeModal" />
                                                   </div>
                                                 </transition>
                                               </div>
@@ -1504,10 +1307,7 @@
                                 </div>
                               </div>
                               <!-- this modal apper when bank payment method checked  -->
-                              <b-modal
-                                id="bankModal"
-                                :title="$t('payment.uploadImage')"
-                              >
+                              <b-modal id="bankModal" :title="$t('payment.uploadImage')">
                                 <form
                                   class="bankData mb-5"
                                   @submit.prevent="checkoutbankUpload"
@@ -1529,9 +1329,7 @@
                                         size="lg"
                                         id="bankImage"
                                         @change="uploadBankImage"
-                                        :placeholder="
-                                          $t('profile.filePlaceHolder')
-                                        "
+                                        :placeholder="$t('profile.filePlaceHolder')"
                                         drop-placeholder="Drop file here..."
                                       >
                                       </b-form-file>
@@ -1567,8 +1365,6 @@
       <div class="step2 my-3">
         <div class="" v-if="!loading">
           <div class="">
-
-
             <!-- cart data according listed by suppliers  -->
             <div class="easy-trans col-12">
               <div class="cart">
@@ -1589,339 +1385,352 @@
                     <!-- <h5 class="heading py-5 text-center">
                       {{ $t("cart.purchaseCart") }}
                     </h5> -->
-                    <div class="cart-table p-4" v-for="(supplier, index) in cartItems"
-                    :key="index">
-                    <div class="accordion" role="tablist">
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" class="p-3 pb-0" role="tab">
-                          
+                    <div
+                      class="cart-table p-4"
+                      v-for="(supplier, index) in cartItems"
+                      :key="index"
+                    >
+                      <div class="accordion" role="tablist">
+                        <b-card no-body class="mb-1">
+                          <b-card-header header-tag="header" class="p-3 pb-0" role="tab">
                             <h5 class="name mb-0" v-b-toggle="`accordion-${index}`">
-                            {{ supplier.supplier_name }}
-                          </h5>
-                        </b-card-header>
-                        <b-collapse :id="`accordion-${index}`" visible accordion="my-accordion" role="tabpanel">
-                          <b-card-body>
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>{{ $t("profile.productImage") }}</th>
-                                  <!-- <th>{{ $t("cart.product") }}</th> -->
-                                  <th>{{ $t("profile.productName") }}</th>
-                                  <!-- <th>{{ $t("items.supplier") }}</th> -->
-                                  <th>{{ $t("cart.price") }}</th>
-                                  <th>{{ $t("cart.quantity") }}</th>
-                                  <th>{{ $t("cart.total") }}</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <!-- list suppliers in cart data  -->
-                              <tbody
-                                class="supplier"
-                                
-                              >
-                                <!-- supplier_name  -->
-                                <!-- <h5 class="name">
+                              {{ supplier.supplier_name }}
+                            </h5>
+                          </b-card-header>
+                          <b-collapse
+                            :id="`accordion-${index}`"
+                            visible
+                            accordion="my-accordion"
+                            role="tabpanel"
+                          >
+                            <b-card-body>
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>{{ $t("profile.productImage") }}</th>
+                                    <!-- <th>{{ $t("cart.product") }}</th> -->
+                                    <th>{{ $t("profile.productName") }}</th>
+                                    <!-- <th>{{ $t("items.supplier") }}</th> -->
+                                    <th>{{ $t("cart.price") }}</th>
+                                    <th>{{ $t("cart.quantity") }}</th>
+                                    <th>{{ $t("cart.total") }}</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <!-- list suppliers in cart data  -->
+                                <tbody class="supplier">
+                                  <!-- supplier_name  -->
+                                  <!-- <h5 class="name">
                                   {{ supplier.supplier_name }}
                                 </h5> -->
-                                <!-- list products by this supplier -->
-                                <tr
-                                  class="item-content"
-                                  v-for="(item, index) in supplier.products.filter(
-                                    (item) => !item.basket_promotion_id
-                                  )"
-                                  :key="index"
-                                >
-                                  <!-- product image and go to pproduct page with click  -->
-                                  <td class="media">
-                                    <router-link
-                                      :to="{
-                                        path: '/details',
-                                        query: {
-                                          id: `${item.product_supplier_id}`,
-                                        },
-                                      }"
-                                      class="thumb"
-                                    >
-                                      <img
-                                        :src="item.product_image"
-                                        :alt="item.product_name + ' image'"
-                                        class="product-image"
-                                      />
-                                    </router-link>
-                                  </td>
-                                  <!-- product name  and go to pproduct page with click  -->
-                                  <td>
-                                    <router-link
-                                      :to="{
-                                        path: '/details',
-                                        query: {
-                                          id: `${item.product_supplier_id}`,
-                                        },
-                                      }"
-                                    >
-                                      {{ item.product_name }}
-                                    </router-link>
-                                  </td>
-                                  <!-- <td v-if="supplier.supplier_name">
+                                  <!-- list products by this supplier -->
+                                  <tr
+                                    class="item-content"
+                                    v-for="(item, index) in supplier.products.filter(
+                                      (item) => !item.basket_promotion_id
+                                    )"
+                                    :key="index"
+                                  >
+                                    <!-- product image and go to pproduct page with click  -->
+                                    <td class="media">
+                                      <router-link
+                                        :to="{
+                                          path: '/details',
+                                          query: {
+                                            id: `${item.product_supplier_id}`,
+                                          },
+                                        }"
+                                        class="thumb"
+                                      >
+                                        <img
+                                          :src="item.product_image"
+                                          :alt="item.product_name + ' image'"
+                                          class="product-image"
+                                        />
+                                      </router-link>
+                                    </td>
+                                    <!-- product name  and go to pproduct page with click  -->
+                                    <td>
+                                      <router-link
+                                        :to="{
+                                          path: '/details',
+                                          query: {
+                                            id: `${item.product_supplier_id}`,
+                                          },
+                                        }"
+                                      >
+                                        {{ item.product_name }}
+                                      </router-link>
+                                    </td>
+                                    <!-- <td v-if="supplier.supplier_name">
                                     {{supplier.supplier_name}}
                                   </td> -->
-                                  <!-- if product price exist -->
-                                  <td v-if="item.price">
-                                    {{ item.price | fixedCurrency }}
-                                    {{ currency }}
-                                  </td>
-                                  <!-- if product price not exist -->
-                                  <td v-else>-</td>
-                                  <!-- counter to update product quantity -->
-                                  <td>
-                                    <Counter
-                                      :minimum="
-                                        item.min_order_quantity
-                                          ? item.min_order_quantity
-                                          : 1
-                                      "
-                                      :quantity="item.quantity"
-                                      v-if="!item.gift_promotion_id"
-                                      :product="item"
-                                      class="justify-content-center"
-                                      @changeTitle="ChangeQ($event)"
-                                    ></Counter>
-                                    <span v-else>{{ item.quantity }}</span>
-                                  </td>
-                                  <!-- product price * product quantity = total product price -->
-                                  <td v-if="item.product_sub_total">
-                                    {{ item.product_sub_total | fixedCurrency }}
-                                    {{ currency }}
-                                  </td>
-                                  <td v-else>-</td>
-      
-                                  <!-- remove product from cart -->
-      
-                                  <td>
-                                    <div
-                                      class="actions"
-                                      @click="removeFromCart(item)"
-                                      v-if="!item.gift_promotion_id"
-                                    >
-                                      <span class="action-icon">
-                                        <font-awesome-icon icon="fa-solid fa-xmark"  size="xl" />
-                                      </span>
-                                    </div>
-                                    <div class="" v-else>
-                                      <img
-                                        src="@/assets/images/giftbox.png"
-                                        class="gift-product"
-                                        alt="gift-product"
-                                      />
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr
-                                  class="item-content"
-                                  v-for="(item, index) in supplier.products.filter(
-                                    (item) => item.basket_promotion_id
-                                  )"
-                                  :key="index"
-                                >
-                                  <!-- product image and go to pproduct page with click  -->
-                                  <td class="media">
-                                    <router-link
-                                      :to="{
-                                        path: '/basketOfferDetails',
-                                        query: {
-                                          id: `${item.basket_promotion_id}`,
-                                        },
-                                      }"
-                                      class="thumb"
-                                    >
-                                      <img
-                                        :src="item.basket_image"
-                                        :alt="item.basket_name + ' image'"
-                                        class="product-image"
-                                      />
-                                    </router-link>
-                                  </td>
-                                  <!-- product name  and go to pproduct page with click  -->
-                                  <td>
-                                    <router-link
-                                      :to="{
-                                        path: '/basketOfferDetails',
-                                        query: {
-                                          id: `${item.basket_promotion_id}`,
-                                        },
-                                      }"
-                                    >
-                                      {{ item.basket_name }}
-                                    </router-link>
-                                  </td>
-                                  <!-- if product price exist -->
-                                  <td v-if="item.price || item.price >= 0">
-                                    {{ item.price | fixedCurrency }}
-                                    {{ currency }}
-                                  </td>
-                                  <!-- if product price not exist -->
-                                  <td v-else>-</td>
-                                  <!-- counter to update product quantity -->
-                                  <td>
-                                    <BasketCounter
-                                      :minimum="1"
-                                      :quantity="item.quantity"
-                                      :product="item"
-                                      class="justify-content-center"
-                                      @changeTitle="ChangebasketQ($event)"
-                                    ></BasketCounter>
-                                  </td>
-                                  <!-- product price * product quantity = total product price -->
-                                  <td
-                                    v-if="
-                                      item.product_sub_total ||
-                                      item.product_sub_total >= 0
-                                    "
-                                  >
-                                    {{ item.product_sub_total | fixedCurrency }}
-                                    {{ currency }}
-                                  </td>
-                                  <td v-else>-</td>
-      
-                                  <!-- remove product from cart -->
-      
-                                  <td>
-                                    <div
-                                      class="actions"
-                                      @click="removebasketFromCart(item)"
-                                    >
-                                      <span class="action-icon">
-                                        <font-awesome-icon icon="fa-solid fa-xmark"  size="xl" />
-                                      </span>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <!-- select shipping or pick-up  -->
-                                  <td colspan="12" class="p-0 mt-0">
-                                    <div
-                                      class="order-shipping"
-                                      
-                                    >
-                                      <div :class="$i18n.locale">
-                                        <form
-                                          @change="orderType(supplier.supplier_id)"
-                                          class="d-flex align-items-start justify-content-start px-2 results-form flex-column"
-                                        >
-                                          <!-- if select shipping  -->
-                                          <p class="h5">choose your delivery method:</p>
-                                          <label
-                                            @click="shippingStore(supplier)"
-                                            class="shipping-label mt-2"
-                                          >
-                                            <input
-                                              @change="changeShipping($event)"
-                                              @input="shippingStore(supplier)"
-                                              type="radio"
-                                              value="0"
-                                              :name="'types-' + index"
-                                              v-model="ratingNum[index].delivery_type"
-                                              class="checkFirst"
-                                              id="check"
-                                            />
-                                            <span class="mx-2 ml-0">{{
-                                              $t("payment.delivery")
-                                            }} :  <b class="mx-2"><b class="main-color">2.00 kwd</b>  next day delivery  </b></span>
-                                          </label>
-                                          <!-- if select pickup  -->
-                                          <label class="shipping-label mt-2">
-                                            <input
-                                              @input="changePickup($event, supplier)"
-                                              @click="changePickup($event, supplier)"
-                                              type="radio"
-                                              value="1"
-                                              :name="'types-' + index"
-                                              v-model="ratingNum[index].delivery_type"
-                                            />
-                                            <span class="mx-2">
-                                              {{$t("payment.pickup") }} : <b class="main-color mx-2">Pick-up location</b> 
-                                            </span>
-                                          </label>
-                                          <!-- if supplier has address in pickup  -->
-                                          <b-form-select
-                                            v-model="
-                                              ratingNum[index].supplier_address_id
-                                            "
-                                            @input="selectAddressUUID"
-                                            @change="selectType(supplier, index)"
-                                            class="w-100 mt-2 supplierAddresses d-none"
-                                            :class="{
-                                              'text-danger':
-                                                ratingNum[index]
-                                                  .supplier_address_id === null,
-                                              'text-dark d-block':
-                                                ratingNum[index]
-                                                  .supplier_address_id !== null,
-                                            }"
-                                          >
-                                            <b-form-select-option
-                                              selected
-                                              disabled
-                                              value="null"
-                                              ><span>{{
-                                                $t("cart.selectPickupAddress")
-                                              }}</span></b-form-select-option
-                                            >
-                                            <b-form-select-option
-                                              v-for="(
-                                                address, index
-                                              ) in supplier.supplier_addresses"
-                                              :key="index"
-                                              :value="address"
-                                              >{{ address.country.title }} ,
-                                              {{ address.region.title }} ,
-                                              {{ address.city.title }}
-                                            </b-form-select-option>
-                                          </b-form-select>
-                                          <!-- print result of picked address cost price  -->
-                                          <span class="feedsResult m-0"></span>
-                                          <h4 class="pickupNoData"></h4>
-                                          <!-- <br /> -->
-      
-                                          <!-- list the available addresses to pickup for this supplier  -->
-                                          <ul
-                                            class="list-unstyled m-0 px-3"
-                                            v-if="firstFees || deliverType == true"
-                                          >
-                                            <li
-                                              v-for="(fee, index) in firstFees"
-                                              :key="index"
-                                            >
-                                              <h5
-                                                v-if="index == supplier.supplier_id"
-                                                class="feedsResultShipping mb-0"
-                                                :value="fee.shipping_fee"
-                                              >
-                                                <span>{{
-                                                  $t("profile.deleiveryFees")
-                                                }}</span>
-                                                <span>{{
-                                                  fee.shipping_fee | fixedCurrency
-                                                }}</span>
-                                                <span>{{ currency }}</span>
-                                                <p v-if="fee.message">
-                                                  {{ fee.message }}
-                                                </p>
-                                              </h5>
-                                            </li>
-                                          </ul>
-                                        </form>
+                                    <!-- if product price exist -->
+                                    <td v-if="item.price">
+                                      {{ item.price | fixedCurrency }}
+                                      {{ currency }}
+                                    </td>
+                                    <!-- if product price not exist -->
+                                    <td v-else>-</td>
+                                    <!-- counter to update product quantity -->
+                                    <td>
+                                      <Counter
+                                        :minimum="
+                                          item.min_order_quantity
+                                            ? item.min_order_quantity
+                                            : 1
+                                        "
+                                        :quantity="item.quantity"
+                                        v-if="!item.gift_promotion_id"
+                                        :product="item"
+                                        class="justify-content-center"
+                                        @changeTitle="ChangeQ($event)"
+                                      ></Counter>
+                                      <span v-else>{{ item.quantity }}</span>
+                                    </td>
+                                    <!-- product price * product quantity = total product price -->
+                                    <td v-if="item.product_sub_total">
+                                      {{ item.product_sub_total | fixedCurrency }}
+                                      {{ currency }}
+                                    </td>
+                                    <td v-else>-</td>
+
+                                    <!-- remove product from cart -->
+
+                                    <td>
+                                      <div
+                                        class="actions"
+                                        @click="removeFromCart(item)"
+                                        v-if="!item.gift_promotion_id"
+                                      >
+                                        <span class="action-icon">
+                                          <font-awesome-icon
+                                            icon="fa-solid fa-xmark"
+                                            size="xl"
+                                          />
+                                        </span>
                                       </div>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-                    </div>
-                      
+                                      <div class="" v-else>
+                                        <img
+                                          src="@/assets/images/giftbox.png"
+                                          class="gift-product"
+                                          alt="gift-product"
+                                        />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    class="item-content"
+                                    v-for="(item, index) in supplier.products.filter(
+                                      (item) => item.basket_promotion_id
+                                    )"
+                                    :key="index"
+                                  >
+                                    <!-- product image and go to pproduct page with click  -->
+                                    <td class="media">
+                                      <router-link
+                                        :to="{
+                                          path: '/basketOfferDetails',
+                                          query: {
+                                            id: `${item.basket_promotion_id}`,
+                                          },
+                                        }"
+                                        class="thumb"
+                                      >
+                                        <img
+                                          :src="item.basket_image"
+                                          :alt="item.basket_name + ' image'"
+                                          class="product-image"
+                                        />
+                                      </router-link>
+                                    </td>
+                                    <!-- product name  and go to pproduct page with click  -->
+                                    <td>
+                                      <router-link
+                                        :to="{
+                                          path: '/basketOfferDetails',
+                                          query: {
+                                            id: `${item.basket_promotion_id}`,
+                                          },
+                                        }"
+                                      >
+                                        {{ item.basket_name }}
+                                      </router-link>
+                                    </td>
+                                    <!-- if product price exist -->
+                                    <td v-if="item.price || item.price >= 0">
+                                      {{ item.price | fixedCurrency }}
+                                      {{ currency }}
+                                    </td>
+                                    <!-- if product price not exist -->
+                                    <td v-else>-</td>
+                                    <!-- counter to update product quantity -->
+                                    <td>
+                                      <BasketCounter
+                                        :minimum="1"
+                                        :quantity="item.quantity"
+                                        :product="item"
+                                        class="justify-content-center"
+                                        @changeTitle="ChangebasketQ($event)"
+                                      ></BasketCounter>
+                                    </td>
+                                    <!-- product price * product quantity = total product price -->
+                                    <td
+                                      v-if="
+                                        item.product_sub_total ||
+                                        item.product_sub_total >= 0
+                                      "
+                                    >
+                                      {{ item.product_sub_total | fixedCurrency }}
+                                      {{ currency }}
+                                    </td>
+                                    <td v-else>-</td>
+
+                                    <!-- remove product from cart -->
+
+                                    <td>
+                                      <div
+                                        class="actions"
+                                        @click="removebasketFromCart(item)"
+                                      >
+                                        <span class="action-icon">
+                                          <font-awesome-icon
+                                            icon="fa-solid fa-xmark"
+                                            size="xl"
+                                          />
+                                        </span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <!-- select shipping or pick-up  -->
+                                    <td colspan="12" class="p-0 mt-0">
+                                      <div class="order-shipping">
+                                        <div :class="$i18n.locale">
+                                          <form
+                                            @change="orderType(supplier.supplier_id)"
+                                            class="d-flex align-items-start justify-content-start px-2 results-form flex-column"
+                                          >
+                                            <!-- if select shipping  -->
+                                            <p class="h5">choose your delivery method:</p>
+                                            <label
+                                              @click="shippingStore(supplier)"
+                                              class="shipping-label mt-2"
+                                            >
+                                              <input
+                                                @change="changeShipping($event)"
+                                                @input="shippingStore(supplier)"
+                                                type="radio"
+                                                value="0"
+                                                :name="'types-' + index"
+                                                v-model="ratingNum[index].delivery_type"
+                                                class="checkFirst"
+                                                id="check"
+                                              />
+                                              <span class="mx-2 ml-0"
+                                                >{{ $t("payment.delivery") }} :
+                                                <b class="mx-2"
+                                                  ><b class="main-color">2.00 kwd</b> next
+                                                  day delivery
+                                                </b></span
+                                              >
+                                            </label>
+                                            <!-- if select pickup  -->
+                                            <label class="shipping-label mt-2">
+                                              <input
+                                                @input="changePickup($event, supplier)"
+                                                @click="changePickup($event, supplier)"
+                                                type="radio"
+                                                value="1"
+                                                :name="'types-' + index"
+                                                v-model="ratingNum[index].delivery_type"
+                                              />
+                                              <span class="mx-2">
+                                                {{ $t("payment.pickup") }} :
+                                                <b class="main-color mx-2"
+                                                  >Pick-up location</b
+                                                >
+                                              </span>
+                                            </label>
+                                            <!-- if supplier has address in pickup  -->
+                                            <b-form-select
+                                              v-model="
+                                                ratingNum[index].supplier_address_id
+                                              "
+                                              @input="selectAddressUUID"
+                                              @change="selectType(supplier, index)"
+                                              class="w-100 mt-2 supplierAddresses d-none"
+                                              :class="{
+                                                'text-danger':
+                                                  ratingNum[index].supplier_address_id ===
+                                                  null,
+                                                'text-dark d-block':
+                                                  ratingNum[index].supplier_address_id !==
+                                                  null,
+                                              }"
+                                            >
+                                              <b-form-select-option
+                                                selected
+                                                disabled
+                                                value="null"
+                                                ><span>{{
+                                                  $t("cart.selectPickupAddress")
+                                                }}</span></b-form-select-option
+                                              >
+                                              <b-form-select-option
+                                                v-for="(
+                                                  address, index
+                                                ) in supplier.supplier_addresses"
+                                                :key="index"
+                                                :value="address"
+                                                >{{ address.country.title }} ,
+                                                {{ address.region.title }} ,
+                                                {{ address.city.title }}
+                                              </b-form-select-option>
+                                            </b-form-select>
+                                            <!-- print result of picked address cost price  -->
+                                            <span class="feedsResult m-0"></span>
+                                            <h4 class="pickupNoData"></h4>
+                                            <!-- <br /> -->
+
+                                            <!-- list the available addresses to pickup for this supplier  -->
+                                            <ul
+                                              class="list-unstyled m-0 px-3"
+                                              v-if="firstFees || deliverType == true"
+                                            >
+                                              <li
+                                                v-for="(fee, index) in firstFees"
+                                                :key="index"
+                                              >
+                                                <h5
+                                                  v-if="index == supplier.supplier_id"
+                                                  class="feedsResultShipping mb-0"
+                                                  :value="fee.shipping_fee"
+                                                >
+                                                  <span>{{
+                                                    $t("profile.deleiveryFees")
+                                                  }}</span>
+                                                  <span>{{
+                                                    fee.shipping_fee | fixedCurrency
+                                                  }}</span>
+                                                  <span>{{ currency }}</span>
+                                                  <p v-if="fee.message">
+                                                    {{ fee.message }}
+                                                  </p>
+                                                </h5>
+                                              </li>
+                                            </ul>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </b-card-body>
+                          </b-collapse>
+                        </b-card>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -1937,22 +1746,13 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
 
         <!-- second : when page loading  -->
 
-        <div
-          class="d-flex justify-content-center align-items-center flex-column"
-          v-else
-        >
-          <img
-            src="@/assets/images/BeanLoading2.gif"
-            alt="cart-image"
-            class="w-25"
-          />
+        <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+          <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
         </div>
       </div>
     </div>
@@ -2181,14 +1981,10 @@ export default {
     this.paymentFormData.governorate = this.buyerUserData
       ? this.buyerUserData.region_id
       : "";
-    this.paymentFormData.city = this.buyerUserData
-      ? this.buyerUserData.city_id
-      : "";
+    this.paymentFormData.city = this.buyerUserData ? this.buyerUserData.city_id : "";
 
     this.paymentFormData.suppliers = this.mySuppliers.suppliers;
-    this.paymentFormData.address_uuid = localStorage.getItem(
-      "globalAddressUUID"
-    )
+    this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID")
       ? localStorage.getItem("globalAddressUUID")
       : "";
 
@@ -2217,13 +2013,9 @@ export default {
     //   : this.selectedPhonePrefix.phone_prefix;
 
     // this.paymentFormData.country_code = this.buyerUserData.country_id;
-    this.paymentFormData.country_code = JSON.parse(
-      this.selectedCountry
-    ).phone_prefix;
+    this.paymentFormData.country_code = JSON.parse(this.selectedCountry).phone_prefix;
 
-    this.paymentFormData.email = this.buyerUserData
-      ? this.buyerUserData.email
-      : "";
+    this.paymentFormData.email = this.buyerUserData ? this.buyerUserData.email : "";
     // this.paymentFormData.coupons = this.existCoupons ? this.existCoupons : "";
 
     const backUrl = `${this.mainDoamin}complete-checkout`;
@@ -2261,10 +2053,7 @@ export default {
       (this.buyerUserData && addressUUID == undefined) ||
       (this.buyerUserData && addressUUID == "undefined")
     ) {
-      localStorage.setItem(
-        "globalAddressUUID",
-        this.buyerUserData.address_uuid
-      );
+      localStorage.setItem("globalAddressUUID", this.buyerUserData.address_uuid);
     }
 
     this.getCompanyIban();
@@ -2375,8 +2164,7 @@ export default {
               element.parentElement.click();
             }
 
-            var GuestNewAddress =
-              document.querySelector(".GuestNewAddress");
+            var GuestNewAddress = document.querySelector(".GuestNewAddress");
             for (var i = 0; i < checkboxes.length; i++) {
               if (GuestNewAddress) {
                 GuestNewAddress.click();
@@ -2513,8 +2301,7 @@ export default {
                 ".couponValid"
               ).innerHTML = ``;
             }
-            this.totalDiscount =
-              res.data.items.total_cart.total_discount.toFixed(3);
+            this.totalDiscount = res.data.items.total_cart.total_discount.toFixed(3);
 
             this.total_cart = res.data.items;
             this.sucessMsg(res.data.message);
@@ -2532,9 +2319,7 @@ export default {
 
             if (res.data.items.total_cart.total_discount == 0) {
               this.totalDiscountReplacement = parseFloat(this.totalDiscount);
-              this.totalPaymentReplacement = parseFloat(
-                this.totalDiscountReplacement
-              );
+              this.totalPaymentReplacement = parseFloat(this.totalDiscountReplacement);
             } else {
               this.totalDiscountReplacement =
                 parseFloat(this.totalDiscountReplacement) +
@@ -2675,9 +2460,7 @@ export default {
             }
 
             if (this.totalDiscountReplacement == parseFloat(0)) {
-              this.totalPaymentReplacement -= parseFloat(
-                this.totalDiscountReplacement
-              );
+              this.totalPaymentReplacement -= parseFloat(this.totalDiscountReplacement);
             }
           })
           .catch((err) => {
@@ -2739,10 +2522,7 @@ export default {
             localStorage.getItem("addressUUID") !== undefined
               ? localStorage.getItem("addressUUID")
               : null;
-        } else if (
-          element.shipping_type == 1 &&
-          element.id == supplier.supplier_id
-        ) {
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
           element.shipping_type = 1;
           element.point_of_sell_uuid =
             localStorage.getItem("addressUUID") !== null ||
@@ -2766,10 +2546,7 @@ export default {
           const element2 = element.is_default;
           if (element2) {
             this.selectedAddress = element;
-            localStorage.setItem(
-              "globalAddressUUID",
-              this.selectedAddress.uuid
-            );
+            localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
           }
         }
         if (res.data.items.length == 0) {
@@ -2796,8 +2573,7 @@ export default {
               // console.log(element);
             }
 
-            var GuestNewAddress =
-              document.querySelector(".GuestNewAddress");
+            var GuestNewAddress = document.querySelector(".GuestNewAddress");
             for (var i = 0; i < res.data.items.length; i++) {
               if (GuestNewAddress) {
                 GuestNewAddress.click();
@@ -2891,15 +2667,10 @@ export default {
           .then(() => {
             setTimeout(() => {
               if (this.addresses[this.addresses.length - 1]) {
-                this.selectedAddress =
-                  this.addresses[this.addresses.length - 1];
-                localStorage.setItem(
-                  "globalAddressUUID",
-                  this.selectedAddress.uuid
-                );
+                this.selectedAddress = this.addresses[this.addresses.length - 1];
+                localStorage.setItem("globalAddressUUID", this.selectedAddress.uuid);
               }
-              var existingAddresses =
-                document.querySelector(".existingAddresses");
+              var existingAddresses = document.querySelector(".existingAddresses");
 
               existingAddresses.click();
               existingAddresses.checked = true;
@@ -3022,15 +2793,13 @@ export default {
 
       this.expanded = true;
 
-      let myResult =
-        this.selectedInput.parentElement.parentElement.querySelector(
-          ".feedsResult"
-        );
+      let myResult = this.selectedInput.parentElement.parentElement.querySelector(
+        ".feedsResult"
+      );
 
-      let myPickupData =
-        this.selectedInput.parentElement.parentElement.querySelector(
-          ".supplierAddresses"
-        );
+      let myPickupData = this.selectedInput.parentElement.parentElement.querySelector(
+        ".supplierAddresses"
+      );
 
       myPickupData.classList.remove("d-block");
       myPickupData.classList.add("d-none");
@@ -3083,12 +2852,8 @@ export default {
 
       this.getSupplierAddress(supplier.supplier_id);
 
-      this.selectedInput.parentElement.nextElementSibling.classList.remove(
-        "d-none"
-      );
-      this.selectedInput.parentElement.nextElementSibling.classList.add(
-        "d-block"
-      );
+      this.selectedInput.parentElement.nextElementSibling.classList.remove("d-none");
+      this.selectedInput.parentElement.nextElementSibling.classList.add("d-block");
 
       this.selectedInput.parentElement.parentElement
         .querySelector(".feedsResult")
@@ -3099,9 +2864,7 @@ export default {
 
       this.selectedInput.parentElement.parentElement.querySelector(
         ".feedsResult"
-      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${
-        this.currency
-      }`;
+      ).innerHTML = `${this.$t("profile.deleiveryFees")} 0.000 ${this.currency}`;
 
       let myControler = this.$store.state.suppliers.suppliers;
       for (let index = 0; index < myControler.length; index++) {
@@ -3115,10 +2878,7 @@ export default {
             localStorage.getItem("addressUUID") !== undefined
               ? localStorage.getItem("addressUUID")
               : null;
-        } else if (
-          element.shipping_type == 1 &&
-          element.id == supplier.supplier_id
-        ) {
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
           element.shipping_type = 0;
           element.point_of_sell_uuid = null;
         }
@@ -3134,10 +2894,7 @@ export default {
         id: supplier.supplier_id,
         supplier_id: supplier.supplier_id,
         shipping_type: 0,
-        coupon:
-          localStorage.getItem("cou") !== null
-            ? localStorage.getItem("cou")
-            : "",
+        coupon: localStorage.getItem("cou") !== null ? localStorage.getItem("cou") : "",
         point_of_sell_uuid: null,
       };
       this.$store.dispatch("suppliers/addSupplierToCart", {
@@ -3151,10 +2908,7 @@ export default {
         if (element.shipping_type == 0 && element.id == supplier.supplier_id) {
           element.shipping_type = 0;
           element.point_of_sell_uuid = null;
-        } else if (
-          element.shipping_type == 1 &&
-          element.id == supplier.supplier_id
-        ) {
+        } else if (element.shipping_type == 1 && element.id == supplier.supplier_id) {
           element.shipping_type = 0;
           element.point_of_sell_uuid = null;
         }
@@ -3302,8 +3056,7 @@ export default {
      */
 
     async payment() {
-      this.paymentFormData.address_uuid =
-        localStorage.getItem("globalAddressUUID");
+      this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID");
       this.checkoutSubmitted = true;
 
       // check if data exist first
@@ -3312,8 +3065,7 @@ export default {
         !this.paymentFormData.address_uuid ||
         this.paymentFormData.address_uuid == undefined
       ) {
-        this.paymentFormData.address_uuid =
-          localStorage.getItem("globalAddressUUID");
+        this.paymentFormData.address_uuid = localStorage.getItem("globalAddressUUID");
       }
       if (
         this.paymentFormData.address_uuid == "undefined" ||
@@ -3558,17 +3310,13 @@ export default {
 
       if (res.data.items.total_cart.total_discount == 0) {
         this.totalDiscountReplacement = parseFloat(this.totalDiscount);
-        this.totalPaymentReplacement = parseFloat(
-          this.totalDiscountReplacement
-        );
+        this.totalPaymentReplacement = parseFloat(this.totalDiscountReplacement);
       } else {
         this.totalDiscountReplacement =
           parseFloat(this.totalDiscountReplacement) +
           parseFloat(res.data.items.total_cart.total_discount);
         this.totalPaymentReplacement = parseFloat(
-          this.totalPayment +
-            this.shippingCartFee -
-            this.totalDiscountReplacement
+          this.totalPayment + this.shippingCartFee - this.totalDiscountReplacement
         );
         // console.log("total subtotal" , this.totalPayment);
         // console.log("total discount",parseFloat(this.totalDiscountReplacement + this.shippingCartFee));
@@ -3588,9 +3336,7 @@ export default {
         if (element.id == supplier.supplier_id) {
           this.totalDiscountReplacement -= element.couponDisc;
           this.totalPaymentReplacement = parseFloat(
-            this.totalPayment +
-              this.shippingCartFee -
-              this.totalDiscountReplacement
+            this.totalPayment + this.shippingCartFee - this.totalDiscountReplacement
           );
 
           element.couponDisc = 0;
@@ -3665,13 +3411,10 @@ export default {
                 this.couponError = null;
                 // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
 
-                this.totalDiscount =
-                  res.data.items.total_cart.total_discount.toFixed(3);
+                this.totalDiscount = res.data.items.total_cart.total_discount.toFixed(3);
 
                 if (res.data.items.total_cart.total_discount == 0) {
-                  this.totalDiscountReplacement = parseFloat(
-                    this.totalDiscount
-                  );
+                  this.totalDiscountReplacement = parseFloat(this.totalDiscount);
                   this.totalDiscountReplacement =
                     parseFloat(this.totalDiscountReplacement) +
                     parseFloat(res.data.items.total_cart.total_discount);
@@ -3742,13 +3485,12 @@ export default {
                   this.couponError = null;
                   // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
 
-                  this.totalDiscount =
-                    res.data.items.total_cart.total_discount.toFixed(3);
+                  this.totalDiscount = res.data.items.total_cart.total_discount.toFixed(
+                    3
+                  );
 
                   if (res.data.items.total_cart.total_discount == 0) {
-                    this.totalDiscountReplacement = parseFloat(
-                      this.totalDiscount
-                    );
+                    this.totalDiscountReplacement = parseFloat(this.totalDiscount);
                     this.totalPaymentReplacement = parseFloat(
                       this.totalDiscountReplacement
                     );
@@ -3947,9 +3689,9 @@ export default {
           });
       }, 250);
     },
-    clearAll(){
-      this.errors={}
-    }
+    clearAll() {
+      this.errors = {};
+    },
   },
   computed: {
     /**
@@ -3977,9 +3719,9 @@ export default {
     mySuppliers() {
       return this.$store.state.suppliers;
     },
-    cartLength(){
+    cartLength() {
       return this.$store.getters["cart/cartLength"];
-    }
+    },
   },
   created() {
     /**
@@ -3987,10 +3729,7 @@ export default {
      *   sertting user address uuid
      */
     if (this.buyerUserData) {
-      localStorage.setItem(
-        "globalAddressUUID",
-        this.buyerUserData.address_uuid
-      );
+      localStorage.setItem("globalAddressUUID", this.buyerUserData.address_uuid);
     }
     this.goTop();
   },
@@ -4055,9 +3794,9 @@ export default {
   }
 }
 
-.input-holder{
+.input-holder {
   position: relative;
-  button{
+  button {
     position: absolute;
     right: 0;
     top: 0;

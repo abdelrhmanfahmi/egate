@@ -7,22 +7,18 @@
       </div>
       <div class="col-md-6 col-sm-12">
         <div class="input-holder">
-          <form @submit.prevent="searchAddresses">
+          <form @keyup.prevent="searchAddresses">
             <!-- coupon input  -->
 
             <input
               type="text"
-              :placeholder="'Search address...'"
+              :placeholder="$t('profile.searchAddress')"
               class="my-2 h-100 p-3 w-100 itemInput"
               v-model="addressSearchText"
             />
-            <b-button
-              type="submit"
-              class="login-button my-2 py-3 px-4 w-auto"
-              @click="searchAddresses"
-            >
+            <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
               <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
-              <span>search</span>
+              <span>{{ $t("profile.search") }}</span>
             </b-button>
           </form>
         </div>
@@ -40,7 +36,10 @@
       </b-row>
       <!-- data comes from backend  -->
 
-      <VueSlickCarousel v-bind="settings" v-if="adresses && adresses.length">
+      <VueSlickCarousel
+        v-bind="settings"
+        v-if="adresses && adresses.length && !addressLoading"
+      >
         <div v-for="(address, index) in adresses" :key="index" class="slider-data">
           <div class="address-data">
             <div class="row mb-2">
@@ -99,6 +98,19 @@
           </div>
         </div>
       </VueSlickCarousel>
+      <div class="" v-if="addressLoading">
+        <div class="text-center">
+          <b-spinner variant="danger" label="Spinning"></b-spinner>
+        </div>
+      </div>
+      <div
+        class="d-flex justify-content-center align-items-center"
+        v-if="adresses.length <= 0"
+      >
+        <h4 v-if="!addressLoading">
+          {{ $t("profile.quotationsRatingsEmpty") }}
+        </h4>
+      </div>
     </div>
 
     <div class="add-address" @click="showForm = !showForm">
@@ -557,6 +569,10 @@ export default {
         swipeToSlide: true,
         autoplay: false,
         centerMode: false,
+        clickable: true,
+        accessibility: true,
+        draggable: true,
+        focusOnSelect: true,
 
         responsive: [
           {
@@ -583,6 +599,7 @@ export default {
         ],
       },
       selectedAddress: null,
+      addressLoading: false,
     };
   },
   mounted() {
@@ -595,6 +612,9 @@ export default {
     this.checkDynamicInputs();
   },
   methods: {
+    // selectMe(address) {
+    //   console.log("address", address);
+    // },
     selectAddress(address) {
       this.selectedAddress = address;
     },
@@ -610,9 +630,6 @@ export default {
     showDeleteModal() {
       this.$refs["delete-modal"].show();
     },
-    searchAddresses() {
-      alert("clicked");
-    },
     /**
      * get All Adresses function
      * @vuese
@@ -622,6 +639,25 @@ export default {
         this.adresses = res.data.items;
         console.log(res);
       });
+    },
+    /**
+     * search Adresses function
+     * @vuese
+     */
+    searchAddresses() {
+      this.addressLoading = true;
+      let payload = {
+        keyword: this.addressSearchText,
+      };
+      profile
+        .searchAddresses(payload)
+        .then((res) => {
+          this.adresses = res.data.items;
+        })
+        .finally(() => {
+          // this.addressSearchText = "";
+          this.addressLoading = false;
+        });
     },
     // Countires
 
