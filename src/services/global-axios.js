@@ -38,9 +38,9 @@ const getCurrency = function () {
   if (country) {
     const currencyId = localStorage.getItem("currencyId");
     if (currencyId) {
-      return currencyId ? currencyId : country.currencies[0].id || 3
+      return currencyId ? currencyId : country.currencies[0].id || 1
     } else {
-      return country.default_currency ? country.default_currency.id : 3
+      return country.default_currency ? country.default_currency.id : 1
     }
   }
   return "";
