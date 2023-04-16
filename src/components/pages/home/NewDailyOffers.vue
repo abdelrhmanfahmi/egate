@@ -1,5 +1,5 @@
 <template>
-  <div class="new-daily-offers-wrapper my-5 py-5" v-if="items">
+  <div class="new-daily-offers-wrapper my-5 py-5" v-if="itemsLength > 0">
     <div class="container">
       <h2>{{ $t("home.dailyOffers") }}</h2>
     </div>
@@ -122,7 +122,7 @@
             </div>
           </div>
         </VueSlickCarousel>
-        <b-row class="holder" v-else>
+        <b-row class="holder" v-if="loading">
           <b-col lg="3" sm="6" v-for="x in 3" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
@@ -202,6 +202,7 @@ export default {
      *  GET best deals from api
      */
     getBestDeals() {
+      this.loading = true;
       categories
         .getBestDeals()
         .then((res) => {
@@ -209,6 +210,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     /**

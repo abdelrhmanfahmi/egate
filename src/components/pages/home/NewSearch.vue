@@ -125,14 +125,16 @@ export default {
         });
     },
     selectCategory(event) {
-      this.$router.push(
-        {
-          path: `/categories/${event.target.value}`,
-        },
-        () => {
-          this.$router.go(0);
-        }
-      );
+      // this.$router.push(
+      //   {
+      //     path: `/categories/${event.target.value}`,
+      //   },
+      //   () => {
+      //     this.$router.go(0);
+      //   }
+      // );
+      this.CatId = event.target.value;
+      console.log('this' , this.CatId);
     },
     /**
      * @vuese
@@ -149,6 +151,7 @@ export default {
       this.loading = true;
       let data = {
         keyword: this.keyword,
+        category_id:this.CatId
       };
       categories
         .searchResult(data)
@@ -176,7 +179,7 @@ export default {
     searchSuggestion(word) {
       let r = this.$router.resolve({
         name: "SearchResults", // put your route information in
-        query: { keyword: word }, // put your route information in
+        query: { keyword: word , catId : this.CatId }, // put your route information in
       });
       window.location.assign(r.href);
     },
@@ -184,7 +187,7 @@ export default {
       if (this.keyword.length > 1) {
         let r = this.$router.resolve({
           name: "SearchResults", // put your route information in
-          query: { keyword: this.keyword }, // put your route information in
+          query: { keyword: this.keyword , catId : this.CatId }, // put your route information in
         });
         window.location.assign(r.href);
       }
@@ -210,6 +213,7 @@ export default {
       suggestionsExist: false,
       searchSubmitted: false,
       loading: false,
+      CatId:null
     };
   },
 };
@@ -342,9 +346,9 @@ button a {
   background: transparent;
   color: #000;
   border-radius: 20px;
-  @media (max-width: 992px) {
-    display: none;
-  }
+  //@media (max-width: 992px) {
+    //display: none;
+  //}
 
   .wrapper {
     background-color: transparent;
@@ -397,7 +401,7 @@ button a {
   }
 
   .search-local {
-    //flex-direction: column;
+    flex-direction: column;
   }
 
   .select-wrapper {

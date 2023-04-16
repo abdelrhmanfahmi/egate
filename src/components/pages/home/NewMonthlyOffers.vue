@@ -1,13 +1,9 @@
 <template>
-  <div class="new-daily-offers-wrapper my-5 py-5" v-if="items">
+  <div class="new-daily-offers-wrapper my-5 py-5" v-if="itemsLength > 0">
     <div class="container">
       <h2>{{ $t("profile.monthlyOffers") }}</h2>
       <div class="slider text-center">
-        <VueSlickCarousel
-          v-bind="settings"
-          v-if="items && items.length"
-          class="my-2"
-        >
+        <VueSlickCarousel v-bind="settings" v-if="items && items.length" class="my-2">
           <div v-for="(item, index) in items" :key="index" class="slide-holder mb-4">
             <div
               class="row"
@@ -17,19 +13,10 @@
               }"
             >
               <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
-                <div
-                  class="time-holder"
-                  v-if="item.current_main_image_path !== null"
-                >
-                  <b-img
-                    :src="item.current_main_image_path"
-                    class="offer-image w-100"
-                  >
+                <div class="time-holder" v-if="item.current_main_image_path !== null">
+                  <b-img :src="item.current_main_image_path" class="offer-image w-100">
                   </b-img>
-                  <div
-                    class="time-count"
-                    v-if="item.offer_active_by_type.end_date"
-                  >
+                  <div class="time-count" v-if="item.offer_active_by_type.end_date">
                     <Countdown
                       :until="item.offer_active_by_type.end_date"
                       format="DHMS"
@@ -58,7 +45,11 @@
                   </div>
                   <div
                     class="col-md-6 col-sm-12"
-                    v-if="item.product_details_by_type.price_before_discount && item.product_details_by_type.price_before_discount > item.product_details_by_type.price"
+                    v-if="
+                      item.product_details_by_type.price_before_discount &&
+                      item.product_details_by_type.price_before_discount >
+                        item.product_details_by_type.price
+                    "
                   >
                     <del>
                       <h6>
@@ -97,7 +88,7 @@
                   </div>
                 </div>
                 <!-- product category -->
-                <h6 class="mb-3">{{ $t("items.item") }} : fruits</h6>
+                <h6 class="mb-3">{{ $t("items.item") }} : {{$t('items.category')}}</h6>
                 <!-- acions  -->
                 <div class="row mb-3 align-items-center">
                   <div class="col-md-6 col-sm-12 mb-3 px-1">
@@ -132,16 +123,8 @@
           <b-col lg="3" sm="6" v-for="x in 4" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
-              <b-skeleton
-                animation="fade"
-                width="60%"
-                class="border-none"
-              ></b-skeleton>
-              <b-skeleton
-                animation="fade"
-                width="85%"
-                class="border-none"
-              ></b-skeleton>
+              <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
+              <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
             </b-card>
           </b-col>
         </b-row>
@@ -178,7 +161,7 @@ export default {
         autoplay: true,
         focusOnSelect: true,
         touchThreshold: 5,
-        slidesPerRow:2,
+        slidesPerRow: 2,
 
         responsive: [
           {

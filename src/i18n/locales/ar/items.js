@@ -1,5 +1,5 @@
 export default {
-  category: "فواكه",
+  // category: "فواكه",
   fruit: "تفاح ",
   description:
     "تشير الدراسات إلى أن التفاح قد يكون أحد الأطعمة الصحية ذات القيمة الغذائية العالية، فهو غنية بالألياف الهامة للجسم ومضادات الأكسدة والفلافونويد، مما يجعله واحدا من أفضل الأطعمة للقلب.",
@@ -42,5 +42,7 @@ export default {
   backToStrandingList:'العوده للقوائم المتاحه',
   advertise:'اعلان',
   basketProducts:'منتجات السلة',
-  relatedBaskets:'السلات ذات الصلة'
+  relatedBaskets:'السلات ذات الصلة',
+  category:"قسم",
+  subCategory:"قسم فرعى"
 };

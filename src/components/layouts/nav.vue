@@ -116,7 +116,7 @@
                     class="border-main color-main br-5 p-2"
                     v-if="!buyerUserData || buyerUserData.type == 'b2c'"
                   >
-                    <b>{{ $t("home.corporate") }}</b>
+                    <b>{{ $t("home.corporat") }}</b>
                   </router-link>
                 </div>
                 <div
@@ -223,17 +223,17 @@
                   class="row justify-content-center align-items-center search-icon"
                   v-if="mobile"
                 >
-                  <div class="col-12">
-                    <div class="search-icon">
-                      <b-button v-b-modal.modal-1 class="icon-search" size="md">
+                  <!-- <div class="col-12"> -->
+                  <!-- <div class="search-icon"> -->
+                  <!-- <b-button v-b-modal.modal-1 class="icon-search" size="md">
                         <font-awesome-icon
                           v-b-toggle.sidebar-1
                           icon="fa-solid fa-search"
                           class="mobile-search-icon"
                         />
-                      </b-button>
-                      <b-modal id="modal-1" class="search">
-                        <!-- Using slots -->
+                      </b-button> -->
+                  <!-- <b-modal id="modal-1" class="search">
+                        Using slots
                         <b-input-group class="mt-3">
                           <template #append>
                             <b-input-group-text class="floating-btn">
@@ -251,11 +251,11 @@
                                 :placeholder="$t('cart.search')"
                                 v-model="keyword"
                               ></b-form-input>
-                              <!-- <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
+                              <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
                   <button>
                     <font-awesome-icon icon="fa-solid fa-arrow-right" />
                   </button>
-                </div> -->
+                </div>
                               <ul class="search-suggestions" v-if="suggestionsExist">
                                 <span class="meaning-span">{{ $t("home.didMean") }}</span>
                                 <li
@@ -270,9 +270,9 @@
                             </div>
                           </b-form>
                         </b-input-group>
-                      </b-modal>
-                    </div>
-                  </div>
+                      </b-modal> -->
+                  <!-- </div> -->
+                  <!-- </div> -->
                 </div>
 
                 <font-awesome-icon
@@ -541,6 +541,23 @@ export default {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("buyerUserData");
       this.loginNow();
+    }
+    window.onscroll = function () {
+      myFunction();
+    };
+
+    var header = document.querySelector(".main-nav");
+    var headerToggle = document.querySelector("#navigator");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky + 300) {
+        header.classList.add("position-sticky");
+        headerToggle.classList.add("fixedSideToggle");
+      } else {
+        header.classList.remove("position-sticky");
+        headerToggle.classList.remove("fixedSideToggle");
+      }
     }
   },
   destroyed() {
@@ -883,15 +900,22 @@ html:lang(ar) {
 }
 
 .toggleMenu {
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 766.98px) {
-    top: 15%;
+    top: 2%;
     right: 2%;
     position: fixed;
+    background: #f0f0f0;
+    width: 14%;
   }
 
   @media (min-width: 767px) and (max-width: 1200px) {
     position: fixed;
-    top: 5%;
+    top: 2%;
     right: 2%;
   }
 }
@@ -906,5 +930,15 @@ html:lang(ar) {
     color: inherit;
     font-weight: 500;
   }
+}
+.position-sticky {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed !important;
+  transition: position 1s linear;
+}
+.main-nav {
+  transition: position 0.7s, left 0.7s;
 }
 </style>

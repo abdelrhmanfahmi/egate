@@ -23,7 +23,7 @@
           <b-tab :title="$t('home.consumerCategory')" active>
             <NewCatrgoriesHome />
           </b-tab>
-          <b-tab :title="$t('home.corporateCategory')" @click="loginAsBuyer">
+          <b-tab :title="$t('home.corporatCategory')" @click="loginAsBuyer">
             <span></span>
           </b-tab>
         </b-tabs>

@@ -14,7 +14,10 @@
       </h5>
     </div>
 
-    <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
+    <div
+      class="my-2 px-3"
+      v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
+    >
       <h5>{{ $t("profile.completeRate") }}</h5>
       <b-progress
         class="progress-rate"

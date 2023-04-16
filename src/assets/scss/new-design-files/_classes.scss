@@ -47,8 +47,8 @@
 
 .bottom-nav-holder {
   @media(max-width:1200px){
-    z-index: -1;
-    position:sticky
+    // z-index: -1;
+    // position:sticky
   }
   .other-catrgories {
     .navigation {
@@ -99,3 +99,15 @@
 //     margin-bottom: 25px;
 //   }
 // }
+
+.forget-password{
+  color:$main-color !important
+}
+
+.fixedSideToggle{
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  padding: .5rem 1rem;
+}

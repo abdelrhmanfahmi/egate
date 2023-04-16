@@ -367,6 +367,7 @@ export default {
       products: null,
       productsLength: null,
       keyword: this.$route.query.keyword,
+      catId: this.$route.query.catId,
       myQuantity: 1,
       requestData: {
         name: null,
@@ -388,6 +389,7 @@ export default {
       this.loading = true;
       let data = {
         keyword: this.$route.query.keyword,
+        catId: this.$route.query.catId,
       };
       await categories
         .searchResult(data)

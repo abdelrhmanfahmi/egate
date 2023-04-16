@@ -34,7 +34,7 @@
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }"
               >
                 <!-- {{ $t("login.wholeSaleBuyer") }} -->
-                {{ $t("home.corporate") }}
+                {{ $t("home.corporat") }}
               </span>
             </div>
             <div class="col-md-3 col-sm-12 p-0 m-0 my-col">
@@ -46,7 +46,7 @@
               >
             </div>
           </div>
-          <h6 class="title">{{ $t("login.login") }}</h6>
+          <!-- <h6 class="title">{{ $t("login.login") }}</h6> -->
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
           <div v-if="selectedType === 'b2c'">

@@ -1,5 +1,5 @@
 export default {
-  category: "Fruit",
+  // category: "Fruit",
   fruit: "Apple",
   description: "Studies suggest that apples may be a healthy foods of high nutritional value, rich in important fiber for the body, antioxidants and flavonoid, making it one of the best foods for the heart.",
   typesSelect: "Choose Types",
@@ -41,5 +41,7 @@ export default {
   backToStrandingList:'Back To Standing Orders',
   advertise:'Ad',
   basketProducts:'Basket Products',
-  relatedBaskets:'Related Baskets'
+  relatedBaskets:'Related Baskets',
+  category:"Category",
+  subCategory:"Sub Category"
 };

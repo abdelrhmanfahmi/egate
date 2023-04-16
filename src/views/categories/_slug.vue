@@ -26,11 +26,9 @@
         </b-container>
       </div>
     </div> -->
-    <div
-      class="navigation d-none d-lg-flex justify-content-start align-items-center "
-    >
+    <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
       <!-- navigation -->
-      <nav aria-label="breadcrumb " >
+      <nav aria-label="breadcrumb ">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <router-link to="/">
@@ -38,19 +36,16 @@
             </router-link>
           </li>
           <li class="breadcrumb-item">
-            <router-link to="/" >
-              Category
-            </router-link>
+            <router-link to="/"> {{ $t('items.category') }} </router-link>
           </li>
           <li class="breadcrumb-item">
-            <router-link to="/" class="main-color">
-              Sub category
-            </router-link>
+            <router-link to="/" class="main-color"> {{ $t('items.subCategory') }} </router-link>
           </li>
         </ol>
       </nav>
     </div>
-    <newCover />
+    <!-- <newCover /> -->
+    <NewHomeSlider />
     <div class="data-holder">
       <div class="container">
         <div class="row">
@@ -86,6 +81,8 @@
                 <template #title>
                   <div
                     class="d-flex justify-content-center align-items-center flex-column"
+                    v-b-tooltip.hover
+                    :title="$t('home.All')"
                   >
                     <font-awesome-icon
                       icon="fa-solid fa-table-cells-large"
@@ -153,20 +150,18 @@
                 @click="selectTab(category)"
                 :id="`category-${index}`"
                 v-bind="{
-                  active:
-                    $route.query.brand == category.title.replace(/\s/g, ''),
+                  active: $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
               >
                 <template #title>
                   <div
                     class="d-flex justify-content-between align-items-center flex-column"
+                    v-b-tooltip.hover
+                    :title="category.title"
                   >
                     <!-- section icon  -->
-                    <font-awesome-icon
-                      icon="fa-solid fa-apple-whole"
-                      size="3x"
-                    />
-                    <strong>{{ category.title }}</strong>
+                    <font-awesome-icon icon="fa-solid fa-apple-whole" size="3x" />
+                    <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
                   </div>
                 </template>
                 <b-row
@@ -208,12 +203,13 @@
 <script>
 import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
-import newCover from "@/components/pages/categories/categoriesCover.vue";
+// import newCover from "@/components/pages/categories/categoriesCover.vue";
 
 // import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue"
 
 export default {
   data() {
@@ -285,15 +281,14 @@ export default {
      * filterProductsByCategory function
      */
     filterProductsByCategory: function () {
-      return this.products.filter(
-        (product) => !product.category.iOf(this.category)
-      );
+      return this.products.filter((product) => !product.category.iOf(this.category));
     },
   },
   components: {
     OtherCategoryCard,
     // VueSlickCarousel,
-    newCover,
+    // newCover,
+    NewHomeSlider
   },
   methods: {
     /**
@@ -377,10 +372,11 @@ export default {
       this.getSubCategories();
     },
     /**
-     * @vuese
+     * @vueses
      * selectTab function
      */
     selectTab(item) {
+      var tabsHeight = document.querySelector(".nav-item").offsetTop - 320;
       let query = {};
       if (this.$route.query.brand) {
         for (let key in this.$route.query) {
@@ -400,9 +396,7 @@ export default {
         };
         console.log("third");
       } else if (
-        this.$route.query.brand
-          .split(",")
-          .includes(item.title.replace(/\s/g, ""))
+        this.$route.query.brand.split(",").includes(item.title.replace(/\s/g, ""))
       ) {
         query = {
           brand: query.brand,
@@ -417,6 +411,14 @@ export default {
         path: this.$route.path,
         query: query,
       });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: tabsHeight,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 1500);
     },
 
     /**
@@ -424,6 +426,7 @@ export default {
      * set default tab  function
      */
     selectDefaultTab() {
+      var tabsHeight = document.querySelector(".nav-item").offsetTop - 320;
       let query = {};
       if (this.$route.query.page) {
         for (let key in this.$route.query) {
@@ -442,9 +445,7 @@ export default {
           brand: "All",
         };
         console.log("third");
-      } else if (
-        this.$route.query.brand.split(",").includes(this.$route.query.brand)
-      ) {
+      } else if (this.$route.query.brand.split(",").includes(this.$route.query.brand)) {
         query = {
           brand: query.brand,
         };
@@ -458,6 +459,14 @@ export default {
         path: this.$route.path,
         query: query,
       });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: tabsHeight,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 1500);
     },
   },
   created() {
@@ -557,7 +566,7 @@ div:empty {
     }
   }
 }
-.navigation{
-  background-color: #F3F4F6
+.navigation {
+  background-color: #f3f4f6;
 }
 </style>
