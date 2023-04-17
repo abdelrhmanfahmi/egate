@@ -440,6 +440,13 @@
                                     :placeholder="$t('payment.notes')"
                                     v-model="form.notes"
                                   ></textarea>
+                                  <div
+                                      class="error"
+                                      v-for="(error, index) in errors.notes"
+                                      :key="index"
+                                    >
+                                      {{ error }}
+                                    </div>
                                 </b-col>
                                 <b-col lg="12">
                                   <div v-if="dynamicInputs">

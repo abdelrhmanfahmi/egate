@@ -85,6 +85,9 @@
                 >{{ formName }}
               </b-form-select-option>
             </b-form-select>
+            <div class="error" v-for="(error, index) in errors.name" :key="index">
+              {{ error }}
+            </div>
           </b-form-group>
           <b-form-group v-else>
             <label>{{ $t("profile.name") }}</label>
@@ -118,6 +121,9 @@
                 >{{ formName }}
               </b-form-select-option>
             </b-form-select>
+            <div class="error" v-for="(error, index) in errors.name" :key="index">
+              {{ error }}
+            </div>
           </b-form-group>
           <b-form-group v-else>
             <label>{{ $t("profile.name") }}</label>
@@ -394,7 +400,6 @@ export default {
      */
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
-        console.log('adresses' , res);
         this.adresses = res.data.items;
       });
     },
@@ -420,6 +425,7 @@ export default {
         this.regions = res.data.items;
         this.form.region_id = "";
         this.form.city_id = "";
+        
       });
     },
     // Cities
@@ -451,10 +457,14 @@ export default {
               this.form[element.input_key] = "";
             }
           });
+          
         })
         .catch((err) => {
           console.log(err);
-        });
+        }).finally(()=>{
+          this.form.country_id = JSON.parse(this.selectedCountry).id;
+          console.log('test' , this.form.country_id);
+        })
     },
 
     // createAddress
@@ -511,7 +521,6 @@ export default {
      */
 
     editAdress(row) {
-      console.log(row);
       this.showForm = true;
       this.form.country_id = row.item.country.id;
 
