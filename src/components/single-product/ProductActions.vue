@@ -317,7 +317,7 @@
 
               <button
                 id="show-btn"
-                class="button one inactive mobile button--secondary wishlist-btn mx-1 add-cart"
+                class="button one inactive mobile button--secondary wishlist-btn  add-cart"
                 @click="$bvModal.show('bv-standingOrders')"
                 v-b-tooltip.hover
                 :title="$t('items.standingOrders')"
@@ -330,7 +330,7 @@
             <div class="products" v-else>
               <button
                 id="show-btn"
-                class="button one inactive mobile button--secondary wishlist-btn mx-1 add-cart"
+                class="button one inactive mobile button--secondary wishlist-btn  add-cart"
                 @click="loginFirst()"
                 v-b-tooltip.hover
                 :title="$t('items.standingOrders')"
