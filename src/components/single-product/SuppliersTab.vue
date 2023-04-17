@@ -861,6 +861,9 @@ export default {
      * get Single Product Details function
      */
     getSingleProductDetails() {
+      if(this.$route.path.includes('details')){
+        this.pageId = this.$route.query.id
+      }
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {

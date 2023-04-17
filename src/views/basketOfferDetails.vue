@@ -1,6 +1,32 @@
 <template>
   <!-- single product data  -->
   <div class="container basketSinglePage">
+    <div
+    class="navigation d-none d-lg-flex justify-content-start align-items-center"
+  >
+    <!-- navigation -->
+    <nav aria-label="breadcrumb ">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <router-link to="/">
+            {{ $t("items.home") }}
+          </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link to="/"> Category </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link to="/"> Sub category </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link to="/"> Sub sub-category </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link to="/" class="main-color"> Product </router-link>
+        </li>
+      </ol>
+    </nav>
+  </div>
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">
         <b-col cols="12" md="4" class="slider p-0">

@@ -1079,7 +1079,7 @@ textarea {
     color: #544842;
     font-weight: 500;
     width: 4rem;
-    height: 3.1rem;
+    height: 3.1rem !important;
     display: flex;
     justify-content: center;
     align-items: center;

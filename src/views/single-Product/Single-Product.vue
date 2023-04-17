@@ -112,7 +112,7 @@
                 </div>
               </div>
             </b-tab>
-            <b-tab :title="$t('singleProduct.otherSuppliers')" active>
+            <b-tab :title="$t('singleProduct.relatedOffers')">
               <relatedOffers />
             </b-tab>
           </b-tabs>

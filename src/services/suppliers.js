@@ -138,6 +138,9 @@ export default {
         model_type: payload ? payload.model_type : null
       }
     })
+  },
+  getRelatedOffers(id){
+    return globalAxios.get(`products/${id}/related/offers`)
   }
   
 };

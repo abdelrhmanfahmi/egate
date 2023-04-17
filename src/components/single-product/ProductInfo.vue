@@ -121,7 +121,7 @@
                 <img src="@/assets/images/logo.png" v-else alt="logo" />
               </div>
             </span>
-            <span>Egypt</span>
+            <span v-if="myProduct.country_of_origin">{{myProduct.country_of_origin}}</span>
             <!-- <hr /> -->
           </div>
 
