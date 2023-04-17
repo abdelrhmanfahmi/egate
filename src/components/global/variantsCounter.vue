@@ -148,7 +148,7 @@ export default {
   }
   .value {
     border-radius: 0;
-    border: 1px solid #f0f0f0;
+    border: 1px solid $top-header-color;
     color: #544842;
     font-weight: 500;
     width: 4rem;

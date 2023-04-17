@@ -160,7 +160,7 @@
                     :title="category.title"
                   >
                     <!-- section icon  -->
-                    <font-awesome-icon icon="fa-solid fa-apple-whole" size="3x" />
+                    <img :src="category.icon_image_path" alt="category_image" class="categoryImage">
                     <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
                   </div>
                 </template>
@@ -568,5 +568,10 @@ div:empty {
 }
 .navigation {
   background-color: #f3f4f6;
+}
+
+.categoryImage{
+  width: 40px;
+  height: 40px;
 }
 </style>

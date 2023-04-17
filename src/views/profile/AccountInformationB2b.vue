@@ -791,13 +791,13 @@ html:lang(ar) {
     height: 200px;
   }
   .data-holder {
-    border: 2px solid #f0f0f0;
+    border: 2px solid $top-header-color;
     border-radius: 5px;
     color: #545454;
     padding: 20px;
   }
   .file-input {
-    color: #f0f0f0;
+    color: $top-header-color;
   }
   .text-holder {
     color: #bebebe;

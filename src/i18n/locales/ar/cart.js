@@ -60,5 +60,6 @@ export default {
   filter:'فلتر',
   standQuantity:'الكميه المطلوبه من المنتج',
   couponExist:'الكود مستخدم بالفعل',
-  validCoupons:'الكوبونات المفعله'
+  validCoupons:'الكوبونات المفعله',
+  shopNow:'تسوق الان'
 };

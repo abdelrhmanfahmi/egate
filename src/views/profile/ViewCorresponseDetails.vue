@@ -557,7 +557,7 @@ li {
   }
 
   .file-input {
-    color: #f0f0f0;
+    color: $top-header-color;
   }
   .text-holder {
     color: #bebebe;

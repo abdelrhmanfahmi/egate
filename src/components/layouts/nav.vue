@@ -81,7 +81,9 @@
                         </div>
                       </b-form>
                       <ul class="search-suggestions" v-if="suggestionsExist">
-                        <span class="meaning-span">{{ $t("home.didMean") }}</span>
+                        <span class="meaning-span">{{
+                          $t("home.didMean")
+                        }}</span>
                         <li
                           v-for="(suggest, index) in suggestions"
                           :key="index"
@@ -123,7 +125,10 @@
                   v-if="!mobile"
                   class="cart d-flex justify-content-between align-items-center"
                 >
-                  <span class="cartLength cart-number" v-if="cartItems && cartLength">
+                  <span
+                    class="cartLength cart-number"
+                    v-if="cartItems && cartLength"
+                  >
                     {{ cartLength }}
                   </span>
                   <span class="cart-icon">
@@ -146,7 +151,11 @@
                   <Notify class="notify-body" :notifications="notifications" />
                 </div>
                 <!-- user sign in -->
-                <div class="login" v-if="!mobile && !isLoggined" v-b-toggle.login>
+                <div
+                  class="login"
+                  v-if="!mobile && !isLoggined"
+                  v-b-toggle.login
+                >
                   <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
                   <BIconPerson width="25" height="25" />
                   <!-- <h5>
@@ -199,7 +208,9 @@
                         </span>
                       </template>
                       <b-dropdown-item
-                        v-if="userInfo.item.is_verified || buyerUserData.is_verified"
+                        v-if="
+                          userInfo.item.is_verified || buyerUserData.is_verified
+                        "
                       >
                         <router-link to="/profile/categories">{{
                           $t("profile.myProfile")
@@ -439,7 +450,10 @@ export default {
       categories
         .searchResult(data)
         .then((resp) => {
-          if (resp.data.items.suggestions && resp.data.items.suggestions.length) {
+          if (
+            resp.data.items.suggestions &&
+            resp.data.items.suggestions.length
+          ) {
             this.suggestionsExist = true;
             this.suggestions = resp.data.items.suggestions;
           } else {
@@ -535,7 +549,8 @@ export default {
   mounted() {
     const loc = document.location;
     if (
-      (this.$route.query.force_login && this.$route.query.force_login == "true") ||
+      (this.$route.query.force_login &&
+        this.$route.query.force_login == "true") ||
       loc.href.includes("force_login")
     ) {
       localStorage.removeItem("userInfo");
@@ -546,17 +561,20 @@ export default {
       myFunction();
     };
 
-    var header = document.querySelector(".main-nav");
-    var headerToggle = document.querySelector("#navigator");
+    // var header = document.querySelector(".main-nav");
+    // var headerToggle = document.querySelector("#navigator");
+    // var sticky = header.offsetTop;
+
+    var header = document.querySelector(".right-side");
     var sticky = header.offsetTop;
 
     function myFunction() {
       if (window.pageYOffset > sticky + 300) {
-        header.classList.add("position-sticky");
-        headerToggle.classList.add("fixedSideToggle");
+        header.classList.add("fixed-toggle-menu");
+        // headerToggle.classList.add("fixedSideToggle");
       } else {
-        header.classList.remove("position-sticky");
-        headerToggle.classList.remove("fixedSideToggle");
+        header.classList.remove("fixed-toggle-menu");
+        // headerToggle.classList.remove("fixedSideToggle");
       }
     }
   },
@@ -787,8 +805,8 @@ html:lang(ar) {
 
 .ar {
   .icon {
-    left: 24px;
-    right: auto;
+    //left: 24px;
+    //right: auto;
   }
 }
 
@@ -909,7 +927,7 @@ html:lang(ar) {
     top: 2%;
     right: 2%;
     position: fixed;
-    background: #f0f0f0;
+    //background: $top-header-color;
     width: 14%;
   }
 
@@ -931,12 +949,13 @@ html:lang(ar) {
     font-weight: 500;
   }
 }
-.position-sticky {
-  top: 0;
-  left: 0;
-  right: 0;
-  position: fixed !important;
-  transition: position 1s linear;
+.fixed-toggle-menu {
+  @media (max-width: 992px) {
+    top: 2rem;
+    right: 2rem;
+    position: fixed !important;
+    transition: position 1s linear;
+  }
 }
 .main-nav {
   transition: position 0.7s, left 0.7s;

@@ -113,7 +113,7 @@
       </div>
     </div>
 
-    <div class="add-address" @click="showForm = !showForm">
+    <div class="add-address" @click="showForm = !showForm ; form = {}">
       <div class="d-flex flex-column justify-content-center align-items-center text-gray">
         <span>+ </span>
         <span>{{ $t("profile.newAddress") }}</span>

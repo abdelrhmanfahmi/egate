@@ -281,11 +281,6 @@ export default {
   },
   mounted() {
 
-
-
-
-
-
     this.emailVerify();
     // this.checkEmailForgetPassWord()
   },

@@ -50,13 +50,13 @@
 
 
 .navbar {
-    background-color: #F0F0F0;
+    background-color: $top-header-color;
     overflow: hidden;
     height: 63px;
 }
 
 .navbaropen {
-    background-color: #F0F0F0;
+    background-color: $top-header-color;
     overflow: hidden;
     height: 63px;
     // when layout moves 

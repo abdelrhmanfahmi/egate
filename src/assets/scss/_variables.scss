@@ -7,6 +7,7 @@
 	--tabs-color: #6e6a67;
 	--body-background:#fff;
 	--body-text-color:#000;
+	--top-header-color:#f0f0f0;
   }
   
   $main-color: var(--main-color);
@@ -17,6 +18,7 @@
   $header-color: var(--header-color);
   $gray: var(--gray);
   $tabs-color: var(--tabs-color);
+  $top-header-color:var(--top-header-color);
 
 
 
@@ -44,7 +46,7 @@ $tabs-color: #6e6a67;
 */
 $pop-color:#095e54;
 
-$top-header-color:#F0F0F0;
+
 
 /**
 	* breakpoints

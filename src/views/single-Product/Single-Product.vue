@@ -80,6 +80,7 @@
             <b-tab :title="$t('singleProduct.otherSuppliers')" active>
               <suppliersTab />
             </b-tab>
+            
             <!-- product rating tab  -->
             <b-tab :title="$t('items.relativeProducts')">
               <div
@@ -110,6 +111,9 @@
                   </div>
                 </div>
               </div>
+            </b-tab>
+            <b-tab :title="$t('singleProduct.otherSuppliers')" active>
+              <relatedOffers />
             </b-tab>
           </b-tabs>
         </div>
@@ -153,6 +157,7 @@ import categories from "@/services/categories";
 
 import suppliers from "@/services/suppliers";
 import suppliersTab from "@/components/single-product/SuppliersTab.vue"
+import relatedOffers from "@/components/relatedOffers"
 export default {
   components: {
     Slider,
@@ -161,7 +166,8 @@ export default {
     Rating,
     Product,
     VueSlickCarousel,
-    suppliersTab
+    suppliersTab,
+    relatedOffers
   },
   data() {
     return {

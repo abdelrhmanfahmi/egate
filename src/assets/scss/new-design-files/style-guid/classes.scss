@@ -29,3 +29,12 @@
         color: #000;
     }
 }
+
+nav{
+    .icon{
+        svg{
+            background: $top-header-color;
+            padding: 10px 13px;
+        }
+    }
+}
