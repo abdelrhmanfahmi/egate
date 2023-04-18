@@ -2,7 +2,7 @@
 	* cart style
 */
 
-$text-color: mix(#000, $main-color, 64%);
+$text-color: var(--main-color);
 
 .cart {
   .heading {
