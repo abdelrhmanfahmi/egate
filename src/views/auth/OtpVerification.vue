@@ -155,7 +155,7 @@ export default {
      */
     otpChangingVerification() {
       auth
-        .verificationMobile(this.form)
+        .otpChangingVerification(this.form)
         .then(() => {
           this.$router.push("/profile/account-information-b2b");
           this.$store.dispatch("getUserInfo");

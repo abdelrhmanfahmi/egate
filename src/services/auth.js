@@ -34,6 +34,9 @@ export default {
   verificationMobile(payload) {
     return globalAxios.patch("checkpoint/active-mobile", payload);
   },
+  otpChangingVerification(payload) {
+    return globalAxios.patch("checkpoint/active-data-changes", payload);
+  },
   resendCodeMobile() {
     return globalAxios.get("checkpoint/resend-active-mobile");
   },
