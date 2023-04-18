@@ -2,31 +2,16 @@
   <div>
     <div
       class="most-sold text-center related-products"
-      v-if="basket_promotions || buy_get_promotions || gift_promotions "
+      v-if="basket_promotions || buy_get_promotions || gift_promotions"
     >
       <div class="">
-        <div class="my-5 py-5">
+        <div class="">
           <!-- other products slider  -->
-          <VueSlickCarousel v-bind="settings" v-if="5 > 2">
-            <div
-              v-for="item in basket_promotions"
-              :key="item.id"
-            >
-              <Product :data="item"></Product>
-            </div>
-            <div
-              v-for="item in buy_get_promotions"
-              :key="item.id"
-            >
-              <Product :data="item"></Product>
-            </div>
-            <div
-              v-for="item in gift_promotions"
-              :key="item.id"
-            >
-              <Product :data="item"></Product>
-            </div>
-          </VueSlickCarousel>
+          <NewRelatedOffersTab
+            :basket_promotions="basket_promotions"
+            :buy_get_promotions="buy_get_promotions"
+            :gift_promotions="gift_promotions"
+          ></NewRelatedOffersTab>
         </div>
       </div>
     </div>
@@ -34,16 +19,13 @@
 </template>
 <script>
 import suppliers from "@/services/suppliers";
-import Product from "@/components/pages/supplier/products/Product.vue";
-import VueSlickCarousel from "vue-slick-carousel";
-  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-// optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import NewRelatedOffersTab from "@/components/pages/relatedOffers/NewRelatedOffersTab.vue";
+
 
 export default {
   data() {
     return {
-      offers: null,
+      AllOffers: [],
       basket_promotions: null,
       buy_get_promotions: null,
       gift_promotions: null,
@@ -87,7 +69,6 @@ export default {
           },
         ],
       },
-      
     };
   },
   methods: {
@@ -100,6 +81,15 @@ export default {
           this.basket_promotions = res.data.items.basket_promotions;
           this.buy_get_promotions = res.data.items.buy_get_promotions;
           this.gift_promotions = res.data.items.gift_promotions;
+          if (res.data.items.basket_promotions.length) {
+            this.AllOffers.push(res.data.items.basket_promotions);
+          }
+          if (res.data.items.buy_get_promotions.length) {
+            this.AllOffers.push(res.data.items.buy_get_promotions);
+          }
+          if (res.data.items.gift_promotions.length) {
+            this.AllOffers.push(res.data.items.gift_promotions);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -109,9 +99,8 @@ export default {
   mounted() {
     this.getRelatedOffers();
   },
-  components:{
-    Product,
-    VueSlickCarousel
-  }
+  components: {
+    NewRelatedOffersTab,
+  },
 };
 </script>

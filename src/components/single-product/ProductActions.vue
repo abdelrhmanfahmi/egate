@@ -214,7 +214,6 @@
                 <span>
                   <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                 </span>
-                {{ $t("singleProduct.addCart") }}
               </b-button>
             </div>
           </div>
@@ -246,7 +245,7 @@
           </div>
           <!-- rfq-holder  -->
           <div class="rfq-holder sec-hold">
-            <div class="product-actions short-links mr-1">
+            <div class="product-actions short-links mx-1">
               <!-- rfq request if logged in -->
               <button
                 class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block bg-gray"
@@ -287,11 +286,11 @@
                   <!-- <rfqIcon class="mx-2" /> -->
                   RFQ
                 </span>
-                {{ $t("singleProduct.bidRequest") }}
+                <!-- {{ $t("singleProduct.bidRequest") }} -->
               </button>
               <!-- rfq request if logged in  -->
               <button
-                class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100 bg-gray"
+                class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100 bg-gray mx-1"
                 v-else-if="
                   (RfqAvailable == 'available' &&
                     myProduct.product_details_by_type.add_type === 'rfq') ||

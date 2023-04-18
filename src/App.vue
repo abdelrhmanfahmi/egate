@@ -138,7 +138,8 @@ export default {
               }
               if (element.key == "Website Portal Title") {
                 let siteTitle = document.getElementById("siteTitle");
-                let siteTitleText = document.getElementById("siteTitle").textContent;
+                let siteTitleText =
+                  document.getElementById("siteTitle").textContent;
                 if (
                   element.type == "text" &&
                   element.value !== null &&
@@ -170,13 +171,21 @@ export default {
               if (element.key == "arabic_status") {
                 let availability = localStorage.getItem("arabic");
                 if (
-                  (availability && availability == "yes" && element.value == 1) ||
-                  (availability && availability == "yes" && element.value == "1")
+                  (availability &&
+                    availability == "yes" &&
+                    element.value == 1) ||
+                  (availability &&
+                    availability == "yes" &&
+                    element.value == "1")
                 ) {
                   localStorage.setItem("arabic", "yes");
                 } else if (
-                  (availability && availability == "yes" && element.value == 0) ||
-                  (availability && availability == "yes" && element.value == "0")
+                  (availability &&
+                    availability == "yes" &&
+                    element.value == 0) ||
+                  (availability &&
+                    availability == "yes" &&
+                    element.value == "0")
                 ) {
                   localStorage.setItem("arabic", "no");
                   localStorage.setItem("lang", "en");
@@ -184,7 +193,9 @@ export default {
                     location.reload();
                   }, 250);
                 } else if (
-                  (availability && availability == "no" && element.value == 1) ||
+                  (availability &&
+                    availability == "no" &&
+                    element.value == 1) ||
                   (availability && availability == "no" && element.value == "1")
                 ) {
                   localStorage.setItem("arabic", "yes");
@@ -192,7 +203,9 @@ export default {
                     location.reload();
                   }, 250);
                 } else if (
-                  (availability && availability == "no" && element.value == 0) ||
+                  (availability &&
+                    availability == "no" &&
+                    element.value == 0) ||
                   (availability && availability == "no" && element.value == "0")
                 ) {
                   localStorage.setItem("arabic", "no");
@@ -273,6 +286,25 @@ export default {
       siteIcon: "@/src/assets/images/ab.png",
       isLoading: true,
     };
+  },
+  watch: {
+    $route() {
+      let currencyTrim = document
+        .querySelector("#myCurrency-code")
+        .innerText.trim();
+      setTimeout(() => {
+        if (currencyTrim == "") {
+          let currency = document.querySelector("#myCurrency-code");
+          if (!localStorage.getItem("currency")) {
+            currency.innerText = JSON.parse(
+              this.selectedCountry
+            ).currencies[0].code;
+          } else {
+            currency.innerText = localStorage.getItem("currency");
+          }
+        }
+      }, 5000);
+    },
   },
 };
 </script>
