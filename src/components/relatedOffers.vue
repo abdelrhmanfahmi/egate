@@ -11,6 +11,10 @@
             :basket_promotions="basket_promotions"
             :buy_get_promotions="buy_get_promotions"
             :gift_promotions="gift_promotions"
+
+            :basket_promotionsLength="basket_promotionsLength"
+            :buy_get_promotionsLength="buy_get_promotionsLength"
+            :gift_promotionsLength="gift_promotionsLength"
           ></NewRelatedOffersTab>
         </div>
       </div>
@@ -69,6 +73,9 @@ export default {
           },
         ],
       },
+      basket_promotionsLength:null,
+      buy_get_promotionsLength:null,
+      gift_promotionsLength:null,
     };
   },
   methods: {
@@ -81,6 +88,11 @@ export default {
           this.basket_promotions = res.data.items.basket_promotions;
           this.buy_get_promotions = res.data.items.buy_get_promotions;
           this.gift_promotions = res.data.items.gift_promotions;
+
+          //lengths
+          this.basket_promotionsLength = res.data.items.basket_promotions.length;
+          this.buy_get_promotionsLength = res.data.items.buy_get_promotions.length;
+          this.gift_promotionsLength = res.data.items.gift_promotions.length;
           if (res.data.items.basket_promotions.length) {
             this.AllOffers.push(res.data.items.basket_promotions);
           }

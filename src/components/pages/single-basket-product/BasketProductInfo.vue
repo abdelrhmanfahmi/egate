@@ -109,8 +109,8 @@
             <span>
               <p>{{ $t("profile.countryOrigin") }} :</p>
             </span>
-            <span class="mx-3">
-              <img
+            <span class="mx-3 mt-2">
+              <!-- <img
                 v-if="myProduct.brand.image_path"
                 :src="myProduct.brand.image_path"
                 class="brand-image"
@@ -119,7 +119,8 @@
               <div class="logo-holder" v-else>
                 <img :src="logoEnv" v-if="logoEnv" alt="logo" />
                 <img src="@/assets/images/logo.png" v-else alt="logo" />
-              </div>
+              </div> -->
+              {{ myProduct.country.title }}
             </span>
             <span v-if="myProduct.country_of_origin">{{myProduct.country_of_origin}}</span>
             <!-- <hr /> -->

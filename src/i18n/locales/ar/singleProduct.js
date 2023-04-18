@@ -59,5 +59,6 @@ export default {
   replaceRFQProduct:'هذا المنتج موجود بالفعل فى السله , هل تريد استبداله ؟',
   returnGiftOrder:'إذا قمت بهذا الإجراء ، فسيعود منتج الهدية أيضًا',
   otherSuppliers:'موردون اخرون',
-  relatedOffers:'عروض ذات صلة'
+  relatedOffers:'عروض ذات صلة',
+  getOffer:'أحصل على العرض'
 };

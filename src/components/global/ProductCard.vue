@@ -86,6 +86,13 @@
         </p>
       </div>
     </div>
+    <button
+      class="border-main main-color br-5 btn btn-block"
+      v-if="buttonTrue == true"
+      @click="getOffer(slider)"
+    >
+      {{ $t("singleProduct.getOffer") }}
+    </button>
   </div>
 </template>
 
@@ -113,6 +120,9 @@ export default {
     },
     dealType: {
       type: String,
+    },
+    buttonTrue: {
+      type: Boolean,
     },
   },
   methods: {
@@ -205,6 +215,17 @@ export default {
         this.$router.push("/user-register");
       });
     },
+    getOffer(slider) {
+      this.$router.push(
+        {
+          path: "/details",
+          query: { id: `${slider.id}`, type: this.dealType },
+        },
+        () => {
+          this.$router.go(0);
+        }
+      );
+    },
   },
   data() {
     return {
@@ -231,7 +252,7 @@ export default {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  background: #ebebeb52;
+  //background: #ebebeb52;
   min-width: 250px;
   overflow: hidden;
   a {
@@ -253,6 +274,8 @@ export default {
   }
   .card-info {
     padding: 25px;
+    background: #ebebeb52;
+    margin-bottom: 10px;
     h4 {
       a {
         opacity: 1;
