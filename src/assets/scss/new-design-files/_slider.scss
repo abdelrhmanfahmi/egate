@@ -110,14 +110,20 @@
   }
   .slick-current {
     .slider-data {
-      border-color: $main-color;
+      border-color: $main-color !important;
       .sign {
         color: $main-color;
       }
     }
   }
 }
-
+.variants{
+  .slick-current{
+    img{
+      border:3px solid $main-color
+    }
+  }
+}
 .address-book {
   .slick-slide {
     .make-default , .remove-address {

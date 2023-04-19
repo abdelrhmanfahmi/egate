@@ -60,5 +60,6 @@ export default {
   standQuantity:'Quantity of this product',
   couponExist:'Coupon Already Exist',
   validCoupons:'Valid Coupons',
-  shopNow:'Shop Now'
+  shopNow:'Shop Now',
+  addPromotionTOCart:'Add Promotion To cart'
 };

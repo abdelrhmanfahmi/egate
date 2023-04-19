@@ -2,14 +2,40 @@ import globalAxios from "./global-axios";
 
 export default {
   // register
+  // register(type, payload) {
+  //   return globalAxios.post(`auth/${type}/register?form=user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`, payload);
+  // },
   register(type, payload) {
-    return globalAxios.post(`auth/${type}/register?form=user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`, payload);
+    return globalAxios.post(`auth/${type}/register`, payload,
+    {
+      params:{
+        form:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`,
+        form_control:`user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`
+      }
+    });
+  },
+  checkRegisterForm(type){
+    return globalAxios.get(`lists/formControls/user-${type == 'buyer' ? 'b2b' : 'b2c'}-register`)
+  },
+  checkProfileForm(buyerUserData){
+    let myType = ''
+    if(buyerUserData.type == 'buyer'){
+      myType = 'b2b'
+    }else if(buyerUserData.type == 'supplier' && buyerUserData.is_buyer == 1 ){
+      myType = 'b2b'
+    }else{
+      myType = 'b2c'
+    }
+    return globalAxios.get(`lists/formControls/user-${myType}-info`)
   },
   getAllCountires() {
     return globalAxios.get("lists/countries");
   },
   verificationMobile(payload) {
     return globalAxios.patch("checkpoint/active-mobile", payload);
+  },
+  otpChangingVerification(payload) {
+    return globalAxios.patch("checkpoint/active-data-changes", payload);
   },
   resendCodeMobile() {
     return globalAxios.get("checkpoint/resend-active-mobile");
@@ -34,8 +60,22 @@ export default {
   getUserInfo() {
     return globalAxios.get("members/profile/info");
   },
-  storeInfo(payload) {
-    return globalAxios.post("members/profile/info", payload);
+  storeInfo(buyerUserData,payload) {
+    let myType = ''
+    if(buyerUserData.type == 'buyer'){
+      myType = 'b2b'
+    }else if(buyerUserData.type == 'supplier' && buyerUserData.is_buyer == 1 ){
+      myType = 'b2b'
+    }else{
+      myType = 'b2c'
+    }
+    return globalAxios.post("members/profile/info", payload ,
+    {
+      params:{
+        form_control:`user-${myType}-info`
+      }
+    }
+    );
   },
   changePassword(payload) {
     return globalAxios.post("members/profile/info/change_password", payload);

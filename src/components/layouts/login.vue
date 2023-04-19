@@ -37,7 +37,7 @@
                 {{ $t("home.corporat") }}
               </span>
             </div>
-            <div class="col-md-3 col-sm-12 p-0 m-0 my-col">
+            <div class="col-md-3 col-sm-12 p-0 m-0 my-col" v-if="supplier_registration ">
               <a
                 :href="`${supplierDomain}`"
                 target="_blank"
@@ -101,19 +101,44 @@
             <B2bTab />
           </div>
         </div>
-        <div class="social-login" v-if="selectedType === 'b2c'">
+        <div
+          class="social-login"
+          v-if="
+            selectedType === 'b2c' &&
+            (social_login_facebook ||
+              social_login_google ||
+              social_login_microsoft ||
+              social_login_apple)
+          "
+        >
           <p>{{ $t("login.LoginSocial") }}</p>
           <div class="social-icons d-flex justify-content-center align-items-center">
-            <button @click="getLink('facebook')" class="button-social">
+            <button
+              @click="getLink('facebook')"
+              class="button-social"
+              v-if="social_login_facebook"
+            >
               <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
             </button>
-            <button @click="getLink('google')" class="button-social">
+            <button
+              @click="getLink('google')"
+              class="button-social"
+              v-if="social_login_google"
+            >
               <font-awesome-icon icon="fa-brands fa-google" size="lg" />
             </button>
-            <button @click="getLink('azure')" class="button-social">
+            <button
+              @click="getLink('azure')"
+              class="button-social"
+              v-if="social_login_microsoft"
+            >
               <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
             </button>
-            <button @click="getLink('apple')" class="button-social apple-login">
+            <button
+              @click="getLink('apple')"
+              class="button-social apple-login"
+              v-if="social_login_apple"
+            >
               <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
             </button>
           </div>

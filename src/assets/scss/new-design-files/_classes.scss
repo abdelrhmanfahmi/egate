@@ -22,6 +22,12 @@
     border-color: $main-color;
   }
 }
+.main-color.bg-transparent{
+  &:hover {
+    background-color: $main-color !important;
+    color: #fff !important !important;
+  }
+}
 .standing-order-sign {
   width: 22px !important;
   height: 22px !important;

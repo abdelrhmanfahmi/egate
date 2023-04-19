@@ -17,9 +17,7 @@
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
-            <router-link to="/profile/account-information-b2b">{{
-              $t("profile.completeLink")
-            }}</router-link>
+            <router-link :to="redirectUrl">{{ $t("profile.completeLink") }}</router-link>
           </p>
         </div>
       </div>
@@ -56,6 +54,7 @@
 // import SideMenu from "@/components/pages/profile/SideMenu.vue";
 // import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
 // import ProgressSlider from "@/components/pages/home/ProgressSlider";
+import profile from "@/services/profile";
 export default {
   components: {
     // SideMenu,
@@ -70,6 +69,45 @@ export default {
     getProfileBudges() {
       this.$store.dispatch("getUserBadges");
     },
+    checkUserCompleteProfileData() {
+      if (this.buyerUserData) {
+        if (
+          this.buyerUserData.first_name &&
+          this.buyerUserData.last_name &&
+          this.buyerUserData.email &&
+          this.buyerUserData.mobile_number &&
+          this.buyerUserData.job_title &&
+          this.buyerUserData.company_name_en &&
+          this.buyerUserData.job_title
+        ) {
+          if (this.addressesExist == false) {
+            this.redirectUrl = "/profile/adress-book";
+          } else {
+            this.redirectUrl = "/profile/documents";
+          }
+        } else {
+          this.redirectUrl = "/profile/account-information-b2b";
+        }
+      }
+    },
+    /**
+     * get All Adresses function
+     * @vuese
+     */
+    getAllAdresses() {
+      profile
+        .getAllAdresses()
+        .then((res) => {
+          if (res.data.items.length > 0) {
+            this.addressesExist = true;
+          } else {
+            this.addressesExist = false;
+          }
+        })
+        .then(() => {
+          this.checkUserCompleteProfileData();
+        });
+    },
   },
   mounted() {
     if (this.buyerUserData) {
@@ -77,6 +115,7 @@ export default {
     } else {
       this.$router.push("/b2b-login");
     }
+    this.getAllAdresses();
   },
   computed: {
     /**
@@ -86,6 +125,12 @@ export default {
     userBades() {
       return this.$store.getters.userBadges; // this represent user profile side menu states
     },
+  },
+  data() {
+    return {
+      redirectUrl: "/profile/account-information-b2b",
+      addressesExist: false,
+    };
   },
 };
 </script>

@@ -305,6 +305,7 @@ export default {
   buyXgetYOffer:'Buy X Get Y Offer',
   get:'Get',
   basketDeals:'Basket Deals',
+  basketDeal:'Basket Deal',
   dailyOffers:'Daily Offerrs',
   monthlyOffers:'Monthly Offers',
   withdraw:'Redeem',

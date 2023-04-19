@@ -21,6 +21,7 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
 // import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
+import checkApiControls from "@/services/apiControls";
 import LoadingScreen from "@/components/global/LoadingScreen.vue";
 export default {
   name: "Home",
@@ -54,27 +55,59 @@ export default {
      * @vuese
      * this function used to check Cart Validity (cart ,  rfq available or not )
      */
-    checkCartValidity() {
-      auth
-        .checkCartValidity()
+    // checkCartValidity() {
+    //   auth
+    //     .checkCartValidity()
+    //     .then((res) => {
+    //       let response = res.data.items;
+    //       response.forEach((element) => {
+    //         if (element.key === "open_cart") {
+    //           if (element.status == 1) {
+    //             localStorage.setItem("add_to_cart", "available");
+    //           } else {
+    //             localStorage.setItem("add_to_cart", "notAvailable");
+    //           }
+    //         }
+    //         if (element.key === "open_rfq") {
+    //           if (element.status == 1) {
+    //             localStorage.setItem("RFQ", "available");
+    //           } else {
+    //             localStorage.setItem("RFQ", "notAvailable");
+    //           }
+    //         }
+    //       });
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    /**
+     * @vuese
+     * check Api Controls
+     */
+    checkApiControlsFunction() {
+      checkApiControls
+        .checkApiControls()
         .then((res) => {
-          let response = res.data.items;
-          response.forEach((element) => {
-            if (element.key === "open_cart") {
+          let result = res.data.items;
+          // for (const key in result) {
+          //   if (result.hasOwnProperty.call(result, key)) {
+          //     let element = result[key];
+          //     if (element.portal === "client") {
+          //     }
+          //   }
+          // }
+          for (let index = 0; index < result.length; index++) {
+            if (result[index].portal === "client") {
+              const element = result[index];
+
               if (element.status == 1) {
-                localStorage.setItem("cartAvailable", "available");
+                localStorage.setItem(element.api_name, "available");
               } else {
-                localStorage.setItem("cartAvailable", "notAvailable");
+                localStorage.setItem(element.api_name, "notAvailable");
               }
             }
-            if (element.key === "open_rfq") {
-              if (element.status == 1) {
-                localStorage.setItem("RfqAvailable", "available");
-              } else {
-                localStorage.setItem("RfqAvailable", "notAvailable");
-              }
-            }
-          });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -237,17 +270,8 @@ export default {
           console.log(err);
         });
     },
-    theming() {
-      let colors = this.$cookiz.get("site_info");
-      if (colors) {
-        document.documentElement.style.setProperty(
-          "--main-color",
-          `${colors.main_color}`
-        );
-      }
-      // console.log('colors', colors)
-    },
   },
+
   computed: {
     guestId() {
       return this.$store.state.guestId;
@@ -268,9 +292,9 @@ export default {
     //   e.preventDefault();
     //   e.returnValue = '';
     // });
-    this.checkCartValidity();
+    // this.checkCartValidity();
     this.getSiteImages();
-    // this.theming()
+    // this.theming();
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
@@ -278,6 +302,7 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);
+    this.checkApiControlsFunction();
   },
   data() {
     return {

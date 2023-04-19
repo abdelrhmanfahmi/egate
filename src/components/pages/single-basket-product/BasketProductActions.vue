@@ -6,19 +6,33 @@
         <div class="col-6 mb-2">
           <!-- supplier name and go to this supplier page  -->
           <router-link :to="`/suppliers/${myProduct.client.id}`">
-            <img :src="myProduct.client.image_path" class="supplier-image" alt="" srcset="" />
+            <img
+              :src="myProduct.client.image_path"
+              class="supplier-image"
+              alt=""
+              srcset=""
+            />
             {{ myProduct.client.company_name }}
           </router-link>
         </div>
         <!-- <div class="col-6 mb-2" v-if="buyerUserData">
-          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="$bvModal.show('bv-modal-example')">{{
-            $t("supplier.sendSupplierMessage")
-          }}</b-button>
+          <b-button
+            v-if="supplier_messages"
+            variant="outline-danger"
+            id="show-btn"
+            class="mx-2"
+            @click="$bvModal.show('bv-modal-example')"
+            >{{ $t("supplier.sendSupplierMessage") }}</b-button
+          >
         </div> -->
         <!-- <div class="col-6 mb-2" v-else>
-          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="loginFirst">{{
-            $t("supplier.sendSupplierMessage")
-          }}</b-button>
+          <b-button
+            variant="outline-danger"
+            id="show-btn"
+            class="mx-2"
+            @click="loginFirst"
+            >{{ $t("supplier.sendSupplierMessage") }}</b-button
+          >
         </div> -->
         <!-- message supplier modal  -->
         <b-modal id="bv-modal-example" centered hide-footer>
@@ -45,8 +59,15 @@
                     {{ $t("contactUs.formMessage") }}
                     <span class="text-danger">*</span>
                   </label>
-                  <textarea class="form-control" name="" id="" cols="30" rows="10" v-model="message"
-                    required></textarea>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    v-model="message"
+                    required
+                  ></textarea>
                 </div>
                 <div class="error mt-2">
                   <p v-for="(error, index) in errors.message" :key="index">
@@ -56,17 +77,22 @@
               </form>
             </div>
           </div>
-          <b-button v-if="buyerUserData" class="mt-3" variant="outline-success" block
-            @click="sendSupplierMessage(myProduct.client.id)">{{ $t("profile.send") }}</b-button>
+          <b-button
+            v-if="buyerUserData && supplier_messages"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="sendSupplierMessage(myProduct.client.id)"
+            >{{ $t("profile.send") }}</b-button
+          >
         </b-modal>
       </div>
     </div>
-    <div v-if="myProduct"
-      class="product-actions row align-items-center mt-4">
-      <div class="col-xl-4 col-lg-6 col-sm-6" v-if="
-        
-        myProduct.in_stock == true
-      ">
+    <div
+      v-if="myProduct"
+      class="product-actions row align-items-center mt-4"
+    >
+      <div class="col-xl-4 col-lg-6 col-sm-6" v-if="myProduct.in_stock == true">
         <div class="product-counter mb-2">
           
           <div class="actions d-flex justify-content-center align-items-center" :class="$i18n.locale">
@@ -75,13 +101,14 @@
             </button>
             <div class="value">
             <span class="product-counter-number">
-              {{ mySelectedOption? mySelectedOption: 1 }}</span>
+              {{ mySelectedOption ? mySelectedOption : 1 }}</span
+            >
           </div>
-            <button class="product-counter-btn" @click="
-              decrementQuantity(
-                myProduct.min_order_quantity
-              )
-            " :disabled="mySelectedOption == 1">
+            <button
+              class="product-counter-btn"
+              @click="decrementQuantity(myProduct.min_order_quantity)"
+              :disabled="mySelectedOption == 1"
+            >
               <b-icon-dash />
             </button>
           </div>
@@ -135,8 +162,10 @@
                 </a>
               </div>
               <div class="" v-else>
-                <a class="button one inactive mobile button--secondary wishlist-btn mx-1"
-                  @click="loginFirst" >
+                <a
+                  class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                  @click="loginFirst"
+                >
                   <div class="btn__effect">
                     <font-awesome-icon icon="fa-regular fa-star" size="xl" />
                   </div>
@@ -145,17 +174,22 @@
             </div>
           </div>
           <div class="stand-order-holder sec-hold">
-            <div class="new-wishlist-method">
+            <div class="new-wishlist-method" v-if="standing_order">
               <!-- standing orders  -->
               <div class="products" v-if="buyerUserData">
                 <!-- open standing orders modal if logged in    -->
   
                 <button
-                  id="show-btn"
-                  class="button one inactive mobile button--secondary wishlist-btn mx-0 add-cart"
+                 
+                id="show-btn"
+                 
+                class="button one inactive mobile button--secondary wishlist-btn mx-0 add-cart"
                   @click="$bvModal.show('bv-standingOrders')"
-                  v-b-tooltip.hover
-                  :title="$t('items.standingOrders')"
+                 
+                v-b-tooltip.hover
+                 
+                :title="$t('items.standingOrders')"
+              
                 >
                   <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
                 </button>
@@ -163,8 +197,13 @@
   
               <!-- open standing orders modal if logged not in , login first    -->
               <div class="products" v-else>
-                <button id="show-btn" class="button one inactive mobile button--secondary wishlist-btn mx-0 bg-dark border-0  "
-                  @click="loginFirst()" v-b-tooltip.hover :title="$t('items.standingOrders')">
+                <button
+                id="show-btn"
+                class="button one inactive mobile button--secondary wishlist-btn mx-0 bg-dark border-0  "
+                  @click="loginFirst()"
+                v-b-tooltip.hover
+                :title="$t('items.standingOrders')"
+              >
                   <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
                 </button>
               </div>
@@ -194,18 +233,30 @@
 
 
     <!-- delete modal  -->
-    <b-modal ref="delete-modal" id="modal-center" centered hide-footer :title="$t('singleProduct.addCart')">
+    <b-modal
+      ref="delete-modal"
+      id="modal-center"
+      centered
+      hide-footer
+      :title="$t('singleProduct.addCart')"
+    >
       <div class="d-block">
-        <h5><b>{{$t('singleProduct.replaceRFQProduct')}}</b></h5>
+        <h5>
+          <b>{{ $t("singleProduct.replaceRFQProduct") }}</b>
+        </h5>
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal">{{ $t("cart.cancel") }}
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            block
+            @click="hideDeleteModal"
+            >{{ $t("cart.cancel") }}
           </b-button>
         </div>
       </div>
     </b-modal>
-
 
     <!-- standing orders modal -->
 
@@ -229,7 +280,6 @@ import globalAxios from "@/services/global-axios";
 
 import categories from "@/services/categories";
 import profile from "@/services/profile";
-
 
 import BasketStandingOrders from "@/components/global/BasketStandingOrders.vue";
 
@@ -260,8 +310,7 @@ export default {
      */
     addToCart(myProduct) {
       let data = {
-        basket_promotion_id:
-          myProduct.id,
+        basket_promotion_id: myProduct.id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -288,11 +337,14 @@ export default {
           this.errors = err.items;
           this.errMsg(err.message);
           if (error.response.status == 401 || error.response.status == 403) {
-            location.reload()
+            location.reload();
           }
-          if(error.response.status == 400 && error?.response?.data?.items?.exist_from_rfq == true){
-            this.force_replace = true
-            this.showDeleteModal()
+          if (
+            error.response.status == 400 &&
+            error?.response?.data?.items?.exist_from_rfq == true
+          ) {
+            this.force_replace = true;
+            this.showDeleteModal();
           }
         })
         .finally(() => {
@@ -503,8 +555,7 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct
-        .min_order_quantity
+      mySelectedOption: this.myProduct.min_order_quantity
         ? this.myProduct.min_order_quantity
         : 1,
       changedValue: null,
@@ -512,7 +563,7 @@ export default {
       suppliers: null,
       message: null,
       subject: null,
-      rfqCartAdd:null
+      rfqCartAdd: null,
       // url: this.mainDoamin
     };
   },

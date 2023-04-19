@@ -1,401 +1,416 @@
 <template>
-    <div class="user-login">
-      <!-- old sidebar style  -->
-      <b-sidebar
-        id="login"
-        backdrop
-        width="450px"
-        :right="getDir === 'rtl'"
-        shadow
-        z-index="5"
-        body-class="sidebar-login"
-        bg-variant="#fff"
-      >
-        <template #default="{ hide }">
-          <div class="user-login-form">
-            <div
-              class="row flex-row justify-content-between align-items-center mb-4 text-dark"
-            >
-              <div class="col-md-4 col-sm-12 p-0">
-                <router-link
-                  to="/b2b-login"
-                  class="text-dark font-weight-bold text-decoration-underline"
-                  >{{ $t("login.retailBuyer") }}</router-link
-                >
-              </div>
-              <div class="col-md-5 col-sm-12 p-0">
-                <router-link
-                  to="/b2b-login"
-                  class="text-dark font-weight-bold text-decoration-underline"
-                  >{{ $t("login.wholeSaleBuyer") }}</router-link
-                >
-              </div>
-              <div class="col-md-3 col-sm-12 p-0">
-                <a
-                  :href="`${supplierDomain}`"
-                  target="_blank"
-                  class="text-dark font-weight-bold text-decoration-underline"
-                  >{{ $t("home.suppliers") }}</a
-                >
-              </div>
-            </div>
-            <h6 class="title">{{ $t("login.login") }}</h6>
-            <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
-            <p class="error">{{ errorMsg }}</p>
-            <form @submit.prevent="loginB2c()">
-              <b-form-input
-                v-model="form.email"
-                type="email"
-                :placeholder="$t('register.email')"
-              />
-              <div
-                class="error text-start"
-                v-for="(error, index) in errorsLogin.email"
-                :key="index"
+  <div class="user-login">
+    <!-- old sidebar style  -->
+    <b-sidebar
+      id="login"
+      backdrop
+      width="450px"
+      :right="getDir === 'rtl'"
+      shadow
+      z-index="5"
+      body-class="sidebar-login"
+      bg-variant="#fff"
+    >
+      <template #default="{ hide }">
+        <div class="user-login-form">
+          <div
+            class="row flex-row justify-content-between align-items-center mb-4 text-dark"
+          >
+            <div class="col-md-4 col-sm-12 p-0">
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.retailBuyer") }}</router-link
               >
-                {{ error }}
-              </div>
-              <div class="show-password">
-                <b-form-input
-                  class="my-2"
-                  v-model="form.password"
-                  :type="fieldType"
-                  :placeholder="$t('register.password')"
-                />
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in errorsLogin.password"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
-                <div class="icon-passowrd" @click="switchField()">
-                  <font-awesome-icon
-                    icon="fa-solid fa-eye"
-                    v-if="fieldType === 'password'"
-                    size="lg"
-                  />
-                  <font-awesome-icon
-                    icon="fa-solid fa-eye-slash"
-                    v-else
-                    size="lg"
-                  />
-                </div>
-              </div>
-  
-              <b-button class="forget-password" v-b-modal.ForgetPassword>
-                {{ $t("login.fogetPassword") }}
-              </b-button>
-              <b-button type="submit" class="login-button">
-                {{ $t("login.login") }}
-              </b-button>
-            </form>
-          </div>
-          <!-- social login -->
-  
-          <div class="social-login">
-            <p>{{ $t("login.LoginSocial") }}</p>
-            <div
-              class="social-icons d-flex justify-content-center align-items-center"
-            >
-              <button @click="getLink('facebook')" class="button-social">
-                <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
-              </button>
-              <button @click="getLink('google')" class="button-social">
-                <font-awesome-icon icon="fa-brands fa-google" size="lg" />
-              </button>
-              <button @click="getLink('azure')" class="button-social">
-                <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
-              </button>
-              <button @click="getLink('apple')" class="button-social apple-login">
-                <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
-              </button>
+            </div>
+            <div class="col-md-5 col-sm-12 p-0">
+              <router-link
+                to="/b2b-login"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("login.wholeSaleBuyer") }}</router-link
+              >
+            </div>
+            <div class="col-md-3 col-sm-12 p-0" v-if="supplier_messages">
+              <a
+                :href="`${supplierDomain}`"
+                target="_blank"
+                class="text-dark font-weight-bold text-decoration-underline"
+                >{{ $t("home.suppliers") }}</a
+              >
             </div>
           </div>
-  
-          <div class="user-login-form">
-            <p class="title">{{ $t("login.DontHave") }}</p>
-  
-            <b-button to="/user-register" class="login-button my-2" @click="hide">
-              {{ $t("login.createAccount") }}
-            </b-button>
-          </div>
-        </template>
-      </b-sidebar>
-      <b-modal
-        id="ForgetPassword"
-        :title="$t('login.resetPassword')"
-        no-close-on-backdrop
-        no-close-on-esc
-        ref="b2cLogin"
-      >
-        <form>
-          <b-form-group>
-            <label for="email">{{ $t("register.email") }}</label>
-            <span class="requried">*</span>
-            <b-form-input id="email" v-model="emailForget" maxlength="100" />
+          <h6 class="title">{{ $t("login.login") }}</h6>
+          <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
+          <p class="error">{{ errorMsg }}</p>
+          <form @submit.prevent="loginB2c()">
+            <b-form-input
+              v-model="form.email"
+              type="email"
+              :placeholder="$t('register.email')"
+            />
             <div
-              class="error"
-              v-for="(error, index) in errors.email"
+              class="error text-start"
+              v-for="(error, index) in errorsLogin.email"
               :key="index"
             >
               {{ error }}
             </div>
-          </b-form-group>
-        </form>
-        <div slot="modal-footer" class="d-flex">
-          <a @click="sendEmail()" class="reset-Link" type="submit">{{
-            $t("login.reset")
-          }}</a>
+            <div class="show-password">
+              <b-form-input
+                class="my-2"
+                v-model="form.password"
+                :type="fieldType"
+                :placeholder="$t('register.password')"
+              />
+              <div
+                class="error text-start"
+                v-for="(error, index) in errorsLogin.password"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+              <div class="icon-passowrd" @click="switchField()">
+                <font-awesome-icon
+                  icon="fa-solid fa-eye"
+                  v-if="fieldType === 'password'"
+                  size="lg"
+                />
+                <font-awesome-icon
+                  icon="fa-solid fa-eye-slash"
+                  v-else
+                  size="lg"
+                />
+              </div>
+            </div>
+
+            <b-button class="forget-password" v-b-modal.ForgetPassword>
+              {{ $t("login.fogetPassword") }}
+            </b-button>
+            <b-button type="submit" class="login-button">
+              {{ $t("login.login") }}
+            </b-button>
+          </form>
         </div>
-      </b-modal>
-    </div>
-  </template>
-  
-  <script>
-  import auth from "@/services/auth";
-  // import { getMessaging, onMessage, getToken } from "firebase/messaging";
-  // import {messaging} from "@/plugins/firebase"
-  export default {
-    data() {
-      return {
-        form: {
-          email: "",
-          password: "",
-          token: "",
-          device_type: "web",
-        },
-        errorMsg: "",
-        fieldType: "password",
-        emailForget: "",
-        errorsLogin: {},
-        errors: {},
+        <!-- social login -->
+
+        <div class="social-login">
+          <p>{{ $t("login.LoginSocial") }}</p>
+          <div
+            class="social-icons d-flex justify-content-center align-items-center"
+          >
+            <button
+              @click="getLink('facebook')"
+              class="button-social"
+              v-if="social_login_facebook"
+            >
+              <font-awesome-icon icon="fa-brands fa-facebook-f" size="lg" />
+            </button>
+            <button
+              @click="getLink('google')"
+              class="button-social"
+              v-if="social_login_google"
+            >
+              <font-awesome-icon icon="fa-brands fa-google" size="lg" />
+            </button>
+            <button
+              @click="getLink('azure')"
+              class="button-social"
+              v-if="social_login_microsoft"
+            >
+              <font-awesome-icon icon="fa-brands fa-windows" size="lg" />
+            </button>
+            <button
+              @click="getLink('apple')"
+              class="button-social apple-login"
+              v-if="social_login_apple"
+            >
+              <font-awesome-icon icon="fa-brands fa-apple" size="lg" />
+            </button>
+          </div>
+        </div>
+
+        <div class="user-login-form">
+          <p class="title">{{ $t("login.DontHave") }}</p>
+
+          <b-button to="/user-register" class="login-button my-2" @click="hide">
+            {{ $t("login.createAccount") }}
+          </b-button>
+        </div>
+      </template>
+    </b-sidebar>
+    <b-modal
+      id="ForgetPassword"
+      :title="$t('login.resetPassword')"
+      no-close-on-backdrop
+      no-close-on-esc
+      ref="b2cLogin"
+    >
+      <form>
+        <b-form-group>
+          <label for="email">{{ $t("register.email") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="email" v-model="emailForget" maxlength="100" />
+          <div
+            class="error"
+            v-for="(error, index) in errors.email"
+            :key="index"
+          >
+            {{ error }}
+          </div>
+        </b-form-group>
+      </form>
+      <div slot="modal-footer" class="d-flex">
+        <a @click="sendEmail()" class="reset-Link" type="submit">{{
+          $t("login.reset")
+        }}</a>
+      </div>
+    </b-modal>
+  </div>
+</template>
+
+<script>
+import auth from "@/services/auth";
+// import { getMessaging, onMessage, getToken } from "firebase/messaging";
+// import {messaging} from "@/plugins/firebase"
+export default {
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+        token: "",
+        device_type: "web",
+      },
+      errorMsg: "",
+      fieldType: "password",
+      emailForget: "",
+      errorsLogin: {},
+      errors: {},
+    };
+  },
+  methods: {
+    loginB2c() {
+      localStorage.clear();
+
+      let loginData = {
+        email: this.form.email,
+        password: this.form.password,
+        token: this.firebaseToken,
+        device_type: this.form.device_type,
+        callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
-    },
-    methods: {
-      loginB2c() {
-        localStorage.clear();
-  
-        let loginData = {
-          email: this.form.email,
-          password: this.form.password,
-          token: this.firebaseToken,
-          device_type: this.form.device_type,
-          callback_url : `${this.mainDoamin}CheckUserValidity`
-        };
-  
-        auth
-          .login("b2c", loginData)
-          .then((res) => {
-            //old codes before setting otp
-            // if (!res.data.items.item.is_verified) {
-            //   localStorage.setItem("massege", this.$t("register.openEmail"));
-            // }
-            // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-            // this.$router.push("/");
-            // location.reload();
-  
-            // new after setting otp
-  
-            // old 2nd code
-            // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-            // if (res.data.items.item.verify_mobile_required) {
-            //   localStorage.setItem("massege", this.$t("register.otpVerify"));
-            //   this.$router.push("/otp-verification");
-            //   location.reload();
-            // } else if (
-            //   !res.data.items.item.verify_mobile_required ||
-            //   !res.data.items.item.is_verified ||
-            //   res.data.items.item.verify_email_required
-            // ) {
-            //   localStorage.setItem("massege", this.$t("register.openEmail"));
-            //   this.$router.push("/");
-            //   location.reload();
-            // }
-            localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-            if (
-              !res.data.items.item.is_verified &&
-              res.data.items.item.verify_mobile_required
-            ) {
-              localStorage.setItem("massege", this.$t("register.otpVerify"));
-              this.$router.push("/otp-verification");
-              location.reload();
-            } else if (
-              !res.data.items.item.is_verified ||
-              (!res.data.items.item.is_verified &&
-                res.data.items.item.verify_email_required)
-            ) {
-              localStorage.setItem("massege", this.$t("register.openEmail"));
-              this.$router.push("/");
-              location.reload();
-            } else {
-              this.$router.push("/");
-              location.reload();
-            }
-          })
-          .then(() => {
+
+      auth
+        .login("b2c", loginData)
+        .then((res) => {
+          //old codes before setting otp
+          // if (!res.data.items.item.is_verified) {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          // }
+          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          // this.$router.push("/");
+          // location.reload();
+
+          // new after setting otp
+
+          // old 2nd code
+          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          // if (res.data.items.item.verify_mobile_required) {
+          //   localStorage.setItem("massege", this.$t("register.otpVerify"));
+          //   this.$router.push("/otp-verification");
+          //   location.reload();
+          // } else if (
+          //   !res.data.items.item.verify_mobile_required ||
+          //   !res.data.items.item.is_verified ||
+          //   res.data.items.item.verify_email_required
+          // ) {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          //   this.$router.push("/");
+          //   location.reload();
+          // }
+          localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+          if (
+            !res.data.items.item.is_verified &&
+            res.data.items.item.verify_mobile_required
+          ) {
+            localStorage.setItem("massege", this.$t("register.otpVerify"));
+            this.$router.push("/otp-verification");
             location.reload();
-          })
-          .catch((error) => {
-            const err = Object.values(error)[2].data;
-            this.errorsLogin = err.items;
-            this.errMsg(err.message);
-          });
-      },
-      async getLink(provider) {
-        const backUrl = `${this.mainDoamin}complete-social-profile`;
-        await localStorage.setItem("provider", provider);
-        auth
-          .getSocialLink("b2c", provider, backUrl)
-          .then((res) => {
-            window.location.href = res.data.items.url;
-            // window.open(
-            //   `${res.data.items.url}`,
-            //   "_blank" // <- This is what makes it open in a new window.
-            // );
-            // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-      switchField() {
-        this.fieldType = this.fieldType === "password" ? "text" : "password";
-      },
-      // step One forget Password
-      sendEmail() {
-        const payload = {
-          email: this.emailForget,
-          callback_url: `${this.mainDoamin}Forget-Password`,
-        };
-        auth
-          .sendEmail(payload)
-          .then((res) => {
-            this.sucessMsg(res.data.message);
-            this.$bvModal.hide("ForgetPassword");
-          })
-          .catch((error) => {
-            const err = Object.values(error)[2].data;
-            this.errors = err.items;
-            this.errMsg(err.message);
-          });
-      },
-      // async generateFirebaseToken() {
-      //   const token = await getToken(messaging, {
-      //     vapidKey:
-      //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-      //   });
-  
-      //   if (token) {
-      //     this.form.token = token;
-      //     console.log(token);
-      //   }
-      // },
+          } else if (
+            !res.data.items.item.is_verified ||
+            (!res.data.items.item.is_verified &&
+              res.data.items.item.verify_email_required)
+          ) {
+            localStorage.setItem("massege", this.$t("register.openEmail"));
+            this.$router.push("/");
+            location.reload();
+          } else {
+            this.$router.push("/");
+            location.reload();
+          }
+        })
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errorsLogin = err.items;
+          this.errMsg(err.message);
+        });
     },
-    mounted() {
-      // const messaging = getMessaging();
-      // onMessage(messaging , (payload) =>{
-      //   console.log("message on clinet" , payload);
-      // })
-      // this.generateFirebaseToken()
+    async getLink(provider) {
+      const backUrl = `${this.mainDoamin}complete-social-profile`;
+      await localStorage.setItem("provider", provider);
+      auth
+        .getSocialLink("b2c", provider, backUrl)
+        .then((res) => {
+          window.location.href = res.data.items.url;
+          // window.open(
+          //   `${res.data.items.url}`,
+          //   "_blank" // <- This is what makes it open in a new window.
+          // );
+          // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    computed: {
-      firebaseToken() {
-        return this.$store.state.firebaseToken;
-      },
+    switchField() {
+      this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
-  };
-  </script>
-  
-  <style lang="scss" scoped>
-  .user-login {
-    .user-login-form {
-      text-align: center;
-      border: 1px solid rgba(204, 204, 204, 0.251);
-      border-radius: 4px;
-      background-color: rgba(216, 220, 221, 0.251);
-      padding: 40px 30px 20px;
-  
-      .title {
-        padding-bottom: 10px;
-        position: relative;
-  
-        &:after {
-          margin: 0 auto;
-          right: 0;
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 20px;
-          height: 3px;
-          background: $main-color;
-        }
-      }
-  
-      .forget-password {
-        font-weight: 500;
-        color: $header-color;
-        background-color: transparent;
-        border: none;
-  
-        &:hover {
-          color: $main-color;
-        }
+    // step One forget Password
+    sendEmail() {
+      const payload = {
+        email: this.emailForget,
+        callback_url: `${this.mainDoamin}Forget-Password`,
+      };
+      auth
+        .sendEmail(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.$bvModal.hide("ForgetPassword");
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    // async generateFirebaseToken() {
+    //   const token = await getToken(messaging, {
+    //     vapidKey:
+    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
+    //   });
+
+    //   if (token) {
+    //     this.form.token = token;
+    //     console.log(token);
+    //   }
+    // },
+  },
+  mounted() {
+    // const messaging = getMessaging();
+    // onMessage(messaging , (payload) =>{
+    //   console.log("message on clinet" , payload);
+    // })
+    // this.generateFirebaseToken()
+  },
+  computed: {
+    firebaseToken() {
+      return this.$store.state.firebaseToken;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.user-login {
+  .user-login-form {
+    text-align: center;
+    border: 1px solid rgba(204, 204, 204, 0.251);
+    border-radius: 4px;
+    background-color: rgba(216, 220, 221, 0.251);
+    padding: 40px 30px 20px;
+
+    .title {
+      padding-bottom: 10px;
+      position: relative;
+
+      &:after {
+        margin: 0 auto;
+        right: 0;
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 20px;
+        height: 3px;
+        background: $main-color;
       }
     }
-  
-    .social-login {
-      padding: 20px 0;
-  
-      .social-icons {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    }
-  
-    .button-social {
-      padding: 20px 30px;
-      margin: 0 5px;
-      color: #fff;
-      border: 0;
-      border-radius: 5px;
-      margin-bottom: 10px;
-  
-      &:first-child {
-        background-color: #3b5998;
-      }
-  
-      &:nth-child(2) {
-        background-color: #c5221f;
-      }
-  
-      &:nth-child(3) {
-        background-color: #3b5998;
-      }
-  
-      &:last-child {
-        background-color: #c5221f;
+
+    .forget-password {
+      font-weight: 500;
+      color: $header-color;
+      background-color: transparent;
+      border: none;
+
+      &:hover {
+        color: $main-color;
       }
     }
   }
-  
-  .reset-Link {
-    color: #ffffff;
-    background-color: $main-color;
-    padding: 0.5rem 1.3rem;
-    width: 100%;
+
+  .social-login {
+    padding: 20px 0;
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
-  
-  .text-start {
-    text-align: start;
+
+  .button-social {
+    padding: 20px 30px;
+    margin: 0 5px;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    &:first-child {
+      background-color: #3b5998;
+    }
+
+    &:nth-child(2) {
+      background-color: #c5221f;
+    }
+
+    &:nth-child(3) {
+      background-color: #3b5998;
+    }
+
+    &:last-child {
+      background-color: #c5221f;
+    }
   }
-  
-  .apple-login {
-    background: #666666 !important;
-  }
-  .text-decoration-underline {
-    text-decoration: underline !important;
-  }
-  </style>
-  
+}
+
+.reset-Link {
+  color: #ffffff;
+  background-color: $main-color;
+  padding: 0.5rem 1.3rem;
+  width: 100%;
+}
+
+.text-start {
+  text-align: start;
+}
+
+.apple-login {
+  background: #666666 !important;
+}
+.text-decoration-underline {
+  text-decoration: underline !important;
+}
+</style>

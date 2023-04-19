@@ -155,40 +155,35 @@
                     <!-- <a :href="imagesPaths[input.uuid]" target="_blank">
                                             <canvas :id="imagesPaths[input.uuid]" class="custom-canvas"></canvas>
                                         </a> -->
-                    <b-button
-                      variant="outline-success"
-                      @click="
-                        downloadItem(
-                          imagesPaths[input.uuid],
-                          (extension = imagesPaths[input.uuid].split('.').pop()),
-                          'dynamic form file'
-                        )
-                      "
-                    >
-                      <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                    </b-button>
-                  </div>
-                </div>
-              </div>
+                                        <b-button variant="outline-success" @click="
+                                            downloadItem(
+                                                imagesPaths[input.uuid],
+                                                (extension = imagesPaths[input.uuid].split('.').pop()),
+                                                'dynamic form file'
+                                            )
+                                        ">
+                                            <i class="fa fa-download"></i> {{ $t("profile.download") }}
+                                        </b-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="error" v-for="(error, index) in errors[input.uuid]" :key="index">
+                            {{ error }}
+                        </div>
+                    </div>
+
+
+
+                </b-form-group>
             </div>
-            <div class="error" v-for="(error, index) in errors[input.uuid]" :key="index">
-              {{ error }}
-            </div>
-          </div>
-        </b-form-group>
-      </div>
-      <b-button
-        type="submit"
-        variant="outline-danger"
-        class="saveBtn btn-block py-3"
-        :disabled="dynamicBtnDisabled"
-        @click="uploadDunamicInputsData"
-      >
-        <i class="fa fa-upload"></i> {{ $t("profile.save") }}
-        <span class="loader" v-if="buttonClickedEffect"></span>
-      </b-button>
+            <b-button v-if="dynamicInputsLength > 0" type="submit" variant="outline-danger" class="saveBtn btn-block py-3" :disabled="dynamicBtnDisabled"
+                @click="uploadDunamicInputsData">
+                <i class="fa fa-upload"></i> {{ $t("profile.save") }}
+                <span class="loader" v-if="buttonClickedEffect"></span>
+            </b-button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -197,46 +192,45 @@ import auth from "@/services/auth";
 import Vue from "vue";
 import axios from "axios";
 export default {
-  data() {
-    return {
-      buttonClickedEffect: false,
-      cartPage: false,
-      dynamicInputs: null,
-      form: {},
-      errors: {},
-      dynamicBtnDisabled: false,
-      imagesPaths: {},
-      dynamicInputsLength: null,
-    };
-  },
-  mounted() {
-    this.firstCheckDynamicInputs();
-  },
-  methods: {
-    /**
-     * @vuese
-     *   check Dynamic Inputs availability
-     */
-    async firstCheckDynamicInputs() {
-      await auth
-        .dynamicInputs("user-b2b-document")
-        .then((res) => {
-          this.dynamicInputs = res.data.items;
-          this.dynamicInputsLength = res.data.items.length;
-          this.dynamicInputs.map((input) => {
-            if (input.type == "checkbox") {
-              Vue.set(this.form, input.uuid, false);
-            } else {
-              Vue.set(this.form, input.uuid, null);
-            }
-          });
-
-          this.secondCheckDynamicInputs();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    data() {
+        return {
+            buttonClickedEffect: false,
+            cartPage: false,
+            dynamicInputs: null,
+            form: {},
+            errors: {},
+            dynamicBtnDisabled: false,
+            imagesPaths: {},
+            dynamicInputsLength:null
+        }
     },
+    mounted() {
+        this.firstCheckDynamicInputs()
+    },
+    methods: {
+
+        /**
+         * @vuese
+         *   check Dynamic Inputs availability
+        */
+        async firstCheckDynamicInputs() {
+            await auth.dynamicInputs('user-b2b-document').then(res => {
+                this.dynamicInputs = res.data.items;
+                this.dynamicInputsLength = res.data.items.length;
+                this.dynamicInputs.map((input) => {
+                    if (input.type == 'checkbox') {
+                        Vue.set(this.form, input.uuid, false)
+                    } else {
+                        Vue.set(this.form, input.uuid, null)
+                    }
+                })
+
+                this.secondCheckDynamicInputs()
+
+            }).catch(err => {
+                console.log(err);
+            })
+        },
 
     /**
      * check Dynamic Inputs

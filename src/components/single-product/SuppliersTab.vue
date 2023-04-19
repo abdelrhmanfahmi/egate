@@ -89,6 +89,7 @@
                         >
                       </h6>
                     </span>
+                    <br>
                     <img
                       :src="product.image_path"
                       class="product-image"
@@ -326,10 +327,10 @@
                       class="button one active animate mobile button--secondary wishlist-btn mx-0 cart-add"
                       @click="addToCart(product)"
                       v-if="
-                        (cartAvailable == 'available' &&
+                        (add_to_cart == true&&
                           product.product_details_by_type.add_type ===
                             'cart') ||
-                        (cartAvailable == 'available' &&
+                        (add_to_cart == true&&
                           product.product_details_by_type.add_type === 'both')
                       "
                       v-b-tooltip.hover
@@ -367,10 +368,10 @@
                     <div
                       class="d-flex justify-content-center"
                       v-if="
-                        (RfqAvailable == 'available' &&
+                        (RFQ == true &&
                           buyerUserData &&
                           product.product_details_by_type.add_type === 'rfq') ||
-                        (RfqAvailable == 'available' &&
+                        (RFQ == true &&
                           buyerUserData &&
                           product.product_details_by_type.add_type === 'both')
                       "
@@ -408,7 +409,7 @@
                       </button>
                     </div>
                     <!-- add standing orders  -->
-                    <div v-if="RfqAvailable == 'available'">
+                    <div v-if="RFQ == true">
                       <button
                         id="show-btn"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
@@ -456,10 +457,10 @@
                       class="cart-link btn br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-secondary"
                       @click="addToCart(product)"
                       v-if="
-                        (cartAvailable == 'available' &&
+                        (add_to_cart == true== true&&
                           product.product_details_by_type.add_type ===
                             'cart') ||
-                        (cartAvailable == 'available' &&
+                        (add_to_cart == true&&
                           product.product_details_by_type.add_type === 'both')
                       "
                       v-b-tooltip.hover
@@ -508,7 +509,7 @@
                         />
                       </a>
                     </div>
-                    <div v-if="!buyerUserData && RfqAvailable == 'available'">
+                    <div v-if="!buyerUserData && RFQ == true">
                       <button
                         v-b-modal.modal-xl
                         id="show-btn"

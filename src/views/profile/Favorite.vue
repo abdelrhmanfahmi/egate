@@ -119,10 +119,10 @@
                           @click="addToCart(item)"
                           class="cart-link"
                           v-if="
-                            (cartAvailable == 'available' &&
+                            (add_to_cart == true&&
                               item.product_supplier.product_details_by_type.add_type ===
                                 'cart') ||
-                            (cartAvailable == 'available' &&
+                            (add_to_cart == true&&
                               item.product_supplier.product_details_by_type.add_type ===
                                 'both')
                           "
@@ -133,10 +133,10 @@
                           @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
-                            RfqAvailable == 'available' &&
+                            RFQ == true &&
                             (item.product_supplier.product_details_by_type.add_type ===
                               'rfq' ||
-                              (RfqAvailable == 'available' &&
+                              (RFQ == true &&
                                 item.product_supplier.product_details_by_type.add_type ===
                                   'both')) &&
                             buyerUserData

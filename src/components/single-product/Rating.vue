@@ -78,11 +78,11 @@ export default {
     // },
     settingReviews() {
       this.reviews = this.myProduct.data;
-      if(this.reviews && this.reviews.length > 0){
+      if(this.reviews){
 
         this.reviewsLength = this.myProduct.data.length;
       }else{
-        this.reviewsLength = 0;
+        this.reviewsLength = 0
       }
     },
   },

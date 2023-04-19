@@ -36,13 +36,24 @@ export default {
     return globalAxios.put("members/profile/subscriptions/cancel");
   },
   createAdress(payload) {
-    return globalAxios.post("members/profile/shipping-info", payload);
+    return globalAxios.post("members/profile/shipping-info", payload,{
+      params:{
+        form_control:`user-address`
+      }
+    });
+  },
+  checkAddressesForm(){
+    return globalAxios.get(`lists/formControls/user-address`)
   },
   deleteAdress(id) {
     return globalAxios.delete(`members/profile/shipping-info/${id}`);
   },
   makeDefaultAddress(id) {
     return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
+  },
+
+  checkDocumentsForm(){
+    return globalAxios.get('lists/formControls/user-b2b-document')
   },
 
   // buisness info

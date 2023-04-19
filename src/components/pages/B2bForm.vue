@@ -3,7 +3,7 @@
   <section class="user-register">
     <b-container>
       <div class="main-title">
-        <span class="sub-title"></span>
+        <!-- <span class="sub-title"></span> -->
         <h3 class="main-header">{{ $t("register.registrationCompany") }}</h3>
       </div>
       <div class="user-register-form">
@@ -25,7 +25,7 @@
                         :class="{
                           'col-md-6 col-sm-12': arabicAvailable !== 'no',
                           'col-12': arabicAvailable == 'no',
-                        }"
+                        }" v-if="form.company_name_en !== null"
                       >
                         <label for="f-name">{{
                           $t("register.englishCompanyName")
@@ -41,7 +41,7 @@
                         </div>
                       </div>
                       <!-- show if arabicAvailable  -->
-                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no'">
+                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no' && form.company_name_ar !== null">
                         <label for="f-name">{{ $t("register.arabicCompanyName") }}</label>
                         <span class="requried">*</span>
                         <b-form-input id="f-name" v-model="form.company_name_ar" />
@@ -57,7 +57,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- job title -->
-                <b-col lg="12">
+                <b-col lg="12" v-if="form.job_title !== null">
                   <b-form-group>
                     <label for="l-name">{{ $t("register.department") }}</label>
                     <span class="requried">*</span>
@@ -81,10 +81,13 @@
                         <span v-if="$i18n.locale == 'ar'">{{ department.name_ar }}</span>
                       </b-form-select-option>
                     </b-form-select>
+                    <div class="error" v-for="(error, index) in errors.job_title" :key="index">
+                      {{ error }}
+                    </div>
                   </b-form-group>
                 </b-col>
                 <!-- Email -->
-                <b-col lg="12">
+                <b-col lg="12" v-if="form.email !== null">
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
@@ -99,7 +102,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
                     <label for="password">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
@@ -138,7 +141,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- Confirm Password -->
-                <b-col lg="6">
+                <b-col lg="6" v-if="form.password_confirmation !== null">
                   <b-form-group>
                     <label for="confirmPassword">{{
                       $t("register.confirmPassword")
@@ -173,7 +176,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- country code -->
-                <b-col sm="12" lg="3">
+                <b-col sm="12" lg="3" v-if="form.country_code !== null">
                   <b-form-group>
                     <label for="countryCode">{{ $t("register.countryCode") }}</label>
                     <span class="requried">*</span>
@@ -196,7 +199,7 @@
                   </b-form-group>
                 </b-col>
                 <!-- phone -->
-                <b-col sm="12" lg="9">
+                <b-col sm="12" lg="9" v-if="form.mobile_number !== null">
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
@@ -251,8 +254,8 @@
                 {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
 
-              <div class="submition-box">
-                <b-button type="submit" :disabled="!terms" variant="danger">
+              <div class="submition-box bg-white border-0">
+                <b-button type="submit" :disabled="!terms" class="bg-main br-5 w-25">
                   {{ $t("register.submit") }}
                 </b-button>
               </div>
@@ -279,17 +282,18 @@ export default {
   data() {
     return {
       form: {
-        first_name: "",
-        job_title: null,
-        email: "",
-        password: "",
-        password_confirmation: "",
-        country_code: "KW",
-        mobile_number: "",
+        first_name: '',
+        job_title: '',  
+        email: '',
+        password: '',
+        password_confirmation: '',
+        country_code: 'KW',
+        mobile_number: '',
         register_mailing_list: false,
-        company_name_en: null,
-        company_name_ar: null,
+        company_name_en: '',
+        company_name_ar: '',
       },
+
       selectedDepartment: null,
       departments: [
         {
@@ -334,9 +338,11 @@ export default {
       condations: {},
       contactPhone: "", // add phone
       dynamicInputs: null,
+      formControl:null,
     };
   },
   mounted() {
+    this.checkRegisterForm()
     this.checkDynamicInputs();
     this.getTerms();
     this.getAllCountires();
@@ -363,6 +369,25 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+     /**
+     * @vuese
+      *  check Register Form data
+    */
+    checkRegisterForm(){
+      auth.checkRegisterForm('buyer').then(res =>{
+        let formControl = res.data.items;
+        formControl.map(element => {
+          
+          if(element.status !== 1){
+            this.form[element.input_key] = null
+          }else{
+            this.form[element.input_key] = ''
+          }
+        })
+      }).catch(err =>{
+        console.log(err);
+      })
     },
     /**
      * @vuese

@@ -61,6 +61,9 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
           slidesToScroll: 1,
           swipeToSlide: true,
           autoplay: true,
+          centerMode:true,
+          arrows:true,
+          focusOnSelect:true,
   
           responsive: [
             {

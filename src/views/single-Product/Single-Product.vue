@@ -111,6 +111,9 @@
                   </div>
                 </div>
               </div>
+              <div class="" v-else>
+                <h3>{{ $t('home.noDataTill') }}</h3>
+              </div>
             </b-tab>
             <b-tab :title="$t('singleProduct.relatedOffers')">
               <relatedOffers />

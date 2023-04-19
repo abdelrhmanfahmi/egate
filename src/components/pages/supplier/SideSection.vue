@@ -38,22 +38,28 @@
           </ul>
         </div>
         <div class="col-md-6 col-sm-12 mb-2">
-          <b-button
-            v-if="buyerUserData"
-            variant="outline-success"
-            id="show-btn"
-            class="mx-2"
-            @click="$bvModal.show('bv-modal-example')"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
-          <b-button
-            v-else
-            variant="outline-success"
-            id="show-btn"
-            class="mx-2"
-            @click="loginFirst"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
+          <div class="" v-if="buyerUserData">
+
+            <b-button
+              v-if="supplier_messages"
+              variant="outline-success"
+              id="show-btn"
+              class="mx-2"
+              @click="$bvModal.show('bv-modal-example')"
+              >{{ $t("supplier.sendSupplierMessage") }}</b-button
+            >
+          </div>
+          <div class="" v-else>
+
+            <b-button
+             
+              variant="outline-success"
+              id="show-btn"
+              class="mx-2"
+              @click="loginFirst"
+              >{{ $t("supplier.sendSupplierMessage") }}</b-button
+            >
+          </div>
         </div>
       </div>
     </div>

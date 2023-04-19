@@ -71,7 +71,71 @@ Vue.mixin({
     },
     arabicAvailable(){
       return localStorage.getItem('arabic')
-    }
+    },
+
+    // site  api controls
+
+    add_to_cart() {
+      return localStorage.getItem("add_to_cart") === 'available' ? true : null;
+    },
+    RFQ() {
+      return localStorage.getItem("RFQ") === 'available' ? true : null;
+    },
+    supplier_messages() {
+      return localStorage.getItem("supplier_messages") === 'available' ? true : null;
+    },
+    b2b_buyer_registration() {
+      return localStorage.getItem("b2b_buyer_registration") === 'available' ? true : null;
+    },
+    social_login_facebook() {
+      return localStorage.getItem("social_login_facebook") === 'available' ? true : null;
+    },
+    standing_order() {
+      return localStorage.getItem("standing_order") === 'available' ? true : null;
+    },
+    product_table_ads() {
+      return localStorage.getItem("product_table_ads") === 'available' ? true : null;
+    },
+    favourite() {
+      return localStorage.getItem("favourite") === 'available' ? true : null;
+    },
+    bank_transfer_payment() {
+      return localStorage.getItem("bank_transfer_payment") === 'available' ? true : null;
+    },
+    wallet_payment() {
+      return localStorage.getItem("wallet_payment") === 'available' ? true : null;
+    },
+    banner_ads() {
+      return localStorage.getItem("banner_ads") === 'available' ? true : null;
+    },
+    main_banner() {
+      return localStorage.getItem("main_banner") === 'available' ? true : null;
+    },
+    social_login_apple() {
+      return localStorage.getItem("social_login_apple") === 'available' ? true : null;
+    },
+    online_payment() {
+      return localStorage.getItem("online_payment") === 'available' ? true : null;
+    },
+    guest_checkout() {
+      return localStorage.getItem("guest_checkout") === 'available' ? true : null;
+    },
+    cash_on_delivery_payment() {
+      return localStorage.getItem("cash_on_delivery_payment") === 'available' ? true : null;
+    },
+    supplier_registration() {
+      return localStorage.getItem("supplier_registration") === 'available' ? true : null;
+    },
+    social_login_microsoft() {
+      return localStorage.getItem("social_login_microsoft") === 'available' ? true : null;
+    },
+    wallet_withdrawl() {
+      return localStorage.getItem("wallet_withdrawl") === 'available' ? true : null;
+    },
+    social_login_google() {
+      return localStorage.getItem("social_login_google") === 'available' ? true : null;
+    },
+
   },
   methods: {
     logout() {
@@ -80,11 +144,11 @@ Vue.mixin({
       localStorage.removeItem("buyerUserData");
       localStorage.removeItem("provider");
       localStorage.removeItem("massege");
-      localStorage.removeItem("cartAvailable");
-      localStorage.removeItem("RfqAvailable");
-      this.$router.replace('/');
+      localStorage.removeItem("add_to_cart");
+      localStorage.removeItem("RFQ");
+      this.$router.replace("/");
       setTimeout(() => {
-        location.reload()
+        location.reload();
       }, 150);
     },
     sucessMsg(text, icon = "success") {

@@ -11,6 +11,7 @@
         <b-button
           variant="outline-danger"
           id="show-btn"
+          v-if="supplier_messages"
           class="mx-2"
           @click="$bvModal.show('bv-modal-example')"
           >{{ $t("supplier.sendSupplierMessage") }}</b-button

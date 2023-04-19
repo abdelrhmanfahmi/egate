@@ -441,6 +441,9 @@
         <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
           $t("cart.cancel")
         }}</b-button>
+        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
+          $t("cart.cancel")
+        }}</b-button>
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -451,6 +454,9 @@
         <checkMailModal />
       </div>
       <div class="row justify-content-around align-items-center">
+        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
+          $t("home.ok")
+        }}</b-button>
         <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
           $t("home.ok")
         }}</b-button>
@@ -474,7 +480,7 @@ export default {
         email: "",
         mobile_number: "",
         perfix: "",
-        // job_title: "",
+        job_title: "",
         company_name_en: "",
         company_name_ar: "",
         reg_number: "",
@@ -495,30 +501,42 @@ export default {
       modalShow: false,
       files: [],
       CompanyImage: null,
+      myFormControl: [],
+      departments: [
+        {
+          id: "Marketing",
+          name_ar: "التسويق",
+          name_en: "Marketing",
+        },
+        {
+          id: "Sales",
+          name_ar: "المبيعات",
+          name_en: "Sales",
+        },
+        {
+          id: "HR",
+          name_ar: "الموارد البشرية",
+          name_en: "HR",
+        },
+        {
+          id: "Accounting",
+          name_ar: "الحسابات",
+          name_en: "Accounting",
+        },
+        {
+          id: "IT",
+          name_ar: "تكنولوجيا المعلومات",
+          name_en: "IT",
+        },
+        {
+          id: "Law",
+          name_ar: "القانون",
+          name_en: "Law",
+        },
+      ],
     };
   },
   mounted() {
-    /**
-     * get AllCountires  function
-     * @vuese
-     */
-    this.getAllCountires();
-
-    /**
-     * spread user data function ,  that comes from backend
-     * @vuese
-     */
-
-    this.form = { ...this.buyerUserData };
-    this.phonePrefix = this.buyerUserData.phone_prefix;
-    this.form.mobile_number = this.buyerUserData.phone;
-
-    this.form.language = this.buyerUserData.language ? this.buyerUserData.language : "en";
-    this.form.currency_id = this.buyerUserData.currency_id
-      ? this.buyerUserData.currency_id
-      : "3";
-    this.form.country_id = this.buyerUserData.country_id;
-
     /**
      * check if country exist function  , else reload page
      * @vuese
@@ -534,6 +552,7 @@ export default {
      */
 
     this.newForm.callback_url = `${this.mainDoamin}otp-verification`;
+    this.checkProfileForm();
   },
   methods: {
     getAllCountires() {
@@ -544,6 +563,58 @@ export default {
         })
         .catch((err) => {
           console.log(err); //
+        });
+    },
+    /**
+     * @vuese
+     *  checkProfileForm
+     */
+
+    checkProfileForm() {
+      auth
+        .checkProfileForm(this.buyerUserData)
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            if (element.status !== 1) {
+              this.myFormControl[element.input_key] = null;
+            } else {
+              this.myFormControl[element.input_key] = "";
+            }
+          });
+          console.log("myFormControl", this.myFormControl);
+        })
+        .then(() => {
+          /**
+           * get AllCountires  function
+           * @vuese
+           */
+          this.getAllCountires();
+          /**
+           * spread user data function ,  that comes from backend
+           * @vuese
+           */
+
+          this.form = { ...this.buyerUserData };
+          if (this.buyerUserData.company_name_ar == null) {
+            this.form.company_name_ar = "";
+          }
+          if (this.buyerUserData.company_name_en == null) {
+            this.form.company_name_en = "";
+          }
+          this.phonePrefix = this.buyerUserData.phone_prefix;
+          this.form.mobile_number = this.buyerUserData.phone;
+
+          this.form.language = this.buyerUserData.language
+            ? this.buyerUserData.language
+            : "en";
+          this.form.currency_id = this.buyerUserData.currency_id
+            ? this.buyerUserData.currency_id
+            : "3";
+          this.form.country_id = this.buyerUserData.country_id;
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
     /**

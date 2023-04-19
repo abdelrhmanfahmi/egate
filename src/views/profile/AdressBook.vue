@@ -446,11 +446,7 @@
     >
       <template #cell(actions)="row">
         <div class="actions">
-          <b-button
-            v-b-tooltip.hover
-            :title="$t('profile.edit')"
-            @click="editAdress(row)"
-          >
+          <b-button v-b-tooltip.hover :title="$t('items.edit')" @click="editAdress(row)">
             <font-awesome-icon icon="fa-solid fa-edit" />
           </b-button>
           <b-button
@@ -485,7 +481,6 @@ import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-
 export default {
   data() {
     return {
@@ -603,10 +598,11 @@ export default {
     };
   },
   mounted() {
+    this.checkAddressesForm();
     this.getAllCountires();
     this.getAllAdresses();
     this.form.country_id = JSON.parse(this.selectedCountry).id;
-    if (this.form.country_id) {
+    if  (this.form.country_id)  {
       this.getAllRegions();
     }
     this.checkDynamicInputs();
@@ -640,25 +636,6 @@ export default {
         console.log(res);
       });
     },
-    /**
-     * search Adresses function
-     * @vuese
-     */
-    searchAddresses() {
-      this.addressLoading = true;
-      let payload = {
-        keyword: this.addressSearchText,
-      };
-      profile
-        .searchAddresses(payload)
-        .then((res) => {
-          this.adresses = res.data.items;
-        })
-        .finally(() => {
-          // this.addressSearchText = "";
-          this.addressLoading = false;
-        });
-    },
     // Countires
 
     /**
@@ -679,8 +656,9 @@ export default {
     getAllRegions() {
       profile.getAllRegions(this.form.country_id).then((res) => {
         this.regions = res.data.items;
-        this.form.region_id = null;
-        this.form.city_id = null;
+        this.form.region_id = "";
+        this.form.city_id = "";
+        
       });
     },
     // Cities
@@ -692,8 +670,34 @@ export default {
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = null;
+        this.form.city_id = "";
       });
+    },
+
+    /**
+     * @vuese
+     *  checkAddressesForm
+     */
+    checkAddressesForm() {
+      profile
+        .checkAddressesForm()
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            if (element.status !== 1) {
+              this.form[element.input_key] = null;
+            } else {
+              this.form[element.input_key] = "";
+            }
+          });
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        }).finally(()=>{
+          this.form.country_id = JSON.parse(this.selectedCountry).id;
+          console.log('test' , this.form.country_id);
+        })
     },
 
     // createAddress
@@ -762,7 +766,6 @@ export default {
      */
 
     editAdress(row) {
-      console.log(row);
       this.showForm = true;
       this.form.country_id = row.item.country.id;
 

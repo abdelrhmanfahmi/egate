@@ -2,10 +2,10 @@
   <div>
     <div
       class="most-sold text-center related-products"
-      v-if="basket_promotions || buy_get_promotions || gift_promotions"
+      v-if="buy_get_promotionsLength  || basket_promotionsLength  || gift_promotionsLength "
     >
       <div class="">
-        <div class="">
+        <div class="" >
           <!-- other products slider  -->
           <NewRelatedOffersTab
             :basket_promotions="basket_promotions"
@@ -18,6 +18,9 @@
           ></NewRelatedOffersTab>
         </div>
       </div>
+    </div>
+    <div class="" v-else>
+      <h3>{{ $t('home.noDataTill') }}</h3>
     </div>
   </div>
 </template>

@@ -168,6 +168,20 @@ export default {
       }, 1500);
     },
   },
+  computed: {
+    // check if quantity greater than or not in case of buy x get y offers
+    // currentValue() {
+    //   return this.countValue > this.quantity ? this.countValue : this.quantity;
+    // },
+    // currentValue: {
+    //   get() {
+    //     return this.currentValue;
+    //   },
+    //   set() {
+    //     return this.countValue > this.quantity ? this.countValue : this.quantity;
+    //   },
+    // },
+  },
 };
 </script>
 

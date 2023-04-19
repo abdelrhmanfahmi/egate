@@ -107,9 +107,9 @@
                   <div
                     class="col-md-6 col-sm-12 mb-3 px-1"
                     v-if="
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true&&
                         item.product_details_by_type.add_type === 'cart') ||
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true&&
                         item.product_details_by_type.add_type === 'both')
                     "
                   >

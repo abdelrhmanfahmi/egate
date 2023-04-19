@@ -1,7 +1,7 @@
 <template>
   <!-- variants page after sub-categories page  -->
   <div class="items-body variants">
-    <div class="container">
+    <div class="holder">
       <!-- <div
         class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
       >
@@ -22,132 +22,138 @@
         </nav>
       </div> -->
 
-      <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
-        <!-- navigation -->
-        <nav aria-label="breadcrumb " v-if="productInfo">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/">
-                {{ $t("items.home") }}
-              </router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/"> Category </router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/"> Sub category </router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/" class="main-color"> Sub sub-category </router-link>
-            </li>
-          </ol>
-        </nav>
+      <div class="container">
+
+        <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
+          <!-- navigation -->
+          <nav aria-label="breadcrumb " v-if="productInfo">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <router-link to="/">
+                  {{ $t("items.home") }}
+                </router-link>
+              </li>
+              <li class="breadcrumb-item">
+                <router-link to="/"> Category </router-link>
+              </li>
+              <li class="breadcrumb-item">
+                <router-link to="/"> Sub category </router-link>
+              </li>
+              <li class="breadcrumb-item">
+                <router-link to="/" class="main-color"> Sub sub-category </router-link>
+              </li>
+            </ol>
+          </nav>
+        </div>
       </div>
 
       <div class="progressSlider">
         <NewProgressSlider />
       </div>
-      <div class="content">
-        <b-row
-          align-h="center"
-          align-v="center"
-          class="py-5 des-holder"
-          v-if="productInfo"
-        >
-          <!-- sub category image  -->
-          <b-col
-            cols="12"
-            lg="6"
-            xl="5"
-            class="item-media mt-3 m-lg-0 slider"
-            v-if="productInfo.image_path !== null"
-          >
-            <img :src="productInfo.image_path" alt="item-name" class="img-fluid" />
-          </b-col>
+      <div class="container">
 
-          <b-col cols="12" lg="6" xl="5" class="item-content product-info">
-            <!-- subcategory data  -->
-            <h5 class="name" v-if="productInfo.title">
-              {{ productInfo.title }}
-            </h5>
-            <!-- if description is too long  -->
-            <div v-if="productInfo.description && !readMore">
-              <p
-                class="description d-inline-block short"
-                v-html="productInfo.description.substr(0, 1000)"
-              ></p>
-              <span
-                class="readBtn"
-                @click="readMore = !readMore"
-                v-if="productInfo.description.length > 1000"
-              >
-                &nbsp; &nbsp; {{ $t("cart.readMore") }} &nbsp; ...</span
-              >
-            </div>
-            <!-- if description is too long  -->
-            <div v-else-if="productInfo.description && readMore">
-              <p class="description all" v-html="productInfo.description"></p>
-              <span @click="readMore = !readMore" class="readBtn">
-                &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
-              >
-            </div>
-            <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to">
-              {{ $t("supplier.EstimatedPrice") }} :
-              {{ productInfo.estimate_price_from }} -
-              {{ productInfo.estimate_price_to }}
-              {{ productInfo.estimate_currency }} {{ $t("supplier.by") }}
-              {{ productInfo.estimate_by }}
-            </p>
-          </b-col>
-        </b-row>
-      </div>
-      <div class="filter-search">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-md-6 col-sm-12">
-            <div class="new-search">
-              <div class="field" id="searchform">
-                <input
-                  type="text"
-                  id="searchterm"
-                  :placeholder="`${$t('cart.search')}...`"
-                  class="form-control"
-                />
-                <button type="button" id="search">
-                  {{ $t("cart.search") }}
-                </button>
+        <div class="content">
+          <b-row
+            align-h="center"
+            align-v="center"
+            class="py-5 des-holder"
+            v-if="productInfo"
+          >
+            <!-- sub category image  -->
+            <b-col
+              cols="12"
+              lg="6"
+              xl="5"
+              class="item-media mt-3 m-lg-0 slider"
+              v-if="productInfo.image_path !== null"
+            >
+              <img :src="productInfo.image_path" alt="item-name" class="img-fluid" />
+            </b-col>
+  
+            <b-col cols="12" lg="6" xl="5" class="item-content product-info">
+              <!-- subcategory data  -->
+              <h5 class="name" v-if="productInfo.title">
+                {{ productInfo.title }}
+              </h5>
+              <!-- if description is too long  -->
+              <div v-if="productInfo.description && !readMore">
+                <p
+                  class="description d-inline-block short"
+                  v-html="productInfo.description.substr(0, 1000)"
+                ></p>
+                <span
+                  class="readBtn"
+                  @click="readMore = !readMore"
+                  v-if="productInfo.description.length > 1000"
+                >
+                  &nbsp; &nbsp; {{ $t("cart.readMore") }} &nbsp; ...</span
+                >
+              </div>
+              <!-- if description is too long  -->
+              <div v-else-if="productInfo.description && readMore">
+                <p class="description all" v-html="productInfo.description"></p>
+                <span @click="readMore = !readMore" class="readBtn">
+                  &nbsp; &nbsp; {{ $t("cart.readLess") }} &nbsp; ...</span
+                >
+              </div>
+              <p v-if="productInfo.estimate_price_from && productInfo.estimate_price_to">
+                {{ $t("supplier.EstimatedPrice") }} :
+                {{ productInfo.estimate_price_from }} -
+                {{ productInfo.estimate_price_to }}
+                {{ productInfo.estimate_currency }} {{ $t("supplier.by") }}
+                {{ productInfo.estimate_by }}
+              </p>
+            </b-col>
+          </b-row>
+        </div>
+        <div class="filter-search">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-6 col-sm-12">
+              <div class="new-search">
+                <div class="field" id="searchform">
+                  <input
+                    type="text"
+                    id="searchterm"
+                    :placeholder="`${$t('cart.search')}...`"
+                    class="form-control"
+                  />
+                  <button type="button" id="search">
+                    {{ $t("cart.search") }}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 col-sm-12" v-if="productInfo.variants">
-            <div class="customize">
-              <div class="customize-selection">
-                <!-- loop for sub-category variant that comes dynamically from backend  -->
-                <div
-                  v-for="variant in productInfo.variants"
-                  :key="variant.id"
-                  class="m-3"
-                >
-                  <form action="">
-                    <label for="select">{{ variant.title }}</label>
-                    <b-form-group>
-                      <b-form-select
-                        v-model="variant.selectedVariance"
-                        @change="changeVariance(variant)"
-                        class="mb-3 beside-search"
-                      >
-                        <b-form-select-option selected value="null">
-                          {{ $t("home.All") }}
-                        </b-form-select-option>
-                        <b-form-select-option
-                          v-for="pro in variant.options"
-                          :key="pro.id"
-                          :value="pro.id"
+            <div class="col-md-6 col-sm-12" v-if="productInfo.variants">
+              <div class="customize">
+                <div class="customize-selection">
+                  <!-- loop for sub-category variant that comes dynamically from backend  -->
+                  <div
+                    v-for="variant in productInfo.variants"
+                    :key="variant.id"
+                    class="m-3"
+                  >
+                    <form action="">
+                      <label for="select">{{ variant.title }}</label>
+                      <b-form-group>
+                        <b-form-select
+                          v-model="variant.selectedVariance"
+                          @change="changeVariance(variant)"
+                          class="mb-3 beside-search"
                         >
-                          <span v-if="pro.title">{{ pro.title }}</span>
-                        </b-form-select-option>
-                      </b-form-select>
-                    </b-form-group>
-                  </form>
+                          <b-form-select-option selected value="null">
+                            {{ $t("home.All") }}
+                          </b-form-select-option>
+                          <b-form-select-option
+                            v-for="pro in variant.options"
+                            :key="pro.id"
+                            :value="pro.id"
+                          >
+                            <span v-if="pro.title">{{ pro.title }}</span>
+                          </b-form-select-option>
+                        </b-form-select>
+                      </b-form-group>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -572,9 +578,9 @@
                       : 1
                   "
                   v-if="
-                    (cartAvailable === 'available' &&
+                    (add_to_cart == true &&
                       product.product_details_by_type.add_type === 'cart') ||
-                    (cartAvailable === 'available' &&
+                    (add_to_cart == true &&
                       product.product_details_by_type.add_type === 'both')
                   "
                   class="justify-content-center"
@@ -611,9 +617,9 @@
                     class="d-flex justify-content-center align-items-center cart-link"
                     @click="addToCart(product)"
                     v-if="
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true &&
                         product.product_details_by_type.add_type === 'cart') ||
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true &&
                         product.product_details_by_type.add_type === 'both')
                     "
                     v-b-tooltip.hover
@@ -645,10 +651,10 @@
                   <div
                     class="d-flex justify-content-center"
                     v-if="
-                      (RfqAvailable == 'available' &&
+                      (RFQ == true &&
                         buyerUserData &&
                         product.product_details_by_type.add_type === 'rfq') ||
-                      (RfqAvailable == 'available' &&
+                      (RFQ == true &&
                         buyerUserData &&
                         product.product_details_by_type.add_type === 'both')
                     "
@@ -677,14 +683,14 @@
                           v-b-tooltip.hover
                           :title="$t('singleProduct.bidRequest')"
                         >
-                          <!-- <rfqIcon /> -->
+                          <!-- RFQ -->
                           RFQ
                         </button>
                       </div>
                     </button>
                   </div>
                   <!-- add standing orders  -->
-                  <div v-if="RfqAvailable == 'available'">
+                  <div v-if="RFQ == true">
                     <button
                       id="show-btn"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"
@@ -733,9 +739,9 @@
                     class="cart-link"
                     @click="addToCart(product)"
                     v-if="
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true &&
                         product.product_details_by_type.add_type === 'cart') ||
-                      (cartAvailable == 'available' &&
+                      (add_to_cart == true &&
                         product.product_details_by_type.add_type === 'both')
                     "
                     v-b-tooltip.hover
@@ -772,7 +778,7 @@
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div v-if="!buyerUserData && RfqAvailable == 'available'">
+                  <div v-if="!buyerUserData && RFQ == true">
                     <button
                       v-b-modal.modal-xl
                       id="show-btn"
@@ -781,7 +787,7 @@
                       v-b-tooltip.hover
                       :title="$t('singleProduct.bidRequest')"
                     >
-                      <rfqIcon />
+                      RFQ
                     </button>
                   </div>
                 </div>
@@ -874,7 +880,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-import rfqIcon from "@/components/global/rfqIcon.vue";
+// import rfqIcon from "@/components/global/rfqIcon.vue";
 
 import StandingOrders from "@/components/global/standingOrders.vue";
 
@@ -980,7 +986,7 @@ export default {
   },
   components: {
     VariantsCounter,
-    rfqIcon,
+    // rfqIcon,
     StandingOrders,
     NewProgressSlider,
   },

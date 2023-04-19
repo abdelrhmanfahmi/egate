@@ -11,5 +11,10 @@ export default {
   components: {
     B2bForm,
   },
+  mounted(){
+    if(!this.b2b_buyer_registration){
+      this.$router.push('/')
+    }
+  }
 };
 </script>

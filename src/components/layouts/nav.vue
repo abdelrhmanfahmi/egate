@@ -767,7 +767,7 @@ html:lang(ar) {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 0;
+  top: 20px;
   height: 100%;
   right: 24px;
 
