@@ -20,6 +20,7 @@ export default {
     return globalAxios.get(`products/search/categories-products`, {
       params: {
         keyword: data.keyword,
+        category_id:data.catId ? data.catId : null
       },
     });
   },
