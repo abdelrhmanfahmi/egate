@@ -2,9 +2,9 @@
   <div>
     <!-- product acctions that appera in single product page  -->
     <div class="supplier" v-if="myProduct.client.company_name">
-      <div class="row justify-content-center align-items-center">
+      <div class="row justify-content-start align-items-center">
+        <!-- supplier name and go to this supplier page  -->
         <div class="col-6 mb-2">
-          <!-- supplier name and go to this supplier page  -->
           <router-link :to="`/suppliers/${myProduct.client.id}`">
             <img
               :src="myProduct.client.image_path"
@@ -12,28 +12,19 @@
               alt=""
               srcset=""
             />
-            {{ myProduct.client.company_name }}
+            <span class="mx-4">{{ myProduct.client.company_name }}</span>
           </router-link>
         </div>
-        <div class="col-6 mb-2" v-if="buyerUserData">
-          <b-button
-            v-if="supplier_messages"
-            variant="outline-danger"
-            id="show-btn"
-            class="mx-2"
-            @click="$bvModal.show('bv-modal-example')"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
+        <!-- <div class="col-6 mb-2" v-if="buyerUserData">
+          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="$bvModal.show('bv-modal-example')">{{
+            $t("supplier.sendSupplierMessage")
+          }}</b-button>
         </div>
         <div class="col-6 mb-2" v-else>
-          <b-button
-            variant="outline-danger"
-            id="show-btn"
-            class="mx-2"
-            @click="loginFirst"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
-        </div>
+          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="loginFirst">{{
+            $t("supplier.sendSupplierMessage")
+          }}</b-button>
+        </div> -->
         <!-- message supplier modal  -->
         <b-modal id="bv-modal-example" centered hide-footer>
           <template #modal-title>
@@ -68,6 +59,15 @@
                     v-model="message"
                     required
                   ></textarea>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    v-model="message"
+                    required
+                  ></textarea>
                 </div>
                 <div class="error mt-2">
                   <p v-for="(error, index) in errors.message" :key="index">
@@ -77,26 +77,26 @@
               </form>
             </div>
           </div>
-          <div class="" v-if="buyerUserData">
-            <b-button
-              v-if="supplier_messages"
-              class="mt-3"
-              variant="outline-success"
-              block
-              @click="sendSupplierMessage(myProduct.client.id)"
-              >{{ $t("profile.send") }}</b-button
-            >
-          </div>
+          <b-button
+            v-if="buyerUserData"
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="sendSupplierMessage(myProduct.client.id)"
+            >{{ $t("profile.send") }}</b-button
+          >
         </b-modal>
       </div>
     </div>
     <div
       v-if="myProduct.product_details_by_type"
-      class="product-actions row justify-content-between align-items-center mt-4"
+      class="product-actions row align-items-center mt-4"
     >
       <div
-        class="col-3"
-        v-if="add_to_cart && myProduct.product_details_by_type.quantity > 0"
+        class="col-xl-4 col-lg-6 col-sm-6"
+        v-if="
+          add_to_cart == true && myProduct.product_details_by_type.quantity > 0
+        "
       >
         <div
           class="product-counter mb-2"
@@ -105,19 +105,21 @@
             myProduct.product_details_by_type.add_type === 'both'
           "
         >
-          <div class="value">
-            <span class="product-counter-number">
-              {{ mySelectedOption ? mySelectedOption : 1 }}</span
-            >
-          </div>
-          <div class="actions d-flex flex-column">
+          <div class="actions d-flex" :class="$i18n.locale">
             <button class="product-counter-btn" @click="incrementQuantity">
               <b-icon-plus />
             </button>
+            <div class="value">
+              <span class="product-counter-number">
+                {{ mySelectedOption ? mySelectedOption : 1 }}</span
+              >
+            </div>
             <button
               class="product-counter-btn"
               @click="
-                decrementQuantity(myProduct.product_details_by_type.min_order_quantity)
+                decrementQuantity(
+                  myProduct.product_details_by_type.min_order_quantity
+                )
               "
               :disabled="mySelectedOption == 1"
             >
@@ -127,324 +129,212 @@
         </div>
       </div>
 
-      <div class="col-9" v-if="myProduct.product_details_by_type.quantity > 0">
-        <!-- add to cart if logged in and profil percentage == 100 -->
-        <div
-          class="mb-2 mr-1"
-          v-if="
-            (buyerUserData &&
-              buyerUserData.profile_percentage == 100 &&
-              buyerUserData.type === 'buyer') ||
-            buyerUserData.type === 'b2b' ||
-            (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == true)
-          "
-        >
-          <b-button
-            @ok="$refs.CartModal.onSubmit()"
-            @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block mb-2"
-            v-if="
-              (add_to_cart && myProduct.product_details_by_type.add_type === 'cart') ||
-              (add_to_cart && myProduct.product_details_by_type.add_type === 'both')
-            "
-          >
-            <span>
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </span>
-            {{ $t("singleProduct.addCart") }}
-          </b-button>
-
-          <b-button
-            @ok="$refs.CartModal.onSubmit()"
-            @click="addPromotionToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
-            v-if="
-              (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'cart' &&
-                myProduct.buy_get_promotion_running_by_type) ||
-              (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'both' &&
-                myProduct.buy_get_promotion_running_by_type)
-            "
-          >
-            <span>
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </span>
-            <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
-            <span
-              >({{
-                `${$t("profile.buy")} 
-          ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
-         ${$t("profile.get")} ${
-                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
-                } `
-              }})</span
+      <div class="col-xl-4 col-lg-6 col-sm-6">
+        <div class="d-flex justify-content-start">
+          <h4 class="">
+            <span class="text-dark">{{ $t("payment.total") }} :</span>
+            <span class="main-color"
+              >{{
+                (mySelectedOption *
+                  myProduct.product_details_by_type.customer_price)
+                  | fixedCurrency
+              }}{{ currency }}/{{
+                myProduct.product_details_by_type.unit.title
+              }}</span
             >
-          </b-button>
-        </div>
-        <!-- add to cart if logged in and profil percentage !== 100 -->
-        <div
-          class="mb-2"
-          v-else-if="
-            (buyerUserData && buyerUserData.profile_percentage !== 100) ||
-            (buyerUserData &&
-              buyerUserData.type === 'buyer' &&
-              buyerUserData.profile_percentage !== 100) ||
-            (buyerUserData &&
-              buyerUserData.type === 'b2b' &&
-              buyerUserData.profile_percentage !== 100) ||
-            (buyerUserData &&
-              buyerUserData.type === 'supplier' &&
-              buyerUserData.is_buyer !== true &&
-              buyerUserData.profile_percentage !== 100)
-          "
-        >
-          <router-link to="/profile/account-information-b2b">
-            {{ $t("profile.completeAccount") }}
-          </router-link>
-        </div>
-        <!-- add to cart if b2c or guest -->
-        <div class="mb-2" v-else-if="!buyerUserData || buyerUserData.type === 'b2c'">
-          <b-button
-            @ok="$refs.CartModal.onSubmit()"
-            @click="addToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
-            v-if="
-              (add_to_cart && myProduct.product_details_by_type.add_type === 'cart') ||
-              (add_to_cart && myProduct.product_details_by_type.add_type === 'both')
-            "
-          >
-            <span>
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </span>
-            {{ $t("singleProduct.addCart") }}
-          </b-button>
-          <b-button
-            @ok="$refs.CartModal.onSubmit()"
-            @click="addPromotionToCart(myProduct)"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
-            v-if="
-              (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'cart' &&
-                myProduct.buy_get_promotion_running_by_type) ||
-              (add_to_cart &&
-                myProduct.product_details_by_type.add_type === 'both' &&
-                myProduct.buy_get_promotion_running_by_type)
-            "
-          >
-            <span>
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-            </span>
-            {{ $t("singleProduct.addCart") }}
-          </b-button>
+          </h4>
         </div>
       </div>
-    </div>
-    <div class="product-actions short-links mb-2 mr-1">
-      <!-- rfq request if logged in -->
-      <button
-        class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block"
-        v-if="
-          RFQ == 'available' &&
-          (myProduct.product_details_by_type.add_type === 'rfq' ||
-            (RFQ == 'available' &&
-              myProduct.product_details_by_type.add_type === 'both')) &&
-          buyerUserData
-        "
-      >
-        <div>
-          <button
-            id="show-btn"
-            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100"
-            @click="$bvModal.show('bv-bidRequest')"
+      <div class="col-xl-4 col-lg-6 col-sm-12">
+        <div class="d-flex justify-content-start align-items-center">
+          <!-- cart-actions-holder -->
+          <div
+            class="cart-actions-holder sec-hold"
+            v-if="myProduct.product_details_by_type.quantity > 0"
           >
-            <span>
-              <rfqIcon class="mx-2" />
-            </span>
-            {{ $t("singleProduct.bidRequest") }}
-          </button>
-        </div>
-      </button>
-      <!-- rfq request if not logged in , login first  -->
-      <button
-        @click="loginFirst"
-        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart btn-block w-100"
-        v-else-if="
-          RFQ == 'available' &&
-          (myProduct.product_details_by_type.add_type === 'rfq' ||
-            myProduct.product_details_by_type.add_type === 'both') &&
-          !buyerUserData
-        "
-      >
-        <span>
-          <rfqIcon class="mx-2" />
-        </span>
-        {{ $t("singleProduct.bidRequest") }}
-      </button>
-      <!-- rfq request if logged in  -->
-      <button
-        class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100"
-        v-else-if="
-          (RFQ == 'available' && myProduct.product_details_by_type.add_type === 'rfq') ||
-          (RFQ == 'available' && myProduct.product_details_by_type.add_type === 'both')
-        "
-      >
-        <span>
-          <rfqIcon class="mx-2" />
-        </span>
-
-        {{ $t("singleProduct.bidRequest") }}
-      </button>
-    </div>
-    <div class="row justify-content-center align-items-center">
-      <div class="col-5">
-        <div class="row">
-          <div class="col-md-6 col-sm-12">
+            <!-- add to cart if logged in and profil percentage == 100 -->
+            <div
+              class="mr-1"
+              v-if="
+                (buyerUserData &&
+                  buyerUserData.profile_percentage == 100 &&
+                  buyerUserData.type === 'buyer') ||
+                buyerUserData.type === 'b2b' ||
+                (buyerUserData.type === 'supplier' &&
+                  buyerUserData.is_buyer == true)
+              "
+            >
+              <b-button
+                @ok="$refs.CartModal.onSubmit()"
+                @click="addToCart(myProduct)"
+                class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
+                v-if="
+                  (add_to_cart == true &&
+                    myProduct.product_details_by_type.add_type === 'cart') ||
+                  (add_to_cart == true &&
+                    myProduct.product_details_by_type.add_type === 'both')
+                "
+              >
+                <span>
+                  <font-awesome-icon
+                    icon="fa-solid fa-cart-shopping"
+                    size="xl"
+                  />
+                </span>
+              </b-button>
+            </div>
+            <!-- add to cart if logged in and profil percentage !== 100 -->
+            <div
+              class=""
+              v-else-if="
+                (buyerUserData && buyerUserData.profile_percentage !== 100) ||
+                (buyerUserData &&
+                  buyerUserData.type === 'buyer' &&
+                  buyerUserData.profile_percentage !== 100) ||
+                (buyerUserData &&
+                  buyerUserData.type === 'b2b' &&
+                  buyerUserData.profile_percentage !== 100) ||
+                (buyerUserData &&
+                  buyerUserData.type === 'supplier' &&
+                  buyerUserData.is_buyer !== true &&
+                  buyerUserData.profile_percentage !== 100)
+              "
+            >
+              <router-link to="/profile/account-information-b2b">
+                {{ $t("profile.completeAccount") }}
+              </router-link>
+            </div>
+            <!-- add to cart if b2c or guest -->
+            <div
+              class=""
+              v-else-if="!buyerUserData || buyerUserData.type === 'b2c'"
+            >
+              <b-button
+                @ok="$refs.CartModal.onSubmit()"
+                @click="addToCart(myProduct)"
+                class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+                v-if="
+                  (add_to_cart == true &&
+                    myProduct.product_details_by_type.add_type === 'cart') ||
+                  (add_to_cart == true &&
+                    myProduct.product_details_by_type.add_type === 'both')
+                "
+              >
+                <span>
+                  <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                </span>
+              </b-button>
+            </div>
+          </div>
+          <!-- favorite-holder  -->
+          <div class="favorite-holder sec-hold">
             <div
               v-if="myProduct.product_details_by_type.quantity > 0"
               class="new-wishlist-method"
             >
-              <div class="products mb-2" v-if="buyerUserData">
-                <div class="" v-if="favourite">
-                  <!-- if product added to favorite  -->
-                  <a
-                    class="button one active animate mobile button--secondary wishlist-btn"
-                    :title="`product in favourite`"
-                    v-if="myProduct.is_favorite == true"
-                  >
-                    <div class="btn__effect">
-                      <svg
-                        class="heart-stroke icon-svg icon-svg--size-4 icon-svg--color-silver"
-                        viewBox="20 18 29 28"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M28.3 21.1a4.3 4.3 0 0 1 4.1 2.6 2.5 2.5 0 0 0 2.3 1.7c1 0 1.7-.6 2.2-1.7a3.7 3.7 0 0 1 3.7-2.6c2.7 0 5.2 2.7 5.3 5.8.2 4-5.4 11.2-9.3 15a2.8 2.8 0 0 1-2 1 3.4 3.4 0 0 1-2.2-1c-9.6-10-9.4-13.2-9.3-15 0-1 .6-5.8 5.2-5.8m0-3c-5.3 0-7.9 4.3-8.2 8.5-.2 3.2.4 7.2 10.2 17.4a6.3 6.3 0 0 0 4.3 1.9 5.7 5.7 0 0 0 4.1-1.9c1.1-1 10.6-10.7 10.3-17.3-.2-4.6-4-8.6-8.4-8.6a7.6 7.6 0 0 0-6 2.7 8.1 8.1 0 0 0-6.2-2.7z"
-                        ></path>
-                      </svg>
-                      <svg
-                        class="heart-full icon-svg icon-svg--size-4 icon-svg--color-blue"
-                        viewBox="0 0 19.2 18.5"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M9.66 18.48a4.23 4.23 0 0 1-2.89-1.22C.29 10.44-.12 7.79.02 5.67.21 2.87 1.95.03 5.42.01c1.61-.07 3.16.57 4.25 1.76A5.07 5.07 0 0 1 13.6 0c2.88 0 5.43 2.66 5.59 5.74.2 4.37-6.09 10.79-6.8 11.5-.71.77-1.7 1.21-2.74 1.23z"
-                        ></path>
-                      </svg>
-                      <svg
-                        class="broken-heart"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="48"
-                        height="16"
-                        viewBox="5.707 17 48 16"
-                      >
-                        <g fill="#dc3545">
-                          <path
-                            class="broken-heart--left"
-                            d="M29.865 32.735V18.703a4.562 4.562 0 0 0-3.567-1.476c-2.916.017-4.378 2.403-4.538 4.756-.118 1.781.227 4.006 5.672 9.737a3.544 3.544 0 0 0 2.428 1.025l-.008-.008.013-.002z"
-                          />
-                          <path
-                            class="broken-heart--right"
-                            d="M37.868 22.045c-.135-2.588-2.277-4.823-4.697-4.823a4.258 4.258 0 0 0-3.302 1.487l-.004-.003v14.035a3.215 3.215 0 0 0 2.289-1.033c.598-.596 5.882-5.99 5.714-9.663z"
-                          />
-                        </g>
-                        <path
-                          class="broken-heart--crack"
-                          fill="none"
-                          stroke="#FFF"
-                          stroke-miterlimit="10"
-                          d="M29.865 18.205v14.573"
-                        />
-                      </svg>
-                      <div class="effect-group">
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                      </div>
-                    </div>
-                  </a>
-                  <!-- add product to favorite if not added to favorite  -->
-                  <a
-                    class="button one inactive mobile button--secondary wishlist-btn mx-1"
-                    @click="addToWishlist(myProduct)"
-                    v-else
-                  >
-                    <div class="btn__effect">
-                      <svg
-                        class="heart-stroke icon-svg icon-svg--size-4 icon-svg--color-silver"
-                        viewBox="20 18 29 28"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M28.3 21.1a4.3 4.3 0 0 1 4.1 2.6 2.5 2.5 0 0 0 2.3 1.7c1 0 1.7-.6 2.2-1.7a3.7 3.7 0 0 1 3.7-2.6c2.7 0 5.2 2.7 5.3 5.8.2 4-5.4 11.2-9.3 15a2.8 2.8 0 0 1-2 1 3.4 3.4 0 0 1-2.2-1c-9.6-10-9.4-13.2-9.3-15 0-1 .6-5.8 5.2-5.8m0-3c-5.3 0-7.9 4.3-8.2 8.5-.2 3.2.4 7.2 10.2 17.4a6.3 6.3 0 0 0 4.3 1.9 5.7 5.7 0 0 0 4.1-1.9c1.1-1 10.6-10.7 10.3-17.3-.2-4.6-4-8.6-8.4-8.6a7.6 7.6 0 0 0-6 2.7 8.1 8.1 0 0 0-6.2-2.7z"
-                        ></path>
-                      </svg>
-                      <svg
-                        class="heart-full icon-svg icon-svg--size-4 icon-svg--color-blue"
-                        viewBox="0 0 19.2 18.5"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M9.66 18.48a4.23 4.23 0 0 1-2.89-1.22C.29 10.44-.12 7.79.02 5.67.21 2.87 1.95.03 5.42.01c1.61-.07 3.16.57 4.25 1.76A5.07 5.07 0 0 1 13.6 0c2.88 0 5.43 2.66 5.59 5.74.2 4.37-6.09 10.79-6.8 11.5-.71.77-1.7 1.21-2.74 1.23z"
-                        ></path>
-                      </svg>
-                      <svg
-                        class="broken-heart"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="48"
-                        height="16"
-                        viewBox="5.707 17 48 16"
-                      >
-                        <g fill="#dc3545">
-                          <path
-                            class="broken-heart--left"
-                            d="M29.865 32.735V18.703a4.562 4.562 0 0 0-3.567-1.476c-2.916.017-4.378 2.403-4.538 4.756-.118 1.781.227 4.006 5.672 9.737a3.544 3.544 0 0 0 2.428 1.025l-.008-.008.013-.002z"
-                          />
-                          <path
-                            class="broken-heart--right"
-                            d="M37.868 22.045c-.135-2.588-2.277-4.823-4.697-4.823a4.258 4.258 0 0 0-3.302 1.487l-.004-.003v14.035a3.215 3.215 0 0 0 2.289-1.033c.598-.596 5.882-5.99 5.714-9.663z"
-                          />
-                        </g>
-                        <path
-                          class="broken-heart--crack"
-                          fill="none"
-                          stroke="#FFF"
-                          stroke-miterlimit="10"
-                          d="M29.865 18.205v14.573"
-                        />
-                      </svg>
-                      <div class="effect-group">
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                        <span class="effect"></span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+              <div class="products mr-1" v-if="buyerUserData">
+                <!-- if product added to favorite  -->
+                <a
+                  class="button one active animate mobile button--secondary wishlist-btn m-0"
+                  :title="`product in favourite`"
+                  v-if="myProduct.is_favorite == true"
+                >
+                  <font-awesome-icon icon="fa-solid fa-star" size="xl" />
+                </a>
+                <!-- add product to favorite if not added to favorite  -->
+                <a
+                  class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                  @click="addToWishlist(myProduct)"
+                  v-else
+                >
+                  <font-awesome-icon icon="fa-regular fa-star" size="xl" />
+                </a>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-12 new-wishlist-method" v-if="standing_order">
+          <!-- rfq-holder  -->
+          <div class="rfq-holder sec-hold">
+            <div class="product-actions short-links mx-1">
+              <!-- rfq request if logged in -->
+              <button
+                class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in btn-block bg-gray"
+                v-if="
+                  RFQ == true &&
+                  (myProduct.product_details_by_type.add_type === 'rfq' ||
+                    (RFQ == true &&
+                      myProduct.product_details_by_type.add_type === 'both')) &&
+                  buyerUserData
+                "
+              >
+                <div>
+                  <button
+                    id="show-btn"
+                    class="btn btn-loght border-0 outline-none shadow-none d-block w-100"
+                    @click="$bvModal.show('bv-bidRequest')"
+                  >
+                    <span>
+                      <!-- <rfqIcon class="mx-2" /> -->
+                      RFQ
+                    </span>
+                    <!-- {{ $t("singleProduct.bidRequest") }} -->
+                  </button>
+                </div>
+              </button>
+              <!-- rfq request if not logged in , login first  -->
+              <button
+                @click="loginFirst"
+                class="btn btn-loght border-0 outline-none shadow-none d-block btn-block w-100 bg-gray"
+                v-else-if="
+                  RFQ == true &&
+                  (myProduct.product_details_by_type.add_type === 'rfq' ||
+                    myProduct.product_details_by_type.add_type === 'both') &&
+                  !buyerUserData
+                "
+              >
+                <span>
+                  <!-- <rfqIcon class="mx-2" /> -->
+                  RFQ
+                </span>
+                <!-- {{ $t("singleProduct.bidRequest") }} -->
+              </button>
+              <!-- rfq request if logged in  -->
+              <button
+                class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 btn-block w-100 bg-gray mx-1"
+                v-else-if="
+                  (RFQ == true &&
+                    myProduct.product_details_by_type.add_type === 'rfq') ||
+                  (RFQ == true &&
+                    myProduct.product_details_by_type.add_type === 'both')
+                "
+              >
+                <span>
+                  <!-- <rfqIcon class="mx-2" /> -->
+                  RFQ
+                </span>
+
+                <!-- {{ $t("singleProduct.bidRequest") }} -->
+              </button>
+            </div>
+          </div>
+
+          <!-- stand-order-holder  -->
+          <div class="stand-order-holder sec-hold">
             <!-- standing orders  -->
             <div class="products" v-if="buyerUserData">
               <!-- open standing orders modal if logged in    -->
 
               <button
                 id="show-btn"
-                class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                class="button one inactive mobile button--secondary wishlist-btn add-cart"
                 @click="$bvModal.show('bv-standingOrders')"
                 v-b-tooltip.hover
                 :title="$t('items.standingOrders')"
               >
-                <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
               </button>
             </div>
 
@@ -452,19 +342,53 @@
             <div class="products" v-else>
               <button
                 id="show-btn"
-                class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                class="button one inactive mobile button--secondary wishlist-btn add-cart"
                 @click="loginFirst()"
                 v-b-tooltip.hover
                 :title="$t('items.standingOrders')"
               >
-                <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+                <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
               </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- share product  -->
-      <div class="col-7">
+      <b-button
+        @ok="$refs.CartModal.onSubmit()"
+        @click="addPromotionToCart(myProduct)"
+        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+        v-if="
+          (add_to_cart &&
+            myProduct.product_details_by_type.add_type === 'cart' &&
+            myProduct.buy_get_promotion_running_by_type) ||
+          (add_to_cart &&
+            myProduct.product_details_by_type.add_type === 'both' &&
+            myProduct.buy_get_promotion_running_by_type)
+        "
+      >
+        <span>
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+        </span>
+        <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
+        <span
+          >({{
+            `${$t("profile.buy")} 
+          ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+         ${$t("profile.get")} ${
+              myProduct.buy_get_promotion_running_by_type.promotion.get_y
+            } `
+          }})</span
+        >
+      </b-button>
+    </div>
+
+    <!-- share product  -->
+    <!-- <div class="mt-3 ml-0">
+      <div class="p-0 m-0">
         <div class="share-social d-flex align-items-center">
           <span>{{ $t("singleProduct.sharing") }}</span>
           <div class="social-sharing-icons">
@@ -474,17 +398,18 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- rfq modal -->
     <b-modal id="bv-bidRequest" hide-footer>
       <template #modal-title>
-        {{ $t("singleProduct.bidRequest") }}
+        <!-- {{ $t("singleProduct.bidRequest") }} -->
       </template>
       <form>
         <div class="form-group">
           <label for=""
-            >{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label
+            >{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label
           >
           <input type="text" class="form-control" v-model="requestData.name" />
           <div
@@ -519,8 +444,15 @@
             >{{ $t("singleProduct.reviewInput") }}
             <span class="text-danger">*</span></label
           >
-          <textarea class="form-control" v-model="requestData.comment"></textarea>
-          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+          <textarea
+            class="form-control"
+            v-model="requestData.comment"
+          ></textarea>
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.comment"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
@@ -545,7 +477,11 @@
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <b-button class="mt-3" variant="outline-danger" block @click="hideDeleteModal"
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            block
+            @click="hideDeleteModal"
             >{{ $t("cart.cancel") }}
           </b-button>
         </div>
@@ -585,19 +521,19 @@ import globalAxios from "@/services/global-axios";
 import categories from "@/services/categories";
 import profile from "@/services/profile";
 
-import rfqIcon from "@/components/global/rfqIcon.vue";
+// import rfqIcon from "@/components/global/rfqIcon.vue";
 
 import StandingOrders from "@/components/global/standingOrders.vue";
 
-import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
+// import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
 export default {
   components: {
     BIconPlus,
     BIconDash,
-    Facebook,
-    Twitter,
-    WhatsApp,
-    rfqIcon,
+    // Facebook,
+    // Twitter,
+    // WhatsApp,
+    // rfqIcon,
     StandingOrders,
   },
   /**
@@ -616,8 +552,10 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
+      console.log("myProduct", myProduct);
       let data = {
-        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -671,7 +609,8 @@ export default {
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
             : 1,
-        buy_get_promotion_id: item.buy_get_promotion_running_by_type.buy_get_promotion_id,
+        buy_get_promotion_id:
+          item.buy_get_promotion_running_by_type.buy_get_promotion_id,
       };
       console.log("data", data);
       return globalAxios
@@ -706,7 +645,8 @@ export default {
      */
     addToCartWithRFQ(myProduct) {
       let data = {
-        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -769,7 +709,8 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          this.myProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -831,7 +772,9 @@ export default {
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       } else {
-        this.mySelectedOption >= 1 ? this.mySelectedOption-- : this.mySelectedOption == 1;
+        this.mySelectedOption >= 1
+          ? this.mySelectedOption--
+          : this.mySelectedOption == 1;
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       }
@@ -986,7 +929,8 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity
+      mySelectedOption: this.myProduct.product_details_by_type
+        .min_order_quantity
         ? this.myProduct.product_details_by_type.min_order_quantity
         : 1,
       changedValue: null,
@@ -1067,7 +1011,7 @@ export default {
 
       .available-weight {
         span {
-          width: 6rem;
+          width: 4rem;
           height: 2rem;
           border: 3px solid #ebebeb;
           font-size: 11pt;
@@ -1079,15 +1023,15 @@ export default {
           // cursor: pointer;
           transition: all ease-out 0.3s;
           // &:hover {
-          //   background: #ff6000;
-          //   border-color: #ff6000;
+          //   background: $main-color;
+          //   border-color: $main-color;
           //   color: #fff;
           // }
         }
 
         span.active {
-          background: #ff6000;
-          border-color: #ff6000;
+          background: $main-color;
+          border-color: $main-color;
           color: #fff;
         }
       }
@@ -1110,7 +1054,7 @@ export default {
           font-size: 11pt;
 
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
 
           span {
@@ -1120,20 +1064,20 @@ export default {
       }
 
       .add-cart {
-        border-radius: 0;
         font-size: 16px;
         background: #36363b;
         color: #fff;
-        padding: 12px 16px;
+        //padding: 12px 16px;
         height: fit-content;
         -webkit-margin-end: 0.5rem;
         margin-inline-end: 0;
         display: block;
         text-align: center;
         width: 100%;
+        border-radius: 5px;
 
         &:hover {
-          background: #ed2124;
+          background: $main-color;
         }
       }
     }
@@ -1152,7 +1096,7 @@ export default {
           margin-inline-end: 0.25rem;
 
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
       }
@@ -1218,11 +1162,11 @@ textarea {
 
   .value {
     border-radius: 0;
-    border: 1px solid #f0f0f0;
+    border: 1px solid $top-header-color;
     color: #544842;
     font-weight: 500;
-    width: 6rem;
-    height: 3.1rem;
+    width: 4rem;
+    height: 3.1rem !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1231,7 +1175,7 @@ textarea {
 }
 
 .cart-btn {
-  background: #ff6000 !important;
+  background: $main-color !important;
 }
 
 .supplier-image {
@@ -1267,7 +1211,7 @@ textarea {
       margin: 0 0.3rem;
 
       &:hover {
-        color: #ed2124;
+        color: $main-color;
       }
 
       span {
@@ -1289,7 +1233,7 @@ textarea {
 .new-wishlist-method {
   // VARIABLES
   // colours
-  $red: #dc3545;
+  $red: $main-color;
   $silver: #cccccc;
   // fireworks
   $fireworks--width: 3px;
@@ -1299,10 +1243,10 @@ textarea {
   // button styles
   .button--secondary,
   .button--secondary:visited {
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    min-width: 64px;
+    //min-width: 64px;
     font-family: inherit;
     font-size: inherit;
     line-height: 15px;
@@ -1312,9 +1256,9 @@ textarea {
     text-shadow: none;
     transition: background 0.1s linear;
     font-weight: 400;
-    color: $red;
+    color: $main-color;
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid $main-color;
     box-shadow: none;
     padding: 15px 15px;
     transition-property: border;
@@ -1343,8 +1287,8 @@ textarea {
   }
 
   .icon-svg--color-blue {
-    fill: $red;
-    color: $red;
+    fill: $main-color;
+    color: $main-color;
   }
 
   .icon-svg {
@@ -1407,7 +1351,7 @@ textarea {
         right: 0;
         border-radius: $fireworks--border;
         height: $fireworks--height;
-        background: #dc3545;
+        background: $main-color;
       }
 
       &:after {
@@ -1478,12 +1422,14 @@ textarea {
     }
 
     .broken-heart--left {
-      animation: crackLeft 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s forwards,
+      animation: crackLeft 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s
+          forwards,
         hide 0.25s ease-in 0.55s forwards;
     }
 
     .broken-heart--right {
-      animation: crackRight 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s forwards,
+      animation: crackRight 0.35s cubic-bezier(0.68, -0.55, 0.265, 2.85) 0.15s
+          forwards,
         hide 0.25s ease-in 0.55s forwards;
     }
 
@@ -1541,7 +1487,7 @@ textarea {
 
     50% {
       transform: scale(1.15);
-      fill: $red;
+      fill: $main-color;
     }
 
     100% {
@@ -1662,6 +1608,16 @@ textarea {
     100% {
       opacity: 0;
     }
+  }
+}
+
+.sec-hold {
+  margin: 0px !important;
+  button {
+    min-width: 50px !important;
+    height: 50px !important;
+    line-height: 50px;
+    padding: 0;
   }
 }
 </style>

@@ -99,10 +99,10 @@
                       @click="addToCartAgain(product)"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again"
                       v-if="
-                        (add_to_cart &&
+                        (add_to_cart == true&&
                           product.product_details_by_type.add_type ===
                             'cart') ||
-                        (add_to_cart &&
+                        (add_to_cart == true&&
                           product.product_details_by_type.add_type === 'both')
                       "
                     >
@@ -120,9 +120,9 @@
                         @click="chooseProduct(product)"
                         class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                         v-if="
-                          RFQ == 'available' &&
+                          RFQ == true &&
                           (product.product_details_by_type.add_type === 'rfq' ||
-                            (RFQ == 'available' &&
+                            (RFQ == true &&
                               product.product_details_by_type.add_type ===
                                 'both')) &&
                           buyerUserData
@@ -145,9 +145,9 @@
                         @click="loginFirst(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
                         v-else-if="
-                          RFQ == 'available' &&
+                          RFQ == true &&
                           (product.product_details_by_type.add_type === 'rfq' ||
-                            (RFQ == 'available' &&
+                            (RFQ == true &&
                               product.product_details_by_type.add_type ===
                                 'both')) &&
                           !buyerUserData
@@ -509,7 +509,7 @@ export default {
   border-radius: 5px;
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
   }
 }
 </style>

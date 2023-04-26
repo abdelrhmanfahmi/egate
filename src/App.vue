@@ -1,8 +1,14 @@
 <template>
   <!-- app page that contain all pages  -->
   <div id="app">
+    <LoadingScreen v-if="isLoading"></LoadingScreen>
     <!-- import main layout that hold all pages  -->
-    <MainLayout />
+    <div class="" v-if="checkLayout == 'B2B'">
+      <ProfileB2BLayout />
+    </div>
+    <div class="" v-else>
+      <MainLayout />
+    </div>
   </div>
 </template>
 
@@ -12,9 +18,11 @@
  */
 
 import MainLayout from "@/layouts/MainLayout.vue";
+import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
 // import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
 import checkApiControls from "@/services/apiControls";
+import LoadingScreen from "@/components/global/LoadingScreen.vue";
 export default {
   name: "Home",
   created() {
@@ -39,6 +47,8 @@ export default {
   },
   components: {
     MainLayout,
+    ProfileB2BLayout,
+    LoadingScreen,
   },
   methods: {
     /**
@@ -88,15 +98,14 @@ export default {
           //   }
           // }
           for (let index = 0; index < result.length; index++) {
-            if (result[index].portal === 'client') {
+            if (result[index].portal === "client") {
               const element = result[index];
-             
-              if(element.status == 1){
-                localStorage.setItem(element.api_name , 'available')
-              }else{
-                localStorage.setItem(element.api_name , 'notAvailable')
-              }
 
+              if (element.status == 1) {
+                localStorage.setItem(element.api_name, "available");
+              } else {
+                localStorage.setItem(element.api_name, "notAvailable");
+              }
             }
           }
         })
@@ -262,9 +271,19 @@ export default {
         });
     },
   },
+
   computed: {
     guestId() {
       return this.$store.state.guestId;
+    },
+    checkLayout() {
+      return (this.$route.path.includes("profile") &&
+        this.buyerUserData.type == "buyer") ||
+        (this.$route.path.includes("profile") &&
+          this.buyerUserData.type == "supplier" &&
+          this.buyerUserData.is_buyer == 1)
+        ? "B2B"
+        : "B2C";
     },
   },
   mounted() {
@@ -275,10 +294,14 @@ export default {
     // });
     // this.checkCartValidity();
     this.getSiteImages();
+    // this.theming();
     // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cWelcome To Using HumHum!" ,"color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+    // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+    // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // this.logoutDynamically()
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
     this.checkApiControlsFunction();
   },
   data() {
@@ -286,7 +309,27 @@ export default {
       siteLogo: "@/assets/images/logo.png",
       siteTitle: "humhum",
       siteIcon: "@/src/assets/images/ab.png",
+      isLoading: true,
     };
+  },
+  watch: {
+    $route() {
+      let currencyTrim = document
+        .querySelector("#myCurrency-code")
+        .innerText.trim();
+      setTimeout(() => {
+        if (currencyTrim == "") {
+          let currency = document.querySelector("#myCurrency-code");
+          if (!localStorage.getItem("currency")) {
+            currency.innerText = JSON.parse(
+              this.selectedCountry
+            ).currencies[0].code;
+          } else {
+            currency.innerText = localStorage.getItem("currency");
+          }
+        }
+      }, 5000);
+    },
   },
 };
 </script>

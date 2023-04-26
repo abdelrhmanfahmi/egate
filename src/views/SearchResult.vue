@@ -169,7 +169,7 @@
                       product.product_details_by_type.add_type === 'both'
                     "
                   >
-                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="add_to_cart  == 'available'">
+                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="add_to_cart">
                       <Counter
                         :minimum="
                           product.min_order_quantity
@@ -186,8 +186,8 @@
                       <b-button
                         @click="addToCartAgain(product)"
                         class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again p-2"
-                        v-if="add_to_cart  == 'available' &&  
-                          product.product_details_by_type.add_type === 'cart' || add_to_cart  == 'available' && 
+                        v-if="add_to_cart == true&&  
+                          product.product_details_by_type.add_type === 'cart' || add_to_cart && 
                           product.product_details_by_type.add_type === 'both'
                         "
                       >
@@ -367,6 +367,7 @@ export default {
       products: null,
       productsLength: null,
       keyword: this.$route.query.keyword,
+      catId: this.$route.query.catId,
       myQuantity: 1,
       requestData: {
         name: null,
@@ -388,6 +389,7 @@ export default {
       this.loading = true;
       let data = {
         keyword: this.$route.query.keyword,
+        catId: this.$route.query.catId,
       };
       await categories
         .searchResult(data)
@@ -540,7 +542,7 @@ export default {
   box-shadow: 0px 3px 27px 0px rgb(0 0 0 / 17%);
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
     color: #fff;
   }
 }
@@ -570,7 +572,7 @@ export default {
   border-radius: 5px;
 
   &:hover {
-    background: #ed2124;
+    background: $main-color;
   }
 }
 </style>

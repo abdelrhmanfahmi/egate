@@ -1,0 +1,20 @@
+.b2cLayout{
+    .sidenavopen{
+        background-color: $top-header-color;
+        color: #000;
+    }
+    .profile-menu{
+        color: inherit;
+        background-color: inherit;
+    }
+    .profile-menu ul li{
+        border: none;
+        color: #000 !important;
+        a{
+            color: inherit;
+        }
+    }
+    .profile-menu ul li:first-of-type{
+        border: none;
+    }
+}

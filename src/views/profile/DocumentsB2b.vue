@@ -6,77 +6,101 @@
         <h5>{{ $t("profile.companyDocuments") }}</h5>
       </div>
       <!-- buissnessinfoUpload -->
-      <form
-        class="buissnessinfo mb-5"
-        @submit.prevent="buissnessinfoUpload"
-        v-if="
-          allDocFiles.ccl !== '' ||
-          allDocFiles.auth_civil_copy !== '' ||
-          allDocFiles.ccs !== '' ||
-          allDocFiles.rmcm !== ''
-        "
-      >
-        <div class="form-input mb-4" v-if="allDocFiles.ccl !== ''">
-          <label for="CommercialLicense">
-            {{ $t("profile.commercialLicense") }}
-            <span class="text-danger">*</span>
-          </label>
-          <div
-            class="row justify-content-center align-content-center"
-            v-if="buisnessData"
-          >
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  id="CommercialLicense"
-                  v-model="buissnessinfo.ccl"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
+      <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{
+                'border-main-force': buisnessData && buisnessData.ccl_path !== null,
+              }"
+            >
+              <label for="CommercialLicense">
+                {{ $t("profile.commercialLicense") }}
+                <span class="text-danger">*</span>
+              </label>
               <div
-                class="d-flex justify-content-center align-items-center"
+                class="row justify-content-center align-content-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="ccl_pathType === 'image' && ccl_pathType !== null">
-                  <img
-                    v-b-modal.ccl_path
-                    :src="buisnessData.ccl_path"
-                    alt="moa-image"
-                    v-if="buisnessData.ccl_path"
-                  />
-
-                  <b-modal id="ccl_path" :title="$t('profile.commercialLicense')">
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.commercialLicense") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      id="CommercialLicense"
+                      v-model="buissnessinfo.ccl"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    v-if="buisnessData"
+                  >
+                    <div
+                      class=""
+                      v-if="ccl_pathType === 'image' && ccl_pathType !== null"
+                    >
                       <img
+                        v-b-modal.ccl_path
                         :src="buisnessData.ccl_path"
                         alt="moa-image"
                         v-if="buisnessData.ccl_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal id="ccl_path" :title="$t('profile.commercialLicense')">
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.commercialLicense") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="buisnessData.ccl_path"
+                            alt="moa-image"
+                            v-if="buisnessData.ccl_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                buisnessData.ccl_path,
+                                (extension = buisnessData.ccl_path.split('.').pop()),
+                                $t('profile.commercialLicense')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="ccl_pathType === 'document' && ccl_pathType !== null"
+                    >
+                      <a :href="buisnessData.ccl_path" target="_blank">
+                        <canvas id="ccl_pathType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             buisnessData.ccl_path,
                             (extension = buisnessData.ccl_path.split('.').pop()),
                             $t('profile.commercialLicense')
@@ -86,106 +110,123 @@
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="ccl_pathType === 'document' && ccl_pathType !== null"
-                >
-                  <a :href="buisnessData.ccl_path" target="_blank">
-                    <canvas id="ccl_pathType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        buisnessData.ccl_path,
-                        (extension = buisnessData.ccl_path.split('.').pop()),
-                        $t('profile.commercialLicense')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.ccl"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.ccl"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </div>
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{
+                'border-main-force':
+                  buisnessData && buisnessData.auth_civil_copy_path !== null,
+              }"
+            >
+              <label for="signatureAccreditation">
+                {{ $t("profile.signatureAccreditation") }}
+                <span class="text-danger">*</span>
+              </label>
 
-        <div class="form-input mb-4" v-if="allDocFiles.auth_civil_copy !== ''">
-          <label for="signatureAccreditation">
-            {{ $t("profile.signatureAccreditation") }}
-            <span class="text-danger">*</span>
-          </label>
-
-          <div class="row justify-content-center align-content-center">
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  id="CommissionerCard"
-                  size="lg"
-                  v-model="buissnessinfo.auth_civil_copy"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
-              <div
-                class="d-flex justify-content-center align-content-center"
-                v-if="buisnessData"
-              >
-                <div
-                  class=""
-                  v-if="auth_civil_copyType === 'image' && auth_civil_copyType !== null"
-                >
-                  <img
-                    v-b-modal.auth_civil_copy_path
-                    :src="buisnessData.auth_civil_copy_path"
-                    alt="moa-image"
-                    v-if="buisnessData.auth_civil_copy_path"
-                  />
-
-                  <b-modal
-                    id="auth_civil_copy_path"
-                    :title="$t('profile.signatureAccreditation')"
+              <div class="row justify-content-center align-content-center">
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      id="CommissionerCard"
+                      size="lg"
+                      v-model="buissnessinfo.auth_civil_copy"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
                   >
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.signatureAccreditation") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                    <div
+                      class=""
+                      v-if="
+                        auth_civil_copyType === 'image' && auth_civil_copyType !== null
+                      "
+                    >
                       <img
+                        v-b-modal.auth_civil_copy_path
                         :src="buisnessData.auth_civil_copy_path"
                         alt="moa-image"
                         v-if="buisnessData.auth_civil_copy_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal
+                        id="auth_civil_copy_path"
+                        :title="$t('profile.signatureAccreditation')"
+                      >
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.signatureAccreditation") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="buisnessData.auth_civil_copy_path"
+                            alt="moa-image"
+                            v-if="buisnessData.auth_civil_copy_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                buisnessData.auth_civil_copy_path,
+                                (extension = buisnessData.auth_civil_copy_path
+                                  .split('.')
+                                  .pop()),
+                                $t('profile.signatureAccreditation')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="
+                        auth_civil_copyType === 'document' && auth_civil_copyType !== null
+                      "
+                    >
+                      <a :href="buisnessData.auth_civil_copy_path" target="_blank">
+                        <canvas
+                          id="auth_civil_copyType-canvas"
+                          class="custom-canvas"
+                        ></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             buisnessData.auth_civil_copy_path,
                             (extension = buisnessData.auth_civil_copy_path
                               .split('.')
@@ -197,105 +238,107 @@
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="
-                    auth_civil_copyType === 'document' && auth_civil_copyType !== null
-                  "
-                >
-                  <a :href="buisnessData.auth_civil_copy_path" target="_blank">
-                    <canvas
-                      id="auth_civil_copyType-canvas"
-                      class="custom-canvas"
-                    ></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        buisnessData.auth_civil_copy_path,
-                        (extension = buisnessData.auth_civil_copy_path.split('.').pop()),
-                        $t('profile.signatureAccreditation')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.auth_civil_copy"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.auth_civil_copy"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </div>
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{
+                'border-main-force': buisnessData && buisnessData.ccs_path !== null,
+              }"
+            >
+              <label for="commissionerCard">
+                {{ $t("profile.commissionerCard") }}
+                <span class="text-danger">*</span>
+              </label>
 
-        <div class="form-input mb-4" v-if="allDocFiles.ccs !== ''">
-          <label for="commissionerCard">
-            {{ $t("profile.commissionerCard") }}
-            <span class="text-danger">*</span>
-          </label>
-
-          <div class="row justify-content-center align-content-center">
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  v-model="buissnessinfo.ccs"
-                  id="SignatureAccreditation"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
-              <div
-                class="d-flex justify-content-center align-content-center"
-                v-if="buisnessData"
-              >
-                <div class="" v-if="ccsType === 'image' && ccsType !== null">
-                  <img
-                    v-b-modal.ccs_path
-                    :src="buisnessData.ccs_path"
-                    alt="moa-image"
-                    v-if="buisnessData.ccs_path"
-                  />
-
-                  <b-modal id="ccs_path" :title="$t('profile.commissionerCard')">
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.commissionerCard") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+              <div class="row justify-content-center align-content-center">
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      v-model="buissnessinfo.ccs"
+                      id="SignatureAccreditation"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
+                  >
+                    <div class="" v-if="ccsType === 'image' && ccsType !== null">
                       <img
+                        v-b-modal.ccs_path
                         :src="buisnessData.ccs_path"
                         alt="moa-image"
                         v-if="buisnessData.ccs_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal id="ccs_path" :title="$t('profile.commissionerCard')">
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.commissionerCard") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="buisnessData.ccs_path"
+                            alt="moa-image"
+                            v-if="buisnessData.ccs_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                buisnessData.ccs_path,
+                                (extension = buisnessData.ccs_path.split('.').pop()),
+                                $t('profile.commissionerCard')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="ccsType === 'document' && ccsType !== null"
+                    >
+                      <a :href="buisnessData.ccs_path" target="_blank">
+                        <canvas id="ccsType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             buisnessData.ccs_path,
                             (extension = buisnessData.ccs_path.split('.').pop()),
                             $t('profile.commissionerCard')
@@ -305,103 +348,110 @@
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="ccsType === 'document' && ccsType !== null"
-                >
-                  <a :href="buisnessData.ccs_path" target="_blank">
-                    <canvas id="ccsType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        buisnessData.ccs_path,
-                        (extension = buisnessData.ccs_path.split('.').pop()),
-                        $t('profile.commissionerCard')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.ccs_path"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{
+                'border-main-force': buisnessData && buisnessData.rmcm_path !== null,
+              }"
+            >
+              <label for="certificateAdministration">
+                {{ $t("profile.certificateAdministration") }}
+              </label>
 
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.ccs_path"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </div>
-
-        <div class="form-input mb-4" v-if="allDocFiles.rmcm !== ''">
-          <label for="certificateAdministration">
-            {{ $t("profile.certificateAdministration") }}
-          </label>
-
-          <div class="row justify-content-center align-content-center">
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  v-model="buissnessinfo.rmcm"
-                  id="certificateAdministration"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
-              <div
-                class="d-flex justify-content-center align-content-center"
-                v-if="buisnessData"
-              >
-                <div class="" v-if="rmcmType === 'image' && rmcmType !== null">
-                  <img
-                    v-b-modal.rmcm_path
-                    :src="buisnessData.rmcm_path"
-                    alt="moa-image"
-                    v-if="buisnessData.rmcm_path"
-                  />
-
-                  <b-modal
-                    id="rmcm_path"
-                    :title="$t('profile.certificateAdministration')"
+              <div class="row justify-content-center align-content-center">
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      v-model="buissnessinfo.rmcm"
+                      id="certificateAdministration"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
                   >
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.certificateAdministration") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                    <div class="" v-if="rmcmType === 'image' && rmcmType !== null">
                       <img
+                        v-b-modal.rmcm_path
                         :src="buisnessData.rmcm_path"
                         alt="moa-image"
                         v-if="buisnessData.rmcm_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal
+                        id="rmcm_path"
+                        :title="$t('profile.certificateAdministration')"
+                      >
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.certificateAdministration") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="buisnessData.rmcm_path"
+                            alt="moa-image"
+                            v-if="buisnessData.rmcm_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                buisnessData.rmcm_path,
+                                (extension = buisnessData.rmcm_path.split('.').pop()),
+                                $t('profile.certificateAdministration')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="rmcmType === 'document' && rmcmType !== null"
+                    >
+                      <a :href="buisnessData.rmcm_path" target="_blank">
+                        <canvas id="rmcmType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             buisnessData.rmcm_path,
                             (extension = buisnessData.rmcm_path.split('.').pop()),
                             $t('profile.certificateAdministration')
@@ -411,45 +461,25 @@
                         <i class="fa fa-download"></i>
                         {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="rmcmType === 'document' && rmcmType !== null"
-                >
-                  <a :href="buisnessData.rmcm_path" target="_blank">
-                    <canvas id="rmcmType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        buisnessData.rmcm_path,
-                        (extension = buisnessData.rmcm_path.split('.').pop()),
-                        $t('profile.certificateAdministration')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.rmcm"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
-
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.rmcm"
-            :key="index"
-          >
-            {{ error }}
-          </div>
         </div>
+
         <b-button
           type="submit"
-          variant="outline-danger"
-          class="saveBtn btn-block py-3"
+          class="saveBtn btn-block py-3 border-main"
           :disabled="btn1Disabled"
         >
           <i class="fa fa-upload"></i> {{ $t("profile.save") }}
@@ -459,222 +489,233 @@
 
       <!-- suppDocUpload -->
 
-      <form
-        class="suppDoc mb-5"
-        @submit.prevent="suppDocUploadForm"
-        v-if="allDocFiles.moa !== '' || allDocFiles.sad !== ''"
-      >
-        <div class="form-input mb-4" v-if="allDocFiles.moa !== ''">
-          <label for="establishmentContract">
-            {{ $t("profile.establishmentContract") }}
-          </label>
+      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm">
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{ 'border-main-force': suppData && suppData.moa_path !== null }"
+            >
+              <label for="establishmentContract">
+                {{ $t("profile.establishmentContract") }}
+              </label>
 
-          <div class="row justify-content-center align-content-center" v-if="suppData">
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  v-model="suppDocUploadInfo.moa"
-                  id="establishmentContract"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
               <div
-                class="d-flex justify-content-center align-content-center"
-                v-if="buisnessData"
+                class="row justify-content-center align-content-center"
+                v-if="suppData"
               >
-                <div class="" v-if="moaType === 'image' && moaType !== null">
-                  <img
-                    v-b-modal.moaModal
-                    :src="suppData.moa_path"
-                    alt="moa-image"
-                    v-if="suppData.moa_path"
-                  />
-
-                  <b-modal id="moaModal" :title="$t('profile.establishmentContract')">
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.establishmentContract") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      v-model="suppDocUploadInfo.moa"
+                      id="establishmentContract"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
+                  >
+                    <div class="" v-if="moaType === 'image' && moaType !== null">
                       <img
+                        v-b-modal.moaModal
                         :src="suppData.moa_path"
                         alt="moa-image"
                         v-if="suppData.moa_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal id="moaModal" :title="$t('profile.establishmentContract')">
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.establishmentContract") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="suppData.moa_path"
+                            alt="moa-image"
+                            v-if="suppData.moa_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                suppData.moa_path,
+                                (extension = suppData.moa_path.split('.').pop())
+                              ),
+                                $t('profile.establishmentContract')
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="moaType === 'document' && moaType !== null"
+                    >
+                      <a :href="suppData.moa_path" target="_blank">
+                        <canvas id="moaType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             suppData.moa_path,
-                            (extension = suppData.moa_path.split('.').pop())
-                          ),
+                            (extension = suppData.moa_path.split('.').pop()),
                             $t('profile.establishmentContract')
+                          )
                         "
                       >
-                        <i class="fa fa-download"></i>
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="moaType === 'document' && moaType !== null"
-                >
-                  <a :href="suppData.moa_path" target="_blank">
-                    <canvas id="moaType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        suppData.moa_path,
-                        (extension = suppData.moa_path.split('.').pop()),
-                        $t('profile.establishmentContract')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.moa"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{ 'border-main-force': suppData && suppData.sad_path !== null }"
+            >
+              <label for="IbanCertificate">
+                {{ $t("profile.letterAuthorization") }}
+              </label>
 
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.moa"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-        </div>
-        <div class="form-input mb-4" v-if="allDocFiles.sad !== ''">
-          <label for="IbanCertificate">
-            {{ $t("profile.letterAuthorization") }}
-          </label>
-
-          <div
-            class="row justify-content-center align-content-center"
-            v-if="buisnessData"
-          >
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  v-model="suppDocUploadInfo.sad"
-                  id="CertificateAdministration"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
               <div
-                class="d-flex justify-content-center align-content-center"
+                class="row justify-content-center align-content-center"
                 v-if="buisnessData"
               >
-                <div class="" v-if="sadType === 'image'">
-                  <img
-                    v-b-modal.sadModal
-                    :src="suppData.sad_path"
-                    alt="moa-image"
-                    v-if="suppData.sad_path"
-                  />
-
-                  <b-modal id="sadModal" :title="$t('profile.letterAuthorization')">
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.letterAuthorization") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      v-model="suppDocUploadInfo.sad"
+                      id="CertificateAdministration"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
+                  >
+                    <div class="" v-if="sadType === 'image'">
                       <img
+                        v-b-modal.sadModal
                         :src="suppData.sad_path"
                         alt="moa-image"
                         v-if="suppData.sad_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal id="sadModal" :title="$t('profile.letterAuthorization')">
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.letterAuthorization") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="suppData.sad_path"
+                            alt="moa-image"
+                            v-if="suppData.sad_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                downloadItem.sad_path,
+                                (extension = downloadItem.sad_path.split('.').pop()),
+                                $t('profile.letterAuthorization')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="sadType === 'document' && sadType !== null"
+                    >
+                      <a :href="suppData.sad_path" target="_blank">
+                        <canvas id="sadType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
-                            downloadItem.sad_path,
-                            (extension = downloadItem.sad_path.split('.').pop()),
+                          downloadItem(
+                            suppData.sad_path,
+                            (extension = suppData.sad_path.split('.').pop()),
                             $t('profile.letterAuthorization')
                           )
                         "
                       >
-                        <i class="fa fa-download"></i>
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
+                    </div>
+                  </div>
                 </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="sadType === 'document' && sadType !== null"
-                >
-                  <a :href="suppData.sad_path" target="_blank">
-                    <canvas id="sadType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        suppData.sad_path,
-                        (extension = suppData.sad_path.split('.').pop()),
-                        $t('profile.letterAuthorization')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
-                </div>
+              </div>
+
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.sad"
+                :key="index"
+              >
+                {{ error }}
               </div>
             </div>
           </div>
-
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.sad"
-            :key="index"
-          >
-            {{ error }}
-          </div>
         </div>
+
         <b-button
           type="submit"
-          variant="outline-danger"
-          class="saveBtn btn-block py-3"
+          class="saveBtn btn-block py-3 border-main"
           :disabled="btn2Disabled"
         >
           <i class="fa fa-upload"></i> {{ $t("profile.save") }}
@@ -684,76 +725,108 @@
 
       <!-- bank iban  -->
 
-      <form
-        lass="suppDoc"
-        @submit.prevent="ibanUpload"
-        v-if="allDocFiles.iban_number_certificate !== ''"
-      >
-        <div class="form-input mb-4">
-          <label for="LetterAuthorization">
-            {{ $t("profile.ibanCertificate") }}
-            <span class="text-danger">*</span>
-          </label>
-          <div class="row justify-content-center align-content-center" v-if="suppData">
-            <div class="col-md-8 col-sm-12 mb-3">
-              <b-form-group>
-                <b-form-file
-                  size="lg"
-                  v-model="bankIban.iban"
-                  id="LetterAuthorization"
-                  :placeholder="$t('profile.filePlaceHolder')"
-                  drop-placeholder="Drop file here..."
-                ></b-form-file>
-              </b-form-group>
+      <form lass="suppDoc" @submit.prevent="ibanUpload">
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+            <div
+              class="form-input mb-4 new-style"
+              :class="{
+                'border-main-force':
+                  ibanData && ibanData.iban_number_certificate_path !== null,
+              }"
+            >
+              <label for="LetterAuthorization">
+                {{ $t("profile.ibanCertificate") }}
+                <span class="text-danger">*</span>
+              </label>
               <div
-                class="error text-start"
-                v-for="(error, index) in uploadErrors.bank_iban"
-                :key="index"
+                class="row justify-content-center align-content-center"
+                v-if="suppData"
               >
-                {{ error }}
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-12 mb-3">
-              <div
-                class="d-flex justify-content-center align-content-center"
-                v-if="buisnessData"
-              >
-                <div class="" v-if="ibanType === 'image' && ibanType !== null">
-                  <img
-                    v-b-modal.ibanModal
-                    :src="ibanData.iban_number_certificate_path"
-                    alt="moa-image"
-                    v-if="ibanData.iban_number_certificate_path"
-                  />
-
-                  <b-modal id="ibanModal" :title="$t('profile.ibanCertificate')">
-                    <template #modal-header="{ close }">
-                      <!-- Emulate built in modal header close button action -->
-                      <h5>
-                        {{ $t("profile.ibanCertificate") }}
-                      </h5>
-
-                      <b-button size="sm" variant="outline-danger" @click="close()">
-                        x
-                      </b-button>
-                    </template>
-
-                    <template>
+                <div class="">
+                  <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      v-model="bankIban.iban"
+                      id="LetterAuthorization"
+                      :placeholder="$t('profile.filePlaceHolder')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group>
+                  <div
+                    class="error text-start"
+                    v-for="(error, index) in uploadErrors.bank_iban"
+                    :key="index"
+                  >
+                    {{ error }}
+                  </div>
+                </div>
+                <div class="">
+                  <div
+                    class="d-flex justify-content-center align-content-center"
+                    v-if="buisnessData"
+                  >
+                    <div class="" v-if="ibanType === 'image' && ibanType !== null">
                       <img
+                        v-b-modal.ibanModal
                         :src="ibanData.iban_number_certificate_path"
                         alt="moa-image"
                         v-if="ibanData.iban_number_certificate_path"
-                        class="img-fluid w-100"
                       />
-                    </template>
 
-                    <template #modal-footer>
-                      <!-- Emulate built in modal footer ok and cancel button actions -->
+                      <b-modal id="ibanModal" :title="$t('profile.ibanCertificate')">
+                        <template #modal-header="{ close }">
+                          <!-- Emulate built in modal header close button action -->
+                          <h5>
+                            {{ $t("profile.ibanCertificate") }}
+                          </h5>
+
+                          <b-button size="sm" variant="outline-danger" @click="close()">
+                            x
+                          </b-button>
+                        </template>
+
+                        <template>
+                          <img
+                            :src="ibanData.iban_number_certificate_path"
+                            alt="moa-image"
+                            v-if="ibanData.iban_number_certificate_path"
+                            class="img-fluid w-100"
+                          />
+                        </template>
+
+                        <template #modal-footer>
+                          <!-- Emulate built in modal footer ok and cancel button actions -->
+                          <b-button
+                            class="btn-block"
+                            variant="outline-success"
+                            @click="
+                              downloadImage(
+                                ibanData.iban_number_certificate_path,
+                                (extension = ibanData.iban_number_certificate_path
+                                  .split('.')
+                                  .pop()),
+                                $t('profile.ibanCertificate')
+                              )
+                            "
+                          >
+                            <i class="fa fa-download"></i>
+                            {{ $t("profile.download") }}
+                          </b-button>
+                        </template>
+                      </b-modal>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                      v-else-if="ibanType !== 'image' && ibanType !== null"
+                    >
+                      <a :href="ibanData.iban_number_certificate_path" target="_blank">
+                        <canvas id="ibanType-canvas" class="custom-canvas"></canvas>
+                      </a>
                       <b-button
-                        class="btn-block"
                         variant="outline-success"
                         @click="
-                          downloadImage(
+                          downloadItem(
                             ibanData.iban_number_certificate_path,
                             (extension = ibanData.iban_number_certificate_path
                               .split('.')
@@ -762,52 +835,28 @@
                           )
                         "
                       >
-                        <i class="fa fa-download"></i>
-                        {{ $t("profile.download") }}
+                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
                       </b-button>
-                    </template>
-                  </b-modal>
-                </div>
-                <div
-                  class="d-flex justify-content-center align-items-center flex-column"
-                  v-else-if="ibanType !== 'image' && ibanType !== null"
-                >
-                  <a :href="ibanData.iban_number_certificate_path" target="_blank">
-                    <canvas id="ibanType-canvas" class="custom-canvas"></canvas>
-                  </a>
-                  <b-button
-                    variant="outline-success"
-                    @click="
-                      downloadItem(
-                        ibanData.iban_number_certificate_path,
-                        (extension = ibanData.iban_number_certificate_path
-                          .split('.')
-                          .pop()),
-                        $t('profile.ibanCertificate')
-                      )
-                    "
-                  >
-                    <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                  </b-button>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.iban_code"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+              <div class="error text-start" v-if="unOuthMesssage">
+                {{ unOuthMesssage }}
+              </div>
             </div>
-          </div>
-          <div
-            class="error text-start"
-            v-for="(error, index) in uploadErrors.iban_code"
-            :key="index"
-          >
-            {{ error }}
-          </div>
-          <div class="error text-start" v-if="unOuthMesssage">
-            {{ unOuthMesssage }}
           </div>
         </div>
         <b-button
           type="submit"
-          variant="outline-danger"
-          class="saveBtn btn-block py-3"
+          class="saveBtn btn-block py-3 border-main"
           :disabled="btn3Disabled"
         >
           <i class="fa fa-upload"></i> {{ $t("profile.save") }}
@@ -858,15 +907,6 @@ export default {
       },
       bankIban: {
         iban: null,
-      },
-      allDocFiles: {
-        ccl: null,
-        auth_civil_copy: null,
-        ccs: null,
-        rmcm: null,
-        moa: null,
-        sad: null,
-        iban_number_certificate: null,
       },
       dynamicForm: {},
       // represent data
@@ -974,6 +1014,7 @@ export default {
       }
     });
     profile.getibanUploadData().then((res) => {
+      console.log("third", res.data.items);
       this.ibanData = res.data.items;
       let url = res.data.items.iban_number_certificate_path;
       if (url.match(/.(jpeg|jpg|gif|png)$/)) {
@@ -990,29 +1031,6 @@ export default {
     });
   },
   methods: {
-    /**
-     * @vuese
-     *  check Documents Form
-     */
-    checkDocumentsForm() {
-      profile
-        .checkDocumentsForm()
-        .then((res) => {
-          let formControl = res.data.items;
-          console.log("doc res", res);
-          formControl.map((element) => {
-            if (element.status !== 1) {
-              this.allDocFiles[element.input_key] = "";
-            } else {
-              this.allDocFiles[element.input_key] = null;
-            }
-          });
-          console.log("this.allDocFiles", this.allDocFiles);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     /**
      * download Image function
      * @vuese
@@ -1347,7 +1365,6 @@ export default {
     if (this.userInfo === "b2c") {
       this.$router.push("/");
     }
-    this.checkDocumentsForm();
   },
   computed: {
     /**
@@ -1376,7 +1393,7 @@ export default {
         color: #312620;
 
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }
@@ -1399,10 +1416,11 @@ export default {
         }
 
         img {
-          width: 20rem;
-          height: 7rem;
-          object-fit: contain;
           // display: none;
+
+          width: 20rem;
+          height: 10rem;
+          object-fit: contain;
         }
 
         .input-img {
@@ -1467,5 +1485,16 @@ button:disabled {
 /* Darker background on mouse-over */
 .savebtn:hover {
   background-color: RoyalBlue;
+}
+.new-style {
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 5px;
+  overflow: hidden;
+  min-height: 20rem;
+}
+.border-main-force {
+  border-color: $main-color;
 }
 </style>

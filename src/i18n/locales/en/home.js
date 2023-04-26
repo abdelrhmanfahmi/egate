@@ -50,5 +50,8 @@ export default {
     cookizHead:'Cookies Consent',
     cookizText: 'This website use cookies to help you have a superior and more relevant browsing experience on the website.',
     accept:'Accept',
-    decline:'Decline'
+    decline:'Decline',
+    corporate:"Corporate",
+    newSearchText:'All your purchases at wholesale price',
+    downloadApp:'Download our app!'
 };

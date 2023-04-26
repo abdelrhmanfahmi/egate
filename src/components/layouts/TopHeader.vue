@@ -1,41 +1,43 @@
 <template>
   <!-- component for language and countries  -->
 
-  <header class="main-header">
-    <b-container>
+  <header class="main-header" :class="$i18n.locale">
+    <div>
       <div class="top-nav">
         <div class="lang" v-if="arabicAvailable !== 'no' && arabicAvilability == true">
-          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
+          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">En</button>
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             اللغة العربية
           </button>
         </div>
-        <div class="select-country Allcountries">
-          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
-            <template #button-content>
-              <span class="title">{{ countryName }}</span>
-              <img :src="countryImg" :alt="countryName" />
-            </template>
-            <b-dropdown-item v-for="country in countries" :key="country.id" @click="onHandelCountry(country)">
-              <span>{{ country.title }}</span>
-              <img :src="country.flag" :alt="country.title" />
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
-        <div class="select-country">
-          <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
-            <template #button-content>
-              <span class="title" id="myCurrency-code">{{
-                currentCurrency
-              }}</span>
-            </template>
-            <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index" @click="handleCurrency(currency)">
-              <span>{{ currency.code }}</span>
-            </b-dropdown-item>
-          </b-dropdown>
+        <div class="block-div bg-white d-flex justify-content-center align-items-center">
+          <div class="select-country Allcountries">
+            <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
+              <template #button-content>
+                <span class="title">{{ countryName }}</span>
+                <img :src="countryImg" :alt="countryName" />
+              </template>
+              <b-dropdown-item v-for="country in countries" :key="country.id" @click="onHandelCountry(country)">
+                <span>{{ country.title }}</span>
+                <img :src="country.flag" :alt="country.title" />
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+          <div class="select-country">
+            <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
+              <template #button-content>
+                <span class="title" id="myCurrency-code">{{
+                  currentCurrency
+                }}</span>
+              </template>
+              <b-dropdown-item v-for="(currency, index) in myCurrencies" :key="index" @click="handleCurrency(currency)">
+                <span>{{ currency.code }}</span>
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
         </div>
       </div>
-    </b-container>
+    </div>
   </header>
 </template>
 
@@ -85,7 +87,7 @@ export default {
 
       }
     }, 5000);
-    
+
 
   },
   created() {
@@ -344,7 +346,8 @@ export default {
     * component style
 */
 .main-header {
-  background: #202026;
+  // background: #202026;
+  background: inherit;
 
   .top-nav {
     padding: 8px 0px;
@@ -353,9 +356,16 @@ export default {
     align-items: center;
 
     .lang {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 40px;
+      margin: 0 10px;
+
       button {
         background: transparent;
-        color: #fff;
+        // color: #fff;
+        color: inherit;
         border: none;
         text-transform: capitalize;
         font-size: 16px;
@@ -368,4 +378,23 @@ export default {
   background: transparent !important;
   border: none !important;
 }
+
+.Allcountries {
+  border-radius: 0;
+  padding: 0 15px 0 0;
+}
+
+.en {
+  .Allcountries {
+    border-right: 1px solid #ccc;
+  }
+}
+
+.ar {
+  .Allcountries {
+    border-left: 1px solid #ccc;
+  }
+}
+
+
 </style>

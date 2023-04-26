@@ -143,7 +143,7 @@ export default {
     }
   }
   .btn-outline-danger:hover {
-    color: #dc3545;
+    color: $main-color;
   }
 }
 .event-btn {

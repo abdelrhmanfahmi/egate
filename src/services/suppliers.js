@@ -136,5 +136,16 @@ export default {
   getClients(page) {
     return globalAxios.get(`suppliers-name?page=${page}`);
   },
+  getNewCoverPromotion(payload){
+    return globalAxios.get('members/banners' , {
+      params:{
+        type:payload ? payload.type : null,
+        model_type: payload ? payload.model_type : null
+      }
+    })
+  },
+  getRelatedOffers(id){
+    return globalAxios.get(`products/${id}/related/offers`)
+  }
   
 };

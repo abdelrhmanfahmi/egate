@@ -1,8 +1,8 @@
 /**
 	* cart style
 */
-$primary-color: #00005c; // Change color here. C'mon, try it!
-$text-color: mix(#000, $primary-color, 64%);
+
+$text-color: var(--main-color);
 
 .cart {
   .heading {
@@ -18,7 +18,7 @@ $text-color: mix(#000, $primary-color, 64%);
           th {
             font-size: 11pt;
             font-weight: bold;
-            color: #565656;
+            //color: #565656;
             border-bottom: 1px solid #dee2e6;
           }
         }
@@ -72,7 +72,7 @@ $text-color: mix(#000, $primary-color, 64%);
             a {
               color: #a0a0a0;
               &:hover {
-                color: #ed2124;
+                color: $main-color;
               }
             }
           }
@@ -112,7 +112,14 @@ $text-color: mix(#000, $primary-color, 64%);
           tr {
             color: #312620;
             font-weight: 600;
-            border-bottom: 1px dashed #c5c6c6;
+            // border-bottom: 1px dashed #c5c6c6;
+
+            // new style 
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
             th {
               padding: 1rem 0;
               width: 25%;
@@ -167,22 +174,24 @@ input[type="text"]:disabled {
 }
 .order-shipping {
   transition: all 0.3s ease-in-out;
-  width: 37%;
-  @media(max-width:767px){
-    width:100%;
-    margin:20px 0;
-    text-align: center !important;
-  }
-  @media (min-width: 768px) and (max-width: 991.98px){
-    width:80%;
-    margin:20px 0;
-    text-align: center !important;
-  }
-  @media (min-width: 992px) and (max-width: 1600px){
-    width:60%;
-    margin:20px 0;
-    text-align: center !important;
-  }
+  background: #fff;
+  margin-top: 3%;
+  // width: 37%;
+  // @media(max-width:767px){
+  //   width:100%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
+  // @media (min-width: 768px) and (max-width: 991.98px){
+  //   width:80%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
+  // @media (min-width: 992px) and (max-width: 1600px){
+  //   width:60%;
+  //   margin:20px 0;
+  //   text-align: center !important;
+  // }
   
   form {
     display: flex;
@@ -201,16 +210,27 @@ input[type="text"]:disabled {
     /* Remove comment to use */
     /*
 		&:focus-within {
-				outline: .125em solid $primary-color;
+				outline: .125em solid $main-color;
 		}
 	*/
+
+
+
     input {
       position: absolute;
+      
+      
 
       &:checked + span {
-        /* background-color: mix(#fff, $primary-color, 84%); */
+        /* background-color: mix(#fff, $main-color, 84%); */
+        
         &:before {
-          box-shadow: inset 0 0 0 0.4375em $primary-color;
+          box-shadow: 0 0 0 2px $gray;
+          border: 3px solid #fff;
+          background-color: $main-color;
+          width: 20px;
+          height: 20px;
+          margin:0 7px
         }
       }
     }
@@ -221,21 +241,23 @@ input[type="text"]:disabled {
       padding: 0.375em 0.75em 0.375em 0.375em;
       border-radius: 99em; // or something higher...
       transition: 0.25s ease;
-      &:hover {
-        background-color: mix(#fff, $primary-color, 84%);
-      }
+      // &:hover {
+      //   background-color: mix(#fff, $main-color, 84%);
+      // }
       &:before {
         display: flex;
         flex-shrink: 0;
         content: "";
         background-color: #fff;
-        width: 1.5em;
-        height: 1.5em;
+        width: 1.7em;
+        height: 1.7em;
         border-radius: 50%;
         margin-right: 0.375em;
         transition: 0.25s ease;
-        box-shadow: inset 0 0 0 0.125em $primary-color;
+        box-shadow: inset 0 0 0 0.125em $gray;
         margin: 0 5px;
+        border: 3px solid transparent;
+        
       }
     }
   }
@@ -317,10 +339,10 @@ input[type="text"]:disabled {
   // }
   .cart-table,
   .addresses-holder {
-    background: #ecf0f1;
-    padding: 5% 2%;
-    margin: 2% 0;
-    border-radius: 20px;
+    // background: #ecf0f1;
+    // padding: 5% 2%;
+    // margin: 2% 0;
+    // border-radius: 20px;
   }
   .supplier {
     position: relative;
@@ -384,13 +406,14 @@ input[type="text"]:disabled {
   }
 }
 .supplierAddressesDanger{
-  border: 2px solid #ed2124 !important;
+  border: 2px solid $main-color !important;
 }
 .addresses-holder {
   position: relative;
   .close-options {
     position: absolute;
-    top: 20px;
+    // top: 20px;
+    top: 0px;
     right: 20px;
     width: 25px;
     height: 25px;
@@ -426,7 +449,7 @@ input[type="text"]:disabled {
               margin-inline-start: 0.25rem;
             }
             &:hover {
-              color: #ed2124;
+              color: $main-color;
             }
           }
         }
@@ -458,9 +481,9 @@ input[type="text"]:disabled {
       }
       .payment-method {
         .methods-data {
-          background: #ecf0f1;
-          padding: 2rem;
-          border-radius: 0.5rem;
+          // background: #ecf0f1;
+          // padding: 2rem;
+          // border-radius: 0.5rem;
           .info {
             border-bottom: 1px dashed #c5c6c6;
             padding: 1rem 0.3rem;
@@ -476,12 +499,12 @@ input[type="text"]:disabled {
             }
           }
           .methods {
-            background-color: #fff;
-            border-radius: 0.5rem;
-            border: 1px dashed #cfd0d0;
+            // background-color: #fff;
+            // border-radius: 0.5rem;
+            // border: 1px dashed #cfd0d0;
             .method {
               padding: 1rem;
-              border-bottom: 1px dashed #cfd0d0;
+              // border-bottom: 1px dashed #cfd0d0;
               font-size: 11pt;
               color: #544842;
               .custom-radio {
@@ -510,7 +533,8 @@ input[type="text"]:disabled {
       .title {
         color: #312620;
         font-weight: 600;
-        font-size: 18pt;
+        font-size: 15pt;
+        text-transform: capitalize;
       }
       a {
         font-size: 11pt;
@@ -519,7 +543,7 @@ input[type="text"]:disabled {
           margin-inline-start: 0.25rem;
         }
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }
@@ -554,7 +578,7 @@ a:not([href]):not([class]) {
 }
 sup {
   font-size: 95% !important;
-  color: red;
+  color: $main-color;
 }
 html:lang(ar) {
   .actions {
@@ -571,7 +595,7 @@ html:lang(ar) {
 .cart .cart-detail .data {
   @media (max-width: 767px) {
     padding: 10px 15px !important;
-    text-align: center;
+    // text-align: center;
   }
 }
 
@@ -599,4 +623,8 @@ html:lang(ar) {
       border-bottom: none !important;
     }
   }
+}
+
+.accordion > .card > .card-header{
+  background: transparent !important;
 }

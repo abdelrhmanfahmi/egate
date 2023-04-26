@@ -228,7 +228,7 @@ export default {
       display: inline-block;
       width: 1rem;
       height: 3px;
-      background-color: #ed2124;
+      background-color: $main-color;
       vertical-align: middle;
       margin-inline-end: 0.3rem;
     }
@@ -253,7 +253,7 @@ export default {
           margin-inline-end: 0.3rem;
           color: #878686;
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
       }
@@ -262,9 +262,9 @@ export default {
   .other-sections {
     max-height: 500px;
     overflow-y: scroll;
-    color: #ed2124;
+    color: $main-color;
     .sections {
-      color: #ed2124;
+      color: $main-color;
       .section {
         display: flex;
         align-items: center;
@@ -284,7 +284,7 @@ export default {
           width: 100%;
           padding: 1rem 0;
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
       }

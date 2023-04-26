@@ -66,4 +66,8 @@ export default {
   RegionRequired:'Region is Mandatory',
   CityRequired:'City is Mandatory',
   AddressRequired:'Address is Mandatory',
+  choosePaymentMethod:'Choose Your Payment Method',
+  haveCoupon:'got a coupon code?',
+  Apply:'Apply',
+  search:"Search"
 };

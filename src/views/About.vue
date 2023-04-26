@@ -215,12 +215,12 @@ export default {
         padding: 100px 0;
         .title {
           // padding: 30px 0 0 0;
-          // color: #ed2124;
+          // color: $main-color;
           display: block;
           text-transform: uppercase;
           font-size: 12px;
           font-weight: 500;
-          color: #ed2124;
+          color: $main-color;
           margin-bottom: 10px;
           line-height: 1;
         }
@@ -309,7 +309,7 @@ export default {
       transform: translateY(-50%);
       width: 6px;
       height: 6px;
-      background: #ed2124;
+      background: $main-color;
       border-radius: 50%;
     }
     .newsletter-title .sub-title::after {
@@ -354,7 +354,7 @@ export default {
       margin-left: 5px;
     }
     .newsletter-style-two .newsletter-title .title {
-      color: #ed2124;
+      color: $main-color;
     }
     .newsletter-style-two .newsletter-form input,
     .newsletter-style-two .newsletter-form input::placeholder,

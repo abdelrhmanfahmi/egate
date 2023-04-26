@@ -1,60 +1,15 @@
 <template>
   <!-- standing orders page  -->
   <div>
-    <p class="add-address" @click="showForm = !showForm">
+    <!-- <p class="add-address" @click="showForm = !showForm">
       <span>+ </span>{{ $t("items.addNew") }}
-    </p>
-    <form
-      @submit.prevent="CreateStandingOrders()"
-      class="account-information-form"
-      v-if="showForm"
-    >
-      <b-row class="justify-content-center align-items-center">
-        <!-- country  -->
-        <b-col lg="5" class="mb-3">
-          <label>{{ $t("profile.name") }}</label>
-          <span class="requried">*</span>
-          <b-form-input id="name" v-model="standingOrder.name" />
-          <div class="error" v-for="(error, index) in errors.name" :key="index">
-            {{ error }}
-          </div>
-        </b-col>
-        <b-col lg="5">
-          <b-form-group>
-            <label>{{ $t("items.time") }}</label>
-            <span class="requried">*</span>
-            <b-form-select v-model="standingOrder.time">
-              <b-form-select-option :value="null" disabled>{{
-                $t("payment.selectExist")
-              }}</b-form-select-option>
-              <b-form-select-option
-                :value="time.id"
-                v-for="(time, index) in times"
-                :key="index"
-                >{{ time.title }}</b-form-select-option
-              >
-            </b-form-select>
-            <div
-              class="error"
-              v-for="(error, index) in errors.time_id"
-              :key="index"
-            >
-              {{ error }}
-            </div>
-          </b-form-group>
-        </b-col>
-        <b-col lg="2">
-          <b-button type="submit" class="login-button">
-            {{ $t("register.submit") }}
-          </b-button>
-        </b-col>
-      </b-row>
-    </form>
-    <div class="d-flex justify-content-center align-items-center">
-      <hr class="w-75" />
-    </div>
+    </p> -->
 
-    <div class="standing-orders">
+    <!-- <div class="d-flex justify-content-center align-items-center">
+      <hr class="w-75" />
+    </div> -->
+
+    <!-- <div class="standing-orders">
       <div class="plans" v-if="standingOrdersLength > 0">
         <div class="row">
           <div
@@ -63,12 +18,7 @@
             :key="index"
           >
             <label class="plan basic-plan">
-              <input
-                type="radio"
-                name="plan"
-                :value="order.id"
-                v-model="selectedPlan"
-              />
+              <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" />
               <div class="plan-content-holder">
                 <div class="plan-content">
                   <div class="b-box">
@@ -94,15 +44,11 @@
                         ><font-awesome-icon icon="fa-solid fa-pen-to-square"
                       /></span>
                     </div>
-                    <!-- <div class="icon"></div> -->
                     <h4 class="title" @click="goToGroup(order)">
                       <span>{{ order.name }}</span>
                       <div class="row">
                         <div class="col-12">
-                          <small
-                            >{{ order.items_count }}
-                            {{ $t("items.item") }}</small
-                          >
+                          <small>{{ order.items_count }} {{ $t("items.item") }}</small>
                         </div>
                         <div class="col-12">
                           <small v-if="$i18n.locale == 'en'">{{
@@ -112,125 +58,262 @@
                         </div>
                       </div>
                     </h4>
-                    <!-- <a href="#"></a> -->
                   </div>
-                  <!-- </router-link> -->
                 </div>
               </div>
             </label>
-            <!-- </router-link> -->
           </div>
         </div>
         <b-row class="mb-3" v-if="quantitySelected">
           <b-col lg="5">
             <label for="">{{ $t("cart.standQuantity") }}</label>
-            <b-form-input
-              id="quantity"
-              type="number"
-              min="0"
-              v-model="ProductQuantity"
-            />
-            <div
-              class="error"
-              v-for="(error, index) in errors.quantity"
-              :key="index"
-            >
+            <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" />
+            <div class="error" v-for="(error, index) in errors.quantity" :key="index">
               {{ error }}
             </div>
           </b-col>
         </b-row>
-        <!-- edit modal  -->
-        <b-modal
-          ref="edit-modal"
-          id="modal-center"
-          centered
-          hide-footer
-          :title="$t('items.editGroup')"
-        >
-          <div class="d-block">
-            <form @submit.prevent="editOrder" v-if="selectedOrder">
-              <label>{{ $t("profile.name") }}</label>
-              <span class="requried">*</span>
-              <b-form-input id="name" v-model="selectedOrder.name" />
-              <div
-                class="error"
-                v-for="(error, index) in errors.name"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </form>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-              <b-button
-                class="mt-3"
-                variant="outline-danger"
-                block
-                @click="hideEditModal"
-                >{{ $t("cart.cancel") }}</b-button
-              >
-            </div>
-            <div class="col-md-6 col-sm-12">
-              <b-button
-                class="mt-3"
-                variant="outline-success"
-                block
-                @click="editOrder"
-                >{{ $t("items.edit") }}</b-button
-              >
-            </div>
-          </div>
-        </b-modal>
-        <!-- delete modal  -->
-        <b-modal
-          ref="delete-modal"
-          id="modal-center"
-          centered
-          hide-footer
-          :title="$t('items.deleteGroup')"
-        >
-          <div class="d-block">
-            <form @submit.prevent="editOrder" v-if="selectedOrder">
-              <h5>
-                {{ $t("items.sureDelete") }}
-                <span>({{ selectedOrder.name }}) ?</span>
-              </h5>
-              <div
-                class="error"
-                v-for="(error, index) in errors.name"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </form>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-              <b-button
-                class="mt-3"
-                variant="outline-danger"
-                block
-                @click="hideDeleteModal"
-                >{{ $t("cart.cancel") }}</b-button
-              >
-            </div>
-            <div class="col-md-6 col-sm-12">
-              <b-button
-                class="mt-3"
-                variant="outline-success"
-                block
-                @click="deleteStandingOrder"
-                >{{ $t("items.remove") }}</b-button
-              >
-            </div>
-          </div>
-        </b-modal>
+       
       </div>
       <div class="text-center" v-else>
         <h2>{{ $t("home.noData") }}</h2>
       </div>
+    </div> -->
+
+    <div class="new-standing-orders-design text-center">
+      <div class="add-address" @click="showForm = !showForm">
+        <div class="d-flex justify-content-center align-items-center">
+          <span>+ </span>
+          <span>{{ $t("items.addNew") }}</span>
+        </div>
+      </div>
+
+      <form
+        @submit.prevent="CreateStandingOrders()"
+        class="account-information-form"
+        v-if="showForm"
+        :class="{
+          'text-left': $i18n.locale == 'en',
+          'text-right': $i18n.locale == 'ar',
+        }"
+      >
+        <b-row class="justify-content-center align-items-center">
+          <b-col lg="5" class="mb-3">
+            <label>{{ $t("profile.name") }}</label>
+            <span class="requried">*</span>
+            <b-form-input id="name" v-model="standingOrder.name" />
+            <div class="error" v-for="(error, index) in errors.name" :key="index">
+              {{ error }}
+            </div>
+          </b-col>
+          <b-col lg="5">
+            <b-form-group>
+              <label>{{ $t("items.time") }}</label>
+              <span class="requried">*</span>
+              <b-form-select v-model="standingOrder.time">
+                <b-form-select-option :value="null" disabled>{{
+                  $t("payment.selectExist")
+                }}</b-form-select-option>
+                <b-form-select-option
+                  :value="time.id"
+                  v-for="(time, index) in times"
+                  :key="index"
+                  >{{ time.title }}</b-form-select-option
+                >
+              </b-form-select>
+              <div class="error" v-for="(error, index) in errors.time_id" :key="index">
+                {{ error }}
+              </div>
+            </b-form-group>
+          </b-col>
+          <b-col lg="2">
+            <b-button type="submit" class="login-button">
+              {{ $t("register.submit") }}
+            </b-button>
+          </b-col>
+        </b-row>
+      </form>
+      <!-- orders data table  -->
+      <!-- <div class="d-flex justify-content-start align-items-center">
+        <span>
+          <input type="checkbox" class="myproject--checkbox" v-model="checkAll" />
+        </span>
+        <span class="mx-2">Select All</span>
+      </div> -->
+      <table class="table table-striped table-hover table-bordered selectable">
+        <thead>
+          <tr>
+            <th scope="col" v-for="(tab, index) in fields" :key="index">
+              <span>{{ tab.label }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(order, index) in standingOrders" :key="index">
+            <td>
+              <!-- <div class="row justify-content-center align-items-center">
+                <div class="col-2">
+                  <input
+                    type="checkbox"
+                    class="myproject--checkbox"
+                    :value="order.id"
+                    v-model="checkedOrder"
+                  />
+                </div>
+                <div class="col-10">
+                  <span>{{ order.name }}</span>
+                </div>
+              </div> -->
+              <span>{{ order.name }}</span>
+            </td>
+            <td>
+              <span v-if="order.items_count >= 0">{{ order.items_count }}</span>
+              <span v-else>-</span>
+            </td>
+            <td>
+              <span v-if="order.time && order.time.title">{{ order.time.title }}</span>
+              <span v-else>-</span>
+            </td>
+            <td>
+              <span v-if="order.last_order" class="main-color">{{
+                order.last_order
+              }}</span>
+              <span v-else>-</span>
+            </td>
+
+            <td>
+              <div class="actions d-flex justify-content-center align-items-center">
+                <router-link
+                  :to="{
+                    path: '/profile/SingleStandingOrder',
+                    query: { id: `${order.id}` },
+                  }"
+                  class="text-dark"
+                >
+                  <b-button variant="outline-light main-color border-main" class="m-2">
+                    <font-awesome-icon icon="fa-regular fa-eye" />
+                  </b-button>
+                </router-link>
+
+                <div>
+                  <button
+                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-gray m-2"
+                    @click="
+                      showEditModal();
+                      selectGroupToEdit(order);
+                    "
+                  >
+                    <span>
+                      <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                    </span>
+                  </button>
+                </div>
+                <button
+                  class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq m-2"
+                >
+                  <div>
+                    <button
+                      id="show-btn"
+                      class="m-2 btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-main text-white"
+                      @click="
+                        showDeleteModal();
+                        selectGroupToEdit(order);
+                      "
+                    >
+                      <span>
+                        <font-awesome-icon icon="fa-solid fa-trash-can" />
+                      </span>
+                    </button>
+                  </div>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-start align-items-center mt-5">
+        <!-- pagination for orders  -->
+        <Paginate
+          v-if="standingOrders"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
     </div>
+
+    <!-- edit modal  -->
+    <b-modal
+      ref="edit-modal"
+      id="modal-center"
+      centered
+      hide-footer
+      :title="$t('items.editGroup')"
+    >
+      <div class="d-block">
+        <form @submit.prevent="editOrder" v-if="selectedOrder">
+          <label>{{ $t("profile.name") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="name" v-model="selectedOrder.name" />
+          <div class="error" v-for="(error, index) in errors.name" :key="index">
+            {{ error }}
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-danger" block @click="hideEditModal">{{
+            $t("cart.cancel")
+          }}</b-button>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <b-button class="mt-3" variant="outline-success" block @click="editOrder">{{
+            $t("items.edit")
+          }}</b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- delete modal  -->
+    <b-modal
+      ref="delete-modal"
+      id="modal-center"
+      centered
+      hide-footer
+      :title="$t('items.deleteGroup')"
+    >
+      <div class="d-block">
+        <form @submit.prevent="editOrder" v-if="selectedOrder">
+          <h5>
+            {{ $t("items.sureDelete") }}
+            <span>({{ selectedOrder.name }}) ?</span>
+          </h5>
+          <div class="error" v-for="(error, index) in errors.name" :key="index">
+            {{ error }}
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            block
+            @click="hideDeleteModal"
+            >{{ $t("cart.cancel") }}</b-button
+          >
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <b-button
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="deleteStandingOrder"
+            >{{ $t("items.remove") }}</b-button
+          >
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -240,6 +323,7 @@
  * @displayName standing orders page
  */
 import profile from "@/services/profile";
+import Paginate from "@/components/global/Paginate.vue";
 export default {
   data() {
     return {
@@ -257,6 +341,41 @@ export default {
       quantitySelected: false,
       ProductQuantity: 1,
       selectedOrder: null,
+      checkedOrder: [],
+
+      // new design
+
+      fields: [
+        {
+          key: "name",
+          label: this.$t("profile.name"),
+        },
+        {
+          key: "productsNumber",
+          label: this.$t("profile.productsNumber"),
+        },
+        {
+          key: "frequently",
+          label: this.$t("profile.frequently"),
+        },
+        {
+          key: "last_order",
+          label: this.$t("profile.lastOrder"),
+        },
+        {
+          key: "Actions",
+          label: this.$t("profile.Actions"),
+        },
+      ],
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
     };
   },
   methods: {
@@ -265,6 +384,8 @@ export default {
      * @vuese
      */
     showEditModal() {
+      this.errors = {};
+      this.showForm = false;
       this.$refs["edit-modal"].show();
     },
     /**
@@ -272,6 +393,8 @@ export default {
      * @vuese
      */
     showDeleteModal() {
+      this.errors = {};
+      this.showForm = false;
       this.$refs["delete-modal"].show();
     },
     /**
@@ -298,6 +421,14 @@ export default {
         .then((resp) => {
           this.standingOrders = resp.data.items.data;
           this.standingOrdersLength = resp.data.items.data.length;
+
+          this.total = resp.data.items.data.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.data.meta.total / resp.data.items.data.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.data.meta.total;
+
           console.log(resp);
         })
         .catch((err) => {
@@ -344,7 +475,7 @@ export default {
 
             setTimeout(() => {
               this.$router.push({
-                path: "/StandingOrder",
+                path: "/profile/SingleStandingOrder",
                 query: {
                   id: this.selectedPlan,
                 },
@@ -384,7 +515,7 @@ export default {
           this.standingOrder.time = null;
           this.getStandingOrders();
           this.errors = [];
-          this.showForm = false
+          this.showForm = false;
         })
         .catch((err) => {
           let errors = Object.values(err)[2].data;
@@ -428,7 +559,7 @@ export default {
     goToGroup(group) {
       setTimeout(() => {
         this.$router.push({
-          path: "/StandingOrder",
+          path: "/profile/SingleStandingOrder",
           query: {
             id: group.id,
           },
@@ -463,10 +594,81 @@ export default {
       this.selectedOrder = order;
       console.log("order", order);
     },
+    exportSelectedOrders() {
+      let payload = {
+        ids: this.checkedOrder,
+      };
+      profile
+        .exportSelectedOrders(payload)
+        .then((res) => {
+          console.log(res);
+          this.sucessMsg(res.data.message);
+
+          // setting data comes from api response
+
+          let url = res.data.items.url;
+          let extension = res.data.items.url.split(".").pop();
+          let label = "Orders-File";
+
+          this.downloadFile(url, extension, label);
+          this.checkedOrder = [];
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onPageChange(page) {
+      this.page = page;
+      this.getStandingOrders();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    onChangeRecordsPerPage() {
+      this.getStandingOrders();
+    },
+    /**
+     * function for pagination
+     * @vuese
+     */
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getStandingOrders();
+      }
+    },
   },
   mounted() {
     this.getStandingOrders();
     this.getStandingOrdersTimes();
+  },
+  components: {
+    Paginate,
+  },
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.standingOrders
+          ? this.checkedOrder.length == this.standingOrders.length
+          : false;
+      },
+      set: function (value) {
+        var checkedOrder = [];
+        if (value) {
+          this.standingOrders.forEach(function (order) {
+            checkedOrder.push(order.id);
+          });
+        }
+        this.checkedOrder = checkedOrder;
+      },
+    },
   },
 };
 </script>
@@ -612,11 +814,9 @@ export default {
       }
 
       &:after {
-        box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05),
-          0 4px 4px rgba(50, 55, 60, 0.05), 0 8px 8px rgba(50, 55, 60, 0.05),
-          0 16px 16px rgba(50, 55, 60, 0.05),
-          0 32px 32px rgba(50, 55, 60, 0.0375),
-          0 64px 64px rgba(50, 55, 60, 0.025),
+        box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05), 0 4px 4px rgba(50, 55, 60, 0.05),
+          0 8px 8px rgba(50, 55, 60, 0.05), 0 16px 16px rgba(50, 55, 60, 0.05),
+          0 32px 32px rgba(50, 55, 60, 0.0375), 0 64px 64px rgba(50, 55, 60, 0.025),
           0 128px 128px rgba(50, 55, 60, 0.025);
         opacity: 1;
       }
@@ -675,7 +875,7 @@ input[type="checkbox"] {
   opacity: 0;
 }
 .removeOrder {
-  background: red;
+  background: $main-color;
   color: #fff;
   z-index: 99;
   position: absolute;
@@ -706,6 +906,36 @@ input[type="checkbox"] {
   opacity: 0;
   @media (max-width: 992px) {
     opacity: 1;
+  }
+}
+
+input[type="checkbox"] {
+  opacity: 1 !important;
+}
+
+.add-address {
+  font-size: 17px;
+  color: $main-color;
+  margin: 15px 0;
+  transition: all 0.5s ease-in-out;
+  //new style
+  padding: 20px;
+  border: 2px solid $main-color;
+  border-radius: 5px;
+  padding: 25px;
+  min-width: 335px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    color: $main-color;
+  }
+  span {
+    font-size: 23px;
+    font-weight: 600;
   }
 }
 </style>

@@ -126,10 +126,10 @@
                         </div>
 
                         <b-button @click="addToCart(item)" v-if="
-                          (add_to_cart &&
+                          (add_to_cart == true&&
                             item.product_supplier.product_details_by_type
                               .add_type === 'cart') ||
-                          (add_to_cart &&
+                          (add_to_cart == true&&
                             item.product_supplier.product_details_by_type
                               .add_type === 'both')
                         ">
@@ -138,10 +138,10 @@
                         <button @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
-                            RFQ == 'available' &&
+                            RFQ == true &&
                             (item.product_supplier.product_details_by_type
                               .add_type === 'rfq' ||
-                              (RFQ == 'available' &&
+                              (RFQ == true &&
                                 item.product_supplier.product_details_by_type
                                   .add_type === 'both')) &&
                             buyerUserData
@@ -257,7 +257,7 @@
         <div class="text-center" v-else>
           <h6>{{ $t("cart.noData") }}</h6>
           <b-button variant="outline-success" to="/profile/StandingOrders">{{ $t("items.backToStrandingList") }}
-            <font-awesome-icon icon="fa-sharp fa-solid fa-bag-shopping" />
+            <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
           </b-button>
         </div>
       </div>
@@ -898,7 +898,7 @@ export default {
 .myproject--checkbox {
   height: 20px;
   width: 20px;
-  accent-color: red;
+  accent-color: $main-color;
   display: inline-block;
   cursor: pointer;
 }

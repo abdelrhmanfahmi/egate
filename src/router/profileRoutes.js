@@ -20,9 +20,10 @@ import Wallet from "../views/profile/Wallet.vue";
 import Notifications from "../views/profile/Notifications.vue";
 import CheckWalletCharge from "../views/profile/CheckWalletCharge.vue";
 import StandingOrders from "../views/profile/StandingOrders.vue";
+import SingleStandingOrder from "../views/profile/SingleStandingOrder.vue";
 import Dashboard from "../views/profile/Dashboard.vue";
 import NotificationSettings from "../views/profile/NotificationSettings";
-
+import ViewCorresponseDetails from "../views/profile/ViewCorresponseDetails.vue";
 
 
 
@@ -43,6 +44,11 @@ export default {
       path: "/profile/SupplierCorrespondenceB2b",
       name: "SupplierCorrespondenceB2b",
       component: SupplierCorrespondenceB2b,
+    },
+    {
+      path: "/profile/viewCorresponseDetails",
+      name: "ViewCorresponseDetails",
+      component: ViewCorresponseDetails,
     },
     {
       path: "/profile/OrdersListsB2b",
@@ -118,6 +124,11 @@ export default {
       path: "/profile/StandingOrders",
       name: "StandingOrders",
       component: StandingOrders,
+    },
+    {
+      path: "/profile/SingleStandingOrder",
+      name: "SingleStandingOrder",
+      component: SingleStandingOrder,
     },
     {
       path: "/profile/Dashboard",

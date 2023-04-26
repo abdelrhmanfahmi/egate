@@ -12,7 +12,7 @@ export default {
     B2bForm,
   },
   mounted(){
-    if(!this.b2b_buyer_registration){
+    if(this.b2b_buyer_registration !== true){
       this.$router.push('/')
     }
   }

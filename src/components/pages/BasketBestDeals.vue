@@ -188,7 +188,7 @@
               border-radius: 50%;
               color: #fff;
               &:hover {
-                background: #ed2124;
+                background: $main-color;
               }
             }
           }
@@ -208,7 +208,7 @@
           margin-bottom: 6px;
           color: #544842;
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
         .price {
@@ -224,7 +224,7 @@
         margin: 0.2rem 0;
       }
       .new {
-        background: red;
+        background: $main-color;
       }
       .discount {
         background: #ca84ac;
@@ -237,7 +237,7 @@
     object-fit: cover;
   }
   .is_favorite {
-    background: #ed2124 !important;
+    background: $main-color !important;
   }
   </style>
   

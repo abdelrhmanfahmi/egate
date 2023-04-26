@@ -59,6 +59,8 @@ export default {
   exportSelectedOrders:'Export Selected Orders',
   brand:'Brand',
   replaceRFQProduct:'The item is already in the cart, do you want to replace it',
-  returnGiftOrder:'if you do this action,prize product will return also'
-
+  returnGiftOrder:'if you do this action,prize product will return also',
+  otherSuppliers:'Other Suppliers',
+  relatedOffers:'Related Promotions',
+  getOffer:"Get Offer"
 };

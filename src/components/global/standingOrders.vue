@@ -187,7 +187,7 @@ export default {
 
             setTimeout(() => {
               this.$router.push({
-                path: "/StandingOrder",
+                path: "/profile/SingleStandingOrder",
                 query: {
                   id: this.selectedPlan,
                 },
@@ -260,7 +260,7 @@ export default {
   props: {
     variantOrder: {
       // variantOrder prop 
-      type: Array,
+      type: Object,
     },
     quotationQuantity:{
       // quotationQuantity prop

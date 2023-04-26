@@ -12,6 +12,14 @@ export default {
       },
     });
   },
+  searchAddresses(payload) {
+    return globalAxios.get("members/profile/shipping-info", {
+      params: {
+        portal: "buyer",
+        keyword: payload.keyword,
+      },
+    });
+  },
   getAllCities(countryId) {
     return globalAxios.get(`lists/cities/${countryId}`);
   },
@@ -316,6 +324,14 @@ export default {
   },
   getDashboardData() {
     return globalAxios.get("members/dashboard-index/client-dashboard");
+  },
+  getDashboardDataFilter(payload) {
+    return globalAxios.get("members/dashboard-index/client-dashboard",{
+      params:{
+        from:payload.from,
+        to:payload.to
+      }
+    });
   },
   getNotificationSettings() {
     return globalAxios.get("members/notification-settings");

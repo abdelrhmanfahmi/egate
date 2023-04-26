@@ -1,24 +1,24 @@
 <template>
   <ul class="pagination">
     <!-- pagination component   -->
-    <li class="pagination-item">
-      <a href="#" @click.prevent="onClickFirstPage" :class="isInFirstPage ? 'disabled' : ''"
+    <li class="pagination-item first-page">
+      <a  @click.prevent="onClickFirstPage" :class="isInFirstPage ? 'disabled' : ''"
         :disabled="isInFirstPage"><font-awesome-icon icon="fas fa-angle-double-left   " /></a>
     </li>
-    <li class="pagination-item">
-      <a href="#" @click.prevent="onClickPreviousPage" :class="isInFirstPage ? 'disabled' : ''"
+    <li class="pagination-item next-step">
+      <a  @click.prevent="onClickPreviousPage" :class="isInFirstPage ? 'disabled' : ''"
         :disabled="isInFirstPage"><font-awesome-icon icon="fas fa-chevron-left" /></a>
     </li>
     <li :key="page.id" v-for="page in pages" class="pagination-item" :class="{ active: isPageActive(page.name) }">
-      <a href="#" @click.prevent="onClickPage(page.name)" :disabled="page.isDisabled"
+      <a  @click.prevent="onClickPage(page.name)" :disabled="page.isDisabled"
         :class="{ active: isPageActive(page.name) }">{{ page.name }}</a>
     </li>
-    <li class="pagination-item">
-      <a href="#" @click.prevent="onClickNextPage" :class="isInLastPage ? 'disabled' : ''"
+    <li class="pagination-item next-step">
+      <a  @click.prevent="onClickNextPage" :class="isInLastPage ? 'disabled' : ''"
         :disabled="isInLastPage"><font-awesome-icon icon="fas fa-chevron-right" /></a>
     </li>
-    <li class="pagination-item">
-      <a href="#" @click.prevent="onClickLastPage" :class="isInLastPage ? 'disabled' : ''"
+    <li class="pagination-item last-page">
+      <a  @click.prevent="onClickLastPage" :class="isInLastPage ? 'disabled' : ''"
         :disabled="isInLastPage"><font-awesome-icon icon="fas fa-angle-double-right" /></a>
     </li>
   </ul>
@@ -200,14 +200,13 @@ export default {
       color: #2c3e50;
 
       display: inline-block;
-      color: #ddd;
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
-      border-radius: 50%;
-      background: #4f4f4f6e;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      background: #F5F5F5;
       text-align: center;
-      margin: 0 9px;
+      margin: 0 5px;
 
       &.active {
         background-color: tomato;
@@ -234,5 +233,13 @@ button[disabled],
 html input[disabled] {
   cursor: no-drop !important;
   color: lightgray;
+}
+.first-page a , .last-page a{
+  background-color: #4c4c4c !important;
+  border-radius: inherit;
+  color:#fff !important
+}
+.next-step a{
+  background-color: #D1D1D1 !important;
 }
 </style>

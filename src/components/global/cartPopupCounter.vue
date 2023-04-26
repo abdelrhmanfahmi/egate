@@ -1,10 +1,19 @@
 <template>
   <!-- cart popup counter page  -->
   <div class="product-counter CartPopupCounter">
-    <div class="actions d-flex">
-      <button class="product-counter-btn" @click="incrementQuantity">
-        <b-icon-plus />
+    <div
+      class="actions d-flex justify-content-center align-items-center"
+      :class="$i18n.locale"
+    >
+      <button
+        class="product-counter-btn"
+        @click="decrementQuantity"
+        :disabled="countValue <= minimum"
+        :class="{ disabledBtn: countValue <= minimum }"
+      >
+        <b-icon-dash />
       </button>
+
       <div class="value">
         <main>
           <!-- @slot Use this slot header -->
@@ -15,8 +24,8 @@
           </slot>
         </main>
       </div>
-      <button class="product-counter-btn" @click="decrementQuantity">
-        <b-icon-dash />
+      <button class="product-counter-btn" @click="incrementQuantity">
+        <b-icon-plus />
       </button>
     </div>
   </div>
@@ -25,7 +34,7 @@
 //cart popup counter component.
 import { BIconPlus, BIconDash } from "bootstrap-vue";
 export default {
-  name:'CartPopupCounter',
+  name: "CartPopupCounter",
   components: {
     BIconPlus,
     BIconDash,
@@ -112,54 +121,46 @@ export default {
 
 <style lang="scss" scoped>
 /**
-    * page style  
+    * component style 
   */
 .product-counter {
   display: flex;
   align-items: center;
   justify-content: left;
-
   .actions {
-    color: #606266;
-
+    height: 45px;
+    input,
+    button {
+      height: 100% !important;
+    }
+    //color: #606266;
     .product-counter-btn {
-      width: 2rem;
+      width: 1rem;
       height: 1.75rem;
-      border-radius: 50%;
+      border-radius: 0;
       border: 1px solid transparent;
       color: #606266;
       background: #eef1f2;
       display: flex;
       justify-content: center;
       align-items: center;
-
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
-
   .value {
-    border-radius: 50%;
-    border: none;
+    border-radius: 0;
+    border: 1px solid $top-header-color;
     color: #544842;
     font-weight: 500;
-    width: 6rem;
-    height: 3.5rem;
+    width: 3rem;
+    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    height: 100%;
   }
-}
-
-.product-counter .value {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-}
-
-.product-counter .actions .product-counter-btn {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
 }
 </style>

@@ -1,30 +1,21 @@
 <template>
   <!-- notifications page  -->
   <div class="notifications">
-    <div class="">
-      <div class="text-center">
-        <h1>
-          {{ $t("profile.Notifications") }}
-        </h1>
+    <!-- <div class="">
+      <div>
+        <h3>{{ $t("profile.Notifications") }} ({{ total }})</h3>
       </div>
       <div
         class="readAllNotifications px-4 d-flex justify-content-end align-items-center"
       >
-        <button
-          @click="readAllNotifications"
-          class="btn-light border-0 btn-outline-none"
-        >
+        <button @click="readAllNotifications" class="btn-light border-0 btn-outline-none">
           <span class="font-weight-bold mr-2">{{
             $t("profile.readAllNotifications")
           }}</span>
           <font-awesome-icon icon="fa-solid fa-rotate" />
         </button>
       </div>
-      <div
-        class="row data-holder"
-        v-for="(notify, index) in notifications"
-        :key="index"
-      >
+      <div class="row data-holder" v-for="(notify, index) in notifications" :key="index">
         <div class="col-12">
           <div class="new-message-box">
             <div
@@ -57,11 +48,7 @@
                       <p>{{ notify.title }}</p>
                     </div>
                   </div>
-                  <div
-                    to=""
-                    class="btn btn-sm"
-                    @click="goNotificationPage(notify)"
-                  >
+                  <div to="" class="btn btn-sm" @click="goNotificationPage(notify)">
                     <h5>
                       <b>{{ notify.body }}</b>
                     </h5>
@@ -70,9 +57,7 @@
                 <div class="row justify-content-around align-items-center">
                   <div class="col-6">
                     <span
-                      ><i>{{
-                        notify.created_at | timeDefer(notify.created_at)
-                      }}</i></span
+                      ><i>{{ notify.created_at | timeDefer(notify.created_at) }}</i></span
                     >
                   </div>
                   <div
@@ -88,9 +73,7 @@
                           class="btn text-success m-0"
                           @click="readNotification(notify)"
                         >
-                          <b class="text-capitalize">{{
-                            $t("profile.markRead")
-                          }}</b>
+                          <b class="text-capitalize">{{ $t("profile.markRead") }}</b>
                         </button>
                       </b>
                     </span>
@@ -110,6 +93,136 @@
         :current-page="page"
         @pagechanged="onPageChange"
       />
+    </div> -->
+
+    <div class="new-style">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+          <div class="d-flex justify-content-start align-items-center">
+            <span>
+              <input
+                type="checkbox"
+                class="myproject--checkbox"
+                v-model="checkAll"
+              />
+            </span>
+            <h5 class="mx-2">Select All</h5>
+          </div>
+        </div>
+        <h6>
+          <router-link to="/profile/NotificationSettings" class="text-dark">
+            <ins>{{ $t("profile.NotificationSettings") }}</ins>
+          </router-link>
+        </h6>
+      </div>
+      <table class="table table-striped table-hover table-bordered selectable">
+        <thead>
+          <tr>
+            <th
+              :class="{
+                'text-left': $i18n.locale == 'en',
+                'text-right': $i18n.locale == 'ar',
+              }"
+            >
+              {{ $t("profile.Notifications") }}
+            </th>
+            <th class="text-center">
+              {{ $t("profile.actions") }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(notify, index) in notifications" :key="index">
+            <td>
+              <div class="data-holder">
+                <div class="">
+                  <div class="">
+                    <div>
+                      <div>
+                        <div>
+                          <!-- <div class="row justify-content-between">
+                            <div class="col-12">
+                              <p>{{ notify.title }}</p>
+                            </div>
+                          </div> -->
+                          <div
+                            class="d-flex justify-content-start align-items-center"
+                          >
+                            <div class=" d-flex flex-column align-items-center justify-content-center">
+                              <div v-if="notify.is_read == 0">
+                                <span class="unreaded"></span>
+                              </div>
+                              <div class="">
+                                <input
+                                  type="checkbox"
+                                  class="myproject--checkbox"
+                                  :value="notify.id"
+                                  v-model="checkedOrder"
+                                />
+                              </div>
+                            </div>
+                            
+                            <div class="mx-3">
+                              <div @click="goNotificationPage(notify)">
+                                <h5 class="m-0">
+                                  <b>{{ notify.body }}</b>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="">
+                          <div class="">
+                            <span
+                              ><i>{{
+                                notify.created_at | timeDefer(notify.created_at)
+                              }}</i></span
+                            >
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td colspan="3">
+              <div
+                class="d-flex justify-content-center align-items-center actions"
+              >
+                <span v-if="notify.is_read == 0" class="">
+                  <button
+                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart add-cart-rfq bg-dark text-white px-3"
+                    @click="readNotification(notify)"
+                  >
+                    <!-- <b class="text-capitalize">{{ $t("profile.markRead") }}</b> -->
+                    <font-awesome-icon icon="fa-regular fa-envelope-open" />
+                  </button>
+                </span>
+                <span>
+                  <button
+                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-gray m-2"
+                  >
+                    <span>
+                      <font-awesome-icon icon="fa-solid fa-trash-can" />
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-start align-items-center mt-5">
+        <Paginate
+          v-if="notifications"
+          :total-pages="totalPages"
+          :per-page="totalPages"
+          :current-page="page"
+          @pagechanged="onPageChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -198,7 +311,7 @@ export default {
      */
     goNotificationPage(notification) {
       if (notification.type === "return_item") {
-        this.readNotification(notification)
+        this.readNotification(notification);
         this.$router.push({
           path: "/ReturnedRequest",
           query: {
@@ -206,7 +319,7 @@ export default {
           },
         });
       } else if (notification.type === "order") {
-        this.readNotification(notification)
+        this.readNotification(notification);
         this.$router.push({
           path: "/viewOrderDetails",
           query: {
@@ -214,7 +327,7 @@ export default {
           },
         });
       } else if (notification.type === "RFQ") {
-        this.readNotification(notification)
+        this.readNotification(notification);
         this.$router.push({
           path: "/profile/quotationDetails",
           query: {
@@ -222,16 +335,15 @@ export default {
           },
         });
       } else if (notification.type === "chat") {
-        this.readNotification(notification)
+        this.readNotification(notification);
         this.$router.push({
           path: "/viewCorresponseDetails",
           query: {
             id: notification.type_id,
           },
         });
-      }
-      else if (notification.type === "charge_wallet") {
-        this.readNotification(notification)
+      } else if (notification.type === "charge_wallet") {
+        this.readNotification(notification);
         this.$router.push({
           path: "/viewCorresponseDetails",
           query: {
@@ -276,7 +388,26 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+      checkedOrder: [],
     };
+  },
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.notifications
+          ? this.checkedOrder.length == this.notifications.length
+          : false;
+      },
+      set: function (value) {
+        var checkedOrder = [];
+        if (value) {
+          this.notifications.forEach(function (order) {
+            checkedOrder.push(order.id);
+          });
+        }
+        this.checkedOrder = checkedOrder;
+      },
+    },
   },
 };
 </script>
@@ -616,5 +747,16 @@ export default {
 
 .unreaded {
   background: #8bc34a !important;
+}
+
+.unreaded {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: $main-color !important;
+}
+td {
+  padding: 35px 15px !important;
 }
 </style>

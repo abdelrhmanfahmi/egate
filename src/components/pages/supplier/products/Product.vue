@@ -57,10 +57,10 @@
         </div>
       </div>
       <div class="addToCartHolder d-flex justify-content-end align-items-center"
-        v-if="data.product_details_by_type.quantity <= 1">
+        v-if="data.product_details_by_type.quantity >= 1">
         <b-button @click="addToCart(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (add_to_cart &&
+            (add_to_cart == true&&
               data.product_details_by_type.add_type === 'cart') ||
             (add_to_cart &&
               data.product_details_by_type.add_type === 'both')
@@ -81,9 +81,9 @@
         </div>
         <b-button @click="addToCartAgain(data)"
           class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (add_to_cart &&
+            (add_to_cart == true&&
               data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart &&
+            (add_to_cart == true&&
               data.product_details_by_type.add_type === 'both')
           ">
           <span>
@@ -311,7 +311,7 @@ export default {
             color: #fff;
 
             &:hover {
-              background: #ed2124;
+              background: $main-color;
             }
           }
         }
@@ -333,7 +333,7 @@ export default {
         color: #544842;
 
         &:hover {
-          color: #ed2124;
+          color: $main-color;
         }
       }
 
@@ -352,7 +352,7 @@ export default {
     }
 
     .new {
-      background: red;
+      background: $main-color;
     }
 
     .discount {
@@ -368,7 +368,7 @@ export default {
 }
 
 .is_favorite {
-  background: #ed2124 !important;
+  background: $main-color !important;
 }
 
 .Product-Image {

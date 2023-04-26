@@ -48,29 +48,29 @@ Vue.mixin({
     currentLang() {
       return localStorage.getItem("lang");
     },
-
-    storedSiteLogo() {
-      return localStorage.getItem("siteLogo");
+    cartAvailable() {
+      return localStorage.getItem("cartAvailable");
     },
-    storedAdminLogo() {
-      return localStorage.getItem("adminLogo");
+    RfqAvailable() {
+      return localStorage.getItem("RfqAvailable");
     },
-    logoEnv() {
-      return this.storedSiteLogo
-        ? process.env.VUE_APP_FOR_IMAGES +
-            "storage/site_settings_image/" +
-            this.storedSiteLogo
-        : null;
+    storedSiteLogo(){
+      return localStorage.getItem('siteLogo')
     },
-    adminLogo() {
-      return this.storedAdminLogo
-        ? process.env.VUE_APP_FOR_IMAGES +
-            "storage/site_settings_image/" +
-            this.storedAdminLogo
-        : null;
+    storedAdminLogo(){
+      return localStorage.getItem('adminLogo')
     },
-    arabicAvailable() {
-      return localStorage.getItem("arabic");
+    logoEnv(){
+      return this.storedSiteLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedSiteLogo : null
+    },
+    adminLogo(){
+      return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedAdminLogo : null
+    },
+    chatImageBaseUrl(){
+      return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/client_supplier_chat/'  : null
+    },
+    arabicAvailable(){
+      return localStorage.getItem('arabic')
     },
 
     // site  api controls
@@ -135,6 +135,7 @@ Vue.mixin({
     social_login_google() {
       return localStorage.getItem("social_login_google") === 'available' ? true : null;
     },
+
   },
   methods: {
     logout() {

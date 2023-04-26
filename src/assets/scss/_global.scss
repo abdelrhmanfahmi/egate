@@ -2,20 +2,31 @@
 	* global style
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap");
 
-// html , body {
-//   scroll-behavior: smooth;
-// }
+// inter font
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html , body {
+  scroll-behavior: smooth;
+}
+
+*::selection{
+  background-color: $main-color;
+  color: #fff;
+}
 
 body {
-  font-family: $default-font-family, sans-serif;
+  // font-family: $default-font-family, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  color: #676565;
   font-style: normal;
   text-align: start;
+  overflow-x:hidden;
+  background-color: $body-background;
+  color: $body-text-color;
 }
 * {
   margin: 0;
@@ -60,7 +71,7 @@ label,
   vertical-align: baseline;
 }
 .error {
-  color: red;
+  color: $main-color;
 }
 ::placeholder {
   text-transform: capitalize;
@@ -124,13 +135,13 @@ label,
     border: none;
     border-bottom: 3px solid rgba(255, 255, 255, 0.1);
     border-radius: 0;
-    color: #ed2124;
+    color: $main-color;
     font-size: 35px;
   }
 }
 .select-country {
   .title {
-    color: #fff;
+    color: $text-color;
   }
   img {
     width: 25px;
@@ -145,7 +156,7 @@ label,
     padding: 5px;
     text-align: start;
     &:hover {
-      color: #ed2124;
+      color: $main-color;
       p {
         color: #000;
       }
@@ -177,7 +188,7 @@ label,
   }
 }
 .vuejs-countdown {
-  color: #ed2124;
+  color: $main-color;
   font-weight: 700;
   font-family: "Almarai", sans-serif;
   .digit {
@@ -204,6 +215,7 @@ label,
     transform: scale(1, 0);
     transform-origin: 0 0;
     transition: all 0.3s ease-in-out;
+    border-radius: 5px;
     li {
       a {
         padding: 0.3rem 1.3rem;
@@ -215,7 +227,7 @@ label,
       }
       &:hover {
         a {
-          color: #ed2124;
+          color: $main-color;
         }
       }
     }
@@ -247,7 +259,7 @@ label,
   a {
     color: #5a5755;
     &:hover {
-      color: #ed2124;
+      color: $main-color;
     }
   }
 }
@@ -263,7 +275,7 @@ label,
   font-weight: bold;
   font-size: 17pt;
   margin: 1.5rem 0;
-  margin-inline-start: 3rem;
+  // margin-inline-start: 3rem;
 }
 .navigation {
   .prev,
@@ -308,6 +320,7 @@ html:lang(ar) {
   .custom-control-label::after {
     left: unset;
     right: -1.5rem;
+    background-color: red !important;
   }
 }
 button:disabled {
@@ -361,11 +374,13 @@ div {
 .spinner {
   min-height: 50vh;
 }
-
+.price , .price-before{
+  color:$main_color
+}
 .price-after {
   text-decoration: line-through;
   margin: 0 5px;
-  color: $main_color;
+  color: $gray;
   font-size: 12pt;
 }
 
@@ -501,6 +516,7 @@ img {
   padding: 4px !important;
 }
 
+
 // edit modal
 .vm--overlay {
   background: rgb(0 0 0 / 50%);
@@ -563,7 +579,7 @@ input[type="number"] {
 
 .Allcountries {
   .dropdown-menu {
-    left: -12rem !important;
+    left: -rem !important;
     min-width: 20rem !important;
     @media (max-width: 992px) {
       left: -3rem !important;
@@ -650,6 +666,14 @@ input[type="number"] {
       }
     }
   }
+}
+.nav.nav-tabs .nav-item.show .nav-link, .nav.nav-tabs .nav-item .nav-link.active{
+  color: $main-color !important;
+  font-weight: bold;
+}
+.nav.nav-tabs .nav-item .nav-link.active{
+  border-bottom-color: $main-color !important;
+  font-weight: bold;
 }
 /* common */
 .ribbon {
@@ -777,3 +801,34 @@ input[type="number"] {
 //     width: 100% !important;
 //   }
 // }
+
+.bg-main{
+  background-color: $main-color;
+  border: 2px solid $main-color;
+}
+
+footer{
+  section:empty , div:empty , a:empty, span:empty , ul:empty , li:empty{
+    display:none !important
+  }
+}
+
+// .foot .download-img,
+// footer .download-img {
+//   width: 100% !important;
+//   height: auto !important;
+//   min-height: 60px !important;
+// }
+
+.bg-gray{
+  background-color: #CACACA !important;
+  color: #000 !important;
+  font-weight: bold;
+}
+.align-c{
+  align-items: center;
+}
+
+.tab-pane {
+  padding: 0.4rem 1rem;
+}

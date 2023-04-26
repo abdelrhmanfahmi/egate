@@ -1,18 +1,21 @@
 <template>
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
-    <h5 class="my-3" v-if="buyerUserData.company_name_en">
-      {{ buyerUserData.company_name_en }}
-    </h5>
-    <h5 class="my-3" v-else-if="buyerUserData.company_name_ar">
-      {{ buyerUserData.company_name_ar }}
-    </h5>
-    <h5 class="my-3" v-else>
-      {{ buyerUserData.company_name_en }}
-    </h5>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <img :src="buyerUserData.image_path" alt="" srcset="" class="company-img" />
+      <h5 class="my-3" v-if="buyerUserData.company_name_en">
+        {{ buyerUserData.company_name_en }}
+      </h5>
+      <h5 class="my-3" v-else-if="buyerUserData.company_name_ar">
+        {{ buyerUserData.company_name_ar }}
+      </h5>
+      <h5 class="my-3" v-else>
+        {{ buyerUserData.company_name_en }}
+      </h5>
+    </div>
 
     <div
-      class="my-2"
+      class="my-2 px-3"
       v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
     >
       <h5>{{ $t("profile.completeRate") }}</h5>
@@ -37,45 +40,59 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+          <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" size="1x" />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.orders &&
-                link.name.trim() == $t('profile.ordersLists'))
+              userBades &&
+              userBades.orders &&
+              link.name.trim() == $t('profile.ordersLists')
             "
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.returns &&
-                link.name.trim() === $t('profile.returnRequests'))
+              userBades &&
+              userBades.returns &&
+              link.name.trim() === $t('profile.returnRequests')
             "
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.client_messages &&
-                link.name.trim() === $t('profile.supplierCorrespondence'))
+              userBades &&
+              userBades.client_messages &&
+              link.name.trim() === $t('profile.supplierCorrespondence')
             "
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.rfqs &&
-                link.name.trim() === $t('profile.quotations'))
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
+      </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
       </li>
     </ul>
     <ul v-else>
@@ -88,46 +105,60 @@
             buyerUserData.register_mailing_list,
         }"
       >
-      <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+        <router-link :to="link.to">
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" v-else />
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.orders &&
-                link.name.trim() == $t('profile.ordersLists'))
+              userBades &&
+              userBades.orders &&
+              link.name.trim() == $t('profile.ordersLists')
             "
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.returns &&
-                link.name.trim() === $t('profile.returnRequests'))
+              userBades &&
+              userBades.returns &&
+              link.name.trim() === $t('profile.returnRequests')
             "
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.client_messages &&
-                link.name.trim() === $t('profile.supplierCorrespondence'))
+              userBades &&
+              userBades.client_messages &&
+              link.name.trim() === $t('profile.supplierCorrespondence')
             "
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              (userBades &&
-                userBades.rfqs &&
-                link.name.trim() === $t('profile.quotations'))
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
+      </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
       </li>
     </ul>
   </div>
@@ -144,8 +175,8 @@ export default {
       buyerLinks: [
         {
           to: "/profile/categories",
-          name: this.$t("profile.shop"),
-          iconName: "shop",
+          name: this.$t("profile.categories"),
+          iconName: "border-all",
         },
         {
           to: "/profile/dashboard",
@@ -229,11 +260,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
       /**
        * @vuese
@@ -322,11 +353,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
     };
   },
@@ -348,14 +379,20 @@ export default {
       *  component style
     */
 .profile-menu {
-  padding: 60px 0px 60px 25px;
-  background-color: #303030;
+  //padding: 60px 0px 60px 25px;
+  //background-color: #303030;
+  background-color: #1f1f1f;
   color: #fff;
+  font-size: 16px;
   ul {
     li {
-      padding: 10px 0;
+      padding: 10px 20px;
+      border-bottom: 2px solid #4d4d4d;
+      &:first-of-type {
+        border-top: 2px solid #4d4d4d;
+      }
       .router-link-exact-active {
-        color: red;
+        color: $main-color;
       }
       a {
         display: inline-block;
@@ -372,8 +409,17 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    padding: 60px 60px 60px 0px;
+    //padding: 60px 60px 60px 0px;
     text-align: right;
   }
+}
+.logout {
+  cursor: pointer;
+}
+.company-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: fill;
 }
 </style>

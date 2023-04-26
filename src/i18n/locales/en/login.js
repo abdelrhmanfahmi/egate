@@ -18,8 +18,12 @@ export default {
   logBtn1: "Yes, i want to register",
   logBtn2: "No, Continue as a guest",
   actionComplete: "Complete Action",
-  retailBuyer:'Retail Clients',
+  retailBuyer:'Consumer',
   wholeSaleBuyer:'WholeSale Buyer',
   wholeSaleClients:'WholeSale Clients',
+  characters:"Characters",
+  specialCharacter:"Special Character",
+  uppercaseLetter:"Uppercase Letter",
+  number:"Number"
 
 };

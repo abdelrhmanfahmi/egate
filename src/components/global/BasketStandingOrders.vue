@@ -187,7 +187,7 @@
   
               setTimeout(() => {
                 this.$router.push({
-                  path: "/StandingOrder",
+                  path: "/profile/SingleStandingOrder",
                   query: {
                     id: this.selectedPlan,
                   },

@@ -1,12 +1,38 @@
+
+:root {
+	--main-color: #EF4923;
+	--text-color: #040303;
+	--header-color: #312620;
+	--gray:#ADACAB;
+	--tabs-color: #6e6a67;
+	--body-background:#fff;
+	--body-text-color:#000;
+	--top-header-color:#f0f0f0;
+  }
+  
+  $main-color: var(--main-color);
+  $text-color: var(--text-color);
+  // $main-color: #9e0000 ;
+  $body-background: var(--body-background);
+  $body-text-color: var(--body-text-color);
+  $header-color: var(--header-color);
+  $gray: var(--gray);
+  $tabs-color: var(--tabs-color);
+  $top-header-color:var(--top-header-color);
+
+
+
 /**
 	* declare variables
 */
-$main-color: red;
-$text-color: #565656;
+// $main-color: #EF4923;
+// $text-color: #040303;
 /**
 	* header-color
 */
-$header-color: #312620;
+// $header-color: #312620;
+
+// $gray:#ADACAB;
 /**
 	* default-font-family
 */
@@ -14,11 +40,13 @@ $default-font-family: "Almarai";
 /**
 	* tabs-color
 */
-$tabs-color: #6e6a67;
+// $tabs-color: #6e6a67;
 /**
 	* pop-color
 */
-$pop-color:#095e54;
+// $pop-color:#095e54;
+
+
 
 /**
 	* breakpoints

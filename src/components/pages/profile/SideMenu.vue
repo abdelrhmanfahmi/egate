@@ -1,15 +1,13 @@
 <template>
   <div class="profile-menu">
     <!-- side menu for b2c user  -->
-    <h2>{{ $t("profile.myProfile") }}</h2>
-    <h5 class="my-3">
-      {{ buyerUserData.first_name }} {{ buyerUserData.last_name }}
-    </h5>
+    <!-- <h2>{{ $t("profile.myProfile") }}</h2> -->
+    <!-- <div class="d-flex justify-content-center align-items-center flex-column">
+      <img :src="buyerUserData.image_path" alt="" srcset="" />
+      <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
+    </div> -->
 
-    <div
-      class="my-2"
-      v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
-    >
+    <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
       <h5>{{ $t("profile.completeRate") }}</h5>
       <b-progress
         class="progress-rate"
@@ -32,11 +30,17 @@
             buyerUserData.register_mailing_list,
         }"
       >
-      <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+        <router-link :to="link.to">
+          <!-- <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          /> -->
+          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.orders &&
@@ -45,7 +49,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.returns &&
@@ -54,7 +58,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.client_messages &&
@@ -63,15 +67,23 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              userBades &&
-              userBades.rfqs &&
-              link.name.trim() === $t('profile.quotations')
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
+      </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <!-- <font-awesome-icon icon="fa-solid fa-power-off" /> -->
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
       </li>
     </ul>
     <ul v-else>
@@ -85,10 +97,16 @@
         }"
       >
         <router-link :to="link.to">
-          <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" />
+          <!-- <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            v-if="link.name == $t('profile.b2bFav')"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          /> -->
+          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.orders &&
@@ -97,7 +115,7 @@
             >{{ userBades.orders }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.returns &&
@@ -106,7 +124,7 @@
             >{{ userBades.returns }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
               userBades &&
               userBades.client_messages &&
@@ -115,15 +133,23 @@
             >{{ userBades.client_messages }}</span
           >
           <span
-            class="bg-danger border border-light rounded-circle text-white"
+            class="side-number"
             v-if="
-              userBades &&
-              userBades.rfqs &&
-              link.name.trim() === $t('profile.quotations')
+              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
             "
             >{{ userBades.rfqs }}</span
           >
         </router-link>
+      </li>
+      <li>
+        <div class="logout" @click="logout()">
+          <span class="logout-sign">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+          </span>
+          <span class="mx-2">
+            {{ $t("login.logout") }}
+          </span>
+        </div>
       </li>
     </ul>
   </div>
@@ -141,7 +167,7 @@ export default {
         {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
-          iconName: "shop",
+          iconName: "list",
         },
         {
           to: "/profile/dashboard",
@@ -219,11 +245,11 @@ export default {
           name: this.$t("profile.supplierCorrespondence"),
           iconName: "comments",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
       /**
        * @vuese
@@ -311,11 +337,11 @@ export default {
           name: this.$t("profile.Notifications"),
           iconName: "bell",
         },
-        {
-          to: "/profile/NotificationSettings",
-          name: this.$t("profile.NotificationSettings"),
-          iconName: "sliders",
-        },
+        // {
+        //   to: "/profile/NotificationSettings",
+        //   name: this.$t("profile.NotificationSettings"),
+        //   iconName: "sliders",
+        // },
       ],
     };
   },
@@ -337,16 +363,21 @@ export default {
       *  component style
     */
 .profile-menu {
-  padding: 60px 0px 60px 25px;
-  background-color: #303030;
+  //padding: 60px 0px 60px 25px;
+  background-color: #1f1f1f;
   color: #fff;
 
   ul {
     li {
-      padding: 10px 0;
+      padding: 10px 20px;
+      border-bottom: 2px solid #4d4d4d;
+      font-size: 16px;
+      &:first-of-type {
+        border-top: 2px solid #4d4d4d;
+      }
 
       .router-link-exact-active {
-        color: red;
+        color: $main-color;
       }
 
       a {
@@ -365,12 +396,16 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    padding: 60px 60px 60px 0px;
+    //padding: 60px 60px 60px 0px;
     text-align: right;
 
     ul {
       text-align: right;
     }
   }
+}
+
+.logout {
+  cursor: pointer;
 }
 </style>

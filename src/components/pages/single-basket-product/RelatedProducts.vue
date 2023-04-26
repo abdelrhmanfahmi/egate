@@ -34,9 +34,9 @@
           v-if="data.in_stock == true">
           <b-button @click="addToCart(data)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-              (add_to_cart &&
+              (add_to_cart == true&&
                 data.product_details_by_type.add_type === 'cart') ||
-              (add_to_cart &&
+              (add_to_cart == true&&
                 data.product_details_by_type.add_type === 'both')
             ">
             <span>
@@ -55,9 +55,9 @@
           </div>
           <b-button @click="addToCartAgain(data)"
             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-              (add_to_cart &&
+              (add_to_cart == true&&
                 data.product_details_by_type.add_type === 'cart') ||
-              (add_to_cart &&
+              (add_to_cart == true&&
                 data.product_details_by_type.add_type === 'both')
             ">
             <span>
@@ -276,7 +276,7 @@
               color: #fff;
   
               &:hover {
-                background: #ed2124;
+                background: $main-color;
               }
             }
           }
@@ -298,7 +298,7 @@
           color: #544842;
   
           &:hover {
-            color: #ed2124;
+            color: $main-color;
           }
         }
   
@@ -317,7 +317,7 @@
       }
   
       .new {
-        background: red;
+        background: $main-color;
       }
   
       .discount {
@@ -333,7 +333,7 @@
   }
   
   .is_favorite {
-    background: #ed2124 !important;
+    background: $main-color !important;
   }
   
   .Product-Image {

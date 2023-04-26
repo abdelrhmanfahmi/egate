@@ -34,7 +34,7 @@
         </a>
         <router-link to="/order-shipping" class="text-white">
           <button
-            class="login-button dark m-0 mt-4 py-3 px-2 mx-2 text-white text-center w-auto"
+            class="login-button bg-main m-0 mt-4 py-3 px-2 mx-2 text-white text-center w-auto"
             @click="handleClose"
           >
             {{ $t("login.logBtn2") }}

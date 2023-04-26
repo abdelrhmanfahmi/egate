@@ -5,9 +5,10 @@
       id="rating-inline"
       inline
       :value="rateValue"
-      color="#000"
-      @change="changevalue "
+      color="#EF4923"
+      @change="changevalue"
       @click="testMe()"
+      size="lg"
     ></b-form-rating>
   </div>
 </template>
@@ -22,15 +23,13 @@ export default {
   methods: {
     /**
      * @vuese
-      * change rate value function
-    */
+     * change rate value function
+     */
     changevalue(rateValue) {
       this.rateValue = rateValue;
-      // change rate value 
-      this.$emit('changeRate',rateValue)
+      // change rate value
+      this.$emit("changeRate", rateValue);
     },
-
   },
 };
 </script>
-

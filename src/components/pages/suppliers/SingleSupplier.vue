@@ -7,7 +7,8 @@
           :to="`/suppliers/${supplier.id}`"
           class="d-block text-center"
         >
-          <img :src="supplier.image_path" alt="supplier image" />
+          <img :src="supplier.image_path" alt="supplier image" v-if="supplier.image_path" />
+          <img :src="logoEnv" class="img-fluid" alt="logo" v-else />
         </router-link>
         <p class="supplier-name text-center mt-3 text-capitalize">
           {{ supplier.company_name }}

@@ -1,7 +1,7 @@
 <template>
   <!-- sub category page  -->
   <div class="subCategory" :class="$i18n.locale">
-    <div
+    <!-- <div
       class="cover text-center"
       :style="{ backgroundImage: `url(${pageCover})` }"
     >
@@ -25,15 +25,34 @@
           </div>
         </b-container>
       </div>
+    </div> -->
+    <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
+      <!-- navigation -->
+      <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <router-link to="/">
+              {{ $t("items.home") }}
+            </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/"> {{ $t('items.category') }} </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/" class="main-color"> {{ $t('items.subCategory') }} </router-link>
+          </li>
+        </ol>
+      </nav>
     </div>
+    <!-- <newCover /> -->
+    <NewHomeSlider />
     <div class="data-holder">
       <div class="container">
         <div class="row">
           <div class="col-md-9 col-sm-12 mb-3">
             <div class="container" id="people">
               <div class="row">
-                <div class="col-sm-4">
-                </div>
+                <div class="col-sm-4"></div>
               </div>
             </div>
           </div>
@@ -43,6 +62,11 @@
     <section>
       <div class="container">
         <div class="tabs-holder">
+          <!-- <VueSlickCarousel :arrows="true" v-bind="settings" v-if="5 > 2">
+            <div class="tabs-holder">
+              <div class="tabs-content">test</div>
+            </div>
+          </VueSlickCarousel> -->
           <div class="tabs-content">
             <b-tabs>
               <!-- first tab that contain all sub-categories  -->
@@ -54,6 +78,20 @@
                   active: !$route.query.brand || $route.query.brand == 'All',
                 }"
               >
+                <template #title>
+                  <div
+                    class="d-flex justify-content-center align-items-center flex-column"
+                    v-b-tooltip.hover
+                    :title="$t('home.All')"
+                  >
+                    <font-awesome-icon
+                      icon="fa-solid fa-table-cells-large"
+                      size="xl"
+                      class="text-white"
+                    />
+                    <strong>{{ $t("home.All") }}</strong>
+                  </div>
+                </template>
                 <b-row v-if="loading">
                   <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
                     <b-skeleton-img></b-skeleton-img>
@@ -107,15 +145,25 @@
               <!-- second tab that contain classified sub-categories  -->
               <b-tab
                 :title="category.title"
-                v-for="(category , index) in subCategories"
+                v-for="(category, index) in subCategories"
                 :key="index"
                 @click="selectTab(category)"
                 :id="`category-${index}`"
                 v-bind="{
-                  active:
-                    $route.query.brand == category.title.replace(/\s/g, ''),
+                  active: $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
               >
+                <template #title>
+                  <div
+                    class="d-flex justify-content-between align-items-center flex-column"
+                    v-b-tooltip.hover
+                    :title="category.title"
+                  >
+                    <!-- section icon  -->
+                    <img :src="category.icon_image_path" alt="category_image" class="categoryImage">
+                    <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
+                  </div>
+                </template>
                 <b-row
                   align-h="center"
                   align-v="center"
@@ -155,6 +203,14 @@
 <script>
 import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
+// import newCover from "@/components/pages/categories/categoriesCover.vue";
+
+// import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue"
+
 export default {
   data() {
     return {
@@ -183,6 +239,40 @@ export default {
       allSubCategories: null,
       allSubCategoriesLength: null,
       myActiveAtt: "All",
+      settings: {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: true,
+        arrows: true,
+
+        responsive: [
+          {
+            breakpoint: 1191,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -191,13 +281,14 @@ export default {
      * filterProductsByCategory function
      */
     filterProductsByCategory: function () {
-      return this.products.filter(
-        (product) => !product.category.iOf(this.category)
-      );
+      return this.products.filter((product) => !product.category.iOf(this.category));
     },
   },
   components: {
     OtherCategoryCard,
+    // VueSlickCarousel,
+    // newCover,
+    NewHomeSlider
   },
   methods: {
     /**
@@ -281,10 +372,11 @@ export default {
       this.getSubCategories();
     },
     /**
-     * @vuese
-     * selectTab function 
+     * @vueses
+     * selectTab function
      */
     selectTab(item) {
+      var tabsHeight = document.querySelector(".nav-item").offsetTop - 320;
       let query = {};
       if (this.$route.query.brand) {
         for (let key in this.$route.query) {
@@ -304,9 +396,7 @@ export default {
         };
         console.log("third");
       } else if (
-        this.$route.query.brand
-          .split(",")
-          .includes(item.title.replace(/\s/g, ""))
+        this.$route.query.brand.split(",").includes(item.title.replace(/\s/g, ""))
       ) {
         query = {
           brand: query.brand,
@@ -321,6 +411,14 @@ export default {
         path: this.$route.path,
         query: query,
       });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: tabsHeight,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 1500);
     },
 
     /**
@@ -328,6 +426,7 @@ export default {
      * set default tab  function
      */
     selectDefaultTab() {
+      var tabsHeight = document.querySelector(".nav-item").offsetTop - 320;
       let query = {};
       if (this.$route.query.page) {
         for (let key in this.$route.query) {
@@ -337,26 +436,22 @@ export default {
         }
       } else {
         query = {
-          brand: 'All'
+          brand: "All",
         };
       }
 
       if (!this.$route.query.brand) {
         query = {
-          brand: 'All'
+          brand: "All",
         };
         console.log("third");
-      } else if (
-        this.$route.query.brand
-          .split(",")
-          .includes(this.$route.query.brand)
-      ) {
+      } else if (this.$route.query.brand.split(",").includes(this.$route.query.brand)) {
         query = {
           brand: query.brand,
         };
       } else {
         query = {
-          brand: 'All'
+          brand: "All",
         };
       }
 
@@ -364,6 +459,14 @@ export default {
         path: this.$route.path,
         query: query,
       });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: tabsHeight,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 1500);
     },
   },
   created() {
@@ -373,7 +476,6 @@ export default {
     sessionStorage.setItem("catId", this.id);
   },
   mounted() {
-
     if (this.$route.query.brand) {
       this.myActiveAtt = this.$route.query.brand;
     } else {
@@ -463,5 +565,13 @@ div:empty {
       top: 0px;
     }
   }
+}
+.navigation {
+  background-color: #f3f4f6;
+}
+
+.categoryImage{
+  width: 40px;
+  height: 40px;
 }
 </style>
