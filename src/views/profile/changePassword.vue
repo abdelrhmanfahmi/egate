@@ -83,38 +83,7 @@
             {{ error }}
           </div>
         </b-form-group>
-        <div class="form-content">
-          <div class="">
-            <div class="myBox">
-              <div class="all">
-                <p class="font-weight-bold h6 text-gray" id="letter">
-                  <span id="check"
-                    ><font-awesome-icon icon="fa-solid fa-circle-check"
-                  /></span>
-                  8 characters
-                </p>
-                <p class="font-weight-bold h6 text-gray" id="letter1">
-                  <span id="check"
-                    ><font-awesome-icon icon="fa-solid fa-circle-check"
-                  /></span>
-                  1 special character
-                </p>
-                <p class="font-weight-bold h6 text-gray" id="letter2">
-                  <span id="check"
-                    ><font-awesome-icon icon="fa-solid fa-circle-check"
-                  /></span>
-                  1 uppercase letter
-                </p>
-                <p class="font-weight-bold h6 text-gray" id="letter3">
-                  <span id="check"
-                    ><font-awesome-icon icon="fa-solid fa-circle-check"
-                  /></span>
-                  1 number
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CheckPassComponent />
       </b-col>
       <b-button type="submit" class="login-button">
         {{ $t("profile.save") }}
@@ -129,7 +98,7 @@
  * @displayName  change password page
  */
 import auth from "@/services/auth";
-
+import CheckPassComponent from "@/components/auth/checkPassword.vue"
 export default {
   data() {
     return {
@@ -250,6 +219,9 @@ export default {
       this.$router.push("/b2b-login");
     }
   },
+  components:{
+    CheckPassComponent
+  }
 };
 </script>
 

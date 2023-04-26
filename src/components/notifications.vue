@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="notification-ui_dd-footer">
-        <router-link to="/profile/Notifications" class="btn btn-success btn-block">{{
+        <router-link to="/profile/Notifications" class="btn btn-success btn-block bg-main">{{
           $t("cart.viewAll")
         }}</router-link>
       </div>

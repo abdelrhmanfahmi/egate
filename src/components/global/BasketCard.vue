@@ -60,7 +60,7 @@
           {{ slider.price_before_discount | fixedCurrency }}
           {{ currency }}
         </p>
-        <p v-else class="py-3"></p>
+        <!-- <p v-else class="py-3"></p> -->
       </div>
     </div>
     <button
@@ -232,7 +232,7 @@ export default {
   min-width: 250px;
   overflow: hidden;
   a {
-    display: block;
+    display: inline-block;
     opacity: 1;
 
     border-radius: 50%;

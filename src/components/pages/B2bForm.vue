@@ -104,11 +104,12 @@
                 <!-- Password -->
                 <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
-                    <label for="password">{{ $t("register.password") }}</label>
+                    <label for="NewPassword">{{ $t("register.password") }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
-                        id="password"
+                        id="NewPassword"
+                        @keyup="checkPass"
                         v-model="form.password"
                         :type="fieldType"
                       />
@@ -125,12 +126,12 @@
                         />
                       </div>
                     </div>
-                    <p for="passCheck1">
+                    <!-- <p for="passCheck1">
                       {{ $t("register.passCheck1") }}
                     </p>
                     <p for="passCheck2">
                       {{ $t("register.passCheck2") }}
-                    </p>
+                    </p> -->
                     <div
                       class="error"
                       v-for="(error, index) in errors.password"
@@ -174,6 +175,9 @@
                       {{ error }}
                     </div>
                   </b-form-group>
+                </b-col>
+                <b-col lg="12" class="mb-2">
+                  <CheckPassComponent />
                 </b-col>
                 <!-- country code -->
                 <b-col sm="12" lg="3" v-if="form.country_code !== null">
@@ -278,6 +282,7 @@ import auth from "@/services/auth";
 import profile from "@/services/profile";
 import dynamicComponent from "@/components/global/dynamicComponent";
 import { createdFormData } from "@/services/helpers.js";
+import CheckPassComponent from "@/components/auth/checkPassword.vue"
 export default {
   data() {
     return {
@@ -464,9 +469,64 @@ export default {
           console.log(err);
         });
     },
+    checkPass() {
+      var len = document.getElementById("NewPassword").value;
+      let myLetter = document.getElementById("letter");
+      let letter1 = document.getElementById("letter1");
+      let letter2 = document.getElementById("letter2");
+      let letter3 = document.getElementById("letter3");
+
+      // Validate Uppercase letteres
+      var uppercaseLetters = /[A-Z]/g;
+
+      if (len.match(uppercaseLetters)) {
+        letter2.classList.add("main-color");
+        letter2.style.opacity = 1;
+      } else {
+        letter2.classList.remove("main-color");
+        letter2.classList.add("text-gray");
+        letter2.style.opacity = 0.5;
+      }
+
+      // Validate Special Characters
+      var special_chars = /\W/g;
+
+      if (len.match(special_chars)) {
+        letter1.classList.add("main-color");
+        letter1.style.opacity = 1;
+      } else {
+        letter1.classList.remove("main-color");
+        letter1.classList.add("text-gray");
+        letter1.style.opacity = 0.5;
+      }
+
+      //Validate Numbers
+      var numbers = /[0-9]/g;
+
+      if (len.match(numbers)) {
+        letter3.classList.add("main-color");
+        letter3.style.opacity = 1;
+      } else {
+        letter3.classList.remove("main-color");
+        letter3.classList.add("text-gray");
+        letter3.style.opacity = 0.5;
+      }
+
+      // Validate length of string
+      if (len.length >= 8) {
+        myLetter.classList.add("main-color");
+
+        myLetter.style.opacity = 1;
+      } else {
+        myLetter.classList.remove("main-color");
+        myLetter.classList.add("text-gray");
+        myLetter.style.opacity = 0.5;
+      }
+    },
   },
   components: {
     dynamicComponent,
+    CheckPassComponent
   },
 };
 </script>

@@ -97,7 +97,19 @@
 
     <div class="new-style">
       <div class="d-flex justify-content-between align-items-center">
-        <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+        <div class="">
+          <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+          <div class="d-flex justify-content-start align-items-center">
+            <span>
+              <input
+                type="checkbox"
+                class="myproject--checkbox"
+                v-model="checkAll"
+              />
+            </span>
+            <h5 class="mx-2">Select All</h5>
+          </div>
+        </div>
         <h6>
           <router-link to="/profile/NotificationSettings" class="text-dark">
             <ins>{{ $t("profile.NotificationSettings") }}</ins>
@@ -134,12 +146,23 @@
                               <p>{{ notify.title }}</p>
                             </div>
                           </div> -->
-                          <div class="d-flex justify-content-start align-items-center">
-                            <div class="">
+                          <div
+                            class="d-flex justify-content-start align-items-center"
+                          >
+                            <div class=" d-flex flex-column align-items-center justify-content-center">
                               <div v-if="notify.is_read == 0">
                                 <span class="unreaded"></span>
                               </div>
+                              <div class="">
+                                <input
+                                  type="checkbox"
+                                  class="myproject--checkbox"
+                                  :value="notify.id"
+                                  v-model="checkedOrder"
+                                />
+                              </div>
                             </div>
+                            
                             <div class="mx-3">
                               <div @click="goNotificationPage(notify)">
                                 <h5 class="m-0">
@@ -165,7 +188,9 @@
               </div>
             </td>
             <td colspan="3">
-              <div class="d-flex justify-content-center align-items-center actions">
+              <div
+                class="d-flex justify-content-center align-items-center actions"
+              >
                 <span v-if="notify.is_read == 0" class="">
                   <button
                     class="btn btn-loght border-0 outline-none shadow-none d-block add-cart add-cart-rfq bg-dark text-white px-3"
@@ -363,7 +388,26 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+      checkedOrder: [],
     };
+  },
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.notifications
+          ? this.checkedOrder.length == this.notifications.length
+          : false;
+      },
+      set: function (value) {
+        var checkedOrder = [];
+        if (value) {
+          this.notifications.forEach(function (order) {
+            checkedOrder.push(order.id);
+          });
+        }
+        this.checkedOrder = checkedOrder;
+      },
+    },
   },
 };
 </script>

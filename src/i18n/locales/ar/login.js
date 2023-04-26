@@ -20,6 +20,10 @@ export default {
   actionComplete: "من فضلك اكمل العملية",
   wholeSaleBuyer:'المشتري بالجملة',
   retailBuyer:'عملاء التجزئة',
-  wholeSaleClients:'عملاء الجمله'
+  wholeSaleClients:'عملاء الجمله',
+  characters:"أحرف",
+  specialCharacter:"من الرموز",
+  uppercaseLetter:"حرف كبير",
+  number:"رقم"
 
 };

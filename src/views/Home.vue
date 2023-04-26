@@ -39,7 +39,7 @@
     <NewMonthlyOffers />
 
     <!-- <ProductSilder /> -->
-    <NewProductSilder />
+    <!-- <NewProductSilder /> -->
     <NewAppsDownloadSec />
     <SuppliersSlider />
     <ClientsSlider />
@@ -51,7 +51,7 @@
 import auth from "@/services/auth";
 // import ProgressSlider from "@/components/pages/home/ProgressSlider";
 // import ProductSilder from "@/components/pages/home/ProductSilder";
-import NewProductSilder from "@/components/pages/home/NewProductSlider";
+// import NewProductSilder from "@/components/pages/home/NewProductSlider";
 import SuppliersSlider from "@/components/pages/home/SuppliersSlider";
 import ClientsSlider from "@/components/pages/home/ClientsSlider";
 // import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
@@ -71,7 +71,7 @@ export default {
   components: {
     // ProgressSlider,
     // ProductSilder,
-    NewProductSilder,
+    // NewProductSilder,
     SuppliersSlider,
     ClientsSlider,
     // CatrgoriesHome,

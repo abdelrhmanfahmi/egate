@@ -7,15 +7,10 @@
         <div class="col-6 mb-2">
           <router-link :to="`/suppliers/${myProduct.client.id}`">
             <img
-             
               :src="myProduct.client.image_path"
-             
               class="supplier-image"
-             
               alt=""
-             
               srcset=""
-           
             />
             <span class="mx-4">{{ myProduct.client.company_name }}</span>
           </router-link>
@@ -100,8 +95,7 @@
       <div
         class="col-xl-4 col-lg-6 col-sm-6"
         v-if="
-          add_to_cart == true&&
-          myProduct.product_details_by_type.quantity > 0
+          add_to_cart == true && myProduct.product_details_by_type.quantity > 0
         "
       >
         <div
@@ -141,8 +135,9 @@
             <span class="text-dark">{{ $t("payment.total") }} :</span>
             <span class="main-color"
               >{{
-                mySelectedOption *
-                myProduct.product_details_by_type.customer_price | fixedCurrency
+                (mySelectedOption *
+                  myProduct.product_details_by_type.customer_price)
+                  | fixedCurrency
               }}{{ currency }}/{{
                 myProduct.product_details_by_type.unit.title
               }}</span
@@ -174,9 +169,9 @@
                 @click="addToCart(myProduct)"
                 class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
                 v-if="
-                  (add_to_cart == true&&
+                  (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'cart') ||
-                  (add_to_cart == true&&
+                  (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'both')
                 "
               >
@@ -219,9 +214,9 @@
                 @click="addToCart(myProduct)"
                 class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
                 v-if="
-                  (add_to_cart == true&&
+                  (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'cart') ||
-                  (add_to_cart == true&&
+                  (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'both')
                 "
               >
@@ -240,7 +235,7 @@
               <div class="products mr-1" v-if="buyerUserData">
                 <!-- if product added to favorite  -->
                 <a
-                  class="button one active animate mobile button--secondary wishlist-btn  m-0"
+                  class="button one active animate mobile button--secondary wishlist-btn m-0"
                   :title="`product in favourite`"
                   v-if="myProduct.is_favorite == true"
                 >
@@ -274,7 +269,7 @@
                 <div>
                   <button
                     id="show-btn"
-                    class="btn btn-loght border-0 outline-none shadow-none d-block  w-100"
+                    class="btn btn-loght border-0 outline-none shadow-none d-block w-100"
                     @click="$bvModal.show('bv-bidRequest')"
                   >
                     <span>
@@ -288,7 +283,7 @@
               <!-- rfq request if not logged in , login first  -->
               <button
                 @click="loginFirst"
-                class="btn btn-loght border-0 outline-none shadow-none d-block  btn-block w-100 bg-gray"
+                class="btn btn-loght border-0 outline-none shadow-none d-block btn-block w-100 bg-gray"
                 v-else-if="
                   RFQ == true &&
                   (myProduct.product_details_by_type.add_type === 'rfq' ||
@@ -329,18 +324,17 @@
               <!-- open standing orders modal if logged in    -->
 
               <button
-               
                 id="show-btn"
-               
-                class="button one inactive mobile button--secondary wishlist-btn  add-cart"
+                class="button one inactive mobile button--secondary wishlist-btn add-cart"
                 @click="$bvModal.show('bv-standingOrders')"
-               
                 v-b-tooltip.hover
-               
                 :title="$t('items.standingOrders')"
-              
               >
-                <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
+                <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
               </button>
             </div>
 
@@ -348,17 +342,48 @@
             <div class="products" v-else>
               <button
                 id="show-btn"
-                class="button one inactive mobile button--secondary wishlist-btn  add-cart"
+                class="button one inactive mobile button--secondary wishlist-btn add-cart"
                 @click="loginFirst()"
                 v-b-tooltip.hover
                 :title="$t('items.standingOrders')"
               >
-                <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
+                <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
               </button>
             </div>
           </div>
         </div>
       </div>
+      <b-button
+        @ok="$refs.CartModal.onSubmit()"
+        @click="addPromotionToCart(myProduct)"
+        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+        v-if="
+          (add_to_cart &&
+            myProduct.product_details_by_type.add_type === 'cart' &&
+            myProduct.buy_get_promotion_running_by_type) ||
+          (add_to_cart &&
+            myProduct.product_details_by_type.add_type === 'both' &&
+            myProduct.buy_get_promotion_running_by_type)
+        "
+      >
+        <span>
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+        </span>
+        <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
+        <span
+          >({{
+            `${$t("profile.buy")} 
+          ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+         ${$t("profile.get")} ${
+              myProduct.buy_get_promotion_running_by_type.promotion.get_y
+            } `
+          }})</span
+        >
+      </b-button>
     </div>
 
     <!-- share product  -->
@@ -383,9 +408,8 @@
       <form>
         <div class="form-group">
           <label for=""
-            
-            >{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label
-          
+            >{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label
           >
           <input type="text" class="form-control" v-model="requestData.name" />
           <div
@@ -398,40 +422,27 @@
         </div>
         <div class="form-group">
           <label for=""
-            
             >{{ $t("singleProduct.min_order_quantity") }}
             <span class="text-danger">*</span></label
-          
           >
           <input
-           
             type="number"
-           
             min="1"
-           
             class="form-control"
-           
             v-model="requestData.request_qty"
-         
           />
           <div
-           
             class="text-danger"
-           
             v-for="(error, index) in errors.request_qty"
-           
             :key="index"
-          
           >
             {{ error }}
           </div>
         </div>
         <div class="form-group">
           <label for=""
-            
             >{{ $t("singleProduct.reviewInput") }}
             <span class="text-danger">*</span></label
-          
           >
           <textarea
             class="form-control"
@@ -471,7 +482,6 @@
             variant="outline-danger"
             block
             @click="hideDeleteModal"
-            
             >{{ $t("cart.cancel") }}
           </b-button>
         </div>
@@ -544,7 +554,8 @@ export default {
     addToCart(myProduct) {
       console.log("myProduct", myProduct);
       let data = {
-        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -598,7 +609,8 @@ export default {
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
             : 1,
-        buy_get_promotion_id: item.buy_get_promotion_running_by_type.buy_get_promotion_id,
+        buy_get_promotion_id:
+          item.buy_get_promotion_running_by_type.buy_get_promotion_id,
       };
       console.log("data", data);
       return globalAxios
@@ -633,7 +645,8 @@ export default {
      */
     addToCartWithRFQ(myProduct) {
       let data = {
-        product_supplier_id: myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          myProduct.product_details_by_type.product_supplier_id,
         quantity:
           this.mySelectedOption !== null || this.mySelectedOption > 0
             ? this.mySelectedOption
@@ -696,7 +709,8 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.myProduct.product_details_by_type.product_supplier_id,
+        product_supplier_id:
+          this.myProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -758,7 +772,9 @@ export default {
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       } else {
-        this.mySelectedOption >= 1 ? this.mySelectedOption-- : this.mySelectedOption == 1;
+        this.mySelectedOption >= 1
+          ? this.mySelectedOption--
+          : this.mySelectedOption == 1;
         console.log("no minimum");
         console.log("this.mySelectedOption", this.mySelectedOption);
       }
@@ -913,7 +929,8 @@ export default {
       },
       id: this.$route.query.id,
       errors: {},
-      mySelectedOption: this.myProduct.product_details_by_type.min_order_quantity
+      mySelectedOption: this.myProduct.product_details_by_type
+        .min_order_quantity
         ? this.myProduct.product_details_by_type.min_order_quantity
         : 1,
       changedValue: null,
@@ -1594,9 +1611,9 @@ textarea {
   }
 }
 
-.sec-hold{
-  margin:0px !important;
-  button{
+.sec-hold {
+  margin: 0px !important;
+  button {
     min-width: 50px !important;
     height: 50px !important;
     line-height: 50px;

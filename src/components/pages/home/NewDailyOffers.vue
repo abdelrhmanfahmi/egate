@@ -56,7 +56,7 @@
                   </div>
                   <div
                     class="col-md-6 col-sm-12"
-                    v-if="item.product_details_by_type.price_before_discount"
+                    v-if="item.product_details_by_type.price < item.product_details_by_type.price_before_discount && item.product_details_by_type.price_before_discount"
                   >
                     <del>
                       <h6>

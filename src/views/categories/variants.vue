@@ -48,7 +48,7 @@
       </div>
 
       <div class="progressSlider">
-        <NewProgressSlider />
+        <NewProgressSlider :parent_categoryVariants="parent_categoryVariants" />
       </div>
       <div class="container">
 
@@ -123,8 +123,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12" v-if="productInfo.variants">
-              <div class="customize">
+            <div class="col-md-6 col-sm-12" v-if="productInfo">
+              <div class="customize" v-if="productInfo.variants">
                 <div class="customize-selection">
                   <!-- loop for sub-category variant that comes dynamically from backend  -->
                   <div
@@ -362,18 +362,17 @@
               <!-- <td v-else>{{index + 1 }}</td> -->
               <!-- <td v-else></td> -->
               <td>
-                <router-link
-                  v-if="product.image_path !== null"
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
+                <div class="row justify-content-evenly align-items-center">
+                  
+                  <div  v-if="
+                  product.ads.length ||
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type
+                " class="col-1"
+                :class="{'col-md-6 col-sm-12' : product.ads.length ||
+                product.basket_promotions_running_by_type ||
+                product.buy_get_promotion_running_by_type }"
                 >
-                  <span
-                    v-if="
-                      product.ads.length ||
-                      product.basket_promotions_running_by_type ||
-                      product.buy_get_promotion_running_by_type
-                    "
-                  >
                     <h6 v-if="product.ads && product.ads.length > 0">
                       {{ $t("items.advertise") }}
                     </h6>
@@ -382,9 +381,8 @@
                         :to="{
                           path: '/basketOfferDetails',
                           query: {
-                            id:
-                              product.basket_promotions_running_by_type
-                                .basket_promotion_id,
+                            id: product.basket_promotions_running_by_type
+                              .basket_promotion_id,
                           },
                         }"
                         >{{ $t("profile.basketDeals") }}</router-link
@@ -397,54 +395,66 @@
                           query: {
                             id: product.id,
                             type: `${$t('profile.buy')} 
-                                                        ${
-                                                          product
-                                                            .buy_get_promotion_running_by_type
-                                                            .promotion.buy_x
-                                                        } 
-                                                        ${$t('profile.get')} ${
-                              product.buy_get_promotion_running_by_type.promotion.get_y
+                                                            ${
+                                                              product
+                                                                .buy_get_promotion_running_by_type
+                                                                .promotion.buy_x
+                                                            } 
+                                                            ${$t('profile.get')} ${
+                              product.buy_get_promotion_running_by_type.promotion
+                                .get_y
                             }`,
                           },
                         }"
                         >{{ $t("profile.buyXgetYOffer") }}</router-link
                       >
                     </h6>
-                  </span>
-                  <img
-                    :src="product.image_path"
-                    class="product-image"
-                    alt="product-image"
-                  />
-                </router-link>
-                <router-link
-                  v-else-if="
-                    product.image_path == null && product.current_main_image_path
-                  "
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  <img
-                    :src="product.current_main_image_path"
-                    class="product-image"
-                    alt="product-image"
-                  />
-                </router-link>
-                <router-link
-                  v-if="!product.current_main_image_path"
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  <div class="logo-holder">
-                    <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo" />
-                    <img
-                      src="@/assets/images/logo.png"
-                      v-else
-                      alt="logo"
-                      class="product-image"
-                    />
                   </div>
-                </router-link>
+                  <div class="col-12" :class="{'col-md-6 col-sm-12' : product.ads.length ||
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type }">
+                    
+                    <router-link
+                      v-if="product.image_path !== null"
+                      class="link"
+                      :to="{ path: '/details', query: { id: product.id } }"
+                    >
+                      <img
+                        :src="product.image_path"
+                        class="product-image"
+                        alt="product-image"
+                      />
+                    </router-link>
+                    <router-link
+                      v-else-if="
+                        product.image_path == null && product.current_main_image_path
+                      "
+                      class="link"
+                      :to="{ path: '/details', query: { id: product.id } }"
+                    >
+                      <img
+                        :src="product.current_main_image_path"
+                        class="product-image"
+                        alt="product-image"
+                      />
+                    </router-link>
+                    <router-link
+                      v-if="!product.current_main_image_path"
+                      class="link"
+                      :to="{ path: '/details', query: { id: product.id } }"
+                    >
+                      <div class="logo-holder">
+                        <img :src="logoEnv" v-if="logoEnv" class="product-image" alt="logo" />
+                        <img
+                          src="@/assets/images/logo.png"
+                          v-else
+                          alt="logo"
+                          class="product-image"
+                        />
+                      </div>
+                    </router-link>
+                  </div>
+                </div>
               </td>
               <td>
                 <router-link
@@ -628,6 +638,27 @@
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
                   </a>
+                  <a
+                      class="d-flex justify-content-center align-items-center cart-link"
+                      @click="addPromotionToCart(product)"
+                      v-if="
+                        (add_to_cart == true &&
+                          product.product_details_by_type.add_type === 'cart' &&
+                          product.buy_get_promotion_running_by_type) ||
+                        (add_to_cart == true &&
+                          product.product_details_by_type.add_type === 'both' &&
+                          product.buy_get_promotion_running_by_type)
+                      "
+                      v-b-tooltip.hover
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
+                    </a>
+
                   <div class="" v-if="buyerUserData">
                     <a
                       class="text-danger d-flex justify-content-center align-items-center"
@@ -748,8 +779,29 @@
                     :title="$t('items.addToCart')"
                   >
                     <!-- <span>{{ $t("items.addToCart") }}</span> -->
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
                   </a>
+                  <a
+                      class="d-flex justify-content-center align-items-center cart-link"
+                      @click="addPromotionToCart(product)"
+                      v-if="
+                        (add_to_cart == true &&
+                          product.product_details_by_type.add_type === 'cart' &&
+                          product.buy_get_promotion_running_by_type) ||
+                        (add_to_cart == true &&
+                          product.product_details_by_type.add_type === 'both' &&
+                          product.buy_get_promotion_running_by_type)
+                      "
+                      v-b-tooltip.hover
+                      :title="`${$t('items.addToCart')} ( ${$t('profile.buy')} ${
+                        product.buy_get_promotion_running_by_type.promotion.buy_x
+                      } ${$t('profile.get')} ${
+                        product.buy_get_promotion_running_by_type.promotion.get_y
+                      } )`"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                    </a>
+
 
                   <div class="" v-if="buyerUserData && buyerUserData.type === 'b2c'">
                     <a
@@ -982,6 +1034,7 @@ export default {
       WeightOptions: null,
       UnitOptions: null,
       selectedStandingOrder: null,
+      parent_categoryVariants:null
     };
   },
   components: {
@@ -1029,6 +1082,46 @@ export default {
           }, 500);
         });
     },
+    /**
+     * @vuese
+     * add To Cart function
+     */
+     addPromotionToCart(item) {
+      let data = {
+        product_supplier_id: item.product_details_by_type.product_supplier_id,
+        quantity:
+          this.cartCounter > item.product_details_by_type.min_order_quantity
+            ? this.cartCounter
+            : item.product_details_by_type.min_order_quantity,
+        buy_get_promotion_id: item.buy_get_promotion_running_by_type.buy_get_promotion_id,
+      };
+      return globalAxios
+        .post(`cart/add`, data)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            this.$modal.show(
+              () => import("@/components/cart/cartModal.vue"),
+              {
+                product: item,
+              },
+              { width: "700", height: "auto", adaptive: true }
+            );
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
+        });
+    },
+
     /**
      * @vuese
      * add To Wishlist function
@@ -1153,6 +1246,7 @@ export default {
         .then((res) => {
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
+          this.parent_categoryVariants = res?.data?.items?.all_children;
           if (this.productInfo?.variants) {
             for (let index = 0; index < variantData.length; index++) {
               this.productInfo.variants[index].selectedVariance = null;

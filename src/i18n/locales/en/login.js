@@ -21,5 +21,9 @@ export default {
   retailBuyer:'Consumer',
   wholeSaleBuyer:'WholeSale Buyer',
   wholeSaleClients:'WholeSale Clients',
+  characters:"Characters",
+  specialCharacter:"Special Character",
+  uppercaseLetter:"Uppercase Letter",
+  number:"Number"
 
 };

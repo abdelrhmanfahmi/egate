@@ -18,7 +18,7 @@
               id=""
               min="1"
               @keyup="CustomIncrementQuantity"
-              v-model="countValue"
+              v-model="quantity"
             />
           </slot>
         </main>
@@ -76,12 +76,12 @@ export default {
     this.countValue = this.quantity;
   },
   methods: {
-    /**
+   /**
      * @vuese
-     * this function user for increment Quantity
+     * increament function
      */
-    incrementQuantity() {
-      this.countValue += 1;
+     incrementQuantity() {
+      this.countValue = Number(this.quantity) + 1;
 
       let data = {
         quantity: this.countValue,
@@ -90,16 +90,15 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
-      }, 500);
-      // this.$emit('changeTitle',this.countValue)
-
-      setTimeout(() => {
+        // this event affected on the component main page
         this.$emit("changeTitle", this.countValue);
-      }, 500);
+        // this.quantity = this.countValue;
+      }, 300);
+      // this.$emit('changeTitle',this.countValue)
     },
     /**
      * @vuese
-     * this function user for decrement Quantity
+     * decreament function
      */
     decrementQuantity() {
       this.countValue > this.minimum ? this.countValue-- : null;
@@ -113,11 +112,9 @@ export default {
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
-      }, 300);
-
-      setTimeout(() => {
         this.$emit("changeTitle", this.countValue);
-      }, 500);
+        // this.quantity = this.countValue;
+      }, 300);
     },
     /**
      * @vuese

@@ -1,15 +1,15 @@
 <template>
     <div class="product-silder text-center my-2 mt-5 text-center">
       <!-- home page top slider for offers -->
-      <b-container v-if="slidersLength > 0">
+      <b-container v-if="parent_categoryVariantsLength > 0">
   
         <VueSlickCarousel
           v-bind="settings"
-          v-if="sliders && sliders.length"
+          v-if="parent_categoryVariants && parent_categoryVariants.length"
           class="my-2"
         >
           <div
-            v-for="(slider, index) in sliders"
+            v-for="(slider, index) in parent_categoryVariants"
             :key="index"
             class="text-center"
           >
@@ -17,20 +17,15 @@
               :to="{ path: '/details', query: { id: `${slider.id}` } }"
               v-if="slider"
             >
-              <vue-ellipse-progress
-                v-if="slider.offer_active_by_type.countdown_percentage >= 0"
-                :progress="slider.offer_active_by_type.countdown_percentage"
-                :determinate="determinate"
-                v-bind="options"
-                :loading="loading"
-                :no-data="noData"
+              <div
+                
               >
-                <div class="" v-if="slider.current_main_image_path !== null">
-                  <b-img :src="slider.current_main_image_path" class="offer-image"> </b-img>
+                <div class="" v-if="slider.image_path !== null">
+                  <b-img :src="slider.image_path" class="offer-image"> </b-img>
                 </div>
-              </vue-ellipse-progress>
-              <h6 class="main-header mt-2" v-if="slider.product.title">
-                <span>{{ slider.product.title.substr(0,15) }} <span v-if="slider.product.title.length > 15">...</span> </span>
+              </div>
+              <h6 class="main-header mt-2" v-if="slider.title">
+                <span>{{ slider.title.substr(0,15) }} <span v-if="slider.title.length > 15">...</span> </span>
               </h6>
             </router-link>
           </div>
@@ -46,8 +41,9 @@
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
   
-  import categories from "@/services/categories";
+  // import categories from "@/services/categories";
   export default {
+    props:['parent_categoryVariants'],
     components: {
       VueSlickCarousel,
     },
@@ -89,7 +85,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
             },
           ],
         },
-        sliders: null,
+        // parent_categoryVariants: null,
         progress: 90,
         options: {
           color: "$main-color",
@@ -111,27 +107,27 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
       /**
         *  GET best deals from api
       */  
-      getBestDeals() {
-        categories
-          .getBestDeals()
-          .then((res) => {
-            this.sliders = res.data.items.data;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
+      // getBestDeals() {
+      //   categories
+      //     .getBestDeals()
+      //     .then((res) => {
+      //       this.parent_categoryVariants = res.data.items.data;
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //     });
+      // },
     },
     mounted() {
-      this.getBestDeals();
+      // this.getBestDeals();
       /**
         *  setting slider
       */
       if (this.progress === 0) this.nodata = true;
     },
     computed: {
-      slidersLength() {
-        return this.sliders ? this.sliders.length : 0;
+      parent_categoryVariantsLength() {
+        return this.parent_categoryVariants ? this.parent_categoryVariants.length : 0;
       },
     },
   };
