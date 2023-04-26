@@ -34,7 +34,7 @@
               <label for="mobile_number">
                 {{ $t('contactUs.formPhone') }} <span class="required text-danger">*</span>
               </label>
-              <input v-model="form.mobile_number" type="number" min="0" />
+              <input v-model="form.mobile_number" type="text"  />
               <div class="" v-if="errors">
                 <div class="error" v-for="(error, index) in errors.mobile_number" :key="index">
                   <p>{{ error }}</p>
