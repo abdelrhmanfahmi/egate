@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="other-catrgories">
+        <div class="other-catrgories" v-if="!mobile">
           <!-- <ul class="d-flex justify-content-center align-items-center m-0 p-0 mx-4">
             <li class="h5 mx-2 mb-0 text-dark offer-link">
               <router-link to="/" class="text-dark">
@@ -50,7 +50,7 @@
 
             </li>
           </ul> -->
-          <div class="middle">
+          <div class="middle" >
             <navLinks />
           </div>
         </div>
@@ -91,13 +91,28 @@ export default {
         }
       );
     },
+    checkScreen() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth <= 767) {
+        this.mobile = true;
+        return;
+      }
+      this.mobile = false;
+      this.mobileNav = false;
+      return;
+    },
   },
   mounted() {
     this.getCategories();
+    window.addEventListener("resize", this.checkScreen);
+    this.checkScreen();
   },
   data() {
     return {
       categories: null,
+      mobile: null,
+      mobileNav: null,
+      windowWidth: null,
     };
   },
   components: {

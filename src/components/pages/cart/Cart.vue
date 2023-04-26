@@ -4149,6 +4149,9 @@ export default {
     mySuppliers() {
       return this.$store.state.suppliers;
     },
+    cartLength() {
+      return this.$store.state.cart.cartLength;
+    },
   },
   created() {
     /**

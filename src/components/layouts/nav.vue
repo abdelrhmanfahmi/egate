@@ -12,7 +12,7 @@
         <!-- top nav  -->
         <div class="row justify-content-center align-items-center">
           <div
-            class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+            class="col-lg-4 col-md-4 col-sm-7 d-flex justify-content-center align-items-center"
           >
             <div
               class="lang-currency-country d-flex justify-content-between align-items-center"
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div
-            class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center align-items-center"
+            class="col-lg-4 col-md-4 col-sm-5 d-flex justify-content-center align-items-center"
           >
             <div class="middle">
               <!-- logo is centered  -->
@@ -770,6 +770,10 @@ html:lang(ar) {
   top: 20px;
   height: 100%;
   right: 24px;
+  @media(max-width:500px){
+    top: 60px;
+    right:10px
+  }
 
   svg {
     cursor: pointer;
@@ -953,7 +957,7 @@ html:lang(ar) {
   @media (max-width: 992px) {
     top: 2rem;
     right: 2rem;
-    position: fixed !important;
+    //position: fixed !important;
     transition: position 1s linear;
   }
 }

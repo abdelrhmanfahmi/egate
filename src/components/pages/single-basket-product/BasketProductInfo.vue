@@ -25,11 +25,11 @@
                 <b>{{ $t("singleProduct.outOfStock") }}</b></span
               > -->
             </div>
-            <div class="category-name">
+            <!-- <div class="category-name">
               <router-link to="/" class="text-dark font-weight-bold serial">
                 <ins>Category-name</ins>
               </router-link>
-            </div>
+            </div> -->
           </div>
           <p
             class="price mt-4"
