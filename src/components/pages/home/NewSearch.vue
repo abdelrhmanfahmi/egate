@@ -81,7 +81,7 @@
                     <h3>
                       <div v-if="!loading">
                         <span>{{ $t("profile.searchNoResult") }}</span>
-                        <div class="">
+                        <div class="mt-3">
                           <button class="border-main br-5 " @click="searchSubmitted = false">{{$t('home.ok')}}</button>
                         </div>
                       </div>
@@ -405,6 +405,7 @@ button a {
     text-align: center;
     border-bottom: 1px solid $gray;
     margin: 20px 0;
+    height: 50px;
   }
 
   .search-local {
