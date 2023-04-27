@@ -832,3 +832,9 @@ footer{
 .tab-pane {
   padding: 0.4rem 1rem;
 }
+
+@media(max-width:1200px){
+  th{
+    white-space: nowrap;
+  }
+}
