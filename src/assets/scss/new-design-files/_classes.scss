@@ -52,10 +52,10 @@
 }
 
 .bottom-nav-holder {
-  @media(max-width:992px){
-    z-index: -1;
-    position:sticky
-  }
+  // @media(max-width:992px){
+  //   z-index: -1;
+  //   position:sticky
+  // }
   .other-catrgories {
     .navigation {
       display: flex;

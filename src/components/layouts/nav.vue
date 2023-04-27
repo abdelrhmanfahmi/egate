@@ -772,7 +772,7 @@ html:lang(ar) {
   right: 24px;
   @media(max-width:500px){
     top: 60px;
-    right:10px
+    right:2rem
   }
 
   svg {
