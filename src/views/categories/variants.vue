@@ -368,10 +368,12 @@
                   product.ads.length ||
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type
-                " class="col-1"
+                "
                 :class="{'col-md-6 col-sm-12' : product.ads.length ||
                 product.basket_promotions_running_by_type ||
-                product.buy_get_promotion_running_by_type }"
+                product.buy_get_promotion_running_by_type , 'col-1': !product.ads.length &&
+                !product.basket_promotions_running_by_type &&
+                !product.buy_get_promotion_running_by_type }"
                 >
                     <h6 v-if="product.ads && product.ads.length > 0">
                       {{ $t("items.advertise") }}

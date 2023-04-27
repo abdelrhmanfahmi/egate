@@ -339,6 +339,10 @@ export default {
   dateTo:"Date to",
   resetDate:"Remove Range",
   searchAddress:'Search address...',
-  search:'Search'
+  search:'Search',
+  deleteSelected:'Delete Selected',
+  readSelected:'Read Selected',
+  bulkAction:'Bulk Action',
+  selectAll:'Select All'
 
 };

@@ -99,15 +99,30 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="">
           <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
-          <div class="d-flex justify-content-start align-items-center">
-            <span>
-              <input
-                type="checkbox"
-                class="myproject--checkbox"
-                v-model="checkAll"
-              />
-            </span>
-            <h5 class="mx-2">Select All</h5>
+
+          <div class="my-2 d-flex align-items-center">
+            <div class="d-flex justify-content-start align-items-center">
+              <span>
+                <input
+                  type="checkbox"
+                  class="myproject--checkbox"
+                  v-model="checkAll"
+                />
+              </span>
+              <h5 class="mx-2">{{$t('profile.selectAll')}}</h5>
+            </div>
+            <div class="d-flex align-items-start mx-4 bulk-actions-holder">
+              <div class="select-holder">
+                <b-form-select v-model="selectedAction" class="mb-3">
+                  <b-form-select-option value="null" disabled>{{$t('profile.bulkAction')}}</b-form-select-option>
+                  <b-form-select-option value="bulk-read">{{$t('profile.readSelected')}}</b-form-select-option>
+                  <b-form-select-option value="bulk-delete">{{$t('profile.deleteSelected')}}</b-form-select-option>
+                </b-form-select>
+              </div>
+              <div class="mx-4">
+                <button class="bg-main br-5" @click.prevent="bulkAction">{{$t('payment.Apply')}}</button>
+              </div>
+            </div>
           </div>
         </div>
         <h6>
@@ -149,7 +164,9 @@
                           <div
                             class="d-flex justify-content-start align-items-center"
                           >
-                            <div class=" d-flex flex-column align-items-center justify-content-center">
+                            <div
+                              class="d-flex flex-column align-items-center justify-content-center"
+                            >
                               <div v-if="notify.is_read == 0">
                                 <span class="unreaded"></span>
                               </div>
@@ -162,7 +179,7 @@
                                 />
                               </div>
                             </div>
-                            
+
                             <div class="mx-3">
                               <div @click="goNotificationPage(notify)">
                                 <h5 class="m-0">
@@ -195,6 +212,7 @@
                   <button
                     class="btn btn-loght border-0 outline-none shadow-none d-block add-cart add-cart-rfq bg-dark text-white px-3"
                     @click="readNotification(notify)"
+                    v-b-tooltip.hover :title="$t('profile.markRead')"
                   >
                     <!-- <b class="text-capitalize">{{ $t("profile.markRead") }}</b> -->
                     <font-awesome-icon icon="fa-regular fa-envelope-open" />
@@ -202,6 +220,8 @@
                 </span>
                 <span>
                   <button
+                  v-b-tooltip.hover :title="$t('items.remove')"
+                  @click="removeNotification(notify)"
                     class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-gray m-2"
                   >
                     <span>
@@ -258,9 +278,11 @@ export default {
 
           this.totalRecords = resp.data.items.notifications.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
     },
     /**
      * function for pagination
@@ -301,9 +323,26 @@ export default {
             this.getNotificatinos();
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+    },
+    removeNotification(notification) {
+      profile
+        .removeNotification(notification)
+        .then((res) => {
+          if (res.status == 200) {
+            this.$store.dispatch("getNotifications");
+            this.getNotificatinos();
+          }
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
     },
     /**
      * go to Notification Page function
@@ -366,10 +405,45 @@ export default {
             this.getNotificatinos();
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
     },
+    bulkAction(){
+      if(this.selectedAction == 'bulk-read'){
+        this.notificationBulkRead()
+      }
+      else if(this.selectedAction == 'bulk-delete'){
+        this.notificationBulkDelete()
+      }
+      else{
+        if(this.$i18n.locale == 'en'){
+          this.errMsg('Choose Action First');
+        }else{
+          this.errMsg('قم باختيار الاجراء اولا');
+        }
+      }
+    },
+    notificationBulkRead(){
+      profile.notificationBulkRead(this.checkedOrder).then(res =>{
+        console.log(res);
+      }).catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+    },
+    notificationBulkDelete(){
+      profile.notificationBulkDelete(this.checkedOrder).then(res =>{
+        console.log(res);
+      }).catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+    }
   },
   mounted() {
     if (this.buyerUserData) {
@@ -389,6 +463,8 @@ export default {
       recordsPerPage: 10,
       enterpageno: "",
       checkedOrder: [],
+      selectedAction: null,
+      errors:[]
     };
   },
   computed: {
@@ -758,5 +834,16 @@ export default {
 }
 td {
   padding: 35px 15px !important;
+}
+.bulk-actions-holder{
+  .select-holder{
+    min-width: 200px;
+    min-height: 65px;
+  }
+  button{
+    width: 85px;
+    height:50px !important;
+    padding: 8px;
+  }
 }
 </style>

@@ -329,4 +329,8 @@ export default {
   to: "الى",
   dateFrom: "التاريخ من",
   dateTo: "التاريخ الى",
+  deleteSelected:'حذف المختار',
+  readSelected:'تعليم المختار كمقروء',
+  bulkAction:'اجراء جماعى',
+  selectAll:'اختيار الكل'
 };

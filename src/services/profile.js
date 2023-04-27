@@ -254,6 +254,9 @@ export default {
   readNotification(notification) {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
+  removeNotification(notification) {
+    return globalAxios.delete(`members/notifications/${notification.id}`);
+  },
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
   },
@@ -383,5 +386,11 @@ export default {
   },
   walletGetWithdraw(){
     return globalAxios.get(`members/wallet/withdraw`)
+  },
+  notificationBulkRead(payload){
+    return globalAxios.post('members/notifications/bulk-read' , payload)
+  },
+  notificationBulkDelete(payload){
+    return globalAxios.post('members/notifications/bulk-delete' , payload)
   }
 };
