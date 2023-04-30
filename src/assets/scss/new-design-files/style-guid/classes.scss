@@ -52,3 +52,10 @@ nav{
       }
       
 }
+
+@media (max-width: 500px) {
+    .profile-layout .icon {
+      top: 10px !important;
+      right: 2rem !important;
+    }
+  }

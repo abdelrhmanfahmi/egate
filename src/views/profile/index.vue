@@ -3,16 +3,11 @@
   <div class="profile-body">
     <!-- products  progress  -->
     <!-- <ProgressSlider /> -->
-    <b-container
-      v-if="
-        userInfo.item.type === 'buyer' ||
-        (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
-      "
-    >
-      <div
-        class="row profile-header"
-        v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
-      >
+    <b-container v-if="
+      userInfo.item.type === 'buyer' ||
+      (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
+    ">
+      <div class="row profile-header" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
         <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
@@ -138,36 +133,45 @@ export default {
 .profile-header {
   padding: 4rem 0 0 0;
   text-align: start;
+
   .continue-registration {
     color: #000;
+
     h5 {
       color: #312620;
       font-weight: 600;
       font-size: 18pt;
       margin-bottom: 0.6rem;
     }
+
     p {
       font-size: 11pt;
       color: #676565;
       margin-bottom: 1rem;
+
       a {
         color: #1696e7;
       }
     }
   }
+
   .rate {
     h5 {
       color: #312620;
       font-weight: 600;
       margin-bottom: 1.5rem;
     }
+
     .progress-rate {
       height: 1.6rem;
     }
   }
 }
+
 .profile {
   padding: 3rem 0;
   //background: #f9f8f5;
 }
+
+
 </style>
