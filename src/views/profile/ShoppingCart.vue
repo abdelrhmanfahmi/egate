@@ -141,7 +141,7 @@
                   />
                   <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
                     <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
-                    <span>{{ $t("profile.search") }}</span>
+                    <span>{{ $t("cart.search") }}</span>
                   </b-button>
                 </form>
               </div>

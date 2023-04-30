@@ -1,14 +1,31 @@
 <template>
-  <div>
-    <h5 class="profileB2b-header-table">
-      {{ $t("profile.ordersLists") }}
-    </h5>
+  <div :class="$i18n.locale">
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+
+        <h5 class="profileB2b-header-table">
+          {{ $t("profile.ordersLists") }} ({{ total }})
+        </h5>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <div class="input-holder">
+          <form @submit.prevent="searchOrder">
+            <span class="remove-search" role="button" v-if="OrderSearchText" @click="OrderSearchText = null">x</span>
+            <!-- coupon input  -->
+
+            <input type="number" min="0" :placeholder="`${$t('cart.search')} ${$t('supplier.by')} ${$t('profile.serial')}`"
+              class="my-2 h-100 p-3 w-100 itemInput" v-model="OrderSearchText" />
+            <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
+              <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
+              <span>{{ $t("cart.search") }}</span>
+            </b-button>
+          </form>
+        </div>
+      </div>
+    </div>
     <!-- if there's orders  -->
     <div class="holder text-center" v-if="orders">
-      <div
-        class="mb-3 d-flex justify-content-end"
-        v-if="checkedOrder && checkedOrder.length > 0"
-      >
+      <div class="mb-3 d-flex justify-content-end" v-if="checkedOrder && checkedOrder.length > 0">
         <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
           {{ $t("singleProduct.exportSelectedOrders") }}
           <font-awesome-icon icon="fa-solid fa-arrow-up" />
@@ -37,89 +54,65 @@
           <tr v-for="(order, index) in orders" :key="index">
             <td>
               <div class="d-flex justify-content-around align-items-center">
-                <input
-                  type="checkbox"
-                  class="myproject--checkbox"
-                  :value="order.id"
-                  v-model="checkedOrder"
-                />
+                <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />
                 <span>{{ order.id }}</span>
               </div>
             </td>
             <td>{{ order.created_at | formatDate }}</td>
             <td>{{ order.order_supplier_items_count }}</td>
             <td>
-              <span v-if="order.total_price" class="main-color"
-                ><b>{{ order.total_price | fixedCurrency }} {{ currency }}</b></span
-              >
+              <span v-if="order.total_price" class="main-color"><b>{{ order.total_price | fixedCurrency }} {{ currency
+              }}</b></span>
               <span v-else>-</span>
             </td>
             <td>
-              <span
-                :class="{
-                  'text-success':
-                    order.payment_status_lang == 'Paid' ||
-                    order.payment_status_lang == 'تم الدفع',
-                }"
-                >{{ order.payment_status_lang }}</span
-              >
+              <span :class="{
+                'text-success':
+                  order.payment_status_lang == 'Paid' ||
+                  order.payment_status_lang == 'تم الدفع',
+              }">{{ order.payment_status_lang }}</span>
             </td>
             <td>
               <span>{{ order.payment }}</span>
-              <span
-                class="d-block"
-                v-if="
-                  order.payment_type === 'visa' ||
-                  order.payment_charge_id ||
-                  order.payment_type === 'wallet_visa' ||
-                  order.payment_type === 'wallet'
-                "
-              >
+              <span class="d-block" v-if="
+                order.payment_type === 'visa' ||
+                order.payment_charge_id ||
+                order.payment_type === 'wallet_visa' ||
+                order.payment_type === 'wallet'
+              ">
                 TID : {{ order.payment_charge_id }}
               </span>
             </td>
 
             <td>
-              <router-link
-                :to="{
-                  path: '/viewOrderDetails',
-                  query: { id: `${order.id}` },
-                }"
-                class="text-dark"
-              >
+              <router-link :to="{
+                path: '/viewOrderDetails',
+                query: { id: `${order.id}` },
+              }" class="text-dark">
                 <b-button variant="outline-light main-color border-main" class="m-2">
                   <font-awesome-icon icon="fa-regular fa-eye" />
                 </b-button>
               </router-link>
-              <router-link
-                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'bank'"
-                :to="{
-                  path: '/checkout-details',
-                  query: {
-                    order_serial: order.serial,
-                    date: order.created_at,
-                    total_price: order.total_price,
-                    payment_type: order.payment_type,
-                    payment: order.payment,
-                    uuid: order.uuid,
-                  },
-                }"
-                class="text-dark"
-              >
+              <router-link v-if="order.payment_status === 'Unpaid' && order.payment_type === 'bank'" :to="{
+                path: '/checkout-details',
+                query: {
+                  order_serial: order.serial,
+                  date: order.created_at,
+                  total_price: order.total_price,
+                  payment_type: order.payment_type,
+                  payment: order.payment,
+                  uuid: order.uuid,
+                },
+              }" class="text-dark">
                 <b-button variant="outline-success" class="m-2">
                   {{ $t("profile.bankTransDocs") }}
                 </b-button>
               </router-link>
-              <b-button
-                id="show-btn"
-                @click="
-                  $bvModal.show('bv-modal-example');
-                  saveUUID(order);
-                "
-                variant="outline-success"
-                class="m-2"
-                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'"
-              >
+              <b-button id="show-btn" @click="
+                $bvModal.show('bv-modal-example');
+              saveUUID(order);
+                                                                " variant="outline-success" class="m-2"
+                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'">
                 {{ $t("profile.pay") }}
               </b-button>
             </td>
@@ -128,13 +121,8 @@
       </table>
       <div class="d-flex justify-content-start align-items-center mt-5">
         <!-- pagination for orders  -->
-        <Paginate
-          v-if="orders"
-          :total-pages="totalPages"
-          :per-page="totalPages"
-          :current-page="page"
-          @pagechanged="onPageChange"
-        />
+        <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+          @pagechanged="onPageChange" />
       </div>
       <div>
         <!-- repay modal  -->
@@ -148,14 +136,8 @@
                 <div class="methods">
                   <div class="method">
                     <div class="custom-control custom-radio custom-control-inline">
-                      <input
-                        type="radio"
-                        id="paymentMethod1"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="bank"
-                      />
+                      <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="bank" />
                       <label class="custom-control-label" for="paymentMethod1">
                         {{ $t("payment.bankTransfer") }}
                       </label>
@@ -164,14 +146,8 @@
                   </div>
                   <div class="method">
                     <div class="custom-control custom-radio custom-control-inline">
-                      <input
-                        type="radio"
-                        id="paymentMethod2"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="cach"
-                      />
+                      <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="cach" />
                       <label class="custom-control-label" for="paymentMethod2">
                         {{ $t("payment.paymentWhenReceiving") }}
                       </label>
@@ -180,14 +156,8 @@
                   </div>
                   <div class="method d-flex justify-content-between align-content-center">
                     <div class="custom-control custom-radio custom-control-inline">
-                      <input
-                        type="radio"
-                        id="paymentMethod3"
-                        name="paymentMethod"
-                        class="custom-control-input"
-                        v-model="paymentFormData.payment_type"
-                        value="visa"
-                      />
+                      <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
+                        v-model="paymentFormData.payment_type" value="visa" />
                       <label class="custom-control-label" for="paymentMethod3">
                         {{ $t("payment.onlinePayment") }}
                       </label>
@@ -197,36 +167,18 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="error text-center"
-                  v-for="(error, index) in errors.payment_type"
-                  :key="index"
-                >
+                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
                   {{ error }}
                 </div>
               </div>
             </div>
           </div>
 
-          <b-button
-            :disabled="paymentFormData.payment_type == null"
-            v-if="!repayClicked"
-            id="show-btn"
-            class="mt-3"
-            variant="outline-success"
-            block
-            @click="rePay"
-          >
+          <b-button :disabled="paymentFormData.payment_type == null" v-if="!repayClicked" id="show-btn" class="mt-3"
+            variant="outline-success" block @click="rePay">
             {{ $t("profile.pay") }}
           </b-button>
-          <b-button
-            v-if="repayClicked"
-            disabled
-            id="show-btn"
-            class="mt-3"
-            variant="outline-success"
-            block
-          >
+          <b-button v-if="repayClicked" disabled id="show-btn" class="mt-3" variant="outline-success" block>
             <span>{{ $t("profile.pay") }}</span>
             <span>
               <b-spinner label="Spinning" small></b-spinner>
@@ -310,6 +262,7 @@ export default {
       errors: [],
       checkedOrder: [],
       repayClicked: false,
+      OrderSearchText: null
     };
   },
   methods: {
@@ -340,14 +293,14 @@ export default {
      */
     onPageChange(page) {
       this.page = page;
-      this.getOrders();
+      this.getOrders(this.page);
     },
     /**
      * function for pagination
      * @vuese
      */
     onChangeRecordsPerPage() {
-      this.getOrders();
+      this.getOrders(this.page);
     },
     /**
      * function for pagination
@@ -356,7 +309,7 @@ export default {
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
-        this.getOrders();
+        this.getOrders(this.page);
       }
     },
 
@@ -461,9 +414,32 @@ export default {
         fileLink.click();
       });
     },
+    searchOrder() {
+      this.addressLoading = true;
+      let payload = {
+        id: this.OrderSearchText,
+      };
+      profile
+        .searchOrder(this.page, payload)
+        .then((resp) => {
+          this.orders = resp.data.items.orders.data;
+
+          this.total = resp.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.orders.meta.total / resp.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.orders.meta.total;
+        })
+        .finally(() => {
+          // this.OrderSearchText = "";
+          this.addressLoading = false;
+        });
+    },
+
   },
   mounted() {
-    this.getOrders();
+    this.getOrders(this.page);
   },
   components: {
     spinner,
@@ -589,6 +565,60 @@ export default {
   .actions {
     justify-content: center;
     align-items: center;
+  }
+}
+
+.input-holder {
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+  }
+}
+
+.remove-search {
+  position: absolute;
+}
+
+.en {
+  .input-holder {
+    button {
+      right: 0;
+      left: auto;
+    }
+
+    .remove-search {
+      right: auto;
+      left: 0;
+      left: -17px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+
+    }
+  }
+}
+
+.ar {
+  .input-holder {
+    button {
+      left: 0;
+      right: auto;
+    }
+
+    .remove-search {
+
+      left: auto;
+      right: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+
+    }
   }
 }
 
