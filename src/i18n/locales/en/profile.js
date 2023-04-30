@@ -343,6 +343,7 @@ export default {
   deleteSelected:'Delete Selected',
   readSelected:'Read Selected',
   bulkAction:'Bulk Action',
-  selectAll:'Select All'
-
+  selectAll:'Select All',
+  dateTime:'Date & Time',
+  priceRange:'Price Range'
 };

@@ -10,10 +10,12 @@
       <div class="col-md-4 col-sm-12">
         <div class="input-holder">
           <form @submit.prevent="searchOrder">
-            <span class="remove-search" role="button" v-if="OrderSearchText" @click="OrderSearchText = null">x</span>
+            <span class="remove-search" role="button" v-if="OrderSearchText"
+              @click="OrderSearchText = null ; getOrders()">x</span>
             <!-- coupon input  -->
 
-            <input type="number" min="0" :placeholder="`${$t('cart.search')} ${$t('supplier.by')} ${$t('profile.serial')}`"
+            <input type="number" min="0"
+              :placeholder="`${$t('cart.search')} ${$t('supplier.by')} ${$t('profile.serial')}`"
               class="my-2 h-100 p-3 w-100 itemInput" v-model="OrderSearchText" />
             <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
               <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
@@ -22,6 +24,66 @@
           </form>
         </div>
       </div>
+    </div>
+    <div class="filters">
+      <div class="d-flex justify-content-end align-items-center mb-2">
+        <div class="suppliers">
+          <div class="option-ui" @click="$bvModal.show('suppliersModal')">
+            <div>{{ $t('supplier.suppliers') }}</div>
+            <div :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }"><font-awesome-icon
+                icon="fa-solid fa-angle-down" size="xl" /></div>
+          </div>
+        </div>
+        <div class="date-time mx-2">
+          <div class="option-ui" @click="$bvModal.show('date&timeModal')">
+            <div>{{ $t('profile.dateTime') }}</div>
+            <div :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }"><font-awesome-icon
+                icon="fa-solid fa-angle-down" size="xl" /></div>
+
+          </div>
+        </div>
+        <div class="priceModal mx-2">
+          <div class="option-ui" @click="$bvModal.show('priceModal')">
+            <div>priceModal</div>
+            <div :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }"><font-awesome-icon
+                icon="fa-solid fa-angle-down" size="xl" /></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="applierd-filters d-flex align-items-center">
+      <div class="suppliers-filter" v-if="selectedSupplier.length">
+
+        <div class="option-ui">
+          <div class="filter-name">{{ $t('supplier.suppliers') }}</div>
+          <div @click="selectedSupplier = []" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+            <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+          </div>
+        </div>
+      </div>
+      <div class="time-filter mx-2" v-if="dateFromValue && dateToValue">
+
+        <div class="option-ui">
+          <div class="filter-name">{{ $t('profile.dateTime') }}</div>
+          <div @click="dateFromValue = null ; dateToValue = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+            <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+          </div>
+        </div>
+      </div>
+      <div class="time-filter mx-2" v-if="priceFromValue && priceToValue">
+
+        <div class="option-ui">
+          <div class="filter-name">{{ $t('profile.dateTime') }}</div>
+          <div @click="priceFromValue = null ; priceToValue = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+            <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+          </div>
+        </div>
+      </div>
+      <b-button type="submit" class="login-button  w-auto br-5 mx-3" @click="applyFilters" v-if="selectedSupplier.length">
+        <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
+        <span>{{ $t("payment.Apply") }}</span>
+      </b-button>
     </div>
     <!-- if there's orders  -->
     <div class="holder text-center" v-if="orders">
@@ -108,10 +170,12 @@
                   {{ $t("profile.bankTransDocs") }}
                 </b-button>
               </router-link>
-              <b-button id="show-btn" @click="
-                $bvModal.show('bv-modal-example');
-              saveUUID(order);
-                                                                " variant="outline-success" class="m-2"
+              <b-button id="show-btn"
+                @click="
+                  $bvModal.show('bv-modal-example');
+                saveUUID(order);
+                                                                                                                                                                                                                                                                                                                    "
+                variant="outline-success" class="m-2"
                 v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'">
                 {{ $t("profile.pay") }}
               </b-button>
@@ -191,6 +255,107 @@
     <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
+
+    <!-- suppliersModal  -->
+
+    <b-modal id="suppliersModal">
+      <template #modal-header="{ close }">
+        <!-- Emulate built in modal header close button action -->
+        <h6 class="mb-0">{{ $t('supplier.suppliers') }}</h6>
+        <b-button size="sm" variant="outline-danger" @click="close() ; ">
+          <font-awesome-icon icon="fa-solid fa-times" />
+        </b-button>
+      </template>
+
+      <template>
+        <ul>
+          <li v-for="(supplier, index) in suppliers" :key="index" class="suppliers-li">
+            <label><input type="checkbox" class="myproject--checkbox" :value="supplier.id" v-model="selectedSupplier" />
+              <span v-if="supplier.company_name">{{
+                supplier.company_name
+              }}</span>
+              <span v-else-if="supplier.company_name_en">{{
+                supplier.company_name_en
+              }}</span>
+              <span v-else-if="supplier.company_name_ar">{{
+                supplier.company_name_ar
+              }}</span>
+              <span v-if="!supplier.company_name_en && !supplier.company_name_ar && supplier.company_name">{{
+                supplier.company_name
+              }}</span>
+            </label>
+          </li>
+        </ul>
+      </template>
+
+      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
+      <template #modal-footer="{ ok }">
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
+          {{ $t('home.ok') }}
+        </b-button>
+      </template>
+    </b-modal>
+    <!-- date&timeModal  -->
+
+    <b-modal id="date&timeModal">
+      <template #modal-header="{ close }">
+        <!-- Emulate built in modal header close button action -->
+        <h6 class="mb-0">{{ $t('profile.dateTime') }}</h6>
+        <b-button size="sm" variant="outline-danger" @click="close() ; ">
+          <font-awesome-icon icon="fa-solid fa-times" />
+        </b-button>
+      </template>
+
+      <template>
+        <div class="col-12">
+          <div class="from">
+            <!-- <label for="example-datepicker-from">{{ $t("profile.dateFrom") }} </label> -->
+            <b-form-datepicker id="example-datepicker-from" v-model="dateFromValue" class="mb-2"
+              :placeholder="$t('profile.dateFrom')"></b-form-datepicker>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="to">
+            <!-- <label for="example-datepicker-to">{{ $t("profile.dateTo") }} </label> -->
+            <b-form-datepicker id="example-datepicker-to" v-model="dateToValue" class="mb-2"
+              :placeholder="$t('profile.dateTo')"></b-form-datepicker>
+          </div>
+        </div>
+      </template>
+
+      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
+      <template #modal-footer="{ ok }">
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
+          {{ $t('home.ok') }}
+        </b-button>
+      </template>
+    </b-modal>
+    <!-- price modal  -->
+
+    <b-modal id="priceModal">
+      <template #modal-header="{ close }">
+        <!-- Emulate built in modal header close button action -->
+        <h6 class="mb-0">priceModal</h6>
+        <b-button size="sm" variant="outline-danger" @click="close() ; ">
+          <font-awesome-icon icon="fa-solid fa-times" />
+        </b-button>
+      </template>
+
+      <template>
+        price modal
+      </template>
+
+      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
+      <template #modal-footer="{ ok }">
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
+          {{ $t('home.ok') }}
+        </b-button>
+      </template>
+    </b-modal>
+
   </div>
 </template>
 
@@ -204,6 +369,7 @@ import profile from "@/services/profile";
 import spinner from "@/components/spinner.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import axios from "axios";
+import suppliers from "@/services/suppliers";
 export default {
   data() {
     return {
@@ -262,10 +428,26 @@ export default {
       errors: [],
       checkedOrder: [],
       repayClicked: false,
-      OrderSearchText: null
+      OrderSearchText: null,
+      suppliers: [],
+      selectedSupplier: [],
+
+      // suppliers
+      suppliersClicked: false,
+
+      // date
+      dateFromValue:null,
+      dateToValue:null,
+
+      //price
+      priceFromValue:null,
+      priceToValue:null
     };
   },
   methods: {
+    applyFilters() {
+      alert('filters')
+    },
     /**
      * get Orders function
      * @vuese
@@ -287,6 +469,32 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * @vuese
+     * this function used get Suppliers
+     */
+    getSuppliers() {
+      this.loading = true;
+      suppliers
+        .getSuppliers(this.page)
+        .then((resp) => {
+          console.log(resp);
+          this.suppliers = resp.data.items.data;
+          // this.total = resp.data.items.total;
+          // this.totalPages = Math.ceil(
+          //   resp.data.items.total / resp.data.items.per_page
+          // ); // Calculate total records
+
+          // this.totalRecords = resp.data.items.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+
     /**
      * function for pagination
      * @vuese
@@ -440,6 +648,7 @@ export default {
   },
   mounted() {
     this.getOrders(this.page);
+    this.getSuppliers()
   },
   components: {
     spinner,
@@ -623,4 +832,25 @@ export default {
 }
 
 /* checkbox */
+
+.option-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid $gray;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.suppliers-li {
+  label {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin: 0 20px;
+    }
+  }
+}
 </style>
