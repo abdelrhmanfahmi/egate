@@ -96,50 +96,60 @@
     </div> -->
 
     <div class="new-style">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="">
-          <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+      <div class="">
+        <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
+        <div class="row justify-content-between align-items-center mb-3">
+          <div class="col-md-6 col-sm-12 ">
+            <div class="">
 
-          <div class="my-2 d-flex align-items-center">
-            <div class="d-flex justify-content-start align-items-center">
-              <span>
-                <input
-                  type="checkbox"
-                  class="myproject--checkbox"
-                  v-model="checkAll"
-                />
-              </span>
-              <h5 class="mx-2">{{$t('profile.selectAll')}}</h5>
-            </div>
-            <div class="d-flex align-items-start mx-4 bulk-actions-holder">
-              <div class="select-holder">
-                <b-form-select v-model="selectedAction" class="mb-3">
-                  <b-form-select-option value="null" disabled>{{$t('profile.bulkAction')}}</b-form-select-option>
-                  <b-form-select-option value="bulk-read">{{$t('profile.readSelected')}}</b-form-select-option>
-                  <b-form-select-option value="bulk-delete">{{$t('profile.deleteSelected')}}</b-form-select-option>
-                </b-form-select>
-              </div>
-              <div class="mx-4">
-                <button class="bg-main br-5" @click.prevent="bulkAction">{{$t('payment.Apply')}}</button>
+
+              <div class="my-2">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="d-flex justify-content-start align-items-center">
+                      <span>
+                        <input type="checkbox" class="myproject--checkbox" v-model="checkAll" />
+                      </span>
+                      <h5 class="mx-2">{{ $t('profile.selectAll') }}</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="d-flex align-items-start mx-4 bulk-actions-holder">
+                  <div class="select-holder">
+                    <b-form-select v-model="selectedAction" class="mb-3">
+                      <b-form-select-option value="null" disabled>{{ $t('profile.bulkAction') }}</b-form-select-option>
+                      <b-form-select-option value="bulk-read">{{ $t('profile.readSelected') }}</b-form-select-option>
+                      <b-form-select-option value="bulk-delete">{{ $t('profile.deleteSelected') }}</b-form-select-option>
+                    </b-form-select>
+                  </div>
+                  <div class="mx-4">
+                    <button class="bg-main br-5" @click.prevent="bulkAction">{{ $t('payment.Apply') }}</button>
+                  </div>
+                </div>
+                  </div>
+                </div>
+
+               
               </div>
             </div>
           </div>
+          <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+            <h6 class="m-0">
+              <router-link to="/profile/NotificationSettings" class="text-dark">
+                <ins>{{ $t("profile.NotificationSettings") }}</ins>
+              </router-link>
+            </h6>
+          </div>
         </div>
-        <h6>
-          <router-link to="/profile/NotificationSettings" class="text-dark">
-            <ins>{{ $t("profile.NotificationSettings") }}</ins>
-          </router-link>
-        </h6>
+
       </div>
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
-            <th
-              :class="{
-                'text-left': $i18n.locale == 'en',
-                'text-right': $i18n.locale == 'ar',
-              }"
-            >
+            <th :class="{
+              'text-left': $i18n.locale == 'en',
+              'text-right': $i18n.locale == 'ar',
+            }">
               {{ $t("profile.Notifications") }}
             </th>
             <th class="text-center">
@@ -161,22 +171,14 @@
                               <p>{{ notify.title }}</p>
                             </div>
                           </div> -->
-                          <div
-                            class="d-flex justify-content-start align-items-center"
-                          >
-                            <div
-                              class="d-flex flex-column align-items-center justify-content-center"
-                            >
+                          <div class="d-flex justify-content-start align-items-center">
+                            <div class="d-flex flex-column align-items-center justify-content-center">
                               <div v-if="notify.is_read == 0">
                                 <span class="unreaded"></span>
                               </div>
                               <div class="">
-                                <input
-                                  type="checkbox"
-                                  class="myproject--checkbox"
-                                  :value="notify.id"
-                                  v-model="checkedOrder"
-                                />
+                                <input type="checkbox" class="myproject--checkbox" :value="notify.id"
+                                  v-model="checkedOrder" />
                               </div>
                             </div>
 
@@ -205,25 +207,18 @@
               </div>
             </td>
             <td colspan="3">
-              <div
-                class="d-flex justify-content-center align-items-center actions"
-              >
+              <div class="d-flex justify-content-center align-items-center actions">
                 <span v-if="notify.is_read == 0" class="">
                   <button
                     class="btn btn-loght border-0 outline-none shadow-none d-block add-cart add-cart-rfq bg-dark text-white px-3"
-                    @click="readNotification(notify)"
-                    v-b-tooltip.hover :title="$t('profile.markRead')"
-                  >
+                    @click="readNotification(notify)" v-b-tooltip.hover :title="$t('profile.markRead')">
                     <!-- <b class="text-capitalize">{{ $t("profile.markRead") }}</b> -->
                     <font-awesome-icon icon="fa-regular fa-envelope-open" />
                   </button>
                 </span>
                 <span>
-                  <button
-                  v-b-tooltip.hover :title="$t('items.remove')"
-                  @click="removeNotification(notify)"
-                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-gray m-2"
-                  >
+                  <button v-b-tooltip.hover :title="$t('items.remove')" @click="removeNotification(notify)"
+                    class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq bg-gray m-2">
                     <span>
                       <font-awesome-icon icon="fa-solid fa-trash-can" />
                     </span>
@@ -235,13 +230,8 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-start align-items-center mt-5">
-        <Paginate
-          v-if="notifications"
-          :total-pages="totalPages"
-          :per-page="totalPages"
-          :current-page="page"
-          @pagechanged="onPageChange"
-        />
+        <Paginate v-if="notifications" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+          @pagechanged="onPageChange" />
       </div>
     </div>
   </div>
@@ -273,7 +263,7 @@ export default {
           this.total = resp.data.items.notifications.meta.total;
           this.totalPages = Math.ceil(
             resp.data.items.notifications.meta.total /
-              resp.data.items.notifications.meta.per_page
+            resp.data.items.notifications.meta.per_page
           ); // Calculate total records
 
           this.totalRecords = resp.data.items.notifications.meta.total;
@@ -290,14 +280,14 @@ export default {
      */
     onPageChange(page) {
       this.page = page;
-      this.getNotificatinos();
+      this.getNotificatinos(this.page);
     },
     /**
      * function for pagination
      * @vuese
      */
     onChangeRecordsPerPage() {
-      this.getNotificatinos();
+      this.getNotificatinos(this.page);
     },
     /**
      * function for pagination
@@ -306,7 +296,7 @@ export default {
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
-        this.getNotificatinos();
+        this.getNotificatinos(this.page);
       }
     },
     /**
@@ -320,7 +310,10 @@ export default {
           console.log(res);
           if (res.status == 200) {
             this.$store.dispatch("getNotifications");
-            this.getNotificatinos();
+            this.getNotificatinos(this.page);
+            setTimeout(() => {
+              this.checkedOrder = []
+            }, 300);
           }
         })
         .catch((error) => {
@@ -334,8 +327,12 @@ export default {
         .removeNotification(notification)
         .then((res) => {
           if (res.status == 200) {
+            this.sucessMsg(res.data.message);
             this.$store.dispatch("getNotifications");
-            this.getNotificatinos();
+            this.getNotificatinos(this.page);
+            setTimeout(() => {
+              this.checkedOrder = []
+            }, 300);
           }
         })
         .catch((error) => {
@@ -411,38 +408,48 @@ export default {
           this.errMsg(err.message);
         })
     },
-    bulkAction(){
-      if(this.selectedAction == 'bulk-read'){
+    bulkAction() {
+      if (this.selectedAction == 'bulk-read') {
         this.notificationBulkRead()
+        this.getNotificatinos(this.page);
+        this.checkedOrder = []
       }
-      else if(this.selectedAction == 'bulk-delete'){
+      else if (this.selectedAction == 'bulk-delete') {
         this.notificationBulkDelete()
+        this.getNotificatinos(this.page);
+        this.checkedOrder = []
       }
-      else{
-        if(this.$i18n.locale == 'en'){
+      else {
+        if (this.$i18n.locale == 'en') {
           this.errMsg('Choose Action First');
-        }else{
+        } else {
           this.errMsg('قم باختيار الاجراء اولا');
         }
       }
     },
-    notificationBulkRead(){
-      profile.notificationBulkRead(this.checkedOrder).then(res =>{
-        console.log(res);
+    notificationBulkRead() {
+      let payload = {
+        ids: this.checkedOrder
+      }
+      profile.notificationBulkRead(payload).then(res => {
+        this.sucessMsg(res.data.message);
       }).catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        })
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
     },
-    notificationBulkDelete(){
-      profile.notificationBulkDelete(this.checkedOrder).then(res =>{
-        console.log(res);
+    notificationBulkDelete() {
+      let payload = {
+        ids: this.checkedOrder
+      }
+      profile.notificationBulkDelete(payload).then(res => {
+        this.sucessMsg(res.data.message);
       }).catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        })
+        const err = Object.values(error)[2].data;
+        this.errors = err.items;
+        this.errMsg(err.message);
+      })
     }
   },
   mounted() {
@@ -464,7 +471,7 @@ export default {
       enterpageno: "",
       checkedOrder: [],
       selectedAction: null,
-      errors:[]
+      errors: []
     };
   },
   computed: {
@@ -497,64 +504,49 @@ export default {
   /*==========  Mobile First Method  ==========*/
 
   /* Custom, iPhone Retina */
-  @media only screen and (min-width: 320px) {
-  }
+  @media only screen and (min-width: 320px) {}
 
   /* Extra Small Devices, Phones */
-  @media only screen and (min-width: 480px) {
-  }
+  @media only screen and (min-width: 480px) {}
 
   /* Small Devices, Tablets */
-  @media only screen and (min-width: 768px) {
-  }
+  @media only screen and (min-width: 768px) {}
 
   /* Medium Devices, Desktops */
-  @media only screen and (min-width: 992px) {
-  }
+  @media only screen and (min-width: 992px) {}
 
   /* Large Devices, Wide Screens */
-  @media only screen and (min-width: 1200px) {
-  }
+  @media only screen and (min-width: 1200px) {}
 
   /*==========  Non-Mobile First Method  ==========*/
 
   /* Large Devices, Wide Screens */
-  @media only screen and (max-width: 1200px) {
-  }
+  @media only screen and (max-width: 1200px) {}
 
   /* Medium Devices, Desktops */
-  @media only screen and (max-width: 992px) {
-  }
+  @media only screen and (max-width: 992px) {}
 
   /* Small Devices, Tablets */
-  @media only screen and (max-width: 768px) {
-  }
+  @media only screen and (max-width: 768px) {}
 
   /* Extra Small Devices, Phones */
-  @media only screen and (max-width: 480px) {
-  }
+  @media only screen and (max-width: 480px) {}
 
   /* Custom, iPhone Retina */
-  @media only screen and (max-width: 320px) {
-  }
+  @media only screen and (max-width: 320px) {}
 
   /*=====================================================
 =            Bootstrap 2.3.2 Media Queries            =
 =====================================================*/
-  @media only screen and (max-width: 1200px) {
-  }
+  @media only screen and (max-width: 1200px) {}
 
-  @media only screen and (max-width: 979px) {
-  }
+  @media only screen and (max-width: 979px) {}
 
-  @media only screen and (max-width: 767px) {
-  }
+  @media only screen and (max-width: 767px) {}
 
-  @media only screen and (max-width: 480px) {
-  }
+  @media only screen and (max-width: 480px) {}
 
-  @media only screen and (max-width: 320px) {
-  }
+  @media only screen and (max-width: 320px) {}
 
   /* default styles here for older browsers. 
        I tend to go for a 600px - 960px width max but using percentages
@@ -832,17 +824,20 @@ export default {
   border-radius: 50%;
   background: $main-color !important;
 }
+
 td {
   padding: 35px 15px !important;
 }
-.bulk-actions-holder{
-  .select-holder{
+
+.bulk-actions-holder {
+  .select-holder {
     min-width: 200px;
     min-height: 65px;
   }
-  button{
+
+  button {
     width: 85px;
-    height:50px !important;
+    height: 50px !important;
     padding: 8px;
   }
 }

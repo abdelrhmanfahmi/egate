@@ -255,7 +255,7 @@ export default {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
   removeNotification(notification) {
-    return globalAxios.delete(`members/notifications/${notification.id}`);
+    return globalAxios.delete(`members/notifications/delete/${notification.id}`);
   },
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
@@ -392,5 +392,12 @@ export default {
   },
   notificationBulkDelete(payload){
     return globalAxios.post('members/notifications/bulk-delete' , payload)
+  },
+  searchOrder(data , payload ){
+    return globalAxios.get(`members/client-orders?page=${data}` , {
+      params:{
+        id:payload.id ? payload.id : null
+      }
+    })
   }
 };

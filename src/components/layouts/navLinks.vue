@@ -285,6 +285,7 @@ export default {
 
 html:lang(ar) {
   .main-nav {
+
     .cart-body,
     .notify-body {
       right: auto;
@@ -430,6 +431,15 @@ html:lang(ar) {
     color: #fff;
     padding: 5px 10px;
     border-radius: 10px;
+  }
+}
+
+.navigation {
+  li {
+    margin: 0 20px !important;
+    &:first-of-type{
+      margin-left: 30px !important;
+    }
   }
 }
 </style>

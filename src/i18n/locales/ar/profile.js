@@ -332,5 +332,7 @@ export default {
   deleteSelected:'حذف المختار',
   readSelected:'تعليم المختار كمقروء',
   bulkAction:'اجراء جماعى',
-  selectAll:'اختيار الكل'
+  selectAll:'اختيار الكل',
+  dateTime:'الوقت و التاريخ',
+  priceRange:'السعر من - الى '
 };
