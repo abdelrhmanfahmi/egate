@@ -38,3 +38,15 @@ nav{
         }
     }
 }
+
+.bottom-nav-holder{
+    .dropdown-menu {
+        height: 600px !important;
+        overflow: auto !important;
+        top: 100%;
+        width: 300px;
+      }
+      #dropdown-1{
+        width: 250px;
+      }
+}

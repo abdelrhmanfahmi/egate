@@ -3,28 +3,29 @@
     <div class="container">
       <div class="categories-dropdown d-flex align-items-center">
         <div class="wrapper">
-          <div class="data-wrapper d-flex justify0content-center align-items-center">
+          <div class="data-wrapper d-flex justify0content-center align-items-center btn-group">
             <div class="grid-icon">
-              <font-awesome-icon
-                icon="fa-solid fa-table-cells-large"
-                size="xl"
-                class="text-white"
-              />
+              <font-awesome-icon icon="fa-solid fa-table-cells-large" size="xl" class="text-white" />
             </div>
-            <select name="categories" id="categories" @change="selectCategory($event)">
+            <!-- <select name="categories" id="categories" @change="selectCategory($event)">
               <option value="" selected disabled>
                 {{ $t("profile.categories") }}
               </option>
-              <option
-                :value="category.id"
-                v-for="(category, index) in categories"
-                :key="index"
-              >
+              <option :value="category.id" v-for="(category, index) in categories" :key="index">
                 <router-link :to="`/categories/${category.id}`">
                   {{ category.title }}
                 </router-link>
               </option>
-            </select>
+            </select> -->
+            <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
+              <template #button-content>
+                <span class="title text-white">{{ $t("profile.categories") }}</span>
+              </template>
+              <b-dropdown-item v-for="(category, index) in categories" :key="index" @click="selectCategory(category)">
+                <img :src="category.image_path" :alt="category.title" class="category-img" />
+                <span class="mx-2">{{ category.title }}</span>
+              </b-dropdown-item>
+            </b-dropdown>
 
             <div class="down-angle">
               <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
@@ -50,7 +51,7 @@
 
             </li>
           </ul> -->
-          <div class="middle" >
+          <div class="middle">
             <navLinks />
           </div>
         </div>
@@ -81,15 +82,23 @@ export default {
           this.loading = false;
         });
     },
-    selectCategory(event) {
+    selectCategory(category) {
       this.$router.push(
         {
-          path: `/categories/${event.target.value}`,
+          path: `/categories/${category.id}`,
         },
         () => {
           this.$router.go(0);
         }
       );
+      // this.$router.push(
+      //   {
+      //     path: `/categories/${event.target.value}`,
+      //   },
+      //   () => {
+      //     this.$router.go(0);
+      //   }
+      // );
     },
     checkScreen() {
       this.windowWidth = window.innerWidth;
@@ -132,7 +141,8 @@ export default {
     padding: 5px 15px;
   }
 
-  select {
+  select,
+  #dropdown-1 {
     padding: 0.7em 2rem;
     border-radius: 0.2em;
     border: none;
@@ -150,6 +160,8 @@ export default {
     // background-origin: content-box;
     background: none;
     font-size: 16px;
+
+
   }
 
   // #categories {
@@ -183,4 +195,14 @@ export default {
     margin: 10px;
   }
 }
+
+.category-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  // object-fit: contain;
+  // margin: 0 10px;
+}
+
+
 </style>

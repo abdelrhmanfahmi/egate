@@ -255,7 +255,7 @@ export default {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
   removeNotification(notification) {
-    return globalAxios.delete(`members/notifications/${notification.id}`);
+    return globalAxios.delete(`members/notifications/delete/${notification.id}`);
   },
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
