@@ -165,6 +165,11 @@ export default {
        */
       buyerLinks: [
         {
+          to: "/",
+          name: this.$t("home.home"),
+          iconName: "house",
+        },
+        {
           to: "/profile/categories",
           name: this.$t("profile.shop"),
           iconName: "list",
@@ -256,6 +261,11 @@ export default {
        *  if logged in socially
        */
       socialLinks: [
+      {
+          to: "/",
+          name: this.$t("home.home"),
+          iconName: "house",
+        },
         {
           to: "/profile/categories",
           name: this.$t("profile.shop"),

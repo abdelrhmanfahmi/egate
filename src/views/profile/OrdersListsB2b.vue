@@ -93,6 +93,7 @@
           <div>
           <b-form-select v-model="filterPerPage" class="mb-3" @change="getOrdersWithLimit">
             <b-form-select-option :value="null" disabled>{{$t('profile.perPage')}}</b-form-select-option>
+            <b-form-select-option value="">{{ $t('home.All') }}</b-form-select-option>
             <b-form-select-option value="5">5</b-form-select-option>
             <b-form-select-option value="10">10</b-form-select-option>
             <b-form-select-option value="15">15</b-form-select-option>
@@ -103,6 +104,16 @@
         </div>
       </div>
     </div>
+    <div class="">
+                  <span >
+                    <input
+                      type="checkbox"
+                      class="myproject--checkbox"
+                      v-model="checkAll"
+                    />
+                  </span>
+                  <span class="h5 mx-2">{{ $t('profile.selectAll') }}</span>
+                </div>
     <div class="holder text-center" v-if="orders">
       <div class="" v-if="orders.length">
 
@@ -112,7 +123,7 @@
             <font-awesome-icon icon="fa-solid fa-arrow-up" />
           </b-button>
         </div>
-  
+        
         <!-- orders data table  -->
         <table class="table table-striped table-hover table-bordered selectable">
           <thead>

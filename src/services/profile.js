@@ -215,6 +215,20 @@ export default {
   supplierAllCorrespondence() {
     return globalAxios.get("members/message");
   },
+  getMessagesWithLimit(payload) {
+    return globalAxios.get("members/message" , {
+      params:{
+        count:payload
+      }
+    });
+  },
+  supplierAllCorrespondenceSearch(payload) {
+    return globalAxios.get("members/message" , {
+      params:{
+        keyword:payload
+      }
+    });
+  },
   suppliersingleCorrespondence(id) {
     return globalAxios.get(`members/message/${id}`);
   },
@@ -275,6 +289,17 @@ export default {
       data = 1;
     }
     return globalAxios.get(`members/notifications?page=${data}`);
+  },
+  getNotificatinosWithLimit(data , payload) {
+    if (data == undefined || data == "undefined") {
+      data = 1;
+    }
+    return globalAxios.get(`members/notifications` , {
+      params:{
+        page:data,
+        count:payload
+      }
+    });
   },
   readNotification(notification) {
     return globalAxios.get(`members/notifications/${notification.id}`);

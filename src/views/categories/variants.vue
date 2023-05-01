@@ -110,17 +110,21 @@
           <div class="row justify-content-center align-items-center">
             <div class="col-md-6 col-sm-12">
               <div class="new-search">
-                <div class="field" id="searchform">
-                  <input
-                    type="text"
-                    id="searchterm"
-                    :placeholder="`${$t('cart.search')}...`"
-                    class="form-control"
-                  />
-                  <button type="button" id="search">
-                    {{ $t("cart.search") }}
-                  </button>
-                </div>
+                <form @submit.prevent="searchVaiantsTableProducts">
+                
+                  <div class="field" id="searchform">
+                    <input
+                      type="text"
+                      id="searchterm"
+                      :placeholder="`${$t('cart.search')}...`"
+                      class="form-control"
+                      v-model="searchWord"
+                    />
+                    <button type="button" id="search" @click="searchVaiantsTableProducts">
+                      {{ $t("cart.search") }}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
             <div class="col-md-6 col-sm-12" v-if="productInfo">
@@ -167,12 +171,12 @@
       <!-- start category name and filters  -->
       <div class="container">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-4 col-sm-12">
             <h4 class="header font-weight-bold my-2">
               {{ $t("items.products") }}
             </h4>
           </div>
-          <div class="col-md-6 col-sm-12 text-center my-2">
+          <div class="col-md-8 col-sm-12 text-center my-2">
             <div class="d-flex justify-content-end align-items-center">
               <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
                 <span>{{ $t("cart.filter") }}</span>
@@ -195,7 +199,7 @@
             <div class="row">
               <div class="col-md-8 col-sm-12">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="country">{{ $t("profile.countryOrigin") }}</label>
 
@@ -219,7 +223,7 @@
                       </b-form-select>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="weight">{{ $t("singleProduct.weight") }}</label>
 
@@ -243,7 +247,7 @@
                       </b-form-select>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="unit">{{ $t("items.unit") }}</label>
 
@@ -300,7 +304,7 @@
 
       <!-- when data of relative products comes   -->
 
-      <div class="products-table text-center" v-else>
+      <div class="products-table text-center container" v-else>
         <table
           v-if="products.length > 0"
           class="table table-striped table-hover table-bordered selectable"
@@ -312,8 +316,10 @@
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="(product, index) in products" :key="index">
+          <tbody class="">
+            <tr v-for="(product, index) in products" :key="index" :class="{'border-main-bold':product.ads.length ||
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type}">
               <!-- <td
                 v-if="
                 product.ads.length ||
@@ -375,10 +381,10 @@
                 !product.basket_promotions_running_by_type &&
                 !product.buy_get_promotion_running_by_type }"
                 >
-                    <h6 v-if="product.ads && product.ads.length > 0">
+                    <h6 v-if="product.ads && product.ads.length > 0" class="main-color font-weight-bold">
                       {{ $t("items.advertise") }}
                     </h6>
-                    <h6 v-if="product.basket_promotions_running_by_type">
+                    <h6 v-if="product.basket_promotions_running_by_type" class="main-color font-weight-bold">
                       <router-link
                         :to="{
                           path: '/basketOfferDetails',
@@ -390,7 +396,7 @@
                         >{{ $t("profile.basketDeals") }}</router-link
                       >
                     </h6>
-                    <h6 v-if="product.buy_get_promotion_running_by_type">
+                    <h6 v-if="product.buy_get_promotion_running_by_type" class="main-color font-weight-bold">
                       <router-link
                         :to="{
                           path: '/details',
@@ -491,6 +497,10 @@
                   {{ product.product_details_by_type.unit.title }}
                 </router-link>
                 <div v-else class="link">-</div>
+              </td>
+              <td>
+                <p class="mb-0" v-if="product.country">{{ product.country.title }}</p>
+                <p class="mb-0" v-else>-</p>
               </td>
               <td>
                 <div
@@ -995,6 +1005,10 @@ export default {
           label: this.$t("items.unit"),
         },
         {
+          key: "country.title",
+          label: this.$t("profile.countryOrigin"),
+        },
+        {
           key: "product_details_by_type.price",
           label: this.$t("items.price"),
         },
@@ -1036,7 +1050,8 @@ export default {
       WeightOptions: null,
       UnitOptions: null,
       selectedStandingOrder: null,
-      parent_categoryVariants:null
+      parent_categoryVariants:null,
+      searchWord:''
     };
   },
   components: {
@@ -1201,6 +1216,26 @@ export default {
           this.sortTypeCountry,
           this.sortTypeWeight,
           this.sortTypeUnit
+        )
+        .then((res) => {
+          this.products = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    searchVaiantsTableProducts(){
+      categories
+        .searchVaiantsTableProducts(
+          this.pageId,
+          this.sortType,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit,
+          this.searchWord
         )
         .then((res) => {
           this.products = res.data.items.data;

@@ -115,33 +115,63 @@
                   </div>
                   <div class="col-md-6 col-sm-12">
                     <div class="d-flex align-items-start mx-4 bulk-actions-holder">
-                  <div class="select-holder">
-                    <b-form-select v-model="selectedAction" class="mb-3">
-                      <b-form-select-option value="null" disabled>{{ $t('profile.bulkAction') }}</b-form-select-option>
-                      <b-form-select-option value="bulk-read">{{ $t('profile.readSelected') }}</b-form-select-option>
-                      <b-form-select-option value="bulk-delete">{{ $t('profile.deleteSelected') }}</b-form-select-option>
-                    </b-form-select>
-                  </div>
-                  <div class="mx-4">
-                    <button class="bg-main br-5" @click.prevent="bulkAction">{{ $t('payment.Apply') }}</button>
-                  </div>
-                </div>
+                      <div class="select-holder">
+                        <b-form-select v-model="selectedAction" class="mb-3">
+                          <b-form-select-option value="null" disabled>{{ $t('profile.bulkAction')
+                          }}</b-form-select-option>
+                          <b-form-select-option value="bulk-read">{{ $t('profile.readSelected') }}</b-form-select-option>
+                          <b-form-select-option value="bulk-delete">{{ $t('profile.deleteSelected')
+                          }}</b-form-select-option>
+                        </b-form-select>
+                      </div>
+                      <div class="mx-4">
+                        <button class="bg-main br-5" @click.prevent="bulkAction">{{ $t('payment.Apply') }}</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-               
+
               </div>
             </div>
           </div>
           <div class="col-md-6 col-sm-12 d-flex justify-content-end">
-            <h6 class="m-0">
+            <h6 class="m-0 mx-3">
               <router-link to="/profile/NotificationSettings" class="text-dark">
                 <ins>{{ $t("profile.NotificationSettings") }}</ins>
               </router-link>
             </h6>
+            <h6 class="m-0">
+
+              <ins>
+                <div @click="readAllNotifications">
+
+                  <span class="mr-2 text-decoration-underline">{{
+                    $t("profile.readAllNotifications")
+                  }}</span>
+                </div>
+              </ins>
+            </h6>
           </div>
         </div>
 
+      </div>
+      <div class="perPage">
+        <div class="d-flex justify-content-end align-items-center">
+
+          <div>
+            <b-form-select v-model="filterPerPage" class="mb-3" @change="getNotificatinosWithLimit">
+              <b-form-select-option :value="null" disabled>{{ $t('profile.perPage') }}</b-form-select-option>
+              <b-form-select-option value="">{{ $t('home.All') }}</b-form-select-option>
+              <b-form-select-option value="5">5</b-form-select-option>
+              <b-form-select-option value="10">10</b-form-select-option>
+              <b-form-select-option value="15">15</b-form-select-option>
+              <b-form-select-option value="20">20</b-form-select-option>
+              <b-form-select-option value="25">25</b-form-select-option>
+              <b-form-select-option value="30">30</b-form-select-option>
+            </b-form-select>
+          </div>
+        </div>
       </div>
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
@@ -256,6 +286,31 @@ export default {
     getNotificatinos() {
       profile
         .getNotificatinos(this.page)
+        .then((resp) => {
+          console.log(resp);
+          this.notifications = resp.data.items.notifications.data;
+
+          this.total = resp.data.items.notifications.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.notifications.meta.total /
+            resp.data.items.notifications.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.notifications.meta.total;
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        })
+    },
+    /**
+     * get Notificatinos function
+     * @vuese
+     */
+    getNotificatinosWithLimit() {
+      profile
+        .getNotificatinosWithLimit(this.page, this.filterPerPage)
         .then((resp) => {
           console.log(resp);
           this.notifications = resp.data.items.notifications.data;
@@ -471,7 +526,8 @@ export default {
       enterpageno: "",
       checkedOrder: [],
       selectedAction: null,
-      errors: []
+      errors: [],
+      filterPerPage: null
     };
   },
   computed: {

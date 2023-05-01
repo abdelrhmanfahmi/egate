@@ -20,7 +20,7 @@
             <!-- charge wallet  -->
             <form @submit.prevent="chargeWallet" class="">
               <div class="row justify-content-center align-items-center">
-                <div class="col-md-8 col-sm-12">
+                <div class="col-lg-6 col-sm-12">
                  <div class="input-holder">
                   <b-form-input
                   type="number"
@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div
-                  class="col-md-4 col-sm-12 d-flex justify-content-between align-items-center"
+                  class="col-lg-6 col-sm-12 d-flex justify-content-between align-items-center"
                 >
                   <b-button
                   class="bg-main"

@@ -44,6 +44,21 @@ export default {
       }
     });
   },
+  searchVaiantsTableProducts(id, sorting, country, weight, unit , keyword) {
+  // getCategoryProducts(id, sorting, cat, country, weight, unit) {
+    // return globalAxios.get(`products?${cat}`, {
+      console.log('keyword' , keyword);
+    return globalAxios.get(`products`, {
+      params: {
+        category_id: id ? id : null,
+        sort_price: sorting ? sorting : null,
+        country_id: country ? country : null,
+        weight: weight ? weight : null,
+        unit_id: unit ? unit : null,
+        keyword:keyword ? keyword : null
+      }
+    });
+  },
   getSingleProductDetails(id) {
     return globalAxios.get(`lists/categories/single/${id}`);
   },
