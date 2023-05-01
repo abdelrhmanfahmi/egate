@@ -1,5 +1,5 @@
 <template>
-  <div :class="$i18n.locale">
+  <div :class="$i18n.locale" class="ordersPage">
     <div class="row">
       <div class="col-md-8 col-sm-12">
 
@@ -294,7 +294,7 @@
       </template>
 
       <template>
-        <ul>
+        <ul class="suppliersList">
           <li v-for="(supplier, index) in suppliers" :key="index" class="suppliers-li">
             <label><input type="checkbox" class="myproject--checkbox" :value="supplier.id" v-model="selectedSupplier" />
               <span v-if="supplier.company_name">{{
