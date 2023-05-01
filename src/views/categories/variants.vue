@@ -171,12 +171,12 @@
       <!-- start category name and filters  -->
       <div class="container">
         <div class="row justify-content-between align-items-center">
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-4 col-sm-12">
             <h4 class="header font-weight-bold my-2">
               {{ $t("items.products") }}
             </h4>
           </div>
-          <div class="col-md-6 col-sm-12 text-center my-2">
+          <div class="col-md-8 col-sm-12 text-center my-2">
             <div class="d-flex justify-content-end align-items-center">
               <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
                 <span>{{ $t("cart.filter") }}</span>
@@ -199,7 +199,7 @@
             <div class="row">
               <div class="col-md-8 col-sm-12">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="country">{{ $t("profile.countryOrigin") }}</label>
 
@@ -223,7 +223,7 @@
                       </b-form-select>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="weight">{{ $t("singleProduct.weight") }}</label>
 
@@ -247,7 +247,7 @@
                       </b-form-select>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 my-2">
+                  <div class="col-xl-4 col-lg-6  col-sm-12 my-2">
                     <div class="" v-if="filteredBy">
                       <label for="unit">{{ $t("items.unit") }}</label>
 
@@ -497,6 +497,10 @@
                   {{ product.product_details_by_type.unit.title }}
                 </router-link>
                 <div v-else class="link">-</div>
+              </td>
+              <td>
+                <p class="mb-0" v-if="product.country">{{ product.country.title }}</p>
+                <p class="mb-0" v-else>-</p>
               </td>
               <td>
                 <div
@@ -999,6 +1003,10 @@ export default {
         {
           key: "product_details_by_type.unit.title",
           label: this.$t("items.unit"),
+        },
+        {
+          key: "country.title",
+          label: this.$t("profile.countryOrigin"),
         },
         {
           key: "product_details_by_type.price",
