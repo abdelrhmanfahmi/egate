@@ -290,6 +290,17 @@ export default {
     }
     return globalAxios.get(`members/notifications?page=${data}`);
   },
+  getNotificatinosWithLimit(data , payload) {
+    if (data == undefined || data == "undefined") {
+      data = 1;
+    }
+    return globalAxios.get(`members/notifications` , {
+      params:{
+        page:data,
+        count:payload
+      }
+    });
+  },
   readNotification(notification) {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
