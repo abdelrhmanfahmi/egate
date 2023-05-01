@@ -104,6 +104,16 @@
         </div>
       </div>
     </div>
+    <div class="">
+                  <span >
+                    <input
+                      type="checkbox"
+                      class="myproject--checkbox"
+                      v-model="checkAll"
+                    />
+                  </span>
+                  <span class="h5 mx-2">{{ $t('profile.selectAll') }}</span>
+                </div>
     <div class="holder text-center" v-if="orders">
       <div class="" v-if="orders.length">
 
@@ -113,7 +123,7 @@
             <font-awesome-icon icon="fa-solid fa-arrow-up" />
           </b-button>
         </div>
-  
+        
         <!-- orders data table  -->
         <table class="table table-striped table-hover table-bordered selectable">
           <thead>
