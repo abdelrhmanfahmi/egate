@@ -5,6 +5,14 @@ export default {
   getSuppliers(page) {
     return globalAxios.get(`suppliers?page=${page}`);
   },
+  getSuppliersWithNoPaginate(page) {
+    return globalAxios.get(`suppliers/suppliers/all` , {
+      params:{
+        paginate:false,
+        page:page
+      }
+    });
+  },
   getSupplier(id) {
     return globalAxios.get(`suppliers/${id}`);
   },

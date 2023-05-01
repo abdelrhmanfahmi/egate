@@ -1,5 +1,5 @@
 <template>
-  <div :class="$i18n.locale">
+  <div :class="$i18n.locale" class="ordersPage">
     <div class="row">
       <div class="col-md-8 col-sm-12">
 
@@ -42,9 +42,9 @@
 
           </div>
         </div>
-        <div class="priceModal mx-2">
+        <div class="priceModal">
           <div class="option-ui" @click="$bvModal.show('priceModal')">
-            <div>priceModal</div>
+            <div>{{$t('profile.priceRange')}}</div>
             <div :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }"><font-awesome-icon
                 icon="fa-solid fa-angle-down" size="xl" /></div>
 
@@ -53,11 +53,12 @@
       </div>
     </div>
     <div class="applierd-filters d-flex align-items-center">
-      <div class="suppliers-filter" v-if="selectedSupplier.length">
+      <p class="h4" v-if="selectedSupplier.length || dateFromValue && dateToValue || priceFromValue && priceToValue">{{ $t('profile.filtersApplied') }}</p>
+      <div class="suppliers-filter mx-2" v-if="selectedSupplier.length">
 
         <div class="option-ui">
           <div class="filter-name">{{ $t('supplier.suppliers') }}</div>
-          <div @click="selectedSupplier = []" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+          <div @click="selectedSupplier = [] ; applyFilters() ; filterPerPage = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
             <font-awesome-icon icon="fa-solid fa-times" size="xl" />
           </div>
         </div>
@@ -66,195 +67,220 @@
 
         <div class="option-ui">
           <div class="filter-name">{{ $t('profile.dateTime') }}</div>
-          <div @click="dateFromValue = null ; dateToValue = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+          <div @click="dateFromValue = null ; dateToValue = null ; applyFilters() ; filterPerPage = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
             <font-awesome-icon icon="fa-solid fa-times" size="xl" />
           </div>
         </div>
       </div>
-      <div class="time-filter mx-2" v-if="priceFromValue && priceToValue">
+      <div class="time-filter" v-if="priceFromValue && priceToValue">
 
         <div class="option-ui">
-          <div class="filter-name">{{ $t('profile.dateTime') }}</div>
-          <div @click="priceFromValue = null ; priceToValue = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
+          <div class="filter-name">{{$t('profile.priceRange')}}</div>
+          <div @click="priceFromValue = null ; priceToValue = null ; applyFilters() ; filterPerPage = null" :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }">
             <font-awesome-icon icon="fa-solid fa-times" size="xl" />
           </div>
         </div>
       </div>
-      <b-button type="submit" class="login-button  w-auto br-5 mx-3" @click="applyFilters" v-if="selectedSupplier.length">
+      <b-button type="submit" class="login-button  w-auto br-5 mx-3" @click="applyFilters" v-if="selectedSupplier.length || dateFromValue && dateToValue || priceFromValue && priceToValue">
         <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
         <span>{{ $t("payment.Apply") }}</span>
       </b-button>
     </div>
     <!-- if there's orders  -->
+    <div class="perPage">
+      <div class="d-flex justify-content-end align-items-center">
+
+          <div>
+          <b-form-select v-model="filterPerPage" class="mb-3" @change="getOrdersWithLimit">
+            <b-form-select-option :value="null" disabled>{{$t('profile.perPage')}}</b-form-select-option>
+            <b-form-select-option value="5">5</b-form-select-option>
+            <b-form-select-option value="10">10</b-form-select-option>
+            <b-form-select-option value="15">15</b-form-select-option>
+            <b-form-select-option value="20">20</b-form-select-option>
+            <b-form-select-option value="25">25</b-form-select-option>
+            <b-form-select-option value="30">30</b-form-select-option>
+          </b-form-select>
+        </div>
+      </div>
+    </div>
     <div class="holder text-center" v-if="orders">
-      <div class="mb-3 d-flex justify-content-end" v-if="checkedOrder && checkedOrder.length > 0">
-        <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
-          {{ $t("singleProduct.exportSelectedOrders") }}
-          <font-awesome-icon icon="fa-solid fa-arrow-up" />
-        </b-button>
-      </div>
+      <div class="" v-if="orders.length">
 
-      <!-- orders data table  -->
-      <table class="table table-striped table-hover table-bordered selectable">
-        <thead>
-          <tr>
-            <th scope="col" v-for="(tab, index) in fields" :key="index">
-              <div class="d-flex justify-content-around align-items-center">
-                <!-- <span v-if="tab.label === $t('profile.serial')">
-                  <input
-                    type="checkbox"
-                    class="myproject--checkbox"
-                    v-model="checkAll"
-                  />
-                </span> -->
-                <span>{{ tab.label }}</span>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(order, index) in orders" :key="index">
-            <td>
-              <div class="d-flex justify-content-around align-items-center">
-                <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />
-                <span>{{ order.id }}</span>
-              </div>
-            </td>
-            <td>{{ order.created_at | formatDate }}</td>
-            <td>{{ order.order_supplier_items_count }}</td>
-            <td>
-              <span v-if="order.total_price" class="main-color"><b>{{ order.total_price | fixedCurrency }} {{ currency
-              }}</b></span>
-              <span v-else>-</span>
-            </td>
-            <td>
-              <span :class="{
-                'text-success':
-                  order.payment_status_lang == 'Paid' ||
-                  order.payment_status_lang == 'تم الدفع',
-              }">{{ order.payment_status_lang }}</span>
-            </td>
-            <td>
-              <span>{{ order.payment }}</span>
-              <span class="d-block" v-if="
-                order.payment_type === 'visa' ||
-                order.payment_charge_id ||
-                order.payment_type === 'wallet_visa' ||
-                order.payment_type === 'wallet'
-              ">
-                TID : {{ order.payment_charge_id }}
-              </span>
-            </td>
-
-            <td>
-              <router-link :to="{
-                path: '/viewOrderDetails',
-                query: { id: `${order.id}` },
-              }" class="text-dark">
-                <b-button variant="outline-light main-color border-main" class="m-2">
-                  <font-awesome-icon icon="fa-regular fa-eye" />
+        <div class="mb-3 d-flex justify-content-end" v-if="checkedOrder && checkedOrder.length > 0">
+          <b-button variant="outline-success" class="mx-2" @click="exportSelectedOrders">
+            {{ $t("singleProduct.exportSelectedOrders") }}
+            <font-awesome-icon icon="fa-solid fa-arrow-up" />
+          </b-button>
+        </div>
+  
+        <!-- orders data table  -->
+        <table class="table table-striped table-hover table-bordered selectable">
+          <thead>
+            <tr>
+              <th scope="col" v-for="(tab, index) in fields" :key="index">
+                <div class="d-flex justify-content-around align-items-center">
+                  <!-- <span v-if="tab.label === $t('profile.serial')">
+                    <input
+                      type="checkbox"
+                      class="myproject--checkbox"
+                      v-model="checkAll"
+                    />
+                  </span> -->
+                  <span>{{ tab.label }}</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(order, index) in orders" :key="index">
+              <td>
+                <div class="d-flex justify-content-around align-items-center">
+                  <input type="checkbox" class="myproject--checkbox" :value="order.id" v-model="checkedOrder" />
+                  <span>{{ order.id }}</span>
+                </div>
+              </td>
+              <td>{{ order.created_at | formatDate }}</td>
+              <td>{{ order.order_supplier_items_count }}</td>
+              <td>
+                <span v-if="order.total_price" class="main-color"><b>{{ order.total_price | fixedCurrency }} {{ currency
+                }}</b></span>
+                <span v-else>-</span>
+              </td>
+              <td>
+                <span :class="{
+                  'text-success':
+                    order.payment_status_lang == 'Paid' ||
+                    order.payment_status_lang == 'تم الدفع',
+                }">{{ order.payment_status_lang }}</span>
+              </td>
+              <td>
+                <span>{{ order.payment }}</span>
+                <span class="d-block" v-if="
+                  order.payment_type === 'visa' ||
+                  order.payment_charge_id ||
+                  order.payment_type === 'wallet_visa' ||
+                  order.payment_type === 'wallet'
+                ">
+                  TID : {{ order.payment_charge_id }}
+                </span>
+              </td>
+  
+              <td>
+                <router-link :to="{
+                  path: '/viewOrderDetails',
+                  query: { id: `${order.id}` },
+                }" class="text-dark">
+                  <b-button variant="outline-light main-color border-main" class="m-2">
+                    <font-awesome-icon icon="fa-regular fa-eye" />
+                  </b-button>
+                </router-link>
+                <router-link v-if="order.payment_status === 'Unpaid' && order.payment_type === 'bank'" :to="{
+                  path: '/checkout-details',
+                  query: {
+                    order_serial: order.serial,
+                    date: order.created_at,
+                    total_price: order.total_price,
+                    payment_type: order.payment_type,
+                    payment: order.payment,
+                    uuid: order.uuid,
+                  },
+                }" class="text-dark">
+                  <b-button variant="outline-success" class="m-2">
+                    {{ $t("profile.bankTransDocs") }}
+                  </b-button>
+                </router-link>
+                <b-button id="show-btn"
+                  @click="
+                    $bvModal.show('bv-modal-example');
+                  saveUUID(order);
+                                                                                                                                                                                                                                                                                                                      "
+                  variant="outline-success" class="m-2"
+                  v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'">
+                  {{ $t("profile.pay") }}
                 </b-button>
-              </router-link>
-              <router-link v-if="order.payment_status === 'Unpaid' && order.payment_type === 'bank'" :to="{
-                path: '/checkout-details',
-                query: {
-                  order_serial: order.serial,
-                  date: order.created_at,
-                  total_price: order.total_price,
-                  payment_type: order.payment_type,
-                  payment: order.payment,
-                  uuid: order.uuid,
-                },
-              }" class="text-dark">
-                <b-button variant="outline-success" class="m-2">
-                  {{ $t("profile.bankTransDocs") }}
-                </b-button>
-              </router-link>
-              <b-button id="show-btn"
-                @click="
-                  $bvModal.show('bv-modal-example');
-                saveUUID(order);
-                                                                                                                                                                                                                                                                                                                    "
-                variant="outline-success" class="m-2"
-                v-if="order.payment_status === 'Unpaid' && order.payment_type === 'visa'">
-                {{ $t("profile.pay") }}
-              </b-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-start align-items-center mt-5">
-        <!-- pagination for orders  -->
-        <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
-          @pagechanged="onPageChange" />
-      </div>
-      <div>
-        <!-- repay modal  -->
-        <b-modal centered id="bv-modal-example" hide-footer>
-          <template class="text-center" #modal-title>
-            <h3>{{ $t("payment.paymentData") }}</h3>
-          </template>
-          <div class="d-block text-center">
-            <div class="payment-method">
-              <div class="methods-data">
-                <div class="methods">
-                  <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="bank" />
-                      <label class="custom-control-label" for="paymentMethod1">
-                        {{ $t("payment.bankTransfer") }}
-                      </label>
-                      <span>{{ $t("payment.paymentByBank") }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-start align-items-center mt-5">
+          <!-- pagination for orders  -->
+          <Paginate v-if="orders" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
+            @pagechanged="onPageChange" />
+        </div>
+        <div>
+          <!-- repay modal  -->
+          <b-modal centered id="bv-modal-example" hide-footer>
+            <template class="text-center" #modal-title>
+              <h3>{{ $t("payment.paymentData") }}</h3>
+            </template>
+            <div class="d-block text-center">
+              <div class="payment-method">
+                <div class="methods-data">
+                  <div class="methods">
+                    <div class="method">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod1" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="bank" />
+                        <label class="custom-control-label" for="paymentMethod1">
+                          {{ $t("payment.bankTransfer") }}
+                        </label>
+                        <span>{{ $t("payment.paymentByBank") }}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="method">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="cach" />
-                      <label class="custom-control-label" for="paymentMethod2">
-                        {{ $t("payment.paymentWhenReceiving") }}
-                      </label>
-                      <span>{{ $t("payment.requestReceipt") }}</span>
+                    <div class="method">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod2" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="cach" />
+                        <label class="custom-control-label" for="paymentMethod2">
+                          {{ $t("payment.paymentWhenReceiving") }}
+                        </label>
+                        <span>{{ $t("payment.requestReceipt") }}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="method d-flex justify-content-between align-content-center">
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
-                        v-model="paymentFormData.payment_type" value="visa" />
-                      <label class="custom-control-label" for="paymentMethod3">
-                        {{ $t("payment.onlinePayment") }}
-                      </label>
-                      <div class="online-media">
-                        <img src="@/assets/images/cart.png" alt="" srcset="" />
+                    <div class="method d-flex justify-content-between align-content-center">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="paymentMethod3" name="paymentMethod" class="custom-control-input"
+                          v-model="paymentFormData.payment_type" value="visa" />
+                        <label class="custom-control-label" for="paymentMethod3">
+                          {{ $t("payment.onlinePayment") }}
+                        </label>
+                        <div class="online-media">
+                          <img src="@/assets/images/cart.png" alt="" srcset="" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
-                  {{ error }}
+                  <div class="error text-center" v-for="(error, index) in errors.payment_type" :key="index">
+                    {{ error }}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <b-button :disabled="paymentFormData.payment_type == null" v-if="!repayClicked" id="show-btn" class="mt-3"
-            variant="outline-success" block @click="rePay">
-            {{ $t("profile.pay") }}
-          </b-button>
-          <b-button v-if="repayClicked" disabled id="show-btn" class="mt-3" variant="outline-success" block>
-            <span>{{ $t("profile.pay") }}</span>
-            <span>
-              <b-spinner label="Spinning" small></b-spinner>
-            </span>
-          </b-button>
-        </b-modal>
+  
+            <b-button :disabled="paymentFormData.payment_type == null" v-if="!repayClicked" id="show-btn" class="mt-3"
+              variant="outline-success" block @click="rePay">
+              {{ $t("profile.pay") }}
+            </b-button>
+            <b-button v-if="repayClicked" disabled id="show-btn" class="mt-3" variant="outline-success" block>
+              <span>{{ $t("profile.pay") }}</span>
+              <span>
+                <b-spinner label="Spinning" small></b-spinner>
+              </span>
+            </b-button>
+          </b-modal>
+        </div>
       </div>
+      <div class=" d-flex justify-content-center align-items-center" v-else>
+      <h2>{{ $t('cart.noData') }}</h2>
     </div>
+    </div>
+    
     <!-- if loading when getting data  -->
     <div class="spinner d-flex justify-content-center align-items-center" v-else>
       <spinner />
     </div>
+
+    
 
     <!-- suppliersModal  -->
 
@@ -268,7 +294,7 @@
       </template>
 
       <template>
-        <ul>
+        <ul class="suppliersList">
           <li v-for="(supplier, index) in suppliers" :key="index" class="suppliers-li">
             <label><input type="checkbox" class="myproject--checkbox" :value="supplier.id" v-model="selectedSupplier" />
               <span v-if="supplier.company_name">{{
@@ -337,14 +363,25 @@
     <b-modal id="priceModal">
       <template #modal-header="{ close }">
         <!-- Emulate built in modal header close button action -->
-        <h6 class="mb-0">priceModal</h6>
+        <h6 class="mb-0">{{$t('profile.priceRange')}}</h6>
         <b-button size="sm" variant="outline-danger" @click="close() ; ">
           <font-awesome-icon icon="fa-solid fa-times" />
         </b-button>
       </template>
 
       <template>
-        price modal
+        <div class="form-holder">
+          <form>
+            <div class="form-group">
+              <label for="priceFrom">{{ $t('profile.priceFrom') }}</label>
+              <input name="priceFrom" min="0" type="number" class="form-control" v-model="priceFromValue">
+            </div>
+            <div class="form-group">
+              <label for="priceTo">{{ $t('profile.priceTo') }}</label>
+              <input name="priceTo" min="0" type="number" class="form-control" v-model="priceToValue">
+            </div>
+          </form>
+        </div>
       </template>
 
       <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
@@ -441,12 +478,34 @@ export default {
 
       //price
       priceFromValue:null,
-      priceToValue:null
+      priceToValue:null,
+      filterPerPage:null
     };
   },
   methods: {
     applyFilters() {
-      alert('filters')
+      let payload = {
+        price_max: this.priceToValue,
+        price_min: this.priceFromValue,
+        date_from: this.dateFromValue,
+        date_to: this.dateToValue,
+        suppliers: this.selectedSupplier
+      }
+      profile
+        .getOrdersWithFilters(this.page, payload)
+        .then((resp) => {
+          this.orders = resp.data.items.orders.data;
+
+          this.total = resp.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.orders.meta.total / resp.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.orders.meta.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     /**
      * get Orders function
@@ -470,16 +529,37 @@ export default {
         });
     },
     /**
+     * get Orders function
+     * @vuese
+     */
+    getOrdersWithLimit() {
+      profile
+        .getOrdersWithLimit(this.page , this.filterPerPage)
+        .then((resp) => {
+          this.orders = resp.data.items.orders.data;
+
+          this.total = resp.data.items.orders.meta.total;
+          this.totalPages = Math.ceil(
+            resp.data.items.orders.meta.total / resp.data.items.orders.meta.per_page
+          ); // Calculate total records
+
+          this.totalRecords = resp.data.items.orders.meta.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    /**
      * @vuese
      * this function used get Suppliers
      */
-    getSuppliers() {
+    getSuppliersWithNoPaginate() {
       this.loading = true;
       suppliers
-        .getSuppliers(this.page)
+        .getSuppliersWithNoPaginate(this.page)
         .then((resp) => {
           console.log(resp);
-          this.suppliers = resp.data.items.data;
+          this.suppliers = resp.data.items;
           // this.total = resp.data.items.total;
           // this.totalPages = Math.ceil(
           //   resp.data.items.total / resp.data.items.per_page
@@ -648,7 +728,7 @@ export default {
   },
   mounted() {
     this.getOrders(this.page);
-    this.getSuppliers()
+    this.getSuppliersWithNoPaginate()
   },
   components: {
     spinner,

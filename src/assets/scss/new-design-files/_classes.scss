@@ -22,7 +22,7 @@
     border-color: $main-color;
   }
 }
-.main-color.bg-transparent{
+.main-color.bg-transparent {
   &:hover {
     background-color: $main-color !important;
     color: #fff !important !important;
@@ -93,7 +93,7 @@
     }
   }
 }
-.iconn.bottom-nav-holder{
+.iconn.bottom-nav-holder {
   z-index: 3;
 }
 
@@ -109,20 +109,24 @@
 //   }
 // }
 
-.forget-password{
-  color:$main-color !important
+.forget-password {
+  color: $main-color !important;
 }
 
-.fixedSideToggle{
+.fixedSideToggle {
   position: fixed;
   z-index: 99999;
   left: 0;
   top: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
-.w-25{
-  @media(max-width:767px){
-    width:75% !important
+.w-25 {
+  @media (max-width: 767px) {
+    width: 75% !important;
   }
+}
+.suppliersList {
+  height: 600px !important;
+  overflow: auto;
 }

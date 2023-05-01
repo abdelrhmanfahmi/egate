@@ -620,7 +620,7 @@
                                           >
                                             <b-form-group>
                                               <b-form-select
-                                                v-model="newForm.name"
+                                                v-model="form.name"
                                               >
                                                 <b-form-select-option
                                                   value="null"
@@ -664,7 +664,7 @@
                                               v-if="arabicAvailable !== 'no'"
                                             >
                                               <b-form-select
-                                                v-model="newForm.name"
+                                                v-model="form.name"
                                               >
                                                 <b-form-select
                                                   value="null"
@@ -701,7 +701,7 @@
                                             <b-form-group>
                                               <b-form-input
                                                 id="floor"
-                                                v-model="newForm.floor"
+                                                v-model="form.floor"
                                                 :placeholder="
                                                   $t('profile.floor')
                                                 "
@@ -725,7 +725,7 @@
                                             <b-form-group>
                                               <b-form-input
                                                 id="floor"
-                                                v-model="newForm.avenue"
+                                                v-model="form.avenue"
                                                 :placeholder="
                                                   $t('profile.avenue')
                                                 "
