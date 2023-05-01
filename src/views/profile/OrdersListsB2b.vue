@@ -93,6 +93,7 @@
           <div>
           <b-form-select v-model="filterPerPage" class="mb-3" @change="getOrdersWithLimit">
             <b-form-select-option :value="null" disabled>{{$t('profile.perPage')}}</b-form-select-option>
+            <b-form-select-option value="">{{ $t('home.All') }}</b-form-select-option>
             <b-form-select-option value="5">5</b-form-select-option>
             <b-form-select-option value="10">10</b-form-select-option>
             <b-form-select-option value="15">15</b-form-select-option>

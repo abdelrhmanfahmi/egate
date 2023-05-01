@@ -215,6 +215,20 @@ export default {
   supplierAllCorrespondence() {
     return globalAxios.get("members/message");
   },
+  getMessagesWithLimit(payload) {
+    return globalAxios.get("members/message" , {
+      params:{
+        count:payload
+      }
+    });
+  },
+  supplierAllCorrespondenceSearch(payload) {
+    return globalAxios.get("members/message" , {
+      params:{
+        keyword:payload
+      }
+    });
+  },
   suppliersingleCorrespondence(id) {
     return globalAxios.get(`members/message/${id}`);
   },
