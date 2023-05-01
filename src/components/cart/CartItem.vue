@@ -1,39 +1,18 @@
 <template>
   <div class="action-holder mb-2">
     <!-- if cart items data  -->
-    <div
-      class="d-flex justify-content-center align-items-center"
-      v-if="loading"
-    >
-      <img
-        src="@/assets/images/BeanLoading2.gif"
-        alt="cart-image"
-        class="w-25"
-      />
+    <div class="d-flex justify-content-center align-items-center" v-if="loading">
+      <img src="@/assets/images/BeanLoading2.gif" alt="cart-image" class="w-25" />
     </div>
     <!-- else  -->
     <div class="" v-else>
-      <div
-        class="cart-item"
-        v-for="product in products.products"
-        :key="product.id"
-      >
+      <div class="cart-item" v-for="product in products.products" :key="product.id">
         <div class="row">
           <div class="col-md-8 col-sm-12 mb-3">
             <div class="d-flex justify-content-start align-items-center">
               <a @click="goProduct(product)" class="product-img-container">
-                <img
-                  :src="product.product_image"
-                  alt="Cart Item"
-                  class="product-image"
-                  v-if="product.product_image"
-                />
-                <img
-                  v-else-if="product.basket_image"
-                  :src="product.basket_image"
-                  alt="Cart Item"
-                  class="product-image"
-                />
+                <img :src="product.product_image" alt="Cart Item" class="product-image" v-if="product.product_image" />
+                <img v-else-if="product.basket_image" :src="product.basket_image" alt="Cart Item" class="product-image" />
               </a>
               <div class="product-info">
                 <a @click="goProduct(product)" class="name d-flex">
@@ -44,35 +23,22 @@
                     product.basket_name
                   }}</span>
                 </a>
-                <Counter
-                  :minimum="
-                    product.min_order_quantity ? product.min_order_quantity : 1
-                  "
-                  :quantity="product.quantity"
-                  :product="product"
-                  class="justify-content-center"
-                  v-if="!product.gift_promotion_id"
-                ></Counter>
+                <Counter :minimum="product.min_order_quantity ? product.min_order_quantity : 1
+                    " :quantity="product.quantity" :product="product" class="justify-content-center"
+                  v-if="!product.gift_promotion_id"></Counter>
 
-                <span
-                  class="text-danger font-weight-bold"
-                  v-if="product.gift_promotion_id"
-                  >{{ product.quantity }}</span
-                >
-                <span v-if="product.buy_get_promotion_id"
-                  ><small>
+                <span class="text-danger font-weight-bold" v-if="product.gift_promotion_id">{{ product.quantity }}</span>
+                <span v-if="product.buy_get_promotion_id && product.buy_get_promotion_running_by_type"><small>
                     <b>
                       ({{
-                        `${$t("profile.buy")} 
-                ${product.buy_get_promotion_running_by_type.promotion.buy_x}
-               ${$t("profile.get")} ${
-                          product.buy_get_promotion_running_by_type.promotion
+                        `${$t("profile.buy")}
+                                            ${product.buy_get_promotion_running_by_type.promotion.buy_x}
+                                            ${$t("profile.get")} ${product.buy_get_promotion_running_by_type.promotion
                             .get_y
-                        } `
+                          } `
                       }})
                     </b>
-                  </small></span
-                >
+                  </small></span>
               </div>
             </div>
           </div>
@@ -86,26 +52,14 @@
                 <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
               </span> -->
 
-              <p
-                class="product_sub_total mt-0 main-color"
-                v-if="!product.gift_promotion_id"
-              >
-                <b
-                  >{{ product.product_sub_total | fixedCurrency }}
+              <p class="product_sub_total mt-0 main-color" v-if="!product.gift_promotion_id">
+                <b>{{ product.product_sub_total | fixedCurrency }}
                   {{ currency }}
                 </b>
               </p>
-              <img
-                src="@/assets/images/giftbox.png"
-                v-if="product.gift_promotion_id"
-                class="gift-product"
-                alt="gift-product"
-              />
-              <div
-                class="actions mx-1"
-                @click="removeFromCart(product)"
-                v-if="!product.gift_promotion_id"
-              >
+              <img src="@/assets/images/giftbox.png" v-if="product.gift_promotion_id" class="gift-product"
+                alt="gift-product" />
+              <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
                 <span class="action-icon text-gray">
                   <!-- <b-icon-trash></b-icon-trash> -->
                   {{ $t("items.remove") }}
@@ -196,10 +150,12 @@ export default {
   scrollbar-color: transparent transparent;
   scrollbar-width: 1px;
 }
+
 .cart-item {
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
+
   // .thumb {
   //   width: 100px;
   //   margin-inline-end: 0.8rem;
@@ -211,10 +167,12 @@ export default {
       font-weight: 600;
       margin-bottom: 0.8rem;
       display: block;
+
       &:hover {
         color: $main-color;
       }
     }
+
     .price {
       color: #676565;
       font-size: 11pt;
@@ -222,8 +180,10 @@ export default {
       opacity: 0.7;
     }
   }
+
   .actions {
     color: #000;
+
     .action-icon {
       font-size: 12pt;
       cursor: pointer;
@@ -238,6 +198,7 @@ export default {
   box-shadow: 0 0 4px grey;
   margin-inline-end: 15px;
   margin-inline-start: 1px;
+
   .product-image {
     width: 100%;
     height: 70px;
@@ -245,10 +206,12 @@ export default {
     border-radius: 8px;
   }
 }
+
 .product_sub_total {
   font-size: 13px;
   word-break: break-word;
 }
+
 .cart-item .product-info .name {
   margin-bottom: 0.5rem;
 }
