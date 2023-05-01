@@ -110,17 +110,21 @@
           <div class="row justify-content-center align-items-center">
             <div class="col-md-6 col-sm-12">
               <div class="new-search">
-                <div class="field" id="searchform">
-                  <input
-                    type="text"
-                    id="searchterm"
-                    :placeholder="`${$t('cart.search')}...`"
-                    class="form-control"
-                  />
-                  <button type="button" id="search">
-                    {{ $t("cart.search") }}
-                  </button>
-                </div>
+                <form @submit.prevent="searchVaiantsTableProducts">
+                
+                  <div class="field" id="searchform">
+                    <input
+                      type="text"
+                      id="searchterm"
+                      :placeholder="`${$t('cart.search')}...`"
+                      class="form-control"
+                      v-model="searchWord"
+                    />
+                    <button type="button" id="search" @click="searchVaiantsTableProducts">
+                      {{ $t("cart.search") }}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
             <div class="col-md-6 col-sm-12" v-if="productInfo">
@@ -300,7 +304,7 @@
 
       <!-- when data of relative products comes   -->
 
-      <div class="products-table text-center" v-else>
+      <div class="products-table text-center container" v-else>
         <table
           v-if="products.length > 0"
           class="table table-striped table-hover table-bordered selectable"
@@ -312,8 +316,10 @@
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="(product, index) in products" :key="index">
+          <tbody class="">
+            <tr v-for="(product, index) in products" :key="index" :class="{'border-main-bold':product.ads.length ||
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type}">
               <!-- <td
                 v-if="
                 product.ads.length ||
@@ -375,10 +381,10 @@
                 !product.basket_promotions_running_by_type &&
                 !product.buy_get_promotion_running_by_type }"
                 >
-                    <h6 v-if="product.ads && product.ads.length > 0">
+                    <h6 v-if="product.ads && product.ads.length > 0" class="main-color font-weight-bold">
                       {{ $t("items.advertise") }}
                     </h6>
-                    <h6 v-if="product.basket_promotions_running_by_type">
+                    <h6 v-if="product.basket_promotions_running_by_type" class="main-color font-weight-bold">
                       <router-link
                         :to="{
                           path: '/basketOfferDetails',
@@ -390,7 +396,7 @@
                         >{{ $t("profile.basketDeals") }}</router-link
                       >
                     </h6>
-                    <h6 v-if="product.buy_get_promotion_running_by_type">
+                    <h6 v-if="product.buy_get_promotion_running_by_type" class="main-color font-weight-bold">
                       <router-link
                         :to="{
                           path: '/details',
@@ -1036,7 +1042,8 @@ export default {
       WeightOptions: null,
       UnitOptions: null,
       selectedStandingOrder: null,
-      parent_categoryVariants:null
+      parent_categoryVariants:null,
+      searchWord:''
     };
   },
   components: {
@@ -1201,6 +1208,26 @@ export default {
           this.sortTypeCountry,
           this.sortTypeWeight,
           this.sortTypeUnit
+        )
+        .then((res) => {
+          this.products = res.data.items.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    searchVaiantsTableProducts(){
+      categories
+        .searchVaiantsTableProducts(
+          this.pageId,
+          this.sortType,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit,
+          this.searchWord
         )
         .then((res) => {
           this.products = res.data.items.data;
