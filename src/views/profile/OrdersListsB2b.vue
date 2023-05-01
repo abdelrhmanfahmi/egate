@@ -556,7 +556,7 @@ export default {
     getSuppliersWithNoPaginate() {
       this.loading = true;
       suppliers
-        .getSuppliersWithNoPaginate()
+        .getSuppliersWithNoPaginate(this.page)
         .then((resp) => {
           console.log(resp);
           this.suppliers = resp.data.items;
