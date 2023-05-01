@@ -42,7 +42,7 @@
 
           </div>
         </div>
-        <div class="priceModal mx-2">
+        <div class="priceModal">
           <div class="option-ui" @click="$bvModal.show('priceModal')">
             <div>{{$t('profile.priceRange')}}</div>
             <div :class="{ 'mr-5': $i18n.locale == 'ar', 'ml-5': $i18n.locale == 'en' }"><font-awesome-icon
