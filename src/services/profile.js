@@ -1,5 +1,5 @@
 import globalAxios from "./global-axios";
-import {createdFormData} from "./helpers"
+import { createdFormData } from "./helpers";
 export default {
   // profile Category
   getCategories() {
@@ -36,14 +36,14 @@ export default {
     return globalAxios.put("members/profile/subscriptions/cancel");
   },
   createAdress(payload) {
-    return globalAxios.post("members/profile/shipping-info", payload,{
-      params:{
-        form_control:`user-address`
-      }
+    return globalAxios.post("members/profile/shipping-info", payload, {
+      params: {
+        form_control: `user-address`,
+      },
     });
   },
-  checkAddressesForm(){
-    return globalAxios.get(`lists/formControls/user-address`)
+  checkAddressesForm() {
+    return globalAxios.get(`lists/formControls/user-address`);
   },
   deleteAdress(id) {
     return globalAxios.delete(`members/profile/shipping-info/${id}`);
@@ -52,8 +52,8 @@ export default {
     return globalAxios.put(`members/profile/shipping-info/set-default/${id}`);
   },
 
-  checkDocumentsForm(){
-    return globalAxios.get('lists/formControls/user-b2b-document')
+  checkDocumentsForm() {
+    return globalAxios.get("lists/formControls/user-b2b-document");
   },
 
   // buisness info
@@ -88,10 +88,15 @@ export default {
   },
 
   getDynaimicInputsData() {
-    return globalAxios.get(`members/profile/documents/dynamic-info?form=user-b2b-document`);
+    return globalAxios.get(
+      `members/profile/documents/dynamic-info?form=user-b2b-document`
+    );
   },
   dynaimicInputsDataUpload(payload) {
-    return globalAxios.post(`members/profile/documents/dynamic-info?form=user-b2b-document`,createdFormData(payload));
+    return globalAxios.post(
+      `members/profile/documents/dynamic-info?form=user-b2b-document`,
+      createdFormData(payload)
+    );
   },
 
   //end  bank info
@@ -121,6 +126,26 @@ export default {
   },
   getOrders(data) {
     return globalAxios.get(`members/client-orders?page=${data}`);
+  },
+  getOrdersWithLimit(data , payload) {
+    return globalAxios.get(`members/client-orders` , {
+      params:{
+        page:data,
+        count:payload
+      }
+    });
+  },
+  getOrdersWithFilters(data, payload) {
+    console.log('payload' , payload);
+    return globalAxios.get(`members/client-orders?page=${data}`, {
+      params: {
+        price_max: payload.price_max ? payload.price_max : null,
+        price_min: payload.price_min ? payload.price_min : null,
+        date_from: payload.date_from ? payload.date_from : null,
+        date_to: payload.date_to ? payload.date_to : null,
+        suppliers:payload.suppliers ? payload.suppliers : null
+      },
+    });
   },
   getSingleOrders(id) {
     return globalAxios.get(`members/client-orders/${id}`);
@@ -255,7 +280,9 @@ export default {
     return globalAxios.get(`members/notifications/${notification.id}`);
   },
   removeNotification(notification) {
-    return globalAxios.delete(`members/notifications/delete/${notification.id}`);
+    return globalAxios.delete(
+      `members/notifications/delete/${notification.id}`
+    );
   },
   readAllNotifications() {
     return globalAxios.get(`members/notifications/read-all`);
@@ -303,7 +330,9 @@ export default {
       params: {
         product_supplier_id: payload.product_supplier_id,
         client_standing_id: payload.client_standing_id,
-        basket_promotion_id:payload.basket_promotion_id ? payload.basket_promotion_id : null
+        basket_promotion_id: payload.basket_promotion_id
+          ? payload.basket_promotion_id
+          : null,
       },
     });
   },
@@ -329,11 +358,11 @@ export default {
     return globalAxios.get("members/dashboard-index/client-dashboard");
   },
   getDashboardDataFilter(payload) {
-    return globalAxios.get("members/dashboard-index/client-dashboard",{
-      params:{
-        from:payload.from,
-        to:payload.to
-      }
+    return globalAxios.get("members/dashboard-index/client-dashboard", {
+      params: {
+        from: payload.from,
+        to: payload.to,
+      },
     });
   },
   getNotificationSettings() {
@@ -347,7 +376,7 @@ export default {
     return globalAxios.post(`members/profile/standings/add-list/cart`, payload);
   },
   removeCheckedProductFromCart(payload) {
-    console.log('payload' , payload);
+    console.log("payload", payload);
     return globalAxios.delete("members/profile/standings/remove/item", {
       params: {
         product_supplier_id: payload.product_supplier_id,
@@ -356,48 +385,48 @@ export default {
     });
   },
   exportSelectedOrders(payload) {
-    return globalAxios.get("members/client-orders/export/excel",{
-      params:{
-        ids:payload.ids
-      }
+    return globalAxios.get("members/client-orders/export/excel", {
+      params: {
+        ids: payload.ids,
+      },
     });
   },
-  buyToGetAnother(){
-    return globalAxios.get('products/buy-x-get-y/offers')
+  buyToGetAnother() {
+    return globalAxios.get("products/buy-x-get-y/offers");
   },
-  getBasketOffers(){
-    return globalAxios.get('products/basket/offers')
+  getBasketOffers() {
+    return globalAxios.get("products/basket/offers");
   },
-  getRelatedBasketOffers(id){
-    return globalAxios.get('products/basket/offers',{
-      params:{
-        without_id:id
-      }
-    })
+  getRelatedBasketOffers(id) {
+    return globalAxios.get("products/basket/offers", {
+      params: {
+        without_id: id,
+      },
+    });
   },
-  getGiftOffer(){
-    return globalAxios.get('products/gift/offers')
+  getGiftOffer() {
+    return globalAxios.get("products/gift/offers");
   },
-  getBasketSingleOffers(id){
-    return globalAxios.get(`products/basket/offers/${id}`)
+  getBasketSingleOffers(id) {
+    return globalAxios.get(`products/basket/offers/${id}`);
   },
-  walletPostWithdraw(payload){
-    return globalAxios.post(`members/wallet/withdraw` , payload)
+  walletPostWithdraw(payload) {
+    return globalAxios.post(`members/wallet/withdraw`, payload);
   },
-  walletGetWithdraw(){
-    return globalAxios.get(`members/wallet/withdraw`)
+  walletGetWithdraw() {
+    return globalAxios.get(`members/wallet/withdraw`);
   },
-  notificationBulkRead(payload){
-    return globalAxios.post('members/notifications/bulk-read' , payload)
+  notificationBulkRead(payload) {
+    return globalAxios.post("members/notifications/bulk-read", payload);
   },
-  notificationBulkDelete(payload){
-    return globalAxios.post('members/notifications/bulk-delete' , payload)
+  notificationBulkDelete(payload) {
+    return globalAxios.post("members/notifications/bulk-delete", payload);
   },
-  searchOrder(data , payload ){
-    return globalAxios.get(`members/client-orders?page=${data}` , {
-      params:{
-        id:payload.id ? payload.id : null
-      }
-    })
-  }
+  searchOrder(data, payload) {
+    return globalAxios.get(`members/client-orders?page=${data}`, {
+      params: {
+        id: payload.id ? payload.id : null,
+      },
+    });
+  },
 };

@@ -634,7 +634,7 @@ export default {
         logo: this.files[0],
       };
       auth
-        .storeInfo(createdFormData(payload))
+        .storeInfo(this.buyerUserData , createdFormData(payload))
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};

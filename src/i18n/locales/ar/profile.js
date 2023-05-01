@@ -334,5 +334,9 @@ export default {
   bulkAction:'اجراء جماعى',
   selectAll:'اختيار الكل',
   dateTime:'الوقت و التاريخ',
-  priceRange:'السعر من - الى '
+  priceRange:'السعر من - الى ',
+  priceFrom:'السعر من',
+  priceTo:'السعر الى ',
+  filtersApplied: "عناصر التصفيه",
+  perPage:"عرض لكل صفحة"
 };

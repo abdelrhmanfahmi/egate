@@ -3,7 +3,19 @@ import {createdFormData} from "./helpers"
 
 export default {
   getSuppliers(page) {
-    return globalAxios.get(`suppliers?page=${page}`);
+    return globalAxios.get(`suppliers/suppliers/all` , {
+      params:{
+        paginate:false,
+        page:page
+      }
+    });
+  },
+  getSuppliersWithNoPaginate() {
+    return globalAxios.get(`suppliers`,{
+      params:{
+        paginate:false
+      }
+    });
   },
   getSupplier(id) {
     return globalAxios.get(`suppliers/${id}`);
