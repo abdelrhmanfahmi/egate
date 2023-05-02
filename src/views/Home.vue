@@ -42,7 +42,7 @@
     <NewProductSilder />
     <NewAppsDownloadSec />
     <SuppliersSlider />
-    <ClientsSlider />
+    <!-- <ClientsSlider /> -->
   </div>
 </template>
 
@@ -53,7 +53,7 @@ import auth from "@/services/auth";
 // import ProductSilder from "@/components/pages/home/ProductSilder";
 import NewProductSilder from "@/components/pages/home/NewProductSlider";
 import SuppliersSlider from "@/components/pages/home/SuppliersSlider";
-import ClientsSlider from "@/components/pages/home/ClientsSlider";
+// import ClientsSlider from "@/components/pages/home/ClientsSlider";
 // import NewCatrgoriesHome from "@/components/pages/home/NewCategoriesHome";
 
 import NewCategoriesTabs from "@/components/pages/home/NewCategoriesTabs.vue";
@@ -73,7 +73,7 @@ export default {
     // ProductSilder,
     NewProductSilder,
     SuppliersSlider,
-    ClientsSlider,
+    // ClientsSlider,
     // CatrgoriesHome,
     // NewCatrgoriesHome,
     NewCategoriesTabs,

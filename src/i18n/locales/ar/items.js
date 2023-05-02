@@ -44,5 +44,6 @@ export default {
   basketProducts:'منتجات السلة',
   relatedBaskets:'السلات ذات الصلة',
   category:"قسم",
-  subCategory:"قسم فرعى"
+  subCategory:"قسم فرعى",
+  removeFromWishlist:'حذف من قائمةالمفضلة'
 };

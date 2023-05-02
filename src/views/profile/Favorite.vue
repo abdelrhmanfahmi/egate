@@ -8,23 +8,79 @@
         <div class="cart-table" v-if="wishlistItems.length">
           <div class="suppliers py-4">
             <div class="container">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <span>
+                    <input
+                      type="checkbox"
+                      class="myproject--checkbox"
+                      v-model="checkAll"
+                    />
+                  </span>
+                  <span class="h5 mx-2">{{ $t("profile.selectAll") }}</span>
+                </div>
+                <div class="d-flex align-items-start mx-4 bulk-actions-holder">
+                  <div class="select-holder">
+                    <b-form-select v-model="selectedAction" class="mb-3">
+                      <b-form-select-option :value="null" disabled selected>{{
+                        $t("profile.bulkAction")
+                      }}</b-form-select-option>
+                      <b-form-select-option value="bulk-addToCart">{{
+                        $t("items.addToCart")
+                      }}</b-form-select-option>
+                      <b-form-select-option value="bulk-removeFromWishlist">{{
+                        $t("items.removeFromWishlist")
+                      }}</b-form-select-option>
+                      <b-form-select-option value="bulk-addStandingOrders">{{
+                        $t("items.addStandingOrders")
+                      }}</b-form-select-option>
+                    </b-form-select>
+                  </div>
+                  <div class="mx-4">
+                    <button class="bg-main br-5" @click.prevent="bulkAction">
+                      {{ $t("payment.Apply") }}
+                    </button>
+                  </div>
+                </div>
+              </div>
               <!-- table contain favorite data  -->
               <table class="table table-bordered">
                 <thead>
                   <tr>
+                    <th scope="col"></th>
                     <th scope="col">{{ $t("profile.productImage") }}</th>
                     <th scope="col">{{ $t("profile.productName") }}</th>
                     <th scope="col">{{ $t("profile.itemPrice") }}</th>
+                    <th scope="col">
+                      {{ $t("singleProduct.available") }}
+                      {{ $t("cart.quantity") }}
+                    </th>
+                    <th>{{ $t('cart.supplier') }}</th>
+                    <th>{{ $t('items.unit') }}</th>
+                    <th>{{ $t('profile.countryOrigin') }}</th>
                     <th scope="col">{{ $t("profile.actions") }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="item in wishlistItems.filter(
-                      (item) => !item.basket_promotion_id && item.product_supplier
+                      (item) =>
+                        !item.basket_promotion_id && item.product_supplier
                     )"
                     :key="item.id"
                   >
+                    <td>
+                      <div
+                        class="d-flex justify-content-around align-items-center"
+                      >
+                        <input
+                          type="checkbox"
+                          class="myproject--checkbox"
+                          :value="item.id"
+                          v-model="checkedItems"
+                        />
+                      </div>
+                    </td>
                     <td class="text-center">
                       <!-- go to product page  -->
                       <router-link
@@ -79,7 +135,11 @@
                         class="price"
                         v-if="item.product_supplier.product_details_by_type"
                       >
-                        <span v-if="item.product_supplier.product_details_by_type.price">
+                        <span
+                          v-if="
+                            item.product_supplier.product_details_by_type.price
+                          "
+                        >
                           {{
                             item.product_supplier.product_details_by_type.price
                               | fixedCurrency
@@ -95,7 +155,8 @@
                               .price_before_discount &&
                             item.product_supplier.product_details_by_type
                               .price_before_discount >
-                              item.product_supplier.product_details_by_type.price
+                              item.product_supplier.product_details_by_type
+                                .price
                           "
                         >
                           {{
@@ -105,6 +166,25 @@
                           {{ currency }}
                         </span>
                       </p>
+                    </td>
+                    <td class="text-center">
+                      <span>{{
+                        item.product_supplier.product_details_by_type.quantity
+                      }}</span>
+                    </td>
+                   
+                    <td class="text-center">
+                      <router-link :to="`/suppliers/${item.product_supplier.client.id}`">
+                        {{ item.product_supplier.client.company_name }}
+                      </router-link>
+                    </td>
+                    <td class="text-center">
+                      <span v-if="item.product_supplier.product_details_by_type.unit">{{ item.product_supplier.product_details_by_type.unit.title }}</span>
+                      <span v-else>-</span>
+                    </td>
+                    <td class="text-center">
+                      <span v-if="item.product_supplier.country">{{ item.product_supplier.country.title }}</span>
+                      <span v-else>-</span>
                     </td>
                     <td class="text-center">
                       <div
@@ -119,12 +199,12 @@
                           @click="addToCart(item)"
                           class="cart-link"
                           v-if="
-                            (add_to_cart == true&&
-                              item.product_supplier.product_details_by_type.add_type ===
-                                'cart') ||
-                            (add_to_cart == true&&
-                              item.product_supplier.product_details_by_type.add_type ===
-                                'both')
+                            (add_to_cart == true &&
+                              item.product_supplier.product_details_by_type
+                                .add_type === 'cart') ||
+                            (add_to_cart == true &&
+                              item.product_supplier.product_details_by_type
+                                .add_type === 'both')
                           "
                         >
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
@@ -134,11 +214,11 @@
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
                           v-if="
                             RFQ == true &&
-                            (item.product_supplier.product_details_by_type.add_type ===
-                              'rfq' ||
+                            (item.product_supplier.product_details_by_type
+                              .add_type === 'rfq' ||
                               (RFQ == true &&
-                                item.product_supplier.product_details_by_type.add_type ===
-                                  'both')) &&
+                                item.product_supplier.product_details_by_type
+                                  .add_type === 'both')) &&
                             buyerUserData
                           "
                         >
@@ -152,16 +232,59 @@
                             </button>
                           </div>
                         </button>
+                        <button
+                          id="show-btn"
+                          class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
+                          @click="
+                            selectId(item.id);
+                            $bvModal.show('bv-standingOrders');
+                          "
+                          v-b-tooltip.hover
+                          :title="$t('items.standingOrders')"
+                          v-if="buyerUserData"
+                        >
+                          <img
+                            src="@/assets/images/new-design/standing-order-sign.png"
+                            class="standing-order-sign"
+                            alt="standing-order-sign"
+                          />
+                        </button>
+                        <button
+                          v-else
+                          class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
+                          @click="loginFirst()"
+                          v-b-tooltip.hover
+                          :title="$t('items.standingOrders')"
+                        >
+                          <img
+                            src="@/assets/images/new-design/standing-order-sign.png"
+                            class="standing-order-sign"
+                            alt="standing-order-sign"
+                          />
+                        </button>
                       </div>
                     </td>
                   </tr>
                   <tr
                     class="item-content text-center"
                     v-for="(item, index) in wishlistItems.filter(
-                      (item) => item.basket_promotion_id || !item.product_supplier
+                      (item) =>
+                        item.basket_promotion_id || !item.product_supplier
                     )"
                     :key="index"
                   >
+                    <td>
+                      <div
+                        class="d-flex justify-content-around align-items-center"
+                      >
+                        <input
+                          type="checkbox"
+                          class="myproject--checkbox"
+                          :value="item.id"
+                          v-model="checkedItems"
+                        />
+                      </div>
+                    </td>
                     <!-- product image and go to pproduct page with click  -->
                     <td class="media">
                       <router-link
@@ -170,7 +293,10 @@
                           query: { id: `${item.basket_promotion_id}` },
                         }"
                         class="thumb w-100"
-                        v-if="item.basket_promotion && item.basket_promotion.image_path"
+                        v-if="
+                          item.basket_promotion &&
+                          item.basket_promotion.image_path
+                        "
                       >
                         <img
                           :src="item.basket_promotion.image_path"
@@ -184,7 +310,9 @@
                     <td>
                       <router-link
                         class="supplier-name text-center mt-3 text-dark text-capitalize mb-0 font-weight-bold mb-3"
-                        v-if="item.basket_promotion && item.basket_promotion.title"
+                        v-if="
+                          item.basket_promotion && item.basket_promotion.title
+                        "
                         :to="{
                           path: '/basketOfferDetails',
                           query: { id: `${item.basket_promotion_id}` },
@@ -199,7 +327,8 @@
                       <span
                         class="price"
                         v-if="
-                          (item.basket_promotion && item.basket_promotion.basket_price) ||
+                          (item.basket_promotion &&
+                            item.basket_promotion.basket_price) ||
                           (item.basket_promotion &&
                             item.basket_promotion.basket_price >= 0)
                         "
@@ -209,6 +338,23 @@
                       </span>
                       <span v-else>-</span>
                     </td>
+                    
+                    <td class="text-center">
+                      <span >-</span>
+                    </td>
+                    <td class="text-center">
+                      <span v-if="item.basket_promotion.client">{{ item.basket_promotion.client.company_name }}</span>
+                      <span v-else >-</span>
+                    </td>
+                    <td class="text-center">
+                      <span >-</span>
+                    </td>
+                    <td class="text-center">
+                      <span >-</span>
+                    </td>
+                    <!-- <td class="text-center">
+                      {{ item.product_supplier.client.company_name }}
+                    </td> -->
                     <!-- if product price not exist -->
                     <!-- counter to update product quantity -->
                     <!-- product price * product quantity = total product price -->
@@ -228,10 +374,15 @@
                           "
                         >
                           <span class="action-icon">
-                            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                            <font-awesome-icon
+                              icon="fa-solid fa-cart-shopping"
+                            />
                           </span>
                         </button>
-                        <button class="actions btn" @click="removebasketFromCart(item)">
+                        <button
+                          class="actions btn"
+                          @click="removebasketFromCart(item)"
+                        >
                           <span class="action-icon">
                             <font-awesome-icon icon="fa-solid fa-trash-can" />
                           </span>
@@ -264,7 +415,10 @@
         </div>
       </div>
       <!-- if data not exist  -->
-      <div class="d-flex justify-content-center align-items-center flex-column" v-else>
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-else
+      >
         <img src="@/assets/images/wishlist.png" alt="cart-image" />
         <div class="spinner-border text-secondary" role="status">
           <span class="sr-only"></span>
@@ -279,7 +433,8 @@
       <form>
         <div class="form-group">
           <label for=""
-            >{{ $t("singleProduct.nameInput") }} <span class="text-danger">*</span></label
+            >{{ $t("singleProduct.nameInput") }}
+            <span class="text-danger">*</span></label
           >
           <input type="text" class="form-control" v-model="requestData.name" />
           <div
@@ -314,8 +469,15 @@
             >{{ $t("singleProduct.reviewInput") }}
             <span class="text-danger">*</span></label
           >
-          <textarea class="form-control" v-model="requestData.comment"></textarea>
-          <div class="text-danger" v-for="(error, index) in errors.comment" :key="index">
+          <textarea
+            class="form-control"
+            v-model="requestData.comment"
+          ></textarea>
+          <div
+            class="text-danger"
+            v-for="(error, index) in errors.comment"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
@@ -323,6 +485,12 @@
       <b-button class="btn-lg btn-block" block @click="requestQuotation">{{
         $t("cart.submit")
       }}</b-button>
+    </b-modal>
+    <b-modal id="bv-standingOrders" size="xl" hide-footer>
+      <template #modal-title>
+        {{ $t("items.standingOrders") }}
+      </template>
+      <standing-orders :passedId="selectedId" />
     </b-modal>
   </div>
 </template>
@@ -333,6 +501,14 @@ import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
 // import rfqIcon from "@/components/global/rfqIcon.vue";
 import suppliers from "@/services/suppliers";
+import StandingOrders from "@/components/global/standingOrders.vue";
+import profile from "@/services/profile";
+
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
 export default {
   data() {
     return {
@@ -445,13 +621,84 @@ export default {
       },
       errors: [],
       selectedProduct: null,
+      selectedId: null,
+      checkedItems: [],
+      selectedAction: null,
     };
   },
   components: {
     Paginate,
+    StandingOrders,
     // rfqIcon,
   },
   methods: {
+    bulkAction() {
+      if (this.selectedAction == "bulk-addToCart") {
+        this.favoriteBulkAddToCart();
+        this.getWishlistProducts();
+        this.checkedItems = [];
+      } else if (this.selectedAction == "bulk-removeFromWishlist") {
+        this.favoriteBulkRemoveFav();
+        this.getWishlistProducts();
+        this.checkedItems = [];
+      } else if (this.selectedAction == "bulk-addStandingOrders") {
+        this.favoriteBulkStandingOrde();
+        this.getWishlistProducts();
+        this.checkedItems = [];
+      } else {
+        if (this.$i18n.locale == "en") {
+          this.errMsg("Choose Action First");
+        } else {
+          this.errMsg("قم باختيار الاجراء اولا");
+        }
+      }
+    },
+    favoriteBulkAddToCart() {
+      let payload = {
+        ids: this.checkedItems,
+      };
+      profile
+        .favoriteBulkAddToCart(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    favoriteBulkRemoveFav() {
+      let payload = {
+        favorite_ids: this.checkedItems,
+      };
+      profile
+        .favoriteBulkRemoveFav(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+    favoriteBulkStandingOrde() {
+      let payload = {
+        ids: this.checkedItems,
+      };
+      profile
+        .favoriteBulkStandingOrde(payload)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+        })
+        .catch((error) => {
+          const err = Object.values(error)[2].data;
+          this.errors = err.items;
+          this.errMsg(err.message);
+        });
+    },
+
     /**
      * get favorite products
      * @vuese
@@ -462,10 +709,11 @@ export default {
       globalAxios
         .get(`members/profile/favorite`)
         .then((resp) => {
-          console.log(resp);
           this.wishlistItems = resp.data.items.data;
           this.total = resp.data.items.total;
-          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page); // Calculate total records
+          this.totalPages = Math.ceil(
+            resp.data.items.total / resp.data.items.per_page
+          ); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
         })
@@ -501,7 +749,8 @@ export default {
       console.log(item.product_supplier_id);
       let data = {
         product_supplier_id: item.product_supplier_id,
-        quantity: item.product_supplier.product_details_by_type.min_order_quantity
+        quantity: item.product_supplier.product_details_by_type
+          .min_order_quantity
           ? item.product_supplier.product_details_by_type.min_order_quantity
           : 1,
       };
@@ -571,8 +820,8 @@ export default {
     requestQuotation() {
       let payload = {
         qoute_name: this.requestData.name,
-        product_supplier_id: this.selectedProduct.product_details_by_type
-          .product_supplier_id,
+        product_supplier_id:
+          this.selectedProduct.product_details_by_type.product_supplier_id,
         request_qty: this.requestData.request_qty,
         comment: this.requestData.comment,
       };
@@ -662,11 +911,49 @@ export default {
         this.loading = false;
       }, 1200);
     },
+    /**
+     * @vuese
+     *  login first
+     */
+    loginFirst() {
+      Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.registerNow"),
+        icon: "warning",
+        // buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          this.$router.push("/user-register");
+        }
+      });
+    },
+    selectId(elementId) {
+      this.selectedId = elementId;
+    },
   },
   mounted() {
     if (this.buyerUserData) {
       this.getWishlistProducts();
     }
+  },
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.wishlistItems
+          ? this.checkedItems.length == this.wishlistItems.length
+          : false;
+      },
+      set: function (value) {
+        var checkedItems = [];
+        if (value) {
+          this.wishlistItems.forEach(function (order) {
+            checkedItems.push(order.id);
+          });
+        }
+        this.checkedItems = checkedItems;
+      },
+    },
   },
 };
 </script>
@@ -758,5 +1045,18 @@ export default {
 }
 .price {
   font-weight: bold;
+}
+
+.bulk-actions-holder {
+  .select-holder {
+    min-width: 200px;
+    min-height: 65px;
+  }
+
+  button {
+    width: 85px;
+    height: 50px !important;
+    padding: 8px;
+  }
 }
 </style>

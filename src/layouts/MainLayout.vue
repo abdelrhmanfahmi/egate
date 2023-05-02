@@ -31,9 +31,9 @@
         </div>
         <!-- side menu if user is b2c  -->
         <div class="" v-if="buyerUserData">
-          <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
+          <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" />
           <!-- side menu if user is b2b (buyer)  -->
-          <SideMenuB2b :userBades="userBades" v-else />
+          <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false" />
         </div>
       </div>
       <div id="main" :class="{ mainopen: opened }">

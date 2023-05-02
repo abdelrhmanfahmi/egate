@@ -17,9 +17,45 @@
           class="mr-2 btn btn-light bg-transparent link border-main"
           ><font-awesome-icon icon="fa-regular fa-eye"
         /></b-button>
+        <button
+          id="show-btn"
+          class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
+          @click="
+            selectId(data.item.id);
+            $bvModal.show('bv-standingOrders');
+          "
+          v-b-tooltip.hover
+          :title="$t('items.standingOrders')"
+          v-if="buyerUserData"
+        >
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+        </button>
+        <button
+          v-else
+          class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
+          @click="loginFirst()"
+          v-b-tooltip.hover
+          :title="$t('items.standingOrders')"
+        >
+          <img
+            src="@/assets/images/new-design/standing-order-sign.png"
+            class="standing-order-sign"
+            alt="standing-order-sign"
+          />
+        </button>
       </template>
       <template #cell(price)="data">
-        <span v-if="data.value">{{ data.value | fixedCurrency }} {{ currency }}</span>
+        <span v-if="data.value"
+          >{{ data.value | fixedCurrency }} {{ currency }}</span
+        >
+        <span v-else> - </span>
+      </template>
+      <template #cell(created)="data">
+        <span v-if="data.value">{{ data.value | formatDate }}</span>
         <span v-else> - </span>
       </template>
       <template #cell(expiry_at)="data">
@@ -56,6 +92,12 @@
         @pagechanged="onPageChange"
       />
     </div>
+    <b-modal id="bv-standingOrders" size="xl" hide-footer>
+      <template #modal-title>
+        {{ $t("items.standingOrders") }}
+      </template>
+      <standing-orders :passedId="selectedId" />
+    </b-modal>
   </div>
 </template>
 
@@ -64,12 +106,23 @@
  * quotaions page
  * @displayName quotaions page
  */
+import StandingOrders from "@/components/global/standingOrders.vue";
 import profile from "@/services/profile";
 import Paginate from "@/components/global/Paginate.vue";
+import Vue from "vue";
+import VueSweetalert2 from "vue-sweetalert2";
+// If you don't need the styles, do not connect
+import "sweetalert2/dist/sweetalert2.min.css";
+Vue.use(VueSweetalert2);
+
 export default {
   data() {
     return {
       fields: [
+        {
+          key: "id",
+          label: this.$t("profile.serial"),
+        },
         {
           key: "quote_name",
           label: this.$t("profile.name"),
@@ -95,6 +148,11 @@ export default {
           key: "status",
           label: this.$t("profile.status"),
         },
+
+        {
+          key: "created",
+          label: this.$t("profile.createdDate"),
+        },
         {
           key: "expiry_at",
           label: this.$t("profile.expiry_at"),
@@ -114,9 +172,30 @@ export default {
       totalRecords: 0,
       recordsPerPage: 10,
       enterpageno: "",
+      selectedId: null,
     };
   },
   methods: {
+     /**
+     * @vuese
+     *  login first
+     */
+     loginFirst() {
+      Vue.swal({
+        title: this.$t("singleProduct.loginFirst"),
+        text: this.$t("singleProduct.registerNow"),
+        icon: "warning",
+        // buttons: ["Oh noez!", true],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          this.$router.push("/user-register");
+        }
+      });
+    },
+    selectId(elementId) {
+      this.selectedId = elementId;
+    },
     /**
      * get Quotations function
      * @vuese
@@ -127,7 +206,9 @@ export default {
         .then((resp) => {
           this.items = resp.data.items.data;
           this.total = resp.data.items.total;
-          this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page); // Calculate total records
+          this.totalPages = Math.ceil(
+            resp.data.items.total / resp.data.items.per_page
+          ); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
         })
@@ -193,11 +274,15 @@ export default {
   },
   components: {
     Paginate,
+    StandingOrders,
   },
 };
 </script>
 <style lang="scss" scoped>
 .link {
   text-decoration: underline;
+}
+.wishlist-btn{
+  padding: 5px 10px !important;
 }
 </style>

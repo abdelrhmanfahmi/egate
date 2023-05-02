@@ -299,6 +299,7 @@ export default {
     // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
     // this.logoutDynamically()
+    // document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);

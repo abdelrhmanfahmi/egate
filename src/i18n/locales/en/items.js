@@ -43,5 +43,6 @@ export default {
   basketProducts:'Basket Products',
   relatedBaskets:'Related Baskets',
   category:"Category",
-  subCategory:"Sub Category"
+  subCategory:"Sub Category",
+  removeFromWishlist:'Remove From Favorite'
 };

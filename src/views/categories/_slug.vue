@@ -36,11 +36,11 @@
             </router-link>
           </li>
           <li class="breadcrumb-item">
-            <router-link to="/"> {{ $t('items.category') }} </router-link>
+            <router-link :to="`/categories/${categoryId}`"> {{ categoryTitle }} </router-link>
           </li>
-          <li class="breadcrumb-item">
-            <router-link to="/" class="main-color"> {{ $t('items.subCategory') }} </router-link>
-          </li>
+          <!-- <li class="breadcrumb-item">
+            <a  class="main-color"> {{ $t('items.subCategory') }} </a>
+          </li> -->
         </ol>
       </nav>
     </div>
@@ -273,6 +273,8 @@ export default {
           },
         ],
       },
+      categoryTitle:null,
+      categoryId:null
     };
   },
   computed: {
@@ -303,6 +305,7 @@ export default {
       await categories
         .getSubCategories(data)
         .then((resp) => {
+          
           this.subCategories = resp.data.items;
           this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
@@ -343,7 +346,7 @@ export default {
       await categories
         .getAllSubCategories(this.id)
         .then((resp) => {
-          console.log("all res", resp);
+          
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
@@ -360,8 +363,11 @@ export default {
      */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
+        this.categoryTitle = res.data.items.title
+        this.categoryId = res.data.items.id
         this.pageCover = res.data.items.image_path;
         this.pageTitle = res.data.items.title;
+        sessionStorage.setItem('parentTitle' ,res.data.items.title )
       });
     },
     /**

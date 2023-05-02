@@ -274,6 +274,9 @@ export default {
   getWalletRecivables() {
     return globalAxios.get("members/wallet/receivables");
   },
+  getWalletCharges() {
+    return globalAxios.get("members/wallet/charges");
+  },
 
   privacyPage() {
     return globalAxios.get(`statics/privacy-policy`);
@@ -447,11 +450,21 @@ export default {
   notificationBulkDelete(payload) {
     return globalAxios.post("members/notifications/bulk-delete", payload);
   },
+  
   searchOrder(data, payload) {
     return globalAxios.get(`members/client-orders?page=${data}`, {
       params: {
         id: payload.id ? payload.id : null,
       },
     });
+  },
+  // favoriteBulkAddToCart(payload) {
+  //   return globalAxios.post("members/profile/favorite/delete/bulk", payload);
+  // },
+  // favoriteBulkStandingOrde(payload) {
+  //   return globalAxios.post("members/notifications/bulk-delete", payload);
+  // },
+  favoriteBulkRemoveFav(payload) {
+    return globalAxios.post("members/profile/favorite/delete/bulk", payload);
   },
 };

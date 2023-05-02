@@ -118,7 +118,7 @@ import profile from "@/services/profile";
 export default {
   data() {
     return {
-      id: this.$route.query.id,
+      id: this.$route.query.id ? this.$route.query.id : this.passedId,
       standingOrders: null,
       standingOrdersLength: null,
       showForm: false,
@@ -264,6 +264,9 @@ export default {
     },
     quotationQuantity:{
       // quotationQuantity prop
+      type:Number
+    },
+    passedId:{
       type:Number
     }
   },
