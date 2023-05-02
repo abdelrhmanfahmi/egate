@@ -112,8 +112,7 @@
         </h4>
       </div>
     </div>
-
-    <div class="add-address" @click="showForm = !showForm ; form = {}">
+    <div class="add-address" @click="showForm = !showForm ; form = {} ; form.country_id = JSON.parse(selectedCountry).id">
       <div class="d-flex flex-column justify-content-center align-items-center text-gray">
         <span>+ </span>
         <span>{{ $t("profile.newAddress") }}</span>

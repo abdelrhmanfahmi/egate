@@ -38,6 +38,7 @@
             link.name.trim() === 'Subscribe to the newsletter' &&
             buyerUserData.register_mailing_list,
         }"
+        @click="closeSideBar"
       >
         <router-link :to="link.to">
           <img
@@ -104,6 +105,7 @@
             link.name.trim() === 'Subscribe to the newsletter' &&
             buyerUserData.register_mailing_list,
         }"
+        @click="closeSideBar"
       >
         <router-link :to="link.to">
           <img
@@ -381,6 +383,11 @@ export default {
       required: false,
     },
   },
+  methods:{
+    closeSideBar(){
+      this.$emit('closeSideMenu')
+    }
+  }
 };
 </script>
 
@@ -398,6 +405,7 @@ export default {
     li {
       padding: 10px 20px;
       border-bottom: 2px solid #4d4d4d;
+      font-size: 15px;
       &:first-of-type {
         border-top: 2px solid #4d4d4d;
       }

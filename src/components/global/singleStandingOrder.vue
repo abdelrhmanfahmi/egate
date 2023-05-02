@@ -29,9 +29,18 @@
           </b-button>
         </div>
 
+
+
         <div class="cart-table" v-if="ordersLength > 0">
           <div class="suppliers py-4">
             <div class="container">
+              <div class="">
+                <span>
+                  <input type="checkbox" class="myproject--checkbox" v-model="checkAll" />
+                </span>
+                <span class="h5 mx-2">{{ $t("profile.selectAll") }}</span>
+              </div>
+
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -49,13 +58,12 @@
                         <input type="checkbox" class="myproject--checkbox" :value="item.product_supplier.id"
                           v-model="checkedProduct" />
                         <router-link :to="{
-                          path: '/details',
-                          query: { id: item.product_supplier_id },
-                        }">
+                            path: '/details',
+                            query: { id: item.product_supplier_id },
+                          }">
                           <div class="d-block text-center" v-if="item.product_supplier.current_main_image_path">
-                            <img :src="
-                              item.product_supplier.current_main_image_path
-                            " alt="wishlist-product-image" class="product-img" />
+                            <img :src="item.product_supplier.current_main_image_path
+                              " alt="wishlist-product-image" class="product-img" />
                           </div>
                           <div class="d-block text-center" v-else>
                             <img :src="logoEnv" v-if="logoEnv" class="product-img" alt="logo">
@@ -66,9 +74,9 @@
                     </td>
                     <td class="text-center">
                       <router-link class="text-dark" :to="{
-                        path: '/details',
-                        query: { id: item.product_supplier_id },
-                      }">
+                          path: '/details',
+                          query: { id: item.product_supplier_id },
+                        }">
                         <p v-if="item.product_supplier.product"
                           class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
                           <span>{{ item.product_supplier.product.title }}
@@ -83,24 +91,22 @@
                     </td>
                     <td class="text-center">
                       <p class="price" v-if="item.product_supplier.product_details_by_type">
-                        <span v-if="
-                          item.product_supplier.product_details_by_type.customer_price
-                        ">
+                        <span v-if="item.product_supplier.product_details_by_type.customer_price
+                          ">
                           {{
                             item.product_supplier.product_details_by_type.customer_price
-                              | fixedCurrency
+                            | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
                         <br />
-                        <span class="price-after" v-if="
-                          item.product_supplier.product_details_by_type
-                            .price_before_discount &&
+                        <span class="price-after" v-if="item.product_supplier.product_details_by_type
+                          .price_before_discount &&
                           item.product_supplier.product_details_by_type
                             .price_before_discount >
                           item.product_supplier.product_details_by_type
                             .price
-                        ">
+                          ">
                           {{
                             item.product_supplier.product_details_by_type
                               .price_before_discount | fixedCurrency
@@ -125,27 +131,25 @@
                           </a>
                         </div>
 
-                        <b-button @click="addToCart(item)" v-if="
-                          (add_to_cart == true&&
+                        <b-button @click="addToCart(item)" v-if="(add_to_cart == true &&
                             item.product_supplier.product_details_by_type
                               .add_type === 'cart') ||
-                          (add_to_cart == true&&
+                          (add_to_cart == true &&
                             item.product_supplier.product_details_by_type
                               .add_type === 'both')
-                        ">
+                          ">
                           <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                         </b-button>
                         <button @click="chooseProduct(item.product_supplier)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                          v-if="
-                            RFQ == true &&
+                          v-if="RFQ == true &&
                             (item.product_supplier.product_details_by_type
                               .add_type === 'rfq' ||
                               (RFQ == true &&
                                 item.product_supplier.product_details_by_type
                                   .add_type === 'both')) &&
                             buyerUserData
-                          ">
+                            ">
                           <div>
                             <button id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
@@ -166,16 +170,14 @@
                   <tr v-else-if="!item.product_supplier && item.basket_promotion_id || item.basket_promotion">
                     <td class="text-center">
                       <div class="d-flex justify-content-around align-items-center">
-                        <input type="checkbox" class="myproject--checkbox" :value="item.id"
-                          v-model="checkedProduct" />
+                        <input type="checkbox" class="myproject--checkbox" :value="item.id" v-model="checkedProduct" />
                         <router-link :to="{
-                          path: '/basketOfferDetails',
-                          query: { id: item.basket_promotion.id },
-                        }">
+                            path: '/basketOfferDetails',
+                            query: { id: item.basket_promotion.id },
+                          }">
                           <div class="d-block text-center" v-if="item.basket_promotion.image_path">
-                            <img :src="
-                              item.basket_promotion.image_path
-                            " alt="wishlist-product-image" class="product-img" />
+                            <img :src="item.basket_promotion.image_path
+                              " alt="wishlist-product-image" class="product-img" />
                           </div>
                           <div class="d-block text-center" v-else>
                             <img :src="logoEnv" v-if="logoEnv" class="product-img" alt="logo">
@@ -186,9 +188,9 @@
                     </td>
                     <td class="text-center">
                       <router-link class="text-dark" :to="{
-                        path: '/basketOfferDetails',
-                        query: { id: item.basket_promotion.id },
-                      }">
+                          path: '/basketOfferDetails',
+                          query: { id: item.basket_promotion.id },
+                        }">
                         <p v-if="item.basket_promotion.id"
                           class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
                           <span>{{ item.basket_promotion.title }}
@@ -200,19 +202,19 @@
                     <td class="text-center">
                       <span v-if="item.basket_promotion.quantity">
 
-                        <Variants-Counter :minimum="1" class="justify-content-center" :quantity="item.basket_promotion.quantity"
+                        <Variants-Counter :minimum="1" class="justify-content-center"
+                          :quantity="item.basket_promotion.quantity"
                           @changeCount="ChangeCounter($event, item)"></Variants-Counter>
                       </span>
-                        <span v-else>-</span>
+                      <span v-else>-</span>
                     </td>
                     <td class="text-center">
                       <p class="price" v-if="item">
-                        <span v-if="
-                          item.basket_promotion.basket_price
-                        ">
+                        <span v-if="item.basket_promotion.basket_price
+                          ">
                           {{
                             item.basket_promotion.basket_price
-                              | fixedCurrency
+                            | fixedCurrency
                           }}
                           {{ currency }}
                         </span>
@@ -220,8 +222,7 @@
                       </p>
                     </td>
                     <td class="text-center">
-                      <div 
-                        class="actions d-flex justify-content-center align-items-center">
+                      <div class="actions d-flex justify-content-center align-items-center">
                         <div class="" v-if="favourite">
 
                           <a class="text-danger d-flex justify-content-center align-items-center"
@@ -257,7 +258,8 @@
         <div class="text-center" v-else>
           <h6>{{ $t("cart.noData") }}</h6>
           <b-button variant="outline-success" to="/profile/StandingOrders">{{ $t("items.backToStrandingList") }}
-            <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign" alt="standing-order-sign" />
+            <img src="@/assets/images/new-design/standing-order-sign.png" class="standing-order-sign"
+              alt="standing-order-sign" />
           </b-button>
         </div>
       </div>
@@ -408,7 +410,7 @@ export default {
      * @vuese
      * add basket To favorite function
      */
-     basketAddToWishlist(item) {
+    basketAddToWishlist(item) {
       let data = {
         basket_promotion_id: item.basket_promotion.id,
       };
@@ -490,7 +492,6 @@ export default {
         //   ? item.product_supplier.product_details_by_type.min_order_quantity
         //   : 1,
       };
-      console.log('quantity', data.quantity);
 
       return globalAxios
         .post(`cart/add`, data)
@@ -637,7 +638,7 @@ export default {
      * @vuese
      * this function used to remove Product from standing orders
      */
-     basketRemoveProduct(item) {
+    basketRemoveProduct(item) {
       let payload = {
         basket_promotion_id: item.basket_promotion_id,
         client_standing_id: this.id,
@@ -816,6 +817,30 @@ export default {
       required: false,
     },
   },
+  computed: {
+    checkAll: {
+      get: function () {
+        return this.orders
+          ? this.checkedProduct.length == this.ordersLength
+          : false;
+      },
+      set: function (value) {
+        var checkedProduct = [];
+        if (value) {
+          this.orders.forEach(function (order) {
+            checkedProduct.push(order.product_supplier.id);
+          });
+        }
+        this.checkedProduct = checkedProduct;
+      },
+    },
+  },
+  mounted(){
+    if(!this.id){
+      this.$router.push('/profile/StandingOrders')
+    }
+  }
+
 };
 </script>
 <style lang="scss" scoped>

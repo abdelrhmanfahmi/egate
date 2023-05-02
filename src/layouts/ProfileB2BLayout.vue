@@ -29,9 +29,9 @@
           <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
         </div>
         <!-- side menu if user is b2c  -->
-        <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" />
+        <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" />
         <!-- side menu if user is b2b (buyer)  -->
-        <SideMenuB2b :userBades="userBades" v-else />
+        <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false"/>
       </div>
       <div id="main" :class="{ mainopen: opened }">
         <!-- nav bar  -->

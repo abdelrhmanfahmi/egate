@@ -5,7 +5,7 @@
     <div>
       <div class="top-nav">
         <div class="lang" v-if="arabicAvailable !== 'no' && arabicAvilability == true">
-          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">En</button>
+          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             اللغة العربية
           </button>

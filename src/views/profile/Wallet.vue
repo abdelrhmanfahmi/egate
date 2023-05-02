@@ -184,6 +184,14 @@
           <label for="payments">
             <h5 class="tab-title">{{ $t("profile.payments") }}</h5>
           </label>
+          <!-- charges tab input  -->
+
+          <!-- <input type="radio" id="charges" name="tabGroup1" class="tab" /> -->
+
+          <!-- charges tab label  -->
+          <!-- <label for="charges">
+            <h5 class="tab-title">{{ $t("profile.charges") }}</h5>
+          </label> -->
 
           <!-- receivables tab data  -->
 
@@ -347,6 +355,127 @@
                     :per-page="paymentPerPage"
                     :current-page="paymentPage"
                     @pagechanged="onPaymentsPageChange"
+                  />
+                </div>
+              </div>
+              <div
+                class="spinner d-flex justify-content-center align-items-center"
+                v-else
+              >
+                <spinner />
+              </div>
+            </div>
+            <div class="" v-else>
+              {{ $t("home.noData") }}
+            </div>
+          </div>
+
+          <!-- charges tab data  -->
+
+          <div class="tab__content">
+            <div class="payments py-3" v-if="chargesLength > 0">
+              <div class="holder text-center" v-if="charges">
+                <table class="table table-striped table-hover table-bordered selectable">
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        v-for="(tab, index) in chargesHeadrer"
+                        :key="index"
+                      >
+                        {{ tab.label }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(order, index) in charges" :key="index">
+                      <td>
+                        <span v-if="order.serial">{{ order.serial }}</span>
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.created_at">{{
+                          order.created_at | formatDate
+                        }}</span>
+                        <span v-else>-</span>
+                      </td>
+                      <td>
+                        <span v-if="order.products_count">{{
+                          order.products_count
+                        }}</span>
+                        <span v-else>-</span>
+                      </td>
+                      <td>
+                        <span v-if="order.amount" class="main-color"
+                          >{{ order.amount | fixedCurrency }} {{ currency }}</span
+                        >
+                        <span v-else>-</span>
+                      </td>
+                      <td>
+                        <span
+                          v-if="order.payment_status"
+                          :class="{
+                            'text-success':
+                              order.payment_status == 'Paid' ||
+                              order.payment_status == 'تم الدفع',
+                          }"
+                          >{{ order.payment_status }}</span
+                        >
+                        <span v-else></span>
+                      </td>
+                      <td>
+                        <span v-if="order.payment_type">{{ order.payment_type }}</span>
+                        <span v-else>-</span>
+                      </td>
+
+                      <td>
+                        <router-link
+                          :to="{
+                            path: '/viewOrderDetails',
+                            query: { id: `${order.order_id}` },
+                          }"
+                          class="text-dark"
+                        >
+                          <b-button
+                            variant="outline-light main-color border-main"
+                            class="m-2"
+                          >
+                            <font-awesome-icon icon="fa-regular fa-eye" />
+                          </b-button>
+                        </router-link>
+                        <router-link
+                          v-if="
+                            order.payment_status === 'Unpaid' &&
+                            order.payment_type === 'bank'
+                          "
+                          :to="{
+                            path: '/checkout-details',
+                            query: {
+                              order_serial: order.serial,
+                              date: order.created_at,
+                              total_price: order.total_price,
+                              payment_type: order.payment_type,
+                              payment: order.payment,
+                              uuid: order.uuid,
+                            },
+                          }"
+                          class="text-dark"
+                        >
+                          <b-button variant="outline-success" class="m-2">
+                            {{ $t("profile.bankTransDocs") }}
+                          </b-button>
+                        </router-link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-start align-items-center mt-5">
+                  <Paginate
+                    v-if="charges && chargesLength > 1"
+                    :total-pages="paymentTotalPages"
+                    :per-page="paymentPerPage"
+                    :current-page="paymentPage"
+                    @pagechanged="onchargesPageChange"
                   />
                 </div>
               </div>
@@ -614,6 +743,27 @@ export default {
         });
     },
     /**
+     * get Wallet Payments  function
+     * @vuese
+     */
+    getWalletCharges() {
+      profile
+        .getWalletCharges(this.paymentPage)
+        .then((resp) => {
+          this.charges = resp.data.items.charges.data;
+          this.chargesLength = resp.data.items.charges.data.length;
+          this.paymentTotal = resp.data.items.charges.meta.total;
+          this.paymentTotalPages = Math.ceil(
+            resp.data.items.charges.meta.total / resp.data.items.charges.meta.per_page
+          ); // Calculate total records
+
+          this.paymentTotalRecords = resp.data.items.charges.meta.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    /**
      * get Wallet Recivables  function
      * @vuese
      */
@@ -769,6 +919,7 @@ export default {
   mounted() {
     this.getWalletPayments();
     this.getWalletRecivables();
+    this.getWalletCharges();
     this.getWallet();
     this.walletGetWithdraw();
   },

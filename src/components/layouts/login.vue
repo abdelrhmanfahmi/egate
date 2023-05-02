@@ -37,14 +37,14 @@
                 {{ $t("home.corporat") }}
               </span>
             </div>
-            <div class="col-md-3 col-sm-12 p-0 m-0 my-col" v-if="supplier_registration ">
+            <!-- <div class="col-md-3 col-sm-12 p-0 m-0 my-col" v-if="supplier_registration ">
               <a
                 :href="`${supplierDomain}`"
                 target="_blank"
                 class="main-color font-weight-bold"
                 >{{ $t("home.suppliers") }}</a
               >
-            </div>
+            </div> -->
           </div>
           <!-- <h6 class="title">{{ $t("login.login") }}</h6> -->
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>

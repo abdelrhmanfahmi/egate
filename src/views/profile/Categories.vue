@@ -7,6 +7,7 @@
     </div> -->
 
     <!-- <NewHomeSlider /> -->
+    <NewSearch />
 
     <b-tabs content-class="mt-3">
       <!-- product specifications tab  -->
@@ -99,11 +100,12 @@ import categories from "@/services/categories";
 import SingleSupplier from "@/components/pages/suppliers/SingleSupplier.vue";
 import suppliers from "@/services/suppliers";
 // import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
-
+import NewSearch from "@/components/pages/home/NewSearch.vue"
 export default {
   components: {
     CategoryCard,
     SingleSupplier,
+    NewSearch
     // NewHomeSlider
   },
   methods: {

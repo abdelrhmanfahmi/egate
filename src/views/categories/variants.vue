@@ -34,14 +34,14 @@
                 </router-link>
               </li>
               <li class="breadcrumb-item">
-                <router-link to="/"> Category </router-link>
+                <router-link :to="`/categories/${parentId}`"> {{parentTitle}} </router-link>
               </li>
               <li class="breadcrumb-item">
-                <router-link to="/"> Sub category </router-link>
+                <router-link :to="`/categories/${PageId}/variants`"> {{PageTitle}} </router-link>
               </li>
-              <li class="breadcrumb-item">
+              <!-- <li class="breadcrumb-item">
                 <router-link to="/" class="main-color"> Sub sub-category </router-link>
-              </li>
+              </li> -->
             </ol>
           </nav>
         </div>
@@ -1051,7 +1051,11 @@ export default {
       UnitOptions: null,
       selectedStandingOrder: null,
       parent_categoryVariants:null,
-      searchWord:''
+      searchWord:'',
+      parentId:sessionStorage.getItem('catId'),
+      parentTitle:sessionStorage.getItem('parentTitle'),
+      PageTitle:null,
+      PageId:null,
     };
   },
   components: {
@@ -1218,6 +1222,7 @@ export default {
           this.sortTypeUnit
         )
         .then((res) => {
+          
           this.products = res.data.items.data;
         })
         .catch((err) => {
@@ -1281,6 +1286,8 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
+          this.PageTitle = res.data.items.title;
+          this.PageId = res.data.items.id;
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
           this.parent_categoryVariants = res?.data?.items?.all_children;

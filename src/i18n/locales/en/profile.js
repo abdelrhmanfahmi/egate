@@ -349,5 +349,8 @@ export default {
   priceFrom: "Price From",
   priceTo: "Price To",
   filtersApplied: "Filters Applied",
-  perPage:"Show Me Per Page"
+  perPage:"Show Me Per Page",
+  companyLogo:'Company Logo',
+  Upload:"Upload",
+  createdDate:'Created Date'
 };

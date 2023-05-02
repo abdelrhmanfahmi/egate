@@ -62,18 +62,18 @@
     // when layout moves 
     width: 100%;
 }
-.en{
-    .navbaropen {
-        margin-left: 270px;
-    }
+// .en{
+//     .navbaropen {
+//         margin-left: 270px;
+//     }
 
-}
-.ar{
-    .navbaropen {
-        margin-right: 270px;
-    }
+// }
+// .ar{
+//     .navbaropen {
+//         margin-right: 270px;
+//     }
 
-}
+// }
 
 
 .navbar a {
@@ -126,7 +126,7 @@
 
 .sidenavopen {
     height: 100%;
-    width: 270px;
+    width: 260px;
     position: fixed;
     z-index: 9999;
     top: 0;
@@ -187,13 +187,13 @@
 }
 .en{
     .mainopen {
-        margin-left: 270px;
+        margin-left: 160px;
     }
 
 }
 .ar{
     .mainopen {
-        margin-right: 270px;
+        margin-right: 160px;
     }
 
 }

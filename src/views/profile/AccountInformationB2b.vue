@@ -2,14 +2,45 @@
   <!-- buyer user  account information page  -->
   <div class="account-information">
     <div class="row align-items-center">
-      <div class="col-md-8 col-sm-12">
-        <form @submit.prevent="updateProfile()" class="account-information-form">
+      <div class="col-md-10 col-sm-12">
+        <form
+          @submit.prevent="updateProfile()"
+          class="account-information-form"
+        >
           <section class="user-info">
             <h4 class="main-header">{{ $t("profile.accountInfo") }}</h4>
 
             <b-row>
               <!-- First Name -->
-              <b-col lg="6">
+              <b-col lg="4">
+                <label for="f-name">{{ $t("register.department") }}</label>
+                <span class="requried">*</span>
+                <b-form-select v-model="form.job_title">
+                  <b-form-select-option selected disabled value="null">{{
+                    $t("register.selectDept")
+                  }}</b-form-select-option>
+                  <b-form-select-option
+                    v-for="department in departments"
+                    :key="department.id"
+                    :value="department.id"
+                  >
+                    <span v-if="$i18n.locale == 'en'">{{
+                      department.name_en
+                    }}</span>
+                    <span v-if="$i18n.locale == 'ar'">{{
+                      department.name_ar
+                    }}</span>
+                  </b-form-select-option>
+                </b-form-select>
+                <div
+                  class="error"
+                  v-for="(error, index) in errors.job_title"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </b-col>
+              <b-col lg="4">
                 <b-form-group>
                   <label for="f-name">{{ $t("register.firstName") }}</label>
                   <span class="requried">*</span>
@@ -32,7 +63,7 @@
                 </b-form-group>
               </b-col>
               <!-- Last Name -->
-              <b-col lg="6">
+              <b-col lg="4">
                 <b-form-group>
                   <label for="l-name">{{ $t("register.lastName") }}</label>
                   <span class="requried">*</span>
@@ -55,7 +86,11 @@
                     {{ $t("profile.needEmailContact") }}
                   </a>
                   <b-form-input id="email" v-model="form.email" disabled />
-                  <div class="error" v-for="(error, index) in errors.email" :key="index">
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.email"
+                    :key="index"
+                  >
                     {{ error }}
                   </div>
                 </b-form-group>
@@ -74,7 +109,11 @@
                   </a>
                   <div class="row justify-content-start align-items-center">
                     <div class="col-12">
-                      <b-form-input id="phone" v-model="form.mobile_number" disabled />
+                      <b-form-input
+                        id="phone"
+                        v-model="form.mobile_number"
+                        disabled
+                      />
                     </div>
                   </div>
                   <div
@@ -94,7 +133,8 @@
               v-if="
                 (buyerUserData && buyerUserData.type === 'buyer') ||
                 buyerUserData.type === 'b2b' ||
-                (buyerUserData.type === 'supplier' && buyerUserData.is_buyer == 1)
+                (buyerUserData.type === 'supplier' &&
+                  buyerUserData.is_buyer == 1)
               "
             >
               <h4 class="main-header my-4">
@@ -158,7 +198,10 @@
                       $t("profile.RegistrationNumber")
                     }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="RegistrationNumber" v-model="form.reg_number" />
+                    <b-form-input
+                      id="RegistrationNumber"
+                      v-model="form.reg_number"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.reg_number"
@@ -169,6 +212,52 @@
                   </b-form-group>
                 </b-col>
               </b-row>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-sm-12">
+                <div class="company-logo">
+                  <main class="mb-5">
+                    <div @dragover.prevent @drop.prevent class="data-holder">
+                      <div @drop="handleFileDrop">
+                        <p class="h5">{{$t('profile.companyLogo')}}</p>
+                        <br />
+                        <div class="file-wrapper">
+                          <input
+                            type="file"
+                            name="file-input"
+                            @change="handleFileInput"
+                          />
+                          <div class="d-flex flex-column text-holder">
+                            <p class="text-shown sign m-0 h2">+</p>
+                            <p class="text-shown text h2">{{$t('profile.Upload')}}</p>
+                          </div>
+                        </div>
+                        <ul class="files mt-4">
+                          <li v-for="(file, index) in files" :key="index">
+                            <div class="file-data">
+                              <span class="file-name">{{ file.name }}</span>
+                              <span class="file-size">({{ file.size }} b)</span>
+                              <button
+                                @click="removeFile(index)"
+                                class="border-none mx-2"
+                                title="Remove"
+                              >
+                                X
+                              </button>
+                            </div>
+                          </li>
+                        </ul>
+                        <img
+                          v-if="CompanyImage"
+                          :src="CompanyImage"
+                          alt=""
+                          srcset=""
+                        />
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -213,7 +302,9 @@
                   </label>
                   <b-form-select v-model="form.currency_id">
                     <b-form-select-option value="null" disabled selected
-                      >{{ $t("profile.currency") }} ({{ buyerUserData.currency_name }})
+                      >{{ $t("profile.currency") }} ({{
+                        buyerUserData.currency_name
+                      }})
                       <span class="requried text-danger">*</span>
                     </b-form-select-option>
                     <b-form-select-option
@@ -260,7 +351,7 @@
             </div>
           </section>
 
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center buttons-holder">
             <b-button type="submit" class="login-button">
               {{ $t("profile.save") }}
             </b-button>
@@ -273,41 +364,6 @@
             </b-button>
           </div>
         </form>
-      </div>
-      <div class="col-md-4 col-sm-12">
-        <div class="company-logo">
-          <main>
-            <div @dragover.prevent @drop.prevent class="data-holder">
-              <div @drop="handleFileDrop">
-                <p class="h5">Company Logo</p>
-                <br />
-                <div class="file-wrapper">
-                  <input type="file" name="file-input" @change="handleFileInput" />
-                  <div class="d-flex flex-column text-holder">
-                    <p class="text-shown sign m-0 h2">+</p>
-                    <p class="text-shown text h2">Upload</p>
-                  </div>
-                </div>
-                <ul class="files mt-4">
-                  <li v-for="(file, index) in files" :key="index">
-                    <div class="file-data">
-                      <span class="file-name">{{ file.name }}</span>
-                      <span class="file-size">({{ file.size }} b)</span>
-                      <button
-                        @click="removeFile(index)"
-                        class="border-none mx-2"
-                        title="Remove"
-                      >
-                        X
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-                <img v-if="CompanyImage" :src="CompanyImage" alt="" srcset="" />
-              </div>
-            </div>
-          </main>
-        </div>
       </div>
     </div>
     <b-modal ref="email-modal" hide-footer centered>
@@ -339,7 +395,11 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="newEmail" v-model="newForm.verify_email" />
-            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
+            <div
+              class="error"
+              v-for="(error, index) in errors.verify_email"
+              :key="index"
+            >
               {{ error }}
             </div>
           </b-form-group>
@@ -370,9 +430,12 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button class="mt-3" variant="outline-danger" @click="hideEmailModal">{{
-          $t("cart.cancel")
-        }}</b-button>
+        <b-button
+          class="mt-3"
+          variant="outline-danger"
+          @click="hideEmailModal"
+          >{{ $t("cart.cancel") }}</b-button
+        >
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -407,7 +470,11 @@
               <span class="requried">*</span>
             </div>
             <b-form-input id="oldEmail" v-model="newForm.verify_email" />
-            <div class="error" v-for="(error, index) in errors.verify_email" :key="index">
+            <div
+              class="error"
+              v-for="(error, index) in errors.verify_email"
+              :key="index"
+            >
               {{ error }}
             </div>
           </b-form-group>
@@ -438,12 +505,18 @@
         </form>
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
-          $t("cart.cancel")
-        }}</b-button>
-        <b-button class="mt-3" variant="outline-danger" @click="hidePhoneModal">{{
-          $t("cart.cancel")
-        }}</b-button>
+        <b-button
+          class="mt-3"
+          variant="outline-danger"
+          @click="hidePhoneModal"
+          >{{ $t("cart.cancel") }}</b-button
+        >
+        <b-button
+          class="mt-3"
+          variant="outline-danger"
+          @click="hidePhoneModal"
+          >{{ $t("cart.cancel") }}</b-button
+        >
         <b-button class="mt-2" variant="outline-success" @click="goToVerify"
           >{{ $t("register.verify") }}
         </b-button>
@@ -454,12 +527,18 @@
         <checkMailModal />
       </div>
       <div class="row justify-content-around align-items-center">
-        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
-          $t("home.ok")
-        }}</b-button>
-        <b-button class="mt-3" variant="outline-success" @click="hideCheckModal">{{
-          $t("home.ok")
-        }}</b-button>
+        <b-button
+          class="mt-3"
+          variant="outline-success"
+          @click="hideCheckModal"
+          >{{ $t("home.ok") }}</b-button
+        >
+        <b-button
+          class="mt-3"
+          variant="outline-success"
+          @click="hideCheckModal"
+          >{{ $t("home.ok") }}</b-button
+        >
       </div>
     </b-modal>
   </div>
@@ -634,7 +713,7 @@ export default {
         logo: this.files[0],
       };
       auth
-        .storeInfo(this.buyerUserData , createdFormData(payload))
+        .storeInfo(this.buyerUserData, createdFormData(payload))
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};
@@ -734,7 +813,9 @@ export default {
       profile
         .changeProfileEmailMobile(
           data,
-          this.buyerUserData.type ? this.buyerUserData.type : this.userInfo.item.type
+          this.buyerUserData.type
+            ? this.buyerUserData.type
+            : this.userInfo.item.type
         )
         .then((res) => {
           this.sucessMsg(res.data.message);
@@ -819,7 +900,18 @@ export default {
     .login-button {
       margin: 30px 0px;
       width: 20%;
+      @media (max-width: 992px) {
+        width: 100% !important;
+      }
+      @media (min-width: 992px) and (max-width: 1500px) {
+        width: 40% !important;
+      }
     }
+  }
+}
+@media (max-width: 992px) {
+  .buttons-holder {
+    flex-direction: column;
   }
 }
 
@@ -830,7 +922,7 @@ html:lang(ar) {
 }
 .company-logo {
   main {
-    margin-top: 30px;
+    margin-top: -30px;
     height: 100%;
   }
 
