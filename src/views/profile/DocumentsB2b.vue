@@ -6,9 +6,16 @@
         <h5>{{ $t("profile.companyDocuments") }}</h5>
       </div>
       <!-- buissnessinfoUpload -->
-      <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload">
+      <form class="buissnessinfo mb-5" @submit.prevent="buissnessinfoUpload"
+      v-if="
+          allDocFiles.ccl !== '' ||
+          allDocFiles.auth_civil_copy !== '' ||
+          allDocFiles.ccs !== '' ||
+          allDocFiles.rmcm !== ''
+        "
+      >
         <div class="row">
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.ccl !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -152,7 +159,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.auth_civil_copy !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -301,7 +308,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.ccs !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -442,7 +449,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.rmcm !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -596,9 +603,9 @@
 
       <!-- suppDocUpload -->
 
-      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm">
+      <form class="suppDoc mb-5" @submit.prevent="suppDocUploadForm" v-if="allDocFiles.moa !== '' || allDocFiles.sad !== ''">
         <div class="row">
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.moa !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -736,7 +743,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-3 col-sm-12" v-if="allDocFiles.sad !== ''">
             <div
               class="form-input mb-4 new-style"
               :class="{
@@ -887,7 +894,7 @@
 
       <!-- bank iban  -->
 
-      <form lass="suppDoc" @submit.prevent="ibanUpload">
+      <form class="suppDoc" @submit.prevent="ibanUpload" v-if="allDocFiles.iban_number_certificate !== ''">
         <div class="row">
           <div class="col-md-3 col-sm-12">
             <div
@@ -1100,6 +1107,15 @@ export default {
       bankIban: {
         iban: null,
       },
+      allDocFiles: {
+        ccl: null,
+        auth_civil_copy: null,
+        ccs: null,
+        rmcm: null,
+        moa: null,
+        sad: null,
+        iban_number_certificate: null,
+      },
       dynamicForm: {},
       // represent data
       suppData: null,
@@ -1223,6 +1239,28 @@ export default {
     });
   },
   methods: {
+    /**
+     * @vuese
+     *  check Documents Form
+     */
+    checkDocumentsForm() {
+      profile
+        .checkDocumentsForm()
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            if (element.status !== 1) {
+              this.allDocFiles[element.input_key] = "";
+            } else {
+              this.allDocFiles[element.input_key] = null;
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     /**
      * download Image function
      * @vuese
@@ -1363,7 +1401,6 @@ export default {
             this.suppData = [];
             this.getBuissnessinfodata();
           }
-          console.log(res);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1452,11 +1489,10 @@ export default {
         .finally(() => {
           this.suppDataLoading = false;
           this.btn2Disabled = false;
-          setTimeout(() => {
-            location.reload();
-          }, 1500);
+          // setTimeout(() => {
+          //   location.reload();
+          // }, 1500);
         });
-      console.log(formData);
     },
 
     /**
@@ -1525,9 +1561,9 @@ export default {
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
-          setTimeout(() => {
-            location.reload();
-          }, 1500);
+          // setTimeout(() => {
+          //   location.reload();
+          // }, 1500);
         });
     },
 
@@ -1561,6 +1597,7 @@ export default {
     if (this.userInfo === "b2c") {
       this.$router.push("/");
     }
+    this.checkDocumentsForm();
   },
   computed: {
     /**
@@ -1716,7 +1753,7 @@ button:disabled {
 .ar {
   label {
     right: 10px;
-    left:auto
+    left: auto;
   }
 }
 </style>

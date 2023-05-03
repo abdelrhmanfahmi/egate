@@ -278,4 +278,25 @@ router.beforeEach((to, from, next) => {
   loadLanguageAsync(lang).then(() => next())
 })
 
+// router.beforeEach((to, from, next) => {
+//   console.log('from.query.id' , from.query.id);
+//   console.log('to.query.id' , to.query.id);
+//   if (from.query.id && !to.query.id) {
+//     if (to.path === from.path) {
+//       // console.log('Identical routes detected')
+//       return // This is a no-no via the documentation, but a bug in routing to identical routes strips query params, and this prevents that
+//     }
+//     next({path: to.path, query: {id: from.query.id}})
+//   }
+
+//   next()
+// })
+
+// if (from.query.id && !to.query.id) {
+//   if (to.path === from.path) {
+//     // console.log('Identical routes detected')
+//     return // This is a no-no via the documentation, but a bug in routing to identical routes strips query params, and this prevents that
+//   }
+// }
+
 export default router;

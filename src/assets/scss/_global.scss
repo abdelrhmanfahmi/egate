@@ -833,8 +833,20 @@ footer{
   padding: 0.4rem 1rem;
 }
 
-@media(max-width:1200px){
+@media(max-width:1700px){
   th{
     white-space: nowrap;
+  }
+}
+
+table{
+  td{
+    button {
+      word-break:normal !important;
+      span{
+        word-break:normal !important;
+
+      }
+    }
   }
 }
