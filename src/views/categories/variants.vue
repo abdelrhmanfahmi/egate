@@ -52,6 +52,7 @@
         </div>
       </div>
       <div class="progressSlider">
+        <!-- new edit  -->
         <NewProgressSlider :parent_categoryVariants="allSubCategories" />
       </div>
       <div class="container">
