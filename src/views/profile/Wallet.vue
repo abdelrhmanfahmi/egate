@@ -373,7 +373,7 @@
           <!-- charges tab data  -->
 
           <div class="tab__content">
-            <div class="payments py-3" v-if="chargesLength > 0">
+            <div class="payments py-3" v-if="charges && chargesLength > 0">
               <div class="holder text-center" v-if="charges">
                 <table class="table table-striped table-hover table-bordered selectable">
                   <thead>
@@ -703,6 +703,8 @@ export default {
       },
       withdrowData: null,
       selectedImage: null,
+      charges:null,
+      chargesLength:null,
       //
     };
   },
