@@ -113,19 +113,20 @@
                   class="d-flex justify-content-between align-items-center"
                   v-if="!mobile"
                 >
-                  <router-link
+                  <!-- <router-link
                     to="/suppliers"
                     class="border-main color-main br-5 p-2"
                   >
                     <b>{{  $t("home.suppliers") }}</b>
-                  </router-link>
-                  <!-- <router-link
+                  </router-link> -->
+                  <router-link
                     to="/b2b-login"
                     class="border-main color-main br-5 p-2"
                     v-if="!buyerUserData || buyerUserData.type == 'b2c'"
                   >
-                    <b>{{ $t("home.corporat") }}</b>
-                  </router-link> -->
+                    <!-- <b>{{ $t("home.corporat") }}</b> -->
+                    <b>{{ $t("home.suppliers") }}</b>
+                  </router-link>
                 </div>
                 <div
                   v-if="!mobile"
