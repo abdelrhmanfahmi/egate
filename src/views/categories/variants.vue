@@ -34,12 +34,12 @@
                   {{ $t("items.home") }}
                 </router-link>
               </li>
-              <li class="breadcrumb-item">
+              <li class="breadcrumb-item" v-if="parentTitle">
                 <router-link :to="`/categories/${parentId}`">
                   {{ parentTitle }}
                 </router-link>
               </li>
-              <li class="breadcrumb-item">
+              <li class="breadcrumb-item" v-if="PageTitle">
                 <router-link :to="`/categories/${PageId}/variants`">
                   {{ PageTitle }}
                 </router-link>
