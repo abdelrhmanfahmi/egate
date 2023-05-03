@@ -4,7 +4,11 @@
     <p class="add-address" @click="showForm = !showForm">
       <span>+ </span>{{ $t("items.addNew") }}
     </p>
-    <form @submit.prevent="CreateStandingOrders()" class="account-information-form" v-if="showForm">
+    <form
+      @submit.prevent="CreateStandingOrders()"
+      class="account-information-form"
+      v-if="showForm"
+    >
       <b-row class="justify-content-center align-items-center">
         <!-- country  -->
         <b-col lg="5" class="mb-3">
@@ -23,12 +27,20 @@
               <b-form-select-option :value="null" disabled>{{
                 $t("payment.selectExist")
               }}</b-form-select-option>
-              <b-form-select-option :value="time.id" v-for="(time, index) in times" :key="index">{{ time.title }}
+              <b-form-select-option
+                :value="time.id"
+                v-for="(time, index) in times"
+                :key="index"
+                >{{ time.title }}
               </b-form-select-option>
             </b-form-select>
 
             <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
-            <div class="error" v-for="(error, index) in errors.time_id" :key="index">
+            <div
+              class="error"
+              v-for="(error, index) in errors.time_id"
+              :key="index"
+            >
               {{ error }}
             </div>
           </b-form-group>
@@ -51,10 +63,20 @@
     <div class="standing-orders">
       <div class="plans" v-if="standingOrdersLength > 0">
         <div class="row">
-          <div class="col-md-3 col-sm-12" v-for="(order, index) in standingOrders" :key="index"
-            @click="selectPlan(order)">
+          <div
+            class="col-md-3 col-sm-12"
+            v-for="(order, index) in standingOrders"
+            :key="index"
+            @click="selectPlan(order)"
+          >
             <label class="plan basic-plan">
-              <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" @change="sendStandID" />
+              <input
+                type="radio"
+                name="plan"
+                :value="order.id"
+                v-model="selectedPlan"
+                @change="sendStandID"
+              />
               <div class="plan-content-holder">
                 <div class="plan-content">
                   <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
@@ -64,8 +86,10 @@
                       <span>{{ order.name }}</span>
                       <div class="row">
                         <div class="col-12">
-                          <small>{{ order.items_count }}
-                            {{ $t("items.item") }}</small>
+                          <small
+                            >{{ order.items_count }}
+                            {{ $t("items.item") }}</small
+                          >
                         </div>
                         <div class="col-12">
                           <small>{{ order.time.title }}</small>
@@ -79,28 +103,59 @@
               </div>
             </label>
           </div>
-          <div class="error" v-for="(error, index) in errors.client_standing_id" :key="index">
+          <div
+            class="error"
+            v-for="(error, index) in errors.client_standing_id"
+            :key="index"
+          >
             {{ error }}
           </div>
         </div>
         <b-row class="mb-3" v-if="quantitySelected">
-          
-
-            <b-col lg="5">
-              <label for="">{{ $t("cart.standQuantity") }}</label>
-              <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" v-if="!checkPage" />
-              <b-form-input id="quantity" type="number" min="0" v-model="quotationQuantity" disabled v-else />
-              <div class="error" v-for="(error, index) in errors.quantity" :key="index">
-                {{ error }}
-              </div>
-            </b-col>
-          
+          <b-col lg="5">
+            <label for="">{{ $t("cart.standQuantity") }}</label>
+            <b-form-input
+              id="quantity"
+              type="number"
+              min="0"
+              v-model="ProductQuantity"
+              v-if="!checkPage"
+            />
+            <b-form-input
+              id="quantity"
+              type="number"
+              min="0"
+              v-model="quotationQuantity"
+              disabled
+              v-else
+            />
+            <div
+              class="error"
+              v-for="(error, index) in errors.quantity"
+              :key="index"
+            >
+              {{ error }}
+            </div>
+          </b-col>
         </b-row>
         <div>
-          <b-button type="submit" class="login-button" @click="addProductToStandingOrders" v-if="!checkPage">
+          <b-button
+            type="submit"
+            class="login-button"
+            @click="addProductToStandingOrders"
+            v-if="!checkPage"
+          >
             {{ $t("register.submit") }}
           </b-button>
-          <b-button type="submit" class="login-button" @click="addProductToStandingOrders(); standingQuotation()" v-else>
+          <b-button
+            type="submit"
+            class="login-button"
+            @click="
+              addProductToStandingOrders();
+              standingQuotation();
+            "
+            v-else
+          >
             {{ $t("register.submit") }}
           </b-button>
         </div>
@@ -174,32 +229,66 @@ export default {
      * this function used to add Product To Standing Orders
      */
     addProductToStandingOrders() {
-      let payload = {
-        product_supplier_id: this.id ? this.id : this.variantOrder.id,
-        client_standing_id: this.selectedPlan,
-        quantity: !this.checkPage ? this.ProductQuantity : this.quotationQuantity,
-      };
-      profile
-        .addProductToStandingOrders(payload)
-        .then((res) => {
-          if (res.status == 200) {
-            this.sucessMsg(res.data.message);
+      if (this.checkedItems) {
+        let payload = {
+          product_supplier_id: this.checkedItems ? this.checkedItems : this.variantOrder.id,
+          client_standing_id: this.selectedPlan,
+          quantity: !this.checkPage
+            ? this.ProductQuantity
+            : this.quotationQuantity,
+        };
+        profile
+          .addProductToStandingOrders(payload)
+          .then((res) => {
+            if (res.status == 200) {
+              this.sucessMsg(res.data.message);
 
-            setTimeout(() => {
-              this.$router.push({
-                path: "/profile/SingleStandingOrder",
-                query: {
-                  id: this.selectedPlan,
-                },
-              });
-            }, 700);
-          }
-        })
-        .catch((err) => {
-          let errors = Object.values(err)[2].data;
-          this.errors = errors.items;
-          this.errMsg(err.message);
-        });
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/profile/SingleStandingOrder",
+                  query: {
+                    id: this.selectedPlan,
+                  },
+                });
+              }, 700);
+            }
+          })
+          .catch((err) => {
+            let errors = Object.values(err)[2].data;
+            this.errors = errors.items;
+            this.errMsg(err.message);
+          });
+      }else{
+
+        let payload = {
+          product_supplier_id: this.id ? this.id : this.variantOrder.id,
+          client_standing_id: this.selectedPlan,
+          quantity: !this.checkPage
+            ? this.ProductQuantity
+            : this.quotationQuantity,
+        };
+        profile
+          .addProductToStandingOrders(payload)
+          .then((res) => {
+            if (res.status == 200) {
+              this.sucessMsg(res.data.message);
+  
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/profile/SingleStandingOrder",
+                  query: {
+                    id: this.selectedPlan,
+                  },
+                });
+              }, 700);
+            }
+          })
+          .catch((err) => {
+            let errors = Object.values(err)[2].data;
+            this.errors = errors.items;
+            this.errMsg(err.message);
+          });
+      }
     },
     /**
      * @vuese
@@ -224,9 +313,8 @@ export default {
           this.getStandingOrders();
           this.errors = [];
           if (res.status == 200) {
-
             this.selectedPlan = res.data.items.id;
-            this.selectPlan()
+            this.selectPlan();
           }
         })
         .catch((err) => {
@@ -236,19 +324,22 @@ export default {
         });
     },
     sendStandID() {
-      this.$emit('customEmit', this.selectedPlan)
+      this.$emit("customEmit", this.selectedPlan);
     },
     standingQuotation() {
       let data = {
         client_quote_id: this.id,
-        client_standing_id: this.selectedPlan
-      }
-      profile.standingQuotation(data).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
-    }
+        client_standing_id: this.selectedPlan,
+      };
+      profile
+        .standingQuotation(data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.getStandingOrders();
@@ -259,22 +350,25 @@ export default {
    */
   props: {
     variantOrder: {
-      // variantOrder prop 
+      // variantOrder prop
       type: Object,
     },
-    quotationQuantity:{
+    quotationQuantity: {
       // quotationQuantity prop
-      type:Number
+      type: Number,
     },
-    passedId:{
-      type:Number
-    }
+    passedId: {
+      type: Number,
+    },
+    checkedItems: {
+      type: Array,
+    },
   },
   computed: {
     checkPage() {
-      return this.$route.path.includes('quotationDetails')
-    }
-  }
+      return this.$route.path.includes("quotationDetails");
+    },
+  },
 };
 </script>
 
@@ -458,7 +552,12 @@ export default {
     cursor: pointer;
   }
 
-  .plans .plan input[type="radio"]:checked+.plan-content-holder>.plan-content>.b-box {
+  .plans
+    .plan
+    input[type="radio"]:checked
+    + .plan-content-holder
+    > .plan-content
+    > .b-box {
     border: 2px solid #216ee0;
     background: #eaf1fe;
     -webkit-transition: ease-in 0.1s;

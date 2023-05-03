@@ -8,7 +8,7 @@
             <div class="register-info" v-if="b2b_buyer_registration">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
-                <span> &#60; {{ $t("register.haveNotAccount") }}</span>
+                <span class="main-color"> &#60; {{ $t("register.haveNotAccount") }}</span>
               </router-link>
             </div>
             <form @submit.prevent="login()">
@@ -135,7 +135,13 @@ export default {
      * This is a public
      */
     login() {
-      localStorage.clear();
+      // localStorage.clear();
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('globalAddressUUID')
+      localStorage.removeItem('buyerUserData')
+      // localStorage.removeItem('country')
+      // localStorage.removeItem('currency')
+      // localStorage.removeItem('currencyId')
 
       let loginData = {
         email: this.form.email,
@@ -160,17 +166,38 @@ export default {
           ) {
             localStorage.setItem("massege", "");
             localStorage.removeItem("guest-id");
-            this.$router.push("/profile/categories");
-            setTimeout(() => {
-              location.reload();
-            }, 50);
+            // this.$router.push("/profile/categories");
+            // setTimeout(() => {
+            //   location.reload();
+            // }, 1000);
+            this.$router.replace(
+              {
+                path: "/profile/categories",
+              },
+
+              () => {
+                this.$router.go(0);
+              },
+            );
+
           } else {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             localStorage.removeItem("guest-id");
-            this.$router.push("/profile/account-information-b2b");
-            setTimeout(() => {
-              location.reload();
-            }, 50);
+            // this.$router.push("/profile/account-information-b2b");
+            // setTimeout(() => {
+            //   location.reload();
+            // }, 1000);
+
+            this.$router.replace(
+              {
+                path: "/profile/account-information-b2b",
+              },
+
+              () => {
+                this.$router.go(0);
+              }
+            );
+
           }
 
           // location.reload();

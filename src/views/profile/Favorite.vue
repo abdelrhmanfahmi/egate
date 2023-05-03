@@ -76,7 +76,7 @@
                         <input
                           type="checkbox"
                           class="myproject--checkbox"
-                          :value="item.id"
+                          :value="item.product_supplier_id"
                           v-model="checkedItems"
                         />
                       </div>
@@ -146,6 +146,7 @@
                           }}
                           {{ currency }}
                         </span>
+                        
                         <br />
                         <!-- if price exist & check discount  -->
                         <span
@@ -166,11 +167,13 @@
                           {{ currency }}
                         </span>
                       </p>
+                      <p v-else>-</p>
                     </td>
                     <td class="text-center">
-                      <span>{{
+                      <span v-if="item.product_supplier.product_details_by_type && item.product_supplier.product_details_by_type.quantity">{{
                         item.product_supplier.product_details_by_type.quantity
                       }}</span>
+                      <span v-else>-</span>
                     </td>
                    
                     <td class="text-center">
@@ -179,7 +182,7 @@
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.product_supplier.product_details_by_type.unit">{{ item.product_supplier.product_details_by_type.unit.title }}</span>
+                      <span v-if="item.product_supplier.product_details_by_type && item.product_supplier.product_details_by_type.unit">{{ item.product_supplier.product_details_by_type.unit.title }}</span>
                       <span v-else>-</span>
                     </td>
                     <td class="text-center">
@@ -263,6 +266,7 @@
                           />
                         </button>
                       </div>
+                      <div v-else>-</div>
                     </td>
                   </tr>
                   <tr
@@ -365,6 +369,7 @@
                       <div
                         class="actions d-flex justify-content-center align-items-center"
                       >
+                      test
                         <button
                           @click="addBasketToCart(item)"
                           class="action cart-link btn"
@@ -486,11 +491,11 @@
         $t("cart.submit")
       }}</b-button>
     </b-modal>
-    <b-modal id="bv-standingOrders" size="xl" hide-footer>
+    <b-modal ref="standingOrdersModal" id="bv-standingOrders" size="xl" hide-footer>
       <template #modal-title>
         {{ $t("items.standingOrders") }}
       </template>
-      <standing-orders :passedId="selectedId" />
+      <standing-orders :passedId="selectedId" :checkedItems="checkedItems" />
     </b-modal>
   </div>
 </template>
@@ -642,9 +647,11 @@ export default {
         this.getWishlistProducts();
         this.checkedItems = [];
       } else if (this.selectedAction == "bulk-addStandingOrders") {
-        this.favoriteBulkStandingOrde();
+        this.favoriteBulkStandingOrder();
         this.getWishlistProducts();
-        this.checkedItems = [];
+        // setTimeout(() => {
+        //   this.checkedItems = [];
+        // }, 1000);
       } else {
         if (this.$i18n.locale == "en") {
           this.errMsg("Choose Action First");
@@ -654,19 +661,30 @@ export default {
       }
     },
     favoriteBulkAddToCart() {
-      let payload = {
-        ids: this.checkedItems,
+
+      let data = {
+        product_supplier_id: this.checkedItems,
+        quantity:  1,
       };
-      profile
-        .favoriteBulkAddToCart(payload)
+
+      return globalAxios
+        .post(`cart/bulk/add`, data)
         .then((res) => {
-          this.sucessMsg(res.data.message);
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+          }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
           this.errors = err.items;
           this.errMsg(err.message);
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.$store.dispatch("cart/getCartProducts");
+          }, 500);
         });
+
     },
     favoriteBulkRemoveFav() {
       let payload = {
@@ -683,20 +701,21 @@ export default {
           this.errMsg(err.message);
         });
     },
-    favoriteBulkStandingOrde() {
-      let payload = {
-        ids: this.checkedItems,
-      };
-      profile
-        .favoriteBulkStandingOrde(payload)
-        .then((res) => {
-          this.sucessMsg(res.data.message);
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        });
+    favoriteBulkStandingOrder() {
+      // let payload = {
+      //   ids: this.checkedItems,
+      // };
+      // profile
+      //   .favoriteBulkStandingOrde(payload)
+      //   .then((res) => {
+      //     this.sucessMsg(res.data.message);
+      //   })
+      //   .catch((error) => {
+      //     const err = Object.values(error)[2].data;
+      //     this.errors = err.items;
+      //     this.errMsg(err.message);
+      //   });
+      this.$refs['standingOrdersModal'].show()
     },
 
     /**
@@ -746,7 +765,6 @@ export default {
      * @vuese
      */
     addToCart(item) {
-      console.log(item.product_supplier_id);
       let data = {
         product_supplier_id: item.product_supplier_id,
         quantity: item.product_supplier.product_details_by_type
@@ -948,7 +966,7 @@ export default {
         var checkedItems = [];
         if (value) {
           this.wishlistItems.forEach(function (order) {
-            checkedItems.push(order.id);
+            checkedItems.push(order.product_supplier_id);
           });
         }
         this.checkedItems = checkedItems;

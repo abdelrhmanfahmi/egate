@@ -7,7 +7,7 @@
           <div class="register-info">
             <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
             <router-link to="/b2b-register" class="back">
-              <span> &#60; {{ $t("register.haveNotAccount") }}</span>
+              <span class="main-color"> &#60; {{ $t("register.haveNotAccount") }}</span>
             </router-link>
           </div>
           <form @submit.prevent="login()">

@@ -141,4 +141,5 @@ export default {
       component: NotificationSettings,
     },
   ],
+  props:true
 };
