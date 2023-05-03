@@ -51,9 +51,8 @@
           </nav>
         </div>
       </div>
-
       <div class="progressSlider">
-        <NewProgressSlider :parent_categoryVariants="parent_categoryVariants" />
+        <NewProgressSlider :parent_categoryVariants="allSubCategories" />
       </div>
       <div class="container">
         <div class="content">
@@ -1171,6 +1170,8 @@ export default {
       parentTitle: sessionStorage.getItem("parentTitle"),
       PageTitle: null,
       PageId: null,
+      allSubCategories:null,
+      allSubCategoriesLength:null,
     };
   },
   components: {
@@ -1401,6 +1402,7 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
+          console.log('parent_categoryVariants' , res);
           this.PageTitle = res.data.items.title;
           this.PageId = res.data.items.id;
           this.productInfo = res.data.items;
@@ -1414,6 +1416,21 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        });
+    },
+    async getAllSubCategories() {
+      await categories
+        .getAllSubCategories(sessionStorage.getItem('catId'))
+        .then((resp) => {
+          
+          this.allSubCategories = resp.data.items;
+          this.allSubCategoriesLength = resp.data.items.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     /**
@@ -1556,6 +1573,7 @@ export default {
     this.getCategoryProducts();
     this.getSingleProductDetails();
     this.getFilters();
+    this.getAllSubCategories()
   },
   watch: {
     $route: "updateId",
