@@ -127,6 +127,7 @@
                     <b>{{ $t("home.corporat") }}</b>
                     <b>{{ $t("home.suppliers") }}</b>
                   </router-link> -->
+                  <!-- new redirect link -->
                   <a
                     :href="`${supplierDomain}`"
                     target="_blank"
