@@ -119,14 +119,21 @@
                   >
                     <b>{{  $t("home.suppliers") }}</b>
                   </router-link> -->
-                  <router-link
+                  <!-- <router-link
                     to="/b2b-login"
                     class="border-main color-main br-5 p-2"
                     v-if="!buyerUserData || buyerUserData.type == 'b2c'"
                   >
-                    <!-- <b>{{ $t("home.corporat") }}</b> -->
+                    <b>{{ $t("home.corporat") }}</b>
                     <b>{{ $t("home.suppliers") }}</b>
-                  </router-link>
+                  </router-link> -->
+                  <!-- new redirect link -->
+                  <a
+                    :href="`${supplierDomain}`"
+                    target="_blank"
+                    class="border-main color-main br-5 p-2"
+                    >{{ $t("home.suppliers") }}</a
+                  >
                 </div>
                 <div
                   v-if="!mobile"
@@ -777,9 +784,9 @@ html:lang(ar) {
   top: 20px;
   height: 100%;
   right: 24px;
-  @media(max-width:500px){
+  @media (max-width: 500px) {
     top: 60px;
-    right:2rem
+    right: 2rem;
   }
 
   svg {

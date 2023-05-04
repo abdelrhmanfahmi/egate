@@ -35,7 +35,7 @@
               {{ $t("items.home") }}
             </router-link>
           </li>
-          <li class="breadcrumb-item">
+          <li class="breadcrumb-item" v-if="categoryTitle">
             <router-link :to="`/categories/${categoryId}`"> {{ categoryTitle }} </router-link>
           </li>
           <!-- <li class="breadcrumb-item">
