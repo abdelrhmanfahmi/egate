@@ -21,59 +21,62 @@
           <!-- top nav -->
         </ul>
       </nav>
-      <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
-        <div
-          @click.prevent="opened = !opened"
-          class="d-flex align-items-center toggle-menu"
-        >
-          <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
-          <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
-        </div>
-        <!-- side menu if user is b2c  -->
-        <div class="" v-if="buyerUserData">
-          <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" />
-          <!-- side menu if user is b2b (buyer)  -->
-          <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false" />
-        </div>
-      </div>
-      <div id="main" :class="{ mainopen: opened }">
-        <!-- nav bar  -->
-        <Nav />
-        <!-- alert div if user dosnt activate his account  -->
-        <b-alert variant="danger" show v-if="massgeOfVerify">
-          <b-container>
-            <router-link to="/otp-verification" class="otp-link text-danger">
-              {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
-            </router-link>
-          </b-container>
-        </b-alert>
+      <div class="holder" :class="{'sideB2cOpen':opened && buyerUserData.type == 'b2c' , 'sideB2cClosed':!opened && buyerUserData.type == 'b2c' }">
 
-        <!-- router that contain pages  -->
-        <div class="router-holder">
-          <transition name="slide-fade">
-            <router-view class="view"></router-view>
-          </transition>
-        </div>
-
-        <!-- button to scroll to top  -->
-        <div class="top-btn" @click="goTop" v-if="visible">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#4a5568"
-            stroke-width="1"
-            stroke-linecap="square"
-            stroke-linejoin="arcs"
+        <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }" v-if="ProfileLayout == true && buyerUserData.type == 'b2c'">
+          <div
+            @click.prevent="opened = !opened"
+            class="d-flex align-items-center toggle-menu"
           >
-            <path d="M18 15l-6-6-6 6" />
-          </svg>
+            <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
+            <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
+          </div>
+          <!-- side menu if user is b2c  -->
+          <div class="" v-if="buyerUserData">
+            <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" :opened="opened" />
+            <!-- side menu if user is b2b (buyer)  -->
+            <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false" :opened="opened" />
+          </div>
         </div>
-        <cookizComponent />
-        <NewFooter />
-        <!-- <Footer /> -->
+        <div id="main" :class="{ mainopen: opened }">
+          <!-- nav bar  -->
+          <Nav />
+          <!-- alert div if user dosnt activate his account  -->
+          <b-alert variant="danger" show v-if="massgeOfVerify">
+            <b-container>
+              <router-link to="/otp-verification" class="otp-link text-danger">
+                {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
+              </router-link>
+            </b-container>
+          </b-alert>
+  
+          <!-- router that contain pages  -->
+          <div class="router-holder">
+            <transition name="slide-fade">
+              <router-view class="view"></router-view>
+            </transition>
+          </div>
+  
+          <!-- button to scroll to top  -->
+          <div class="top-btn" @click="goTop" v-if="visible">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#4a5568"
+              stroke-width="1"
+              stroke-linecap="square"
+              stroke-linejoin="arcs"
+            >
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </div>
+          <cookizComponent />
+          <NewFooter />
+          <!-- <Footer /> -->
+        </div>
       </div>
     </div>
   </div>

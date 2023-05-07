@@ -1,7 +1,7 @@
 <template>
-  <div class="profile-layout" :class="$i18n.locale">
+  <div class="profile-layout b2bLayout" :class="$i18n.locale">
     <div id="allTheNav">
-      <nav
+      <!-- <nav
         id="navigator"
         class="navbar"
         :class="{ navbaropen: opened }"
@@ -17,21 +17,40 @@
           </a>
         </span>
         <ul class="navbar-nav">
-          <!-- top nav -->
+          top nav
         </ul>
-      </nav>
+      </nav> -->
       <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
         <div
           @click.prevent="opened = !opened"
           class="d-flex align-items-center toggle-menu"
         >
-          <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
-          <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
+          <span v-if="opened">
+            <span
+              ><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x"
+            /></span>
+            <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
+          </span>
+          <span v-else>
+            <span
+              ><font-awesome-icon icon="fa-solid fa-bars-staggered" size="2x"
+            /></span>
+          </span>
         </div>
         <!-- side menu if user is b2c  -->
-        <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" />
+        <SideMenu
+          v-if="userInfo.item.type === 'b2c'"
+          :userBades="userBades"
+          @closeSideMenu="opened = false"
+          :opened="opened"
+        />
         <!-- side menu if user is b2b (buyer)  -->
-        <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false"/>
+        <SideMenuB2b
+          :userBades="userBades"
+          v-else
+          @closeSideMenu="opened = false"
+          :opened="opened"
+        />
       </div>
       <div id="main" :class="{ mainopen: opened }">
         <!-- nav bar  -->
@@ -40,7 +59,8 @@
         <b-alert variant="danger" show v-if="massgeOfVerify">
           <b-container>
             <router-link to="/otp-verification" class="otp-link text-danger">
-              {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
+              {{ massgeOfVerify }}
+              <font-awesome-icon icon="fa-solid fa-right-long" />
             </router-link>
           </b-container>
         </b-alert>
