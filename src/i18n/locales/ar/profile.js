@@ -341,4 +341,7 @@ export default {
   companyLogo: "لوجو الشركة",
   Upload: "تحميل",
   createdDate: "وقت الانشاء",
+  charges:'مبالغ الشحن',
+  moneyTransfer:'تحويل النقود',
+  monyAmount:'المبلغ'
 };
