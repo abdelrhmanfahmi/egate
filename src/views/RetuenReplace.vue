@@ -35,6 +35,7 @@
                 <div class="product-counter mb-2">
                   <div
                     class="actions d-flex justify-content-center align-items-center"
+                    :class="$i18n.locale"
                   >
                     <button
                       class="product-counter-btn"
