@@ -59,7 +59,11 @@ export default {
   // buisness info
 
   buissnessinfoUpload(payload) {
-    return globalAxios.post(`members/profile/business-info`, payload);
+    return globalAxios.post(`members/profile/business-info`, payload,{
+      params:{
+        form_control :'user-b2b-document'
+      }
+    });
   },
   getBuissnessinfodata() {
     return globalAxios.get(`members/profile/business-info`);
@@ -70,7 +74,11 @@ export default {
   // documents info
 
   suppDocUpload(payload) {
-    return globalAxios.post(`members/profile/documents`, payload);
+    return globalAxios.post(`members/profile/documents`, payload,{
+      params:{
+        form_control :'user-b2b-document'
+      }
+    });
   },
   getSuppDocUploadData() {
     return globalAxios.get(`members/profile/documents`);
@@ -81,7 +89,11 @@ export default {
   // bank info
 
   ibanUpload(payload) {
-    return globalAxios.post(`members/profile/bank-info`, payload);
+    return globalAxios.post(`members/profile/bank-info`, payload,{
+      params:{
+        form_control :'user-b2b-document'
+      }
+    });
   },
   getibanUploadData() {
     return globalAxios.get(`members/profile/bank-info`);
