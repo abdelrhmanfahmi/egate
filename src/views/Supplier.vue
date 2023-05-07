@@ -173,7 +173,7 @@ export default {
       suppliers
         .getSupplierProducts(id)
         .then((resp) => {
-          this.supplierProducts = resp.data.items.data.slice(0, 4);
+          this.supplierProducts = resp.data.items.data.slice(0, 20);
           resp.data.items.data.length > 0
             ? (this.supplierProductsLength = resp.data.items.data.length)
             : (this.supplierProductsLength = 0);

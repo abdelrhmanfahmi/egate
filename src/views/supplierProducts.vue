@@ -3,15 +3,20 @@
   <div class="subCategory">
     <div class="data-holder py-5">
       <div class="container">
-        <div class="intro text-center">
-          <h1 v-if="supplier">
-             <span class="d-block">{{ $t("supplier.Shop") }}</span>
-             <span>
-               {{ supplier.company_name }}
-             </span>
-          </h1>
-
+        <div
+          class="intro text-center d-flex justify-content-center align-content-center"
+        >
+          <div class="supplier-img" v-if="supplier && supplier.image_path">
+            <img :src="supplier.image_path" alt="" class="supplier-image"  />
+          </div>
+          <h2 v-if="supplier" class="mx-3">
+            <span class="d-block">{{ $t("supplier.Shop") }}</span>
+            <span>
+              {{ supplier.company_name }}
+            </span>
+          </h2>
         </div>
+        
         <div class="" v-if="supplierProductsLength">
           <div class="row justify-content-around align-items-center">
             <div class="col-md-6 col-sm-12 mb-3 d-flex">
@@ -27,8 +32,9 @@
                 }}</b>
               </p>
             </div>
-            <div class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end">
-            </div>
+            <div
+              class="col-md-6 col-sm-12 mb-3 d-flex justify-content-end"
+            ></div>
           </div>
           <div class="data">
             <div class="row">
@@ -55,11 +61,11 @@
 </template>
 
 <script>
-// supplier products page 
+// supplier products page
 import { BIconGrid } from "bootstrap-vue";
 import Product from "@/components/pages/supplier/products/Product";
 import suppliers from "@/services/suppliers";
-import globalAxios from "@/services/global-axios.js"
+import globalAxios from "@/services/global-axios.js";
 export default {
   data() {
     return {
@@ -214,5 +220,11 @@ input {
       box-shadow: 0 0 0 0;
     }
   }
+}
+.supplier-image{
+  width: 100px;
+  height:100px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 </style>
