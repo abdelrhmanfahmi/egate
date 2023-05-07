@@ -126,7 +126,8 @@
             </div>
 
             <div class="images-holder">
-              <ul class="files mt-4">
+              <p class="mb-0">{{$t('profile.uploadDamageProducts')}}</p>
+              <ul class="files">
                 <li
                   v-for="(file, index) in representedImages"
                   :key="index"
@@ -641,7 +642,7 @@ export default {
 .file-holder {
   position: relative;
   border: 2px solid $gray;
-  margin: 15px;
+  margin: 10px  3px 15px;
   padding: 30px;
   border-radius: 10px;
   display: inline-block;

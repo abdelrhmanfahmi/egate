@@ -343,5 +343,6 @@ export default {
   createdDate: "وقت الانشاء",
   charges:'مبالغ الشحن',
   moneyTransfer:'تحويل النقود',
-  monyAmount:'المبلغ'
+  monyAmount:'المبلغ',
+  uploadDamageProducts:'قم برفع صور المنتجات'
 };

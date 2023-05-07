@@ -2,17 +2,17 @@
   <!-- return replace page  -->
   <div>
     <div class="container">
-      <div class="row justify-content-center align-items-center pt-5 mt-5">
+      <!-- <div class="row justify-content-center align-items-center pt-5 mt-5">
         <h2 class="title">
           {{ $t("profile.replaceMethods") }}
         </h2>
-      </div>
+      </div> -->
       <div class="row justify-content-center align-items-center pb-5 my-5">
         <div class="col-7">
           <form class="returnData mb-5">
             <div class="form-input mb-4">
               <label>
-                {{ $t("profile.returnReason") }}
+                <h4>{{ $t("profile.returnReason") }}</h4>
               </label>
               <!-- dropdown for reasons  -->
               <b-form-select v-model="returnData.return_reason" class="mb-3">
@@ -26,6 +26,66 @@
                   >{{ reason.name }}</b-form-select-option
                 >
               </b-form-select>
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.return_reason"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+            <div class="images-holder">
+              <p class="mb-0">{{$t('profile.uploadDamageProducts')}}</p>
+              <ul class="files">
+                <li
+                  v-for="(file, index) in representedImages"
+                  :key="index"
+                  class="file-holder"
+                >
+                  <div class="file-data">
+                    <img :src="file" alt="" srcset="" />
+                    <button
+                      @click.prevent="removeFile(index)"
+                      class="border-none mx-2"
+                      title="Remove"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-trash-can" />
+                    </button>
+                  </div>
+                </li>
+                <li class="file-holder">
+                  <div class="company-logo">
+                    <main class="">
+                      <div class="data-holder">
+                        <div @drop.prevent="handleFileDrop">
+                          <br />
+                          <div class="file-wrapper">
+                            <input
+                              type="file"
+                              name="file-input"
+                              @change.prevent="handleFileInput"
+                              multiple
+                            />
+                            <div class="d-flex flex-column text-holder">
+                              <p class="text-shown sign m-0 h2">+</p>
+                              <p class="text-shown text h2">
+                                {{ $t("profile.Upload") }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </main>
+                  </div>
+                </li>
+              </ul>
+              <div
+                class="error text-start"
+                v-for="(error, index) in uploadErrors.image"
+                :key="index"
+              >
+                {{ error }}
+              </div>
             </div>
             <div class="row">
               <div class="col-4">
@@ -84,60 +144,7 @@
                     drop-placeholder="Drop file here..."
                   ></b-form-file>
                 </b-form-group> -->
-
-                <div
-                  class="error text-start"
-                  v-for="(error, index) in uploadErrors.image"
-                  :key="index"
-                >
-                  {{ error }}
-                </div>
               </div>
-            </div>
-            <div class="images-holder">
-              <ul class="files mt-4">
-                <li
-                  v-for="(file, index) in representedImages"
-                  :key="index"
-                  class="file-holder"
-                >
-                  <div class="file-data">
-                    <img :src="file" alt="" srcset="" />
-                    <button
-                      @click.prevent="removeFile(index)"
-                      class="border-none mx-2"
-                      title="Remove"
-                    >
-                      <font-awesome-icon icon="fa-solid fa-trash-can" />
-                    </button>
-                  </div>
-                </li>
-                <li class="file-holder">
-                  <div class="company-logo">
-                    <main class="">
-                      <div class="data-holder">
-                        <div @drop.prevent="handleFileDrop">
-                          <br />
-                          <div class="file-wrapper">
-                            <input
-                              type="file"
-                              name="file-input"
-                              @change.prevent="handleFileInput"
-                              
-                            />
-                            <div class="d-flex flex-column text-holder">
-                              <p class="text-shown sign m-0 h2">+</p>
-                              <p class="text-shown text h2">
-                                {{ $t("profile.Upload") }}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </main>
-                  </div>
-                </li>
-              </ul>
             </div>
 
             <!-- enter message  -->
@@ -151,7 +158,6 @@
             ></b-form-textarea>
             <b-button
               type="submit"
-
               class="saveBtn btn-block py-3 mt-3 border-main"
               :disabled="
                 btn1Disabled ||
@@ -222,7 +228,7 @@ export default {
         this.files.push(f);
         this.representedImages.push(URL.createObjectURL(f));
       });
-      this.returnData.image = e.target.files[0]
+      // this.returnData.image = e.target.files[0]
     },
     removeFile(fileKey) {
       this.files.splice(fileKey, 1);
@@ -252,8 +258,14 @@ export default {
       this.btn1Disabled = true;
       let formData = new FormData();
 
-      if (this.returnData.image !== null) {
-        formData.append("image", this.returnData.image);
+      if (this.files.length) {
+        // if (this.returnData.image !== null) {
+        // formData.append("image", this.returnData.image);
+
+        for (var i = 0; i < this.files.length; i++) {
+          let file = this.files[i];
+          formData.append("image[" + i + "]", file);
+        }
       }
 
       if (
@@ -423,7 +435,7 @@ export default {
 
 .company-logo {
   main {
-    margin-top: -30px;
+    //margin-top: -30px;
     height: 100%;
   }
 
@@ -458,7 +470,7 @@ export default {
     //border: 2px solid $top-header-color;
     border-radius: 5px;
     color: #545454;
-    padding: 45px 25px;
+    padding: 54px 25px;
   }
   .file-input {
     color: $top-header-color;
@@ -471,15 +483,15 @@ export default {
 .file-holder {
   position: relative;
   border: 2px solid $gray;
-  margin: 15px;
+  margin: 10px  3px 15px;
   padding: 30px;
   border-radius: 10px;
   display: inline-block;
-  min-height: 215px;
+  min-height: 250px;
 
   img {
     width: 150px;
-    height: 150px;
+    height: 200px;
     border-radius: 10px;
   }
   button {
@@ -492,5 +504,8 @@ export default {
     font-size: 15px;
     background: transparent;
   }
+}
+.method {
+  margin: 10px 0;
 }
 </style>

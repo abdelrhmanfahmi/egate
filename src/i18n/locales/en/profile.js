@@ -355,5 +355,6 @@ export default {
   createdDate:'Created Date',
   charges:'Charges',
   moneyTransfer:'Money Transfer',
-  monyAmount:"Amount"
+  monyAmount:"Amount",
+  uploadDamageProducts:'Upload Image Of Damaged Products :'
 };
