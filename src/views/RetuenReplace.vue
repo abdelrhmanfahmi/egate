@@ -264,7 +264,7 @@ export default {
 
         for (var i = 0; i < this.files.length; i++) {
           let file = this.files[i];
-          formData.append("image[" + i + "]", file);
+          formData.append("images[" + i + "]", file);
         }
       }
 

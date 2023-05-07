@@ -371,8 +371,7 @@ export default {
         // formData.append("image", this.returnData.image);
         for (var i = 0; i < this.files.length; i++) {
           let file = this.files[i];
-          formData.append("image[" + i + "]", file);  
-          console.log('file' ,file );
+          formData.append("images[" + i + "]", file);  
         }
       }
 
