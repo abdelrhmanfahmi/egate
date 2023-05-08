@@ -349,5 +349,12 @@ export default {
   step2:'خطوة 2',
   myCart:'مشترياتى',
   contactInfo:'معلومات التواصل',
-  clearAll:'مسح الكل'
+  clearAll:'مسح الكل',
+  subtotal:'المجموع-الفرعي',
+  returnDetails:'معلومات عن المنتجات',
+  requestType:'نوع الطلب',
+  branch:'الفرع',
+  uploadedImages:'الصور المرفقه',
+  printMemo:'طباعة مذكرة',
+  productDetails:'معلومات المنتج'
 };

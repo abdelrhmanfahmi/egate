@@ -361,5 +361,12 @@ export default {
   step1:'Step 1',
   myCart:'My Cart',
   contactInfo:'Contact Info',
-  clearAll:'Clear All'
+  clearAll:'Clear All',
+  subtotal:'Sub-Total',
+  returnDetails:'Return Request Details',
+  requestType:'Request Type',
+  branch:'Branch',
+  uploadedImages:'Uploaded Images',
+  printMemo:'Print Memo',
+  productDetails :'Product Details'
 };
