@@ -265,7 +265,7 @@
                                       </label>
 
                                       <!-- existing addresses if it exist  -->
-                                      <span
+                                      <!-- <span
                                         v-if="
                                           selectAddressShape ===
                                             'existingAddresses' &&
@@ -342,7 +342,7 @@
                                             >
                                           </b-form-select-option>
                                         </b-form-select>
-                                      </span>
+                                      </span> -->
                                     </form>
                                   </div>
                                   <!-- add new address data if you select add new address  -->
@@ -907,6 +907,77 @@
                                       icon="fa-solid fa-arrow-down"
                                     />
                                   </div>
+                                </div>
+                                <div class="addresses-holder mt-5 shopping-cart-page"  v-if="
+                                selectAddressShape ===
+                                  'existingAddresses' &&
+                                addresses &&
+                                addresses.length != 0
+                              ">
+                                  <b-row v-if="loading" class="px-5">
+                                    <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+                                      <b-skeleton-img></b-skeleton-img>
+                                      <b-card>
+                                        <b-skeleton
+                                          animation="fade"
+                                          width="60%"
+                                          class="border-none"
+                                        ></b-skeleton>
+                                        <b-skeleton
+                                          animation="fade"
+                                          width="85%"
+                                          class="border-none"
+                                        ></b-skeleton>
+                                      </b-card>
+                                    </b-col>
+                                  </b-row>
+                                  <!-- data comes from backend  -->
+                                  <VueSlickCarousel
+                                    v-bind="settings"
+                                    v-if="addresses && addresses.length"
+                                  >
+                                    <div
+                                      v-for="(address, index) in addresses"
+                                      :key="index"
+                                      class="slider-data"
+                                      @click.prevent="selectedAddress = address ; changeAddress() "
+                                    >
+                                      <div class="sign my-2 d-flex align-items-center">
+                                        <span
+                                          ><font-awesome-icon icon="fa-regular fa-circle-check" size="2x"
+                                        /></span>
+                                        <span class="h6 mx-2">Deliver To This Address</span>
+                                      </div>
+                                      <div class="address-data">
+                                        <div class="row mb-2">
+                                          <div class="col-md-6 col-sm-12" v-if="address.country">
+                                            <div>{{ $t("profile.country") }} : {{ address.country.title }}</div>
+                                          </div>
+                                          <div class="col-md-6 col-sm-12" v-if="address.region">
+                                            <div>{{ $t("profile.region") }} : {{ address.region.title }}</div>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                          <div class="col-md-6 col-sm-12" v-if="address.city">
+                                            <div>{{ $t("profile.city") }} : {{ address.city.title }}</div>
+                                          </div>
+                                          <div class="col-md-6 col-sm-12" v-if="address.block">
+                                            <div>{{ $t("profile.block_number") }} : {{ address.block }}</div>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                          <div class="col-md-6 col-sm-12" v-if="address.street">
+                                            <div>
+                                              {{ $t("profile.newStreetNumber") }} : {{ address.street }}
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-sm-12" v-if="address.floor">
+                                            <div>{{ $t("profile.floor") }} : {{ address.floor }}</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </VueSlickCarousel>
                                 </div>
                               </div>
                               <!-- <div class="" v-else></div> -->
@@ -1633,6 +1704,7 @@
             </div>
           </div>
         </div>
+       
       </div>
       <div class="step2 my-3">
         <div class="" v-if="!loading">
@@ -2126,6 +2198,11 @@ import suppliers from "@/services/suppliers";
 import globalAxios from "@/services/global-axios";
 import LoginModal from "@/components/global/loginModal.vue";
 
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
 import auth from "@/services/auth";
 import profile from "@/services/profile";
 import Vue from "vue";
@@ -2138,9 +2215,50 @@ export default {
     BasketCounter,
     LoginModal,
     dynamicComponent,
+    VueSlickCarousel
   },
   data() {
     return {
+       // slider settings
+       settings: {
+        dots: false,
+        infinite: false,
+        arrows: true,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        swipeToSlide: true,
+        autoplay: false,
+        centerMode: false,
+        clickable: true,
+        accessibility: true,
+        draggable: true,
+        focusOnSelect: true,
+
+        responsive: [
+          {
+            breakpoint: 1191,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      },
       coupon: null,
       discount: 0,
       loading: false,
