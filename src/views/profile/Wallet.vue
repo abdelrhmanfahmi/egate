@@ -21,16 +21,16 @@
             <form @submit.prevent="chargeWallet" class="">
               <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 col-sm-12">
-                 <div class="input-holder">
-                  <b-form-input
-                  type="number"
-                  v-model="chargeValue"
-                  min="0"
-                  :placeholder="$t('profile.enterValue')"
-                  class="mx-2"
-                ></b-form-input>
-                <span class="currency">{{currency}}</span>
-                 </div>
+                  <div class="input-holder">
+                    <b-form-input
+                      type="number"
+                      v-model="chargeValue"
+                      min="0"
+                      :placeholder="$t('profile.enterValue')"
+                      class="mx-2"
+                    ></b-form-input>
+                    <span class="currency">{{ currency }}</span>
+                  </div>
                   <div
                     class="error text-center"
                     v-for="(error, index) in errors.value"
@@ -43,10 +43,11 @@
                   class="col-lg-6 col-sm-12 d-flex justify-content-between align-items-center"
                 >
                   <b-button
-                  class="bg-main"
+                    class="bg-main"
                     type="submit"
-                    
-                    :disabled="chargeClicked || !chargeValue || chargeValue == 0"
+                    :disabled="
+                      chargeClicked || !chargeValue || chargeValue == 0
+                    "
                   >
                     <span v-if="chargeClicked">
                       <b-spinner label="Spinning" small></b-spinner>
@@ -56,7 +57,6 @@
                   </b-button>
                   <b-button
                     class="border-main main-color bg-transparent"
-                    
                     @click="showEmailModal"
                   >
                     <b>{{ $t("profile.withdraw") }}</b>
@@ -89,8 +89,16 @@
               <label for="">
                 <h6>{{ $t("profile.enterwithdrawValue") }}</h6>
               </label>
-              <b-form-input type="number" v-model="newForm.amount" min="0"></b-form-input>
-              <div class="error" v-for="(error, index) in errors.amount" :key="index">
+              <b-form-input
+                type="number"
+                v-model="newForm.amount"
+                min="0"
+              ></b-form-input>
+              <div
+                class="error"
+                v-for="(error, index) in errors.amount"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </b-form-group>
@@ -131,9 +139,17 @@
                 <label for="iban">
                   <h6>{{ $t("profile.iban") }}</h6>
                 </label>
-                <b-form-input type="text" id="iban" v-model="newForm.iban"></b-form-input>
+                <b-form-input
+                  type="text"
+                  id="iban"
+                  v-model="newForm.iban"
+                ></b-form-input>
               </div>
-              <div class="error" v-for="(error, index) in errors.iban" :key="index">
+              <div
+                class="error"
+                v-for="(error, index) in errors.iban"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </b-form-group>
@@ -149,17 +165,27 @@
                   v-model="newForm.bank_name"
                 ></b-form-input>
               </div>
-              <div class="error" v-for="(error, index) in errors.bank_name" :key="index">
+              <div
+                class="error"
+                v-for="(error, index) in errors.bank_name"
+                :key="index"
+              >
                 {{ error }}
               </div>
             </b-form-group>
           </form>
         </div>
         <div class="row justify-content-around align-items-center">
-          <b-button class="mt-3" variant="outline-danger" @click="hideWithdrowModal">{{
-            $t("cart.cancel")
-          }}</b-button>
-          <b-button class="mt-2" variant="outline-success" @click="walletPostWithdraw"
+          <b-button
+            class="mt-3"
+            variant="outline-danger"
+            @click="hideWithdrowModal"
+            >{{ $t("cart.cancel") }}</b-button
+          >
+          <b-button
+            class="mt-2"
+            variant="outline-success"
+            @click="walletPostWithdraw"
             >{{ $t("profile.withdraw") }}
           </b-button>
         </div>
@@ -168,7 +194,13 @@
       <section class="tabs-holder">
         <div class="tab-wrap">
           <!-- receivables tab input  -->
-          <input type="radio" id="recivables" name="tabGroup1" class="tab" checked />
+          <input
+            type="radio"
+            id="recivables"
+            name="tabGroup1"
+            class="tab"
+            checked
+          />
 
           <!-- receivables tab label  -->
 
@@ -184,21 +216,24 @@
           <label for="payments">
             <h5 class="tab-title">{{ $t("profile.payments") }}</h5>
           </label>
+
           <!-- charges tab input  -->
 
-          <!-- <input type="radio" id="charges" name="tabGroup1" class="tab" /> -->
+          <input type="radio" id="charges" name="tabGroup1" class="tab" />
 
           <!-- charges tab label  -->
-          <!-- <label for="charges">
+          <label for="charges">
             <h5 class="tab-title">{{ $t("profile.charges") }}</h5>
-          </label> -->
+          </label>
 
           <!-- receivables tab data  -->
 
           <div class="tab__content">
             <div class="recivables py-3" v-if="recivablesLength > 0">
               <div class="holder text-center" v-if="recivables">
-                <table class="table table-striped table-hover table-bordered selectable">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
                   <thead>
                     <tr>
                       <th
@@ -227,7 +262,9 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="d-flex justify-content-start align-items-center mt-5">
+                <div
+                  class="d-flex justify-content-start align-items-center mt-5"
+                >
                   <Paginate
                     v-if="recivables && recivablesLength > 1"
                     :total-pages="recivableTotalPages"
@@ -254,7 +291,9 @@
           <div class="tab__content">
             <div class="payments py-3" v-if="paymentsLength > 0">
               <div class="holder text-center" v-if="payments">
-                <table class="table table-striped table-hover table-bordered selectable">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
                   <thead>
                     <tr>
                       <th
@@ -286,7 +325,8 @@
                       </td>
                       <td>
                         <span v-if="order.amount" class="main-color"
-                          >{{ order.amount | fixedCurrency }} {{ currency }}</span
+                          >{{ order.amount | fixedCurrency }}
+                          {{ currency }}</span
                         >
                         <span v-else>-</span>
                       </td>
@@ -303,7 +343,9 @@
                         <span v-else></span>
                       </td>
                       <td>
-                        <span v-if="order.payment_type">{{ order.payment_type }}</span>
+                        <span v-if="order.payment_type">{{
+                          order.payment_type
+                        }}</span>
                         <span v-else>-</span>
                       </td>
 
@@ -348,7 +390,9 @@
                     </tr>
                   </tbody>
                 </table>
-                <div class="d-flex justify-content-start align-items-center mt-5">
+                <div
+                  class="d-flex justify-content-start align-items-center mt-5"
+                >
                   <Paginate
                     v-if="payments && paymentsLength > 1"
                     :total-pages="paymentTotalPages"
@@ -373,9 +417,11 @@
           <!-- charges tab data  -->
 
           <div class="tab__content">
-            <div class="payments py-3" v-if="charges && chargesLength > 0">
+            <div class="charges py-3" v-if="charges && chargesLength > 0">
               <div class="holder text-center" v-if="charges">
-                <table class="table table-striped table-hover table-bordered selectable">
+                <table
+                  class="table table-striped table-hover table-bordered selectable"
+                >
                   <thead>
                     <tr>
                       <th
@@ -390,92 +436,55 @@
                   <tbody>
                     <tr v-for="(order, index) in charges" :key="index">
                       <td>
-                        <span v-if="order.serial">{{ order.serial }}</span>
-                        <span v-else></span>
-                      </td>
-                      <td>
                         <span v-if="order.created_at">{{
                           order.created_at | formatDate
                         }}</span>
                         <span v-else>-</span>
                       </td>
                       <td>
-                        <span v-if="order.products_count">{{
-                          order.products_count
-                        }}</span>
-                        <span v-else>-</span>
+                        <div v-if="order.money_transfer">
+                          <span> {{ order.money_transfer }}</span>
+                          <p v-if="order.tap_charge_id">
+                            {{ order.tap_charge_id }}
+                          </p>
+                        </div>
+                        <div v-else>-</div>
                       </td>
                       <td>
                         <span v-if="order.amount" class="main-color"
-                          >{{ order.amount | fixedCurrency }} {{ currency }}</span
+                          >{{ order.amount | fixedCurrency }}
+                          {{ currency }}</span
                         >
                         <span v-else>-</span>
                       </td>
                       <td>
                         <span
-                          v-if="order.payment_status"
+                          v-if="order.status"
                           :class="{
                             'text-success':
-                              order.payment_status == 'Paid' ||
-                              order.payment_status == 'تم الدفع',
+                              order.status == 'Paid' ||
+                              order.status == 'تم الدفع',
                           }"
-                          >{{ order.payment_status }}</span
+                          >{{ order.status }}</span
                         >
                         <span v-else></span>
                       </td>
                       <td>
-                        <span v-if="order.payment_type">{{ order.payment_type }}</span>
+                        <span v-if="order.type">{{ order.type }}</span>
                         <span v-else>-</span>
-                      </td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            path: '/viewOrderDetails',
-                            query: { id: `${order.order_id}` },
-                          }"
-                          class="text-dark"
-                        >
-                          <b-button
-                            variant="outline-light main-color border-main"
-                            class="m-2"
-                          >
-                            <font-awesome-icon icon="fa-regular fa-eye" />
-                          </b-button>
-                        </router-link>
-                        <router-link
-                          v-if="
-                            order.payment_status === 'Unpaid' &&
-                            order.payment_type === 'bank'
-                          "
-                          :to="{
-                            path: '/checkout-details',
-                            query: {
-                              order_serial: order.serial,
-                              date: order.created_at,
-                              total_price: order.total_price,
-                              payment_type: order.payment_type,
-                              payment: order.payment,
-                              uuid: order.uuid,
-                            },
-                          }"
-                          class="text-dark"
-                        >
-                          <b-button variant="outline-success" class="m-2">
-                            {{ $t("profile.bankTransDocs") }}
-                          </b-button>
-                        </router-link>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="d-flex justify-content-start align-items-center mt-5">
+                <div
+                  class="d-flex justify-content-start align-items-center mt-5"
+                >
                   <Paginate
                     v-if="charges && chargesLength > 1"
-                    :total-pages="paymentTotalPages"
-                    :per-page="paymentPerPage"
-                    :current-page="paymentPage"
-                    @pagechanged="onchargesPageChange"
+                    :total-pages="chargesTotalPages"
+                    :per-page="chargesPerPage"
+                    :current-page="chargesPage"
+                    @pagechanged="onChargesChange"
                   />
                 </div>
               </div>
@@ -501,7 +510,9 @@
         <div class="">
           <div class="payments py-3">
             <div class="holder text-center" v-if="withdrowData">
-              <table class="table table-striped table-hover table-bordered selectable">
+              <table
+                class="table table-striped table-hover table-bordered selectable"
+              >
                 <thead>
                   <tr>
                     <th v-for="(tab, index) in withdrowHeadrer" :key="index">
@@ -541,7 +552,9 @@
                     </td>
                     <td>
                       <span v-if="order.status">
-                        <span v-if="order.status == 0">{{ $t("profile.pending") }}</span>
+                        <span v-if="order.status == 0">{{
+                          $t("profile.pending")
+                        }}</span>
                         <span v-if="order.status == 1">{{
                           $t("profile.transferred")
                         }}</span>
@@ -553,7 +566,10 @@
                 </tbody>
               </table>
             </div>
-            <div class="spinner d-flex justify-content-center align-items-center" v-else>
+            <div
+              class="spinner d-flex justify-content-center align-items-center"
+              v-else
+            >
               <spinner />
             </div>
           </div>
@@ -562,15 +578,24 @@
           <template #modal-header="{ close }">
             <h5>{{ $t("profile.withdrowFile") }}</h5>
             <!-- Emulate built in modal header close button action -->
-            <b-button size="sm" variant="outline-danger" @click="close()"> x </b-button>
+            <b-button size="sm" variant="outline-danger" @click="close()">
+              x
+            </b-button>
           </template>
           <div class="d-block">
-            <img :src="selectedImage" class="withdrow-image" alt="withdrow-image" />
+            <img
+              :src="selectedImage"
+              class="withdrow-image"
+              alt="withdrow-image"
+            />
           </div>
           <div class="row justify-content-around align-items-center">
-            <b-button class="mt-3" variant="outline-danger" @click="hideWithdrawFile">{{
-              $t("home.ok")
-            }}</b-button>
+            <b-button
+              class="mt-3"
+              variant="outline-danger"
+              @click="hideWithdrawFile"
+              >{{ $t("home.ok") }}</b-button
+            >
           </div>
         </b-modal>
       </section>
@@ -637,6 +662,36 @@ export default {
           label: this.$t("profile.Actions"),
         },
       ],
+      chargesHeadrer: [
+        // {
+        //   key: "id",
+        //   label: this.$t("profile.serial"),
+        // },
+        {
+          key: "date",
+          label: this.$t("profile.date"),
+        },
+        {
+          key: "money_transfer",
+          label: this.$t("profile.moneyTransfer"),
+        },
+        {
+          key: "amount",
+          label: this.$t("profile.amount"),
+        },
+        {
+          key: "paymentStatus",
+          label: this.$t("profile.paymentStatus"),
+        },
+        {
+          key: "buy-method",
+          label: this.$t("profile.buyMethod"),
+        },
+        // {
+        //   key: "Actions",
+        //   label: this.$t("profile.Actions"),
+        // },
+      ],
       withdrowHeadrer: [
         {
           key: "id",
@@ -683,6 +738,18 @@ export default {
       recivableRecordsPerPage: 10,
       recivableEnterpageno: "",
 
+      // charges
+
+      chargesPerPage: 5,
+      chargesTotal: 0,
+      chargesCurrentPage: 1,
+
+      chargesPage: 1,
+      chargesTotalPages: 0,
+      chargesTotalRecords: 0,
+      chargesRecordsPerPage: 10,
+      chargesEnterpageno: "",
+
       paymentFormData: {
         payment_type: null,
         order_uuid: null,
@@ -703,8 +770,8 @@ export default {
       },
       withdrowData: null,
       selectedImage: null,
-      charges:null,
-      chargesLength:null,
+      charges: null,
+      chargesLength: null,
       //
     };
   },
@@ -735,7 +802,8 @@ export default {
           this.paymentsLength = resp.data.items.payments.data.length;
           this.paymentTotal = resp.data.items.payments.meta.total;
           this.paymentTotalPages = Math.ceil(
-            resp.data.items.payments.meta.total / resp.data.items.payments.meta.per_page
+            resp.data.items.payments.meta.total /
+              resp.data.items.payments.meta.per_page
           ); // Calculate total records
 
           this.paymentTotalRecords = resp.data.items.payments.meta.total;
@@ -750,16 +818,17 @@ export default {
      */
     getWalletCharges() {
       profile
-        .getWalletCharges(this.paymentPage)
+        .getWalletCharges(this.chargesPage)
         .then((resp) => {
           this.charges = resp.data.items.charges.data;
           this.chargesLength = resp.data.items.charges.data.length;
-          this.paymentTotal = resp.data.items.charges.meta.total;
-          this.paymentTotalPages = Math.ceil(
-            resp.data.items.charges.meta.total / resp.data.items.charges.meta.per_page
+          this.chargesTotal = resp.data.items.charges.meta.total;
+          this.chargesTotalPages = Math.ceil(
+            resp.data.items.charges.meta.total /
+              resp.data.items.charges.meta.per_page
           ); // Calculate total records
 
-          this.paymentTotalRecords = resp.data.items.charges.meta.total;
+          this.chargesTotalRecords = resp.data.items.charges.meta.total;
         })
         .catch((err) => {
           console.log(err);
@@ -802,7 +871,15 @@ export default {
      */
     onRecivablesChange(page) {
       this.recivablePage = page;
-      this.onRecivablesChange();
+      this.getWalletRecivables();
+    },
+    /**
+     * on charges Change  function (for pagination)
+     * @vuese
+     */
+    onChargesChange(page) {
+      this.chargesPage = page;
+      this.getWalletCharges();
     },
     /**
      * charge Wallet function
@@ -1045,6 +1122,15 @@ export default {
   transform: translateY(0px);
   text-shadow: 0 0 0;
 }
+.tab:checked:nth-of-type(3) ~ .tab__content:nth-of-type(3) {
+  opacity: 1;
+  transition: 0.5s opacity ease-in, 0.8s transform ease;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
+  text-shadow: 0 0 0;
+}
 
 .tab:first-of-type:not(:last-of-type) + label {
   border-top-right-radius: 0;
@@ -1058,15 +1144,14 @@ export default {
 .tab:last-of-type:not(:first-of-type) + label {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  color:#D2D2D2
+  color: #d2d2d2;
 }
 
 .tab:checked + label {
   background-color: #fff;
   box-shadow: 0 -1px 0 #fff inset;
   cursor: default;
-  .tab-title{
-    
+  .tab-title {
     color: $main-color;
     border-bottom: 2px solid $main-color;
     font-weight: bold;
@@ -1166,22 +1251,22 @@ export default {
   width: 100%;
   object-fit: contain;
 }
-.input-holder{
-  position:relative;
-  .currency{
-    position:absolute;
-    right:0;
-    top:50%;
-    transform:translateY(-50%);
-    bottom:0;
-    font-size:16px
+.input-holder {
+  position: relative;
+  .currency {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: 0;
+    font-size: 16px;
   }
 }
-.tab-title{
-  font-weight:bold;
-  font-size:22px
+.tab-title {
+  font-weight: bold;
+  font-size: 22px;
 }
-button{
-  height:50px !important
+button {
+  height: 50px !important;
 }
 </style>

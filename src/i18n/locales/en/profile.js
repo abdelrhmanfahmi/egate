@@ -352,5 +352,9 @@ export default {
   perPage:"Show Me Per Page",
   companyLogo:'Company Logo',
   Upload:"Upload",
-  createdDate:'Created Date'
+  createdDate:'Created Date',
+  charges:'Charges',
+  moneyTransfer:'Money Transfer',
+  monyAmount:"Amount",
+  uploadDamageProducts:'Upload Image Of Damaged Products :'
 };

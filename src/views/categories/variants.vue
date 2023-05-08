@@ -194,22 +194,22 @@
           </div>
           <div class="col-md-8 col-sm-12 text-center my-2">
             <div class="d-flex justify-content-end align-items-center">
-              <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
+              <!-- <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
                 <span>{{ $t("cart.filter") }}</span>
                 <span>
                   <small>
                     <font-awesome-icon icon="fa-solid fa-chevron-down" />
                   </small>
                 </span>
-              </h5>
-              <h5 @click="sortBy = !sortBy" class="sortBy m-2">
+              </h5> -->
+              <!-- <h5 @click="sortBy = !sortBy" class="sortBy m-2">
                 <span>{{ $t("cart.sortBy") }}</span>
                 <span>
                   <small>
                     <font-awesome-icon icon="fa-solid fa-chevron-down" />
                   </small>
                 </span>
-              </h5>
+              </h5> -->
             </div>
 
             <div class="row">
@@ -310,6 +310,89 @@
           </div>
         </div>
       </div>
+      <div class="container">
+        <div class="applierd-filters d-flex align-items-center">
+          <p
+            class="h4"
+            v-if="
+              sortTypeCountry ||
+              sortTypeWeight ||
+              sortTypeUnit ||
+              sortType !== 'asc'
+            "
+          >
+            {{ $t("profile.filtersApplied") }}
+          </p>
+          <div class="suppliers-filter mx-2" v-if="sortTypeCountry">
+            <div class="option-ui">
+              <div class="filter-name">{{ $t("profile.countryOrigin") }}</div>
+              <div
+                @click="
+                  sortTypeCountry = null;
+                  getCategoryProducts();
+                "
+                :class="{
+                  'mr-5': $i18n.locale == 'ar',
+                  'ml-5': $i18n.locale == 'en',
+                }"
+              >
+                <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+              </div>
+            </div>
+          </div>
+          <div class="suppliers-filter mx-2" v-if="sortTypeWeight">
+            <div class="option-ui">
+              <div class="filter-name">{{ $t("singleProduct.weight") }}</div>
+              <div
+                @click="
+                  sortTypeWeight = null;
+                  getCategoryProducts();
+                "
+                :class="{
+                  'mr-5': $i18n.locale == 'ar',
+                  'ml-5': $i18n.locale == 'en',
+                }"
+              >
+                <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+              </div>
+            </div>
+          </div>
+          <div class="suppliers-filter mx-2" v-if="sortTypeUnit">
+            <div class="option-ui">
+              <div class="filter-name">{{ $t("items.unit") }}</div>
+              <div
+                @click="
+                  sortTypeUnit = null;
+                  getCategoryProducts();
+                "
+                :class="{
+                  'mr-5': $i18n.locale == 'ar',
+                  'ml-5': $i18n.locale == 'en',
+                }"
+              >
+                <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+              </div>
+            </div>
+          </div>
+          <div class="suppliers-filter mx-2" v-if="sortType !== 'asc'">
+            <div class="option-ui">
+              <div class="filter-name">{{ $t("cart.price") }}</div>
+              <div
+                @click="
+                  sortType = 'asc';
+                  getCategoryProducts();
+                "
+                :class="{
+                  'mr-5': $i18n.locale == 'ar',
+                  'ml-5': $i18n.locale == 'en',
+                }"
+              >
+                <font-awesome-icon icon="fa-solid fa-times" size="xl" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- end category name and filters  -->
 
       <!-- when data of relative products loading   -->
@@ -352,7 +435,8 @@
                 'border-main-bold':
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type,
-                  'border-green-bold':product.ads.length
+                'border-green-bold':
+                  product && product.ads && product.ads.length,
               }"
             >
               <!-- <td
@@ -402,6 +486,65 @@
 
               <!-- <td v-else>{{index + 1 }}</td> -->
               <!-- <td v-else></td> -->
+              <td>
+                <div
+                  v-if="
+                    (product && product.ads && product.ads.length) ||
+                    product.basket_promotions_running_by_type ||
+                    product.buy_get_promotion_running_by_type
+                  "
+                >
+                  <h6
+                    v-if="product.ads && product && product.ads.length > 0"
+                    class="main-color font-weight-bold text-success"
+                  >
+                    {{ $t("items.advertise") }}
+                  </h6>
+                  <h6
+                    v-if="product.basket_promotions_running_by_type"
+                    class="main-color font-weight-bold"
+                  >
+                    <router-link
+                    class="main-color"
+                      :to="{
+                        path: '/basketOfferDetails',
+                        query: {
+                          id: product.basket_promotions_running_by_type
+                            .basket_promotion_id,
+                        },
+                      }"
+                      >{{ $t("profile.basketDeals") }}</router-link
+                    >
+                  </h6>
+                  <h6
+                    v-if="product.buy_get_promotion_running_by_type"
+                    class="main-color font-weight-bold"
+                  >
+                    <router-link
+                    class="main-color"
+                      :to="{
+                        path: '/details',
+                        query: {
+                          id: product.id,
+                          type: `${$t('profile.buy')} 
+                                                            ${
+                                                              product
+                                                                .buy_get_promotion_running_by_type
+                                                                .promotion.buy_x
+                                                            } 
+                                                            ${$t(
+                                                              'profile.get'
+                                                            )} ${
+                            product.buy_get_promotion_running_by_type.promotion
+                              .get_y
+                          }`,
+                        },
+                      }"
+                      >{{ $t("profile.buyXgetYOffer") }}</router-link
+                    >
+                  </h6>
+                </div>
+              </td>
               <td class="position-relative">
                 <div class="row justify-content-evenly align-items-center">
                   <!-- <div
@@ -421,21 +564,21 @@
                         !product.buy_get_promotion_running_by_type,
                     }"
                   > -->
-                  <div
+                  <!-- <div
                     v-if="
-                      product.ads.length ||
+                      product && product.ads && product.ads.length ||
                       product.basket_promotions_running_by_type ||
                       product.buy_get_promotion_running_by_type
                     "
                     :class="{
                       'col-12 floatingAdsTitles':
-                        product.ads.length ||
+                        product && product.ads && product.ads.length ||
                         product.basket_promotions_running_by_type ||
-                        product.buy_get_promotion_running_by_type
+                        product.buy_get_promotion_running_by_type,
                     }"
                   >
                     <h6
-                      v-if="product.ads && product.ads.length > 0"
+                      v-if="product.ads && product  && product.ads.length > 0"
                       class="main-color font-weight-bold"
                     >
                       {{ $t("items.advertise") }}
@@ -481,7 +624,7 @@
                         >{{ $t("profile.buyXgetYOffer") }}</router-link
                       >
                     </h6>
-                  </div>
+                  </div> -->
                   <!-- <div
                     class="col-12"
                     :class="{
@@ -491,9 +634,7 @@
                         product.buy_get_promotion_running_by_type,
                     }"
                   > -->
-                  <div
-                    class="col-12"
-                  >
+                  <div class="col-12">
                     <router-link
                       v-if="product.image_path !== null"
                       class="link"
@@ -1098,10 +1239,10 @@ export default {
         { value: "d", text: "Fourth option" },
       ],
       tableFields: [
-        // {
-        //   key: "#",
-        //   label: "#",
-        // },
+        {
+          key: "#",
+          label: "#",
+        },
         {
           key: "image_path",
           label: this.$t("items.image"),
@@ -1156,8 +1297,8 @@ export default {
         { value: "desc", text: this.$t("cart.desc") },
       ],
       readMore: false,
-      sortBy: false,
-      filteredBy: false,
+      sortBy: true,
+      filteredBy: true,
       sortTypeCountry: null,
       sortTypeWeight: null,
       sortTypeUnit: null,
@@ -1171,8 +1312,8 @@ export default {
       parentTitle: sessionStorage.getItem("parentTitle"),
       PageTitle: null,
       PageId: null,
-      allSubCategories:null,
-      allSubCategoriesLength:null,
+      allSubCategories: null,
+      allSubCategoriesLength: null,
     };
   },
   components: {
@@ -1403,7 +1544,7 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          console.log('parent_categoryVariants' , res);
+          console.log("parent_categoryVariants", res);
           this.PageTitle = res.data.items.title;
           this.PageId = res.data.items.id;
           this.productInfo = res.data.items;
@@ -1421,9 +1562,8 @@ export default {
     },
     async getAllSubCategories() {
       await categories
-        .getAllSubCategories(sessionStorage.getItem('catId'))
+        .getAllSubCategories(sessionStorage.getItem("catId"))
         .then((resp) => {
-          
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
@@ -1574,7 +1714,7 @@ export default {
     this.getCategoryProducts();
     this.getSingleProductDetails();
     this.getFilters();
-    this.getAllSubCategories()
+    this.getAllSubCategories();
   },
   watch: {
     $route: "updateId",
@@ -1866,4 +2006,24 @@ export default {
   display: inline-block;
 }
 
+.option-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid $gray;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.suppliers-li {
+  label {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin: 0 20px;
+    }
+  }
+}
 </style>

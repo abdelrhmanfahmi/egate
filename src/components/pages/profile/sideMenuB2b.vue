@@ -1,7 +1,7 @@
 <template>
   <div class="profile-menu">
     <!-- side bar for b2b or buyer user  -->
-    <div class="d-flex justify-content-center align-items-center flex-column">
+    <div class="d-flex justify-content-center align-items-center flex-column" v-if="opened">
       <img :src="buyerUserData.image_path" alt="" srcset="" class="company-img" />
       <h5 class="my-3" v-if="buyerUserData.company_name_en">
         {{ buyerUserData.company_name_en }}
@@ -16,7 +16,7 @@
 
     <div
       class="my-2 px-3"
-      v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
+      v-if="buyerUserData && buyerUserData.profile_percentage !== 100 && opened"
     >
       <h5>{{ $t("profile.completeRate") }}</h5>
       <b-progress
@@ -48,41 +48,44 @@
             alt="standing-order-sign"
           />
           <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" size="1x" />
-          <span>{{ link.name }}</span>
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.orders &&
-              link.name.trim() == $t('profile.ordersLists')
-            "
-            >{{ userBades.orders }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.returns &&
-              link.name.trim() === $t('profile.returnRequests')
-            "
-            >{{ userBades.returns }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.client_messages &&
-              link.name.trim() === $t('profile.supplierCorrespondence')
-            "
-            >{{ userBades.client_messages }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
-            "
-            >{{ userBades.rfqs }}</span
-          >
+          <span v-if="opened">{{ link.name }}</span>
+          <span v-if="opened">
+
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.orders &&
+                link.name.trim() == $t('profile.ordersLists')
+              "
+              >{{ userBades.orders }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.returns &&
+                link.name.trim() === $t('profile.returnRequests')
+              "
+              >{{ userBades.returns }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.client_messages &&
+                link.name.trim() === $t('profile.supplierCorrespondence')
+              "
+              >{{ userBades.client_messages }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
+              "
+              >{{ userBades.rfqs }}</span
+            >
+          </span>
         </router-link>
       </li>
       <li>
@@ -90,7 +93,7 @@
           <span class="logout-sign">
             <font-awesome-icon icon="fa-solid fa-power-off" />
           </span>
-          <span class="mx-2">
+          <span class="mx-2" v-if="opened">
             {{ $t("login.logout") }}
           </span>
         </div>
@@ -115,41 +118,44 @@
             alt="standing-order-sign"
           />
           <font-awesome-icon :icon="`fa-solid fa-${link.iconName}`" v-else />
-          <span>{{ link.name }}</span>
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.orders &&
-              link.name.trim() == $t('profile.ordersLists')
-            "
-            >{{ userBades.orders }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.returns &&
-              link.name.trim() === $t('profile.returnRequests')
-            "
-            >{{ userBades.returns }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades &&
-              userBades.client_messages &&
-              link.name.trim() === $t('profile.supplierCorrespondence')
-            "
-            >{{ userBades.client_messages }}</span
-          >
-          <span
-            class="side-number"
-            v-if="
-              userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
-            "
-            >{{ userBades.rfqs }}</span
-          >
+          <span v-if="opened">{{ link.name }}</span>
+          <span v-if="opened">
+
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.orders &&
+                link.name.trim() == $t('profile.ordersLists')
+              "
+              >{{ userBades.orders }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.returns &&
+                link.name.trim() === $t('profile.returnRequests')
+              "
+              >{{ userBades.returns }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades &&
+                userBades.client_messages &&
+                link.name.trim() === $t('profile.supplierCorrespondence')
+              "
+              >{{ userBades.client_messages }}</span
+            >
+            <span
+              class="side-number"
+              v-if="
+                userBades && userBades.rfqs && link.name.trim() === $t('profile.quotations')
+              "
+              >{{ userBades.rfqs }}</span
+            >
+          </span>
         </router-link>
       </li>
       <li>
@@ -157,7 +163,7 @@
           <span class="logout-sign">
             <font-awesome-icon icon="fa-solid fa-power-off" />
           </span>
-          <span class="mx-2">
+          <span class="mx-2" v-if="opened">
             {{ $t("login.logout") }}
           </span>
         </div>
@@ -382,6 +388,9 @@ export default {
       type: Object,
       required: false,
     },
+    opened:{
+      type:Boolean
+    }
   },
   methods:{
     closeSideBar(){

@@ -2,134 +2,289 @@
   <!-- return refund page  -->
   <div>
     <div class="container">
-      <div class="row justify-content-center align-items-center py-5">
-        <div class="col-md-7 col-sm-12">
-          <div class="refund-options">
-            <h2 class="title">
-              {{ $t("profile.refundMethods") }}
-            </h2>
-            <div class="methods">
-              <div class="d-flex justify-content-center align-items-center">
-                <div class="method">
-                  <!-- select option  -->
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="wallet" name="paymentMethod" class="custom-control-input"
-                      v-model="returnData.refund_option" value="0" />
-                    <label class="custom-control-label" for="wallet">
-                      {{ $t("profile.wallet") }}
-                    </label>
-                  </div>
-                </div>
-                <!-- if selected option is bank  -->
-                <div class="method" v-if="selectedOption == 'bank'">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="bank" name="paymentMethod" class="custom-control-input"
-                      v-model="returnData.refund_option" value="2" />
-                    <label class="custom-control-label" for="bank">
-                      {{ $t("payment.bankTransfer") }}
-                    </label>
-                  </div>
-                </div>
-                <!-- if selected option is cach  -->
-                <div class="method" v-if="selectedOption == 'cach'">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="cach" name="paymentMethod" class="custom-control-input"
-                      v-model="returnData.refund_option" value="3" />
-                    <label class="custom-control-label" for="cach">
-                      {{ $t("payment.paymentWhenReceiving") }}
-                    </label>
-                  </div>
-                </div>
-                <!-- if selected option is visa  -->
-                <div v-if="selectedOption == 'visa'" class="method d-flex justify-content-between align-content-center">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="visa" name="paymentMethod" class="custom-control-input"
-                      v-model="returnData.refund_option" value="1" />
-                    <label class="custom-control-label" for="visa">
-                      {{ $t("payment.onlinePayment") }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="row justify-content-center align-items-center py-2">
         <div class="col-md-7 col-sm-12">
-          <form class="returnData mb-5" @submit.prevent="returnOrder">
+          <form class="returnData my-5" @submit.prevent="returnOrder">
             <div class="form-input mb-4">
               <label>
-                {{ $t("profile.returnReason") }}
+                <h4>
+                  <b>{{ $t("profile.returnReason") }}</b>
+                </h4>
               </label>
               <!-- select reasons   -->
               <b-form-select v-model="returnData.return_reason" class="mb-3">
                 <b-form-select-option disabled value="null">{{
                   $t("cart.selectOption")
                 }}</b-form-select-option>
-                <b-form-select-option :value="reason.id" v-for="(reason, index) in reasons" :key="index">{{
-                  reason.name
-                }}</b-form-select-option>
+                <b-form-select-option
+                  :value="reason.id"
+                  v-for="(reason, index) in reasons"
+                  :key="index"
+                  >{{ reason.name }}</b-form-select-option
+                >
               </b-form-select>
+              <div
+                class="error"
+                v-for="(error, index) in uploadErrors.return_reason"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+            <div class="row align-items-center py-3">
+              <div class="col-12">
+                <div class="refund-options">
+                  <!-- <h2 class="title">
+                    {{ $t("profile.refundMethods") }}
+                  </h2> -->
+                  <label>
+                    <h4>
+                      <b>{{ $t("profile.refundMethods") }}</b>
+                    </h4>
+                  </label>
+                  <div class="methods">
+                    <div class="d-flex flex-column">
+                      <div class="method">
+                        <!-- select option  -->
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="wallet"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="returnData.refund_option"
+                            value="0"
+                          />
+                          <label class="custom-control-label" for="wallet">
+                            {{ $t("profile.wallet") }}
+                          </label>
+                        </div>
+                      </div>
+                      <!-- if selected option is bank  -->
+                      <div class="method" v-if="selectedOption == 'bank'">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="bank"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="returnData.refund_option"
+                            value="2"
+                          />
+                          <label class="custom-control-label" for="bank">
+                            {{ $t("payment.bankTransfer") }}
+                          </label>
+                        </div>
+                      </div>
+                      <!-- if selected option is cach  -->
+                      <div class="method" v-if="selectedOption == 'cach'">
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="cach"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="returnData.refund_option"
+                            value="3"
+                          />
+                          <label class="custom-control-label" for="cach">
+                            {{ $t("payment.paymentWhenReceiving") }}
+                          </label>
+                        </div>
+                      </div>
+                      <!-- if selected option is visa  -->
+                      <div
+                        v-if="selectedOption == 'visa'"
+                        class="method d-flex justify-content-between align-content-center"
+                      >
+                        <div
+                          class="custom-control custom-radio custom-control-inline"
+                        >
+                          <input
+                            type="radio"
+                            id="visa"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            v-model="returnData.refund_option"
+                            value="1"
+                          />
+                          <label class="custom-control-label" for="visa">
+                            {{ $t("payment.onlinePayment") }}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="row">
+            <div class="images-holder">
+              <p class="mb-0">{{$t('profile.uploadDamageProducts')}}</p>
+              <ul class="files">
+                <li
+                  v-for="(file, index) in representedImages"
+                  :key="index"
+                  class="file-holder"
+                >
+                  <div class="file-data">
+                    <img :src="file" alt="" srcset="" />
+                    <button
+                      @click.prevent="removeFile(index)"
+                      class="border-none mx-2"
+                      title="Remove"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-trash-can" />
+                    </button>
+                  </div>
+                </li>
+                <li class="file-holder">
+                  <div class="company-logo">
+                    <main class="">
+                      <div class="data-holder">
+                        <div @drop.prevent="handleFileDrop">
+                          <br />
+                          <div class="file-wrapper">
+                            <input
+                              type="file"
+                              name="file-input"
+                              @change.prevent="handleFileInput"
+                              multiple
+                            />
+                            <div class="d-flex flex-column text-holder">
+                              <p class="text-shown sign m-0 h2">+</p>
+                              <p class="text-shown text h2">
+                                {{ $t("profile.Upload") }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </main>
+                  </div>
+                </li>
+              </ul>
+              <div
+                class="error"
+                v-for="(error, index) in uploadErrors.image"
+                :key="index"
+              >
+                {{ error }}
+              </div>
+            </div>
+
+            <div class="row my-3">
               <div class="col-4">
                 <label>
                   {{ $t("profile.ReturnedNumber") }}
                 </label>
                 <div class="product-counter mb-2">
                   <!-- quantity  -->
-                  <div class="value">
-                    <span class="product-counter-number">
-                      {{ returnData.quantity ? returnData.quantity : 1 }}</span>
-                  </div>
-                  <div class="actions d-flex flex-column">
+
+                  <div
+                    class="actions d-flex justify-content-center align-items-center"
+                    :class="$i18n.locale"
+                  >
                     <!-- increment quantity  -->
-                    <button class="product-counter-btn" :class="{ disabledBtn: returnData.quantity >= maxQTY }" @click="incrementQuantity" type="button"
-                      :disabled="returnData.quantity >= maxQTY">
+
+                    <button
+                      class="product-counter-btn"
+                      @click="decrementQuantity(returnData.quantity)"
+                      :disabled="returnData.quantity == 1"
+                      type="button"
+                    >
+                      <b-icon-dash />
+                    </button>
+
+                    <div class="value">
+                      <span class="product-counter-number">
+                        {{
+                          returnData.quantity ? returnData.quantity : 1
+                        }}</span
+                      >
+                    </div>
+                    <button
+                      class="product-counter-btn"
+                      :class="{ disabledBtn: returnData.quantity >= maxQTY }"
+                      @click="incrementQuantity"
+                      type="button"
+                      :disabled="returnData.quantity >= maxQTY"
+                    >
                       <b-icon-plus />
                     </button>
                     <!-- decrement quantity  -->
-                    <button class="product-counter-btn" @click="decrementQuantity(returnData.quantity)"
-                      :disabled="returnData.quantity == 1" type="button">
-                      <b-icon-dash />
-                    </button>
                   </div>
                 </div>
               </div>
-              <div class="col-8">
+              <!-- <div class="col-8">
                 <label for="CommercialLicense">
                   {{ $t("profile.returnImage") }}
                   <span class="text-danger">*</span>
                 </label>
                 <b-form-group>
-                  <!-- upload file  -->
-                  <b-form-file size="lg" id="returnImage" @change="uploadImage" :placeholder="$t('profile.returnImage')"
-                    drop-placeholder="Drop file here..."></b-form-file>
+                  <b-form-file
+                    size="lg"
+                    id="returnImage"
+                    @change="uploadImage"
+                    :placeholder="$t('profile.returnImage')"
+                    drop-placeholder="Drop file here..."
+                  ></b-form-file>
                 </b-form-group>
-                <div class="error text-start" v-for="(error, index) in uploadErrors.image" :key="index">
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.image"
+                  :key="index"
+                >
                   {{ error }}
                 </div>
-              </div>
+              </div> -->
             </div>
+
             <!-- text your message  -->
-            <b-form-textarea v-if="returnData.return_reason == 8" id="textarea-rows"
-              :placeholder="$t('profile.returnReason')" rows="8" v-model="returnData.return"></b-form-textarea>
-              
+            <b-form-textarea
+              v-if="returnData.return_reason == 8"
+              id="textarea-rows"
+              :placeholder="$t('profile.returnReason')"
+              rows="8"
+              v-model="returnData.return"
+            ></b-form-textarea>
 
             <!-- add new text area if user select bank   -->
 
-
             <div class="" v-if="returnData.refund_option == 2">
-              <label for="accountDetails">{{ $t('profile.accountDetails') }}</label>
-              <b-form-textarea id="accountDetails" rows="8" v-model="returnData.clinet_bank_info"></b-form-textarea>
+              <label for="accountDetails">{{
+                $t("profile.accountDetails")
+              }}</label>
+              <b-form-textarea
+                id="accountDetails"
+                rows="8"
+                v-model="returnData.clinet_bank_info"
+              ></b-form-textarea>
             </div>
-            <div class="error text-start" v-for="(error, index) in uploadErrors.clinet_bank_info" :key="index">
+            <div
+              class="error text-start"
+              v-for="(error, index) in uploadErrors.clinet_bank_info"
+              :key="index"
+            >
               {{ error }}
             </div>
 
-            <b-button type="submit" variant="outline-danger" class="saveBtn btn-block py-3 mt-3" :disabled="btn1Disabled || (returnData.quantity >= maxQTY && returnData.quantity >= maxQTY && returnData.quantity > 1)">
+            <b-button
+              type="submit"
+              class="saveBtn btn-block py-3 mt-3 border-main"
+              :disabled="
+                btn1Disabled ||
+                (returnData.quantity >= maxQTY &&
+                  returnData.quantity >= maxQTY &&
+                  returnData.quantity > 1)
+              "
+            >
               <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
               <span class="loader" v-if="loading"></span>
             </b-button>
@@ -148,9 +303,10 @@
 </template>
 
 <script>
-//  return refund page 
+//  return refund page
 import profile from "@/services/profile";
 import { BIconPlus, BIconDash } from "bootstrap-vue";
+// import { createdFormData } from "@/services/helpers.js";
 export default {
   data() {
     return {
@@ -162,7 +318,7 @@ export default {
         refund_option: null, // 0=Wallet,1=Visa,2=Bank,3=Cash
         return: null,
         quantity: 1,
-        clinet_bank_info: null
+        clinet_bank_info: null,
       },
       uploadErrors: [],
       btn1Disabled: false,
@@ -172,9 +328,34 @@ export default {
       reasons: null,
       cancelationReason: null,
       maxQTY: null,
+      files: [],
+      representedImages: [],
     };
   },
   methods: {
+    handleFileDrop(e) {
+      let droppedFiles = e.dataTransfer.files;
+      if (!droppedFiles) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      [...droppedFiles].forEach((f) => {
+        this.files.push(f);
+        this.representedImages.push(URL.createObjectURL(f));
+      });
+    },
+    handleFileInput(e) {
+      let files = e.target.files;
+      files = e.target.files;
+      if (!files) return;
+      // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      [...files].forEach((f) => {
+        this.files.push(f);
+        this.representedImages.push(URL.createObjectURL(f));
+      });
+    },
+    removeFile(fileKey) {
+      this.files.splice(fileKey, 1);
+      this.representedImages.splice(fileKey, 1);
+    },
     /**
      * @vuese
      * this function used to call backend to return user Order
@@ -185,8 +366,13 @@ export default {
 
       let formData = new FormData();
 
-      if (this.returnData.image !== null) {
-        formData.append("image", this.returnData.image);
+      if (this.files.length) {
+        // formData.append("image", this.files);
+        // formData.append("image", this.returnData.image);
+        for (var i = 0; i < this.files.length; i++) {
+          let file = this.files[i];
+          formData.append("images[" + i + "]", file);  
+        }
       }
 
       if (this.returnData.return_reason === 8) {
@@ -229,9 +415,9 @@ export default {
         });
     },
     /**
-    * @vuese
-    * this function used to upload Image
-    */
+     * @vuese
+     * this function used to upload Image
+     */
     uploadImage(event) {
       // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
@@ -267,13 +453,16 @@ export default {
           //   this.selectedOption = "visa";
           // }
 
-
-          if (res.data.items.order.payment_type === "bank" || res.data.items.order.payment_type === "cach" || res.data.items.order.payment_type === "visa") {
+          if (
+            res.data.items.order.payment_type === "bank" ||
+            res.data.items.order.payment_type === "cach" ||
+            res.data.items.order.payment_type === "visa"
+          ) {
             this.returnData.refund_option = 2;
             this.selectedOption = "bank";
           }
 
-          // remove it according to last edit 
+          // remove it according to last edit
 
           // if (res.data.items.order.payment_type === "cach") {
           //   this.returnData.refund_option = 3;
@@ -300,9 +489,9 @@ export default {
         });
     },
     /**
-    * @vuese
-    * this function used to increment Quantity
-    */
+     * @vuese
+     * this function used to increment Quantity
+     */
     incrementQuantity() {
       this.returnData.quantity += 1;
     },
@@ -323,11 +512,9 @@ export default {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)
         .then((res) => {
-          console.log(
-            this.$route.query.orderId
-          );
+          console.log(this.$route.query.orderId);
           console.log(res);
-          this.maxQTY = res.data.items.quantity
+          this.maxQTY = res.data.items.quantity;
         })
         .catch((err) => {
           console.log(err);
@@ -351,27 +538,27 @@ export default {
 
 <style lang="scss" scoped>
 .refund-options {
-  text-align: center;
-  border: 1px solid #ccc;
-  padding: 20px 30px;
+  //text-align: center;
+  //border: 1px solid #ccc;
+  //padding: 20px 30px;
   border-radius: 7px;
 
   .title {
     margin: 20px 0;
   }
 }
-
+/**
+    * component style 
+  */
 .product-counter {
   display: flex;
   align-items: center;
-
-  // justify-content: left;
+  justify-content: left;
   .actions {
-    color: #606266;
-
+    //color: #606266;
     .product-counter-btn {
       width: 2rem;
-      height: 1.55rem;
+      height: 1.75rem;
       border-radius: 0;
       border: 1px solid transparent;
       color: #606266;
@@ -379,28 +566,104 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-
+      height: 50px;
       &:first-child {
         border-bottom: 1px solid #dcdcdc;
       }
     }
   }
-
   .value {
     border-radius: 0;
     border: 1px solid $top-header-color;
     color: #544842;
     font-weight: 500;
-    width: 6rem;
-    height: 3.1rem;
+    width: 4rem;
+    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    height: 50px;
   }
 }
 .disabledBtn {
   background: #a6a6a6 !important;
   color: #fff !important;
+}
+
+.company-logo {
+  main {
+    //margin-top: -30px;
+    height: 100%;
+  }
+
+  .file-wrapper {
+    text-align: center;
+    height: 5em;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* and other things to make it pretty */
+  }
+
+  .file-wrapper input {
+    position: absolute;
+    top: 0;
+    right: 0; /* not left, because only the right part of the input seems to
+                   be clickable in some browser I can't remember */
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(
+      opacity=0
+    ); /* and all the other old opacity stuff you
+                                   want to support */
+    font-size: 300px; /* wtf, but apparently the most reliable way to make
+                           a large part of the input clickable in most browsers */
+    height: 200px;
+  }
+  .data-holder {
+    //border: 2px solid $top-header-color;
+    border-radius: 5px;
+    color: #545454;
+    padding: 54px 25px;
+  }
+  .file-input {
+    color: $top-header-color;
+  }
+  .text-holder {
+    color: #bebebe;
+    margin: 20px 0;
+  }
+}
+.file-holder {
+  position: relative;
+  border: 2px solid $gray;
+  margin: 10px  3px 15px;
+  padding: 30px;
+  border-radius: 10px;
+  display: inline-block;
+  min-height: 250px;
+
+  img {
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+  }
+  button {
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: $main-color;
+    font-size: 15px;
+    background: transparent;
+  }
+}
+.method {
+  margin: 10px 0;
 }
 </style>

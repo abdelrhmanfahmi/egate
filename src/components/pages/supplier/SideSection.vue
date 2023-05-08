@@ -39,7 +39,6 @@
         </div>
         <div class="col-md-6 col-sm-12 mb-2">
           <div class="" v-if="buyerUserData">
-
             <b-button
               v-if="supplier_messages"
               variant="outline-success"
@@ -50,9 +49,7 @@
             >
           </div>
           <div class="" v-else>
-
             <b-button
-             
               variant="outline-success"
               id="show-btn"
               class="mx-2"
@@ -64,8 +61,8 @@
       </div>
     </div>
     <div class="other-sections" v-if="supplier.categories">
-      <h5 class="title">{{ $t("supplier.sections") }}</h5>
-      <ul class="sections">
+      <!-- <h5 class="title">{{ $t("supplier.sections") }}</h5> -->
+      <!-- <ul class="sections">
         <li class="section" v-for="item in supplier.categories" :key="item.id">
           <router-link
             :to="{
@@ -76,7 +73,35 @@
             {{ item.category.title }}
           </router-link>
         </li>
-      </ul>
+      </ul> -->
+      <div class="select-country Allcountries">
+        <b-dropdown
+          id="dropdown-dropright"
+          variant="link"
+          toggle-class="text-decoration-none"
+          no-caret
+          :text="$t('supplier.sections')"
+          class="main-color"
+        >
+        <!-- <b-dropdown-item disabled selected>
+          {{ $t('profile.selectExistStandOrder') }}
+        </b-dropdown-item> -->
+          <b-dropdown-item
+            v-for="item in supplier.categories"
+            :key="item.id"
+            @click="onHandelCategory(item)"
+          >
+            <router-link
+            :to="{
+              path: '/supplier-products',
+              query: { supId: `${supplier.id}`, catId: `${item.category_id}` },
+            }"
+          >
+            {{ item.category.title }}
+          </router-link>
+          </b-dropdown-item>
+        </b-dropdown>
+      </div>
     </div>
     <b-modal id="bv-modal-example" centered hide-footer>
       <template #modal-title> {{ $t("profile.yourMessage") }} </template>
@@ -173,6 +198,9 @@ export default {
     },
   },
   methods: {
+    onHandelCategory(){
+      this.$router.push()
+    },
     /**
      * @vuese
      *  send Supplier Message
@@ -260,9 +288,12 @@ export default {
     }
   }
   .other-sections {
-    max-height: 500px;
-    overflow-y: scroll;
+    //max-height: 500px;
+    //overflow-y: scroll;
     color: $main-color;
+    a , button{
+      color: inherit;
+    }
     .sections {
       color: $main-color;
       .section {
@@ -300,6 +331,16 @@ export default {
   .supplier-logo {
     width: 300px;
     object-fit: cover;
+  }
+}
+#dropdown-dropright{
+  border: 2px solid $gray;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color:#000 !important;
+  background: #fff;
+  button{
+    color:inherit !important
   }
 }
 </style>

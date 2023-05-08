@@ -1,7 +1,9 @@
 <template>
   <div class="product-counter">
-    
-    <div class="actions d-flex justify-content-center align-items-center" :class="$i18n.locale">
+    <div
+      class="actions d-flex justify-content-center align-items-center"
+      :class="$i18n.locale"
+    >
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
       </button>
@@ -76,11 +78,11 @@ export default {
     this.countValue = this.quantity;
   },
   methods: {
-   /**
+    /**
      * @vuese
      * increament function
      */
-     incrementQuantity() {
+    incrementQuantity() {
       this.countValue = Number(this.quantity) + 1;
 
       let data = {
@@ -186,38 +188,38 @@ export default {
 /**
     * component style 
   */
-  .product-counter {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    .actions {
-      //color: #606266;
-      .product-counter-btn {
-        width: 2rem;
-        height: 1.75rem;
-        border-radius: 0;
-        border: 1px solid transparent;
-        color: #606266;
-        background: #eef1f2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        &:first-child {
-          border-bottom: 1px solid #dcdcdc;
-        }
-      }
-    }
-    .value {
+.product-counter {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  .actions {
+    //color: #606266;
+    .product-counter-btn {
+      width: 2rem;
+      height: 1.75rem;
       border-radius: 0;
-      border: 1px solid $top-header-color;
-      color: #544842;
-      font-weight: 500;
-      width: 4rem;
-      //height: 3.5rem;
+      border: 1px solid transparent;
+      color: #606266;
+      background: #eef1f2;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #fff;
+      &:first-child {
+        border-bottom: 1px solid #dcdcdc;
+      }
     }
   }
+  .value {
+    border-radius: 0;
+    border: 1px solid $top-header-color;
+    color: #544842;
+    font-weight: 500;
+    width: 4rem;
+    //height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
+}
 </style>
