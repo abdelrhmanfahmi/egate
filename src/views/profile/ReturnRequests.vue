@@ -15,6 +15,10 @@
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
+            <td>
+              <span v-if="order.order_id">{{ order.order_id }}</span>
+              <span v-else>-</span>
+            </td>
             <td>{{ order.serial }}</td>
             <td>{{ order.item_names }}</td>
             <td>{{ order.supplier }}</td>
@@ -23,7 +27,12 @@
                 >{{ order.price | fixedCurrency }} {{ currency }}</span
               >
             </td>
-            <td>{{ order.retrun_option }}</td>
+            <td>
+              <span v-if="order.retrun_option">{{ order.retrun_option }}</span>
+              <span class="d-block" v-if="order.refund_option">({{
+                order.refund_option
+              }})</span>
+            </td>
             <td>{{ order.return_status }}</td>
             <td>{{ order.return_request_date | formatDate }}</td>
             <td>{{ order.updated_at | formatDate }}</td>
@@ -36,7 +45,10 @@
                 }"
                 class="text-dark"
               >
-                <b-button variant="outline-light main-color border-main" class="m-2">
+                <b-button
+                  variant="outline-light main-color border-main"
+                  class="m-2"
+                >
                   <font-awesome-icon icon="fa-regular fa-eye" />
                 </b-button>
               </router-link>
@@ -54,7 +66,10 @@
         />
       </div>
     </div>
-    <div class="spinner d-flex justify-content-center align-items-center" v-else>
+    <div
+      class="spinner d-flex justify-content-center align-items-center"
+      v-else
+    >
       <spinner />
     </div>
   </div>
@@ -74,8 +89,12 @@ export default {
       fields: [
         {
           key: "id",
-          label: this.$t("profile.serial"),
+          label: this.$t("payment.orderNumber"),
         },
+        {
+          key: "id",
+          label: this.$t("profile.serial"),
+        },      
         {
           key: "id",
           label: this.$t("profile.productName"),
@@ -140,7 +159,10 @@ export default {
      * @vuese
      */
     returnedOrders() {
-      if (this.buyerUserData.type === "buyer" || this.buyerUserData.type === "b2c") {
+      if (
+        this.buyerUserData.type === "buyer" ||
+        this.buyerUserData.type === "b2c"
+      ) {
         profile
           .returneBuyerdOrders(this.page)
           .then((resp) => {
@@ -148,7 +170,8 @@ export default {
 
             this.total = resp.data.items.items.meta.total;
             this.totalPages = Math.ceil(
-              resp.data.items.items.meta.total / resp.data.items.items.meta.per_page
+              resp.data.items.items.meta.total /
+                resp.data.items.items.meta.per_page
             ); // Calculate total records
 
             this.totalRecords = resp.data.items.items.meta.total;
@@ -165,7 +188,8 @@ export default {
 
             this.total = resp.data.items.items.meta.total;
             this.totalPages = Math.ceil(
-              resp.data.items.items.meta.total / resp.data.items.items.meta.per_page
+              resp.data.items.items.meta.total /
+                resp.data.items.items.meta.per_page
             ); // Calculate total records
 
             this.totalRecords = resp.data.items.items.meta.total;

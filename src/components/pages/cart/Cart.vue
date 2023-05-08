@@ -20,12 +20,12 @@
 
       <div class="my-5">
         <div class="row justify-content-between align-items-center">
-          <div class="px-2">
-            <h2 class="text-dark">My Cart({{ cartLength }}):</h2>
+          <div class="px-2" v-if="cartLength">
+            <h2 class="text-dark">{{$t('profile.myCart')}}({{ cartLength }}):</h2>
           </div>
           <div class="px-2">
             <p class="text-dark" role="button" @click="clearAll">
-              <ins>Clear All</ins>
+              <ins>{{$t('profile.clearAll')}}</ins>
             </p>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-12">
               <div class="step1">
-                <h4 class="text-dark">Step 1: contact info</h4>
+                <h4 class="text-dark">{{$t('profile.step1')}}: {{$t('profile.contactInfo')}}</h4>
                 <!-- user data for checkout  -->
 
                 <div class="payment w-100">
@@ -218,7 +218,7 @@
               <div class="step2 my-3">
                 <div class="" v-if="!loading">
                   <h4 class="text-dark">
-                    Step 2 : {{ $t("payment.delivery") }}
+                    {{$t('profile.step2')}} : {{ $t("payment.delivery") }}
                   </h4>
                   <div class="row">
                     <div class="col-12 order-shipping">

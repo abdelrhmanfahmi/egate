@@ -1260,7 +1260,7 @@ textarea {
     background: #fff;
     border: 1px solid $main-color;
     box-shadow: none;
-    padding: 15px 15px;
+    padding: 13px 13px;
     transition-property: border;
     transition-timing-function: ease-in-out;
     transition-duration: 0.15s;

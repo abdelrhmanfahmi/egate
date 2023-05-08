@@ -258,11 +258,112 @@ export default {
                 }
               }
 
-              // const favicon = document.getElementById("favicon");
-              // favicon.href = "https://www.google.com/favicon.ico";
+              // setting theming
 
-              // const siteTitle = document.getElementById("siteTitle");
-              // siteTitle.textContent = "Reda site";
+              // main_color
+              if (element.key == "main_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--main-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--main-color', '#EF4923')
+                }
+              }
+              // text_color
+              if (element.key == "text_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--text-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--text-color', '#040303')
+                }
+              }
+              // header_color
+              if (element.key == "header_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--header-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--header-color', '#312620')
+                }
+              }
+              // tabs_color
+              if (element.key == "tabs_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--tabs-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--tabs-color', '#6e6a67')
+                }
+              }
+              // gray_color
+              if (element.key == "gray_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--gray', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--gray', '#ADACAB')
+                }
+              }
+              // body_color
+              if (element.key == "body_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--body-text-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--body-text-color', '#000')
+                }
+              }
+              // background_color
+              if (element.key == "background_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--body-background', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--body-background', '#fff')
+                }
+              }
+              // top_header_color
+              if (element.key == "top_header_color") {
+                if (
+                  element.value && 
+                  element.value !== null &&
+                  element.value !== "null" && 
+                  element.value.trim() !== ""
+                ) {
+                  document.documentElement.style.setProperty('--top-header-color', element.value)
+                } else {
+                  document.documentElement.style.setProperty('--top-header-color', '#f0f0f0')
+                }
+              }
             }
           }
         })
