@@ -344,5 +344,17 @@ export default {
   charges:'مبالغ الشحن',
   moneyTransfer:'تحويل النقود',
   monyAmount:'المبلغ',
-  uploadDamageProducts:'قم برفع صور المنتجات'
+  uploadDamageProducts:'قم برفع صور المنتجات',
+  step1:'خطوة 1',
+  step2:'خطوة 2',
+  myCart:'مشترياتى',
+  contactInfo:'معلومات التواصل',
+  clearAll:'مسح الكل',
+  subtotal:'المجموع-الفرعي',
+  returnDetails:'معلومات عن المنتجات',
+  requestType:'نوع الطلب',
+  branch:'الفرع',
+  uploadedImages:'الصور المرفقه',
+  printMemo:'طباعة مذكرة',
+  productDetails:'معلومات المنتج'
 };

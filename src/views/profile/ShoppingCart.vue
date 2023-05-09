@@ -117,7 +117,7 @@
         </div>
         <div class="px-2">
           <p class="text-dark" role="button" @click="clearAll">
-            <ins>Clear All</ins>
+            <ins>{{$t('profile.clearAll')}}</ins>
           </p>
         </div>
       </div>

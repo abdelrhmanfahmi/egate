@@ -356,5 +356,17 @@ export default {
   charges:'Charges',
   moneyTransfer:'Money Transfer',
   monyAmount:"Amount",
-  uploadDamageProducts:'Upload Image Of Damaged Products :'
+  uploadDamageProducts:'Upload Image Of Damaged Products :',
+  step2:'Step 2',
+  step1:'Step 1',
+  myCart:'My Cart',
+  contactInfo:'Contact Info',
+  clearAll:'Clear All',
+  subtotal:'Sub-Total',
+  returnDetails:'Return Request Details',
+  requestType:'Request Type',
+  branch:'Branch',
+  uploadedImages:'Uploaded Images',
+  printMemo:'Print Memo',
+  productDetails :'Product Details'
 };
