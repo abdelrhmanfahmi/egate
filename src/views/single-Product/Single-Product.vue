@@ -18,18 +18,18 @@
         class="navigation d-none d-lg-flex justify-content-start align-items-center"
       >
         <!-- navigation -->
-        <nav aria-label="breadcrumb ">
+        <!-- <nav aria-label="breadcrumb ">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <router-link to="/">
                 {{ $t("items.home") }}
               </router-link>
             </li>
-            <li class="breadcrumb-item">
-              <router-link to="/"> Category </router-link>
+            <li class="breadcrumb-item" v-if="myProduct.parent_category">
+              <router-link :to="`/categories/${myProduct.parent_category.id}`"> {{myProduct.parent_category.title}} </router-link>
             </li>
-            <li class="breadcrumb-item">
-              <router-link to="/"> Sub category </router-link>
+            <li class="breadcrumb-item" v-if="myProduct.title">
+              <a > {{myProduct.title}} </a>
             </li>
             <li class="breadcrumb-item">
               <router-link to="/"> Sub sub-category </router-link>
@@ -38,7 +38,7 @@
               <router-link to="/" class="main-color"> Product </router-link>
             </li>
           </ol>
-        </nav>
+        </nav> -->
       </div>
 
       <b-row align-h="center" class="mt-5">

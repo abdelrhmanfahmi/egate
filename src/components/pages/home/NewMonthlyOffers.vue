@@ -160,8 +160,8 @@ export default {
         swipeToSlide: true,
         autoplay: true,
         focusOnSelect: true,
-        touchThreshold: 5,
-        slidesPerRow: 2,
+        // touchThreshold: 5,
+        // slidesPerRow: 1,
 
         responsive: [
           {

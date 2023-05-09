@@ -907,10 +907,7 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <font-awesome-icon
-                      icon="fa-solid fa-cart-shopping"
-                      size="xl"
-                    />
+                  <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" />
                   </a>
 
                   <div class="" v-if="buyerUserData">
