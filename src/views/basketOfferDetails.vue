@@ -5,7 +5,7 @@
     class="navigation d-none d-lg-flex justify-content-start align-items-center"
   >
     <!-- navigation -->
-    <nav aria-label="breadcrumb ">
+    <!-- <nav aria-label="breadcrumb ">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <router-link to="/">
@@ -25,7 +25,7 @@
           <router-link to="/" class="main-color"> Product </router-link>
         </li>
       </ol>
-    </nav>
+    </nav> -->
   </div>
     <div class="" v-if="myProduct !== null && !notFound">
       <b-row align-h="center" class="mt-5">

@@ -1,6 +1,6 @@
 <template>
-  <div class="product-cart">
-    <small
+  <div class="product-cart slide-holder">
+    <!-- <small
       class="ribbon ribbon-top-left"
       :class="{
         'long-rebbon': dealType.trim().length > 20,
@@ -14,78 +14,152 @@
         }"
         >{{ dealType }}</span
       ></small
+    > -->
+    <div
+      class="row"
+      :class="{
+        'text-left': $i18n.locale == 'en',
+        'text-right': $i18n.locale == 'ar',
+      }"
     >
-    <div v-if="slider">
-      <router-link
-        class="img-holder"
-        :to="{
-          path: '/details',
-          query: { id: `${slider.id}`, type: dealType },
-        }"
-        v-if="slider.current_main_image_path && dealType"
-      >
-        <b-img :src="slider.current_main_image_path"> </b-img>
-      </router-link>
-      <router-link
-        class="img-holder"
-        :to="{ path: '/details', query: { id: `${slider.id}` } }"
-        v-else-if="slider.current_main_image_path && !dealType"
-      >
-        <b-img :src="slider.current_main_image_path"> </b-img>
-      </router-link>
-      <span v-else class="null-img-holder"></span>
-      <div class="card-info">
-        <h4
-          class="main-header my-2"
-          v-if="slider.product && slider.product.title && dealType"
-        >
-          <router-link
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+        <div class="time-holder" v-if="slider.current_main_image_path !== null">
+          <!-- <router-link
+            class="img-holder"
             :to="{
               path: '/details',
               query: { id: `${slider.id}`, type: dealType },
             }"
+            v-if="slider.current_main_image_path && dealType"
           >
-            {{ slider.product.title }}
+            <b-img :src="slider.current_main_image_path"> </b-img>
           </router-link>
-          <!-- {{ slider.product.title }} -->
-        </h4>
-        <h4
-          class="main-header my-2"
-          v-else-if="slider.product && slider.product.title && !dealType"
-        >
           <router-link
+            class="img-holder"
             :to="{ path: '/details', query: { id: `${slider.id}` } }"
+            v-else-if="slider.current_main_image_path && !dealType"
           >
-            {{ slider.product.title }}
+            <b-img :src="slider.current_main_image_path"> </b-img>
           </router-link>
-          <!-- {{ slider.product.title }} -->
-        </h4>
-        <h5
-          class="price m-0"
-          v-if="
-            slider.product_details_by_type &&
-            slider.product_details_by_type.customer_price
-          "
-        >
-          {{ slider.product_details_by_type.customer_price | fixedCurrency }}
-          {{ currency }}
-        </h5>
-        <p
-          class="price-after price m-0"
-          v-if="
-            slider.product_details_by_type &&
-            slider.product_details_by_type.price_before_discount &&
-            slider.product_details_by_type.price_before_discount >
-              slider.product_details_by_type.customer_price
-          "
-        >
-          {{
-            slider.product_details_by_type.price_before_discount | fixedCurrency
-          }}
-          {{ currency }}
-        </p>
+          <span v-else class="null-img-holder"></span> -->
+          <b-img
+            :src="slider.current_main_image_path"
+            class="offer-image w-100"
+          >
+          </b-img>
+          <div class="time-count" v-if="dealType">
+            {{ dealType }}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-items-start justify-content-between">
+        <div v-if="slider">
+          <!-- <router-link
+            class="img-holder"
+            :to="{
+              path: '/details',
+              query: { id: `${slider.id}`, type: dealType },
+            }"
+            v-if="slider.current_main_image_path && dealType"
+          >
+            <b-img :src="slider.current_main_image_path"> </b-img>
+          </router-link>
+          <router-link
+            class="img-holder"
+            :to="{ path: '/details', query: { id: `${slider.id}` } }"
+            v-else-if="slider.current_main_image_path && !dealType"
+          >
+            <b-img :src="slider.current_main_image_path"> </b-img>
+          </router-link>
+          <span v-else class="null-img-holder"></span> -->
+          <div class="card-info">
+            <h4
+              class="main-header my-2"
+              v-if="slider.product && slider.product.title && dealType"
+            >
+              <router-link
+                :to="{
+                  path: '/details',
+                  query: { id: `${slider.id}`, type: dealType },
+                }"
+              >
+                {{ slider.product.title }}
+              </router-link>
+              <!-- {{ slider.product.title }} -->
+            </h4>
+            <h4
+              class="main-header my-2"
+              v-else-if="slider.product && slider.product.title && !dealType"
+            >
+              <router-link
+                :to="{ path: '/details', query: { id: `${slider.id}` } }"
+              >
+                {{ slider.product.title }}
+              </router-link>
+              <!-- {{ slider.product.title }} -->
+            </h4>
+            <h5
+              class="price m-0"
+              v-if="
+                slider.product_details_by_type &&
+                slider.product_details_by_type.customer_price
+              "
+            >
+              {{
+                slider.product_details_by_type.customer_price | fixedCurrency
+              }}
+              {{ currency }}
+            </h5>
+            <p
+              class="price-after price m-0"
+              v-if="
+                slider.product_details_by_type &&
+                slider.product_details_by_type.price_before_discount &&
+                slider.product_details_by_type.price_before_discount >
+                  slider.product_details_by_type.customer_price
+              "
+            >
+              {{
+                slider.product_details_by_type.price_before_discount
+                  | fixedCurrency
+              }}
+              {{ currency }}
+            </p>
+          </div>
+        </div>
+        <div class="row mb-3 align-items-center">
+          <div class="col-12 px-1">
+            <router-link
+            :to="{
+              path: '/details',
+              query: { id: `${slider.id}`, type: dealType },
+            }"
+              v-if="slider"
+            >
+              <button class="outline-main">
+                {{ $t("profile.details") }}
+              </button>
+            </router-link>
+          </div>
+          <div
+            class="col-12 px-1"
+            v-if="
+              (add_to_cart == true &&
+                slider.product_details_by_type.add_type === 'cart') ||
+              (add_to_cart == true &&
+                slider.product_details_by_type.add_type === 'both')
+            "
+          >
+            <a >
+              <button class="bg-main text-white" @click="addToCart(slider)">
+                {{ $t("items.addToCart") }}
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
+
     <button
       class="border-main main-color br-5 btn btn-block"
       v-if="buttonTrue == true"
@@ -260,6 +334,10 @@ export default {
     opacity: 1;
 
     border-radius: 50%;
+    width: 95%;
+    @media(max-width:992px){
+      width:100%
+    }
     &:hover {
       opacity: 0.5;
     }
@@ -271,10 +349,14 @@ export default {
       display: block;
       object-fit: cover;
     }
+    button{
+      width:100%;
+      margin: 5px 0;
+    }
   }
   .card-info {
-    padding: 25px;
-    background: #ebebeb52;
+    //padding: 25px;
+    //background: #ebebeb52;
     margin-bottom: 10px;
     h4 {
       a {
@@ -301,5 +383,64 @@ button.new {
 }
 .rfqBtn {
   background: #000;
+}
+
+.offer-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.slide-holder {
+  background-color: #eff0f0;
+  border-radius: 10px;
+  padding: 15px;
+  width: 95% !important;
+}
+
+button {
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.outline-main {
+  border: 2px solid $main-color;
+  background: transparent;
+  color: $main-color;
+}
+
+.supplier-name {
+  text-decoration: underline !important;
+  color: inherit;
+}
+
+.time-holder {
+  position: relative;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.time-count {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 14px;
+  background: $main-color;
+  border-radius: 0 0 20px 20px;
+  color: #fff;
+  right: 10px;
+  padding: 0 5px;
+}
+
+.row {
+  @media (max-width: 1200px) {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
 }
 </style>
