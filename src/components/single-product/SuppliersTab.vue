@@ -38,14 +38,81 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(product, index) in products" :key="index">
+              <tr v-for="(product, index) in products" :key="index" :class="{
+                'border-main-bold':
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type,
+                'border-green-bold':
+                  product && product.ads && product.ads.length,
+              }">
+             
+                <td>
+                  <div
+                    v-if="
+                      (product && product.ads && product.ads.length) ||
+                      product.basket_promotions_running_by_type ||
+                      product.buy_get_promotion_running_by_type
+                    "
+                  >
+                    <h6
+                      v-if="product.ads && product && product.ads.length > 0"
+                      class="main-color font-weight-bold text-success"
+                    >
+                      {{ $t("items.advertise") }}
+                    </h6>
+                    <h6
+                      v-if="product.basket_promotions_running_by_type"
+                      class="main-color font-weight-bold"
+                    >
+                      <router-link
+                      class="main-color"
+                        :to="{
+                          path: '/basketOfferDetails',
+                          query: {
+                            id: product.basket_promotions_running_by_type
+                              .basket_promotion_id,
+                          },
+                        }"
+                        >{{ $t("profile.basketDeals") }}</router-link
+                      >
+                    </h6>
+                    <h6
+                      v-if="product.buy_get_promotion_running_by_type"
+                      class="main-color font-weight-bold"
+                    >
+                      <router-link
+                      class="main-color"
+                        :to="{
+                          path: '/details',
+                          query: {
+                            id: product.id,
+                            type: `${$t('profile.buy')} 
+                                                              ${
+                                                                product
+                                                                  .buy_get_promotion_running_by_type
+                                                                  .promotion.buy_x
+                                                              } 
+                                                              ${$t(
+                                                                'profile.get'
+                                                              )} ${
+                              product.buy_get_promotion_running_by_type.promotion
+                                .get_y
+                            }`,
+                          },
+                        }"
+                        >{{ $t("profile.buyXgetYOffer") }}</router-link
+                      >
+                    </h6>
+                  </div>
+                
+             
                 <td>
                   <router-link
                     v-if="product.image_path !== null"
                     class="link"
                     :to="{ path: '/details', query: { id: product.id } }"
                   >
-                    <span
+                    <!-- <span
                       v-if="
                         product.ads.length ||
                         product.basket_promotions_running_by_type ||
@@ -89,7 +156,7 @@
                         >
                       </h6>
                     </span>
-                    <br>
+                    <br> -->
                     <img
                       :src="product.image_path"
                       class="product-image"
@@ -670,10 +737,10 @@ export default {
         { value: "d", text: "Fourth option" },
       ],
       tableFields: [
-        // {
-        //   key: "#",
-        //   label: "#",
-        // },
+        {
+          key: "#",
+          label: "#",
+        },
         {
           key: "image_path",
           label: this.$t("items.image"),

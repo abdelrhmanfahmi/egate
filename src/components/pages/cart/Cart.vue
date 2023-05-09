@@ -2012,13 +2012,14 @@
                                                 id="check"
                                               />
                                               <span class="mx-2 ml-0"
-                                                >{{ $t("payment.delivery") }} :
-                                                <b class="mx-2"
+                                                >{{ $t("payment.delivery") }} 
+                                                <!-- <b class="mx-2"
                                                   ><b class="main-color"
                                                     >2.00 kwd</b
                                                   >
                                                   next day delivery
-                                                </b></span
+                                                </b> -->
+                                                </span
                                               >
                                             </label>
                                             <!-- if select pickup  -->
