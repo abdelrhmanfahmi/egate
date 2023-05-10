@@ -368,5 +368,8 @@ export default {
   branch:'Branch',
   uploadedImages:'Uploaded Images',
   printMemo:'Print Memo',
-  productDetails :'Product Details'
+  productDetails :'Product Details',
+  items:'Items',
+  noReturnPolicy:'No Return Policy',
+  specifyQuantity:'Specify quantities you would like to return for each item'
 };

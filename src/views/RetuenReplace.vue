@@ -7,173 +7,259 @@
           {{ $t("profile.replaceMethods") }}
         </h2>
       </div> -->
-      <div class="row justify-content-center align-items-center pb-5 my-5">
-        <div class="col-7">
-          <form class="returnData mb-5">
-            <div class="form-input mb-4">
-              <label>
-                <h4>{{ $t("profile.returnReason") }}</h4>
-              </label>
-              <!-- dropdown for reasons  -->
-              <b-form-select v-model="returnData.return_reason" class="mb-3">
-                <b-form-select-option disabled value="null">{{
-                  $t("cart.selectOption")
-                }}</b-form-select-option>
-                <b-form-select-option
-                  :value="reason.id"
-                  v-for="(reason, index) in reasons"
-                  :key="index"
-                  >{{ reason.name }}</b-form-select-option
-                >
-              </b-form-select>
-              <div
-                class="error text-start"
-                v-for="(error, index) in uploadErrors.return_reason"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </div>
-            <div class="images-holder">
-              <p class="mb-0">{{$t('profile.uploadDamageProducts')}}</p>
-              <ul class="files">
-                <li
-                  v-for="(file, index) in representedImages"
-                  :key="index"
-                  class="file-holder"
-                >
-                  <div class="file-data">
-                    <img :src="file" alt="" srcset="" />
-                    <button
-                      @click.prevent="removeFile(index)"
-                      class="border-none mx-2"
-                      title="Remove"
-                    >
-                      <font-awesome-icon icon="fa-solid fa-trash-can" />
-                    </button>
+      <div class="step1 my-5">
+        <h5> <b>{{ $t('profile.step1') }}</b> {{$t('profile.specifyQuantity')}} :</h5>
+        <div class="products-holder text-center">
+          <table
+            v-if="productsLength > 0"
+            class="table table-striped table-hover table-bordered selectable"
+          >
+            <thead>
+              <tr>
+                <th scope="col" v-for="(tab, index) in tableFields" :key="index">
+                  {{ tab.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr v-for="(product, index) in products" :key="index">
+                <td class="position-relative">
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    v-if="product.image || product.title"
+                  >
+                    <div class="product-image" v-if="product.image">
+                      <img
+                        :src="product.image"
+                        alt=""
+                        class="product-image br-5"
+                        srcset=""
+                      />
+                    </div>
+                    <div class="product-title" v-if="product.title">
+                      <p>{{ product.title }}</p>
+                    </div>
                   </div>
-                </li>
-                <li class="file-holder">
-                  <div class="company-logo">
-                    <main class="">
-                      <div class="data-holder">
-                        <div @drop.prevent="handleFileDrop">
-                          <br />
-                          <div class="file-wrapper">
-                            <input
-                              type="file"
-                              name="file-input"
-                              @change.prevent="handleFileInput"
-                              multiple
-                            />
-                            <div class="d-flex flex-column text-holder">
-                              <p class="text-shown sign m-0 h2">+</p>
-                              <p class="text-shown text h2">
-                                {{ $t("profile.Upload") }}
-                              </p>
+                  <div class="" v-else>-</div>
+                </td>
+                <td>
+                  <div
+                    class="supplier-data"
+                    v-if="product.supplier_name || product.supplier_id"
+                  >
+                    <router-link :to="`/suppliers/${product.supplier_id}`">
+                      {{ product.supplier_name }}
+                    </router-link>
+                  </div>
+                  <div class="" v-else>-</div>
+                </td>
+  
+                <td>
+                  <div class="product-weight" v-if="product.Weight">
+                    <p>{{ product.Weight }}</p>
+                  </div>
+                  <div class="" v-else></div>
+                </td>
+                <td>
+                  <p class="mb-0" v-if="product.country">
+                    {{ product.country }}
+                  </p>
+                  <p class="mb-0" v-else>-</p>
+                </td>
+  
+                <!-- <td>
+                  <Counter
+                    :minimum="
+                      product.min_order_quantity ? product.min_order_quantity : 1
+                    "
+                    :quantity="product.quantity"
+                    v-if="!product.gift_promotion_id"
+                    :product="product"
+                    class="justify-content-center"
+                    @changeTitle="ChangeQ($event)"
+                  ></Counter>
+                  <p v-else>-</p>
+                </td> -->
+                <td>
+                  <div class="price" v-if="product.price">
+                    <p class="main-color">
+                      <b>{{ product.price | fixedCurrency }} {{ currency }}</b>
+                    </p>
+                  </div>
+                  <div class="" v-else></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="step2">
+        <h5> <b>{{ $t('profile.step1') }}</b> {{$t('profile.returnReason')}} :</h5>
+        <div class="row  align-items-center pb-5 my-5">
+          <div class="col-7">
+            <form class="returnData mb-5">
+              <div class="form-input mb-4">
+                <!-- <label>
+                  <h4>{{ $t("profile.returnReason") }}</h4>
+                </label> -->
+                <!-- dropdown for reasons  -->
+                <b-form-select v-model="returnData.return_reason" class="mb-3">
+                  <b-form-select-option disabled value="null">{{
+                    $t("cart.selectOption")
+                  }}</b-form-select-option>
+                  <b-form-select-option
+                    :value="reason.id"
+                    v-for="(reason, index) in reasons"
+                    :key="index"
+                    >{{ reason.name }}</b-form-select-option
+                  >
+                </b-form-select>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.return_reason"
+                  :key="index"
+                >
+                  {{ error }}
+                </div>
+              </div>
+              <div class="images-holder">
+                <p class="mb-0">{{ $t("profile.uploadDamageProducts") }}</p>
+                <ul class="files">
+                  <li
+                    v-for="(file, index) in representedImages"
+                    :key="index"
+                    class="file-holder"
+                  >
+                    <div class="file-data">
+                      <img :src="file" alt="" srcset="" />
+                      <button
+                        @click.prevent="removeFile(index)"
+                        class="border-none mx-2"
+                        title="Remove"
+                      >
+                        <font-awesome-icon icon="fa-solid fa-trash-can" />
+                      </button>
+                    </div>
+                  </li>
+                  <li class="file-holder">
+                    <div class="company-logo">
+                      <main class="">
+                        <div class="data-holder">
+                          <div @drop.prevent="handleFileDrop">
+                            <br />
+                            <div class="file-wrapper">
+                              <input
+                                type="file"
+                                name="file-input"
+                                @change.prevent="handleFileInput"
+                                multiple
+                              />
+                              <div class="d-flex flex-column text-holder">
+                                <p class="text-shown sign m-0 h2">+</p>
+                                <p class="text-shown text h2">
+                                  {{ $t("profile.Upload") }}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </main>
-                  </div>
-                </li>
-              </ul>
-              <div
-                class="error text-start"
-                v-for="(error, index) in uploadErrors.image"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4">
-                <label>
-                  {{ $t("profile.ReturnedNumber") }}
-                </label>
-                <div class="product-counter mb-2">
-                  <div
-                    class="actions d-flex justify-content-center align-items-center"
-                    :class="$i18n.locale"
-                  >
-                    <button
-                      class="product-counter-btn"
-                      @click="decrementQuantity(returnData.quantity)"
-                      :disabled="returnData.quantity == 1"
-                      type="button"
-                    >
-                      <b-icon-dash />
-                    </button>
-                    <div class="value">
-                      <!-- display quantity  -->
-                      <span class="product-counter-number">
-                        {{
-                          returnData.quantity ? returnData.quantity : 1
-                        }}</span
-                      >
+                      </main>
                     </div>
-                    <!-- increment the quantity  -->
-                    <button
-                      class="product-counter-btn"
-                      :class="{ disabledBtn: returnData.quantity >= maxQTY }"
-                      @click="incrementQuantity"
-                      type="button"
-                      :disabled="returnData.quantity >= maxQTY"
-                    >
-                      <b-icon-plus />
-                    </button>
-
-                    <!-- decrement the quantity  -->
-                  </div>
+                  </li>
+                </ul>
+                <div
+                  class="error text-start"
+                  v-for="(error, index) in uploadErrors.image"
+                  :key="index"
+                >
+                  {{ error }}
                 </div>
               </div>
-              <!-- upload image of product  -->
-              <div class="col-8">
-                <!-- <label for="CommercialLicense">
-                  {{ $t("profile.returnImage") }}
-                  <span class="text-danger">*</span>
-                </label> -->
-                <!-- <b-form-group>
-                  <b-form-file
-                    size="lg"
-                    multiple
-                    id="returnImage"
-                    @change="uploadImage"
-                    :placeholder="$t('profile.returnImage')"
-                    drop-placeholder="Drop file here..."
-                  ></b-form-file>
-                </b-form-group> -->
+              <div class="row">
+                <!-- <div class="col-4">
+                  <label>
+                    {{ $t("profile.ReturnedNumber") }}
+                  </label>
+                  <div class="product-counter mb-2">
+                    <div
+                      class="actions d-flex justify-content-center align-items-center"
+                      :class="$i18n.locale"
+                    >
+                      <button
+                        class="product-counter-btn"
+                        @click="decrementQuantity(returnData.quantity)"
+                        :disabled="returnData.quantity == 1"
+                        type="button"
+                      >
+                        <b-icon-dash />
+                      </button>
+                      <div class="value">
+                        <span class="product-counter-number">
+                          {{
+                            returnData.quantity ? returnData.quantity : 1
+                          }}</span
+                        >
+                      </div>
+                      <button
+                        class="product-counter-btn"
+                        :class="{ disabledBtn: returnData.quantity >= maxQTY }"
+                        @click="incrementQuantity"
+                        type="button"
+                        :disabled="returnData.quantity >= maxQTY"
+                      >
+                        <b-icon-plus />
+                      </button>
+  
+                    </div>
+                  </div>
+                </div> -->
+                <!-- upload image of product  -->
+                <div class="col-8">
+                  <!-- <label for="CommercialLicense">
+                    {{ $t("profile.returnImage") }}
+                    <span class="text-danger">*</span>
+                  </label> -->
+                  <!-- <b-form-group>
+                    <b-form-file
+                      size="lg"
+                      multiple
+                      id="returnImage"
+                      @change="uploadImage"
+                      :placeholder="$t('profile.returnImage')"
+                      drop-placeholder="Drop file here..."
+                    ></b-form-file>
+                  </b-form-group> -->
+                </div>
               </div>
-            </div>
-
-            <!-- enter message  -->
-
-            <b-form-textarea
-              v-if="returnData.return_reason == 8"
-              id="textarea-rows"
-              :placeholder="$t('profile.returnReason')"
-              rows="8"
-              v-model="returnData.return"
-            ></b-form-textarea>
-            <b-button
-              type="submit"
-              class="saveBtn btn-block py-3 mt-3 border-main"
-              :disabled="
-                btn1Disabled ||
-                (returnData.quantity >= maxQTY && returnData.quantity > 1)
-              "
-              @click.prevent="returnOrder"
-            >
-              <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
-              <span class="loader" v-if="loading"></span>
-            </b-button>
-          </form>
-          <ul>
-            <li v-for="(item, index) in returnData.image" :key="index">
-              <img :src="item.name" alt="" />
-            </li>
-          </ul>
+  
+              <!-- enter message  -->
+  
+              <b-form-textarea
+                v-if="returnData.return_reason == 8"
+                id="textarea-rows"
+                :placeholder="$t('profile.returnReason')"
+                rows="8"
+                v-model="returnData.return"
+              ></b-form-textarea>
+              <b-button
+                type="submit"
+                class="saveBtn btn-block py-3 mt-3 bg-main"
+                :disabled="
+                  btn1Disabled ||
+                  (returnData.quantity >= maxQTY && returnData.quantity > 1)
+                "
+                @click.prevent="returnOrder"
+              >
+                <i class="fa fa-upload"></i> {{ $t("cart.submit") }}
+                <span class="loader" v-if="loading"></span>
+              </b-button>
+            </form>
+            <ul>
+              <li v-for="(item, index) in returnData.image" :key="index">
+                <img :src="item.name" alt="" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -184,7 +270,10 @@
 // return replace page
 // this page used when client need to return his products and using replace method
 import profile from "@/services/profile";
-import { BIconPlus, BIconDash } from "bootstrap-vue";
+// import { BIconPlus, BIconDash } from "bootstrap-vue";
+
+// import Counter from "@/components/global/Counter.vue";
+
 export default {
   data() {
     return {
@@ -203,13 +292,62 @@ export default {
       // reasons: null,
       reasons: null,
       id: this.$route.query.prodId,
+      orderId: this.$route.query.orderId,
       orderData: null,
       maxQTY: null,
       files: [],
       representedImages: [],
+      tableFields: [
+        // {
+        //   key: "image_path",
+        //   label: this.$t("items.image"),
+        // },
+        {
+          key: "product.title",
+          label: this.$t("items.item"),
+        },
+
+        {
+          key: "client.company_name",
+          label: this.$t("items.supplier"),
+        },
+        {
+          key: "product_details_by_type.unit.title",
+          label: this.$t("items.unit"),
+        },
+        {
+          key: "country.title",
+          label: this.$t("profile.countryOrigin"),
+        },
+        // {
+        //   key: "quantity",
+        //   label: this.$t("items.quantity"),
+        // },
+        {
+          key: "product_details_by_type.price",
+          label: this.$t("items.price"),
+        },
+      ],
+      products: null,
+      productsLength: 0,
     };
   },
   methods: {
+    getCheckedItems() {
+      let payload = {
+        items: this.orderId,
+      };
+      profile
+        .storeCheckedOrders(payload)
+        .then((res) => {
+          console.log(res);
+          this.products = res.data.items;
+          this.productsLength = res.data.items.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     handleFileDrop(e) {
       let droppedFiles = e.dataTransfer.files;
       if (!droppedFiles) return;
@@ -380,10 +518,12 @@ export default {
     // this.getOrderData()
     this.returnReasons();
     this.checkReturnedProductQuantity();
+    this.getCheckedItems();
   },
   components: {
-    BIconPlus,
-    BIconDash,
+    // BIconPlus,
+    // BIconDash,
+    // Counter,
   },
 };
 </script>
@@ -483,7 +623,7 @@ export default {
 .file-holder {
   position: relative;
   border: 2px solid $gray;
-  margin: 10px  3px 15px;
+  margin: 10px 3px 15px;
   padding: 30px;
   border-radius: 10px;
   display: inline-block;
@@ -507,5 +647,12 @@ export default {
 }
 .method {
   margin: 10px 0;
+}
+
+button[type='submit']{
+  width: 50%;
+  @media(max-width:992px){
+    width: 100%;
+  }
 }
 </style>
