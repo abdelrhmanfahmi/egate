@@ -479,4 +479,10 @@ export default {
   favoriteBulkRemoveFav(payload) {
     return globalAxios.post("members/profile/favorite/delete/bulk", payload);
   },
+  storeCheckedOrders(payload){
+    return globalAxios.post('members/client-orders/products-with-ides' , payload)
+  },
+  // getCheckedOrders(){
+  //   return globalAxios.get('client-orders/products-with-ides')
+  // }
 };

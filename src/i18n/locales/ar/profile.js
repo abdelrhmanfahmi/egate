@@ -356,5 +356,8 @@ export default {
   branch:'الفرع',
   uploadedImages:'الصور المرفقه',
   printMemo:'طباعة مذكرة',
-  productDetails:'معلومات المنتج'
+  productDetails:'معلومات المنتج',
+  items:'عنصر',
+  noReturnPolicy:'لا يوجد سياسة استرجاع',
+  specifyQuantity:'حدد الكميات التي ترغب في إرجاعها لكل عنصر'
 };
