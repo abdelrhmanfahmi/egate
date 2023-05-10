@@ -4399,4 +4399,10 @@ export default {
 .rotateIcon{
   transform: rotate(180deg);
 }
+.card-header{
+  h5{
+    display:block;
+    width:100%
+  }
+}
 </style>
