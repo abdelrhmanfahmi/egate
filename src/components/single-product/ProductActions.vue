@@ -360,7 +360,7 @@
       <b-button
         @ok="$refs.CartModal.onSubmit()"
         @click="addPromotionToCart(myProduct)"
-        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn m-2 mx-3"
         v-if="
           (add_to_cart &&
             myProduct.product_details_by_type.add_type === 'cart' &&

@@ -1738,15 +1738,20 @@
                         <b-card no-body class="mb-1">
                           <b-card-header
                             header-tag="header"
-                            class="p-3 pb-0"
+                            class="p-3 pb-0 d-flex justify-content-between align-items-center"
                             role="tab"
+                            @click="rotateElement(`accordion-${index}`)"
+                            
                           >
                             <h5
                               class="name mb-0"
                               v-b-toggle="`accordion-${index}`"
                             >
-                              {{ supplier.supplier_name }}
+                              <ins>{{ supplier.supplier_name }}</ins>
                             </h5>
+                            <div class="icon">
+                              <font-awesome-icon icon="fa-solid fa-angle-down" />
+                            </div>
                           </b-card-header>
                           <b-collapse
                             :id="`accordion-${index}`"
@@ -2170,6 +2175,7 @@
           />
         </div>
       </div>
+      
     </div>
 
     <!-- last : when no data  -->
@@ -3922,6 +3928,15 @@ export default {
         behavior: "smooth",
       });
     },
+    rotateElement(element){
+      let myElement = document.getElementById(`${element}`);
+      let myElementParent = document.getElementById(`${element}`).parentElement;
+      if(myElement.classList.contains('show')){
+        myElementParent.querySelector('.icon').classList.add('rotateIcon')
+      }else{
+        myElementParent.querySelector('.icon').classList.remove('rotateIcon')
+      }
+    },
 
     /**
      *  @vuese
@@ -4377,5 +4392,11 @@ export default {
     bottom: 0;
     border-radius: 5px;
   }
+}
+.icon{
+  transition: all .3s ease-in-out;
+}
+.rotateIcon{
+  transform: rotate(180deg);
 }
 </style>
