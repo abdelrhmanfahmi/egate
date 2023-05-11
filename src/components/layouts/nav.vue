@@ -956,6 +956,30 @@ html:lang(ar) {
   }
 }
 
+
+.en{
+  .toggleMenu{
+    @media (max-width: 766.98px) {
+      top: 10%;
+      right: -5%;
+      position: fixed;
+      //background: $top-header-color;
+      width: 14%;
+    }
+  }
+}
+.ar{
+  .toggleMenu{
+    @media (max-width: 766.98px) {
+      top: 10%;
+      right: 2%;
+      position: fixed;
+      //background: $top-header-color;
+      width: 14%;
+    }
+  }
+}
+
 .companies-router {
   border: 2px solid $main-color;
   padding: 6px 15px;

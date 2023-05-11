@@ -81,6 +81,8 @@
                           class="supplier-name text-center mt-3 text-capitalize mb-0 font-weight-bold mb-3">
                           <span>{{ item.product_supplier.product.title }}
                           </span>
+                          <br>
+                          <span v-if="item.buy_get_promotion_id">({{ $t('profile.buyXgetYOffer')}})</span>
                         </p>
                       </router-link>
                     </td>

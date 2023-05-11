@@ -232,7 +232,7 @@
               v-if="myProduct.product_details_by_type.quantity > 0"
               class="new-wishlist-method"
             >
-              <div class="products mr-1" v-if="buyerUserData">
+              <div class="products" v-if="buyerUserData">
                 <!-- if product added to favorite  -->
                 <a
                   class="button one active animate mobile button--secondary wishlist-btn m-0"
@@ -243,7 +243,7 @@
                 </a>
                 <!-- add product to favorite if not added to favorite  -->
                 <a
-                  class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                  class="button one inactive mobile button--secondary wishlist-btn"
                   @click="addToWishlist(myProduct)"
                   v-else
                 >
@@ -357,33 +357,62 @@
           </div>
         </div>
       </div>
-      <b-button
-        @ok="$refs.CartModal.onSubmit()"
-        @click="addPromotionToCart(myProduct)"
-        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn m-2 mx-3"
-        v-if="
-          (add_to_cart &&
-            myProduct.product_details_by_type.add_type === 'cart' &&
-            myProduct.buy_get_promotion_running_by_type) ||
-          (add_to_cart &&
-            myProduct.product_details_by_type.add_type === 'both' &&
-            myProduct.buy_get_promotion_running_by_type)
-        "
-      >
-        <span>
-          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-        </span>
-        <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
-        <span
-          >({{
-            `${$t("profile.buy")} 
-          ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
-         ${$t("profile.get")} ${
-              myProduct.buy_get_promotion_running_by_type.promotion.get_y
-            } `
-          }})</span
-        >
-      </b-button>
+      <div class="row align-items-center w-100">
+        <div class="col-md-6 col-sm-12">
+
+          <b-button
+            @ok="$refs.CartModal.onSubmit()"
+            @click="addPromotionToCart(myProduct)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn m-2 mx-3"
+            v-if="
+              (add_to_cart &&
+                myProduct.product_details_by_type.add_type === 'cart' &&
+                myProduct.buy_get_promotion_running_by_type) ||
+              (add_to_cart &&
+                myProduct.product_details_by_type.add_type === 'both' &&
+                myProduct.buy_get_promotion_running_by_type)
+            "
+          >
+            <span>
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </span>
+            <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
+            <span
+              >({{
+                `${$t("profile.buy")} 
+              ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+             ${$t("profile.get")} ${
+                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }})</span
+            >
+          </b-button>
+        </div>
+        <div class="col-md-6 col-sm-12">
+
+          <b-button
+          @click="$bvModal.show('new-standing')"
+          v-b-tooltip.hover
+          :title="`${$t('items.standingOrders')} ( ${$t('profile.buy')} ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x} ${$t('profile.get')} ${myProduct.buy_get_promotion_running_by_type.promotion.get_y} )`"
+            class="btn btn btn-loght border-0 outline-none shadow-none d-block add-cart  m-2 mx-3 "
+           
+          >
+            <span>
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </span>
+            <span class="mx-2">{{ $t("items.standingOrders") }}</span>
+            <span
+              >({{
+                `${$t("profile.buy")} 
+              ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+             ${$t("profile.get")} ${
+                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }})</span
+            >
+          </b-button>
+        </div>
+      </div>
     </div>
 
     <!-- share product  -->
@@ -504,6 +533,12 @@
         {{ $t("items.standingOrders") }}
       </template>
       <standing-orders />
+    </b-modal>
+    <b-modal id="new-standing" size="xl" hide-footer>
+      <template #modal-title>
+        {{ $t("items.standingOrders") }}
+      </template>
+      <standing-orders :buy_get_promotion="true"/>
     </b-modal>
   </div>
 </template>
