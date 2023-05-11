@@ -104,7 +104,7 @@
           {{ $t("profile.productDetails") }}  :
         </h5>
         <div class="supplier-products mt-3" v-if="fields && supplier_oreder_item">
-          <div class="holder">
+          <div class="holder text-center">
             <table
               class="table table-striped table-hover selectable"
               v-if="
@@ -258,7 +258,7 @@
             </div>
             
           </div>
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-6 col-sm-12" v-if="return_item.clinet_bank_info">
             <div class="">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
