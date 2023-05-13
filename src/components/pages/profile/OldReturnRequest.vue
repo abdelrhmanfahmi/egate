@@ -81,11 +81,11 @@
           </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-2">
-          <div class="row info-data">
+          <div class="row info-data" v-if="return_item.image">
             <div class="col-4 info-colored">
               <h5 class="pt-2">{{ $t("profile.returnImage") }}</h5>
             </div>
-            <div class="col-8 py-1 info-colored">
+            <div class="col-8 py-1 info-colored" >
               <div
                 class="downloadArea w-50"
                 :class="{
@@ -237,7 +237,7 @@
                       {{ currency }}
                     </td>
                     <td v-else>-</td>
-                    <td></td>
+                    <!-- <td></td> -->
                   </tr>
                 </tbody>
               </table>

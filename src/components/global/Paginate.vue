@@ -141,6 +141,7 @@ export default {
         return false;
       }
       this.$emit("pagechanged", this.currentPage - 1);
+      // this.goUp()
     },
     /**
      * @vuese
@@ -149,6 +150,7 @@ export default {
     onClickPage(page) {
       // change page , call api again
       this.$emit("pagechanged", page);
+      // this.goUp()
     },
     /**
      * @vuese
@@ -159,6 +161,7 @@ export default {
         return false;
       }
       this.$emit("pagechanged", this.currentPage + 1);
+      // this.goUp()
     },
     /**
      * @vuese
@@ -171,6 +174,7 @@ export default {
       }
       //get total pages again
       this.$emit("pagechanged", this.totalPages);
+      // this.goUp()
     },
     /**
      * @vuese
@@ -179,6 +183,13 @@ export default {
     isPageActive(page) {
       return this.currentPage === page;
     },
+    goUp(){
+      window.scrollTo({
+        left:0,
+        top:200,
+        behavior:'smooth'
+      })
+    }
   },
 };
 </script>

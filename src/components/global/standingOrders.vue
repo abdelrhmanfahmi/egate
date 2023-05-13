@@ -236,6 +236,7 @@ export default {
           quantity: !this.checkPage
             ? this.ProductQuantity
             : this.quotationQuantity,
+            buy_get_promotion:this.buy_get_promotion == true ? true : false
         };
         profile
           .addProductToStandingOrders(payload)
@@ -266,6 +267,7 @@ export default {
           quantity: !this.checkPage
             ? this.ProductQuantity
             : this.quotationQuantity,
+            buy_get_promotion:this.buy_get_promotion == true ? true : false
         };
         profile
           .addProductToStandingOrders(payload)
@@ -363,6 +365,9 @@ export default {
     checkedItems: {
       type: Array,
     },
+    buy_get_promotion:{
+      type:Boolean
+    }
   },
   computed: {
     checkPage() {

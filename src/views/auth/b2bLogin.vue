@@ -172,7 +172,8 @@ export default {
             // }, 1000);
             this.$router.replace(
               {
-                path: "/profile/categories",
+                // path: "/profile/categories",
+                path: "/",
               },
 
               () => {
