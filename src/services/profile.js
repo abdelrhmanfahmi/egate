@@ -254,10 +254,11 @@ export default {
     return globalAxios.post("members/review", data);
   },
   returnReasons() {
-    return globalAxios.get("members/returns/return-reasons");
+    return globalAxios.get("members/client-orders/return_reasons");
   },
   returnOrder(payLoad) {
-    return globalAxios.post(`members/orders/return-order-item`, payLoad);
+    // return globalAxios.post(`members/orders/return-order-item`, payLoad);
+    return globalAxios.post(`members/orders/bulk-return-order-item`, payLoad);
   },
   // storeGoogleLink(){
   //   return globalAxios.get('site-settings/google_play')

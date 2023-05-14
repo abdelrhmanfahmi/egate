@@ -1,17 +1,17 @@
 <template>
   <div class="return-replace">
-    <!-- <NewReturnReplace /> -->
-    <OldReturnReplace />
+    <NewReturnReplace />
+    <!-- <OldReturnReplace /> -->
   </div>
 </template>
 
 <script>
-// import NewReturnReplace from '@/components/pages/returns/NewReturnReplace.vue';
-import OldReturnReplace from '@/components/pages/returns/OldReturnReplace.vue';
+import NewReturnReplace from '@/components/pages/returns/NewReturnReplace.vue';
+// import OldReturnReplace from '@/components/pages/returns/OldReturnReplace.vue';
 export default {
   components:{
-    // NewReturnReplace
-    OldReturnReplace
+    NewReturnReplace
+    // OldReturnReplace
   }
 }
 </script>
