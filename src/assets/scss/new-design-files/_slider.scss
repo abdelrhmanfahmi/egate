@@ -66,8 +66,12 @@
 .new-daily-offers-wrapper {
   .slick-list {
     margin: 0 35px;
+    @media (max-width:992px) {
+      margin: 0;
+    }
   }
 }
+
 
 // .clients-suppliers-page {
 //   .product-silder button:not(:disabled),

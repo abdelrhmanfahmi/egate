@@ -19,7 +19,15 @@ export default {
   getSupplierProducts(id , productId) {
     return globalAxios.get(`products` , {
       params:{
-        not_client_id : id,
+        client_id : id, 
+        without_id:productId ? productId : null
+      }
+    });
+  },
+  getSupplierRelatedProducts(id , productId) {
+    return globalAxios.get(`products` , {
+      params:{
+        not_client_id : id, 
         without_id:productId ? productId : null
       }
     });
@@ -145,7 +153,7 @@ export default {
     return globalAxios.get(`suppliers-name?page=${page}`);
   },
   getNewCoverPromotion(payload){
-    return globalAxios.get('members/banners' , {
+    return globalAxios.get('banners' , {
       params:{
         type:payload ? payload.type : null,
         model_type: payload ? payload.model_type : null

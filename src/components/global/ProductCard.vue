@@ -357,11 +357,15 @@ export default {
   .card-info {
     //padding: 25px;
     //background: #ebebeb52;
+    margin: auto;
     margin-bottom: 10px;
+    text-align: start;
+    min-height: 100px;
     h4 {
       a {
         opacity: 1;
         color: #312620;
+        font-size: 18px;
         &:hover {
           color: #2b96cc;
         }
@@ -397,6 +401,11 @@ button.new {
   border-radius: 10px;
   padding: 15px;
   width: 95% !important;
+}
+@media (max-width:992px) {
+  .slide-holder{
+    width: 100% !important; 
+  }
 }
 
 button {

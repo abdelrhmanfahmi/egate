@@ -333,6 +333,10 @@ div {
   word-break: break-word !important;
 }
 
+.suppliers-link{
+  word-break: normal;
+}
+
 .loading-img {
   max-width: 30%;
 }
@@ -375,7 +379,8 @@ div {
   min-height: 50vh;
 }
 .price , .price-before{
-  color:$main_color
+  color:$main_color;
+  font-size: 16px;
 }
 .price-after {
   text-decoration: line-through;

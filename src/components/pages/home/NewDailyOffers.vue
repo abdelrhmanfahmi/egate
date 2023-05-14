@@ -278,6 +278,11 @@ export default {
   padding: 15px;
   width: 95% !important;
 }
+@media (max-width:992px) {
+  .slide-holder{
+    width: 100% !important; 
+  }
+}
 
 button {
   border-radius: 8px;

@@ -106,7 +106,7 @@
           .then((res) => {
             if (res.status == 200) {
               this.sucessMsg(res.data.message);
-              this.getSupplierProducts();
+              this.getSupplierRelatedProducts();
             }
           })
           .catch((error) => {
@@ -122,9 +122,9 @@
        * @vuese
        *  get supplier products
        */
-      getSupplierProducts() {
+      getSupplierRelatedProducts() {
         suppliers
-          .getSupplierProducts(this.supplierProductsId)
+          .getSupplierRelatedProducts(this.supplierProductsId)
           .then((resp) => {
             this.supplierProducts = resp.data.items.data;
             this.supplierProductsLength = resp.data.items.data.length;

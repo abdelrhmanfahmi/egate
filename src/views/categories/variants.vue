@@ -505,7 +505,7 @@
                     class="main-color font-weight-bold"
                   >
                     <router-link
-                    class="main-color"
+                      class="main-color"
                       :to="{
                         path: '/basketOfferDetails',
                         query: {
@@ -521,7 +521,7 @@
                     class="main-color font-weight-bold"
                   >
                     <router-link
-                    class="main-color"
+                      class="main-color"
                       :to="{
                         path: '/details',
                         query: {
@@ -540,8 +540,21 @@
                           }`,
                         },
                       }"
-                      >{{ $t("profile.buyXgetYOffer") }}</router-link
                     >
+                      <!-- <span>{{ $t("profile.buyXgetYOffer") }}</span> -->
+                      <span>
+                        {{ $t("profile.buy") }}
+                        {{  
+                          product.buy_get_promotion_running_by_type.promotion
+                            .buy_x
+                        }}
+                        {{ $t("profile.get") }}
+                        {{
+                          product.buy_get_promotion_running_by_type.promotion
+                            .get_y
+                        }}
+                      </span>
+                    </router-link>
                   </h6>
                 </div>
               </td>
@@ -907,7 +920,7 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                  <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" />
+                    <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" />
                   </a>
 
                   <div class="" v-if="buyerUserData">
