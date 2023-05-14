@@ -424,237 +424,339 @@
                     }}</span></b-button
                   >
                 </div>
-                <!-- check all  -->
-                <div class="d-flex align-items-center mt-3 actions-holder">
-                  <!-- <div class="" v-if="checkedOrder.length">
-                    <span>
-                      <input
-                        type="checkbox"
-                        class="myproject--checkbox"
-                        v-model="checkAll"
-                      />
-                    </span>
-                    <span class="h5 mx-2">{{ $t("profile.bulkAction") }}</span>
-                  </div> -->
-                  <div class="d-flex buttons-holder" v-if="checkedOrder.length">
-                    <button
-                      class="border-main mx-2 p-2"
-                      @click="$bvModal.show('bv-standingOrders')"
-                    >
-                      {{ $t("items.addStandingOrders") }} ({{
-                        checkedOrder.length
-                      }}) {{ $t("profile.items") }}
-                    </button>
-
-                    <button
-                      class="border-main mx-2 p-2"
-                      @click="goReturnPage('replace')"
-                    >
-                      {{ $t("profile.replace") }} ({{ checkedOrder.length }})
-                      {{ $t("profile.items") }}
-                    </button>
-                    <button
-                      class="border-main mx-2 p-2"
-                      @click="goReturnPage('refund')"
-                    >
-                      {{ $t("profile.refund") }} ({{ checkedOrder.length }})
-                      {{ $t("profile.items") }}
-                    </button>
-                  </div>
-                </div>
 
                 <div class="supplier-products mt-3" v-if="fields">
                   <div class="holder d-block">
-                    <table
-                      class="table table-striped table-hover selectable"
+                    <div
+                      class=""
                       v-if="order.items.length || !order.baskets.length"
                     >
-                      <thead class="font-weight-bold">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-center"
-                            v-for="(tab, index) in fields"
-                            :key="index"
+                      <!-- check all  -->
+                      <div
+                        class="d-flex align-items-center my-3 actions-holder"
+                      >
+                        <div class="" v-if="checkedOrder.length">
+                          <span>
+                            <input
+                              type="checkbox"
+                              class="myproject--checkbox"
+                              v-model="checkAll"
+                            />
+                          </span>
+                          <span class="h5 mx-2">{{
+                            $t("profile.bulkAction")
+                          }}</span>
+                        </div>
+                        <div
+                          class="d-flex buttons-holder"
+                          v-if="checkedOrder.length"
+                        >
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="$bvModal.show('bv-standingOrders')"
                           >
-                            {{ tab.label }}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody v-for="(ord, index) in order.items" :key="index">
-                        <tr>
-                          <!-- <td>
-                            <div
-                              class="d-flex justify-content-around align-items-center"
-                              v-if="
-                                order.order_status_string === 'Completed' ||
-                                order.order_status_string === 'Delivered'
-                              "
+                            {{ $t("items.addStandingOrders") }} ({{
+                              checkedOrder.length
+                            }}) {{ $t("profile.items") }}
+                          </button>
+
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="goReturnPage('replace')"
+                          >
+                            {{ $t("profile.replace") }} ({{
+                              checkedOrder.length
+                            }})
+                            {{ $t("profile.items") }}
+                          </button>
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="goReturnPage('refund')"
+                          >
+                            {{ $t("profile.refund") }} ({{
+                              checkedOrder.length
+                            }})
+                            {{ $t("profile.items") }}
+                          </button>
+                        </div>
+                      </div>
+
+                      <table class="table table-striped table-hover selectable">
+                        <thead class="font-weight-bold">
+                          <tr>
+                            <th
+                              scope="col"
+                              class="text-center"
+                              v-for="(tab, index) in fields"
+                              :key="index"
                             >
+                              {{ tab.label }}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody v-for="(ord, index) in order.items" :key="index">
+                          <tr>
+                            <td>
                               <div
-                                class=""
+                                class="d-flex justify-content-around align-items-center"
                                 v-if="
-                                  ord.status === 'Pending' &&
-                                  ord.return_time !== null &&
-                                  ord.return_time !== 'null' &&
-                                  ord.return_time !== 0
+                                  order.order_status_string === 'Completed' ||
+                                  order.order_status_string === 'Delivered'
                                 "
                               >
-                                <input
-                                  type="checkbox"
-                                  class="myproject--checkbox"
-                                  :value="ord.uuid"
-                                  v-model="checkedOrder"
-                                />
+                                <div
+                                  class=""
+                                  v-if="
+                                    ord.status === 'Pending' &&
+                                    ord.return_time !== null &&
+                                    ord.return_time !== 'null' &&
+                                    ord.return_time !== 0
+                                  "
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="myproject--checkbox"
+                                    :value="ord.uuid"
+                                    v-model="checkedOrder"
+                                  />
+                                </div>
+                                <div class="noReturnPolicy" v-else>
+                                  {{ $t("profile.noReturnPolicy") }}
+                                </div>
                               </div>
                               <div class="noReturnPolicy" v-else>
                                 {{ $t("profile.noReturnPolicy") }}
                               </div>
-                            </div>
-                            <div class="noReturnPolicy" v-else>
-                              {{ $t("profile.noReturnPolicy") }}
-                            </div>
-                          </td> -->
-                          <td v-if="ord.items">
-                            <span>{{ ord.items.product.title }}</span>
-                            <span v-if="ord.gift_promotion_id"
-                              ><sup
-                                ><img
-                                  src="@/assets/images/giftbox.png"
-                                  class="gift-product"
-                                  alt="gift-product" /></sup
-                            ></span>
-                            <span v-if="ord.buy_get_promotion_id"
-                              ><sup
-                                >({{ $t("profile.buyXgetYOffer") }})</sup
-                              ></span
-                            >
-                          </td>
-                          <td v-else>-</td>
-                          <td v-if="ord.price">
-                            {{ ord.price | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else>-</td>
-                          <td v-if="ord.quantity">{{ ord.quantity }}</td>
-                          <td v-else>-</td>
-                          <td v-if="ord.discount">
-                            {{ ord.discount | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else>-</td>
-                          <td v-if="ord.total_price">
-                            {{ ord.total_price | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else>-</td>
-                          <td>
-                            <!-- return button will appera if order Completed || Delivered  -->
-                            <div
-                              class=""
-                              v-if="
-                                order.order_status_string === 'Completed' ||
-                                order.order_status_string === 'Delivered'
-                              "
-                            >
-                              <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
-                              <b-button
-                                id="return-tolltip"
-                                @click="
-                                  $bvModal.show('return');
-                                  chooseSupplierUUID(ord);
-                                "
-                                variant="outline-danger mt-2 return-btn"
+                            </td>
+                            <td v-if="ord.items">
+                              <span>{{ ord.items.product.title }}</span>
+                              <span v-if="ord.gift_promotion_id"
+                                ><sup
+                                  ><img
+                                    src="@/assets/images/giftbox.png"
+                                    class="gift-product"
+                                    alt="gift-product" /></sup
+                              ></span>
+                              <span v-if="ord.buy_get_promotion_id"
+                                ><sup
+                                  >({{ $t("profile.buyXgetYOffer") }})</sup
+                                ></span
+                              >
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.price">
+                              {{ ord.price | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                            <td v-else>-</td>
+                            <td v-if="ord.discount">
+                              {{ ord.discount | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.total_price">
+                              {{ ord.total_price | fixedCurrency }}
+                              {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <!-- <td>
+                              return button will appera if order Completed || Delivered 
+                              <div
+                                class=""
                                 v-if="
-                                  ord.status === 'Pending' &&
-                                  ord.return_time !== null &&
-                                  ord.return_time !== 'null' &&
-                                  ord.return_time !== 0
+                                  order.order_status_string === 'Completed' ||
+                                  order.order_status_string === 'Delivered'
                                 "
-                                ><font-awesome-icon icon="fa-solid fa-x" />
-                                <span class="mx-2">{{
-                                  $t("profile.return")
-                                }}</span></b-button
                               >
-                              <b-tooltip
-                                target="return-tolltip"
-                                triggers="hover"
-                                v-if="ord.has_gift == 1"
-                              >
-                                {{ $t("singleProduct.returnGiftOrder") }}
-                              </b-tooltip>
-                            </div>
-                            <div class="" v-else>-</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <table
-                      class="table table-striped table-hover selectable"
+                                button will appear if ord status pending && return_time !== null && !== 0 
+                                <b-button
+                                  id="return-tolltip"
+                                  @click="
+                                    $bvModal.show('return');
+                                    chooseSupplierUUID(ord);
+                                  "
+                                  variant="outline-danger mt-2 return-btn"
+                                  v-if="
+                                    ord.status === 'Pending' &&
+                                    ord.return_time !== null &&
+                                    ord.return_time !== 'null' &&
+                                    ord.return_time !== 0
+                                  "
+                                  ><font-awesome-icon icon="fa-solid fa-x" />
+                                  <span class="mx-2">{{
+                                    $t("profile.return")
+                                  }}</span></b-button
+                                >
+                                <b-tooltip
+                                  target="return-tolltip"
+                                  triggers="hover"
+                                  v-if="ord.has_gift == 1"
+                                >
+                                  {{ $t("singleProduct.returnGiftOrder") }}
+                                </b-tooltip>
+                              </div>
+                              <div class="" v-else>-</div>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div
                       v-if="order.baskets.length || !order.items.length"
+                      class="my-3"
                     >
-                      <thead class="font-weight-bold">
-                        <tr>
-                          <th
-                            scope="col"
-                            class="text-center"
-                            v-for="(tab, index) in basketfields"
-                            :key="index"
+                      <!-- check all  -->
+                      <div
+                        class="d-flex align-items-center mb-3 mt-5 actions-holder"
+                      >
+                        <div class="" v-if="checkedBasketOrder.length">
+                          <span>
+                            <input
+                              type="checkbox"
+                              class="myproject--checkbox"
+                              v-model="checkAllBaskets"
+                            />
+                          </span>
+                          <span class="h5 mx-2">{{
+                            $t("profile.bulkAction")
+                          }}</span>
+                        </div>
+                        <div
+                          class="d-flex buttons-holder"
+                          v-if="checkedBasketOrder.length"
+                        >
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="$bvModal.show('bv-standingOrders')"
                           >
-                            <span>{{ tab.label }}</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody v-for="(ord, index) in order.baskets" :key="index">
-                        <tr>
-                          <td v-if="ord.basket_promotion.title">
-                            {{ ord.basket_promotion.title }}
-                          </td>
-                          <td v-else>-</td>
-                          <td v-if="ord.price">
-                            {{ ord.price | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else>-</td>
-                          <td v-if="ord.quantity">{{ ord.quantity }}</td>
-                          <td v-else>-</td>
-                          <td v-if="ord.discount" class="discount">
-                            {{ ord.discount | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else class="discount">-</td>
-                          <td v-if="ord.total_price">
-                            {{ ord.total_price | fixedCurrency }} {{ currency }}
-                          </td>
-                          <td v-else>-</td>
-                          <td>
-                            <!-- return button will appera if order Completed || Delivered  -->
-                            <div
-                              class=""
-                              v-if="
-                                order.order_status === 'Completed' ||
-                                order.order_status === 'Delivered'
-                              "
+                            {{ $t("items.addStandingOrders") }} ({{
+                              checkedBasketOrder.length
+                            }}) {{ $t("profile.items") }}
+                          </button>
+
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="goReturnPageBaskets('replace')"
+                          >
+                            {{ $t("profile.replace") }} ({{
+                              checkedBasketOrder.length
+                            }})
+                            {{ $t("profile.items") }}
+                          </button>
+                          <button
+                            class="border-main mx-2 p-2"
+                            @click="goReturnPageBaskets('refund')"
+                          >
+                            {{ $t("profile.refund") }} ({{
+                              checkedBasketOrder.length
+                            }})
+                            {{ $t("profile.items") }}
+                          </button>
+                        </div>
+                      </div>
+                      <table class="table table-striped table-hover selectable">
+                        <thead class="font-weight-bold">
+                          <tr>
+                            <th
+                              scope="col"
+                              class="text-center"
+                              v-for="(tab, index) in basketfields"
+                              :key="index"
                             >
-                              <!-- button will appear if ord status pending && return_time !== null && !== 0  -->
-                              <b-button
-                                @click="
-                                  $bvModal.show('return');
-                                  chooseSupplierUUID(ord);
-                                "
-                                variant="outline-danger mt-2 return-btn"
+                              <span>{{ tab.label }}</span>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          v-for="(ord, index) in order.baskets"
+                          :key="index"
+                        >
+                          <tr>
+                            <td>
+                              <div
+                                class="d-flex justify-content-around align-items-center"
                                 v-if="
-                                  ord.status === 'Pending' &&
-                                  ord.return_time !== null &&
-                                  ord.return_time !== 'null' &&
-                                  ord.return_time !== 0
+                                  order.order_status_string === 'Completed' ||
+                                  order.order_status_string === 'Delivered'
                                 "
-                                ><font-awesome-icon icon="fa-solid fa-x" />
-                                <span class="mx-2">{{
-                                  $t("profile.return")
-                                }}</span></b-button
                               >
-                            </div>
-                            <div class="" v-else>-</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                                <div
+                                  class=""
+                                  v-if="
+                                    ord.status === 'Pending' &&
+                                    ord.return_time !== null &&
+                                    ord.return_time !== 'null' &&
+                                    ord.return_time !== 0
+                                  "
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="myproject--checkbox"
+                                    :value="ord.uuid"
+                                    v-model="checkedBasketOrder"
+                                  />
+                                </div>
+                                <div class="noReturnPolicy" v-else>
+                                  {{ $t("profile.noReturnPolicy") }}
+                                </div>
+                              </div>
+                              <div class="noReturnPolicy" v-else>
+                                {{ $t("profile.noReturnPolicy") }}
+                              </div>
+                            </td>
+                            <td v-if="ord.basket_promotion.title">
+                              {{ ord.basket_promotion.title }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.price">
+                              {{ ord.price | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.quantity">{{ ord.quantity }}</td>
+                            <td v-else>-</td>
+                            <td v-if="ord.discount" class="discount">
+                              {{ ord.discount | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else class="discount">-</td>
+                            <td v-if="ord.total_price">
+                              {{ ord.total_price | fixedCurrency }}
+                              {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <!-- <td>
+                              return button will appera if order Completed || Delivered 
+                              <div
+                                class=""
+                                v-if="
+                                  order.order_status === 'Completed' ||
+                                  order.order_status === 'Delivered'
+                                "
+                              >
+                                button will appear if ord status pending && return_time !== null && !== 0 
+                                <b-button
+                                  @click="
+                                    $bvModal.show('return');
+                                    chooseSupplierUUID(ord);
+                                  "
+                                  variant="outline-danger mt-2 return-btn"
+                                  v-if="
+                                    ord.status === 'Pending' &&
+                                    ord.return_time !== null &&
+                                    ord.return_time !== 'null' &&
+                                    ord.return_time !== 0
+                                  "
+                                  ><font-awesome-icon icon="fa-solid fa-x" />
+                                  <span class="mx-2">{{
+                                    $t("profile.return")
+                                  }}</span></b-button
+                                >
+                              </div>
+                              <div class="" v-else>-</div>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <hr class="w-50 my-5 mx-auto" />
@@ -1390,10 +1492,10 @@ export default {
   data() {
     return {
       fields: [
-        // {
-        //   key: "#",
-        //   label: "#",
-        // },
+        {
+          key: "#",
+          label: "#",
+        },
         {
           key: "product",
           label: this.$t("profile.productName"),
@@ -1414,12 +1516,16 @@ export default {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
-        {
-          key: "",
-          label: this.$t("profile.actions"),
-        },
+        // {
+        //   key: "",
+        //   label: this.$t("profile.actions"),
+        // },
       ],
       basketfields: [
+      {
+          key: "#",
+          label: "#",
+        },
         {
           key: "product",
           label: this.$t("profile.basketName"),
@@ -1440,10 +1546,10 @@ export default {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
-        {
-          key: "",
-          label: this.$t("profile.actions"),
-        },
+        // {
+        //   key: "",
+        //   label: this.$t("profile.actions"),
+        // },
       ],
       id: this.$route.query.id,
       orders: null,
@@ -1469,6 +1575,8 @@ export default {
       giftProduct: false,
       checkedOrder: [],
       checkedItemsToShow: [],
+      checkedBasketOrder: [],
+      checkedBasketItemsToShow: [],
     };
   },
   methods: {
@@ -1491,14 +1599,40 @@ export default {
               },
             });
           } else {
-
             this.$router.push({
               path: "/return-refund",
               query: {
                 orderId: this.checkedOrder,
               },
             });
-
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    goReturnPageBaskets(option) {
+      let payload = {
+        items: this.checkedBasketOrder,
+      };
+      profile
+        .storeCheckedOrders(payload)
+        .then((res) => {
+          if (option == "replace") {
+            console.log(res);
+            this.$router.push({
+              path: "/return-replace",
+              query: {
+                orderId: this.checkedBasketOrder,
+              },
+            });
+          } else {
+            this.$router.push({
+              path: "/return-refund",
+              query: {
+                orderId: this.checkedBasketOrder,
+              },
+            });
           }
         })
         .catch((err) => {
@@ -1804,6 +1938,35 @@ export default {
         }
         this.checkedOrder = checkedOrder;
         this.checkedItemsToShow = checkedItemsToShow;
+      },
+    },
+    checkAllBaskets: {
+      get: function () {
+        return this.baskets
+          ? this.checkedBasketOrder.length == this.baskets.length
+          : false;
+      },
+      set: function (value) {
+        var checkedBasketOrder = [];
+        var checkedBasketItemsToShow = [];
+        if (value) {
+          this.baskets.forEach(function (order) {
+            let smallOrder = order.items;
+            smallOrder.forEach(function (ord) {
+              if (
+                ord.status === "Pending" &&
+                ord.return_time !== null &&
+                ord.return_time !== "null" &&
+                ord.return_time !== 0
+              ) {
+                checkedBasketOrder.push(ord.uuid);
+                checkedBasketItemsToShow.push(ord.items);
+              }
+            });
+          });
+        }
+        this.checkedBasketOrder = checkedBasketOrder;
+        this.checkedBasketItemsToShow = checkedBasketItemsToShow;
       },
     },
   },

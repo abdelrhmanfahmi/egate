@@ -69,6 +69,9 @@ Vue.mixin({
     chatImageBaseUrl(){
       return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/client_supplier_chat/'  : null
     },
+    ReturnImageBaseUrl(){
+      return process.env.VUE_APP_FOR_IMAGES ? process.env.VUE_APP_FOR_IMAGES + 'storage/return-reason/'  : null
+    },
     arabicAvailable(){
       return localStorage.getItem('arabic')
     },
