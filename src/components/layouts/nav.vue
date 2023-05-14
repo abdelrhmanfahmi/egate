@@ -131,7 +131,7 @@
                   <a
                     :href="`${supplierDomain}`"
                     target="_blank"
-                    class="border-main color-main br-5 p-2"
+                    class="border-main color-main br-5 p-2 suppliers-link"
                     >{{ $t("home.suppliers") }}</a
                   >
                 </div>
@@ -154,7 +154,10 @@
                   <Cart class="cart-body"></Cart>
                 </div>
 
-                <div v-if="!mobile && buyerUserData" class="cart notify-holder">
+                <div
+                  v-if="!mobile && buyerUserData"
+                  class="cart notify-holder d-flex justify-content-center align-items-center"
+                >
                   <span class="cart-icon">
                     <!-- <font-awesome-icon icon="fa-solid fa-bell" /> -->
                     <BIconBell width="25" height="25" />
@@ -183,7 +186,7 @@
                         <span>
                           <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
                           <BIconPerson width="25" height="25" />
-                          <!-- <p v-if="buyerUserData.is_verified">
+                          <p v-if="buyerUserData.is_verified">
                             {{ $t("login.welcome") }} ,
                             <span v-if="buyerUserData.type === 'buyer'">
                               <span v-if="$i18n.locale == 'en'">{{
@@ -191,11 +194,14 @@
                               }}</span>
                               <span
                                 v-else-if="
-                                  $i18n.locale == 'ar' && userInfo.item.company_name_ar
+                                  $i18n.locale == 'ar' &&
+                                  userInfo.item.company_name_ar
                                 "
                                 >{{ userInfo.item.company_name_ar }}</span
                               >
-                              <span v-else>{{ userInfo.item.company_name_en }}</span>
+                              <span v-else>{{
+                                userInfo.item.company_name_en
+                              }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
@@ -209,16 +215,19 @@
                               }}</span>
                               <span
                                 v-else-if="
-                                  $i18n.locale == 'ar' && userInfo.item.company_name_ar
+                                  $i18n.locale == 'ar' &&
+                                  userInfo.item.company_name_ar
                                 "
                                 >{{ userInfo.item.company_name_ar }}</span
                               >
-                              <span v-else>{{ userInfo.item.company_name_en }}</span>
+                              <span v-else>{{
+                                userInfo.item.company_name_en
+                              }}</span>
                             </span>
                             <span v-else>
                               {{ userInfo.item.first_name }}
                             </span>
-                          </p> -->
+                          </p>
                         </span>
                       </template>
                       <b-dropdown-item
@@ -652,6 +661,9 @@ export default {
     .cart {
       padding: 0 0.7rem;
       position: relative;
+      // @media (min-width: 1200px) and (max-width: 1600px) {
+      //   padding: 5px !important;
+      // }
 
       .cart-icon {
         color: #000000;
@@ -814,7 +826,12 @@ html:lang(ar) {
   font-size: 14px;
   font-weight: bold;
   padding: 0px 10px;
-  margin: 0 10px;
+  // margin: 0 10px;
+
+  margin: -5px;
+  z-index: 5;
+  bottom: -11px;
+  position: absolute;
 }
 
 .cart-number {
@@ -954,11 +971,14 @@ html:lang(ar) {
     top: 2%;
     right: 2%;
   }
+
+  // @media (min-width: 1200px) and (max-width: 1600px) {
+  //   padding: 5px;
+  // }
 }
 
-
-.en{
-  .toggleMenu{
+.en {
+  .toggleMenu {
     @media (max-width: 766.98px) {
       top: 10%;
       right: -5%;
@@ -968,8 +988,8 @@ html:lang(ar) {
     }
   }
 }
-.ar{
-  .toggleMenu{
+.ar {
+  .toggleMenu {
     @media (max-width: 766.98px) {
       top: 10%;
       right: 2%;

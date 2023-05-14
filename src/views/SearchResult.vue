@@ -169,7 +169,7 @@
                       product.product_details_by_type.add_type === 'both'
                     "
                   >
-                    <div class="col-xl-4 col-sm-12 col-12 my-2" v-if="add_to_cart">
+                    <div class="col-xl-4 col-sm-12 col-12 my-2 cart-actions-holder sec-hold" v-if="add_to_cart">
                       <Counter
                         :minimum="
                           product.min_order_quantity
@@ -185,17 +185,23 @@
                     <div class="col-xl-4 col-sm-12 col-12 my-2">
                       <b-button
                         @click="addToCartAgain(product)"
-                        class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new cart-again p-2"
+                        class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
                         v-if="add_to_cart == true&&  
                           product.product_details_by_type.add_type === 'cart' || add_to_cart && 
                           product.product_details_by_type.add_type === 'both'
                         "
                       >
                         <span>
-                          <font-awesome-icon
+                          <!-- <font-awesome-icon
                             icon="fa-sharp fa-solid fa-cart-plus"
                           />
-                          <span>{{ $t("cart.add") }}</span>
+                          <span>{{ $t("cart.add") }}</span> -->
+
+                          <font-awesome-icon
+                    icon="fa-solid fa-cart-shopping"
+                    size="xl"
+                  />
+
                         </span>
                       </b-button>
                     </div>
@@ -574,5 +580,12 @@ export default {
   &:hover {
     background: $main-color;
   }
+}
+
+.cart-btn {
+  background: $main-color !important;
+  padding: 13px;
+    width: 55px;
+    text-align: center;
 }
 </style>

@@ -258,8 +258,8 @@
             </div>
             
           </div>
-          <div class="col-md-6 col-sm-12" v-if="return_item.clinet_bank_info">
-            <div class="">
+          <div class="col-md-6 col-sm-12" v-if="return_item.client_bank_info">
+            <!-- <div class="">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
                   <p class="text-head">{{ $t("payment.country") }} :</p>
@@ -301,7 +301,9 @@
                   </p>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+            <p class="text-head" v-html="return_item.client_bank_info"></p>
           </div>
         </div>
       </div>

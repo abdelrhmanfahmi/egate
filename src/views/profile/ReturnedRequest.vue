@@ -4,16 +4,16 @@
     <div class="container">
       <!-- when data comes (not loading)  -->
       <div class="wrapper" v-if="!loading">
-        <OldReturnRequest
-          :return_item="return_item"
-          :supplier_oreder_item="supplier_oreder_item"
-          :clinet_info="clinet_info"
-        />
-        <!-- <NewReturnRequest
+        <!-- <OldReturnRequest
           :return_item="return_item"
           :supplier_oreder_item="supplier_oreder_item"
           :clinet_info="clinet_info"
         /> -->
+        <NewReturnRequest
+          :return_item="return_item"
+          :supplier_oreder_item="supplier_oreder_item"
+          :clinet_info="clinet_info"
+        />
       </div>
       <!-- when data loading  -->
       <div class="" v-else>
@@ -32,8 +32,8 @@
  */
 import profile from "@/services/profile";
 import axios from "axios";
-import OldReturnRequest from "@/components/pages/profile/OldReturnRequest.vue";
-// import NewReturnRequest from "@/components/pages/profile/NewReturnRequest.vue";
+// import OldReturnRequest from "@/components/pages/profile/OldReturnRequest.vue";
+import NewReturnRequest from "@/components/pages/profile/NewReturnRequest.vue";
 export default {
   data() {
     return {
@@ -159,8 +159,8 @@ export default {
     this.returnedSingleOrders();
   },
   components: {
-    OldReturnRequest,
-    // NewReturnRequest,
+    // OldReturnRequest,
+    NewReturnRequest,
   },
 };
 </script>
