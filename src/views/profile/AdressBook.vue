@@ -215,6 +215,9 @@
                       >{{ formName }}
                     </b-form-select-option>
                   </b-form-select>
+                  <div class="error" v-for="(error, index) in errors.name" :key="index">
+                    {{ error }}
+                  </div>
                 </b-form-group>
                 <b-form-group v-else>
                   <label>{{ $t("profile.name") }}</label>
@@ -250,6 +253,9 @@
                       >{{ formName }}
                     </b-form-select-option>
                   </b-form-select>
+                  <div class="error" v-for="(error, index) in errors.name" :key="index">
+                    {{ error }}
+                  </div>
                 </b-form-group>
                 <b-form-group v-else>
                   <label>{{ $t("profile.name") }}</label>
