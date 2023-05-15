@@ -398,7 +398,11 @@
            
           >
             <span>
-              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+              <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
             </span>
             <span class="mx-2">{{ $t("items.standingOrders") }}</span>
             <span
