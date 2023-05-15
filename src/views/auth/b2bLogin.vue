@@ -8,7 +8,9 @@
             <div class="register-info" v-if="b2b_buyer_registration">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
               <router-link to="/b2b-register" class="back">
-                <span class="main-color"> &#60; {{ $t("register.haveNotAccount") }}</span>
+                <span class="main-color">
+                  &#60; {{ $t("register.haveNotAccount") }}</span
+                >
               </router-link>
             </div>
             <form @submit.prevent="login()">
@@ -18,7 +20,11 @@
                   <b-form-group>
                     <label for="email">{{ $t("register.email") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input type="email" id="email" v-model="form.email" />
+                    <b-form-input
+                      type="email"
+                      id="email"
+                      v-model="form.email"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.email"
@@ -98,7 +104,11 @@
             <label for="email">{{ $t("register.email") }}</label>
             <span class="requried">*</span>
             <b-form-input id="email" v-model="emailForget" maxlength="100" />
-            <div class="error" v-for="(error, index) in errors.email" :key="index">
+            <div
+              class="error"
+              v-for="(error, index) in errors.email"
+              :key="index"
+            >
               {{ error }}
             </div>
           </b-form-group>
@@ -136,9 +146,9 @@ export default {
      */
     login() {
       // localStorage.clear();
-      localStorage.removeItem('userInfo')
-      localStorage.removeItem('globalAddressUUID')
-      localStorage.removeItem('buyerUserData')
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("globalAddressUUID");
+      localStorage.removeItem("buyerUserData");
       // localStorage.removeItem('country')
       // localStorage.removeItem('currency')
       // localStorage.removeItem('currencyId')
@@ -158,37 +168,9 @@ export default {
 
           // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
-          if (
-            (res.data.items.item.type === "buyer" && res.data.items.item.is_verified) ||
-            (res.data.items.item.type === "supplier" &&
-              res.data.items.item.is_buyer == 1 &&
-              res.data.items.item.is_verified)
-          ) {
-            localStorage.setItem("massege", "");
-            localStorage.removeItem("guest-id");
-            // this.$router.push("/profile/categories");
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 1000);
-            this.$router.replace(
-              {
-                // path: "/profile/categories",
-                path: "/",
-              },
-
-              () => {
-                this.$router.go(0);
-              },
-            );
-
-          } else {
+          if (!res.data.items.item.email_verified_at) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             localStorage.removeItem("guest-id");
-            // this.$router.push("/profile/account-information-b2b");
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 1000);
-
             this.$router.replace(
               {
                 path: "/profile/account-information-b2b",
@@ -198,8 +180,73 @@ export default {
                 this.$router.go(0);
               }
             );
+          } else if (!res.data.items.item.mobile_verified_at) {
+            localStorage.setItem("massege", this.$t("register.otpVerify"));
+            localStorage.removeItem("guest-id");
+            this.$router.replace(
+              {
+                path: "/profile/account-information-b2b",
+              },
 
+              () => {
+                this.$router.go(0);
+              }
+            );
+          } else {
+            localStorage.setItem("massege", "");
+            localStorage.removeItem("guest-id");
+            this.$router.replace(
+              {
+                path: "/",
+              },
+
+              () => {
+                this.$router.go(0);
+              }
+            );
           }
+
+          // if (
+          //   (res.data.items.item.type === "buyer" &&
+          //     res.data.items.item.is_verified) ||
+          //   (res.data.items.item.type === "supplier" &&
+          //     res.data.items.item.is_buyer == 1 &&
+          //     res.data.items.item.is_verified)
+          // ) {
+          //   localStorage.setItem("massege", "");
+          //   localStorage.removeItem("guest-id");
+          //   // this.$router.push("/profile/categories");
+          //   // setTimeout(() => {
+          //   //   location.reload();
+          //   // }, 1000);
+          //   this.$router.replace(
+          //     {
+          //       // path: "/profile/categories",
+          //       path: "/",
+          //     },
+
+          //     () => {
+          //       this.$router.go(0);
+          //     }
+          //   );
+          // } else {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          //   localStorage.removeItem("guest-id");
+          //   // this.$router.push("/profile/account-information-b2b");
+          //   // setTimeout(() => {
+          //   //   location.reload();
+          //   // }, 1000);
+
+          //   this.$router.replace(
+          //     {
+          //       path: "/profile/account-information-b2b",
+          //     },
+
+          //     () => {
+          //       this.$router.go(0);
+          //     }
+          //   );
+          // }
 
           // location.reload();
         })

@@ -7,7 +7,9 @@
           <div class="register-info">
             <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
             <router-link to="/b2b-register" class="back">
-              <span class="main-color"> &#60; {{ $t("register.haveNotAccount") }}</span>
+              <span class="main-color">
+                &#60; {{ $t("register.haveNotAccount") }}</span
+              >
             </router-link>
           </div>
           <form @submit.prevent="login()">
@@ -18,7 +20,11 @@
                   <label for="email">{{ $t("register.email") }}</label>
                   <span class="requried">*</span>
                   <b-form-input type="email" id="email" v-model="form.email" />
-                  <div class="error" v-for="(error, index) in errors.email" :key="index">
+                  <div
+                    class="error"
+                    v-for="(error, index) in errors.email"
+                    :key="index"
+                  >
                     {{ error }}
                   </div>
                 </b-form-group>
@@ -40,7 +46,11 @@
                         v-if="fieldType === 'password'"
                         size="lg"
                       />
-                      <font-awesome-icon icon="fa-solid fa-eye-slash" v-else size="lg" />
+                      <font-awesome-icon
+                        icon="fa-solid fa-eye-slash"
+                        v-else
+                        size="lg"
+                      />
                     </div>
                   </div>
                   <div
@@ -86,7 +96,11 @@
           <label for="email">{{ $t("register.email") }}</label>
           <span class="requried">*</span>
           <b-form-input id="email" v-model="emailForget" maxlength="100" />
-          <div class="error" v-for="(error, index) in errors.email" :key="index">
+          <div
+            class="error"
+            v-for="(error, index) in errors.email"
+            :key="index"
+          >
             {{ error }}
           </div>
         </b-form-group>
@@ -138,22 +152,40 @@ export default {
 
           // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
-          if (
-            (res.data.items.item.type === "buyer" && res.data.items.item.is_verified) ||
-            (res.data.items.item.type === "supplier" &&
-              res.data.items.item.is_buyer == 1 &&
-              res.data.items.item.is_verified)
-          ) {
-            localStorage.setItem("massege", "");
-            localStorage.removeItem("guest-id");
-            this.$router.push("/profile/categories");
-            location.reload();
-          } else {
+          if (!res.data.items.item.email_verified_at) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
             localStorage.removeItem("guest-id");
             this.$router.push("/profile/account-information-b2b");
             location.reload();
+          } else if (!res.data.items.item.mobile_verified_at) {
+            localStorage.setItem("massege", this.$t("register.otpVerify"));
+            localStorage.removeItem("guest-id");
+            this.$router.push("/profile/account-information-b2b");
+            location.reload();
+          } else {
+            localStorage.setItem("massege", "");
+            localStorage.removeItem("guest-id");
+            this.$router.push("/profile/categories");
+            location.reload();
           }
+
+          // if (
+          //   (res.data.items.item.type === "buyer" &&
+          //     res.data.items.item.is_verified) ||
+          //   (res.data.items.item.type === "supplier" &&
+          //     res.data.items.item.is_buyer == 1 &&
+          //     res.data.items.item.is_verified)
+          // ) {
+          //   localStorage.setItem("massege", "");
+          //   localStorage.removeItem("guest-id");
+          //   this.$router.push("/profile/categories");
+          //   location.reload();
+          // } else {
+          //   localStorage.setItem("massege", this.$t("register.openEmail"));
+          //   localStorage.removeItem("guest-id");
+          //   this.$router.push("/profile/account-information-b2b");
+          //   location.reload();
+          // }
 
           // location.reload();
         })
