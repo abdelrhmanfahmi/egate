@@ -432,7 +432,7 @@ export default {
       loading: false,
       id: this.$route.query.prodId,
       orderId: this.$route.query.orderId,
-      selectedOption: null,
+      selectedOption: 'bank',
       reasons: null,
       cancelationReason: null,
       maxQTY: null,

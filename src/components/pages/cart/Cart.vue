@@ -780,7 +780,7 @@
                                             <b-form-group>
                                               <b-form-input
                                                 id="blockNumber"
-                                                v-model="form.apartment"
+                                                v-model="form.block"
                                                 :placeholder="
                                                   $t('profile.blockNumber')
                                                 "
@@ -789,7 +789,7 @@
                                                 class="error"
                                                 v-for="(
                                                   error, index
-                                                ) in errors.apartment"
+                                                ) in errors.block"
                                                 :key="index"
                                               >
                                                 {{ error }}
@@ -2300,7 +2300,7 @@ export default {
         city_id: null,
         building_number: null,
         floor: null,
-        apartment: null,
+        block: null,
         pin_code: "",
         notes: null,
         address_line_1: null,
@@ -3721,7 +3721,7 @@ export default {
         accept_terms: this.paymentFormData.accept_terms == true ? "1" : "0",
         building_number: this.form.building_number,
         floor: this.form.floor,
-        apartment: this.form.apartment,
+        block: this.form.block,
         pin_code: this.form.pin_code,
         address_line_1: this.form.address_line_1,
         notes: this.paymentFormData.comment,
