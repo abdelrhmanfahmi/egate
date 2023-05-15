@@ -221,42 +221,42 @@
       <div class="return-info" v-if="return_item">
         <div class="row align-content-center">
           <div class="col-md-6 col-sm-12">
-            <div class="">
+            <div class="" v-if="return_item.updated_at">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
                   <p class="text-head">{{ $t("profile.createdAt") }} :</p>
-                  <p v-if="return_item.updated_at">
+                  <p >
                     {{ return_item.updated_at | formatDate }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="">
+            <div class="" v-if="return_item.retrun_option">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
                   <p class="text-head">{{ $t("profile.requestType") }} :</p>
-                  <p v-if="return_item.retrun_option">
+                  <p >
                     {{ return_item.retrun_option }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="">
+            <div class="" v-if="return_item.return_reason">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
                   <p class="text-head">{{ $t("profile.returnReason") }} :</p>
-                  <p v-if="return_item.return_reason">
+                  <p >
                     {{ return_item.return_reason }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="">
+            <div class="" v-if="return_item.reshipping_fee">
               <div class="hold-data">
                 <div class="d-flex align-content-center">
                   <p class="text-head">{{ $t("profile.deleiveryFees") }} :</p>
                   <p
-                    v-if="return_item.reshipping_fee"
+                    
                     class="main-color font-weight-bold"
                   >
                     {{ return_item.reshipping_fee | fixedCurrency }}
