@@ -140,7 +140,6 @@ export default {
         if (this.currentRoute.path.includes('cart')) {
             this.cartPage = true
         }
-        console.log('dynamicForm' , this.form);
     },
     methods: {
         buttonClicked() {

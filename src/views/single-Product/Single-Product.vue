@@ -54,6 +54,22 @@
               >{{ dealType }}</span
             >
           </div>
+          <div
+            class="ribbon ribbon-top-left"
+            :class="{ 'long-rebbon': otherDealType > 20 }"
+            v-else-if="!dealType && myProduct && myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion &&  myProduct.buy_get_promotion_running_by_type.promotion.buy_x"
+          >
+            <span v-if="myProduct.buy_get_promotion_running_by_type"
+              :class="{ 'long-rebbon-span': otherDealType > 20 }"
+              >{{
+                `${$t("profile.buy")} 
+              ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+             ${$t("profile.get")} ${
+                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }}</span
+            >
+          </div>
           <Slider :myProduct="myProduct"></Slider>
         </b-col>
         <b-col cols="12" md="8" class="product-info">
@@ -277,6 +293,11 @@ export default {
       this.getSupplierProducts();
     }, 1200);
   },
+  computed:{
+    otherDealType(){
+      return (this.myProduct?.buy_get_promotion_running_by_type?.promotion?.buy_x + this.myProduct?.buy_get_promotion_running_by_type?.promotion?.get_y).length > 20 ? true : false
+    }
+  }
 };
 </script>
 <style lang="scss">

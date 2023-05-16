@@ -388,13 +388,14 @@
             >
           </b-button>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12" v-if="myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion.buy_x">
 
           <b-button
           @click="$bvModal.show('new-standing')"
           v-b-tooltip.hover
           :title="`${$t('items.standingOrders')} ( ${$t('profile.buy')} ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x} ${$t('profile.get')} ${myProduct.buy_get_promotion_running_by_type.promotion.get_y} )`"
             class="btn btn btn-loght border-0 outline-none shadow-none d-block add-cart  m-2 mx-3 "
+            v-if="buyerUserData"
            
           >
             <span>
@@ -414,6 +415,35 @@
                 } `
               }})</span
             >
+          </b-button>
+          <b-button
+          @click="loginFirst()"
+          v-b-tooltip.hover
+          :title="`${$t('items.standingOrders')} ( ${$t('profile.buy')} ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x} ${$t('profile.get')} ${myProduct.buy_get_promotion_running_by_type.promotion.get_y} )`"
+            class="btn btn btn-loght border-0 outline-none shadow-none d-block add-cart  m-2 mx-3 "
+            v-else
+           
+          >
+          <div class="" v-if="myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion.buy_x">
+
+            <span>
+              <img
+                  src="@/assets/images/new-design/standing-order-sign.png"
+                  class="standing-order-sign"
+                  alt="standing-order-sign"
+                />
+            </span>
+            <span class="mx-2">{{ $t("items.standingOrders") }}</span>
+            <span
+              >({{
+                `${$t("profile.buy")} 
+              ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
+             ${$t("profile.get")} ${
+                  myProduct.buy_get_promotion_running_by_type.promotion.get_y
+                } `
+              }})</span
+            >
+          </div>
           </b-button>
         </div>
       </div>
