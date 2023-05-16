@@ -152,6 +152,7 @@
                 v-bind="{
                   active: $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
+                
               >
                 <template #title>
                   <div
@@ -160,7 +161,7 @@
                     :title="category.title"
                   >
                     <!-- section icon  -->
-                    <img :src="category.icon_image_path" alt="category_image" class="categoryImage">
+                    <img :src="category.image_path" alt="category_image" class="categoryImage">
                     <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
                   </div>
                 </template>
@@ -577,7 +578,8 @@ div:empty {
 }
 
 .categoryImage{
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 </style>

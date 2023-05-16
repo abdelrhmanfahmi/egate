@@ -38,7 +38,7 @@
             <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false" :opened="opened" />
           </div>
         </div>
-        <div id="main" :class="{ mainopen: opened }">
+        <div id="main" :class="{ mainopen: ProfileLayout && opened == true , mainClose : ProfileLayout && opened == false }">
           <!-- nav bar  -->
           <Nav />
           <!-- alert div if user dosnt activate his account  -->
@@ -199,7 +199,7 @@ export default {
       scTimer: 0,
       scY: 0,
       visible: false,
-      opened: false,
+      opened: true,
     };
   },
   mounted() {

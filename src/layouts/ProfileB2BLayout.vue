@@ -52,7 +52,7 @@
           :opened="opened"
         />
       </div>
-      <div id="main" :class="{ mainopen: opened }">
+      <div id="main" :class="{ mainopen: ProfileLayout && opened == true , mainClose : ProfileLayout && opened == false }">
         <!-- nav bar  -->
         <Nav />
         <!-- alert div if user dosnt activate his account  -->
@@ -213,7 +213,7 @@ export default {
       scTimer: 0,
       scY: 0,
       visible: false,
-      opened: false,
+      opened: true,
     };
   },
   mounted() {
@@ -265,6 +265,9 @@ export default {
      */
     userBades() {
       return this.$store.getters.userBadges; // this represent user profile side menu states
+    },
+    ProfileLayout() {
+      return this.$route.path.includes("profile") ? true : false;
     },
   },
 };

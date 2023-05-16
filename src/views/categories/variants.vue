@@ -495,7 +495,7 @@
                   "
                 >
                   <h6
-                    v-if="product.ads && product && product.ads.length > 0"
+                    v-if="product.ads && product && product.ads.length > 0 && product.ads[0].status == 1"
                     class="main-color font-weight-bold text-success"
                   >
                     {{ $t("items.advertise") }}
