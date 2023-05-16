@@ -72,7 +72,7 @@
                   </li>
                   <li>
                     <router-link to="/b2b-login">{{
-                      $t("home.corporat")
+                      $t("home.corporate")
                     }}</router-link>
                   </li>
                   <li>

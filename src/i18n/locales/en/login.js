@@ -24,6 +24,7 @@ export default {
   characters:"Characters",
   specialCharacter:"Special Character",
   uppercaseLetter:"Uppercase Letter",
+  lowercaseLetter:"Lowercase Letter",
   number:"Number"
 
 };

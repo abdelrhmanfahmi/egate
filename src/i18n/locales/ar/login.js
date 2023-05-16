@@ -24,6 +24,7 @@ export default {
   characters:"أحرف",
   specialCharacter:"من الرموز",
   uppercaseLetter:"حرف كبير",
+  lowercaseLetter:"حرف صغير",
   number:"رقم"
 
 };
