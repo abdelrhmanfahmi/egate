@@ -27,6 +27,7 @@ body {
   overflow-x:hidden;
   background-color: $body-background;
   color: $body-text-color;
+  zoom: 90%;
 }
 * {
   margin: 0;
@@ -525,6 +526,7 @@ img {
 // edit modal
 .vm--overlay {
   background: rgb(0 0 0 / 50%);
+  height: 100% !important;
 }
 
 .vm--modal {

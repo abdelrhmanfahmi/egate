@@ -201,3 +201,12 @@
 .text-decoration-underline{
   text-decoration: underline;
 }
+
+.search-component{
+  .bottom-nav-holder .dropdown-menu{
+    top: 14rem !important;
+  }
+  .btn-group > .btn:focus , .btn-group > .btn:active{
+    background: transparent !important;
+  }
+}

@@ -57,6 +57,9 @@ export default {
   emailVerify(payload) {
     return globalAxios.put("checkpoint/active-email-guest", payload);
   },
+  resendCode(payload){
+    return globalAxios.post('auth/resend-code' , payload)
+  },
   getUserInfo() {
     return globalAxios.get("members/profile/info");
   },

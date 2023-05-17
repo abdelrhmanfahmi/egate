@@ -39,7 +39,9 @@
       </div>
     </div>
     <div class="filters">
-      <div class="d-flex justify-content-end align-items-center mb-2">
+      <div
+        class="d-flex justify-content-end align-items-center mb-2 filters-flex"
+      >
         <div class="suppliers">
           <div class="option-ui" @click="$bvModal.show('suppliersModal')">
             <div>{{ $t("supplier.suppliers") }}</div>
@@ -53,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div class="date-time mx-2">
+        <div class="date-time">
           <div class="option-ui" @click="$bvModal.show('date&timeModal')">
             <div>{{ $t("profile.dateTime") }}</div>
             <div
@@ -164,7 +166,7 @@
     </div>
     <!-- if there's orders  -->
     <div class="perPage">
-      <div class="d-flex justify-content-end align-items-center">
+      <div class="d-flex justify-content-end align-items-center ">
         <div>
           <b-form-select
             v-model="filterPerPage"
@@ -1161,6 +1163,26 @@ export default {
     span {
       margin: 0 20px;
     }
+  }
+}
+.filters-flex {
+  div:nth-child(2) {
+    margin: 5px;
+  }
+  @media (max-width: 992px) {
+    display: block !important;
+    div:nth-child(2) {
+      margin: 0px;
+    }
+    div {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.perPage div{
+  @media (max-width: 992px) {
+    display: block !important;
   }
 }
 </style>

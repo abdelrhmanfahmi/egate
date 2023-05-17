@@ -20,6 +20,9 @@
             <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
               <template #button-content>
                 <span class="title text-white">{{ $t("profile.categories") }}</span>
+                <div class="down-angle">
+              <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
+            </div>
               </template>
               <b-dropdown-item v-for="(category, index) in categories" :key="index" @click="selectCategory(category)">
                 <img :src="category.image_path" :alt="category.title" class="category-img" />
@@ -27,9 +30,7 @@
               </b-dropdown-item>
             </b-dropdown>
 
-            <div class="down-angle">
-              <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
-            </div>
+            
           </div>
         </div>
         <div class="other-catrgories" v-if="!mobile">
@@ -160,6 +161,14 @@ export default {
     // background-origin: content-box;
     background: none;
     font-size: 16px;
+    position: relative;
+    .down-angle{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+    }
 
 
   }

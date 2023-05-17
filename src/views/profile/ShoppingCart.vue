@@ -115,11 +115,11 @@
         <div class="px-2">
           <h2 class="text-dark">{{ $t("profile.shoppingCart") }} ({{ cartLength }})</h2>
         </div>
-        <div class="px-2">
+        <!-- <div class="px-2">
           <p class="text-dark" role="button" @click="clearAll">
             <ins>{{$t('profile.clearAll')}}</ins>
           </p>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">

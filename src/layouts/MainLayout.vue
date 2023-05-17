@@ -21,42 +21,71 @@
           <!-- top nav -->
         </ul>
       </nav>
-      <div class="holder" :class="{'sideB2cOpen':opened && buyerUserData.type == 'b2c' , 'sideB2cClosed':!opened && buyerUserData.type == 'b2c' }">
-
-        <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }" v-if="ProfileLayout == true && buyerUserData.type == 'b2c'">
+      <div
+        class="holder"
+        :class="{
+          sideB2cOpen: opened && buyerUserData.type == 'b2c',
+          sideB2cClosed: !opened && buyerUserData.type == 'b2c',
+        }"
+      >
+        <div
+          id="side-menu"
+          class="side-nav"
+          :class="{ sidenavopen: opened }"
+          v-if="ProfileLayout == true && buyerUserData.type == 'b2c'"
+        >
           <div
             @click.prevent="opened = !opened"
             class="d-flex align-items-center toggle-menu"
           >
-            <span><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x" /></span>
+            <span
+              ><font-awesome-icon icon="fa-solid fa-bars-staggered" size="3x"
+            /></span>
             <span class="mx-2 h4">{{ $t("profile.hideMenu") }}</span>
           </div>
           <!-- side menu if user is b2c  -->
           <div class="" v-if="buyerUserData">
-            <SideMenu v-if="userInfo.item.type === 'b2c'" :userBades="userBades" @closeSideMenu="opened = false" :opened="opened" />
+            <SideMenu
+              v-if="userInfo.item.type === 'b2c'"
+              :userBades="userBades"
+              @closeSideMenu="opened = false"
+              :opened="opened"
+            />
             <!-- side menu if user is b2b (buyer)  -->
-            <SideMenuB2b :userBades="userBades" v-else @closeSideMenu="opened = false" :opened="opened" />
+            <SideMenuB2b
+              :userBades="userBades"
+              v-else
+              @closeSideMenu="opened = false"
+              :opened="opened"
+            />
           </div>
         </div>
-        <div id="main" :class="{ mainopen: ProfileLayout && opened == true , mainClose : ProfileLayout && opened == false }">
+        <div
+          id="main"
+          :class="{
+            mainopen: ProfileLayout && opened == true,
+            mainClose: ProfileLayout && opened == false,
+          }"
+        >
           <!-- nav bar  -->
           <Nav />
           <!-- alert div if user dosnt activate his account  -->
           <b-alert variant="danger" show v-if="massgeOfVerify">
             <b-container>
               <router-link to="/otp-verification" class="otp-link text-danger">
-                {{ massgeOfVerify }} <font-awesome-icon icon="fa-solid fa-right-long" />
+                {{ massgeOfVerify }}
+                <font-awesome-icon icon="fa-solid fa-right-long" />
               </router-link>
             </b-container>
           </b-alert>
-  
+
           <!-- router that contain pages  -->
           <div class="router-holder">
             <transition name="slide-fade">
               <router-view class="view"></router-view>
             </transition>
           </div>
-  
+
           <!-- button to scroll to top  -->
           <div class="top-btn" @click="goTop" v-if="visible">
             <svg
@@ -193,6 +222,17 @@ export default {
         }
       });
     },
+    checkScreen() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth <= 992) {
+        this.mobile = true;
+        this.opened = false;
+        return;
+      }
+      this.mobile = false;
+      this.opened = true;
+      return;
+    },
   },
   data() {
     return {
@@ -200,6 +240,8 @@ export default {
       scY: 0,
       visible: false,
       opened: true,
+      windowWidth: null,
+      mobile: null,
     };
   },
   mounted() {
@@ -207,6 +249,8 @@ export default {
      * start handle scroll function with window scroll
      * */
     window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("resize", this.checkScreen);
+    this.checkScreen();
 
     const messaging = getMessaging();
 

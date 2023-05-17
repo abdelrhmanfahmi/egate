@@ -369,6 +369,7 @@ export default {
         border: none;
         text-transform: capitalize;
         font-size: 16px;
+        color:#000
       }
     }
   }
