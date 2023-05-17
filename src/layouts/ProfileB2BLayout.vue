@@ -52,7 +52,13 @@
           :opened="opened"
         />
       </div>
-      <div id="main" :class="{ mainopen: ProfileLayout && opened == true , mainClose : ProfileLayout && opened == false }">
+      <div
+        id="main"
+        :class="{
+          mainopen: ProfileLayout && opened == true,
+          mainClose: ProfileLayout && opened == false,
+        }"
+      >
         <!-- nav bar  -->
         <Nav />
         <!-- alert div if user dosnt activate his account  -->
@@ -207,6 +213,17 @@ export default {
         }
       });
     },
+    checkScreen() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth <= 992) {
+        this.mobile = true;
+        this.opened = false
+        return;
+      }
+      this.mobile = false;
+      this.opened = true
+      return;
+    },
   },
   data() {
     return {
@@ -214,6 +231,8 @@ export default {
       scY: 0,
       visible: false,
       opened: true,
+      windowWidth: null,
+      mobile: null,
     };
   },
   mounted() {
@@ -221,6 +240,8 @@ export default {
      * start handle scroll function with window scroll
      * */
     window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("resize", this.checkScreen);
+    this.checkScreen();
 
     const messaging = getMessaging();
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="$i18n.locale">
+  <div class="wrapper search-component" :class="$i18n.locale">
     <div class="text-center pt-5">
       <h1 class="mb-0">{{ $t("home.newSearchText") }}</h1>
     </div>
@@ -7,8 +7,8 @@
       <div class="new-search-design w-100">
         <div class="search-local">
           <div class="iconn bottom-nav-holder">
-            <div class="wrapper select-wrapper">
-              <div
+            <div class="wrapper select-wrapper data-wrapper d-flex justify-content-center align-items-center btn-group">
+              <!-- <div
                 class="data-wrapper d-flex justify0content-center align-items-center"
               >
                 <div class="grid-icon">
@@ -40,7 +40,39 @@
                 <div class="down-angle">
                   <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
                 </div>
+              </div> -->
+
+              <div class="grid-icon">
+                <font-awesome-icon
+                  icon="fa-solid fa-table-cells-large"
+                  size="xl"
+                />
               </div>
+              <b-dropdown
+                id="dropdown-1"
+                variant="link"
+                toggle-class="text-decoration-none"
+                no-caret
+                
+              >
+                <template #button-content>
+                  <span class="title text-dark text-black all-text">{{ $t("home.All") }}</span>
+                  <div class="down-angle">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      size="xl"
+                    />
+                  </div>
+                </template>
+                <b-dropdown-item
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  @click.prevent="selectCategory(category)"
+                  class="text-black"
+                >
+                  <span class="mx-2">{{ category.title }}</span>
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
 
@@ -63,7 +95,6 @@
                             </div> -->
             </b-form>
             <ul class="search-suggestions" v-if="suggestionsExist">
-              
               <span class="meaning-span">{{ $t("home.didMean") }}</span>
               <li
                 v-for="(suggest, index) in suggestions"
@@ -161,7 +192,7 @@ export default {
           this.loading = false;
         });
     },
-    selectCategory(event) {
+    selectCategory(category) {
       // this.$router.push(
       //   {
       //     path: `/categories/${event.target.value}`,
@@ -170,8 +201,8 @@ export default {
       //     this.$router.go(0);
       //   }
       // );
-      this.CatId = event.target.value;
-      console.log("this", this.CatId);
+      this.CatId = category.id;
+      document.querySelector('.all-text').textContent = category.title;
     },
     /**
      * @vuese
@@ -211,13 +242,11 @@ export default {
             this.ProductsExist = true;
             this.searchProducts = resp.data.items.products;
           }
-          if(!resp.data.items.products || !resp.data.items.products.length){
+          if (!resp.data.items.products || !resp.data.items.products.length) {
             this.ProductsExist = false;
-          
           }
-          if(!resp.data.items.suggestions &&
-            !resp.data.items.products ){
-            this.searchSubmitted = false
+          if (!resp.data.items.suggestions && !resp.data.items.products) {
+            this.searchSubmitted = false;
           }
         })
         .catch((err) => {
@@ -234,13 +263,13 @@ export default {
       // window.location.assign(r.href);
     },
     lazySearch() {
-      this.loading = true
+      this.loading = true;
       setTimeout(() => {
         this.search();
         this.searchSubmitted = true;
       }, 800);
       setTimeout(() => {
-        this.loading = false
+        this.loading = false;
       }, 820);
     },
     searchSuggestion(word) {
@@ -282,7 +311,7 @@ export default {
       loading: false,
       CatId: null,
       ProductsExist: false,
-      searchProducts:null
+      searchProducts: null,
     };
   },
 };
@@ -530,4 +559,42 @@ input:active {
     border-bottom: none !important;
   }
 }
+
+select,
+  #dropdown-1 {
+    padding: 0.7em 2rem;
+    border-radius: 0.2em;
+    border: none;
+    color: #000;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    a{
+      color: #000;
+    }
+
+    // background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
+    // background-repeat: no-repeat;
+    // background-size: 15px 15px;
+    // background-position: 97% 50%;
+    // background-origin: content-box;
+    background: none;
+    font-size: 16px;
+    position: relative;
+    .down-angle{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #000;
+    }
+
+
+  }
+
+  .btn-link{
+    color:#000 !important
+  }
 </style>

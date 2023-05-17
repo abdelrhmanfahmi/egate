@@ -1,66 +1,63 @@
-// new design 
+// new design
 .main-layout {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 /**
   *layout style
   */
 .slide-fade-enter-active {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .slide-fade-leave-active {
-    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter,
 .slide-fade-leave-to
 
-/* .slide-fade-leave-active below version 2.1.8 */
-    {
-    transform: translateX(10px);
-    opacity: 0;
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 
 .top-btn {
-    position: fixed;
-    right: 110px;
-    bottom: 50px;
-    padding: 0;
-    background: transparent;
-    color: #fff;
-    border: none;
-    margin: 0;
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
-    border-radius: 50%;
-    border: 1px solid #d4d5d8;
-    z-index: 999999;
+  position: fixed;
+  right: 110px;
+  bottom: 50px;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  border: none;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  border-radius: 50%;
+  border: 1px solid #d4d5d8;
+  z-index: 999999;
 }
 
 .view {
-    min-height: 50vh;
+  min-height: 50vh;
 }
 
 .otp-link {
-    text-decoration: underline !important;
+  text-decoration: underline !important;
 }
 
-
-
 .navbar {
-    background-color: $top-header-color;
-    overflow: hidden;
-    height: 63px;
+  background-color: $top-header-color;
+  overflow: hidden;
+  height: 63px;
 }
 
 .navbaropen {
-    background-color: $top-header-color;
-    overflow: hidden;
-    height: 63px;
-    // when layout moves 
-    width: 100%;
+  background-color: $top-header-color;
+  overflow: hidden;
+  height: 63px;
+  // when layout moves
+  width: 100%;
 }
 // .en{
 //     .navbaropen {
@@ -75,172 +72,186 @@
 
 // }
 
-
 .navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
 .navbar ul {
-    margin: 8px 0 0 0;
-    list-style: none;
+  margin: 8px 0 0 0;
+  list-style: none;
 }
 
 .navbar a:hover {
-    background-color: #ddd;
-    color: #000;
+  background-color: #ddd;
+  color: #000;
 }
 
 .side-nav {
-    height: 100%;
+  height: 100%;
+  width: auto;
+  // width: 0;
+  position: fixed;
+  z-index: 9999;
+  // z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #1f1f1f;
+  opacity: 0.9;
+  overflow-x: hidden;
+  // padding-top: 60px;
+  padding-top: 15px;
+  transition: 0.3s;
+  color: #fff;
+  text-align: center;
+}
+.sidenavopen {
+  text-align: start;
+}
+.sideB2cClosed {
+  .side-nav {
+    width: 0;
+  }
+}
+.sideB2cOpen {
+  .side-nav {
     width: auto;
-    // width: 0;
-    position: fixed;
-    z-index: 9999;
-    // z-index: 1;
-    top: 0;
+  }
+}
+.en {
+  .side-nav {
     left: 0;
-    background-color: #1F1F1F;
-    opacity: 0.9;
-    overflow-x: hidden;
-    // padding-top: 60px;
-    padding-top: 15px;
-    transition: 0.3s;
-    color:#fff;
-    text-align:center
+    right: auto;
+  }
 }
-.sidenavopen{
-    text-align: start;
-}
-.sideB2cClosed{
-    .side-nav{
-        width: 0;
-    }
-}
-.sideB2cOpen{
-    .side-nav{
-        width: auto;
-    }
-}
-.en{
-    .side-nav {
-        left: 0;
-        right: auto;
-    }
-}
-.ar{
-    .side-nav {
-        right: 0;
-        left: auto;
-    }
+.ar {
+  .side-nav {
+    right: 0;
+    left: auto;
+  }
 }
 
 .sidenavopen {
-    height: 100%;
-    width: 260px;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
+  height: 100%;
+  width: 280px;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  background-color: #1f1f1f;
+  opacity: 1;
+  overflow-x: hidden;
+  // padding-top: 60px;
+  //padding: 15px;
+  transition: 0.3s;
+}
+.en {
+  .sidenavopen {
     left: 0;
-    background-color: #1F1F1F;
-    opacity: 1;
-    overflow-x: hidden;
-    // padding-top: 60px;
-    //padding: 15px;
-    transition: 0.3s;
+    right: auto;
+  }
 }
-.en{
-    .sidenavopen {
-        left: 0;
-        right:auto
-    }
-}
-.ar{
-    .sidenavopen {
-        right: 0;
-        left: auto;
-    }
+.ar {
+  .sidenavopen {
+    right: 0;
+    left: auto;
+  }
 }
 
 .side-nav a {
-    padding: 10px 10px 10px 30px;
-    text-decoration: none;
-    font-size: 22px;
-    color: #ccc;
-    display: block;
-    transition: 0.3s;
+  padding: 10px 10px 10px 30px;
+  text-decoration: none;
+  font-size: 22px;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
 }
 
 .side-nav a:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .side-nav .btn-close {
-    position: absolute;
-    top: 0;
-    right: 22px;
-    font-size: 36px;
-    margin-left: 50px;
+  position: absolute;
+  top: 0;
+  right: 22px;
+  font-size: 36px;
+  margin-left: 50px;
 }
 
 #main {
-    transition: margin-left 0.3s;
-    // padding: 20px;
-    overflow: hidden;
-    width: 100%;
+  transition: margin-left 0.3s;
+  // padding: 20px;
+  overflow: hidden;
+  // width: 100%;
 }
 
 .mainopen {
-    transition: margin-left 0.3s;
-    // padding: 20px;
-    overflow: hidden;
-    width: 100%;
+  transition: margin-left 0.3s;
+  // padding: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+.en {
+  .mainopen {
+    margin-left: 180px;
+    width: calc(100% - 90px);
+  }
+}
+.ar {
+  .mainopen {
+    margin-right: 180px;
+    width: calc(100% - 89px);
+  }
 }
 .en{
-    .mainopen {
-        margin-left: 160px;
-    }
-
+    .mainClose {
+        margin: 0;
+        @media (max-width: 992px) {
+          margin-left: 60px;
+          width: calc(100% - 60px);
+        }
+      }
 }
 .ar{
-    .mainopen {
-        margin-right: 160px;
-    }
-
-}
-.mainClose{
-    margin: 0;
+    .mainClose {
+        margin: 0;
+        @media (max-width: 992px) {
+          margin-right: 60px;
+          width: calc(100% - 60px);
+        }
+      }
 }
 
 nav {
-    transition: margin-left 0.3s;
+  transition: margin-left 0.3s;
 }
 
 .bar {
-    display: block;
-    height: 5px;
-    width: 35px;
-    background: #000;
-    margin: 5px auto;
+  display: block;
+  height: 5px;
+  width: 35px;
+  background: #000;
+  margin: 5px auto;
 }
 
 .midopen {
-    width: 0;
+  width: 0;
 }
 
 .bar {
-    transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .topopen {
-    transform: translateY(10px) rotateZ(45deg);
+  transform: translateY(10px) rotateZ(45deg);
 }
 
 .botopen {
-    transform: translateY(-10px) rotateZ(-45deg);
+  transform: translateY(-10px) rotateZ(-45deg);
 }

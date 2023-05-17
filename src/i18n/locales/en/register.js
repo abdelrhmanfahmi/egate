@@ -43,4 +43,5 @@ export default {
   wholeSale:'Whole Sale Clients',
   passCheck1:'The password must be at least 8 characters.',
   passCheck2:'At least contains one char (Upper Case, Lower Case, Special Char, and Number)',
+  resendCode:'Resend Verification Code'
 };
