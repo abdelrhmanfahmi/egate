@@ -43,6 +43,7 @@
     .nav-item {
         &+.nav-item {
             margin-left: 0.1rem;
+            margin-bottom: 10px;
         }
         &.show .nav-link,
         .nav-link.active {
