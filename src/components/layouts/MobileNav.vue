@@ -14,7 +14,7 @@
           :href="`${supplierDomain}`"
           class="link"
         >
-          {{ $t("home.corporat") }} - {{ $t("home.suppliers") }}
+          {{ $t("home.corporate") }} - {{ $t("home.suppliers") }}
         </a>
       </li>
       <li v-if="!isLoggined">
@@ -50,7 +50,7 @@ export default {
 
         { name: this.$t("home.cart"), to: "/cart" },
         {
-          name: `${this.$t("home.corporat")} - ${this.$t("home.buyer")}`,
+          name: `${this.$t("home.corporate")} - ${this.$t("home.buyer")}`,
           to: "/b2b-register",
         },
       ],

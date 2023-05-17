@@ -15,7 +15,7 @@
       </li>
       <!-- <li class="humhum-dropdown">
         <a class="link">
-          {{ $t("home.corporat") }}
+          {{ $t("home.corporate") }}
           <ul class="submenu">
             <li>
               <a

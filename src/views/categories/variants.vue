@@ -436,7 +436,7 @@
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type,
                 'border-green-bold':
-                  product && product.ads && product.ads.length,
+                  product && product.ads && product.ads.length && product.ads[0].status == 1,
               }"
             >
               <!-- <td
@@ -495,7 +495,7 @@
                   "
                 >
                   <h6
-                    v-if="product.ads && product && product.ads.length > 0"
+                    v-if="product.ads && product && product.ads.length > 0 && product.ads[0].status == 1"
                     class="main-color font-weight-bold text-success"
                   >
                     {{ $t("items.advertise") }}
@@ -986,7 +986,7 @@
                     </button>
                   </div>
                   <!-- add standing orders  -->
-                  <div v-if="RFQ == true">
+                  <div v-if="standing_order == true">
                     <button
                       id="show-btn"
                       class="btn btn-loght border-0 outline-none shadow-none d-block add-cart"

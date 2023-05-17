@@ -21,6 +21,12 @@
             /></span>
             1 {{ $t("login.uppercaseLetter") }}
           </p>
+          <p class="font-weight-bold h6 text-gray" id="letter4">
+            <span id="check"
+              ><font-awesome-icon icon="fa-solid fa-circle-check"
+            /></span>
+            1 {{ $t("login.lowercaseLetter") }}
+          </p>
           <p class="font-weight-bold h6 text-gray" id="letter3">
             <span id="check"
               ><font-awesome-icon icon="fa-solid fa-circle-check"

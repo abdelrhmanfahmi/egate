@@ -34,7 +34,7 @@
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }"
               >
                 <!-- {{ $t("login.wholeSaleBuyer") }} -->
-                {{ $t("home.corporat") }}
+                {{ $t("home.corporate") }}
               </span>
             </div>
             <!-- <div class="col-md-3 col-sm-12 p-0 m-0 my-col" v-if="supplier_registration ">

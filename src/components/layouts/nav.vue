@@ -124,7 +124,7 @@
                     class="border-main color-main br-5 p-2"
                     v-if="!buyerUserData || buyerUserData.type == 'b2c'"
                   >
-                    <b>{{ $t("home.corporat") }}</b>
+                    <b>{{ $t("home.corporate") }}</b>
                     <b>{{ $t("home.suppliers") }}</b>
                   </router-link> -->
                   <!-- new redirect link -->

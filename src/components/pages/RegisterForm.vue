@@ -473,6 +473,7 @@ export default {
       let letter1 = document.getElementById("letter1");
       let letter2 = document.getElementById("letter2");
       let letter3 = document.getElementById("letter3");
+      let letter4 = document.getElementById("letter4");
 
       // Validate Uppercase letteres
       var uppercaseLetters = /[A-Z]/g;
@@ -496,6 +497,18 @@ export default {
         letter1.classList.remove("main-color");
         letter1.classList.add("text-gray");
         letter1.style.opacity = 0.5;
+      }
+
+      // Validate lowercase letteres
+      var lowercaseLetters = /[a-z]/g;
+
+      if (len.match(lowercaseLetters)) {
+        letter4.classList.add("main-color");
+        letter4.style.opacity = 1;
+      } else {
+        letter4.classList.remove("main-color");
+        letter4.classList.add("text-gray");
+        letter4.style.opacity = 0.5;
       }
 
       //Validate Numbers
