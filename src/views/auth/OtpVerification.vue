@@ -24,7 +24,7 @@
             {{ $t("register.verification") }}
           </b-button>
         </form>
-        <div class="my-3 resend" @click="resendCode()">
+        <div class="my-3 resend" @click="resendCode()" v-if="!resend">
           {{ $t("register.notArrive") }}
         </div>
       </div>
@@ -40,7 +40,7 @@
             {{ $t("register.verification") }}
           </b-button>
         </form>
-        <div class="my-3 resend" @click="resendCode()">
+        <div class="my-3 resend" @click="resendCode()" v-if="!resend">
           {{ $t("register.notArrive") }}
         </div>
       </div>
@@ -59,6 +59,7 @@ export default {
       },
       massageErr: "",
       registerOTP: true,
+      resend: this.$route.query.resend ? this.$route.query.resend : null,
     };
   },
   mounted() {
@@ -73,7 +74,7 @@ export default {
   methods: {
     /**
      * @vuese
-     * emailVerify function 
+     * emailVerify function
      */
     emailVerify() {
       if (this.$route.query.uuid) {
@@ -112,7 +113,7 @@ export default {
     },
     /**
      * @vuese
-     * resendCode function 
+     * resendCode function
      */
     resendCode() {
       auth
@@ -123,6 +124,36 @@ export default {
         .catch((error) => {
           const err = Object.values(error)[2].data.message;
           this.errMsg(err.message);
+          if (error.response.data.code == 400 && !this.resend) {
+            this.resendCodeAgain();
+          }
+        });
+    },
+
+    resendCodeAgain() {
+      let payload = {
+        mobile_number: this.buyerUserData.mobile_number,
+        callback_url: `${this.mainDoamin}otp-verification`,
+      };
+      auth
+        .resendCode(payload)
+        .then((res) => {
+          if (res.status == 200) {
+            this.$router.push(
+              {
+                path: "/otp-verification",
+                query: {
+                  resend: true,
+                },
+              },
+              () => {
+                this.$router.go(0);
+              }
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
 

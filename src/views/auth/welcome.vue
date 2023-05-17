@@ -25,7 +25,7 @@
           <b-button class="border-main" to="/">
             {{ $t("home.home") }}
           </b-button>
-          <b-button class="border-main mx-3" to="/">
+          <b-button class="border-main mx-3" @click="resendCode">
             {{ $t("register.resendCode") }}
           </b-button>
         </div>
@@ -35,10 +35,37 @@
 </template>
 
 <script>
+import auth from "@/services/auth.js";
 export default {
   methods: {
     goToHome() {
       this.$router.push("/");
+    },
+    resendCode() {
+      let payload = {
+        mobile_number: this.buyerUserData.mobile_number,
+        callback_url: `${this.mainDoamin}otp-verification`,
+      };
+      auth
+        .resendCode(payload)
+        .then((res) => {
+          if (res.status == 200) {
+            this.$router.push(
+              {
+                path: "/otp-verification",
+                query: {
+                  resend: true,
+                },
+              },
+              () => {
+                this.$router.go(0);
+              }
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
