@@ -204,9 +204,19 @@
 
 .search-component{
   .bottom-nav-holder .dropdown-menu{
-    top: 14rem !important;
+    top: 21rem !important;
+    left:-41px !important
   }
   .btn-group > .btn:focus , .btn-group > .btn:active{
     background: transparent !important;
   }
+}
+
+.tabbable .nav-tabs {
+  overflow-x: auto;
+  overflow-y:hidden;
+  flex-wrap: nowrap;
+}
+.tabbable .nav-tabs .nav-link {
+ white-space: nowrap;
 }

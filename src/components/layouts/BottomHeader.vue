@@ -24,9 +24,9 @@
               <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
             </div>
               </template>
-              <b-dropdown-item v-for="(category, index) in categories" :key="index" @click="selectCategory(category)">
+              <b-dropdown-item v-for="(category, index) in categories" :key="index" @click="selectCategory(category)" class="text-center d-inline-block mx-2 my-2 myDropDown-item">
                 <img :src="category.image_path" :alt="category.title" class="category-img" />
-                <span class="mx-2">{{ category.title }}</span>
+                <div class="mx-2">{{ category.title }}</div>
               </b-dropdown-item>
             </b-dropdown>
 
@@ -212,6 +212,7 @@ export default {
   // object-fit: contain;
   // margin: 0 10px;
 }
+
 
 
 </style>

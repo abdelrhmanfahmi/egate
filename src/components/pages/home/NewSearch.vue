@@ -70,7 +70,8 @@
                   @click.prevent="selectCategory(category)"
                   class="text-black"
                 >
-                  <span class="mx-2">{{ category.title }}</span>
+                <img :src="category.image_path" :alt="category.title" class="category-img" />
+                  <span class="mx-2 category-title">{{ category.title }}</span>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -596,5 +597,17 @@ select,
 
   .btn-link{
     color:#000 !important
+  }
+
+  .category-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    // object-fit: contain;
+    // margin: 0 10px;
+  }
+  .category-title{
+    font-size: 14px;
+    font-weight: bold;
   }
 </style>
