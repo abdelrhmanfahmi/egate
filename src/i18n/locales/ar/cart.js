@@ -61,5 +61,6 @@ export default {
   standQuantity:'الكميه المطلوبه من المنتج',
   couponExist:'الكود مستخدم بالفعل',
   validCoupons:'الكوبونات المفعله',
-  shopNow:'تسوق الان'
+  shopNow:'تسوق الان',
+  deleiverToAddress:'التوصيل لهذا العنوان'
 };

@@ -60,9 +60,9 @@
               <img src="@/assets/images/giftbox.png" v-if="product.gift_promotion_id" class="gift-product"
                 alt="gift-product" />
               <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
-                <span class="action-icon text-gray">
+                <span class="action-icon text-black-50">
                   <!-- <b-icon-trash></b-icon-trash> -->
-                  {{ $t("items.remove") }}
+                  <ins><b>{{ $t("items.remove") }}</b></ins>
                 </span>
               </div>
             </div>
@@ -192,16 +192,22 @@ export default {
 }
 
 .product-img-container {
-  width: 90px;
+  width: 80px;
   height: 100%;
   border-radius: 8px;
-  box-shadow: 0 0 4px grey;
+  //box-shadow: 0 0 4px $gray;
+  border: 2px solid #dcdcdc;
   margin-inline-end: 15px;
   margin-inline-start: 1px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+
   .product-image {
     width: 100%;
-    height: 70px;
+    height: 90px;
     object-fit: cover;
     border-radius: 8px;
   }

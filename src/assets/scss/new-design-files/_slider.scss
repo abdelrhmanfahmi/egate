@@ -114,11 +114,14 @@
   }
   .slick-current {
     .slider-data {
-      border-color: $main-color !important;
-      .sign {
-        color: $main-color;
-      }
+      // border-color: $main-color !important;
     }
+  }
+  .new-border-main{
+    .sign {
+      color: $main-color;
+    }
+
   }
 }
 // .variants{
