@@ -36,7 +36,7 @@
 
     
     <NewCategoriesTabs />
-    <NewMonthlyOffers />
+    <!-- <NewMonthlyOffers /> -->
 
     <!-- <ProductSilder /> -->
     <NewProductSilder />
@@ -63,7 +63,7 @@ import supplierAdsModal from "@/components/supplierAdsModal.vue";
 import NewHomeSearch from "@/components/pages/home/NewSearch.vue";
 import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 import NewDailyOffers from "@/components/pages/home/NewDailyOffers.vue";
-import NewMonthlyOffers from "@/components/pages/home/NewMonthlyOffers.vue";
+// import NewMonthlyOffers from "@/components/pages/home/NewMonthlyOffers.vue";
 import NewAppsDownloadSec from "@/components/pages/home/NewAppsDownloadSec.vue";
 
 export default {
@@ -80,7 +80,7 @@ export default {
     NewHomeSearch,
     NewHomeSlider,
     NewDailyOffers,
-    NewMonthlyOffers,
+    // NewMonthlyOffers,
     NewAppsDownloadSec,
   },
 

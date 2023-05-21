@@ -40,32 +40,35 @@ nav {
 }
 
 .bottom-nav-holder {
-  .dropdown-menu {
-    height: 600px !important;
-    overflow: auto !important;
-    top: 100%;
-    @media (min-width: 991.98px) {
-      width: 73rem;
-      top: 0.5rem !important;
-      left: -2.5rem !important;
-    }
-    @media (min-width: 767px) and (max-width: 992px) {
-      width: 43rem !important;
-      left: -50% !important;
-      top: 0.5rem !important;
-    }
-    @media (min-width: 576px) and (max-width:766.98px) {
-      top: 0.5rem !important;
-      left: -1.5rem !important;
-      width: 35rem;
-    }
-    @media (max-width: 575.98px) {
-      top: 12.5rem !important;
-      left: -2.5rem !important;
-      width: 18rem;
+  #dropdown-1{
+
+    .dropdown-menu {
+      height: 600px !important;
+      overflow: auto !important;
+      top: 100%;
+      @media (min-width: 991.98px) {
+        width: 73rem;
+        top: 9rem !important;
+        left: -2.5rem !important;
+      }
+      @media (min-width: 767px) and (max-width: 992px) {
+        width: 43rem !important;
+        left: -50% !important;
+        top: 9rem !important;
+      }
+      @media (min-width: 576px) and (max-width:766.98px) {
+        top: 9rem !important;
+        left: -1.5rem !important;
+        width: 35rem;
+      }
+      @media (max-width: 575.98px) {
+        top: 12.5rem !important;
+        left: -2.5rem !important;
+        width: 18rem;
+      }
     }
   }
-  #dropdown-1 {
+  #dropdown-1 , #dropdown-2 {
     width: 250px;
     padding: 5px !important;
     @media (max-width: 767px) {
