@@ -150,7 +150,7 @@ label,
   }
 }
 .user-profile {
-  #dropdown-1__BV_toggle_ {
+  #dropdown-1__BV_toggle_ , #dropdown-2__BV_toggle_ {
     background: transparent;
     border: none;
     color: #000;
@@ -369,7 +369,7 @@ div {
 }
 .holder {
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .homecategories {
   img {

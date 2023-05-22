@@ -7,7 +7,9 @@
       <div class="new-search-design w-100">
         <div class="search-local">
           <div class="iconn bottom-nav-holder">
-            <div class="wrapper select-wrapper data-wrapper d-flex justify-content-center align-items-center btn-group">
+            <div
+              class="wrapper select-wrapper data-wrapper d-flex justify-content-center align-items-center btn-group"
+            >
               <!-- <div
                 class="data-wrapper d-flex justify0content-center align-items-center"
               >
@@ -49,14 +51,15 @@
                 />
               </div>
               <b-dropdown
-                id="dropdown-1"
+                id="dropdown-2"
                 variant="link"
                 toggle-class="text-decoration-none"
                 no-caret
-                
               >
                 <template #button-content>
-                  <span class="title text-dark text-black all-text">{{ $t("home.All") }}</span>
+                  <span class="title text-dark text-black all-text">{{
+                    $t("home.All")
+                  }}</span>
                   <div class="down-angle">
                     <font-awesome-icon
                       icon="fa-solid fa-angle-down"
@@ -70,7 +73,11 @@
                   @click.prevent="selectCategory(category)"
                   class="text-black"
                 >
-                <img :src="category.image_path" :alt="category.title" class="category-img" />
+                  <img
+                    :src="category.icon_image_path"
+                    :alt="category.title"
+                    class="category-img"
+                  />
                   <span class="mx-2 category-title">{{ category.title }}</span>
                 </b-dropdown-item>
               </b-dropdown>
@@ -203,7 +210,7 @@ export default {
       //   }
       // );
       this.CatId = category.id;
-      document.querySelector('.all-text').textContent = category.title;
+      document.querySelector(".all-text").textContent = category.title;
     },
     /**
      * @vuese
@@ -300,6 +307,12 @@ export default {
   },
   mounted() {
     this.getCategories();
+    // window.addEventListener("resize", () => {
+    //   let zoom = ((window.outerWidth - 10) / window.innerWidth) * 100;
+    //   if (zoom.toFixed(0) < 90) {
+    //     this.NewClass = true;
+    //   }
+    // });
   },
   data() {
     return {
@@ -313,6 +326,7 @@ export default {
       CatId: null,
       ProductsExist: false,
       searchProducts: null,
+      // NewClass: false,
     };
   },
 };
@@ -562,52 +576,53 @@ input:active {
 }
 
 select,
-  #dropdown-1 {
-    padding: 0.7em 2rem;
-    border-radius: 0.2em;
-    border: none;
+#dropdown-2 {
+  padding: 0.7em 2rem;
+  border-radius: 0.2em;
+  border: none;
+  color: #000;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  a {
     color: #000;
-
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    a{
-      color: #000;
-    }
-
-    // background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
-    // background-repeat: no-repeat;
-    // background-size: 15px 15px;
-    // background-position: 97% 50%;
-    // background-origin: content-box;
-    background: none;
-    font-size: 16px;
-    position: relative;
-    .down-angle{
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #000;
-    }
-
-
   }
 
-  .btn-link{
-    color:#000 !important
+  // background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
+  // background-repeat: no-repeat;
+  // background-size: 15px 15px;
+  // background-position: 97% 50%;
+  // background-origin: content-box;
+  background: none;
+  font-size: 16px;
+  position: relative;
+  .down-angle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
   }
+}
 
-  .category-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    // object-fit: contain;
-    // margin: 0 10px;
-  }
-  .category-title{
-    font-size: 14px;
-    font-weight: bold;
-  }
+.btn-link {
+  color: #000 !important;
+}
+
+.category-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  // object-fit: contain;
+  // margin: 0 10px;
+}
+.category-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.newLocation{
+  top: 0.5rem !important;
+}
 </style>
