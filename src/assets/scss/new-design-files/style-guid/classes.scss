@@ -46,12 +46,12 @@ nav {
       height: 600px !important;
       overflow: auto !important;
       top: 100%;
-      @media (min-width: 991.98px) {
+      @media (min-width: 992px) {
         width: 73rem;
         top: 9rem !important;
         left: -2.5rem !important;
       }
-      @media (min-width: 767px) and (max-width: 992px) {
+      @media (min-width: 767px) and (max-width: 991.98px) {
         width: 43rem !important;
         left: -50% !important;
         top: 9rem !important;
@@ -65,6 +65,17 @@ nav {
         top: 12.5rem !important;
         left: -2.5rem !important;
         width: 18rem;
+      }
+
+      @media(min-width:1499.98px) {
+        width: 73rem;
+        top: 0.5rem !important;
+        left: -2.5rem !important;
+      }
+      @media(min-width:1500px) and (max-width:1530px) {
+        width: 73rem;
+        top: 9rem !important;
+        left: -2.5rem !important;
       }
     }
   }
