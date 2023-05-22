@@ -24,6 +24,16 @@
               <b>{{$t('cart.shopNow')}}</b>
             </router-link>
           </div>
+          <div  v-if="item.model_type === 'b2b'">
+             <router-link to="/b2b-register" class="bg-main text-white">
+              <b>{{$t('cart.shopNow')}}</b>
+            </router-link>
+          </div>
+          <div  v-if="item.model_type === 'b2c'">
+             <router-link to="/user-register" class="bg-main text-white">
+              <b>{{$t('cart.shopNow')}}</b>
+            </router-link>
+          </div>
           <div  v-if="item.model_type === 'basket_promotion'">
              <router-link :to="{ path: '/basket_promotion', query: { id: item.model_id } }" class="bg-main text-white">
               <b>{{$t('cart.shopNow')}}</b>

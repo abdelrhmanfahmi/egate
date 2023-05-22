@@ -35,6 +35,18 @@
                   <font-awesome-icon icon="fa-solid fa-store" /></span></b>
             </router-link>
           </div>
+          <div class="viewProduct" v-if="newsletterShow.model_type === 'b2b'">
+            <router-link to="/b2b-register" class="">
+              <b><span>{{ $t("profile.viewDetails") }}
+                  <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+            </router-link>
+          </div>
+          <div class="viewProduct" v-if="newsletterShow.model_type === 'b2c'">
+            <router-link to="/user-register" class="">
+              <b><span>{{ $t("profile.viewDetails") }}
+                  <font-awesome-icon icon="fa-solid fa-store" /></span></b>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
