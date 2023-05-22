@@ -24,6 +24,7 @@
               <b>{{$t('cart.shopNow')}}</b>
             </router-link>
           </div>
+          <!-- register links  -->
           <div  v-if="item.model_type === 'b2b'">
              <router-link to="/b2b-register" class="bg-main text-white">
               <b>{{$t('cart.shopNow')}}</b>
