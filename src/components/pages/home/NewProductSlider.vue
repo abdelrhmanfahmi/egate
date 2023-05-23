@@ -23,7 +23,7 @@
 
                 <VueSlickCarousel v-bind="settings" class="my-5" v-if="dataLength">
                   <div v-for="(deal, index) in buyAndGet" :key="index" class="slider-holder">
-                    <ProductCard :slider="deal" :dealType="`${$t('profile.buy')} 
+                    <ProductCard :slider="deal" :sort="'buyXgetY'" :dealType="`${$t('profile.buy')} 
                     ${deal.buy_get_promotion_running_by_type.promotion.buy_x} 
                     ${$t('profile.get')} ${deal.buy_get_promotion_running_by_type.promotion.get_y}`" />
 
@@ -48,7 +48,7 @@
 
                 <VueSlickCarousel v-bind="settings" class="my-5" v-if="giftOffersLength">
                   <div v-for="(deal, index) in giftOffers" :key="index">
-                    <ProductCard :slider="deal" :dealType="`${$t('profile.buy')} 
+                    <ProductCard :slider="deal" :sort="'buXGetGift'" :dealType="`${$t('profile.buy')} 
                     ${deal.buy_gift_promotions_running_by_type.buy_x} 
                     ${$t('profile.get')} ${deal.buy_gift_promotions_running_by_type.gift_product_supplier.product.title} ${$t('profile.free')}`" />
 
