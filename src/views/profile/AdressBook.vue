@@ -521,7 +521,7 @@
             deleteSliderAdress();
           "
         >
-          {{ $t("register.save") }}
+          {{ $t("items.remove") }}
         </b-button>
       </b-modal>
     </div>
