@@ -521,7 +521,7 @@
             deleteSliderAdress();
           "
         >
-          {{ $t("cart.submit") }}
+          {{ $t("register.save") }}
         </b-button>
       </b-modal>
     </div>
@@ -854,9 +854,9 @@ export default {
           this.errMsg(err.message);
         });
     },
-    deleteSliderAdress(row) {
+    deleteSliderAdress() {
       profile
-        .deleteAdress(row.uuid)
+        .deleteAdress(this.selectedAddress.uuid)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.getAllAdresses();
@@ -866,6 +866,18 @@ export default {
           this.errMsg(err.message);
         });
     },
+    // deleteSliderAdress(row) {
+    //   profile
+    //     .deleteAdress(row.uuid)
+    //     .then((res) => {
+    //       this.sucessMsg(res.data.message);
+    //       this.getAllAdresses();
+    //     })
+    //     .catch((error) => {
+    //       const err = Object.values(error)[2].data;
+    //       this.errMsg(err.message);
+    //     });
+    // },
     /**
      * edit Address function
      * @vuese

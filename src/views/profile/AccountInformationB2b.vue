@@ -213,7 +213,12 @@
                 </b-col>
               </b-row>
             </div>
-            <div class="row">
+            <div class="row" v-if="
+            (buyerUserData && buyerUserData.type === 'buyer') ||
+            buyerUserData.type === 'b2b' ||
+            (buyerUserData.type === 'supplier' &&
+              buyerUserData.is_buyer == 1)
+          ">
               <div class="col-lg-4 col-sm-12">
                 <div class="company-logo">
                   <main class="mb-5">
