@@ -377,7 +377,8 @@
               <font-awesome-icon icon="fa-solid fa-cart-shopping" />
             </span>
             <span class="mx-2">{{ $t("singleProduct.addCart") }}</span>
-            <span
+            <span v-if="dealType">({{dealType}})</span>
+            <span v-else
               >({{
                 `${$t("profile.buy")} 
               ${myProduct.buy_get_promotion_running_by_type.promotion.buy_x}
@@ -386,6 +387,7 @@
                 } `
               }})</span
             >
+            
           </b-button>
         </div>
         <div class="col-md-6 col-sm-12" v-if="myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion.buy_x">
@@ -1008,6 +1010,7 @@ export default {
       message: null,
       subject: null,
       rfqCartAdd: null,
+      dealType:this.$route.query.type
       // url: this.mainDoamin
     };
   },
