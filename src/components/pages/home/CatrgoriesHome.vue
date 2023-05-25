@@ -7,26 +7,39 @@
       <!-- when data loading  -->
       <div v-if="loading">
         <b-row class="holder">
-          <b-col lg="3" sm="6" v-for="x in 10" :key="x">
+          <b-col lg="2" sm="6" v-for="x in 10" :key="x">
             <b-skeleton-img></b-skeleton-img>
             <b-card>
-              <b-skeleton animation="fade" width="60%" class="border-none"></b-skeleton>
-              <b-skeleton animation="fade" width="85%" class="border-none"></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="60%"
+                class="border-none"
+              ></b-skeleton>
+              <b-skeleton
+                animation="fade"
+                width="85%"
+                class="border-none"
+              ></b-skeleton>
             </b-card>
           </b-col>
         </b-row>
       </div>
       <!-- when data comes  -->
-      <b-row v-else>
+      <b-row v-else class="justify-content-center">
         <b-col
           v-for="category in categories"
           :key="category.id"
+          xl="2"
           lg="3"
+          md="4"
           sm="6"
           class="homecategories custum-padding"
         >
           <router-link :to="`/categories/${category.id}`">
-            <CategoryCard :card="{ type: category.title }" :image="category.image_path" />
+            <CategoryCard
+              :card="{ type: category.title }"
+              :image="category.image_path"
+            />
           </router-link>
         </b-col>
       </b-row>
@@ -93,6 +106,7 @@ export default {
     padding-right: 0px;
     padding-left: 0px;
     padding-bottom: 0px;
+    margin: 0 5px;
     img {
       opacity: 0.5;
     }

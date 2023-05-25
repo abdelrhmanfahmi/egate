@@ -26,7 +26,7 @@
                 </div>
               </div>
               <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
-                <h4 class="main-header mt-2" v-if="item.product.title">
+                <h4 class="mt-2" v-if="item.product.title">
                   <span
                     >{{ item.product.title.substr(0, 15) }}
                     <span v-if="item.product.title.length > 15">...</span>
@@ -44,7 +44,7 @@
                     </h6>
                   </div>
                   <div
-                    class="col-md-6 col-sm-12"
+                    class="col-md-6 col-sm-12 "
                     v-if="
                       item.product_details_by_type.price_before_discount &&
                       item.product_details_by_type.price_before_discount >

@@ -53,7 +53,8 @@ export default {
   border-radius: 5px;
   // border: 1px solid rgba(0, 0, 0, 0.125);
   transition: all 0.3s ease-out;
-  margin: 20px 30px;
+  //margin: 20px 30px;
+  margin: 5px 10px;
 
   &:hover {
     img{

@@ -121,7 +121,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider-holder {
-  min-height: 500px;
+  min-height: 450px;
   width: 100%;
   margin-bottom: 10px;
   position: relative;
@@ -138,7 +138,7 @@ export default {
   }
 
   img {
-    height: 500px;
+    height: 450px;
     width: 100%;
   }
 }
