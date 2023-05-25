@@ -44,5 +44,7 @@ export default {
   relatedBaskets:'Related Baskets',
   category:"Category",
   subCategory:"Sub Category",
-  removeFromWishlist:'Remove From Favorite'
+  removeFromWishlist:'Remove From Favorite',
+  offers:'Offers',
+  sponsoredAds:'Sponsored Ad'
 };
