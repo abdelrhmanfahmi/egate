@@ -45,5 +45,7 @@ export default {
   relatedBaskets:'السلات ذات الصلة',
   category:"قسم",
   subCategory:"قسم فرعى",
-  removeFromWishlist:'حذف من قائمةالمفضلة'
+  removeFromWishlist:'حذف من قائمةالمفضلة',
+  offers:'العروض',
+  sponsoredAds:'اعلان ممول'
 };

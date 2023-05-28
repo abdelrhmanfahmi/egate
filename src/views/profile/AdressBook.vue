@@ -134,12 +134,7 @@
         </h4>
       </div>
     </div>
-    <div
-      class="add-address"
-      @click="
-        showForm = !showForm;
-      "
-    >
+    <div class="add-address" @click="showForm = !showForm">
       <div
         class="d-flex flex-column justify-content-center align-items-center text-gray"
       >
@@ -192,6 +187,7 @@
                     v-model="form.region_id"
                     :disabled="!form.country_id"
                     @input="getAllCities"
+                    @change="getAllCities"
                   >
                     <b-form-select-option
                       v-for="region in regions"
@@ -235,7 +231,10 @@
                 </b-form-group>
               </b-col>
               <!-- name in english (new add)-->
-              <b-col lg="6" v-if="$i18n.locale == 'en' && form.name !== undefined">
+              <b-col
+                lg="6"
+                v-if="$i18n.locale == 'en' && form.name !== undefined"
+              >
                 <b-form-group v-if="buyerUserData.type == 'buyer'">
                   <label>{{ $t("profile.name") }}</label>
                   <b-form-select v-model="form.name">
@@ -279,7 +278,10 @@
                 </b-form-group>
               </b-col>
               <!-- name in arabic (new add)-->
-              <b-col lg="6" v-else-if=" $i18n.locale == 'ar' && form.name !== undefined">
+              <b-col
+                lg="6"
+                v-else-if="$i18n.locale == 'ar' && form.name !== undefined"
+              >
                 <b-form-group
                   v-if="
                     buyerUserData.type == 'buyer' && arabicAvailable !== 'no'
@@ -519,7 +521,7 @@
             deleteSliderAdress();
           "
         >
-          {{ $t("cart.submit") }}
+          {{ $t("items.remove") }}
         </b-button>
       </b-modal>
     </div>
@@ -686,10 +688,9 @@ export default {
     };
   },
   mounted() {
-    
     this.getAllCountires();
     this.getAllAdresses();
-    
+
     this.checkDynamicInputs();
   },
   methods: {
@@ -728,11 +729,14 @@ export default {
      * @vuese
      */
     getAllCountires() {
-      auth.getAllCountires().then((res) => {
-        this.countries = res.data.items;
-      }).then(()=>{
-        this.getAllRegions()
-      })
+      auth
+        .getAllCountires()
+        .then((res) => {
+          this.countries = res.data.items;
+        })
+        .then(() => {
+          this.getAllRegions();
+        });
     },
     // getAllRegions
 
@@ -741,13 +745,16 @@ export default {
      * @vuese
      */
     getAllRegions() {
-      profile.getAllRegions(this.form.country_id).then((res) => {
-        this.regions = res.data.items;
-        this.form.region_id = "";
-        this.form.city_id = "";
-      }).then(()=>{
-        this.checkAddressesForm();
-      })
+      profile
+        .getAllRegions(this.form.country_id)
+        .then((res) => {
+          this.regions = res.data.items;
+          this.form.region_id = null;
+          this.form.city_id = null;
+        })
+        .then(() => {
+          this.checkAddressesForm();
+        });
     },
     // Cities
 
@@ -758,7 +765,7 @@ export default {
     getAllCities() {
       profile.getAllCities(this.form.region_id).then((res) => {
         this.cities = res.data.items;
-        this.form.city_id = "";
+        this.form.city_id = null;
       });
     },
 
@@ -787,6 +794,11 @@ export default {
             if (element.input_key == "city_id" && element.status !== 1) {
               this.form.city_id = undefined;
             }
+          });
+        })
+        .then(() => {
+          profile.getAllRegions(this.form.country_id).then((res) => {
+            this.regions = res.data.items;
           });
         })
         .catch((err) => {
@@ -842,9 +854,9 @@ export default {
           this.errMsg(err.message);
         });
     },
-    deleteSliderAdress(row) {
+    deleteSliderAdress() {
       profile
-        .deleteAdress(row.uuid)
+        .deleteAdress(this.selectedAddress.uuid)
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.getAllAdresses();
@@ -854,6 +866,18 @@ export default {
           this.errMsg(err.message);
         });
     },
+    // deleteSliderAdress(row) {
+    //   profile
+    //     .deleteAdress(row.uuid)
+    //     .then((res) => {
+    //       this.sucessMsg(res.data.message);
+    //       this.getAllAdresses();
+    //     })
+    //     .catch((error) => {
+    //       const err = Object.values(error)[2].data;
+    //       this.errMsg(err.message);
+    //     });
+    // },
     /**
      * edit Address function
      * @vuese

@@ -151,6 +151,9 @@
     justify-content: center !important;
     align-items: center !important;
     border-bottom: 2px solid transparent !important;
+    overflow-x: auto;
+   overflow-y:hidden;
+   flex-wrap: nowrap;
   }
   .nav.nav-tabs .nav-item .nav-link {
     width: 100px;
@@ -162,6 +165,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 20px;
+    white-space: nowrap;
   }
   .nav.nav-tabs .nav-item .nav-link.active{
     background-color: $main-color;

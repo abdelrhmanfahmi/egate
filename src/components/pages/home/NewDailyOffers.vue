@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
-                <h4 class="main-header mt-2" v-if="item.product.title">
+                <h4 class=" mt-2" v-if="item.product.title">
                   <span
                     >{{ item.product.title.substr(0, 15) }}
                     <span v-if="item.product.title.length > 15">...</span>
@@ -55,7 +55,7 @@
                     </h6>
                   </div>
                   <div
-                    class="col-md-6 col-sm-12"
+                    class="col-md-6 col-sm-12 be-right"
                     v-if="item.product_details_by_type.price < item.product_details_by_type.price_before_discount && item.product_details_by_type.price_before_discount"
                   >
                     <del>
@@ -83,7 +83,7 @@
                     </router-link>
                   </div>
                   <div
-                    class="col-md-6 col-sm-12"
+                    class="col-md-6 col-sm-12 be-right"
                     v-if="item.product_details_by_type.weight"
                   >
                     <h6>
@@ -105,7 +105,7 @@
                     </router-link>
                   </div>
                   <div
-                    class="col-md-6 col-sm-12 mb-3 px-1"
+                    class="col-md-6 col-sm-12 mb-3 px-1 be-right"
                     v-if="
                       (add_to_cart == true&&
                         item.product_details_by_type.add_type === 'cart') ||
@@ -267,7 +267,7 @@ export default {
 <style lang="scss" scoped>
 .offer-image {
   width: 100%;
-  height: 250px;
+  height: 225px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -276,6 +276,7 @@ export default {
   background-color: #eff0f0;
   border-radius: 10px;
   padding: 15px;
+  padding-bottom: 0;
   width: 95% !important;
 }
 @media (max-width:992px) {
@@ -323,6 +324,22 @@ button {
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;
+  }
+}
+.be-right{
+  display: flex;
+  justify-content: flex-end ;
+  padding-right: 25px !important;
+  @media(max-width:767px){
+    display: block;
+    width: 100%;
+    padding-right: 0px !important;
+  }
+}
+button{
+  @media(max-width:767px){
+    width: 80% !important;
+    margin: auto;
   }
 }
 </style>

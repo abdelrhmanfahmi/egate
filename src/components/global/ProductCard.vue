@@ -52,7 +52,9 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-items-start justify-content-between">
+      <div
+        class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-items-start justify-content-between"
+      >
         <div v-if="slider">
           <!-- <router-link
             class="img-holder"
@@ -130,10 +132,10 @@
         <div class="row mb-3 align-items-center">
           <div class="col-12 px-1">
             <router-link
-            :to="{
-              path: '/details',
-              query: { id: `${slider.id}`, type: dealType },
-            }"
+              :to="{
+                path: '/details',
+                query: { id: `${slider.id}`, type: dealType },
+              }"
               v-if="slider"
             >
               <button class="outline-main">
@@ -150,7 +152,7 @@
                 slider.product_details_by_type.add_type === 'both')
             "
           >
-            <a >
+            <a>
               <button class="bg-main text-white" @click="addToCart(slider)">
                 {{ $t("items.addToCart") }}
               </button>
@@ -198,43 +200,115 @@ export default {
     buttonTrue: {
       type: Boolean,
     },
+    sort: {
+      type: String,
+    },
   },
   methods: {
     /**
      * @vuese
      * add To Cart function
      */
-    addToCart(myProduct) {
-      let data = {
-        product_supplier_id:
-          myProduct.product_details_by_type.product_supplier_id,
-        quantity: this.selected > 0 ? this.selected : 1,
-      };
-      return globalAxios
-        .post(`cart/add`, data)
-        .then((res) => {
-          if (res.status == 200) {
-            this.sucessMsg(res.data.message);
 
-            this.$modal.show(
-              () => import("@/components/cart/cartModal.vue"),
-              {
-                product: myProduct,
-              },
-              { width: "700", height: "auto", adaptive: true }
-            );
-          }
-        })
-        .catch((error) => {
-          const err = Object.values(error)[2].data;
-          this.errors = err.items;
-          this.errMsg(err.message);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.$store.dispatch("cart/getCartProducts");
-          }, 500);
-        });
+    addToCart(myProduct) {
+      if (this.sort == "buyXgetY") {
+        let data = {
+          product_supplier_id:
+            myProduct.product_details_by_type.product_supplier_id,
+          quantity: this.selected > 0 ? this.selected : 1,
+          buy_get_promotion_id:myProduct.buy_get_promotion_running_by_type.buy_get_promotion_id
+        };
+        return globalAxios
+          .post(`cart/add`, data)
+          .then((res) => {
+            if (res.status == 200) {
+              this.sucessMsg(res.data.message);
+
+              this.$modal.show(
+                () => import("@/components/cart/cartModal.vue"),
+                {
+                  product: myProduct,
+                },
+                { width: "700", height: "auto", adaptive: true }
+              );
+            }
+          })
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.$store.dispatch("cart/getCartProducts");
+            }, 500);
+          });
+      } else if (this.sort == "buXGetGift") {
+        let data = {
+          product_supplier_id:
+            myProduct.product_details_by_type.product_supplier_id,
+          quantity: this.selected > 0 ? this.selected : 1,
+          buy_product_supplier_id:myProduct.buy_gift_promotions_running_by_type
+                  .buy_product_supplier_id
+             
+        };
+        return globalAxios
+          .post(`cart/add`, data)
+          .then((res) => {
+            if (res.status == 200) {
+              this.sucessMsg(res.data.message);
+
+              this.$modal.show(
+                () => import("@/components/cart/cartModal.vue"),
+                {
+                  product: myProduct,
+                },
+                { width: "700", height: "auto", adaptive: true }
+              );
+            }
+          })
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.$store.dispatch("cart/getCartProducts");
+            }, 500);
+          });
+      } else {
+        let data = {
+          product_supplier_id:
+            myProduct.product_details_by_type.product_supplier_id,
+          quantity: this.selected > 0 ? this.selected : 1,
+        };
+        return globalAxios
+          .post(`cart/add`, data)
+          .then((res) => {
+            if (res.status == 200) {
+              this.sucessMsg(res.data.message);
+
+              this.$modal.show(
+                () => import("@/components/cart/cartModal.vue"),
+                {
+                  product: myProduct,
+                },
+                { width: "700", height: "auto", adaptive: true }
+              );
+            }
+          })
+          .catch((error) => {
+            const err = Object.values(error)[2].data;
+            this.errors = err.items;
+            this.errMsg(err.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.$store.dispatch("cart/getCartProducts");
+            }, 500);
+          });
+      }
     },
     /**
      * @vuese
@@ -335,8 +409,8 @@ export default {
 
     border-radius: 50%;
     width: 95%;
-    @media(max-width:992px){
-      width:100%
+    @media (max-width: 992px) {
+      width: 100%;
     }
     &:hover {
       opacity: 0.5;
@@ -349,8 +423,8 @@ export default {
       display: block;
       object-fit: cover;
     }
-    button{
-      width:100%;
+    button {
+      width: 100%;
       margin: 5px 0;
     }
   }
@@ -402,9 +476,9 @@ button.new {
   padding: 15px;
   width: 95% !important;
 }
-@media (max-width:992px) {
-  .slide-holder{
-    width: 100% !important; 
+@media (max-width: 992px) {
+  .slide-holder {
+    width: 100% !important;
   }
 }
 

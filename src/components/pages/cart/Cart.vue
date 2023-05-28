@@ -936,17 +936,17 @@
                                     v-bind="settings"
                                     v-if="addresses && addresses.length"
                                   >
-                                    <div
+                                  <div
                                       v-for="(address, index) in addresses"
                                       :key="index"
-                                      class="slider-data"
+                                      class="slider-data" :class="{'new-border-main':selectedAddress.uuid == address.uuid}"
                                       @click.prevent="selectedAddress = address ; changeAddress() "
-                                    >
+                                      >
                                       <div class="sign my-2 d-flex align-items-center">
-                                        <span
+                                        <span :class="{'main-color':selectedAddress.uuid == address.uuid}"
                                           ><font-awesome-icon icon="fa-regular fa-circle-check" size="2x"
                                         /></span>
-                                        <span class="h6 mx-2">Deliver To This Address</span>
+                                        <span class="h6 mx-2" :class="{'main-color':selectedAddress.uuid == address.uuid}">{{$t('cart.deleiverToAddress')}}</span>
                                       </div>
                                       <div class="address-data">
                                         <div class="row mb-2">
@@ -4404,5 +4404,9 @@ export default {
     display:block;
     width:100%
   }
+}
+
+.new-border-main{
+  border: 2px solid $main-color !important;
 }
 </style>

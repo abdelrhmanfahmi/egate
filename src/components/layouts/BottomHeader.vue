@@ -3,9 +3,15 @@
     <div class="container">
       <div class="categories-dropdown d-flex align-items-center">
         <div class="wrapper">
-          <div class="data-wrapper d-flex justify0content-center align-items-center btn-group">
+          <div
+            class="data-wrapper d-flex justify0content-center align-items-center btn-group"
+          >
             <div class="grid-icon">
-              <font-awesome-icon icon="fa-solid fa-table-cells-large" size="xl" class="text-white" />
+              <font-awesome-icon
+                icon="fa-solid fa-table-cells-large"
+                size="xl"
+                class="text-white"
+              />
             </div>
             <!-- <select name="categories" id="categories" @change="selectCategory($event)">
               <option value="" selected disabled>
@@ -17,20 +23,35 @@
                 </router-link>
               </option>
             </select> -->
-            <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
-              <template #button-content>
-                <span class="title text-white">{{ $t("profile.categories") }}</span>
+            <b-dropdown
+              id="dropdown-1"
+              class="cat-drop"
+              variant="link"
+              toggle-class="text-decoration-none"
+              no-caret
+            >
+              <template #button-content >
+                <span class="title text-white">{{
+                  $t("profile.categories")
+                }}</span>
                 <div class="down-angle">
-              <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
-            </div>
+                  <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
+                </div>
               </template>
-              <b-dropdown-item v-for="(category, index) in categories" :key="index" @click="selectCategory(category)">
-                <img :src="category.image_path" :alt="category.title" class="category-img" />
-                <span class="mx-2">{{ category.title }}</span>
+              <b-dropdown-item
+                v-for="(category, index) in categories"
+                :key="index"
+                @click="selectCategory(category)"
+                class="text-center d-inline-block mx-2 my-2 myDropDown-item"
+              >
+                <img
+                  :src="category.image_path"
+                  :alt="category.title"
+                  class="category-img"
+                />
+                <div class="mx-2">{{ category.title }}</div>
               </b-dropdown-item>
             </b-dropdown>
-
-            
           </div>
         </div>
         <div class="other-catrgories" v-if="!mobile">
@@ -162,15 +183,13 @@ export default {
     background: none;
     font-size: 16px;
     position: relative;
-    .down-angle{
+    .down-angle {
       position: absolute;
       right: 0;
       top: 50%;
       transform: translateY(-50%);
       color: #fff;
     }
-
-
   }
 
   // #categories {
@@ -212,6 +231,4 @@ export default {
   // object-fit: contain;
   // margin: 0 10px;
 }
-
-
 </style>

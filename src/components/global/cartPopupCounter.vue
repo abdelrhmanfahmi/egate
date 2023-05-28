@@ -6,7 +6,7 @@
       :class="$i18n.locale"
     >
       <button
-        class="product-counter-btn"
+        class="product-counter-btn minus"
         @click="decrementQuantity"
         :disabled="countValue <= minimum"
         :class="{ disabledBtn: countValue <= minimum }"

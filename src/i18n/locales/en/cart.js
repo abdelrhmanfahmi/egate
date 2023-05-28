@@ -61,5 +61,6 @@ export default {
   couponExist:'Coupon Already Exist',
   validCoupons:'Valid Coupons',
   shopNow:'Shop Now',
-  addPromotionTOCart:'Add Promotion To cart'
+  addPromotionTOCart:'Add Promotion To cart',
+  deleiverToAddress:'Deliver To This Address'
 };

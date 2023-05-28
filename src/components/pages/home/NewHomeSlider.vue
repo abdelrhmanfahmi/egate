@@ -24,6 +24,17 @@
               <b>{{$t('cart.shopNow')}}</b>
             </router-link>
           </div>
+          <!-- register links  -->
+          <div  v-if="item.model_type === 'b2b'">
+             <router-link to="/b2b-register" class="bg-main text-white">
+              <b>{{$t('cart.shopNow')}}</b>
+            </router-link>
+          </div>
+          <div  v-if="item.model_type === 'b2c'">
+             <router-link to="/user-register" class="bg-main text-white">
+              <b>{{$t('cart.shopNow')}}</b>
+            </router-link>
+          </div>
           <div  v-if="item.model_type === 'basket_promotion'">
              <router-link :to="{ path: '/basket_promotion', query: { id: item.model_id } }" class="bg-main text-white">
               <b>{{$t('cart.shopNow')}}</b>
@@ -110,7 +121,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider-holder {
-  min-height: 500px;
+  min-height: 450px;
   width: 100%;
   margin-bottom: 10px;
   position: relative;
@@ -127,7 +138,7 @@ export default {
   }
 
   img {
-    height: 500px;
+    height: 450px;
     width: 100%;
   }
 }
