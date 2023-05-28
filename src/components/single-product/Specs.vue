@@ -16,10 +16,10 @@
             <th>{{ $t("singleProduct.country") }}</th>
             <td>{{ myProduct.country.title }}</td>
           </tr>
-          <tr v-if="myProduct.delivery_time !== null">
+          <tr v-if="myProduct.product_details_by_type.delivery_time !== null && myProduct.product_details_by_type.delivery_time.title">
             <th>{{ $t("singleProduct.deliveryTime") }}</th>
-            <td v-if="myProduct.delivery_time.title">
-              {{ myProduct.delivery_time.title }}
+            <td v-if="myProduct.product_details_by_type.delivery_time.title">
+              {{ myProduct.product_details_by_type.delivery_time.title }}
             </td>
           </tr>
           <tr v-if="myProduct.warranty !== null">
@@ -34,9 +34,9 @@
               {{ myProduct.product_details_by_type.min_order_quantity.title }}
             </td>
           </tr>
-          <tr v-if="myProduct.return_time !== null">
+          <tr v-if="myProduct.product_details_by_type.return_time !== null && myProduct.product_details_by_type.return_time.title">
             <th>{{ $t("singleProduct.return_time") }}</th>
-            <td>{{ myProduct.return_time.title }}</td>
+            <td>{{ myProduct.product_details_by_type.return_time.title }}</td>
           </tr>
           <tr v-if="myProduct.product_details_by_type !== null">
             <th>{{ $t("singleProduct.PcsperUnit") }}</th>

@@ -1,39 +1,33 @@
 <template>
-  <div class="recaptchaComponent-holder">
-    <vue-hcaptcha
-      sitekey="6LediTEmAAAAALGYwvubar0pFsbsnpvdzUyPVB_3"
-      @verify="onVerify"
-      @expired="onExpire"
-      @challenge-expired="onChallengeExpire"
-      @error="onError"
-    ></vue-hcaptcha>
+  <div class="test">
+    <form action="" @submit.prevent="submit">
+      <input type="text" />
+      <VueSimpleRecaptcha
+        sitekey="6Lc6rUgmAAAAAFnk-PkR0u62_Oy1PCaeIFylZTg6"
+        ref="recaptcha"
+        @callback="callback"
+      />
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
-import VueHcaptcha from "@hcaptcha/vue-hcaptcha";
+import VueSimpleRecaptcha from "vue-simple-recaptcha";
 export default {
-  components: { VueHcaptcha },
+  components: {
+    VueSimpleRecaptcha,
+  },
   methods: {
-    onVerify: (token, eKey) => {
-      console.log("Verified: ", { token, eKey });
+    onloadCallback() {
+      alert("grecaptcha is ready!");
     },
-    onExpire: () => {
-      console.log("Token expired");
-    },
-    onChallengeExpire: () => {
-      console.log("Challenge expired");
-    },
-    onError: (err) => {
-      console.log("Error", err);
-    },
+  },
+  mounted() {
+    this.onloadCallback();
   },
 };
 </script>
-<style lang="scss" scoped>
-.recaptchaComponent-holder {
-  position: fixed;
-  bottom: 30px;
-  left: 30px;
-}
+
+<style>
 </style>

@@ -9,7 +9,6 @@
     <div class="" v-else>
       <MainLayout />
     </div>
-    <ReCaptchComponent />
   </div>
 </template>
 
@@ -24,7 +23,6 @@ import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
 import auth from "@/services/auth";
 import checkApiControls from "@/services/apiControls";
 import LoadingScreen from "@/components/global/LoadingScreen.vue";
-import ReCaptchComponent from "@/components/Recaptcha/RecaptchaCompoent.vue"
 export default {
   name: "Home",
   created() {
@@ -51,7 +49,6 @@ export default {
     MainLayout,
     ProfileB2BLayout,
     LoadingScreen,
-    ReCaptchComponent
   },
   methods: {
     /**

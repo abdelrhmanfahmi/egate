@@ -47,5 +47,6 @@ export default {
   subCategory:"قسم فرعى",
   removeFromWishlist:'حذف من قائمةالمفضلة',
   offers:'العروض',
-  sponsoredAds:'اعلان ممول'
+  sponsoredAds:'اعلان ممول',
+  offerName:'عرض'
 };

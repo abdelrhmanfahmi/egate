@@ -1,6 +1,6 @@
 {
   "name": "humhum",
-  "version": "0.0.642",
+  "version": "0.0.643",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -32,7 +32,9 @@
     "vue-i18n": "^8.27.0",
     "vue-inbrowser-compiler": "^4.55.0",
     "vue-js-modal": "^2.0.1",
+    "vue-recaptcha": "^3.0.0-alpha.5",
     "vue-router": "^3.2.0",
+    "vue-simple-recaptcha": "^1.0.11",
     "vue-slick-carousel": "^1.0.6",
     "vue-social-chat": "^0.1.6",
     "vue-socialmedia-share": "^1.0.1",
