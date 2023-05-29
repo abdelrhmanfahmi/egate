@@ -167,7 +167,6 @@ export default {
         recaptcha: this.form.recaptcha,
         callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
-      console.log('loginData' , loginData);
       auth
         .login("buyer", loginData)
         .then((res) => {
