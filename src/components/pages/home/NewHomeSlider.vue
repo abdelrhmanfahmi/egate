@@ -15,9 +15,9 @@
             </router-link>
           </div>
           <div  v-if="item.model_type === 'category'">
-             <button :to="`/categories/${item.model_id}`" class="bg-main text-white">
+             <router-link :to="`/categories/${item.model_id}`" class="bg-main text-white">
               <b>{{$t('cart.shopNow')}}</b>
-             </button>
+             </router-link>
           </div>
           <div  v-if="item.model_type === 'supplier'">
              <router-link :to="`/suppliers/${item.model_id}`" class="bg-main text-white">
