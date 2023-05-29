@@ -428,19 +428,18 @@
             </tr>
           </thead>
           <tbody
-          :class="{
-            'border-main-bold':
-              product.basket_promotions_running_by_type ||
-              product.buy_get_promotion_running_by_type,
-            'border-green-bold':
-              product && product.ads && product.ads.length && product.ads[0].status == 1,
-          }"
+            :class="{
+              'border-main-bold':
+                product.basket_promotions_running_by_type ||
+                product.buy_get_promotion_running_by_type,
+              'border-green-bold':
+                product &&
+                product.ads &&
+                product.ads.length &&
+                product.ads[0].status == 1,
+            }"
           >
-            <tr
-              v-for="(product, index) in products"
-              :key="index"
-              class=""
-            >
+            <tr v-for="(product, index) in products" :key="index" class="">
               <!-- <td
                 v-if="
                 product.ads.length ||
@@ -602,6 +601,15 @@
                         >
                           {{ $t("items.sponsoredAds") }}
                         </h6>
+                        <h6
+                        class="sponsoredAds"
+                          v-else-if="
+                            product.basket_promotions_running_by_type ||
+                            product.buy_get_promotion_running_by_type
+                          "
+                        >
+                        {{$t('items.offerName')}}
+                        </h6>
                       </div>
                     </router-link>
                     <router-link
@@ -628,6 +636,15 @@
                           class="sponsoredAds"
                         >
                           {{ $t("items.sponsoredAds") }}
+                        </h6>
+                        <h6
+                        class="sponsoredAds"
+                          v-else-if="
+                            product.basket_promotions_running_by_type ||
+                            product.buy_get_promotion_running_by_type
+                          "
+                        >
+                          {{$t('items.offerName')}}
                         </h6>
                       </div>
                     </router-link>
@@ -659,6 +676,15 @@
                           class="sponsoredAds"
                         >
                           {{ $t("items.sponsoredAds") }}
+                        </h6>
+                        <h6
+                        class="sponsoredAds"
+                          v-else-if="
+                            product.basket_promotions_running_by_type ||
+                            product.buy_get_promotion_running_by_type
+                          "
+                        >
+                        {{$t('items.offerName')}}
                         </h6>
                       </div>
                     </router-link>
@@ -1107,7 +1133,10 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" />
+                    <font-awesome-icon
+                      icon="fa-solid fa-cart-shopping"
+                      size="xl"
+                    />
                   </a>
 
                   <div
@@ -1356,6 +1385,7 @@ export default {
       UnitOptions: null,
       selectedStandingOrder: null,
       parent_categoryVariants: null,
+      parentCategoryId: null,
       searchWord: "",
       parentId: sessionStorage.getItem("catId"),
       parentTitle: sessionStorage.getItem("parentTitle"),
@@ -1593,17 +1623,20 @@ export default {
       categories
         .getSingleProductDetails(this.pageId)
         .then((res) => {
-          console.log("parent_categoryVariants", res);
           this.PageTitle = res.data.items.title;
           this.PageId = res.data.items.id;
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;
           this.parent_categoryVariants = res?.data?.items?.all_children;
+          this.parentCategoryId = res?.data?.items?.category_id;
           if (this.productInfo?.variants) {
             for (let index = 0; index < variantData.length; index++) {
               this.productInfo.variants[index].selectedVariance = null;
             }
           }
+        })
+        .then(() => {
+          this.getAllSubCategories();
         })
         .catch((err) => {
           console.log(err);
@@ -1611,7 +1644,7 @@ export default {
     },
     async getAllSubCategories() {
       await categories
-        .getAllSubCategories(sessionStorage.getItem("catId"))
+        .getAllSubCategories(this.parentCategoryId)
         .then((resp) => {
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
@@ -1763,7 +1796,6 @@ export default {
     this.getCategoryProducts();
     this.getSingleProductDetails();
     this.getFilters();
-    this.getAllSubCategories();
   },
   watch: {
     $route: "updateId",

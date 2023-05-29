@@ -46,5 +46,6 @@ export default {
   subCategory:"Sub Category",
   removeFromWishlist:'Remove From Favorite',
   offers:'Offers',
-  sponsoredAds:'Sponsored Ad'
+  sponsoredAds:'Sponsored Ad',
+  offerName:"Offer"
 };

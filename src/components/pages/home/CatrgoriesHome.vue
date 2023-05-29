@@ -25,7 +25,7 @@
         </b-row>
       </div>
       <!-- when data comes  -->
-      <b-row v-else class="justify-content-center">
+      <b-row v-else >
         <b-col
           v-for="category in categories"
           :key="category.id"

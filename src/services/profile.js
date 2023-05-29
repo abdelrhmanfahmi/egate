@@ -39,6 +39,7 @@ export default {
     return globalAxios.post("members/profile/shipping-info", payload, {
       params: {
         form_control: `user-address`,
+        form: `user-address`,
       },
     });
   },

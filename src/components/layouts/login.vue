@@ -96,6 +96,7 @@
                 {{ $t("login.login") }}
               </b-button>
             </form>
+            <RecapchaComponent @psssrecaptcha="recaptchaValue($event)" />
           </div>
           <div class="" v-else>
             <B2bTab />
@@ -160,6 +161,7 @@
             {{ $t("login.createAccount") }}
           </b-button>
         </div> -->
+        
       </template>
     </b-sidebar>
     <b-modal
@@ -185,6 +187,7 @@
         }}</a>
       </div>
     </b-modal>
+    
   </div>
 </template>
 
@@ -192,6 +195,7 @@
 // login  component
 import auth from "@/services/auth";
 import B2bTab from "../loginTabs/B2bTab.vue";
+import RecapchaComponent  from "@/components/Recaptcha/RecaptchaCompoent.vue"
 export default {
   data() {
     return {
@@ -200,6 +204,7 @@ export default {
         password: "",
         token: "",
         device_type: "web",
+        recaptcha:''
       },
       errorMsg: "",
       fieldType: "password",
@@ -210,6 +215,9 @@ export default {
     };
   },
   methods: {
+    recaptchaValue($event){
+      this.form.recaptcha = $event
+    },
     /**
      * @vuese
      * login B2c function
@@ -222,6 +230,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
+        recaptcha: this.form.recaptcha,
         callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
 
@@ -323,6 +332,7 @@ export default {
   },
   components: {
     B2bTab,
+    RecapchaComponent
   },
 };
 </script>
