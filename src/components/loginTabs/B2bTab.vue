@@ -83,6 +83,7 @@
           </form>
         </b-col>
       </b-row>
+      <RecapchaComponent @psssrecaptcha="recaptchaValue($event)" />
     </div>
     <b-modal
       id="B2BForgetPassword"
@@ -115,6 +116,7 @@
 </template>
 <script>
 import auth from "@/services/auth";
+import RecapchaComponent  from "@/components/Recaptcha/RecaptchaCompoent.vue"
 export default {
   data() {
     return {
@@ -131,6 +133,9 @@ export default {
     };
   },
   methods: {
+    recaptchaValue($event){
+      this.form.recaptcha = $event
+    },
     //  /**
     //  * @vuese
     //  * login function
@@ -143,6 +148,7 @@ export default {
         password: this.form.password,
         token: this.firebaseToken,
         device_type: this.form.device_type,
+        recaptcha: this.form.recaptcha,
         callback_url: `${this.mainDoamin}CheckUserValidity`,
       };
       auth
@@ -227,6 +233,9 @@ export default {
       return this.$store.state.firebaseToken;
     },
   },
+  components:{
+    RecapchaComponent
+  }
 };
 </script>
 

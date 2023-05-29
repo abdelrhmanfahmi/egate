@@ -1,33 +1,44 @@
 <template>
-  <div class="test">
-    <form action="" @submit.prevent="submit">
-      <input type="text" />
-      <VueSimpleRecaptcha
+  <div class="">
+    <div :class="{ mx_recaptcha_failed: !recaptcha }">
+      <VueRecaptcha
+
         sitekey="6Lc6rUgmAAAAAFnk-PkR0u62_Oy1PCaeIFylZTg6"
-        ref="recaptcha"
-        @callback="callback"
+        @verify="mxVerify"
       />
-      <button type="submit">Submit</button>
-    </form>
+      <br />
+      <small>Doesn't complete!</small>
+    </div>
   </div>
 </template>
 
 <script>
-import VueSimpleRecaptcha from "vue-simple-recaptcha";
+import VueRecaptcha from 'vue-recaptcha';
 export default {
-  components: {
-    VueSimpleRecaptcha,
-  },
+  components: { VueRecaptcha },
   methods: {
-    onloadCallback() {
-      alert("grecaptcha is ready!");
+    mxVerify(response) {
+      this.recaptcha = response;
+      this.$emit('psssrecaptcha' , response);
     },
   },
-  mounted() {
-    this.onloadCallback();
+  data() {
+    return {
+      recaptcha: null,
+    };
   },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+small {
+  color: red;
+  display: none;
+}
+.mx_form_inv .mx_empty_filed ~ small {
+  display: block;
+}
+.mx_form_inv .mx_recaptcha_failed small {
+  display: block;
+}
 </style>
