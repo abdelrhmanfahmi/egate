@@ -1,9 +1,11 @@
 <template>
   <div class="product-counter">
-    
-    <div class="actions d-flex justify-content-center align-items-center" :class="$i18n.locale">
-      <button class="product-counter-btn" @click="incrementQuantity">
-        <b-icon-plus />
+    <div
+      class="actions d-flex justify-content-center align-items-center"
+      :class="$i18n.locale"
+    >
+      <button class="product-counter-btn minus" @click="decrementQuantity">
+        <b-icon-dash />
       </button>
       <div class="value">
         <!-- variants page counter that exist in table  -->
@@ -22,8 +24,8 @@
           </slot>
         </main>
       </div>
-      <button class="product-counter-btn" @click="decrementQuantity">
-        <b-icon-dash />
+      <button class="product-counter-btn" @click="incrementQuantity">
+        <b-icon-plus />
       </button>
     </div>
   </div>
@@ -46,13 +48,13 @@ export default {
    */
   props: {
     quantity: {
-      // quantity prop 
+      // quantity prop
       type: Number,
       required: true,
       default: 1,
     },
     minimum: {
-      // minimum prop 
+      // minimum prop
       type: Number,
       required: true,
       default: 1,
@@ -159,5 +161,4 @@ export default {
     background-color: #fff;
   }
 }
-
 </style>

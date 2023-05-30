@@ -45,7 +45,7 @@
                 class="text-center d-inline-block mx-2 my-2 myDropDown-item"
               >
                 <img
-                  :src="category.image_path"
+                  :src="category.icon_image_path"
                   :alt="category.title"
                   class="category-img"
                 />
