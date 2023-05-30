@@ -106,24 +106,25 @@
           "
         >
           <div class="actions d-flex" :class="$i18n.locale">
-            <button class="product-counter-btn" @click="incrementQuantity">
-              <b-icon-plus />
+          
+            <button
+              class="product-counter-btn minus"
+              @click="
+                decrementQuantity(
+                  myProduct.product_details_by_type.min_order_quantity
+                )
+              "
+              :disabled="mySelectedOption == 1 || mySelectedOption <= myProduct.product_details_by_type.min_order_quantity"
+            >
+              <b-icon-dash />
             </button>
             <div class="value">
               <span class="product-counter-number">
                 {{ mySelectedOption ? mySelectedOption : 1 }}</span
               >
             </div>
-            <button
-              class="product-counter-btn"
-              @click="
-                decrementQuantity(
-                  myProduct.product_details_by_type.min_order_quantity
-                )
-              "
-              :disabled="mySelectedOption == 1"
-            >
-              <b-icon-dash />
+            <button class="product-counter-btn" @click="incrementQuantity">
+              <b-icon-plus />
             </button>
           </div>
         </div>
