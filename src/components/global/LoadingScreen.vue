@@ -14,14 +14,21 @@
 <script>
 export default {};
 </script>
-<style>
+<style scoped lang="scss">
 #loading {
   position: fixed;
-  z-index: 1000;
+  z-index: 999999999;
   background-color: #fbfbfb;
   inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width:100%;
+  height:100%;
+  img {
+    width: 70%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 </style>
