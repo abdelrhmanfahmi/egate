@@ -163,7 +163,7 @@
     </div>
 
     <button
-      class="border-main main-color br-5 btn btn-block"
+      class="border-main main-color br-5 btn btn-block mt-2"
       v-if="buttonTrue == true"
       @click="getOffer(slider)"
     >
@@ -247,7 +247,7 @@ export default {
         let data = {
           product_supplier_id:
             myProduct.product_details_by_type.product_supplier_id,
-          quantity: this.selected > 0 ? this.selected : 1,
+          quantity: myProduct.buy_gift_promotions_running_by_type.buy_x ? myProduct.buy_gift_promotions_running_by_type.buy_x : 1,
           buy_product_supplier_id:myProduct.buy_gift_promotions_running_by_type
                   .buy_product_supplier_id
              

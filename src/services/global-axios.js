@@ -101,8 +101,13 @@ globalAxios.interceptors.response.use(
         : router.push({ path: '/', query: { force_login: 'true' } });
     }
 
+    if (error.response.status == 401 && !localStorage.getItem('guest-id') || error.response.status == 403 && !localStorage.getItem('guest-id')) {
+      location.reload();
+    }
+
     return Promise.reject(error);
   }
+  
 );
 
 export default globalAxios;

@@ -13,7 +13,7 @@
 }
 
 .border-main {
-  border: 1px solid $main-color;
+  border: 1px solid $main-color !important;
   background: transparent;
   color: $main-color;
   &:hover {
