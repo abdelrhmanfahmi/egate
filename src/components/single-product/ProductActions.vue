@@ -841,14 +841,10 @@ export default {
     decrementQuantity(minimum) {
       if (minimum) {
         this.mySelectedOption > minimum ? this.mySelectedOption-- : null;
-        console.log("no minimum");
-        console.log("this.mySelectedOption", this.mySelectedOption);
       } else {
         this.mySelectedOption >= 1
           ? this.mySelectedOption--
           : this.mySelectedOption == 1;
-        console.log("no minimum");
-        console.log("this.mySelectedOption", this.mySelectedOption);
       }
     },
     /**
