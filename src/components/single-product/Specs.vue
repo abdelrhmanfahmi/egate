@@ -27,11 +27,11 @@
             <td>{{ myProduct.warranty.title }}</td>
           </tr>
           <tr
-            v-if="myProduct.product_details_by_type.min_order_quantity !== null && myProduct.product_details_by_type.min_order_quantity.title"
+            v-if="myProduct.product_details_by_type.min_order_quantity !== null"
           >
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
             <td>
-              {{ myProduct.product_details_by_type.min_order_quantity.title }}
+              {{ myProduct.product_details_by_type.min_order_quantity }}
             </td>
           </tr>
           <tr v-if="myProduct.product_details_by_type.return_time !== null && myProduct.product_details_by_type.return_time.title">

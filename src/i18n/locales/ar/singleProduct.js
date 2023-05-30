@@ -11,7 +11,7 @@ export default {
   PcsperUnit: "عدد القطع لكل وحدة",
   expiration_date: "تاريخ انتهاء الصلاحية",
   warantyType: "الضمان",
-  min_order_quantity: " ادخل الكمية للطلب",
+  min_order_quantity: "أقل كمية للطلب",
   return_time: "مدة الاسترجاع",
   delivery_time: "مدة التوصيل",
   addFavorites: "اضف للمفضلة",
