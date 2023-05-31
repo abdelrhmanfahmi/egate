@@ -2112,6 +2112,7 @@ export default {
 
 .image-holder {
   position: relative;
+  min-width: 120px;
   .sponsoredAds {
     position: absolute;
     top: -6px;
