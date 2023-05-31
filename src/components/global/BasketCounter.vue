@@ -4,8 +4,13 @@
       class="actions d-flex justify-content-center align-items-center"
       :class="$i18n.locale"
     >
-      <button class="product-counter-btn" @click="incrementQuantity">
-        <b-icon-plus />
+    <button
+        class="product-counter-btn"
+        @click="decrementQuantity"
+        :disabled="countValue <= minimum"
+        :class="{ disabledBtn: countValue <= minimum }"
+      >
+        <b-icon-dash />
       </button>
       <div class="value">
         <!-- counter that appear in tables for cart  -->
@@ -25,14 +30,10 @@
           </slot>
         </main>
       </div>
-      <button
-        class="product-counter-btn"
-        @click="decrementQuantity"
-        :disabled="countValue <= minimum"
-        :class="{ disabledBtn: countValue <= minimum }"
-      >
-        <b-icon-dash />
+      <button class="product-counter-btn" @click="incrementQuantity">
+        <b-icon-plus />
       </button>
+      
     </div>
   </div>
 </template>

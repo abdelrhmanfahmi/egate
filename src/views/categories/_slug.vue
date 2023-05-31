@@ -38,6 +38,9 @@
           <li class="breadcrumb-item" v-if="categoryTitle">
             <router-link :to="`/categories/${categoryId}`"> {{ categoryTitle }} </router-link>
           </li>
+          <li class="breadcrumb-item" v-else>
+            <span> {{ $t("home.noDataTill") }}</span>
+          </li>
           <!-- <li class="breadcrumb-item">
             <a  class="main-color"> {{ $t('items.subCategory') }} </a>
           </li> -->
@@ -331,6 +334,7 @@ export default {
 
             // console.log("outside index", resp.data.items[i].all_children);
           }
+          this.categoryTitle = resp.data.items[0].parent_category.title
         })
         .catch((err) => {
           console.log(err);
@@ -364,7 +368,10 @@ export default {
      */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
-        this.categoryTitle = res.data.items.title
+        if(!this.categoryTitle){
+
+          this.categoryTitle = res.data.items.title
+        }
         this.categoryId = res.data.items.id
         this.pageCover = res.data.items.image_path;
         this.pageTitle = res.data.items.title;

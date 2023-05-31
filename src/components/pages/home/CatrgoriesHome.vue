@@ -25,7 +25,7 @@
         </b-row>
       </div>
       <!-- when data comes  -->
-      <b-row v-else >
+      <!-- <b-row v-else>
         <b-col
           v-for="category in categories"
           :key="category.id"
@@ -42,7 +42,17 @@
             />
           </router-link>
         </b-col>
-      </b-row>
+      </b-row> -->
+      <div class="items" v-else>
+        <div class="item" v-for="category in categories" :key="category.id">
+          <router-link :to="`/categories/${category.id}`">
+            <CategoryCard
+              :card="{ type: category.title }"
+              :image="category.image_path"
+            />
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -122,4 +132,33 @@ export default {
 .holder {
   overflow: hidden;
 }
+
+.items {
+  justify-content: space-between;
+  display: grid;
+	// grid-template-columns: repeat(auto-fit, 400px);
+
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
+  // margin: 0 1rem;
+  // @media(max-width:992px){
+  //   grid-template-columns: repeat(auto-fit, 200px);
+  //   justify-content: space-evenly;
+    
+  // }
+}
+
+// .item {
+  // margin: 1rem 0;
+  // width: 400px;
+  // height: auto;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // @media(max-width:992px){
+  //   width: 200px;
+  // }
+// }
+
 </style>
