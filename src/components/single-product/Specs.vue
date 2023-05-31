@@ -1,10 +1,10 @@
 <template>
   <!-- product specs  -->
-  <div class="specs">
+  <div class="specs" v-if="myProduct">
     <div class="content">
       <div class="product-info">
         <table class="table table-bordered m-0">
-          <tr v-if="myProduct.client !== null">
+          <tr v-if="myProduct.client !== null && myProduct.client.company_name">
             <th>{{ $t("singleProduct.supplierName") }}</th>
             <td>
               <router-link :to="`/suppliers/${myProduct.client_id}`">
@@ -12,7 +12,7 @@
               </router-link>
             </td>
           </tr>
-          <tr v-if="myProduct.country">
+          <tr v-if="myProduct.country && myProduct.country.title">
             <th>{{ $t("singleProduct.country") }}</th>
             <td>{{ myProduct.country.title }}</td>
           </tr>
@@ -22,7 +22,7 @@
               {{ myProduct.product_details_by_type.delivery_time.title }}
             </td>
           </tr>
-          <tr v-if="myProduct.warranty !== null">
+          <tr v-if="myProduct.warranty !== null && myProduct.warranty.title">
             <th>{{ $t("singleProduct.warantyType") }}</th>
             <td>{{ myProduct.warranty.title }}</td>
           </tr>
@@ -31,14 +31,14 @@
           >
             <th>{{ $t("singleProduct.min_order_quantity") }}</th>
             <td>
-              {{ myProduct.product_details_by_type.min_order_quantity.title }}
+              {{ myProduct.product_details_by_type.min_order_quantity }}
             </td>
           </tr>
           <tr v-if="myProduct.product_details_by_type.return_time !== null && myProduct.product_details_by_type.return_time.title">
             <th>{{ $t("singleProduct.return_time") }}</th>
             <td>{{ myProduct.product_details_by_type.return_time.title }}</td>
           </tr>
-          <tr v-if="myProduct.product_details_by_type !== null">
+          <tr v-if="myProduct.product_details_by_type !== null && myProduct.product_details_by_type.pieces_number">
             <th>{{ $t("singleProduct.PcsperUnit") }}</th>
             <td>{{ myProduct.product_details_by_type.pieces_number }}</td>
           </tr>

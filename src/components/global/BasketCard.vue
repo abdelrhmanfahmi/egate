@@ -131,7 +131,7 @@
     </div>
 
     <button
-      class="border-main main-color br-5 btn btn-block"
+      class="border-main main-color br-5 btn btn-block mt-2"
       v-if="buttonTrue == true"
       @click="getOffer(slider)"
     >

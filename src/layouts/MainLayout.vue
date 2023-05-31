@@ -33,6 +33,7 @@
           class="side-nav"
           :class="{ sidenavopen: opened }"
           v-if="ProfileLayout == true && buyerUserData.type == 'b2c'"
+          @mouseenter="opened = true" @mouseleave="opened = false"
         >
           <div
             @click.prevent="opened = !opened"

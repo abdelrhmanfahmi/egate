@@ -20,7 +20,7 @@
           top nav
         </ul>
       </nav> -->
-      <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }">
+      <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }" @mouseenter="opened = true" @mouseleave="opened = false">
         <div
           @click.prevent="opened = !opened"
           class="d-flex align-items-center toggle-menu"

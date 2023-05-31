@@ -427,19 +427,21 @@
               </th>
             </tr>
           </thead>
-          <tbody
-            :class="{
-              'border-main-bold':
-                product.basket_promotions_running_by_type ||
-                product.buy_get_promotion_running_by_type,
-              'border-green-bold':
-                product &&
-                product.ads &&
-                product.ads.length &&
-                product.ads[0].status == 1,
-            }"
-          >
-            <tr v-for="(product, index) in products" :key="index" class="">
+          <tbody>
+            <tr
+              v-for="(product, index) in products"
+              :key="index"
+              :class="{
+                'border-main-bold':
+                  product.basket_promotions_running_by_type ||
+                  product.buy_get_promotion_running_by_type,
+                'border-gray-bold':
+                  product &&
+                  product.ads &&
+                  product.ads.length &&
+                  product.ads[0].status == 1,
+              }"
+            >
               <!-- <td
                 v-if="
                 product.ads.length ||
@@ -602,13 +604,13 @@
                           {{ $t("items.sponsoredAds") }}
                         </h6>
                         <h6
-                        class="sponsoredAds"
+                          class="sponsoredAds offerBack"
                           v-else-if="
                             product.basket_promotions_running_by_type ||
                             product.buy_get_promotion_running_by_type
                           "
                         >
-                        {{$t('items.offerName')}}
+                          {{ $t("items.offerName") }}
                         </h6>
                       </div>
                     </router-link>
@@ -638,13 +640,13 @@
                           {{ $t("items.sponsoredAds") }}
                         </h6>
                         <h6
-                        class="sponsoredAds"
+                          class="sponsoredAds offerBack"
                           v-else-if="
                             product.basket_promotions_running_by_type ||
                             product.buy_get_promotion_running_by_type
                           "
                         >
-                          {{$t('items.offerName')}}
+                          {{ $t("items.offerName") }}
                         </h6>
                       </div>
                     </router-link>
@@ -678,13 +680,13 @@
                           {{ $t("items.sponsoredAds") }}
                         </h6>
                         <h6
-                        class="sponsoredAds"
+                          class="sponsoredAds offerBack"
                           v-else-if="
                             product.basket_promotions_running_by_type ||
                             product.buy_get_promotion_running_by_type
                           "
                         >
-                        {{$t('items.offerName')}}
+                          {{ $t("items.offerName") }}
                         </h6>
                       </div>
                     </router-link>
@@ -2115,7 +2117,7 @@ export default {
     top: -6px;
     left: 0;
     right: 0;
-    width: 80%;
+    width: 100%;
     margin: auto;
     background: $gray;
     color: #fff;
@@ -2141,5 +2143,19 @@ table .row {
 
 table .cell {
   display: table-cell;
+}
+.offerBack {
+  background: $main-color !important;
+}
+
+tbody {
+  tr {
+    border-radius: 5px;
+  }
+}
+thead tr {
+  box-shadow: 0 0 0 3px #4c4c4c;
+  border-radius: 5px;
+  background: #4c4c4c;
 }
 </style>

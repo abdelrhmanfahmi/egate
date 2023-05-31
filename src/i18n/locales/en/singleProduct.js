@@ -11,7 +11,7 @@ export default {
   PcsperUnit: "Pcs per Unit",
   expiration_date: "Expiration Date",
   warantyType: "Waranty Type",
-  min_order_quantity: "Enter Requested Qty",
+  min_order_quantity: "Minimum Order Quantity",
   return_time: "Return Time",
   delivery_time: "Delivery Time",
   addFavorites: "Add to favorites",

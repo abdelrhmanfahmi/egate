@@ -161,7 +161,7 @@
                     :title="category.title"
                   >
                     <!-- section icon  -->
-                    <img :src="category.image_path" alt="category_image" class="categoryImage">
+                    <img :src="category.icon_image_path" alt="category_image" class="categoryImage">
                     <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
                   </div>
                 </template>
