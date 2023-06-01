@@ -792,7 +792,7 @@ html:lang(ar) {
 .icon {
   display: flex;
   align-items: center;
-  position: absolute;
+  //position: absolute;
   top: 20px;
   height: 100%;
   right: 24px;
