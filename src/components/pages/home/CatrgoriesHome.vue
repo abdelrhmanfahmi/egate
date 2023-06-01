@@ -136,29 +136,30 @@ export default {
 .items {
   justify-content: space-between;
   display: grid;
-	// grid-template-columns: repeat(auto-fit, 400px);
+  // grid-template-columns: repeat(auto-fit, 400px);
 
   grid-template-rows: repeat(auto-fit, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
 
   // margin: 0 1rem;
-  // @media(max-width:992px){
-  //   grid-template-columns: repeat(auto-fit, 200px);
-  //   justify-content: space-evenly;
-    
-  // }
+  @media (min-width: 767px) and (max-width: 991.98px) {
+    grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    justify-content: space-evenly;
+  }
+  @media (max-width: 766.98px) {
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+  }
 }
 
 // .item {
-  // margin: 1rem 0;
-  // width: 400px;
-  // height: auto;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // @media(max-width:992px){
-  //   width: 200px;
-  // }
+// margin: 1rem 0;
+// width: 400px;
+// height: auto;
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// @media(max-width:992px){
+//   width: 200px;
 // }
-
+// }
 </style>

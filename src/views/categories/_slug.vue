@@ -26,7 +26,9 @@
         </b-container>
       </div>
     </div> -->
-    <div class="navigation d-none d-lg-flex justify-content-start align-items-center">
+    <div
+      class="navigation d-none d-lg-flex justify-content-start align-items-center"
+    >
       <!-- navigation -->
       <nav aria-label="breadcrumb ">
         <ol class="breadcrumb">
@@ -36,7 +38,9 @@
             </router-link>
           </li>
           <li class="breadcrumb-item" v-if="categoryTitle">
-            <router-link :to="`/categories/${categoryId}`"> {{ categoryTitle }} </router-link>
+            <router-link :to="`/categories/${categoryId}`">
+              {{ categoryTitle }}
+            </router-link>
           </li>
           <li class="breadcrumb-item" v-else>
             <span> {{ $t("home.noDataTill") }}</span>
@@ -122,7 +126,7 @@
                     sm="6"
                     class="custum-padding mb-3 p-0"
                     :title="category.title"
-                    v-for="category in allSubCategories"
+                    v-for="category in finalAllSubTogether"
                     :key="category.id"
                   >
                     <div class="mb-4">
@@ -153,9 +157,9 @@
                 @click="selectTab(category)"
                 :id="`category-${index}`"
                 v-bind="{
-                  active: $route.query.brand == category.title.replace(/\s/g, ''),
+                  active:
+                    $route.query.brand == category.title.replace(/\s/g, ''),
                 }"
-                
               >
                 <template #title>
                   <div
@@ -164,7 +168,11 @@
                     :title="category.title"
                   >
                     <!-- section icon  -->
-                    <img :src="category.icon_image_path" alt="category_image" class="categoryImage">
+                    <img
+                      :src="category.icon_image_path"
+                      alt="category_image"
+                      class="categoryImage"
+                    />
                     <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
                   </div>
                 </template>
@@ -213,7 +221,7 @@ import categories from "@/services/categories";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue"
+import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 
 export default {
   data() {
@@ -277,8 +285,10 @@ export default {
           },
         ],
       },
-      categoryTitle:null,
-      categoryId:null
+      categoryTitle: null,
+      categoryId: null,
+      allSubTogether: null,
+      finalAllSubTogether: null,
     };
   },
   computed: {
@@ -287,14 +297,16 @@ export default {
      * filterProductsByCategory function
      */
     filterProductsByCategory: function () {
-      return this.products.filter((product) => !product.category.iOf(this.category));
+      return this.products.filter(
+        (product) => !product.category.iOf(this.category)
+      );
     },
   },
   components: {
     OtherCategoryCard,
     // VueSlickCarousel,
     // newCover,
-    NewHomeSlider
+    NewHomeSlider,
   },
   methods: {
     /**
@@ -309,7 +321,6 @@ export default {
       await categories
         .getSubCategories(data)
         .then((resp) => {
-          
           this.subCategories = resp.data.items;
           this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
@@ -334,7 +345,26 @@ export default {
 
             // console.log("outside index", resp.data.items[i].all_children);
           }
-          this.categoryTitle = resp.data.items[0].parent_category.title
+
+          let allSubTogether = [];
+          let finalAllSubTogether = [];
+          for (let index = 0; index < resp.data.items.length; index++) {
+            const element = resp.data.items[index].all_children;
+            allSubTogether.push(element);
+          }
+
+          allSubTogether.forEach((element) => {
+            for (let index = 0; index < element.length; index++) {
+              const element2 = element[index];
+              finalAllSubTogether.push(element2)
+            }
+          });
+          this.finalAllSubTogether = finalAllSubTogether
+
+          // console.log('allSubTogether' , allSubTogether);
+          // this.allSubTogether = allSubTogether
+
+          // this.categoryTitle = resp.data.items[0].parent_category.title
         })
         .catch((err) => {
           console.log(err);
@@ -351,7 +381,6 @@ export default {
       await categories
         .getAllSubCategories(this.id)
         .then((resp) => {
-          
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
@@ -368,14 +397,13 @@ export default {
      */
     getCover() {
       categories.getSingleProductDetails(this.id).then((res) => {
-        if(!this.categoryTitle){
-
-          this.categoryTitle = res.data.items.title
+        if (!this.categoryTitle) {
+          this.categoryTitle = res.data.items.title;
         }
-        this.categoryId = res.data.items.id
+        this.categoryId = res.data.items.id;
         this.pageCover = res.data.items.image_path;
         this.pageTitle = res.data.items.title;
-        sessionStorage.setItem('parentTitle' ,res.data.items.title )
+        sessionStorage.setItem("parentTitle", res.data.items.title);
       });
     },
     /**
@@ -410,7 +438,9 @@ export default {
         };
         console.log("third");
       } else if (
-        this.$route.query.brand.split(",").includes(item.title.replace(/\s/g, ""))
+        this.$route.query.brand
+          .split(",")
+          .includes(item.title.replace(/\s/g, ""))
       ) {
         query = {
           brand: query.brand,
@@ -459,7 +489,9 @@ export default {
           brand: "All",
         };
         console.log("third");
-      } else if (this.$route.query.brand.split(",").includes(this.$route.query.brand)) {
+      } else if (
+        this.$route.query.brand.split(",").includes(this.$route.query.brand)
+      ) {
         query = {
           brand: query.brand,
         };
@@ -584,7 +616,7 @@ div:empty {
   background-color: #f3f4f6;
 }
 
-.categoryImage{
+.categoryImage {
   width: 50px;
   height: 50px;
   border-radius: 50%;

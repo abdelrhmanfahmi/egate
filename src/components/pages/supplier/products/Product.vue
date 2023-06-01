@@ -1,27 +1,49 @@
 <template>
   <!-- product component  -->
-  <div class="product position-relative w-100" v-if="data && data.product_details_by_type.quantity >= 1">
+  <div
+    class="product position-relative w-100"
+    v-if="data && data.product_details_by_type.quantity >= 1"
+  >
     <div class="thumb">
-      <a @click="goProduct(data)" v-if="data.image_path !== null"
-        class="d-flex justify-content-center align-items-center">
+      <a
+        @click="goProduct(data)"
+        v-if="data.image_path !== null"
+        class="d-flex justify-content-center align-items-center"
+      >
         <img :src="data.image_path" alt="Product Image" class="Product-Image" />
       </a>
-      <div @click="goProduct(data)" v-else-if="data.image_path == null && data.product.image_path"
-        class="d-flex justify-content-center align-items-center ">
-        <img @click="goPage2(data)" :src="data.product.image_path" alt="Product Image" class="Product-Image" />
+      <div
+        @click="goProduct(data)"
+        v-else-if="data.image_path == null && data.product.image_path"
+        class="d-flex justify-content-center align-items-center"
+      >
+        <img
+          @click="goPage2(data)"
+          :src="data.product.image_path"
+          alt="Product Image"
+          class="Product-Image"
+        />
       </div>
       <div class="Product-Image" @click="goPage2(data)" v-else>
-        <img :src="data.product.image_path" v-if="data.product.image_path" alt="Product-Image" />
+        <img
+          :src="data.product.image_path"
+          v-if="data.product.image_path"
+          alt="Product-Image"
+        />
         <div class="logo-holder" v-else>
-          <img :src="logoEnv" v-if="logoEnv" class="Product-Image" alt="logo">
-          <img src="@/assets/images/logo.png" v-else alt="logo" class="Product-Image" />
+          <img :src="logoEnv" v-if="logoEnv" class="Product-Image" alt="logo" />
+          <img
+            src="@/assets/images/logo.png"
+            v-else
+            alt="logo"
+            class="Product-Image"
+          />
         </div>
       </div>
       <div class="actions">
         <ul>
           <li v-if="buyerUserData">
             <div class="" v-if="favourite">
-
               <a @click="addToWishlist(data)" v-if="data.is_favorite == false">
                 <b-icon-heart></b-icon-heart>
               </a>
@@ -35,7 +57,10 @@
           </li>
         </ul>
       </div>
-      <div class="info d-flex flex-column align-items-center my-3" v-if="data.product">
+      <div
+        class="info d-flex flex-column align-items-center my-3"
+        v-if="data.product"
+      >
         <a @click="goPage2(data)" class="name" v-if="data.product.title">{{
           data.product.title
         }}</a>
@@ -44,11 +69,14 @@
             {{ data.product_details_by_type.customer_price | fixedCurrency }}
             {{ currency }}
           </h5>
-          <p class="m-0 price-after" v-if="
-            data.product_details_by_type.price_before_discount &&
-            data.product_details_by_type.price_before_discount >
-            data.product_details_by_type.customer_price
-          ">
+          <p
+            class="m-0 price-after"
+            v-if="
+              data.product_details_by_type.price_before_discount &&
+              data.product_details_by_type.price_before_discount >
+                data.product_details_by_type.customer_price
+            "
+          >
             {{
               data.product_details_by_type.price_before_discount | fixedCurrency
             }}
@@ -56,36 +84,75 @@
           </p>
         </div>
       </div>
-      <div class="addToCartHolder d-flex justify-content-end align-items-center"
-        v-if="data.product_details_by_type.quantity >= 1">
-        <b-button @click="addToCart(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (add_to_cart == true&&
+      <div
+        class="addToCartHolder d-flex justify-content-between align-items-center px-2"
+        v-if="data.product_details_by_type.quantity >= 1"
+      >
+        <Variants-Counter
+          :minimum="
+            data.product_details_by_type.min_order_quantity
+              ? data.product_details_by_type.min_order_quantity
+              : 1
+          "
+          v-if="
+            (add_to_cart == true &&
               data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart &&
+            (add_to_cart == true &&
               data.product_details_by_type.add_type === 'both')
-          ">
+          "
+          class="justify-content-center"
+          :quantity="
+            data.product_details_by_type.min_order_quantity > 0
+              ? data.product_details_by_type.min_order_quantity
+              : 1
+          "
+          @changeCount="
+            ChangeCounter(
+              $event,
+              data.product_details_by_type.min_order_quantity
+            )
+          "
+        ></Variants-Counter>
+        <b-button
+          @click="addToCart(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25 add-btn"
+          v-if="
+            (add_to_cart == true &&
+              data.product_details_by_type.add_type === 'cart') ||
+            (add_to_cart && data.product_details_by_type.add_type === 'both')
+          "
+        >
           <span>
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
       </div>
-      <div class="addToCartHolder d-flex justify-content-end align-items-center" v-else>
+      <div
+        class="addToCartHolder d-flex justify-content-end align-items-center"
+        v-else
+      >
         <div v-if="add_to_cart == true">
           <div>
             <b-form-select v-model="selected">
-              <b-form-select-option :value="i" v-for="(i, index) in 30"
-                :key="index">{{ i }}</b-form-select-option>
+              <b-form-select-option
+                :value="i"
+                v-for="(i, index) in 30"
+                :key="index"
+                >{{ i }}</b-form-select-option
+              >
             </b-form-select>
           </div>
         </div>
-        <b-button @click="addToCartAgain(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25" v-if="
-            (add_to_cart == true&&
+        <b-button
+          @click="addToCartAgain(data)"
+          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
+          v-if="
+            (add_to_cart == true &&
               data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart == true&&
+            (add_to_cart == true &&
               data.product_details_by_type.add_type === 'both')
-          ">
+          "
+        >
           <span>
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
@@ -104,10 +171,13 @@
 import { BIconHeart, BIconEye } from "bootstrap-vue";
 import globalAxios from "@/services/global-axios";
 import suppliers from "@/services/suppliers";
+import VariantsCounter from "@/components/global/variantsCounter.vue";
+
 export default {
   components: {
     BIconHeart,
     BIconEye,
+    VariantsCounter,
   },
   data() {
     return {
@@ -123,6 +193,7 @@ export default {
         { value: null, text: "Please select an option" },
         { value: "a", text: "This is First option" },
       ],
+      cartCounter:null
     };
   },
   /**
@@ -212,7 +283,7 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-        quantity: this.selected > 0 ? this.selected : 1,
+        quantity: this.cartCounter > 0 ? this.cartCounter : 1,
       };
       return globalAxios
         .post(`cart/add`, data)
@@ -248,7 +319,7 @@ export default {
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
-        quantity: this.selected > 0 ? this.selected : 1,
+        quantity: this.cartCounter > 0 ? this.cartCounter : 1,
       };
       return globalAxios
         .post(`cart/add`, data)
@@ -275,6 +346,15 @@ export default {
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });
+    },
+     /**
+     * @vuese
+     * Change cart Counter function
+     */
+     ChangeCounter(cartCounter, minimum) {
+      if (cartCounter >= minimum) {
+        this.cartCounter = cartCounter;
+      }
     },
   },
 };
@@ -379,5 +459,9 @@ export default {
 .custom-select:focus {
   border: none;
   box-shadow: none;
+}
+.add-btn{
+  height:50px;
+  font-size: 16px;
 }
 </style>
