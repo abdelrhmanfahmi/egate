@@ -364,7 +364,7 @@ export default {
           // console.log('allSubTogether' , allSubTogether);
           // this.allSubTogether = allSubTogether
 
-          // this.categoryTitle = resp.data.items[0].parent_category.title
+          this.categoryTitle = resp.data.items[0].parent_category.title
         })
         .catch((err) => {
           console.log(err);
