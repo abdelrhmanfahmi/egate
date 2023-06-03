@@ -87,6 +87,9 @@
           >
         </b-modal>
       </div>
+      <span v-if="myProduct.product_details_by_type.min_order_quantity" class="mt-2">
+        {{$t('singleProduct.min_order_quantity')}} : {{ myProduct.product_details_by_type.min_order_quantity }}
+      </span>
     </div>
     <div
       v-if="myProduct.product_details_by_type"
@@ -169,6 +172,8 @@
                 @ok="$refs.CartModal.onSubmit()"
                 @click="addToCart(myProduct)"
                 class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
+                v-b-tooltip.hover
+                :title="$t('singleProduct.addToWithoutOffer')"
                 v-if="
                   (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'cart') ||
@@ -214,6 +219,8 @@
                 @ok="$refs.CartModal.onSubmit()"
                 @click="addToCart(myProduct)"
                 class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn"
+                v-b-tooltip.hover
+                :title="$t('singleProduct.addToWithoutOffer')"
                 v-if="
                   (add_to_cart == true &&
                     myProduct.product_details_by_type.add_type === 'cart') ||
@@ -390,6 +397,7 @@
             >
             
           </b-button>
+          
         </div>
         <div class="col-md-6 col-sm-12" v-if="myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion.buy_x">
 

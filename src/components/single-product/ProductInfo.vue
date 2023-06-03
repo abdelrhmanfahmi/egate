@@ -9,7 +9,7 @@
               <h4 class="name m-0 p-0" v-if="myProduct.product.title">
                 {{ myProduct.product.title }}
               </h4>
-              <h4
+              <!-- <h4
                 class="text-success mx-5 mb-0 p-0"
                 v-if="myProduct.product_details_by_type.quantity > 0"
               >
@@ -20,7 +20,7 @@
                   }}</small
                   >)</span
                 >
-              </h4>
+              </h4> -->
               <span class="is-available text-danger" v-else>
                 <b>{{ $t("singleProduct.outOfStock") }}</b></span
               >

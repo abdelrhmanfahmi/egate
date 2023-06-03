@@ -62,5 +62,6 @@ export default {
   returnGiftOrder:'if you do this action,prize product will return also',
   otherSuppliers:'Other Suppliers',
   relatedOffers:'Related Promotions',
-  getOffer:"Get Offer"
+  getOffer:"Get Offer",
+  addToWithoutOffer : 'Add To Cart Without Offer'
 };

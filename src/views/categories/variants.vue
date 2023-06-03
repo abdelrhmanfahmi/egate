@@ -1135,10 +1135,11 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <font-awesome-icon
+                    <!-- <font-awesome-icon
                       icon="fa-solid fa-cart-shopping"
                       size="xl"
-                    />
+                    /> -->
+                    <otherAddToCart />
                   </a>
 
                   <div
@@ -1281,6 +1282,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
 // import rfqIcon from "@/components/global/rfqIcon.vue";
+ import otherAddToCart from "@/components/global/otherAddToCart.vue";
 
 import StandingOrders from "@/components/global/standingOrders.vue";
 
@@ -1402,6 +1404,7 @@ export default {
     // rfqIcon,
     StandingOrders,
     NewProgressSlider,
+    otherAddToCart
   },
   methods: {
     /**
@@ -1907,7 +1910,7 @@ export default {
       border-radius: 0.2rem;
       margin: 0 0.3rem;
 
-      height: 44px;
+      height: 46px;
       line-height: 0;
 
       &:hover {

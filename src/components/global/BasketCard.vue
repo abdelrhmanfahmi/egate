@@ -108,7 +108,10 @@
         <div class="row mb-3 align-items-center">
           <div class="col-12 px-1">
             <router-link
-            :to="{ path: '/basketOfferDetails', query: { id: `${slider.id}` } }"
+              :to="{
+                path: '/basketOfferDetails',
+                query: { id: `${slider.id}` },
+              }"
               v-if="slider"
             >
               <button class="outline-main">
@@ -116,10 +119,7 @@
               </button>
             </router-link>
           </div>
-          <div
-            class="col-12 px-1"
-            v-if="slider.in_stock == true"
-          >
+          <div class="col-12 px-1" v-if="slider.in_stock == true">
             <a>
               <button class="bg-main text-white" @click="addToCart(slider)">
                 {{ $t("items.addToCart") }}
@@ -288,137 +288,137 @@ export default {
 /**
     * component style 
   */
-  .product-cart {
-    padding: 0;
-    margin: 0 10px;
-    text-align: center;
+.product-cart {
+  padding: 0;
+  margin: 0 10px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  //background: #ebebeb52;
+  min-width: 250px;
+  overflow: hidden;
+  a {
     display: inline-block;
-    position: relative;
-    overflow: hidden;
-    //background: #ebebeb52;
-    min-width: 250px;
-    overflow: hidden;
-    a {
-      display: inline-block;
-      opacity: 1;
-  
-      border-radius: 50%;
-      width: 95%;
-      @media(max-width:992px){
-        width:100%
-      }
-      &:hover {
-        opacity: 0.5;
-      }
-      img {
-        // width: 150px;
-        min-width: 250px;
-        height: 150px;
-        border-radius: 0%;
-        display: block;
-        object-fit: cover;
-      }
-      button{
-        width:100%;
-        margin: 5px 0;
-      }
+    opacity: 1;
+
+    border-radius: 50%;
+    width: 95%;
+    @media (max-width: 992px) {
+      width: 100%;
     }
-    .card-info {
-      //padding: 25px;
-      //background: #ebebeb52;
-      margin: auto;
+    &:hover {
+      opacity: 0.5;
+    }
+    img {
+      // width: 150px;
+      min-width: 250px;
+      height: 150px;
+      border-radius: 0%;
+      display: block;
+      object-fit: cover;
+    }
+    button {
+      width: 100%;
+      margin: 5px 0;
+    }
+  }
+  .card-info {
+    //padding: 25px;
+    //background: #ebebeb52;
+    margin: auto;
     margin-bottom: 10px;
     text-align: start;
     min-height: 100px;
-      h4 {
-        a {
-          opacity: 1;
-          color: #312620;
-          font-size: 18px;
-          &:hover {
-            color: #2b96cc;
-          }
+    h4 {
+      a {
+        opacity: 1;
+        color: #312620;
+        font-size: 18px;
+        &:hover {
+          color: #2b96cc;
         }
       }
     }
-    .null-img-holder {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      display: block;
-    }
   }
-  .product-silder button:not(:disabled) {
-    display: block !important;
-  }
-  button.new {
-    background: $main-color;
-  }
-  .rfqBtn {
-    background: #000;
-  }
-  
-  .offer-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .slide-holder {
-    background-color: #eff0f0;
-    border-radius: 10px;
-    padding: 15px;
-    width: 95% !important;
-  }
-  @media (max-width:992px) {
-  .slide-holder{
-    width: 100% !important; 
+  .null-img-holder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
   }
 }
-  
-  button {
-    border-radius: 8px;
-    padding: 10px 20px;
-    border: none;
-    box-shadow: none;
-    outline: none;
+.product-silder button:not(:disabled) {
+  display: block !important;
+}
+button.new {
+  background: $main-color;
+}
+.rfqBtn {
+  background: #000;
+}
+
+.offer-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.slide-holder {
+  background-color: #eff0f0;
+  border-radius: 10px;
+  padding: 15px;
+  width: 95% !important;
+}
+@media (max-width: 992px) {
+  .slide-holder {
+    width: 100% !important;
   }
-  
-  .outline-main {
-    border: 2px solid $main-color;
-    background: transparent;
-    color: $main-color;
+}
+
+button {
+  border-radius: 8px;
+  padding: 10px 20px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.outline-main {
+  border: 2px solid $main-color;
+  background: transparent;
+  color: $main-color;
+}
+
+.supplier-name {
+  text-decoration: underline !important;
+  color: inherit;
+}
+
+.time-holder {
+  position: relative;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.time-count {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 14px;
+  background: $main-color;
+  border-radius: 0 0 20px 20px;
+  color: #fff;
+  right: 10px;
+  padding: 0 5px;
+}
+
+.row {
+  @media (max-width: 1200px) {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
   }
-  
-  .supplier-name {
-    text-decoration: underline !important;
-    color: inherit;
-  }
-  
-  .time-holder {
-    position: relative;
-    text-align: center;
-    padding: 0 5px;
-  }
-  
-  .time-count {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    font-size: 14px;
-    background: $main-color;
-    border-radius: 0 0 20px 20px;
-    color: #fff;
-    right: 10px;
-    padding: 0 5px;
-  }
-  
-  .row {
-    @media (max-width: 1200px) {
-      justify-content: center !important;
-      align-items: center !important;
-      text-align: center !important;
-    }
-  }
+}
 </style>

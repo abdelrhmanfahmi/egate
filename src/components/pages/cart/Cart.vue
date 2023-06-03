@@ -1798,20 +1798,29 @@
                                             id: `${item.product_supplier_id}`,
                                           },
                                         }"
-                                        class="thumb"
+                                        class="thumb time-holder"
                                       >
                                         <img
                                           :src="item.product_image"
                                           :alt="item.product_name + ' image'"
                                           class="product-image"
+                                          v-if="item.product_image"
                                         />
+                                        <img :src="logoEnv" v-else-if="!item.product_image && logoEnv" class="product-img" alt="logo" />
+                                        <img
+                    src="@/assets/images/logo.png"
+                    v-else
+                    class="img-fluid"
+                    alt="logo"
+                    @click="goToHome()"
+                  />
                                         <br>
                                         <span
                                         v-if="item.buy_get_promotion_running_by_type"
                                         class="mx-2 mt-2"
                                       >
-                                        <b>
-                                          (
+                                        <b class="time-count">
+                                          
                                           {{ $t("profile.buy") }}
                                           {{
                                             item.buy_get_promotion_running_by_type.promotion.buy_x
@@ -1820,9 +1829,20 @@
                                           {{
                                             item.buy_get_promotion_running_by_type.promotion.get_y
                                           }}
-                                          )
+                                          
                                         </b>
                                       </span>
+                                        <span
+                                        v-if="item.gift_promotion_id"
+                                        class="mx-2 mt-2"
+                                      >
+                                        <b class="time-count">
+                                          
+                                          {{ $t("profile.gift") }}
+                                          
+                                        </b>
+                                      </span>
+                                        
         
                                       </router-link>
                                     </td>
@@ -1916,13 +1936,23 @@
                                             id: `${item.basket_promotion_id}`,
                                           },
                                         }"
-                                        class="thumb"
+                                        class="thumb time-holder"
                                       >
                                         <img
                                           :src="item.basket_image"
                                           :alt="item.basket_name + ' image'"
                                           class="product-image"
                                         />
+                                        <span
+                                          v-if="item.basket_promotion_id"
+                                          class="mt-2"
+                                        >
+                                          <b class="time-count">
+                                            
+                                            {{ $t("profile.basketDeal") }}
+                                            
+                                          </b>
+                                        </span>
                                       </router-link>
                                     </td>
                                     <!-- product name  and go to pproduct page with click  -->
@@ -4409,4 +4439,33 @@ export default {
 .new-border-main{
   border: 2px solid $main-color !important;
 }
+
+.time-holder {
+    position: relative;
+    text-align: center;
+    padding: 0 5px;
+  }
+  
+  .time-count {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 14px;
+    background: $main-color;
+    border-radius: 0 0 20px 20px;
+    color: #fff;
+    right: 10px;
+    padding: 0 5px;
+    //width:100%;
+    @media(max-width:767px){
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      width: 182px;
+      margin: auto;
+      position:relative;
+      left:5px
+  
+    }
+  }
 </style>

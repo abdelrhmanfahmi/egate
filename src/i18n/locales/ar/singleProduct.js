@@ -60,5 +60,6 @@ export default {
   returnGiftOrder:'إذا قمت بهذا الإجراء ، فسيعود منتج الهدية أيضًا',
   otherSuppliers:'موردون اخرون',
   relatedOffers:'عروض ذات صلة',
-  getOffer:'أحصل على العرض'
+  getOffer:'أحصل على العرض',
+  addToWithoutOffer:'اضف للسلة بدون العرض'
 };
