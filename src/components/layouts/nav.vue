@@ -595,7 +595,7 @@ export default {
 
     .cart {
       // padding: 0 0.7rem;
-      padding: 0 3rem;
+      padding: 0 1.5rem;
       position: relative;
       // @media (min-width: 1200px) and (max-width: 1600px) {
       //   padding: 5px !important;
