@@ -107,7 +107,7 @@
           <div class="about-intro">
             <div class="container">
               <div class="row align-items-center" v-if="aboutGeneralData">
-                <div class="col-md-6 col-sm-12 my-2">
+                <div class="col-xl-6 col-sm-12 my-2">
                   <div class="content">
                     <h2 class="page-title" v-if="aboutGeneralData.title">
                       {{ aboutGeneralData.title }}
@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div
-                  class="col-md-6 col-sm-12 my-2 d-flex justify-content-start align-items-center"
+                  class="col-xl-6 col-sm-12 my-2 d-flex justify-content-center align-items-center"
                 >
                   <img
                     src="@/assets/images/new-design/about/about.png"
