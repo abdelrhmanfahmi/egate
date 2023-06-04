@@ -36,6 +36,7 @@
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             عربى
           </button>
+           <!-- اللغة العربية -->
         </div>
       </div>
     </div>
