@@ -133,11 +133,12 @@
             </div>
           </div>
         </section>
-        <section class="stats text-cenrter">
+        <section class="stats text-cenrter" v-if="supplier_count || b2c_count || b2b_count">
           <div class="container">
             <div class="row">
               <div
                 class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="supplier_count"
               >
                 <p>
                   <font-awesome-icon icon="fa-solid fa-house" />
@@ -147,21 +148,23 @@
               </div>
               <div
                 class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="b2c_count"
               >
                 <p>
                   <font-awesome-icon icon="fa-solid fa-users" />
                 </p>
                 <p class="mt-2 p-title">{{ $t("home.consumers") }}</p>
-                <p class="stat-number px-0 mx-0">{{ b2b_count }} <span class="mx-0 px-0">+</span></p> 
+                <p class="stat-number px-0 mx-0">{{ b2c_count }} <span class="mx-0 px-0">+</span></p> 
               </div>
               <div
                 class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="b2b_count"
               >
                 <p>
                   <font-awesome-icon icon="fa-solid fa-shop" />
                 </p>
                 <p class="mt-2 p-title">{{ $t("home.b2bClients") }}</p>
-                <p class="stat-number px-0 mx-0">{{ b2c_count }} <span class="mx-0 px-0">+</span></p> 
+                <p class="stat-number px-0 mx-0">{{ b2b_count }} <span class="mx-0 px-0">+</span></p> 
               </div>
             </div>
           </div>
