@@ -2,25 +2,6 @@
   <!-- variants page after sub-categories page  -->
   <div class="items-body variants">
     <div class="holder">
-      <!-- <div
-        class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
-      >
-        navigation 
-        <nav aria-label="breadcrumb " v-if="productInfo">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/">
-                {{ $t("items.home") }}
-              </router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link :to="catId">
-                {{ productInfo.parent_category.title }}
-              </router-link>
-            </li>
-          </ol>
-        </nav>
-      </div> -->
 
       <div class="container">
         <div
@@ -44,9 +25,6 @@
                   {{ PageTitle }}
                 </router-link>
               </li>
-              <!-- <li class="breadcrumb-item">
-                <router-link to="/" class="main-color"> Sub sub-category </router-link>
-              </li> -->
             </ol>
           </nav>
         </div>
@@ -194,22 +172,6 @@
           </div>
           <div class="col-md-8 col-sm-12 text-center my-2">
             <div class="d-flex justify-content-end align-items-center">
-              <!-- <h5 @click="filteredBy = !filteredBy" class="sortBy m-2">
-                <span>{{ $t("cart.filter") }}</span>
-                <span>
-                  <small>
-                    <font-awesome-icon icon="fa-solid fa-chevron-down" />
-                  </small>
-                </span>
-              </h5> -->
-              <!-- <h5 @click="sortBy = !sortBy" class="sortBy m-2">
-                <span>{{ $t("cart.sortBy") }}</span>
-                <span>
-                  <small>
-                    <font-awesome-icon icon="fa-solid fa-chevron-down" />
-                  </small>
-                </span>
-              </h5> -->
             </div>
 
             <div class="row">
@@ -442,144 +404,11 @@
                   product.ads[0].status == 1,
               }"
             >
-              <!-- <td
-                v-if="
-                product.ads.length ||
-                  product.basket_promotions_running_by_type ||
-                  product.buy_get_promotion_running_by_type
-                "
-              >
-                <h6 v-if="product.ads && product.ads.length > 0">
-                  {{ $t("items.sponsoredAds") }}
-                </h6>
-                <h6 v-if="product.basket_promotions_running_by_type">
-                  <router-link
-                    :to="{
-                      path: '/basketOfferDetails',
-                      query: {
-                        id: product.basket_promotions_running_by_type
-                          .basket_promotion_id,
-                      },
-                    }"
-                    >{{ $t("profile.basketDeals") }}</router-link
-                  >
-                </h6>
-                <h6 v-if="product.buy_get_promotion_running_by_type">
-                  <router-link
-                    :to="{
-                      path: '/details',
-                      query: {
-                        id: product.id,
-                        type: `${$t('profile.buy')} 
-                                                        ${
-                                                          product
-                                                            .buy_get_promotion_running_by_type
-                                                            .promotion.buy_x
-                                                        } 
-                                                        ${$t('profile.get')} ${
-                          product.buy_get_promotion_running_by_type.promotion
-                            .get_y
-                        }`,
-                      },
-                    }"
-                    >{{ $t("profile.buyXgetYOffer") }}</router-link
-                  >
-                </h6>
-              </td> -->
-
-              <!-- <td v-else>{{index + 1 }}</td> -->
-              <!-- <td v-else></td> -->
 
               <!-- product image  -->
               <td class="position-relative">
                 <div class="row justify-content-evenly align-items-center">
-                  <!-- <div
-                    v-if="
-                      product.ads.length ||
-                      product.basket_promotions_running_by_type ||
-                      product.buy_get_promotion_running_by_type
-                    "
-                    :class="{
-                      'col-md-6 col-sm-12':
-                        product.ads.length ||
-                        product.basket_promotions_running_by_type ||
-                        product.buy_get_promotion_running_by_type,
-                      'col-1':
-                        !product.ads.length &&
-                        !product.basket_promotions_running_by_type &&
-                        !product.buy_get_promotion_running_by_type,
-                    }"
-                  > -->
-                  <!-- <div
-                    v-if="
-                      product && product.ads && product.ads.length ||
-                      product.basket_promotions_running_by_type ||
-                      product.buy_get_promotion_running_by_type
-                    "
-                    :class="{
-                      'col-12 floatingAdsTitles':
-                        product && product.ads && product.ads.length ||
-                        product.basket_promotions_running_by_type ||
-                        product.buy_get_promotion_running_by_type,
-                    }"
-                  >
-                    <h6
-                      v-if="product.ads && product  && product.ads.length > 0"
-                      class="main-color font-weight-bold"
-                    >
-                      {{ $t("items.sponsoredAds") }}
-                    </h6>
-                    <h6
-                      v-if="product.basket_promotions_running_by_type"
-                      class="main-color font-weight-bold"
-                    >
-                      <router-link
-                        :to="{
-                          path: '/basketOfferDetails',
-                          query: {
-                            id: product.basket_promotions_running_by_type
-                              .basket_promotion_id,
-                          },
-                        }"
-                        >{{ $t("profile.basketDeals") }}</router-link
-                      >
-                    </h6>
-                    <h6
-                      v-if="product.buy_get_promotion_running_by_type"
-                      class="main-color font-weight-bold"
-                    >
-                      <router-link
-                        :to="{
-                          path: '/details',
-                          query: {
-                            id: product.id,
-                            type: `${$t('profile.buy')} 
-                                                            ${
-                                                              product
-                                                                .buy_get_promotion_running_by_type
-                                                                .promotion.buy_x
-                                                            } 
-                                                            ${$t(
-                                                              'profile.get'
-                                                            )} ${
-                              product.buy_get_promotion_running_by_type
-                                .promotion.get_y
-                            }`,
-                          },
-                        }"
-                        >{{ $t("profile.buyXgetYOffer") }}</router-link
-                      >
-                    </h6>
-                  </div> -->
-                  <!-- <div
-                    class="col-12"
-                    :class="{
-                      'col-md-6 col-sm-12':
-                        product.ads.length ||
-                        product.basket_promotions_running_by_type ||
-                        product.buy_get_promotion_running_by_type,
-                    }"
-                  > -->
+                  
                   <div class="col-12">
                     <router-link
                       v-if="product.image_path !== null"
@@ -779,12 +608,6 @@
                 >
                   <ins>{{ product.client.company_name }}</ins>
                 </router-link>
-                <!-- <router-link
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  <ins>{{ product.client.company_name }}</ins>
-                </router-link> -->
               </td>
               <td>
                 <router-link

@@ -154,13 +154,6 @@
             {{ $t("login.DontHave") }} {{ $t("login.createAccount") }}
           </b-button>
         </div>
-        <!-- <div class="user-login-form" v-if="selectedType === 'b2c'">
-          <p class="title">{{ $t("login.DontHave") }}</p>
-
-          <b-button to="/user-register" class="login-button my-2" @click="hide">
-            {{ $t("login.createAccount") }}
-          </b-button>
-        </div> -->
         
       </template>
     </b-sidebar>

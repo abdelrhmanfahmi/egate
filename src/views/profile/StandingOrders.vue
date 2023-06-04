@@ -1,85 +1,6 @@
 <template>
   <!-- standing orders page  -->
   <div>
-    <!-- <p class="add-address" @click="showForm = !showForm">
-      <span>+ </span>{{ $t("items.addNew") }}
-    </p> -->
-
-    <!-- <div class="d-flex justify-content-center align-items-center">
-      <hr class="w-75" />
-    </div> -->
-
-    <!-- <div class="standing-orders">
-      <div class="plans" v-if="standingOrdersLength > 0">
-        <div class="row">
-          <div
-            class="col-md-3 col-sm-12"
-            v-for="(order, index) in standingOrders"
-            :key="index"
-          >
-            <label class="plan basic-plan">
-              <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" />
-              <div class="plan-content-holder">
-                <div class="plan-content">
-                  <div class="b-box">
-                    <div class="actions">
-                      <span
-                        role="button"
-                        id="show-btn"
-                        @click="
-                          showDeleteModal();
-                          selectGroupToEdit(order);
-                        "
-                        class="removeOrder"
-                        ><font-awesome-icon icon="fa-solid fa-trash"
-                      /></span>
-                      <span
-                        role="button"
-                        id="show-btn"
-                        @click="
-                          showEditModal();
-                          selectGroupToEdit(order);
-                        "
-                        class="EditOrder"
-                        ><font-awesome-icon icon="fa-solid fa-pen-to-square"
-                      /></span>
-                    </div>
-                    <h4 class="title" @click="goToGroup(order)">
-                      <span>{{ order.name }}</span>
-                      <div class="row">
-                        <div class="col-12">
-                          <small>{{ order.items_count }} {{ $t("items.item") }}</small>
-                        </div>
-                        <div class="col-12">
-                          <small v-if="$i18n.locale == 'en'">{{
-                            order.time.title_en
-                          }}</small>
-                          <small v-else>{{ order.time.title_ar }}</small>
-                        </div>
-                      </div>
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
-        <b-row class="mb-3" v-if="quantitySelected">
-          <b-col lg="5">
-            <label for="">{{ $t("cart.standQuantity") }}</label>
-            <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" />
-            <div class="error" v-for="(error, index) in errors.quantity" :key="index">
-              {{ error }}
-            </div>
-          </b-col>
-        </b-row>
-       
-      </div>
-      <div class="text-center" v-else>
-        <h2>{{ $t("home.noData") }}</h2>
-      </div>
-    </div> -->
-
     <div class="new-standing-orders-design text-center">
       <div class="add-address" @click="showForm = !showForm">
         <div class="d-flex justify-content-center align-items-center">
@@ -151,19 +72,6 @@
         <tbody>
           <tr v-for="(order, index) in standingOrders" :key="index">
             <td>
-              <!-- <div class="row justify-content-center align-items-center">
-                <div class="col-2">
-                  <input
-                    type="checkbox"
-                    class="myproject--checkbox"
-                    :value="order.id"
-                    v-model="checkedOrder"
-                  />
-                </div>
-                <div class="col-10">
-                  <span>{{ order.name }}</span>
-                </div>
-              </div> -->
               <span>{{ order.name }}</span>
             </td>
             <td>

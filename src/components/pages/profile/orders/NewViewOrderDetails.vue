@@ -7,16 +7,6 @@
         <div class="wrapper" v-if="!loading">
           <div class="my-4" v-if="orderData">
             <div class="d-flex justify-content-between align-items-center">
-              <!-- <div class="order-back">
-                  back to orders page 
-                  <router-link to="/profile/ordersListsB2b">
-                    <b-button variant="outline-ordinary">
-                      <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
-                      {{ $t("profile.orderBack") }}
-                    </b-button>
-                  </router-link>
-                </div> -->
-
               <div class="">
                 <div>
                   <!-- pay button will appear when Unpaid && visa  -->
@@ -570,44 +560,6 @@
                               {{ currency }}
                             </td>
                             <td v-else>-</td>
-                            <!-- <td>
-                                return button will appera if order Completed || Delivered 
-                                <div
-                                  class=""
-                                  v-if="
-                                    order.order_status_string === 'Completed' ||
-                                    order.order_status_string === 'Delivered'
-                                  "
-                                >
-                                  button will appear if ord status pending && return_time !== null && !== 0 
-                                  <b-button
-                                    id="return-tolltip"
-                                    @click="
-                                      $bvModal.show('return');
-                                      chooseSupplierUUID(ord);
-                                    "
-                                    variant="outline-danger mt-2 return-btn"
-                                    v-if="
-                                      ord.status === 'Pending' &&
-                                      ord.return_time !== null &&
-                                      ord.return_time !== 'null' &&
-                                      ord.return_time !== 0
-                                    "
-                                    ><font-awesome-icon icon="fa-solid fa-x" />
-                                    <span class="mx-2">{{
-                                      $t("profile.return")
-                                    }}</span></b-button
-                                  >
-                                  <b-tooltip
-                                    target="return-tolltip"
-                                    triggers="hover"
-                                    v-if="ord.has_gift == 1"
-                                  >
-                                    {{ $t("singleProduct.returnGiftOrder") }}
-                                  </b-tooltip>
-                                </div>
-                                <div class="" v-else>-</div>
-                              </td> -->
                           </tr>
                         </tbody>
                       </table>
@@ -734,36 +686,6 @@
                               {{ currency }}
                             </td>
                             <td v-else>-</td>
-                            <!-- <td>
-                                return button will appera if order Completed || Delivered 
-                                <div
-                                  class=""
-                                  v-if="
-                                    order.order_status === 'Completed' ||
-                                    order.order_status === 'Delivered'
-                                  "
-                                >
-                                  button will appear if ord status pending && return_time !== null && !== 0 
-                                  <b-button
-                                    @click="
-                                      $bvModal.show('return');
-                                      chooseSupplierUUID(ord);
-                                    "
-                                    variant="outline-danger mt-2 return-btn"
-                                    v-if="
-                                      ord.status === 'Pending' &&
-                                      ord.return_time !== null &&
-                                      ord.return_time !== 'null' &&
-                                      ord.return_time !== 0
-                                    "
-                                    ><font-awesome-icon icon="fa-solid fa-x" />
-                                    <span class="mx-2">{{
-                                      $t("profile.return")
-                                    }}</span></b-button
-                                  >
-                                </div>
-                                <div class="" v-else>-</div>
-                              </td> -->
                           </tr>
                         </tbody>
                       </table>
@@ -1260,14 +1182,6 @@
                           </h5>
                         </div>
                       </div>
-                      <!-- <div class="row borderred-bottom p-15">
-                        <div class="col-md-6 col-sm-12">
-                          <h5>Tax</h5>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                          <h5>KWD0.250</h5>
-                        </div>
-                      </div> -->
                       <div
                         class="row borderred-bottom p-15"
                         v-if="orderData.total_discount > 0"
@@ -1317,13 +1231,6 @@
                             {{ orderData.total_shipping_fee | fixedCurrency }}
                           </div>
                         </div>
-
-                        <!-- <div class="row info-data">
-                    <div class="col-6">{{ $t("profile.total_commission") }}</div>
-                    <div class="col-6" v-if="orderData">
-                      KWD {{ orderData.total_commission }}
-                    </div>
-                  </div> -->
                         <div class="row info-data info-colored">
                           <div class="col-6">
                             {{ $t("profile.totalDiscount") }}
@@ -1353,27 +1260,11 @@
                     </h4>
                     <h6 v-if="orderData">{{ orderData.payment }}</h6>
                   </div>
-                  <!-- <div class="col-md-6 col-sm-12">
-                      <h4>
-                        <b>{{ $t("profile.shippingMethod") }}</b>
-                      </h4>
-                      <ul>
-                        <div v-for="(supplier, index) in orders" :key="index" class="px-2">
-                          <p>
-                            <span>{{ supplier.company }}</span> -
-                            <span>{{ supplier.shipping_type }}</span>
-                          </p>
-                        </div>
-                      </ul>
-                    </div> -->
                 </div>
                 <div class="bill mt-3">
                   <h4>
                     <b>{{ $t("profile.shippingInfo") }}</b>
                   </h4>
-                  <!-- <h5>
-                      <b>{{ $t("profile.billingInfo") }}</b>
-                    </h5> -->
                   <div
                     class="col-md-6 col-sm-12 mb-2 px-1"
                     v-if="orderData && shipingExist"
@@ -1450,32 +1341,6 @@
                   </h3>
                 </div>
               </div>
-              <!-- <div class="social">
-                  <div class="ml-auto footer-social">
-                    <ul>
-                      <li v-if="twitter">
-                        <a :href="twitter.value" target="_blank">
-                          <img src="@/assets/images/twitter.png" :alt="twitter.key" />
-                        </a>
-                      </li>
-                      <li v-if="youtube">
-                        <a :href="youtube.value" target="_blank">
-                          <img src="@/assets/images/youtube.png" :alt="youtube.key" />
-                        </a>
-                      </li>
-                      <li v-if="instagram">
-                        <a :href="instagram.value" target="_blank">
-                          <img src="@/assets/images/instagram.png" :alt="instagram.key" />
-                        </a>
-                      </li>
-                      <li v-if="pinterest">
-                        <a :href="pinterest.value" target="_blank">
-                          <img src="@/assets/images/pinterest.png" :alt="pinterest.key" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div> -->
             </div>
           </div>
         </div>

@@ -356,12 +356,6 @@
                     <td class="text-center">
                       <span >-</span>
                     </td>
-                    <!-- <td class="text-center">
-                      {{ item.product_supplier.client.company_name }}
-                    </td> -->
-                    <!-- if product price not exist -->
-                    <!-- counter to update product quantity -->
-                    <!-- product price * product quantity = total product price -->
 
                     <!-- remove product from cart -->
 

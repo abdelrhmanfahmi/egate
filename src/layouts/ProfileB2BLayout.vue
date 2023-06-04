@@ -1,25 +1,6 @@
 <template>
   <div class="profile-layout b2bLayout" :class="$i18n.locale">
     <div id="allTheNav">
-      <!-- <nav
-        id="navigator"
-        class="navbar"
-        :class="{ navbaropen: opened }"
-        title="open menu"
-      >
-        <span class="open-slide" v-if="!opened">
-          <a @click.prevent="opened = !opened">
-            <div>
-              <div class="bar" :class="{ topopen: opened }"></div>
-              <div class="bar" :class="{ midopen: opened }"></div>
-              <div class="bar" :class="{ botopen: opened }"></div>
-            </div>
-          </a>
-        </span>
-        <ul class="navbar-nav">
-          top nav
-        </ul>
-      </nav> -->
       <div id="side-menu" class="side-nav" :class="{ sidenavopen: opened }" @mouseenter="opened = true" @mouseleave="opened = false">
         <div
           @click.prevent="opened = !opened"

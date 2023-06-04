@@ -15,25 +15,6 @@
             {{ myProduct.client.company_name }}
           </router-link>
         </div>
-        <!-- <div class="col-6 mb-2" v-if="buyerUserData">
-          <b-button
-            v-if="supplier_messages"
-            variant="outline-danger"
-            id="show-btn"
-            class="mx-2"
-            @click="$bvModal.show('bv-modal-example')"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
-        </div> -->
-        <!-- <div class="col-6 mb-2" v-else>
-          <b-button
-            variant="outline-danger"
-            id="show-btn"
-            class="mx-2"
-            @click="loginFirst"
-            >{{ $t("supplier.sendSupplierMessage") }}</b-button
-          >
-        </div> -->
         <!-- message supplier modal  -->
         <b-modal id="bv-modal-example" centered hide-footer>
           <template #modal-title>
@@ -216,20 +197,6 @@
 
       </div>
     </div>
-    <!--<div class="row justify-content-center align-items-center">
-
-       share product 
-       <div class="col-7">
-        <div class="share-social d-flex align-items-center">
-          <span>{{ $t("singleProduct.sharing") }}</span>
-          <div class="social-sharing-icons">
-            <facebook :url="url" scale="2"></facebook>
-            <twitter :url="url" title="Check me on Github" scale="2"></twitter>
-            <whats-app :url="url" title="Hello" scale="2"></whats-app>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
 
     <!-- delete modal  -->

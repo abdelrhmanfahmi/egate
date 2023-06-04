@@ -3,40 +3,6 @@
   <div class="dashboard">
     <div class="wrapper">
       <div v-if="dashData">
-        <!-- <div class="large-screen col-md-3 col-sm-12 mb-2">
-          <router-link to="/profile/ordersListsB2b" class="link">
-            <div class="bordered">
-              <h5 class="title main-color">
-                <span><font-awesome-icon icon="fa-solid fa-cart-shopping" /></span>
-                <span class="mx-2">{{ $t("profile.shoppingCart") }}</span>
-              </h5>
-              <div class="info pt-3">
-                <div
-                  class="p-0"
-                  
-                >
-                  <p class="number text-dark">{{ cartLength }} Products</p>
-                </div>
-                <div class="p-0">
-                  <span class="main-color h5">!!</span>
-                  <span class="mx-1 h5">pending orders</span>
-                  <div class="action my-3 mb-0">
-                    <div class="row align-c">
-                      <div class="col-md-4 col-sm-12">
-                        <h4>1</h4>
-                      </div>
-                      <div class="col-md-8 col-sm-12">
-                        <router-link to="/cart" class="main-color">
-                          <h5><ins>{{ $t('cart.purchaseCart') }}</ins></h5>
-                        </router-link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </router-link>
-        </div> -->
         <div class="filter mb-5">
           <div class="row justify-content-between align-items-center">
             <div class="col-md-7 col-sm-12">
@@ -48,7 +14,7 @@
               <div class="filter-holder">
                 <div class="row align-items-center">
                   <div class="col-md-3 col-sm-12">
-                    <h5>Period :</h5>
+                    <h5>{{ $t('profile.Period') }} :</h5>
                   </div>
                   <div class="col-md-9 col-sm-12">
                     <div class="row" v-if="!periodClicked">
@@ -91,9 +57,6 @@
                   <span><font-awesome-icon icon="fa-solid fa-list-ol" /></span>
                   <span class="mx-2">{{ $t("profile.quotations") }}</span>
                 </h5>
-                <!-- <span class="icon">
-                  <font-awesome-icon icon="fa-solid fa-list-ol" class="fa-2x" />
-                </span> -->
 
                 <div class="info pt-3">
                   <div class="p-0">
@@ -125,13 +88,6 @@
           <div class="large-screen col-md-4 col-sm-12 mb-2">
             <router-link to="/profile/ReturnRequests" class="link">
               <div class="bordered">
-                <!-- <h5 class="title">{{ $t("profile.totalRefunds") }}</h5> -->
-                <!-- <span class="icon">
-                  <font-awesome-icon
-                    icon="fa-solid fa-arrow-rotate-left"
-                    class="fa-2x"
-                  />
-                </span> -->
                 <h5 class="title main-color">
                   <span><font-awesome-icon icon="fa-solid fa-rotate-left" /></span>
                   <span class="mx-2">{{ $t("profile.totalRefunds") }}</span>
@@ -176,18 +132,12 @@
                     <span class="number text-dark h5">{{
                       dashData.total_completed_orders
                     }}</span>
-                    <!-- <span class="text text-dark mx-2 h5">{{ $t("profile.orders") }}</span> -->
                   </div>
                   <div class="p-0">
-                    <!-- <small class="number">{{
-                      dashData.total_completed_orders_money | fixedCurrency
-                    }}</small> -->
                     <p class="h5">
                       <span class="main-color">!!</span>
                       <span>{{ $t("profile.pendingStands") }}</span>
                     </p>
-                    <!-- <h5 class="text">{{ $t("profile.pending") }}</h5> -->
-                    <!-- <h5 class="text mt-2">{{ currency }}</h5> -->
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
@@ -207,15 +157,11 @@
           </div>
         </div>
         <div class="large-screen my-5">
-          <!-- <router-link to="/profile/wallet" class="link"> -->
           <div class="bordered">
             <h5 class="title main-color">
               <span><font-awesome-icon icon="fa-solid fa-wallet" /></span>
               <span class="mx-2">{{ $t("profile.wallet") }}</span>
             </h5>
-            <!-- <span class="icon">
-                <font-awesome-icon icon="fa-solid fa-wallet" class="fa-2x" />
-              </span> -->
 
             <div class="info pt-3">
               <div class="p-0">
@@ -235,12 +181,6 @@
             <tr>
               <th scope="col" v-for="(tab, index) in fields" :key="index">
                 <span>{{ tab.label }}</span>
-                <!-- <span
-                  v-if="tab.label == $t('profile.amount')"
-                  class="mx-2"
-                  @click="sortList('total_price')"
-                  >&#8597;</span
-                > -->
               </th>
             </tr>
           </thead>

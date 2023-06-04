@@ -113,21 +113,6 @@
                   class="d-flex justify-content-between align-items-center"
                   v-if="!mobile"
                 >
-                  <!-- <router-link
-                    to="/suppliers"
-                    class="border-main color-main br-5 p-2"
-                  >
-                    <b>{{  $t("home.suppliers") }}</b>
-                  </router-link> -->
-                  <!-- <router-link
-                    to="/b2b-login"
-                    class="border-main color-main br-5 p-2"
-                    v-if="!buyerUserData || buyerUserData.type == 'b2c'"
-                  >
-                    <b>{{ $t("home.corporate") }}</b>
-                    <b>{{ $t("home.suppliers") }}</b>
-                  </router-link> -->
-                  <!-- new redirect link -->
                   <a
                     :href="`${supplierDomain}`"
                     target="_blank"
@@ -257,56 +242,6 @@
                   class="row justify-content-center align-items-center search-icon"
                   v-if="mobile"
                 >
-                  <!-- <div class="col-12"> -->
-                  <!-- <div class="search-icon"> -->
-                  <!-- <b-button v-b-modal.modal-1 class="icon-search" size="md">
-                        <font-awesome-icon
-                          v-b-toggle.sidebar-1
-                          icon="fa-solid fa-search"
-                          class="mobile-search-icon"
-                        />
-                      </b-button> -->
-                  <!-- <b-modal id="modal-1" class="search">
-                        Using slots
-                        <b-input-group class="mt-3">
-                          <template #append>
-                            <b-input-group-text class="floating-btn">
-                              <strong @click="searchBtn" class="search-eye">
-                                <font-awesome-icon
-                                  v-b-toggle.sidebar-1
-                                  icon="fa-chevron-right"
-                                />
-                              </strong>
-                            </b-input-group-text>
-                          </template>
-                          <b-form @submit.prevent="search" @keyup="search">
-                            <div class="form-holder">
-                              <b-form-input
-                                :placeholder="$t('cart.search')"
-                                v-model="keyword"
-                              ></b-form-input>
-                              <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
-                  <button>
-                    <font-awesome-icon icon="fa-solid fa-arrow-right" />
-                  </button>
-                </div>
-                              <ul class="search-suggestions" v-if="suggestionsExist">
-                                <span class="meaning-span">{{ $t("home.didMean") }}</span>
-                                <li
-                                  v-for="(suggest, index) in suggestions"
-                                  :key="index"
-                                  role="button"
-                                  @click="searchSuggestion(suggest)"
-                                >
-                                  {{ suggest }}
-                                </li>
-                              </ul>
-                            </div>
-                          </b-form>
-                        </b-input-group>
-                      </b-modal> -->
-                  <!-- </div> -->
-                  <!-- </div> -->
                 </div>
 
                 <font-awesome-icon

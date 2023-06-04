@@ -10,40 +10,7 @@
             <div
               class="wrapper select-wrapper data-wrapper d-flex justify-content-center align-items-center btn-group"
             >
-              <!-- <div
-                class="data-wrapper d-flex justify0content-center align-items-center"
-              >
-                <div class="grid-icon">
-                  <font-awesome-icon
-                    icon="fa-solid fa-table-cells-large"
-                    size="xl"
-                    class="text-dark"
-                  />
-                </div>
-                <select
-                  name="categories"
-                  id="categories"
-                  @change="selectCategory($event)"
-                >
-                  <option value="" selected disabled>
-                    {{ $t("home.All") }}
-                  </option>
-                  <option
-                    :value="category.id"
-                    v-for="(category, index) in categories"
-                    :key="index"
-                  >
-                    <router-link :to="`/categories/${category.id}`">
-                      {{ category.title }}
-                    </router-link>
-                  </option>
-                </select>
-
-                <div class="down-angle">
-                  <font-awesome-icon icon="fa-solid fa-angle-down" size="xl" />
-                </div>
-              </div> -->
-
+            
               <div class="grid-icon">
                 <font-awesome-icon
                   icon="fa-solid fa-table-cells-large"
@@ -96,11 +63,6 @@
                 v-model="keyword"
                 ref="searchIcon"
               ></b-form-input>
-              <!-- <div class="floating-btn" @click="searchBtn" v-if="suggestionsExist == false && keyword.length">
-                                <button>
-                                    <font-awesome-icon icon="fa-solid fa-arrow-right" />
-                                </button>
-                            </div> -->
             </b-form>
             <ul class="search-suggestions" v-if="suggestionsExist">
               <span class="meaning-span">{{ $t("home.didMean") }}</span>
@@ -121,34 +83,6 @@
                 ProductsExist
               "
             >
-              <!-- <ul class="search-suggestions noDataReturned">
-                <li>
-                  <div class="text-center">
-                    <h3>
-                      <div v-if="!loading">
-                        <span>{{ $t("profile.searchNoResult") }}</span>
-                        <div class="mt-3">
-                          <button
-                            class="border-main br-5"
-                            @click="searchSubmitted = false"
-                          >
-                            {{ $t("home.ok") }}
-                          </button>
-                        </div>
-                      </div>
-                      <div v-else>
-                        <div class="text-center">
-                          <b-spinner
-                            variant="danger"
-                            label="Spinning"
-                          ></b-spinner>
-                        </div>
-                      </div>
-                    </h3>
-                  </div>
-                </li>
-              </ul> -->
-
               <ul class="search-suggestions" v-if="ProductsExist">
                 <span class="meaning-span">{{ $t("home.didMean") }}</span>
                 <div v-if="loading">

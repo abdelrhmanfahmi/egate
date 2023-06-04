@@ -61,19 +61,6 @@
       </div>
     </div>
     <div class="other-sections" v-if="supplier.categories">
-      <!-- <h5 class="title">{{ $t("supplier.sections") }}</h5> -->
-      <!-- <ul class="sections">
-        <li class="section" v-for="item in supplier.categories" :key="item.id">
-          <router-link
-            :to="{
-              path: '/supplier-products',
-              query: { supId: `${supplier.id}`, catId: `${item.category_id}` },
-            }"
-          >
-            {{ item.category.title }}
-          </router-link>
-        </li>
-      </ul> -->
       <div class="select-country Allcountries">
         <b-dropdown
           id="dropdown-dropright"
@@ -83,9 +70,6 @@
           :text="$t('supplier.sections')"
           class="main-color"
         >
-        <!-- <b-dropdown-item disabled selected>
-          {{ $t('profile.selectExistStandOrder') }}
-        </b-dropdown-item> -->
           <b-dropdown-item
             v-for="item in supplier.categories"
             :key="item.id"

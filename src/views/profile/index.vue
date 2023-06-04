@@ -22,16 +22,6 @@
     <div class="profile">
       <b-container>
         <b-row>
-          <!-- <b-col lg="3" md="5">
-            side menu if user is b2c 
-            <SideMenu
-              v-if="userInfo.item.type === 'b2c'"
-              :userBades="userBades"
-            />
-            side menu if user is b2b (buyer) 
-            <SideMenuB2b :userBades="userBades" v-else />
-          </b-col> -->
-          <!-- <b-col lg="9" md="7"> -->
           <b-col sm="12">
             <router-view></router-view>
           </b-col>
@@ -46,16 +36,9 @@
  *  main profile page
  * @displayName  main profile page
  */
-// import SideMenu from "@/components/pages/profile/SideMenu.vue";
-// import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
-// import ProgressSlider from "@/components/pages/home/ProgressSlider";
+
 import profile from "@/services/profile";
 export default {
-  components: {
-    // SideMenu,
-    // SideMenuB2b,
-    // ProgressSlider,
-  },
   methods: {
     /**
      * ge tProfile Budges function

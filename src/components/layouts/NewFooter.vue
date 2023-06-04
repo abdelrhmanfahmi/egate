@@ -13,9 +13,6 @@
                     <ul
                       class="d-flex justify-content-between align-items-start flex-column"
                     >
-                      <!-- <li>
-                        <router-link to="/">{{ $t("items.home") }}</router-link>
-                      </li> -->
                       <li>
                         <router-link to="/about">{{
                           $t("home.about")
@@ -109,10 +106,6 @@
                   <ul>
                     <li v-if="link.key && link.key === 'facebook'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/facebook.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-facebook-f"
                         /></span>
@@ -120,10 +113,6 @@
                     </li>
                     <li v-if="link.key && link.key === 'twitter'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/twitter.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-twitter"
                         /></span>
@@ -131,10 +120,6 @@
                     </li>
                     <li v-if="link.key && link.key === 'youtube'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/youtube.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-youtube"
                         /></span>
@@ -142,10 +127,6 @@
                     </li>
                     <li v-if="link.key && link.key === 'instagram'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/instagram.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-instagram"
                         /></span>
@@ -153,10 +134,6 @@
                     </li>
                     <li v-if="link.key && link.key === 'linkedin'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/linkedin.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-linkedin"
                         /></span>
@@ -164,10 +141,6 @@
                     </li>
                     <li v-if="link.key && link.key === 'pinterest'">
                       <a :href="link.value" target="_blank">
-                        <!-- <img
-                          src="@/assets/images/pinterest.png"
-                          :alt="link.key"
-                        /> -->
                         <span
                           ><font-awesome-icon icon="fa-brands fa-pinterest"
                         /></span>

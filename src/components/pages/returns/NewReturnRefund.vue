@@ -109,11 +109,6 @@
           <div class="col-md-7 col-sm-12">
             <form class="returnData " @submit.prevent="returnOrder">
               <div class="form-input ">
-                <!-- <label>
-                  <h4>
-                    <b>{{ $t("profile.returnReason") }}</b>
-                  </h4>
-                </label> -->
                 <!-- select reasons   -->
                 <b-form-select v-model="returnData.return_reason" class="mb-3">
                   <b-form-select-option disabled value="null">{{
@@ -139,9 +134,6 @@
               <div class="row align-items-center py-3">
                 <div class="col-12">
                   <div class="refund-options">
-                    <!-- <h2 class="title">
-                        {{ $t("profile.refundMethods") }}
-                      </h2> -->
                     <label>
                       <h4>
                         <b>{{ $t("profile.refundMethods") }}</b>
@@ -291,64 +283,9 @@
                   </label> -->
                   <div class="product-counter">
                     <!-- quantity  -->
-  
-                    <!-- <div
-                      class="actions d-flex justify-content-center align-items-center"
-                      :class="$i18n.locale"
-                    >
-                      increment quantity 
-  
-                      <button
-                        class="product-counter-btn"
-                        @click="decrementQuantity(returnData.quantity)"
-                        :disabled="returnData.quantity == 1"
-                        type="button"
-                      >
-                        <b-icon-dash />
-                      </button>
-  
-                      <div class="value">
-                        <span class="product-counter-number">
-                          {{
-                            returnData.quantity ? returnData.quantity : 1
-                          }}</span
-                        >
-                      </div>
-                      <button
-                        class="product-counter-btn"
-                        :class="{ disabledBtn: returnData.quantity >= maxQTY }"
-                        @click="incrementQuantity"
-                        type="button"
-                        :disabled="returnData.quantity >= maxQTY"
-                      >
-                        <b-icon-plus />
-                      </button>
-                      decrement quantity 
-                    </div> -->
                   </div>
                 </div>
-                <!-- <div class="col-8">
-                    <label for="CommercialLicense">
-                      {{ $t("profile.returnImage") }}
-                      <span class="text-danger">*</span>
-                    </label>
-                    <b-form-group>
-                      <b-form-file
-                        size="lg"
-                        id="returnImage"
-                        @change="uploadImage"
-                        :placeholder="$t('profile.returnImage')"
-                        drop-placeholder="Drop file here..."
-                      ></b-form-file>
-                    </b-form-group>
-                    <div
-                      class="error text-start"
-                      v-for="(error, index) in uploadErrors.image"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </div> -->
+              
               </div>
   
               <!-- text your message  -->

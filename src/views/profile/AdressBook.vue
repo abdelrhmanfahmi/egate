@@ -430,20 +430,6 @@
                 </b-form-group>
               </b-col>
               <!-- old block number   -->
-              <!-- <b-col lg="6">
-            <b-form-group>
-              <label for="blockNumber">{{ $t("profile.blockNumber") }}</label>
-              <span class="requried">*</span>
-              <b-form-input id="blockNumber" v-model="form.apartment" />
-              <div
-                class="error"
-                v-for="(error, index) in errors.apartment"
-                :key="index"
-              >
-                {{ error }}
-              </div>
-            </b-form-group>
-          </b-col> -->
               <!-- post code  -->
               <b-col lg="6" v-if="form.pin_code !== undefined">
                 <b-form-group>
@@ -525,39 +511,6 @@
         </b-button>
       </b-modal>
     </div>
-    <!-- <b-table
-      hover
-      :items="adresses"
-      :fields="fields"
-      stacked="lg"
-      show-empty
-      :empty-text="$t('profile.quotationsRatingsEmpty')"
-      class="my-4"
-    >
-      <template #cell(actions)="row">
-        <div class="actions">
-          <b-button v-b-tooltip.hover :title="$t('items.edit')" @click="editAdress(row)">
-            <font-awesome-icon icon="fa-solid fa-edit" />
-          </b-button>
-          <b-button
-            v-b-tooltip.hover
-            :title="$t('profile.delete')"
-            @click="deleteAdress(row)"
-          >
-            <font-awesome-icon icon="fa-solid fa-trash-can" />
-          </b-button>
-
-          <b-button
-            v-if="!row.item.is_default"
-            v-b-tooltip.hover
-            :title="$t('profile.makeDefaultAddress')"
-            @click="makeDefaultAddress(row)"
-          >
-            <font-awesome-icon icon="fa-solid fa-address-book" />
-          </b-button>
-        </div>
-      </template>
-    </b-table> -->
   </div>
 </template>
 

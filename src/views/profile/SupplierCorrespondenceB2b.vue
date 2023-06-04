@@ -60,26 +60,6 @@
                 </div>
               </div>
             </td>
-            <!-- <td>{{ order.last_message | formatDate }}</td> -->
-            <!-- <td>
-              <div v-if="order.status === 'Submitted'">
-                <div class="" v-if="$i18n.locale == 'en'">
-                  <span>{{ buyerUserData.first_name }}</span>
-                  <span>{{ buyerUserData.last_name }}</span>
-                  <span class="mx-1">({{ $t("home.you") }})</span>
-                </div>
-                <div class="" v-else>
-                  <span class="mx-1">({{ $t("home.you") }})</span>
-                  <span>{{ buyerUserData.last_name }}</span>
-                  <span>{{ buyerUserData.first_name }}</span>
-                </div>
-              </div>
-              <div v-if="order.status === 'UpdatedBySupplier'">
-                <span
-                  >{{ order.supplier.first_name }} {{ order.supplier.last_name }}</span
-                >
-              </div>
-            </td> -->
 
             <td>
               {{ order.last_message_text }}

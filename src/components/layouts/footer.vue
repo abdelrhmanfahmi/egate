@@ -12,9 +12,6 @@
                   <img :src="adminLogo" v-if="adminLogo" alt="mysupply-logo.png" />
                   <img src="@/assets/images/mysupply-logo.png" v-else alt="mysupply-logo.png" />
               </a>
-                <!-- <a href="https://humhum.work/user-interface/public/en_kw"
-                  ><img src="@/assets/images/mysupply-logo.png" alt=""
-                /></a> -->
               </div>
             </div>
           </div>

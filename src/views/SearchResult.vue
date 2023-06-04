@@ -192,10 +192,6 @@
                         "
                       >
                         <span>
-                          <!-- <font-awesome-icon
-                            icon="fa-sharp fa-solid fa-cart-plus"
-                          />
-                          <span>{{ $t("cart.add") }}</span> -->
 
                           <font-awesome-icon
                     icon="fa-solid fa-cart-shopping"
@@ -224,7 +220,6 @@
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
                               @click="$bvModal.show('bv-bidRequest')"
                             >
-                              <!-- <span role="button" @click="loggedBidRequest"> -->
                               <span>
                                 <rfqIcon class="mx-2" />
                               </span>

@@ -106,7 +106,6 @@
           </div>
           <!-- buy and get  -->
           <div class="row suppliers-data" v-else-if="pageTitle == `${$t('profile.buyXgetYOffer')}`">
-          <!-- <div class="row suppliers-data" v-else-if="pageTitle == `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}`"> -->
             <div
               class="col-12 col-sm-6 col-md-3 col-lg-3 supplier-content"
               v-for="(deal, index) in buyAndGet"
@@ -137,18 +136,6 @@
             @pagechanged="onPageChange"
           />
         </div>
-        <!-- <div
-          v-else-if="pageTitle == $t('profile.dailyOffers')"
-          class="text-center d-flex justify-content-center align-items-center mt-5"
-        >
-          <Paginate
-            v-if="buyAndGet && total > perPage"
-            :total-pages="totalPages"
-            :per-page="totalPages"
-            :current-page="page"
-            @pagechanged="onPageChange"
-          />
-        </div> -->
         <div
           v-else-if="pageTitle == $t('profile.monthlyOffers')"
           class="text-center d-flex justify-content-center align-items-center mt-5"

@@ -359,5 +359,6 @@ export default {
   productDetails:'معلومات المنتج',
   items:'عنصر',
   noReturnPolicy:'لا يوجد سياسة استرجاع',
-  specifyQuantity:'حدد الكميات التي ترغب في إرجاعها لكل عنصر'
+  specifyQuantity:'حدد الكميات التي ترغب في إرجاعها لكل عنصر',
+  Period:'المدة'
 };

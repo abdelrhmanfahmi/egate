@@ -64,19 +64,6 @@
                 </div>
                 <!-- supplier  & weight  -->
                 <div class="row mb-3 align-items-center">
-                  <!-- <div
-                    class="col-md-6 col-sm-12"
-                    v-if="item.client.id && item.client.company"
-                  >
-                    <router-link
-                      :to="`/suppliers/${item.client.id}`"
-                      class="supplier-name"
-                    >
-                      <h6>
-                        {{ $t("items.supplier") }} : {{ item.client.company }}
-                      </h6>
-                    </router-link>
-                  </div> -->
                   <div
                     class="col-md-6 col-sm-12"
                     v-if="item.product_details_by_type.weight"

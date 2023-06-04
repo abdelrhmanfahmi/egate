@@ -15,16 +15,6 @@
             <span class="mx-4">{{ myProduct.client.company_name }}</span>
           </router-link>
         </div>
-        <!-- <div class="col-6 mb-2" v-if="buyerUserData">
-          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="$bvModal.show('bv-modal-example')">{{
-            $t("supplier.sendSupplierMessage")
-          }}</b-button>
-        </div>
-        <div class="col-6 mb-2" v-else>
-          <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="loginFirst">{{
-            $t("supplier.sendSupplierMessage")
-          }}</b-button>
-        </div> -->
         <!-- message supplier modal  -->
         <b-modal id="bv-modal-example" centered hide-footer>
           <template #modal-title>

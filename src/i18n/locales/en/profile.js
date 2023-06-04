@@ -371,5 +371,6 @@ export default {
   productDetails :'Product Details',
   items:'Items',
   noReturnPolicy:'No Return Policy',
-  specifyQuantity:'Specify quantities you would like to return for each item'
+  specifyQuantity:'Specify quantities you would like to return for each item',
+  Period:'Period'
 };
