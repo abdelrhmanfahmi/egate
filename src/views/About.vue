@@ -457,6 +457,9 @@ html:lang(ar) {
     + p {
       width: 80%;
       line-height: 2;
+      @media(max-width:1200px){
+        width:100%
+      }
     }
   }
   .p-title {
