@@ -9,27 +9,7 @@
               <h4 class="name m-0 p-0" v-if="myProduct.title">
                 {{ myProduct.title }}
               </h4>
-              <!-- <h4
-                class="text-success mx-5 mb-0 p-0"
-                v-if="myProduct.in_stock ==  true"
-              >
-                {{ $t("singleProduct.available") }}
-                <span
-                  >(<small>{{
-                    myProduct.quantity
-                  }}</small
-                  >)</span
-                >
-              </h4>
-              <span class="is-available text-danger" v-else>
-                <b>{{ $t("singleProduct.outOfStock") }}</b></span
-              > -->
             </div>
-            <!-- <div class="category-name">
-              <router-link to="/" class="text-dark font-weight-bold serial">
-                <ins>Category-name</ins>
-              </router-link>
-            </div> -->
           </div>
           <p
             class="price mt-4"
@@ -92,16 +72,6 @@
               </span>
             </div>
           </div>
-          <!-- <span
-            class="is-available"
-            v-if="myProduct.quantity > 0"
-            >{{ $t("singleProduct.available") }} :
-            <b>{{ myProduct.quantity }}</b></span
-          > -->
-          <!-- <span class="is-available text-danger" v-else>
-            <b>{{ $t("singleProduct.outOfStock") }}</b></span
-          > -->
-          <!-- <hr /> -->
 
           <!-- country of origin  -->
 
@@ -110,16 +80,6 @@
               <p>{{ $t("profile.countryOrigin") }} :</p>
             </span>
             <span class="mx-3 mt-2">
-              <!-- <img
-                v-if="myProduct.brand.image_path"
-                :src="myProduct.brand.image_path"
-                class="brand-image"
-                :alt="myProduct.brand.title"
-              />
-              <div class="logo-holder" v-else>
-                <img :src="logoEnv" v-if="logoEnv" alt="logo" />
-                <img src="@/assets/images/logo.png" v-else alt="logo" />
-              </div> -->
               {{ myProduct.country.title }}
             </span>
             <span v-if="myProduct.country_of_origin">{{myProduct.country_of_origin}}</span>
@@ -127,23 +87,7 @@
           </div>
 
           <!-- brand  -->
-          <!-- <div class="serial text-black" v-if="myProduct.brand">
-            <span>
-              <p>{{ $t("singleProduct.brand") }} :</p>
-            </span>
-            <span class="mx-3">
-              <img
-                v-if="myProduct.brand.image_path"
-                :src="myProduct.brand.image_path"
-                class="brand-image"
-                :alt="myProduct.brand.title"
-              />
-              <div class="logo-holder" v-else>
-                <img :src="logoEnv" v-if="logoEnv" alt="logo" />
-                <img src="@/assets/images/logo.png" v-else alt="logo" />
-              </div>
-            </span>
-          </div> -->
+          
           <ProductDescription :myProduct="myProduct" class="my-4 mb-5" />
           <!--  -->
           <div class="variants" v-if="myProduct.variants">

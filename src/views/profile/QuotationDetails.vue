@@ -10,63 +10,12 @@
       <div class="my-5" v-if="quotations">
         <b-button variant="outline-success" v-if="quotations.price" id="show-btn"
           @click="$bvModal.show('bv-modal-example')">{{ $t("profile.offer") }}</b-button>
-        <!-- <b-button variant="outline-danger" id="show-btn" class="mx-2" @click="$bvModal.show('bv-modal-example1')">{{
-          $t("profile.sendMessage")
-        }}</b-button> -->
       </div>
-      <!-- <table class="table custom-margin">
-        <thead :class="{
-          'text-left': $i18n.locale == 'en',
-          'text-right': $i18n.locale == 'ar',
-        }">
-          <tr>
-            <th scope="col" colspan="1">
-              {{ $t("profile.sentBy") }}
-            </th>
-            <th scope="col" colspan="8">{{ $t("profile.quoteMessage") }}</th>
-            <th scope="col" colspan="1">{{ $t("profile.sentdate") }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="quotate in quotations.client_quote_comment" :key="quotate.id">
-            <th>
-              <div class="" v-if="quotate.comment_by === 'client'">
-                <span v-if="quotations.client">{{ quotations.client.first_name }}
-                  {{ quotations.client.last_name }}</span>
-              </div>
-              <div class="" v-if="quotate.comment_by === 'supplier'">
-                <span v-if="quotations.supplier">{{ quotations.supplier.company_name }}</span>
-              </div>
-            </th>
-            <td>
-              <div>
-                <p class="comment" v-if="quotate.comment" v-html="quotate.comment"></p>
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <div>
-                <span>{{ quotate.created_at | formatDate }}</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
 
 
       <div class="new-design" v-if="quotations && quotations.client_quote_comment">
         <div class="chat-holder">
           <ul class="chat row">
-            <!-- <li class="stamp">
-              Saturday
-              <span>20:32</span>
-            </li> -->
             <li
               :class="{
                 'col-sm-12': quotate.comment_by == 'supplier',
@@ -92,17 +41,6 @@
                   <span v-if="quotate.comment_by === 'supplier'">{{ quotations.supplier.company_name }}</span>
                 </span>
                 <span class="message comment" v-if="quotate.comment" v-html="quotate.comment"></span>
-                
-                <!-- <span
-                  class="message-image"
-                  v-if="chatImageBaseUrl && item.file"
-                  @click="
-                    showImage(chatImageBaseUrl + item.file);
-                    showWithdrawFile();
-                  "
-                >
-                  <img :src="chatImageBaseUrl + item.file" alt="" />
-                </span> -->
                 <span class="messageDate">{{ quotate.created_at | formatDate }}</span>
               </p>
             </li>
@@ -117,28 +55,6 @@
                     class="form-control"
                     :placeholder="$t('profile.sendMessage')"
                   />
-  
-                  <!-- <div class="company-logo">
-                    <main>
-                      <div @dragover.prevent @drop.prevent class="data-holder">
-                        <div @drop="handleFileDrop">
-                          <div class="file-wrapper">
-                            <input
-                              type="file"
-                              name="file-input"
-                              @change="handleFileInput"
-                            />
-                            <div class="d-flex flex-column text-holder">
-                              <font-awesome-icon
-                                icon="fa-solid fa-paperclip"
-                                class="myIcon"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </main>
-                  </div> -->
                 </div>
               </div>
               <div class="col-md-2 col-sm-12 mb-2">
@@ -158,30 +74,6 @@
                 </b-button>
               </div>
             </div>
-            <!-- <div class="company-logo">
-              <main>
-                <div @dragover.prevent @drop.prevent class="data-holder">
-                  <div @drop="handleFileDrop">
-                    <ul class="files mt-4">
-                      <li v-for="(file, index) in files" :key="index">
-                        <div class="file-data">
-                          <span class="file-name">{{ file.name }}</span>
-                          <span class="file-size">({{ file.size }} b)</span>
-                          <button
-                            @click="removeFile(index)"
-                            class="border-none mx-2"
-                            title="Remove"
-                          >
-                            X
-                          </button>
-                        </div>
-                      </li>
-                    </ul>
-                    <img v-if="chatImage" :src="chatImage" alt="" srcset="" />
-                  </div>
-                </div>
-              </main>
-            </div> -->
             <div class="error mt-2">
               <p v-for="(error, index) in errors.message" :key="index">
                 {{ error }}

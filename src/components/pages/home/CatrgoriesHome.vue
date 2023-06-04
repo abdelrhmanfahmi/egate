@@ -1,9 +1,6 @@
 <template>
   <div class="profile-categories">
     <div>
-      <!-- <span class="categories-info">
-        <h5 class="top-header">{{ $t("profile.categories") }}</h5>
-      </span> -->
       <!-- when data loading  -->
       <div v-if="loading">
         <b-row class="holder">
@@ -24,25 +21,6 @@
           </b-col>
         </b-row>
       </div>
-      <!-- when data comes  -->
-      <!-- <b-row v-else>
-        <b-col
-          v-for="category in categories"
-          :key="category.id"
-          xl="2"
-          lg="3"
-          md="4"
-          sm="6"
-          class="homecategories custum-padding"
-        >
-          <router-link :to="`/categories/${category.id}`">
-            <CategoryCard
-              :card="{ type: category.title }"
-              :image="category.image_path"
-            />
-          </router-link>
-        </b-col>
-      </b-row> -->
       <div class="items" v-else>
         <div class="item" v-for="category in categories" :key="category.id">
           <router-link :to="`/categories/${category.id}`">

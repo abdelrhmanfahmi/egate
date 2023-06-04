@@ -2,43 +2,9 @@
   <!-- single product data  -->
   <div class="container single-product">
     <div class="" v-if="myProduct !== null && !notFound">
-      <!-- <div class="product-info">
-        <div class="content">
-          nav for product navigation 
-          <nav aria-label="breadcrumb d-flex">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item" v-for="Type in myProduct.product.categories" :key="Type.id">
-                {{ Type.title }}
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div> -->
       <div
         class="navigation d-none d-lg-flex justify-content-start align-items-center"
       >
-        <!-- navigation -->
-        <!-- <nav aria-label="breadcrumb ">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/">
-                {{ $t("items.home") }}
-              </router-link>
-            </li>
-            <li class="breadcrumb-item" v-if="myProduct.parent_category">
-              <router-link :to="`/categories/${myProduct.parent_category.id}`"> {{myProduct.parent_category.title}} </router-link>
-            </li>
-            <li class="breadcrumb-item" v-if="myProduct.title">
-              <a > {{myProduct.title}} </a>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/"> Sub sub-category </router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/" class="main-color"> Product </router-link>
-            </li>
-          </ol>
-        </nav> -->
       </div>
 
       <b-row align-h="center" class="mt-5">
@@ -104,9 +70,6 @@
                 v-if="supplierProductsLength > 0"
               >
                 <div class="">
-                  <!-- <h4 class="header font-weight-bold mt-5 mb-3">
-                    {{ $t("items.relativeProducts") }}
-                  </h4> -->
                   <!-- <hr /> -->
                   <div class="my-5 py-5">
                     <!-- other products slider  -->

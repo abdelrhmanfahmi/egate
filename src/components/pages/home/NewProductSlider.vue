@@ -14,7 +14,6 @@
                 <router-link :to="{
                   path: '/new-deals',
                   query: { type: `${$t('profile.buyXgetYOffer')}` },
-                  // query: { type: `${$t('profile.buy')} ${$t('profile.and')} ${$t('profile.get')}` },
                 }" class="showAllLink">
                   {{ $t("home.showAll") }}
                 </router-link>
@@ -60,24 +59,6 @@
               </div>
             </b-tab>
             <!-- daily offers  -->
-            <!-- <b-tab :title="$t('profile.dailyOffers')">
-              <div class="d-flex justify-content-end">
-                <router-link to="/best-deals" class="showAllLink" v-if="dailyOffersLength > 0">
-                  {{ $t("home.showAll") }}
-                </router-link>
-              </div>
-              <div class="" v-if="dailyOffersLength > 0">
-
-                <VueSlickCarousel v-bind="settings" class="my-5" v-if="dailyOffersLength">
-                  <div v-for="(deal, index) in dailyOffers" :key="index">
-                    <ProductCard :slider="deal" :dealType="$t('profile.dailyOffers')" />
-                  </div>
-                </VueSlickCarousel>
-              </div>
-              <div class="" v-else>
-                <h3>{{ $t('cart.noDataMatch') }}</h3>
-              </div>
-            </b-tab> -->
             <!-- monthly offers  -->
             <b-tab :title="$t('profile.monthlyOffers')">
               <div class="d-flex justify-content-end">

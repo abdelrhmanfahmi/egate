@@ -5,31 +5,9 @@
       <li>
         <router-link class="link" to="/">{{ $t("home.home") }}</router-link>
       </li>
-      <!-- <li>
-        <router-link class="link" to="/partners">{{
-          $t("home.navSuppliers")
-        }}</router-link>
-      </li> -->
       <li>
         <router-link class="link" to="/about">{{ $t("home.about") }}</router-link>
       </li>
-      <!-- <li class="humhum-dropdown">
-        <a class="link">
-          {{ $t("home.corporate") }}
-          <ul class="submenu">
-            <li>
-              <a
-                :href="`${supplierDomain}auth/login?lang=${$i18n.locale}`"
-                target="_blank"
-                >{{ $t("home.suppliers") }}</a
-              >
-            </li>
-            <li>
-              <router-link to="/b2b-login">{{ $t("home.buyer") }}</router-link>
-            </li>
-          </ul>
-        </a>
-      </li> -->
       <li>
         <router-link class="link" to="/contact-us">{{
           $t("home.contactUs")

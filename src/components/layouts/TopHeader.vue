@@ -4,12 +4,7 @@
   <header class="main-header" :class="$i18n.locale">
     <div>
       <div class="top-nav">
-        <div class="lang" v-if="arabicAvailable !== 'no' && arabicAvilability == true">
-          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
-          <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
-            اللغة العربية
-          </button>
-        </div>
+        
         <div class="block-div bg-white d-flex justify-content-center align-items-center">
           <div class="select-country Allcountries">
             <b-dropdown id="dropdown-1" variant="link" toggle-class="text-decoration-none" no-caret>
@@ -35,6 +30,12 @@
               </b-dropdown-item>
             </b-dropdown>
           </div>
+        </div>
+        <div class="lang" v-if="arabicAvailable !== 'no' && arabicAvilability == true">
+          <button @click="switchLang()" v-if="lang == 'ar'" id="enLang" ref="enLang">English</button>
+          <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
+            عربى
+          </button>
         </div>
       </div>
     </div>

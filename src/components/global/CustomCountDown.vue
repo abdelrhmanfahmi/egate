@@ -27,7 +27,8 @@
                 </span>
             </div>
             <div>
-                <span class="text-gray"> D </span>
+                <span class="text-gray" v-if="$i18n.locale == 'en'"> D </span>
+                <span class="text-gray" v-else> ي </span>
             </div>
         </div>
         <!-- ---------------- -->
@@ -38,7 +39,8 @@
                 </span>
             </div>
             <div>
-                <span class="text-gray"> H </span>
+                <span class="text-gray" v-if="$i18n.locale == 'en'"> H </span>
+                <span class="text-gray" v-else> س </span>
             </div>
         </div>
         <!-- ---------------- -->
@@ -49,7 +51,8 @@
                 </span>
             </div>
             <div>
-                <span class="text-gray"> M </span>
+                <span class="text-gray" v-if="$i18n.locale == 'en'"> M </span>
+                <span class="text-gray" v-else> د </span>
             </div>
         </div>
         <!-- ---------------- -->
@@ -60,7 +63,8 @@
                 </span>
             </div>
             <div>
-                <span class="text-gray"> S </span>
+                <span class="text-gray" v-if="$i18n.locale == 'en'"> S </span>
+                <span class="text-gray" v-else> ث </span>
             </div>
         </div>
     </div>

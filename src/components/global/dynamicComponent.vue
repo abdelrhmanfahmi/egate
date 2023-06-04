@@ -34,61 +34,6 @@
                                         :placeholder="$t('profile.filePlaceHolder')"></b-form-file>
                                 </b-form-group>
                             </div>
-
-                            <!-- <div :class="{ 'col-md-6 col-sm-12': input.values, 'col-12': !input.values }">
-                                <div class="" v-if="fileType.match(/.(jpeg|jpg|gif|png)$/) && input.values">
-                                    <img v-b-modal.dynamicFile :src="input.values" alt="dynamic-file-image"
-                                        v-if="input.values" />
-
-                                    <b-modal id="dynamicFile" title="image">
-                                        <template #modal-header="{ close }">
-                                            <h5>
-                                                {{ $t("profile.commercialLicense") }}
-                                            </h5>
-
-                                            <b-button size="sm" variant="outline-danger" @click="close()">
-                                                x
-                                            </b-button>
-                                        </template>
-
-                                        <template>
-                                            <img :src="input.values" alt="moa-image" v-if="input.values"
-                                                class="img-fluid w-100" />
-                                        </template>
-
-                                        <template #modal-footer>
-                                            <b-button class="btn-block" variant="outline-success" @click="
-                                                downloadImage(
-                                                    input.values,
-                                                    (extension = input.values
-                                                        .split('.')
-                                                        .pop()),
-                                                    $t('profile.commercialLicense')
-                                                )
-                                            ">
-                                                <i class="fa fa-download"></i>
-                                                {{ $t("profile.download") }}
-                                            </b-button>
-                                        </template>
-                                    </b-modal>
-                                </div>
-                                <div class=" d-flex justify-content-center align-items-center flex-column" v-else-if="
-                                    !fileType.match(/.(jpeg|jpg|gif|png)$/) && input.values
-                                ">
-                                    <a :href="form[input.uuid]" target="_blank">
-                                        <canvas :id="form[input.uuid]" class="custom-canvas"></canvas>
-                                    </a>
-                                    <b-button variant="outline-success" @click="
-                                        downloadItem(
-                                            form[input.uuid],
-                                            (extension = form[input.uuid].split('.').pop()),
-                                            'dynamic form file'
-                                        )
-                                    ">
-                                        <i class="fa fa-download"></i> {{ $t("profile.download") }}
-                                    </b-button>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="error" v-for="(error, index) in errors[input.uuid]" :key="index">
                             {{ error }}

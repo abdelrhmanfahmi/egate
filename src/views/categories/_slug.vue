@@ -1,31 +1,6 @@
 <template>
   <!-- sub category page  -->
   <div class="subCategory" :class="$i18n.locale">
-    <!-- <div
-      class="cover text-center"
-      :style="{ backgroundImage: `url(${pageCover})` }"
-    >
-      <div
-        class="cover-data p-5 d-flex justify-content-center align-items-center flex-column"
-      >
-        <b-container>
-          <div class="cover-title text-white font-weight-bold">
-            <h2 class="font-weight-bold">
-              {{ pageTitle }}
-            </h2>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item text-white">
-                  <router-link to="/" class="text-white font-weight-bold">
-                    {{ $t("items.home") }}
-                  </router-link>
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </b-container>
-      </div>
-    </div> -->
     <div
       class="navigation d-none d-lg-flex justify-content-start align-items-center"
     >
@@ -45,9 +20,6 @@
           <li class="breadcrumb-item" v-else>
             <span> {{ $t("home.noDataTill") }}</span>
           </li>
-          <!-- <li class="breadcrumb-item">
-            <a  class="main-color"> {{ $t('items.subCategory') }} </a>
-          </li> -->
         </ol>
       </nav>
     </div>
@@ -69,11 +41,6 @@
     <section>
       <div class="container">
         <div class="tabs-holder">
-          <!-- <VueSlickCarousel :arrows="true" v-bind="settings" v-if="5 > 2">
-            <div class="tabs-holder">
-              <div class="tabs-content">test</div>
-            </div>
-          </VueSlickCarousel> -->
           <div class="tabs-content">
             <b-tabs>
               <!-- first tab that contain all sub-categories  -->

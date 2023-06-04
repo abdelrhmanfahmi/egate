@@ -62,17 +62,6 @@
         <span v-if="data.value">{{ data.value | formatDate }}</span>
         <span v-else> - </span>
       </template>
-      <!-- <template #cell(created_by)="data">
-        <span v-if="data.value">
-          <b-button
-            v-b-modal.modal-center.data.value
-            @click="goSupplierPage(data.item.Supplier_product_id)"
-            class="mr-2 btn btn-light bg-transparent border-0"
-            >{{ data.value }}</b-button
-          >
-        </span>
-        <span v-else> - </span>
-      </template> -->
       <template #cell(supplier_product_name)="data">
         <b-button
           v-b-modal.modal-center.data.value

@@ -44,13 +44,6 @@
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="total mx-1 text-center">
-              <!-- <span class="price" v-if="product.price || product.price >=0" >
-                <span v-if="!product.gift_promotion_id">{{ product.price | fixedCurrency }}</span>
-              </span>
-              <span class="price" v-if="!product.gift_promotion_id"> x </span>
-              <span class="price" v-if="!product.gift_promotion_id">
-                <b class="text-danger font-weight-bold">{{ product.quantity }} </b>
-              </span> -->
 
               <p class="product_sub_total mt-0 main-color" v-if="!product.gift_promotion_id">
                 <b>{{ product.product_sub_total | fixedCurrency }}

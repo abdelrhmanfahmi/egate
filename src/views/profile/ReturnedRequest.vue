@@ -4,11 +4,6 @@
     <div class="container">
       <!-- when data comes (not loading)  -->
       <div class="wrapper" v-if="!loading">
-        <!-- <OldReturnRequest
-          :return_item="return_item"
-          :supplier_oreder_item="supplier_oreder_item"
-          :clinet_info="clinet_info"
-        /> -->
         <NewReturnRequest
           :return_item="return_item"
           :supplier_oreder_item="supplier_oreder_item"

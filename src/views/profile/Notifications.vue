@@ -1,100 +1,6 @@
 <template>
   <!-- notifications page  -->
   <div class="notifications">
-    <!-- <div class="">
-      <div>
-        <h3>{{ $t("profile.Notifications") }} ({{ total }})</h3>
-      </div>
-      <div
-        class="readAllNotifications px-4 d-flex justify-content-end align-items-center"
-      >
-        <button @click="readAllNotifications" class="btn-light border-0 btn-outline-none">
-          <span class="font-weight-bold mr-2">{{
-            $t("profile.readAllNotifications")
-          }}</span>
-          <font-awesome-icon icon="fa-solid fa-rotate" />
-        </button>
-      </div>
-      <div class="row data-holder" v-for="(notify, index) in notifications" :key="index">
-        <div class="col-12">
-          <div class="new-message-box">
-            <div
-              class="new-message-box-warning"
-              :class="{
-                'new-message-box-warning': notify.status_type === 'warning',
-                'new-message-box-success': notify.status_type === 'success',
-              }"
-            >
-              <div
-                :class="{
-                  'info-tab tip-icon-warning': notify.status_type === 'warning',
-                  'info-tab tip-icon-success': notify.status_type === 'success',
-                }"
-                title="error"
-              >
-                <i></i>
-              </div>
-              <div
-                :class="{
-                  'tip-box-warning': notify.status_type === 'warning',
-                  'tip-box-success': notify.status_type === 'success',
-                  unread: notify.is_read == 0,
-                  readed: notify.is_read == 1,
-                }"
-              >
-                <div>
-                  <div class="row justify-content-between">
-                    <div class="col-12">
-                      <p>{{ notify.title }}</p>
-                    </div>
-                  </div>
-                  <div to="" class="btn btn-sm" @click="goNotificationPage(notify)">
-                    <h5>
-                      <b>{{ notify.body }}</b>
-                    </h5>
-                  </div>
-                </div>
-                <div class="row justify-content-around align-items-center">
-                  <div class="col-6">
-                    <span
-                      ><i>{{ notify.created_at | timeDefer(notify.created_at) }}</i></span
-                    >
-                  </div>
-                  <div
-                    class="col-6"
-                    :class="{
-                      'text-right': $i18n.locale == 'en',
-                      'text-left': $i18n.locale == 'ar',
-                    }"
-                  >
-                    <span v-if="notify.is_read == 0">
-                      <b class="text-success">
-                        <button
-                          class="btn text-success m-0"
-                          @click="readNotification(notify)"
-                        >
-                          <b class="text-capitalize">{{ $t("profile.markRead") }}</b>
-                        </button>
-                      </b>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="d-flex justify-content-center align-items-center mt-5">
-      <Paginate
-        v-if="notifications"
-        :total-pages="totalPages"
-        :per-page="totalPages"
-        :current-page="page"
-        @pagechanged="onPageChange"
-      />
-    </div> -->
-
     <div class="new-style">
       <div class="">
         <h3 class="mb-4">{{ $t("profile.Notifications") }} ({{ total }})</h3>
@@ -196,11 +102,6 @@
                     <div>
                       <div>
                         <div>
-                          <!-- <div class="row justify-content-between">
-                            <div class="col-12">
-                              <p>{{ notify.title }}</p>
-                            </div>
-                          </div> -->
                           <div class="d-flex justify-content-start align-items-center">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                               <div v-if="notify.is_read == 0">
@@ -221,15 +122,6 @@
                             </div>
                           </div>
                         </div>
-                        <!-- <div class="">
-                          <div class="">
-                            <span
-                              ><i>{{
-                                notify.created_at | timeDefer(notify.created_at)
-                              }}</i></span
-                            >
-                          </div>
-                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -242,7 +134,6 @@
                   <button
                     class="btn btn-loght border-0 outline-none shadow-none d-block add-cart add-cart-rfq bg-dark text-white px-3"
                     @click="readNotification(notify)" v-b-tooltip.hover :title="$t('profile.markRead')">
-                    <!-- <b class="text-capitalize">{{ $t("profile.markRead") }}</b> -->
                     <font-awesome-icon icon="fa-regular fa-envelope-open" />
                   </button>
                 </span>

@@ -7,15 +7,6 @@
       <div class="slider text-center">
         <VueSlickCarousel v-bind="settings" v-if="items && items.length" class="my-2">
           <div v-for="(item, index) in items" :key="index" class="slide-holder">
-            <!-- <router-link :to="{ path: '/details', query: { id: `${item.id}` } }" v-if="item">
-                            <div class="" v-if="item.current_main_image_path !== null">
-                                <b-img :src="item.current_main_image_path" class="offer-image"> </b-img>
-                            </div>
-                            <h6 class="main-header mt-2" v-if="item.product.title">
-                                <span>{{ item.product.title.substr(0, 15) }} <span
-                                        v-if="item.product.title.length > 15">...</span> </span>
-                            </h6>
-                        </router-link> -->
             <div
               class="row"
               :class="{

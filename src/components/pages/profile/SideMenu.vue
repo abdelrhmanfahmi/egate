@@ -1,11 +1,5 @@
 <template>
   <div class="profile-menu">
-    <!-- side menu for b2c user  -->
-    <!-- <h2>{{ $t("profile.myProfile") }}</h2> -->
-    <!-- <div class="d-flex justify-content-center align-items-center flex-column">
-      <img :src="buyerUserData.image_path" alt="" srcset="" />
-      <h5 class="my-3">{{ buyerUserData.first_name }} {{ buyerUserData.last_name }}</h5>
-    </div> -->
 
     <div class="my-2" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
       <h5>{{ $t("profile.completeRate") }}</h5>

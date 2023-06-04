@@ -219,13 +219,6 @@
             <tr>
               <th scope="col" v-for="(tab, index) in fields" :key="index">
                 <div class="d-flex justify-content-around align-items-center">
-                  <!-- <span v-if="tab.label === $t('profile.serial')">
-                    <input
-                      type="checkbox"
-                      class="myproject--checkbox"
-                      v-model="checkAll"
-                    />
-                  </span> -->
                   <span>{{ tab.label }}</span>
                 </div>
               </th>
@@ -547,7 +540,6 @@
       <template>
         <div class="col-12">
           <div class="from">
-            <!-- <label for="example-datepicker-from">{{ $t("profile.dateFrom") }} </label> -->
             <b-form-datepicker
               id="example-datepicker-from"
               v-model="dateFromValue"
@@ -558,7 +550,6 @@
         </div>
         <div class="col-12">
           <div class="to">
-            <!-- <label for="example-datepicker-to">{{ $t("profile.dateTo") }} </label> -->
             <b-form-datepicker
               id="example-datepicker-to"
               v-model="dateToValue"

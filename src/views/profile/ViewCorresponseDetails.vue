@@ -7,55 +7,6 @@
           {{ $t("profile.corresponceDetail") }}
         </h1>
       </div>
-      <!-- <div class="my-5" v-if="items">
-        <b-button
-          variant="outline-danger"
-          id="show-btn"
-          v-if="supplier_messages"
-          class="mx-2"
-          @click="$bvModal.show('bv-modal-example')"
-          >{{ $t("supplier.sendSupplierMessage") }}</b-button
-        >
-      </div> -->
-      <!-- <table class="table custom-margin">
-        <thead
-          :class="{
-            'text-left': $i18n.locale == 'en',
-            'text-right': $i18n.locale == 'ar',
-          }"
-        >
-          <tr class="row">
-            <th class="col-sm-2">{{ $t("profile.sentBy") }}</th>
-            <th class="col-sm-2">{{ $t("contactUs.formSubject") }}</th>
-            <th class="col-sm-6">{{ $t("profile.quoteMessage") }}</th>
-            <th class="col-sm-2">{{ $t("profile.sentdate") }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row" v-for="(item, index) in items" :key="index">
-            <th class="col-sm-2">
-              {{ item.sent_by }}
-            </th>
-            <td class="col-sm-2">
-              <div>
-                <span>{{ item.subject }}</span>
-              </div>
-            </td>
-
-            <td class="col-sm-6">
-              <div>
-                <span class="comment">{{ item.message }}</span>
-              </div>
-            </td>
-
-            <td class="col-sm-2">
-              <div>
-                <span>{{ item.created_at | formatDate }}</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
       <b-modal id="bv-modal-example" centered hide-footer>
         <template #modal-title> {{ $t("profile.yourMessage") }} </template>
         <div class="d-block">

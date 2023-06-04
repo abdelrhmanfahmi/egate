@@ -267,49 +267,6 @@
             </div>
           </div>
           <div class="col-md-6 col-sm-12" v-if="return_item.client_bank_info">
-            <!-- <div class="">
-              <div class="hold-data">
-                <div class="d-flex align-content-center">
-                  <p class="text-head">{{ $t("payment.country") }} :</p>
-                  <p v-if="return_item.payment_type">
-                    {{ return_item.payment_type }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="">
-              <div class="hold-data">
-                <div class="d-flex align-content-center">
-                  <p class="text-head">{{ $t("profile.bank_name") }} :</p>
-                  <p v-if="clinet_info.first_name">
-                    {{ supplier_oreder_item.total_price | fixedCurrency }}
-                    {{ currency }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="">
-              <div class="hold-data">
-                <div class="d-flex align-content-center">
-                  <p class="text-head">{{ $t("profile.branch") }} :</p>
-                  <p v-if="supplier_oreder_item.discount >= 0">
-                    {{ supplier_oreder_item.discount | fixedCurrency }}
-                    {{ currency }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="">
-              <div class="hold-data">
-                <div class="d-flex align-content-center">
-                  <p class="text-head">{{ $t("profile.ibanCertificate") }} :</p>
-                  <p v-if="supplier_oreder_item.total_price >= 0">
-                    {{ supplier_oreder_item.total_price | fixedCurrency }}
-                    {{ currency }}
-                  </p>
-                </div>
-              </div>
-            </div> -->
 
             <p class="text-head" v-html="return_item.client_bank_info"></p>
           </div>

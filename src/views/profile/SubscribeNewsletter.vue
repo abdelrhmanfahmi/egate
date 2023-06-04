@@ -8,10 +8,7 @@
         class="img-fluid"
       />
     </div>
-    <!-- <h4 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h4>  -->
     <div class="sec-subscribe">
-      <!-- <h6 class="main-header">{{ $t("profile.notSubscribed") }}</h6> -->
-      <!-- <p>{{ $t("profile.exclusiveOffers") }}</p> -->
       <h1 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h1>
       <p>Receive special offers and exclusive coupons</p>
 
@@ -34,15 +31,6 @@
         <b-button type="submit" class="login-button" @click="makeSubscribe()">
           {{ $t("profile.subscribe") }}
         </b-button>
-
-        <!-- <b-button
-        type="submit"
-        class="login-button bg-main"
-        v-if="emailExaxt"
-        @click="cancelSubscribe()"
-      >
-        {{ $t("profile.cancelSubscribe") }}
-      </b-button> -->
       </div>
     </div>
   </div>

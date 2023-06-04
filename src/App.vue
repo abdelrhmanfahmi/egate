@@ -19,7 +19,6 @@
 
 import MainLayout from "@/layouts/MainLayout.vue";
 import ProfileB2BLayout from "@/layouts/ProfileB2BLayout.vue";
-// import globalAxios from "@/services/global-axios";
 import auth from "@/services/auth";
 import checkApiControls from "@/services/apiControls";
 import LoadingScreen from "@/components/global/LoadingScreen.vue";
@@ -53,36 +52,6 @@ export default {
   methods: {
     /**
      * @vuese
-     * this function used to check Cart Validity (cart ,  rfq available or not )
-     */
-    // checkCartValidity() {
-    //   auth
-    //     .checkCartValidity()
-    //     .then((res) => {
-    //       let response = res.data.items;
-    //       response.forEach((element) => {
-    //         if (element.key === "open_cart") {
-    //           if (element.status == 1) {
-    //             localStorage.setItem("add_to_cart", "available");
-    //           } else {
-    //             localStorage.setItem("add_to_cart", "notAvailable");
-    //           }
-    //         }
-    //         if (element.key === "open_rfq") {
-    //           if (element.status == 1) {
-    //             localStorage.setItem("RFQ", "available");
-    //           } else {
-    //             localStorage.setItem("RFQ", "notAvailable");
-    //           }
-    //         }
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    /**
-     * @vuese
      * check Api Controls
      */
     checkApiControlsFunction() {
@@ -90,13 +59,6 @@ export default {
         .checkApiControls()
         .then((res) => {
           let result = res.data.items;
-          // for (const key in result) {
-          //   if (result.hasOwnProperty.call(result, key)) {
-          //     let element = result[key];
-          //     if (element.portal === "client") {
-          //     }
-          //   }
-          // }
           for (let index = 0; index < result.length; index++) {
             if (result[index].portal === "client") {
               const element = result[index];
@@ -135,12 +97,6 @@ export default {
         .getSiteImages()
         .then((res) => {
           let result = res.data.items;
-          // result.forEach(element => {
-          //   if(element.key == 'Website Portal Logo' && element.key !== "null"  && element.key !== null){
-          //     this.siteLogo = element.value
-          //   }
-
-          // });
           for (const key in result) {
             if (result.hasOwnProperty.call(result, key)) {
               let element = result[key];
@@ -388,19 +344,7 @@ export default {
     },
   },
   mounted() {
-    // window.addEventListener('beforeunload', function (e) {
-    //   alert('you closed the app')
-    //   e.preventDefault();
-    //   e.returnValue = '';
-    // });
-    // this.checkCartValidity();
     this.getSiteImages();
-    // this.theming();
-    // console.log("%c Hold Up!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cHold-Up! %cWelcome To Using HumHum!" ,"color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;" ,  "color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // console.log("%cWelcome To Using HumHum!" ,"color: $main-color; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
-    // this.logoutDynamically()
-    // document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);

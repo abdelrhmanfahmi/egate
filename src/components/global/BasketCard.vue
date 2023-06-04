@@ -1,13 +1,5 @@
 <template>
   <div class="product-cart slide-holder">
-    <!-- <small
-      class="ribbon ribbon-top-left"
-      :class="{ 'long-rebbon': dealType.trim().length > 20 }"
-      v-if="dealType"
-      ><span :class="{ 'long-rebbon-span': dealType.trim().length > 20 }">{{
-        dealType
-      }}</span></small
-    > -->
     <div
       class="row"
       :class="{
@@ -17,21 +9,6 @@
     >
       <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
         <div class="time-holder" v-if="slider.image_path !== null">
-          <!-- <router-link
-          class="img-holder"
-          :to="{ path: '/basketOfferDetails', query: { id: `${slider.id}` } }"
-          v-if="slider.image_path && dealType"
-        >
-          <b-img :src="slider.image_path"> </b-img>
-        </router-link>
-        <router-link
-          class="img-holder"
-          :to="{ path: '/basketOfferDetails', query: { id: `${slider.id}` } }"
-          v-else-if="slider.image_path && !dealType"
-        >
-          <b-img :src="slider.image_path"> </b-img>
-        </router-link>
-        <span v-else class="null-img-holder"></span> -->
           <b-img :src="slider.image_path" class="offer-image w-100"> </b-img>
           <div class="time-count" v-if="dealType">
             {{ dealType }}
@@ -42,21 +19,6 @@
         class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-items-start justify-content-between"
       >
         <div v-if="slider">
-          <!-- <router-link
-            class="img-holder"
-            :to="{ path: '/basketOfferDetails', query: { id: `${slider.id}` } }"
-            v-if="slider.image_path && dealType"
-          >
-            <b-img :src="slider.image_path"> </b-img>
-          </router-link>
-          <router-link
-            class="img-holder"
-            :to="{ path: '/basketOfferDetails', query: { id: `${slider.id}` } }"
-            v-else-if="slider.image_path && !dealType"
-          >
-            <b-img :src="slider.image_path"> </b-img>
-          </router-link>
-          <span v-else class="null-img-holder"></span> -->
           <div class="card-info">
             <h4
               class="main-header my-2"

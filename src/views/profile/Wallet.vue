@@ -102,18 +102,6 @@
                 {{ error }}
               </div>
             </b-form-group>
-            <!-- <b-form-group>
-              <div class="">
-                <label for="accountDetails">
-                  <h6>{{ $t('profile.accountDetails') }}</h6>
-                </label>
-                <b-form-textarea id="accountDetails" rows="8" v-model="newForm.bank_data"></b-form-textarea>
-              </div>
-              <div class="error" v-for="(error, index) in errors.bank_data" :key="index">
-                {{ error }}
-              </div>
-            </b-form-group> -->
-            <!-- account_number -->
             <b-form-group>
               <div class="">
                 <label for="Account_number">

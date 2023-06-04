@@ -13,16 +13,6 @@
                 class="text-white"
               />
             </div>
-            <!-- <select name="categories" id="categories" @change="selectCategory($event)">
-              <option value="" selected disabled>
-                {{ $t("profile.categories") }}
-              </option>
-              <option :value="category.id" v-for="(category, index) in categories" :key="index">
-                <router-link :to="`/categories/${category.id}`">
-                  {{ category.title }}
-                </router-link>
-              </option>
-            </select> -->
             <b-dropdown
               id="dropdown-1"
               class="cat-drop"
@@ -55,24 +45,6 @@
           </div>
         </div>
         <div class="other-catrgories" v-if="!mobile">
-          <!-- <ul class="d-flex justify-content-center align-items-center m-0 p-0 mx-4">
-            <li class="h5 mx-2 mb-0 text-dark offer-link">
-              <router-link to="/" class="text-dark">
-                Ramadan offers
-              </router-link>
-            </li>
-            <li class="h5 mx-2 mb-0 text-dark offer-link">
-              <router-link to="/" class="text-dark">
-                Month Offers
-              </router-link>
-            </li>
-            <li class="h5 mx-2 mb-0 text-dark offer-link">
-              <router-link to="/" class="text-dark">
-                Day Offers
-              </router-link>
-
-            </li>
-          </ul> -->
           <div class="middle">
             <navLinks />
           </div>

@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-12">
         <div class="from">
-          <!-- <label for="example-datepicker-from">{{ $t("profile.dateFrom") }} </label> -->
           <b-form-datepicker
             id="example-datepicker-from"
             v-model="fromValue"
@@ -14,7 +13,6 @@
       </div>
       <div class="col-12">
         <div class="to">
-          <!-- <label for="example-datepicker-to">{{ $t("profile.dateTo") }} </label> -->
           <b-form-datepicker
             id="example-datepicker-to"
             v-model="toValue"

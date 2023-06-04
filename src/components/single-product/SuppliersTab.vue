@@ -251,12 +251,6 @@
                 >
                   <ins>{{ product.client.company_name }}</ins>
                 </router-link>
-                <!-- <router-link
-                  class="link"
-                  :to="{ path: '/details', query: { id: product.id } }"
-                >
-                  <ins>{{ product.client.company_name }}</ins>
-                </router-link> -->
               </td>
               <td>
                 <router-link
