@@ -42,7 +42,7 @@
                 'border-main-bold':
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type,
-                'border-gray-bold':
+                'border-green-bold':
                   product &&
                   product.ads &&
                   product.ads.length &&

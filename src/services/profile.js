@@ -200,6 +200,9 @@ export default {
   getAboutData() {
     return globalAxios.get("statics/About-us");
   },
+  getAboutDataStats() {
+    return globalAxios.get("statics");
+  },
   getAboutVisionData() {
     return globalAxios.get("statics/Vision");
   },

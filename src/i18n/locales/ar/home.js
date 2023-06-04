@@ -54,5 +54,11 @@ export default {
   decline:'رفض',
   corporate:'الدخول كشركة',
   newSearchText:'جميع مشترياتك بسعر الجملة',
-  downloadApp:"قم بتحميل التطبيق"
+  downloadApp:"قم بتحميل التطبيق",
+  ourSuppliers:'موردينا',
+  ourClients:'عملائنا',
+  consumers:'عملاءالتجزئه',
+  b2bClients:'عملاء الجملة',
+  ourStory:'قصتنا'
+
 };

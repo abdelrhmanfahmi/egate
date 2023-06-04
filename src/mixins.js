@@ -61,7 +61,7 @@ Vue.mixin({
       return localStorage.getItem('adminLogo')
     },
     logoEnv(){
-      return this.storedSiteLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedSiteLogo : null
+      return this.storedSiteLogo.length !== 0 ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedSiteLogo : null
     },
     adminLogo(){
       return this.storedAdminLogo ? process.env.VUE_APP_FOR_IMAGES + 'storage/site_settings_image/' + this.storedAdminLogo : null

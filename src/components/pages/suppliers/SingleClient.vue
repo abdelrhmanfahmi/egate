@@ -3,10 +3,12 @@
   <div class="single-supplier bg-white position-relative">
     <div class="supplier-data">
       <div class="thumb">
-        <div
-          class="d-block text-center"
-        >
+        <div class="d-block text-center" v-if="supplier.image_path">
           <img :src="supplier.image_path" alt="client image" />
+        </div>
+        <div class="logo-holder" v-else>
+          <img :src="logoEnv" v-if="logoEnv" class="img-fluid" alt="logo" />
+          <img src="@/assets/images/logo.png" v-else alt="logo" />
         </div>
         <p class="supplier-name text-center mt-3 text-capitalize">
           {{ supplier.name }}

@@ -1046,7 +1046,7 @@
                                               <b-button
                                                 type="submit"
                                                 class="login-button my-2 py-3 px-4 w-auto"
-                                                @click="addCoupon"
+                                                
                                                 :disabled="validCoupon"
                                               >
                                                 <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
@@ -4013,6 +4013,7 @@ export default {
 
               // console.log(res.data.items.total_cart.total_discount);f
               if (res.status == 200) {
+                this.validCoupon = true;
                 this.existCoupons.push(this.couponText);
                 this.coupons.unshift({
                   title: this.couponText,
@@ -4066,82 +4067,73 @@ export default {
                 }
               }
             });
-        } else {
-          if (this.existCoupons.indexOf(this.couponText) > -1) {
-            this.errMsg(this.$t("cart.couponExist"));
-          } else {
-            let payload = {
-              coupon: this.couponText,
-            };
+        } 
+        
+        // else {
+        //   if (this.existCoupons.indexOf(this.couponText) > -1) {
+        //     this.errMsg(this.$t("cart.couponExist"));
+        //   } else {
+        //     let payload = {
+        //       coupon: this.couponText,
+        //     };
 
-            suppliers
-              .checkNewCoupon(payload)
-              .then((res) => {
-                console.log("res", res);
-                // let coupons = [];
+        //     suppliers
+        //       .checkNewCoupon(payload)
+        //       .then((res) => {
+        //         console.log("res", res);
+        //         if (res.status == 200) {
+        //           this.existCoupons.push(this.couponText);
+        //           this.coupons.unshift({
+        //             title: this.couponText,
+        //             value: res.data.items.total_cart.total_discount,
+        //           });
 
-                // console.log(res.data.items.total_cart.total_discount);
-                if (res.status == 200) {
-                  this.existCoupons.push(this.couponText);
-                  this.coupons.unshift({
-                    title: this.couponText,
-                    value: res.data.items.total_cart.total_discount,
-                  });
+        //           this.sucessMsg(res.data.message);
+        //           this.couponText = null;
+        //           this.couponError = null;
 
-                  // let finalCoupons = [];
-                  // this.coupons.forEach(element => {
+        //           this.totalDiscount =
+        //             res.data.items.total_cart.total_discount.toFixed(3);
 
-                  //   finalCoupons.push(element.title)
-                  // });
-                  // console.log('finalCoupons', finalCoupons);
-
-                  this.sucessMsg(res.data.message);
-                  this.couponText = null;
-                  this.couponError = null;
-                  // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
-
-                  this.totalDiscount =
-                    res.data.items.total_cart.total_discount.toFixed(3);
-
-                  if (res.data.items.total_cart.total_discount == 0) {
-                    this.totalDiscountReplacement = parseFloat(
-                      this.totalDiscount
-                    );
-                    this.totalPaymentReplacement = parseFloat(
-                      this.totalDiscountReplacement
-                    );
-                  } else {
-                    if (this.totalDiscountReplacement == 0) {
-                      this.totalDiscountReplacement = parseFloat(
-                        res.data.items.total_cart.total_discount
-                      ).toFixed(3);
-                    } else {
-                      this.totalDiscountReplacement =
-                        parseFloat(this.totalDiscountReplacement) +
-                        parseFloat(res.data.items.total_cart.total_discount);
-                    }
-                    this.totalPaymentReplacement =
-                      parseFloat(this.totalPaymentReplacement) -
-                      parseFloat(res.data.items.total_cart.total_discount);
-                    if (this.totalPaymentReplacement < 0) {
-                      this.totalPaymentReplacement = 0;
-                    }
-                  }
-                }
-              })
-              .catch((error) => {
-                if (error) {
-                  const err = Object.values(error)[2].data;
-                  this.errors = err.items;
-                  this.errMsg(err.message);
-                  this.couponError = err.message;
-                  if (err.code == 401) {
-                    this.loginFirst();
-                  }
-                }
-              });
-          }
-        }
+        //           if (res.data.items.total_cart.total_discount == 0) {
+        //             this.totalDiscountReplacement = parseFloat(
+        //               this.totalDiscount
+        //             );
+        //             this.totalPaymentReplacement = parseFloat(
+        //               this.totalDiscountReplacement
+        //             );
+        //           } else {
+        //             if (this.totalDiscountReplacement == 0) {
+        //               this.totalDiscountReplacement = parseFloat(
+        //                 res.data.items.total_cart.total_discount
+        //               ).toFixed(3);
+        //             } else {
+        //               this.totalDiscountReplacement =
+        //                 parseFloat(this.totalDiscountReplacement) +
+        //                 parseFloat(res.data.items.total_cart.total_discount);
+        //             }
+        //             this.totalPaymentReplacement =
+        //               parseFloat(this.totalPaymentReplacement) -
+        //               parseFloat(res.data.items.total_cart.total_discount);
+        //             if (this.totalPaymentReplacement < 0) {
+        //               this.totalPaymentReplacement = 0;
+        //             }
+        //           }
+        //         }
+        //       })
+        //       .catch((error) => {
+        //         if (error) {
+        //           const err = Object.values(error)[2].data;
+        //           this.errors = err.items;
+        //           this.errMsg(err.message);
+        //           this.couponError = err.message;
+        //           if (err.code == 401) {
+        //             this.loginFirst();
+        //           }
+        //         }
+        //       });
+        //   }
+        // }
       }
     },
 
@@ -4170,6 +4162,9 @@ export default {
       //   coupon.value
       // );
       this.totalPaymentReplacement += coupon.value;
+      if(this.coupons.length == 0){
+        this.totalDiscountReplacement = 0
+      }
     },
 
     /**
