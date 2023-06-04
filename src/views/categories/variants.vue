@@ -435,7 +435,7 @@
                 'border-main-bold':
                   product.basket_promotions_running_by_type ||
                   product.buy_get_promotion_running_by_type,
-                'border-gray-bold':
+                'border-green-bold':
                   product &&
                   product.ads &&
                   product.ads.length &&
@@ -987,7 +987,8 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" />
+                    <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" /> -->
+                    <otherAddToCart />
                   </a>
 
                   <div class="" v-if="buyerUserData">
@@ -2123,7 +2124,7 @@ export default {
     right: 0;
     width: 100%;
     margin: auto;
-    background: $gray;
+    background: green;
     color: #fff;
     padding: 10px;
     border-radius: 0 0 20px 20px;

@@ -108,7 +108,7 @@ export default {
           }
           setTimeout(() => {
             this.$router.push('/profile/Wallet')
-          }, 5000);
+          }, 0);
         })
         .catch((err) => {
           console.log(err);
@@ -118,6 +118,7 @@ export default {
     },
   },
   mounted() {
+    this.$router.push('/profile/Wallet')
     /**
      * check Wallet Charge function  when page load
      * @vuese 

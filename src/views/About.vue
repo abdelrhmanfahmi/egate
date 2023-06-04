@@ -1,6 +1,6 @@
 <template>
   <!-- about page  -->
-  <div class="about">
+  <div class="about about-page-about">
     <div
       class="d-flex justify-content-center align-items-center CUSTOM-SPINNER"
       v-if="loading"
@@ -8,18 +8,15 @@
       <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
     </div>
     <div class="" v-else>
-      <h2 class="about-title text-center">{{ $t("home.about") }}</h2>
-      <div class="about-content">
-        <!-- First Section -->
+      <!-- <h2 class="about-title text-center">{{ $t("home.about") }}</h2> -->
+      <!-- <div class="about-content">
         <div class="about-content-one">
           <div class="row">
-            <!-- about page banner  -->
             <div class="col-md-6">
               <div class="image w-100">
                 <img src="@/assets/images/ab.png" alt="" />
               </div>
             </div>
-            <!-- about page descriptions  -->
             <div class="col-md-6" v-if="aboutGeneralData">
               <div class="container">
                 <div class="content">
@@ -36,11 +33,9 @@
             </div>
           </div>
         </div>
-        <!-- Third Section -->
         <div class="about-content-third text-center">
           <div class="container">
             <div class="row">
-              <!-- vision  -->
               <div class="col-md-4">
                 <div class="content" v-if="vision">
                   <div class="img">
@@ -55,7 +50,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Message  -->
               <div class="col-md-4">
                 <div class="content" v-if="message">
                   <div class="img">
@@ -70,7 +64,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Our principles -->
               <div class="col-md-4">
                 <div class="content" v-if="principle">
                   <div class="img">
@@ -88,34 +81,166 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="new-design">
+        <div class="my-bread">
+          <b-container>
+            <div class="cover-title text-white font-weight-bold">
+              <b-breadcrumb
+                class="d-flex px-0 justify-content-start align-items-center"
+              >
+                <b-breadcrumb-item href="#home">
+                  <router-link to="/">
+                    {{ $t("supplier.home") }}
+                  </router-link>
+                </b-breadcrumb-item>
+                <b-breadcrumb-item active class="main-color">
+                  <router-link to="/home.about" class="main-color">
+                    {{ $t("home.about") }}
+                  </router-link>
+                </b-breadcrumb-item>
+              </b-breadcrumb>
+            </div>
+          </b-container>
+        </div>
+        <section class="py-5">
+          <div class="about-intro">
+            <div class="container">
+              <div class="row align-items-center" v-if="aboutGeneralData">
+                <div class="col-xl-6 col-sm-12 my-2">
+                  <div class="content">
+                    <h2 class="page-title" v-if="aboutGeneralData.title">
+                      {{ aboutGeneralData.title }}
+                    </h2>
+                    <!-- <h2 class="page-title">{{ $t('home.ourStory') }}</h2> -->
+                    <p
+                      class="body"
+                      v-html="aboutGeneralData.description"
+                      v-if="aboutGeneralData.description"
+                    ></p>
+                  </div>
+                </div>
+                <div
+                  class="col-xl-6 col-sm-12 my-2 d-flex justify-content-center align-items-center"
+                >
+                  <img
+                    src="@/assets/images/new-design/about/about.png"
+                    alt="about-page"
+                    class="about-page"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="stats text-cenrter" v-if="supplier_count || b2c_count || b2b_count">
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="supplier_count"
+              >
+                <p>
+                  <font-awesome-icon icon="fa-solid fa-house" />
+                </p>
+                <p class="mt-2 p-title">{{ $t("home.suppliers") }}</p>
+                <p class="stat-number px-0 mx-0">{{  supplier_count }} <span class="mx-0 px-0">+</span></p> 
+              </div>
+              <div
+                class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="b2c_count"
+              >
+                <p>
+                  <font-awesome-icon icon="fa-solid fa-users" />
+                </p>
+                <p class="mt-2 p-title">{{ $t("home.consumers") }}</p>
+                <p class="stat-number px-0 mx-0">{{ b2c_count }} <span class="mx-0 px-0">+</span></p> 
+              </div>
+              <div
+                class="col-md-4 col-sm-12 my-3 d-flex flex-column justify-content-center align-items-center"
+                v-if="b2b_count"
+              >
+                <p>
+                  <font-awesome-icon icon="fa-solid fa-shop" />
+                </p>
+                <p class="mt-2 p-title">{{ $t("home.b2bClients") }}</p>
+                <p class="stat-number px-0 mx-0">{{ b2b_count }} <span class="mx-0 px-0">+</span></p> 
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="supliers">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col">
+                <h2 class="h1">{{ $t("home.ourSuppliers") }}</h2>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <router-link to="/suppliers">
+                  <h4 class="text-dark">
+                    <ins>{{ $t("cart.viewAll") }}</ins>
+                  </h4>
+                </router-link>
+              </div>
+            </div>
+            <div class="all-suppliers">
+              <AboutSuppliers />
+            </div>
+          </div>
+        </section>
+        <section>
+          <NewAppsDownloadSec />
+        </section>
+        <section class="clients">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h2 class="h1">{{ $t("home.ourClients") }}</h2>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <router-link to="/clients">
+                  <h4 class="text-dark">
+                    <ins>{{ $t("cart.viewAll") }}</ins>
+                  </h4>
+                </router-link>
+              </div>
+            </div>
+            <div class="all-suppliers">
+              <AboutClients />
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// about page 
-/** 
+// about page
+/**
  * @group About
  * This is a description of the component
  */
 import profile from "@/services/profile";
+import NewAppsDownloadSec from "@/components/pages/home/NewAppsDownloadSec.vue";
 
+import AboutSuppliers from "@/components/pages/about/aboutSuppliers.vue";
+import AboutClients from "@/components/pages/about/aboutClients.vue";
 export default {
   mounted() {
     setTimeout(() => {
       this.loading = true;
       this.getAboutData();
     }, 50);
-    setTimeout(() => {
-      this.getAboutVisionData();
-    }, 100);
-    setTimeout(() => {
-      this.getAboutMessageData();
-    }, 150);
-    setTimeout(() => {
-      this.getAboutPrincipleData();
-    }, 200);
+    // setTimeout(() => {
+    //   this.getAboutVisionData();
+    // }, 100);
+    // setTimeout(() => {
+    //   this.getAboutMessageData();
+    // }, 150);
+    // setTimeout(() => {
+    //   this.getAboutPrincipleData();
+    // }, 200);
     setTimeout(() => {
       this.loading = false;
     }, 500);
@@ -126,11 +251,19 @@ export default {
      * get About Data function when page load
      */
     getAboutData() {
-      // get About Data function when page load 
+      // get About Data function when page load
       profile
         .getAboutData()
         .then((res) => {
           this.aboutGeneralData = res.data.items;
+        })
+        .then(() => {
+          profile.getAboutDataStats().then((res) => {
+            console.log("res", res);
+            this.b2b_count = res.data.items.b2b_count
+            this.b2c_count = res.data.items.b2c_count
+            this.supplier_count = res.data.items.supplier_count
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -141,7 +274,7 @@ export default {
      * get About Vision Data
      */
     getAboutVisionData() {
-      // get About Vision Data 
+      // get About Vision Data
       profile
         .getAboutVisionData()
         .then((res) => {
@@ -189,7 +322,15 @@ export default {
       message: null,
       principle: null,
       loading: false,
+      b2b_count:null,
+      b2c_count:null,
+      supplier_count:null,
     };
+  },
+  components: {
+    NewAppsDownloadSec,
+    AboutSuppliers,
+    AboutClients,
   },
 };
 </script>
@@ -380,5 +521,35 @@ html:lang(ar) {
 }
 .CUSTOM-SPINNER {
   min-height: 80vh;
+}
+
+.new-design {
+  .page-title {
+    font-weight: bold;
+    font-size: 3rem !important;
+    margin-bottom: 3rem;
+    + p {
+      width: 80%;
+      line-height: 2;
+    }
+  }
+  .p-title {
+    font-size: 2rem !important;
+  }
+  img.about-page {
+    width: 75%;
+  }
+  section.stats {
+    padding: 5% 0;
+    font-size: 3rem;
+    background: $main-color;
+    color: #fff;
+  }
+  .stat-number{
+    margin-top: 10px;
+  }
+}
+section {
+  padding: 5% 0;
 }
 </style>

@@ -22,68 +22,65 @@
     border-color: $main-color;
   }
 }
-.border-main-bold{
+.border-main-bold {
   box-shadow: 0 0 0 2px $main-color;
-  .floatingAdsTitles{
+  .floatingAdsTitles {
     position: absolute;
     top: 0;
     left: 0;
-    right:0;
+    right: 0;
     width: 90%;
-    margin:auto;
+    margin: auto;
     background: $main-color;
-    color:#fff;
+    color: #fff;
     z-index: 3;
     border-radius: 0 0 50px 50px;
-    h6{
+    h6 {
       color: #fff !important;
       margin: 0;
       padding: 5px 2px;
     }
   }
-
 }
-.border-gray-bold{
+.border-gray-bold {
   box-shadow: 0 0 0 2px $gray;
-  .floatingAdsTitles{
+  .floatingAdsTitles {
     position: absolute;
     top: 0;
     left: 0;
-    right:0;
+    right: 0;
     width: 90%;
-    margin:auto;
+    margin: auto;
     background: $gray;
-    color:#fff;
+    color: #fff;
     z-index: 3;
     border-radius: 0 0 50px 50px;
-    h6{
+    h6 {
       color: #fff !important;
       margin: 0;
       padding: 5px 2px;
     }
   }
-
 }
-.border-green-bold{
+.border-green-bold {
   box-shadow: 0 0 0 2px green;
-  .floatingAdsTitles{
+  .floatingAdsTitles {
     position: absolute;
     top: 0;
     left: 0;
-    right:0;
+    right: 0;
     width: 90%;
-    margin:auto;
-    background: green;
-    color:#fff;
+    margin: auto;
+    background: $gray;
+    color: #fff;
     z-index: 3;
     border-radius: 0 0 50px 50px;
-    h6{
+    h6 {
       color: #fff !important;
       margin: 0;
       padding: 5px 2px;
     }
   }
-
 }
 .main-color.bg-transparent {
   &:hover {
@@ -194,29 +191,39 @@
   overflow: auto;
 }
 
-.vsc-popup-button{
+.vsc-popup-button {
   background-color: var(--whatsapp) !important;
 }
 
-.text-decoration-underline{
+.text-decoration-underline {
   text-decoration: underline;
 }
 
-.search-component{
-  .bottom-nav-holder .dropdown-menu{
+.search-component {
+  .bottom-nav-holder .dropdown-menu {
     top: 21rem !important;
-    left:-41px !important
+    left: -41px !important;
   }
-  .btn-group > .btn:focus , .btn-group > .btn:active{
+  .btn-group > .btn:focus,
+  .btn-group > .btn:active {
     background: transparent !important;
   }
 }
 
 .tabbable .nav-tabs {
   overflow-x: auto;
-  overflow-y:hidden;
+  overflow-y: hidden;
   flex-wrap: nowrap;
 }
 .tabbable .nav-tabs .nav-link {
- white-space: nowrap;
+  white-space: nowrap;
+}
+
+.about-page-about {
+  .single-supplier .supplier-data .thumb a img , .single-supplier .supplier-data .thumb  img {
+    width: 222px !important;
+    height: 222px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+  }
 }
