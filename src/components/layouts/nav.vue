@@ -12,7 +12,7 @@
         <!-- top nav  -->
         <div class="row justify-content-center align-items-center">
           <div
-            class="col-lg-4 col-md-4 col-sm-7 d-flex justify-content-center align-items-center"
+            class="col-lg-4 col-md-4 col-sm-7 d-flex justify-content-start align-items-center"
           >
             <div
               class="lang-currency-country d-flex justify-content-between align-items-center"
@@ -594,7 +594,8 @@ export default {
     margin: 0 auto;
 
     .cart {
-      padding: 0 0.7rem;
+      // padding: 0 0.7rem;
+      padding: 0 3rem;
       position: relative;
       // @media (min-width: 1200px) and (max-width: 1600px) {
       //   padding: 5px !important;
@@ -891,7 +892,7 @@ html:lang(ar) {
   padding: 20px;
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   @media (max-width: 766.98px) {
     top: 2%;
