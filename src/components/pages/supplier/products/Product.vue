@@ -84,50 +84,64 @@
           </p>
         </div>
       </div>
-      <div
-        class="addToCartHolder d-flex justify-content-between align-items-center px-2"
-        v-if="data.product_details_by_type.quantity >= 1"
-      >
-        <Variants-Counter
-          :minimum="
-            data.product_details_by_type.min_order_quantity
-              ? data.product_details_by_type.min_order_quantity
-              : 1
-          "
+      <div class="action-holder">
+        <div
+          class="my-3 cart-instead"
           v-if="
-            (add_to_cart == true &&
-              data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart == true &&
-              data.product_details_by_type.add_type === 'both')
-          "
-          class="justify-content-center"
-          :quantity="
-            data.product_details_by_type.min_order_quantity > 0
-              ? data.product_details_by_type.min_order_quantity
-              : 1
-          "
-          @changeCount="
-            ChangeCounter(
-              $event,
-              data.product_details_by_type.min_order_quantity
-            )
-          "
-        ></Variants-Counter>
-        <b-button
-          @click="addToCart(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25 add-btn"
-          v-if="
-            (add_to_cart == true &&
-              data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart && data.product_details_by_type.add_type === 'both')
+            !data.product_details_by_type.quantity ||
+            add_to_cart !== true ||
+            data.product_details_by_type.add_type !== 'cart' ||
+            data.product_details_by_type.add_type !== 'both'
           "
         >
-          <span>
-            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-          </span>
-        </b-button>
+          &nbsp;
+        </div>
+        <div
+          class="addToCartHolder d-flex justify-content-between align-items-center px-2"
+          v-if="data.product_details_by_type.quantity >= 1"
+        >
+          <Variants-Counter
+            :minimum="
+              data.product_details_by_type.min_order_quantity
+                ? data.product_details_by_type.min_order_quantity
+                : 1
+            "
+            v-if="
+              (add_to_cart == true &&
+                data.product_details_by_type.add_type === 'cart') ||
+              (add_to_cart == true &&
+                data.product_details_by_type.add_type === 'both')
+            "
+            class="justify-content-center"
+            :quantity="
+              data.product_details_by_type.min_order_quantity > 0
+                ? data.product_details_by_type.min_order_quantity
+                : 1
+            "
+            @changeCount="
+              ChangeCounter(
+                $event,
+                data.product_details_by_type.min_order_quantity
+              )
+            "
+          ></Variants-Counter>
+          <b-button
+            @click="addToCart(data)"
+            class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25 add-btn"
+            v-if="
+              (add_to_cart == true &&
+                data.product_details_by_type.add_type === 'cart') ||
+              (add_to_cart && data.product_details_by_type.add_type === 'both')
+            "
+          >
+            <span>
+              <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+            </span>
+          </b-button>
+        </div>
       </div>
-      <div
+
+      <!-- <div
         class="addToCartHolder d-flex justify-content-end align-items-center"
         v-else
       >
@@ -157,13 +171,15 @@
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
           </span>
         </b-button>
-      </div>
+      </div> -->
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
       </span>
+      <span class="discount d-block text-white my-1" v-else> </span>
       <span class="new d-block text-white" v-if="data.view_status_text">{{
         data.view_status_text
       }}</span>
+      <span class="new d-block text-white my-1" v-else></span>
     </div>
   </div>
 </template>
@@ -193,7 +209,7 @@ export default {
         { value: null, text: "Please select an option" },
         { value: "a", text: "This is First option" },
       ],
-      cartCounter:null
+      cartCounter: null,
     };
   },
   /**
@@ -347,11 +363,11 @@ export default {
           }, 500);
         });
     },
-     /**
+    /**
      * @vuese
      * Change cart Counter function
      */
-     ChangeCounter(cartCounter, minimum) {
+    ChangeCounter(cartCounter, minimum) {
       if (cartCounter >= minimum) {
         this.cartCounter = cartCounter;
       }
@@ -444,7 +460,7 @@ export default {
 .Product-Image {
   width: 100%;
   height: 200px;
-  object-fit: contain;
+  // object-fit: contain;
 }
 
 .is_favorite {
@@ -460,8 +476,12 @@ export default {
   border: none;
   box-shadow: none;
 }
-.add-btn{
-  height:50px;
+.add-btn {
+  height: 50px;
   font-size: 16px;
+}
+
+.action-holder{
+  min-height: 100px;
 }
 </style>

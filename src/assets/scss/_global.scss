@@ -260,7 +260,10 @@ label,
 }
 .breadcrumb-item {
   a {
-    color: #5a5755;
+    color: #000;
+    font-weight: bold;
+    font-size: 22px;
+    // color: #5a5755;
     &:hover {
       color: $main-color;
     }
@@ -593,7 +596,7 @@ input[type="number"] {
     left: -rem !important;
     min-width: 20rem !important;
     @media (max-width: 992px) {
-      left: -3rem !important;
+      left: 0rem !important;
       min-width: 15rem !important;
     }
   }

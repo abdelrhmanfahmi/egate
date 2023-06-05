@@ -20,7 +20,7 @@
               toggle-class="text-decoration-none"
               no-caret
             >
-              <template #button-content >
+              <template #button-content>
                 <span class="title text-white">{{
                   $t("profile.categories")
                 }}</span>
@@ -34,11 +34,13 @@
                 @click="selectCategory(category)"
                 class="text-center d-inline-block mx-2 my-2 myDropDown-item"
               >
-                <img
-                  :src="category.icon_image_path"
-                  :alt="category.title"
-                  class="category-img"
-                />
+                <div class="img-cat-holder">
+                  <img
+                    :src="category.icon_image_path"
+                    :alt="category.title"
+                    class="category-img"
+                  />
+                </div>
                 <div class="mx-2">{{ category.title }}</div>
               </b-dropdown-item>
             </b-dropdown>
@@ -197,10 +199,22 @@ export default {
 }
 
 .category-img {
-  width: 50px;
-  height: 50px;
+  width: 90%;
+  height: 90%;
+  // border-radius: 50%;
+  object-fit: contain;
   border-radius: 50%;
-  // object-fit: contain;
   // margin: 0 10px;
+}
+.img-cat-holder{
+  padding: 10px;
+  background: #000;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 50%;
 }
 </style>

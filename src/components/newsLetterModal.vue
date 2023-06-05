@@ -108,7 +108,6 @@ export default {
     /**
      *  start check when page loaded
      */
-    console.log('this.ImageUrl', this.ImageUrl);
     let perfData = window.performance.timing;
     let estimatedTime = Math.abs(
       perfData.loadEventEnd - perfData.navigationStart

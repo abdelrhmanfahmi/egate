@@ -36,6 +36,7 @@
           <button @click="switchLang()" v-if="lang == 'en'" id="arLang" ref="arLang">
             عربى
           </button>
+           <!-- اللغة العربية -->
         </div>
       </div>
     </div>
@@ -245,7 +246,6 @@ export default {
       axios
         .get(`${this.mainAppApiLink}site-settings/default/country`)
         .then((res) => {
-          console.log("getDefaultCountry", res);
           this.defaultCountry = JSON.stringify(res.data.items);
           window.localStorage.setItem(
             "country",

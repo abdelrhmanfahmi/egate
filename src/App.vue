@@ -342,6 +342,9 @@ export default {
         ? "B2B"
         : "B2C";
     },
+    checkProfile(){
+      return this.$route.path.includes("profile") && !this.buyerUserData ? true : false
+    }
   },
   mounted() {
     this.getSiteImages();
@@ -349,6 +352,14 @@ export default {
       this.isLoading = false;
     }, 3000);
     this.checkApiControlsFunction();
+    if(document.location.href.includes("force_login")){
+      if(document.location.href.force_login){
+        this.logout()
+      }
+    }
+    if(this.checkProfile == true){
+      this.logout()
+    }
   },
   data() {
     return {

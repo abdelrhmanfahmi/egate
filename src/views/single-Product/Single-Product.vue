@@ -5,6 +5,40 @@
       <div
         class="navigation d-none d-lg-flex justify-content-start align-items-center"
       >
+        <nav aria-label="breadcrumb ">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <router-link to="/">
+                {{ $t("items.home") }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item" v-if="firstCat">
+              <router-link :to="`/categories/${firstCat.id}`">
+                {{ firstCat.title }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item" v-if="secondCat">
+              <router-link :to="`/categories/${secondCat.id}/variants`">
+                {{ secondCat.title }}
+              </router-link>
+            </li>
+            <li class="breadcrumb-item" v-if="thirdCat">
+              <!-- <router-link :to="`/categories/${thirdCat.id}`">
+                
+              </router-link> -->
+              <b>{{ thirdCat.title }}</b>
+            </li>
+            <!-- <li
+              class="breadcrumb-item"
+              v-for="(category, index) in productCategories"
+              :key="index"
+            >
+              <b>
+                {{ category.title }}
+              </b>
+            </li> -->
+          </ol>
+        </nav>
       </div>
 
       <b-row align-h="center" class="mt-5">
@@ -23,9 +57,16 @@
           <div
             class="ribbon ribbon-top-left"
             :class="{ 'long-rebbon': otherDealType > 20 }"
-            v-else-if="!dealType && myProduct && myProduct.buy_get_promotion_running_by_type && myProduct.buy_get_promotion_running_by_type.promotion &&  myProduct.buy_get_promotion_running_by_type.promotion.buy_x"
+            v-else-if="
+              !dealType &&
+              myProduct &&
+              myProduct.buy_get_promotion_running_by_type &&
+              myProduct.buy_get_promotion_running_by_type.promotion &&
+              myProduct.buy_get_promotion_running_by_type.promotion.buy_x
+            "
           >
-            <span v-if="myProduct.buy_get_promotion_running_by_type"
+            <span
+              v-if="myProduct.buy_get_promotion_running_by_type"
               :class="{ 'long-rebbon-span': otherDealType > 20 }"
               >{{
                 `${$t("profile.buy")} 
@@ -40,7 +81,10 @@
         </b-col>
         <b-col cols="12" md="8" class="product-info">
           <!-- product information  -->
-          <ProductInfo :myProduct="myProduct"></ProductInfo>
+          <ProductInfo
+            :myProduct="myProduct"
+            :lastCategory="lastCategory"
+          ></ProductInfo>
         </b-col>
       </b-row>
       <div class="humhum-tabs mt-5">
@@ -62,7 +106,7 @@
             <b-tab :title="$t('singleProduct.otherSuppliers')" active>
               <suppliersTab />
             </b-tab>
-            
+
             <!-- product rating tab  -->
             <b-tab :title="$t('items.relativeProducts')">
               <div
@@ -78,6 +122,7 @@
                       v-if="supplierProductsLength"
                     >
                       <div
+                        class="p-4"
                         v-for="item in supplierProducts.filter(
                           (product) =>
                             product.product_details_by_type.quantity >= 1
@@ -91,7 +136,7 @@
                 </div>
               </div>
               <div class="" v-else>
-                <h3>{{ $t('home.noDataTill') }}</h3>
+                <h3>{{ $t("home.noDataTill") }}</h3>
               </div>
             </b-tab>
             <b-tab :title="$t('singleProduct.relatedOffers')">
@@ -125,10 +170,10 @@
  * single product data
  * @displayName single product data
  */
- import VueSlickCarousel from "vue-slick-carousel";
-  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 import Slider from "@/components/single-product/Slider.vue";
 import ProductInfo from "@/components/single-product/ProductInfo.vue";
@@ -138,8 +183,8 @@ import Product from "@/components/pages/supplier/products/Product.vue";
 import categories from "@/services/categories";
 
 import suppliers from "@/services/suppliers";
-import suppliersTab from "@/components/single-product/SuppliersTab.vue"
-import relatedOffers from "@/components/relatedOffers"
+import suppliersTab from "@/components/single-product/SuppliersTab.vue";
+import relatedOffers from "@/components/relatedOffers";
 export default {
   components: {
     Slider,
@@ -149,7 +194,7 @@ export default {
     Product,
     VueSlickCarousel,
     suppliersTab,
-    relatedOffers
+    relatedOffers,
   },
   data() {
     return {
@@ -165,12 +210,12 @@ export default {
       settings: {
         dots: false,
         infinite: true,
-        arrows: false,
+        arrows: true,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
         swipeToSlide: true,
-        autoplay: true,
+        autoplay: false,
 
         responsive: [
           {
@@ -218,6 +263,13 @@ export default {
           console.log("productDetails", res);
           this.myProduct = res.data.items;
           this.supplierProductsId = res.data.items.client_id;
+
+          this.productCategories = res?.data?.items?.product?.categories;
+          this.lastCategory =
+            this.productCategories[this.productCategories.length - 1];
+          this.firstCat = res?.data?.items?.product?.categories[0];
+          this.secondCat = res?.data?.items?.product?.categories[1];
+          this.thirdCat = res?.data?.items?.product?.categories[2];
         })
         .catch((err) => {
           if (err.response.data.code == 404) {
@@ -256,11 +308,16 @@ export default {
       this.getSupplierProducts();
     }, 1200);
   },
-  computed:{
-    otherDealType(){
-      return (this.myProduct?.buy_get_promotion_running_by_type?.promotion?.buy_x + this.myProduct?.buy_get_promotion_running_by_type?.promotion?.get_y).length > 20 ? true : false
-    }
-  }
+  computed: {
+    otherDealType() {
+      return (
+        this.myProduct?.buy_get_promotion_running_by_type?.promotion?.buy_x +
+        this.myProduct?.buy_get_promotion_running_by_type?.promotion?.get_y
+      ).length > 20
+        ? true
+        : false;
+    },
+  },
 };
 </script>
 <style lang="scss">

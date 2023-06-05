@@ -6,11 +6,11 @@
         <b-col lg="10">
           <div class="register-info">
             <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
-            <router-link to="/b2b-register" class="back">
+            <!-- <router-link to="/b2b-register" class="back">
               <span class="main-color">
                 &#60; {{ $t("register.haveNotAccount") }}</span
               >
-            </router-link>
+            </router-link> -->
           </div>
           <form @submit.prevent="login()">
             <b-row class="justify-content-center">
@@ -84,6 +84,11 @@
         </b-col>
       </b-row>
       <RecapchaComponent @psssrecaptcha="recaptchaValue($event)" />
+      <div class="user-login-form mt-3">
+        <b-button to="/b2b-register" class="login-button my-2 border-main">
+          <b>{{ $t("login.DontHave") }} {{ $t("login.createAccount") }}</b>
+        </b-button>
+      </div>
     </div>
     <b-modal
       id="B2BForgetPassword"
@@ -116,7 +121,7 @@
 </template>
 <script>
 import auth from "@/services/auth";
-import RecapchaComponent  from "@/components/Recaptcha/RecaptchaCompoent.vue"
+import RecapchaComponent from "@/components/Recaptcha/RecaptchaCompoent.vue";
 export default {
   data() {
     return {
@@ -133,8 +138,8 @@ export default {
     };
   },
   methods: {
-    recaptchaValue($event){
-      this.form.recaptcha = $event
+    recaptchaValue($event) {
+      this.form.recaptcha = $event;
     },
     //  /**
     //  * @vuese
@@ -233,9 +238,9 @@ export default {
       return this.$store.state.firebaseToken;
     },
   },
-  components:{
-    RecapchaComponent
-  }
+  components: {
+    RecapchaComponent,
+  },
 };
 </script>
 

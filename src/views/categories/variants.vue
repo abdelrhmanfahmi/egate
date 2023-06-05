@@ -20,10 +20,18 @@
                   {{ parentTitle }}
                 </router-link>
               </li>
-              <li class="breadcrumb-item" v-if="PageTitle">
-                <router-link :to="`/categories/${PageId}/variants`">
-                  {{ PageTitle }}
+              <!-- <li class="breadcrumb-item" >
+                <router-link :to="`/categories/${parent_categoryId}`">
+                  {{ parent_category }}
                 </router-link>
+              </li> -->
+              <li class="breadcrumb-item" v-if="PageTitle">
+                <!-- <router-link :to="`/categories/${PageId}/variants`">
+                  
+                </router-link> -->
+                <b>
+                  {{ PageTitle }}
+                </b>
               </li>
             </ol>
           </nav>
@@ -1221,6 +1229,7 @@ export default {
       PageId: null,
       allSubCategories: null,
       allSubCategoriesLength: null,
+      parent_category:null
     };
   },
   components: {
@@ -1453,6 +1462,8 @@ export default {
         .getSingleProductDetails(this.pageId)
         .then((res) => {
           this.PageTitle = res.data.items.title;
+          this.parent_category = res.data.items.parent_category.title;
+          this.parent_categoryId = res.data.items.parent_category.id;
           this.PageId = res.data.items.id;
           this.productInfo = res.data.items;
           let variantData = res.data.items.variants;

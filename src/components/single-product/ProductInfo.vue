@@ -13,6 +13,13 @@
                 <b>{{ $t("singleProduct.outOfStock") }}</b></span
               >
             </div>
+            <div class="categoryNme" v-if="lastCategory">
+              <router-link :to="`/categories/${lastCategory.id}/variants`" v-if="lastCategory.id">
+                <p class="name m-0 p-0" v-if="lastCategory.title">
+                  <ins>{{ lastCategory.title }}</ins>
+                </p>
+              </router-link>
+            </div>
           </div>
           <p
             class="price mt-4"
@@ -85,7 +92,9 @@
             <span class="mx-3 mt-2">
               {{ myProduct.country.title }}
             </span>
-            <span v-if="myProduct.country_of_origin">{{myProduct.country_of_origin}}</span>
+            <span v-if="myProduct.country_of_origin">{{
+              myProduct.country_of_origin
+            }}</span>
             <!-- <hr /> -->
           </div>
           <ProductDescription :myProduct="myProduct" class="my-4 mb-5" />
@@ -149,6 +158,9 @@ export default {
     myProduct: {
       type: Object,
       required: true,
+    },
+    lastCategory: {
+      type: Object,
     },
   },
 
