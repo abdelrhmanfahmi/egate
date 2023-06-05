@@ -10,7 +10,6 @@
             <div
               class="wrapper select-wrapper data-wrapper d-flex justify-content-center align-items-center btn-group"
             >
-            
               <div class="grid-icon">
                 <font-awesome-icon
                   icon="fa-solid fa-table-cells-large"
@@ -45,7 +44,9 @@
                     :alt="category.title"
                     class="category-img"
                   />
-                  <span class="mx-2 category-title">{{ category.title }}</span>
+                  <span class="mx-2 category-title">
+                    <b>{{ category.title }} </b>
+                  </span>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -546,17 +547,23 @@ select,
 }
 
 .category-img {
+  // width: 40px;
+  // height: 40px;
+  // border-radius: 50%;
+  // object-fit: contain;
+  // margin: 0 10px;
+
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  // object-fit: contain;
-  // margin: 0 10px;
+  margin: 5px 0;
+  object-fit: contain;
 }
 .category-title {
   font-size: 14px;
   font-weight: bold;
 }
-.newLocation{
+.newLocation {
   top: 0.5rem !important;
 }
 </style>

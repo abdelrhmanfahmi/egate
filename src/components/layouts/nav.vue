@@ -157,6 +157,7 @@
                   class="login"
                   v-if="!mobile && !isLoggined"
                   v-b-toggle.login
+                  ref="loginIcon"
                 >
                   <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
                   <BIconPerson width="25" height="25" />
@@ -241,8 +242,7 @@
                 <div
                   class="row justify-content-center align-items-center search-icon"
                   v-if="mobile"
-                >
-                </div>
+                ></div>
 
                 <font-awesome-icon
                   v-b-toggle.sidebar-1
@@ -309,6 +309,10 @@ export default {
       keyword: "",
       searchClicked: false,
       suggestionsExist: false,
+      loadingPercent: 0,
+      loadTime: 0,
+      interval: null,
+      myInterval: null,
     };
   },
   components: {
@@ -334,8 +338,22 @@ export default {
     if (this.buyerUserData) {
       this.getWishlistProducts();
     }
+
+    let perfData = window.performance.timing;
+    // let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.loadEventStart);
+    let estimatedTime = Math.abs(
+      perfData.loadEventEnd - perfData.navigationStart
+    );
+    this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
+    this.doProgress();
   },
   methods: {
+    doProgress() {
+      let step = this.loadTime / 100;
+      this.interval = setInterval(() => {
+        this.loadingPercent++;
+      }, step);
+    },
     /**
      * @vuese
      * close SideBar function
@@ -457,17 +475,35 @@ export default {
      * login Now function if not logged in
      */
     loginNow() {
-      if (document.$refs.b2cLogin) {
-        document.$refs.b2cLogin.show();
+      const loc = document.location;
+      if (
+        (this.$route.query.force_login &&
+          this.$route.query.force_login == "true") ||
+        loc.href.includes("force_login")
+      ) {
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("buyerUserData");
+        // if (this.$refs.b2cLogin) {
+        //   this.$refs.b2cLogin.show();
+        // }
+        if (this.$refs["loginIcon"]) {
+          // document.querySelector(".login").click();
+          setTimeout(() => {
+            this.$refs["loginIcon"].click();
+          }, 500);
+        }
       }
-      document.querySelector(".login").click();
-      this.$router.push({
-        path: this.$router.path,
-        query: { force_login: "false" },
-      });
+
+      // this.$router.push({
+      //   path: this.$router.path,
+      //   query: { force_login: "false" },
+      // });
     },
   },
   computed: {
+    loaded() {
+      return this.loadingPercent + "%";
+    },
     /**
      * @vuese
      * get cart items function
@@ -505,16 +541,16 @@ export default {
     },
   },
   mounted() {
-    const loc = document.location;
-    if (
-      (this.$route.query.force_login &&
-        this.$route.query.force_login == "true") ||
-      loc.href.includes("force_login")
-    ) {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("buyerUserData");
-      this.loginNow();
-    }
+    // const loc = document.location;
+    // if (
+    //   (this.$route.query.force_login &&
+    //     this.$route.query.force_login == "true") ||
+    //   loc.href.includes("force_login")
+    // ) {
+    //   localStorage.removeItem("userInfo");
+    //   localStorage.removeItem("buyerUserData");
+    //   this.loginNow();
+    // }
     window.onscroll = function () {
       myFunction();
     };
@@ -535,6 +571,22 @@ export default {
         // headerToggle.classList.remove("fixedSideToggle");
       }
     }
+
+    console.log(document.location.href.force_login);
+    this.myInterval = setInterval(() => {
+
+      if (this.loadingPercent == 100) {
+        if (
+          document.location.href.includes("force_login") &&
+          document.location.href.force_login == 'true'
+        ) {
+          localStorage.removeItem("userInfo");
+          localStorage.removeItem("buyerUserData");
+          location.reload()
+        }
+        clearInterval(this.myInterval);
+      }
+    }, 100);
   },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
@@ -562,6 +614,11 @@ export default {
           this.$refs.searchIcon.focus();
         }
       }, 200);
+    },
+    loadingPercent(val) {
+      if (val >= 100) {
+        clearInterval(this.interval);
+      }
     },
   },
 };
@@ -917,7 +974,7 @@ html:lang(ar) {
   .toggleMenu {
     @media (max-width: 766.98px) {
       top: 10%;
-      right: -5%;
+      right: 0;
       position: fixed;
       //background: $top-header-color;
       width: 14%;

@@ -274,7 +274,6 @@ export default {
       await profile
         .getGiftOffer()
         .then((resp) => {
-          console.log('getGiftOffer' , resp);
           this.giftOffers = resp.data.items.data;
           this.giftOffersLength = resp.data.items.data.length;
         })

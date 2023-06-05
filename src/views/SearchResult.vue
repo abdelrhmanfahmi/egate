@@ -26,7 +26,12 @@
         </div>
       </div>
       <!-- if data returned   -->
-      <div class="px-5" v-else-if="categoriesLength > 0 || productsLength > 0 || suppliersLength > 0">
+      <div
+        class="px-5"
+        v-else-if="
+          categoriesLength > 0 || productsLength > 0 || suppliersLength > 0
+        "
+      >
         <div class="data-holder py-3">
           <b-row v-if="loading">
             <b-col class="mb-2" lg="3" sm="6" v-for="x in 10" :key="x">
@@ -90,7 +95,7 @@
                 <router-link
                   class="load-more border-0 rounded-0 py-4 px-5 my-4 mx-0 d-inline-block"
                   :to="{
-                    path: `/suppliers`
+                    path: `/suppliers`,
                   }"
                 >
                   {{ $t("supplier.more") }}
@@ -116,7 +121,7 @@
                       v-if="product.id"
                       class="text-dark"
                     >
-                      <div>
+                      <div class="img-holder">
                         <b-img-lazy
                           v-if="product.current_main_image_path"
                           :src="product.current_main_image_path"
@@ -163,13 +168,16 @@
                     </router-link>
                   </div>
                   <div
-                    class="row px-3 justify-content-center align-items-center"
+                    class="row px-3 justify-content-between align-items-center"
                     v-if="
                       product.product_details_by_type.add_type === 'cart' ||
                       product.product_details_by_type.add_type === 'both'
                     "
                   >
-                    <div class="col-xl-4 col-sm-12 col-12 my-2 cart-actions-holder sec-hold" v-if="add_to_cart">
+                    <div
+                      class="col-xl-4 col-sm-12 col-12 my-2 cart-actions-holder sec-hold"
+                      v-if="add_to_cart"
+                    >
                       <Counter
                         :minimum="
                           product.min_order_quantity
@@ -182,35 +190,41 @@
                         @changeTitle="ChangeQ($event)"
                       />
                     </div>
-                    <div class="col-xl-4 col-sm-12 col-12 my-2">
+                    <div class="col-xl-4 col-sm-12 col-12 my-2 justify-content-center align-items-center">
                       <b-button
                         @click="addToCartAgain(product)"
                         class="br-5 btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block"
-                        v-if="add_to_cart == true&&  
-                          product.product_details_by_type.add_type === 'cart' || add_to_cart && 
-                          product.product_details_by_type.add_type === 'both'
+                        v-if="
+                          (add_to_cart == true &&
+                            product.product_details_by_type.add_type ===
+                              'cart') ||
+                          (add_to_cart &&
+                            product.product_details_by_type.add_type === 'both')
                         "
                       >
                         <span>
-
                           <font-awesome-icon
-                    icon="fa-solid fa-cart-shopping"
-                    size="xl"
-                  />
-
+                            icon="fa-solid fa-cart-shopping"
+                            size="xl"
+                          />
                         </span>
                       </b-button>
                     </div>
-                    <div class="col-xl-4 col-sm-12 col-12 mt-2">
-                      <div class="product-actions short-links mb-2">
+                    <div
+                      class="col-xl-4 col-sm-12 col-12 my-2"
+                      
+                    >
+                      <div class="product-actions short-links">
                         <button
                           @click="chooseProduct(product)"
                           class="btn btn-loght bg-transparent border-0 outline-none shadow-none m-0 p-0 loged-in add-cart-rfq"
-                          v-if="RFQ  == 'available' && 
+                          v-if="
+                            RFQ == true &&
                             (product.product_details_by_type.add_type ===
-                              'rfq' || RFQ  == 'available' &&
-                              product.product_details_by_type.add_type ===
-                                'both') &&
+                              'rfq' ||
+                              (RFQ == true &&
+                                product.product_details_by_type.add_type ===
+                                  'both')) &&
                             buyerUserData
                           "
                         >
@@ -226,10 +240,13 @@
                             </button>
                           </div>
                         </button>
+
+
                         <button
-                          @click="loginFirst(product)"
-                          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
-                          v-else-if="RFQ  == 'available' && 
+                          @click="loginFirst"
+                          class="btn btn-loght border-0 outline-none shadow-none d-block btn-block w-100 bg-gray add-cart-rfq"
+                          v-else-if="
+                            RFQ == true &&
                             (product.product_details_by_type.add_type ===
                               'rfq' ||
                               product.product_details_by_type.add_type ===
@@ -238,8 +255,10 @@
                           "
                         >
                           <span>
-                            <rfqIcon class="mx-2" />
+                            <!-- <rfqIcon class="mx-2" /> -->
+                            RFQ
                           </span>
+                          <!-- {{ $t("singleProduct.bidRequest") }} -->
                         </button>
                       </div>
                     </div>
@@ -378,7 +397,7 @@ export default {
       errors: [],
       selectedProduct: null,
       suppliers: null,
-      suppliersLength:0
+      suppliersLength: 0,
     };
   },
   methods: {
@@ -477,7 +496,7 @@ export default {
     chooseProduct(product) {
       this.selectedProduct = product;
     },
-     /**
+    /**
      * @vuese
      * this function used to request Quotation
      */
@@ -526,13 +545,17 @@ export default {
     font-size: 25px;
     text-align: center;
     text-decoration: none;
+    min-height: 200px;
+    .img-holder{
+      height: 200px;
+    }
   }
 
   img {
     width: 100%;
     height: 200px;
     // border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 
@@ -571,6 +594,7 @@ export default {
   text-align: center;
   width: 100%;
   border-radius: 5px;
+  height: 50px;
 
   &:hover {
     background: $main-color;
@@ -580,7 +604,7 @@ export default {
 .cart-btn {
   background: $main-color !important;
   padding: 13px;
-    width: 55px;
-    text-align: center;
+  // width: 55px;
+  text-align: center;
 }
 </style>

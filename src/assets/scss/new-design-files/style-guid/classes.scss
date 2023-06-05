@@ -43,7 +43,8 @@ nav {
   #dropdown-1{
 
     .dropdown-menu {
-      height: 600px !important;
+      max-height: 600px !important;
+      height: fit-content !important;
       overflow: auto !important;
       top: 100%;
       @media (min-width: 992px) {
@@ -68,7 +69,7 @@ nav {
       }
 
       @media(min-width:1499.98px) {
-        width: 73rem;
+        width: 72rem;
         top: 0.5rem !important;
         left: -2.5rem !important;
       }

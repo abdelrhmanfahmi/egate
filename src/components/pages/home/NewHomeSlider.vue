@@ -146,7 +146,6 @@ export default {
       suppliers
         .getNewCoverPromotion(payload)
         .then((res) => {
-          console.log("new-modal", res);
           this.modalData = res.data.items;
           this.modalDataLength = res.data.items.length;
         })

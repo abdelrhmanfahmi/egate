@@ -6,7 +6,9 @@
         <router-link class="link" to="/">{{ $t("home.home") }}</router-link>
       </li>
       <li>
-        <router-link class="link" to="/about">{{ $t("home.about") }}</router-link>
+        <router-link class="link" to="/about">{{
+          $t("home.about")
+        }}</router-link>
       </li>
       <li>
         <router-link class="link" to="/contact-us">{{
@@ -33,9 +35,6 @@ export default {
      */
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
-    // if (this.buyerUserData) {
-    //   this.getWishlistProducts();
-    // }
   },
   methods: {
     /**
@@ -67,46 +66,10 @@ export default {
       return;
     },
   },
-  computed: {
-    /**
-     * @vuese
-     * check logged in or not function
-     */
-    page() {
-      return this.$route.query.force_login == "true";
-    },
-  },
-  mounted() {
-    const loc = document.location;
-    if (
-      (this.$route.query.force_login && this.$route.query.force_login == "true") ||
-      loc.href.includes("force_login")
-    ) {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("buyerUserData");
-      this.loginNow();
-    }
-  },
   destroyed() {
     window.history.pushState({}, document.title, window.location.pathname);
   },
   watch: {
-    page() {
-      if (this.$route.query.force_login == "true") {
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("buyerUserData");
-        if (document.querySelector(".login")) {
-          setTimeout(() => {
-            document.querySelector(".login").click();
-          }, 0);
-          setTimeout(() => {
-            var newURL = location.href.split("?")[0];
-            window.history.pushState("object", document.title, newURL);
-            console.log(newURL);
-          }, 500);
-        }
-      }
-    },
     searchClicked() {
       setTimeout(() => {
         if (this.searchClicked && this.$refs.searchIcon) {
@@ -263,7 +226,6 @@ export default {
 
 html:lang(ar) {
   .main-nav {
-
     .cart-body,
     .notify-body {
       right: auto;
@@ -415,7 +377,7 @@ html:lang(ar) {
 .navigation {
   li {
     margin: 0 20px !important;
-    &:first-of-type{
+    &:first-of-type {
       margin-left: 30px !important;
     }
   }

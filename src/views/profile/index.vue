@@ -1,6 +1,6 @@
 <template>
   <!-- main profile page   -->
-  <div class="profile-body">
+  <div class="profile-body" v-if="userInfo">
     <!-- products  progress  -->
     <!-- <ProgressSlider /> -->
     <b-container v-if="
