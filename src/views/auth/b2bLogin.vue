@@ -12,6 +12,8 @@
                   &#60; {{ $t("register.haveNotAccount") }}</span
                 >
               </router-link> -->
+
+              <!-- // new design  -->
               <div class="user-login-form">
                 <b-button to="/b2b-register" class="login-button my-2 border-main">
                   <b
