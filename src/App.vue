@@ -338,7 +338,9 @@ export default {
         this.buyerUserData.type == "buyer") ||
         (this.$route.path.includes("profile") &&
           this.buyerUserData.type == "supplier" &&
-          this.buyerUserData.is_buyer == 1)
+          this.buyerUserData.is_buyer == 1) ||
+          this.$route.path.includes('profile') && 
+          this.userInfo && this.userInfo.item.type == 'buyer'
         ? "B2B"
         : "B2C";
     },

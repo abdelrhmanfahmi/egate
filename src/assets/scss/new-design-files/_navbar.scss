@@ -58,6 +58,11 @@
   height: 63px;
   // when layout moves
   width: 100%;
+  transition: all 0.5 linear;
+  -webkit-transition: all 0.5 linear;
+  -moz-transition: all 0.5 linear;
+  -ms-transition: all 0.5 linear;
+  -o-transition: all 0.5 linear;
 }
 // .en{
 //     .navbaropen {
@@ -109,6 +114,11 @@
   transition: 0.3s;
   color: #fff;
   text-align: center;
+  transition: all 0.5 linear;
+  -webkit-transition: all 0.5 linear;
+  -moz-transition: all 0.5 linear;
+  -ms-transition: all 0.5 linear;
+  -o-transition: all 0.5 linear;
 }
 .sidenavopen {
   text-align: start;
@@ -116,11 +126,21 @@
 .sideB2cClosed {
   .side-nav {
     width: 0;
+    transition: all 0.5 linear;
+    -webkit-transition: all 0.5 linear;
+    -moz-transition: all 0.5 linear;
+    -ms-transition: all 0.5 linear;
+    -o-transition: all 0.5 linear;
   }
 }
 .sideB2cOpen {
   .side-nav {
     width: auto;
+    transition: all 0.5 linear;
+    -webkit-transition: all 0.5 linear;
+    -moz-transition: all 0.5 linear;
+    -ms-transition: all 0.5 linear;
+    -o-transition: all 0.5 linear;
   }
 }
 .en {
@@ -138,7 +158,8 @@
 
 .sidenavopen {
   height: 100%;
-  width: 280px;
+  //width: 285px;
+  width: 305px;
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -146,9 +167,13 @@
   background-color: #1f1f1f;
   opacity: 1;
   overflow-x: hidden;
-  // padding-top: 60px;
+  //padding-top: 60px;
   //padding: 15px;
-  transition: 0.3s;
+  transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -ms-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
 }
 .en {
   .sidenavopen {
@@ -196,36 +221,56 @@
   // padding: 20px;
   overflow: hidden;
   width: 100%;
+  transition: all 0.5 linear;
+  -webkit-transition: all 0.5 linear;
+  -moz-transition: all 0.5 linear;
+  -ms-transition: all 0.5 linear;
+  -o-transition: all 0.5 linear;
 }
 .en {
   .mainopen {
     margin-left: 180px;
     width: calc(100% - 90px);
+    transition: all 0.5 linear;
+    -webkit-transition: all 0.5 linear;
+    -moz-transition: all 0.5 linear;
+    -ms-transition: all 0.5 linear;
+    -o-transition: all 0.5 linear;
   }
 }
 .ar {
   .mainopen {
     margin-right: 180px;
     width: calc(100% - 89px);
+    transition: all 0.5 linear;
+    -webkit-transition: all 0.5 linear;
+    -moz-transition: all 0.5 linear;
+    -ms-transition: all 0.5 linear;
+    -o-transition: all 0.5 linear;
   }
 }
-.en{
-    .mainClose {
-        margin: 0;
-        @media (max-width: 992px) {
-          margin-left: 60px;
-          width: calc(100% - 60px);
-        }
-      }
+.en {
+  .mainClose {
+    margin: 0;
+    @media (max-width: 992px) {
+      margin-left: 60px;
+      width: calc(100% - 60px);
+      transition: all 0.5 linear;
+      -webkit-transition: all 0.5 linear;
+      -moz-transition: all 0.5 linear;
+      -ms-transition: all 0.5 linear;
+      -o-transition: all 0.5 linear;
+    }
+  }
 }
-.ar{
-    .mainClose {
-        margin: 0;
-        @media (max-width: 992px) {
-          margin-right: 60px;
-          width: calc(100% - 60px);
-        }
-      }
+.ar {
+  .mainClose {
+    margin: 0;
+    @media (max-width: 992px) {
+      margin-right: 60px;
+      width: calc(100% - 60px);
+    }
+  }
 }
 
 nav {
@@ -242,6 +287,11 @@ nav {
 
 .midopen {
   width: 0;
+  transition: all 0.5 linear;
+  -webkit-transition: all 0.5 linear;
+  -moz-transition: all 0.5 linear;
+  -ms-transition: all 0.5 linear;
+  -o-transition: all 0.5 linear;
 }
 
 .bar {

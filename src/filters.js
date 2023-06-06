@@ -2,6 +2,12 @@ import Vue from "vue";
 import moment from "moment";
 import i18n from "./i18n/i18n";
 Vue.filter("fixedCurrency", function (el) {
+  // check if the value is actually a string
+  if (typeof el === "string") {
+    // remove commas and convert string to number using the unary plus operator
+    return +el.replace(/,/g, "");
+  }
+
   return Number(el).toFixed(3);
 });
 
@@ -55,20 +61,23 @@ Vue.filter("timeDefer", function (value) {
     if (i18n.locale == "en") {
       for (const i in en_intervals) {
         en_counter = Math.floor(seconds / en_intervals[i]);
-        if (en_counter > 0) return ` ${en_counter} ${i}${en_counter > 1 ? "s" : ""} ago`;
+        if (en_counter > 0)
+          return ` ${en_counter} ${i}${en_counter > 1 ? "s" : ""} ago`;
       }
     }
     if (i18n.locale == "ar") {
       for (const i in ar_intervals) {
         ar_counter = Math.floor(seconds / ar_intervals[i]);
-        if (ar_counter > 0 && ar_counter !== 2) return ` منذ ${ar_counter} ${i}${ar_counter > 1 ? "" : ""}`;
-        if (ar_counter > 0 && ar_counter == 2) return ` منذ  ${i}${ar_counter == 2 ? "ان" : ""}`;
+        if (ar_counter > 0 && ar_counter !== 2)
+          return ` منذ ${ar_counter} ${i}${ar_counter > 1 ? "" : ""}`;
+        if (ar_counter > 0 && ar_counter == 2)
+          return ` منذ  ${i}${ar_counter == 2 ? "ان" : ""}`;
       }
     }
   }
   return value;
 });
 
-Vue.filter('shorten' , (value)=>{
-  return value.slice(0 , 15) + '...'
-})
+Vue.filter("shorten", (value) => {
+  return value.slice(0, 15) + "...";
+});

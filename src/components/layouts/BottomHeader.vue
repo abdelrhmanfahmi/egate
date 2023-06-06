@@ -217,4 +217,8 @@ export default {
   margin: auto;
   border-radius: 50%;
 }
+.title{
+  text-transform: uppercase !important;
+    font-weight: bold !important;
+}
 </style>
