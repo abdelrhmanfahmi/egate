@@ -229,7 +229,7 @@ export default {
      * this function used to add Product To Standing Orders
      */
     addProductToStandingOrders() {
-      if (this.checkedItems) {
+      if (this.checkedItems.length) {
         let payload = {
           product_supplier_id: this.checkedItems ? this.checkedItems : this.variantOrder.id,
           client_standing_id: this.selectedPlan,

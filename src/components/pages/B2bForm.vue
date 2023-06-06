@@ -11,9 +11,17 @@
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <router-link to="/b2b-login" class="back">
+              <!-- <router-link to="/b2b-login" class="back">
                 <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span>
-              </router-link>
+              </router-link> -->
+              <div class="user-login-form">
+                <b-button to="/b2b-login" class="login-button my-2 border-main">
+                  <b
+                    >{{ $t("register.alreadyHaveAccount") }} ?
+                    {{ $t("login.login") }}</b
+                  >
+                </b-button>
+              </div>
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
@@ -25,13 +33,17 @@
                         :class="{
                           'col-md-6 col-sm-12': arabicAvailable !== 'no',
                           'col-12': arabicAvailable == 'no',
-                        }" v-if="form.company_name_en !== null"
+                        }"
+                        v-if="form.company_name_en !== null"
                       >
                         <label for="f-name">{{
                           $t("register.englishCompanyName")
                         }}</label>
                         <span class="requried">*</span>
-                        <b-form-input id="f-name" v-model="form.company_name_en" />
+                        <b-form-input
+                          id="f-name"
+                          v-model="form.company_name_en"
+                        />
                         <div
                           class="error"
                           v-for="(error, index) in errors.company_name_en"
@@ -41,10 +53,21 @@
                         </div>
                       </div>
                       <!-- show if arabicAvailable  -->
-                      <div class="col-md-6 col-sm-12" v-if="arabicAvailable !== 'no' && form.company_name_ar !== null">
-                        <label for="f-name">{{ $t("register.arabicCompanyName") }}</label>
+                      <div
+                        class="col-md-6 col-sm-12"
+                        v-if="
+                          arabicAvailable !== 'no' &&
+                          form.company_name_ar !== null
+                        "
+                      >
+                        <label for="f-name">{{
+                          $t("register.arabicCompanyName")
+                        }}</label>
                         <span class="requried">*</span>
-                        <b-form-input id="f-name" v-model="form.company_name_ar" />
+                        <b-form-input
+                          id="f-name"
+                          v-model="form.company_name_ar"
+                        />
                         <div
                           class="error"
                           v-for="(error, index) in errors.company_name_ar"
@@ -77,11 +100,19 @@
                         :key="department.id"
                         :value="department.id"
                       >
-                        <span v-if="$i18n.locale == 'en'">{{ department.name_en }}</span>
-                        <span v-if="$i18n.locale == 'ar'">{{ department.name_ar }}</span>
+                        <span v-if="$i18n.locale == 'en'">{{
+                          department.name_en
+                        }}</span>
+                        <span v-if="$i18n.locale == 'ar'">{{
+                          department.name_ar
+                        }}</span>
                       </b-form-select-option>
                     </b-form-select>
-                    <div class="error" v-for="(error, index) in errors.job_title" :key="index">
+                    <div
+                      class="error"
+                      v-for="(error, index) in errors.job_title"
+                      :key="index"
+                    >
                       {{ error }}
                     </div>
                   </b-form-group>
@@ -104,7 +135,9 @@
                 <!-- Password -->
                 <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
-                    <label for="NewPassword">{{ $t("register.password") }}</label>
+                    <label for="NewPassword">{{
+                      $t("register.password")
+                    }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
@@ -176,7 +209,9 @@
                 <!-- country code -->
                 <b-col sm="12" lg="3" v-if="form.country_code !== null">
                   <b-form-group>
-                    <label for="countryCode">{{ $t("register.countryCode") }}</label>
+                    <label for="countryCode">{{
+                      $t("register.countryCode")
+                    }}</label>
                     <span class="requried">*</span>
                     <b-form-select v-model="form.country_code">
                       <b-form-select-option
@@ -201,7 +236,11 @@
                   <b-form-group>
                     <label for="phone">{{ $t("register.phone") }}</label>
                     <span class="requried">*</span>
-                    <b-form-input id="phone" v-model="form.mobile_number" type="number" />
+                    <b-form-input
+                      id="phone"
+                      v-model="form.mobile_number"
+                      type="number"
+                    />
                     <div
                       class="error"
                       v-for="(error, index) in errors.mobile_number"
@@ -225,7 +264,10 @@
                   {{ $t("register.newPolicy") }}
                 </span>
                 <span>
-                  <a v-b-modal.terms&condation @click="$bvModal.show('modal-scoped')">
+                  <a
+                    v-b-modal.terms&condation
+                    @click="$bvModal.show('modal-scoped')"
+                  >
                     {{ $t("register.termsConditions") }}</a
                   >
                 </span>
@@ -243,17 +285,26 @@
                     "
                   >
                     <span class="mx-1">{{ $t("payment.accept") }}</span>
-                    <span class="mx-1">{{ $t("payment.termsAndConditions") }}</span>
+                    <span class="mx-1">{{
+                      $t("payment.termsAndConditions")
+                    }}</span>
                   </b-button>
                 </template>
               </b-modal>
 
-              <b-form-checkbox v-model="form.register_mailing_list" class="py-3 my-1">
+              <b-form-checkbox
+                v-model="form.register_mailing_list"
+                class="py-3 my-1"
+              >
                 {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
 
               <div class="submition-box bg-white border-0">
-                <b-button type="submit" :disabled="!terms" class="bg-main br-5 w-25">
+                <b-button
+                  type="submit"
+                  :disabled="!terms"
+                  class="bg-main br-5 w-25"
+                >
                   {{ $t("register.submit") }}
                 </b-button>
               </div>
@@ -276,21 +327,21 @@ import auth from "@/services/auth";
 import profile from "@/services/profile";
 import dynamicComponent from "@/components/global/dynamicComponent";
 import { createdFormData } from "@/services/helpers.js";
-import CheckPassComponent from "@/components/auth/checkPassword.vue"
+import CheckPassComponent from "@/components/auth/checkPassword.vue";
 export default {
   data() {
     return {
       form: {
-        first_name: '',
-        job_title: '',  
-        email: '',
-        password: '',
-        password_confirmation: '',
-        country_code: 'KW',
-        mobile_number: '',
+        first_name: "",
+        job_title: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        country_code: "KW",
+        mobile_number: "",
         register_mailing_list: false,
-        company_name_en: '',
-        company_name_ar: '',
+        company_name_en: "",
+        company_name_ar: "",
       },
 
       selectedDepartment: null,
@@ -337,11 +388,11 @@ export default {
       condations: {},
       contactPhone: "", // add phone
       dynamicInputs: null,
-      formControl:null,
+      formControl: null,
     };
   },
   mounted() {
-    this.checkRegisterForm()
+    this.checkRegisterForm();
     this.checkDynamicInputs();
     this.getTerms();
     this.getAllCountires();
@@ -369,24 +420,26 @@ export default {
           console.log(err);
         });
     },
-     /**
+    /**
      * @vuese
-      *  check Register Form data
-    */
-    checkRegisterForm(){
-      auth.checkRegisterForm('buyer').then(res =>{
-        let formControl = res.data.items;
-        formControl.map(element => {
-          
-          if(element.status !== 1){
-            this.form[element.input_key] = null
-          }else{
-            this.form[element.input_key] = ''
-          }
+     *  check Register Form data
+     */
+    checkRegisterForm() {
+      auth
+        .checkRegisterForm("buyer")
+        .then((res) => {
+          let formControl = res.data.items;
+          formControl.map((element) => {
+            if (element.status !== 1) {
+              this.form[element.input_key] = null;
+            } else {
+              this.form[element.input_key] = "";
+            }
+          });
         })
-      }).catch(err =>{
-        console.log(err);
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     /**
      * @vuese
@@ -533,7 +586,7 @@ export default {
   },
   components: {
     dynamicComponent,
-    CheckPassComponent
+    CheckPassComponent,
   },
 };
 </script>

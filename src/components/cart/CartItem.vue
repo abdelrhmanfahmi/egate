@@ -197,6 +197,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 2px;
+  min-height: 90px;
 
   .product-image {
     width: 100%;

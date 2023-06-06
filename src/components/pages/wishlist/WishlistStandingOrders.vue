@@ -173,7 +173,6 @@ import profile from "@/services/profile";
 export default {
   data() {
     return {
-      id: this.$route.query.id,
       standingOrders: null,
       standingOrdersLength: null,
       showForm: false,
@@ -230,12 +229,13 @@ export default {
      */
     addProductToStandingOrders() {
       let payload = {
-        basket_promotion_id: this.id ? this.id : this.variantOrder.id,
+        basket_promotion_id: this.selectedBasketProduct?.basket_promotion_id,
         client_standing_id: this.selectedPlan,
         quantity: !this.checkPage
           ? this.ProductQuantity
           : this.quotationQuantity,
       };
+      console.log('payload' , payload);
       profile
         .addProductToStandingOrders(payload)
         .then((res) => {
@@ -317,9 +317,9 @@ export default {
    * props
    */
   props: {
-    variantOrder: {
+    selectedBasketProduct: {
       // variantOrder prop
-      type: Array,
+      type: Object,
     },
     quotationQuantity: {
       // quotationQuantity prop
