@@ -4413,7 +4413,16 @@ export default {
     top: 0;
     bottom: 0;
     border-radius: 5px;
+    left:auto
   }
+}
+.ar{
+.input-holder {
+  button {
+    left: 0;
+    right:auto
+  }
+}
 }
 .icon{
   transition: all .3s ease-in-out;

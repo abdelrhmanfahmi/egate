@@ -549,6 +549,10 @@
                               {{ ord.price | fixedCurrency }} {{ currency }}
                             </td>
                             <td v-else>-</td>
+                            <td v-if="ord.coupon_code">
+                              {{ ord.coupon_code  }} 
+                            </td>
+                            <td v-else>-</td>
                             <td v-if="ord.quantity">{{ ord.quantity }}</td>
                             <td v-else>-</td>
                             <td v-if="ord.discount">
@@ -673,6 +677,10 @@
                             <td v-else>-</td>
                             <td v-if="ord.price">
                               {{ ord.price | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.coupon_code">
+                              {{ ord.coupon_code  }} 
                             </td>
                             <td v-else>-</td>
                             <td v-if="ord.quantity">{{ ord.quantity }}</td>
@@ -1381,6 +1389,10 @@ export default {
           label: this.$t("profile.price"),
         },
         {
+          key: "coupon_code",
+          label: this.$t("payment.coupon"),
+        },
+        {
           key: "qty",
           label: this.$t("profile.qty"),
         },
@@ -1409,6 +1421,10 @@ export default {
         {
           key: "price",
           label: this.$t("profile.price"),
+        },
+        {
+          key: "coupon_code",
+          label: this.$t("payment.coupon"),
         },
         {
           key: "qty",
@@ -1463,7 +1479,7 @@ export default {
       };
       profile
         .storeCheckedOrders(payload)
-        .then((res) => {
+        .then(() => {
           if (option == "replace") {
             this.$router.push({
               path: "/return-replace",
@@ -1490,7 +1506,7 @@ export default {
       };
       profile
         .storeCheckedOrders(payload)
-        .then((res) => {
+        .then(() => {
           if (option == "replace") {
             this.$router.push({
               path: "/return-replace",
