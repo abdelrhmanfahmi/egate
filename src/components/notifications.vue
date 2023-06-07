@@ -121,9 +121,9 @@ export default {
             this.$store.dispatch("getNotifications");
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -186,9 +186,9 @@ export default {
             this.getNotificatinos();
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
 };

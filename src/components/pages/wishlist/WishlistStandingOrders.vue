@@ -166,14 +166,13 @@
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 // standing orders component
 import profile from "@/services/profile";
 export default {
   data() {
     return {
-      id: this.$route.query.id ? this.$route.query.id : this.passedId,
       standingOrders: null,
       standingOrdersLength: null,
       showForm: false,
@@ -229,68 +228,34 @@ export default {
      * this function used to add Product To Standing Orders
      */
     addProductToStandingOrders() {
-      if (this.checkedItems.length) {
-        let payload = {
-          product_supplier_id: this.checkedItems ? this.checkedItems : this.variantOrder.id,
-          client_standing_id: this.selectedPlan,
-          quantity: !this.checkPage
-            ? this.ProductQuantity
-            : this.quotationQuantity,
-            buy_get_promotion:this.buy_get_promotion == true ? true : false
-        };
-        profile
-          .addProductToStandingOrders(payload)
-          .then((res) => {
-            if (res.status == 200) {
-              this.sucessMsg(res.data.message);
+      let payload = {
+        basket_promotion_id: this.selectedBasketProduct?.basket_promotion_id,
+        client_standing_id: this.selectedPlan,
+        quantity: !this.checkPage
+          ? this.ProductQuantity
+          : this.quotationQuantity,
+      };
+      profile
+        .addProductToStandingOrders(payload)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
 
-              setTimeout(() => {
-                this.$router.push({
-                  path: "/profile/SingleStandingOrder",
-                  query: {
-                    id: this.selectedPlan,
-                  },
-                });
-              }, 700);
-            }
-          })
-          .catch((err) => {
-            let errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            this.errMsg(err.message);
-          });
-      }else{
-
-        let payload = {
-          product_supplier_id: this.id ? this.id : this.variantOrder.id,
-          client_standing_id: this.selectedPlan,
-          quantity: !this.checkPage
-            ? this.ProductQuantity
-            : this.quotationQuantity,
-            buy_get_promotion:this.buy_get_promotion == true ? true : false
-        };
-        profile
-          .addProductToStandingOrders(payload)
-          .then((res) => {
-            if (res.status == 200) {
-              this.sucessMsg(res.data.message);
-  
-              setTimeout(() => {
-                this.$router.push({
-                  path: "/profile/SingleStandingOrder",
-                  query: {
-                    id: this.selectedPlan,
-                  },
-                });
-              }, 700);
-            }
-          })
-          .catch((err) => {
-            let errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            this.errMsg(err.message);
-          });
-      }
+            setTimeout(() => {
+              this.$router.push({
+                path: "/profile/SingleStandingOrder",
+                query: {
+                  id: this.selectedPlan,
+                },
+              });
+            }, 700);
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
     },
     /**
      * @vuese
@@ -335,9 +300,6 @@ export default {
       };
       profile
         .standingQuotation(data)
-        // .then((res) => {
-        //   console.log(res);
-        // })
         // .catch((err) => {
         //   console.log(err);
         // });
@@ -351,7 +313,7 @@ export default {
    * props
    */
   props: {
-    variantOrder: {
+    selectedBasketProduct: {
       // variantOrder prop
       type: Object,
     },
@@ -359,15 +321,6 @@ export default {
       // quotationQuantity prop
       type: Number,
     },
-    passedId: {
-      type: Number,
-    },
-    checkedItems: {
-      type: Array,
-    },
-    buy_get_promotion:{
-      type:Boolean
-    }
   },
   computed: {
     checkPage() {
@@ -376,11 +329,11 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
+  
+  <style lang="scss" scoped>
 /**
-    * component style 
-  */
+      * component style 
+    */
 .add-address {
   font-size: 17px;
   color: #312620;
@@ -578,3 +531,4 @@ input[type="checkbox"] {
   opacity: 0;
 }
 </style>
+  

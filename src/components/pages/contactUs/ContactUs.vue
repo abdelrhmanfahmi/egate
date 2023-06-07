@@ -195,9 +195,9 @@ export default {
           
           this.contactMap = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     contactUsPhone() {
       /**
@@ -210,9 +210,9 @@ export default {
           
           this.contactPhone = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     contactUsEmail() {
       /**
@@ -225,9 +225,9 @@ export default {
           
           this.contactEmail = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     contactUsAddress() {
       /**
@@ -240,9 +240,9 @@ export default {
           
           this.contactAddress = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

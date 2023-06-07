@@ -203,7 +203,7 @@ export default {
       profile
         .getNotificationSettings()
         .then((res) => {
-          console.log(res);
+          
           let response = res.data.items.data;
           let ordersData = [];
           let productsData = [];
@@ -223,10 +223,7 @@ export default {
               othersData.push(element);
             }
           });
-          console.log(ordersData);
-          console.log(productsData);
-          console.log(rfqData);
-          console.log(othersData);
+
 
           ordersData.forEach((element) => {
             if (element.notification_type == "Sms" && element.type == "Order" ||
@@ -323,9 +320,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * change tNotification Settings function
@@ -338,14 +335,14 @@ export default {
       };
       profile
         .changeNotificationSettings(data)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          
           this.getNotificationSettings();
         })
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(notify);
+        // .catch((err) => {
+        //   console.log(err);
+        // });
+
     },
   },
   mounted() {

@@ -303,7 +303,7 @@ export default {
           this.promotion_products = res.data.items.promotion_products;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           if (err.response.data.code == 404) {
             this.notFound = true;
             this.loading = false;
@@ -317,11 +317,11 @@ export default {
         .then((resp) => {
           this.relatedProducts = resp.data.items.data;
           this.relatedProductsLength = resp.data.items.data.length;
-          console.log(resp);
+
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     goProduct(data) {
       this.$router.push({

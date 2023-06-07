@@ -166,8 +166,8 @@ export default {
       /**
        * notification click function
        * */
-      notification.addEventListener("click", function (event) {
-        console.log(event, data);
+      notification.addEventListener("click", function () {
+
         if (data.type && data.type_id) {
           let url = "/";
           switch (data.type) {

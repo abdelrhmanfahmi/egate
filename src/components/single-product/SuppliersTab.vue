@@ -950,9 +950,9 @@ export default {
         .then((res) => {
           this.products = res.data.items.data;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -983,9 +983,9 @@ export default {
 
           this.totalRecords = res.data.items.data.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1007,9 +1007,9 @@ export default {
             this.productInfo.variants[index].selectedVariance = null;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -1135,9 +1135,9 @@ export default {
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

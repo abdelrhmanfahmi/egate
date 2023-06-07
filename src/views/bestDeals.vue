@@ -112,7 +112,6 @@ export default {
       categories
         .getBestDeals()
         .then((resp) => {
-          console.log(resp);
           this.deals = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(
@@ -122,9 +121,9 @@ export default {
           this.totalRecords = resp.data.items.total;
           this.perPage = resp.data.items.per_page;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

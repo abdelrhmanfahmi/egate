@@ -260,7 +260,6 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
-          console.log("productDetails", res);
           this.myProduct = res.data.items;
           this.supplierProductsId = res.data.items.client_id;
 
@@ -295,9 +294,9 @@ export default {
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   created() {

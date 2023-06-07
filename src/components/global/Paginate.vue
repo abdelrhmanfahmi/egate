@@ -168,7 +168,6 @@ export default {
      * on Click last Page function
      */
     onClickLastPage() {
-      console.log("onClickLastPage");
       if (this.isInLastPage) {
         return false;
       }

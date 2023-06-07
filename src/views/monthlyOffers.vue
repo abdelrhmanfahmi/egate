@@ -99,7 +99,6 @@ export default {
       auth
         .getHomeDeadline()
         .then((resp) => {
-          console.log(resp);
           this.deals = resp.data.items.deals.data;
           this.total = resp.data.items.deals.total;
           this.totalPages = Math.ceil(
@@ -109,9 +108,9 @@ export default {
           this.totalRecords = resp.data.items.deals.total;
           this.perPage = resp.data.items.deals.per_page
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

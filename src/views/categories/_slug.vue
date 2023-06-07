@@ -333,9 +333,9 @@ export default {
 
           this.categoryTitle = resp.data.items[0].parent_category.title
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -351,9 +351,9 @@ export default {
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -403,7 +403,6 @@ export default {
         query = {
           brand: item.title.trim().replace(/\s/g, ""),
         };
-        console.log("third");
       } else if (
         this.$route.query.brand
           .split(",")
@@ -455,7 +454,6 @@ export default {
         query = {
           brand: "All",
         };
-        console.log("third");
       } else if (
         this.$route.query.brand.split(",").includes(this.$route.query.brand)
       ) {

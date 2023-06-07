@@ -44,13 +44,12 @@ export default {
       profile
         .faqPage()
         .then((res) => {
-          console.log(res);
           this.questions = res.data.items;
           // document.querySelector('.details-0').setAttribute('open')
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted(){

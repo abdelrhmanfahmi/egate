@@ -97,9 +97,9 @@ export default {
         .then((resp) => {
           this.suppliers = resp.data.items.data;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -123,9 +123,9 @@ export default {
           //   "YYYY-MM-DD HH:mm:ss"
           // ));
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   created() {

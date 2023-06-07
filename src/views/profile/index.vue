@@ -3,16 +3,23 @@
   <div class="profile-body" v-if="userInfo">
     <!-- products  progress  -->
     <!-- <ProgressSlider /> -->
-    <b-container v-if="
-      userInfo.item.type === 'buyer' ||
-      (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
-    ">
-      <div class="row profile-header" v-if="buyerUserData && buyerUserData.profile_percentage !== 100">
+    <b-container
+      v-if="
+        userInfo.item.type === 'buyer' ||
+        (userInfo.item.type === 'supplier' && userInfo.item.is_buyer == 1)
+      "
+    >
+      <div
+        class="row profile-header"
+        v-if="buyerUserData && buyerUserData.profile_percentage !== 100"
+      >
         <div class="col-12 col-sm-8 continue-registration">
           <h5>{{ $t("profile.completeAccount") }}</h5>
           <p>
             {{ $t("profile.completeMessage") }}
-            <router-link :to="redirectUrl">{{ $t("profile.completeLink") }}</router-link>
+            <router-link :to="redirectUrl">{{
+              $t("profile.completeLink")
+            }}</router-link>
           </p>
         </div>
       </div>
@@ -91,7 +98,11 @@ export default {
     if (this.buyerUserData) {
       this.getProfileBudges();
     } else {
-      this.$router.push("/b2b-login");
+      if (this.isLoggined == true) {
+        this.$router.push("/profile/account-information-b2b").catch(() =>{});
+      } else {
+        this.$router.push("/b2b-login").catch(() =>{});
+      }
     }
     this.getAllAdresses();
   },
@@ -155,6 +166,4 @@ export default {
   padding: 3rem 0;
   //background: #f9f8f5;
 }
-
-
 </style>

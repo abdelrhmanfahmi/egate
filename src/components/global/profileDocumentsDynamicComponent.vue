@@ -227,9 +227,10 @@ export default {
 
                 this.secondCheckDynamicInputs()
 
-            }).catch(err => {
-                console.log(err);
             })
+            // .catch(err => {
+            //     console.log(err);
+            // })
         },
 
     /**
@@ -256,9 +257,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * upload Dunamic Inputs Data

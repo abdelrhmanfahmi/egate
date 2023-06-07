@@ -622,7 +622,6 @@ export default {
      *  add product to cart
      */
     addToCart(myProduct) {
-      console.log("myProduct", myProduct);
       let data = {
         product_supplier_id:
           myProduct.product_details_by_type.product_supplier_id,
@@ -682,7 +681,7 @@ export default {
         buy_get_promotion_id:
           item.buy_get_promotion_running_by_type.buy_get_promotion_id,
       };
-      console.log("data", data);
+
       return globalAxios
         .post(`cart/add`, data)
         .then((res) => {
@@ -787,7 +786,6 @@ export default {
       suppliers
         .requestQuotation(payload)
         .then((resp) => {
-          console.log(resp);
           this.errors = {};
           this.sucessMsg(resp.data.message);
           setTimeout(() => {
@@ -945,7 +943,7 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          console.log(error);
+          // console.log(error);
         });
     },
     /**

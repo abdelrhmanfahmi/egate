@@ -88,7 +88,6 @@ export default {
      * custom increament for input not buttons
      */
     CustomIncrementQuantity() {
-      console.log(this.countValue);
       if (this.countValue > 0) {
         this.$emit("changeCount", this.countValue);
         setTimeout(() => {

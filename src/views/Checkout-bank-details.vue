@@ -147,13 +147,12 @@ export default {
       profile
         .getSingleOrders(this.id)
         .then((res) => {
-          console.log("getSingleOrders", res);
           this.bankData.uuid = res.data.items.order.uuid;
           this.$store.dispatch("cart/getCartProducts");
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

@@ -91,7 +91,6 @@ export default {
       profile
         .checkCoupon(this.coupon)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             this.success = true;
             this.sucessMsg(this.$t("profile.couponValid"));

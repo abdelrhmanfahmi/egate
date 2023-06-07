@@ -116,7 +116,6 @@ export default {
     //     });
     // },
     goVariant(slider) {
-      console.log(slider);
       this.$router.push(
         {
           path: `/categories/${slider.id}/variants`,
@@ -134,8 +133,7 @@ export default {
           index++
         ) {
           const element = this.parent_categoryVariants[index];
-          console.log("element id", element.id);
-          console.log("page id", this.id);
+          console.log(element.id);
         }
       }
     },

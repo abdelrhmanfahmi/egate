@@ -645,9 +645,9 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        .catch((err) => {
-          console.log(err); //
-        });
+        // .catch((err) => {
+        //   console.log(err); 
+        // });
     },
     /**
      * @vuese
@@ -666,7 +666,6 @@ export default {
               this.myFormControl[element.input_key] = "";
             }
           });
-          console.log("myFormControl", this.myFormControl);
         })
         .then(() => {
           /**
@@ -697,9 +696,9 @@ export default {
             : "3";
           this.form.country_id = this.buyerUserData.country_id;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * Update Profile function
@@ -834,7 +833,6 @@ export default {
         })
         .catch((error) => {
           if (error) {
-            console.log("error", error);
             const err = Object.values(error)[2].data;
             this.errors = err.items;
             this.errMsg(err.message);

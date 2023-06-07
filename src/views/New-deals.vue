@@ -220,7 +220,6 @@ export default {
       profile
         .buyToGetAnother()
         .then((resp) => {
-          console.log(resp);
           this.buyAndGet = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(
@@ -230,9 +229,9 @@ export default {
           this.totalRecords = resp.data.items.total;
           this.perPage = resp.data.items.per_page;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -246,9 +245,9 @@ export default {
           this.basketDealData = resp.data.items.data;
           this.basketDataLength = resp.data.items.data.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -261,13 +260,12 @@ export default {
       await profile
         .getGiftOffer()
         .then((resp) => {
-          console.log('getGiftOffer' , resp);
           this.giftOffers = resp.data.items.data;
           this.giftOffersLength = resp.data.items.data.length;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

@@ -55,9 +55,9 @@
                       {{ $t("singleProduct.available") }}
                       {{ $t("cart.quantity") }}
                     </th>
-                    <th>{{ $t('cart.supplier') }}</th>
-                    <th>{{ $t('items.unit') }}</th>
-                    <th>{{ $t('profile.countryOrigin') }}</th>
+                    <th>{{ $t("cart.supplier") }}</th>
+                    <th>{{ $t("items.unit") }}</th>
+                    <th>{{ $t("profile.countryOrigin") }}</th>
                     <th scope="col">{{ $t("profile.actions") }}</th>
                   </tr>
                 </thead>
@@ -146,7 +146,7 @@
                           }}
                           {{ currency }}
                         </span>
-                        
+
                         <br />
                         <!-- if price exist & check discount  -->
                         <span
@@ -170,23 +170,42 @@
                       <p v-else>-</p>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.product_supplier.product_details_by_type && item.product_supplier.product_details_by_type.quantity">{{
-                        item.product_supplier.product_details_by_type.quantity
-                      }}</span>
+                      <span
+                        v-if="
+                          item.product_supplier.product_details_by_type &&
+                          item.product_supplier.product_details_by_type.quantity
+                        "
+                        >{{
+                          item.product_supplier.product_details_by_type.quantity
+                        }}</span
+                      >
                       <span v-else>-</span>
                     </td>
-                   
+
                     <td class="text-center">
-                      <router-link :to="`/suppliers/${item.product_supplier.client.id}`">
+                      <router-link
+                        :to="`/suppliers/${item.product_supplier.client.id}`"
+                      >
                         {{ item.product_supplier.client.company_name }}
                       </router-link>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.product_supplier.product_details_by_type && item.product_supplier.product_details_by_type.unit">{{ item.product_supplier.product_details_by_type.unit.title }}</span>
+                      <span
+                        v-if="
+                          item.product_supplier.product_details_by_type &&
+                          item.product_supplier.product_details_by_type.unit
+                        "
+                        >{{
+                          item.product_supplier.product_details_by_type.unit
+                            .title
+                        }}</span
+                      >
                       <span v-else>-</span>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.product_supplier.country">{{ item.product_supplier.country.title }}</span>
+                      <span v-if="item.product_supplier.country">{{
+                        item.product_supplier.country.title
+                      }}</span>
                       <span v-else>-</span>
                     </td>
                     <td class="text-center">
@@ -239,7 +258,7 @@
                           id="show-btn"
                           class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
                           @click="
-                            selectId(item.id);
+                            selectStandId(item.product_supplier_id);
                             $bvModal.show('bv-standingOrders');
                           "
                           v-b-tooltip.hover
@@ -342,19 +361,21 @@
                       </span>
                       <span v-else>-</span>
                     </td>
-                    
+
                     <td class="text-center">
-                      <span >-</span>
+                      <span>-</span>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.basket_promotion.client">{{ item.basket_promotion.client.company_name }}</span>
-                      <span v-else >-</span>
+                      <span v-if="item.basket_promotion.client">{{
+                        item.basket_promotion.client.company_name
+                      }}</span>
+                      <span v-else>-</span>
                     </td>
                     <td class="text-center">
-                      <span >-</span>
+                      <span>-</span>
                     </td>
                     <td class="text-center">
-                      <span >-</span>
+                      <span>-</span>
                     </td>
 
                     <!-- remove product from cart -->
@@ -363,7 +384,6 @@
                       <div
                         class="actions d-flex justify-content-center align-items-center"
                       >
-                      test
                         <button
                           @click="addBasketToCart(item)"
                           class="action cart-link btn"
@@ -386,6 +406,25 @@
                             <font-awesome-icon icon="fa-solid fa-trash-can" />
                           </span>
                         </button>
+
+                        <button
+                          id="show-btn"
+                          class="button one inactive mobile button--secondary wishlist-btn add-cart bg-dark mx-3 px-3"
+                          @click="
+                            chooseBasketProduct(item);
+                            $bvModal.show('bv-basketstandingOrders');
+                          "
+                          v-b-tooltip.hover
+                          :title="$t('items.standingOrders')"
+                          v-if="buyerUserData"
+                        >
+                          <img
+                            src="@/assets/images/new-design/standing-order-sign.png"
+                            class="standing-order-sign"
+                            alt="standing-order-sign"
+                          />
+                        </button>
+
                       </div>
                     </td>
                   </tr>
@@ -485,11 +524,24 @@
         $t("cart.submit")
       }}</b-button>
     </b-modal>
-    <b-modal ref="standingOrdersModal" id="bv-standingOrders" size="xl" hide-footer>
+    <b-modal
+      ref="standingOrdersModal"
+      id="bv-standingOrders"
+      size="xl"
+      hide-footer
+    >
       <template #modal-title>
         {{ $t("items.standingOrders") }}
       </template>
       <standing-orders :passedId="selectedId" :checkedItems="checkedItems" />
+    </b-modal>
+    <!-- standing orders modal -->
+
+    <b-modal id="bv-basketstandingOrders" size="xl" hide-footer>
+      <template #modal-title>
+        {{ $t("items.standingOrders") }}
+      </template>
+      <WishlistStandingOrders :selectedBasketProduct="selectedBasketProduct" />
     </b-modal>
   </div>
 </template>
@@ -507,6 +559,8 @@ import Vue from "vue";
 import VueSweetalert2 from "vue-sweetalert2";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
+
+import WishlistStandingOrders from "@/components/pages/wishlist/WishlistStandingOrders.vue";
 Vue.use(VueSweetalert2);
 export default {
   data() {
@@ -623,11 +677,13 @@ export default {
       selectedId: null,
       checkedItems: [],
       selectedAction: null,
+      selectedBasketProduct: null,
     };
   },
   components: {
     Paginate,
     StandingOrders,
+    WishlistStandingOrders
     // rfqIcon,
   },
   methods: {
@@ -655,10 +711,9 @@ export default {
       }
     },
     favoriteBulkAddToCart() {
-
       let data = {
         product_supplier_id: this.checkedItems,
-        quantity:  1,
+        quantity: 1,
       };
 
       return globalAxios
@@ -678,7 +733,6 @@ export default {
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });
-
     },
     favoriteBulkRemoveFav() {
       let payload = {
@@ -709,7 +763,7 @@ export default {
       //     this.errors = err.items;
       //     this.errMsg(err.message);
       //   });
-      this.$refs['standingOrdersModal'].show()
+      this.$refs["standingOrdersModal"].show();
     },
 
     /**
@@ -730,9 +784,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -825,6 +879,9 @@ export default {
     chooseProduct(product) {
       this.selectedProduct = product;
     },
+    chooseBasketProduct(product) {
+      this.selectedBasketProduct = product;
+    },
     /**
      * request Quotation function
      * @vuese
@@ -864,7 +921,6 @@ export default {
      *  add basket to cart
      */
     addBasketToCart(myProduct) {
-      console.log("myProduct", myProduct);
       let data = {
         basket_promotion_id: myProduct.basket_promotion_id,
         quantity: 1,
@@ -941,6 +997,9 @@ export default {
       });
     },
     selectId(elementId) {
+      this.selectedId = elementId;
+    },
+    selectStandId(elementId) {
       this.selectedId = elementId;
     },
   },

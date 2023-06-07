@@ -68,5 +68,6 @@ export default {
   haveCoupon:'هل تمتلك كوبون ؟',
   Apply:'تطبيق',
   search:'بحث',
-  resetDate:'حذف المدة'
+  resetDate:'حذف المدة',
+  coupon:'الكوبون'
 };

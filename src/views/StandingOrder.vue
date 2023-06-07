@@ -509,9 +509,9 @@ export default {
           this.orders = res.data.items.items
           this.ordersLength = res.data.items.items.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

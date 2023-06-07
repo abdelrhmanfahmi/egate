@@ -199,9 +199,9 @@ export default {
         .then((res) => {
           this.items = res.data.items.data;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

@@ -7,11 +7,20 @@
           <b-col lg="10">
             <div class="register-info" v-if="b2b_buyer_registration">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <router-link to="/b2b-register" class="back">
+              <!-- <router-link to="/b2b-register" class="back">
                 <span class="main-color">
                   &#60; {{ $t("register.haveNotAccount") }}</span
                 >
-              </router-link>
+              </router-link> -->
+
+              <!-- // new design  -->
+              <div class="user-login-form">
+                <b-button to="/b2b-register" class="login-button my-2 border-main">
+                  <b
+                    >{{ $t("register.haveNotAccount") }}</b
+                  >
+                </b-button>
+              </div>
             </div>
             <form @submit.prevent="login()">
               <b-row class="justify-content-center">
@@ -171,7 +180,6 @@ export default {
         .login("buyer", loginData)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          console.log("yes", res.data.items.item.verify_email_required);
 
           // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 

@@ -110,9 +110,9 @@ export default {
             this.$router.push('/profile/Wallet')
           }, 0);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
 
 
     },

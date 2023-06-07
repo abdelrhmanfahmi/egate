@@ -99,16 +99,15 @@ export default {
       suppliers
         .getSuppliers(this.page)
         .then((resp) => {
-          console.log(resp);
           this.suppliers = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(resp.data.items.total / resp.data.items.per_page); // Calculate total records
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

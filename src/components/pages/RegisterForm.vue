@@ -11,9 +11,21 @@
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <a v-b-toggle.login class="back">
+              <!-- <a v-b-toggle.login class="back">
                 <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span></a
-              >
+              > -->
+              <div class="user-login-form">
+                <b-button
+                v-b-toggle.login
+                  class="login-button my-2 border-main"
+                  
+                >
+                  <b
+                    >{{ $t("register.alreadyHaveAccount") }} ?
+                    {{ $t("login.login") }}</b
+                  >
+                </b-button>
+              </div>
             </div>
             <form @submit.prevent="register()">
               <b-row class="justify-content-center">
@@ -85,7 +97,9 @@
                 <!-- Password -->
                 <b-col lg="6" v-if="form.password !== null">
                   <b-form-group>
-                    <label for="NewPassword">{{ $t("register.password") }}</label>
+                    <label for="NewPassword">{{
+                      $t("register.password")
+                    }}</label>
                     <span class="requried">*</span>
                     <div class="show-password">
                       <b-form-input
@@ -265,7 +279,11 @@
                 {{ $t("register.subscribeTheNewsletter") }}
               </b-form-checkbox>
               <div class="submition-box bg-white border-0">
-                <b-button type="submit" :disabled="!terms" class="bg-main br-5 w-25">
+                <b-button
+                  type="submit"
+                  :disabled="!terms"
+                  class="bg-main br-5 w-25"
+                >
                   {{ $t("register.submit") }}
                 </b-button>
               </div>
@@ -287,7 +305,7 @@ import auth from "@/services/auth";
 import profile from "@/services/profile";
 import dynamicComponent from "@/components/global/dynamicComponent";
 import { createdFormData } from "@/services/helpers.js";
-import CheckPassComponent from "@/components/auth/checkPassword.vue"
+import CheckPassComponent from "@/components/auth/checkPassword.vue";
 export default {
   data() {
     return {
@@ -327,7 +345,7 @@ export default {
   },
   components: {
     dynamicComponent,
-    CheckPassComponent
+    CheckPassComponent,
   },
   methods: {
     /**
@@ -340,9 +358,9 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -362,9 +380,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -430,9 +448,9 @@ export default {
         .then((res) => {
           this.contactPhone = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -457,9 +475,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     checkPass() {
       var len = document.getElementById("NewPassword").value;

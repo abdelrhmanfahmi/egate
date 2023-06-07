@@ -449,7 +449,6 @@ export default {
         //   ? item.product_supplier.product_details_by_type.min_order_quantity
         //   : 1,
       };
-      console.log('quantity', data.quantity);
 
       return globalAxios
         .post(`cart/add`, data)
@@ -676,7 +675,7 @@ export default {
         })
         .catch((err) => {
           this.errMsg(err.message);
-          console.log(err);
+          // console.log(err);
         });
     },
     /**
@@ -697,7 +696,7 @@ export default {
         })
         .catch((err) => {
           this.errMsg(err.message);
-          console.log(err);
+          // console.log(err);
         });
     },
     /**

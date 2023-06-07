@@ -82,9 +82,7 @@ export default {
      */
     closeModal: function () {
       this.$emit("close");
-      auth.postSupplierShowenAd(this.supplierAds.id).catch((err) => {
-        console.log(err);
-      });
+      auth.postSupplierShowenAd(this.supplierAds.id).catch(() => {});
     },
     /**
      * @vuese
@@ -99,9 +97,9 @@ export default {
             query: { id: this.supplierAds.product_id },
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

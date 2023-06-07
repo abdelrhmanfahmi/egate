@@ -672,7 +672,7 @@ export default {
     getAllAdresses() {
       profile.getAllAdresses().then((res) => {
         this.adresses = res.data.items;
-        console.log(res);
+
       });
     },
     // Countires
@@ -754,9 +754,9 @@ export default {
             this.regions = res.data.items;
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     // createAddress
@@ -853,7 +853,6 @@ export default {
       });
     },
     editSliderAdress(row) {
-      console.log("row", row);
       this.showForm = true;
       this.form.country_id = row.country_id;
 
@@ -915,9 +914,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   components: {

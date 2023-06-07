@@ -271,9 +271,9 @@ export default {
           // );
           // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";

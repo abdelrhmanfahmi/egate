@@ -151,7 +151,6 @@ export default {
           this.getProductRate();
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);
@@ -166,12 +165,11 @@ export default {
       profile
         .getProductRate()
         .then((res) => {
-          console.log(res);
           this.items = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * Change Rate Value function

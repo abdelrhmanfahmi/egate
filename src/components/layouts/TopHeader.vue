@@ -165,9 +165,9 @@ export default {
 
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     checkLang() {
 
@@ -279,9 +279,9 @@ export default {
           // location.reload();
 
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

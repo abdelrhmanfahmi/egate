@@ -69,5 +69,6 @@ export default {
   choosePaymentMethod:'Choose Your Payment Method',
   haveCoupon:'got a coupon code?',
   Apply:'Apply',
-  search:"Search"
+  search:"Search",
+  coupon:'Coupon'
 };

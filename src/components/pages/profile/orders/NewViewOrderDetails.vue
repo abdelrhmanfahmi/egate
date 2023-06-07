@@ -549,6 +549,10 @@
                               {{ ord.price | fixedCurrency }} {{ currency }}
                             </td>
                             <td v-else>-</td>
+                            <td v-if="ord.coupon_code">
+                              {{ ord.coupon_code  }} 
+                            </td>
+                            <td v-else>-</td>
                             <td v-if="ord.quantity">{{ ord.quantity }}</td>
                             <td v-else>-</td>
                             <td v-if="ord.discount">
@@ -673,6 +677,10 @@
                             <td v-else>-</td>
                             <td v-if="ord.price">
                               {{ ord.price | fixedCurrency }} {{ currency }}
+                            </td>
+                            <td v-else>-</td>
+                            <td v-if="ord.coupon_code">
+                              {{ ord.coupon_code  }} 
                             </td>
                             <td v-else>-</td>
                             <td v-if="ord.quantity">{{ ord.quantity }}</td>
@@ -1381,6 +1389,10 @@ export default {
           label: this.$t("profile.price"),
         },
         {
+          key: "coupon_code",
+          label: this.$t("payment.coupon"),
+        },
+        {
           key: "qty",
           label: this.$t("profile.qty"),
         },
@@ -1409,6 +1421,10 @@ export default {
         {
           key: "price",
           label: this.$t("profile.price"),
+        },
+        {
+          key: "coupon_code",
+          label: this.$t("payment.coupon"),
         },
         {
           key: "qty",
@@ -1456,18 +1472,15 @@ export default {
     };
   },
   methods: {
-    addChekedItem(order) {
-      console.log("order", order);
-    },
+
     goReturnPage(option) {
       let payload = {
         items: this.checkedOrder,
       };
       profile
         .storeCheckedOrders(payload)
-        .then((res) => {
+        .then(() => {
           if (option == "replace") {
-            console.log(res);
             this.$router.push({
               path: "/return-replace",
               query: {
@@ -1483,9 +1496,9 @@ export default {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     goReturnPageBaskets(option) {
       let payload = {
@@ -1493,9 +1506,8 @@ export default {
       };
       profile
         .storeCheckedOrders(payload)
-        .then((res) => {
+        .then(() => {
           if (option == "replace") {
-            console.log(res);
             this.$router.push({
               path: "/return-replace",
               query: {
@@ -1511,9 +1523,9 @@ export default {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * print Screen function
@@ -1555,9 +1567,9 @@ export default {
           this.CanvasUrl = res.data.items.order.payment_image;
           console.log("this.CanvasUrl", this.CanvasUrl);
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
@@ -1679,9 +1691,9 @@ export default {
           // console.log(res);
           this.twitter = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerYoutubeLink function
@@ -1694,9 +1706,9 @@ export default {
           // console.log(res);
           this.youtube = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerLinkedinLink function
@@ -1709,9 +1721,9 @@ export default {
           // console.log(res);
           this.linkedin = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerInstagramLink function
@@ -1724,9 +1736,9 @@ export default {
           // console.log(res);
           this.instagram = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerPinterestLink function
@@ -1739,9 +1751,9 @@ export default {
           // console.log(res);
           this.pinterest = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * contact Us Phone function
@@ -1754,9 +1766,9 @@ export default {
           // console.log(res);
           this.contactPhone = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * contact Us Email function
@@ -1769,9 +1781,9 @@ export default {
           // console.log(res);
           this.contactEmail = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

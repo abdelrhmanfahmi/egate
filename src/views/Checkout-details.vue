@@ -269,7 +269,7 @@ export default {
      */
     uploadImage(event) {
       this.bankData.image = event.target.files[0];
-      console.log(this.bankData.image);
+
     },
     /**
      * @vuese
@@ -281,9 +281,9 @@ export default {
         .then((res) => {
           this.bankInfo = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -303,9 +303,9 @@ export default {
           
           this.companyIban = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   computed: {

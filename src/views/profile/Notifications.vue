@@ -178,7 +178,6 @@ export default {
       profile
         .getNotificatinos(this.page)
         .then((resp) => {
-          console.log(resp);
           this.notifications = resp.data.items.notifications.data;
 
           this.total = resp.data.items.notifications.meta.total;
@@ -203,7 +202,6 @@ export default {
       profile
         .getNotificatinosWithLimit(this.page, this.filterPerPage)
         .then((resp) => {
-          console.log(resp);
           this.notifications = resp.data.items.notifications.data;
 
           this.total = resp.data.items.notifications.meta.total;
@@ -253,7 +251,6 @@ export default {
       profile
         .readNotification(notification)
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             this.$store.dispatch("getNotifications");
             this.getNotificatinos(this.page);

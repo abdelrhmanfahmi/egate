@@ -419,13 +419,12 @@ export default {
       profile
         .storeCheckedOrders(payload)
         .then((res) => {
-          console.log(res);
           this.products = res.data.items;
           this.productsLength = res.data.items.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     handleFileDrop(e) {
       let droppedFiles = e.dataTransfer.files;
@@ -588,9 +587,9 @@ export default {
           //   this.selectedOption = "cach";
           // }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -600,12 +599,11 @@ export default {
       profile
         .returnReasons()
         .then((res) => {
-          console.log(res);
           this.reasons = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -631,13 +629,12 @@ export default {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)
         .then((res) => {
-          console.log(this.$route.query.orderId);
-          console.log(res);
+
           this.maxQTY = res.data.items.quantity;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     changeProductQuantity(productData) {
       let productItem = {

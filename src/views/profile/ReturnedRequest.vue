@@ -102,9 +102,9 @@ export default {
 
             // this.paymentFormData.order_uuid = res.data.items.order.uuid;
           })
-          .catch((err) => {
-            console.log(err);
-          })
+          // .catch((err) => {
+          //   console.log(err);
+          // })
           .finally(() => {
             this.loading = false;
           });
@@ -119,9 +119,9 @@ export default {
 
             // this.paymentFormData.order_uuid = res.data.items.order.uuid;
           })
-          .catch((err) => {
-            console.log(err);
-          })
+          // .catch((err) => {
+          //   console.log(err);
+          // })
           .finally(() => {
             this.loading = false;
           });

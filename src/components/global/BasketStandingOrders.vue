@@ -1,474 +1,536 @@
 <template>
-    <div>
-      <!-- standing orders component  -->
-      <p class="add-address" @click="showForm = !showForm">
-        <span>+ </span>{{ $t("items.addNew") }}
-      </p>
-      <form @submit.prevent="CreateStandingOrders()" class="account-information-form" v-if="showForm">
-        <b-row class="justify-content-center align-items-center">
-          <!-- country  -->
-          <b-col lg="5" class="mb-3">
-            <label>{{ $t("profile.standOrderName") }}</label>
+  <div>
+    <!-- standing orders component  -->
+    <p class="add-address" @click="showForm = !showForm">
+      <span>+ </span>{{ $t("items.addNew") }}
+    </p>
+    <form
+      @submit.prevent="CreateStandingOrders()"
+      class="account-information-form"
+      v-if="showForm"
+    >
+      <b-row class="justify-content-center align-items-center">
+        <!-- country  -->
+        <b-col lg="5" class="mb-3">
+          <label>{{ $t("profile.standOrderName") }}</label>
+          <span class="requried">*</span>
+          <b-form-input id="name" v-model="standingOrder.name" />
+          <div class="error" v-for="(error, index) in errors.name" :key="index">
+            {{ error }}
+          </div>
+        </b-col>
+        <b-col lg="5">
+          <b-form-group>
+            <label>{{ $t("items.time") }}</label>
             <span class="requried">*</span>
-            <b-form-input id="name" v-model="standingOrder.name" />
-            <div class="error" v-for="(error, index) in errors.name" :key="index">
+            <b-form-select v-model="standingOrder.time">
+              <b-form-select-option :value="null" disabled>{{
+                $t("payment.selectExist")
+              }}</b-form-select-option>
+              <b-form-select-option
+                :value="time.id"
+                v-for="(time, index) in times"
+                :key="index"
+                >{{ time.title }}
+              </b-form-select-option>
+            </b-form-select>
+
+            <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
+            <div
+              class="error"
+              v-for="(error, index) in errors.time_id"
+              :key="index"
+            >
               {{ error }}
             </div>
-          </b-col>
-          <b-col lg="5">
-            <b-form-group>
-              <label>{{ $t("items.time") }}</label>
-              <span class="requried">*</span>
-              <b-form-select v-model="standingOrder.time">
-                <b-form-select-option :value="null" disabled>{{
-                  $t("payment.selectExist")
-                }}</b-form-select-option>
-                <b-form-select-option :value="time.id" v-for="(time, index) in times" :key="index">{{ time.title }}
-                </b-form-select-option>
-              </b-form-select>
-  
-              <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
-              <div class="error" v-for="(error, index) in errors.time_id" :key="index">
-                {{ error }}
+          </b-form-group>
+        </b-col>
+        <b-col lg="2">
+          <b-button type="submit" class="login-button">
+            {{ $t("register.submit") }}
+          </b-button>
+        </b-col>
+      </b-row>
+    </form>
+    <div class="d-flex justify-content-center align-items-center">
+      <hr class="w-75" />
+    </div>
+    <div class="my-3">
+      <p class="add-address">
+        {{ $t("profile.selectExistStandOrder") }}
+      </p>
+    </div>
+    <div class="standing-orders">
+      <div class="plans" v-if="standingOrdersLength > 0">
+        <div class="row">
+          <div
+            class="col-md-3 col-sm-12"
+            v-for="(order, index) in standingOrders"
+            :key="index"
+            @click="selectPlan(order)"
+          >
+            <label class="plan basic-plan">
+              <input
+                type="radio"
+                name="plan"
+                :value="order.id"
+                v-model="selectedPlan"
+                @change="sendStandID"
+              />
+              <div class="plan-content-holder">
+                <div class="plan-content">
+                  <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
+                  <div class="b-box">
+                    <!-- <div class="icon"></div> -->
+                    <h4 class="title">
+                      <span>{{ order.name }}</span>
+                      <div class="row">
+                        <div class="col-12">
+                          <small
+                            >{{ order.items_count }}
+                            {{ $t("items.item") }}</small
+                          >
+                        </div>
+                        <div class="col-12">
+                          <small>{{ order.time.title }}</small>
+                        </div>
+                      </div>
+                    </h4>
+                    <!-- <a href="#"></a> -->
+                  </div>
+                  <!-- </router-link> -->
+                </div>
               </div>
-            </b-form-group>
-          </b-col>
-          <b-col lg="2">
-            <b-button type="submit" class="login-button">
-              {{ $t("register.submit") }}
-            </b-button>
+            </label>
+          </div>
+          <div
+            class="error"
+            v-for="(error, index) in errors.client_standing_id"
+            :key="index"
+          >
+            {{ error }}
+          </div>
+        </div>
+        <b-row class="mb-3" v-if="quantitySelected">
+          <b-col lg="5">
+            <label for="">{{ $t("cart.standQuantity") }}</label>
+            <b-form-input
+              id="quantity"
+              type="number"
+              min="0"
+              v-model="ProductQuantity"
+              v-if="!checkPage"
+            />
+            <b-form-input
+              id="quantity"
+              type="number"
+              min="0"
+              v-model="quotationQuantity"
+              disabled
+              v-else
+            />
+            <div
+              class="error"
+              v-for="(error, index) in errors.quantity"
+              :key="index"
+            >
+              {{ error }}
+            </div>
           </b-col>
         </b-row>
-      </form>
-      <div class="d-flex justify-content-center align-items-center">
-        <hr class="w-75" />
-      </div>
-      <div class="my-3">
-        <p class="add-address">
-          {{ $t("profile.selectExistStandOrder") }}
-        </p>
-      </div>
-      <div class="standing-orders">
-        <div class="plans" v-if="standingOrdersLength > 0">
-          <div class="row">
-            <div class="col-md-3 col-sm-12" v-for="(order, index) in standingOrders" :key="index"
-              @click="selectPlan(order)">
-              <label class="plan basic-plan">
-                <input type="radio" name="plan" :value="order.id" v-model="selectedPlan" @change="sendStandID" />
-                <div class="plan-content-holder">
-                  <div class="plan-content">
-                    <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
-                    <div class="b-box">
-                      <!-- <div class="icon"></div> -->
-                      <h4 class="title">
-                        <span>{{ order.name }}</span>
-                        <div class="row">
-                          <div class="col-12">
-                            <small>{{ order.items_count }}
-                              {{ $t("items.item") }}</small>
-                          </div>
-                          <div class="col-12">
-                            <small>{{ order.time.title }}</small>
-                          </div>
-                        </div>
-                      </h4>
-                      <!-- <a href="#"></a> -->
-                    </div>
-                    <!-- </router-link> -->
-                  </div>
-                </div>
-              </label>
-            </div>
-            <div class="error" v-for="(error, index) in errors.client_standing_id" :key="index">
-              {{ error }}
-            </div>
-          </div>
-          <b-row class="mb-3" v-if="quantitySelected">
-            
-  
-              <b-col lg="5">
-                <label for="">{{ $t("cart.standQuantity") }}</label>
-                <b-form-input id="quantity" type="number" min="0" v-model="ProductQuantity" v-if="!checkPage" />
-                <b-form-input id="quantity" type="number" min="0" v-model="quotationQuantity" disabled v-else />
-                <div class="error" v-for="(error, index) in errors.quantity" :key="index">
-                  {{ error }}
-                </div>
-              </b-col>
-            
-          </b-row>
-          <div>
-            <b-button type="submit" class="login-button" @click="addProductToStandingOrders" v-if="!checkPage">
-              {{ $t("register.submit") }}
-            </b-button>
-            <b-button type="submit" class="login-button" @click="addProductToStandingOrders(); standingQuotation()" v-else>
-              {{ $t("register.submit") }}
-            </b-button>
-          </div>
+        <div>
+          <b-button
+            type="submit"
+            class="login-button"
+            @click="addProductToStandingOrders"
+            v-if="!checkPage"
+          >
+            {{ $t("register.submit") }}
+          </b-button>
+          <b-button
+            type="submit"
+            class="login-button"
+            @click="
+              addProductToStandingOrders();
+              standingQuotation();
+            "
+            v-else
+          >
+            {{ $t("register.submit") }}
+          </b-button>
         </div>
-        <div class="text-center" v-else>
-          <h2>{{ $t("home.noData") }}</h2>
-        </div>
+      </div>
+      <div class="text-center" v-else>
+        <h2>{{ $t("home.noData") }}</h2>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
-  // standing orders component
-  import profile from "@/services/profile";
-  export default {
-    data() {
-      return {
-        id: this.$route.query.id,
-        standingOrders: null,
-        standingOrdersLength: null,
-        showForm: false,
-        standingOrder: {
-          name: null,
-          time: null,
-        },
-        errors: [],
-        selectedPlan: null,
-        times: null,
-        quantitySelected: false,
-        ProductQuantity: 1,
-      };
-    },
-    methods: {
-      /**
-       * @vuese
-       * this function used to get Standing Orders
-       */
-      async getStandingOrders() {
-        await profile
-          .getStandingOrders()
-          .then((resp) => {
-            this.standingOrders = resp.data.items.data;
-            this.standingOrdersLength = resp.data.items.data.length;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.loading = false;
-          });
+// standing orders component
+import profile from "@/services/profile";
+export default {
+  data() {
+    return {
+      id: this.$route.query.id,
+      standingOrders: null,
+      standingOrdersLength: null,
+      showForm: false,
+      standingOrder: {
+        name: null,
+        time: null,
       },
-      /**
-       * @vuese
-       * this function used to get Standing Orders Times
-       */
-      async getStandingOrdersTimes() {
-        await profile
-          .getStandingOrdersTimes()
-          .then((resp) => {
-            this.times = resp.data.items;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-      },
-      /**
-       * @vuese
-       * this function used to add Product To Standing Orders
-       */
-      addProductToStandingOrders() {
-        let payload = {
-            basket_promotion_id: this.id ? this.id : this.variantOrder.id,
-          client_standing_id: this.selectedPlan,
-          quantity: !this.checkPage ? this.ProductQuantity : this.quotationQuantity,
-        };
-        profile
-          .addProductToStandingOrders(payload)
-          .then((res) => {
-            if (res.status == 200) {
-              this.sucessMsg(res.data.message);
-  
-              setTimeout(() => {
-                this.$router.push({
-                  path: "/profile/SingleStandingOrder",
-                  query: {
-                    id: this.selectedPlan,
-                  },
-                });
-              }, 700);
-            }
-          })
-          .catch((err) => {
-            let errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            this.errMsg(err.message);
-          });
-      },
-      /**
-       * @vuese
-       * this function used to selectPlan (select standing order group)
-       */
-      selectPlan() {
-        this.quantitySelected = true;
-      },
-      /**
-       * @vuese
-       * this function used to Create Standing Order
-       */
-      CreateStandingOrders() {
-        let payLoad = {
-          name: this.standingOrder.name,
-          time_id: this.standingOrder.time,
-        };
-        profile
-          .CreateStandingOrders(payLoad)
-          .then((res) => {
-            this.sucessMsg(res.data.message);
-            this.getStandingOrders();
-            this.errors = [];
-            if (res.status == 200) {
-  
-              this.selectedPlan = res.data.items.id;
-              this.selectPlan()
-            }
-          })
-          .catch((err) => {
-            let errors = Object.values(err)[2].data;
-            this.errors = errors.items;
-            this.errMsg(err.message);
-          });
-      },
-      sendStandID() {
-        this.$emit('customEmit', this.selectedPlan)
-      },
-      standingQuotation() {
-        let data = {
-          client_quote_id: this.id,
-          client_standing_id: this.selectedPlan
-        }
-        profile.standingQuotation(data).then(res => {
-          console.log(res);
-        }).catch(err => {
-          console.log(err);
+      errors: [],
+      selectedPlan: null,
+      times: null,
+      quantitySelected: false,
+      ProductQuantity: 1,
+    };
+  },
+  methods: {
+    /**
+     * @vuese
+     * this function used to get Standing Orders
+     */
+    async getStandingOrders() {
+      await profile
+        .getStandingOrders()
+        .then((resp) => {
+          this.standingOrders = resp.data.items.data;
+          this.standingOrdersLength = resp.data.items.data.length;
         })
-      }
-    },
-    mounted() {
-      this.getStandingOrders();
-      this.getStandingOrdersTimes();
+        // .catch((err) => {
+        //   console.log(err);
+        // })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     /**
-     * props
+     * @vuese
+     * this function used to get Standing Orders Times
      */
-    props: {
-      variantOrder: {
-        // variantOrder prop 
-        type: Array,
-      },
-      quotationQuantity:{
-        // quotationQuantity prop
-        type:Number
-      }
+    async getStandingOrdersTimes() {
+      await profile
+        .getStandingOrdersTimes()
+        .then((resp) => {
+          this.times = resp.data.items;
+        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
+        .finally(() => {
+          this.loading = false;
+        });
     },
-    computed: {
-      checkPage() {
-        return this.$route.path.includes('quotationDetails')
-      }
-    }
-  };
-  </script>
+    /**
+     * @vuese
+     * this function used to add Product To Standing Orders
+     */
+    addProductToStandingOrders() {
+      let payload = {
+        basket_promotion_id: this.id ? this.id : this.variantOrder.id,
+        client_standing_id: this.selectedPlan,
+        quantity: !this.checkPage
+          ? this.ProductQuantity
+          : this.quotationQuantity,
+      };
+      profile
+        .addProductToStandingOrders(payload)
+        .then((res) => {
+          if (res.status == 200) {
+            this.sucessMsg(res.data.message);
+
+            setTimeout(() => {
+              this.$router.push({
+                path: "/profile/SingleStandingOrder",
+                query: {
+                  id: this.selectedPlan,
+                },
+              });
+            }, 700);
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    /**
+     * @vuese
+     * this function used to selectPlan (select standing order group)
+     */
+    selectPlan() {
+      this.quantitySelected = true;
+    },
+    /**
+     * @vuese
+     * this function used to Create Standing Order
+     */
+    CreateStandingOrders() {
+      let payLoad = {
+        name: this.standingOrder.name,
+        time_id: this.standingOrder.time,
+      };
+      profile
+        .CreateStandingOrders(payLoad)
+        .then((res) => {
+          this.sucessMsg(res.data.message);
+          this.getStandingOrders();
+          this.errors = [];
+          if (res.status == 200) {
+            this.selectedPlan = res.data.items.id;
+            this.selectPlan();
+          }
+        })
+        .catch((err) => {
+          let errors = Object.values(err)[2].data;
+          this.errors = errors.items;
+          this.errMsg(err.message);
+        });
+    },
+    sendStandID() {
+      this.$emit("customEmit", this.selectedPlan);
+    },
+    standingQuotation() {
+      let data = {
+        client_quote_id: this.id,
+        client_standing_id: this.selectedPlan,
+      };
+      profile
+        .standingQuotation(data)
+        
+        // .catch((err) => {
+        //   console.log(err);
+        // });
+    },
+  },
+  mounted() {
+    this.getStandingOrders();
+    this.getStandingOrdersTimes();
+  },
+  /**
+   * props
+   */
+  props: {
+    variantOrder: {
+      // variantOrder prop
+      type: Array,
+    },
+    quotationQuantity: {
+      // quotationQuantity prop
+      type: Number,
+    },
+  },
+  computed: {
+    checkPage() {
+      return this.$route.path.includes("quotationDetails");
+    },
+  },
+};
+</script>
   
   <style lang="scss" scoped>
-  /**
+/**
       * component style 
     */
-  .add-address {
-    font-size: 17px;
-    color: #312620;
-    margin: 15px 0;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
-  
-    &:hover {
-      color: $main-color;
-    }
-  
-    span {
-      font-size: 23px;
-      font-weight: 600;
-    }
+.add-address {
+  font-size: 17px;
+  color: #312620;
+  margin: 15px 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $main-color;
   }
-  
-  .login-button {
-    margin: 0 !important;
-    margin-top: 15px !important;
+
+  span {
+    font-size: 23px;
+    font-weight: 600;
   }
-  
-  .standing-orders {
-    label {
-      width: 100%;
-    }
-  
-    .b-box {
-      margin-bottom: 10px;
-      // width: 180px;
-      background: #fff;
-      border-radius: 4px;
-      border: 1px solid #eee;
-      padding: 20px;
-      padding: 3rem 1rem 2rem;
-      position: relative;
+}
+
+.login-button {
+  margin: 0 !important;
+  margin-top: 15px !important;
+}
+
+.standing-orders {
+  label {
+    width: 100%;
+  }
+
+  .b-box {
+    margin-bottom: 10px;
+    // width: 180px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    padding: 20px;
+    padding: 3rem 1rem 2rem;
+    position: relative;
+    border-radius: 6px;
+    perspective: 600px;
+    perspective-origin: center bottom;
+    transition: 0.3s ease;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       border-radius: 6px;
-      perspective: 600px;
-      perspective-origin: center bottom;
+      z-index: -1px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0), 0 4px 4px rgba(0, 0, 0, 0),
+        0 8px 8px rgba(0, 0, 0, 0), 0 16px 16px rgba(0, 0, 0, 0),
+        0 32px 32px rgba(0, 0, 0, 0), 0 64px 64px rgba(0, 0, 0, 0),
+        0 128px 128px rgba(0, 0, 0, 0);
+      transition: 0.7s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      height: 100%;
+      background: #f3f4f7;
+      transition: transform 0.7s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
+        opacity 0.2s ease 0s;
+      opacity: 0;
+      transform-style: preserve-3d;
+      border-radius: 6px;
+      z-index: 1;
+      transform-origin: 50% 50%;
+      transform: scale(1, 0.7) rotateX(-20deg) translate3d(0, 30px, -85px);
+      pointer-events: none;
+    }
+
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+    }
+
+    .icon {
+      height: 60px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      z-index: 2;
       transition: 0.3s ease;
-  
+
       &:after {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 6px;
-        z-index: -1px;
-        box-shadow: 0 2px 2px rgba(0, 0, 0, 0), 0 4px 4px rgba(0, 0, 0, 0),
-          0 8px 8px rgba(0, 0, 0, 0), 0 16px 16px rgba(0, 0, 0, 0),
-          0 32px 32px rgba(0, 0, 0, 0), 0 64px 64px rgba(0, 0, 0, 0),
-          0 128px 128px rgba(0, 0, 0, 0);
-        transition: 0.7s ease;
-        opacity: 0;
-        pointer-events: none;
-      }
-  
-      &:before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        height: 100%;
-        background: #f3f4f7;
-        transition: transform 0.7s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
-          opacity 0.2s ease 0s;
-        opacity: 0;
-        transform-style: preserve-3d;
-        border-radius: 6px;
-        z-index: 1;
-        transform-origin: 50% 50%;
-        transform: scale(1, 0.7) rotateX(-20deg) translate3d(0, 30px, -85px);
-        pointer-events: none;
-      }
-  
-      a {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 3;
-      }
-  
-      .icon {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
         height: 60px;
-        margin: 0 auto 1.5rem;
-        position: relative;
-        z-index: 2;
-        transition: 0.3s ease;
-  
+        background: #eee;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+    }
+
+    .title {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 0;
+      color: #555;
+      line-height: 1.6;
+
+      span {
+        display: block;
+        transition: transform 0.45s ease 0.2s, color 0.1s ease 0s;
+      }
+
+      small {
+        display: block;
+        opacity: 0.6;
+        font-weight: normal;
+        font-size: 0.7em;
+        transition: transform 0.35s ease 0.1s, color 0.1s ease 0s;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.08);
+
+      &:after {
+        box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05),
+          0 4px 4px rgba(50, 55, 60, 0.05), 0 8px 8px rgba(50, 55, 60, 0.05),
+          0 16px 16px rgba(50, 55, 60, 0.05),
+          0 32px 32px rgba(50, 55, 60, 0.0375),
+          0 64px 64px rgba(50, 55, 60, 0.025),
+          0 128px 128px rgba(50, 55, 60, 0.025);
+        opacity: 1;
+      }
+
+      &:before {
+        transition: transform 0.45s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
+          opacity 0.35s ease 0s;
+        transform: scale(1, 1) rotateX(0deg) translate3d(0, 0, 0);
+        opacity: 1;
+      }
+
+      .icon {
+        transform: translateY(-10px) scale(1.12);
+
         &:after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 60px;
-          height: 60px;
-          background: #eee;
-          border-radius: 50%;
-          transition: 0.2s;
+          background: #ddd;
         }
       }
-  
+
       .title {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        margin-bottom: 0;
-        color: #555;
-        line-height: 1.6;
-  
+        color: #0f6eca;
+
         span {
-          display: block;
-          transition: transform 0.45s ease 0.2s, color 0.1s ease 0s;
+          transform: translateY(-6px);
         }
-  
+
         small {
-          display: block;
-          opacity: 0.6;
-          font-weight: normal;
-          font-size: 0.7em;
-          transition: transform 0.35s ease 0.1s, color 0.1s ease 0s;
-        }
-      }
-  
-      &:hover {
-        transform: scale(1.08);
-  
-        &:after {
-          box-shadow: 0 2px 2px rgba(50, 55, 60, 0.05),
-            0 4px 4px rgba(50, 55, 60, 0.05), 0 8px 8px rgba(50, 55, 60, 0.05),
-            0 16px 16px rgba(50, 55, 60, 0.05),
-            0 32px 32px rgba(50, 55, 60, 0.0375),
-            0 64px 64px rgba(50, 55, 60, 0.025),
-            0 128px 128px rgba(50, 55, 60, 0.025);
-          opacity: 1;
-        }
-  
-        &:before {
-          transition: transform 0.45s cubic-bezier(0.18, 0.79, 0.25, 1) 0s,
-            opacity 0.35s ease 0s;
-          transform: scale(1, 1) rotateX(0deg) translate3d(0, 0, 0);
-          opacity: 1;
-        }
-  
-        .icon {
-          transform: translateY(-10px) scale(1.12);
-  
-          &:after {
-            background: #ddd;
-          }
-        }
-  
-        .title {
-          color: #0f6eca;
-  
-          span {
-            transform: translateY(-6px);
-          }
-  
-          small {
-            transform: translateY(-10px);
-          }
+          transform: translateY(-10px);
         }
       }
     }
-  
-    .plan-content {
-      cursor: pointer;
-    }
-  
-    .plans .plan input[type="radio"]:checked+.plan-content-holder>.plan-content>.b-box {
-      border: 2px solid #216ee0;
-      background: #eaf1fe;
-      -webkit-transition: ease-in 0.1s;
-      -o-transition: ease-in 0.1s;
-      transition: ease-in 0.1s;
-    }
-  
-    /* inspiration */
   }
-  
-  input[type="radio"],
-  input[type="checkbox"] {
-    opacity: 0;
+
+  .plan-content {
+    cursor: pointer;
   }
-  </style>
+
+  .plans
+    .plan
+    input[type="radio"]:checked
+    + .plan-content-holder
+    > .plan-content
+    > .b-box {
+    border: 2px solid #216ee0;
+    background: #eaf1fe;
+    -webkit-transition: ease-in 0.1s;
+    -o-transition: ease-in 0.1s;
+    transition: ease-in 0.1s;
+  }
+
+  /* inspiration */
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  opacity: 0;
+}
+</style>
   

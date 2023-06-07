@@ -71,9 +71,9 @@ export default {
             }
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -82,7 +82,6 @@ export default {
     logoutDynamically() {
       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       let totalTime = userInfo.expires_in;
-      console.log("totalTime", totalTime);
       let myInterval = setInterval(() => {
         totalTime -= 1;
         localStorage.setItem("logOutTime", totalTime);
@@ -323,9 +322,9 @@ export default {
             }
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
 
@@ -338,7 +337,9 @@ export default {
         this.buyerUserData.type == "buyer") ||
         (this.$route.path.includes("profile") &&
           this.buyerUserData.type == "supplier" &&
-          this.buyerUserData.is_buyer == 1)
+          this.buyerUserData.is_buyer == 1) ||
+          this.$route.path.includes('profile') && 
+          this.userInfo && this.userInfo.item.type == 'buyer'
         ? "B2B"
         : "B2C";
     },

@@ -1767,7 +1767,7 @@ export default {
           this.totalPaymentReplacement += parseFloat(myData);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           if (err.response.status !== 422) {
@@ -1903,7 +1903,6 @@ export default {
             suppliers
               .checkNewCoupon(payload)
               .then((res) => {
-                console.log("res", res);
                 // let coupons = [];
 
                 // console.log(res.data.items.total_cart.total_discount);
@@ -2010,9 +2009,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 50);
       // wallet test
       setTimeout(() => {
@@ -2028,9 +2027,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 100);
       // visa test
       setTimeout(() => {
@@ -2046,9 +2045,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 150);
       // bank test
       setTimeout(() => {
@@ -2064,9 +2063,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 200);
       // wallet_visa test
       setTimeout(() => {
@@ -2082,9 +2081,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 250);
       // coupon test
       setTimeout(() => {
@@ -2100,9 +2099,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 250);
     },
     /**
@@ -2115,9 +2114,9 @@ export default {
         .then((res) => {
           this.walletData = res.data.items.balance;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -2265,7 +2264,6 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err);
             let error = Object.values(err)[2].data;
             this.errors = error.items;
             this.errMsg(error.message);
@@ -2470,9 +2468,9 @@ export default {
             ).innerHTML = ``;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

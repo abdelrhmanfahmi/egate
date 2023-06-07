@@ -65,13 +65,17 @@
                   </div>
                   <div class="p-0">
                     <p class="h5">
-                      <span class="main-color">!!</span>
-                      <span>{{ $t("profile.responses") }}</span>
+                      <span class="main-color">
+                        <b>!!</b>
+                      </span>
+                      <span class="mx-2">{{ $t("profile.responses") }}</span>
                     </p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                      <h5>{{ dashData.total_responses_qoutes }}</h5>
+                      <h5 class="text-dark">
+                        <b>{{ dashData.total_responses_qoutes }}</b>
+                      </h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/QuotationsB2b" class="main-color">
@@ -100,13 +104,17 @@
                   </div>
                   <div class="p-0">
                     <p class="h5">
-                      <span class="main-color">!!</span>
-                      <span>{{ $t("profile.pendingReturns") }}</span>
+                      <span class="main-color">
+                        <b>!!</b>
+                      </span>
+                      <span class="mx-2">{{ $t("profile.pendingReturns") }}</span>
                     </p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="">
-                      <h5>{{ dashData.total_pending_refund }}</h5>
+                    <div class="text-dark">
+                      <h5>
+                        <b>{{ dashData.total_pending_refund }}</b>
+                      </h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/ReturnRequests" class="main-color">
@@ -135,13 +143,17 @@
                   </div>
                   <div class="p-0">
                     <p class="h5">
-                      <span class="main-color">!!</span>
-                      <span>{{ $t("profile.pendingStands") }}</span>
+                      <span class="main-color">
+                        <b>!!</b>
+                      </span>
+                      <span class="mx-2">{{ $t("profile.pendingStands") }}</span>
                     </p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="">
-                      <h5>{{ dashData.total_Pending_orders }}</h5>
+                      <h5 class="text-dark">
+                        <b>{{ dashData.total_Pending_orders }}</b>
+                      </h5>
                     </div>
                     <div class="">
                       <router-link to="/profile/StandingOrders" class="main-color">
@@ -190,7 +202,7 @@
               <td>{{ order.created_at | formatDate }}</td>
               <td>{{ order.order_supplier_items_count }}</td>
               <td>
-                <span v-if="order.total_price" class="main-color"
+                <span v-if="order.total_price || order.total_price >=0" class="main-color"
                   ><b>{{ order.total_price | fixedCurrency }} {{ currency }}</b></span
                 >
                 <span v-else>-</span>
@@ -538,7 +550,7 @@ export default {
         .chargeMyWallet(payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          console.log(res);
+
           if (res.status == 200) {
             window.location.href = res.data.items.url;
             this.chargeClicked = false;
@@ -548,7 +560,6 @@ export default {
           let errors = Object.values(err)[2].data;
           this.errors = errors.items;
           this.errMsg(err.message);
-          console.log(err);
           this.chargeClicked = false;
         });
     },
@@ -562,7 +573,6 @@ export default {
       profile
         .getDashboardData()
         .then((res) => {
-          console.log(res);
           this.dashData = res.data.items;
           this.orders = res.data.items.orders;
           this.ordersLength = res.data.items.orders.length;
@@ -579,6 +589,9 @@ export default {
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     /**
@@ -625,7 +638,6 @@ export default {
       profile
         .rePay(this.paymentFormData)
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
           if (res.status == 200) {
             if (this.paymentFormData.payment_type === "cach") {
@@ -651,7 +663,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);

@@ -774,9 +774,9 @@ export default {
         .then((res) => {
           this.walletData = res.data.items.balance;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get Wallet Payments  function
@@ -796,9 +796,9 @@ export default {
 
           this.paymentTotalRecords = resp.data.items.payments.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get Wallet Payments  function
@@ -818,9 +818,9 @@ export default {
 
           this.chargesTotalRecords = resp.data.items.charges.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get Wallet Recivables  function
@@ -841,9 +841,9 @@ export default {
 
           this.recivableTotalRecords = resp.data.items.receivables.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * on Payments PageChange  function (for pagination)
@@ -885,7 +885,7 @@ export default {
         .chargeMyWallet(payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          console.log(res);
+          
           if (res.status == 200) {
             this.getWallet();
             window.location.href = res.data.items.url;
@@ -896,7 +896,6 @@ export default {
           let errors = Object.values(err)[2].data;
           this.errors = errors.items;
           this.errMsg(err.message);
-          console.log(err);
           this.chargeClicked = false;
         });
     },
@@ -917,7 +916,6 @@ export default {
           let errors = Object.values(err)[2].data;
           this.errors = errors.items;
           this.errMsg(err.message);
-          console.log(err);
         });
     },
     /**
@@ -934,7 +932,6 @@ export default {
           let errors = Object.values(err)[2].data;
           this.errors = errors.items;
           this.errMsg(err.message);
-          console.log(err);
         });
     },
     /**

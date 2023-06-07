@@ -90,9 +90,9 @@ export default {
             localStorage.removeItem("massege");
             location.reload();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }
     },
     /**
@@ -103,7 +103,7 @@ export default {
       auth
         .verificationMobile(this.form)
         .then(() => {
-          this.$router.push("/profile/account-information-b2b");
+          this.$router.push("/profile/account-information-b2b").catch(() =>{});
           this.$store.dispatch("getUserInfo");
         })
         .catch((error) => {
@@ -149,12 +149,12 @@ export default {
               () => {
                 this.$router.go(0);
               }
-            );
+            ).catch(() =>{})
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -175,9 +175,9 @@ export default {
             localStorage.removeItem("massege");
             location.reload();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }
     },
     /**
@@ -188,7 +188,7 @@ export default {
       auth
         .otpChangingVerification(this.form)
         .then(() => {
-          this.$router.push("/profile/account-information-b2b");
+          this.$router.push("/profile/account-information-b2b").catch(() =>{});
           this.$store.dispatch("getUserInfo");
         })
         .catch((error) => {

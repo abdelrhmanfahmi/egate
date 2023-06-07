@@ -200,9 +200,9 @@ export default {
           // console.log("res" , res);
           this.quotations = res.data.items.client_quote;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * add To Cart function
@@ -263,7 +263,7 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          console.log(error);
+          // console.log(error);
         }).finally(()=>{
           this.loading = false
         })

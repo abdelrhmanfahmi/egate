@@ -1222,7 +1222,6 @@ export default {
       }
     });
     profile.getibanUploadData().then((res) => {
-      console.log("third", res.data.items);
       this.ibanData = res.data.items;
       let url = res.data.items.iban_number_certificate_path;
       if (url.match(/.(jpeg|jpg|gif|png)$/)) {
@@ -1256,9 +1255,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -1286,7 +1285,7 @@ export default {
      * @vuese
      */
     downloadItem(url, extension, label) {
-      console.log(url);
+
       axios({
         url: url, // File URL Goes Here
         method: "GET",
@@ -1309,15 +1308,15 @@ export default {
     uploadPicture(e) {
       let formData = new FormData();
 
-      console.log(e.target.files[0].type);
       if (e.target.files[0].type.split("/")[0] === "image") {
         formData.append("file", e);
       } else if (e.target.files[0].type.split("/")[0] === "application") {
         formData.append("file", e);
-      } else {
-        console.log("other format");
-        // return false
-      }
+      } 
+      // else {
+      //   console.log("other format");
+      //   // return false
+      // }
     },
     /**
      * suppDocUpload function
@@ -1585,7 +1584,6 @@ export default {
         });
     },
     editSliderAdress(element) {
-      console.log("element", element);
       document.getElementById(element).click();
     },
   },

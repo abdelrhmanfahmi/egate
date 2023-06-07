@@ -78,7 +78,6 @@
         suppliers
           .getSuppliers(this.page)
           .then((resp) => {
-            console.log(resp);
             this.suppliers = resp.data.items.data.slice(0 , 20);
             this.total = resp.data.items.total;
             this.totalPages = Math.ceil(
@@ -87,9 +86,9 @@
   
             this.totalRecords = resp.data.items.total;
           })
-          .catch((err) => {
-            console.log(err);
-          })
+          // .catch((err) => {
+          //   console.log(err);
+          // })
           .finally(() => {
             this.loading = false;
           });
