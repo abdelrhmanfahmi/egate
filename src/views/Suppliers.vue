@@ -96,7 +96,6 @@ export default {
       suppliers
         .getSuppliers(this.page)
         .then((resp) => {
-          console.log(resp);
           this.suppliers = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(

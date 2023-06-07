@@ -24,6 +24,7 @@ export default {
   subject:'Subject',
   sendSupplierMessage:'Message Supplier',
   EstimatedPrice:'Estimated Price',
-  by:'By'
+  by:'By',
+  noDataAboutSellingCat:'No Selling Categories exits'
   
 };

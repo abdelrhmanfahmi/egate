@@ -19,7 +19,7 @@ export default {
   getSupplierProducts(id , productId) {
     return globalAxios.get(`products` , {
       params:{
-        not_client_id : id, 
+        client_id : id, 
         without_id:productId ? productId : null
       }
     });

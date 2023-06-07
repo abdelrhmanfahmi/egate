@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <div class="other-sections" v-if="supplier.categories">
+    <div class="other-sections" v-if="supplier.categories.length">
       <div class="select-country Allcountries">
         <b-dropdown
           id="dropdown-dropright"
@@ -86,6 +86,9 @@
           </b-dropdown-item>
         </b-dropdown>
       </div>
+    </div>
+    <div class="" v-else>
+      <h6>{{ $t('supplier.noDataAboutSellingCat') }}</h6>
     </div>
     <b-modal id="bv-modal-example" centered hide-footer>
       <template #modal-title> {{ $t("profile.yourMessage") }} </template>

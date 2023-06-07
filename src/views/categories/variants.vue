@@ -2,7 +2,6 @@
   <!-- variants page after sub-categories page  -->
   <div class="items-body variants">
     <div class="holder">
-
       <div class="container">
         <div
           class="navigation d-none d-lg-flex justify-content-start align-items-center"
@@ -179,8 +178,7 @@
             </h4>
           </div>
           <div class="col-md-8 col-sm-12 text-center my-2">
-            <div class="d-flex justify-content-end align-items-center">
-            </div>
+            <div class="d-flex justify-content-end align-items-center"></div>
 
             <div class="row">
               <div class="col-md-8 col-sm-12">
@@ -412,11 +410,9 @@
                   product.ads[0].status == 1,
               }"
             >
-
               <!-- product image  -->
               <td class="position-relative">
                 <div class="row justify-content-evenly align-items-center">
-                  
                   <div class="col-12">
                     <router-link
                       v-if="product.image_path !== null"
@@ -1096,6 +1092,18 @@
           </template>
           <standing-orders :variantOrder="selectedStandingOrder" />
         </b-modal>
+
+        <div
+          class="text-center d-flex justify-content-start align-items-center my-2"
+        >
+          <Paginate
+            v-if="products"
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pagechanged="onPageChange"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -1114,11 +1122,13 @@ import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
 // import rfqIcon from "@/components/global/rfqIcon.vue";
- import otherAddToCart from "@/components/global/otherAddToCart.vue";
+import otherAddToCart from "@/components/global/otherAddToCart.vue";
 
 import StandingOrders from "@/components/global/standingOrders.vue";
 
 import NewProgressSlider from "@/components/pages/home/NewProgressSlider";
+
+import Paginate from "@/components/global/Paginate.vue";
 
 export default {
   data() {
@@ -1229,7 +1239,17 @@ export default {
       PageId: null,
       allSubCategories: null,
       allSubCategoriesLength: null,
-      parent_category:null
+      parent_category: null,
+
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterpageno: "",
     };
   },
   components: {
@@ -1237,7 +1257,8 @@ export default {
     // rfqIcon,
     StandingOrders,
     NewProgressSlider,
-    otherAddToCart
+    otherAddToCart,
+    Paginate,
   },
   methods: {
     /**
@@ -1399,6 +1420,15 @@ export default {
         )
         .then((res) => {
           this.products = res.data.items.data;
+
+          this.products = res.data.items.data;
+
+          this.total = res.data.items.total;
+          this.totalPages = Math.ceil(
+            res.data.items.total / res.data.items.per_page
+          ); // Calculate total records
+
+          this.totalRecords = res.data.items.total;
         })
         .catch((err) => {
           console.log(err);
@@ -1419,6 +1449,15 @@ export default {
         )
         .then((res) => {
           this.products = res.data.items.data;
+
+          this.products = res.data.items.data;
+
+          this.total = res.data.items.total;
+          this.totalPages = Math.ceil(
+            res.data.items.total / res.data.items.per_page
+          ); // Calculate total records
+
+          this.totalRecords = res.data.items.total;
         })
         .catch((err) => {
           console.log(err);
@@ -1445,6 +1484,13 @@ export default {
         .then((res) => {
           // this.getFilters()
           this.products = res.data.items.data;
+
+          this.total = res.data.items.total;
+          this.totalPages = Math.ceil(
+            res.data.items.total / res.data.items.per_page
+          ); // Calculate total records
+
+          this.totalRecords = res.data.items.total;
         })
         .catch((err) => {
           console.log(err);
@@ -1630,6 +1676,33 @@ export default {
      */
     selectStandingProduct(order) {
       this.selectedStandingOrder = order;
+    },
+    /**
+     * @vuese
+     * this function used for pagination
+     */
+    onPageChange(page) {
+      this.page = page;
+      this.getCategoryProducts();
+    },
+
+    /**
+     * @vuese
+     * this function used for pagination
+     */
+    onChangeRecordsPerPage() {
+      this.getCategoryProducts();
+    },
+
+    /**
+     * @vuese
+     * this function used for pagination
+     */
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterpageno))) {
+        this.page = parseInt(this.enterpageno);
+        this.getCategoryProducts();
+      }
     },
   },
   mounted() {

@@ -23,5 +23,6 @@ export default {
   subject: "الموضوع",
   sendSupplierMessage: "راسل المورد",
   EstimatedPrice:'السعر المحدد',
-  by:'من خلال'
+  by:'من خلال',
+  noDataAboutSellingCat:'لايوجد أقسام بيع'
 };
