@@ -601,6 +601,37 @@
                       </span>
                     </router-link>
                   </h6>
+                  <h6
+                    v-if="product.buy_gift_promotions_running_by_type"
+                    class="text-dark"
+                  >
+                    <router-link
+                      class="text-dark"
+                      :to="{
+                        path: '/details',
+                        query: {
+                          id: product.id,
+                          type: `${$t('profile.buy')} 
+                    ${deal.buy_gift_promotions_running_by_type.buy_x} 
+                    ${$t('profile.get')} ${
+                            deal.buy_gift_promotions_running_by_type
+                              .gift_product_supplier.product.title
+                          } ${$t('profile.free')}`,
+                        },
+                      }"
+                    >
+                      <!-- <span>{{ $t("profile.buyXgetYOffer") }}</span> -->
+                      <span>
+                        <small>
+                          {{ $t("profile.buy") }}
+                          {{deal.buy_gift_promotions_running_by_type.buy_x}}
+                          {{ $t("profile.get") }}
+                          {{deal.buy_gift_promotions_running_by_type.gift_product_supplier.product.title}}
+                          {{ $t('profile.free') }}
+                        </small>
+                      </span>
+                    </router-link>
+                  </h6>
                 </div>
               </td>
 
@@ -1523,10 +1554,10 @@ export default {
         })
         .then(() => {
           this.getAllSubCategories();
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+        });
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     },
     async getAllSubCategories() {
       await categories
@@ -1664,10 +1695,10 @@ export default {
           this.CountryOptions = res.data.items.countries;
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+        });
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     },
     /**
      * @vuese
