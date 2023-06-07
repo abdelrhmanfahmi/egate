@@ -65,7 +65,6 @@ export default {
       auth
         .checkoutComplete(data)
         .then((res) => {
-          console.log(res);
           if (res.data.items.status === "CAPTURED") {
             this.success = true;
             this.fail = false;
@@ -74,9 +73,9 @@ export default {
             this.fail = true;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

@@ -164,7 +164,6 @@ export default {
       globalAxios
         .get(`members/profile/favorite`)
         .then((resp) => {
-          console.log(resp);
           this.wishlistItems = resp.data.items.data;
           this.total = resp.data.items.total;
           this.totalPages = Math.ceil(
@@ -173,9 +172,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

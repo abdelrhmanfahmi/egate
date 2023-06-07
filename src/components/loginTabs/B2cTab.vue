@@ -261,9 +261,9 @@ export default {
         .then((res) => {
           window.location.href = res.data.items.url;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";

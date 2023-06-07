@@ -29,12 +29,11 @@ export default {
       auth
         .termsAndCondations()
         .then((res) => {
-          console.log(res);
           this.terms = res.data.items
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted(){

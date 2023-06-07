@@ -1456,9 +1456,7 @@ export default {
     };
   },
   methods: {
-    addChekedItem(order) {
-      console.log("order", order);
-    },
+
     goReturnPage(option) {
       let payload = {
         items: this.checkedOrder,
@@ -1467,7 +1465,6 @@ export default {
         .storeCheckedOrders(payload)
         .then((res) => {
           if (option == "replace") {
-            console.log(res);
             this.$router.push({
               path: "/return-replace",
               query: {
@@ -1483,9 +1480,9 @@ export default {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     goReturnPageBaskets(option) {
       let payload = {
@@ -1495,7 +1492,6 @@ export default {
         .storeCheckedOrders(payload)
         .then((res) => {
           if (option == "replace") {
-            console.log(res);
             this.$router.push({
               path: "/return-replace",
               query: {
@@ -1511,9 +1507,9 @@ export default {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * print Screen function
@@ -1555,9 +1551,9 @@ export default {
           this.CanvasUrl = res.data.items.order.payment_image;
           console.log("this.CanvasUrl", this.CanvasUrl);
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
@@ -1679,9 +1675,9 @@ export default {
           // console.log(res);
           this.twitter = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerYoutubeLink function
@@ -1694,9 +1690,9 @@ export default {
           // console.log(res);
           this.youtube = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerLinkedinLink function
@@ -1709,9 +1705,9 @@ export default {
           // console.log(res);
           this.linkedin = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerInstagramLink function
@@ -1724,9 +1720,9 @@ export default {
           // console.log(res);
           this.instagram = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * footerPinterestLink function
@@ -1739,9 +1735,9 @@ export default {
           // console.log(res);
           this.pinterest = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * contact Us Phone function
@@ -1754,9 +1750,9 @@ export default {
           // console.log(res);
           this.contactPhone = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * contact Us Email function
@@ -1769,9 +1765,9 @@ export default {
           // console.log(res);
           this.contactEmail = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

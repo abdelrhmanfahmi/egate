@@ -122,7 +122,6 @@ export default {
         query = {
           brand: item.title.trim().replace(/\s/g, ""),
         };
-        console.log("third");
       } else if (
         this.$route.query.brand
           .split(",")
@@ -165,7 +164,6 @@ export default {
         query = {
           brand: "All",
         };
-        console.log("third");
       } else if (
         this.$route.query.brand.split(",").includes(this.$route.query.brand)
       ) {

@@ -550,7 +550,7 @@ export default {
         .chargeMyWallet(payload)
         .then((res) => {
           this.sucessMsg(res.data.message);
-          console.log(res);
+
           if (res.status == 200) {
             window.location.href = res.data.items.url;
             this.chargeClicked = false;
@@ -560,7 +560,6 @@ export default {
           let errors = Object.values(err)[2].data;
           this.errors = errors.items;
           this.errMsg(err.message);
-          console.log(err);
           this.chargeClicked = false;
         });
     },
@@ -574,7 +573,6 @@ export default {
       profile
         .getDashboardData()
         .then((res) => {
-          console.log(res);
           this.dashData = res.data.items;
           this.orders = res.data.items.orders;
           this.ordersLength = res.data.items.orders.length;
@@ -640,7 +638,6 @@ export default {
       profile
         .rePay(this.paymentFormData)
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
           if (res.status == 200) {
             if (this.paymentFormData.payment_type === "cach") {
@@ -666,7 +663,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);

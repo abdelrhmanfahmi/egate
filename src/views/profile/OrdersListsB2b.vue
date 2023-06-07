@@ -725,9 +725,9 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get Orders function
@@ -747,9 +747,9 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get Orders function
@@ -769,9 +769,9 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -782,7 +782,6 @@ export default {
       suppliers
         .getSuppliersWithNoPaginate(this.page)
         .then((resp) => {
-          console.log(resp);
           this.suppliers = resp.data.items;
           // this.total = resp.data.items.total;
           // this.totalPages = Math.ceil(
@@ -791,9 +790,9 @@ export default {
 
           // this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -860,7 +859,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           this.errMsg(error.message);
@@ -876,7 +875,7 @@ export default {
      */
 
     saveUUID(order) {
-      console.log(order);
+      // console.log(order);
       this.paymentFormData.order_uuid = order.uuid;
     },
 
@@ -892,7 +891,6 @@ export default {
       profile
         .exportSelectedOrders(payload)
         .then((res) => {
-          console.log(res);
           this.sucessMsg(res.data.message);
 
           // setting data comes from api response

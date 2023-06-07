@@ -90,9 +90,9 @@ export default {
             localStorage.removeItem("massege");
             location.reload();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }
     },
     /**
@@ -152,9 +152,9 @@ export default {
             ).catch(() =>{})
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -175,9 +175,9 @@ export default {
             localStorage.removeItem("massege");
             location.reload();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }
     },
     /**

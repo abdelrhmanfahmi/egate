@@ -191,9 +191,9 @@ export default {
           console.log("month", res);
           this.items = res.data.items.deals.data;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

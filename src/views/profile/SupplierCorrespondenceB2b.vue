@@ -165,9 +165,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * get supplier All Correspondence function
@@ -185,9 +185,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     supplierAllCorrespondenceSearch() {
       profile
@@ -201,9 +201,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * function for pagination

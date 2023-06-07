@@ -99,9 +99,9 @@ export default {
           }
           this.$store.dispatch("cart/getCartProducts");
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

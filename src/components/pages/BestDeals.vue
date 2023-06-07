@@ -118,9 +118,9 @@ export default {
             this.sucessMsg(res.data.message);
           }
         })
-        .catch((error) => {
-          console.log(error);
-        })
+        // .catch((error) => {
+        //   console.log(error);
+        // })
     },
     /**
      * @vuese

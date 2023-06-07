@@ -2592,9 +2592,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     formatPin_code(e) {
       return String(e).substring(0, 6);
@@ -3190,9 +3190,9 @@ export default {
             }
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -3258,7 +3258,6 @@ export default {
     localStoreAdresses() {
       this.localClicked = true;
 
-      console.log("form", this.form);
 
       if (
         this.form.country_id !== null &&
@@ -3348,9 +3347,9 @@ export default {
             ).innerHTML = ``;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -3573,7 +3572,6 @@ export default {
           this.totalPaymentReplacement += parseFloat(myData);
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           if (err.response.status !== 422) {
@@ -3601,7 +3599,6 @@ export default {
           this.sucessMsg(res.data.message);
         })
         .catch((err) => {
-          console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           if (err.response.status !== 422) {
@@ -3889,9 +3886,9 @@ export default {
         .then((res) => {
           this.walletData = res.data.items.balance;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
 
     /**
@@ -4186,9 +4183,9 @@ export default {
         .then((res) => {
           this.companyIban = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     checPaymentAvailableTypes() {
       // cach test
@@ -4205,9 +4202,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 50);
       // wallet test
       setTimeout(() => {
@@ -4223,9 +4220,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 100);
       // visa test
       setTimeout(() => {
@@ -4241,9 +4238,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 150);
       // bank test
       setTimeout(() => {
@@ -4259,9 +4256,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 200);
       // wallet_visa test
       setTimeout(() => {
@@ -4277,9 +4274,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 250);
       // coupon test
       setTimeout(() => {
@@ -4295,9 +4292,9 @@ export default {
               }
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }, 250);
     },
     clearAll() {

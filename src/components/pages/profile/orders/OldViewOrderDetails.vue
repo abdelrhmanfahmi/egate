@@ -1580,9 +1580,7 @@
       };
     },
     methods: {
-      addChekedItem(order) {
-        console.log("order", order);
-      },
+
       goReturnPage(option) {
         let payload = {
           items: this.checkedOrder,
@@ -1591,7 +1589,6 @@
           .storeCheckedOrders(payload)
           .then((res) => {
             if (option == "replace") {
-              console.log(res);
               this.$router.push({
                 path: "/return-replace",
                 query: {
@@ -1607,9 +1604,9 @@
               });
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       goReturnPageBaskets(option) {
         let payload = {
@@ -1619,7 +1616,6 @@
           .storeCheckedOrders(payload)
           .then((res) => {
             if (option == "replace") {
-              console.log(res);
               this.$router.push({
                 path: "/return-replace",
                 query: {
@@ -1635,9 +1631,9 @@
               });
             }
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * print Screen function
@@ -1679,9 +1675,9 @@
             this.CanvasUrl = res.data.items.order.payment_image;
             console.log("this.CanvasUrl", this.CanvasUrl);
           })
-          .catch((err) => {
-            console.log(err);
-          })
+          // .catch((err) => {
+          //   console.log(err);
+          // })
           .finally(() => {
             this.loading = false;
             setTimeout(() => {
@@ -1750,7 +1746,7 @@
             }
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             let error = Object.values(err)[2].data;
             this.errors = error.items;
             this.errMsg(error.message);
@@ -1803,9 +1799,9 @@
             // console.log(res);
             this.twitter = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * footerYoutubeLink function
@@ -1818,9 +1814,9 @@
             // console.log(res);
             this.youtube = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * footerLinkedinLink function
@@ -1833,9 +1829,9 @@
             // console.log(res);
             this.linkedin = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * footerInstagramLink function
@@ -1848,9 +1844,9 @@
             // console.log(res);
             this.instagram = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * footerPinterestLink function
@@ -1863,9 +1859,9 @@
             // console.log(res);
             this.pinterest = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * contact Us Phone function
@@ -1878,9 +1874,9 @@
             // console.log(res);
             this.contactPhone = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
       /**
        * contact Us Email function
@@ -1893,9 +1889,9 @@
             // console.log(res);
             this.contactEmail = res.data.items;
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       },
     },
     mounted() {

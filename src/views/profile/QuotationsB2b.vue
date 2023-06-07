@@ -201,9 +201,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * go Product function

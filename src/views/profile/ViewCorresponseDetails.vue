@@ -265,9 +265,9 @@ export default {
             this.supplierId = resp.data.items[0].chat.supplier_id;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * send Supplier Message function
@@ -295,7 +295,7 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          console.log(error);
+          // console.log(error);
         })
         .finally(() => {
           this.message = null;

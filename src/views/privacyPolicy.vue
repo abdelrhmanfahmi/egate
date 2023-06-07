@@ -30,12 +30,11 @@ export default {
       profile
         .privacyPage()
         .then((res) => {
-          console.log(res);
           this.privacy = res.data.items
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted(){

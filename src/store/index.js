@@ -99,9 +99,9 @@ export default new Vuex.Store({
             commit("SET_USER_GUEST_ID", res.data.items.uuid);
             localStorage.setItem("guest-id", res.data.items.uuid);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       } else if (userExist === null && guestUser) {
         commit("SET_USER_GUEST_ID", guestUser);
       }
@@ -168,9 +168,9 @@ export default new Vuex.Store({
           // console.log("res" , res);
           commit("SET_USER_BADGES", res.data.items);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   modules: {

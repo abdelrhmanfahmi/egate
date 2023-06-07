@@ -436,9 +436,9 @@ export default {
             this.suggestionsExist = false;
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
 
       // let r = this.$router.resolve({
       //   name: "SearchResults", // put your route information in
@@ -572,7 +572,6 @@ export default {
       }
     }
 
-    console.log(document.location.href.force_login);
     this.myInterval = setInterval(() => {
 
       if (this.loadingPercent == 100) {
@@ -603,7 +602,7 @@ export default {
           setTimeout(() => {
             var newURL = location.href.split("?")[0];
             window.history.pushState("object", document.title, newURL);
-            console.log(newURL);
+          
           }, 500);
         }
       }

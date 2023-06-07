@@ -71,9 +71,9 @@ export default {
             }
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -82,7 +82,6 @@ export default {
     logoutDynamically() {
       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       let totalTime = userInfo.expires_in;
-      console.log("totalTime", totalTime);
       let myInterval = setInterval(() => {
         totalTime -= 1;
         localStorage.setItem("logOutTime", totalTime);
@@ -323,9 +322,9 @@ export default {
             }
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
 

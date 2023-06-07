@@ -1430,9 +1430,9 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1459,9 +1459,9 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1492,9 +1492,9 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1524,9 +1524,9 @@ export default {
         .then(() => {
           this.getAllSubCategories();
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     async getAllSubCategories() {
       await categories
@@ -1535,9 +1535,9 @@ export default {
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1603,7 +1603,6 @@ export default {
       suppliers
         .requestQuotation(payload)
         .then((resp) => {
-          console.log(resp);
           this.errors = {};
           this.sucessMsg(resp.data.message);
           setTimeout(() => {
@@ -1666,9 +1665,9 @@ export default {
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

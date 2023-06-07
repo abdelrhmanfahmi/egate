@@ -784,9 +784,9 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -921,7 +921,6 @@ export default {
      *  add basket to cart
      */
     addBasketToCart(myProduct) {
-      console.log("myProduct", myProduct);
       let data = {
         basket_promotion_id: myProduct.basket_promotion_id,
         quantity: 1,
@@ -999,7 +998,6 @@ export default {
     },
     selectId(elementId) {
       this.selectedId = elementId;
-      console.log('this.selectedId' , this.selectedId);
     },
     selectStandId(elementId) {
       this.selectedId = elementId;

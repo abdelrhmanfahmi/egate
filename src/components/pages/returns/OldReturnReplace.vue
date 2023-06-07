@@ -161,9 +161,9 @@ export default {
         .then((res) => {
           this.orderData = res.data.items.order;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -210,7 +210,6 @@ export default {
               // this.$router.push("/");
             }, 500);
           }
-          console.log(res);
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -248,12 +247,11 @@ export default {
       profile
         .returnReasons()
         .then((res) => {
-          console.log(res);
           this.reasons = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -281,9 +279,9 @@ export default {
         .then((res) => {
           this.maxQTY = res.data.items.quantity;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

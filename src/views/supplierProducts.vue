@@ -112,9 +112,9 @@ export default {
         .then((resp) => {
           this.supplier = resp.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -138,15 +138,15 @@ export default {
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength =
             resp.data.items.data !== null ? resp.data.items.data.length : 0;
-          console.log(resp);
+
           if (resp.status == 200) {
             document.querySelector("input").value = "";
             document.getElementById("modal-2").click();
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese

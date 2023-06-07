@@ -422,9 +422,9 @@ export default {
           this.suppliers = resp.data.items.suppliers.slice(0, 12);
           this.suppliersLength = resp.data.items.suppliers.length;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });

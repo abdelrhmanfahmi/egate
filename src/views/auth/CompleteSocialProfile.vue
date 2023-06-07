@@ -135,9 +135,9 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -156,9 +156,9 @@ export default {
             this.$router.replace("/complete-social-profile");
             location.reload();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          // .catch((err) => {
+          //   console.log(err);
+          // });
       }
     },
     /**

@@ -339,9 +339,9 @@ export default {
 
           console.log(resp);
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -355,11 +355,10 @@ export default {
         .getStandingOrdersTimes()
         .then((resp) => {
           this.times = resp.data.items;
-          console.log(resp);
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -377,7 +376,7 @@ export default {
       profile
         .addProductToStandingOrders(payload)
         .then((res) => {
-          console.log(res);
+          
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
 
@@ -401,10 +400,9 @@ export default {
      * select Plan function
      * @vuese
      */
-    selectPlan(plan) {
-      console.log(plan);
-      this.quantitySelected = true;
-    },
+    // selectPlan(plan) {
+    //   this.quantitySelected = true;
+    // },
     /**
      * Create StandingOrders function
      * @vuese
@@ -417,7 +415,7 @@ export default {
       profile
         .CreateStandingOrders(payLoad)
         .then((res) => {
-          console.log(res);
+          
           this.sucessMsg(res.data.message);
           this.standingOrder.name = null;
           this.standingOrder.time = null;
@@ -444,7 +442,7 @@ export default {
       profile
         .CreateStandingOrders(payLoad)
         .then((res) => {
-          console.log(res);
+          
           this.sucessMsg(res.data.message);
           this.standingOrder.name = null;
           this.standingOrder.time = null;
@@ -482,7 +480,7 @@ export default {
       profile
         .deleteStandingOrder(this.selectedOrder.id)
         .then((res) => {
-          console.log(res);
+          
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             this.hideDeleteModal();
@@ -491,7 +489,7 @@ export default {
         })
         .catch((err) => {
           this.errMsg(err.message);
-          console.log(err);
+          // console.log(err);
         });
     },
     /**
@@ -500,7 +498,6 @@ export default {
      */
     selectGroupToEdit(order) {
       this.selectedOrder = order;
-      console.log("order", order);
     },
     exportSelectedOrders() {
       let payload = {
@@ -509,7 +506,7 @@ export default {
       profile
         .exportSelectedOrders(payload)
         .then((res) => {
-          console.log(res);
+          
           this.sucessMsg(res.data.message);
 
           // setting data comes from api response

@@ -164,7 +164,7 @@ export default {
             this.invalid =true
         }})
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.valid = false 
             this.invalid =true
         });

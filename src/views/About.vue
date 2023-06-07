@@ -185,15 +185,15 @@ export default {
         })
         .then(() => {
           profile.getAboutDataStats().then((res) => {
-            console.log("res", res);
+
             this.b2b_count = res.data.items.b2b_count
             this.b2c_count = res.data.items.b2c_count
             this.supplier_count = res.data.items.supplier_count
           });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -206,9 +206,9 @@ export default {
         .then((res) => {
           this.vision = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -221,9 +221,9 @@ export default {
         .then((res) => {
           this.message = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
     /**
      * @vuese
@@ -236,9 +236,9 @@ export default {
         .then((res) => {
           this.principle = res.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   data() {

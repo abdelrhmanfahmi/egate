@@ -199,9 +199,9 @@ export default {
           this.standingOrders = resp.data.items.data;
           this.standingOrdersLength = resp.data.items.data.length;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -216,9 +216,9 @@ export default {
         .then((resp) => {
           this.times = resp.data.items;
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        // .catch((err) => {
+        //   console.log(err);
+        // })
         .finally(() => {
           this.loading = false;
         });
@@ -235,7 +235,6 @@ export default {
           ? this.ProductQuantity
           : this.quotationQuantity,
       };
-      console.log('payload' , payload);
       profile
         .addProductToStandingOrders(payload)
         .then((res) => {
@@ -301,12 +300,9 @@ export default {
       };
       profile
         .standingQuotation(data)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {

@@ -149,7 +149,6 @@ export default {
     });
   },
   getOrdersWithFilters(data, payload) {
-    console.log('payload' , payload);
     return globalAxios.get(`members/client-orders?page=${data}`, {
       params: {
         price_max: payload.price_max ? payload.price_max : null,
@@ -164,7 +163,6 @@ export default {
     return globalAxios.get(`members/client-orders/${id}`);
   },
   cancelOrder(data) {
-    console.log(data);
     return globalAxios.post(
       `members/client-orders/${data.orderUUID}/change-status`,
       {
@@ -421,7 +419,6 @@ export default {
     return globalAxios.post(`members/profile/standings/add-list/cart`, payload);
   },
   removeCheckedProductFromCart(payload) {
-    console.log("payload", payload);
     return globalAxios.delete("members/profile/standings/remove/item", {
       params: {
         product_supplier_id: payload.product_supplier_id,

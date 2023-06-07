@@ -149,9 +149,9 @@ export default {
           this.modalData = res.data.items;
           this.modalDataLength = res.data.items.length;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   mounted() {
