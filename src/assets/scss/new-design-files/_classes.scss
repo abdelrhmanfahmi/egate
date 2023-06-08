@@ -213,6 +213,22 @@ button.border-main  , a.border-main{
   .btn-group > .btn:active {
     background: transparent !important;
   }
+
+  .dropDownHolder{
+    .dropdown-item{
+      
+      display: flex !important;
+      justify-content: flex-start !important;
+      align-items: center !important;
+    }
+  }
+
+}
+.search-component.ar{
+  .bottom-nav-holder .dropdown-menu {
+    right: 0px !important;
+    left: auto !important;
+  }
 }
 
 .tabbable .nav-tabs {

@@ -37,7 +37,7 @@
                   v-for="(category, index) in categories"
                   :key="index"
                   @click.prevent="selectCategory(category)"
-                  class="text-black"
+                  class="text-black dropDownHolder"
                 >
                   <img
                     :src="category.icon_image_path"
@@ -565,5 +565,11 @@ select,
 }
 .newLocation {
   top: 0.5rem !important;
+}
+.ar{
+  .grid-icon{
+    position: absolute;
+    left: 10px;
+  }
 }
 </style>
