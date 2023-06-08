@@ -11,10 +11,12 @@ export default {
   components: {
     B2bForm,
   },
-  mounted(){
-    if(this.b2b_buyer_registration !== true){
-      this.$router.push('/')
-    }
-  }
+  mounted() {
+    setTimeout(() => {
+      if (this.b2b_buyer_registration !== true) {
+        this.$router.push("/");
+      }
+    }, 3000);
+  },
 };
 </script>

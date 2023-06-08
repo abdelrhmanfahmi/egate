@@ -96,8 +96,8 @@
                         $t("register.selectDept")
                       }}</b-form-select-option>
                       <b-form-select-option
-                        v-for="department in departments"
-                        :key="department.id"
+                        v-for="(department , index) in departments"
+                        :key="index"
                         :value="department.id"
                       >
                         <span v-if="$i18n.locale == 'en'">{{
@@ -215,8 +215,8 @@
                     <span class="requried">*</span>
                     <b-form-select v-model="form.country_code">
                       <b-form-select-option
-                        v-for="country in countries"
-                        :key="country.id"
+                        v-for="(country , index) in countries"
+                        :key="index"
                         :value="country.iso"
                         >{{ country.title }}
                         {{ country.phone_prefix }}</b-form-select-option
