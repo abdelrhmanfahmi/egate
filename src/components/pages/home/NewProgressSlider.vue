@@ -19,9 +19,12 @@
               </div>
             </div>
             <h6 class="text-dark font-weight-bold my-2" v-if="slider.title">
-              <span
+              <!-- <span
                 >{{ slider.title.substr(0, 15) }}
                 <span v-if="slider.title.length > 15">...</span>
+              </span> -->
+              <span>
+                {{ slider.title }}
               </span>
             </h6>
           </a>

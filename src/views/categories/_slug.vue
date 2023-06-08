@@ -140,7 +140,8 @@
                       alt="category_image"
                       class="categoryImage"
                     />
-                    <strong>{{ category.title.slice(0, 5) + "..." }}</strong>
+                    <strong class="small-text" v-if="category.title.length >=10">{{ category.title.slice(0, 10) + "..." }}</strong>
+                    <strong class="small-text" v-else>{{ category.title }}</strong>
                   </div>
                 </template>
                 <b-row
@@ -585,5 +586,8 @@ div:empty {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+.small-text{
+  font-size: 12px;
 }
 </style>
