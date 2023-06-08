@@ -24,7 +24,7 @@ let country_parsed = JSON.parse(country);
 function getDefaultCountryId() {
 
   axios
-    .get(`${process.env.VUE_APP_AXSIOS_LINK}site-settings/default/country`)
+    .get(`${process.env.VUE_APP_AXIOS_LINK}site-settings/default/country`)
     .then((res) => {
       window.localStorage.setItem(
         "country",
@@ -37,7 +37,7 @@ function getDefaultCountryId() {
 function getDefaultCountryCurrencyId() {
 
   axios
-    .get(`${process.env.VUE_APP_AXSIOS_LINK}site-settings/default/country`)
+    .get(`${process.env.VUE_APP_AXIOS_LINK}site-settings/default/country`)
     .then((res) => {
       window.localStorage.setItem(
         "country",
@@ -110,7 +110,7 @@ let checkGuest = function () {
 
 export { checkGuest };
 const globalAxios = axios.create({
-  baseURL: process.env.VUE_APP_AXSIOS_LINK,
+  baseURL: process.env.VUE_APP_AXIOS_LINK,
   headers: {
     Authorization: getToken(),
     "Accept-Language": lang,
