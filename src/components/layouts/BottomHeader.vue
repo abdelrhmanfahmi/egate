@@ -221,4 +221,11 @@ export default {
   text-transform: uppercase !important;
     font-weight: bold !important;
 }
+
+.ar{
+  .grid-icon{
+    position: absolute;
+    left: 10px;
+  }
+}
 </style>
