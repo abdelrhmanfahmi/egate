@@ -1,6 +1,5 @@
 <template>
   <div class="links-wrapper">
-    <!-- <ul v-if="!mobile" class="navigation"> -->
     <ul class="navigation">
       <li>
         <router-link class="link" to="/">{{ $t("home.home") }}</router-link>

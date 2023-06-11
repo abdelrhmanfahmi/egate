@@ -115,7 +115,6 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
         this.$emit("changeTitle", this.countValue);
-        // this.quantity = this.countValue;
       }, 300);
     },
     /**
@@ -161,7 +160,7 @@ export default {
     delayChange() {
       let timeout = null;
       clearTimeout(timeout);
-      // Make a new timeout set to go off in 800ms
+      // Make a new timeout set to go off in 1500ms
       timeout = setTimeout(() => {
         this.CustomIncrementQuantity();
       }, 1500);

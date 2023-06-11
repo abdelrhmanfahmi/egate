@@ -11,9 +11,6 @@
           <b-col lg="10">
             <div class="register-info">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <!-- <router-link to="/b2b-login" class="back">
-                <span> &#60; {{ $t("register.alreadyHaveAccount") }}</span>
-              </router-link> -->
               <div class="user-login-form">
                 <b-button to="/b2b-login" class="login-button my-2 border-main">
                   <b
@@ -416,9 +413,6 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -437,9 +431,6 @@ export default {
             }
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -495,9 +486,6 @@ export default {
         .then((res) => {
           this.contactPhone = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     checkDynamicInputs() {
       auth
@@ -512,9 +500,6 @@ export default {
             }
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     checkPass() {
       var len = document.getElementById("NewPassword").value;

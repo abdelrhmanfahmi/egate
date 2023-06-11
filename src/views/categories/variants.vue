@@ -19,15 +19,7 @@
                   {{ parentTitle }}
                 </router-link>
               </li>
-              <!-- <li class="breadcrumb-item" >
-                <router-link :to="`/categories/${parent_categoryId}`">
-                  {{ parent_category }}
-                </router-link>
-              </li> -->
               <li class="breadcrumb-item" v-if="PageTitle">
-                <!-- <router-link :to="`/categories/${PageId}/variants`">
-                  
-                </router-link> -->
                 <b>
                   {{ PageTitle }}
                 </b>
@@ -584,7 +576,6 @@
                         },
                       }"
                     >
-                      <!-- <span>{{ $t("profile.buyXgetYOffer") }}</span> -->
                       <span>
                         <small>
                           {{ $t("profile.buy") }}
@@ -620,7 +611,6 @@
                         },
                       }"
                     >
-                      <!-- <span>{{ $t("profile.buyXgetYOffer") }}</span> -->
                       <span>
                         <small>
                           {{ $t("profile.buy") }}
@@ -821,7 +811,6 @@
                     v-b-tooltip.hover
                     :title="$t('items.addToCart')"
                   >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon
                       icon="fa-solid fa-cart-shopping"
                       size="xl"
@@ -845,7 +834,6 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <!-- <font-awesome-icon icon="fa-solid fa-cart-plus" size="xl" /> -->
                     <otherAddToCart />
                   </a>
 
@@ -931,7 +919,7 @@
                     </button>
                   </div>
 
-                  <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
+
                 </div>
                 <div
                   class="d-flex justify-content-center"
@@ -970,7 +958,6 @@
                     v-b-tooltip.hover
                     :title="$t('items.addToCart')"
                   >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon
                       icon="fa-solid fa-cart-shopping"
                       size="xl"
@@ -994,10 +981,6 @@
                       product.buy_get_promotion_running_by_type.promotion.get_y
                     } )`"
                   >
-                    <!-- <font-awesome-icon
-                      icon="fa-solid fa-cart-shopping"
-                      size="xl"
-                    /> -->
                     <otherAddToCart />
                   </a>
 
@@ -1152,7 +1135,6 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-// import rfqIcon from "@/components/global/rfqIcon.vue";
 import otherAddToCart from "@/components/global/otherAddToCart.vue";
 
 import StandingOrders from "@/components/global/standingOrders.vue";
@@ -1285,7 +1267,6 @@ export default {
   },
   components: {
     VariantsCounter,
-    // rfqIcon,
     StandingOrders,
     NewProgressSlider,
     otherAddToCart,
@@ -1461,9 +1442,6 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1490,9 +1468,6 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1513,7 +1488,6 @@ export default {
           this.sortTypeUnit
         )
         .then((res) => {
-          // this.getFilters()
           this.products = res.data.items.data;
 
           this.total = res.data.items.total;
@@ -1523,9 +1497,6 @@ export default {
 
           this.totalRecords = res.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1555,9 +1526,6 @@ export default {
         .then(() => {
           this.getAllSubCategories();
         });
-      // .catch((err) => {
-      //   console.log(err);
-      // });
     },
     async getAllSubCategories() {
       await categories
@@ -1566,9 +1534,6 @@ export default {
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1671,7 +1636,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
@@ -1696,9 +1660,6 @@ export default {
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
         });
-      // .catch((err) => {
-      //   console.log(err);
-      // });
     },
     /**
      * @vuese
@@ -1933,7 +1894,6 @@ export default {
   height: fit-content;
   margin-inline-end: 0.5rem;
   display: block;
-  // min-width: 10rem;
   text-align: center;
   padding: 11px 18px;
   border-radius: 3px;
@@ -1955,35 +1915,6 @@ export default {
   color: #fff !important;
 }
 
-/*@media screen and (max-width: 767px) {
-  table {
-    tbody {
-      tr {
-        margin: 30px 0;
-      }
-    }
-  }
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    position: absolute;
-    width: 1px;
-    padding: 0;
-  }
-
-  table td {
-    display: block;
-    font-size: 0.8rem;
-    border-top: none !important;
-  }
-  .table-striped tbody tr:nth-of-type(odd) {
-    margin: 30px 0;
-    display: block;
-  }
-}*/
 @media (max-width: 992px) {
   .table {
     width: 800px;

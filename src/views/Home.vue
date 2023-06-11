@@ -68,9 +68,6 @@ export default {
             localStorage.removeItem("massege");
             location.reload();
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }
     },
     // Step 2 forget Password
@@ -90,9 +87,6 @@ export default {
             this.sucessMsg(res.data.message);
             this.$router.push("/Forget-Password");
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }
     },
     /**
@@ -117,9 +111,6 @@ export default {
             }
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -132,7 +123,6 @@ export default {
       ) {
         let payload = {
           type: "b2b",
-          // model_type: "product",
         };
         await auth
           .getAdsModal(payload)
@@ -142,9 +132,6 @@ export default {
           .then(() => {
             this.showADsModal()
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       } else if (this.buyerUserData && this.buyerUserData.type === "b2c") {
         let payload = {
           type: "b2c",
@@ -157,9 +144,6 @@ export default {
           .then(() => {
             this.showADsModal()
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       } else if (!this.buyerUserData) {
         let payload = {
           type: "b2c",
@@ -171,9 +155,6 @@ export default {
           }).then(() => {
             this.showADsModal()
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }
     },
     /**
@@ -257,7 +238,6 @@ export default {
   mounted() {
 
     this.emailVerify();
-    // this.checkEmailForgetPassWord()
   },
 };
 </script>

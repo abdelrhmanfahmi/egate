@@ -12,9 +12,7 @@
       bg-variant="#fff"
     >
       <template #default="{ hide }">
-        <!-- <div class="text-center"> -->
         <div class="d-flex justify-content-start px-4">
-          <!-- <h2>{{ $t("login.wholeSaleClients") }}</h2> -->
           <h2>{{ $t("login.login") }}</h2>
         </div>
         <div class="user-login-form">
@@ -33,20 +31,10 @@
                 class="main-color font-weight-bold link"
                 :class="{ 'text-decoration-underline': selectedType === 'b2b' }"
               >
-                <!-- {{ $t("login.wholeSaleBuyer") }} -->
                 {{ $t("home.corporate") }}
               </span>
             </div>
-            <!-- <div class="col-md-3 col-sm-12 p-0 m-0 my-col" v-if="supplier_registration ">
-              <a
-                :href="`${supplierDomain}`"
-                target="_blank"
-                class="main-color font-weight-bold"
-                >{{ $t("home.suppliers") }}</a
-              >
-            </div> -->
           </div>
-          <!-- <h6 class="title">{{ $t("login.login") }}</h6> -->
           <p class="mb-2">{{ $t("login.WelcomeAgain") }}</p>
           <p class="error">{{ errorMsg }}</p>
           <div v-if="selectedType === 'b2c'">
@@ -280,9 +268,6 @@ export default {
         .then((res) => {
           window.location.href = res.data.items.url;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -331,17 +316,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/**
-    * component style
-  */
-
 .user-login {
   .user-login-form {
     text-align: center;
-    //border: 1px solid rgba(204, 204, 204, 0.251);
-    //border-radius: 4px;
-    // background-color: rgba(216, 220, 221, 0.251);
-    //padding: 40px 30px 20px;
     padding: 20px;
 
     .title {
@@ -383,7 +360,6 @@ export default {
   }
 
   .button-social {
-    //padding: 20px 30px;
     padding: 15px 20px;
     margin: 0 5px;
     color: #fff;

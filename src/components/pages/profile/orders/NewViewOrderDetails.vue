@@ -69,8 +69,6 @@
           >
             <div class="serial" v-if="orderData">
               <h4 class="m-0">
-                <!-- <span>{{ $t("profile.orderSerial") }} :</span> -->
-                <!-- <span>{{ orderData.id }} #</span> -->
                 <div class="order-back">
                   <!-- back to orders page  -->
                   <router-link to="/profile/ordersListsB2b">
@@ -933,7 +931,6 @@
               <div class="d-flex justify-content-center align-items-center">
                 <span class="text-center"
                   >{{ $t("profile.cancelReason") }}
-                  <!-- <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" /> -->
                 </span>
               </div>
             </template>
@@ -1044,7 +1041,6 @@
                 :class="{ br: $i18n.locale == 'en', bl: $i18n.locale == 'ar' }"
               >
                 <div class="holder bor">
-                  <!-- <p>Invoice # 1-000001319-1027</p> -->
                   <p v-if="orderData">
                     {{ $t("profile.OrderDate") }} :
                     {{ orderData.created_at | formatDate }}
@@ -1077,21 +1073,15 @@
                       }"
                     >
                       <div class="holder bor py-1">
-                        <!-- <p>Invoice # 1-000001319-1027</p> -->
                         <h2>{{ $t("profile.supplier") }} :</h2>
                         <h5 class="my-2 data-heading">
                           <span> {{ order.company }}</span>
-                          <!-- <span class="mx-5">{{ $t("profile.supplierOrder") }} :
-                              {{ order.serial }}</span> -->
                         </h5>
                         <p v-if="order.address">{{ order.address }}</p>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="holder py-1">
-                        <!-- <h5 class="" v-if="orderData">
-                            {{ $t("profile.orderSerial") }} : {{ orderData.id }} #
-                          </h5> -->
                         <h5>
                           {{ $t("profile.shippingMethod") }} :
                           {{ order.shipping_type }}
@@ -1158,7 +1148,6 @@
                 </div>
                 <div class="supplier-shipping-data pt-4 bor mb-1">
                   <div class="row">
-                    <!-- <div class="col-md-6 col-sm-12 borderred-bottom"></div> -->
                     <div class="col-md-6 col-sm-12 offset-6">
                       <div
                         class="row borderred-bottom p-15"
@@ -1404,10 +1393,6 @@ export default {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
-        // {
-        //   key: "",
-        //   label: this.$t("profile.actions"),
-        // },
       ],
       basketfields: [
         {
@@ -1438,10 +1423,6 @@ export default {
           key: "rowTotal",
           label: this.$t("profile.rowTotal"),
         },
-        // {
-        //   key: "",
-        //   label: this.$t("profile.actions"),
-        // },
       ],
       id: this.$route.query.id,
       orders: null,
@@ -1496,9 +1477,7 @@ export default {
             });
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
     goReturnPageBaskets(option) {
       let payload = {
@@ -1523,9 +1502,6 @@ export default {
             });
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * print Screen function
@@ -1543,7 +1519,6 @@ export default {
       profile
         .getSingleOrders(this.id)
         .then((res) => {
-          // console.log("getSingleOrders", res);
           this.orders = res.data.items.suppliers;
           this.orderData = res.data.items.order;
           this.paymentFormData.order_uuid = res.data.items.order.uuid;
@@ -1555,21 +1530,16 @@ export default {
 
           for (let index = 0; index < pickupArr.length; index++) {
             const element = pickupArr[index];
-            // console.log(element == null);
             if (element == null) {
-              // console.log("shipping");
               this.shipingExist = true;
             } else {
-              // console.log("pickup");
               this.pickupExist = true;
             }
           }
           this.CanvasUrl = res.data.items.order.payment_image;
           console.log("this.CanvasUrl", this.CanvasUrl);
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
+
         .finally(() => {
           this.loading = false;
           setTimeout(() => {
@@ -1688,12 +1658,8 @@ export default {
       profile
         .footerTwitterLink()
         .then((res) => {
-          // console.log(res);
           this.twitter = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * footerYoutubeLink function
@@ -1703,12 +1669,8 @@ export default {
       profile
         .footerYoutubeLink()
         .then((res) => {
-          // console.log(res);
           this.youtube = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * footerLinkedinLink function
@@ -1718,12 +1680,8 @@ export default {
       profile
         .footerLinkedinLink()
         .then((res) => {
-          // console.log(res);
           this.linkedin = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * footerInstagramLink function
@@ -1733,12 +1691,8 @@ export default {
       profile
         .footerInstagramLink()
         .then((res) => {
-          // console.log(res);
           this.instagram = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * footerPinterestLink function
@@ -1748,12 +1702,8 @@ export default {
       profile
         .footerPinterestLink()
         .then((res) => {
-          // console.log(res);
           this.pinterest = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * contact Us Phone function
@@ -1763,12 +1713,8 @@ export default {
       profile
         .contactUsPhone()
         .then((res) => {
-          // console.log(res);
           this.contactPhone = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * contact Us Email function
@@ -1778,12 +1724,8 @@ export default {
       profile
         .contactUsEmail()
         .then((res) => {
-          // console.log(res);
           this.contactEmail = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -1917,7 +1859,6 @@ export default {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    //padding: 20px;
     font-size: 20px;
   }
 
@@ -2055,9 +1996,6 @@ export default {
       padding: 5px 20px;
     }
 
-    // .supplier-data {
-    //   background: #f7f7f7;
-    // }
   }
 
   .p-15 {
@@ -2099,7 +2037,6 @@ export default {
 
   .data-heading {
     font-weight: bold;
-    // margin-bottom: 25px;
   }
 
   .data-headings {

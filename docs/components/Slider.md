@@ -11,3 +11,12 @@
 <!-- @vuese:Slider:methods:end -->
 
 
+s:start -->
+|Method|Description|Parameters|
+|---|---|---|
+|changeImage|change product selected image|-|
+|settingProduct|get product details to show images|-|
+
+<!-- @vuese:Slider:methods:end -->
+
+

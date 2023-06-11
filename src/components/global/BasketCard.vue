@@ -48,7 +48,6 @@
               </router-link>
               <!-- {{ slider.product.title }} -->
             </h4>
-            <!-- <p v-if="slider.description" v-html="slider.description"></p> -->
             <h5 class="price m-0" v-if="slider && slider.basket_price">
               {{ slider.basket_price | fixedCurrency }}
               {{ currency }}
@@ -64,7 +63,6 @@
               {{ slider.price_before_discount | fixedCurrency }}
               {{ currency }}
             </p>
-            <!-- <p v-else class="py-3"></p> -->
           </div>
         </div>
         <div class="row mb-3 align-items-center">
@@ -257,7 +255,6 @@ export default {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  //background: #ebebeb52;
   min-width: 250px;
   overflow: hidden;
   a {
@@ -273,7 +270,6 @@ export default {
       opacity: 0.5;
     }
     img {
-      // width: 150px;
       min-width: 250px;
       height: 150px;
       border-radius: 0%;
@@ -286,8 +282,6 @@ export default {
     }
   }
   .card-info {
-    //padding: 25px;
-    //background: #ebebeb52;
     margin: auto;
     margin-bottom: 10px;
     text-align: start;

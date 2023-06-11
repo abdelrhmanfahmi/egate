@@ -133,7 +133,6 @@ export default {
     button {
       height: 100% !important;
     }
-    //color: #606266;
     .product-counter-btn {
       width: 1rem;
       height: 1.75rem;
@@ -155,7 +154,6 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 3rem;
-    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

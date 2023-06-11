@@ -17,7 +17,7 @@
 <!-- @vuese:Counter:events:start -->
 |Event Name|Description|Parameters|
 |---|---|---|
-|changeTitle|-|-|
+|changeTitle|this event affected on the component main page|-|
 
 <!-- @vuese:Counter:events:end -->
 
@@ -37,8 +37,8 @@
 <!-- @vuese:Counter:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
-|incrementQuantity|this function user for increment Quantity|-|
-|decrementQuantity|this function user for decrement Quantity|-|
+|incrementQuantity|increament function|-|
+|decrementQuantity|decreament function|-|
 |CustomIncrementQuantity|custom increament for input|-|
 |delayChange|this function user for delay Change|-|
 

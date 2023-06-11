@@ -34,8 +34,6 @@
                 >{{ time.title }}
               </b-form-select-option>
             </b-form-select>
-
-            <!-- <div class="mt-2">Selected: <strong>{{ standingOrder.time }}</strong></div> -->
             <div
               class="error"
               v-for="(error, index) in errors.time_id"
@@ -79,9 +77,7 @@
               />
               <div class="plan-content-holder">
                 <div class="plan-content">
-                  <!-- <router-link :to="{ path: '/SingleStandingOrder', query: { id: x } }"> -->
                   <div class="b-box">
-                    <!-- <div class="icon"></div> -->
                     <h4 class="title">
                       <span>{{ order.name }}</span>
                       <div class="row">
@@ -96,9 +92,7 @@
                         </div>
                       </div>
                     </h4>
-                    <!-- <a href="#"></a> -->
                   </div>
-                  <!-- </router-link> -->
                 </div>
               </div>
             </label>
@@ -200,9 +194,6 @@ export default {
           this.standingOrders = resp.data.items.data;
           this.standingOrdersLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -217,9 +208,6 @@ export default {
         .then((resp) => {
           this.times = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -301,10 +289,6 @@ export default {
       };
       profile
         .standingQuotation(data)
-        
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -365,7 +349,6 @@ export default {
 
   .b-box {
     margin-bottom: 10px;
-    // width: 180px;
     background: #fff;
     border-radius: 4px;
     border: 1px solid #eee;

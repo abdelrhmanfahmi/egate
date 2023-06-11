@@ -5,6 +5,7 @@
 <!-- @vuese:AccountInformationB2b:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
+|checkProfileForm|checkProfileForm|-|
 |updateProfile|Update Profile function|-|
 |reloadPage|reload Page function|-|
 |showEmailModal|show Email Modal function|-|

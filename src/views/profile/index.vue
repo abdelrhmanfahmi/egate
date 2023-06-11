@@ -164,6 +164,5 @@ export default {
 
 .profile {
   padding: 3rem 0;
-  //background: #f9f8f5;
 }
 </style>

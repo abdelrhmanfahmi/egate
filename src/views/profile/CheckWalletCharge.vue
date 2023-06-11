@@ -110,9 +110,6 @@ export default {
             this.$router.push('/profile/Wallet')
           }, 0);
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
 
 
     },
@@ -132,7 +129,6 @@ export default {
 .container {
   text-align: center;
   padding: 40px 0;
-  // background: #ebf0f5;
   min-height: 500px;
 }
 

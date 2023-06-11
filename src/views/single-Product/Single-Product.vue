@@ -23,20 +23,8 @@
               </router-link>
             </li>
             <li class="breadcrumb-item" v-if="thirdCat">
-              <!-- <router-link :to="`/categories/${thirdCat.id}`">
-                
-              </router-link> -->
               <b>{{ thirdCat.title }}</b>
             </li>
-            <!-- <li
-              class="breadcrumb-item"
-              v-for="(category, index) in productCategories"
-              :key="index"
-            >
-              <b>
-                {{ category.title }}
-              </b>
-            </li> -->
           </ol>
         </nav>
       </div>
@@ -95,7 +83,6 @@
           </b-tab>
           <!-- product rating tab  -->
           <b-tab :title="$t('singleProduct.ratingHeader')">
-            <!-- <b-tab :title="$t('singleProduct.ratingTitle')"> -->
             <Rating :myProduct="myProduct" v-if="myProduct"></Rating>
           </b-tab>
         </b-tabs>
@@ -114,7 +101,6 @@
                 v-if="supplierProductsLength > 0"
               >
                 <div class="">
-                  <!-- <hr /> -->
                   <div class="my-5 py-5">
                     <!-- other products slider  -->
                     <VueSlickCarousel
@@ -286,7 +272,6 @@ export default {
      * @vuese
      */
     getSupplierProducts() {
-      // console.log("this.supplierProductsId", this.supplierProductsId);
       suppliers
         .getSupplierProducts(this.supplierProductsId, this.id)
         .then((resp) => {
@@ -294,9 +279,6 @@ export default {
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   created() {
@@ -321,8 +303,6 @@ export default {
 </script>
 <style lang="scss">
 .humhum-tabs {
-  //padding: 4rem;
-  //margin: 3rem 0;
 
   @media (max-width: 992px) {
     padding: 0;
@@ -350,9 +330,6 @@ export default {
 .breadcrumb {
   font-size: 20px;
   margin: 20px 0;
-  // li:last-of-type{
-  //   color: #ccc;
-  // }
 }
 .single-product {
   .cr-sticky {

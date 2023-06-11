@@ -46,9 +46,6 @@ export default {
                 .then((resp) => {
                     this.categories = resp.data.items;
                 })
-                // .catch((err) => {
-                //     console.log(err);
-                // })
                 .finally(() => {
                     this.loading = false;
                 });

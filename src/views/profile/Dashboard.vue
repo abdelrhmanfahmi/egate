@@ -61,7 +61,6 @@
                 <div class="info pt-3">
                   <div class="p-0">
                     <p class="number">{{ dashData.total_completed_qoutes }}</p>
-                    <!-- <h5 class="text">{{ $t("profile.quotations") }}</h5> -->
                   </div>
                   <div class="p-0">
                     <p class="h5">
@@ -100,7 +99,6 @@
                 <div class="info pt-3">
                   <div class="p-0">
                     <p class="number">{{ dashData.total_completed_refund }}</p>
-                    <!-- <h5 class="text">{{ $t("profile.returnRequests") }}</h5> -->
                   </div>
                   <div class="p-0">
                     <p class="h5">
@@ -184,7 +182,6 @@
               </div>
             </div>
           </div>
-          <!-- </router-link> -->
         </div>
       </div>
       <div class="holder text-center mt-5" v-if="ordersLength > 0">
@@ -541,7 +538,6 @@ export default {
     chargeWallet() {
       this.chargeClicked = true;
       const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`;
-      // const backUrl = `${this.mainDoamin}profile/Wallet`
       let payload = {
         value: this.chargeValue,
         redirect_url: backUrl,
@@ -712,33 +708,6 @@ export default {
     box-shadow: 0px 1.67091px 8.35456px rgba(0, 0, 0, 0.25);
     border-radius: 6.68365px;
     padding: 30px 20px;
-    //position: relative;
-
-    //.icon {
-    //position: absolute;
-    //top: 5px;
-    //right: 5px;
-    //}
-
-    .info {
-      //padding: 20px;
-
-      //display: flex;
-      //justify-content: center;
-      //align-items: center;
-
-      //@media (min-width: 1200px) and (max-width: 1800px) {
-      // display: block;
-      //display: flex;
-      ///justify-content: center;
-      //align-items: center;
-      //flex-direction: row;
-
-      //.border-right {
-      //border: none !important;
-      //}
-      //}
-    }
 
     .number {
       font-weight: bold;
@@ -763,7 +732,6 @@ export default {
 
 @media screen and (max-width: 767px) {
   table {
-    //text-align: center;
 
     tbody {
       tr {
@@ -809,7 +777,6 @@ export default {
 
     .info {
       border-bottom: 1px dashed #c5c6c6;
-      //padding: 1rem 0.3rem;
       color: #312620;
       font-weight: bold;
     }
@@ -907,9 +874,6 @@ export default {
   font-weight: bold;
   font-size: 22px;
 }
-//th {
-// cursor: pointer;
-//}
 .selectDate {
   display: flex;
   justify-content: center;

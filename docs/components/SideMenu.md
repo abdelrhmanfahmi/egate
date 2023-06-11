@@ -5,9 +5,19 @@
 <!-- @vuese:SideMenu:props:start -->
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
-|userBades|-|userBades prop|`true`|-|
+|userBades|-|userBades prop|`false`|-|
 
 <!-- @vuese:SideMenu:props:end -->
+
+
+## Events
+
+<!-- @vuese:SideMenu:events:start -->
+|Event Name|Description|Parameters|
+|---|---|---|
+|closeSideMenu|-|-|
+
+<!-- @vuese:SideMenu:events:end -->
 
 
 ## Data

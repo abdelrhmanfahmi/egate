@@ -38,7 +38,6 @@
                     <h2 class="page-title" v-if="aboutGeneralData.title">
                       {{ aboutGeneralData.title }}
                     </h2>
-                    <!-- <h2 class="page-title">{{ $t('home.ourStory') }}</h2> -->
                     <p
                       class="body"
                       v-html="aboutGeneralData.description"
@@ -158,15 +157,6 @@ export default {
       this.loading = true;
       this.getAboutData();
     }, 50);
-    // setTimeout(() => {
-    //   this.getAboutVisionData();
-    // }, 100);
-    // setTimeout(() => {
-    //   this.getAboutMessageData();
-    // }, 150);
-    // setTimeout(() => {
-    //   this.getAboutPrincipleData();
-    // }, 200);
     setTimeout(() => {
       this.loading = false;
     }, 500);
@@ -191,9 +181,6 @@ export default {
             this.supplier_count = res.data.items.supplier_count
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -206,9 +193,6 @@ export default {
         .then((res) => {
           this.vision = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -221,9 +205,6 @@ export default {
         .then((res) => {
           this.message = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -236,9 +217,6 @@ export default {
         .then((res) => {
           this.principle = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   data() {
@@ -281,8 +259,6 @@ export default {
       .content {
         padding: 100px 0;
         .title {
-          // padding: 30px 0 0 0;
-          // color: $main-color;
           display: block;
           text-transform: uppercase;
           font-size: 12px;
@@ -304,10 +280,7 @@ export default {
     .about-content-third {
       padding-bottom: 45px;
       .content {
-        // padding: 40px 0 30px 0;
         .img {
-          // padding: 50px;
-          // box-shadow: 0px 1px 2px 0px rgb(0 0 0 / 20%);
           box-shadow: 0px 3px 3px 0px rgb(35 35 35 / 10%);
           margin-bottom: 25px;
         }
@@ -328,10 +301,6 @@ export default {
       .content {
         text-align: center;
         padding: 55px 100px;
-        // .title {
-        // }
-        // .body {
-        // }
       }
     }
 

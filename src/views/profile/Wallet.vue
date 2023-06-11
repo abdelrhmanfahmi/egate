@@ -651,10 +651,6 @@ export default {
         },
       ],
       chargesHeadrer: [
-        // {
-        //   key: "id",
-        //   label: this.$t("profile.serial"),
-        // },
         {
           key: "date",
           label: this.$t("profile.date"),
@@ -675,10 +671,6 @@ export default {
           key: "buy-method",
           label: this.$t("profile.buyMethod"),
         },
-        // {
-        //   key: "Actions",
-        //   label: this.$t("profile.Actions"),
-        // },
       ],
       withdrowHeadrer: [
         {
@@ -751,7 +743,6 @@ export default {
       chargeClicked: false,
       newForm: {
         amount: "",
-        // bank_data: "",
         Account_number: "",
         iban: "",
         bank_name: "",
@@ -774,9 +765,6 @@ export default {
         .then((res) => {
           this.walletData = res.data.items.balance;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get Wallet Payments  function
@@ -796,9 +784,6 @@ export default {
 
           this.paymentTotalRecords = resp.data.items.payments.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get Wallet Payments  function
@@ -818,9 +803,6 @@ export default {
 
           this.chargesTotalRecords = resp.data.items.charges.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get Wallet Recivables  function
@@ -841,9 +823,6 @@ export default {
 
           this.recivableTotalRecords = resp.data.items.receivables.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * on Payments PageChange  function (for pagination)
@@ -876,7 +855,6 @@ export default {
     chargeWallet() {
       this.chargeClicked = true;
       const backUrl = `${this.mainDoamin}profile/CheckWalletCharge`;
-      // const backUrl = `${this.mainDoamin}profile/Wallet`
       let payload = {
         value: this.chargeValue,
         redirect_url: backUrl,
@@ -1076,13 +1054,9 @@ export default {
   list-style: none;
   background-color: #fff;
   margin: 40px 0;
-  //box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 0;
 }
 
-.tab-wrap:hover {
-  //box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
-}
 
 .tab {
   display: none;
@@ -1155,9 +1129,7 @@ export default {
   display: block;
   text-decoration: none;
   color: #333;
-  //flex-grow: 3;
   text-align: center;
-  //background-color: #f2f2f2;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

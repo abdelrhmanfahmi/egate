@@ -156,9 +156,6 @@ export default {
   .user-register-form {
     .submition-box {
       text-align: center;
-      //border: 1px solid rgba(204, 204, 204, 0.251);
-      //border-radius: 4px;
-      //background-color: rgba(216, 220, 221, 0.251);
       padding: 40px 30px;
       button {
         width: 100%;

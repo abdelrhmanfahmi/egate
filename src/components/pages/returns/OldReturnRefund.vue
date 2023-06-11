@@ -320,9 +320,7 @@ export default {
      * this function used to upload Image
      */
     uploadImage(event) {
-      // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
-      // console.log(this.returnData.image);
     },
     /**
      * @vuese
@@ -347,12 +345,6 @@ export default {
             this.returnData.refund_option = 0;
             this.selectedOption = "wallet";
           }
-          // new edit there will no cach on delivery so it will be bank
-
-          // if (res.data.items.order.payment_type === "visa") {
-          //   this.returnData.refund_option = 1;
-          //   this.selectedOption = "visa";
-          // }
 
           if (
             res.data.items.order.payment_type === "bank" ||
@@ -363,16 +355,8 @@ export default {
             this.selectedOption = "bank";
           }
 
-          // remove it according to last edit
-
-          // if (res.data.items.order.payment_type === "cach") {
-          //   this.returnData.refund_option = 3;
-          //   this.selectedOption = "cach";
-          // }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
     /**
      * @vuese
@@ -384,9 +368,7 @@ export default {
         .then((res) => {
           this.reasons = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
     /**
      * @vuese
@@ -415,9 +397,6 @@ export default {
 
           this.maxQTY = res.data.items.quantity;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -450,8 +429,6 @@ export default {
 .product-counter {
   display: flex;
   align-items: center;
-
-  // justify-content: left;
   .actions {
     color: #606266;
 

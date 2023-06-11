@@ -86,7 +86,6 @@ export default {
       orderDate: this.$route.query.date,
       total_price: parseFloat(this.$route.query.total_price),
       payment: this.$route.query.payment,
-      // redirectURL: this.$route.query.redirectURL,
       orderId: this.$route.query.orderId,
       uuid: this.$route.query.uuid,
 
@@ -150,9 +149,6 @@ export default {
           this.bankData.uuid = res.data.items.order.uuid;
           this.$store.dispatch("cart/getCartProducts");
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

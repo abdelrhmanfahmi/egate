@@ -6,6 +6,7 @@
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |supplierAds|-|—|`false`|-|
+|ImageUrl|-|—|`false`|-|
 
 <!-- @vuese:supplierAdsModal:props:end -->
 
@@ -27,7 +28,6 @@
 |---|---|---|
 |closeModal|close modal|-|
 |postSupplierShowenAd|send supplier wa shown the add to backend|-|
-|onImgLoad|check when image loaded|-|
 |doProgress|check when page loaded|-|
 
 <!-- @vuese:supplierAdsModal:methods:end -->

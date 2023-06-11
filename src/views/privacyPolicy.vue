@@ -32,9 +32,6 @@ export default {
         .then((res) => {
           this.privacy = res.data.items
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted(){
@@ -42,5 +39,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

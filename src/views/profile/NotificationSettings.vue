@@ -320,9 +320,6 @@ export default {
             }
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * change tNotification Settings function
@@ -339,9 +336,6 @@ export default {
           
           this.getNotificationSettings();
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
 
     },
   },
@@ -365,7 +359,6 @@ label {
 }
 
 input[type="checkbox"]+label {
-  //   margin-left: 1rem;
   display: flex;
   height: 24.8px;
   width: 54px;

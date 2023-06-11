@@ -62,6 +62,7 @@ export default {
   },
   mounted() {
     /**
+     * @vuese
      * set countValue = quantity;
      */
     this.countValue = this.quantity;
@@ -123,15 +124,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/**
-    * component style 
-  */
 .product-counter {
   display: flex;
   align-items: center;
   justify-content: left;
   .actions {
-    //color: #606266;
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -153,7 +150,6 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 4rem;
-    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

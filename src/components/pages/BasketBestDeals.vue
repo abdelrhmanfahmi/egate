@@ -52,7 +52,6 @@
               v-if="deal.title"
               ><h4>{{ deal.title }}</h4></router-link
             >
-            <!-- <h4 v-if="deal.description" v-html="deal.description" ></h4> -->
             <div class="price">
               <h5 v-if="deal.basket_price">
                 {{ deal.basket_price | fixedCurrency }}
@@ -132,7 +131,6 @@
             id: data.id,
           },
         });
-        // location.reload();
       },
       /**
        * @vuese
@@ -145,7 +143,6 @@
             id: data.id,
           },
         });
-        // location.reload();
       },
   
       /**

@@ -6,6 +6,7 @@
 |Method|Description|Parameters|
 |---|---|---|
 |addToCart|add To Cart function|-|
+|addPromotionToCart|add To Cart function|-|
 |addToWishlist|add To Wishlist function|-|
 |closeModal|closeModal function|-|
 |openModal|openModal function|-|
@@ -22,6 +23,9 @@
 |loginFirst|login First function if not logged in and want RFQ|-|
 |getFilters|get Filters function|-|
 |selectStandingProduct|select Standing oerder Product function|-|
+|onPageChange|this function used for pagination|-|
+|onChangeRecordsPerPage|this function used for pagination|-|
+|gotoPage|this function used for pagination|-|
 
 <!-- @vuese:variants:methods:end -->
 

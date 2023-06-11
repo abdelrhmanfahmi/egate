@@ -170,7 +170,6 @@ export default {
 
         {
           to: "/profile/favorite",
-          // name: this.$t("profile.b2bFav"),
           name: this.$t("profile.favorite"),
           iconName: "heart",
         },
@@ -179,11 +178,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -194,23 +188,6 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
-
-        // {
-        //   to: "/profile/ResidentsB2b",
-        //   name: this.$t("profile.residents"),
-        //   iconName: "receipt",
-        // },
-        // {
-        //   to: "/profile/BankNotificationsB2b",
-        //   name: this.$t("profile.bankNotifications"),
-        //   iconName: "money-bill-wave",
-        // },
-
-        // {
-        //   to: "/profile/supplierRatingB2b",
-        //   name: this.$t("profile.supplierRatings"),
-        //   iconName: "star",
-        // },
 
         {
           to: "/profile/SupplierCorrespondenceB2b",
@@ -254,11 +231,6 @@ export default {
           name: this.$t("profile.accountInformation"),
           iconName: "circle-info",
         },
-        // {
-        //   to: "/profile/change-password",
-        //   name: this.$t("profile.changePassword"),
-        //   iconName: "key",
-        // },
         {
           to: "/profile/adress-book",
           name: this.$t("profile.addressBook"),
@@ -286,11 +258,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -301,23 +268,6 @@ export default {
           name: this.$t("profile.productReviews"),
           iconName: "cubes",
         },
-
-        // {
-        //   to: "/profile/ResidentsB2b",
-        //   name: this.$t("profile.residents"),
-        //   iconName: "receipt",
-        // },
-        // {
-        //   to: "/profile/BankNotificationsB2b",
-        //   name: this.$t("profile.bankNotifications"),
-        //   iconName: "money-bill-wave",
-        // },
-
-        // {
-        //   to: "/profile/supplierRatingB2b",
-        //   name: this.$t("profile.supplierRatings"),
-        //   iconName: "star",
-        // },
 
         {
           to: "/profile/SupplierCorrespondenceB2b",
@@ -388,11 +338,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -466,11 +411,6 @@ export default {
           name: this.$t("profile.b2bFav"),
           iconName: "bag-shopping",
         },
-        // {
-        //   to: "/profile/giftCardB2b",
-        //   name: this.$t("profile.giftCard"),
-        //   iconName: "gift",
-        // },
         {
           to: "/profile/QuotationsB2b",
           name: this.$t("profile.quotations"),
@@ -509,9 +449,6 @@ export default {
           this.orders = res.data.items.items
           this.ordersLength = res.data.items.items.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -531,6 +468,3 @@ export default {
 };
 </script>
 
-<style>
-
-</style>

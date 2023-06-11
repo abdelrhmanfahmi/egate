@@ -197,12 +197,8 @@ export default {
       profile
         .getQuotationDetail(this.id)
         .then((res) => {
-          // console.log("res" , res);
           this.quotations = res.data.items.client_quote;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * add To Cart function
@@ -219,14 +215,6 @@ export default {
           if (res.status == 200) {
             this.sucessMsg(res.data.message);
             document.querySelector(".close").click();
-
-            // this.$modal.show(
-            //   () => import("@/components/cart/cartModal.vue"),
-            //   {
-            //     product: myProduct,
-            //   },
-            //   { width: "700", height: "auto", adaptive: true }
-            // );
           }
         })
         .catch((error) => {
@@ -263,7 +251,6 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          // console.log(error);
         }).finally(()=>{
           this.loading = false
         })
@@ -350,7 +337,6 @@ export default {
     }
     .left {
       background: #e3e3e3;
-      //float: left;
       width: 100%;
       border-top-left-radius: 0;
       border-radius: 30px 30px 30px 0;
@@ -360,7 +346,6 @@ export default {
       background: transparent;
       border: 2px solid #e3e3e3;
       border-top-right-radius: 0;
-      //float: right;
       width: 100%;
       border-radius: 30px 30px 0px 30px;
     }
@@ -382,11 +367,6 @@ export default {
 }
 .ar .chat {
   text-align: right !important;
-  //p {
-  // display: flex !important;
-  //justify-content: flex-end !important;
-  //align-items: center !important;
-  //}
 }
 li {
   p {
@@ -397,15 +377,12 @@ li {
   }
 }
 .sendMessageHolder {
-  //display: flex;
-  //justify-content: center;
   width: 70%;
   margin: auto;
   button {
     height: 53px;
     width: 100%;
   }
-  //align-items: center;
   @media (max-width: 767px) {
     width: 100%;
     .row {
@@ -459,7 +436,6 @@ li {
     opacity: 0;
     filter: alpha(opacity=0);
     height: 50px;
-    //width: 36px;
     cursor: pointer;
   }
 

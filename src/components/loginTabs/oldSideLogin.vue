@@ -170,8 +170,7 @@
 
 <script>
 import auth from "@/services/auth";
-// import { getMessaging, onMessage, getToken } from "firebase/messaging";
-// import {messaging} from "@/plugins/firebase"
+
 export default {
   data() {
     return {
@@ -203,31 +202,6 @@ export default {
       auth
         .login("b2c", loginData)
         .then((res) => {
-          //old codes before setting otp
-          // if (!res.data.items.item.is_verified) {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          // }
-          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          // this.$router.push("/");
-          // location.reload();
-
-          // new after setting otp
-
-          // old 2nd code
-          // localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-          // if (res.data.items.item.verify_mobile_required) {
-          //   localStorage.setItem("massege", this.$t("register.otpVerify"));
-          //   this.$router.push("/otp-verification");
-          //   location.reload();
-          // } else if (
-          //   !res.data.items.item.verify_mobile_required ||
-          //   !res.data.items.item.is_verified ||
-          //   res.data.items.item.verify_email_required
-          // ) {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          //   this.$router.push("/");
-          //   location.reload();
-          // }
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
           if (
             !res.data.items.item.is_verified &&
@@ -265,15 +239,8 @@ export default {
         .getSocialLink("b2c", provider, backUrl)
         .then((res) => {
           window.location.href = res.data.items.url;
-          // window.open(
-          //   `${res.data.items.url}`,
-          //   "_blank" // <- This is what makes it open in a new window.
-          // );
-          // window.open(`${res.data.items.url}`,'popup','width=600,height=600') //open in popup
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
@@ -296,25 +263,9 @@ export default {
           this.errMsg(err.message);
         });
     },
-    // async generateFirebaseToken() {
-    //   const token = await getToken(messaging, {
-    //     vapidKey:
-    //       "BCg19OadFV9lZNChEu1nhKI9zW2HRqiVls8U_4UVQyRLz5rVf3-2qzUSBWdTB7U0nqa-O7lho69FM8VdRsQW970",
-    //   });
 
-    //   if (token) {
-    //     this.form.token = token;
-    //     console.log(token);
-    //   }
-    // },
   },
-  mounted() {
-    // const messaging = getMessaging();
-    // onMessage(messaging , (payload) =>{
-    //   console.log("message on clinet" , payload);
-    // })
-    // this.generateFirebaseToken()
-  },
+
   computed: {
     firebaseToken() {
       return this.$store.state.firebaseToken;

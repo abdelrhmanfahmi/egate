@@ -54,13 +54,6 @@
           </b-col>
         </b-row>
       </form>
-      <!-- orders data table  -->
-      <!-- <div class="d-flex justify-content-start align-items-center">
-        <span>
-          <input type="checkbox" class="myproject--checkbox" v-model="checkAll" />
-        </span>
-        <span class="mx-2">Select All</span>
-      </div> -->
       <table class="table table-striped table-hover table-bordered selectable">
         <thead>
           <tr>
@@ -339,9 +332,6 @@ export default {
 
           console.log(resp);
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -356,9 +346,6 @@ export default {
         .then((resp) => {
           this.times = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -396,13 +383,6 @@ export default {
           this.errMsg(err.message);
         });
     },
-    /**
-     * select Plan function
-     * @vuese
-     */
-    // selectPlan(plan) {
-    //   this.quantitySelected = true;
-    // },
     /**
      * Create StandingOrders function
      * @vuese
@@ -489,7 +469,7 @@ export default {
         })
         .catch((err) => {
           this.errMsg(err.message);
-          // console.log(err);
+          
         });
     },
     /**
@@ -608,7 +588,6 @@ export default {
 
   .b-box {
     margin-bottom: 10px;
-    // width: 180px;
     background: #fff;
     border-radius: 4px;
     border: 1px solid #eee;

@@ -152,9 +152,6 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
      /**
      * update Profile  function

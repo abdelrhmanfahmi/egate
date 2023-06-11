@@ -15,7 +15,8 @@
                 </span>
             </div>
             <div>
-                <span class="text-gray"> Y </span>
+                <span class="text-gray" v-if="$i18n.locale == 'en'"> Y </span>
+                <span class="text-gray" v-else> سنة </span>
             </div>
         </div>
         <!-- ---------------- -->

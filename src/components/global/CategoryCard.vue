@@ -51,25 +51,18 @@ export default {
 .category-card {
   color: #fff;
   border-radius: 5px;
-  // border: 1px solid rgba(0, 0, 0, 0.125);
   transition: all 0.3s ease-out;
-  //margin: 20px 30px;
   margin: 5px 10px;
 
   &:hover {
     img{
-
-     // box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
       transform: translateY(-5px);
       border: 4px solid $main-color;
-      //background-color: white;
     }
   }
 
   img {
-    //min-width: 350px;
     width: 100% !important;
-    // height: 150px;
     height: 270px;
     -o-object-fit: cover;
     object-fit: cover;

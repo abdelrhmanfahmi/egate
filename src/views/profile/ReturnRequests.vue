@@ -176,9 +176,6 @@ export default {
 
             this.totalRecords = resp.data.items.items.meta.total;
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }
       if (this.buyerUserData.type === "supplier") {
         profile
@@ -194,9 +191,6 @@ export default {
 
             this.totalRecords = resp.data.items.items.meta.total;
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }
     },
 

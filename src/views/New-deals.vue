@@ -1,12 +1,6 @@
 <template>
   <!-- best deals page  -->
   <div class="suppliers-body">
-    <div
-      class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
-    >
-      <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
-    </div>
-
     <div class="suppliers py-4">
       <div class="container">
         <b-row v-if="loading">
@@ -229,9 +223,6 @@ export default {
           this.totalRecords = resp.data.items.total;
           this.perPage = resp.data.items.per_page;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -245,9 +236,6 @@ export default {
           this.basketDealData = resp.data.items.data;
           this.basketDataLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -263,9 +251,6 @@ export default {
           this.giftOffers = resp.data.items.data;
           this.giftOffersLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

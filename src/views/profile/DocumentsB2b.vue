@@ -1255,9 +1255,6 @@ export default {
             }
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
 
     /**
@@ -1313,10 +1310,7 @@ export default {
       } else if (e.target.files[0].type.split("/")[0] === "application") {
         formData.append("file", e);
       } 
-      // else {
-      //   console.log("other format");
-      //   // return false
-      // }
+
     },
     /**
      * suppDocUpload function
@@ -1388,7 +1382,6 @@ export default {
       if (this.buissnessinfo.rmcm !== null) {
         formData.append("rmcm", this.buissnessinfo.rmcm);
       }
-      // console.log(this.buyerUserData.type);
 
       formData.append("portal", "buyer");
 
@@ -1436,7 +1429,7 @@ export default {
 
     suppDocUploadMoa(event) {
       this.suppDocUploadInfo.moa = event.target.files[0];
-      // this.checkBtn2();
+
     },
     /**
      * supp Doc UploadSad function
@@ -1444,7 +1437,6 @@ export default {
      */
     suppDocUploadSad(event) {
       this.suppDocUploadInfo.sad = event.target.files[0];
-      // this.checkBtn2();
     },
 
     // suppDocUpload upload function
@@ -1474,11 +1466,6 @@ export default {
           this.sucessMsg(res.data.message);
           this.suppData = res.data.items;
           this.getSuppDocUploadData();
-          // if (res.status == 200) {
-          //   setTimeout(() => {
-          //     location.reload();
-          //   }, 1000);
-          // }
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -1488,9 +1475,6 @@ export default {
         .finally(() => {
           this.suppDataLoading = false;
           this.btn2Disabled = false;
-          // setTimeout(() => {
-          //   location.reload();
-          // }, 1500);
         });
     },
 
@@ -1538,9 +1522,6 @@ export default {
         .ibanUpload(formData)
         .then((res) => {
           if (res.status == 200) {
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 1000);
             this.sucessMsg(res.data.message);
             this.getibanUploadData();
           }
@@ -1560,9 +1541,6 @@ export default {
         .finally(() => {
           this.ibanUploadLoading = false;
           this.btn3Disabled = false;
-          // setTimeout(() => {
-          //   location.reload();
-          // }, 1500);
         });
     },
 
@@ -1650,7 +1628,6 @@ export default {
         }
 
         img {
-          // display: none;
 
           width: 20rem;
           height: 10rem;

@@ -18,7 +18,6 @@
         </div>
         <div class="footer-middle-wrap py-5">
           <div class="row">
-            <!-- <div class="col-12"></div> -->
             <div class="col-md-3 col-sm-12">
               <div class="footer-social d-flex">
                 <ul class="" v-for="(link, index) in links" :key="index">
@@ -222,9 +221,6 @@ export default {
             }
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -273,9 +269,6 @@ export default {
 }
 .footer-link-wrap {
   display: flex;
-  // padding: 30px 0 0;
-  // direction: rtl;
-  // text-align: left;
 }
 .footer-link-wrap .menu-links {
   flex-grow: 1;
@@ -284,14 +277,8 @@ export default {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  // direction: ltr;
 }
-// .footer-link-wrap .menu-links li {
-//   margin-left: 40px;
-// }
-// .footer-link-wrap .menu-links li:last-child {
-//   margin-right: 48px;
-// }
+
 .footer-link-wrap .menu-links li a {
   display: block;
   font-size: 13px;
@@ -317,9 +304,6 @@ export default {
 .footer-social {
   margin-right: 108px;
 }
-// .copyright-wrap {
-//   margin-top: 27px;
-// }
 .copyright-text {
   p {
     margin-bottom: 0;
@@ -454,9 +438,6 @@ export default {
 
 // style arabic
 html:lang(ar) {
-  // .footer-link-wrap .menu-links ul {
-  //   direction: rtl;
-  // }
   .footer-link-wrap .menu-links li:last-child {
     margin-right: 0;
   }

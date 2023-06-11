@@ -118,9 +118,6 @@ export default {
             this.sucessMsg(res.data.message);
           }
         })
-        // .catch((error) => {
-        //   console.log(error);
-        // })
     },
     /**
      * @vuese
@@ -134,7 +131,6 @@ export default {
           type:this.dealType ? this.dealType :null
         },
       });
-      // location.reload();
     },
     /**
      * @vuese
@@ -148,7 +144,6 @@ export default {
           type:this.dealType ? this.dealType :null
         },
       });
-      // location.reload();
     },
 
     /**

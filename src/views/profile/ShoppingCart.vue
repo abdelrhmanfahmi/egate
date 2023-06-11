@@ -16,7 +16,6 @@
             <div class="col-md-6 col-sm-12">
               <div class="input-holder">
                 <form @keyup.prevent="searchAddresses">
-                  <!-- <span class="remove-search" role="button">x</span> -->
                   <!-- coupon input  -->
 
                   <input
@@ -26,7 +25,6 @@
                     v-model="addressSearchText"
                   />
                   <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-                    <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
                     <span>{{ $t("cart.search") }}</span>
                   </b-button>
                 </form>
@@ -364,21 +362,7 @@
                     </div>
                   </b-form-group>
                 </b-col>
-                <!-- old block number   -->
-                <!-- <b-col lg="6">
-                  <b-form-group>
-                    <label for="blockNumber">{{ $t("profile.blockNumber") }}</label>
-                    <span class="requried">*</span>
-                    <b-form-input id="blockNumber" v-model="addressesForm.apartment" />
-                    <div
-                      class="error"
-                      v-for="(error, index) in errors.apartment"
-                      :key="index"
-                    >
-                      {{ error }}
-                    </div>
-                  </b-form-group>
-                </b-col> -->
+                
                 <!-- post code  -->
                 <b-col lg="6">
                   <b-form-group>
@@ -420,7 +404,6 @@
             </form>
             <form>
               <b-form-group>
-                <!-- <label for="textarea">Additional Notes</label> -->
                 <b-form-textarea
                   id="textarea"
                   v-model="addressesForm.additional_notes"
@@ -480,7 +463,6 @@
                                             @click="addCoupon"
                                             :disabled="validCoupon"
                                           >
-                                            <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
                                             <span>{{ $t("payment.Apply") }}</span>
                                           </b-button>
                                         </form>
@@ -699,7 +681,6 @@
                                                   for="paymentMethod5"
                                                 >
                                                   {{ $t("profile.wallet") }}
-                                                  <!-- {{ $t("profile.wallet_visa") }} -->
                                                   <sup>*</sup>
                                                 </label>
                                                 <span
@@ -1011,9 +992,6 @@
       </div>
       <div class="suppliers-table">
         <div class="" v-if="cartItems !== null">
-          <!-- <h5 class="heading py-5 text-center">
-            {{ $t("cart.purchaseCart") }}
-          </h5> -->
           <div class="cart-table p-4" v-for="(supplier, index) in cartItems" :key="index">
             <div class="accordion" role="tablist">
               <b-card no-body class="mb-1">
@@ -1033,9 +1011,7 @@
                       <thead>
                         <tr>
                           <th>{{ $t("profile.productImage") }}</th>
-                          <!-- <th>{{ $t("cart.product") }}</th> -->
                           <th>{{ $t("profile.productName") }}</th>
-                          <!-- <th>{{ $t("items.supplier") }}</th> -->
                           <th>{{ $t("cart.price") }}</th>
                           <th>{{ $t("cart.quantity") }}</th>
                           <th>{{ $t("cart.total") }}</th>
@@ -1051,7 +1027,6 @@
                           )"
                           :key="index"
                         >
-                          <!-- product image and go to pproduct page with click  -->
                           <td class="">
                             <router-link
                               :to="{
@@ -1082,9 +1057,6 @@
                               {{ item.product_name }}
                             </router-link>
                           </td>
-                          <!-- <td v-if="supplier.supplier_name">
-                          {{supplier.supplier_name}}
-                        </td> -->
                           <!-- if product price exist -->
                           <td v-if="item.price">
                             <p class="main-color">
@@ -1291,7 +1263,6 @@
                                   <!-- print result of picked address cost price  -->
                                   <span class="feedsResult m-0"></span>
                                   <h4 class="pickupNoData"></h4>
-                                  <!-- <br /> -->
 
                                   <!-- list the available addresses to pickup for this supplier  -->
                                   <ul
@@ -1309,9 +1280,6 @@
                                           fee.shipping_fee | fixedCurrency
                                         }}</span>
                                         <span>{{ currency }}</span>
-                                        <!-- <p v-if="fee.message">
-                                          {{ fee.message }}
-                                        </p> -->
                                       </h5>
                                     </li>
                                   </ul>
@@ -1588,12 +1556,6 @@ export default {
             this.getAllAdresses();
             this.showForm = false;
             this.form = {};
-            // if (res.status == 200) {
-            //   setTimeout(() => {
-            //     // this.$router.replace('/profile/documents')
-            //     this.$router.replace("/profile/documents");
-            //   }, 500);
-            // }
           })
           .catch((error) => {
             const err = Object.values(error)[2].data;
@@ -1638,21 +1600,6 @@ export default {
     clearAll() {
       this.errors = {};
     },
-    /**
-     * get Cart Products function
-     * @vuese
-     */
-    // getCartProducts() {
-    //   this.loading = true;
-    //   globalAxios.post(`cart`).then((res) => {
-    //     this.cartItems = res.data.items.cart_items;
-    //   });
-    //   this.loading = false;
-    // },
-    /**
-     * @vuese
-     *   get cart data from backend
-     */
 
     /**
      * @vuese
@@ -1747,27 +1694,21 @@ export default {
       suppliers
         .getFirstShippingFees(address_uuid)
         .then((res) => {
-          // console.log("new", res);
 
           this.firstFees = res.data.items;
           this.sucessMsg(res.data.message);
 
           let arr = res.data.items;
           var size = Object.values(arr);
-          // console.log("arr" , size);
           let myData = 0;
           for (let index = 0; index < size.length; index++) {
             const element = size[index].shipping_fee;
-            // console.log(`element${index}`, element);
             myData += parseFloat(element);
           }
-
-          // this.shippingCartFee = myData + 'reda';
           this.shippingCartFee = myData;
           this.totalPaymentReplacement += parseFloat(myData);
         })
         .catch((err) => {
-          // console.log(err);
           let error = Object.values(err)[2].data;
           this.errors = error.items;
           if (err.response.status !== 422) {
@@ -1814,7 +1755,6 @@ export default {
           this.adresses = res.data.items;
         })
         .finally(() => {
-          // this.addressSearchText = "";
           this.addressLoading = false;
         });
     },
@@ -1838,9 +1778,6 @@ export default {
           suppliers
             .checkNewCoupon(payload)
             .then((res) => {
-              // let coupons = [];
-
-              // console.log(res.data.items.total_cart.total_discount);f
               if (res.status == 200) {
                 this.existCoupons.push(this.couponText);
                 this.coupons.unshift({
@@ -1850,7 +1787,6 @@ export default {
                 this.sucessMsg(res.data.message);
                 this.couponText = null;
                 this.couponError = null;
-                // this.totalDiscountReplacement = res.data.items.total_cart.total_discount
 
                 this.totalDiscount = res.data.items.total_cart.total_discount.toFixed(3);
 
@@ -1903,9 +1839,6 @@ export default {
             suppliers
               .checkNewCoupon(payload)
               .then((res) => {
-                // let coupons = [];
-
-                // console.log(res.data.items.total_cart.total_discount);
                 if (res.status == 200) {
                   this.existCoupons.push(this.couponText);
                   this.coupons.unshift({
@@ -2009,9 +1942,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 50);
       // wallet test
       setTimeout(() => {
@@ -2027,9 +1957,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 100);
       // visa test
       setTimeout(() => {
@@ -2045,9 +1972,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 150);
       // bank test
       setTimeout(() => {
@@ -2063,9 +1987,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 200);
       // wallet_visa test
       setTimeout(() => {
@@ -2081,9 +2002,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 250);
       // coupon test
       setTimeout(() => {
@@ -2099,9 +2017,6 @@ export default {
               }
             }
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // });
       }, 250);
     },
     /**
@@ -2114,9 +2029,6 @@ export default {
         .then((res) => {
           this.walletData = res.data.items.balance;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -2150,8 +2062,6 @@ export default {
       this.paymentFormData.last_name = this.buyerUserData.last_name;
       this.paymentFormData.phone = this.buyerUserData.phone;
       this.paymentFormData.email = this.buyerUserData.email;
-
-      // this.paymentFormData = { ...this.selectedAddress };
       suppliers
         .payment(this.paymentFormData)
         .then((res) => {
@@ -2174,11 +2084,8 @@ export default {
                   redirectURL: res.data.items.url,
                   wallet_paied: res.data.items.wallet_paied,
                   visa_paied: res.data.items.visa_paied,
-
-                  // window.location.href = res.data.items.url;
                 },
               });
-              // location.reload();
               this.$store.dispatch("cart/getCartProducts");
             }, 500);
           } else {
@@ -2387,7 +2294,6 @@ export default {
       suppliers
         .getShippingFees(data)
         .then((res) => {
-          // console.log("res" , res.data.items.shepping_fee);
           this.sucessMsg(res.data.message);
 
           myResult.innerHTML =
@@ -2468,9 +2374,6 @@ export default {
             ).innerHTML = ``;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -2482,7 +2385,6 @@ export default {
         supplier_id: supplier.supplier_id,
         shipping_type: 1,
         coupon: supplier.coupon ? supplier.coupon : "",
-        // point_of_sell_uuid: this.supplierAddress,
         point_of_sell_uuid:
           localStorage.getItem("addressUUID") !== null ||
           localStorage.getItem("addressUUID") !== undefined
@@ -2573,7 +2475,6 @@ export default {
         this.myQuantity = myQuantity;
       }
 
-      // this.cartItems = null;
 
       setTimeout(() => {
         this.getCartProducts();
@@ -2761,14 +2662,6 @@ export default {
   }
 }
 
-// .float-right,
-// .float-left {
-//   line-height: 57px;
-// }
-.results-form {
-  //background: rgba(236, 240, 241, 0.2);
-}
-
 .coupons-data-holder {
   span {
     background: #008000b3;
@@ -2857,10 +2750,8 @@ table.suppliers-table {
 .add-address {
   font-size: 17px;
   color: #312620;
-  //margin: 15px 0;
   transition: all 0.5s ease-in-out;
   width: 100%;
-  //margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;

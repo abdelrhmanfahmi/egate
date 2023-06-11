@@ -47,7 +47,6 @@
   .container {
     text-align: center;
     padding: 40px 0;
-    // background: #ebf0f5;
     min-height: 500px;
   }
   h1 {

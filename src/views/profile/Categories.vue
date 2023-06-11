@@ -1,10 +1,6 @@
 <template>
   <!-- profile categories page  -->
   <div class="profile-categories">
-    <!-- <div class="categories-info">
-      <small>{{ $t("profile.welcomeAgain") }} </small>
-      <h4 class="main-header">{{ $t("profile.categories") }}</h4>
-    </div> -->
 
     <!-- <NewHomeSlider /> -->
     <NewSearch />
@@ -99,14 +95,12 @@ import categories from "@/services/categories";
 // suppliers page
 import SingleSupplier from "@/components/pages/suppliers/SingleSupplier.vue";
 import suppliers from "@/services/suppliers";
-// import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 import NewSearch from "@/components/pages/home/NewSearch.vue"
 export default {
   components: {
     CategoryCard,
     SingleSupplier,
     NewSearch
-    // NewHomeSlider
   },
   methods: {
     /**
@@ -119,9 +113,6 @@ export default {
         .then((resp) => {
           this.categories = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -143,9 +134,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

@@ -40,7 +40,6 @@
               {{ currency }}
             </span>
             <span class="price-before">
-              <!-- {{ $t("singleProduct.price") }} : -->
               {{
                 myProduct.product_details_by_type.customer_price | fixedCurrency
               }}
@@ -58,14 +57,12 @@
             </p>
             <!-- show price when product not rfq only  -->
 
-            <!-- <hr /> -->
 
             <div class="weight mb-0">
               <span
                 class="title mr-3 mb-2"
                 v-if="myProduct.product_details_by_type.weight"
               >
-                <!-- {{ $t("singleProduct.weight") }} : -->
                 {{ $t("items.unit") }} :
               </span>
 
@@ -182,7 +179,6 @@ export default {
       suppliers: null,
       message: null,
       subject: null,
-      // url: this.mainDoamin
     };
   },
   computed: {

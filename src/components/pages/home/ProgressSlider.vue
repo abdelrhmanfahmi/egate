@@ -119,9 +119,6 @@ export default {
         .then((res) => {
           this.sliders = res.data.items.data;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {

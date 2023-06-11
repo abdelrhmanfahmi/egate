@@ -29,7 +29,6 @@
             <SingleClient :supplier="client"></SingleClient>
           </div>
         </div>
-        <!-- <pagination :per-page="perPage" :total="total"></pagination> -->
 
         <div
         class="d-flex justify-content-center align-items-center mt-5"
@@ -80,9 +79,6 @@ export default {
           this.totalRecords = resp.data.items.suppliers.meta.total;
           this.loading = false
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese

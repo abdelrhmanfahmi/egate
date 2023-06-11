@@ -49,7 +49,6 @@
           <div class="col-lg-4 col-md-0 col-sm-0">
             <div class="toggleMenu">
               <!-- Right Side have user login and search   -->
-              <!-- Right Side have user login and search   -->
               <div class="right-side d-flex">
                 <!-- Search Icon -->
                 <div class="search-icon" v-if="!mobile">
@@ -95,19 +94,6 @@
                       </ul>
                     </div>
                   </span>
-
-                  <!-- <b-button
-                    v-b-modal.modal-1
-                    class="icon-search"
-                    size="md"
-                    v-if="searchClicked == false"
-                    @click="searchClicked = !searchClicked"
-                  >
-                    <font-awesome-icon
-                      v-b-toggle.sidebar-1
-                      icon="fa-solid fa-search"
-                    />
-                  </b-button> -->
                 </div>
                 <div
                   class="d-flex justify-content-between align-items-center"
@@ -131,8 +117,6 @@
                     {{ cartLength }}
                   </span>
                   <span class="cart-icon">
-                    <!-- <b-icon-minecart-loaded></b-icon-minecart-loaded> -->
-                    <!-- <font-awesome-icon icon="fa-solid fa-cart-shopping" size="xl" /> -->
                     <BIconCartDash width="25" height="25" />
                   </span>
 
@@ -144,7 +128,6 @@
                   class="cart notify-holder d-flex justify-content-center align-items-center"
                 >
                   <span class="cart-icon">
-                    <!-- <font-awesome-icon icon="fa-solid fa-bell" /> -->
                     <BIconBell width="25" height="25" />
                   </span>
                   <span class="cartLength" v-if="notificationsLength > 0">
@@ -159,18 +142,13 @@
                   v-b-toggle.login
                   ref="loginIcon"
                 >
-                  <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
                   <BIconPerson width="25" height="25" />
-                  <!-- <h5>
-                    <small>{{ $t("login.login") }}</small>
-                  </h5> -->
                 </div>
                 <div v-if="!mobile && isLoggined">
                   <div class="user-profile">
                     <b-dropdown id="dropdown-1">
                       <template #button-content>
                         <span>
-                          <!-- <font-awesome-icon icon="fa-solid fa-user" size="2x" /> -->
                           <BIconPerson width="25" height="25" />
                           <p v-if="buyerUserData.is_verified">
                             {{ $t("login.welcome") }} ,
@@ -288,8 +266,6 @@ import Notify from "../notifications.vue";
 import globalAxios from "@/services/global-axios";
 import Login from "./login.vue";
 import categories from "@/services/categories";
-
-// import navLinks from "./navLinks.vue"
 import TopHeader from "@/components/layouts/TopHeader";
 import BottomHeader from "@/components/layouts/BottomHeader";
 
@@ -320,7 +296,6 @@ export default {
     MobileNav,
     Notify,
     Login,
-    // navLinks,
     TopHeader,
     BottomHeader,
     BIconCartDash,
@@ -340,7 +315,6 @@ export default {
     }
 
     let perfData = window.performance.timing;
-    // let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.loadEventStart);
     let estimatedTime = Math.abs(
       perfData.loadEventEnd - perfData.navigationStart
     );
@@ -413,13 +387,6 @@ export default {
      * search function
      */
     search() {
-      // this.$router.push({
-      //   path: "/SearchResults",
-      //   query: { keyword: this.keyword },
-      // });
-      // setTimeout(() => {
-      //   location.reload()
-      // }, 1200);
       let data = {
         keyword: this.keyword,
       };
@@ -436,15 +403,6 @@ export default {
             this.suggestionsExist = false;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
-
-      // let r = this.$router.resolve({
-      //   name: "SearchResults", // put your route information in
-      //   query: { keyword: this.keyword }, // put your route information in
-      // });
-      // window.location.assign(r.href);
     },
     searchSuggestion(word) {
       let r = this.$router.resolve({
@@ -483,21 +441,12 @@ export default {
       ) {
         localStorage.removeItem("userInfo");
         localStorage.removeItem("buyerUserData");
-        // if (this.$refs.b2cLogin) {
-        //   this.$refs.b2cLogin.show();
-        // }
         if (this.$refs["loginIcon"]) {
-          // document.querySelector(".login").click();
           setTimeout(() => {
             this.$refs["loginIcon"].click();
           }, 500);
         }
       }
-
-      // this.$router.push({
-      //   path: this.$router.path,
-      //   query: { force_login: "false" },
-      // });
     },
   },
   computed: {
@@ -541,34 +490,17 @@ export default {
     },
   },
   mounted() {
-    // const loc = document.location;
-    // if (
-    //   (this.$route.query.force_login &&
-    //     this.$route.query.force_login == "true") ||
-    //   loc.href.includes("force_login")
-    // ) {
-    //   localStorage.removeItem("userInfo");
-    //   localStorage.removeItem("buyerUserData");
-    //   this.loginNow();
-    // }
     window.onscroll = function () {
       myFunction();
     };
-
-    // var header = document.querySelector(".main-nav");
-    // var headerToggle = document.querySelector("#navigator");
-    // var sticky = header.offsetTop;
-
     var header = document.querySelector(".right-side");
     var sticky = header.offsetTop;
 
     function myFunction() {
       if (window.pageYOffset > sticky + 300) {
         header.classList.add("fixed-toggle-menu");
-        // headerToggle.classList.add("fixedSideToggle");
       } else {
         header.classList.remove("fixed-toggle-menu");
-        // headerToggle.classList.remove("fixedSideToggle");
       }
     }
 
@@ -635,27 +567,17 @@ export default {
   left: 0;
   right: 0;
   z-index: 999;
-  // background: #fff;
   background: $top-header-color;
 
   nav {
-    // align-items: center;
     font-size: 14px;
-    // position: relative;
-    // display: flex;
-    // flex: row;
-    // justify-content: space-between;
     padding-top: 12px;
     transition: 0.5s all ease-in-out;
     margin: 0 auto;
 
     .cart {
-      // padding: 0 0.7rem;
       padding: 0 1.5rem;
       position: relative;
-      // @media (min-width: 1200px) and (max-width: 1600px) {
-      //   padding: 5px !important;
-      // }
 
       .cart-icon {
         color: #000000;
@@ -805,9 +727,6 @@ html:lang(ar) {
 }
 
 .cartLength {
-  // position: absolute;
-  // top: -11px;
-  // right: 4px;
   background: $main_color;
   color: #fff;
   min-width: 40px;
@@ -828,13 +747,6 @@ html:lang(ar) {
 
 .cart-number {
   background: $main-color;
-}
-
-.ar {
-  .icon {
-    //left: 24px;
-    //right: auto;
-  }
 }
 
 .search-eye {
@@ -963,10 +875,6 @@ html:lang(ar) {
     top: 2%;
     right: 2%;
   }
-
-  // @media (min-width: 1200px) and (max-width: 1600px) {
-  //   padding: 5px;
-  // }
 }
 
 .en {
@@ -975,7 +883,6 @@ html:lang(ar) {
       top: 10%;
       right: 0;
       position: fixed;
-      //background: $top-header-color;
       width: 14%;
     }
   }
@@ -986,7 +893,6 @@ html:lang(ar) {
       top: 10%;
       right: 2%;
       position: fixed;
-      //background: $top-header-color;
       width: 14%;
     }
   }
@@ -1007,7 +913,6 @@ html:lang(ar) {
   @media (max-width: 992px) {
     top: 2rem;
     right: 2rem;
-    //position: fixed !important;
     transition: position 1s linear;
   }
 }

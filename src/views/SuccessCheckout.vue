@@ -73,9 +73,6 @@ export default {
             this.fail = true;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -86,15 +83,11 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.orderTrack2"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
       });
     },
-  },
-  mounted() {
-    // this.checkComplete();
   },
 };
 </script>
@@ -103,7 +96,6 @@ export default {
 .container {
   text-align: center;
   padding: 40px 0;
-  // background: #ebf0f5;
   min-height: 500px;
 }
 h1 {

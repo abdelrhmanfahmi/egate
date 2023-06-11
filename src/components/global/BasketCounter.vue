@@ -32,8 +32,7 @@
       </div>
       <button class="product-counter-btn" @click="incrementQuantity">
         <b-icon-plus />
-      </button>
-      
+      </button>   
     </div>
   </div>
 </template>
@@ -95,7 +94,6 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
       }, 500);
-      // this.$emit('changeTitle',this.countValue)
 
       setTimeout(() => {
         this.$emit("changeTitle", this.countValue);
@@ -114,7 +112,6 @@ export default {
         basket_promotion_id: this.product.basket_promotion_id,
       };
 
-      // this.$emit('changeTitle',this.countValue)
       this.$store.dispatch("cart/updateProductFromCart", data);
       setTimeout(() => {
         this.$store.dispatch("cart/getCartProducts");
@@ -167,7 +164,7 @@ export default {
     delayChange() {
       let timeout = null;
       clearTimeout(timeout);
-      // Make a new timeout set to go off in 800ms
+      // Make a new timeout set to go off in 1500ms
       timeout = setTimeout(() => {
         this.CustomIncrementQuantity();
       }, 1500);

@@ -36,7 +36,6 @@
               >
                 {{ slider.product.title }}
               </router-link>
-              <!-- {{ slider.product.title }} -->
             </h4>
             <h4
               class="main-header my-2"
@@ -47,7 +46,6 @@
               >
                 {{ slider.product.title }}
               </router-link>
-              <!-- {{ slider.product.title }} -->
             </h4>
             <h5
               class="price m-0"
@@ -339,9 +337,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/**
-    * component style 
-  */
 .product-cart {
   padding: 0;
   margin: 0 10px;
@@ -349,7 +344,6 @@ export default {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  //background: #ebebeb52;
   min-width: 250px;
   overflow: hidden;
   a {
@@ -365,7 +359,6 @@ export default {
       opacity: 0.5;
     }
     img {
-      // width: 150px;
       min-width: 250px;
       height: 150px;
       border-radius: 0%;
@@ -378,8 +371,6 @@ export default {
     }
   }
   .card-info {
-    //padding: 25px;
-    //background: #ebebeb52;
     margin: auto;
     margin-bottom: 10px;
     text-align: start;

@@ -151,9 +151,6 @@ export default {
           this.totalRecords = resp.data.items.suppliers.meta.total;
           this.loading = false;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -209,7 +206,6 @@ export default {
 }
 
 .supplier-image {
-  // width: 100px;
   height: 150px;
   width: 150px;
   border-radius: 50%;

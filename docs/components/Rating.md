@@ -1,5 +1,7 @@
 # Rating
 
+import suppliers from "@/services/suppliers";
+
 ## Props
 
 <!-- @vuese:Rating:props:start -->
@@ -15,7 +17,7 @@
 <!-- @vuese:Rating:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
-|getProductReview|get product reviews|-|
+|settingReviews|get product reviews|-|
 
 <!-- @vuese:Rating:methods:end -->
 

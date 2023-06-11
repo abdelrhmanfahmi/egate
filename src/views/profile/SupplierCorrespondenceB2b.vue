@@ -17,7 +17,6 @@
             <input type="text" :placeholder="$t('cart.search')" class="my-2 h-100 p-3 w-100 itemInput"
               v-model="messageSearchText" />
             <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-              <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
               <span>{{ $t("cart.search") }}</span>
             </b-button>
           </form>
@@ -111,14 +110,6 @@ export default {
           key: "first",
           label: this.$t("profile.supplierName"),
         },
-        // {
-        //   key: "supplier",
-        //   label: this.$t("profile.lastUpdate"),
-        // },
-        // {
-        //   key: "Product",
-        //   label: this.$t("profile.lastUpdateUser"),
-        // },
         {
           key: "Product",
           label: this.$t("profile.lastMessage"),
@@ -127,10 +118,6 @@ export default {
           key: "actions",
           label: this.$t("profile.actions"),
         },
-        // {
-        //   key: "Details",
-        //   label: this.$t("profile.details"),
-        // },
       ],
       items: [],
       perPage: 5,
@@ -165,9 +152,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get supplier All Correspondence function
@@ -185,9 +169,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     supplierAllCorrespondenceSearch() {
       profile
@@ -201,9 +182,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * function for pagination

@@ -44,7 +44,6 @@
                 <b-form-group>
                   <label for="f-name">{{ $t("register.firstName") }}</label>
                   <span class="requried">*</span>
-                  <!-- <b-form-input id="f-name" v-model="form.first_name" /> -->
                   <div class="row justify-content-start align-items-center">
                     <div class="col-3" v-if="form.perfix">
                       <span>{{ form.perfix }}</span>
@@ -645,9 +644,6 @@ export default {
         .then((res) => {
           this.countries = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err); 
-        // });
     },
     /**
      * @vuese
@@ -696,9 +692,6 @@ export default {
             : "3";
           this.form.country_id = this.buyerUserData.country_id;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * Update Profile function
@@ -721,7 +714,6 @@ export default {
         .then((res) => {
           this.sucessMsg(res.data.message);
           this.errors = {};
-          // this.$store.commit("SET_USER_DATA_INFO", res.data.items);
           this.$store.dispatch("getUserInfo");
           if (res.status == 200) {
             setTimeout(() => {
@@ -825,8 +817,6 @@ export default {
           this.sucessMsg(res.data.message);
           this.hideEmailModal();
           this.hidePhoneModal();
-          // this.$router.push("/otp-verification");
-          // location.reload();
           if (res.data.message == "Success" || res.data.message == "تم بنجاح") {
             this.showCheckModal();
           }
@@ -944,16 +934,13 @@ html:lang(ar) {
   .file-wrapper input {
     position: absolute;
     top: 0;
-    right: 0; /* not left, because only the right part of the input seems to
-                   be clickable in some browser I can't remember */
+    right: 0; 
     cursor: pointer;
     opacity: 0;
     filter: alpha(
       opacity=0
-    ); /* and all the other old opacity stuff you
-                                   want to support */
-    font-size: 300px; /* wtf, but apparently the most reliable way to make
-                           a large part of the input clickable in most browsers */
+    ); 
+    font-size: 300px; 
     height: 200px;
   }
   .data-holder {

@@ -5,13 +5,16 @@
 <!-- @vuese:Cart:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
+|checkDynamicInputs|check Dynamic Inputs|-|
 |changeCoupon|when change coupon|-|
 |getCartProducts|get cart data from backend|-|
 |removeFromCart|remove product from cart|-|
+|removebasketFromCart|remove basket product from cart|-|
 |removeDisabled|this fnction user when using the old coupon style to remove disaple input|-|
 |checkCoupon|this fnction user when using the old coupon style to check coupon validity and dislay response and display data|-|
 |loginFirst|login First if you want to add coupon if you'r a guest|-|
 |ChangeQ|change quantity of product that in table|-|
+|ChangebasketQ|change basket quantity  in table|-|
 |closeModal|close modal|-|
 |openModal|open modal|-|
 |changeAddress|change selected address and display the result of new address|-|
@@ -21,7 +24,8 @@
 |getAllCountires|Countires|-|
 |getAllRegions|getAllRegions|-|
 |getAllCities|Cities|-|
-|createAdress|// order-shipping page functions createAdress|-|
+|checkAddressesForm|// order-shipping page functions checkAddressesForm|-|
+|createAdress|createAdress|-|
 |localStoreAdresses|store address if guest|-|
 |getSupplierAddress|supplier addresses pickup addresses|-|
 |changeShipping|choose shipping|-|

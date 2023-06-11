@@ -1,11 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import createPersistedState from 'vuex-persistedstate';
 import cart from "./modules/cart";
 import wishlist from "./modules/wishlist";
 import suppliers from "./modules/suppliers";
 import auth from "@/services/auth";
-// import { baseURL } from "@/apis/Api";
 import globalAxios from "../services/global-axios";
 
 // firebase
@@ -178,5 +176,4 @@ export default new Vuex.Store({
     wishlist,
     suppliers,
   },
-  // plugins: [createPersistedState()]
 });

@@ -6,6 +6,7 @@
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |newsletterShow|-|—|`false`|-|
+|ImageUrl|-|—|`false`|-|
 
 <!-- @vuese:newsLetterModal:props:end -->
 

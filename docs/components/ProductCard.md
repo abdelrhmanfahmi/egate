@@ -6,6 +6,9 @@
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |slider|-|slider prop|`true`|-|
+|dealType|-|`String`|`false`|-|
+|buttonTrue|-|`Boolean`|`false`|-|
+|sort|-|`String`|`false`|-|
 
 <!-- @vuese:ProductCard:props:end -->
 

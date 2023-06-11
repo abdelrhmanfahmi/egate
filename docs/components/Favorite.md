@@ -13,6 +13,9 @@
 |gotoPage|function for pagination|-|
 |chooseProduct|choose product|-|
 |requestQuotation|request Quotation function|-|
+|addBasketToCart|add basket to cart|-|
+|removebasketFromCart|remove basket from  favorite|-|
+|loginFirst|login first|-|
 
 <!-- @vuese:Favorite:methods:end -->
 

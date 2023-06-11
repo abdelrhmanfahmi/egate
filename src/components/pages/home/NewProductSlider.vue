@@ -164,7 +164,6 @@ export default {
       },
       buyAndGet: null,
       dataLength: null,
-      // buyToGetAnotherTitle: "",
       basketDealData: null,
       basketDataLength: null,
       // monthly offers
@@ -190,24 +189,8 @@ export default {
         .then((resp) => {
           this.buyAndGet = resp.data.items.data.slice(0, 8);
           this.dataLength = resp.data.items.data.length;
-          // this.flagTitle =
-          //   this.$t("profile.buy") +
-          //   " " +
-          //   this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.buy_x +
-          //   " " +
-          //   this.$t("profile.get") +
-          //   " " +
-          //   this.buyAndGet[0]?.buy_get_promotion_running_by_type[0]?.get_y;
-
-
-          // this.flagTitle =  this.$t("profile.buy") +
-          // " " +
-          // " " +
-          // this.$t("profile.get")
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
 
     async getBasketOffers() {
@@ -217,9 +200,7 @@ export default {
           this.basketDealData = resp.data.items.data.slice(0, 8);
           this.basketDataLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+
     },
 
     /**
@@ -234,9 +215,6 @@ export default {
           this.deals = resp.data.items.deals.data.slice(0, 8);
           this.dealsLength = resp.data.items.deals.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -256,9 +234,6 @@ export default {
           this.dailyOffers = resp.data.items.data;
           this.dailyOffersLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -277,9 +252,6 @@ export default {
           this.giftOffers = resp.data.items.data;
           this.giftOffersLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

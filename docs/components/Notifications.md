@@ -6,6 +6,7 @@
 |Method|Description|Parameters|
 |---|---|---|
 |getNotificatinos|get Notificatinos function|-|
+|getNotificatinosWithLimit|get Notificatinos function|-|
 |onPageChange|function for pagination|-|
 |onChangeRecordsPerPage|function for pagination|-|
 |gotoPage|function for pagination|-|
@@ -16,9 +17,7 @@
 <!-- @vuese:Notifications:methods:end -->
 
 
- notifications|-|
-
-<!-- @vuese:notifications:methods:end -->
+-->
 
 
 ## Computed

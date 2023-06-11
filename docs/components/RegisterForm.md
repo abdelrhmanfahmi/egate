@@ -6,6 +6,7 @@
 |Method|Description|Parameters|
 |---|---|---|
 |getAllCountires|get countries|-|
+|checkRegisterForm|check Register Form data|-|
 |register|register function|-|
 |switchField|change type to show password|-|
 |getTerms|get terms|-|

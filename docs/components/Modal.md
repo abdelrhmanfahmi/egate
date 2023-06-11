@@ -10,23 +10,19 @@
 <!-- @vuese:Modal:events:end -->
 
 
---|
-|product|product prop|`Object`|`true`|-|
+## Methods
 
-<!-- @vuese:Modal:props:end -->
-
-
-## Events
-
-<!-- @vuese:Modal:events:start -->
-|Event Name|Description|Parameters|
+<!-- @vuese:Modal:methods:start -->
+|Method|Description|Parameters|
 |---|---|---|
-|close|-|-|
+|handleSave|handleSave function|-|
+|handleClose|handleClose function|-|
+|close|Close function|-|
 
-<!-- @vuese:Modal:events:end -->
+<!-- @vuese:Modal:methods:end -->
 
 
-## Computed
+omputed
 
 <!-- @vuese:Modal:computed:start -->
 |Computed|Type|Description|From Store|

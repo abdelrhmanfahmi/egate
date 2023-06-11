@@ -59,10 +59,6 @@
     <div class="new-design">
       <div class="chat-holder">
         <ul class="chat row">
-          <!-- <li class="stamp">
-            Saturday
-            <span>20:32</span>
-          </li> -->
           <li
             :class="{
               'col-sm-12': item.sent_by == 'supplier',
@@ -265,9 +261,6 @@ export default {
             this.supplierId = resp.data.items[0].chat.supplier_id;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * send Supplier Message function
@@ -278,7 +271,6 @@ export default {
       let data = {
         supplier_id: this.supplierId,
         message: this.message,
-        // subject: this.subject,
         file: this.files[0],
       };
       profile
@@ -295,7 +287,6 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          // console.log(error);
         })
         .finally(() => {
           this.message = null;
@@ -395,7 +386,6 @@ export default {
     }
     .left {
       background: #e3e3e3;
-      //float: left;
       width: 100%;
       border-top-left-radius: 0;
       border-radius: 30px 30px 30px 0;
@@ -405,7 +395,6 @@ export default {
       background: transparent;
       border: 2px solid #e3e3e3;
       border-top-right-radius: 0;
-      //float: right;
       width: 100%;
       border-radius: 30px 30px 0px 30px;
     }
@@ -427,11 +416,6 @@ export default {
 }
 .ar .chat {
   text-align: right !important;
-  //p {
-  // display: flex !important;
-  //justify-content: flex-end !important;
-  //align-items: center !important;
-  //}
 }
 li {
   p {
@@ -442,15 +426,12 @@ li {
   }
 }
 .sendMessageHolder {
-  //display: flex;
-  //justify-content: center;
   width: 70%;
   margin: auto;
   button {
     height: 53px;
     width: 100%;
   }
-  //align-items: center;
   @media (max-width: 767px) {
     width: 100%;
     .row {
@@ -504,7 +485,6 @@ li {
     opacity: 0;
     filter: alpha(opacity=0);
     height: 50px;
-    //width: 36px;
     cursor: pointer;
   }
 

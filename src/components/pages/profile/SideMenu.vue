@@ -26,13 +26,6 @@
         @click="closeSideBar"
       >
         <router-link :to="link.to">
-          <!-- <img
-            src="@/assets/images/new-design/standing-order-sign.png"
-            v-if="link.name == $t('profile.b2bFav')"
-            class="standing-order-sign"
-            alt="standing-order-sign"
-          /> -->
-          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
             class="side-number"
@@ -73,7 +66,6 @@
       <li>
         <div class="logout" @click="logout()">
           <span class="logout-sign">
-            <!-- <font-awesome-icon icon="fa-solid fa-power-off" /> -->
           </span>
           <span class="mx-2">
             {{ $t("login.logout") }}
@@ -93,13 +85,6 @@
         @click="closeSideBar"
       >
         <router-link :to="link.to">
-          <!-- <img
-            src="@/assets/images/new-design/standing-order-sign.png"
-            v-if="link.name == $t('profile.b2bFav')"
-            class="standing-order-sign"
-            alt="standing-order-sign"
-          /> -->
-          <!-- <font-awesome-icon v-else :icon="`fa-solid fa-${link.iconName}`" /> -->
           <span>{{ link.name }}</span>
           <span
             class="side-number"
@@ -374,7 +359,6 @@ export default {
       *  component style
     */
 .profile-menu {
-  //padding: 60px 0px 60px 25px;
   background-color: #1f1f1f;
   color: #fff;
 
@@ -407,7 +391,6 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    //padding: 60px 60px 60px 0px;
     text-align: right;
 
     ul {

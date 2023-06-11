@@ -9,7 +9,6 @@
 |getAllSubCategories|get All SubCategories function|-|
 |getCover|get page Cover function|-|
 |search|search function to get sub-categories|-|
-|selectTab|selectTab function|-|
 |selectDefaultTab|set default tab  function|-|
 
 <!-- @vuese:_slug:methods:end -->

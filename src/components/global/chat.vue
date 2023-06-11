@@ -193,7 +193,6 @@ export default {
     transform: scale(1);
   }
   a.blantershow-chat {
-    /*   background: #009688; */
     background: #fff;
     color: #404040;
     position: fixed;
@@ -213,8 +212,6 @@ export default {
     margin: 0 10px 0 0;
   }
   .header-chat {
-    /*   background: linear-gradient(to right top, #6f96f3, #164ed2); */
-    background: #009688;
     background: #095e54;
     color: #fff;
     padding: 15px 0px;
@@ -269,13 +266,6 @@ export default {
   span.my-number {
     display: none;
   }
-  /* .blanter-msg {
-  color: #444;
-  padding: 20px;
-  font-size: 12.5px;
-  text-align: center;
-  border-top: 1px solid #ddd;
-} */
   textarea#chat-input {
     border: none;
     font-family: "Arial", sans-serif;
@@ -437,7 +427,6 @@ export default {
       z-index: 0;
       opacity: 0.08;
       background-image: url("https://elfsight.com/assets/chats/patterns/whatsapp.png");
-      // background-image: url(https://res.cloudinary.com/eventbree/image/upload/v1575782560/Widgets/whatsappbg_opt.jpg);
     }
   }
 

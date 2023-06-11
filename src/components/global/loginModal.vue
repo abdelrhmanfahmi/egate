@@ -57,31 +57,30 @@ export default {
     };
   },
   methods: {
-    // /**
-    //  * @vuese
-    //  * handleSave function
-    //  */
+     /**
+      * @vuese
+      * handleSave function
+      */
     handleSave() {
       this.handleClose();
     },
-    // /**
-    //  * @vuese
-    //  * handleClose function
-    //  */
+     /**
+      * @vuese
+      * handleClose function
+      */
     handleClose() {
       this.$emit("close");
     },
-     // /**
-    //  * @vuese
-    //  * Close function
-    //  */
+      /**
+      * @vuese
+      * Close function
+      */
     close() {
       setTimeout(() => {
         this.$emit("close");
       }, 50);
     },
   },
-  //   props: ["product"],
 };
 </script>
 <style lang="scss" scoped>

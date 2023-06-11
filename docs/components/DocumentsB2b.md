@@ -5,6 +5,7 @@
 <!-- @vuese:DocumentsB2b:methods:start -->
 |Method|Description|Parameters|
 |---|---|---|
+|checkDocumentsForm|check Documents Form|-|
 |downloadImage|download Image function|-|
 |downloadItem|download item function|-|
 |uploadPicture|upload Picture function|-|

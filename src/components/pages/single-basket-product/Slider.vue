@@ -83,9 +83,6 @@ export default {
             this.mediaExist = true;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

@@ -85,11 +85,9 @@
 
 <script>
 import Nav from "@/components/layouts/nav";
-// import Footer from "@/components/layouts/footer";
 import NewFooter from "@/components/layouts/NewFooter";
 
 import { getMessaging, onMessage } from "firebase/messaging";
-// import {messaging} from "@/plugins/firebase"
 import cookizComponent from "@/components/global/cookizComponent.vue";
 /**
  *  main profile page
@@ -101,7 +99,6 @@ import SideMenuB2b from "@/components/pages/profile/sideMenuB2b.vue";
 export default {
   components: {
     Nav,
-    // Footer,
     NewFooter,
     cookizComponent,
     SideMenu,
@@ -177,15 +174,9 @@ export default {
             case "product":
               url = `/product/details/${data.type_id}`;
               break;
-            // case "quote":
-            //   url = `/quotes/quote-details/${data.id}`;
-            //   break;
             case "return":
               url = `/ReturnedRequest?UUID=${data.type_id}`;
               break;
-            // case "financials":
-            //   url = `/financials/transactions`;
-            //   break;
             default:
               url = "/";
           }
@@ -240,7 +231,6 @@ export default {
       }
     });
 
-    // if (this.newsletterShow) {
 
     if (this.buyerUserData.is_verified) {
       localStorage.removeItem("massege");
