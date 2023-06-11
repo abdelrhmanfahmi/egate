@@ -8,10 +8,8 @@
     <!-- cart modal that appear when add product to cart -->
     <div class="modal-content">
       <div class="header-holder">
-        <!-- <div class="modal-header">Header</div> -->
         <span>{{ $t("cart.success") }}</span>
         <div class="cls-button">
-          <!-- <button class="btn btn-outline-danger" @click="handleClose">x</button> -->
           <button
             title="Close (Esc)"
             type="button"

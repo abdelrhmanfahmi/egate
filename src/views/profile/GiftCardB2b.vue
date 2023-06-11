@@ -43,7 +43,6 @@
         </thead>
         <tbody>
           <tr class="text-center">
-            <!-- <td>{{ coupon.client.company_name }}</td> -->
             <td>{{ myCoupon.discount }} {{ myCoupon.discount_type }}</td>
             <td>{{ myCoupon.end_date }}</td>
           </tr>

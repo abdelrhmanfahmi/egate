@@ -275,8 +275,6 @@ export default {
     }
   }
   .other-sections {
-    //max-height: 500px;
-    //overflow-y: scroll;
     color: $main-color;
     a , button{
       color: inherit;

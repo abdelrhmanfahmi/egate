@@ -30,7 +30,6 @@
               {{ currency }}
             </span>
             <span class="price-before">
-              <!-- {{ $t("singleProduct.price") }} : -->
               {{
                 myProduct.basket_price | fixedCurrency
               }}
@@ -55,7 +54,6 @@
                 class="title mr-3 mb-2"
                 v-if="myProduct.weight"
               >
-                <!-- {{ $t("singleProduct.weight") }} : -->
                 {{ $t("items.unit") }} :
               </span>
 
@@ -83,7 +81,7 @@
               {{ myProduct.country.title }}
             </span>
             <span v-if="myProduct.country_of_origin">{{myProduct.country_of_origin}}</span>
-            <!-- <hr /> -->
+
           </div>
 
           <!-- brand  -->
@@ -234,28 +232,16 @@ export default {
         color: #000;
         margin-bottom: 1.5rem;
         padding-inline-start: 0rem;
-        //font-weight: bold;
       }
 
       .available-weight {
         span {
-          //width: 6rem;
-          //height: 2rem;
-          //border: 3px solid #ebebeb;
           font-size: 16px;
           color: #000;
-          //color: #544842;
           display: flex;
           justify-content: center;
           align-items: center;
-          //margin: 0 0.2rem;
-          // cursor: pointer;
           transition: all ease-out 0.3s;
-          // &:hover {
-          //   background: $main-color;
-          //   border-color: $main-color;
-          //   color: #fff;
-          // }
         }
 
         span.active {
@@ -270,14 +256,10 @@ export default {
       font-size: 16px;
       color: #000;
       margin-bottom: 1.3rem;
-      //padding-inline-start: 35px;
-      //font-weight: bold;
     }
 
     .product-actions {
       .short-links {
-        // margin-inline-end: 0.5rem;
-        // min-width: 10rem;
         a {
           display: block;
           color: #676565;
@@ -452,17 +434,6 @@ textarea {
   }
 }
 
-// @media screen and (max-width:1900px){
-//   .product-counter .value{
-
-//     font-weight: 500;
-//     width: 4rem;
-
-//   }
-//   .add-cart{
-//     padding: 12px 10px !important;
-//   }
-// }
 .svg-icon {
   width: 30px;
 

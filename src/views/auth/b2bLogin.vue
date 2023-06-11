@@ -7,13 +7,6 @@
           <b-col lg="10">
             <div class="register-info" v-if="b2b_buyer_registration">
               <h4 class="main-header">{{ $t("register.mainInformation") }}</h4>
-              <!-- <router-link to="/b2b-register" class="back">
-                <span class="main-color">
-                  &#60; {{ $t("register.haveNotAccount") }}</span
-                >
-              </router-link> -->
-
-              <!-- // new design  -->
               <div class="user-login-form">
                 <b-button to="/b2b-register" class="login-button my-2 border-main">
                   <b
@@ -164,9 +157,6 @@ export default {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("globalAddressUUID");
       localStorage.removeItem("buyerUserData");
-      // localStorage.removeItem('country')
-      // localStorage.removeItem('currency')
-      // localStorage.removeItem('currencyId')
 
       let loginData = {
         email: this.form.email,
@@ -180,8 +170,6 @@ export default {
         .login("buyer", loginData)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-
-          // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
           if (!res.data.items.item.email_verified_at) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
@@ -220,50 +208,6 @@ export default {
               }
             );
           }
-
-          // if (
-          //   (res.data.items.item.type === "buyer" &&
-          //     res.data.items.item.is_verified) ||
-          //   (res.data.items.item.type === "supplier" &&
-          //     res.data.items.item.is_buyer == 1 &&
-          //     res.data.items.item.is_verified)
-          // ) {
-          //   localStorage.setItem("massege", "");
-          //   localStorage.removeItem("guest-id");
-          //   // this.$router.push("/profile/categories");
-          //   // setTimeout(() => {
-          //   //   location.reload();
-          //   // }, 1000);
-          //   this.$router.replace(
-          //     {
-          //       // path: "/profile/categories",
-          //       path: "/",
-          //     },
-
-          //     () => {
-          //       this.$router.go(0);
-          //     }
-          //   );
-          // } else {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          //   localStorage.removeItem("guest-id");
-          //   // this.$router.push("/profile/account-information-b2b");
-          //   // setTimeout(() => {
-          //   //   location.reload();
-          //   // }, 1000);
-
-          //   this.$router.replace(
-          //     {
-          //       path: "/profile/account-information-b2b",
-          //     },
-
-          //     () => {
-          //       this.$router.go(0);
-          //     }
-          //   );
-          // }
-
-          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -338,9 +282,6 @@ export default {
 
     .submition-box {
       text-align: center;
-      //border: 1px solid rgba(204, 204, 204, 0.251);
-      //border-radius: 4px;
-      //background-color: rgba(216, 220, 221, 0.251);
       padding: 20px;
       button {
         width: 30%;

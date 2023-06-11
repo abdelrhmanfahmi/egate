@@ -154,12 +154,8 @@ export default {
       suppliers
         .getSupplier(id)
         .then((resp) => {
-          // console.log("resp", resp.data.items);
           this.supplier = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -178,9 +174,6 @@ export default {
             ? (this.supplierProductsLength = resp.data.items.data.length)
             : (this.supplierProductsLength = 0);
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
      /**
      * @vuese
@@ -224,9 +217,6 @@ export default {
         .then((res) => {
           this.supplierMSite = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -260,7 +250,6 @@ export default {
     font-weight: 600;
     text-align: center;
     margin-bottom: 5rem;
-    // font-size: 14pt;
   }
   .load-more {
     background: #fff;

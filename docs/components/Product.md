@@ -21,6 +21,7 @@
 |goPage2|gog to product page by supplier|-|
 |addToCart|add product to cart if not select quantity from dropdown|-|
 |addToCartAgain|add product to cart by select quantity from dropdown numbers|-|
+|ChangeCounter|Change cart Counter function|-|
 
 <!-- @vuese:Product:methods:end -->
 

@@ -112,9 +112,6 @@ export default {
         .then((resp) => {
           this.supplier = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -144,9 +141,6 @@ export default {
             document.getElementById("modal-2").click();
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -205,9 +199,6 @@ input {
     box-shadow: none;
   }
 }
-// .intro {
-//   margin: 10% 0;
-// }
 .search-icon {
   .modal-header {
     display: none;

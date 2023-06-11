@@ -223,7 +223,6 @@
                         },
                       }"
                     >
-                      <!-- <span>{{ $t("profile.buyXgetYOffer") }}</span> -->
                       <span>
                         <small>
                           {{ $t("profile.buy") }}
@@ -429,7 +428,6 @@
                     v-b-tooltip.hover
                     :title="$t('items.addToCart')"
                   >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon
                       icon="fa-solid fa-cart-shopping"
                       size="xl"
@@ -515,7 +513,6 @@
                     </button>
                   </div>
 
-                  <!-- <a href="#"> <font-awesome-icon icon="fa-solid fa-check" /> </a> -->
                 </div>
                 <div
                   class="d-flex justify-content-center"
@@ -554,7 +551,6 @@
                     v-b-tooltip.hover
                     :title="$t('items.addToCart')"
                   >
-                    <!-- <span>{{ $t("items.addToCart") }}</span> -->
                     <font-awesome-icon icon="fa-solid fa-cart-shopping" />
                   </a>
 
@@ -710,8 +706,6 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 Vue.use(VueSweetalert2);
 
-// import rfqIcon from "@/components/global/rfqIcon.vue";
-
 import StandingOrders from "@/components/global/standingOrders.vue";
 import Paginate from "@/components/global/Paginate.vue";
 
@@ -828,7 +822,6 @@ export default {
   },
   components: {
     VariantsCounter,
-    // rfqIcon,
     StandingOrders,
     Paginate,
   },
@@ -950,9 +943,6 @@ export default {
         .then((res) => {
           this.products = res.data.items.data;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -973,7 +963,6 @@ export default {
           this.sortTypeUnit
         )
         .then((res) => {
-          // this.getFilters()
           this.products = res.data.items.data;
 
           this.total = res.data.items.data.total;
@@ -983,9 +972,6 @@ export default {
 
           this.totalRecords = res.data.items.data.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -1007,9 +993,6 @@ export default {
             this.productInfo.variants[index].selectedVariance = null;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -1110,7 +1093,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
@@ -1135,9 +1117,6 @@ export default {
           this.WeightOptions = res.data.items.weights;
           this.UnitOptions = res.data.items.units;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -1393,35 +1372,6 @@ export default {
   color: #fff !important;
 }
 
-/*@media screen and (max-width: 767px) {
-  table {
-    tbody {
-      tr {
-        margin: 30px 0;
-      }
-    }
-  }
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    position: absolute;
-    width: 1px;
-    padding: 0;
-  }
-
-  table td {
-    display: block;
-    font-size: 0.8rem;
-    border-top: none !important;
-  }
-  .table-striped tbody tr:nth-of-type(odd) {
-    margin: 30px 0;
-    display: block;
-  }
-}*/
 @media (max-width: 992px) {
   .table {
     width: 800px;
@@ -1484,7 +1434,6 @@ export default {
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    //min-width: 64px;
     font-family: inherit;
     font-size: inherit;
     line-height: 15px;
@@ -1495,7 +1444,6 @@ export default {
     transition: background 0.1s linear;
     font-weight: 400;
     color: $main-color;
-    //background: #fff;
     border: 1px solid $main-color;
     box-shadow: none;
     padding: 12px;

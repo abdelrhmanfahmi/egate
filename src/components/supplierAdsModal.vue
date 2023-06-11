@@ -67,11 +67,6 @@ export default {
       if (val >= 100) {
         clearInterval(this.interval);
       }
-      // if (val >= 100 && this.newsletterShow?.image_path) {
-      //   setTimeout(() => {
-      //     this.onImgLoad();
-      //   }, 6000);
-      // }
     },
   },
   methods: {
@@ -97,17 +92,7 @@ export default {
             query: { id: this.supplierAds.product_id },
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
-    /**
-     * @vuese
-     *   check when image loaded
-     */
-    // onImgLoad() {
-    //   return (this.isLoaded = true);
-    // },
     /**
      * @vuese
      *   check when page loaded

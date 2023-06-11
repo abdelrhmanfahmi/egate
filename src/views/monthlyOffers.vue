@@ -108,9 +108,6 @@ export default {
           this.totalRecords = resp.data.items.deals.total;
           this.perPage = resp.data.items.deals.per_page
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

@@ -107,8 +107,8 @@
         </h5>
         <div class="row align-items-center pb-5 my-5">
           <div class="col-md-7 col-sm-12">
-            <form class="returnData " @submit.prevent="returnOrder">
-              <div class="form-input ">
+            <form class="returnData" @submit.prevent="returnOrder">
+              <div class="form-input">
                 <!-- select reasons   -->
                 <b-form-select v-model="returnData.return_reason" class="mb-3">
                   <b-form-select-option disabled value="null">{{
@@ -221,7 +221,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="images-holder">
                 <p class="mb-0">{{ $t("profile.uploadDamageProducts") }}</p>
                 <ul class="files">
@@ -275,7 +275,7 @@
                   {{ error }}
                 </div>
               </div>
-  
+
               <div class="row my-3">
                 <div class="col-4">
                   <!-- <label>
@@ -285,9 +285,8 @@
                     <!-- quantity  -->
                   </div>
                 </div>
-              
               </div>
-  
+
               <!-- text your message  -->
               <b-form-textarea
                 v-if="returnData.return_reason == 8"
@@ -296,9 +295,9 @@
                 rows="8"
                 v-model="returnData.return"
               ></b-form-textarea>
-  
+
               <!-- add new text area if user select bank   -->
-  
+
               <div class="" v-if="returnData.refund_option == 2">
                 <label for="accountDetails">{{
                   $t("profile.accountDetails")
@@ -316,7 +315,7 @@
               >
                 {{ error }}
               </div>
-  
+
               <b-button
                 type="submit"
                 class="saveBtn btn-block py-3 mt-3 bg-main"
@@ -369,17 +368,13 @@ export default {
       loading: false,
       id: this.$route.query.prodId,
       orderId: this.$route.query.orderId,
-      selectedOption: 'bank',
+      selectedOption: "bank",
       reasons: null,
       cancelationReason: null,
       maxQTY: null,
       files: [],
       representedImages: [],
       tableFields: [
-        // {
-        //   key: "image_path",
-        //   label: this.$t("items.image"),
-        // },
         {
           key: "product.title",
           label: this.$t("items.item"),
@@ -416,15 +411,10 @@ export default {
       let payload = {
         items: this.orderId,
       };
-      profile
-        .storeCheckedOrders(payload)
-        .then((res) => {
-          this.products = res.data.items;
-          this.productsLength = res.data.items.length;
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+      profile.storeCheckedOrders(payload).then((res) => {
+        this.products = res.data.items;
+        this.productsLength = res.data.items.length;
+      });
     },
     handleFileDrop(e) {
       let droppedFiles = e.dataTransfer.files;
@@ -457,55 +447,31 @@ export default {
       this.loading = true;
       this.btn1Disabled = true;
 
-      // let formData = new FormData();
-
       let payload = {};
 
       if (this.files.length) {
-        // if (this.returnData.image !== null) {
-        // formData.append("image", this.returnData.image);
-
-        // for (var i = 0; i < this.files.length; i++) {
-        //   let file = this.files[i];
-        //   payload.images = file;
-        // }
         payload.images = this.files;
       }
 
       if (this.items.length) {
-        // if (this.returnData.image !== null) {
-        // formData.append("image", this.returnData.image);
-        payload.items = []
+        payload.items = [];
         for (var j = 0; j < this.products.length; j++) {
           let file = this.items[j];
           payload.items.push(file);
         }
       }
 
-
       if (this.returnData.return_reason === 8) {
-        payload.return_reason = null
-        payload.return = this.returnData.return_reason
-        
-        // formData.append("return_reason", null);
-
-        // formData.append("return", this.returnData.return);
+        payload.return_reason = null;
+        payload.return = this.returnData.return_reason;
       } else {
-        payload.return_reason = this.returnData.return_reason
-        payload.return = ""
-        // formData.append("return_reason", this.returnData.return_reason);
-        // formData.append("return", "");
+        payload.return_reason = this.returnData.return_reason;
+        payload.return = "";
       }
-      // formData.append("item_uuid", this.returnData.item_uuid);
 
-      payload.return_option = this.returnData.return_option
-      payload.refund_option = this.returnData.refund_option
-      payload.clinet_bank_info = this.returnData.clinet_bank_info
-
-      // formData.append("return_option", this.returnData.return_option);
-      // formData.append("refund_option", this.returnData.refund_option);
-      // formData.append("quantity", this.returnData.quantity);
-      // formData.append("clinet_bank_info", this.returnData.clinet_bank_info);
+      payload.return_option = this.returnData.return_option;
+      payload.refund_option = this.returnData.refund_option;
+      payload.clinet_bank_info = this.returnData.clinet_bank_info;
 
       await profile
         .returnOrder(createdFormData(payload))
@@ -537,9 +503,7 @@ export default {
      * this function used to upload Image
      */
     uploadImage(event) {
-      // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
-      // console.log(this.returnData.image);
     },
     /**
      * @vuese
@@ -555,55 +519,31 @@ export default {
      * this function used to get Order Data
      */
     getOrderData() {
-      profile
-        .getSingleOrders(this.id)
-        .then((res) => {
-          this.orderData = res.data.items.order;
+      profile.getSingleOrders(this.id).then((res) => {
+        this.orderData = res.data.items.order;
 
-          if (res.data.items.order.payment_type === "wallet") {
-            this.returnData.refund_option = 0;
-            this.selectedOption = "wallet";
-          }
-          // new edit there will no cach on delivery so it will be bank
-
-          // if (res.data.items.order.payment_type === "visa") {
-          //   this.returnData.refund_option = 1;
-          //   this.selectedOption = "visa";
-          // }
-
-          if (
-            res.data.items.order.payment_type === "bank" ||
-            res.data.items.order.payment_type === "cach" ||
-            res.data.items.order.payment_type === "visa"
-          ) {
-            this.returnData.refund_option = 2;
-            this.selectedOption = "bank";
-          }
-
-          // remove it according to last edit
-
-          // if (res.data.items.order.payment_type === "cach") {
-          //   this.returnData.refund_option = 3;
-          //   this.selectedOption = "cach";
-          // }
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+        if (res.data.items.order.payment_type === "wallet") {
+          this.returnData.refund_option = 0;
+          this.selectedOption = "wallet";
+        }
+        if (
+          res.data.items.order.payment_type === "bank" ||
+          res.data.items.order.payment_type === "cach" ||
+          res.data.items.order.payment_type === "visa"
+        ) {
+          this.returnData.refund_option = 2;
+          this.selectedOption = "bank";
+        }
+      });
     },
     /**
      * @vuese
      * this function used to know return Reasons
      */
     returnReasons() {
-      profile
-        .returnReasons()
-        .then((res) => {
-          this.reasons = res.data.items;
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+      profile.returnReasons().then((res) => {
+        this.reasons = res.data.items;
+      });
     },
     /**
      * @vuese
@@ -629,22 +569,14 @@ export default {
       profile
         .checkReturnedProductQuantity(this.$route.query.orderId)
         .then((res) => {
-
           this.maxQTY = res.data.items.quantity;
-        })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+        });
     },
     changeProductQuantity(productData) {
       let productItem = {
         uuid: productData.uuid,
         quantity: productData.quantity,
       };
-      // if(!this.items?.product?.item_uuid){
-
-      //   this.items.push(productItem)
-      // }
       if (!this.items.length) {
         this.items.push(productItem);
       } else {
@@ -685,21 +617,16 @@ export default {
     this.getOrderData();
     this.returnReasons();
     this.checkReturnedProductQuantity();
-    this.getCheckedItems()
+    this.getCheckedItems();
   },
   components: {
-    // BIconPlus,
-    // BIconDash,
-    Counter
+    Counter,
   },
 };
 </script>
   
   <style lang="scss" scoped>
 .refund-options {
-  //text-align: center;
-  //border: 1px solid #ccc;
-  //padding: 20px 30px;
   border-radius: 7px;
 
   .title {
@@ -714,7 +641,6 @@ export default {
   align-items: center;
   justify-content: left;
   .actions {
-    //color: #606266;
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -737,7 +663,6 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 4rem;
-    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -752,7 +677,6 @@ export default {
 
 .company-logo {
   main {
-    //margin-top: -30px;
     height: 100%;
   }
 
@@ -771,20 +695,16 @@ export default {
   .file-wrapper input {
     position: absolute;
     top: 0;
-    right: 0; /* not left, because only the right part of the input seems to
-                     be clickable in some browser I can't remember */
+    right: 0;
     cursor: pointer;
     opacity: 0;
     filter: alpha(
       opacity=0
-    ); /* and all the other old opacity stuff you
-                                     want to support */
-    font-size: 300px; /* wtf, but apparently the most reliable way to make
-                             a large part of the input clickable in most browsers */
+    ); 
+    font-size: 300px; 
     height: 200px;
   }
   .data-holder {
-    //border: 2px solid $top-header-color;
     border-radius: 5px;
     color: #545454;
     padding: 54px 25px;

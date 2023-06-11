@@ -6,6 +6,7 @@
 |Method|Description|Parameters|
 |---|---|---|
 |getProfileBudges|ge tProfile Budges function|-|
+|getAllAdresses|get All Adresses function|-|
 
 <!-- @vuese:index:methods:end -->
 

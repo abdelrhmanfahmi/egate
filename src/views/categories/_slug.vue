@@ -183,12 +183,6 @@
 <script>
 import OtherCategoryCard from "@/components/global/OtherCategoryCard.vue";
 import categories from "@/services/categories";
-// import newCover from "@/components/pages/categories/categoriesCover.vue";
-
-// import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
-// optional style for arrows & dots
-import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import NewHomeSlider from "@/components/pages/home/NewHomeSlider.vue";
 
 export default {
@@ -272,8 +266,6 @@ export default {
   },
   components: {
     OtherCategoryCard,
-    // VueSlickCarousel,
-    // newCover,
     NewHomeSlider,
   },
   methods: {
@@ -292,8 +284,6 @@ export default {
           this.subCategories = resp.data.items;
           this.allChildrenLength = resp.data.items.length;
           for (let i = 0; i < this.subCategories.length; i++) {
-            // const element = array[i];
-            // this.allChildrenData = this.subCategories[i].all_children;
 
             for (
               let index = 0;
@@ -301,17 +291,8 @@ export default {
               index++
             ) {
               this.allChildrenData = this.subCategories[i].all_children;
-
-              // console.log("element", this.allChildrenData);
-
-              // console.log(
-              //   "inside index",
-              //   // this.allChildrenData[index]
-              //   this.allChildrenData
-              // );
             }
 
-            // console.log("outside index", resp.data.items[i].all_children);
           }
 
           let allSubTogether = [];
@@ -329,14 +310,8 @@ export default {
           });
           this.finalAllSubTogether = finalAllSubTogether
 
-          // console.log('allSubTogether' , allSubTogether);
-          // this.allSubTogether = allSubTogether
-
           this.categoryTitle = resp.data.items[0].parent_category.title
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -352,9 +327,6 @@ export default {
           this.allSubCategories = resp.data.items;
           this.allSubCategoriesLength = resp.data.items.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

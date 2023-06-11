@@ -45,11 +45,7 @@ export default {
         .faqPage()
         .then((res) => {
           this.questions = res.data.items;
-          // document.querySelector('.details-0').setAttribute('open')
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted(){
@@ -181,8 +177,6 @@ summary:after {
   width: 25px;
 }
 .jumbotron {
-  // padding-top: 30px;
-  // padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
   background-color: #ec4b2d;

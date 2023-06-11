@@ -13,7 +13,6 @@ export default {
 
 <style lang="scss" scoped>
 .cover-wrapper{
-    //min-height: 500px;
     height: auto;
     background-size: cover;
     img{

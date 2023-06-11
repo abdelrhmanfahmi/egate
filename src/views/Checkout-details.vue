@@ -190,7 +190,6 @@ export default {
       total_price: parseFloat(this.$route.query.total_price),
       payment_type: this.$route.query.payment_type,
       payment: this.$route.query.payment,
-      // redirectURL: this.$route.query.redirectURL,
       orderId: this.$route.query.orderId,
       wallet_paied: this.$route.query.wallet_paied,
       visa_paied: this.$route.query.visa_paied,
@@ -281,9 +280,6 @@ export default {
         .then((res) => {
           this.bankInfo = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -303,9 +299,6 @@ export default {
           
           this.companyIban = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   computed: {

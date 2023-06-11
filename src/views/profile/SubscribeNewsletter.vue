@@ -10,7 +10,8 @@
     </div>
     <div class="sec-subscribe">
       <h1 class="main-header">{{ $t("profile.subscribeNewsletter") }}</h1>
-      <p>Receive special offers and exclusive coupons</p>
+      <p v-if="$i18n.locale == 'en'">Receive special offers and exclusive coupons</p>
+      <p v-if="$i18n.locale == 'ar'">استقبل عروض خاصة وكوبونات حصرية</p>
 
       <div
         class="hold-it"

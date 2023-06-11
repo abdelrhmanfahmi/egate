@@ -88,9 +88,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/**
-    * component style 
-  */
 .product-counter {
   display: flex;
   align-items: center;
@@ -104,17 +101,12 @@ export default {
       height: 1.75rem;
       border-radius: 0;
       border: none;
-      // border: 1px solid transparent;
       color: #606266;
       background: transparent;
       // background: #eef1f2;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      // &:first-child {
-      //     border-bottom: 1px solid #dcdcdc;
-      // }
     }
   }
 
@@ -124,7 +116,6 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 3rem;
-    // height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -64,9 +64,6 @@ export default {
           this.totalRecords = resp.data.items.suppliers.meta.total;
           this.loading = false;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese

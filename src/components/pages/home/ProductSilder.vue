@@ -97,9 +97,6 @@ export default {
         .then((resp) => {
           this.suppliers = resp.data.items.data;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -115,17 +112,7 @@ export default {
           // console.log("slide data", res);
           this.sliders = res.data.items.deals.data;
           this.deadline = res.data.items.timer_date;
-
-          // this.deadline = new Date(res.data.items.timer_date)
-
-          // console.log("timer" , res.data.items.timer_date);
-          // console.log("this.deadline" , moment(new Date(res.data.items.timer_date)).format(
-          //   "YYYY-MM-DD HH:mm:ss"
-          // ));
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   created() {
@@ -185,8 +172,6 @@ export default {
 
 .supplier-image {
   width: 100px;
-  // height: 150px;
-  // border-radius: 50%;
   transition: all 0.3s ease-in-out;
   opacity: 1;
 

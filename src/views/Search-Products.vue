@@ -134,7 +134,6 @@
                             class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
                             @click="$bvModal.show('bv-bidRequest')"
                           >
-                            <!-- <span role="button" @click="loggedBidRequest"> -->
                             <span>
                               <rfqIcon class="mx-2" />
                             </span>
@@ -294,9 +293,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -382,7 +378,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
@@ -484,7 +479,6 @@ export default {
   img {
     width: 100%;
     height: 200px;
-    // border-radius: 50%;
     object-fit: contain;
   }
 }

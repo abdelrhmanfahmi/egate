@@ -52,8 +52,6 @@ export default {
 
         img {
           color: #000;
-          // width: 100% !important;
-          // height: 273px;
 
           width: 100% !important;
           height: 222px;

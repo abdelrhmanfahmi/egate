@@ -550,7 +550,6 @@
 //  favorite page
 import globalAxios from "@/services/global-axios";
 import Paginate from "@/components/global/Paginate.vue";
-// import rfqIcon from "@/components/global/rfqIcon.vue";
 import suppliers from "@/services/suppliers";
 import StandingOrders from "@/components/global/standingOrders.vue";
 import profile from "@/services/profile";
@@ -684,7 +683,6 @@ export default {
     Paginate,
     StandingOrders,
     WishlistStandingOrders
-    // rfqIcon,
   },
   methods: {
     bulkAction() {
@@ -699,9 +697,6 @@ export default {
       } else if (this.selectedAction == "bulk-addStandingOrders") {
         this.favoriteBulkStandingOrder();
         this.getWishlistProducts();
-        // setTimeout(() => {
-        //   this.checkedItems = [];
-        // }, 1000);
       } else {
         if (this.$i18n.locale == "en") {
           this.errMsg("Choose Action First");
@@ -750,19 +745,6 @@ export default {
         });
     },
     favoriteBulkStandingOrder() {
-      // let payload = {
-      //   ids: this.checkedItems,
-      // };
-      // profile
-      //   .favoriteBulkStandingOrde(payload)
-      //   .then((res) => {
-      //     this.sucessMsg(res.data.message);
-      //   })
-      //   .catch((error) => {
-      //     const err = Object.values(error)[2].data;
-      //     this.errors = err.items;
-      //     this.errMsg(err.message);
-      //   });
       this.$refs["standingOrdersModal"].show();
     },
 
@@ -784,9 +766,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -988,7 +967,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {

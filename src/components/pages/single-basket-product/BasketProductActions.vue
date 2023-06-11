@@ -249,15 +249,10 @@ import categories from "@/services/categories";
 import profile from "@/services/profile";
 
 import BasketStandingOrders from "@/components/global/BasketStandingOrders.vue";
-
-// import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
 export default {
   components: {
     BIconPlus,
     BIconDash,
-    // Facebook,
-    // Twitter,
-    // WhatsApp,
     BasketStandingOrders,
   },
   /**
@@ -329,7 +324,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
@@ -433,7 +427,6 @@ export default {
       categories
         .productDetails(this.id)
         .then((res) => {
-          // console.log("productDetails", res);
           this.myProduct = res.data.items;
         })
         .catch((err) => {
@@ -470,7 +463,6 @@ export default {
         .catch((error) => {
           let err = Object.values(error)[2].data;
           this.errors = err.items;
-          // console.log(error);
         });
     },
     /**
@@ -529,7 +521,6 @@ export default {
       message: null,
       subject: null,
       rfqCartAdd: null,
-      // url: this.mainDoamin
     };
   },
   computed: {
@@ -607,13 +598,7 @@ export default {
           justify-content: center;
           align-items: center;
           margin: 0 0.2rem;
-          // cursor: pointer;
           transition: all ease-out 0.3s;
-          // &:hover {
-          //   background: $main-color;
-          //   border-color: $main-color;
-          //   color: #fff;
-          // }
         }
 
         span.active {
@@ -627,14 +612,11 @@ export default {
     .is-available {
       font-size: 11pt;
       margin-bottom: 1.3rem;
-      //padding-inline-start: 35px;
       font-weight: bold;
     }
 
     .product-actions {
       .short-links {
-        // margin-inline-end: 0.5rem;
-        // min-width: 10rem;
         a {
           display: block;
           color: #676565;
@@ -654,7 +636,6 @@ export default {
         font-size: 16px;
         background: #36363b;
         color: #fff;
-        //padding: 12px 16px;
         height: fit-content;
         -webkit-margin-end: 0.5rem;
         margin-inline-end: 0;
@@ -779,8 +760,6 @@ textarea {
 }
 
 .products {
-  // box-shadow: 0px 0px 9px 0px #cccccccf;
-  // padding: 17px 17px;
 
   .header {
     color: #312620;
@@ -833,7 +812,6 @@ textarea {
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    //min-width: 64px;
     font-family: inherit;
     font-size: inherit;
     line-height: 15px;
@@ -1032,9 +1010,6 @@ textarea {
     }
   }
 
-  .button.one.inactive .heart-full {
-    //animation: wiltT .5s ease-in forwards;
-  }
 
   // Variation Two
   .button.two.desktop:not(.active):hover {

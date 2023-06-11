@@ -164,7 +164,6 @@ export default {
             this.invalid =true
         }})
         .catch(() => {
-          // console.log(err);
           this.valid = false 
             this.invalid =true
         });
@@ -203,7 +202,6 @@ export default {
 .container {
   text-align: center;
   padding: 40px 0;
-  // background: #ebf0f5;
   min-height: 500px;
 }
 h1 {

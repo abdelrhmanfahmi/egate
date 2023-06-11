@@ -54,7 +54,6 @@
                 alt="gift-product" />
               <div class="actions mx-1" @click="removeFromCart(product)" v-if="!product.gift_promotion_id">
                 <span class="action-icon text-black-50">
-                  <!-- <b-icon-trash></b-icon-trash> -->
                   <ins><b>{{ $t("items.remove") }}</b></ins>
                 </span>
               </div>
@@ -66,11 +65,6 @@
   </div>
 </template>
 <script>
-// This is a description of the cart items data
-// import { BIconTrash } from "bootstrap-vue";
-/**
- * import cart counter
- */
 
 import Counter from "@/components/global/cartPopupCounter";
 export default {
@@ -149,10 +143,6 @@ export default {
     margin-bottom: 1rem;
   }
 
-  // .thumb {
-  //   width: 100px;
-  //   margin-inline-end: 0.8rem;
-  // }
   .product-info {
     .name {
       color: #312620;
@@ -169,7 +159,6 @@ export default {
     .price {
       color: #676565;
       font-size: 11pt;
-      //margin-inline-start: 6px;
       opacity: 0.7;
     }
   }
@@ -188,7 +177,6 @@ export default {
   width: 80px;
   height: 100%;
   border-radius: 8px;
-  //box-shadow: 0 0 4px $gray;
   border: 2px solid #dcdcdc;
   margin-inline-end: 15px;
   margin-inline-start: 1px;

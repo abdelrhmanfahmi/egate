@@ -405,8 +405,6 @@ export default {
       *  component style
     */
 .profile-menu {
-  //padding: 60px 0px 60px 25px;
-  //background-color: #303030;
   background-color: #1f1f1f;
   color: #fff;
   font-size: 16px;
@@ -436,7 +434,6 @@ export default {
 // style arabic
 html:lang(ar) {
   .profile-menu {
-    //padding: 60px 60px 60px 0px;
     text-align: right;
   }
 }

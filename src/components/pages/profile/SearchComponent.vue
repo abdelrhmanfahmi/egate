@@ -9,7 +9,6 @@
                 <input type="text" :placeholder=" $t('cart.search') " class="my-2 h-100 p-3 w-100 itemInput"
                     v-model=" messageSearchText " />
                 <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-                    <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
                     <span>{{ $t("cart.search") }}</span>
                 </b-button>
             </form>

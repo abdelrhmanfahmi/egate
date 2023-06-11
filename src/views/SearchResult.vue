@@ -255,10 +255,8 @@
                           "
                         >
                           <span>
-                            <!-- <rfqIcon class="mx-2" /> -->
                             RFQ
                           </span>
-                          <!-- {{ $t("singleProduct.bidRequest") }} -->
                         </button>
                       </div>
                     </div>
@@ -422,9 +420,6 @@ export default {
           this.suppliers = resp.data.items.suppliers.slice(0, 12);
           this.suppliersLength = resp.data.items.suppliers.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -483,7 +478,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then(() => {
         this.$router.push("/user-register");
@@ -554,7 +548,6 @@ export default {
   img {
     width: 100%;
     height: 200px;
-    // border-radius: 50%;
     object-fit: cover;
   }
 }
@@ -604,7 +597,6 @@ export default {
 .cart-btn {
   background: $main-color !important;
   padding: 13px;
-  // width: 55px;
   text-align: center;
 }
 </style>

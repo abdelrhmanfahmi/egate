@@ -339,7 +339,6 @@ export default {
       profile
         .readAllNotifications()
         .then((res) => {
-          // console.log(res);
           if (res.status == 200) {
             this.$store.dispatch("getNotifications");
             this.getNotificatinos();
@@ -441,90 +440,7 @@ export default {
 
 <style lang="scss" scoped>
 .notifications {
-  /*==================================================
-=            Bootstrap 3 Media Queries             =
-==================================================*/
 
-  /*==========  Mobile First Method  ==========*/
-
-  /* Custom, iPhone Retina */
-  @media only screen and (min-width: 320px) {}
-
-  /* Extra Small Devices, Phones */
-  @media only screen and (min-width: 480px) {}
-
-  /* Small Devices, Tablets */
-  @media only screen and (min-width: 768px) {}
-
-  /* Medium Devices, Desktops */
-  @media only screen and (min-width: 992px) {}
-
-  /* Large Devices, Wide Screens */
-  @media only screen and (min-width: 1200px) {}
-
-  /*==========  Non-Mobile First Method  ==========*/
-
-  /* Large Devices, Wide Screens */
-  @media only screen and (max-width: 1200px) {}
-
-  /* Medium Devices, Desktops */
-  @media only screen and (max-width: 992px) {}
-
-  /* Small Devices, Tablets */
-  @media only screen and (max-width: 768px) {}
-
-  /* Extra Small Devices, Phones */
-  @media only screen and (max-width: 480px) {}
-
-  /* Custom, iPhone Retina */
-  @media only screen and (max-width: 320px) {}
-
-  /*=====================================================
-=            Bootstrap 2.3.2 Media Queries            =
-=====================================================*/
-  @media only screen and (max-width: 1200px) {}
-
-  @media only screen and (max-width: 979px) {}
-
-  @media only screen and (max-width: 767px) {}
-
-  @media only screen and (max-width: 480px) {}
-
-  @media only screen and (max-width: 320px) {}
-
-  /* default styles here for older browsers. 
-       I tend to go for a 600px - 960px width max but using percentages
-    */
-  @media only screen and (min-width: 960px) {
-    /* styles for browsers larger than 960px; */
-  }
-
-  @media only screen and (min-width: 1440px) {
-    /* styles for browsers larger than 1440px; */
-  }
-
-  @media only screen and (min-width: 2000px) {
-    /* for sumo sized (mac) screens */
-  }
-
-  @media only screen and (max-device-width: 480px) {
-    /* styles for mobile browsers smaller than 480px; (iPhone) */
-  }
-
-  @media only screen and (device-width: 768px) {
-    /* default iPad screens */
-  }
-
-  /* different techniques for iPad screening */
-  @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
-    /* For portrait layouts only */
-  }
-
-  @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: landscape) {
-    /* For landscape layouts only */
-  }
-
-  /*******Nuevos mensajes de error******/
 
   .new-message-box {
     margin: 15px 0;

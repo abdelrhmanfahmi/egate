@@ -4,7 +4,6 @@
     <div
       class="navigation d-none d-lg-flex justify-content-center align-items-center w-75 mx-auto my-4"
     >
-      <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
     </div>
 
     <div class="suppliers py-4">
@@ -121,9 +120,6 @@ export default {
           this.totalRecords = resp.data.items.total;
           this.perPage = resp.data.items.per_page;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });

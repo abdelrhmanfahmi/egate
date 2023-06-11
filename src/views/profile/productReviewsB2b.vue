@@ -122,14 +122,7 @@ export default {
         },
         { key: "actions", label: this.$t("profile.actions") },
       ],
-      items: [
-        // {
-        //   age: "07/24/2021",
-        //   productName: "فيجيتا شوربة الدجاج والنود لز 60جم",
-        //   evaluation: "test",
-        //   review: 3,
-        // },
-      ],
+      items: [],
       myRate: null,
       product_supplier_id: null,
     };
@@ -167,9 +160,6 @@ export default {
         .then((res) => {
           this.items = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * Change Rate Value function

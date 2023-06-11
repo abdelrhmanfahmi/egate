@@ -71,9 +71,6 @@ export default {
         .then((resp) => {
           this.categories = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -87,14 +84,6 @@ export default {
           this.$router.go(0);
         }
       );
-      // this.$router.push(
-      //   {
-      //     path: `/categories/${event.target.value}`,
-      //   },
-      //   () => {
-      //     this.$router.go(0);
-      //   }
-      // );
     },
     checkScreen() {
       this.windowWidth = window.innerWidth;
@@ -148,12 +137,6 @@ export default {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
-
-    // background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
-    // background-repeat: no-repeat;
-    // background-size: 15px 15px;
-    // background-position: 97% 50%;
-    // background-origin: content-box;
     background: none;
     font-size: 16px;
     position: relative;
@@ -165,11 +148,6 @@ export default {
       color: #fff;
     }
   }
-
-  // #categories {
-  //   background-color: $main-color;
-  //   color: #fff;
-  // }
 }
 
 .offer-link {
@@ -201,10 +179,8 @@ export default {
 .category-img {
   width: 90%;
   height: 90%;
-  // border-radius: 50%;
   object-fit: contain;
   border-radius: 50%;
-  // margin: 0 10px;
 }
 .img-cat-holder{
   padding: 10px;

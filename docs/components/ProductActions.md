@@ -1,5 +1,7 @@
 # ProductActions
 
+import { Facebook, Twitter, WhatsApp } from "vue-socialmedia-share";
+
 ## Props
 
 <!-- @vuese:ProductActions:props:start -->
@@ -16,6 +18,8 @@
 |Method|Description|Parameters|
 |---|---|---|
 |addToCart|add product to cart|-|
+|addPromotionToCart|add To Cart function|-|
+|addToCartWithRFQ|add product to cart with rfq|-|
 |loginFirst|login first|-|
 |requestQuotation|rfq request|-|
 |loggedBidRequest|login rfq request|-|
@@ -28,6 +32,8 @@
 |productDetails|get product details|-|
 |sendSupplierMessage|send message to supplier|-|
 |removeFromWishlist|remove product From Wishlist|-|
+|showDeleteModal|this function used to show Delete Modal|-|
+|hideDeleteModal|this function used to hide Delete Modal|-|
 
 <!-- @vuese:ProductActions:methods:end -->
 

@@ -86,7 +86,6 @@
                         </p>
                       </router-link>
                     </td>
-                    <!-- <td class="text-center">{{ item.quantity }}</td> -->
                     <td class="text-center">
                       <Variants-Counter :minimum="1" class="justify-content-center" :quantity="item.quantity"
                         @changeCount="ChangeCounter($event, item)"></Variants-Counter>
@@ -156,7 +155,6 @@
                             <button id="show-btn"
                               class="btn btn-loght border-0 outline-none shadow-none d-block add-cart w-100 add-cart-rfq"
                               @click="$bvModal.show('bv-bidRequest')">
-                              <!-- <span role="button" @click="loggedBidRequest"> -->
                               <span>
                                 <rfqIcon class="mx-2" />
                               </span>
@@ -200,7 +198,6 @@
                         </p>
                       </router-link>
                     </td>
-                    <!-- <td class="text-center">{{ item.quantity }}</td> -->
                     <td class="text-center">
                       <span v-if="item.basket_promotion.quantity">
 
@@ -474,9 +471,6 @@ export default {
           setTimeout(() => {
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
-          // setTimeout(() => {
-          //   this.$router.go(this.$router.RouterLink);
-          // }, 600);
         });
     },
     /**
@@ -488,10 +482,6 @@ export default {
         basket_promotion_id: item.basket_promotion.id,
         quantity: this.handleQuantity(item),
         client_standing_id: this.id
-        // quantity: item.product_supplier.product_details_by_type
-        //   .min_order_quantity
-        //   ? item.product_supplier.product_details_by_type.min_order_quantity
-        //   : 1,
       };
 
       return globalAxios
@@ -518,9 +508,6 @@ export default {
           setTimeout(() => {
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
-          // setTimeout(() => {
-          //   this.$router.go(this.$router.RouterLink);
-          // }, 600);
         });
     },
     /**
@@ -696,7 +683,6 @@ export default {
         })
         .catch((err) => {
           this.errMsg(err.message);
-          // console.log(err);
         });
     },
     /**
@@ -805,7 +791,6 @@ export default {
   /**
    * props
    */
-  // props: ["orders", "ordersLength"],
   props: {
     orders: {
       // orders prop
@@ -845,9 +830,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/**
-    * component style 
-  */
 .product-img {
   width: 4rem;
   height: 4rem;

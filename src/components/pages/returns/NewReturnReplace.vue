@@ -221,7 +221,6 @@
 // return replace page
 // this page used when client need to return his products and using replace method
 import profile from "@/services/profile";
-// import { BIconPlus, BIconDash } from "bootstrap-vue";
 
 import Counter from "@/components/pages/returns/ReturnsCounter.vue";
 import { createdFormData } from "@/services/helpers.js";
@@ -249,10 +248,6 @@ export default {
       files: [],
       representedImages: [],
       tableFields: [
-        // {
-        //   key: "image_path",
-        //   label: this.$t("items.image"),
-        // },
         {
           key: "product.title",
           label: this.$t("items.item"),
@@ -295,9 +290,6 @@ export default {
           this.products = res.data.items;
           this.productsLength = res.data.items.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     handleFileDrop(e) {
       let droppedFiles = e.dataTransfer.files;
@@ -334,9 +326,6 @@ export default {
         .then((res) => {
           this.orderData = res.data.items.order;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -347,26 +336,11 @@ export default {
       this.btn1Disabled = true;
       let payload = {};
 
-      // if (this.files.length) {
-      //   // if (this.returnData.image !== null) {
-      //   // formData.append("image", this.returnData.image);
-      //   payload.images.push();
-      // }
-
       if (this.files.length) {
-        // if (this.returnData.image !== null) {
-        // formData.append("image", this.returnData.image);
-
-        // for (var i = 0; i < this.files.length; i++) {
-        //   let file = this.files[i];
-        //   payload.images = file;
-        // }
         payload.images = this.files;
       }
 
       if (this.items.length) {
-        // if (this.returnData.image !== null) {
-        // formData.append("image", this.returnData.image);
         payload.items = []
         for (var j = 0; j < this.products.length; j++) {
           let file = this.items[j];
@@ -384,10 +358,8 @@ export default {
         payload.return_reason = this.returnData.return_reason
         payload.return = ''
       }
-      // formData.append("item_uuid", this.returnData.item_uuid);
       payload.return_option = this.returnData.return_option
       payload.refund_option = this.returnData.refund_option
-      // formData.append("quantity", this.returnData.quantity);
 
       await profile
         .returnOrder(createdFormData(payload))
@@ -402,8 +374,6 @@ export default {
                   UUID: res.data.items.uuid,
                 },
               });
-
-              // this.$router.push("/");
             }, 500);
           }
         })
@@ -422,9 +392,7 @@ export default {
      * this function used to upload Image
      */
     uploadImage(event) {
-      // this.returnData.image = event.target.files;
       this.returnData.image = event.target.files[0];
-      // console.log(this.returnData.image);
     },
     /**
      * @vuese
@@ -445,9 +413,6 @@ export default {
         .then((res) => {
           this.reasons = res.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -475,19 +440,12 @@ export default {
         .then((res) => {
           this.maxQTY = res.data.items.quantity;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     changeProductQuantity(productData) {
       let productItem = {
         uuid: productData.uuid,
         quantity: productData.quantity,
       };
-      // if(!this.items?.product?.item_uuid){
-
-      //   this.items.push(productItem)
-      // }
       if (!this.items.length) {
         this.items.push(productItem);
       } else {
@@ -522,14 +480,11 @@ export default {
     },
   },
   mounted() {
-    // this.getOrderData()
     this.returnReasons();
     this.checkReturnedProductQuantity();
     this.getCheckedItems();
   },
   components: {
-    // BIconPlus,
-    // BIconDash,
     Counter,
   },
 };
@@ -544,7 +499,6 @@ export default {
   align-items: center;
   justify-content: left;
   .actions {
-    //color: #606266;
     .product-counter-btn {
       width: 2rem;
       height: 1.75rem;
@@ -567,7 +521,6 @@ export default {
     color: #544842;
     font-weight: 500;
     width: 4rem;
-    //height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -582,7 +535,6 @@ export default {
 
 .company-logo {
   main {
-    //margin-top: -30px;
     height: 100%;
   }
 
@@ -601,20 +553,16 @@ export default {
   .file-wrapper input {
     position: absolute;
     top: 0;
-    right: 0; /* not left, because only the right part of the input seems to
-                     be clickable in some browser I can't remember */
+    right: 0;
     cursor: pointer;
     opacity: 0;
     filter: alpha(
       opacity=0
-    ); /* and all the other old opacity stuff you
-                                     want to support */
-    font-size: 300px; /* wtf, but apparently the most reliable way to make
-                             a large part of the input clickable in most browsers */
+    ); 
+    font-size: 300px; 
     height: 200px;
   }
   .data-holder {
-    //border: 2px solid $top-header-color;
     border-radius: 5px;
     color: #545454;
     padding: 54px 25px;

@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-// import categories from "@/services/categories";
 
 export default {
   props: {
@@ -41,7 +40,6 @@ export default {
       id: this.$route.query.id,
       active: -1,
       currentImage: "",
-      // myProduct: null,
       firstImage: null,
       images: [],
       mediaExist: false,
@@ -60,45 +58,6 @@ export default {
      * @vuese
      *  get product details to show images
      */
-    // productDetails() {
-    //   this.loading = true;
-    //   categories
-    //     .productDetails(this.id)
-    //     .then((res) => {
-    //       this.myProduct = res.data.items;
-    //       if (res.data.items.images.length !== 0) {
-    //         /**
-    //          *  take 6 images only of product images for responsive view
-    //          */
-    //         this.images = res.data.items.images.slice(0, 6);
-    //         this.firstImage = res.data.items.images[0].image_path;
-    //         this.mediaExist = true;
-    //       }
-
-    //       if (
-    //         res.data.items.images.length == 0 &&
-    //         res.data.items.product.images.length !== 0
-    //       ) {
-    //         this.images = res.data.items.product.images;
-    //         this.firstImage = res.data.items.product.images[0].image_path;
-    //         this.mediaExist = true;
-    //       }
-    //       if (
-    //         res.data.items.images.length === 0 &&
-    //         res.data.items.product.images.length === 0 &&
-    //         res.data.items.product.image_path
-    //       ) {
-    //         this.firstImage = res.data.items.product.image_path;
-    //         this.mediaExist = true;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    //     .finally(() => {
-    //       this.loading = false;
-    //     });
-    // },
     settingProduct() {
       if (this.myProduct.images.length !== 0) {
         /**
@@ -128,7 +87,6 @@ export default {
     },
   },
   mounted() {
-    // this.productDetails();
     this.settingProduct();
     /**
      * @vuese

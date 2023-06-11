@@ -17,7 +17,6 @@
               v-model="addressSearchText"
             />
             <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-              <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
               <span>{{ $t("profile.search") }}</span>
             </b-button>
           </form>
@@ -399,7 +398,6 @@
               <b-col lg="6" v-if="form.building_number !== undefined">
                 <b-form-group>
                   <label for="homeNumber">{{ $t("profile.homeNumber") }}</label>
-                  <!-- <span class="requried">*</span> -->
                   <b-form-input
                     id="homeNumber"
                     v-model="form.building_number"
@@ -418,7 +416,6 @@
               <b-col lg="6" v-if="form.floor !== undefined">
                 <b-form-group>
                   <label for="floor">{{ $t("profile.floor") }}</label>
-                  <!-- <span class="requried">*</span> -->
                   <b-form-input id="floor" v-model="form.floor" />
                   <div
                     class="error"
@@ -647,9 +644,6 @@ export default {
     this.checkDynamicInputs();
   },
   methods: {
-    // selectMe(address) {
-    //   console.log("address", address);
-    // },
     selectAddress(address) {
       this.selectedAddress = address;
     },
@@ -754,9 +748,6 @@ export default {
             this.regions = res.data.items;
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
 
     // createAddress
@@ -819,18 +810,6 @@ export default {
           this.errMsg(err.message);
         });
     },
-    // deleteSliderAdress(row) {
-    //   profile
-    //     .deleteAdress(row.uuid)
-    //     .then((res) => {
-    //       this.sucessMsg(res.data.message);
-    //       this.getAllAdresses();
-    //     })
-    //     .catch((error) => {
-    //       const err = Object.values(error)[2].data;
-    //       this.errMsg(err.message);
-    //     });
-    // },
     /**
      * edit Address function
      * @vuese
@@ -914,9 +893,6 @@ export default {
             }
           });
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   components: {

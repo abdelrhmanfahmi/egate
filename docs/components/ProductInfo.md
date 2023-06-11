@@ -6,6 +6,7 @@
 |Name|Description|Type|Required|Default|
 |---|---|---|---|---|
 |myProduct|selected Product prop|`Object`|`true`|-|
+|lastCategory|-|`Object`|`false`|-|
 
 <!-- @vuese:ProductInfo:props:end -->
 

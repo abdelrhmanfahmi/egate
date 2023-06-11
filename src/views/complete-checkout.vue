@@ -99,9 +99,6 @@ export default {
           }
           this.$store.dispatch("cart/getCartProducts");
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -114,7 +111,6 @@ export default {
 .container {
   text-align: center;
   padding: 40px 0;
-  // background: #ebf0f5;
   min-height: 500px;
 }
 h1 {

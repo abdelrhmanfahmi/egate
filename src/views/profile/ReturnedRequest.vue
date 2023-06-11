@@ -27,7 +27,6 @@
  */
 import profile from "@/services/profile";
 import axios from "axios";
-// import OldReturnRequest from "@/components/pages/profile/OldReturnRequest.vue";
 import NewReturnRequest from "@/components/pages/profile/NewReturnRequest.vue";
 export default {
   data() {
@@ -99,12 +98,7 @@ export default {
             this.return_item = res.data.items.return_item;
             this.supplier_oreder_item = res.data.items.supplier_oreder_item;
             this.clinet_info = res.data.items.clinet_info;
-
-            // this.paymentFormData.order_uuid = res.data.items.order.uuid;
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // })
           .finally(() => {
             this.loading = false;
           });
@@ -116,12 +110,7 @@ export default {
             this.return_item = res.data.items.return_item;
             this.supplier_oreder_item = res.data.items.supplier_oreder_item;
             this.clinet_info = res.data.items.clinet_info;
-
-            // this.paymentFormData.order_uuid = res.data.items.order.uuid;
           })
-          // .catch((err) => {
-          //   console.log(err);
-          // })
           .finally(() => {
             this.loading = false;
           });
@@ -154,7 +143,6 @@ export default {
     this.returnedSingleOrders();
   },
   components: {
-    // OldReturnRequest,
     NewReturnRequest,
   },
 };

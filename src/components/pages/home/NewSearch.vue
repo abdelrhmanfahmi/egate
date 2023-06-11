@@ -128,22 +128,11 @@ export default {
         .then((resp) => {
           this.categories = resp.data.items;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
     },
     selectCategory(category) {
-      // this.$router.push(
-      //   {
-      //     path: `/categories/${event.target.value}`,
-      //   },
-      //   () => {
-      //     this.$router.go(0);
-      //   }
-      // );
       this.CatId = category.id;
       document.querySelector(".all-text").textContent = category.title;
     },
@@ -152,13 +141,6 @@ export default {
      * search function
      */
     search() {
-      // this.$router.push({
-      //   path: "/SearchResults",
-      //   query: { keyword: this.keyword },
-      // });
-      // setTimeout(() => {
-      //   location.reload()
-      // }, 1200);
       this.loading = true;
       let data = {
         keyword: this.keyword,
@@ -192,18 +174,9 @@ export default {
             this.searchSubmitted = false;
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
-
-      // let r = this.$router.resolve({
-      //   name: "SearchResults", // put your route information in
-      //   query: { keyword: this.keyword }, // put your route information in
-      // });
-      // window.location.assign(r.href);
     },
     lazySearch() {
       this.loading = true;
@@ -242,12 +215,6 @@ export default {
   },
   mounted() {
     this.getCategories();
-    // window.addEventListener("resize", () => {
-    //   let zoom = ((window.outerWidth - 10) / window.innerWidth) * 100;
-    //   if (zoom.toFixed(0) < 90) {
-    //     this.NewClass = true;
-    //   }
-    // });
   },
   data() {
     return {
@@ -261,7 +228,6 @@ export default {
       CatId: null,
       ProductsExist: false,
       searchProducts: null,
-      // NewClass: false,
     };
   },
 };
@@ -275,13 +241,11 @@ export default {
   display: flex;
   align-items: center;
   column-gap: 2rem;
-  // padding-left: 2rem;
   background: #fff;
   border-radius: 5px;
   min-height: 4rem;
   height: auto;
   border: 0.1rem solid $gray;
-  // border-right: none;
 }
 
 /* ICON */
@@ -357,9 +321,6 @@ button a {
   display: none;
 }
 
-// .search-local button:hover {
-//     letter-spacing: 0.5rem;
-// }
 
 /* MEDIAS */
 @media (max-width: 575px) {
@@ -394,16 +355,12 @@ button a {
   background: transparent;
   color: #000;
   border-radius: 20px;
-  //@media (max-width: 992px) {
-  //display: none;
-  //}
 
   .wrapper {
     background-color: transparent;
     color: #000;
     display: inline-block;
     padding: 5px 15px;
-    // border-radius: 20px;
   }
 
   select {
@@ -433,13 +390,6 @@ button a {
   }
 }
 
-// input:focus,
-// input:active {
-//     .search-local {
-//         border-color: $main-color !important;
-//         border-width: 2px !important;
-//     }
-// }
 @media (max-width: 992px) {
   .search-local input {
     flex: 1 1 6rem;
@@ -524,12 +474,6 @@ select,
   a {
     color: #000;
   }
-
-  // background: url('https://cdn1.iconfinder.com/data/icons/arrows-vol-1-4/24/dropdown_arrow-512.png');
-  // background-repeat: no-repeat;
-  // background-size: 15px 15px;
-  // background-position: 97% 50%;
-  // background-origin: content-box;
   background: none;
   font-size: 16px;
   position: relative;
@@ -547,11 +491,6 @@ select,
 }
 
 .category-img {
-  // width: 40px;
-  // height: 40px;
-  // border-radius: 50%;
-  // object-fit: contain;
-  // margin: 0 10px;
 
   width: 40px;
   height: 40px;

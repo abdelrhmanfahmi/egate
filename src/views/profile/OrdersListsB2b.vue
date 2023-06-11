@@ -31,7 +31,6 @@
               v-model="OrderSearchText"
             />
             <b-button type="submit" class="login-button my-2 py-3 px-4 w-auto">
-              <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
               <span>{{ $t("cart.search") }}</span>
             </b-button>
           </form>
@@ -160,7 +159,6 @@
           (priceFromValue && priceToValue)
         "
       >
-        <!-- <span>{{ $t("cart.couponDiscount") }}</span> -->
         <span>{{ $t("payment.Apply") }}</span>
       </b-button>
     </div>
@@ -341,7 +339,7 @@
         <div>
           <!-- repay modal  -->
           <b-modal centered id="bv-modal-example" hide-footer>
-            <template class="text-center" #modal-title>
+            <template #modal-title>
               <h3>{{ $t("payment.paymentData") }}</h3>
             </template>
             <div class="d-block text-center">
@@ -518,7 +516,6 @@
         </ul>
       </template>
 
-      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
         <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
@@ -560,7 +557,6 @@
         </div>
       </template>
 
-      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
         <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
@@ -606,7 +602,6 @@
         </div>
       </template>
 
-      <!-- <template #modal-footer="{ ok, cancel, hide }"> -->
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
         <b-button size="md" class="bg-main br-5 px-3" @click="ok()">
@@ -725,9 +720,6 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get Orders function
@@ -747,9 +739,6 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * get Orders function
@@ -769,9 +758,6 @@ export default {
 
           this.totalRecords = resp.data.items.orders.meta.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -783,16 +769,7 @@ export default {
         .getSuppliersWithNoPaginate(this.page)
         .then((resp) => {
           this.suppliers = resp.data.items;
-          // this.total = resp.data.items.total;
-          // this.totalPages = Math.ceil(
-          //   resp.data.items.total / resp.data.items.per_page
-          // ); // Calculate total records
-
-          // this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // })
         .finally(() => {
           this.loading = false;
         });
@@ -943,7 +920,6 @@ export default {
           this.totalRecords = resp.data.items.orders.meta.total;
         })
         .finally(() => {
-          // this.OrderSearchText = "";
           this.addressLoading = false;
         });
     },

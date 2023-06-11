@@ -71,12 +71,10 @@ export default {
       loadTime: 0,
       interval: null,
       arabicAvilability: false
-      // currentCurrency : localStorage.getItem('currency')
     };
   },
   mounted() {
     this.getAllCountires();
-    // this.reloadPage();
 
     this.handleLangeFromQuery();
 
@@ -94,7 +92,6 @@ export default {
   },
   created() {
     let perfData = window.performance.timing;
-    // let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.loadEventStart);
     let estimatedTime = Math.abs(perfData.loadEventEnd - perfData.navigationStart);
     this.loadTime = parseInt((estimatedTime / 1000) % 60) * 100;
     this.doProgress();
@@ -165,9 +162,6 @@ export default {
 
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     checkLang() {
 
@@ -273,15 +267,7 @@ export default {
 
           }, 100);
 
-
-
-          // alert('5')
-          // location.reload();
-
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -347,7 +333,6 @@ export default {
     * component style
 */
 .main-header {
-  // background: #202026;
   background: inherit;
 
   .top-nav {
@@ -365,7 +350,6 @@ export default {
 
       button {
         background: transparent;
-        // color: #fff;
         color: inherit;
         border: none;
         text-transform: capitalize;

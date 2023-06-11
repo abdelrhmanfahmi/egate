@@ -7,13 +7,11 @@
         :key="index"
         class="slider-holder"
       >
-        <!-- <router-link :to="`/`" class=""> -->
         <div class="" v-if="item.image_path">
           <b-img :src="item.image_path" class="slider-image" alt="slider image">
           </b-img>
         </div>
         <div class="absolute-data">
-          <!-- <h2 class="h1">text - {{index}}</h2> -->
           <div v-if="item.model_type === 'product'">
             <router-link
               :to="{ path: '/details', query: { id: item.model_id } }"
@@ -89,7 +87,6 @@
             </router-link>
           </div>
         </div>
-        <!-- </router-link> -->
       </div>
     </VueSlickCarousel>
   </div>
@@ -104,7 +101,6 @@ import suppliers from "@/services/suppliers";
 export default {
   components: {
     VueSlickCarousel,
-    // Countdown,
   },
   data() {
     return {
@@ -149,9 +145,6 @@ export default {
           this.modalData = res.data.items;
           this.modalDataLength = res.data.items.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
   mounted() {
@@ -171,7 +164,6 @@ export default {
     top: 50%;
     left: 10%;
     transform: translate(-10%, -50%);
-    //font-size: 8rem;
     color: $main-color;
     a {
       padding: 10px 40px;

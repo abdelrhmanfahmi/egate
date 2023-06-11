@@ -50,7 +50,6 @@ export default {
   color: #fff;
   border-radius: 5px;
   margin: 0 10px;
-  // border: 1px solid rgba(0, 0, 0, 0.125);
   img {
     min-width: 200px;
     height: 200px;

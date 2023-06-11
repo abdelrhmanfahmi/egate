@@ -140,38 +140,6 @@
           </b-button>
         </div>
       </div>
-
-      <!-- <div
-        class="addToCartHolder d-flex justify-content-end align-items-center"
-        v-else
-      >
-        <div v-if="add_to_cart == true">
-          <div>
-            <b-form-select v-model="selected">
-              <b-form-select-option
-                :value="i"
-                v-for="(i, index) in 30"
-                :key="index"
-                >{{ i }}</b-form-select-option
-              >
-            </b-form-select>
-          </div>
-        </div>
-        <b-button
-          @click="addToCartAgain(data)"
-          class="btn btn-loght border-0 outline-none shadow-none d-block add-cart cart-btn btn-block new w-25"
-          v-if="
-            (add_to_cart == true &&
-              data.product_details_by_type.add_type === 'cart') ||
-            (add_to_cart == true &&
-              data.product_details_by_type.add_type === 'both')
-          "
-        >
-          <span>
-            <font-awesome-icon icon="fa-solid fa-cart-shopping" />
-          </span>
-        </b-button>
-      </div> -->
       <span class="discount d-block text-white" v-if="data.discount">
         - {{ data.discount }} %
       </span>
@@ -253,9 +221,6 @@ export default {
           this.supplierProducts = resp.data.items.data;
           this.supplierProductsLength = resp.data.items.data.length;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -460,7 +425,6 @@ export default {
 .Product-Image {
   width: 100%;
   height: 200px;
-  // object-fit: contain;
 }
 
 .is_favorite {

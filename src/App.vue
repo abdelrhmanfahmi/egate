@@ -25,13 +25,10 @@ import LoadingScreen from "@/components/global/LoadingScreen.vue";
 export default {
   name: "Home",
   created() {
-    // let gestUser = localStorage.getItem("guest-id");
 
     /**
      * dispatch user data if exist || check guest.
      */
-
-    // this.$store.dispatch("getUserGuestId");
     this.$store.dispatch("getUserInfo");
     let userExist = localStorage.getItem("buyerUserData");
     let guestUser = localStorage.getItem("guest-id");
@@ -42,7 +39,6 @@ export default {
     } else if (userExist) {
       localStorage.removeItem("guest-id");
     }
-    // return
   },
   components: {
     MainLayout,
@@ -71,9 +67,6 @@ export default {
             }
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese
@@ -322,9 +315,6 @@ export default {
             }
           }
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
   },
 

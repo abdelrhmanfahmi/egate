@@ -230,14 +230,11 @@
                       {{ return_item.quantity }}
                     </td>
                     <td v-else>-</td>
-                    <!-- <td v-if="supplier_oreder_item.sup_total"> -->
                     <td v-if="supplier_oreder_item.total_price">
-                      <!-- {{ supplier_oreder_item.sup_total | fixedCurrency }} -->
                       {{ supplier_oreder_item.total_price | fixedCurrency }}
                       {{ currency }}
                     </td>
                     <td v-else>-</td>
-                    <!-- <td></td> -->
                   </tr>
                 </tbody>
               </table>
@@ -270,9 +267,7 @@
                       {{ return_item.quantity }}
                     </td>
                     <td v-else>-</td>
-                    <!-- <td v-if="supplier_oreder_item.sup_total"> -->
                     <td v-if="supplier_oreder_item.total_price">
-                      <!-- {{ supplier_oreder_item.sup_total | fixedCurrency }} -->
                       {{ supplier_oreder_item.total_price | fixedCurrency }}
                       {{ currency }}
                     </td>
@@ -386,7 +381,6 @@ export default {
   .holder {
     display: flex;
     justify-content: space-between;
-    // padding: 20px;
     font-size: 20px;
   }
   

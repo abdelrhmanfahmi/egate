@@ -174,7 +174,6 @@ export default {
         title: this.$t("singleProduct.loginFirst"),
         text: this.$t("singleProduct.registerNow"),
         icon: "warning",
-        // buttons: ["Oh noez!", true],
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
@@ -201,9 +200,6 @@ export default {
 
           this.totalRecords = resp.data.items.total;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * go Product function

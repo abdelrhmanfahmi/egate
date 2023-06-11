@@ -5,12 +5,6 @@
       <b-row class="justify-content-center">
         <b-col lg="10">
           <div class="register-info">
-            <!-- <h4 class="main-header">{{ $t("register.mainInformation") }}</h4> -->
-            <!-- <router-link to="/b2b-register" class="back">
-              <span class="main-color">
-                &#60; {{ $t("register.haveNotAccount") }}</span
-              >
-            </router-link> -->
           </div>
           <form @submit.prevent="login()">
             <b-row class="justify-content-center">
@@ -141,10 +135,10 @@ export default {
     recaptchaValue($event) {
       this.form.recaptcha = $event;
     },
-    //  /**
-    //  * @vuese
-    //  * login function
-    //  */
+      /**
+      * @vuese
+      * login function
+      */
     login() {
       localStorage.clear();
 
@@ -160,8 +154,6 @@ export default {
         .login("buyer", loginData)
         .then((res) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data.items));
-
-          // if (!res.data.items.item.verify_email_required) { this.buyerUserData.profile_percentage == 100
 
           if (!res.data.items.item.email_verified_at) {
             localStorage.setItem("massege", this.$t("register.openEmail"));
@@ -179,26 +171,6 @@ export default {
             this.$router.push("/profile/categories");
             location.reload();
           }
-
-          // if (
-          //   (res.data.items.item.type === "buyer" &&
-          //     res.data.items.item.is_verified) ||
-          //   (res.data.items.item.type === "supplier" &&
-          //     res.data.items.item.is_buyer == 1 &&
-          //     res.data.items.item.is_verified)
-          // ) {
-          //   localStorage.setItem("massege", "");
-          //   localStorage.removeItem("guest-id");
-          //   this.$router.push("/profile/categories");
-          //   location.reload();
-          // } else {
-          //   localStorage.setItem("massege", this.$t("register.openEmail"));
-          //   localStorage.removeItem("guest-id");
-          //   this.$router.push("/profile/account-information-b2b");
-          //   location.reload();
-          // }
-
-          // location.reload();
         })
         .catch((error) => {
           const err = Object.values(error)[2].data;
@@ -206,10 +178,10 @@ export default {
           this.errMsg(err.message);
         });
     },
-    //  /**
-    //  * @vuese
-    //  * switchField function to show password
-    //  */
+      /**
+      * @vuese
+      * switchField function to show password
+      */
     switchField() {
       this.fieldType = this.fieldType === "password" ? "text" : "password";
     },
@@ -276,9 +248,6 @@ export default {
 
     .submition-box {
       text-align: center;
-      //border: 1px solid rgba(204, 204, 204, 0.251);
-      //border-radius: 4px;
-      //background-color: rgba(216, 220, 221, 0.251);
       padding: 20px;
       button {
         width: 100%;

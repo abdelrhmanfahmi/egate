@@ -65,17 +65,6 @@ export default {
      * @vuese
      *  get product reviews
      */
-    // getProductReview() {
-    //   suppliers
-    //     .getProductReview(this.id)
-    //     .then((res) => {
-    //       this.reviews = res.data.items.data;
-    //       this.reviewsLength = res.data.items.data.length;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     settingReviews() {
       this.reviews = this.myProduct.data;
       if(this.reviews){
@@ -87,7 +76,6 @@ export default {
     },
   },
   mounted() {
-    // this.getProductReview();
     this.settingReviews();
   },
 };

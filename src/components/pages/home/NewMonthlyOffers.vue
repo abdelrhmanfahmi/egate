@@ -147,8 +147,6 @@ export default {
         swipeToSlide: true,
         autoplay: true,
         focusOnSelect: true,
-        // touchThreshold: 5,
-        // slidesPerRow: 1,
 
         responsive: [
           {
@@ -191,9 +189,6 @@ export default {
           console.log("month", res);
           this.items = res.data.items.deals.data;
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     /**
      * @vuese

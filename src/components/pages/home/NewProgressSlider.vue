@@ -19,10 +19,6 @@
               </div>
             </div>
             <h6 class="text-dark font-weight-bold my-2" v-if="slider.title">
-              <!-- <span
-                >{{ slider.title.substr(0, 15) }}
-                <span v-if="slider.title.length > 15">...</span>
-              </span> -->
               <span>
                 {{ slider.title }}
               </span>
@@ -85,7 +81,6 @@ export default {
           },
         ],
       },
-      // parent_categoryVariants: null,
       progress: 90,
       options: {
         color: "$main-color",
@@ -105,19 +100,6 @@ export default {
     };
   },
   methods: {
-    /**
-     *  GET best deals from api
-     */
-    // getBestDeals() {
-    //   categories
-    //     .getBestDeals()
-    //     .then((res) => {
-    //       this.parent_categoryVariants = res.data.items.data;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     goVariant(slider) {
       this.$router.push(
         {
@@ -143,7 +125,6 @@ export default {
   },
   mounted() {
     this.currentSlid();
-    // this.getBestDeals();
     /**
      *  setting slider
      */

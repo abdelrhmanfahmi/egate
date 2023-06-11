@@ -201,8 +201,6 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 import Slider from "@/components/pages/single-basket-product/Slider.vue";
 import BasketProductInfo from "@/components/pages/single-basket-product/BasketProductInfo.vue";
-// import Specs from "@/components/pages/single-basket-product/Specs.vue";
-// import Rating from "@/components/pages/single-basket-product/Rating.vue";
 import BasketRelatedProducts from "@/components/pages/single-basket-product/RelatedProducts.vue";
 export default {
   data() {
@@ -222,10 +220,6 @@ export default {
       promotion_products: null,
       // table data
       tableFields: [
-        // {
-        //   key: "#",
-        //   label: "#",
-        // },
         {
           key:
             this.$i18n.locale == "en" ? "product.title_en" : "product.title_ar",
@@ -319,9 +313,6 @@ export default {
           this.relatedProductsLength = resp.data.items.data.length;
 
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     },
     goProduct(data) {
       this.$router.push({
@@ -331,7 +322,6 @@ export default {
           type: this.dealType ? this.dealType : null,
         },
       });
-      // location.reload();
     },
   },
   mounted() {
@@ -341,8 +331,6 @@ export default {
   components: {
     Slider,
     BasketProductInfo,
-    // Specs,
-    // Rating,
     BasketRelatedProducts,
     VueSlickCarousel,
   },
@@ -351,8 +339,6 @@ export default {
 
 <style lang="scss">
 .humhum-tabs {
-  //padding: 4rem;
-  //margin: 3rem 0;
 
   @media (max-width: 992px) {
     padding: 0;
@@ -380,9 +366,6 @@ export default {
 .breadcrumb {
   font-size: 20px;
   margin: 20px 0;
-  // li:last-of-type{
-  //   color: #ccc;
-  // }
 }
 
 .product-image {
