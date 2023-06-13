@@ -1111,7 +1111,7 @@
           class="text-center d-flex justify-content-start align-items-center my-2"
         >
           <Paginate
-            v-if="products"
+            v-if="products && this.total && this.total > 1"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
