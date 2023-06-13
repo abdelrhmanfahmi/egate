@@ -1110,7 +1110,7 @@
           class="text-center d-flex justify-content-start align-items-center my-2"
         >
           <Paginate
-            v-if="products && this.total && this.totalPages > 1"
+            v-if="products &&  totalPages > 1"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
