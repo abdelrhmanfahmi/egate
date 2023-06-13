@@ -603,9 +603,9 @@
                         query: {
                           id: product.id,
                           type: `${$t('profile.buy')} 
-                    ${deal.buy_gift_promotions_running_by_type.buy_x} 
+                    ${product.buy_gift_promotions_running_by_type.buy_x} 
                     ${$t('profile.get')} ${
-                            deal.buy_gift_promotions_running_by_type
+                            product.buy_gift_promotions_running_by_type
                               .gift_product_supplier.product.title
                           } ${$t('profile.free')}`,
                         },
@@ -614,9 +614,9 @@
                       <span>
                         <small>
                           {{ $t("profile.buy") }}
-                          {{deal.buy_gift_promotions_running_by_type.buy_x}}
+                          {{product.buy_gift_promotions_running_by_type.buy_x}}
                           {{ $t("profile.get") }}
-                          {{deal.buy_gift_promotions_running_by_type.gift_product_supplier.product.title}}
+                          {{product.buy_gift_promotions_running_by_type.gift_product_supplier.product.title}}
                           {{ $t('profile.free') }}
                         </small>
                       </span>
