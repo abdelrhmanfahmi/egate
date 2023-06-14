@@ -182,7 +182,7 @@ export default {
   object-fit: contain;
   border-radius: 50%;
 }
-.img-cat-holder{
+.img-cat-holder {
   padding: 10px;
   background: #000;
   width: 80px;
@@ -192,14 +192,20 @@ export default {
   align-items: center;
   margin: auto;
   border-radius: 50%;
+  margin-bottom: 7px;
+  transition: all .3s ease-in-out;
+  border: 4px solid transparent;
+  &:hover {
+    border: 4px solid red;
+  }
 }
-.title{
+.title {
   text-transform: uppercase !important;
-    font-weight: bold !important;
+  font-weight: bold !important;
 }
 
-.ar{
-  .grid-icon{
+.ar {
+  .grid-icon {
     position: absolute;
     left: 10px;
   }

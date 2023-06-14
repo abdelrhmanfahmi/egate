@@ -321,7 +321,6 @@ button a {
   display: none;
 }
 
-
 /* MEDIAS */
 @media (max-width: 575px) {
   .search-local {
@@ -491,12 +490,14 @@ select,
 }
 
 .category-img {
-
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   margin: 5px 0;
+  -o-object-fit: contain;
   object-fit: contain;
+  background: #000;
+  padding: 5px;
 }
 .category-title {
   font-size: 14px;
@@ -505,8 +506,8 @@ select,
 .newLocation {
   top: 0.5rem !important;
 }
-.ar{
-  .grid-icon{
+.ar {
+  .grid-icon {
     position: absolute;
     left: 10px;
   }
