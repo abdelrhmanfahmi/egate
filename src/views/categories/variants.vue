@@ -1993,9 +1993,10 @@ export default {
     margin: auto;
     background: green;
     color: #fff;
-    padding: 10px;
+    padding: 10px 0;
     border-radius: 0 0 20px 20px;
     z-index: 9;
+    font-size:13px
   }
 }
 
