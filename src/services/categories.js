@@ -32,7 +32,6 @@ export default {
     });
   },
   getCategoryProducts(page , id, sorting, country, weight, unit) {
-    console.log('page' , page);
   // getCategoryProducts(id, sorting, cat, country, weight, unit) {
     // return globalAxios.get(`products?${cat}`, {
     return globalAxios.get(`products`, {
