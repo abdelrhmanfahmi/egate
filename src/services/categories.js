@@ -32,6 +32,7 @@ export default {
     });
   },
   getCategoryProducts(page , id, sorting, country, weight, unit) {
+    // add page for pagination 
   // getCategoryProducts(id, sorting, cat, country, weight, unit) {
     // return globalAxios.get(`products?${cat}`, {
     return globalAxios.get(`products`, {
