@@ -31,21 +31,23 @@ export default {
       },
     });
   },
-  getCategoryProducts(id, sorting, country, weight, unit) {
+  getCategoryProducts(page , id, sorting, country, weight, unit) {
+    // add page for pagination 
   // getCategoryProducts(id, sorting, cat, country, weight, unit) {
     // return globalAxios.get(`products?${cat}`, {
     return globalAxios.get(`products`, {
       params: {
+        page:page ? page : null,
         category_id: id ? id : null,
         sort_price: sorting ? sorting : null,
         country_id: country ? country : null,
         weight: weight ? weight : null,
         unit_id: unit ? unit : null,
-        count:10
+        count:10,
       }
     });
   },
-  searchVaiantsTableProducts(id, sorting, country, weight, unit , keyword) {
+  searchVaiantsTableProducts(id, sorting, country, weight, unit , keyword , page) {
   // getCategoryProducts(id, sorting, cat, country, weight, unit) {
     // return globalAxios.get(`products?${cat}`, {
     return globalAxios.get(`products`, {
@@ -55,7 +57,8 @@ export default {
         country_id: country ? country : null,
         weight: weight ? weight : null,
         unit_id: unit ? unit : null,
-        keyword:keyword ? keyword : null
+        keyword:keyword ? keyword : null,
+        page:page ? page : null
       }
     });
   },
