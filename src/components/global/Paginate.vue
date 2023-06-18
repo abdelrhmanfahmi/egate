@@ -219,7 +219,7 @@ export default {
       margin: 0 5px;
 
       &.active {
-        background-color: tomato;
+        background-color: $main-color;
         color: #ffffff !important;
         font-weight: bold;
 

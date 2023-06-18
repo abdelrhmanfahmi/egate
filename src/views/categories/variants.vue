@@ -1673,7 +1673,8 @@ export default {
      */
     onPageChange(page) {
       this.page = page;
-      this.getCategoryProducts();
+      this.getCategoryProducts(this.page);
+
     },
 
     /**
@@ -1681,7 +1682,7 @@ export default {
      * this function used for pagination
      */
     onChangeRecordsPerPage() {
-      this.getCategoryProducts();
+      this.getCategoryProducts(this.page);
     },
 
     /**
@@ -1691,7 +1692,7 @@ export default {
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
-        this.getCategoryProducts();
+        this.getCategoryProducts(this.page);
       }
     },
   },
