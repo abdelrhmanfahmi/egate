@@ -289,7 +289,7 @@
               <div
                 @click="
                   sortTypeCountry = null;
-                  getCategoryProducts();
+                  getCategoryProducts(page);
                 "
                 :class="{
                   'mr-5': $i18n.locale == 'ar',
@@ -306,7 +306,7 @@
               <div
                 @click="
                   sortTypeWeight = null;
-                  getCategoryProducts();
+                  getCategoryProducts(page);
                 "
                 :class="{
                   'mr-5': $i18n.locale == 'ar',
@@ -323,7 +323,7 @@
               <div
                 @click="
                   sortTypeUnit = null;
-                  getCategoryProducts();
+                  getCategoryProducts(page);
                 "
                 :class="{
                   'mr-5': $i18n.locale == 'ar',
@@ -340,7 +340,7 @@
               <div
                 @click="
                   sortType = 'asc';
-                  getCategoryProducts();
+                  getCategoryProducts(page);
                 "
                 :class="{
                   'mr-5': $i18n.locale == 'ar',
@@ -614,10 +614,15 @@
                       <span>
                         <small>
                           {{ $t("profile.buy") }}
-                          {{product.buy_gift_promotions_running_by_type.buy_x}}
+                          {{
+                            product.buy_gift_promotions_running_by_type.buy_x
+                          }}
                           {{ $t("profile.get") }}
-                          {{product.buy_gift_promotions_running_by_type.gift_product_supplier.product.title}}
-                          {{ $t('profile.free') }}
+                          {{
+                            product.buy_gift_promotions_running_by_type
+                              .gift_product_supplier.product.title
+                          }}
+                          {{ $t("profile.free") }}
                         </small>
                       </span>
                     </router-link>
@@ -918,8 +923,6 @@
                       />
                     </button>
                   </div>
-
-
                 </div>
                 <div
                   class="d-flex justify-content-center"
@@ -1110,7 +1113,7 @@
           class="text-center d-flex justify-content-start align-items-center my-2"
         >
           <Paginate
-            v-if="products &&  totalPages > 1"
+            v-if="products && totalPages > 1"
             :total-pages="totalPages"
             :per-page="totalPages"
             :current-page="page"
@@ -1373,7 +1376,15 @@ export default {
         })
         .finally(() => {
           setTimeout(() => {
-            this.getCategoryProducts();
+            this.getCategoryProducts(
+              this.pageId,
+              this.sortType,
+              this.selectedVariants,
+              this.sortTypeCountry,
+              this.sortTypeWeight,
+              this.sortTypeUnit,
+              this.page
+            );
             this.$store.dispatch("cart/getCartProducts");
           }, 500);
         });
@@ -1427,7 +1438,8 @@ export default {
           this.selectedVariants,
           this.sortTypeCountry,
           this.sortTypeWeight,
-          this.sortTypeUnit
+          this.sortTypeUnit,
+          this.page
         )
         .then((res) => {
           this.products = res.data.items.data;
@@ -1453,7 +1465,8 @@ export default {
           this.sortTypeCountry,
           this.sortTypeWeight,
           this.sortTypeUnit,
-          this.searchWord
+          this.searchWord,
+          this.page
         )
         .then((res) => {
           this.products = res.data.items.data;
@@ -1479,12 +1492,13 @@ export default {
       this.loading = true;
       categories
         .getCategoryProducts(
+          this.page,
           this.pageId,
           this.sortType,
           this.selectedVariants,
           this.sortTypeCountry,
           this.sortTypeWeight,
-          this.sortTypeUnit
+          this.sortTypeUnit,
         )
         .then((res) => {
           this.products = res.data.items.data;
@@ -1554,7 +1568,15 @@ export default {
         this.pageId = parseInt(this.pageId) - 1;
 
         this.$router.replace(`/categories/${this.pageId}/variants`);
-        this.getCategoryProducts();
+        this.getCategoryProducts(
+          this.pageId,
+          this.sortType,
+          this.selectedVariants,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit,
+          this.page
+        );
         setTimeout(() => {
           location.reload();
         }, 200);
@@ -1569,6 +1591,7 @@ export default {
         path: "/details",
         query: { id: item.id },
       });
+      this.getCategoryProducts;
     },
     /**
      * @vuese
@@ -1578,7 +1601,15 @@ export default {
       this.pageId = parseInt(this.pageId) + 1;
 
       this.$router.replace(`/categories/${this.pageId}/variants`);
-      this.getCategoryProducts();
+      this.getCategoryProducts(
+        this.pageId,
+        this.sortType,
+        this.selectedVariants,
+        this.sortTypeCountry,
+        this.sortTypeWeight,
+        this.sortTypeUnit,
+        this.page
+      );
 
       setTimeout(() => {
         location.reload();
@@ -1673,8 +1704,15 @@ export default {
      */
     onPageChange(page) {
       this.page = page;
-      this.getCategoryProducts(this.page);
-
+      this.getCategoryProducts(
+        this.pageId,
+        this.sortType,
+        this.selectedVariants,
+        this.sortTypeCountry,
+        this.sortTypeWeight,
+        this.sortTypeUnit,
+        this.page
+      );
     },
 
     /**
@@ -1682,7 +1720,15 @@ export default {
      * this function used for pagination
      */
     onChangeRecordsPerPage() {
-      this.getCategoryProducts(this.page);
+      this.getCategoryProducts(
+        this.pageId,
+        this.sortType,
+        this.selectedVariants,
+        this.sortTypeCountry,
+        this.sortTypeWeight,
+        this.sortTypeUnit,
+        this.page
+      );
     },
 
     /**
@@ -1692,12 +1738,28 @@ export default {
     gotoPage() {
       if (!isNaN(parseInt(this.enterpageno))) {
         this.page = parseInt(this.enterpageno);
-        this.getCategoryProducts(this.page);
+        this.getCategoryProducts(
+          this.pageId,
+          this.sortType,
+          this.selectedVariants,
+          this.sortTypeCountry,
+          this.sortTypeWeight,
+          this.sortTypeUnit,
+          this.page
+        );
       }
     },
   },
   mounted() {
-    this.getCategoryProducts();
+    this.getCategoryProducts(
+      this.pageId,
+      this.sortType,
+      this.selectedVariants,
+      this.sortTypeCountry,
+      this.sortTypeWeight,
+      this.sortTypeUnit,
+      this.page
+    );
     this.getSingleProductDetails();
     this.getFilters();
   },
@@ -1997,7 +2059,7 @@ export default {
     padding: 10px 0;
     border-radius: 0 0 20px 20px;
     z-index: 9;
-    font-size:13px
+    font-size: 13px;
   }
 }
 
