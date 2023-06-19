@@ -1,0 +1,100 @@
+.v-slide-group__content {
+  border-bottom: 2px solid #eee;
+}
+.v-tab {
+  color: #969696 !important;
+}
+.v-slide-group-item--active,
+.v-tab--selected {
+  color: $main-color !important;
+  color: #000 !important;
+  font-weight: bold;
+  position: relative !important;
+  .v-tab__slider {
+    color: $main-color !important;
+  }
+  &::after {
+    position: absolute;
+    left: 50%;
+    width: 15px;
+    height: 10px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background: red;
+    z-index: 5;
+    display: block;
+    top: 47px;
+    transform: translateX(-50%);
+  }
+}
+
+.v-breadcrumbs-item {
+  padding: 0 0 !important;
+  font-size: 14px !important;
+  color: #969696 !important;
+}
+
+.v-breadcrumbs-divider {
+  padding: 0 !important;
+}
+
+.v-btn--icon.v-btn--density-default {
+  width: 25px !important;
+}
+
+.v-btn__content i {
+  color: #eb6841 !important;
+}
+.filtersHolder {
+  .v-expansion-panel__shadow {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+
+
+.v-field--variant-filled .v-field__outline::before,
+.v-field--variant-underlined .v-field__outline::before,
+.v-field--variant-filled .v-field__outline::after,
+.v-field--variant-underlined .v-field__outline::after {
+  border: none;
+}
+
+.v-select .v-field .v-text-field__prefix,
+.v-select .v-field .v-text-field__suffix,
+.v-select .v-field .v-field__input,
+.v-select .v-field.v-field {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.v-select__selection-text{
+  color: #000 !important;
+}
+
+.checkoutStep .v-field__outline {
+  border: 1px solid #9c9a8a;
+  border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  -ms-border-radius: 10px !important;
+  -o-border-radius: 10px !important;
+}
+
+
+.v-field--variant-filled .v-field__outline::before, .v-field--variant-underlined .v-field__outline::before , .v-field--variant-filled .v-field__outline::after, .v-field--variant-underlined .v-field__outline::after{
+  border: none !important;
+}
+
+label{
+  color:#000 !important
+}
+
+.v-badge__badge.bg-error{
+  background: #3399FF !important;
+}

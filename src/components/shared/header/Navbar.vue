@@ -1,0 +1,418 @@
+<template>
+  <div>
+    <!-- header start -->
+    <header class="header">
+      <v-container fluid>
+        <v-row class="row v-center">
+          <div class="header-item item-left">
+            <div class="logo">
+              <router-link to="/">
+                <v-img width="250" src="@/assets/images/logo.png"></v-img>
+              </router-link>
+            </div>
+          </div>
+          <!-- menu start here -->
+          <div class="header-item item-center">
+            <nav class="menu">
+              <div class="mobile-menu-head">
+                <div class="go-back">
+                  <v-icon icon="mdi-chevron-left"></v-icon>
+                </div>
+                <div class="current-menu-title"></div>
+                <div class="mobile-menu-close">&times;</div>
+              </div>
+              <ul class="menu-main">
+                <!-- <li class="menu-item-has-children">
+                  <router-link to="/">
+                    <span title="Men">link</span>
+                    <v-icon icon="mdi-chevron-down"></v-icon
+                  ></router-link>
+                  <div class="sub-menu mega-menu mega-menu-column-4">
+                    <div class="list-item">
+                      <h4 class="title">Men's Fashion</h4>
+                      <ul>
+                        <li><router-link to="/">T-Shirts</router-link></li>
+                        <li><router-link to="/">Jeans</router-link></li>
+                        <li><router-link to="/">Suit</router-link></li>
+                        <li><router-link to="/">Kurta</router-link></li>
+                        <li><router-link to="/">Watch</router-link></li>
+                      </ul>
+                      <h4 class="title">Beauty</h4>
+                      <ul>
+                        <li><router-link to="/">Moisturizer</router-link></li>
+                        <li><router-link to="/">Face powder</router-link></li>
+                        <li><router-link to="/">Lipstick</router-link></li>
+                      </ul>
+                    </div>
+                    <div class="list-item">
+                      <h4 class="title">Women's Fashion</h4>
+                      <ul>
+                        <li><router-link to="/">Sarees</router-link></li>
+                        <li><router-link to="/">Sandals</router-link></li>
+                        <li><router-link to="/">Watchs</router-link></li>
+                        <li><router-link to="/">Shoes</router-link></li>
+                      </ul>
+                      <h4 class="title">Furniture</h4>
+                      <ul>
+                        <li><router-link to="/">Chairs</router-link></li>
+                        <li><router-link to="/">Tables</router-link></li>
+                        <li><router-link to="/">Doors</router-link></li>
+                        <li><router-link to="/">Bed</router-link></li>
+                      </ul>
+                    </div>
+                    <div class="list-item">
+                      <h4 class="title">Home, Kitchen</h4>
+                      <ul>
+                        <li><router-link to="/">Kettle</router-link></li>
+                        <li><router-link to="/">Toaster</router-link></li>
+                        <li><router-link to="/">Dishwasher</router-link></li>
+                        <li>
+                          <router-link to="/">Microwave oven</router-link>
+                        </li>
+                        <li><router-link to="/">Pitcher</router-link></li>
+                        <li><router-link to="/">Blender</router-link></li>
+                        <li><router-link to="/">Colander</router-link></li>
+                        <li><router-link to="/">Tureen</router-link></li>
+                        <li><router-link to="/">Cookware</router-link></li>
+                      </ul>
+                    </div>
+                    <div class="list-item">
+                      <img src="@/assets/images/logo.png" alt="image" />
+                    </div>
+                    <v-img
+                      src="@/assets/images/product/Image15.png"
+                      lazy-src="@/assets/images/product/Image15.png"
+                      width="100"
+                    ></v-img>
+                  </div>
+                </li> -->
+              
+              <li class="menu-item-has-children">
+                Home
+              </li>
+              <li class="menu-item-has-children">
+                All categories
+              </li>
+              <li class="menu-item-has-children">
+                My Account
+              </li>
+              <li class="menu-item-has-children">
+                Returns / Exchange
+              </li>
+              <li class="menu-item-has-children">
+                FAQs
+              </li>
+              </ul>
+            </nav>
+            <v-row class="aligned-row">
+              <v-col cols="1">
+                <span
+                  class="cursor-pointer"
+                  @click.prevent="showSearchBar = !showSearchBar"
+                  v-if="showSearchBar"
+                  ><v-icon icon="mdi-close"></v-icon
+                ></span>
+              </v-col>
+              <v-col cols="11">
+                <span
+                  class="header-search"
+                  :class="{
+                    enableLargeSearch: showSearchBar,
+                    disableLargeSearch: !showSearchBar,
+                  }"
+                >
+                  <HeaderSearch />
+                </span>
+              </v-col>
+            </v-row>
+            <div class="menu-overlay"></div>
+            
+          </div>
+          <!-- menu end here -->
+          <div class="header-item item-right">
+            <span
+              class="iconHolder seachIcon cursor-pointer"
+              @click.prevent="openLargeSearchBar"
+              v-if="!showSearchBar && !mobileView"
+            >
+              <v-icon icon="mdi-magnify"></v-icon
+            ></span>
+            <span
+              class="iconHolder seachIcon cursor-pointer"
+              v-if="!showSearchBar && mobileView"
+            >
+              <searchModal />
+            </span>
+
+            <!-- compare  -->
+            <!-- <span class="iconHolder" role="button">
+              <font-awesome-icon icon="fa-solid fa-code-compare" />
+            </span> -->
+
+            <!-- wishlists  -->
+
+            <span class="iconHolder">
+              <router-link to="/profile/wishlist">
+                <v-badge :content="wishlistItemsCount" color="error">
+                  <v-icon icon="mdi-heart-outline"></v-icon>
+                </v-badge>
+              </router-link>
+            </span>
+
+            <span v-if="isLoggedIn">
+              <router-link to="/profile/account" class="iconHolder profile"
+                ><v-icon icon="mdi-account-outline"></v-icon
+              ></router-link>
+            </span>
+            <span v-else>
+              <AccountPop />
+            </span>
+
+            <!-- cart  -->
+            <cartPop />
+            <!-- <theme-button /> -->
+
+            <!-- languages  -->
+            <span
+              role="button"
+              class="iconHolder language iconHolder"
+              @click="switchLang()"
+              v-if="lang == 'en'"
+              id="arLang"
+              ref="arLang"
+              >العربيه</span
+            >
+            <span
+              role="button"
+              class="iconHolder language iconHolder"
+              @click="switchLang()"
+              v-if="lang == 'ar'"
+              id="enLang"
+              ref="enLang"
+              >English</span
+            >
+
+            <!-- mobile menu trigger -->
+            <div class="mobile-menu-trigger iconHolder">
+              <span></span>
+            </div>
+          </div>
+        </v-row>
+      </v-container>
+    </header>
+    <!-- header end -->
+  </div>
+</template>
+
+<script>
+import cartPop from "@/components/shared/header/CartSideBar.vue";
+import AccountPop from "@/components/shared/header/AccountPop.vue";
+import HeaderSearch from "./HeaderSearch";
+import searchModal from "../SearchModal.vue";
+// import ThemeButton from "@/components/shared/ThemeButton.vue";
+// import myMixin from '@/mixins.js'
+import { mapGetters } from "vuex";
+export default {
+  // mixins:[myMixin],
+  mounted() {
+    const menu = document.querySelector(".menu");
+    const menuMain = menu.querySelector(".menu-main");
+    const goBack = menu.querySelector(".go-back");
+    const menuTrigger = document.querySelector(".mobile-menu-trigger");
+    const closeMenu = menu.querySelector(".mobile-menu-close");
+    let subMenu;
+    menuMain.addEventListener("click", (e) => {
+      if (!menu.classList.contains("active")) {
+        return;
+      }
+      if (e.target.closest(".menu-item-has-children")) {
+        const hasChildren = e.target.closest(".menu-item-has-children");
+        showSubMenu(hasChildren);
+      }
+    });
+    goBack.addEventListener("click", () => {
+      hideSubMenu();
+    });
+    menuTrigger.addEventListener("click", () => {
+      toggleMenu();
+    });
+    closeMenu.addEventListener("click", () => {
+      toggleMenu();
+    });
+    document.querySelector(".menu-overlay").addEventListener("click", () => {
+      toggleMenu();
+    });
+    function toggleMenu() {
+      menu.classList.toggle("active");
+      document.querySelector(".menu-overlay").classList.toggle("active");
+    }
+    function showSubMenu(hasChildren) {
+      subMenu = hasChildren.querySelector(".sub-menu");
+      subMenu.classList.add("active");
+      subMenu.style.animation = "slideLeft 0.5s ease forwards";
+      const menuTitle =
+        // hasChildren.querySelector("i").parentNode.childNodes[0].textContent;
+        hasChildren
+          .querySelector("i")
+          .parentNode.querySelector("span").textContent;
+
+      console.log("menuTitle", menuTitle);
+      menu.querySelector(".current-menu-title").innerHTML = menuTitle;
+      menu.querySelector(".mobile-menu-head").classList.add("active");
+    }
+
+    function hideSubMenu() {
+      subMenu.style.animation = "slideRight 0.5s ease forwards";
+      setTimeout(() => {
+        subMenu.classList.remove("active");
+      }, 300);
+      menu.querySelector(".current-menu-title").innerHTML = "";
+      menu.querySelector(".mobile-menu-head").classList.remove("active");
+    }
+
+    window.onresize = function () {
+      if (this.innerWidth > 991) {
+        if (menu.classList.contains("active")) {
+          toggleMenu();
+        }
+      }
+    };
+    window.addEventListener("load", this.checkMobile);
+    window.addEventListener("scroll", this.makeHeaderSticky);
+    window.addEventListener("resize", this.checkMobile);
+  },
+  methods: {
+    openLargeSearchBar(e) {
+      this.showSearchBar = true;
+      e.preventDefault();
+    },
+    closeLargeSearchBar(e) {
+      this.showSearchBar = false;
+      e.preventDefault();
+    },
+    switchLang() {
+      if (this.lang === "en") {
+        this.lang = "ar";
+      } else {
+        this.lang = "en";
+      }
+      localStorage.setItem("lang", this.lang);
+
+      window.location.reload();
+    },
+    checkMobile() {
+      this.screenSize = window.innerWidth;
+      if (this.screenSize <= 991) {
+        this.mobileView = true;
+        return;
+      }
+      this.screenSize = null;
+      this.mobileView = null;
+      return;
+    },
+    makeHeaderSticky() {
+      const header = document.querySelector(".header");
+      const toggleClass = "is-sticky";
+
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 150) {
+          header.classList.add(toggleClass);
+        } else {
+          header.classList.remove(toggleClass);
+        }
+      });
+    },
+  },
+  data() {
+    return {
+      showSearchBar: false,
+      lang: localStorage.getItem("lang") || "en",
+      mobileView: null,
+      screenSize: null,
+    };
+  },
+  components: {
+    HeaderSearch,
+    cartPop,
+    AccountPop,
+    searchModal,
+    // ThemeButton
+  },
+  computed: {
+    ...mapGetters({ wishlistItemsCount: "wishlist/wishlistItemCount" }),
+    categories() {
+      return this.$store.getters.categories;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.seachIcon {
+  background: $main-color;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  font-weight: 400;
+  text-align: center;
+  width: 30px;
+  line-height: 30px;
+  padding: 0;
+  z-index: 9;
+  padding: 2px 5px !important;
+}
+
+.iconHolder {
+  width: auto;
+  line-height: 30px;
+  padding: 0;
+
+  // &:hover {
+  //   color: $main-color;
+  // }
+}
+
+.enableLargeSearch {
+  opacity: 1;
+  transform: translateX(0);
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+
+.disableLargeSearch {
+  opacity: 0;
+  transform: translateX(-50%);
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.header-search {
+  z-index: 99;
+}
+
+.profile {
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
+  padding: 0;
+  text-align: center;
+}
+
+.header.is-sticky {
+  position: fixed;
+  animation: slideDown 0.35s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+</style>

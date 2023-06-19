@@ -1,0 +1,71 @@
+.filtersShowSideBar {
+  padding: 13px;
+  margin: 0;
+  border: 1px solid #a3a3a1;
+  .widget-clean {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.filter-colors {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 0.7rem;
+  padding-bottom: 0.5rem;
+}
+.filter-colors a {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 0.2rem solid #fff;
+  margin: 0 0.2rem 0.3rem;
+  transition: box-shadow 0.35s ease;
+
+  &:after {
+    color: #fff;
+    font-family: "fontAwesome";
+    content: "\ec2d";
+    font-size: 1rem;
+    line-height: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.01s;
+    margin-top: -0.4rem;
+    margin-left: -0.5rem;
+  }
+
+  &.selected,
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 0.1rem #cccccc;
+  }
+
+  &.selected {
+    &:after {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.v-expansion-panel-title {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.v-expansion-panel__shadow {
+  box-shadow: none;
+}
+
+
+a.selected{
+  border: 2px solid #FABB3A ;
+}

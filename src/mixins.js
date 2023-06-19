@@ -1,0 +1,61 @@
+import { useToast } from 'vue-toastification'
+const toast = useToast()
+export default {
+  computed: {
+    getDir() {
+      return document.documentElement.dir;
+    },
+    // is we have user
+    isLoggined() {
+      if (localStorage.getItem("userInfo")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    mainDoamin() {
+      return process.env.VUE_APP_DOMAIN_NAME;
+    },
+
+    currentLang() {
+      return localStorage.getItem("lang");
+    },
+    currency(){
+      return localStorage.getItem('currency') ? localStorage.getItem('currency') : 'EG'
+    }
+  },
+  methods: {
+    sucessMsg(text, icon = "success") {
+      toast(text,
+        {
+          title: text,
+          type: icon,
+          position: 'top-right',
+          transition: 'slide',
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+          pauseOnHover: true,
+        }
+      )
+
+    },
+    errMsg(text, icon = "error") {
+      toast(text,
+        {
+          title: text,
+          type: icon,
+          position: 'top-right',
+          transition: 'slide',
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true
+        }
+      )
+    },
+  },
+};

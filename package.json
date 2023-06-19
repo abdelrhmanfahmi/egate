@@ -1,0 +1,43 @@
+{
+  "name": "e-gate",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "deploy:staging": "cd dist && scp -i ~/.ssh/Staging.pem -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/e-gate"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@mdi/font": "5.9.55",
+    "axios": "^1.3.4",
+    "core-js": "^3.8.3",
+    "mosha-vue-toastify": "^1.0.23",
+    "register-service-worker": "^1.7.2",
+    "roboto-fontface": "*",
+    "swiper": "^9.0.5",
+    "vee-validate": "^4.7.4",
+    "vue": "^3.2.47",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.0.3",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuetify": "^3.0.0-beta.0",
+    "vuex": "^4.0.0",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "vue-cli-plugin-vuetify": "~2.5.8",
+    "webpack-plugin-vuetify": "^2.0.0-alpha.0"
+  }
+}

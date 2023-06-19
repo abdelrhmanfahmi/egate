@@ -1,0 +1,66 @@
+.App-wrapper{
+    min-height: 100vh;
+    display: block;
+
+}
+// style arabic
+html:lang(ar) , .ar {
+    direction:rtl !important;
+    text-align:right !important
+}
+// style arabic
+html:lang(en) , .en {
+    direction:ltr !important;
+    text-align:left !important
+}
+.v-main{
+    z-index:5
+}
+footer{
+    min-height: 50vh !important;
+}
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.p-0{
+    padding: 0;
+}
+.m-0{
+    margin: 0;
+}
+
+.v-btn{
+    cursor: pointer;
+}
+
+.border-main{
+    border-color: $main-color !important;
+}
+.bg-main{
+    background-color: $main-color;
+    border: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input , input:focus , input:active{
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+img{
+    -moz-window-dragging: none;
+}
