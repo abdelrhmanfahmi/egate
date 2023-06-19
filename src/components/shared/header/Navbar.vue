@@ -7,113 +7,22 @@
           <div class="header-item item-left">
             <div class="logo">
               <router-link to="/">
-                <v-img width="250" src="@/assets/images/logo.png"></v-img>
+                <v-img width="100" src="@/assets/images/logo.png"></v-img>
               </router-link>
             </div>
           </div>
           <!-- menu start here -->
           <div class="header-item item-center">
-            <nav class="menu">
-              <div class="mobile-menu-head">
-                <div class="go-back">
-                  <v-icon icon="mdi-chevron-left"></v-icon>
-                </div>
-                <div class="current-menu-title"></div>
-                <div class="mobile-menu-close">&times;</div>
-              </div>
-              <ul class="menu-main">
-                <!-- <li class="menu-item-has-children">
-                  <router-link to="/">
-                    <span title="Men">link</span>
-                    <v-icon icon="mdi-chevron-down"></v-icon
-                  ></router-link>
-                  <div class="sub-menu mega-menu mega-menu-column-4">
-                    <div class="list-item">
-                      <h4 class="title">Men's Fashion</h4>
-                      <ul>
-                        <li><router-link to="/">T-Shirts</router-link></li>
-                        <li><router-link to="/">Jeans</router-link></li>
-                        <li><router-link to="/">Suit</router-link></li>
-                        <li><router-link to="/">Kurta</router-link></li>
-                        <li><router-link to="/">Watch</router-link></li>
-                      </ul>
-                      <h4 class="title">Beauty</h4>
-                      <ul>
-                        <li><router-link to="/">Moisturizer</router-link></li>
-                        <li><router-link to="/">Face powder</router-link></li>
-                        <li><router-link to="/">Lipstick</router-link></li>
-                      </ul>
-                    </div>
-                    <div class="list-item">
-                      <h4 class="title">Women's Fashion</h4>
-                      <ul>
-                        <li><router-link to="/">Sarees</router-link></li>
-                        <li><router-link to="/">Sandals</router-link></li>
-                        <li><router-link to="/">Watchs</router-link></li>
-                        <li><router-link to="/">Shoes</router-link></li>
-                      </ul>
-                      <h4 class="title">Furniture</h4>
-                      <ul>
-                        <li><router-link to="/">Chairs</router-link></li>
-                        <li><router-link to="/">Tables</router-link></li>
-                        <li><router-link to="/">Doors</router-link></li>
-                        <li><router-link to="/">Bed</router-link></li>
-                      </ul>
-                    </div>
-                    <div class="list-item">
-                      <h4 class="title">Home, Kitchen</h4>
-                      <ul>
-                        <li><router-link to="/">Kettle</router-link></li>
-                        <li><router-link to="/">Toaster</router-link></li>
-                        <li><router-link to="/">Dishwasher</router-link></li>
-                        <li>
-                          <router-link to="/">Microwave oven</router-link>
-                        </li>
-                        <li><router-link to="/">Pitcher</router-link></li>
-                        <li><router-link to="/">Blender</router-link></li>
-                        <li><router-link to="/">Colander</router-link></li>
-                        <li><router-link to="/">Tureen</router-link></li>
-                        <li><router-link to="/">Cookware</router-link></li>
-                      </ul>
-                    </div>
-                    <div class="list-item">
-                      <img src="@/assets/images/logo.png" alt="image" />
-                    </div>
-                    <v-img
-                      src="@/assets/images/product/Image15.png"
-                      lazy-src="@/assets/images/product/Image15.png"
-                      width="100"
-                    ></v-img>
-                  </div>
-                </li> -->
-              
-              <li class="menu-item-has-children">
-                Home
-              </li>
-              <li class="menu-item-has-children">
-                All categories
-              </li>
-              <li class="menu-item-has-children">
-                My Account
-              </li>
-              <li class="menu-item-has-children">
-                Returns / Exchange
-              </li>
-              <li class="menu-item-has-children">
-                FAQs
-              </li>
-              </ul>
-            </nav>
             <v-row class="aligned-row">
-              <v-col cols="1">
+              <!-- <v-col cols="1">
                 <span
                   class="cursor-pointer"
                   @click.prevent="showSearchBar = !showSearchBar"
                   v-if="showSearchBar"
                   ><v-icon icon="mdi-close"></v-icon
                 ></span>
-              </v-col>
-              <v-col cols="11">
+              </v-col> -->
+              <v-col cols="12">
                 <span
                   class="header-search"
                   :class="{
@@ -125,18 +34,18 @@
                 </span>
               </v-col>
             </v-row>
+            <NavLinks />
             <div class="menu-overlay"></div>
-            
           </div>
           <!-- menu end here -->
           <div class="header-item item-right">
-            <span
+            <!-- <span
               class="iconHolder seachIcon cursor-pointer"
               @click.prevent="openLargeSearchBar"
               v-if="!showSearchBar && !mobileView"
             >
               <v-icon icon="mdi-magnify"></v-icon
-            ></span>
+            ></span> -->
             <span
               class="iconHolder seachIcon cursor-pointer"
               v-if="!showSearchBar && mobileView"
@@ -149,8 +58,45 @@
               <font-awesome-icon icon="fa-solid fa-code-compare" />
             </span> -->
 
+            <!-- languages  -->
+            <span
+              role="button"
+              class="iconHolder language iconHolder"
+              @click="switchLang()"
+              v-if="lang == 'en'"
+              id="arLang"
+              ref="arLang"
+            >
+              <span class="hold-land">
+                <img :src="require('@/assets/images/header/egypt.png')" />
+                <span class="px-2">AR</span>
+              </span>
+            </span>
+            <span
+              role="button"
+              class="iconHolder language iconHolder"
+              @click="switchLang()"
+              v-if="lang == 'ar'"
+              id="enLang"
+              ref="enLang"
+              >
+              
+              <span class="hold-land">
+                <img :src="require('@/assets/images/header/united-states.png')" />
+                <span class="px-2">En</span>
+              </span>
+              
+              
+              </span
+            >
+
             <!-- wishlists  -->
 
+            <span class="iconHolder">
+              <router-link to="/profile/wallet">
+                <v-icon icon="mdi-wallet-outline"></v-icon>
+              </router-link>
+            </span>
             <span class="iconHolder">
               <router-link to="/profile/wishlist">
                 <v-badge :content="wishlistItemsCount" color="error">
@@ -172,26 +118,6 @@
             <cartPop />
             <!-- <theme-button /> -->
 
-            <!-- languages  -->
-            <span
-              role="button"
-              class="iconHolder language iconHolder"
-              @click="switchLang()"
-              v-if="lang == 'en'"
-              id="arLang"
-              ref="arLang"
-              >العربيه</span
-            >
-            <span
-              role="button"
-              class="iconHolder language iconHolder"
-              @click="switchLang()"
-              v-if="lang == 'ar'"
-              id="enLang"
-              ref="enLang"
-              >English</span
-            >
-
             <!-- mobile menu trigger -->
             <div class="mobile-menu-trigger iconHolder">
               <span></span>
@@ -212,6 +138,8 @@ import searchModal from "../SearchModal.vue";
 // import ThemeButton from "@/components/shared/ThemeButton.vue";
 // import myMixin from '@/mixins.js'
 import { mapGetters } from "vuex";
+
+import NavLinks from "./NavLinks.vue";
 export default {
   // mixins:[myMixin],
   mounted() {
@@ -326,7 +254,7 @@ export default {
   },
   data() {
     return {
-      showSearchBar: false,
+      showSearchBar: true,
       lang: localStorage.getItem("lang") || "en",
       mobileView: null,
       screenSize: null,
@@ -337,6 +265,7 @@ export default {
     cartPop,
     AccountPop,
     searchModal,
+    NavLinks,
     // ThemeButton
   },
   computed: {
@@ -352,6 +281,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  background: $header-back;
+  color: #fff;
+  a {
+    &:hover {
+      color: #fff !important;
+    }
+  }
+}
 .seachIcon {
   background: $main-color;
   color: #fff;
@@ -372,9 +310,9 @@ export default {
   line-height: 30px;
   padding: 0;
 
-  // &:hover {
-  //   color: $main-color;
-  // }
+  &:hover {
+    color: #fff;
+  }
 }
 
 .enableLargeSearch {
@@ -393,6 +331,9 @@ export default {
 
 .header-search {
   z-index: 99;
+  @media (max-width: 992px) {
+    margin-top: 20px;
+  }
 }
 
 .profile {
@@ -413,6 +354,16 @@ export default {
   }
   to {
     transform: translateY(0);
+  }
+}
+
+.hold-land{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width:25px;
+    height:25px
   }
 }
 </style>

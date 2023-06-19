@@ -7,7 +7,7 @@
           <div class="">
             <div class="logo">
               <router-link to="/">
-                <v-img width="250" src="@/assets/images/logo.png"></v-img>
+                <v-img width="100" src="@/assets/images/logo.png"></v-img>
               </router-link>
             </div>
           </div>
@@ -131,10 +131,17 @@ export default {
 <style lang="scss" scoped>
 
 
+footer{
+  background: $header-back;
+  color: #fff;
+}
 .titleHolder{
   padding:20px 0
 }
 a{
   line-height:40px
+}
+.text-gray , .text-gray-dark{
+  color: #fff !important;
 }
 </style>
