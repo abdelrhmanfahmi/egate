@@ -39,9 +39,9 @@ export default {};
 <style scoped lang="scss">
 .top-footer-wapper {
   padding: 10px;
-  background-color: $main-color;
+  background-color: $second-color;
   font-size: 16px;
-  color: #fff;
+  color: #000;
   svg {
     font-size: 22px !important;
   }
@@ -54,7 +54,7 @@ export default {};
     right: -5px;
     top: 0;
     bottom: 0;
-    background: #143152;
+    background: $main-color;
     color: #fff;
     border-radius: 0 20px 20px 0;
     padding: 10px 25px;

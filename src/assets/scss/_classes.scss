@@ -63,8 +63,12 @@
   }
 }
 .productImage {
-  height: 200px !important;
+  height: 100px !important;
   object-fit: contain !important;
+  img{
+    object-fit: contain !important;
+
+  }
 }
 .nowrap {
   flex-wrap: nowrap;
@@ -199,6 +203,7 @@
 
 .border-gray{
   border: 1px solid $gray;
+  color:#000 !important
 }
 
 .color-gray{

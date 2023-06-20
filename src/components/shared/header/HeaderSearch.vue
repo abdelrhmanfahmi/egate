@@ -138,7 +138,7 @@ export default {
   }
 
   .searchButton {
-    color: white;
+    color: #000;
     background-color: $second-color;
     cursor: pointer;
     width: 8%;

@@ -4,10 +4,15 @@
       <section class="pb-5">
         <div class="">
           <swiper :spaceBetween="5" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
+            <swiper-slide v-for="(x, index) in 10" :key="index">
+              <ProductCard />
+            </swiper-slide>
+          </swiper>
+          <!-- <swiper :spaceBetween="5" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
             <swiper-slide v-for="(product, index) in products" :key="index">
               <ProductCard :product="product" />
             </swiper-slide>
-          </swiper>
+          </swiper> -->
         </div>
       </section>
     </v-container>

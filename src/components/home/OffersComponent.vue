@@ -13,7 +13,8 @@
       </div>
     </v-container>
     <!-- products slider  -->
-    <ProductsSlider :products="products" />
+    <ProductsSlider />
+    <!-- <ProductsSlider :products="products" /> -->
   </div>
 </template>
 

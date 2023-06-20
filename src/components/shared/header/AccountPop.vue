@@ -147,6 +147,7 @@ export default {
     opacity: 1;
 
     transform: translateX(0);
+    color: #000;
 }
 
 .sideClosed {

@@ -1,5 +1,5 @@
 <template>
-  <v-app  :class="$i18n.locale">
+  <v-app  :class="$i18n.locale" class="app-holder">
     <v-main>
       <MainLayout />
     </v-main>

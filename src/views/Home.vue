@@ -1,11 +1,15 @@
 <template>
   <div class="wrapper">
-    <!-- HomeMainSlider  -->
-    <HomeMainSlider :sliders="sliders" v-if="sliders" />
+    <!-- categories slider component  -->
+    <SliderCategories />
+
+    <!-- todays offers  -->
+    <OffersComponent :sectionTitle="'Discount Products'" />
+
     <!-- Promotions  -->
     <Promotions />
     <!-- todays offers  -->
-    <OffersComponent :sectionTitle="'Todays Offer'" :products="products" />
+    <!-- <OffersComponent :sectionTitle="'Todays Offer'" :products="products" /> -->
 
     <!-- LargeCover  -->
     <LargeCover :imageSrc="require('@/assets/images/home/largCover.png')" />
@@ -16,12 +20,14 @@
     <LargeTabsComponent />
 
     <!-- LargeCover  -->
-    <SharedCover :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')" />
+    <SharedCover
+      :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')"
+    />
     <ProductsLooking />
   </div>
 </template>
 <script>
-import HomeMainSlider from "@/components/home/HomeMainSlider.vue";
+import SliderCategories from "@/components/home/SliderCategories.vue";
 import Promotions from "@/components/home/Promotions.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
 
@@ -30,11 +36,11 @@ import SharedCover from "@/components/shared/SharedCover.vue";
 import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
-import home from "@/services/home"
+import home from "@/services/home";
 
 export default {
   components: {
-    HomeMainSlider,
+    SliderCategories,
     Promotions,
     OffersComponent,
     LargeCover,
@@ -44,43 +50,48 @@ export default {
   },
   methods: {
     async getHomeMainSlider() {
-      await home.homeMainSlider().then(res => {
-        this.sliders = res.data.data
-      }).catch(err => {
-        console.log(err)
-      })
+      await home
+        .homeMainSlider()
+        .then((res) => {
+          this.sliders = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     async getGallary() {
-      await home.getGallary().then(res => {
-        this.galleryImages = res.data.data
-      }).catch(err => {
-        console.log(err)
-      })
+      await home
+        .getGallary()
+        .then((res) => {
+          this.galleryImages = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     async getHomeProducts() {
-      await this.$store.dispatch('getProducts')
+      await this.$store.dispatch("getProducts");
     },
-    
   },
   mounted() {
-    this.getHomeMainSlider()
-    this.getGallary()
-    this.getHomeProducts()
+    // this.getHomeMainSlider();
+    // this.getGallary();
+    // this.getHomeProducts();
   },
   data() {
     return {
       sliders: null,
       galleryImages: null,
-      test:{
-        key:'en'
-      }
-    }
+      test: {
+        key: "en",
+      },
+    };
   },
-  computed:{
-    products(){
-      return this.$store.getters.products
+  computed: {
+    products() {
+      return this.$store.getters.products;
       // return this.$store.state.Products.products
-    }
-  }
+    },
+  },
 };
 </script>

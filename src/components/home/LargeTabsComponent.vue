@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="wrapper">
+    <div class="wrapper tabs-component">
       <v-container>
         <v-row justify="center">
           <v-col cols="12" xl="3" lg="4" md="2" sm="12">
             <div class="sidePromotionHolder">
-              <v-row justify="space-between" align="center">
+              <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
                   <h3 class="m-0">Special Offer</h3>
                 </v-col>
@@ -130,7 +130,7 @@ export default {
 
 <style lang="scss" scoped>
 .saveMony {
-  background: $main-color;
+  background: $second-color;
   color: #000;
     padding: 20px;
     width: 100px;
@@ -144,8 +144,9 @@ export default {
 }
 .sidePromotionHolder {
   text-align: center;
-  border: 2px solid $main-color;
+  border: 2px solid $second-color;
   padding: 20px;
   border-radius: 20px;
+  background: #fff;
 }
 </style>

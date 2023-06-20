@@ -244,7 +244,8 @@ export default {
 
       window.addEventListener("scroll", () => {
         const currentScroll = window.pageYOffset;
-        if (currentScroll > 150) {
+        const windowWidth = window.innerWidth
+        if (currentScroll > 150 && windowWidth > 767) {
           header.classList.add(toggleClass);
         } else {
           header.classList.remove(toggleClass);

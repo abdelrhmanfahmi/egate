@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style>
-.opacitybg {
+/*.opacitybg {
   background: rgba(255, 255, 255, 0.7);
-}
+} */
 </style>
