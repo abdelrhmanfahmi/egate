@@ -3,7 +3,7 @@
     <div class="wrapper tabs-component">
       <v-container>
         <v-row justify="center">
-          <v-col cols="12" xl="3" lg="4" md="2" sm="12">
+          <v-col cols="12" xl="3" lg="4" md="4" sm="12">
             <div class="sidePromotionHolder">
               <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
@@ -63,7 +63,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" xl="9" lg="8" md="10" sm="12">
+          <v-col cols="12" xl="9" lg="8" md="8" sm="12">
             <v-tabs
               v-model="tab"
               color="deep-purple-accent-4"
