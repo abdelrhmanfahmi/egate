@@ -71,7 +71,7 @@ p {
 
 div.seperator {
   width: 7.5em;
-  background-color: #e31b1b;
+  background-color: $main-color;
   height: 0.17em;
   margin-left: -1.8em;
 }
@@ -106,7 +106,7 @@ summary {
 }
 
 summary:hover {
-  color: #e31b1b;
+  color: $main-color;
 }
 
 details[open] summary ~ * {
@@ -125,11 +125,11 @@ details[open] summary ~ * {
 }
 
 details[open] summary {
-  color: #e31b1b;
+  color: $main-color;
 }
 
 details[open] p {
-  border-left: 2px solid #e31b1b;
+  border-left: 2px solid $main-color;
   margin-left: 55px;
   padding-left: 25px;
   opacity: 100;
@@ -167,7 +167,7 @@ summary:after {
   background: transparent;
   border-radius: 0.3em;
   content: "+";
-  color: #e31b1b;
+  color: $main-color;
   float: left;
   font-size: 1.8em;
   font-weight: bold;
@@ -179,7 +179,7 @@ summary:after {
 .jumbotron {
   margin-bottom: 30px;
   color: inherit;
-  background-color: #ec4b2d;
+  background-color: $main-color;
   text-align: center;
   color: #fff;
   padding: 3% 0;

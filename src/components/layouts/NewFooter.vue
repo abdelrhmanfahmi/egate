@@ -37,6 +37,21 @@
                         }}</router-link>
                       </li>
                       <li>
+                        <router-link to="/faq">{{
+                          $t("home.faq")
+                        }}</router-link>
+                      </li>
+                      <li>
+                        <router-link to="/privacyPolicy">{{
+                          $t("home.privacyPolicy")
+                        }}</router-link>
+                      </li>
+                      <li>
+                        <router-link to="/termsConditions">{{
+                          $t("home.termsConditions")
+                        }}</router-link>
+                      </li>
+                      <li>
                         <router-link to="/contact-us">{{
                           $t("home.contactUs")
                         }}</router-link>
