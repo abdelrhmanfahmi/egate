@@ -391,7 +391,7 @@ export default {
 <style lang="scss" scoped>
 @import url("@/assets/scss/_filtersStyle.scss");
 .categories-page {
-  width: 80%;
+  width: 92%;
   position: relative;
   height: 100%;
   margin: 0 0;
@@ -430,7 +430,7 @@ export default {
     top: 50%;
     transform: translate(-34%, -50%) rotate(90deg);
 
-
+    color: #9C9A8A;
   }
 }
 </style>

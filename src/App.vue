@@ -1,5 +1,5 @@
 <template>
-  <v-app  :class="$i18n.locale" class="app-holder">
+  <v-app :class="$i18n.locale" class="app-holder">
     <v-main>
       <MainLayout />
     </v-main>
@@ -31,16 +31,17 @@ export default {
     },
   },
   mounted() {
-    this.getCategories();
-    console.log('isLoggedIn' , this.isLoggedIn);
-    if(this.isLoggedIn == true){
-
-      this.getCartItems();
-      this.getWishlistItems();
-    }
+    // this.getCategories();
+    // console.log('isLoggedIn' , this.isLoggedIn);
+    // if(this.isLoggedIn == true){
+    //   this.getCartItems();
+    //   this.getWishlistItems();
+    // }
   },
   computed: {
-    isLoggedIn: function () { return this.$store.getters.isAuthenticated }
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
   },
 };
 </script>
@@ -84,6 +85,4 @@ export default {
 ::-moz-scrollbar-thumb:hover {
   background: $main-color;
 }
-
-
 </style>

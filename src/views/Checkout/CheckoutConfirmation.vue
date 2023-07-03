@@ -14,7 +14,7 @@
                 </div>
                 <div class="congrats-words">
                   <h2 class="text-gray-thin">
-                    Thank you for shopping on velocity!
+                    Thank you for shopping on E-Gate!
                   </h2>
                   <p class="text-gray">
                     Your Order Has Been Placed Successfully

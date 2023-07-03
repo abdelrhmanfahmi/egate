@@ -4,7 +4,7 @@
       <router-link to="/">
         <div class="top-data-holder d-flex justify-space-between align-center">
           <div class="discount-quantity">
-            <!-- <div class="product-discount"><small>-20%</small></div> -->
+            <div class="product-discount"><small>-20%</small></div>
             <div class="product-quantity">
               <small>in stock</small>
             </div>
@@ -12,7 +12,7 @@
           <div
             class="product-rating d-flex justify-center align-center flex-column"
           >
-            <span class="icon"><v-icon icon="mdi-star"></v-icon></span>
+            <span class="icon"><v-icon icon="mdi-star" class="second-color"></v-icon></span>
             <p class="rating-number text-black">3.5</p>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div >
             <v-button class="addToCartBtn">
               <span class="icon">
-                <v-icon icon="mdi-cart-outline"></v-icon>
+                <v-icon icon="mdi mdi-cart-arrow-down"></v-icon>
               </span>
               {{ $t("cart.addToCart") }}</v-button
             >
@@ -191,6 +191,7 @@ export default {
   padding: 10px;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  background: #fff;
 
   &:hover {
     box-shadow: 0px 0px 10px rgb(55 54 45 / 12%);

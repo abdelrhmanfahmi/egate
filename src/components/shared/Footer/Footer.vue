@@ -3,7 +3,7 @@
     <TopFooter />
     <v-container>
       <v-row>
-        <v-col cols="12" sm="12" md="4" lg="4">
+        <v-col cols="12" sm="6" md="6" lg="4">
           <div class="">
             <div class="logo">
               <router-link to="/">
@@ -19,7 +19,7 @@
               ></v-img>
             </div>
             <div class="info mx-2">
-              <p class="text-gray">Got questions? Call us 24/7!</p>
+              <p class="text-gray gray-only">Got questions? Call us 24/7!</p>
               <p class="text-gray-dark">(800) 8001-8588, (0600) 874 548</p>
             </div>
           </div>
@@ -30,7 +30,7 @@
             17 Princess Road, Cairo, Greater Alexander NW1
           </p>
         </v-col>
-        <v-col cols="12" sm="12" md="5" lg="5">
+        <v-col cols="12" sm="6" md="6" lg="5">
           <div class="titleHolder">
 
             <h2>Find It Fast</h2>
@@ -77,7 +77,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" sm="12" md="3" lg="3"
+        <v-col cols="12" sm="6" md="6" lg="3"
           >
           <div class="titleHolder">
 
@@ -113,7 +113,7 @@
       </v-row>
       <div class="text-center pt-3">
         <hr />
-      <p class="text-gray pt-3">© 2023 Copyrights by velocity. All Rights Reserved. Designed by fabrica dev</p>
+      <p class="text-gray pt-3">© 2023 Copyrights by E-Gate. All Rights Reserved. Designed by fabrica dev</p>
       </div>
     </v-container>
   </footer>
@@ -143,5 +143,8 @@ a{
 }
 .text-gray , .text-gray-dark{
   color: #fff !important;
+}
+.gray-only{
+  color: $gray !important;
 }
 </style>

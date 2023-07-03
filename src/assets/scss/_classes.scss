@@ -99,16 +99,27 @@
 .text-main {
   color: $main-color !important;
 }
+.second-color,
+.text-second {
+  color: $second-color !important;
+}
+.border-second{
+  border: 1.5px solid $second-color;
+  background-color: #fff;
+}
 
 .custom-select {
-  padding: 5px 10px;
-  border: 1px solid $gray;
+  padding: 5px 15px;
+  border: 2px solid #5F5E58;
   border-radius: 3px;
   min-width: 40px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
+  background: #fff;
+  text-align: center;
+  color: #5F5E58;
 }
 
 .list {
@@ -212,4 +223,10 @@
 
 .empty-cart-img{
   width:100% !important
+}
+
+.products-slider-wrapper{
+  .swiper-backface-hidden .swiper-slide{
+    background: transparent !important;
+  }
 }

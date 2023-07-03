@@ -148,7 +148,7 @@ a {
       color: $main-color !important;
     }
   }
-  .header .menu > ul > li.menu-item-has-children:hover {
+  .sideHomeCategories.header .menu > ul > li.menu-item-has-children:hover {
     border: 2px solid $main-color !important;
     i {
       transition: all 0.3s ease-in-out;
@@ -491,4 +491,8 @@ a {
     width: 45%;
     max-width: 45%;
   }
+}
+
+.menu-item-has-children{
+  cursor: pointer;
 }

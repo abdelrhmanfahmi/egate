@@ -71,6 +71,12 @@ export default [
                 component: () => import("../views/Profile/wishlist.vue"),
                 beforeEnter: authGuard,
             },
+            {
+                path: '/profile/wallet',
+                name: 'wallet',
+                component: () => import("../views/Profile/wallet.vue"),
+                beforeEnter: authGuard,
+            },
 
         ]
     },

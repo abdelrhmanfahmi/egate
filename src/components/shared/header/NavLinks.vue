@@ -7,7 +7,7 @@
           <div class="current-menu-title"></div>
           <div class="mobile-menu-close">&times;</div>
         </div>
-        <ul class="menu-main">
+        <ul class="menu-main header-main-links">
           <!-- <li class="menu-item-has-children">
             <router-link to="/">
               <span title="Men">link</span>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <section >
-      <OffersComponent :sectionTitle="'More About Air Conditioner'" />
+      <OffersComponent :sectionTitle="'More About Category'" />
     </section>
     <section>
-      <OffersComponent :sectionTitle="'More About Fresh'" />
+      <OffersComponent :sectionTitle="'More About The Same Brand'" />
     </section>
   </div>
 </template>

@@ -3,7 +3,9 @@
     <v-container>
       <div class="topFilters d-flex justify-space-between align-center">
         <div class="sorting-holder">
-          <div class="mx-2">Sort By</div>
+          <div class="mx-2 text-gray">
+            <b>Sort By</b>
+          </div>
           <div class="sortOptions">
             <!-- <v-select
               label="Select"
@@ -156,6 +158,7 @@ export default {
   data() {
     return {
       swiperGridOptions: {
+        slidesPerView:4,
         breakpoints: {
           320: {
             slidesPerView: 1,
@@ -170,6 +173,10 @@ export default {
             slidesPerView: 3,
             spaceBetween: 30,
           },
+          1500 : {
+            slidesPerView: 4,
+            spaceBetween: 0,
+          }
         },
         loop: true,
         navigation: false,
@@ -193,7 +200,7 @@ export default {
         },
       },
       layout: "grid",
-      numbersToShow: 20,
+      numbersToShow: 8,
       selected: "",
     };
   },

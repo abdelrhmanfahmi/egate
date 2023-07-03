@@ -1,6 +1,6 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true,
+  transpileDependencies: ["vuetify"], 
   publicPath: '/e-gate/',
   css: {
     loaderOptions: {
@@ -17,5 +17,6 @@ module.exports = defineConfig({
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     }
   },
+  
 
 })

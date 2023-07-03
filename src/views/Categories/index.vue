@@ -1,6 +1,6 @@
 <template>
   <section class="categoriesPage">
-    <v-app >
+    <v-app>
       <v-container>
         <v-breadcrumbs :items="items">
           <template v-slot:prepend>
@@ -13,20 +13,26 @@
         <div class="firstSliderHolder">
           <swiper v-bind="options" :modules="modules">
             <swiper-slide v-for="i in 10" :key="i" class="mx-2">
-              <CategorySlideProduct :id='i' />
+              <CategorySlideProduct :id="i" />
             </swiper-slide>
           </swiper>
         </div>
         <div class="otherOffers my-11">
           <OffersComponent :sectionTitle="'Electronics Offers'" />
         </div>
+      </v-container>
+      <v-container fluid>
         <div class="productsFilter my-11">
           <div class="d-flex">
             <div class="filters">
               <div class="sidebar-filter-overlay" @click="showSideMenu"></div>
               <div class="filtersHiddenSideBar">
-                <span class="toggleSideFilter" role="button" @click="showSideMenu"><v-icon
-                    icon="mdi-cog-outline"></v-icon></span>
+                <span
+                  class="toggleSideFilter"
+                  role="button"
+                  @click="showSideMenu"
+                  ><v-icon icon="mdi-cog-outline"></v-icon
+                ></span>
                 <sideFilters />
               </div>
               <div class="filtersShowSideBar">
@@ -38,8 +44,20 @@
             </div>
           </div>
         </div>
+      </v-container>
+      <v-container>
         <div class="otherOffers my-11">
           <OffersComponent :sectionTitle="''" :seeMore="'no'" />
+        </div>
+        <div
+          class="text-center d-flex justify-space-evenly align-center mt-5"
+        >
+          <Paginate
+            :total-pages="totalPages"
+            :per-page="totalPages"
+            :current-page="page"
+            @pageChanged="onPageChange"
+          />
         </div>
       </v-container>
     </v-app>
@@ -56,6 +74,7 @@ import CategorySlideProduct from "./CategorySlideProduct.vue";
 import CategoryProducts from "@/components/categories/CategoryProducts.vue";
 import sideFilters from "@/components/categories/sideBar.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
+import Paginate from "@/components/shared/Paginate.vue";
 export default {
   components: {
     Swiper,
@@ -63,7 +82,8 @@ export default {
     CategorySlideProduct,
     CategoryProducts,
     sideFilters,
-    OffersComponent
+    OffersComponent,
+    Paginate,
   },
   setup() {
     return {
@@ -73,12 +93,12 @@ export default {
   data() {
     return {
       options: {
-        slidesPerView: 7,
+        // slidesPerView: 7,
         spaceBetween: 0,
-        slidesToShow: 7,
+        // slidesToShow: 7,
         loop: true,
         navigation: true,
-        centeredSlides: true,
+        centeredSlides: false,
         speed: 300,
         direction: "horizontal",
         zoom: true,
@@ -121,6 +141,15 @@ export default {
           href: "breadcrumbs_link_2",
         },
       ],
+      perPage: 5,
+      total: 0,
+      currentPage: 1,
+
+      page: 1,
+      totalPages: 0,
+      totalRecords: 0,
+      recordsPerPage: 10,
+      enterPageNo: "",
     };
   },
   methods: {
@@ -131,6 +160,23 @@ export default {
       document
         .querySelector(".sidebar-filter-overlay")
         .classList.toggle("active");
+    },
+    // this functions used for pagination
+    onPageChange(page) {
+      this.page = page;
+      // this.getWishlistProducts();
+      console.log('changed');
+    },
+    onChangeRecordsPerPage() {
+      // this.getWishlistProducts();
+      console.log('changed');
+    },
+    gotoPage() {
+      if (!isNaN(parseInt(this.enterPageNo))) {
+        this.page = parseInt(this.enterPageNo);
+        // this.getWishlistProducts();
+        console.log('changed');
+      }
     },
   },
 };
@@ -152,7 +198,7 @@ export default {
   display: block;
   position: fixed;
   height: 100%;
-  width: 80%;
+  width: 90%;
   background: #fff;
   top: 0;
   left: 0;
@@ -180,7 +226,13 @@ export default {
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-
+  padding-top: 150px;
+  @media (min-width: 767px) and (max-width: 992px) {
+    padding-top: 180px;
+  }
+  @media (max-width: 766.98px) {
+    padding-top: 280px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -220,7 +272,6 @@ export default {
 }
 
 .sidebar-filter-overlay.active {
-
   visibility: visible;
   opacity: 1;
 }
