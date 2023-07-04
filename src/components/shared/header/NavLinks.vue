@@ -74,19 +74,20 @@
           </li> -->
         
         <li class="menu-item-has-children">
-          Home
+          <router-link to="/" class="text-white">Home</router-link>
         </li>
         <li class="menu-item-has-children">
-          All categories
+          <router-link to="/categories" class="text-white">All categories</router-link>
         </li>
         <li class="menu-item-has-children">
-          My Account
+          
+          <router-link to="/profile" class="text-white">My Account</router-link>
         </li>
         <li class="menu-item-has-children">
           Returns / Exchange
         </li>
         <li class="menu-item-has-children">
-          FAQs
+          <router-link to="/faq" class="text-white">FAQs</router-link>
         </li>
         </ul>
       </nav>

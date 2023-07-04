@@ -103,7 +103,7 @@
               <router-link class="text-gray" to="/">Returns / Exchange</router-link>
             </li>
             <li >
-              <router-link class="text-gray" to="/">FAQs</router-link>
+              <router-link class="text-gray" to="/faq">FAQs</router-link>
             </li>
             <li >
               <router-link class="text-gray" to="/">Product Support</router-link>

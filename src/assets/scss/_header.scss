@@ -312,7 +312,7 @@ a {
   .header .menu {
     position: fixed;
     width: 320px;
-    background-color: #ffffff;
+    background-color: $header-back;
     left: 0;
     top: 0;
     height: 100%;
@@ -355,7 +355,7 @@ a {
     position: relative;
     z-index: 501;
     position: sticky;
-    background-color: #ffffff;
+    background-color: $header-back;
     top: 0;
   }
   .header .menu .mobile-menu-head .go-back {
@@ -375,7 +375,7 @@ a {
   .header .menu .mobile-menu-head .current-menu-title {
     font-size: 15px;
     font-weight: 500;
-    color: #000000;
+    color: #fff;
   }
   .header .menu .mobile-menu-head .mobile-menu-close {
     height: 50px;
@@ -384,7 +384,7 @@ a {
     cursor: pointer;
     line-height: 50px;
     text-align: center;
-    color: #000000;
+    color: #fff;
     font-size: 25px;
   }
   .header .menu .menu-main {

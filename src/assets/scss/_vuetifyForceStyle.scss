@@ -168,3 +168,11 @@ header {
   min-width: 26px !important;
   font-size: 0.85rem !important;
 }
+
+.v-btn__content i{
+  color:$second-color !important
+}
+
+.text-white .v-btn__content , .main-color .v-btn__content , .modal-wrapper .v-btn__content , .v-card-actions .v-btn{
+  color: #fff !important;
+}
