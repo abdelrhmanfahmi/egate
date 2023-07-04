@@ -1872,7 +1872,7 @@ export default {
       border-radius: 0.2rem;
       margin: 0 0.3rem;
 
-      height: 50px;
+      height: 3rem;
       line-height: 0;
       display: flex;
       justify-content: center;
