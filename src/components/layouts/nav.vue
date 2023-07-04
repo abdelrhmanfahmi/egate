@@ -390,19 +390,14 @@ export default {
       let data = {
         keyword: this.keyword,
       };
-      categories
-        .searchResult(data)
-        .then((resp) => {
-          if (
-            resp.data.items.suggestions &&
-            resp.data.items.suggestions.length
-          ) {
-            this.suggestionsExist = true;
-            this.suggestions = resp.data.items.suggestions;
-          } else {
-            this.suggestionsExist = false;
-          }
-        })
+      categories.searchResult(data).then((resp) => {
+        if (resp.data.items.suggestions && resp.data.items.suggestions.length) {
+          this.suggestionsExist = true;
+          this.suggestions = resp.data.items.suggestions;
+        } else {
+          this.suggestionsExist = false;
+        }
+      });
     },
     searchSuggestion(word) {
       let r = this.$router.resolve({
@@ -505,15 +500,14 @@ export default {
     }
 
     this.myInterval = setInterval(() => {
-
       if (this.loadingPercent == 100) {
         if (
           document.location.href.includes("force_login") &&
-          document.location.href.force_login == 'true'
+          document.location.href.force_login == "true"
         ) {
           localStorage.removeItem("userInfo");
           localStorage.removeItem("buyerUserData");
-          location.reload()
+          location.reload();
         }
         clearInterval(this.myInterval);
       }
@@ -534,7 +528,6 @@ export default {
           setTimeout(() => {
             var newURL = location.href.split("?")[0];
             window.history.pushState("object", document.title, newURL);
-          
           }, 500);
         }
       }
@@ -862,41 +855,43 @@ html:lang(ar) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  @media (max-width: 766.98px) {
-    top: 2%;
-    right: 2%;
-    position: fixed;
-    //background: $top-header-color;
-    width: 14%;
-  }
+  // z-index: 999;
+  //@media (max-width: 766.98px) {
+  //   top: 2%;
+  //  right: 2%;
+  //  position: fixed;
+  //  width: 14%;
+  //}
 
-  @media (min-width: 767px) and (max-width: 1200px) {
-    position: fixed;
-    top: 2%;
-    right: 2%;
-  }
+  // @media (min-width: 767px) and (max-width: 1200px) {
+  //  position: fixed;
+  //  top: 2%;
+  //   right: 2%;
+  // }
 }
 
-.en {
-  .toggleMenu {
-    @media (max-width: 766.98px) {
-      top: 10%;
-      right: 0;
-      position: fixed;
-      width: 14%;
-    }
-  }
-}
-.ar {
-  .toggleMenu {
-    @media (max-width: 766.98px) {
-      top: 10%;
-      right: 2%;
-      position: fixed;
-      width: 14%;
-    }
-  }
-}
+//.en {
+// .toggleMenu {
+//   @media (max-width: 766.98px) {
+//    top: 2%;
+//     right: 0;
+//   left: auto;
+//    position: fixed;
+//    width: 14%;
+//  }
+// }
+//}
+//.ar {
+//  .toggleMenu {
+//  @media (max-width: 766.98px) {
+//    top: 2%;
+//    left: 2%;
+//    right: auto;
+//   position: fixed;
+//  width: 14%;
+//  }
+// }
+//}
 
 .companies-router {
   border: 2px solid $main-color;

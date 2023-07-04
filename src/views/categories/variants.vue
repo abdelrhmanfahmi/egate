@@ -1017,7 +1017,7 @@
                       <font-awesome-icon icon="fa-solid fa-star" />
                     </a>
                   </div>
-                  <div v-if="!buyerUserData && RFQ == true">
+                  <div v-if="!buyerUserData && RFQ == true" class="rfq-holder">
                     <button
                       v-b-modal.modal-xl
                       id="show-btn"
@@ -1498,7 +1498,7 @@ export default {
           this.selectedVariants,
           this.sortTypeCountry,
           this.sortTypeWeight,
-          this.sortTypeUnit,
+          this.sortTypeUnit
         )
         .then((res) => {
           this.products = res.data.items.data;
@@ -1862,6 +1862,7 @@ export default {
 
   .add-to {
     color: #000;
+    align-items: center;
 
     a {
       background: #fff;
@@ -1871,8 +1872,11 @@ export default {
       border-radius: 0.2rem;
       margin: 0 0.3rem;
 
-      height: 46px;
+      height: 50px;
       line-height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
         color: $main-color;
@@ -2093,5 +2097,13 @@ thead tr {
   box-shadow: 0 0 0 3px #4c4c4c;
   border-radius: 5px;
   background: #4c4c4c;
+}
+.rfq-holder {
+  button {
+    height: 50px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>
