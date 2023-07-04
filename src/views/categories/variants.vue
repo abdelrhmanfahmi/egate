@@ -1498,7 +1498,7 @@ export default {
           this.selectedVariants,
           this.sortTypeCountry,
           this.sortTypeWeight,
-          this.sortTypeUnit,
+          this.sortTypeUnit
         )
         .then((res) => {
           this.products = res.data.items.data;
@@ -1871,7 +1871,7 @@ export default {
       border-radius: 0.2rem;
       margin: 0 0.3rem;
 
-      height: 46px;
+      height: 3rem;
       line-height: 0;
 
       &:hover {
