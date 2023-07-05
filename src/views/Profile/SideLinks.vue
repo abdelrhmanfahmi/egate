@@ -51,10 +51,10 @@ export default {
         //   name: "My Social Accounts",
         //   to: "social-accounts",
         // },
-        // {
-        //   name: "My Returns",
-        //   to: "returns",
-        // },
+        {
+          name: "My Returns",
+          to: "returns",
+        },
       ],
     };
   },
