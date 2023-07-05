@@ -15,7 +15,7 @@
 
           <h1>FAQS</h1>
           <v-row>
-            <v-col cols="12" lg="8" md="8" sm="12">
+            <v-col cols="12" lg="7" md="7" sm="12">
               <div class="faq-list">
                 <div v-for="(x, index) in 6" :key="index">
                   <details :class="`details-${index}`">
@@ -27,10 +27,21 @@
                 </div>
               </div>
             </v-col>
-            <v-col cols="12" lg="4" md="4" sm="12">
-                <div class="d-flex" justify="start">
-                    <img :src="require('@/assets/images/home/Braun-Desktop-EN.png')" class="img-responsive" />
+            <v-col cols="12" lg="5" md="5" sm="12">
+              <div class="d-flex images-holder" justify="start">
+                <div class="top-image">
+                  <img
+                    :src="require('@/assets/images/home/Braun-Desktop-EN.png')"
+                    class="img-responsive"
+                  />
                 </div>
+                <div class="bottom-image">
+                  <img
+                    :src="require('@/assets/images/home/Braun-Desktop-EN.png')"
+                    class="img-responsive"
+                  />
+                </div>
+              </div>
             </v-col>
           </v-row>
         </v-container>
@@ -67,7 +78,7 @@ p {
 }
 
 .faq-title {
-  font-size: 2em;
+ // font-size: 2em;
   margin: 0.4em 0;
 }
 
@@ -95,8 +106,8 @@ details > summary::-webkit-details-marker {
 }
 
 summary {
-  font-size: 1.4em;
-  font-weight: bold;
+  //font-size: 1.4em;
+ // font-weight: bold;
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -157,8 +168,8 @@ details[open] summary:after {
 
 .faq-list {
   width: 100%;
-  margin: 1em auto;
-  padding: 2em 0;
+  //margin: 1em auto;
+  padding: 20 0;
 }
 
 summary::-webkit-details-marker {
@@ -172,7 +183,7 @@ summary:after {
   color: $gray;
   float: right;
   font-size: 1.8em;
-  font-weight: bold;
+  //font-weight: bold;
   margin: -0.3em 0.65em 0 0;
   padding: 0;
   text-align: center;
@@ -187,9 +198,55 @@ summary:after {
   padding: 3% 0;
 }
 
-img.img-responsive{
-    width: 100%;
-    min-height: 300px;
-    object-fit: cover;
+img.img-responsive {
+  width: 100%;
+  min-height: 300px;
+  object-fit: cover;
+}
+
+.images-holder {
+  position: relative;
+  @media (max-width: 960px) {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 65%;
+    z-index: 2;
+    img {
+      width: 100%;
+    }
+    @media (max-width: 960px) {
+      position: relative;
+      transform: none;
+      img {
+        width: 90% !important;
+      }
+    }
+  }
+  .bottom-image {
+    z-index: 1;
+    position: absolute;
+    top: 30%;
+    right: 0;
+    transform: translate(0%, 30%);
+    width: 65%;
+    img {
+      width: 100%;
+    }
+    @media (max-width: 960px) {
+      position: relative;
+      transform: none;
+      img {
+        width: 90% !important;
+      }
+    }
+  }
+}
+.wrapper * {
+    text-transform: capitalize;
 }
 </style>

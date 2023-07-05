@@ -97,7 +97,7 @@
                         </div>
                         <v-row class="my-4">
                             <v-col cols="12" md="6" sm="12">
-                                <button class="buy-btn text-black" @click="register">
+                                <button class="buy-btn" @click="register">
                                     SIGN UP
                                 </button>
                             </v-col>

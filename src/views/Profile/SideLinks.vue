@@ -80,6 +80,7 @@ a {
     border-radius: 10px;
     padding: 14px 30px 14px 18px;
     margin: auto -14px;
+    color: #fff;
   }
 }
 </style>

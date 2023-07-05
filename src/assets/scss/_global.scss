@@ -37,8 +37,11 @@ ul {
 }
 
 .border-main {
-  border-color: $main-color !important;
+  border: 2px solid $main-color !important;
+  background: transparent !important;
+  color: $main-color !important;
 }
+
 .bg-main {
   background-color: $main-color;
   border: none;

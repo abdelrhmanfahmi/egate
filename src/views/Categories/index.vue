@@ -60,6 +60,7 @@
           />
         </div>
       </v-container>
+      <ReviewModal />
     </v-app>
   </section>
 </template>
@@ -75,6 +76,7 @@ import CategoryProducts from "@/components/categories/CategoryProducts.vue";
 import sideFilters from "@/components/categories/sideBar.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
 import Paginate from "@/components/shared/Paginate.vue";
+import ReviewModal from "@/components/shared/Modals/Profile/ResetPassModal"
 export default {
   components: {
     Swiper,
@@ -84,6 +86,7 @@ export default {
     sideFilters,
     OffersComponent,
     Paginate,
+    ReviewModal
   },
   setup() {
     return {

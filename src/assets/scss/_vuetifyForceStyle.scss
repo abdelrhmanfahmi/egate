@@ -1,8 +1,8 @@
 .v-slide-group__content {
-  border-bottom: 2px solid #A3A3A1;
+  border-bottom: 2px solid #a3a3a1;
 }
 .v-tab {
-  color: #A3A3A1 !important;
+  color: #a3a3a1 !important;
   font-size: 17px;
   font-weight: bold;
   text-transform: capitalize !important;
@@ -16,7 +16,7 @@
     color: $second-color !important;
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     width: 15px;
@@ -31,6 +31,14 @@
     display: block;
     top: 47px;
     transform: translateX(-50%);
+  }
+}
+.profile {
+  .v-tab--selected {
+    color: $main-color !important;
+    .v-tab__slider {
+      color: $main-color !important;
+    }
   }
 }
 
@@ -140,17 +148,17 @@ header {
   background-color: #f0f2f5;
 }
 
-.products-slider-wrapper{
+.products-slider-wrapper {
   background: #f0f2f5 !important;
 }
 
-.tabs-component{
-  .swiper-backface-hidden .swiper-slide{
+.tabs-component {
+  .swiper-backface-hidden .swiper-slide {
     margin-right: 5px !important;
   }
 }
 
-.v-expansion-panel-title__overlay{
+.v-expansion-panel-title__overlay {
   width: fit-content !important;
 }
 
@@ -169,10 +177,17 @@ header {
   font-size: 0.85rem !important;
 }
 
-.v-btn__content i{
-  color:$second-color !important
+.v-btn__content i {
+  color: $second-color !important;
 }
 
-.text-white .v-btn__content , .main-color .v-btn__content , .modal-wrapper .v-btn__content , .v-card-actions .v-btn{
+.text-white .v-btn__content,
+.main-color .v-btn__content,
+.modal-wrapper .v-btn__content,
+.v-card-actions .v-btn {
   color: #fff !important;
+}
+
+.border-main .v-btn__content {
+  color: $main-color;
 }

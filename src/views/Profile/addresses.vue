@@ -75,7 +75,7 @@
             :items="['cairo', 'cairo', 'cairo', 'cairo', 'cairo', 'cairo']"
             v-model="form.state"
           ></v-select>
-          <button type="submit" class="mt-2 buy-btn text-black w-50">Save Changes</button>
+          <button type="submit" class="mt-2 buy-btn w-50">Save Changes</button>
         </v-form>
       </div>
     </div>
