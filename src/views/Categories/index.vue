@@ -76,7 +76,7 @@ import CategoryProducts from "@/components/categories/CategoryProducts.vue";
 import sideFilters from "@/components/categories/sideBar.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
 import Paginate from "@/components/shared/Paginate.vue";
-import ReviewModal from "@/components/shared/Modals/Profile/ResetPassModal"
+import ReviewModal from "@/components/shared/Modals/Product/ReturnProduct.vue"
 export default {
   components: {
     Swiper,

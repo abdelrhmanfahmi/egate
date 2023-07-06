@@ -1,14 +1,14 @@
 <template>
-    <nav class="menu">
-        <div class="mobile-menu-head">
-          <div class="go-back">
-            <v-icon icon="mdi-chevron-left"></v-icon>
-          </div>
-          <div class="current-menu-title"></div>
-          <div class="mobile-menu-close">&times;</div>
-        </div>
-        <ul class="menu-main header-main-links">
-          <!-- <li class="menu-item-has-children">
+  <nav class="menu">
+    <div class="mobile-menu-head">
+      <div class="go-back">
+        <v-icon icon="mdi-chevron-left"></v-icon>
+      </div>
+      <div class="current-menu-title"></div>
+      <div class="mobile-menu-close">&times;</div>
+    </div>
+    <ul class="menu-main header-main-links">
+      <!-- <li class="menu-item-has-children">
             <router-link to="/">
               <span title="Men">link</span>
               <v-icon icon="mdi-chevron-down"></v-icon
@@ -72,33 +72,32 @@
               ></v-img>
             </div>
           </li> -->
-        
-        <li class="menu-item-has-children">
-          <router-link to="/" class="text-white">Home</router-link>
-        </li>
-        <li class="menu-item-has-children">
-          <router-link to="/categories" class="text-white">All categories</router-link>
-        </li>
-        <li class="menu-item-has-children">
-          
-          <router-link to="/profile" class="text-white">My Account</router-link>
-        </li>
-        <li class="menu-item-has-children">
+
+      <li class="menu-item-has-children">
+        <router-link to="/" class="text-white">Home</router-link>
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/categories" class="text-white"
+          >All categories</router-link
+        >
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/profile" class="text-white">My Account</router-link>
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/profile/returns" class="text-white">
           Returns / Exchange
-        </li>
-        <li class="menu-item-has-children">
-          <router-link to="/faq" class="text-white">FAQs</router-link>
-        </li>
-        </ul>
-      </nav>
+        </router-link>
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/faq" class="text-white">FAQs</router-link>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -155,7 +155,8 @@ export default {
       }
       if (e.target.closest(".menu-item-has-children")) {
         const hasChildren = e.target.closest(".menu-item-has-children");
-        showSubMenu(hasChildren);
+        // showSubMenu(hasChildren);
+        document.querySelector('.mobile-menu-close').click()
       }
     });
     goBack.addEventListener("click", () => {
