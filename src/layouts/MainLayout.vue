@@ -1,11 +1,14 @@
 <template>
+  <metainfo>
+    <template v-slot:title="{ content }">{{
+      content ? `${content} | E-Gate` : `E-Gate`
+    }}</template>
+  </metainfo>
   <Navbar />
   <div class="App-wrapper">
-
     <transition name="slide-fade">
       <router-view />
     </transition>
-
   </div>
   <actionsComp v-show="screenStatus == true" />
   <Footer />
@@ -15,37 +18,37 @@
 // import MainLayout from "../"
 import Navbar from "@/components/shared/header/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
-import actionsComp from "@/components/shared/actionsComp"
+import actionsComp from "@/components/shared/actionsComp";
 export default {
   components: {
     Navbar,
     Footer,
-    actionsComp
+    actionsComp,
   },
   name: "App",
   props: {
     working: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     $route: function () {
       this.$emit("working");
-      console.log('this.working', this.working);
+      // console.log("this.working", this.working);
     },
   },
   methods: {
     checkLoadingScreen(event) {
-      console.log('event', event);
-    }
+      console.log("event", event);
+    },
   },
   computed: {
     screenStatus() {
-      return this.$store.getters.loadingScreen
-    }
-  }
+      return this.$store.getters.loadingScreen;
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -63,8 +66,7 @@ export default {
 .slide-fade-enter,
 .slide-fade-leave-to
 
-/* .slide-fade-leave-active below version 2.1.8 */
-  {
+/* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
 }

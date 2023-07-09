@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
   data() {
     return {
@@ -63,6 +64,12 @@ export default {
         },
       ],
     };
+  },
+  setup() {
+    useMeta({
+      title: "Faq Page",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>
@@ -78,7 +85,7 @@ p {
 }
 
 .faq-title {
- // font-size: 2em;
+  // font-size: 2em;
   margin: 0.4em 0;
 }
 
@@ -107,7 +114,7 @@ details > summary::-webkit-details-marker {
 
 summary {
   //font-size: 1.4em;
- // font-weight: bold;
+  // font-weight: bold;
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -247,6 +254,6 @@ img.img-responsive {
   }
 }
 .wrapper * {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 </style>

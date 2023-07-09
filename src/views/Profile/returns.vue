@@ -40,10 +40,17 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 import ProductTrack from "@/components/Profile/ProductTrack.vue";
 export default {
   components: {
     ProductTrack,
+  },
+  setup() {
+    useMeta({
+      title: "Profile Returns",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

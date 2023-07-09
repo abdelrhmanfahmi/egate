@@ -68,7 +68,9 @@
             v-model="form.country"
           ></v-select>
           <!-- state  -->
-          <label for="state">State/Province <span class="required">*</span></label>
+          <label for="state"
+            >State/Province <span class="required">*</span></label
+          >
           <v-select
             label="Year"
             hide-details="true"
@@ -83,6 +85,7 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
   data() {
     return {
@@ -95,6 +98,12 @@ export default {
         state: null,
       },
     };
+  },
+  setup() {
+    useMeta({
+      title: "Profile Addresses",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

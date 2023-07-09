@@ -61,7 +61,7 @@
       </div>
       <div class="productActions my-5 d-flex align-center">
         <v-btn variant="outlined" class="main-color border-second mx-2">
-          {{ $t("cart.addToCart") }}
+          <span class="main-color">{{ $t("cart.addToCart") }}</span>
         </v-btn>
         <v-btn variant="outlined" class="bg-main mx-2 text-white">
           Buy It Now

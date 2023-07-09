@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
   data() {
     return {
@@ -64,12 +65,18 @@ export default {
       ],
     };
   },
+  setup() {
+    useMeta({
+      title: "Privacy-Policy",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.description{
-    line-height: 1.7;
+.description {
+  line-height: 1.7;
 }
 img.img-responsive {
   width: 100%;

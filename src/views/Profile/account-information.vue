@@ -1,13 +1,18 @@
 <template>
-    <div>account information</div>
-  </template>
+  <div>account information</div>
+</template>
   
   <script>
-  export default {
-  
-  }
-  </script>
+import { useMeta } from "vue-meta";
+export default {
+  setup() {
+    useMeta({
+      title: "Checkout Confirmation",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+};
+</script>
   
   <style>
-  
-  </style>
+</style>

@@ -20,6 +20,7 @@
 
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
+import {useMeta} from "vue-meta"
 export default {
   data: () => ({
     items: [
@@ -77,6 +78,12 @@ export default {
         location.reload()
       }
     )
+  },
+  setup() {
+    useMeta({
+      title: "Product Page",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

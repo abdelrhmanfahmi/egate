@@ -37,6 +37,7 @@ import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
 import home from "@/services/home";
+import { useMeta } from "vue-meta";
 
 export default {
   components: {
@@ -92,6 +93,12 @@ export default {
       return this.$store.getters.products;
       // return this.$store.state.Products.products
     },
+  },
+  setup() {
+    useMeta({
+      title: "Home",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

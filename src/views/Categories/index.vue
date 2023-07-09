@@ -49,9 +49,7 @@
         <div class="otherOffers my-11">
           <OffersComponent :sectionTitle="''" :seeMore="'no'" />
         </div>
-        <div
-          class="text-center d-flex justify-space-evenly align-center mt-5"
-        >
+        <div class="text-center d-flex justify-space-evenly align-center mt-5">
           <Paginate
             :total-pages="totalPages"
             :per-page="totalPages"
@@ -76,7 +74,10 @@ import CategoryProducts from "@/components/categories/CategoryProducts.vue";
 import sideFilters from "@/components/categories/sideBar.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
 import Paginate from "@/components/shared/Paginate.vue";
-import ReviewModal from "@/components/shared/Modals/Product/ReturnProduct.vue"
+import ReviewModal from "@/components/shared/Modals/Product/ReturnProduct.vue";
+
+import { useMeta } from "vue-meta";
+
 export default {
   components: {
     Swiper,
@@ -86,9 +87,13 @@ export default {
     sideFilters,
     OffersComponent,
     Paginate,
-    ReviewModal
+    ReviewModal,
   },
   setup() {
+    useMeta({
+      title: "Categories",
+      htmlAttrs: { lang: "en", amp: true },
+    });
     return {
       modules: [Navigation, Autoplay],
     };
@@ -104,9 +109,9 @@ export default {
         centeredSlides: false,
         speed: 300,
         direction: "horizontal",
-        zoom: true,
+        // zoom: true,
         autoplay: {
-          delay: 5000,
+          delay: 2000,
         },
         breakpoints: {
           320: {
@@ -168,17 +173,17 @@ export default {
     onPageChange(page) {
       this.page = page;
       // this.getWishlistProducts();
-      console.log('changed');
+      console.log("changed");
     },
     onChangeRecordsPerPage() {
       // this.getWishlistProducts();
-      console.log('changed');
+      console.log("changed");
     },
     gotoPage() {
       if (!isNaN(parseInt(this.enterPageNo))) {
         this.page = parseInt(this.enterPageNo);
         // this.getWishlistProducts();
-        console.log('changed');
+        console.log("changed");
       }
     },
   },

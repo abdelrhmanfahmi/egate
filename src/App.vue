@@ -9,6 +9,7 @@
 <script>
 import MainLayout from "@/layouts/MainLayout";
 import myMixin from "@/mixins.js";
+import {useMeta} from "vue-meta"
 export default {
   mixins: [myMixin],
   components: {
@@ -42,6 +43,12 @@ export default {
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
     },
+  },
+  setup() {
+    useMeta({
+      title: "Main E-Gate Page",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

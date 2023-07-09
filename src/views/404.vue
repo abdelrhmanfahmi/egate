@@ -13,7 +13,11 @@
             </div>
             <div class="col-lg-12 text-btn">
               <a href="index.php"
-                ><router-link name="login" class="btn btn-outline-primary" to="/">
+                ><router-link
+                  name="login"
+                  class="btn btn-outline-primary"
+                  to="/"
+                >
                   BACK TO HOME
                 </router-link></a
               >
@@ -27,12 +31,20 @@
 </template>
 
 <script>
-export default {};
+import { useMeta } from "vue-meta";
+export default {
+  setup() {
+    useMeta({
+      title: "Page Not Found",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+};
 </script>
 <style lang="scss" scoped>
-.wrapper{
-    background:$header-back;
-    min-height: 100vh;
+.wrapper {
+  background: $header-back;
+  min-height: 100vh;
 }
 .text-404 {
   margin-top: 80px;

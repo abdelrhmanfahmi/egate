@@ -1,16 +1,22 @@
 <template>
   <div>
-    <v-app  class="page-wrapper">
+    <v-app class="page-wrapper">
       <v-main>
         <v-container>
           <v-row>
             <v-col cols="12" lg="5" md="5" sm="12" class="text-center">
               <section class="relative-section">
                 <div class="happyIcon1">
-                  <v-img src="@/assets/images/checkout/happiness.svg" width="50"></v-img>
+                  <v-img
+                    src="@/assets/images/checkout/happiness.svg"
+                    width="50"
+                  ></v-img>
                 </div>
                 <div class="happyIcon2">
-                  <v-img src="@/assets/images/checkout/happiness.svg" width="50"></v-img>
+                  <v-img
+                    src="@/assets/images/checkout/happiness.svg"
+                    width="50"
+                  ></v-img>
                 </div>
                 <div class="congrats-words">
                   <h2 class="text-gray-thin">
@@ -107,7 +113,15 @@
 </template>
 
 <script>
-export default {};
+import { useMeta } from "vue-meta";
+export default {
+  setup() {
+    useMeta({
+      title: "Checkout Confirmation",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+};
 </script>
 <style lang="scss" scoped>
 .page-wrapper {
@@ -125,7 +139,6 @@ section {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
   display: flex;
-
 }
 .confirmation-data {
   padding: 40px 10px;
@@ -137,15 +150,15 @@ section {
   border: 1px solid #a3a3a1;
   margin: 20px 0;
 }
-.relative-section{
+.relative-section {
   position: relative;
-  .happyIcon1{
+  .happyIcon1 {
     position: absolute;
     top: 35px;
     right: 0;
     z-index: -1;
   }
-  .happyIcon2{
+  .happyIcon2 {
     position: absolute;
     bottom: 35px;
     left: 0;

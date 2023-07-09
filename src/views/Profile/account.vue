@@ -123,8 +123,17 @@
   </div>
 </template>
 
+  
 <script>
-export default {};
+import { useMeta } from "vue-meta";
+export default {
+  setup() {
+    useMeta({
+      title: "Profile Account",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+};
 </script>
 
 <style lang="scss" scoped>

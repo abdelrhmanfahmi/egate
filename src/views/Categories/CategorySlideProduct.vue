@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper text-center">
-    <router-link :to="{name:'productPage', params:{id:id}}" class="text-gray">
-
+    <router-link
+      :to="{ name: 'productPage', params: { id: id } }"
+      class="text-gray"
+    >
       <div class="categoryProduct">
         <div class="productImage">
           <v-img
@@ -10,7 +12,7 @@
           ></v-img>
         </div>
         <div class="productTitle">
-          <h4>Video games</h4>
+          <h4>Video games - {{ id }}</h4>
         </div>
       </div>
     </router-link>
@@ -18,14 +20,21 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
-  props:['id']
+  props: ["id"],
+  setup() {
+    useMeta({
+      title: "Categories Product Page",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .productImage {
-    display: inline;
+  display: inline;
   img {
     max-width: 300px !important;
     max-height: 300px !important;
