@@ -6,7 +6,12 @@
   </metainfo>
   <Navbar />
   <div class="App-wrapper">
-    <transition name="slide-fade">
+    <transition
+      name="router-animation"
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeInRight fast"
+      leave-active-class="animate__animated animate__fadeInRight faster"
+    >
       <router-view />
     </transition>
   </div>
@@ -52,6 +57,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
 /**
 *layout style
 */

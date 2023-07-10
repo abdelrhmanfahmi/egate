@@ -63,6 +63,9 @@ export default {
   async mounted() {
     this.checkID()
     this.getProduct()
+    this.$nextTick(() => {
+      document.dispatchEvent(new Event("render-complete"));
+    });
   },
   computed: {
     product() {

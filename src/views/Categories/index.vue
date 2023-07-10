@@ -187,6 +187,11 @@ export default {
       }
     },
   },
+  mounted(){
+    this.$nextTick(() => {
+      document.dispatchEvent(new Event("render-complete"));
+    });
+  }
 };
 </script>
 <style lang="scss" scoped>

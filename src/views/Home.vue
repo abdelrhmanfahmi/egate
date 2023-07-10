@@ -78,6 +78,9 @@ export default {
     // this.getHomeMainSlider();
     // this.getGallary();
     // this.getHomeProducts();
+    this.$nextTick(() => {
+      document.dispatchEvent(new Event("render-complete"));
+    });
   },
   data() {
     return {

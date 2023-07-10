@@ -12,5 +12,10 @@ export default {
       htmlAttrs: { lang: "en", amp: true },
     });
   },
+  mounted(){
+    this.$nextTick(() => {
+      document.dispatchEvent(new Event("render-complete"));
+    });
+  }
 };
 </script>

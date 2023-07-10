@@ -1,6 +1,40 @@
 const { defineConfig } = require("@vue/cli-service");
-// var PrerenderSpaPlugin = require("prerender-spa-plugin");
-// var path = require("path");
+
+const plugins = [];
+
+if (process.env.NODE_ENV === "production") {
+  const { join } = require("path");
+  const PrerenderPlugin = require("prerender-spa-plugin");
+  const renderer = PrerenderPlugin.PuppeteerRenderer;
+
+  plugins.unshift(
+    new PrerenderPlugin({
+      staticDir: join(__dirname, "dist"),
+      routes: [
+        "/",
+        "/about",
+        "/categories",
+        "/productPage/:id",
+        "/cart",
+        "/auth/register",
+        "/auth/login",
+        "faq",
+        "privacyPolicy",
+        "/categories",
+        "/checkout",
+        "/checkoutConfirmation",
+        "/profile",
+      ],
+      renderer: new renderer({
+        injectProperty: "isPrerendering",
+        inject: true,
+
+        renderAfterDocumentEvent: "render-complete",
+      }),
+    })
+  );
+}
+
 module.exports = defineConfig({
   transpileDependencies: ["vuetify"],
   publicPath: "/e-gate/",
@@ -18,37 +52,8 @@ module.exports = defineConfig({
     vuetify: {
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     },
-    prerenderSpa: {
-      registry: undefined,
-      renderRoutes: [
-        "/",
-        "/about",
-        "/categories",
-        "/productPage/:id",
-        "/cart",
-        "/auth/register",
-        "/auth/login",
-        "faq",
-        "privacyPolicy",
-        "/categories",
-        "/checkout",
-        "/checkoutConfirmation",
-        "/profile",
-      ],
-      useRenderEvent: true,
-      onlyProduction: true,
-
-      headless: false, // <- this could also be inside the customRendererConfig
-      customRendererConfig: {
-        args: ["--auto-open-devtools-for-tabs"],
-      },
-      postProcess: (route) => {
-        // Defer scripts and tell Vue it's been server rendered to trigger hydration
-        route.html = route.html
-          .replace(/<script (.*?)>/g, "<script $1 defer>")
-          .replace('id="app"', 'id="app" data-server-rendered="true"');
-        return route;
-      },
+    configureWebpack(config) {
+      config.plugins = [...config.plugins, ...plugins];
     },
   },
 });
