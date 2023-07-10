@@ -46,8 +46,5 @@ const app = createApp(App)
   .use(createMetaManager());
 // .mount("#app");
 
-window.addEventListener('DOMContentLoaded' , ()=>{
-  
-})
 router.isReady();
 app.mount("#app");
