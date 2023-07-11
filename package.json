@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy:staging": "cd dist && scp -i ~/.ssh/Staging.pem -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/e-gate"
+    "deploy:staging": "cd dist && scp -i ~/.ssh/Staging.pem -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/e-gate",
+    "sitemap":"node sitemap-generator.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -21,6 +22,7 @@
     "puppeteer": "^20.8.0",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
+    "sitemap": "^7.1.1",
     "swiper": "^9.0.5",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.47",
