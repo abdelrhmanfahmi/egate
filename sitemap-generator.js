@@ -1,6 +1,8 @@
+//  this file to generate sitemap
 const { SitemapStream } = require("sitemap");
 const { createWriteStream, existsSync, mkdirSync } = require("fs");
 
+// current routes
 let routes = [
   { url: "/", changefreq: "daily", priority: 1 },
   { url: "/about", changefreq: "monthly", priority: 0.7 },
