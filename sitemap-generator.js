@@ -3,7 +3,7 @@ const { SitemapStream } = require("sitemap");
 const { createWriteStream, existsSync, mkdirSync } = require("fs");
 
 // current routes
-let routes = [
+let routes = [  
   { url: "/", changefreq: "daily", priority: 1 },
   { url: "/about", changefreq: "monthly", priority: 0.7 },
   { url: "/categories", changefreq: "monthly", priority: 0.7 },
