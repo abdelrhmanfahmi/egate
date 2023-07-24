@@ -32,6 +32,9 @@
     // min-height: 75vh;
     min-height: 37rem;
   }
+  .swiper-slide img {
+    object-fit: fill;
+  }
 }
 
 .swiper-slide img {
