@@ -205,6 +205,7 @@ export default {
   opacity: 1;
   display: block;
   width: 100%;
+  position: relative;
 }
 
 .filtersHiddenSideBar {

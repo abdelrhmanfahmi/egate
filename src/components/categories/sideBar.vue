@@ -392,18 +392,17 @@ export default {
 @import url("@/assets/scss/_filtersStyle.scss");
 .categories-page {
   width: 92%;
-  position: relative;
+  // position: relative;
   height: 100%;
   margin: 0 0;
-  .filter-item{
-
+  .filter-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
-    .item-count{
+    .item-count {
       background: $main-color;
-      color: #000;
+      color: #fff;
       padding: 3px;
       border-radius: 3px;
     }
@@ -424,13 +423,17 @@ export default {
     }
   }
   .filterText {
+    // position: absolute;
+    // right: -34%;
+    // top: 50%;
+    // transform: translate(-34%, -50%) rotate(90deg);
 
+    // color: #9C9A8A;
+    color: #a3a3a1;
     position: absolute;
-    right: -34%;
+    right: -3%;
     top: 50%;
-    transform: translate(-34%, -50%) rotate(90deg);
-
-    color: #9C9A8A;
+    transform: rotate(90deg) translate(-3%, -50%);
   }
 }
 </style>
