@@ -1,6 +1,7 @@
 import globalAxios from "@/services/global-axios";
 
 export const Products = {
+    namespaced: true,
     state: () => ({
         products: [],
         product:{}

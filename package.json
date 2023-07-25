@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "deploy:staging": "cd dist && scp -i ~/.ssh/Staging.pem -r * ubuntu@18.219.150.157:/home/admin/web/staging2.fabrica-dev.com/public_html/e-gate",
-    "sitemap":"node sitemap-generator.js"
+    "sitemap": "node sitemap-generator.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -17,6 +17,7 @@
     "@mdi/font": "5.9.55",
     "axios": "^1.3.4",
     "core-js": "^3.8.3",
+    "dotenv": "^16.3.1",
     "mosha-vue-toastify": "^1.0.23",
     "prerender-spa-plugin": "^3.4.0",
     "puppeteer": "^20.8.0",

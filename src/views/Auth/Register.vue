@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     isLoggedIn: function () {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters['Auth/isAuthenticated'];
     },
   },
   setup() {

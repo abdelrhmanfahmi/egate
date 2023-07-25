@@ -36,6 +36,10 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 
+
+// Dot ENV
+// require("dotenv").config();
+
 const app = createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)

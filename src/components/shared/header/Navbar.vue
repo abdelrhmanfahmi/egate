@@ -103,8 +103,7 @@
                   <v-icon icon="mdi-heart-outline"></v-icon>
                 </v-badge>
               </router-link>
-            </span>
-
+            </span> 
             <span v-if="isLoggedIn">
               <router-link to="/profile/account" class="iconHolder profile"
                 ><v-icon icon="mdi-account-outline"></v-icon
@@ -273,10 +272,10 @@ export default {
   computed: {
     ...mapGetters({ wishlistItemsCount: "wishlist/wishlistItemCount" }),
     categories() {
-      return this.$store.getters.categories;
+      return this.$store.getters['categories/categories'];
     },
     isLoggedIn() {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters['Auth/isAuthenticated'];
     },
   },
 };

@@ -4,7 +4,7 @@
       <div class="text-center">
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ props }">
-            <v-btn color="primary" v-bind="props"> Open Dialog </v-btn>
+            <p class="red-text" role="button" v-bind="props">Change Password</p>
           </template>
 
           <v-card class="dialog-parent py-10 px-4 pb-5" v-if="!passChanged">

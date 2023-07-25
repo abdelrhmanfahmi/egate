@@ -3,17 +3,20 @@
     <v-main>
       <MainLayout />
     </v-main>
+    <LoadingDataFetch v-if="loadingPageData == true" />
   </v-app>
 </template>
 
 <script>
+import LoadingDataFetch from "@/components/shared/LoadingDataFetch.vue";
 import MainLayout from "@/layouts/MainLayout";
 import myMixin from "@/mixins.js";
-import {useMeta} from "vue-meta"
+import { useMeta } from "vue-meta";
 export default {
   mixins: [myMixin],
   components: {
     MainLayout,
+    LoadingDataFetch,
   },
   name: "App",
 
@@ -41,7 +44,10 @@ export default {
   },
   computed: {
     isLoggedIn: function () {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters['Auth/isAuthenticated'];
+    },
+    loadingPageData() {
+      return this.$store.getters['Auth/LoginNow'];
     },
   },
   setup() {

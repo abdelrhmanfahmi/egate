@@ -7,7 +7,7 @@ export default {
     },
     // is we have user
     isLoggined() {
-      if (localStorage.getItem("userInfo")) {
+      if (localStorage.getItem("EGate-userInfo")) {
         return true;
       } else {
         return false;

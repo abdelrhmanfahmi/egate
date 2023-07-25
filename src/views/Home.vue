@@ -81,6 +81,7 @@ export default {
     this.$nextTick(() => {
       document.dispatchEvent(new Event("render-complete"));
     });
+    this.$store.dispatch('Auth/resetErrors')
   },
   data() {
     return {
