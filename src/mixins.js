@@ -1,6 +1,6 @@
 import { useToast } from 'vue-toastification'
 const toast = useToast()
-export default {
+export const myMixin = {
   computed: {
     getDir() {
       return document.documentElement.dir;
@@ -14,7 +14,7 @@ export default {
       }
     },
     mainDoamin() {
-      return process.env.VUE_APP_DOMAIN_NAME;
+      return process.env.VUE_APP_AXSIOS_LINK;
     },
 
     currentLang() {

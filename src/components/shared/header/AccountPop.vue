@@ -84,9 +84,9 @@
   
 <script>
 import LoginAuth from "@/components/shared/socialAuth/LoginAuth.vue";
-import myMixin from "@/mixins.js";
+// import myMixin from "@/mixins.js";
 export default {
-  mixins: [myMixin],
+  // mixins: [myMixin],
   data() {
     return {
       sideVisible: false,

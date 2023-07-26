@@ -18,10 +18,10 @@
               </v-row>
               <div class="imageHolder">
                 <v-img
-                  src="@/assets/images/home/Image20.png"
+                  src="https://cdn.vox-cdn.com/thumbor/vabx-KeOe5GULF4lqyITVmXMU6I=/0x0:1600x800/1400x788/filters:focal(800x400:801x401)/cdn0.vox-cdn.com/uploads/chorus_asset/file/8853589/google_ai_photography_street_view_2.jpg"
                   class="image-fluid"
-                  lazy-src="@/assets/images/home/Image20.png"
-                ></v-img>
+                  ></v-img>
+                  <!-- lazy-src="@/assets/images/home/Image20.png" -->
               </div>
               <div class="description">
                 <h4>Game Console Controller + Usb 3.0 Cable</h4>

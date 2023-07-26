@@ -47,11 +47,11 @@
 <script>
 import CartTable from "@/components/Cart/CartTable.vue";
 import { mapGetters } from "vuex";
-import mixins from "@/mixins";
+// import mixins from "@/mixins";
 import EmptyCart from "@/components/shared/Checkout/EmptyCart.vue";
 import { useMeta } from "vue-meta";
 export default {
-  mixins: [mixins],
+  // mixins: [mixins],
   components: {
     CartTable,
     EmptyCart,

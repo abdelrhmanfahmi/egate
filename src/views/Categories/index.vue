@@ -191,6 +191,11 @@ export default {
     this.$nextTick(() => {
       document.dispatchEvent(new Event("render-complete"));
     });
+  },
+  computed:{
+    categories(){
+      return this.$store.getters['categories/categories']
+    }
   }
 };
 </script>

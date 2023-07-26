@@ -21,10 +21,10 @@ export const Categories = {
   actions: {
     getCategories({ commit }) {
       globalAxios
-        .get(`categories`)
+        .get(`client/categories`)
         .then((res) => {
           if (res.status == 200) {
-            commit("GET_CAREGORIES", res.data.data);
+            commit("GET_CAREGORIES", res.data.items.data);
           }
         })
         .catch((err) => {

@@ -8,13 +8,13 @@ import store from "@/store";
 
 export default {
   all() {
-    return globalAxios.get(`customer/wishlist`);
+    return globalAxios.get(`client/wishlist`);
   },
 
   store(payload) {
     
     store.dispatch('changeLoadingScreen' , true)
-    return globalAxios.post(`customer/wishlist/${payload.id}`).then((res)=>{
+    return globalAxios.post(`client/wishlist/${payload.id}`).then((res)=>{
       if (res.status == 200) {
         toast.success(`${res.data.message}`, {
           position: "top-right",
@@ -44,7 +44,7 @@ export default {
   
   moveToCart(payload){
     store.dispatch('changeLoadingScreen' , true)
-    return globalAxios.post(`customer/wishlist/${payload.product.id}/move-to-cart`,{}).then((res)=>{
+    return globalAxios.post(`client/wishlist/${payload.product.id}/move-to-cart`,{}).then((res)=>{
       if (res.status == 200) {
         toast.success(`${res.data.message}`, {
           position: "top-right",
@@ -79,7 +79,7 @@ export default {
   delete(payload) {
     store.dispatch('changeLoadingScreen' , true)
     return globalAxios
-      .post(`customer/wishlist/${payload.product.id}`)
+      .post(`client/wishlist/${payload.product.id}`)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {

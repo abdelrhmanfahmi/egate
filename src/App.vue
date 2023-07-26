@@ -10,10 +10,10 @@
 <script>
 import LoadingDataFetch from "@/components/shared/LoadingDataFetch.vue";
 import MainLayout from "@/layouts/MainLayout";
-import myMixin from "@/mixins.js";
+// import myMixin from "@/mixins.js";
 import { useMeta } from "vue-meta";
 export default {
-  mixins: [myMixin],
+  // mixins: [myMixin],
   components: {
     MainLayout,
     LoadingDataFetch,
@@ -25,7 +25,7 @@ export default {
   }),
   methods: {
     async getCategories() {
-      await this.$store.dispatch("getCategories");
+      await this.$store.dispatch("Categories/getCategories");
     },
     async getCartItems() {
       await this.$store.dispatch("cart/getCartProducts");
@@ -35,8 +35,9 @@ export default {
     },
   },
   mounted() {
-    // this.getCategories();
-    // console.log('isLoggedIn' , this.isLoggedIn);
+
+    // get categories at first load of any page
+    this.getCategories();
     // if(this.isLoggedIn == true){
     //   this.getCartItems();
     //   this.getWishlistItems();

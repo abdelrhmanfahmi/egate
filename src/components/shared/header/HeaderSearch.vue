@@ -18,19 +18,22 @@
             <select
               class="selectData form-select"
               aria-label="Default select example"
+              @change="goToCategory($event)"
             >
-              <option :value="null">
+              <option :value="null" disabled selected>
                 All Categories
                 <span>
                   <v-icon icon="mdi-chevron-down"></v-icon>
                 </span>
               </option>
               <option
-                :value="category.name"
+                :value="category.id"
                 v-for="(category, index) in categories"
                 :key="index"
+                :id="category.id"
+                :name="category.name"
               >
-                {{ category.name }}
+                {{ $i18n.locale == "en" ? category.name_en : category.name_ar }}
               </option>
             </select>
             <!-- <div class="icon-holder">
@@ -50,7 +53,19 @@
 export default {
   computed: {
     categories() {
-      return this.$store.getters.categories;
+      return this.$store.getters["Categories/categories"];
+    },
+  },
+  methods: {
+    goToCategory(category) {
+      this.$router.push(
+        {
+          name:'productPage',
+          params:{
+            id:1
+          }
+        }
+      )
     },
   },
 };
@@ -126,13 +141,13 @@ export default {
     text-indent: 5px;
     border-radius: 5px 0 0 5px;
     width: 70%;
-    @media(max-width:499.98px){
+    @media (max-width: 499.98px) {
       width: 100%;
     }
-    @media (min-width:500px) and (max-width:766.98px){
+    @media (min-width: 500px) and (max-width: 766.98px) {
       width: 60%;
     }
-    @media (min-width:767px) and (max-width:992px){
+    @media (min-width: 767px) and (max-width: 992px) {
       width: 50%;
     }
   }

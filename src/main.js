@@ -25,8 +25,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 library.add(fas, fab);
-import { createMetaManager } from 'vue-meta'
-
+import { createMetaManager } from "vue-meta";
 
 loadFonts();
 import "@/assets/scss/main.scss";
@@ -36,6 +35,7 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 
+import { myMixin } from "./mixins.js";
 
 // Dot ENV
 // require("dotenv").config();
@@ -49,6 +49,8 @@ const app = createApp(App)
   .use(Toast)
   .use(createMetaManager());
 // .mount("#app");
+
+app.mixin(myMixin);
 
 router.isReady();
 app.mount("#app");

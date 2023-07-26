@@ -108,10 +108,10 @@
 
 <script>
 import ProductVariants from "./ProductVariants.vue";
-import myMixin from "@/mixins.js";
+// import myMixin from "@/mixins.js";
 import productActions from "@/services/productActions";
 export default {
-  mixins: [myMixin],
+  // mixins: [myMixin],
   data: () => ({
     rating: 3.5,
     checkPower: null,

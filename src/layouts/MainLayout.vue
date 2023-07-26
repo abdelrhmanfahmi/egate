@@ -4,7 +4,7 @@
       content ? `${content} | E-Gate` : `E-Gate`
     }}</template>
   </metainfo>
-  <Navbar />
+  <Navbar :categories="categories" />
   <div class="App-wrapper">
     <transition
       name="router-animation"
@@ -52,6 +52,9 @@ export default {
   computed: {
     screenStatus() {
       return this.$store.getters.loadingScreen;
+    },
+    categories() {
+      return this.$store.getters["categories/categories"];
     },
   },
 };

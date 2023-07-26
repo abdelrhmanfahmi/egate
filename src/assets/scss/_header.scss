@@ -131,6 +131,7 @@ a {
 
     border: 1px solid $main-color;
     border-top: 5px solid $main-color;
+    cursor: default;
   }
   .header .menu > ul > li.menu-item-has-children {
     transition: all 0.3s ease-in-out;
@@ -208,13 +209,14 @@ a {
   display: flex;
   flex-wrap: wrap;
   padding: 20px 15px;
+  justify-content: space-between;
 }
 .header .menu > ul > li .sub-menu.mega-menu-column-4 > .list-item {
   flex: 0 0 25%;
   padding: 0 15px;
 }
 .header .menu > ul > li .sub-menu.mega-menu-column-4 > .list-item .title {
-  font-size: 16px;
+  font-size: 20px;
   color: #ea4636;
   font-weight: 500;
   line-height: 1;
@@ -233,8 +235,8 @@ a {
   max-width: 100%;
   width: 100%;
   vertical-align: middle;
-  margin-top: 10px;
-  height: 300px;
+  margin-top: 0px;
+  height: 100%;
   object-fit: cover;
 }
 .header .menu > ul > li .sub-menu.mega-menu > .list-item > ul > li > a:hover,

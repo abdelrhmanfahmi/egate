@@ -83,10 +83,10 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import myMixin from "@/mixins.js";
+// import myMixin from "@/mixins.js";
 import EmptyCart from "@/components/shared/Checkout/EmptyCart.vue"
 export default {
-  mixins: [myMixin],
+  // mixins: [myMixin],
   data() {
     return {
       sideVisible: false,

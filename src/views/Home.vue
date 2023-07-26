@@ -1,29 +1,59 @@
 <template>
   <div class="wrapper">
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <SliderCategories :categories="categories" />
+    </v-lazy>
     <!-- categories slider component  -->
-    <SliderCategories />
 
     <!-- todays offers  -->
-    <OffersComponent :sectionTitle="'Discount Products'" />
+
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <OffersComponent :sectionTitle="'Discount Products'" />
+    </v-lazy>
+    
 
     <!-- Promotions  -->
-    <Promotions />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <Promotions />
+    </v-lazy>
+    
     <!-- todays offers  -->
     <!-- <OffersComponent :sectionTitle="'Todays Offer'" :products="products" /> -->
 
+
     <!-- LargeCover  -->
-    <LargeCover :imageSrc="require('@/assets/images/home/largCover.png')" />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <LargeCover :imageSrc="require('@/assets/images/home/largCover.png')" />
+    </v-lazy>
+    
+
+
     <!-- top reviews  -->
-    <OffersComponent :sectionTitle="'Top Review'" />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <OffersComponent :sectionTitle="'Top Review'" />
+    </v-lazy>
+    
+
 
     <!-- tabs products slider  -->
-    <LargeTabsComponent />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <LargeTabsComponent />
+    </v-lazy>
+    
+
 
     <!-- LargeCover  -->
-    <SharedCover
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <SharedCover
       :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')"
     />
-    <ProductsLooking />
+    </v-lazy>
+    
+
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <ProductsLooking />
+    </v-lazy>
+    
   </div>
 </template>
 <script>
@@ -81,7 +111,7 @@ export default {
     this.$nextTick(() => {
       document.dispatchEvent(new Event("render-complete"));
     });
-    this.$store.dispatch('Auth/resetErrors')
+    this.$store.dispatch("Auth/resetErrors");
   },
   data() {
     return {
@@ -96,6 +126,9 @@ export default {
     products() {
       return this.$store.getters.products;
       // return this.$store.state.Products.products
+    },
+    categories() {
+      return this.$store.getters["Categories/categories"];
     },
   },
   setup() {
