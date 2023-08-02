@@ -58,7 +58,7 @@
           />
         </div>
       </v-container>
-      <ReviewModal />
+      <!-- <ReviewModal /> -->
     </v-app>
   </section>
 </template>
@@ -74,7 +74,7 @@ import CategoryProducts from "@/components/categories/CategoryProducts.vue";
 import sideFilters from "@/components/categories/sideBar.vue";
 import OffersComponent from "@/components/home/OffersComponent.vue";
 import Paginate from "@/components/shared/Paginate.vue";
-import ReviewModal from "@/components/shared/Modals/Product/ReturnProduct.vue";
+// import ReviewModal from "@/components/shared/Modals/Product/ReturnProduct.vue";
 
 import { useMeta } from "vue-meta";
 
@@ -87,7 +87,7 @@ export default {
     sideFilters,
     OffersComponent,
     Paginate,
-    ReviewModal,
+    // ReviewModal,
   },
   setup() {
     useMeta({
