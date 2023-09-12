@@ -79,9 +79,10 @@ export const Auth = {
 
       // await dispatch('LogIn', UserForm)
     },
+
     async Login({ commit }, User) {
       try {
-        await globalAxios.post("customer/login", User).then((res) => {
+        await globalAxios.post("auth/client/login", User).then((res) => {
           toast.success(`${res.data.message}`, {
             position: "top-right",
             transition: "slide",
@@ -132,6 +133,7 @@ export const Auth = {
         }
       }
     },
+
     async LogOut({ commit }) {
       let user = null;
       localStorage.removeItem('userInfo')

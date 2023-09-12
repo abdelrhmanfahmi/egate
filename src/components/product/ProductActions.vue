@@ -2,36 +2,40 @@
   <div>
     <div class="wrapper" v-if="product">
       <div class="rating">
-        <div class="aligned-row" v-if="product.reveiws">
-          <span><v-rating v-model="rating" half-increments disabled></v-rating></span>
-          <span class="text-gray mx-2" v-if="product.reveiws.total">({{ product.reveiws.total }} REWIEWS)</span>
+        <div class="aligned-row">
+          <span>
+            <v-rating v-model="rating" half-increments disabled></v-rating>
+          </span>
+          <span class="text-gray mx-2" >(54434 REWIEWS)</span>
           <!-- <pre>{{ rating }}</pre> -->
         </div>
       </div>
       <div class="productInfo">
-        <p class="productName" v-if="product.name">
+        <p class="productName" >
           {{ product.name }}
         </p>
-        <div class="product-price my-3" v-if="product.formatted_price">
-          <p>{{ product.formatted_price }}</p>
+        <div class="product-price my-3" v-if="totalPrice">
+          <p>EGP {{ totalPrice }}</p>
+        </div>
+        <div class="product-price my-3" v-else>
+          <p>EGP {{ product.product_price }}</p>
         </div>
       </div>
       <div class="productActions my-5 d-flex align-center">
-        <v-btn v-if="product.in_stock == true" variant="outlined" class="border-main mx-2"
+        <v-btn variant="outlined" class="border-main mx-2"
           @click="addProductToCart(product)"> {{ $t('cart.addToCart') }}
         </v-btn>
-        <v-btn v-if="product.in_stock == true" variant="outlined" class="bg-main mx-2"> Buy It Now </v-btn>
-        <div class="wrapper" v-if="product">
-
+        <v-btn variant="outlined" class="bg-main textCss mx-2"> Buy It Now </v-btn>
+        <div class="wrapper">
           <div class="icon-wishlist mx-2" @click="addToWishlist(product)"
             :class="{ 'in-wishlist': product.is_saved == true }"></div>
-
         </div>
       </div>
       <div class="productColors my-3">
-        <ProductVariants :product="product" />
+        <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)"/>
       </div>
-      <div class="productPower my-3">
+      
+      <!-- <div class="productPower my-3">
         <p>Power:</p>
         <div class="d-flex">
           <label><input type="radio" name="select" value="1.5 HP" v-model="checkPower" /><span>1.5 HP</span>
@@ -41,7 +45,8 @@
           <label><input type="radio" name="select" value="3 HP" v-model="checkPower" /><span>3 HP</span>
           </label>
         </div>
-      </div>
+      </div> -->
+      
     </div>
   </div>
 </template>
@@ -49,13 +54,15 @@
 <script>
 import ProductVariants from "./ProductVariants.vue";
 import myMixin from "@/mixins.js";
-import productActions from "@/services/productActions"
+// import productActions from "@/services/productActions"
 export default {
   mixins: [myMixin],
+  props:['product'],
   data: () => ({
     rating: 3.5,
     checkPower: null,
-    quantity: 1
+    quantity: 1,
+    totalPrice:0,
   }),
   components: {
     ProductVariants,
@@ -73,17 +80,28 @@ export default {
     },
     addToWishlist(product) {
       this.$store.dispatch('wishlist/addProductToWishlist', product)
-    }
-  },
-  props: {
-    product: {
-      type: Object
+    },
+    onUpdatePrice(newPrice){
+      this.totalPrice = newPrice+this.product.product_price;
+      // console.log(this.totalPrice , 'from product action');
+      // this.$emit('updatePrice' , this.totalPrice);
     }
   }
+  // props: {
+  //   product: {
+  //     type: Object
+  //   }
+  // }
 };
 </script>
 
 <style lang="scss" scoped>
+.textCss{
+  color: #fff;
+}
+p{
+  color: #000;
+}
 .mdi-heart-outline {
   color: $gray !important;
   font-size: 40px;

@@ -7,7 +7,7 @@
             <ProductSlider :product="product" />
           </v-col>
           <v-col cols="12" md="6" sm="12">
-            <ProductActions :product="product" />
+            <ProductActions :product="product"/>
           </v-col>
         </v-row>
         <ProductShippingInfo :product="product" />
@@ -32,12 +32,14 @@ export default {
     ProductInfo,
     RelatedProducts
   },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  }
+  // props: {
+  //   product: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // }
+
+  props:['product']
 };
 </script>
 

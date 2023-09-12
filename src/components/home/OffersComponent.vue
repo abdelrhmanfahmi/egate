@@ -13,26 +13,27 @@
       </div>
     </v-container>
     <!-- products slider  -->
-    <ProductsSlider :products="products" />
+    <ProductsSlider :productsCategory="productsCategory" />
   </div>
 </template>
 
 <script>
 import ProductsSlider from "@/components/shared/Products/ProductsSlider.vue";
 export default {
-  props: {
-    sectionTitle:{
-      type:String
-    },
-    seeMore:{
-      type:String,
-      default:'yes'
-    },
-    products:{
-      type:Array,
-      required:true
-    }
-  },
+  props:['productsCategory' , 'sectionTitle' , 'seeMore'],
+  // props: {
+  //   sectionTitle:{
+  //     type:String
+  //   },
+  //   seeMore:{
+  //     type:String,
+  //     default:'yes'
+  //   },
+  //   products:{
+  //     type:Array,
+  //     required:true
+  //   }
+  // },
   components: {
     ProductsSlider,
   },

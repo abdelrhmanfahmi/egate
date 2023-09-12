@@ -22,7 +22,7 @@ export const Categories = {
         getCategories({ commit }) {
 
             globalAxios
-                .get(`categories`)
+                .get(`client/categories`)
                 .then((res) => {
                     if (res.status == 200) {
                         commit('GET_CAREGORIES', res.data.data)
@@ -30,7 +30,7 @@ export const Categories = {
                 })
                 .catch((err) => {
                     const error = Object.values(err)[2].data;
-                    this.errMsg(error.message)
+                    // this.errMsg(error.message)
                 });
 
         },

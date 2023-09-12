@@ -68,7 +68,6 @@ export default {
     methods: {
         login() {
             this.$store.dispatch('Login', this.form)
-
         }
     },
     mounted() {

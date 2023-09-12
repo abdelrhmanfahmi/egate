@@ -12,7 +12,7 @@
             </template>
           </v-breadcrumbs>
         </v-container>
-        <ProductPage :product="product" />
+        <ProductPage :product="product"/>
       </v-app>
     </div>
   </div>
@@ -20,6 +20,7 @@
 
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
+import globalAxios from "@/services/global-axios";
 export default {
   data: () => ({
     items: [
@@ -40,8 +41,8 @@ export default {
         href: "breadcrumbs_link_2",
       },
     ],
-    product: null,
-    id: null
+    product: {},
+    id: null,
 
   }),
   components: {
@@ -56,28 +57,30 @@ export default {
       }
     },
     async getProduct() {
-      await this.$store.dispatch('getProduct', this.id)
+      const response = await globalAxios.get(`client/products/${this.id}`);
+      this.product = response.data.items;
+      // await this.$store.dispatch('getProduct', this.id)
     },
   },
   async mounted() {
     this.checkID()
     this.getProduct()
   },
-  computed: {
-    product() {
-      return this.$store.getters.product
-    }
-  },
-  created() {
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-        // this.id = this.$route.params.id
-        // this.getProduct()
-        location.reload()
-      }
-    )
-  },
+  // computed: {
+  //   product() {
+  //     return this.$store.getters.product
+  //   }
+  // },
+  // created() {
+  //   this.$watch(
+  //     () => this.$route.params,
+  //     (toParams, previousParams) => {
+  //       // this.id = this.$route.params.id
+  //       // this.getProduct()
+  //       location.reload()
+  //     }
+  //   )
+  // },
 };
 </script>
 

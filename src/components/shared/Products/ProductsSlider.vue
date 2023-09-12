@@ -4,7 +4,7 @@
       <section class="pb-5">
         <div class="">
           <swiper :spaceBetween="5" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
-            <swiper-slide v-for="(product, index) in products" :key="index">
+            <swiper-slide v-for="(product, index) in productsCategory" :key="index">
               <ProductCard :product="product" />
             </swiper-slide>
           </swiper>
@@ -57,12 +57,13 @@ export default {
       },
     };
   },
-  props: {
-    products: {
-      type: Array,
-      required:true
-    }
-  }
+  props:['productsCategory']
+  // props: {
+  //   products: {
+  //     type: Array,
+  //     required:true
+  //   }
+  // }
 };
 </script>
 

@@ -7,7 +7,7 @@
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
               :class="{ active: currentIndex == index }" href="#" v-for="(smPicture, index) in product.images" :key="index"
               @click.prevent="changePicture(index)">
-              <img :src="smPicture.original_image_url" width="75" height="75" alt="product side" class="p-0 m-0" />
+              <img :src="smPicture.full_url" width="75" height="75" alt="product side" class="p-0 m-0" />
             </a>
           </div>
         </v-col>
@@ -18,7 +18,7 @@
             <span class="product-label label-top position-absolute" v-if="product.status == 'top'">Top</span>
             <span class="product-label label-out position-absolute out-of-stock" v-if="product.in_stock == false">Out Of Stock</span>
 
-            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].original_image_url" :lazy-src="product.images[currentIndex].original_image_url" :src="product.images[currentIndex].original_image_url" alt="product"
+            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
               class="img-fluid"></v-img>
 
             <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
@@ -31,19 +31,19 @@
   </div>
 </template>
 <script>
-
+sm_pictures: []
 export default {
-  //   props: {
-  //     product: {
-  //       type: Object,
-  //       default: function () {
-  //         return {
-  //           sm_pictures: [],
-  //           pictures: [],
-  //         };
-  //       },
-  //     },
-  //   },
+    // props: {
+    //   product: {
+    //     type: Object,
+    //     default: function () {
+    //       return {
+    //         sm_pictures: '',
+    //         pictures: [],
+    //       };
+    //     },
+    //   },
+    // },
   data: function () {
     return {
       //   baseUrl: baseUrl,
@@ -79,12 +79,13 @@ export default {
       this.$refs.lightbox.showImage(this.currentIndex);
     },
   },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  },
+  props:['product']
+  // props: {
+  //   product: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
 };
 </script>
 <style lang="scss" scoped>

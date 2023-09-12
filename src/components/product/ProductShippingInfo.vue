@@ -100,6 +100,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p{
+  color: #000;
+}
 section {
   margin: 5% 0;
   .box-holder {

@@ -27,20 +27,30 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     'Accept': 'application/json',
+    'Content-Type' : 'application/json'
   },
 });
 
 globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (
-      (error.response.status == 403) ||
-      (error.response.status == 401)
-    ) {
+    // if (
+    //   (error.response.status == 403) ||
+    //   (error.response.status == 401)
+    // ) {
 
-      store.dispatch('auth/LogOut')
-      router.push(`/auth/login`)
-    }
+    //   store.dispatch('auth/LogOut')
+    //   router.push(`/auth/login`)
+    // }
+
+    if (
+        (error.request.status == 403) ||
+        (error.request.status == 401)
+      ) {
+  
+        store.dispatch('auth/LogOut')
+        router.push(`/auth/login`)
+      }
 
     return Promise.reject(error);
   }
