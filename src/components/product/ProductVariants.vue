@@ -53,11 +53,7 @@ export default {
         console.log(this.variants);
         this.$emit('updatePrice', this.totalPrice);
       }else{
-        let newArrFiltered = this.variants.filter(function(el){
-          return el.attribute_id != item.attribute_name_id && el.attribute_value_id != value.attribute_value_id;
-        });
-
-        this.removeObjectWithId(this.variants , item.attribute_name_id , value.attribute_value_id);
+        let newArrFiltered = this.removeObjectWithId(this.variants , item.attribute_name_id , value.attribute_value_id);
 
         const response = await globalAxios.get(`client/products/${this.id}/variant` , {params: {variants: JSON.stringify(newArrFiltered)}});
         this.totalPrice -= response.data.items.price;
