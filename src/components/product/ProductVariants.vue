@@ -38,7 +38,6 @@ export default {
       }
     },
     async selectColor(event,idx1 ,item , value){
-      // console.log(event , idx1,item,value);
       if(idx1 == event.target.getAttribute('dataname')){
         event.target.classList.toggle("active");
       }
@@ -58,12 +57,23 @@ export default {
           return el.attribute_id != item.attribute_name_id && el.attribute_value_id != value.attribute_value_id;
         });
 
+        this.removeObjectWithId(this.variants , item.attribute_name_id , value.attribute_value_id);
+
         const response = await globalAxios.get(`client/products/${this.id}/variant` , {params: {variants: JSON.stringify(newArrFiltered)}});
         this.totalPrice -= response.data.items.price;
         this.$emit('updatePrice', this.totalPrice);
 
         console.log(newArrFiltered);
       }
+    },
+    removeObjectWithId(arr, attribute_id , attribute_value_id) {
+      const objWithIdIndex = arr.findIndex((obj) => obj.attribute_id == attribute_id && obj.attribute_value_id == attribute_value_id);
+
+      if (objWithIdIndex > -1) {
+        arr.splice(objWithIdIndex, 1);
+      }
+
+      return arr;
     },
     // selectColor: function (item) {
     //   if (item == this.selectedVariant.color) {
