@@ -49,6 +49,7 @@ export default {
     ProductPage,
   },
   methods: {
+
     async checkID() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
@@ -56,33 +57,20 @@ export default {
         this.id = this.$route.query.id
       }
     },
+
     async getProduct() {
       localStorage.removeItem('dataProduct');
       const response = await globalAxios.get(`client/products/${this.id}`);
       this.product = response.data.items;
       localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
-      // await this.$store.dispatch('getProduct', this.id)
     },
   },
+
   async mounted() {
     this.checkID()
     this.getProduct()
-  },
-  // computed: {
-  //   product() {
-  //     return this.$store.getters.product
-  //   }
-  // },
-  // created() {
-  //   this.$watch(
-  //     () => this.$route.params,
-  //     (toParams, previousParams) => {
-  //       // this.id = this.$route.params.id
-  //       // this.getProduct()
-  //       location.reload()
-  //     }
-  //   )
-  // },
+  }
+  
 };
 </script>
 
