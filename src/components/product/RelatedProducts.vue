@@ -27,7 +27,8 @@ export default {
   },
   methods:{
     async getProductsPerCategory(){
-      this.category_ids = this.product.categories.map(function (el){
+      let productData = JSON.parse(localStorage.getItem('dataProduct'));
+      this.category_ids = productData.categories.map(function (el){
           return el.id;
       });
     
@@ -36,7 +37,8 @@ export default {
     },
 
     async getProductsPerBrand(){
-      const response = await globalAxios.get('client/products/relational/products' , {params: {brand_id: this.product.brand_id}});
+      let productData = JSON.parse(localStorage.getItem('dataProduct'));
+      const response = await globalAxios.get('client/products/relational/products' , {params: {brand_id: productData.brand_id}});
       this.productsBrand = response.data.items.data;
     }
   },

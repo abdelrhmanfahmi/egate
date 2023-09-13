@@ -57,8 +57,10 @@ export default {
       }
     },
     async getProduct() {
+      localStorage.removeItem('dataProduct');
       const response = await globalAxios.get(`client/products/${this.id}`);
       this.product = response.data.items;
+      localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
       // await this.$store.dispatch('getProduct', this.id)
     },
   },

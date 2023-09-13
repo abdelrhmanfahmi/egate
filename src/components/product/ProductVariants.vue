@@ -33,6 +33,10 @@ export default {
     this.checkIfProductHasVariant();
   },
 
+  updated(){
+    this.checkIfProductHasVariant();
+  },
+
   data() {
 
     return {
@@ -46,19 +50,22 @@ export default {
 
   methods: {
     async checkIfProductHasVariant(){
-      if(this.product.variants.length > 0){
-        let firstChoosenClasses = document.getElementsByClassName('choosen');
+      let productData = JSON.parse(localStorage.getItem('dataProduct'));
+      if(productData.variants.length > 0){
         let attributeArr = [];
+        let firstChoosenClasses = document.getElementsByClassName('choosen');
+
         for(let i = 0 ; i < firstChoosenClasses.length ; i++){
           attributeArr.push(firstChoosenClasses[i].getAttribute('dataname'));
         }
+        
         let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
 
-        await document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
-        await document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
+        document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
+        document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
       }
     },
-    
+
     async checkID() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
