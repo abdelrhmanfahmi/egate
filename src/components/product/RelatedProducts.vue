@@ -30,7 +30,7 @@ export default {
       this.category_ids = this.product.categories.map(function (el){
           return el.id;
       });
-      console.log(this.category_ids);
+    
       const response = await globalAxios.get('client/products/relational/products' , {params: {category_ids: this.category_ids}});
       this.productsCategory = response.data.items.data;
     },

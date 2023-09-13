@@ -59,7 +59,7 @@ export default {
     async getProduct() {
       const response = await globalAxios.get(`client/products/${this.id}`);
       this.product = response.data.items;
-      // await this.$store.dispatch('getProduct', this.id);
+      // await this.$store.dispatch('getProduct', this.id)
     },
   },
   async mounted() {

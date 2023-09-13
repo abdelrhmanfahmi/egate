@@ -10,8 +10,8 @@
               href="#"
               v-for="(value, idx) in variant.values"
               :key="idx"
-              :dataname="index"
               :class="'choosen '+ index"
+              :dataname="index"
               :dataAttributeId="variant.attribute_name_id"
               :dataAttributeValueId="value.attribute_value_id"
               :style="{ 'background-color': value.attribute_code }"
@@ -22,10 +22,6 @@
       </div>
     </div>
   </div>
-  <!-- :class="{
-                active: item == selectedVariant.color,
-                disabled: item.disabled,
-              }" -->
 </template>
 
 <script>
@@ -34,6 +30,7 @@ import globalAxios from '@/services/global-axios';
 export default {
   mounted(){
     this.checkID();
+    this.checkIfProductHasVariant();
   },
 
   data() {
@@ -48,6 +45,20 @@ export default {
   props:['product'],
 
   methods: {
+    async checkIfProductHasVariant(){
+      if(this.product.variants.length > 0){
+        let firstChoosenClasses = document.getElementsByClassName('choosen');
+        let attributeArr = [];
+        for(let i = 0 ; i < firstChoosenClasses.length ; i++){
+          attributeArr.push(firstChoosenClasses[i].getAttribute('dataname'));
+        }
+        let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
+
+        await document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
+        await document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
+      }
+    },
+    
     async checkID() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
@@ -57,9 +68,6 @@ export default {
     },
 
     async selectColor(event,idx1 ,item , value){
-
-      console.log('sayed here');
-
       if(idx1 == event.target.getAttribute('dataname')){
         this.totalPrice = 0;
         let choosenAttributeValues = document.getElementsByClassName('choosen ' + idx1);
@@ -75,7 +83,7 @@ export default {
         this.variants.push(newObj);
 
         const response = await globalAxios.get(`client/products/${this.id}/variant` , {params: {variants: JSON.stringify(this.variants)}});
-        this.totalPrice += response.data.items.price;
+        this.totalPrice = response.data.items.price;
         console.log(this.totalPrice , 'from product variant');
         console.log(this.variants);
         this.$emit('updatePrice', this.totalPrice);
@@ -88,9 +96,12 @@ export default {
       if (objWithIdIndex > -1) {
         arr.splice(objWithIdIndex, 1);
       }
-
       return arr;
     },
+
+    onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
   }
 };
 </script>

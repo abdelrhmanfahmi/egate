@@ -25,6 +25,7 @@ import ProductShippingInfo from "./ProductShippingInfo.vue";
 import ProductInfo from "./ProductInfo.vue";
 import RelatedProducts from "./RelatedProducts.vue";
 export default {
+  props:['product'],
   components: {
     ProductSlider,
     ProductActions,
@@ -32,14 +33,6 @@ export default {
     ProductInfo,
     RelatedProducts
   },
-  // props: {
-  //   product: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // }
-
-  props:['product']
 };
 </script>
 

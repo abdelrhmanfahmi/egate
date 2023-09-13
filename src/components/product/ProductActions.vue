@@ -35,18 +35,6 @@
         <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)"/>
       </div>
       
-      <!-- <div class="productPower my-3">
-        <p>Power:</p>
-        <div class="d-flex">
-          <label><input type="radio" name="select" value="1.5 HP" v-model="checkPower" /><span>1.5 HP</span>
-          </label>
-          <label><input type="radio" name="select" value="2 HP" v-model="checkPower" /><span>2 HP</span>
-          </label>
-          <label><input type="radio" name="select" value="3 HP" v-model="checkPower" /><span>3 HP</span>
-          </label>
-        </div>
-      </div> -->
-      
     </div>
   </div>
 </template>
@@ -82,16 +70,9 @@ export default {
       this.$store.dispatch('wishlist/addProductToWishlist', product)
     },
     onUpdatePrice(newPrice){
-      this.totalPrice = newPrice+this.product.product_price;
-      // console.log(this.totalPrice , 'from product action');
-      // this.$emit('updatePrice' , this.totalPrice);
+      this.totalPrice = newPrice;
     }
   }
-  // props: {
-  //   product: {
-  //     type: Object
-  //   }
-  // }
 };
 </script>
 
