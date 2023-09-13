@@ -3,16 +3,16 @@
     <div class="wrapper">
       <!-- <template v-if="product.variants.length > 0"> -->
       <div class="details-filter-row details-row-size">
-        <div class="product-nav product-nav-dots" v-for="(variant, index) in product.variants" :key="index">
-          <div v-for="(item, idx1) in variant.attributes" :key="item.attribute_name_id">
-              <label>{{ idx1 }}</label>
+        <div class="product-nav product-nav-dots" v-for="(variant, index) in product.variantData" :key="index">
+          <div>
+              <label>{{ index }}</label>
               <a
               href="#"
-              v-for="(value, idx2) in item.values"
-              :key="idx2"
-              :dataname="idx1"
+              v-for="(value, idx) in variant.values"
+              :key="idx"
+              :dataname="index"
               :style="{ 'background-color': value.attribute_code }"
-              @click.prevent="selectColor($event,idx1,item,value)"
+              @click.prevent="selectColor($event,index,variant,value)"
             ></a>
           </div>
         </div>

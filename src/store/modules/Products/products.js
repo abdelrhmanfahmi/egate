@@ -43,13 +43,11 @@ export const Products = {
 
         },
         async getProduct({ commit } , productId ) {
-
             await globalAxios
                 .get(`client/products/${productId}`)
                 .then((res) => {
                     if (res.status == 200) {
-                        commit('GET_PRODUCT', res.data)
-                        console.log(res.data);
+                        commit('GET_PRODUCT', res.data);
                     }
                 })
                 .catch((err) => {

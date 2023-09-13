@@ -17,7 +17,7 @@ export default {
   data(){
     return {
       productsCategory:[],
-      productsBrand:[],
+      productsBrand:[]
     }
   },
   mounted(){
@@ -26,7 +26,10 @@ export default {
   },
   methods:{
     async getProductsPerCategory(){
-      const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: 1}});
+      let category_ids = this.product.categories.map(function (el){
+          return el.id;
+      });
+      const response = await globalAxios.get('client/products/relational/products' , {params: {category_ids: category_ids}});
       this.productsCategory = response.data.items.data;
     },
 
@@ -39,13 +42,7 @@ export default {
     OffersComponent,
     OffersComponentBrand
   },
-  props:['product']
-  // props: {
-  //   product: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // }
+  props:['product'],
 };
 </script>
 
