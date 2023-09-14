@@ -1,14 +1,22 @@
 <template>
   <section class="homeMainSlider">
-    <swiper v-bind="options" :modules="modules" class="mySwiper">
-      <swiper-slide v-for="(slider , index) in sliders" :key="index">
-        <img
-          :src="slider.image_url"
-          :lazy-src="slider.image_url"
-          v-if="slider.image_url"
-        />
-      </swiper-slide>
-    </swiper>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="auto" md="3">
+          <SliderCategoryComponent :categories="categories"/>
+        </v-col>
+        <v-col cols="auto" md="9">
+          <swiper v-bind="options" :modules="modules" class="mySwiper">
+            <swiper-slide v-for="(banner , index) in banners" :key="index">
+              <img
+                :src="banner.image"
+                :lazy-src="banner.image"
+              />
+            </swiper-slide>
+          </swiper>
+        </v-col>
+      </v-row>
+    </v-container>
   </section>
 </template>
 <script>
@@ -17,21 +25,18 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 
 // import required modules
 import { Pagination , Autoplay } from "swiper";
+import SliderCategoryComponent from './SliderCategoryComponent.vue';
+import home from "@/services/home";
 
 export default {
-  components: {
-    Swiper,
-    SwiperSlide, 
+  mounted(){
+    this.getCategories();
   },
-  setup() {
-    return {
-      modules: [Pagination , Autoplay],
-    };
-  },
+
   data() {
     return {
       options: {
-        slidesPerView: 1.25,
+        slidesPerView: 1,
         spaceBetween: 30,
         activeIndex:1,
         loop: true,
@@ -48,16 +53,41 @@ export default {
         fadeEffect: {
           crossFade: true,
         },
-
-        // navigation: true,
       },
+
+      categories:[]
     };
   },
-  props:{
-    sliders:{
-      type:Array
+
+  props:['banners'],
+
+  methods:{
+    async getCategories(){
+      const response = await home.getCategories().then(res => {
+        this.categories = res.data.items.data;
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+
+  components: {
+    Swiper,
+    SwiperSlide, 
+    SliderCategoryComponent
+  },
+
+  setup() {
+    return {
+      modules: [Pagination , Autoplay],
+    };
   }
-  
+
 };
 </script>
+
+<style scoped lang="scss">
+  p{
+    color: #000;
+  }
+</style>

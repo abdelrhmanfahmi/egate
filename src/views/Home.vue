@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <!-- HomeMainSlider  -->
-    <HomeMainSlider :sliders="sliders" v-if="sliders" />
+    <HomeMainSlider :banners="bannersImages" v-if="bannersImages"/>
     <!-- Promotions  -->
     <Promotions />
     <!-- todays offers  -->
@@ -30,7 +30,7 @@ import SharedCover from "@/components/shared/SharedCover.vue";
 import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
-import home from "@/services/home"
+import home from "@/services/home";
 
 export default {
   components: {
@@ -43,34 +43,26 @@ export default {
     ProductsLooking,
   },
   methods: {
-    async getHomeMainSlider() {
-      await home.homeMainSlider().then(res => {
-        this.sliders = res.data.data
+    async getBanners() {
+      await home.getBanners().then(res => {
+        this.bannersImages = res.data.items.data;
       }).catch(err => {
         console.log(err)
       })
     },
-    async getGallary() {
-      await home.getGallary().then(res => {
-        this.galleryImages = res.data.data
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+
     async getHomeProducts() {
       await this.$store.dispatch('getProducts')
     },
     
   },
   mounted() {
-    this.getHomeMainSlider()
-    this.getGallary()
+    this.getBanners()
     this.getHomeProducts()
   },
   data() {
     return {
-      sliders: null,
-      galleryImages: null,
+      bannersImages: null,
       test:{
         key:'en'
       }

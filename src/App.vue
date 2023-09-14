@@ -50,6 +50,10 @@ export default {
   width: 5px;
 }
 
+body{
+  background: #F0F2F5 0% 0% no-repeat padding-box !important;
+}
+
 ::-moz-scrollbar {
   width: 5px;
 }
