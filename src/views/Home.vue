@@ -2,15 +2,18 @@
   <div class="wrapper">
     <!-- HomeMainSlider  -->
     <HomeMainSlider :banners="bannersImages" v-if="bannersImages"/>
+
+    <!-- todays offers  -->
+    <offersComponentHome :sectionTitle="'Todays Offer'" :products="products" />
+
     <!-- Promotions  -->
     <Promotions />
-    <!-- todays offers  -->
-    <OffersComponent :sectionTitle="'Todays Offer'" :products="products" />
 
     <!-- LargeCover  -->
     <LargeCover :imageSrc="require('@/assets/images/home/largCover.png')" />
+
     <!-- top reviews  -->
-    <OffersComponent :sectionTitle="'Top Review'" />
+    <!-- <OffersComponent :sectionTitle="'Top Review'" /> -->
 
     <!-- tabs products slider  -->
     <LargeTabsComponent />
@@ -23,7 +26,7 @@
 <script>
 import HomeMainSlider from "@/components/home/HomeMainSlider.vue";
 import Promotions from "@/components/home/Promotions.vue";
-import OffersComponent from "@/components/home/OffersComponent.vue";
+import offersComponentHome from "@/components/home/offersComponentHome.vue";
 
 import LargeCover from "@/components/home/LargeCover.vue";
 import SharedCover from "@/components/shared/SharedCover.vue";
@@ -36,7 +39,7 @@ export default {
   components: {
     HomeMainSlider,
     Promotions,
-    OffersComponent,
+    offersComponentHome,
     LargeCover,
     SharedCover,
     LargeTabsComponent,
@@ -52,26 +55,27 @@ export default {
     },
 
     async getHomeProducts() {
-      await this.$store.dispatch('getProducts')
+      await home.homeProducts().then(res => {
+        this.products = res.data.items.data;
+      }).catch(err => {
+        console.log(err)
+      })
     },
     
   },
+  
   mounted() {
-    this.getBanners()
-    this.getHomeProducts()
+    this.getBanners();
+    this.getHomeProducts();
   },
+
   data() {
     return {
       bannersImages: null,
+      products:[],
       test:{
         key:'en'
       }
-    }
-  },
-  computed:{
-    products(){
-      return this.$store.getters.products
-      // return this.$store.state.Products.products
     }
   }
 };
