@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-      <v-container>
+      <v-container fluid>
         <div class="d-flex justify-space-between align-center">
           <div class="section-title">
             <h3>{{ sectionTitle }}</h3>

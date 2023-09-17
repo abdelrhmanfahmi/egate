@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app >
-      <v-container>
+      <v-container fluid>
         <v-row>
           <v-col cols="12" md="6" sm="12">
             <ProductSlider :product="product" />

@@ -5,12 +5,12 @@
         <div class="top-data-holder d-flex justify-space-between align-center">
           <div class="discount-quantity">
             <div class="product-discount"><small>-20%</small></div> 
-            <div class="product-quantity"><small v-if="product.in_stock == true">in stock</small></div>
+            <div class="product-quantity"><small >in stock</small></div>
           </div>
-          <!-- <div class="product-rating d-flex justify-center align-center flex-column" v-if="product.reviews.average_rating >=0">
+          <div class="product-rating d-flex justify-center align-center flex-column">
             <span class="icon"><v-icon icon="mdi-star"></v-icon></span>
-            <p class="rating-number">{{ product.reviews.average_rating }}</p>
-          </div> -->
+            <p class="rating-number">4</p>
+          </div>
         </div>
       </router-link>
 
@@ -24,17 +24,23 @@
         </router-link>
       </div>
       <div class="product-info">
-        <!-- <router-link :to="{name:'productPage', params:{id:product.id}}">
+        <template v-if="product.categories != null">
+          <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'productPage', params:{id:category.id}}">
+            <p class="cat-name" v-if="category != null" > {{category.name_en.toUpperCase()}} </p>
+            <p class="product-name">{{ product.name_en }}</p>
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link to="/">
+            <p class="cat-name"> Category Name </p>
+            <p class="product-name">{{ product.name_en }}</p>
+          </router-link>
+        </template>
         
-          <p class="cat-name" v-if="product.category_name">{{product.category_name}}</p>
-          <p class="product-name">
-            {{product.price}}
-          </p>
-        </router-link> -->
         <v-row class="aligned-row mt-1 mb-3 " >
           <v-col cols="6" lg="6" md="6" sm="6" >
-            <p class="price-after-desc" v-if="product.product_price < product.product_price && product.product_price">{{product.product_price}}</p>
-            <p class="product-price">{{product.product_price}}</p>
+            <p class="price-after-desc" v-if="product.product_price <= product.price">EGP {{product.price}}</p>
+            <p class="product-price">EGP {{product.product_price}}</p>
           </v-col>
           <v-col cols="6" lg="6" md="6" sm="6" >
             <v-button class="addToCartBtn" @click="addProductToCart(product)">

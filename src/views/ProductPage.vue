@@ -2,7 +2,7 @@
   <div>
     <div class="wrapper">
       <v-app >
-        <v-container>
+        <v-container fluid>
           <v-breadcrumbs :items="items">
             <template v-slot:prepend>
               <v-icon size="small" icon="mdi-home"></v-icon>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <section >
       <OffersComponent :productsCategory="productsCategory" :sectionTitle="'More About Air Conditioner'" />
     </section>

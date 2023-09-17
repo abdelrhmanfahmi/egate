@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="wrapper" v-if="product">
-      <!-- <div class="rating">
+      <div class="rating">
         <div class="aligned-row">
           <span>
-            <v-rating v-model="rating" half-increments disabled></v-rating>
+            <v-rating v-model="rating" half-increments disabled color="blue"></v-rating>
           </span>
-          <span class="text-gray mx-2" >(54434 REWIEWS)</span>
-          <pre>{{ rating }}</pre>
+          <span class="text-gray mx-2 styleCssReview">
+            (54434 REWIEWS)
+          </span>
         </div>
-      </div> -->
+      </div>
       <div class="productInfo">
         <p class="productName" >
           {{ product.name }}
@@ -77,6 +78,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.styleCssReview{
+  font-size: 13px;
+}
 .textCss{
   color: #fff;
 }

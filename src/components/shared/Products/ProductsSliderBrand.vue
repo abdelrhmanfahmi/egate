@@ -1,6 +1,6 @@
 <template>
     <div class="products-slider-wrapper">
-      <v-container>
+      <v-container fluid>
         <section class="pb-5">
           <div class="">
             <swiper :spaceBetween="5" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
@@ -46,11 +46,11 @@
               spaceBetween: 10,
             },
             1200:{
-              slidesPerView:3,
+              slidesPerView:4,
               spaceBetween:10
             },
             1500:{
-              slidesPerView:3,
+              slidesPerView:5,
               spaceBetween:10
             }
           },
