@@ -20,37 +20,12 @@
 
             <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
               class="img-fluid"></v-img>
-
               <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
-              <i class="icon-arrows"></i>
-            </a>
+                <i class="icon-arrows"></i>
+              </a>
           </figure>
         </v-col>
       </v-row>
-
-      <!-- <v-row class="">
-        <v-col cols="12" md="2" sm="12" class="thumbnails-holder">
-          <div id="product-zoom-gallery" class="product-image-gallery">
-            <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
-              :class="{ active: currentIndex == index }" href="#" v-for="(smPicture, index) in images" :key="index"
-              @click.prevent="changePicture(index)">
-              <img :src="smPicture" width="75" height="75" alt="product side" class="p-0 m-0" />
-            </a>
-          </div>
-        </v-col>
-        <v-col cols="12" md="10" sm="12" class="main-image-holder">
-          <figure class="product-main-image position-relative">
-            <span class="product-label label-new position-absolute">New</span>
-
-            <v-img id="product-zoom" v-if="images && images[currentIndex] && images[currentIndex]" :lazy-src="images[currentIndex]" :src="images[currentIndex]" alt="product"
-              class="img-fluid"></v-img>
-
-            <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
-              <i class="icon-arrows"></i>
-            </a>
-          </figure>
-        </v-col>
-      </v-row> -->
     </div>
   </div>
 </template>
