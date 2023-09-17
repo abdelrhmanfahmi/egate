@@ -10,11 +10,11 @@
       <v-col cols="12" md="6" sm="12">
         <h3>Details</h3>
         <v-row>
-          <v-col md="6" sm="6" xs="12" v-for="(option , i) in product.options" :key="i">
+          <v-col md="6" sm="6" xs="12" v-for="i in 8" :key="i">
             <div class="productInfo">
               <div class="d-flex">
                 <span>
-                  <v-icon icon="mdi-check" class="main-color"></v-icon>
+                  <v-icon icon="mdi-check" class="second-color"></v-icon>
                 </span>
                 <span>
                   <h5 class="productProperty text-gray">Type</h5>

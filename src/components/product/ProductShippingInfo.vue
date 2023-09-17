@@ -17,7 +17,7 @@
               <font-awesome-icon icon="fa-solid fa-store" class="mx-1" />Sold
               By:
             </p>
-            <p>Velocity</p>
+            <p>E-Gate</p>
           </div>
         </div>
       </section>
@@ -107,7 +107,7 @@ section {
   margin: 5% 0;
   .box-holder {
     border: 1px solid $main-color;
-    padding: 25px;
+    padding: 15px;
     border-radius: 20px;
     min-height: 130px;
     height: auto;

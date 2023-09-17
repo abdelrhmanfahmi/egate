@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="card-wrapper" v-if="product">
-      <router-link :to="{name:'productPage', params:{id:product.id}}">
+    <div class="card-wrapper">
+      <router-link to="/">
         <div class="top-data-holder d-flex justify-space-between align-center">
           <div class="discount-quantity">
             <div class="product-discount"><small>-20%</small></div> 
@@ -14,7 +14,7 @@
         </div>
       </router-link>
 
-      <div class="product-image-wrapper"> -->
+      <div class="product-image-wrapper">
         <router-link :to="{name:'productPage', params:{id:product.id}}">
         
           <img
@@ -41,7 +41,7 @@
               <span class="icon">
                 <v-icon icon="mdi-cart-outline"></v-icon>
               </span>
-              {{ $t('cart.addToCart') }}</v-button
+              {{ $t("cart.addToCart") }}</v-button
             >
           </v-col>
         </v-row>
@@ -66,7 +66,8 @@
             </v-col>
             <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
               <v-button class="compareBtn actionBtn">
-                <span class="icon"> <font-awesome-icon icon="fa-solid fa-code-compare" /> </span
+                <span class="icon">
+                  <font-awesome-icon icon="fa-solid fa-code-compare" /> </span
                 >compare</v-button
               >
             </v-col>
@@ -79,21 +80,21 @@
 
 <script>
 export default {
-  props:['id' , 'product'],
-  data(){
+  props: ["id", "product"],
+  data() {
     return {
-      quantity:1
-    }
+      quantity: 1,
+    };
   },
-  methods:{
+  methods: {
     addProductToCart(product) {
       let data = {
         product: product,
         quantity: this.quantity,
-      }
-      this.$store.dispatch('cart/addProductToCart',data)
+      };
+      this.$store.dispatch("cart/addProductToCart", data);
     },
-  }
+  },
 };
 </script>
 
@@ -108,6 +109,7 @@ p{
   padding: 10px;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  background: #fff;
 
   &:hover {
     box-shadow: 0px 0px 10px rgb(55 54 45 / 12%);

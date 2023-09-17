@@ -391,25 +391,25 @@ export default {
 <style lang="scss" scoped>
 @import url("@/assets/scss/_filtersStyle.scss");
 .categories-page {
-  width: 80%;
-  position: relative;
+  width: 92%;
+  // position: relative;
   height: 100%;
   margin: 0 0;
-  .filter-item{
-
+  .filter-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
-    .item-count{
+    .item-count {
       background: $main-color;
-      color: #000;
+      color: #fff;
       padding: 3px;
       border-radius: 3px;
     }
   }
   //padding: 14px 0;
   //overflow-y: scroll;
+  //
   &::-webkit-scrollbar {
     width: 0.5em;
     height: 0.5em;
@@ -424,13 +424,17 @@ export default {
     }
   }
   .filterText {
+    // position: absolute;
+    // right: -34%;
+    // top: 50%;
+    // transform: translate(-34%, -50%) rotate(90deg);
 
+    // color: #9C9A8A;
+    color: #a3a3a1;
     position: absolute;
-    right: -34%;
+    right: -3%;
     top: 50%;
-    transform: translate(-34%, -50%) rotate(90deg);
-
-
+    transform: rotate(90deg) translate(-3%, -50%);
   }
 }
 </style>

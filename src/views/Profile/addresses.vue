@@ -68,14 +68,16 @@
             v-model="form.country"
           ></v-select>
           <!-- state  -->
-          <label for="state">State/Province <span class="required">*</span></label>
+          <label for="state"
+            >State/Province <span class="required">*</span></label
+          >
           <v-select
             label="Year"
             hide-details="true"
             :items="['cairo', 'cairo', 'cairo', 'cairo', 'cairo', 'cairo']"
             v-model="form.state"
           ></v-select>
-          <button type="submit" class="mt-2 buy-btn text-black w-50">Save Changes</button>
+          <button type="submit" class="mt-2 buy-btn w-50">Save Changes</button>
         </v-form>
       </div>
     </div>
@@ -83,6 +85,7 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
   data() {
     return {
@@ -95,6 +98,12 @@ export default {
         state: null,
       },
     };
+  },
+  setup() {
+    useMeta({
+      title: "Profile Addresses",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>

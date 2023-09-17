@@ -5,15 +5,15 @@ import store from "../store"
 let lang = null;
 lang = localStorage.getItem("lang") || "en";
 
-let userExist = localStorage.getItem("buyerUserData");
+// let userExist = localStorage.getItem("EGate-userInfo");
 
 const getToken = function () {
   if (
-    localStorage.getItem("userInfo") &&
-    localStorage.getItem("userInfo") != "undefined" &&
-    localStorage.getItem("userInfo") != undefined
+    localStorage.getItem("EGate-userInfo") &&
+    localStorage.getItem("EGate-userInfo") != "undefined" &&
+    localStorage.getItem("EGate-userInfo") != undefined
   ) {
-    let hasToken = JSON.parse(localStorage.getItem("userInfo"));
+    let hasToken = JSON.parse(localStorage.getItem("EGate-userInfo"));
     return hasToken ? `Bearer ${hasToken.token}` : "";
   }
   return "";
@@ -34,15 +34,6 @@ const globalAxios = axios.create({
 globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    // if (
-    //   (error.response.status == 403) ||
-    //   (error.response.status == 401)
-    // ) {
-
-    //   store.dispatch('auth/LogOut')
-    //   router.push(`/auth/login`)
-    // }
-
     if (
         (error.request.status == 403) ||
         (error.request.status == 401)

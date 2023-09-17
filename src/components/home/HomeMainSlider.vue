@@ -44,9 +44,9 @@ export default {
           clickable: true,
         },
         centeredSlides: true,
-        speed:300,
-        direction: 'horizontal',
-        zoom:true,
+        speed: 300,
+        direction: "horizontal",
+        zoom: true,
         autoplay: {
           delay: 5000,
         },

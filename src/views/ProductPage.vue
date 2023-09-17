@@ -20,7 +20,6 @@
 
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
-import globalAxios from "@/services/global-axios";
 export default {
   data: () => ({
     items: [
@@ -69,8 +68,22 @@ export default {
   async mounted() {
     this.checkID()
     this.getProduct()
-  }
-  
+  },
+  computed: {
+    product() {
+      return this.$store.getters.product
+    }
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        // this.id = this.$route.params.id
+        // this.getProduct()
+        location.reload()
+      }
+    )
+  },
 };
 </script>
 

@@ -21,19 +21,6 @@
 import ProductsSlider from "@/components/shared/Products/ProductsSlider.vue";
 export default {
   props:['productsCategory' , 'sectionTitle' , 'seeMore'],
-  // props: {
-  //   sectionTitle:{
-  //     type:String
-  //   },
-  //   seeMore:{
-  //     type:String,
-  //     default:'yes'
-  //   },
-  //   products:{
-  //     type:Array,
-  //     required:true
-  //   }
-  // },
   components: {
     ProductsSlider,
   },

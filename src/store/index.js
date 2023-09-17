@@ -2,15 +2,15 @@ import { createStore } from "vuex";
 import cart from "./modules/cart";
 import wishlist from "./modules/wishlist";
 //add products as module
-import { Auth } from "./modules/Auth/auth";
+import  Auth  from "./modules/Auth/auth";
 import { Products } from "./modules/Products/products";
 import { Categories } from "./modules/Categories/categories";
 export default createStore({
   state: {
     userInfo:
-      localStorage.getItem("userInfo") &&
-        localStorage.getItem("userInfo") != "undefined"
-        ? JSON.parse(localStorage.getItem("userInfo"))
+      localStorage.getItem("EGate-userInfo") &&
+        localStorage.getItem("EGate-userInfo") != "undefined"
+        ? JSON.parse(localStorage.getItem("EGate-userInfo"))
         : null,
     loadingScreen: false
 
@@ -35,7 +35,7 @@ export default createStore({
     getuserInfo({ commit }) {
       auth.getuserInfo().then((res) => {
         commit("SET_USER_DATA_INFO", res.data.items);
-        localStorage.setItem("userInfo", JSON.stringify(res.data.items));
+        localStorage.setItem("EGate-userInfo", JSON.stringify(res.data.items));
       });
     },
     changeLoadingScreen({ commit }, value) {

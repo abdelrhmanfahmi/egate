@@ -1,20 +1,20 @@
 import { useToast } from 'vue-toastification'
 const toast = useToast()
-export default {
+export const myMixin = {
   computed: {
     getDir() {
       return document.documentElement.dir;
     },
     // is we have user
     isLoggined() {
-      if (localStorage.getItem("userInfo")) {
+      if (localStorage.getItem("EGate-userInfo")) {
         return true;
       } else {
         return false;
       }
     },
     mainDoamin() {
-      return process.env.VUE_APP_DOMAIN_NAME;
+      return process.env.VUE_APP_AXSIOS_LINK;
     },
 
     currentLang() {

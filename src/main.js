@@ -19,7 +19,6 @@ if (lang === "ar") {
   document.documentElement.dir = "rtl";
 }
 
-
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -34,20 +33,32 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 library.add(fas, fab);
+import { createMetaManager } from "vue-meta";
 
-loadFonts();  
+loadFonts();
 import "@/assets/scss/main.scss";
 import "./plugins/swipper";
-
-
 
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 
-createApp(App)
+import { myMixin } from "./mixins.js";
+
+// Dot ENV
+// require("dotenv").config();
+
+const app = createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
-  .use(router).use(i18n)
+  .use(router)
+  .use(i18n)
   .use(store)
-  .use(vuetify).use(Toast)
-  .mount("#app");
+  .use(vuetify)
+  .use(Toast)
+  .use(createMetaManager());
+// .mount("#app");
+
+app.mixin(myMixin);
+
+router.isReady();
+app.mount("#app");

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="wrapper">
+    <div class="wrapper tabs-component">
       <v-container>
         <v-row justify="center">
-          <v-col cols="12" xl="3" lg="4" md="2" sm="12">
+          <v-col cols="12" xl="3" lg="4" md="4" sm="12">
             <div class="sidePromotionHolder">
-              <v-row justify="space-between" align="center">
+              <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
                   <h3 class="m-0">Special Offer</h3>
                 </v-col>
@@ -18,10 +18,10 @@
               </v-row>
               <div class="imageHolder">
                 <v-img
-                  src="@/assets/images/home/Image20.png"
+                  src="https://cdn.vox-cdn.com/thumbor/vabx-KeOe5GULF4lqyITVmXMU6I=/0x0:1600x800/1400x788/filters:focal(800x400:801x401)/cdn0.vox-cdn.com/uploads/chorus_asset/file/8853589/google_ai_photography_street_view_2.jpg"
                   class="image-fluid"
-                  lazy-src="@/assets/images/home/Image20.png"
-                ></v-img>
+                  ></v-img>
+                  <!-- lazy-src="@/assets/images/home/Image20.png" -->
               </div>
               <div class="description">
                 <h4>Game Console Controller + Usb 3.0 Cable</h4>
@@ -63,7 +63,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" xl="9" lg="8" md="10" sm="12">
+          <v-col cols="12" xl="9" lg="8" md="8" sm="12">
             <v-tabs
               v-model="tab"
               color="deep-purple-accent-4"
@@ -130,7 +130,7 @@ export default {
 
 <style lang="scss" scoped>
 .saveMony {
-  background: $main-color;
+  background: $second-color;
   color: #000;
     padding: 20px;
     width: 100px;
@@ -144,8 +144,9 @@ export default {
 }
 .sidePromotionHolder {
   text-align: center;
-  border: 2px solid $main-color;
+  border: 2px solid $second-color;
   padding: 20px;
   border-radius: 20px;
+  background: #fff;
 }
 </style>

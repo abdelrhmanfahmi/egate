@@ -42,26 +42,26 @@
         <span class="myhr"></span>
         <div class="actions">
           <v-row>
-            <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
+            <v-col cols="12" md="6" sm="12" class="pr-0 pl-0 m-0">
               <v-button class="quickViewBtn actionBtn"
                 ><span class="icon">
                   <v-icon icon="mdi-eye-outline"></v-icon> </span
                 >quick view</v-button
               >
             </v-col>
-            <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
+            <v-col cols="12" md="6" sm="12" class="pr-0 pl-0 m-0">
               <v-button class="wishlistBtn actionBtn">
                 <span class="icon">
                   <v-icon icon="mdi-heart-outline"></v-icon> </span
                 >add to wishlist</v-button
               >
             </v-col>
-            <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
+            <!-- <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
               <v-button class="compareBtn actionBtn">
                 <span class="icon"> <font-awesome-icon icon="fa-solid fa-code-compare" /> </span
                 >compare</v-button
               >
-            </v-col>
+            </v-col> -->
           </v-row>
         </div>
       </div>

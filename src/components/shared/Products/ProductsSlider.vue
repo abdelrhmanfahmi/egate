@@ -42,7 +42,7 @@ export default {
           },
 
           991: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 10,
           },
           1200:{
@@ -58,12 +58,6 @@ export default {
     };
   },
   props:['productsCategory']
-  // props: {
-  //   products: {
-  //     type: Array,
-  //     required:true
-  //   }
-  // }
 };
 </script>
 

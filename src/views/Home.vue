@@ -16,15 +16,28 @@
     <!-- <OffersComponent :sectionTitle="'Top Review'" /> -->
 
     <!-- tabs products slider  -->
-    <LargeTabsComponent />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <LargeTabsComponent />
+    </v-lazy>
+    
+
 
     <!-- LargeCover  -->
-    <SharedCover :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')" />
-    <ProductsLooking />
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <SharedCover
+      :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')"
+    />
+    </v-lazy>
+    
+
+    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+      <ProductsLooking />
+    </v-lazy>
+    
   </div>
 </template>
 <script>
-import HomeMainSlider from "@/components/home/HomeMainSlider.vue";
+import SliderCategories from "@/components/home/SliderCategories.vue";
 import Promotions from "@/components/home/Promotions.vue";
 import offersComponentHome from "@/components/home/offersComponentHome.vue";
 
@@ -34,10 +47,11 @@ import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
 import home from "@/services/home";
+import { useMeta } from "vue-meta";
 
 export default {
   components: {
-    HomeMainSlider,
+    SliderCategories,
     Promotions,
     offersComponentHome,
     LargeCover,
@@ -61,7 +75,6 @@ export default {
         console.log(err)
       })
     },
-    
   },
   
   mounted() {
