@@ -1,7 +1,7 @@
 <template>
   <div class="product-gallery product-gallery-vertical">
     <div class="row m-0">
-      <!-- <v-row class="">
+      <v-row class="">
         <v-col cols="12" md="2" sm="12" class="thumbnails-holder">
           <div id="product-zoom-gallery" class="product-image-gallery">
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
@@ -21,13 +21,14 @@
             <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
               class="img-fluid"></v-img>
 
-            <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
+              <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
               <i class="icon-arrows"></i>
             </a>
           </figure>
         </v-col>
-      </v-row> -->
-      <v-row class="">
+      </v-row>
+
+      <!-- <v-row class="">
         <v-col cols="12" md="2" sm="12" class="thumbnails-holder">
           <div id="product-zoom-gallery" class="product-image-gallery">
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
@@ -49,51 +50,18 @@
             </a>
           </figure>
         </v-col>
-      </v-row>
+      </v-row> -->
     </div>
   </div>
 </template>
 <script>
 sm_pictures: []
 export default {
-    // props: {
-    //   product: {
-    //     type: Object,
-    //     default: function () {
-    //       return {
-    //         sm_pictures: '',
-    //         pictures: [],
-    //       };
-    //     },
-    //   },
-    // },
   data: function () {
     return {
-      //   baseUrl: baseUrl,
       currentIndex: 0,
-      images: [
-        "https://drive.google.com/uc?id=1-qzpXz-6SaqM3IPlQl_d9YXaPaBPw1xi",
-        "https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq",
-        "https://drive.google.com/uc?id=1MIbogRkUdngQXnaXT8Mufup-7CScTNRj",
-        "https://drive.google.com/uc?id=1a_w8OcDV-IA5UMz7usKtO_lXf0YSee3u",
-        "https://drive.google.com/uc?id=1gLp3gryMbGYpgAfAtnDGccME1lCzEyUU",
-      ],
     };
   },
-  //   computed: {
-  //     lightBoxMedia: function () {
-  //       return this.product.pictures.reduce((acc, cur) => {
-  //         return [
-  //           ...acc,
-  //           {
-  //             thumb: `${baseUrl}${cur.url}`,
-  //             src: `${baseUrl}${cur.url}`,
-  //             caption: this.product.name,
-  //           },
-  //         ];
-  //       }, []);
-  //     },
-  //   },
   methods: {
     changePicture: function (index) {
       this.currentIndex = index;

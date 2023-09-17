@@ -10,7 +10,7 @@
       <v-col cols="12" md="6" sm="12">
         <h3>Details</h3>
         <v-row>
-          <v-col md="6" sm="6" xs="12" v-for="i in 8" :key="i">
+          <v-col md="6" sm="6" xs="12" v-for="(option , index) in product.options" :key="index">
             <div class="productInfo">
               <div class="d-flex">
                 <span>
@@ -167,12 +167,6 @@ export default {
     }
   },
   props:['product']
-  // props: {
-  //   product: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // }
 };
 </script>
 

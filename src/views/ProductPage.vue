@@ -20,6 +20,9 @@
 
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
+import globalAxios from "@/services/global-axios";
+import {useMeta} from "vue-meta";
+
 export default {
   data: () => ({
     items: [
@@ -40,13 +43,21 @@ export default {
         href: "breadcrumbs_link_2",
       },
     ],
+
     product: {},
     id: null,
 
   }),
+
+  mounted() {
+    this.checkID()
+    this.getProduct()
+  },
+
   components: {
     ProductPage,
   },
+
   methods: {
 
     async checkID() {
@@ -58,32 +69,13 @@ export default {
     },
 
     async getProduct() {
-      localStorage.removeItem('dataProduct');
       const response = await globalAxios.get(`client/products/${this.id}`);
       this.product = response.data.items;
       localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
     },
-  },
 
-  async mounted() {
-    this.checkID()
-    this.getProduct()
   },
-  computed: {
-    product() {
-      return this.$store.getters.product
-    }
-  },
-  created() {
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-        // this.id = this.$route.params.id
-        // this.getProduct()
-        location.reload()
-      }
-    )
-  },
+  
 };
 </script>
 

@@ -60,9 +60,11 @@ export default {
         }
         
         let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
-
-        document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
-        document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
+        
+        if(uniqueAttributeNames.length > 0){
+          document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
+          document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
+        }
       }
     },
 

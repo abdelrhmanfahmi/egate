@@ -42,7 +42,7 @@
             },
   
             991: {
-              slidesPerView: 4,
+              slidesPerView: 3,
               spaceBetween: 10,
             },
             1200:{
@@ -50,7 +50,7 @@
               spaceBetween:10
             },
             1500:{
-              slidesPerView:4,
+              slidesPerView:3,
               spaceBetween:10
             }
           },

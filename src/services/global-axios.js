@@ -35,13 +35,13 @@ globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (
-        (error.request.status == 403) ||
-        (error.request.status == 401)
-      ) {
-  
-        store.dispatch('auth/LogOut')
-        router.push(`/auth/login`)
-      }
+      (error.response.status == 403) ||
+      (error.response.status == 401)
+    ) {
+
+      store.dispatch('Auth/LogOut')
+      router.push(`/auth/login`)
+    }
 
     return Promise.reject(error);
   }
