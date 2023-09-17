@@ -62,8 +62,9 @@ export default {
         let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
         
         if(uniqueAttributeNames.length > 0){
-          document.getElementsByClassName('choosen '+uniqueAttributeNames[0])[0].classList.add("active");
-          document.getElementsByClassName('choosen '+uniqueAttributeNames[1])[0].classList.add("active");
+          for(let j = 0 ; j < uniqueAttributeNames.length ; j++){
+            document.getElementsByClassName('choosen '+uniqueAttributeNames[j])[0].classList.add("active");
+          }
         }
       }
     },

@@ -25,10 +25,14 @@
       </div>
       <div class="product-info">
         <template v-if="product.categories != null">
-          <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'productPage', params:{id:category.id}}">
-            <p class="cat-name" v-if="category != null" > {{category.name_en.toUpperCase()}} </p>
+          <div>
+            <div class="styleCssCategories">
+              <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'productPage', params:{id:category.id}}">            
+                  <p class="cat-name" v-if="category != null" > {{category.name_en}} </p>
+              </router-link>
+            </div>
             <p class="product-name">{{ product.name_en }}</p>
-          </router-link>
+          </div>
         </template>
         <template v-else>
           <router-link to="/">
@@ -105,8 +109,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p{
-  color:#000;
+.styleCssCategories{
+  display: flex;
+  margin-left: -7px;
+}
+.styleCssCategories .cat-name{
+  font-size: 13px;
+  border: 1px solid #eee;
+  margin-left: 0.5rem;
 }
 .card-wrapper {
   min-height: 300px;
