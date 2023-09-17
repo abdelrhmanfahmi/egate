@@ -21,19 +21,6 @@
   import ProductsSliderBrand from "@/components/shared/Products/ProductsSliderBrand.vue";
   export default {
     props:['productsBrand' , 'sectionTitle' , 'seeMore'],
-    // props: {
-    //   sectionTitle:{
-    //     type:String
-    //   },
-    //   seeMore:{
-    //     type:String,
-    //     default:'yes'
-    //   },
-    //   products:{
-    //     type:Array,
-    //     required:true
-    //   }
-    // },
     components: {
       ProductsSliderBrand,
     },

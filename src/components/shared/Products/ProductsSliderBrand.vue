@@ -58,12 +58,6 @@
       };
     },
     props:['productsBrand']
-    // props: {
-    //   products: {
-    //     type: Array,
-    //     required:true
-    //   }
-    // }
   };
   </script>
   
