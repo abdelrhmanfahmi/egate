@@ -12,8 +12,11 @@
                         </template>
                     </v-breadcrumbs>
                 </div>
+                
                 <SliderSubCategoryComponent :items="items"/>
-                <ProductPage :product="product"/>
+
+                <!-- offers per category -->
+                <OffersComponentPerCategory />
             </v-app>
         </div>
     </div>
@@ -21,6 +24,8 @@
 
 <script>
 import SliderSubCategoryComponent from "@/components/categories/SliderSubCategoryComponent.vue";
+import OffersComponentPerCategory from "@/components/categories/OffersComponentPerCategory.vue";
+
 export default{
     data(){
         return {
@@ -45,7 +50,8 @@ export default{
         }
     },
     components:{
-        SliderSubCategoryComponent
+        SliderSubCategoryComponent,
+        OffersComponentPerCategory
     }
 
 }
