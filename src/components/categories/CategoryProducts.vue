@@ -79,7 +79,8 @@
                 <v-row>
                   <v-col class="mySwiper" cols="12" sm="12" md="4" lg="4" v-for="(x, index) in numbersToShow"
                     :key="index">
-                    <ProductCard />
+                    <!-- <ProductCard /> -->
+                    test
                   </v-col>
                 </v-row>
               </section>

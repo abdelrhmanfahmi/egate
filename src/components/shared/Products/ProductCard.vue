@@ -27,7 +27,7 @@
         <template v-if="product.categories != null">
           <div>
             <div class="styleCssCategories">
-              <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'productPage', params:{id:category.id}}">            
+              <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'categoryPage', params:{id:category.id}}">            
                   <p class="cat-name" v-if="category != null" > {{category.name_en}} </p>
               </router-link>
             </div>

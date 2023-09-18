@@ -30,6 +30,12 @@ const routes = [
     component: () => import("../views/ProductPage.vue"),
   },
   {
+    path: "/categoryPage/:id",
+    name: "categoryPage",
+    props: true,
+    component: () => import("../views/CategoryPage.vue"),
+  },
+  {
     path: "/categories",
     name: "categories",
     component: () => import("../views/Categories/index.vue"),
