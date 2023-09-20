@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrapper tabs-component">
-      <v-container>
+      <v-container fluid>
         <v-row justify="center">
           <v-col cols="12" xl="3" lg="4" md="4" sm="12">
             <div class="sidePromotionHolder">
