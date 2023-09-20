@@ -1,38 +1,20 @@
 <template>
   <section class="homeMainSlider">
-    <v-container fluid>
-      <v-row>
-        <v-col cols="auto" md="3">
-          <SliderCategoryComponent :categories="categories"/>
-        </v-col>
-        <v-col cols="auto" md="9">
-          <swiper v-bind="options" :modules="modules" class="mySwiper">
-            <swiper-slide v-for="(banner , index) in banners" :key="index">
-              <img
-                :src="banner.image"
-                :lazy-src="banner.image"
-              />
-            </swiper-slide>
-          </swiper>
-        </v-col>
-      </v-row>
-    </v-container>
+    <swiper v-bind="options" :modules="modules" class="mySwiper">
+      <swiper-slide v-for="(banner, index) in banners" :key="index" class="slider-image-holder">
+        <v-img :src="banner.image"></v-img>
+        <div class="button-holder">
+          <router-link :to="'/productPage/'+banner.product_id" class="router-link-holder">shop now</router-link>
+        </div>
+      </swiper-slide>
+    </swiper>
   </section>
 </template>
 <script>
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
-
-// import required modules
 import { Pagination , Autoplay } from "swiper";
-import SliderCategoryComponent from './SliderCategoryComponent.vue';
-import home from "@/services/home";
 
 export default {
-  mounted(){
-    this.getCategories();
-  },
-
   data() {
     return {
       options: {
@@ -54,27 +36,12 @@ export default {
           crossFade: true,
         },
       },
-
-      categories:[]
     };
   },
-
   props:['banners'],
-
-  methods:{
-    async getCategories(){
-      const response = await home.getCategories().then(res => {
-        this.categories = res.data.items.data;
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-  },
-
   components: {
     Swiper,
-    SwiperSlide, 
-    SliderCategoryComponent
+    SwiperSlide
   },
 
   setup() {
@@ -90,4 +57,24 @@ export default {
   p{
     color: #000;
   }
+  .slider-image-holder {
+    position: relative;
+  .button-holder {
+    position: absolute;
+    top: 80%;
+    left: 10%;
+    transform: translate(-10%, -50%);
+    .router-link-holder {
+      background: #0DEEFA;
+      padding: 12px 2vw;
+      border-radius: 3px;
+      text-transform: capitalize;
+      text-decoration: none;
+      color: #fff;
+      font-weight:600;
+      font-size: 30px;
+    }
+  }
+}
+
 </style>

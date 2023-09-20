@@ -6,7 +6,7 @@ export default {
     getCategories(){
         return globaAxios.get('client/categories?isParent=true')
     },
-    homeProducts(page = 1){
-        return globaAxios.get(`client/products?page=${page}`)
+    homeProducts(){
+        return globaAxios.get(`client/products?hasOffer=true`)
     }
 }

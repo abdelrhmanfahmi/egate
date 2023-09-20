@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <!-- HomeMainSlider  -->
-    <HomeMainSlider :banners="bannersImages" v-if="bannersImages"/>
+    <!-- SliderCategories  -->
+    <SliderCategories :banners="bannersImages" v-if="bannersImages"/>
 
     <!-- todays offers  -->
     <offersComponentHome :sectionTitle="'Todays Offer'" :products="products" />
@@ -57,15 +57,16 @@ export default {
     LargeCover,
     SharedCover,
     LargeTabsComponent,
-    ProductsLooking,
-  },
+    ProductsLooking
+},
   methods: {
     async getBanners() {
-      await home.getBanners().then(res => {
-        this.bannersImages = res.data.items.data;
-      }).catch(err => {
-        console.log(err)
-      })
+      const response = await home.getBanners();
+      let arrayFilter = response.data.items.data.filter((el) => {
+        return el.display_in == 'slider';
+      });
+
+      this.bannersImages = arrayFilter;
     },
 
     async getHomeProducts() {
