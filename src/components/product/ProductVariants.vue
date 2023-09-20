@@ -1,38 +1,33 @@
 <template>
   <div>
     <div class="wrapper">
-      <!-- <template v-if="product.variants.length > 0"> -->
       <div class="details-filter-row details-row-size">
         <div class="product-nav product-nav-dots" v-for="(variant, index) in product.variantData" :key="index">
           <label>{{ index }}</label>
-          
-          <div class="d-flex">
-              <a
-              href="#"
-              v-for="(value, idx) in variant.values"
-              :key="idx"
-              :class="'choosen '+ index"
-              :dataname="index"
-              :dataAttributeId="variant.attribute_name_id"
-              :dataAttributeValueId="value.attribute_value_id"
-              :style="{ 'background-color': value.attribute_code }"
-              @click.prevent="selectColor($event,index,variant,value)"
-            ></a>
-          </div>
-        </div>
+            <template v-if="variant.values[0].attribute_code != null">
+              <div class="d-flex">
+                  <a
+                  href="#"
+                  v-for="(value, idx) in variant.values"
+                  :key="idx"
+                  :class="'choosen '+ index"
+                  :dataname="index"
+                  :dataAttributeId="variant.attribute_name_id"
+                  :dataAttributeValueId="value.attribute_value_id"
+                  :style="{ 'background-color': value.attribute_code }"
+                  @click.prevent="selectColor($event,index,variant,value)"
+                ></a>
+              </div>
+            </template>
 
-        <div class="productPower my-3">
-          <p>Power:</p>
-          <div class="d-flex">
-            <label><input type="radio" name="select" value="1.5 HP" v-model="checkPower" /><span>1.5 HP</span>
-            </label>
-            <label><input type="radio" name="select" value="2 HP" v-model="checkPower" /><span>2 HP</span>
-            </label>
-            <label><input type="radio" name="select" value="3 HP" v-model="checkPower" /><span>3 HP</span>
-            </label>
-          </div>
+            <template v-else>
+              <div class="d-flex">
+                  <label v-for="(value, idx) in variant.values" :key="idx">
+                    <input @click.prevent="selectColor($event,index,variant,value)" type="radio" :dataAttributeId="variant.attribute_name_id" :dataAttributeValueId="value.attribute_value_id" :dataname="index" :class="'choosen '+ index" :value="value.attribute_value" v-model="checkPower" /><span>{{ value.attribute_value }}</span>
+                  </label>
+              </div>
+            </template>
         </div>
-
       </div>
     </div>
   </div>
@@ -74,7 +69,7 @@ export default {
         }
         
         let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
-        
+        console.log(uniqueAttributeNames);
         if(uniqueAttributeNames.length > 0){
           for(let j = 0 ; j < uniqueAttributeNames.length ; j++){
             document.getElementsByClassName('choosen '+uniqueAttributeNames[j])[0].classList.add("active");
@@ -159,7 +154,6 @@ label {
   display: block;
   padding: 3px;
   position: relative;
-  // padding-left: 10px;
 }
 
 label input {
@@ -168,8 +162,7 @@ label input {
 
 label span {
   border: 1px solid #ccc;
-
-  display: block;
+  // display: block;
   text-align: center;
   border-radius: 5px;
   padding: 3px 20px;
@@ -180,5 +173,7 @@ input:checked+span {
   border: 1px solid $main-color;
 }
 
-
+input.active+span{
+  border: 1px solid $main-color;
+}
 </style>

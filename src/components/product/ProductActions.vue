@@ -42,8 +42,6 @@
 
 <script>
 import ProductVariants from "./ProductVariants.vue";
-// import myMixin from "@/mixins.js";
-// import productActions from "@/services/productActions"
 export default {
   // mixins: [myMixin],
   props:['product'],
