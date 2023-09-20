@@ -18,12 +18,15 @@
 import ProductCard from '@/components/shared/Products/ProductCard.vue';
 import globalAxios from '@/services/global-axios';
 import { Swiper, SwiperSlide } from "swiper/vue";
+
 export default{
     mounted(){
+        this.checkID();
         this.getProductOffersPerCategory();
     },
     data(){
         return {
+            category_id:null,
             productsOffersPerCategory:[],
             swiperOptions: {
                 breakpoints: {
@@ -58,8 +61,16 @@ export default{
         };
     },
     methods:{
+        checkID(){
+            if (this.$route.params.id) {
+                this.category_id = this.$route.params.id
+            } else if (this.$route.query.id) {
+                this.category_id = this.$route.query.id
+            }
+        },
+
         async getProductOffersPerCategory(){
-            const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: 1}});
+            const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: this.category_id , hasOffer: true}});
             this.productsOffersPerCategory = response.data.items.data;
         }
     },

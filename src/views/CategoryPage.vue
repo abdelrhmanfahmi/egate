@@ -17,6 +17,9 @@
 
                 <!-- offers per category -->
                 <OffersComponentPerCategory />
+
+                <!-- sidebar categories -->
+                <SidebarCategoryFilter />
             </v-app>
         </div>
     </div>
@@ -25,6 +28,7 @@
 <script>
 import SliderSubCategoryComponent from "@/components/categories/SliderSubCategoryComponent.vue";
 import OffersComponentPerCategory from "@/components/categories/OffersComponentPerCategory.vue";
+import SidebarCategoryFilter from "@/components/categories/SidebarCategoryFilter.vue";
 
 export default{
     data(){
@@ -51,7 +55,8 @@ export default{
     },
     components:{
         SliderSubCategoryComponent,
-        OffersComponentPerCategory
+        OffersComponentPerCategory,
+        SidebarCategoryFilter
     }
 
 }

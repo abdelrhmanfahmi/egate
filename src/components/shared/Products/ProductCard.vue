@@ -16,11 +16,8 @@
 
       <div class="product-image-wrapper">
         <router-link :to="{name:'productPage', params:{id:product.id}}">
-        
-          <img
-            :src="product.image"
-            class="productImage"
-          />
+          <img v-if="product.image != null" :src="product.image" class="productImage" />
+          <img v-else src="/e-gate/img/Braun-Desktop-EN.9be0286a.png" class="productImage" />
         </router-link>
       </div>
       <div class="product-info">
@@ -117,6 +114,14 @@ export default {
   font-size: 13px;
   border: 1px solid #eee;
   margin-left: 0.5rem;
+  padding: 4px 7px;
+  border-radius: 5px;
+  color: #a3a3a1;
+  &:hover {
+    color: #fff;
+    background: $main-color;
+    transition : all .3s ease-in-out
+  }
 }
 .card-wrapper {
   min-height: 300px;
@@ -133,10 +138,6 @@ export default {
       opacity: 1;
       transform: translateY(0);
     }
-    // .productImage {
-    //   transform: scale(1.1) translateX(20px);
-    //   width: 100%;
-    // }
   }
   .productImage {
     margin: 35px 0 !important;
@@ -185,4 +186,16 @@ export default {
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
 }
+@media (min-width:960px) and (max-width:1000px) {
+    .addToCartBtn {
+        padding: 8px 8px;
+        font-size: 0.5rem;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .addToCartBtn {
+      padding: 8px 8px;
+    }
+}
+
 </style>

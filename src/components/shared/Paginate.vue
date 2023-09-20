@@ -1,14 +1,14 @@
 <template>
   <ul class="pagination">
     <!-- pagination component   -->
-    <li class="pagination-item first-page">
+    <!-- <li class="pagination-item first-page">
       <a
         @click.prevent="onClickFirstPage"
         :class="isInFirstPage ? 'disabled' : ''"
         :disabled="isInFirstPage"
         ><font-awesome-icon icon="fas fa-angle-double-left   "
       /></a>
-    </li>
+    </li> -->
     <li class="pagination-item next-step">
       <a
         @click.prevent="onClickPreviousPage"
@@ -38,14 +38,14 @@
         ><font-awesome-icon icon="fas fa-chevron-right"
       /></a>
     </li>
-    <li class="pagination-item last-page">
+    <!-- <li class="pagination-item last-page">
       <a
         @click.prevent="onClickLastPage"
         :class="isInLastPage ? 'disabled' : ''"
         :disabled="isInLastPage"
         ><font-awesome-icon icon="fas fa-angle-double-right"
       /></a>
-    </li>
+    </li> -->
   </ul>
 </template>
 
@@ -223,16 +223,16 @@ export default {
     */
 .pagination {
   list-style-type: none;
-  float: right;
   margin: 10px 0;
   font-size: 20px;
-
+  width: 100%;
+  display: flex;
+  justify-content: center;
   .pagination-item {
     a {
       text-decoration: none;
       margin: 10px;
-      color: #2c3e50;
-
+      color: #003399;
       display: inline-block;
       width: 40px;
       height: 40px;
@@ -240,15 +240,15 @@ export default {
       border-radius: 5px;
       background: #f5f5f5;
       text-align: center;
+      cursor: pointer;
       margin: 0 5px;
 
       &.active {
         background-color: #fff;
-        border: 2px solid $main-color;
-        color: $main-color !important;
-        font-weight: bold;
-
-        // padding: 3px 8px;
+        border: 1px solid #003399;
+        color: #003399 !important;
+        cursor: pointer;
+        
         a {
           color: #fff;
         }
@@ -256,7 +256,8 @@ export default {
     }
 
     a.disabled {
-      color: #ccc;
+      color: #33322D;
+      background-color: #F0F2F5 !important;
       cursor: no-drop !important;
     }
   }
@@ -274,6 +275,7 @@ html input[disabled] {
   color: #fff !important;
 }
 .next-step a {
-  background-color: #d1d1d1 !important;
+  background-color: inherit !important;
+  color: #33322D !important;
 }
 </style>

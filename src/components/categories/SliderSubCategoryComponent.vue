@@ -1,26 +1,34 @@
 <template>
     <div class="subcategories">
-        <v-container>
-            <swiper :modules="modules" v-bind="options" class="mySwiper">
+        <v-container fluid>
+            <swiper :modules="modules" v-bind="options" class="mySwiper" v-if="subCategories.length > 0">
                 <swiper-slide v-for="(subCategory , index) in subCategories" :key="index">
                     <img
-                        :src="subCategory.image"
-                        :lazy-src="subCategory.image"
+                        :src="subCategory.cover"
+                        :lazy-src="subCategory.cover"
                         class="borderCssImage"
                     />
                     <br>
-                    <p class="text-center">{{ subCategory.title }}</p>
+                    <p class="text-center">{{ subCategory.name_en }}</p>
                 </swiper-slide>
             </swiper>
+            <div v-else>
+                <h3 class="text-center">No Sub Categories</h3>
+            </div>
         </v-container>
     </div>
 </template>
 
 <script>
+import globalAxios from "@/services/global-axios";
 import { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 export default{
+    mounted(){
+        this.checkID();
+        this.getSubCategories();
+    },
     setup() {
         return {
             modules: [Navigation, Autoplay],
@@ -34,6 +42,29 @@ export default{
                 spaceBetween: 50,
                 activeIndex:1,
                 navigation: true,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    767: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                    },
+
+                    991: {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                    },
+                    1200:{
+                        slidesPerView:4,
+                        spaceBetween:10
+                    },
+                    1500:{
+                        slidesPerView:5,
+                        spaceBetween:10
+                    }
+                },
                 loop: true,
                 pagination: {
                     clickable: true,
@@ -49,57 +80,23 @@ export default{
                     crossFade: true,
                 },
             },
-            subCategories:[
-                {
-                    image: 'https://drive.google.com/uc?id=1-qzpXz-6SaqM3IPlQl_d9YXaPaBPw1xi',
-                    title: 'Frozen Food'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq',
-                    title: 'Beverages'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1MIbogRkUdngQXnaXT8Mufup-7CScTNRj',
-                    title: 'Bakery'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1a_w8OcDV-IA5UMz7usKtO_lXf0YSee3u',
-                    title: 'Food Cupboard'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1gLp3gryMbGYpgAfAtnDGccME1lCzEyUU',
-                    title: 'Cleaning'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1MIbogRkUdngQXnaXT8Mufup-7CScTNRj',
-                    title: 'Fresh Food'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1-qzpXz-6SaqM3IPlQl_d9YXaPaBPw1xi',
-                    title: 'Spare Parts'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1a_w8OcDV-IA5UMz7usKtO_lXf0YSee3u',
-                    title: 'Bakery'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq',
-                    title: 'Beverages'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq',
-                    title: 'Beverages'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq',
-                    title: 'Beverages'
-                },
-                {
-                    image: 'https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq',
-                    title: 'Beverages'
-                },
-            ]
+            subCategories:[],
+            category_id:null
+            
         }
+    },
+    methods:{
+        async checkID(){
+            if (this.$route.params.id) {
+                this.category_id = this.$route.params.id
+            } else if (this.$route.query.id) {
+                this.category_id = this.$route.query.id
+            }
+        },
+        async getSubCategories(){
+            const response = await globalAxios.get(`client/categories/${this.category_id}`);
+            this.subCategories = response.data.items.childrens;
+        },
     },
     components:{
         Swiper,
@@ -111,6 +108,7 @@ export default{
 <style lang="scss">
     .subcategories{
         background-color: #D9E0EDC6;
+        padding: 0px 25px;
     }
     .borderCssImage{
         border-radius: 50%;
@@ -124,7 +122,7 @@ export default{
     .swiper-button-next, .swiper-button-prev{
         top:40%;
     }
-    .swiper-button-next:after, .swiper-button-prev:after{
+    .swiper-button-next:after{
         font-size:18px !important;
         content: 'next';
         color: #000;
@@ -134,5 +132,25 @@ export default{
         padding-left: 8px;
         padding-top: 6px;
         padding-bottom: 6px;
+    }
+    .swiper-button-prev:after{
+        font-size:18px !important;
+        content: 'prev';
+        color: #000;
+        border: 1px solid #000;
+        border-radius: 50%;
+        padding-right: 8px;
+        padding-left: 8px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    .swiper-slide img {
+        display: block;
+        width: 200px;
+        height: 200px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: auto;
     }
 </style>

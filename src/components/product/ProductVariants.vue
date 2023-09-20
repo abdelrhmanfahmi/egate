@@ -5,6 +5,7 @@
       <div class="details-filter-row details-row-size">
         <div class="product-nav product-nav-dots" v-for="(variant, index) in product.variantData" :key="index">
           <label>{{ index }}</label>
+          
           <div class="d-flex">
               <a
               href="#"
@@ -19,6 +20,19 @@
             ></a>
           </div>
         </div>
+
+        <div class="productPower my-3">
+          <p>Power:</p>
+          <div class="d-flex">
+            <label><input type="radio" name="select" value="1.5 HP" v-model="checkPower" /><span>1.5 HP</span>
+            </label>
+            <label><input type="radio" name="select" value="2 HP" v-model="checkPower" /><span>2 HP</span>
+            </label>
+            <label><input type="radio" name="select" value="3 HP" v-model="checkPower" /><span>3 HP</span>
+            </label>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -141,4 +155,30 @@ export default {
 .product-nav-dots a.active {
   box-shadow: 0 0 0 0.1rem #cccccc;
 }
+label {
+  display: block;
+  padding: 3px;
+  position: relative;
+  // padding-left: 10px;
+}
+
+label input {
+  display: none;
+}
+
+label span {
+  border: 1px solid #ccc;
+
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  padding: 3px 20px;
+  cursor: pointer;
+}
+
+input:checked+span {
+  border: 1px solid $main-color;
+}
+
+
 </style>

@@ -4,7 +4,7 @@ export default {
         return globaAxios.get('client/banners')
     },
     getCategories(){
-        return globaAxios.get('client/categories')
+        return globaAxios.get('client/categories?isParent=true')
     },
     homeProducts(page = 1){
         return globaAxios.get(`client/products?page=${page}`)
