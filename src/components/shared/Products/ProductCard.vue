@@ -196,12 +196,13 @@ export default {
 @media (min-width:1100px) and (max-width:1300px) {
     .addToCartBtn {
         padding: 8px 8px;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
 @media screen and (min-width: 1024px) {
     .addToCartBtn {
       padding: 8px 8px;
+      font-size: 0.7rem;
     }
 }
 

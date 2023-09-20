@@ -9,7 +9,8 @@
 
           <div class="sortOptions">
             <select @change="getResultsProduct" class="custom-select">
-              <option selected value="dsec">Desc</option>
+              <option selected disabled>Sort By</option>
+              <option value="desc">Desc</option>
               <option value="asc">Asc</option>
             </select>
           </div>
@@ -93,13 +94,14 @@ import ProductCard from "@/components/shared/Products/ProductCard.vue";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Autoplay } from "swiper";
+import globalAxios from "@/services/global-axios";
 export default {
   setup() {
     return {
       modules: [Navigation, Autoplay],
     };
   },
-
+  
   props: ['categoryProducts'],
 
   data() {
@@ -146,7 +148,7 @@ export default {
       layout: "grid",
       numbersToShow: 8,
       selected: "",
-      dataListed: [],
+      category_id:null
     };
   },
 
@@ -156,8 +158,17 @@ export default {
       console.log("number", this.selected);
     },
 
-    getResultsProduct(e) {
-      console.log(e.target.value);
+    async getResultsProduct(e) {
+      let obj = {
+        subCategory:this.category_id,
+        page:1
+      };
+      if(e.target.value == 'desc'){
+        obj.sort_field = 'id';
+        this.$emit('updateProducts' , obj);
+      }else{
+        this.$emit('updateProducts' , obj);
+      }
     },
 
   },

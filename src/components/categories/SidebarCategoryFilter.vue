@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <CategoryProducts :categoryProducts="categoryProducts" />
+                <CategoryProducts :categoryProducts="categoryProducts" @updateProducts="onUpdateProducts($event)"/>
                 <Paginate v-if="layout == 'grid' && totalPages > 1" :total-pages="totalPages" :per-page="totalPages" :current-page="page"
                     @pageChanged="onPageChange" />
             </div>
@@ -74,14 +74,23 @@ export default{
 
         async onUpdateProducts(newProducts){
             this.page = newProducts.page;
-            await globalAxios.get('client/products/relational/products' , {params: {category_id: newProducts.subCategory , count:this.recordsPerPage , page:this.page}}).then((response) => {
-                this.categoryProducts = response.data.items.data;
-                this.totalPages = Math.ceil(
-                    response.data.items.meta?.total / response.data.items.meta?.per_page
-                );
-                this.totalRecords = response.data.items?.meta?.total;    
-            });
-            
+            if(newProducts.hasOwnProperty('sort_field')){
+                await globalAxios.get('client/products/relational/products' , {params: {category_id: newProducts.subCategory , count:this.recordsPerPage , page:this.page , sort_field:'id'}}).then((response) => {
+                    this.categoryProducts = response.data.items.data;
+                    this.totalPages = Math.ceil(
+                        response.data.items.meta?.total / response.data.items.meta?.per_page
+                    );
+                    this.totalRecords = response.data.items?.meta?.total;    
+                });
+            }else{
+                await globalAxios.get('client/products/relational/products' , {params: {category_id: newProducts.subCategory , count:this.recordsPerPage , page:this.page}}).then((response) => {
+                    this.categoryProducts = response.data.items.data;
+                    this.totalPages = Math.ceil(
+                        response.data.items.meta?.total / response.data.items.meta?.per_page
+                    );
+                    this.totalRecords = response.data.items?.meta?.total;    
+                });
+            }
         },
 
         onPageChange(page) {
@@ -90,6 +99,7 @@ export default{
         },
 
         onChangeRecordsPerPage() {
+            this.page = page;
             this.getCategoryProducts(this.page);
         },
 
@@ -97,7 +107,6 @@ export default{
             if (!isNaN(parseInt(this.enterPageNo))) {
                 this.page = parseInt(this.enterPageNo);
                 this.getCategoryProducts(this.page);
-
             }
         },
 
