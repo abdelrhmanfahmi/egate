@@ -1,19 +1,53 @@
 <template>
   <div class="wrapper">
-    <v-container>
-        <img src="https://cdn.vox-cdn.com/thumbor/vabx-KeOe5GULF4lqyITVmXMU6I=/0x0:1600x800/1400x788/filters:focal(800x400:801x401)/cdn0.vox-cdn.com/uploads/chorus_asset/file/8853589/google_ai_photography_street_view_2.jpg" alt="image" class="coverImage" />
-        <!-- <v-img :src="imageSrc" alt="image" class="coverImage"></v-img> -->
+    <v-container fluid>
+      <swiper :modules="modules" v-bind="options" class="mySwiper" >
+          <swiper-slide v-for="(cover , index) in largeCovers" :key="index">
+              <img :src="cover.image" alt="image" class=""/>
+          </swiper-slide>
+      </swiper>
     </v-container>
   </div>
 </template>
 
 <script>
+import { Navigation, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
 export default {
-  props:{
-    imageSrc:{
-      type:String
+  setup() {
+      return {
+          modules: [Navigation, Autoplay],
+      };
+  },
+
+  data(){
+    return {
+      modules: [ Navigation ],
+      options: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        activeIndex:1,
+        loop: true,
+        centeredSlides: true,
+        speed: 300,
+        direction: "horizontal",
+        zoom: true,
+        autoplay: {
+            delay: 5000,
+        },
+        fadeEffect: {
+            crossFade: true,
+        },
+      }
     }
-  }
+  },
+
+  props:['largeCovers'],
+
+  components:{
+        Swiper,
+        SwiperSlide
+    },
 }
 </script>
 

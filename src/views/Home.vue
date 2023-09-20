@@ -4,13 +4,13 @@
     <SliderCategories :banners="bannersImages" v-if="bannersImages"/>
 
     <!-- todays offers  -->
-    <offersComponentHome :sectionTitle="'Todays Offer'" :products="products" />
+    <offersComponentHome :sectionTitle="'Discount Products'" :products="products" />
 
     <!-- Promotions  -->
-    <Promotions />
+    <Promotions :promotions="promotions"/>
 
     <!-- LargeCover  -->
-    <LargeCover :imageSrc="require('@/assets/images/home/largCover.png')" />
+    <LargeCover  :largeCovers="largeCovers"/>
 
     <!-- top reviews  -->
     <!-- <OffersComponent :sectionTitle="'Top Review'" /> -->
@@ -47,9 +47,56 @@ import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
 import home from "@/services/home";
-import { useMeta } from "vue-meta";
 
 export default {
+  data() {
+    return {
+      bannersImages: [],
+      products:[],
+      promotions:[],
+      largeCovers:[],
+      test:{
+        key:'en'
+      }
+    }
+  },
+
+  mounted() {
+    this.getBanners();
+    this.getHomeProducts();
+  },
+  
+  methods: {
+    async getBanners() {
+      const response = await home.getBanners();
+      let arrayFilterBannersOnly = response.data.items.data.filter((el) => {
+        return el.display_in == 'slider';
+      });
+
+      let arrayFilterPromotionsOnly = response.data.items.data.filter((el) => {
+        return el.display_in.includes("promiotion_banner");
+      });
+
+      let arrayFilterLargeCoversOnly = response.data.items.data.filter((el) => {
+        return el.display_in.includes("large_banner");
+      });
+
+      console.log(arrayFilterLargeCoversOnly);
+
+      this.bannersImages = arrayFilterBannersOnly;
+      this.promotions = arrayFilterPromotionsOnly;
+      this.largeCovers = arrayFilterLargeCoversOnly;
+    },
+
+    async getHomeProducts() {
+        await home.homeProducts().then(res => {
+          this.products = res.data.items.data;
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+    },
+
   components: {
     SliderCategories,
     Promotions,
@@ -58,39 +105,7 @@ export default {
     SharedCover,
     LargeTabsComponent,
     ProductsLooking
-},
-  methods: {
-    async getBanners() {
-      const response = await home.getBanners();
-      let arrayFilter = response.data.items.data.filter((el) => {
-        return el.display_in == 'slider';
-      });
-
-      this.bannersImages = arrayFilter;
-    },
-
-    async getHomeProducts() {
-      await home.homeProducts().then(res => {
-        this.products = res.data.items.data;
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-  },
-  
-  mounted() {
-    this.getBanners();
-    this.getHomeProducts();
   },
 
-  data() {
-    return {
-      bannersImages: null,
-      products:[],
-      test:{
-        key:'en'
-      }
-    }
-  }
 };
 </script>
