@@ -13,7 +13,7 @@
     <LargeCover  :largeCoversOne="largeCoversOne"/>
 
     <!-- top reviews  -->
-    <!-- <OffersComponent :sectionTitle="'Top Review'" /> -->
+    <OffersComponentTopReviewed :sectionTitle="'Top Review'" :productsTopReviewed="productsTopReviewed"/>
 
     <!-- tabs products slider  -->
     <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
@@ -38,6 +38,7 @@
 import SliderCategories from "@/components/home/SliderCategories.vue";
 import Promotions from "@/components/home/Promotions.vue";
 import offersComponentHome from "@/components/home/offersComponentHome.vue";
+import OffersComponentTopReviewed from "@/components/home/OffersComponentTopReviewed.vue";
 import LargeCover from "@/components/home/LargeCover.vue";
 import SharedCover from "@/components/shared/SharedCover.vue";
 import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
@@ -50,6 +51,7 @@ export default {
     return {
       bannersImages: [],
       products:[],
+      productsTopReviewed:[],
       promotions:[],
       largeCoversOne:[],
       largeCoversTwo:[],
@@ -62,6 +64,7 @@ export default {
   mounted() {
     this.getBanners();
     this.getHomeProducts();
+    this.getHomeProductsTopReviewed();
   },
   
   methods: {
@@ -83,8 +86,6 @@ export default {
         return el.display_in.includes("large_banner_2");
       });
 
-      console.log(arrayFilterLargeCoversOne);
-
       this.bannersImages = arrayFilterBannersOnly;
       this.promotions = arrayFilterPromotionsOnly;
       this.largeCoversOne = arrayFilterLargeCoversOne;
@@ -98,12 +99,18 @@ export default {
           console.log(err)
         })
       },
+
+      async getHomeProductsTopReviewed(){
+        const response = await home.homeProductsTopReviewed();
+        this.productsTopReviewed = response.data.items.data;
+      }
     },
 
   components: {
     SliderCategories,
     Promotions,
     offersComponentHome,
+    OffersComponentTopReviewed,
     LargeCover,
     SharedCover,
     LargeTabsComponent,
