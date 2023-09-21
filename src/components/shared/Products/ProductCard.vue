@@ -8,7 +8,7 @@
             <div class="product-quantity"><small >in stock</small></div>
           </div>
           <div class="product-rating d-flex justify-center align-center flex-column">
-            <span class="icon"><v-icon icon="mdi-star"></v-icon></span>
+            <span class="icon" style="color: #0DEEFA;"><v-icon icon="mdi-star"></v-icon></span>
             <p class="rating-number">4</p>
           </div>
         </div>

@@ -5,7 +5,7 @@
         <div class="">
           <swiper :spaceBetween="0" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
             <swiper-slide v-for="(product, index) in products" :key="index">
-              <TabsProductCard :product="product"/>
+              <ProductCard :product="product"/>
             </swiper-slide>
           </swiper>
         </div>
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import TabsProductCard from "./TabsProductCard.vue";
+// import TabsProductCard from "./TabsProductCard.vue";
+import ProductCard from '@/components/shared/Products/ProductCard.vue';
 import { Swiper, SwiperSlide } from "swiper/vue";
 export default {
   setup() {
@@ -57,7 +58,8 @@ export default {
   props:['products'],
 
   components: {
-    TabsProductCard,
+    // TabsProductCard,
+    ProductCard,
     Swiper,
     SwiperSlide,
   },
