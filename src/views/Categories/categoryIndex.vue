@@ -17,14 +17,12 @@
             </div>
                     
             <div class="row d-flex justify-content-start p-0 m-0">
-                <div class="col-md-3 mb-4" v-for="(category,idx) in categories" :key="idx">
+                <div class="col-md-3 mb-5" v-for="(category,idx) in categories" :key="idx">
                     <router-link :to="'/categoryPage/'+ category.id" >
                         <div class="card">
-                            <div class="card-title h-50">
-                                <img :src="category.cover" class="card-img-top styleImage">
-                            </div>
-                            <div class="card-body styleCardBody">
-                                <p class="card-title styleParagraph">{{ category.name_en }}</p>
+                            <img :src="category.cover" alt="Avatar" style="width:90%;height: 75%;">
+                            <div class="containersCss">
+                                <p style="color: #000;"><b>{{ category.name_en }}</b></p>
                             </div>
                         </div>
                     </router-link>
@@ -66,21 +64,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .styleColorHere{
-        color:#a3a3a1;
-    }
-    .styleImage{
-        width: 100%;
-        height: 170%;
-    }
-    .styleCardBody{
-        padding: 40px;
-    }
-    .styleParagraph{
-        font-weight: bold;
-        font-size:18px;
-    }
-    .card{
-        border: 1px solid #fff;
-    }
+
+.card img{
+    margin-bottom: 1rem;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0);
+    transition: 0.3s;
+    border: 1px solid #fff;
+    border-radius: 5%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.containersCss {
+    padding: 2px 16px;
+}
 </style>
