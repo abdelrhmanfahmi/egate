@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <v-container>
+    <v-container fluid>
       <section class="pt-5 pb-5">
         <v-row>
           <v-col cols="12" md="3" v-for="i in 4" :key="i">

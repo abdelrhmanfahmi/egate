@@ -1,9 +1,10 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid mb-5">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" v-if="largeCoversOne.length > 0">
         <img :src="largeCoversOne[0].image" alt="image" class="coverImage">
       </div>
+      <div v-else></div>
     </div>
   </div>
 </template>

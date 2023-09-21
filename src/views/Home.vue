@@ -38,9 +38,9 @@
 import SliderCategories from "@/components/home/SliderCategories.vue";
 import Promotions from "@/components/home/Promotions.vue";
 import offersComponentHome from "@/components/home/offersComponentHome.vue";
-
 import LargeCover from "@/components/home/LargeCover.vue";
 import SharedCover from "@/components/shared/SharedCover.vue";
+
 import LargeTabsComponent from "@/components/home/LargeTabsComponent.vue";
 import ProductsLooking from "@/components/home/ProductsLooking.vue";
 
