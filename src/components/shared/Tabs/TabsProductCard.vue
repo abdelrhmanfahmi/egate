@@ -13,20 +13,31 @@
       </div>
 
       <div class="product-image-wrapper">
-        <img
-          :src="require('@/assets/images/product/Image-11.png')"
-          class="productImage"
-        />
+          <img v-if="product.image != null" :src="product.image" class="productImage" />
+          <img v-else src="/e-gate/img/Braun-Desktop-EN.9be0286a.png" class="productImage" />
       </div>
       <div class="product-info">
-        <p class="cat-name">Category Name</p>
-        <p class="product-name">
-          Fresh 65LU433RG Smart Android TV, 65 inch, Frameless,…
-        </p>
+        <template v-if="product.categories != null">
+          <div>
+            <div class="styleCssCategories">
+              <router-link v-for="(category , idx) in product.categories" :key="idx" :to="{name:'categoryPage', params:{id:category.id}}">            
+                  <p class="cat-name" v-if="category != null" > {{category.name_en}} </p>
+              </router-link>
+            </div>
+            <p class="product-name">{{ product.name_en }}</p>
+          </div>
+        </template>
+        <template v-else>
+          <router-link to="/">
+            <p class="cat-name"> Category Name </p>
+            <p class="product-name">{{ product.name_en }}</p>
+          </router-link>
+        </template>
+
         <v-row class="aligned-row mt-1 mb-3">
           <v-col cols="6" sm="6" md="12">
-            <p class="price-after-desc">Egp 17,999.00</p>
-            <p class="product-price">Egp 15,999.00</p>
+            <p class="price-after-desc" v-if="product.product_price <= product.price">EGP {{product.price}}</p>
+            <p class="product-price">EGP {{product.product_price}}</p>
           </v-col>
           <v-col cols="6" sm="6" md="12">
             <v-button class="addToCartBtn">
@@ -56,12 +67,6 @@
                 >add to wishlist</v-button
               >
             </v-col>
-            <!-- <v-col cols="12" md="4" sm="12" class="pr-0 pl-0 m-0">
-              <v-button class="compareBtn actionBtn">
-                <span class="icon"> <font-awesome-icon icon="fa-solid fa-code-compare" /> </span
-                >compare</v-button
-              >
-            </v-col> -->
           </v-row>
         </div>
       </div>
@@ -70,10 +75,35 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  },
+  props:['product']
+};
 </script>
 
 <style lang="scss" scoped>
+.styleCssCategories{
+  display: flex;
+  margin-left: -7px;
+}
+
+.styleCssCategories .cat-name{
+  font-size: 13px;
+  border: 1px solid #eee;
+  margin-left: 0.5rem;
+  padding: 4px 7px;
+  border-radius: 5px;
+  color: #a3a3a1;
+  &:hover {
+    color: #fff;
+    background: $main-color;
+    transition : all .3s ease-in-out
+  }
+}
 .card-wrapper {
   min-height: 300px;
 

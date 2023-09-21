@@ -8,5 +8,14 @@ export default {
     },
     homeProducts(){
         return globaAxios.get(`client/products?hasOffer=true`)
-    }
+    },
+    homeProductsFeatured(){
+        return globaAxios.get(`client/products?featured=true`)
+    },
+    homeProductsTopRated(){
+        return globaAxios.get(`client/products?top_rated=true`)
+    },
+    homeProductsTopReviewed(){
+        return globaAxios.get(`client/products?top_reviewed=true`)
+    },
 }

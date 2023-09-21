@@ -3,15 +3,10 @@
     <v-container>
       <section class="pb-5">
         <div class="">
-          <swiper
-            :spaceBetween="0"
-            :modules="modules"
-            :breakpoints="swiperOptions.breakpoints"
-            class="mySwiper"
-          >
-            <swiper-slide v-for="(x, index) in 10" :key="index"
-              ><TabsProductCard
-            /></swiper-slide>
+          <swiper :spaceBetween="0" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">
+            <swiper-slide v-for="(product, index) in products" :key="index">
+              <TabsProductCard :product="product"/>
+            </swiper-slide>
           </swiper>
         </div>
       </section>
@@ -23,16 +18,12 @@
 import TabsProductCard from "./TabsProductCard.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 export default {
-  components: {
-    TabsProductCard,
-    Swiper,
-    SwiperSlide,
-  },
   setup() {
     return {
       modules: [],
     };
   },
+
   data() {
     return {
       swiperOptions: {
@@ -61,6 +52,14 @@ export default {
         },
       },
     };
+  },
+
+  props:['products'],
+
+  components: {
+    TabsProductCard,
+    Swiper,
+    SwiperSlide,
   },
 };
 </script>
