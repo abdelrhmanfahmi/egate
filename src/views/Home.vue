@@ -10,7 +10,7 @@
     <Promotions :promotions="promotions"/>
 
     <!-- LargeCover  -->
-    <LargeCover  :largeCovers="largeCovers"/>
+    <LargeCover  :largeCoversOne="largeCoversOne"/>
 
     <!-- top reviews  -->
     <!-- <OffersComponent :sectionTitle="'Top Review'" /> -->
@@ -24,9 +24,7 @@
 
     <!-- LargeCover  -->
     <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
-      <SharedCover
-      :imageSrc="require('@/assets/images/home/Braun-Desktop-EN.png')"
-    />
+      <SharedCover :largeCoversTwo="largeCoversTwo"/>
     </v-lazy>
     
 
@@ -54,7 +52,8 @@ export default {
       bannersImages: [],
       products:[],
       promotions:[],
-      largeCovers:[],
+      largeCoversOne:[],
+      largeCoversTwo:[],
       test:{
         key:'en'
       }
@@ -77,15 +76,20 @@ export default {
         return el.display_in.includes("promiotion_banner");
       });
 
-      let arrayFilterLargeCoversOnly = response.data.items.data.filter((el) => {
-        return el.display_in.includes("large_banner");
+      let arrayFilterLargeCoversOne = response.data.items.data.filter((el) => {
+        return el.display_in.includes("large_banner_1");
       });
 
-      console.log(arrayFilterLargeCoversOnly);
+      let arrayFilterLargeCoversTwo = response.data.items.data.filter((el) => {
+        return el.display_in.includes("large_banner_2");
+      });
+
+      console.log(arrayFilterLargeCoversOne);
 
       this.bannersImages = arrayFilterBannersOnly;
       this.promotions = arrayFilterPromotionsOnly;
-      this.largeCovers = arrayFilterLargeCoversOnly;
+      this.largeCoversOne = arrayFilterLargeCoversOne;
+      this.largeCoversTwo = arrayFilterLargeCoversTwo;
     },
 
     async getHomeProducts() {

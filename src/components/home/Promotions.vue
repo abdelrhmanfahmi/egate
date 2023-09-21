@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper mb-5">
     <v-container fluid>
       <v-row>
         <v-col v-for="(promotion,index) in promotions" :key="index" cols="12" sm="4" >

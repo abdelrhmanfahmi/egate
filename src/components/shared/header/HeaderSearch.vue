@@ -50,22 +50,27 @@
 </template>
 
 <script>
+import home from '@/services/home';
+
 export default {
-  computed: {
-    categories() {
-      return this.$store.getters["Categories/categories"];
-    },
+  mounted(){
+    this.getCategories();
+  },
+
+  data(){
+    return {
+      categories:[]
+    }
   },
   methods: {
-    goToCategory(category) {
-      this.$router.push(
-        {
-          name:'productPage',
-          params:{
-            id:1
-          }
-        }
-      )
+    async getCategories(){
+      const response = await home.getCategories();
+      this.categories = response.data.items.data;
+    },
+    
+    goToCategory(event) {
+      let categoryID = event.target.value;
+      this.$router.push({path: '/categoryPage/' + categoryID});
     },
   },
 };

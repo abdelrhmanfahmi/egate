@@ -1,12 +1,10 @@
 <template>
-  <div class="wrapper">
-    <v-container fluid>
-      <swiper :modules="modules" v-bind="options" class="mySwiper" >
-          <swiper-slide v-for="(cover , index) in largeCovers" :key="index">
-              <img :src="cover.image" alt="image" class=""/>
-          </swiper-slide>
-      </swiper>
-    </v-container>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <img :src="largeCoversOne[0].image" alt="image" class="coverImage">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,27 +20,11 @@ export default {
 
   data(){
     return {
-      modules: [ Navigation ],
-      options: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        activeIndex:1,
-        loop: true,
-        centeredSlides: true,
-        speed: 300,
-        direction: "horizontal",
-        zoom: true,
-        autoplay: {
-            delay: 5000,
-        },
-        fadeEffect: {
-            crossFade: true,
-        },
-      }
+      
     }
   },
 
-  props:['largeCovers'],
+  props:['largeCoversOne'],
 
   components:{
         Swiper,
