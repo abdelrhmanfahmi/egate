@@ -1,10 +1,10 @@
-function checkAuth(to, from, next) {
+function checklogged(to, from, next) {
     let IsAuthenticated = localStorage.getItem('EGate-userInfo') ? true : null;
     if (IsAuthenticated) {
-        next({name: 'home'});
+        next();
     }else{
         next({name: "login"});
     } 
 }
 
-export default checkAuth;
+export default checklogged;
