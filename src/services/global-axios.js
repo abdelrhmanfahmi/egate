@@ -5,7 +5,7 @@ import store from "../store"
 let lang = null;
 lang = localStorage.getItem("lang") || "en";
 
-// let userExist = localStorage.getItem("EGate-userInfo");
+let userExist = localStorage.getItem("EGate-userInfo");
 
 const getToken = function () {
   if (
@@ -39,7 +39,10 @@ globalAxios.interceptors.response.use(
       (error.response.status == 401)
     ) {
 
-      store.dispatch('Auth/LogOut')
+      // if(userExist){
+
+      //   store.dispatch('Auth/LogOut')
+      // }
       router.push(`/auth/login`)
     }
 

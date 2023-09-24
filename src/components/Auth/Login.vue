@@ -65,6 +65,8 @@ export default {
       form: {
         email: null,
         password: null,
+        token:localStorage.getItem('firebaseToken'),
+        device_type:'web'
       },
       errors: null,
     };

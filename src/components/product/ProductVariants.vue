@@ -35,6 +35,8 @@
 
 <script>
 import globalAxios from '@/services/global-axios';
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export default {
   mounted(){
@@ -101,11 +103,25 @@ export default {
         newObj.attribute_value_id = value.attribute_value_id;
         this.variants.push(newObj);
 
-        const response = await globalAxios.get(`client/products/${this.id}/variant` , {params: {variants: JSON.stringify(this.variants)}});
-        this.totalPrice = response.data.items.price;
-        console.log(this.totalPrice , 'from product variant');
-        console.log(this.variants);
-        this.$emit('updatePrice', this.totalPrice);
+        try{
+          const response = await globalAxios.get(`client/products/${this.id}/variant` , {params: {variants: JSON.stringify(this.variants)}});
+          this.totalPrice = response.data.items.price;
+          console.log(this.totalPrice , 'from product variant');
+          console.log(this.variants);
+          this.$emit('updatePrice', this.totalPrice);
+        }catch(error){
+          if(error.response.status == 400){
+            toast.error('no price for this variant', {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+          }
+        }
       }
     },
 
