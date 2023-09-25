@@ -7,7 +7,7 @@
         >
       </li>
       <li>
-        <a @click.stop="logOut" class="link cursor-pointer"><span>Log Out</span></a>
+        <a @click="logOut" class="link cursor-pointer"><span>Log Out</span></a>
       </li>
     </ul>
   </div>
