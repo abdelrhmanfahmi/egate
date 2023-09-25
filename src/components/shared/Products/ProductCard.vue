@@ -86,8 +86,6 @@
 </template>
 
 <script>
-import globalAxios from '@/services/global-axios';
-
 export default {
   props: ["id", "product"],
   data() {
@@ -104,12 +102,6 @@ export default {
       this.$store.dispatch("cart/addProductToCart", data);
     },
   },
-
-  watch:{
-      $route (to, from){
-          this.$router.push({path: '/productPage/'+ to.params.id});
-      }
-  }
 };
 </script>
 
