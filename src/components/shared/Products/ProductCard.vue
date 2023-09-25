@@ -16,8 +16,8 @@
 
       <div class="product-image-wrapper">
         <router-link :to="{name:'productPage', params:{id:product.id}}">
-          <img v-if="product.image != null" :src="product.image" class="productImage" />
-          <img v-else src="/e-gate/img/Braun-Desktop-EN.9be0286a.png" class="productImage" />
+          <img v-if="product.image != null" :src="product.image" class="productImage" style="cursor: pointer;"/>
+          <img v-else src="/e-gate/img/Braun-Desktop-EN.9be0286a.png" class="productImage" style="cursor: pointer;"/>
         </router-link>
       </div>
       <div class="product-info">
@@ -86,6 +86,8 @@
 </template>
 
 <script>
+import globalAxios from '@/services/global-axios';
+
 export default {
   props: ["id", "product"],
   data() {
@@ -102,6 +104,12 @@ export default {
       this.$store.dispatch("cart/addProductToCart", data);
     },
   },
+
+  watch:{
+      $route (to, from){
+          this.$router.push({path: '/productPage/'+ to.params.id});
+      }
+  }
 };
 </script>
 
