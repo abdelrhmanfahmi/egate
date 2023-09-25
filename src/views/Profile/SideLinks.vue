@@ -6,6 +6,9 @@
           ><span>{{ link.name }}</span></router-link
         >
       </li>
+      <li>
+        <a @click.stop="logOut" class="link cursor-pointer"><span>Log Out</span></a>
+      </li>
     </ul>
   </div>
 </template>
@@ -51,13 +54,18 @@ export default {
         //   name: "My Social Accounts",
         //   to: "social-accounts",
         // },
-        // {
-        //   name: "My Returns",
-        //   to: "returns",
-        // },
+        {
+          name: "My Returns",
+          to: "returns",
+        },
       ],
     };
   },
+  methods:{
+    logOut(){
+      this.$store.dispatch('Auth/LogOut')
+    }
+  }
 };
 </script>
 
@@ -69,10 +77,10 @@ export default {
 a {
   margin: 27px 0;
   display: block;
-  color: #33322D !important;
+  color: #33322d !important;
 }
 .router-link-exact-active {
-  color: #33322D !important;
+  color: #33322d !important;
   span {
     background: $main-color;
     width: 100%;
@@ -80,6 +88,7 @@ a {
     border-radius: 10px;
     padding: 14px 30px 14px 18px;
     margin: auto -14px;
+    color: #fff;
   }
 }
 </style>

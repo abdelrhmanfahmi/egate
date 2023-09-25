@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-app >
-      <v-container>
+      <v-container fluid>
         <v-row>
           <v-col cols="12" md="6" sm="12">
             <ProductSlider :product="product" />
           </v-col>
           <v-col cols="12" md="6" sm="12">
-            <ProductActions :product="product" />
+            <ProductActions :product="product"/>
           </v-col>
         </v-row>
         <ProductShippingInfo :product="product" />
@@ -25,6 +25,7 @@ import ProductShippingInfo from "./ProductShippingInfo.vue";
 import ProductInfo from "./ProductInfo.vue";
 import RelatedProducts from "./RelatedProducts.vue";
 export default {
+  props:['product'],
   components: {
     ProductSlider,
     ProductActions,
@@ -32,12 +33,6 @@ export default {
     ProductInfo,
     RelatedProducts
   },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  }
 };
 </script>
 

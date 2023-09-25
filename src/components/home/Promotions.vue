@@ -1,24 +1,9 @@
 <template>
-  <div class="wrapper">
-    <v-container>
+  <div class="wrapper mb-5">
+    <v-container fluid>
       <v-row>
-        <v-col cols="12" sm="4" >
-          <v-img
-            class="img-responsive"
-            src="@/assets/images/home/Febraury-Textiles-EN.png"
-          ></v-img>
-        </v-col>
-        <v-col cols="12" sm="4" >
-          <v-img
-            class="img-responsive"
-            src="@/assets/images/home/promotion2.png"
-          ></v-img>
-        </v-col>
-        <v-col cols="12" sm="4" >
-          <v-img
-            class="img-responsive"
-            src="@/assets/images/home/promotion3.png"
-          ></v-img>
+        <v-col v-for="(promotion,index) in promotions" :key="index" cols="12" sm="4" >
+          <img class="img-responsive promo-image" :src="promotion.image" />
         </v-col>
       </v-row>
     </v-container>
@@ -26,7 +11,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return {
+
+    }
+  },
+
+  props:['promotions']
+
+};
 </script>
 
-<style></style>
+<style lang="scss" scped>
+.promo-image{
+  height: 50vh !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+  width: 100%;
+}
+</style>

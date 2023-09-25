@@ -9,13 +9,13 @@ const toast = useToast();
 import store from "@/store";
 export default {
   all() {
-    return globalAxios.get(`customer/cart`);
+    return globalAxios.get(`client/cart`);
   },
 
   store(data) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .post(`customer/cart/add/${data.product_id}`, data)
+      .post(`client/cart/add/${data.product_id}`, data)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {
@@ -50,7 +50,7 @@ export default {
   delete(payload) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .delete(`customer/cart/remove/${payload.product.id}`)
+      .delete(`client/cart/remove/${payload.product.id}`)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${payload.message}`, {
@@ -84,7 +84,7 @@ export default {
   update(data) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .put(`customer/cart/update`, data)
+      .put(`client/cart/update`, data)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {
@@ -119,7 +119,7 @@ export default {
   moveToWish(data) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .post(`customer/cart/move-to-wishlist/${data.id}`)
+      .post(`client/cart/move-to-wishlist/${data.id}`)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {

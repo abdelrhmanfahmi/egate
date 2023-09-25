@@ -7,7 +7,7 @@
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
               :class="{ active: currentIndex == index }" href="#" v-for="(smPicture, index) in product.images" :key="index"
               @click.prevent="changePicture(index)">
-              <img :src="smPicture.original_image_url" width="75" height="75" alt="product side" class="p-0 m-0" />
+              <img :src="smPicture.full_url" width="75" height="75" alt="product side" class="p-0 m-0" />
             </a>
           </div>
         </v-col>
@@ -18,12 +18,11 @@
             <span class="product-label label-top position-absolute" v-if="product.status == 'top'">Top</span>
             <span class="product-label label-out position-absolute out-of-stock" v-if="product.in_stock == false">Out Of Stock</span>
 
-            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].original_image_url" :lazy-src="product.images[currentIndex].original_image_url" :src="product.images[currentIndex].original_image_url" alt="product"
+            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
               class="img-fluid"></v-img>
-
-            <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
-              <i class="icon-arrows"></i>
-            </a>
+              <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
+                <i class="icon-arrows"></i>
+              </a>
           </figure>
         </v-col>
       </v-row>
@@ -31,46 +30,13 @@
   </div>
 </template>
 <script>
-
+sm_pictures: []
 export default {
-  //   props: {
-  //     product: {
-  //       type: Object,
-  //       default: function () {
-  //         return {
-  //           sm_pictures: [],
-  //           pictures: [],
-  //         };
-  //       },
-  //     },
-  //   },
   data: function () {
     return {
-      //   baseUrl: baseUrl,
       currentIndex: 0,
-      images: [
-        "https://drive.google.com/uc?id=1-qzpXz-6SaqM3IPlQl_d9YXaPaBPw1xi",
-        "https://drive.google.com/uc?id=1GyPJxF36hlp2JS7SeYrnW0Bmuc9KJyBq",
-        "https://drive.google.com/uc?id=1MIbogRkUdngQXnaXT8Mufup-7CScTNRj",
-        "https://drive.google.com/uc?id=1a_w8OcDV-IA5UMz7usKtO_lXf0YSee3u",
-        "https://drive.google.com/uc?id=1gLp3gryMbGYpgAfAtnDGccME1lCzEyUU",
-      ],
     };
   },
-  //   computed: {
-  //     lightBoxMedia: function () {
-  //       return this.product.pictures.reduce((acc, cur) => {
-  //         return [
-  //           ...acc,
-  //           {
-  //             thumb: `${baseUrl}${cur.url}`,
-  //             src: `${baseUrl}${cur.url}`,
-  //             caption: this.product.name,
-  //           },
-  //         ];
-  //       }, []);
-  //     },
-  //   },
   methods: {
     changePicture: function (index) {
       this.currentIndex = index;
@@ -79,12 +45,7 @@ export default {
       this.$refs.lightbox.showImage(this.currentIndex);
     },
   },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  },
+  props:['product']
 };
 </script>
 <style lang="scss" scoped>

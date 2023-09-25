@@ -5,15 +5,15 @@ import store from "../store"
 let lang = null;
 lang = localStorage.getItem("lang") || "en";
 
-let userExist = localStorage.getItem("buyerUserData");
+let userExist = localStorage.getItem("EGate-userInfo");
 
 const getToken = function () {
   if (
-    localStorage.getItem("userInfo") &&
-    localStorage.getItem("userInfo") != "undefined" &&
-    localStorage.getItem("userInfo") != undefined
+    localStorage.getItem("EGate-userInfo") &&
+    localStorage.getItem("EGate-userInfo") != "undefined" &&
+    localStorage.getItem("EGate-userInfo") != undefined
   ) {
-    let hasToken = JSON.parse(localStorage.getItem("userInfo"));
+    let hasToken = JSON.parse(localStorage.getItem("EGate-userInfo"));
     return hasToken ? `Bearer ${hasToken.token}` : "";
   }
   return "";
@@ -27,6 +27,7 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     'Accept': 'application/json',
+    'Content-Type' : 'application/json'
   },
 });
 
@@ -38,7 +39,10 @@ globalAxios.interceptors.response.use(
       (error.response.status == 401)
     ) {
 
-      store.dispatch('auth/LogOut')
+      // if(userExist){
+
+      //   store.dispatch('Auth/LogOut')
+      // }
       router.push(`/auth/login`)
     }
 

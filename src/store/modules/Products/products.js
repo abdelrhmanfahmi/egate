@@ -1,6 +1,7 @@
 import globalAxios from "@/services/global-axios";
 
 export const Products = {
+    namespaced: true,
     state: () => ({
         products: [],
         product:{}
@@ -29,11 +30,11 @@ export const Products = {
         async getProducts({ commit } , page = 1) {
 
             await globalAxios
-                .get(`products?page=${page}`)
+                .get(`client/products?page=${page}`)
                 .then((res) => {
                     console.log('res', res);
                     if (res.status == 200) {
-                        commit('GET_PRODUCTS', res.data.data)
+                        commit('GET_PRODUCTS', res.data)
                     }
                 })
                 .catch((err) => {
@@ -43,12 +44,11 @@ export const Products = {
 
         },
         async getProduct({ commit } , productId ) {
-
             await globalAxios
-                .get(`products/${productId}`)
+                .get(`client/products/${productId}`)
                 .then((res) => {
                     if (res.status == 200) {
-                        commit('GET_PRODUCT', res.data.data)
+                        commit('GET_PRODUCT', res.data);
                     }
                 })
                 .catch((err) => {

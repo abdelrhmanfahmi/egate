@@ -4,31 +4,21 @@
       <v-col cols="12" md="6" sm="12">
         <div class="productDescription">
           <h3>Description</h3>
-          <p class="text-gray-thin">
-            Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam
-            Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam
-            Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et Justo Duo Dolores
-            Et Ea Rebum. Stet Clita Kasd Gubergren, No Sea Takimata Sanctus Est
-            Lorem Ipsum Dolor Sit Amet. Lorem Ipsum Dolor Sit Amet, Consetetur
-            Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore
-            Et Dolore Magna Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et
-            Accusam Et Justo Duo Dolores Et Ea Rebum. Stet Clita Kasd Gubergren,
-            No Sea Takimata Sanctus Est Lorem Ipsum Dolor Sit Amet
-          </p>
+          <div class="text-gray-thin styleCss" v-html="product.description_en"></div>
         </div>
       </v-col>
       <v-col cols="12" md="6" sm="12">
         <h3>Details</h3>
         <v-row>
-          <v-col md="6" sm="6" xs="12" v-for="i in 8" :key="i">
+          <v-col md="6" sm="6" xs="12" v-for="(option , index) in product.options" :key="index">
             <div class="productInfo">
               <div class="d-flex">
                 <span>
-                  <v-icon icon="mdi-check" class="main-color"></v-icon>
+                  <v-icon icon="mdi-check" class="second-color"></v-icon>
                 </span>
                 <span>
                   <h5 class="productProperty text-gray">Type</h5>
-                  <p class="text-gray-thin">Split Air Conditioning</p>
+                  <p class="text-gray-thin">{{ option.name_en }}</p>
                 </span>
               </div>
             </div>
@@ -51,27 +41,11 @@
                 <v-row>
                   <v-col cols="12" md="4">
                     <h4 class="text-gray">SKU</h4>
-                    <p>Conhfw12c-CONF</p>
+                    <p>{{ product.sku }}</p>
                   </v-col>
                   <v-col cols="12" md="4">
                     <h4 class="text-gray">Brand</h4>
-                    <p>Fresh</p>
-                  </v-col>
-                  <v-col cols="12" md="4">
-                    <h4 class="text-gray">Cooling System</h4>
-                    <p>Cooling</p>
-                  </v-col>
-                  <v-col cols="12" md="4">
-                    <h4 class="text-gray">Sub Color</h4>
-                    <p>White</p>
-                  </v-col>
-                  <v-col cols="12" md="4">
-                    <h4 class="text-gray">Model Number</h4>
-                    <p>Hfw12c/Iw</p>
-                  </v-col>
-                  <v-col cols="12" md="4">
-                    <h4 class="text-gray">Filter Type</h4>
-                    <p>Anti-Bacterial</p>
+                    <p>{{ product.brand_name }}</p>
                   </v-col>
                 </v-row>
               </v-col>
@@ -192,13 +166,15 @@ export default {
       tab: null
     }
   },
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
-  }
+  props:['product']
 };
 </script>
 
-<style></style>
+<style lang="scss">
+p{
+  color: #000;
+}
+.styleCss{
+  color: #000;
+}
+</style>

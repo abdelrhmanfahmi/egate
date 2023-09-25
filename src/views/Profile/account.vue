@@ -32,7 +32,8 @@
                     <p class="red-text" role="button">Edit</p>
                   </v-col>
                   <v-col md="6" sm="6" xs="12">
-                    <p class="red-text" role="button">Change Password</p>
+                    <!-- <p class="red-text" role="button">Change Password</p> -->
+                    <ChangePassModal />
                   </v-col>
                 </v-row>
               </div>
@@ -123,8 +124,21 @@
   </div>
 </template>
 
+  
 <script>
-export default {};
+import ChangePassModal from "@/components/shared/Modals/Profile/ChangePassModal.vue";
+import { useMeta } from "vue-meta";
+export default {
+  setup() {
+    useMeta({
+      title: "Profile Account",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+  components: {
+    ChangePassModal,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

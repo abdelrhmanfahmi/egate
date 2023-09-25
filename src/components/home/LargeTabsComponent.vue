@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="wrapper">
-      <v-container>
+    <div class="wrapper tabs-component mb-5">
+      <v-container fluid>
         <v-row justify="center">
-          <v-col cols="12" xl="3" lg="4" md="2" sm="12">
+          <v-col cols="12" xl="3" lg="4" md="4" sm="12">
             <div class="sidePromotionHolder">
-              <v-row justify="space-between" align="center">
+              <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
                   <h3 class="m-0">Special Offer</h3>
                 </v-col>
@@ -18,10 +18,10 @@
               </v-row>
               <div class="imageHolder">
                 <v-img
-                  src="@/assets/images/home/Image20.png"
+                  src="https://cdn.vox-cdn.com/thumbor/vabx-KeOe5GULF4lqyITVmXMU6I=/0x0:1600x800/1400x788/filters:focal(800x400:801x401)/cdn0.vox-cdn.com/uploads/chorus_asset/file/8853589/google_ai_photography_street_view_2.jpg"
                   class="image-fluid"
-                  lazy-src="@/assets/images/home/Image20.png"
-                ></v-img>
+                  ></v-img>
+                  <!-- lazy-src="@/assets/images/home/Image20.png" -->
               </div>
               <div class="description">
                 <h4>Game Console Controller + Usb 3.0 Cable</h4>
@@ -63,38 +63,36 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" xl="9" lg="8" md="10" sm="12">
+          <v-col cols="12" xl="9" lg="8" md="8" sm="12">
             <v-tabs
               v-model="tab"
               color="deep-purple-accent-4"
               align-tabs="center"
             >
-              <v-tab :value="1">Featured</v-tab>
-              <v-tab :value="2">On Sale</v-tab>
-              <v-tab :value="3">Top Rated</v-tab>
+              <v-tab :value="1" @click.prevent="getProductsWithFilter(1)">Featured</v-tab>
+              <v-tab :value="2" @click.prevent="getProductsWithFilter(2)">On Sale</v-tab>
+              <v-tab :value="3" @click.prevent="getProductsWithFilter(3)">Top Rated</v-tab>
             </v-tabs>
             <v-window v-model="tab">
               <v-window-item v-for="n in 3" :key="n" :value="n">
                 <v-container fluid>
-                  <div v-for="i in 2" :key="i" cols="12" md="4">
-                    <swiper
-                      :slidesPerView="1"
-                      :grid="{
-                        rows: 2,
-                      }"
-                      :spaceBetween="10"
-                      :pagination="{
-                        clickable: true,
-                      }"
-                      :modules="modules"
-                      class="mySwiper"
-                    >
-                      <swiper-slide>
-                        <!-- products slider  -->
-                        <TabsProductsSlider />
-                      </swiper-slide>
-                    </swiper>
-                  </div>
+                  <swiper
+                    :slidesPerView="1"
+                    :grid="{
+                      rows: 2,
+                    }"
+                    :spaceBetween="10"
+                    :pagination="{
+                      clickable: true,
+                    }"
+                    :modules="modules"
+                    class="mySwiper"
+                  >
+                    <swiper-slide>
+                      <!-- products slider  -->
+                      <TabsProductsSlider :products="products"/>
+                    </swiper-slide>
+                  </swiper>
                 </v-container>
               </v-window-item>
             </v-window>
@@ -110,27 +108,53 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Grid, Pagination } from "swiper";
 import TabsProductsSlider from "@/components/shared/Tabs/TabsProductsSlider.vue";
 import CountDown from "@/components/shared/CountDown.vue";
+import home from '@/services/home';
+
 export default {
-  data: () => ({
-    tab: null,
-  }),
+  data(){
+    return {
+      tab: null,
+      products:[]
+    }
+  },
+
+  setup() {
+    return {
+      modules: [Grid, Pagination],
+    };
+  },
+
+  mounted(){
+    this.getProductsWithFilter(1);
+  },
+
+  methods:{
+    async getProductsWithFilter(e){
+      if(e == 1){
+        const response = await home.homeProductsFeatured();
+        this.products = response.data.items.data;
+      }else if(e == 2){
+        const response = await home.homeProducts();
+        this.products = response.data.items.data;
+      }else{
+        const response = await home.homeProductsTopRated();
+        this.products = response.data.items.data;
+      }
+    }
+  },
   components: {
     Swiper,
     SwiperSlide,
     TabsProductsSlider,
     CountDown,
   },
-  setup() {
-    return {
-      modules: [Grid, Pagination],
-    };
-  },
+  
 };
 </script>
 
 <style lang="scss" scoped>
 .saveMony {
-  background: $main-color;
+  background: $second-color;
   color: #000;
     padding: 20px;
     width: 100px;
@@ -144,8 +168,9 @@ export default {
 }
 .sidePromotionHolder {
   text-align: center;
-  border: 2px solid $main-color;
+  border: 2px solid $second-color;
   padding: 20px;
   border-radius: 20px;
+  background: #fff;
 }
 </style>

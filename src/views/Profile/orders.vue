@@ -1,7 +1,6 @@
 <template>
   <div class="profile">
-
-    <div class="orders-page ">
+    <div class="orders-page">
       <div class="page-title">
         <h2 class="profile-title">Orders</h2>
       </div>
@@ -145,12 +144,10 @@
               </v-row>
               <v-row class="my-8">
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class=" buy-btn">
-                    BUY IT AGAIN
-                  </button>
+                  <button class="buy-btn">BUY IT AGAIN</button>
                 </v-col>
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class=" view-btn">VIEW YOUR ITEM</button>
+                  <button class="view-btn">VIEW YOUR ITEM</button>
                 </v-col>
               </v-row>
             </div>
@@ -172,13 +169,13 @@
                         width="100"
                       ></v-img>
                     </div>
-                    <p class="order-data mx-5">
-                      Canon Hd Camera
-                    </p>
+                    <p class="order-data mx-5">Canon Hd Camera</p>
                   </div>
                   <h4 class="text-main">ADD A REVIEW</h4>
                   <div class="order-status">
-                    <span><v-icon icon="mdi-truck-outline" color="success"></v-icon></span>
+                    <span
+                      ><v-icon icon="mdi-truck-outline" color="success"></v-icon
+                    ></span>
                     <span class="mx-3 text-success">Delivered</span>
                   </div>
                 </v-col>
@@ -276,12 +273,10 @@
               </v-row>
               <v-row class="my-8">
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class=" buy-btn">
-                    BUY IT AGAIN
-                  </button>
+                  <button class="buy-btn">BUY IT AGAIN</button>
                 </v-col>
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class=" view-btn">VIEW YOUR ITEM</button>
+                  <button class="view-btn">VIEW YOUR ITEM</button>
                 </v-col>
               </v-row>
             </div>
@@ -395,6 +390,7 @@
 </template>
 
 <script>
+import { useMeta } from "vue-meta";
 export default {
   data() {
     return {
@@ -403,6 +399,12 @@ export default {
         Placedyear: null,
       },
     };
+  },
+  setup() {
+    useMeta({
+      title: "Profile Orders",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>
@@ -414,5 +416,4 @@ export default {
   box-shadow: 0px 6px 14px #76715445;
   border-radius: 5px;
 }
-
 </style>

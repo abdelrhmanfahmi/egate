@@ -1,15 +1,21 @@
 import globaAxios from "./global-axios";
 export default {
-    homeMainSlider() {
-        return globaAxios.get('sliders')
+    getBanners(){
+        return globaAxios.get('client/banners')
     },
     getCategories(){
-        return globaAxios.get('categories')
+        return globaAxios.get('client/categories?isParent=true')
     },
-    getGallary(){
-        return globaAxios.get('gallery')
+    homeProducts(){
+        return globaAxios.get(`client/products?hasOffer=true`)
     },
-    homeProducts(page = 1){
-        return globaAxios.get(`products?page=${page}`)
-    }
+    homeProductsFeatured(){
+        return globaAxios.get(`client/products?featured=true`)
+    },
+    homeProductsTopRated(){
+        return globaAxios.get(`client/products?top_rated=true`)
+    },
+    homeProductsTopReviewed(){
+        return globaAxios.get(`client/products?top_reviewed=true`)
+    },
 }

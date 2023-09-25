@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import auth from "./auth/index"
-import profile from "./profile"
+import auth from "./auth/index";
+import profile from "./profile";
 const routes = [
   {
     path: "/",
@@ -14,15 +14,31 @@ const routes = [
     component: () => import("../views/About.vue"),
   },
   {
+    path: "/faq",
+    name: "faq",
+    component: () => import("../views/Faq.vue"),
+  },
+  {
+    path: "/privacyPolicy",
+    name: "privacyPolicy",
+    component: () => import("../views/PrivacyPolicy.vue"),
+  },
+  {
     path: "/productPage/:id",
     name: "productPage",
     props: true,
     component: () => import("../views/ProductPage.vue"),
   },
   {
+    path: "/categoryPage/:id",
+    name: "categoryPage",
+    props: true,
+    component: () => import("../views/CategoryPage.vue"),
+  },
+  {
     path: "/categories",
     name: "categories",
-    component: () => import("../views/Categories/index.vue"),
+    component: () => import("../views/Categories/categoryIndex.vue"),
   },
   {
     path: "/cart",
@@ -39,11 +55,14 @@ const routes = [
     name: "checkoutConfirmation",
     component: () => import("../views/Checkout/CheckoutConfirmation.vue"),
   },
+  {
+    path: "/:pathMatch(.*)",
+    name: "not-found",
+    component: () => import("../views/404.vue"),
+  },
   ...profile,
   ...auth,
 ];
-
-
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -52,6 +71,5 @@ const router = createRouter({
     window.scrollTo(0, 0);
   },
 });
-
 
 export default router;

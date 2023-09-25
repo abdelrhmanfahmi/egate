@@ -2,7 +2,7 @@
   <div>
     <div class="wrapper">
       <v-app >
-        <v-container>
+        <v-container fluid>
           <v-breadcrumbs :items="items">
             <template v-slot:prepend>
               <v-icon size="small" icon="mdi-home"></v-icon>
@@ -12,7 +12,7 @@
             </template>
           </v-breadcrumbs>
         </v-container>
-        <ProductPage :product="product" />
+        <ProductPage :product="product"/>
       </v-app>
     </div>
   </div>
@@ -20,6 +20,9 @@
 
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
+import globalAxios from "@/services/global-axios";
+import {useMeta} from "vue-meta";
+
 export default {
   data: () => ({
     items: [
@@ -40,14 +43,23 @@ export default {
         href: "breadcrumbs_link_2",
       },
     ],
-    product: null,
-    id: null
+
+    product: {},
+    id: null,
 
   }),
+
+  mounted() {
+    this.checkID()
+    this.getProduct()
+  },
+
   components: {
     ProductPage,
   },
+
   methods: {
+
     async checkID() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
@@ -55,29 +67,15 @@ export default {
         this.id = this.$route.query.id
       }
     },
+
     async getProduct() {
-      await this.$store.dispatch('getProduct', this.id)
+      const response = await globalAxios.get(`client/products/${this.id}`);
+      this.product = response.data.items;
+      localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
     },
+
   },
-  async mounted() {
-    this.checkID()
-    this.getProduct()
-  },
-  computed: {
-    product() {
-      return this.$store.getters.product
-    }
-  },
-  created() {
-    this.$watch(
-      () => this.$route.params,
-      (toParams, previousParams) => {
-        // this.id = this.$route.params.id
-        // this.getProduct()
-        location.reload()
-      }
-    )
-  },
+  
 };
 </script>
 
