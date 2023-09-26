@@ -12,7 +12,7 @@
       enter-active-class="animate__animated animate__fadeInRight fast"
       leave-active-class="animate__animated animate__fadeInRight faster"
     >
-      <router-view />
+    <router-view :key="$route.path"/>
     </transition>
   </div>
   <actionsComp v-show="screenStatus == true" />

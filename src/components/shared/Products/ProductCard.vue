@@ -87,7 +87,7 @@
 
 <script>
 export default {
-  props: ["id", "product"],
+  props: ["product"],
   data() {
     return {
       quantity: 1,
@@ -201,7 +201,7 @@ export default {
 }
 @media screen and (min-width: 1024px) {
     .addToCartBtn {
-      padding: 8px 8px;
+      padding: 7px 2px;
     }
 }
 
