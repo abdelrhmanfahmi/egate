@@ -186,6 +186,18 @@ export default {
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
 }
+@media screen and (max-width: 500px){
+  .addToCartBtn {
+      padding: 8px 8px;
+      font-size: 0.7rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.6rem;
+    }
+    .list .card-wrapper{
+      width: 76% !important;
+    }
+}
 @media (min-width:960px) and (max-width:1000px) {
     .addToCartBtn {
         padding: 8px 8px;
@@ -215,8 +227,8 @@ export default {
 }
 @media screen and (min-width: 1300px) {
   .addToCartBtn {
-        padding: 8px 8px;
-        font-size: 0.6rem;
+        padding: 7px 2px;
+        font-size: 0.8rem;
     }
     .styleCssCategories .cat-name{
       font-size: 0.5rem;

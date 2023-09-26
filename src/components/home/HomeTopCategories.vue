@@ -1,6 +1,6 @@
 <template>
-  <div class="page-wrapper header sideHomeCategories">
-    <nav class="menu" v-if="categories.length && categories">
+  <div class="page-wrapper headerCategories sideHomeCategories">
+    <nav class="menuCategories" v-if="categories.length && categories">
       <h5 class="text-gray-dark mb-2">Categories</h5>
       <ul class="menu-main">
         <li class="menu-item-has-children" v-for="(category, index) in categories" :key="index">
