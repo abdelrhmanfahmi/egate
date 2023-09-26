@@ -191,17 +191,35 @@ export default {
         padding: 8px 8px;
         font-size: 0.5rem;
     }
-}
-
-@media (min-width:1100px) and (max-width:1300px) {
-    .addToCartBtn {
-        padding: 8px 8px;
-        font-size: 0.8rem;
+    .styleCssCategories .cat-name{
+      font-size: 0.8rem;
     }
 }
 @media screen and (min-width: 1024px) {
     .addToCartBtn {
       padding: 7px 2px;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.6rem;
+    }
+}
+
+@media (min-width:1100px) and (max-width:1300px) {
+    .addToCartBtn {
+        padding: 8px 8px;
+        font-size: 0.6rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.5rem;
+    }
+}
+@media screen and (min-width: 1300px) {
+  .addToCartBtn {
+        padding: 8px 8px;
+        font-size: 0.6rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.5rem;
     }
 }
 
