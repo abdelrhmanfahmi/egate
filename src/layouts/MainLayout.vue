@@ -12,12 +12,7 @@
       enter-active-class="animate__animated animate__fadeInRight fast"
       leave-active-class="animate__animated animate__fadeInRight faster"
     >
-      <template v-if="$route.name == 'productPage'">
-          <router-view :key="$route.path"/>
-      </template>
-      <template v-else>
-          <router-view />
-      </template>
+    <router-view :key="$route.path"/>
     </transition>
   </div>
   <actionsComp v-show="screenStatus == true" />
