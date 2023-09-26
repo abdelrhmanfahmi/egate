@@ -3,7 +3,7 @@ function checkAuth(to, from, next) {
     if (IsAuthenticated) {
         next({name: 'home'});
     }else{
-        next({name: "login"});
+        next();
     } 
 }
 
