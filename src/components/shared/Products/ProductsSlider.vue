@@ -1,5 +1,5 @@
 <template>
-  <div class="products-slider-wrapper">
+  <div class="products-slider-wrapper" v-if="productsCategory">
     <v-container fluid>
       <section class="pb-5">
         <div class="">
@@ -55,7 +55,13 @@ export default {
           }
         },
       },
+      changeProduct:false,
     };
+  },
+  methods:{
+    onUpdateProduct(newChangeProduct){
+      this.changeProduct = newChangeProduct;
+    }
   },
   props:['productsCategory']
 };

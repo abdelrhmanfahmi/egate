@@ -91,6 +91,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      changeProduct:false
     };
   },
   methods: {
