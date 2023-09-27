@@ -70,8 +70,19 @@ export default{
         },
 
         async getProductOffersPerCategory(){
-            const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: this.category_id , hasOffer: true}});
-            this.productsOffersPerCategory = response.data.items.data;
+            try{
+                const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: this.$route.params.id , hasOffer: true}});
+                this.productsOffersPerCategory = response.data.items.data;
+            }catch(e){
+                console.log(e);
+            }
+        }
+    },
+    watch: {
+        '$route.params.id' (newVal,oldVal) {
+            if(newVal != oldVal){
+            this.getProductOffersPerCategory();
+            }
         }
     },
     components:{

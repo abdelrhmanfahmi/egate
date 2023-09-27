@@ -94,9 +94,23 @@ export default{
             }
         },
         async getSubCategories(){
-            const response = await globalAxios.get(`client/categories/${this.category_id}`);
-            this.subCategories = response.data.items.childrens;
+            try{
+                if(this.$route.params.id){
+                    const response = await globalAxios.get(`client/categories/${this.$route.params.id}`);
+                    this.subCategories = response.data.items.childrens;
+                }
+            }catch(e){
+                console.log(e);
+            }
+            
         },
+    },
+    watch: {
+        '$route.params.id' (newVal,oldVal) {
+            if(newVal != oldVal){
+            this.getSubCategories();
+            }
+        }
     },
     components:{
         Swiper,

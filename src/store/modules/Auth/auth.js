@@ -13,8 +13,7 @@ export default {
         localStorage.getItem("EGate-userInfo") != "undefined"
           ? JSON.parse(localStorage.getItem("EGate-userInfo"))
           : null,
-      errors: null,
-      loginNow: false,
+      errors: null
     };
   },
   mutations: {
@@ -29,15 +28,11 @@ export default {
     },
     RESET_ERRORS(state) {
       state.errors = null;
-    },
-    CHECK_IF_LOGIN_NOW(state, loginStatus) {
-      state.loginNow = loginStatus;
-    },
+    }
   },
   actions: {
     async Register({ dispatch, commit }, form) {
       try {
-        commit("CHECK_IF_LOGIN_NOW", true);
         await globalAxios.post("auth/register", form).then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -54,10 +49,8 @@ export default {
               router.push("/auth/activate/emailActivation");
             }, 500);
           }
-          commit("CHECK_IF_LOGIN_NOW", false);
         });
       } catch (err) {
-        commit("CHECK_IF_LOGIN_NOW", false);
         toast.error(`${err.response.data.message}`, {
           position: "top-right",
           transition: "slide",
@@ -79,7 +72,6 @@ export default {
     },
     async ActiveEmailAccount({ dispatch, commit }, form) {
       try {
-        commit("CHECK_IF_LOGIN_NOW", true);
         await globalAxios.post("auth/activation", form).then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -96,10 +88,8 @@ export default {
               router.push("/auth/activate/mobileActivation");
             }, 500);
           }
-          commit("CHECK_IF_LOGIN_NOW", false);
         });
       } catch (err) {
-        commit("CHECK_IF_LOGIN_NOW", false);
         toast.error(`${err.response.data.message}`, {
           position: "top-right",
           transition: "slide",
@@ -121,7 +111,6 @@ export default {
     },
     async ActivePhoneAccount({ dispatch, commit }, form) {
       try {
-        commit("CHECK_IF_LOGIN_NOW", true);
         await globalAxios.post("auth/activation", form).then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -138,10 +127,8 @@ export default {
               router.push("/auth/login");
             }, 500);
           }
-          commit("CHECK_IF_LOGIN_NOW", false);
         });
       } catch (err) {
-        commit("CHECK_IF_LOGIN_NOW", false);
         toast.error(`${err.response.data.message}`, {
           position: "top-right",
           transition: "slide",
@@ -163,7 +150,6 @@ export default {
     },
     async Login({ dispatch, commit }, User) {
       try {
-        commit("CHECK_IF_LOGIN_NOW", true);
         await globalAxios.post("auth/client/login", User).then((res) => {
           toast.success(`${res.data.message}`, {
             position: "top-right",
@@ -187,14 +173,11 @@ export default {
               path: "/",
             },
             () => {
-              commit("CHECK_IF_LOGIN_NOW", false);
               router.go(0);
             }
           );
         });
-        commit("CHECK_IF_LOGIN_NOW", false);
       } catch (err) {
-        commit("CHECK_IF_LOGIN_NOW", false);
         if (err) {
           console.log("error", err.response.data.message);
           if (err.response.data.message) {
@@ -226,29 +209,39 @@ export default {
     },
 
     async LogOut({ commit }) {
-      commit("CHECK_IF_LOGIN_NOW", true);
       try {
-        await globalAxios.get("auth/logout").then(() => {
-          commit("LOG_OUT");
-          localStorage.removeItem("EGate-userInfo");
-
-          router.push(
-            {
-              path: "/",
-            },
-            () => {
-              router.go(0);
-              location.reload();
-            }
-          );
-          commit("CHECK_IF_LOGIN_NOW", false);
+        const user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+        await globalAxios.get('auth/logout' , {headers:{
+          Authorization: 'Bearer ' + user.token,
+        }});
+        await commit("LOG_OUT");
+        await localStorage.removeItem("EGate-userInfo");
+        
+        await toast.success(`Successfully Logged Out`, {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
         });
-      } catch (error) {
-        commit("CHECK_IF_LOGIN_NOW", false);
-      }
 
-      commit("CHECK_IF_LOGIN_NOW", false);
+        router.push(
+          {
+            path: "/",
+          },
+          () => {
+            router.go(0);
+            location.reload();
+          }
+        );
+
+      } catch (error) {
+        console.log(error);
+      }
     },
+
     async resetErrors({ commit }) {
       commit("RESET_ERRORS");
     },

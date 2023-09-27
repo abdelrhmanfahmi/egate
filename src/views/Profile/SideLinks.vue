@@ -7,7 +7,7 @@
         >
       </li>
       <li>
-        <a @click="logOut" class="link cursor-pointer"><span>Log Out</span></a>
+        <a @click.prevent="logOut" class="link cursor-pointer"><span>Log Out</span></a>
       </li>
     </ul>
   </div>
@@ -62,8 +62,8 @@ export default {
     };
   },
   methods:{
-    logOut(){
-      this.$store.dispatch('Auth/LogOut')
+    async logOut(){
+      await this.$store.dispatch('Auth/LogOut');
     }
   }
 };
