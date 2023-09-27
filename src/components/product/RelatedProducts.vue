@@ -27,19 +27,28 @@ export default {
   },
   methods:{
     async getProductsPerCategory(){
-      let productData = JSON.parse(localStorage.getItem('dataProduct'));
-      this.category_ids = productData.categories.map(function (el){
-          return el.id;
-      });
-    
-      const response = await globalAxios.get('client/products/relational/products' , {params: {category_ids: this.category_ids}});
-      this.productsCategory = response.data.items.data;
+      try{
+        let productData = JSON.parse(localStorage.getItem('dataProduct'));
+        this.category_ids = productData.categories.map(function (el){
+            return el.id;
+        });
+      
+        const response = await globalAxios.get('client/products/relational/products' , {params: {category_ids: this.category_ids}});
+        this.productsCategory = response.data.items.data;
+      }catch(e){
+        console.log(e);
+      }
+      
     },
 
     async getProductsPerBrand(){
-      let productData = JSON.parse(localStorage.getItem('dataProduct'));
-      const response = await globalAxios.get('client/products/relational/products' , {params: {brand_id: productData.brand_id}});
-      this.productsBrand = response.data.items.data;
+      try{
+        let productData = JSON.parse(localStorage.getItem('dataProduct'));
+        const response = await globalAxios.get('client/products/relational/products' , {params: {brand_id: productData.brand_id}});
+        this.productsBrand = response.data.items.data;
+      }catch(e){
+        console.log(e);
+      }
     }
   },
   components: {

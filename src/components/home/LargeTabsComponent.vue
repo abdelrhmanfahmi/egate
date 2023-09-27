@@ -114,7 +114,8 @@ export default {
   data(){
     return {
       tab: null,
-      products:[]
+      products:[],
+      specialOffres:{}
     }
   },
 
@@ -126,6 +127,7 @@ export default {
 
   mounted(){
     this.getProductsWithFilter(1);
+    this.getProductSpecialOffers();
   },
 
   methods:{
@@ -140,6 +142,10 @@ export default {
         const response = await home.homeProductsTopRated();
         this.products = response.data.items.data;
       }
+    },
+    async getProductSpecialOffers(){
+      const response = await home.getProductsSpecial();
+      this.specialOffres = response.data.items.data;
     }
   },
   components: {

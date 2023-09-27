@@ -29,7 +29,7 @@
     
 
     <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
-      <ProductsLooking />
+      <ProductsLooking :categoryFeatured="categoryFeatured"/>
     </v-lazy>
     
   </div>
@@ -55,6 +55,7 @@ export default {
       promotions:[],
       largeCoversOne:[],
       largeCoversTwo:[],
+      categoryFeatured:[],
       test:{
         key:'en'
       }
@@ -65,6 +66,7 @@ export default {
     this.getBanners();
     this.getHomeProducts();
     this.getHomeProductsTopReviewed();
+    this.getCategoriesFeatured();
   },
   
   methods: {
@@ -110,12 +112,21 @@ export default {
         }).catch(err => {
           console.log(err)
         })
-      },
+    },
 
-      async getHomeProductsTopReviewed(){
+    async getHomeProductsTopReviewed(){
+      try{
         const response = await home.homeProductsTopReviewed();
         this.productsTopReviewed = response.data.items.data;
+      }catch(e){
+        console.log(e);
       }
+    },
+
+    async getCategoriesFeatured(){
+      const response = await home.getFeaturedCategories();
+      this.categoryFeatured = response.data.items.data;
+    }
     },
 
   components: {

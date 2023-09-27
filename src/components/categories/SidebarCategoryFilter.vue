@@ -54,6 +54,13 @@ export default{
         CategoryProducts,
         Paginate
     },
+    watch: {
+        '$route.params.id' (newVal,oldVal) {
+            if(newVal != oldVal){
+            this.getCategoryProducts();
+            }
+        }
+    },
     methods:{
         checkID(){
             if (this.$route.params.id) {
@@ -64,12 +71,16 @@ export default{
         },
 
         async getCategoryProducts() {
-            const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: this.category_id , count:this.recordsPerPage , page:this.page}});
-            this.categoryProducts = response.data.items.data;
-            this.totalPages = Math.ceil(
-                response.data.items.meta?.total / response.data.items.meta?.per_page
-            );
-            this.totalRecords = response.data.items?.meta?.total;
+            try{
+                const response = await globalAxios.get('client/products/relational/products' , {params: {category_id: this.$route.params.id , count:this.recordsPerPage , page:this.page}});
+                this.categoryProducts = response.data.items.data;
+                this.totalPages = Math.ceil(
+                    response.data.items.meta?.total / response.data.items.meta?.per_page
+                );
+                this.totalRecords = response.data.items?.meta?.total;
+            }catch(e){
+                console.log(e);
+            }
         },
 
         async onUpdateProducts(newProducts){

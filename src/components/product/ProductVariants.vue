@@ -61,22 +61,26 @@ export default {
 
   methods: {
     async checkIfProductHasVariant(){
-      let productData = JSON.parse(localStorage.getItem('dataProduct'));
-      if(productData.variants.length > 0){
-        let attributeArr = [];
-        let firstChoosenClasses = document.getElementsByClassName('choosen');
+      try{
+        let productData = JSON.parse(localStorage.getItem('dataProduct'));
+        if(productData.variants.length > 0){
+          let attributeArr = [];
+          let firstChoosenClasses = document.getElementsByClassName('choosen');
 
-        for(let i = 0 ; i < firstChoosenClasses.length ; i++){
-          attributeArr.push(firstChoosenClasses[i].getAttribute('dataname'));
-        }
-        
-        let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
-        console.log(uniqueAttributeNames);
-        if(uniqueAttributeNames.length > 0){
-          for(let j = 0 ; j < uniqueAttributeNames.length ; j++){
-            document.getElementsByClassName('choosen '+uniqueAttributeNames[j])[0].classList.add("active");
+          for(let i = 0 ; i < firstChoosenClasses.length ; i++){
+            attributeArr.push(firstChoosenClasses[i].getAttribute('dataname'));
+          }
+          
+          let uniqueAttributeNames = attributeArr.filter(this.onlyUnique);
+          console.log(uniqueAttributeNames);
+          if(uniqueAttributeNames.length > 0){
+            for(let j = 0 ; j < uniqueAttributeNames.length ; j++){
+              document.getElementsByClassName('choosen '+uniqueAttributeNames[j])[0].classList.add("active");
+            }
           }
         }
+      }catch(e){
+        console.log(e);
       }
     },
 
