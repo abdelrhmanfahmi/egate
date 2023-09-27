@@ -1,7 +1,7 @@
 <template>
   <div class="product-gallery product-gallery-vertical">
     <div class="row m-0">
-      <v-row class="">
+      <v-row class="" v-if="product">
         <v-col cols="12" md="2" sm="12" class="thumbnails-holder">
           <div id="product-zoom-gallery" class="product-image-gallery">
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"

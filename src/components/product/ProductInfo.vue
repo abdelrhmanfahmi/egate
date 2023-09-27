@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="product">
     <v-row>
       <v-col cols="12" md="6" sm="12">
         <div class="productDescription">

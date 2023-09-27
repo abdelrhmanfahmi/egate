@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="productsCategory">
     <v-container fluid>
       <div class="d-flex justify-space-between align-center">
         <div class="section-title">

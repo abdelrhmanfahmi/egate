@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="product">
     <div class="advantages my-11">
       <section class="productShipping">
         <div class="d-flex">

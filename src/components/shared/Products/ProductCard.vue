@@ -91,6 +91,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      changeProduct:false
     };
   },
   methods: {
@@ -186,22 +187,52 @@ export default {
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
 }
+@media screen and (max-width: 500px){
+  .addToCartBtn {
+      padding: 8px 8px;
+      font-size: 0.7rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.6rem;
+    }
+    .list .card-wrapper{
+      width: 76% !important;
+    }
+}
 @media (min-width:960px) and (max-width:1000px) {
     .addToCartBtn {
         padding: 8px 8px;
         font-size: 0.5rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.8rem;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .addToCartBtn {
+      padding: 7px 2px;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.6rem;
     }
 }
 
 @media (min-width:1100px) and (max-width:1300px) {
     .addToCartBtn {
         padding: 8px 8px;
-        font-size: 0.8rem;
+        font-size: 0.6rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.5rem;
     }
 }
-@media screen and (min-width: 1024px) {
-    .addToCartBtn {
-      padding: 7px 2px;
+@media screen and (min-width: 1300px) {
+  .addToCartBtn {
+        padding: 7px 2px;
+        font-size: 0.8rem;
+    }
+    .styleCssCategories .cat-name{
+      font-size: 0.5rem;
     }
 }
 

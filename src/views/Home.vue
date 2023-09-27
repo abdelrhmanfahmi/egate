@@ -69,27 +69,39 @@ export default {
   
   methods: {
     async getBanners() {
-      const response = await home.getBanners();
-      let arrayFilterBannersOnly = response.data.items.data.filter((el) => {
-        return el.display_in == 'slider';
-      });
+      try{
+        const response = await home.getBanners();
+        let arrayFilterBannersOnly = response.data.items.data.filter((el) => {
+          if(el.display_in != null){
+            return el.display_in == 'slider';
+          }
+        });
 
-      let arrayFilterPromotionsOnly = response.data.items.data.filter((el) => {
-        return el.display_in.includes("promiotion_banner");
-      });
+        let arrayFilterPromotionsOnly = response.data.items.data.filter((el) => {
+          if(el.display_in != null){
+            return el.display_in.includes("promiotion_banner");
+          }
+        });
 
-      let arrayFilterLargeCoversOne = response.data.items.data.filter((el) => {
-        return el.display_in.includes("large_banner_1");
-      });
+        let arrayFilterLargeCoversOne = response.data.items.data.filter((el) => {
+          if(el.display_in != null){
+            return el.display_in.includes("large_banner_1");
+          }
+        });
 
-      let arrayFilterLargeCoversTwo = response.data.items.data.filter((el) => {
-        return el.display_in.includes("large_banner_2");
-      });
+        let arrayFilterLargeCoversTwo = response.data.items.data.filter((el) => {
+          if(el.display_in != null){
+            return el.display_in.includes("large_banner_2");
+          }
+        });
 
-      this.bannersImages = arrayFilterBannersOnly;
-      this.promotions = arrayFilterPromotionsOnly;
-      this.largeCoversOne = arrayFilterLargeCoversOne;
-      this.largeCoversTwo = arrayFilterLargeCoversTwo;
+        this.bannersImages = arrayFilterBannersOnly;
+        this.promotions = arrayFilterPromotionsOnly;
+        this.largeCoversOne = arrayFilterLargeCoversOne;
+        this.largeCoversTwo = arrayFilterLargeCoversTwo;
+      }catch(e){
+          console.log(e);
+      }
     },
 
     async getHomeProducts() {

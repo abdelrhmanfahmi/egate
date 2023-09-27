@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="product">
     <section >
       <OffersComponent :productsCategory="productsCategory" :sectionTitle="'More About Air Conditioner'" />
     </section>
