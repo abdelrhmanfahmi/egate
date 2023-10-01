@@ -23,7 +23,7 @@
                   ></v-img>
               </div>
               <div class="description mb-3">
-                <h4>{{ specialOffer.product.name }}</h4>
+                <h4>{{ specialOffer?.product?.name }}</h4>
                 <v-row class="aligned-row mt-1 mb-3">
                   <v-col cols="lg" sm="6" md="12">
                     <p class="price-after-desc">Egp {{ specialOffer?.product?.price }}</p>

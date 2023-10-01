@@ -3,11 +3,13 @@
         <v-container fluid v-if="subCategories.length > 3">
             <swiper :modules="modules" v-bind="options" class="mySwiper" v-if="subCategories.length > 0">
                 <swiper-slide v-for="(subCategory , index) in subCategories" :key="index">
+                    <router-link :to="'/categoryPage/'+subCategory.id" class="router-link-holder">
                     <img
                         :src="subCategory.cover"
                         :lazy-src="subCategory.cover"
                         class="borderCssImage"
                     />
+                    </router-link>
                     <br>
                     <p class="text-center">{{ subCategory.name_en }}</p>
                 </swiper-slide>
@@ -20,11 +22,13 @@
         <v-container fluid v-else>
             <swiper :modules="modules" v-bind="optionsTwo" class="mySwiper" v-if="subCategories.length > 0">
                 <swiper-slide v-for="(subCategory , index) in subCategories" :key="index">
+                    <router-link :to="'/categoryPage/'+subCategory.id" class="router-link-holder">
                     <img
                         :src="subCategory.cover"
                         :lazy-src="subCategory.cover"
                         class="borderCssImage"
                     />
+                    </router-link>
                     <br>
                     <p class="text-center">{{ subCategory.name_en }}</p>
                 </swiper-slide>

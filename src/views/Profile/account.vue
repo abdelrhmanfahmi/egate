@@ -17,10 +17,10 @@
               </div>
               <div class="name-address">
                 <div class="name">
-                  <p>Ahmed Sallam</p>
+                  <p>{{ info.full_name }}</p>
                 </div>
                 <div class="address">
-                  <p>Ahmedsalam203@Gmail.Com</p>
+                  <p>{{ info.email }}</p>
                 </div>
               </div>
               <div class="">
@@ -129,11 +129,19 @@
 import ChangePassModal from "@/components/shared/Modals/Profile/ChangePassModal.vue";
 import { useMeta } from "vue-meta";
 export default {
-  setup() {
+  setup(){
     useMeta({
       title: "Profile Account",
       htmlAttrs: { lang: "en", amp: true },
     });
+  },
+  data(){
+    return {
+      info:{}
+    }
+  },
+  mounted(){
+    this.info = this.$store.state.Auth.user.user;
   },
   components: {
     ChangePassModal,
