@@ -110,7 +110,10 @@ import home from '@/services/home';
 
 export default {
   data(){
+    const now = new Date();
+    const newYear = new Date(now.getFullYear() + 1, 0, 1);
     return {
+      time: newYear - now,
       tab: null,
       products:[]
     }

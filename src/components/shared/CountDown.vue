@@ -99,7 +99,6 @@
 
 <script>
 import home from "@/services/home";
-import { ref } from "@vue/reactivity";
 export default {
   name: "CounterCards",
   data(){
@@ -115,9 +114,9 @@ export default {
   async mounted(){
     const response = await home.getProductsSpecial();
     this.specialOffer = response.data.items.data[0];
-
     const lunchDate = new Date(this.specialOffer.end_at);
     setInterval(() => {
+
       const currentDate = new Date(this.specialOffer.start_at);
       const lunchTime = lunchDate - currentDate;
       this.seconds = parseInt(lunchTime / 1000);
@@ -130,6 +129,24 @@ export default {
   setup() {
     
   },
+
+  methods:{
+    changeTimeZone(date, timeZone) {
+        if (typeof date === 'string') {
+          return new Date(
+            new Date(date).toLocaleString('en-US', {
+              timeZone,
+            }),
+          );
+        }
+
+        return new Date(
+          date.toLocaleString('en-US', {
+            timeZone,
+          }),
+        );
+    }
+  }
 };
 </script>
 

@@ -157,7 +157,7 @@ export default {
 
     async getCategoriesFeatured(){
       const response = await home.getFeaturedCategories();
-      this.categoryFeatured = response.data.items.data;
+      this.categoryFeatured = response.data.items.data.slice(0,4);
     },
 
     async getSpecialOffer(){
