@@ -19,7 +19,7 @@ export default {
         return globaAxios.get(`client/products?top_reviewed=true`)
     },
     getFeaturedCategories(){
-        return globaAxios.get(`client/categories?featured=true`)
+        return globaAxios.get(`client/categories/featured`)
     },
     getProductsSpecial(){
         return globaAxios.get(`client/special-offers`)
