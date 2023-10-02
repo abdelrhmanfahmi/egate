@@ -134,9 +134,10 @@ export default {
   .filterText {
     color: #a3a3a1;
     position: absolute;
-    right: -3%;
-    top: 50%;
+    right: 74%;
+    top: 73%;
     transform: rotate(90deg) translate(-3%, -50%);
+    z-index: 9999;
   }
 }
 .v-expansion-panel{
@@ -148,6 +149,12 @@ export default {
   height: 570px;
   overflow: auto;
   background-color: #fff;
-  padding: 20px 20px 10px 10px;
+  padding: 20px 30px 15px 15px;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .sidebar-filter-wrapper{
+    padding: 20px 20px 10px 10px;
+  }
 }
 </style>
