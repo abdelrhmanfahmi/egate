@@ -16,8 +16,7 @@
 
       <div class="product-image-wrapper">
         <router-link :to="{name:'productPage', params:{id:product.id}}">
-          <img v-if="product.image != null" :src="product.image" class="productImage" style="cursor: pointer;"/>
-          <img v-else src="/e-gate/img/Braun-Desktop-EN.9be0286a.png" class="productImage" style="cursor: pointer;"/>
+          <img :src="product.image" class="productImage" style="cursor: pointer;"/>
         </router-link>
       </div>
       <div class="product-info">
