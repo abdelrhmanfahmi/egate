@@ -1,13 +1,34 @@
 <template>
     <div class="subcategories">
-        <v-container fluid>
+        <v-container fluid v-if="subCategories.length > 3">
             <swiper :modules="modules" v-bind="options" class="mySwiper" v-if="subCategories.length > 0">
                 <swiper-slide v-for="(subCategory , index) in subCategories" :key="index">
+                    <router-link :to="'/categoryPage/'+subCategory.id" class="router-link-holder">
                     <img
                         :src="subCategory.cover"
                         :lazy-src="subCategory.cover"
                         class="borderCssImage"
                     />
+                    </router-link>
+                    <br>
+                    <p class="text-center">{{ subCategory.name_en }}</p>
+                </swiper-slide>
+            </swiper>
+            <div v-else>
+                <h3 class="text-center">No Sub Categories</h3>
+            </div>
+        </v-container>
+
+        <v-container fluid v-else>
+            <swiper :modules="modules" v-bind="optionsTwo" class="mySwiper" v-if="subCategories.length > 0">
+                <swiper-slide v-for="(subCategory , index) in subCategories" :key="index">
+                    <router-link :to="'/categoryPage/'+subCategory.id" class="router-link-holder">
+                    <img
+                        :src="subCategory.cover"
+                        :lazy-src="subCategory.cover"
+                        class="borderCssImage"
+                    />
+                    </router-link>
                     <br>
                     <p class="text-center">{{ subCategory.name_en }}</p>
                 </swiper-slide>
@@ -42,6 +63,49 @@ export default{
                 spaceBetween: 50,
                 activeIndex:1,
                 navigation: true,
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    767: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                    },
+
+                    991: {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                    },
+                    1200:{
+                        slidesPerView:4,
+                        spaceBetween:10
+                    },
+                    1500:{
+                        slidesPerView:5,
+                        spaceBetween:10
+                    }
+                },
+                loop: true,
+                pagination: {
+                    clickable: true,
+                },
+                centeredSlides: true,
+                speed: 300,
+                direction: "horizontal",
+                zoom: true,
+                autoplay: {
+                    delay: 5000,
+                },
+                fadeEffect: {
+                    crossFade: true,
+                },
+            },
+            optionsTwo: {
+                slidesPerView: 6,
+                spaceBetween: 50,
+                activeIndex:1,
+                navigation: false,
                 breakpoints: {
                     320: {
                         slidesPerView: 1,

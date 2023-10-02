@@ -6,16 +6,18 @@
           <v-col cols="12" md="3" v-for="(category , idx) in categoryFeatured" :key="idx">
             <h3 class="title mb-5">{{ category.name_en }}</h3>
             <v-row>
-              <v-col cols="6" sm="6" class="px-1 py-1">
+              <v-col cols="6" sm="6" class="px-1 py-1" v-for="(subCategory,index) in category.childrens.slice(0, 4)">
                 <div class="img-holder">
                   <img
-                    :src="category.cover"
+                    :src="subCategory.cover"
+                    width="100"
+                    height="100"
                   />
                 </div>
               </v-col>
             </v-row>
             <div class="btn my-3">
-              <v-btn variant="tonal"> See More </v-btn>
+              <v-btn variant="tonal" @click.prevent="goToCategory(category.id)"> See More </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -27,7 +29,12 @@
 <script>
 
 export default {
-  props:['categoryFeatured']
+  props:['categoryFeatured'],
+  methods:{
+    goToCategory(id){
+      this.$router.push({path: '/categoryPage/' + id});
+    }
+  }
 };
 </script>
 

@@ -211,6 +211,7 @@ export default {
 @media screen and (min-width: 1024px) {
     .addToCartBtn {
       padding: 7px 2px;
+      font-size: 0.7rem;
     }
     .styleCssCategories .cat-name{
       font-size: 0.6rem;

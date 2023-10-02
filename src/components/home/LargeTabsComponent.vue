@@ -16,21 +16,20 @@
                   </div>
                 </v-col>
               </v-row>
-              <div class="imageHolder">
+              <div class="imageHolder mb-3">
                 <v-img
-                  src="https://cdn.vox-cdn.com/thumbor/vabx-KeOe5GULF4lqyITVmXMU6I=/0x0:1600x800/1400x788/filters:focal(800x400:801x401)/cdn0.vox-cdn.com/uploads/chorus_asset/file/8853589/google_ai_photography_street_view_2.jpg"
+                  :src="specialOffer.bannar"
                   class="image-fluid"
                   ></v-img>
-                  <!-- lazy-src="@/assets/images/home/Image20.png" -->
               </div>
-              <div class="description">
-                <h4>Game Console Controller + Usb 3.0 Cable</h4>
+              <div class="description mb-3">
+                <h4>{{ specialOffer?.product?.name }}</h4>
                 <v-row class="aligned-row mt-1 mb-3">
                   <v-col cols="lg" sm="6" md="12">
-                    <p class="price-after-desc">Egp 6,999.00</p>
+                    <p class="price-after-desc">Egp {{ specialOffer?.product?.price }}</p>
                   </v-col>
                   <v-col cols="lg" sm="6" md="12">
-                    <p class="product-price red-text">Egp 4,999.00</p>
+                    <p class="product-price red-text">Egp {{ specialOffer?.product?.product_price }}</p>
                   </v-col>
                 </v-row>
                 <v-row class="aligned-row mt-1 mb-3">
@@ -55,7 +54,6 @@
                 <h4 class="text-gray">Hurry Up! Offer Ends In:</h4>
                 <!-- countdowun timer  -->
                 <count-down
-                  until="2021-07-20"
                   format="DHMS"
                   wrap="coming-countdown countdown-separator"
                 ></count-down>
@@ -112,12 +110,16 @@ import home from '@/services/home';
 
 export default {
   data(){
+    const now = new Date();
+    const newYear = new Date(now.getFullYear() + 1, 0, 1);
     return {
+      time: newYear - now,
       tab: null,
-      products:[],
-      specialOffres:{}
+      products:[]
     }
   },
+
+  props:['specialOffer'],
 
   setup() {
     return {
@@ -127,7 +129,6 @@ export default {
 
   mounted(){
     this.getProductsWithFilter(1);
-    this.getProductSpecialOffers();
   },
 
   methods:{
@@ -143,10 +144,6 @@ export default {
         this.products = response.data.items.data;
       }
     },
-    async getProductSpecialOffers(){
-      const response = await home.getProductsSpecial();
-      this.specialOffres = response.data.items.data;
-    }
   },
   components: {
     Swiper,
