@@ -107,6 +107,7 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("Auth/Login", this.form);
+      document.getElementsByTagName('html')[0].style.overflow = 'auto';
     },
     openSideMenu(){
       document.getElementsByTagName('html')[0].style.overflow = 'auto';

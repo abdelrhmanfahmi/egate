@@ -18,7 +18,16 @@
             <span class="product-label label-top position-absolute" v-if="product.status == 'top'">Top</span>
             <span class="product-label label-out position-absolute out-of-stock" v-if="product.in_stock == false">Out Of Stock</span>
 
-            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
+            <v-img id="product-zoom" v-if="product.images &&
+             product.images[currentIndex] &&
+             product.images[currentIndex].full_url"
+             :lazy-src="product.images[currentIndex].full_url"
+             :src="product.images[currentIndex].full_url" alt="product"
+              class="img-fluid"></v-img>
+
+              <v-img id="product-zoom" v-else
+             :lazy-src="product.image"
+             :src="product.image" alt="product"
               class="img-fluid"></v-img>
               <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
                 <i class="icon-arrows"></i>

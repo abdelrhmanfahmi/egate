@@ -4,41 +4,41 @@
     <SliderCategories :banners="bannersImages" v-if="bannersImages"/>
 
     <!-- todays offers  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <offersComponentHome :sectionTitle="'Discount Products'" :products="products" />
-    </v-lazy>
+    <!-- </v-lazy> -->
     
     <!-- Promotions  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <Promotions :promotions="promotions"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
 
     <!-- LargeCover  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <LargeCover  :largeCoversOne="largeCoversOne"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
 
     <!-- top reviews  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <OffersComponentTopReviewed :sectionTitle="'Top Review'" :productsTopReviewed="productsTopReviewed"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
     
     <!-- tabs products slider  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <LargeTabsComponent :specialOffer="specialOffer"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
     
 
 
     <!-- LargeCover  -->
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <SharedCover :largeCoversTwo="largeCoversTwo"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
     
 
-    <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+    <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
       <ProductsLooking :categoryFeatured="categoryFeatured"/>
-    </v-lazy>
+    <!-- </v-lazy> -->
     
   </div>
 </template>

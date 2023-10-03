@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {defineAsyncComponent} from 'vue';
 
-const Home = defineAsyncComponent(() =>
-  import('../views/Home.vue')
-);
+// const Home = defineAsyncComponent(() =>
+//   import('../views/Home.vue')
+// );
+
+import Home from '../views/Home.vue';
 
 import auth from "./auth/index";
 import profile from "./profile";

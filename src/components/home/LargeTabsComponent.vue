@@ -3,7 +3,7 @@
     <div class="wrapper tabs-component mb-5">
       <v-container fluid>
         <v-row justify="center">
-          <v-col cols="12" xl="3" lg="4" md="4" sm="12">
+          <v-col cols="12" xl="3" lg="3" md="3" sm="12">
             <div class="sidePromotionHolder">
               <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
@@ -19,6 +19,7 @@
               <div class="imageHolder mb-3">
                 <v-img
                   :src="specialOffer.bannar"
+                  @click="goToSpecialOfferPage(specialOffer.id)"
                   class="image-fluid"
                   ></v-img>
               </div>
@@ -32,26 +33,26 @@
                     <p class="product-price red-text">Egp {{ specialOffer?.product?.product_price }}</p>
                   </v-col>
                 </v-row>
-                <v-row class="aligned-row mt-1 mb-3">
-                  <v-col cols="lg" sm="6" md="12">
+                <div class="row aligned-row mt-1 mb-3">
+                  <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <div class="d-flex">
                       <span
-                        ><v-icon icon="mdi-clock-time-eight-outline"></v-icon
+                        ><v-icon icon="mdi-clock-time-eight-outline" style="font-size:18px"></v-icon
                       ></span>
                       <p class="mx-2">
-                        <span class="gray-color"> Available : </span>
-                        <span><b>6</b></span>
+                        <span class="gray-color" style="font-size:13px"> Available : </span>
+                        <b>6</b>
                       </p>
                     </div>
-                  </v-col>
-                  <v-col cols="lg" sm="6" md="12">
+                  </div>
+                  <div class="col-md-6 d-flex justify-content-center align-items-center styleAlreadySold">
                     <div class="d-flex">
-                      <span class="gray-color">Already Sold : </span>
-                      <span><b>28</b></span>
+                      <span class="gray-color" style="font-size:13px">Already Sold : </span>
+                      <span><b>&nbsp; 28</b></span>
                     </div>
-                  </v-col>
-                </v-row>
-                <h4 class="text-gray">Hurry Up! Offer Ends In:</h4>
+                  </div>
+                </div>
+                <h6 class="text-gray">Hurry Up! Offer Ends In:</h6>
                 <!-- countdowun timer  -->
                 <count-down
                   format="DHMS"
@@ -61,7 +62,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" xl="9" lg="8" md="8" sm="12">
+          <v-col cols="12" xl="9" lg="9" md="9" sm="12">
             <v-tabs
               v-model="tab"
               color="deep-purple-accent-4"
@@ -144,6 +145,9 @@ export default {
         this.products = response.data.items.data;
       }
     },
+    goToSpecialOfferPage(id){
+      this.$router.push({path: '/productPage/' + id});
+    }
   },
   components: {
     Swiper,
@@ -175,5 +179,14 @@ export default {
   padding: 20px;
   border-radius: 20px;
   background: #fff;
+}
+
+.styleAlreadySold{
+  position: relative;
+  bottom: 3px;
+}
+
+.imageHolder{
+  cursor: pointer;
 }
 </style>

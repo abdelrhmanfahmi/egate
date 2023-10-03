@@ -40,7 +40,7 @@
         </p>
       </div>
       <div>
-        <div class="text-gray"> DAYS </div>
+        <div class="text-gray" style="font-size: 13px;"> Days </div>
       </div>
     </div>
     <!-- ---------------- -->
@@ -57,7 +57,7 @@
         </p>
       </div>
       <div>
-        <div class="text-gray"> HOURS </div>
+        <div class="text-gray" style="font-size: 13px;"> Hours </div>
       </div>
     </div>
     <!-- ---------------- -->
@@ -74,7 +74,7 @@
         </p>
       </div>
       <div>
-        <div class="text-gray"> MINUTES </div>
+        <div class="text-gray" style="font-size: 13px;"> Minutes </div>
       </div>
     </div>
     <!-- ---------------- -->
@@ -91,7 +91,7 @@
         </p>
       </div>
       <div>
-        <div class="text-gray"> SECONDS </div>
+        <div class="text-gray" style="font-size: 13px;"> Seconds </div>
       </div>
     </div>
   </div>
