@@ -1,10 +1,10 @@
 <template>
   <section class="homeMainSlider">
     <swiper v-bind="options" :modules="modules" class="mySwiper">
-      <swiper-slide v-for="(banner, index) in banners" :key="index" class="slider-image-holder">
-        <v-img :src="banner.image"></v-img>
+      <swiper-slide v-for="(banner, index) in banners" :key="index" class="slider-image-holder specificClassImageSlider">
+        <v-img class="styleImageSpecific" :src="banner.image"></v-img>
         <div class="button-holder">
-          <router-link :to="'/productPage/'+banner.product_id" class="router-link-holder">shop now</router-link>
+          <router-link :to="'/productPage/' + banner.product_id" class="router-link-holder">shop now</router-link>
         </div>
       </swiper-slide>
     </swiper>
@@ -12,7 +12,7 @@
 </template>
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination , Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 
 export default {
   data() {
@@ -20,7 +20,7 @@ export default {
       options: {
         slidesPerView: 1,
         spaceBetween: 30,
-        activeIndex:1,
+        activeIndex: 1,
         loop: true,
         pagination: {
           clickable: true,
@@ -38,7 +38,7 @@ export default {
       },
     };
   },
-  props:['banners'],
+  props: ['banners'],
   components: {
     Swiper,
     SwiperSlide
@@ -46,7 +46,7 @@ export default {
 
   setup() {
     return {
-      modules: [Pagination , Autoplay],
+      modules: [Pagination, Autoplay],
     };
   }
 
@@ -54,16 +54,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  p{
-    color: #000;
-  }
-  .slider-image-holder {
-    position: relative;
+p {
+  color: #000;
+}
+
+.slider-image-holder {
+  position: relative;
+
   .button-holder {
     position: absolute;
     top: 80%;
     left: 10%;
     transform: translate(-10%, -50%);
+
     .router-link-holder {
       background: #0DEEFA;
       padding: 12px 2vw;
@@ -71,10 +74,9 @@ export default {
       text-transform: capitalize;
       text-decoration: none;
       color: #fff;
-      font-weight:600;
+      font-weight: 600;
       font-size: 30px;
     }
   }
 }
-
 </style>

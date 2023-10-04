@@ -65,7 +65,7 @@ export default {
   width: 5px;
 }
 
-body{
+body {
   background: #F0F2F5 0% 0% no-repeat padding-box !important;
 }
 
@@ -102,5 +102,15 @@ body{
 
 ::-moz-scrollbar-thumb:hover {
   background: $main-color;
+}
+
+.specificClassImageSlider .styleImageSpecific img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 0;
+  margin: auto;
 }
 </style>
