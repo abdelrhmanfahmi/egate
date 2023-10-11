@@ -12,16 +12,14 @@
                 <v-col cols="12" md="6">
                   <div class="saveMony">
                     <p class="m-0">Save</p>
-                    <p class="m-0"><b>200 Egp</b></p>
+                    <p class="m-0"><b>EGP {{ specialOffer?.product?.price - specialOffer?.product?.product_price }}</b>
+                    </p>
                   </div>
                 </v-col>
               </v-row>
               <div class="imageHolder mb-3">
-                <v-img
-                  :src="specialOffer.bannar"
-                  @click="goToSpecialOfferPage(specialOffer.id)"
-                  class="image-fluid"
-                  ></v-img>
+                <v-img :src="specialOffer.bannar" @click="goToSpecialOfferPage(specialOffer.id)"
+                  class="image-fluid"></v-img>
               </div>
               <div class="description mb-3">
                 <h4>{{ specialOffer?.product?.name }}</h4>
@@ -36,9 +34,7 @@
                 <div class="row aligned-row mt-1 mb-3">
                   <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <div class="d-flex">
-                      <span
-                        ><v-icon icon="mdi-clock-time-eight-outline" style="font-size:18px"></v-icon
-                      ></span>
+                      <span><v-icon icon="mdi-clock-time-eight-outline" style="font-size:18px"></v-icon></span>
                       <p class="mx-2">
                         <span class="gray-color" style="font-size:13px"> Available : </span>
                         <b>6</b>
@@ -54,20 +50,13 @@
                 </div>
                 <h6 class="text-gray">Hurry Up! Offer Ends In:</h6>
                 <!-- countdowun timer  -->
-                <count-down
-                  format="DHMS"
-                  wrap="coming-countdown countdown-separator"
-                ></count-down>
+                <count-down format="DHMS" wrap="coming-countdown countdown-separator"></count-down>
                 <div class="mb-5"></div>
               </div>
             </div>
           </v-col>
           <v-col cols="12" xl="9" lg="9" md="9" sm="12">
-            <v-tabs
-              v-model="tab"
-              color="deep-purple-accent-4"
-              align-tabs="center"
-            >
+            <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
               <v-tab :value="1" @click.prevent="getProductsWithFilter(1)">Featured</v-tab>
               <v-tab :value="2" @click.prevent="getProductsWithFilter(2)">On Sale</v-tab>
               <v-tab :value="3" @click.prevent="getProductsWithFilter(3)">Top Rated</v-tab>
@@ -75,21 +64,14 @@
             <v-window v-model="tab">
               <v-window-item v-for="n in 3" :key="n" :value="n">
                 <v-container fluid>
-                  <swiper
-                    :slidesPerView="1"
-                    :grid="{
-                      rows: 2,
-                    }"
-                    :spaceBetween="10"
-                    :pagination="{
-                      clickable: true,
-                    }"
-                    :modules="modules"
-                    class="mySwiper"
-                  >
+                  <swiper :slidesPerView="1" :grid="{
+                    rows: 2,
+                  }" :spaceBetween="10" :pagination="{
+  clickable: true,
+}" :modules="modules" class="mySwiper">
                     <swiper-slide>
                       <!-- products slider  -->
-                      <TabsProductsSlider :products="products"/>
+                      <TabsProductsSlider :products="products" />
                     </swiper-slide>
                   </swiper>
                 </v-container>
@@ -110,17 +92,17 @@ import CountDown from "@/components/shared/CountDown.vue";
 import home from '@/services/home';
 
 export default {
-  data(){
+  data() {
     const now = new Date();
     const newYear = new Date(now.getFullYear() + 1, 0, 1);
     return {
       time: newYear - now,
       tab: null,
-      products:[]
+      products: []
     }
   },
 
-  props:['specialOffer'],
+  props: ['specialOffer'],
 
   setup() {
     return {
@@ -128,25 +110,25 @@ export default {
     };
   },
 
-  mounted(){
+  mounted() {
     this.getProductsWithFilter(1);
   },
 
-  methods:{
-    async getProductsWithFilter(e){
-      if(e == 1){
+  methods: {
+    async getProductsWithFilter(e) {
+      if (e == 1) {
         const response = await home.homeProductsFeatured();
         this.products = response.data.items.data;
-      }else if(e == 2){
+      } else if (e == 2) {
         const response = await home.homeProducts();
         this.products = response.data.items.data;
-      }else{
+      } else {
         const response = await home.homeProductsTopRated();
         this.products = response.data.items.data;
       }
     },
-    goToSpecialOfferPage(id){
-      this.$router.push({path: '/productPage/' + id});
+    goToSpecialOfferPage(id) {
+      this.$router.push({ path: '/productPage/' + id });
     }
   },
   components: {
@@ -155,7 +137,7 @@ export default {
     TabsProductsSlider,
     CountDown,
   },
-  
+
 };
 </script>
 
@@ -163,16 +145,17 @@ export default {
 .saveMony {
   background: $second-color;
   color: #000;
-    padding: 20px;
-    width: 100px;
-    margin: auto;
-    border-radius: 50%;
-    font-size: 14px;
-    text-align: center;
-    height: 100px;
-    line-height: 30px;
+  padding: 20px;
+  width: 100px;
+  margin: auto;
+  border-radius: 50%;
+  font-size: 14px;
+  text-align: center;
+  height: 100px;
+  line-height: 30px;
 
 }
+
 .sidePromotionHolder {
   text-align: center;
   border: 2px solid $second-color;
@@ -181,12 +164,12 @@ export default {
   background: #fff;
 }
 
-.styleAlreadySold{
+.styleAlreadySold {
   position: relative;
   bottom: 3px;
 }
 
-.imageHolder{
+.imageHolder {
   cursor: pointer;
 }
 </style>
