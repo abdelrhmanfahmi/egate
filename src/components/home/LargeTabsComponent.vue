@@ -50,7 +50,8 @@
                 </div>
                 <h6 class="text-gray">Hurry Up! Offer Ends In:</h6>
                 <!-- countdowun timer  -->
-                <count-down format="DHMS" wrap="coming-countdown countdown-separator"></count-down>
+                <count-down :specialOffer="specialOffer" format="DHMS"
+                  wrap="coming-countdown countdown-separator"></count-down>
                 <div class="mb-5"></div>
               </div>
             </div>
