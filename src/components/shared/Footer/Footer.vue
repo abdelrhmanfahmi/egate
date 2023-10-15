@@ -107,6 +107,12 @@
             <li>
               <router-link class="text-gray" to="/privacyPolicy">Privacy Policy</router-link>
             </li>
+            <li>
+              <router-link class="text-gray" to="/terms">Terms & Conditions</router-link>
+            </li>
+            <li>
+              <router-link class="text-gray" to="/contact">Contact Us</router-link>
+            </li>
           </ul>
         </v-col>
       </v-row>

@@ -1,3 +1,4 @@
+import globalAxios from "./global-axios";
 import globaAxios from "./global-axios";
 export default {
     getBanners() {
@@ -29,5 +30,8 @@ export default {
     },
     getFaqs() {
         return globaAxios.get(`settings/faqs`);
+    },
+    storeContactUsForm(payload) {
+        return globalAxios.post(`contact`, payload);
     }
 }

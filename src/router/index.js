@@ -30,6 +30,16 @@ const routes = [
     component: () => import("../views/PrivacyPolicy.vue"),
   },
   {
+    path: "/terms",
+    name: "terms_and_conditions",
+    component: () => import("../views/Terms.vue"),
+  },
+  {
+    path: "/contact",
+    name: "contact_us",
+    component: () => import("../views/Contact.vue"),
+  },
+  {
     path: "/productPage/:id",
     name: "productPage",
     props: true,

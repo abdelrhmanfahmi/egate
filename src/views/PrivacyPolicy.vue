@@ -1,5 +1,5 @@
 <template>
-  <!-- faq page  -->
+  <!-- privacy page  -->
   <div>
     <v-app>
       <div class="wrapper">
