@@ -17,12 +17,12 @@
           <v-row>
             <v-col cols="12" lg="7" md="7" sm="12">
               <div class="faq-list">
-                <div v-for="(x, index) in 6" :key="index">
+                <div v-for="(faq, index) in faqs" :key="index">
                   <details :class="`details-${index}`">
                     <summary :title="`title - ${index}`">
-                      title - {{ index }}
+                      {{ faq.question }}
                     </summary>
-                    <p class="faq-content">{{ index }} - faq-content</p>
+                    <p class="faq-content">{{ faq.answer_en }}</p>
                   </details>
                 </div>
               </div>
@@ -30,16 +30,10 @@
             <v-col cols="12" lg="5" md="5" sm="12">
               <div class="d-flex images-holder" justify="start">
                 <div class="top-image">
-                  <img
-                    :src="require('@/assets/images/home/Braun-Desktop-EN.png')"
-                    class="img-responsive"
-                  />
+                  <img :src="require('@/assets/images/home/Braun-Desktop-EN.png')" class="img-responsive" />
                 </div>
                 <div class="bottom-image">
-                  <img
-                    :src="require('@/assets/images/home/Braun-Desktop-EN.png')"
-                    class="img-responsive"
-                  />
+                  <img :src="require('@/assets/images/home/Braun-Desktop-EN.png')" class="img-responsive" />
                 </div>
               </div>
             </v-col>
@@ -51,8 +45,16 @@
 </template>
 
 <script>
+import home from "@/services/home";
 import { useMeta } from "vue-meta";
 export default {
+  setup() {
+    useMeta({
+      title: "Faq Page",
+      htmlAttrs: { lang: "en", amp: true },
+    });
+  },
+
   data() {
     return {
       items: [
@@ -63,24 +65,26 @@ export default {
           href: "faq",
         },
       ],
+      faqs: []
     };
   },
-  setup() {
-    useMeta({
-      title: "Faq Page",
-      htmlAttrs: { lang: "en", amp: true },
-    });
+
+  mounted() {
+    this.getFaqsData();
   },
-  mounted(){
-    this.$nextTick(() => {
-      document.dispatchEvent(new Event("render-complete"));
-    });
+  methods: {
+    async getFaqsData() {
+      const response = await home.getFaqs();
+      this.faqs = response.data.items.data;
+    }
   }
+
+
 };
 </script>
 
 <style lang="scss" scoped>
-div + div {
+div+div {
   clear: both;
 }
 
@@ -101,19 +105,20 @@ div.seperator {
   margin-left: -1.8em;
 }
 
-.faq-list > div {
+.faq-list>div {
   border-bottom: 2px solid $gray;
   padding: 1.5em 0em;
 }
 
-.faq-list > div:last-child {
+.faq-list>div:last-child {
   border: unset;
 }
 
-details > summary {
+details>summary {
   list-style: none;
 }
-details > summary::-webkit-details-marker {
+
+details>summary::-webkit-details-marker {
   display: none;
 }
 
@@ -134,7 +139,7 @@ summary:hover {
   color: $gray;
 }
 
-details[open] summary ~ * {
+details[open] summary~* {
   animation: sweep 0.5s ease-in-out;
 }
 
@@ -143,6 +148,7 @@ details[open] summary ~ * {
     opacity: 0;
     margin-left: -10px;
   }
+
   100% {
     opacity: 1;
     margin-left: 55px;
@@ -201,6 +207,7 @@ summary:after {
   text-align: center;
   width: 25px;
 }
+
 .jumbotron {
   margin-bottom: 30px;
   color: inherit;
@@ -218,27 +225,33 @@ img.img-responsive {
 
 .images-holder {
   position: relative;
+
   @media (max-width: 960px) {
     justify-content: space-between;
     align-items: center;
   }
+
   .top-image {
     position: absolute;
     left: 0;
     top: 0;
     width: 65%;
     z-index: 2;
+
     img {
       width: 100%;
     }
+
     @media (max-width: 960px) {
       position: relative;
       transform: none;
+
       img {
         width: 90% !important;
       }
     }
   }
+
   .bottom-image {
     z-index: 1;
     position: absolute;
@@ -246,18 +259,22 @@ img.img-responsive {
     right: 0;
     transform: translate(0%, 30%);
     width: 65%;
+
     img {
       width: 100%;
     }
+
     @media (max-width: 960px) {
       position: relative;
       transform: none;
+
       img {
         width: 90% !important;
       }
     }
   }
 }
+
 .wrapper * {
   text-transform: capitalize;
 }
