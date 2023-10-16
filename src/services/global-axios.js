@@ -27,7 +27,7 @@ const globalAxios = axios.create({
     Authorization: getToken(),
     "Accept-Language": lang,
     'Accept': 'application/json',
-    'Content-Type' : 'application/json'
+    'Content-Type': 'application/json'
   },
 });
 
@@ -38,11 +38,6 @@ globalAxios.interceptors.response.use(
       (error.response.status == 403) ||
       (error.response.status == 401)
     ) {
-
-      // if(userExist){
-
-      //   store.dispatch('Auth/LogOut')
-      // }
       router.push(`/auth/login`)
     }
 

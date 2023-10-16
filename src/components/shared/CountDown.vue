@@ -82,8 +82,6 @@ export default {
   async mounted() {
     setTimeout(() => {
       const lunchDate = new Date(this.specialOffer.end_at);
-      console.log(this.specialOffer.end_at);
-      console.log(this.specialOffer.start_at);
       setInterval(() => {
         const currentDate = new Date(this.specialOffer.start_at);
         const lunchTime = lunchDate - currentDate;

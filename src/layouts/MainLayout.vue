@@ -6,13 +6,9 @@
   </metainfo>
   <Navbar :categories="categories" />
   <div class="App-wrapper">
-    <transition
-      name="router-animation"
-      mode="out-in"
-      enter-active-class="animate__animated animate__fadeInRight fast"
-      leave-active-class="animate__animated animate__fadeInRight faster"
-    >
-    <router-view />
+    <transition name="router-animation" mode="out-in" enter-active-class="animate__animated animate__fadeInRight fast"
+      leave-active-class="animate__animated animate__fadeInRight faster">
+      <router-view />
     </transition>
   </div>
   <actionsComp v-show="screenStatus == true" />
@@ -24,7 +20,11 @@
 import Navbar from "@/components/shared/header/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import actionsComp from "@/components/shared/actionsComp";
+import guest from '@/services/guest';
 export default {
+  mounted() {
+    this.checkIfuserGuest();
+  },
   components: {
     Navbar,
     Footer,
@@ -48,6 +48,17 @@ export default {
     checkLoadingScreen(event) {
       console.log("event", event);
     },
+    async checkIfuserGuest() {
+      try {
+        if (localStorage.getItem('guest-token')) {
+          console.log('you are logged in as a guest');
+        } else {
+          await guest.post('guest/generate-token');
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
   },
   computed: {
     screenStatus() {
@@ -61,6 +72,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
+
 /**
 *layout style
 */
@@ -75,7 +87,8 @@ export default {
 .slide-fade-enter,
 .slide-fade-leave-to
 
-/* .slide-fade-leave-active below version 2.1.8 */ {
+/* .slide-fade-leave-active below version 2.1.8 */
+  {
   transform: translateX(10px);
   opacity: 0;
 }
