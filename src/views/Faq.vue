@@ -20,9 +20,10 @@
                 <div v-for="(faq, index) in faqs" :key="index">
                   <details :class="`details-${index}`">
                     <summary :title="`title - ${index}`">
-                      {{ faq.question }}
+
+                      {{ $i18n.locale == "en" ? faq.question_en : faq.question_ar }}
                     </summary>
-                    <p class="faq-content">{{ faq.answer_en }}</p>
+                    <p class="faq-content">{{ $i18n.locale == "en" ? faq.answer_en : faq.answer_ar }}</p>
                   </details>
                 </div>
               </div>
