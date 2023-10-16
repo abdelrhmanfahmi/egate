@@ -88,17 +88,17 @@
 
                             <form id="submitForm" @submit.prevent="storeContactForm" class="styleForm">
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Your Name<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" v-model="contact.name">
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Your Email<span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" v-model="contact.email">
                                     </div>
                                 </div>
                                 <div class="row d-flex justify-content-start">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Phone Number<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" v-model="contact.phone">
                                     </div>
@@ -112,7 +112,7 @@
                                         placeholder="Write Your Message Here ..." v-model="contact.message"></textarea>
                                 </div>
                                 <div class="col mb-3">
-                                    <button class="btn btn-primary w-25">Send</button>
+                                    <button class="btn btn-primary StyleSendButton" id="sendData">Send</button>
                                 </div>
                             </form>
                         </div>
@@ -156,19 +156,23 @@ export default {
     },
     methods: {
         async storeContactForm() {
+            document.getElementById('sendData').style.disabled = true;
             const toast = useToast();
             try {
                 const response = await home.storeContactUsForm(this.contact);
-                toast.success(`${response.data.message}`, {
-                    position: "top-right",
-                    transition: "slide",
-                    hideProgressBar: false,
-                    showIcon: true,
-                    timeout: 3000,
-                    showCloseButton: true,
-                    swipeClose: true,
-                });
-                this.resetForm();
+                if (response.status == 200) {
+                    toast.success(`${response.data.message}`, {
+                        position: "top-right",
+                        transition: "slide",
+                        hideProgressBar: false,
+                        showIcon: true,
+                        timeout: 3000,
+                        showCloseButton: true,
+                        swipeClose: true,
+                    });
+                    this.resetForm();
+                    document.getElementById('sendData').style.disabled = false;
+                }
             } catch (e) {
                 toast.error(`${e.response.data.message}`, {
                     position: "top-right",
@@ -179,6 +183,7 @@ export default {
                     showCloseButton: true,
                     swipeClose: true,
                 });
+                document.getElementById('sendData').style.disabled = false;
             }
         },
         resetForm() {
@@ -194,6 +199,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.StyleSendButton {
+    width: 25%;
+}
+
 ul>li>div {
     display: flex;
 }
@@ -309,11 +318,27 @@ img.img-responsive {
     .styleDivBlockAll {
         padding: 0rem;
     }
+
+    .styleBackDiv {
+        height: 42%;
+    }
+
+    .StyleSendButton {
+        width: 50%;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .styleDivBlockAll {
         padding: 0rem;
+    }
+
+    .StyleSendButton {
+        width: 50%;
+    }
+
+    .styleBackDiv {
+        height: 89%;
     }
 }
 </style>
