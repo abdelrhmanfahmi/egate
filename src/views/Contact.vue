@@ -14,7 +14,7 @@
                     </v-breadcrumbs>
 
                     <h1 class="text-center">CONTACT US</h1>
-                    <div class="row h-100">
+                    <div class="row h-100 w-100">
                         <div class="col-md-6 styleBackDiv">
                             <h3 class="text-white text-center">Contact Info</h3>
                             <br>
