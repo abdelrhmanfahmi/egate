@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="productColors my-3">
-        <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)"/>
+        <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)" :show="show"/>
       </div>
       
     </div>

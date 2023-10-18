@@ -12,7 +12,7 @@
             </template>
           </v-breadcrumbs>
         </v-container>
-        <ProductPage :product="product"/>
+        <ProductPage :product="product" />
       </v-app>
     </div>
   </div>
@@ -21,7 +21,6 @@
 <script>
 import ProductPage from "@/components/product/ProductPage.vue";
 import globalAxios from "@/services/global-axios";
-import {useMeta} from "vue-meta";
 
 export default {
   data: () => ({
@@ -49,17 +48,16 @@ export default {
 
   }),
 
-  mounted() {
-    this.checkID()
-    this.getProduct()
-  },
-
   components: {
     ProductPage,
   },
 
-  methods: {
+  mounted(){
+    this.checkID();
+    this.getProduct();
+  },
 
+  methods: {
     async checkID() {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
@@ -69,11 +67,21 @@ export default {
     },
 
     async getProduct() {
-      const response = await globalAxios.get(`client/products/${this.id}`);
-      this.product = response.data.items;
-      localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
+      try{
+        const response = await globalAxios.get(`client/products/${this.$route.params.id}`);
+        this.product = response.data.items;
+        localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
+      }catch(e){
+        console.log(e);
+      }
     },
-
+  },
+  watch: {
+      '$route.params.id' (newVal,oldVal) {
+        if(newVal != oldVal){
+          this.getProduct();
+        }
+      }
   },
   
 };

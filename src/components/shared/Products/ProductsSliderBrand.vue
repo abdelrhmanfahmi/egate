@@ -1,6 +1,6 @@
 <template>
     <div class="products-slider-wrapper">
-      <v-container fluid>
+      <v-container fluid v-if="productsBrand">
         <section class="pb-5">
           <div class="">
             <swiper :spaceBetween="5" :modules="modules" :breakpoints="swiperOptions.breakpoints" class="mySwiper">

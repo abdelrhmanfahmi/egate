@@ -2,7 +2,7 @@
   <div class="wrapper mb-5">
     <v-container fluid>
       <v-row>
-        <v-col v-for="(promotion,index) in promotions" :key="index" cols="12" sm="4" >
+        <v-col v-for="(promotion,index) in promotions.slice(0,3)" :key="index" cols="12" sm="4" >
           <img class="img-responsive promo-image" :src="promotion.image" />
         </v-col>
       </v-row>

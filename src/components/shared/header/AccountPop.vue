@@ -2,21 +2,21 @@
   <span
     class="iconHolder cart"
     role="button"
-    @click.stop="sideVisible = !sideVisible"
+    @click="clickOnIconOpen"
   >
     <v-icon icon="mdi-account-outline"></v-icon>
   </span>
   <div class="sideCartHolder">
     <div
       class="shadedMenu"
-      @click.stop="sideVisible = !sideVisible"
+      @click="openSideMenu"
       v-show="sideVisible"
     ></div>
     <div
       class="closeMenuX"
       role="button"
       v-if="sideVisible"
-      @click.stop="sideVisible = !sideVisible"
+      @click="closeSideMenu"
     >
       x
     </div>
@@ -107,7 +107,20 @@ export default {
   methods: {
     login() {
       this.$store.dispatch("Auth/Login", this.form);
+      document.getElementsByTagName('html')[0].style.overflow = 'auto';
     },
+    openSideMenu(){
+      document.getElementsByTagName('html')[0].style.overflow = 'auto';
+      this.sideVisible = !this.sideVisible;
+    },
+    closeSideMenu(){
+      document.getElementsByTagName('html')[0].style.overflow = 'auto';
+      this.sideVisible = !this.sideVisible;
+    },
+    clickOnIconOpen(){
+      document.getElementsByTagName('html')[0].style.overflow = 'hidden';
+      this.sideVisible = !this.sideVisible;
+    }
   },
   mounted() {
     this.$store.dispatch("Auth/resetErrors");

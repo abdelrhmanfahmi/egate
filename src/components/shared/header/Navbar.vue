@@ -23,13 +23,10 @@
                 ></span>
               </v-col> -->
               <v-col cols="12">
-                <span
-                  class="header-search"
-                  :class="{
-                    enableLargeSearch: showSearchBar,
-                    disableLargeSearch: !showSearchBar,
-                  }"
-                >
+                <span class="header-search" :class="{
+                  enableLargeSearch: showSearchBar,
+                  disableLargeSearch: !showSearchBar,
+                }">
                   <HeaderSearch />
                 </span>
               </v-col>
@@ -46,10 +43,7 @@
             >
               <v-icon icon="mdi-magnify"></v-icon
             ></span> -->
-            <span
-              class="iconHolder seachIcon cursor-pointer"
-              v-if="!showSearchBar && mobileView"
-            >
+            <span class="iconHolder seachIcon cursor-pointer" v-if="!showSearchBar && mobileView">
               <searchModal />
             </span>
 
@@ -59,36 +53,24 @@
             </span> -->
 
             <!-- languages  -->
-            <span
-              role="button"
-              class="iconHolder language iconHolder"
-              @click="switchLang()"
-              v-if="lang == 'en'"
-              id="arLang"
-              ref="arLang"
-            >
+            <span role="button" class="iconHolder language iconHolder" @click="switchLang()" v-if="lang == 'en'"
+              id="arLang" ref="arLang">
               <span class="hold-land">
                 <img :src="require('@/assets/images/header/egypt.png')" />
                 <span class="px-2">AR</span>
               </span>
             </span>
-            <span
-              role="button"
-              class="iconHolder language iconHolder"
-              @click="switchLang()"
-              v-if="lang == 'ar'"
-              id="enLang"
-              ref="enLang"
-              >
-              
+            <span role="button" class="iconHolder language iconHolder" @click="switchLang()" v-if="lang == 'ar'"
+              id="enLang" ref="enLang">
+
               <span class="hold-land">
                 <img :src="require('@/assets/images/header/united-states.png')" />
                 <span class="px-2">En</span>
               </span>
-              
-              
-              </span
-            >
+
+
+            </span>
+            |
 
             <!-- wishlists  -->
 
@@ -97,22 +79,23 @@
                 <v-icon icon="mdi-wallet-outline"></v-icon>
               </router-link>
             </span>
+            |
             <span class="iconHolder">
               <router-link to="/profile/wishlist">
                 <v-badge :content="wishlistItemsCount" color="error">
                   <v-icon icon="mdi-heart-outline"></v-icon>
                 </v-badge>
               </router-link>
-            </span> 
+            </span>
+            |
             <span v-if="isLoggedIn">
-              <router-link to="/profile/account" class="iconHolder profile"
-                ><v-icon icon="mdi-account-outline"></v-icon
-              ></router-link>
+              <router-link to="/profile/account" class="iconHolder profile"><v-icon
+                  icon="mdi-account-outline"></v-icon></router-link>
             </span>
             <span v-else>
               <AccountPop />
             </span>
-
+            |
             <!-- cart  -->
             <cartPop />
             <!-- <theme-button /> -->
@@ -208,8 +191,13 @@ export default {
     window.addEventListener("load", this.checkMobile);
     window.addEventListener("scroll", this.makeHeaderSticky);
     window.addEventListener("resize", this.checkMobile);
+
+    this.checkCartData();
   },
   methods: {
+    checkCartData() {
+      this.$store.dispatch('cart/getCartProducts');
+    },
     openLargeSearchBar(e) {
       this.showSearchBar = true;
       e.preventDefault();
@@ -285,12 +273,14 @@ export default {
 header {
   background: $header-back;
   color: #fff;
+
   a {
     &:hover {
       color: #fff !important;
     }
   }
 }
+
 .seachIcon {
   background: $main-color;
   color: #fff;
@@ -332,6 +322,7 @@ header {
 
 .header-search {
   z-index: 99;
+
   @media (max-width: 992px) {
     margin-top: 20px;
   }
@@ -353,18 +344,20 @@ header {
   from {
     transform: translateY(-100%);
   }
+
   to {
     transform: translateY(0);
   }
 }
 
-.hold-land{
+.hold-land {
   display: flex;
   justify-content: center;
   align-items: center;
-  img{
-    width:25px;
-    height:25px
+
+  img {
+    width: 25px;
+    height: 25px
   }
 }
 </style>

@@ -17,13 +17,13 @@
         </div>
 
         <div class="displayType aligned-row">
-          <div class="mx-2 text-gray">
+          <div class="mx-2 text-gray" v-if="layout == 'grid'">
             <b>{{ categoryProducts.length }} Result</b>
           </div>
-          <div class="sortOptions mx-3">
+          <div class="sortOptions mx-3" v-if="layout == 'grid'">
             <select name="" id="" class="custom-select" v-model="selected" @change="selectNumbersToShow">
               <option disabled value="">Showing</option>
-              <option :value="i + 1 + categoryProducts.length" v-for="i in categoryProducts.length" :key="i">
+              <option :value="i" v-for="i in countCategoryRecords" :key="i">
                 Showing {{ i }}
               </option>
             </select>
@@ -101,8 +101,8 @@ export default {
       modules: [Navigation, Autoplay],
     };
   },
-  
-  props: ['categoryProducts'],
+
+  props: ['categoryProducts', 'countCategoryRecords'],
 
   data() {
     return {
@@ -146,28 +146,28 @@ export default {
         },
       },
       layout: "grid",
-      numbersToShow: 8,
       selected: "",
-      category_id:null
+      category_id: null,
+      newArrRendered: []
     };
   },
 
   methods: {
     selectNumbersToShow(event) {
-      this.numbersToShow = this.selected;
-      console.log("number", this.selected);
+      this.selected = event.target.value;
+      this.$emit('updateCategoryProducts', this.selected);
     },
 
     async getResultsProduct(e) {
       let obj = {
-        subCategory:this.category_id,
-        page:1
+        subCategory: this.category_id,
+        page: 1
       };
-      if(e.target.value == 'desc'){
+      if (e.target.value == 'desc') {
         obj.sort_field = 'id';
-        this.$emit('updateProducts' , obj);
-      }else{
-        this.$emit('updateProducts' , obj);
+        this.$emit('updateProducts', obj);
+      } else {
+        this.$emit('updateProducts', obj);
       }
     },
 

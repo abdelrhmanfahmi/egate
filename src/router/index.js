@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+
+// const Home = defineAsyncComponent(() =>
+//   import('../views/Home.vue')
+// );
+
+import Home from '../views/Home.vue';
+
 import auth from "./auth/index";
 import profile from "./profile";
 const routes = [
@@ -22,6 +28,16 @@ const routes = [
     path: "/privacyPolicy",
     name: "privacyPolicy",
     component: () => import("../views/PrivacyPolicy.vue"),
+  },
+  {
+    path: "/terms",
+    name: "terms_and_conditions",
+    component: () => import("../views/Terms.vue"),
+  },
+  {
+    path: "/contact",
+    name: "contact_us",
+    component: () => import("../views/Contact.vue"),
   },
   {
     path: "/productPage/:id",

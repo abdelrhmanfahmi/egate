@@ -77,9 +77,13 @@
         <router-link to="/" class="text-white">Home</router-link>
       </li>
       <li class="menu-item-has-children">
-        <router-link to="/categories" class="text-white"
-          >All categories</router-link
-        >
+        <router-link to="/about" class="text-white">About Us</router-link>
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/contact" class="text-white">Contact Us</router-link>
+      </li>
+      <li class="menu-item-has-children">
+        <router-link to="/categories" class="text-white">All categories</router-link>
       </li>
       <li class="menu-item-has-children">
         <router-link to="/profile" class="text-white">My Account</router-link>

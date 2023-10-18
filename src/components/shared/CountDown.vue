@@ -8,14 +8,7 @@
     </div> -->
 
   <div class="d-flex justify-space-around pt-5 countDown-wrapper">
-    <div
-      class="opacitybg mx-auto"
-      
-      weight="120px"
-      href="https://www.yusufonaran.me"
-      target="_blank"
-      v-if="years > 0"
-    >
+    <div class="opacitybg mx-auto" weight="120px" href="https://www.yusufonaran.me" target="_blank" v-if="years > 0">
       <div>
         <p class="text-h6 text-center font-weight-regular numberHolder">
           {{ years }}
@@ -26,99 +19,101 @@
       </div>
     </div>
     <!-- ---------------- -->
-    <div
-      class="opacitybg mx-auto"
-      
-      weight="120px"
-      href="https://www.yusufonaran.me"
-      target="_blank"
-      v-if="days % 365 > 350"
-    >
+    <div class="opacitybg mx-auto" weight="120px" href="https://www.yusufonaran.me" target="_blank">
       <div>
         <p class="text-h6 text-center font-weight-regular numberHolder">
           {{ days % 365 }}
         </p>
       </div>
       <div>
-        <div class="text-gray"> DAYS </div>
+        <div class="text-gray" style="font-size: 13px;"> Days </div>
       </div>
     </div>
     <!-- ---------------- -->
-    <div
-      class="opacitybg mx-auto"
-      
-      weight="120px"
-      href="https://www.yusufonaran.me"
-      target="_blank"
-    >
+    <div class="opacitybg mx-auto" weight="120px" href="https://www.yusufonaran.me" target="_blank">
       <div>
         <p class="text-h6 text-center font-weight-regular numberHolder">
           {{ hours % 24 }}
         </p>
       </div>
       <div>
-        <div class="text-gray"> HOURS </div>
+        <div class="text-gray" style="font-size: 13px;"> Hours </div>
       </div>
     </div>
     <!-- ---------------- -->
-    <div
-      class="opacitybg mx-auto"
-      
-      weight="120px"
-      href="https://www.yusufonaran.me"
-      target="_blank"
-    >
+    <div class="opacitybg mx-auto" weight="120px" href="https://www.yusufonaran.me" target="_blank">
       <div>
         <p class="text-h6 text-center font-weight-regular numberHolder">
           {{ minutes % 60 }}
         </p>
       </div>
       <div>
-        <div class="text-gray"> MINUTES </div>
+        <div class="text-gray" style="font-size: 13px;"> Minutes </div>
       </div>
     </div>
     <!-- ---------------- -->
-    <div
-      class="opacitybg mx-auto"
-      
-      weight="120px"
-      href="https://www.yusufonaran.me"
-      target="_blank"
-    >
+    <div class="opacitybg mx-auto" weight="120px" href="https://www.yusufonaran.me" target="_blank">
       <div>
         <p class="text-h6 text-center font-weight-regular numberHolder">
           {{ seconds % 60 }}
         </p>
       </div>
       <div>
-        <div class="text-gray"> SECONDS </div>
+        <div class="text-gray" style="font-size: 13px;"> Seconds </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
+import home from "@/services/home";
 export default {
   name: "CounterCards",
-  setup() {
-    const years = ref(0);
-    const days = ref(0);
-    const hours = ref(0);
-    const minutes = ref(0);
-    const seconds = ref(0);
-    const lunchDate = new Date("30 December 2023");
-    setInterval(() => {
-      const currentDate = new Date();
-      const lunchTime = lunchDate - currentDate;
-      seconds.value = parseInt(lunchTime / 1000);
-      minutes.value = parseInt(seconds.value / 60);
-      hours.value = parseInt(minutes.value / 60);
-      days.value = parseInt(hours.value / 24);
-      years.value = parseInt(days.value / 365);
-    }, 1000);
-    return { years, days, hours, minutes, seconds };
+  props: ['specialOffer'],
+  data() {
+    return {
+      years: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    }
   },
+  async mounted() {
+    setTimeout(() => {
+      const lunchDate = new Date(this.specialOffer.end_at);
+      setInterval(() => {
+        const currentDate = new Date(this.specialOffer.start_at);
+        const lunchTime = lunchDate - currentDate;
+        this.seconds = parseInt(lunchTime / 1000);
+        this.minutes = parseInt(this.seconds / 60);
+        this.hours = parseInt(this.minutes / 60);
+        this.days = parseInt(this.hours / 24);
+        this.years = parseInt(this.days / 365);
+      }, 1000);
+    }, 2000)
+  },
+  setup() {
+
+  },
+
+  methods: {
+    changeTimeZone(date, timeZone) {
+      if (typeof date === 'string') {
+        return new Date(
+          new Date(date).toLocaleString('en-US', {
+            timeZone,
+          }),
+        );
+      }
+
+      return new Date(
+        date.toLocaleString('en-US', {
+          timeZone,
+        }),
+      );
+    }
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="product-gallery product-gallery-vertical">
     <div class="row m-0">
-      <v-row class="">
+      <v-row class="" v-if="product">
         <v-col cols="12" md="2" sm="12" class="thumbnails-holder">
           <div id="product-zoom-gallery" class="product-image-gallery">
             <a class="product-gallery-item h-100 h-lg-auto carousel-dot p-0 m-0"
@@ -18,7 +18,16 @@
             <span class="product-label label-top position-absolute" v-if="product.status == 'top'">Top</span>
             <span class="product-label label-out position-absolute out-of-stock" v-if="product.in_stock == false">Out Of Stock</span>
 
-            <v-img id="product-zoom" v-if="product.images && product.images[currentIndex] && product.images[currentIndex].full_url" :lazy-src="product.images[currentIndex].full_url" :src="product.images[currentIndex].full_url" alt="product"
+            <v-img id="product-zoom" v-if="product.images &&
+             product.images[currentIndex] &&
+             product.images[currentIndex].full_url"
+             :lazy-src="product.images[currentIndex].full_url"
+             :src="product.images[currentIndex].full_url" alt="product"
+              class="img-fluid"></v-img>
+
+              <v-img id="product-zoom" v-else
+             :lazy-src="product.image"
+             :src="product.image" alt="product"
               class="img-fluid"></v-img>
               <a href="#" id="btn-product-gallery" class="btn-product-gallery" @click.prevent="openLightBox">
                 <i class="icon-arrows"></i>
