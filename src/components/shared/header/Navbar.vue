@@ -191,8 +191,13 @@ export default {
     window.addEventListener("load", this.checkMobile);
     window.addEventListener("scroll", this.makeHeaderSticky);
     window.addEventListener("resize", this.checkMobile);
+
+    this.checkCartData();
   },
   methods: {
+    checkCartData() {
+      this.$store.dispatch('cart/getCartProducts');
+    },
     openLargeSearchBar(e) {
       this.showSearchBar = true;
       e.preventDefault();

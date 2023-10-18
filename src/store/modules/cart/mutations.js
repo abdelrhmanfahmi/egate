@@ -1,6 +1,5 @@
 export const ADD_TO_CART = (state, { product, quantity }) => {
-
-    let productInCart = state.cart.find(item => {
+    let productInCart = JSON.parse(state.cart).find(item => {
         return item.product.id === product.id;
     });
 
@@ -19,9 +18,9 @@ export const SET_CART = (state, cart) => {
     state.cart = cart;
 }
 
-export const REMOVE_PRODUCT_FROM_CART = (state , product) => {
-    state.cart = state.cart.filter(item => {
-        return item.products.id !== product.id;
+export const REMOVE_PRODUCT_FROM_CART = (state, product) => {
+    state.cart = JSON.parse(state.cart).filter(item => {
+        return item.product.id !== product.id;
         // console.log(item);
     })
 }
@@ -35,7 +34,8 @@ export const SET_CART_ITEMS = (state, cart) => {
     state.cart = cart;
 }
 export const SET_CART_LENGTH = (state, cartLength) => {
-    state.cartLength = cartLength;
+    // console.log(JSON.parse(state.cart));
+    JSON.parse(state.cart).length = cartLength;
 }
 
 export const SET_CART_TOTAL = (state, cart_sub_total) => {

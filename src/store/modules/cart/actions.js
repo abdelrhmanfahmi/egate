@@ -12,47 +12,39 @@ export const addProductToCart = ({ commit }, payload) => {
 
 export const removeProductFromCart = ({ commit }, payload) => {
   Cart.delete(payload);
-  this.$nextTick(() => {
-    commit("REMOVE_PRODUCT_FROM_CART", payload.product);
-  });
+  commit("REMOVE_PRODUCT_FROM_CART", payload.product);
 };
 
 export const updateProductFromCart = ({ commit }, product) => {
   Cart.update(product);
-  this.$nextTick(() => {
-    commit("SET_CART", product);
-  });
-
+  commit("SET_CART", product);
 };
 
 export const moveProductToWishList = ({ commit }, product) => {
-  console.log('product' , product);
+  console.log('product', product);
   Cart.moveToWish(product);
-  this.$nextTick(() => {
-    commit("SET_CART", product);
-  });
+  commit("SET_CART", product);
 }
 
 export const clearCartItems = ({ commit }) => {
   Cart.deleteAll();
-
-  this.$nextTick(() => {
-    commit("CLEAR_CART_ITEMS");
-  });
+  commit("CLEAR_CART_ITEMS");
 };
 
 export const getCartProducts = ({ commit }) => {
   Cart.all().then((res) => {
-    if (res.data == null || res.data.data == null) {
+    if (res.data.items.data == null) {
       commit("CLEAR_CART_ITEMS");
       commit("SET_CART_ITEMS", []);
       commit("SET_CART_LENGTH", 0);
       commit("SET_CART_TOTAL", 0);
     } else {
-      commit("SET_CART_ITEMS", res.data.data.items);
-      commit("SET_CART_LENGTH", res.data.data.items_count);
-      commit("SET_CART_TOTAL", res.data.data.sub_total);
-      localStorage.setItem("currency", res.data.data.cart_currency_code);
+      commit("SET_CART_ITEMS", JSON.stringify(res.data.items.data));
+      commit("SET_CART_LENGTH", JSON.stringify(res.data.items.data.length));
+      localStorage.setItem('cartData', JSON.stringify(res.data.items.data));
+      localStorage.setItem('cartCount', JSON.stringify(res.data.items.data.length));
+      // commit("SET_CART_TOTAL", res.data.data.sub_total);
+      // localStorage.setItem("currency", res.data.data.cart_currency_code);
     }
   });
 };

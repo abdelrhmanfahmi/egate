@@ -7,13 +7,22 @@
                 <p class="text-gray">Looks Like You Have Not Added Anything To Your Cart. Go Ahead & Explore Top Categories
                 </p>
             </div>
+            <div class="col-md-12 d-flex justify-content-center">
+                <v-btn class="bg-light text-gray d-flex shadow-0" block to="/cart" @click.prevent="closeSideVisible">View
+                    Cart</v-btn>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-
+    props: ['sideVisible'],
+    methods: {
+        closeSideVisible() {
+            this.$emit('onUpdateSideVisible', false);
+        }
+    }
 }
 </script>
 

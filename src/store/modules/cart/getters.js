@@ -1,20 +1,32 @@
 export const cartItemCount = (state) => {
-    return state.cart.length;
+    try {
+        return JSON.parse(state.cart).length;
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export const cartTotalPrice = (state) => {
-    let total = 0;
 
-    state.cart.forEach(item => {
-        total += item.product.price * item.quantity;
-    })
+    try {
+        let total = 0;
+        JSON.parse(state.cart).forEach(item => {
+            total += item.product.product_price * item.quantity;
+        })
 
-    return total;
+        return total;
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
 export const cartItems = (state) => {
-    return state.cart;
+    try {
+        return JSON.parse(state.cart);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export const cart_sub_total = (state) => {

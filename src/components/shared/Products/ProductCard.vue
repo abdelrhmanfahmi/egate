@@ -91,8 +91,10 @@ export default {
       try {
         let data = {
           product: product,
-          quantity: this.quantity,
+          quantity: product.min_order_quantity ? product.min_order_quantity : this.quantity,
+          guest_token_uuid: localStorage.getItem('guest-token')
         };
+        // console.log(data);
         this.$store.dispatch("cart/addProductToCart", data);
       } catch (e) {
         console.log(e);
@@ -224,7 +226,7 @@ export default {
 
 @media screen and (min-width: 1024px) {
   .addToCartBtn {
-    padding: 7px 2px;
+    padding: 7px 7px;
     font-size: 0.7rem;
   }
 
@@ -246,11 +248,12 @@ export default {
 
 @media screen and (min-width: 1300px) {
   .addToCartBtn {
-    padding: 7px 2px;
+    padding: 7px 7px;
     font-size: 0.8rem;
   }
 
   .styleCssCategories .cat-name {
     font-size: 0.5rem;
   }
-}</style>
+}
+</style>
