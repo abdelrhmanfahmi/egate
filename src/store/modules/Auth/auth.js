@@ -10,7 +10,7 @@ export default {
     return {
       user:
         localStorage.getItem("EGate-userInfo") &&
-        localStorage.getItem("EGate-userInfo") != "undefined"
+          localStorage.getItem("EGate-userInfo") != "undefined"
           ? JSON.parse(localStorage.getItem("EGate-userInfo"))
           : null,
       errors: null
@@ -211,12 +211,14 @@ export default {
     async LogOut({ commit }) {
       try {
         const user = JSON.parse(localStorage.getItem('EGate-userInfo'));
-        await globalAxios.get('auth/logout' , {headers:{
-          Authorization: 'Bearer ' + user.token,
-        }});
+        await globalAxios.get('auth/logout', {
+          headers: {
+            Authorization: 'Bearer ' + user.token,
+          }
+        });
         await commit("LOG_OUT");
         await localStorage.removeItem("EGate-userInfo");
-        
+
         await toast.success(`Successfully Logged Out`, {
           position: "top-right",
           transition: "slide",

@@ -9,13 +9,18 @@ const toast = useToast();
 import store from "@/store";
 export default {
   all() {
-    return globalAxios.get(`client/cart`);
+    return globalAxios.get(`cart`);
   },
 
   store(data) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .post(`client/cart/add/${data.product_id}`, data)
+      .post(`cart`, data, {
+        headers: {
+          'Accept': 'application/json',
+          guest_token_uuid: localStorage.getItem('guest-token')
+        }
+      })
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {
@@ -50,7 +55,7 @@ export default {
   delete(payload) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .delete(`client/cart/remove/${payload.product.id}`)
+      .delete(`cart/${payload.product.id}`)
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${payload.message}`, {
@@ -82,12 +87,18 @@ export default {
   },
 
   update(data) {
+    let objSended = { quantity: data.quantity };
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .put(`client/cart/update`, data)
+      .patch(`cart/${data.product_id}`, objSended, {
+        headers: {
+          'Accept': 'application/json',
+          guest_token_uuid: localStorage.getItem('guest-token')
+        }
+      })
       .then((res) => {
         if (res.status == 200) {
-          toast.success(`${res.data.message}`, {
+          toast.success(`Quantiy Updated Successfully`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,

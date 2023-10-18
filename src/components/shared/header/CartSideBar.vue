@@ -1,6 +1,6 @@
 <template>
   <span class="iconHolder cart" role="button" @click.stop="sideVisible = !sideVisible">
-    <v-badge :content="cartItemCount" color="error">
+    <v-badge :content="count" color="error">
       <v-icon icon="mdi-cart-outline"></v-icon>
     </v-badge>
   </span>
@@ -13,25 +13,24 @@
       <div class="text-center my-8">
         <h4>{{ $t("cart.shopping") }}</h4>
       </div>
-      <div class="floatingAction" v-if="cartItemCount">
+      <div class="floatingAction" v-if="cartItems?.length > 0">
         <p class="text-gray" role="button" @click="removeAll">remove all</p>
       </div>
 
       <!-- cartItems: {{ cartItems }} -->
-      <section class="products" v-if="cartItemCount">
+      <section class="products" v-if="cartItems?.length > 0">
         <div class="product mb-4" v-for="(product, index) in cartItems" :key="index">
           <v-row justify="center" align="center">
             <v-col cols="12" lg="8" md="8" sm="12">
               <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
-
                 <div class="productInfo">
-                  <p class="productName">{{ product.name }}</p>
+                  <p class="productName">{{ product.product.name }}</p>
                   <p class="text-gray product-q-p">
                     <span class="product-quantity">{{ product.quantity }} </span>
                     <span> X </span>
                     <span class="product-price text-gray-dark">{{
-                      product.formatted_price
-                    }}</span>
+                      product.product.product_price
+                    }} EGP</span>
                   </p>
                 </div>
               </router-link>
@@ -41,81 +40,110 @@
                 <div class="product-image">
                   <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
 
-                    <img :src="product.product.images[0].url" class="product-image" alt="product-image"
-                      :srcset="product.product.images[0].url">
+                    <img :src="product.product.image" class="product-image" alt="product-image"
+                      :srcset="product.product.image">
                   </router-link>
                 </div>
               </div>
             </v-col>
           </v-row>
-          <div class="removeProduct" @click="removeFromCart(product)">x</div>
+          <div class="removeProduct" @click.prevent="removeFromCart(product)">x</div>
+        </div>
+        <hr />
+        <div class="total mt-5 text-center" v-if="cartTotalPrice">
+          <v-row>
+            <v-col cols="12" lg="6" md="6" sm="12">
+              <p>Total</p>
+            </v-col>
+            <v-col cols="12" lg="6" md="6" sm="12">
+              <p class="product-price">{{ cartTotalPrice }} EGP</p>
+            </v-col>
+          </v-row>
+        </div>
+
+        <div class="actions mt-5 text-center">
+          <v-row class="flex-column">
+            <v-col cols="12">
+              <v-btn class="bg-main d-flex checkout text-white" block to="/checkout"
+                @click.stop="sideVisible = !sideVisible">Proceed To Shipping Address</v-btn>
+            </v-col>
+            <v-col cols="12">
+              <v-btn class="bg-light text-gray d-flex shadow-0 viewCart" block to="/cart"
+                @click.stop="sideVisible = !sideVisible">View Cart</v-btn>
+            </v-col>
+          </v-row>
         </div>
       </section>
+
       <section class="products d-flex aligned-row justify-center flex-column h-50  " v-else>
-        <EmptyCart />
+        <EmptyCart :sideVisible="sideVisible" @onUpdateSideVisible="updateSideVisible" />
       </section>
-      <hr />
-      <div class="total mt-5 text-center" v-if="cart_sub_total">
-        <v-row>
-          <v-col cols="12" lg="6" md="6" sm="12">
-            <p>Subtotal</p>
-          </v-col>
-          <v-col cols="12" lg="6" md="6" sm="12">
-            <p class="product-price">{{ cart_sub_total }}</p>
-          </v-col>
-        </v-row>
-      </div>
-      <div class="actions mt-5 text-center">
-        <v-row class="flex-column">
-          <v-col cols="12">
-            <v-btn class="bg-main d-flex checkout text-white" block to="/checkout"
-              @click.stop="sideVisible = !sideVisible">Proceed To Shipping Address</v-btn>
-          </v-col>
-          <v-col cols="12">
-            <v-btn class="bg-light text-gray d-flex shadow-0 viewCart" block to="/cart"
-              @click.stop="sideVisible = !sideVisible">View Cart</v-btn>
-          </v-col>
-        </v-row>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-// import myMixin from "@/mixins.js";
 import EmptyCart from "@/components/shared/Checkout/EmptyCart.vue"
 export default {
-  // mixins: [myMixin],
   data() {
     return {
       sideVisible: false,
+      cartItems: [],
     };
   },
-  computed: {
-    ...mapGetters({ cartItems: "cart/cartItems" }),
-    ...mapGetters({ cart_sub_total: "cart/cart_sub_total" }),
-    ...mapGetters({ cartItemCount: "cart/cartItemCount" }),
-  },
+
   methods: {
     removeFromCart(product) {
       let payload = {
         product: product,
         message: this.$t('cart.removedFromCart')
       }
-      this.$store.dispatch("cart/removeProductFromCart", payload)
+      this.$store.dispatch("cart/removeProductFromCart", payload);
+      this.sideVisible = !this.sideVisible;
     },
+
     removeAll() {
-      this.$store.dispatch("cart/clearCartItems")
+      // this.$store.dispatch("cart/clearCartItems")
+    },
+
+    updateSideVisible(sidebar) {
+      this.sideVisible = sidebar;
+    }
+
+  },
+  computed: {
+    count() {
+      return this.$store.getters['cart/cartItemCount'];
+    },
+    cartItems() {
+      return this.$store.getters['cart/cartItems'];
+    },
+    cartTotalPrice() {
+      return this.$store.getters['cart/cartTotalPrice'];
     }
   },
-  components:{
+  watch: {
+    count(newCount, oldCount) {
+      console.log(`We have ${newCount} fruits now, yay!`)
+    },
+    cartItems(newCartItems, oldCartItems) {
+      console.log(newCartItems);
+    },
+    cartTotalPrice(newCartTotalPrice, oldCartTotalPrice) {
+      console.log(newCartTotalPrice);
+    }
+  },
+  components: {
     EmptyCart
   }
 };
 </script>
 
 <style lang="scss" scoped>
+p {
+  color: #000;
+}
+
 .sideCartHolder,
 .shadedMenu,
 .cartSideMenu {
@@ -132,7 +160,7 @@ export default {
 .closeMenuX {
   position: fixed;
   top: 46px;
-  right: 360px;
+  right: 405px;
   color: #fff;
   font-size: 25px;
   z-index: 100;
@@ -144,7 +172,7 @@ export default {
   top: 0;
   bottom: 0;
   height: 100%;
-  width: 350px;
+  width: 400px;
   background: #fff;
   z-index: 99;
   padding: 15px;
@@ -218,5 +246,39 @@ export default {
   max-height: 1;
   height: 75px;
   object-fit: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .cartSideMenu {
+    width: 345px;
+  }
+
+  .closeMenuX {
+    right: 355px;
+  }
+}
+
+@media only screen and (width: 360px) {
+  .cartSideMenu {
+    width: 335px;
+  }
+
+  .closeMenuX {
+    right: 342px;
+  }
+
+  .floatingAction {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (width: 414px) {
+  .cartSideMenu {
+    width: 360px;
+  }
+
+  .closeMenuX {
+    right: 365px;
+  }
 }
 </style>

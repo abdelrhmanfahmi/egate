@@ -17,8 +17,10 @@
                     <v-row>
                         <v-col cols="12" lg="7" md="7" sm="12">
                             <div v-for="(term, index) in terms" :key="index" class="my-5">
-                                <h2>{{ term.value }}</h2>
-                                <p class="description">{{ term.description }}</p>
+                                <h2 v-if="$i18n.locale == 'en'" v-html="term.value_en"></h2>
+                                <h2 v-else v-html="term.value_ar"></h2>
+                                <p class="description" v-if="$i18n.locale == 'en'" v-html="term.description_en"></p>
+                                <p class="description" v-else v-html="term.description_ar"></p>
                             </div>
                         </v-col>
                         <v-col cols="12" lg="5" md="5" sm="12">

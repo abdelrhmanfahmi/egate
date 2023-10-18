@@ -80,16 +80,18 @@ export default {
     }
   },
   async mounted() {
-    const lunchDate = new Date(this.specialOffer.end_at);
-    setInterval(() => {
-      const currentDate = new Date(this.specialOffer.start_at);
-      const lunchTime = lunchDate - currentDate;
-      this.seconds = parseInt(lunchTime / 1000);
-      this.minutes = parseInt(this.seconds / 60);
-      this.hours = parseInt(this.minutes / 60);
-      this.days = parseInt(this.hours / 24);
-      this.years = parseInt(this.days / 365);
-    }, 1000);
+    setTimeout(() => {
+      const lunchDate = new Date(this.specialOffer.end_at);
+      setInterval(() => {
+        const currentDate = new Date(this.specialOffer.start_at);
+        const lunchTime = lunchDate - currentDate;
+        this.seconds = parseInt(lunchTime / 1000);
+        this.minutes = parseInt(this.seconds / 60);
+        this.hours = parseInt(this.minutes / 60);
+        this.days = parseInt(this.hours / 24);
+        this.years = parseInt(this.days / 365);
+      }, 1000);
+    }, 2000)
   },
   setup() {
 

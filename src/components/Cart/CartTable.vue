@@ -1,7 +1,7 @@
 <template>
   <div class="cart-wrapper" v-if="cartItems">
 
-    <v-table>
+    <v-table class="styleCart">
       <thead>
         <tr>
           <th class="text-center">PRODUCT</th>
@@ -19,14 +19,14 @@
                 <Favorite :product="product" />
                 <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
 
-                  <v-img v-if="product.product.images[0].url" :src="product.product.images[0].url"
-                    :lazy-src="product.product.images[0].url" width="100"></v-img>
+                  <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
+                    width="100"></v-img>
                 </router-link>
               </div>
             </div>
           </td>
           <td class="border-0">
-            <div class="product-price text-gray">{{ product.price }} Le</div>
+            <div class="product-price text-gray">{{ product.product.product_price }} EGP</div>
           </td>
           <td class="border-0 ">
             <div class="counter">
@@ -34,7 +34,8 @@
             </div>
           </td>
           <td class="border-0">
-            <div class="total product-price text-gray">{{ product.total }} Le</div>
+            <div class="total product-price text-gray">{{ product.product.product_price *
+              product.quantity }} EGP</div>
           </td>
         </tr>
       </tbody>
@@ -42,67 +43,21 @@
   </div>
 </template>
 <script>
-import Counter from "./Counter.vue"
-import { mapGetters } from "vuex";
-import Favorite from "@/components/shared/Products/Favorite.vue"
+import Counter from "./Counter.vue";
+import Favorite from "@/components/shared/Products/Favorite.vue";
 export default {
+  props: ['cartItems'],
   data() {
     return {
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-        },
-      ],
-      totalPrice: 550,
-      productPrice: 550
+
     };
   },
+
   components: {
     Counter,
     Favorite
   },
-  computed: {
-    ...mapGetters({ cartItems: "cart/cartItems" }),
-    ...mapGetters({ cart_sub_total: "cart/cart_sub_total" }),
-    ...mapGetters({ cartItemCount: "cart/cartItemCount" }),
-  },
+
   methods: {
     removeFromCart(product) {
       let payload = {
@@ -111,36 +66,40 @@ export default {
       }
       this.$store.dispatch("cart/removeProductFromCart", payload)
     },
+
     removeAll() {
-      this.$store.dispatch("cart/clearCartItems")
+      // this.$store.dispatch("cart/clearCartItems")
     },
+
     addProductToCart(product) {
       let data = {
         product: product,
         quantity: this.quantity,
       }
-      this.$store.dispatch('cart/addProductToCart', data)
+      this.$store.dispatch('cart/addProductToCart', data);
     },
-    
 
     updateValue(product, value) {
-      let qty = {
-        qty: {
-          [product.id]: value
-        }
+      let dataUpdated = {
+        quantity: value,
+        product_id: product.id
       };
 
-      this.$store.dispatch('cart/updateProductFromCart', qty).then(() => {
+      this.$store.dispatch('cart/updateProductFromCart', dataUpdated).then(() => {
         setTimeout(() => {
-          this.$store.dispatch('cart/getCartProducts')
+          this.$store.dispatch('cart/getCartProducts');
         }, 200);
-      })
-
+      });
     }
-  },
+  }
+
 };
 </script>
 <style lang="scss" scoped>
+.styleCart {
+  padding: 10px;
+}
+
 .productImage-actions {
   .product-image {
     position: relative;
@@ -200,6 +159,4 @@ td {
     width: inherit;
   }
 }
-
-
 </style>

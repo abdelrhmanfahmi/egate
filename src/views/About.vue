@@ -4,31 +4,36 @@
       <section class="styleCssSection" :style="{
         'background-image': 'url(' + require(`../assets/images/home/headerAbout.png`) + ')'
       }">
-        <div class="row h-100">
-          <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6 d-flex justify-content-center align-items-center">
-            <img :src="require('@/assets/images/home/logoAbout.png')" class="styleImageWidthHeight" alt="">
+        <div class="row h-100 w-100">
+          <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6 d-flex justify-content-center align-items-center pt-3"
+            v-for="(logo, idx) in logoAbout" :key="idx">
+            <img :src="logo.image" class="styleImageWidthHeight" alt="">
           </div>
           <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6 d-flex justify-content-center align-items-center my-5"
             v-for="(about, index) in aboutData" :key="index">
             <div>
-              <h2 class="text-white">{{ about.value }}</h2>
-              <p class="description">{{ about.description }}</p>
+              <h2 class="text-white" v-if="$i18n.locale == 'en'" v-html="about.value_en"></h2>
+              <h2 class="text-white" v-else v-html="about.value_ar"></h2>
+              <p class="description text-white" v-if="$i18n.locale == 'en'" v-html="about.description_en"></p>
+              <p class="description text-white" v-else v-html="about.description_ar"></p>
             </div>
           </div>
         </div>
       </section>
 
       <section class="styleSectionTwo mb-5">
-        <div class="row h-100">
-          <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6">
-            <img :src="require('@/assets/images/home/shoppingAbout.png')" class="styleImageWidthHeightSecond" alt="">
+        <div class="row h-100 w-100">
+          <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6" v-for="(offerLogo, idx) in logoOffer" :key="idx">
+            <img :src="offerLogo.image" class="styleImageWidthHeight" alt="">
           </div>
           <div class="col-sm-12 col-md-6 col-lg-6 col-lg-6 styleBackSectionTwo">
-            <div>
+            <div v-for="(offer, index) in aboutData" :key="index">
               <h1 class="styleFontOffer">What Do We Offer In Our Online Store ?</h1>
               <br>
               <br>
-              <ul>
+              <div :class="{ styleOrderList: offer }" v-html="offer.website_offers">
+              </div>
+              <!-- <ul>
                 <li v-for="i in 5" :key="i">
                   <p>
                     <span>
@@ -38,40 +43,20 @@
                     Lorem Ipsum
                   </p>
                 </li>
-              </ul>
+              </ul> -->
+
             </div>
           </div>
         </div>
       </section>
 
       <section class="styleSectionTwo pt-5 mb-5">
-        <div class="row h-100">
+        <div class="row h-100 w-100">
           <div class="col-md-12 text-center mb-5">
             <h1 class="styleFontOffer">Authorized Clients Of Our Services</h1>
           </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
-          </div>
-          <div class="col-md-3 d-flex justify-content-center">
-            <img :src="require('@/assets/images/home/MaskGroup17.png')" class="styleImageWidthHeight" alt="">
+          <div class="col-md-3 d-flex justify-content-center mb-3" v-for="(logoClient, idx) in logoClients" :key="idx">
+            <img :src="logoClient.image" class="styleImageWidthHeight" alt="">
           </div>
         </div>
       </section>
@@ -85,6 +70,7 @@ import { useMeta } from "vue-meta";
 export default {
   mounted() {
     this.getAboutData();
+    this.getBannersAbout();
   },
 
   setup() {
@@ -104,7 +90,10 @@ export default {
           href: "about",
         },
       ],
-      aboutData: []
+      aboutData: [],
+      logoAbout: [],
+      logoOffer: [],
+      logoClients: [],
     };
   },
 
@@ -115,14 +104,45 @@ export default {
         return el.key == 'about_us';
       });
       this.aboutData = arrayFilterAboutData;
+    },
+    async getBannersAbout() {
+      const response = await home.getBanners();
+      let arrayFilterLogoAbout = response.data.items.data.filter((el) => {
+        return el.display_in == 'about_page_banner';
+      });
+      this.logoAbout = arrayFilterLogoAbout;
+
+      let arrayFilterLogoOffer = response.data.items.data.filter((el) => {
+        return el.display_in == 'about_page_offer';
+      });
+      this.logoOffer = arrayFilterLogoOffer;
+
+      let arrayFilterLogoClients = response.data.items.data.filter((el) => {
+        return el.display_in == 'about_page_clients';
+      });
+      this.logoClients = arrayFilterLogoClients;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.styleOrderList>ol>li {
+  list-style-type: none;
+  color: blue;
+}
+
+p {
+  color: #5F5E58;
+}
+
 .styleFontOffer {
   font-size: 50px;
+}
+
+.styleImageWidthHeight {
+  width: 100%;
+  height: 100%;
 }
 
 .styleImageWidthHeightSecond {
@@ -214,31 +234,43 @@ img.img-responsive {
 
 @media only screen and (width: 360px) {
   .styleCssSection {
-    height: 75vh;
+    height: 76vh;
   }
 }
 
 @media only screen and (width: 375px) {
   .styleCssSection {
-    height: 83vh;
+    height: 85vh;
   }
 }
 
 @media only screen and (width: 390px) {
   .styleCssSection {
-    height: 65vh;
+    height: 68vh;
   }
 }
 
 @media only screen and (width: 393px) {
   .styleCssSection {
-    height: 65vh;
+    height: 67vh;
+  }
+}
+
+@media only screen and (width: 412px) {
+  .styleCssSection {
+    height: 62vh;
+  }
+}
+
+@media only screen and (width: 414px) {
+  .styleCssSection {
+    height: 63vh;
   }
 }
 
 @media only screen and (width: 540px) {
   .styleCssSection {
-    height: 76vh;
+    height: 79vh;
   }
 }
 
