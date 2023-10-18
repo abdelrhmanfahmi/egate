@@ -87,12 +87,15 @@ export default {
   },
 
   update(data) {
-    console.log(data);
     let objSended = { quantity: data.quantity };
-    console.log(objSended);
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
-      .patch(`cart/${data.product_id}`, objSended)
+      .patch(`cart/${data.product_id}`, objSended, {
+        headers: {
+          'Accept': 'application/json',
+          guest_token_uuid: localStorage.getItem('guest-token')
+        }
+      })
       .then((res) => {
         if (res.status == 200) {
           toast.success(`Quantiy Updated Successfully`, {
