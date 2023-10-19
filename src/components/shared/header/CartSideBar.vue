@@ -89,6 +89,7 @@ export default {
     return {
       sideVisible: false,
       cartItems: [],
+      cartIdsDeleted:[]
     };
   },
 
@@ -103,7 +104,11 @@ export default {
     },
 
     removeAll() {
-      // this.$store.dispatch("cart/clearCartItems")
+      let cartIds = this.$store.getters['cart/cartItems'];
+      cartIds.filter(el => {
+        this.cartIdsDeleted.push(el.id);
+      });
+      this.$store.dispatch("cart/clearCartItems" , this.cartIdsDeleted);
     },
 
     updateSideVisible(sidebar) {

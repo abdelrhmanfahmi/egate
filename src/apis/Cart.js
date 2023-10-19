@@ -14,7 +14,46 @@ export default {
 
   store(data) {
     store.dispatch('changeLoadingScreen', true)
-    return globalAxios
+    let isLoggedIn = store.getters['Auth/isAuthenticated'];
+    if(isLoggedIn){
+      return globalAxios
+      .post(`cart`, data, {
+        headers: {
+          'Accept': 'application/json',
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+        }
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          toast.success(`${res.data.message}`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+        toast.error(`${err.message}`, {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+        });
+      })
+      .finally(() => {
+        store.dispatch("cart/getCartProducts");
+        store.dispatch('changeLoadingScreen', false)
+      });
+    }else{
+      return globalAxios
       .post(`cart`, data, {
         headers: {
           'Accept': 'application/json',
@@ -50,6 +89,8 @@ export default {
         store.dispatch("cart/getCartProducts");
         store.dispatch('changeLoadingScreen', false)
       });
+    }
+    
   },
 
   delete(payload) {
@@ -89,7 +130,46 @@ export default {
   update(data) {
     let objSended = { quantity: data.quantity };
     store.dispatch('changeLoadingScreen', true)
-    return globalAxios
+    let isLoggedIn = store.getters['Auth/isAuthenticated'];
+    if(isLoggedIn){
+      return globalAxios
+      .patch(`cart/${data.product_id}`, objSended, {
+        headers: {
+          'Accept': 'application/json',
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+        }
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          toast.success(`Quantiy Updated Successfully`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+          store.dispatch("cart/getCartProducts");
+        }
+      })
+      .catch((err) => {
+        toast.error(`${err.message}`, {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+        });
+      })
+      .finally(() => {
+        store.dispatch("cart/getCartProducts");
+        store.dispatch('changeLoadingScreen', false)
+      });
+    }else{
+      return globalAxios
       .patch(`cart/${data.product_id}`, objSended, {
         headers: {
           'Accept': 'application/json',
@@ -125,6 +205,8 @@ export default {
         store.dispatch("cart/getCartProducts");
         store.dispatch('changeLoadingScreen', false)
       });
+    }
+    
   },
 
   moveToWish(data) {
@@ -163,9 +245,10 @@ export default {
       });
   },
 
-  deleteAll() {
+  deleteAll(data) {
+    console.log(data);
     store.dispatch('changeLoadingScreen', true)
-    return globalAxios.delete(`customer/cart/empty`).then((res) => {
+    return globalAxios.delete(`cart/items/pluck-delete` , {data:{ids:data}}).then((res) => {
       if (res.status == 200) {
         toast.success(`${res.data.message}`, {
           position: "top-right",
