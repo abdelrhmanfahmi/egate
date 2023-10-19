@@ -68,7 +68,7 @@ export default {
     },
 
     removeAll() {
-      // this.$store.dispatch("cart/clearCartItems")
+      this.$store.dispatch("cart/clearCartItems");
     },
 
     addProductToCart(product) {
