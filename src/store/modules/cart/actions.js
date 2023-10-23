@@ -26,7 +26,7 @@ export const moveProductToWishList = ({ commit }, product) => {
   commit("SET_CART", product);
 }
 
-export const clearCartItems = ({ commit } , payload) => {
+export const clearCartItems = ({ commit }, payload) => {
   Cart.deleteAll(payload);
   commit("CLEAR_CART_ITEMS");
 };

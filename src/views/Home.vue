@@ -94,11 +94,21 @@ export default {
   },
 
   mounted() {
-    this.getBanners();
-    this.getHomeProducts();
-    this.getHomeProductsTopReviewed();
-    this.getCategoriesFeatured();
-    this.getSpecialOffer();
+    setTimeout(() => {
+      this.getBanners();
+    }, 500);
+    setTimeout(() => {
+      this.getHomeProducts();
+    }, 1000);
+    setTimeout(() => {
+      this.getHomeProductsTopReviewed();
+    }, 2000);
+    setTimeout(() => {
+      this.getCategoriesFeatured();
+    }, 3000);
+    setTimeout(() => {
+      this.getSpecialOffer();
+    }, 4000);
   },
 
   methods: {

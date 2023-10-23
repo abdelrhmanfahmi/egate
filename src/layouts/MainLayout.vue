@@ -22,9 +22,6 @@ import Footer from "@/components/shared/Footer/Footer";
 import actionsComp from "@/components/shared/actionsComp";
 import guest from '@/services/guest';
 export default {
-  mounted() {
-    this.checkIfuserGuest();
-  },
   components: {
     Navbar,
     Footer,
@@ -48,17 +45,6 @@ export default {
     checkLoadingScreen(event) {
       console.log("event", event);
     },
-    async checkIfuserGuest() {
-      try {
-        if (localStorage.getItem('guest-token')) {
-          console.log('you are logged in as a guest');
-        } else {
-          await guest.post('guest/generate-token');
-        }
-      } catch (e) {
-        console.log(e.message);
-      }
-    }
   },
   computed: {
     screenStatus() {

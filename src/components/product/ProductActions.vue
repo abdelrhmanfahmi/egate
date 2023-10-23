@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="productInfo">
-        <p class="productName" >
+        <p class="productName">
           {{ product.name }}
         </p>
         <div class="product-price my-3" v-if="totalPrice">
@@ -23,8 +23,7 @@
         </div>
       </div>
       <div class="productActions my-5 d-flex align-center">
-        <v-btn variant="outlined" class="border-main mx-2"
-          @click="addProductToCart(product)"> {{ $t('cart.addToCart') }}
+        <v-btn variant="outlined" class="border-main mx-2" @click="addProductToCart(product)"> {{ $t('cart.addToCart') }}
         </v-btn>
         <v-btn variant="outlined" class="bg-main textCss mx-2"> Buy It Now </v-btn>
         <div class="wrapper">
@@ -33,9 +32,9 @@
         </div>
       </div>
       <div class="productColors my-3">
-        <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)" :show="show"/>
+        <ProductVariants :product="product" @updatePrice="onUpdatePrice($event)" :show="show" />
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -44,12 +43,12 @@
 import ProductVariants from "./ProductVariants.vue";
 export default {
   // mixins: [myMixin],
-  props:['product'],
+  props: ['product'],
   data: () => ({
     rating: 3.5,
     checkPower: null,
     quantity: 1,
-    totalPrice:0,
+    totalPrice: 0,
   }),
   components: {
     ProductVariants,
@@ -61,14 +60,16 @@ export default {
     addProductToCart(product) {
       let data = {
         product: product,
-        quantity: this.quantity,
+        quantity: product.min_order_quantity ? product.min_order_quantity : this.quantity,
+        guest_token_uuid: localStorage.getItem('guest-token')
       };
+      // console.log(data);
       this.$store.dispatch("cart/addProductToCart", data);
     },
     addToWishlist(product) {
       this.$store.dispatch('wishlist/addProductToWishlist', product)
     },
-    onUpdatePrice(newPrice){
+    onUpdatePrice(newPrice) {
       this.totalPrice = newPrice;
     }
   }
@@ -76,15 +77,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.styleCssReview{
+.styleCssReview {
   font-size: 13px;
 }
-.textCss{
+
+.textCss {
   color: #fff;
 }
-p{
+
+p {
   color: #000;
 }
+
 .mdi-heart-outline {
   color: $gray !important;
   font-size: 40px;
@@ -110,7 +114,7 @@ label span {
   padding: 3px 20px;
 }
 
-input:checked + span {
+input:checked+span {
   border: 1px solid $main-color;
 }
 
@@ -130,7 +134,8 @@ input:checked + span {
     // DON't use a base64 encoded svg this is just for this prototype, use a normal external link to a svg file
     url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0LjI1IDQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQuMjUgNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxwYXRoIGQ9Ik0yLjEyLDRDMi4xLDQsMi4wNywzLjk5LDIuMDUsMy45OEMxLjk4LDMuOTIsMC4zLDIuNjgsMC4wNCwxLjYyYy0wLjEtMC40My0wLjAxLTAuODgsMC4yNC0xLjJDMC41LDAuMTUsMC44MSwwLDEuMTYsMAoJCWMwLjUsMCwwLjgsMC4yNiwwLjk2LDAuNTFDMi4yOCwwLjI2LDIuNTksMCwzLjA4LDBjMC4zNSwwLDAuNjYsMC4xNSwwLjg4LDAuNDNjMC4yNSwwLjMyLDAuMzQsMC43NywwLjI0LDEuMgoJCUMzLjk1LDIuNjgsMi4yNywzLjkyLDIuMiwzLjk4QzIuMTgsMy45OSwyLjE1LDQsMi4xMiw0eiBNMS4xNiwwLjI1Yy0wLjM1LDAtMC41NywwLjE4LTAuNjgsMC4zM0MwLjI4LDAuODQsMC4yLDEuMjIsMC4yOSwxLjU3CgkJYzAuMjEsMC44NSwxLjUxLDEuOSwxLjg0LDIuMTVjMC4zMy0wLjI1LDEuNjMtMS4zMSwxLjg0LTIuMTVjMC4wOC0wLjM1LDAuMDEtMC43My0wLjE5LTAuOThDMy42NSwwLjQzLDMuNDMsMC4yNSwzLjA4LDAuMjUKCQljLTAuNjcsMC0wLjg0LDAuNTctMC44NCwwLjU4QzIuMjMsMC44OCwyLjE4LDAuOTIsMi4xMiwwLjkyaDBjLTAuMDYsMC0wLjEtMC4wNC0wLjEyLTAuMDlDMiwwLjgxLDEuODMsMC4yNSwxLjE2LDAuMjV6Ii8+CjwvZz4KPC9zdmc+Cg==");
 
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
+
   &:hover {
     opacity: 1;
   }
@@ -161,5 +166,4 @@ input:checked + span {
   100% {
     transform: scale(1);
   }
-}
-</style>
+}</style>
