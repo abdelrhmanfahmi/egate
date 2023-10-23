@@ -33,11 +33,26 @@ export default {
     async getWishlistItems() {
       await this.$store.dispatch("wishlist/getWishlistItems");
     },
+    async checkIfuserGuest() {
+      try {
+        if (this.isLoggedIn) {
+          console.log('you are authenticated');
+        } else if (localStorage.getItem('guest-token')) {
+          console.log('you are logged in as a guest');
+        } else {
+          await guest.post('guest/generate-token');
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
   },
   mounted() {
 
     // get categories at first load of any page
     this.getCategories();
+    this.checkIfuserGuest();
+    this.getCartItems();
     // if(this.isLoggedIn == true){
     //   this.getCartItems();
     //   this.getWishlistItems();

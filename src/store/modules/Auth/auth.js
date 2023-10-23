@@ -1,5 +1,6 @@
 import globalAxios from "@/services/global-axios";
 import router from "@/router/index";
+import store from '@/store';
 
 import { useToast } from "vue-toastification";
 const toast = useToast();
@@ -168,6 +169,7 @@ export default {
             JSON.stringify(res.data.items)
           );
 
+
           router.push(
             {
               path: "/",
@@ -177,6 +179,7 @@ export default {
             }
           );
         });
+        await store.dispatch("cart/getCartProducts");
       } catch (err) {
         if (err) {
           console.log("error", err.response.data.message);
@@ -218,6 +221,7 @@ export default {
         });
         await commit("LOG_OUT");
         await localStorage.removeItem("EGate-userInfo");
+        await store.dispatch("cart/getCartProducts");
 
         await toast.success(`Successfully Logged Out`, {
           position: "top-right",

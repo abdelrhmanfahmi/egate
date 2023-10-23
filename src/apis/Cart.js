@@ -9,23 +9,51 @@ const toast = useToast();
 import store from "@/store";
 export default {
   all() {
-    return globalAxios.get(`cart`);
+    let isLoggedIn = store.getters['Auth/isAuthenticated'];
+    if (isLoggedIn) {
+      return globalAxios.get(`cart`, {
+        headers: {
+          'Accept': 'application/json',
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+        }
+      });
+    } else {
+      return globalAxios.get(`cart`, {
+        headers: {
+          'Accept': 'application/json',
+          'guest-token-uuid': localStorage.getItem('guest-token')
+        }
+      });
+    }
   },
 
   store(data) {
     store.dispatch('changeLoadingScreen', true)
     let isLoggedIn = store.getters['Auth/isAuthenticated'];
-    if(isLoggedIn){
+    if (isLoggedIn) {
       return globalAxios
-      .post(`cart`, data, {
-        headers: {
-          'Accept': 'application/json',
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
-        }
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          toast.success(`${res.data.message}`, {
+        .post(`cart`, data, {
+          headers: {
+            'Accept': 'application/json',
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`${res.data.message}`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+          toast.error(`${err.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -34,35 +62,35 @@ export default {
             showCloseButton: true,
             swipeClose: true,
           });
-        }
-      })
-      .catch((err) => {
-        console.log("err", err);
-        toast.error(`${err.message}`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
         });
-      })
-      .finally(() => {
-        store.dispatch("cart/getCartProducts");
-        store.dispatch('changeLoadingScreen', false)
-      });
-    }else{
+    } else {
       return globalAxios
-      .post(`cart`, data, {
-        headers: {
-          'Accept': 'application/json',
-          guest_token_uuid: localStorage.getItem('guest-token')
-        }
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          toast.success(`${res.data.message}`, {
+        .post(`cart`, data, {
+          headers: {
+            'Accept': 'application/json',
+            'guest-token-uuid': localStorage.getItem('guest-token')
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`${res.data.message}`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+          toast.error(`${err.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -71,77 +99,183 @@ export default {
             showCloseButton: true,
             swipeClose: true,
           });
-        }
-      })
-      .catch((err) => {
-        console.log("err", err);
-        toast.error(`${err.message}`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
         });
-      })
-      .finally(() => {
-        store.dispatch("cart/getCartProducts");
-        store.dispatch('changeLoadingScreen', false)
-      });
     }
-    
-  },
-
-  delete(payload) {
-    store.dispatch('changeLoadingScreen', true)
-    return globalAxios
-      .delete(`cart/${payload.product.id}`)
-      .then((res) => {
-        if (res.status == 200) {
-          toast.success(`${payload.message}`, {
-            position: "top-right",
-            transition: "slide",
-            hideProgressBar: false,
-            showIcon: true,
-            timeout: 3000,
-            showCloseButton: true,
-            swipeClose: true,
-          });
-        }
-      })
-      .catch((err) => {
-        toast.error(`${err.message}`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
-        });
-      })
-      .finally(() => {
-        store.dispatch("cart/getCartProducts");
-        store.dispatch('changeLoadingScreen', false)
-      });
   },
 
   update(data) {
     let objSended = { quantity: data.quantity };
     store.dispatch('changeLoadingScreen', true)
     let isLoggedIn = store.getters['Auth/isAuthenticated'];
-    if(isLoggedIn){
+    if (isLoggedIn) {
       return globalAxios
-      .patch(`cart/${data.product_id}`, objSended, {
+        .patch(`cart/${data.product_id}`, objSended, {
+          headers: {
+            'Accept': 'application/json',
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`Quantiy Updated Successfully`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+            store.dispatch("cart/getCartProducts");
+          }
+        })
+        .catch((err) => {
+          toast.error(`${err.message}`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
+        });
+    } else {
+      return globalAxios
+        .patch(`cart/${data.product_id}`, objSended, {
+          headers: {
+            'Accept': 'application/json',
+            'guest-token-uuid': localStorage.getItem('guest-token')
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`Quantiy Updated Successfully`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+            store.dispatch("cart/getCartProducts");
+          }
+        })
+        .catch((err) => {
+          toast.error(`${err.message}`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
+        });
+    }
+  },
+  delete(payload) {
+    store.dispatch('changeLoadingScreen', true);
+    let isLoggedIn = store.getters['Auth/isAuthenticated'];
+    if (isLoggedIn) {
+      return globalAxios
+        .delete(`cart/${payload.product.id}`, {
+          headers: {
+            'Accept': 'application/json',
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`${payload.message}`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+          }
+        })
+        .catch((err) => {
+          toast.error(`${err.message}`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
+        });
+    } else {
+      return globalAxios
+        .delete(`cart/${payload.product.id}`, {
+          headers: {
+            'Accept': 'application/json',
+            'guest-token-uuid': localStorage.getItem('guest-token')
+          }
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            toast.success(`${payload.message}`, {
+              position: "top-right",
+              transition: "slide",
+              hideProgressBar: false,
+              showIcon: true,
+              timeout: 3000,
+              showCloseButton: true,
+              swipeClose: true,
+            });
+          }
+        })
+        .catch((err) => {
+          toast.error(`${err.message}`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        })
+        .finally(() => {
+          store.dispatch("cart/getCartProducts");
+          store.dispatch('changeLoadingScreen', false)
+        });
+    }
+  },
+  deleteAll(data) {
+    store.dispatch('changeLoadingScreen', true);
+    let isLoggedIn = store.getters['Auth/isAuthenticated'];
+    if (isLoggedIn) {
+      return globalAxios.delete(`cart/items/pluck-delete`, { data: { ids: data } }, {
         headers: {
           'Accept': 'application/json',
           Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
         }
-      })
-      .then((res) => {
+      }).then((res) => {
         if (res.status == 200) {
-          toast.success(`Quantiy Updated Successfully`, {
+          toast.success(`${res.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -150,10 +284,9 @@ export default {
             showCloseButton: true,
             swipeClose: true,
           });
-          store.dispatch("cart/getCartProducts");
         }
-      })
-      .catch((err) => {
+        store.dispatch("cart/getCartProducts");
+      }).catch(err => {
         toast.error(`${err.message}`, {
           position: "top-right",
           transition: "slide",
@@ -163,22 +296,18 @@ export default {
           showCloseButton: true,
           swipeClose: true,
         });
-      })
-      .finally(() => {
-        store.dispatch("cart/getCartProducts");
+      }).finally(() => {
         store.dispatch('changeLoadingScreen', false)
-      });
-    }else{
-      return globalAxios
-      .patch(`cart/${data.product_id}`, objSended, {
+      })
+    } else {
+      return globalAxios.delete(`cart/items/pluck-delete`, { data: { ids: data } }, {
         headers: {
           'Accept': 'application/json',
-          guest_token_uuid: localStorage.getItem('guest-token')
+          'guest-token-uuid': localStorage.getItem('guest-token')
         }
-      })
-      .then((res) => {
+      }).then((res) => {
         if (res.status == 200) {
-          toast.success(`Quantiy Updated Successfully`, {
+          toast.success(`${res.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -187,10 +316,9 @@ export default {
             showCloseButton: true,
             swipeClose: true,
           });
-          store.dispatch("cart/getCartProducts");
         }
-      })
-      .catch((err) => {
+        store.dispatch("cart/getCartProducts");
+      }).catch(err => {
         toast.error(`${err.message}`, {
           position: "top-right",
           transition: "slide",
@@ -200,15 +328,12 @@ export default {
           showCloseButton: true,
           swipeClose: true,
         });
-      })
-      .finally(() => {
-        store.dispatch("cart/getCartProducts");
+      }).finally(() => {
         store.dispatch('changeLoadingScreen', false)
-      });
+      })
     }
-    
-  },
 
+  },
   moveToWish(data) {
     store.dispatch('changeLoadingScreen', true)
     return globalAxios
@@ -243,36 +368,5 @@ export default {
         store.dispatch('changeLoadingScreen', false)
         store.dispatch("wishlist/getWishlistItems");
       });
-  },
-
-  deleteAll(data) {
-    console.log(data);
-    store.dispatch('changeLoadingScreen', true)
-    return globalAxios.delete(`cart/items/pluck-delete` , {data:{ids:data}}).then((res) => {
-      if (res.status == 200) {
-        toast.success(`${res.data.message}`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
-        });
-      }
-      store.dispatch("cart/getCartProducts");
-    }).catch(err => {
-      toast.error(`${err.message}`, {
-        position: "top-right",
-        transition: "slide",
-        hideProgressBar: false,
-        showIcon: true,
-        timeout: 3000,
-        showCloseButton: true,
-        swipeClose: true,
-      });
-    }).finally(() => {
-      store.dispatch('changeLoadingScreen', false)
-    })
   },
 };

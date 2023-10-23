@@ -89,7 +89,7 @@ export default {
     return {
       sideVisible: false,
       cartItems: [],
-      cartIdsDeleted:[]
+      cartIdsDeleted: []
     };
   },
 
@@ -108,7 +108,7 @@ export default {
       cartIds.filter(el => {
         this.cartIdsDeleted.push(el.id);
       });
-      this.$store.dispatch("cart/clearCartItems" , this.cartIdsDeleted);
+      this.$store.dispatch("cart/clearCartItems", this.cartIdsDeleted);
     },
 
     updateSideVisible(sidebar) {
@@ -118,13 +118,27 @@ export default {
   },
   computed: {
     count() {
-      return this.$store.getters['cart/cartItemCount'];
+      try {
+        return this.$store.getters['cart/cartItemCount'];
+      } catch (e) {
+        console.log(e);
+      }
+
     },
     cartItems() {
-      return this.$store.getters['cart/cartItems'];
+      try {
+        return this.$store.getters['cart/cartItems'];
+      } catch (e) {
+        console.log(e);
+      }
+
     },
     cartTotalPrice() {
-      return this.$store.getters['cart/cartTotalPrice'];
+      try {
+        return this.$store.getters['cart/cartTotalPrice'];
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
   watch: {
