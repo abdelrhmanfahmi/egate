@@ -37,11 +37,16 @@
             </v-col>
             <v-col cols="12" lg="4" md="4" sm="12">
               <div class="productInfo">
-                <div class="product-image">
+                <div class="product-image" v-if="product.product.image != null">
                   <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
-
                     <img :src="product.product.image" class="product-image" alt="product-image"
                       :srcset="product.product.image">
+                  </router-link>
+                </div>
+                <div class="product-image" v-else>
+                  <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
+                    <img :src="require('@/assets/images/logo.png')" class="product-image" alt="product-image"
+                      :srcset="require('@/assets/images/logo.png')">
                   </router-link>
                 </div>
               </div>
