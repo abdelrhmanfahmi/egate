@@ -5,7 +5,12 @@
         <div class="top-data-holder d-flex justify-space-between align-center">
           <div class="discount-quantity">
             <div class="product-discount"><small>-20%</small></div>
-            <div class="product-quantity"><small>in stock</small></div>
+            <div class="product-quantity" v-if="product.stock > 0">
+              <small>in stock</small>
+            </div>
+            <div class="product-quantity" v-else>
+              <small>out of stock</small>
+            </div>
           </div>
           <div class="product-rating d-flex justify-center align-center flex-column">
             <span class="icon" style="color: #0DEEFA;"><v-icon icon="mdi-star"></v-icon></span>
@@ -14,9 +19,14 @@
         </div>
       </router-link>
 
-      <div class="product-image-wrapper">
+      <div class="product-image-wrapper" v-if="product.image != null">
         <router-link :to="{ name: 'productPage', params: { id: product.id } }">
           <img :src="product.image" class="productImage" style="cursor: pointer;" />
+        </router-link>
+      </div>
+      <div class="product-image-wrapper" v-else>
+        <router-link :to="{ name: 'productPage', params: { id: product.id } }">
+          <img :src="require('@/assets/images/logo.png')" class="productImage" style="cursor: pointer;" />
         </router-link>
       </div>
       <div class="product-info">

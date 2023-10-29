@@ -21,6 +21,8 @@
 
                   <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
                     width="100"></v-img>
+                  <v-img v-else :src="require('@/assets/images/logo.png')" :lazy-src="product.product.image"
+                    width="100"></v-img>
                 </router-link>
               </div>
             </div>
@@ -49,7 +51,7 @@ export default {
   props: ['cartItems'],
   data() {
     return {
-    cartIdsDeleted:[]
+      cartIdsDeleted: []
     };
   },
 
@@ -72,7 +74,7 @@ export default {
       cartIds.filter(el => {
         this.cartIdsDeleted.push(el.id);
       });
-      this.$store.dispatch("cart/clearCartItems" , this.cartIdsDeleted);
+      this.$store.dispatch("cart/clearCartItems", this.cartIdsDeleted);
     },
 
     addProductToCart(product) {

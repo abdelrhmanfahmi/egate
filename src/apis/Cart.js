@@ -53,7 +53,7 @@ export default {
         })
         .catch((err) => {
           console.log("err", err);
-          toast.error(`${err.message}`, {
+          toast.error(`${err.response.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -90,7 +90,7 @@ export default {
         })
         .catch((err) => {
           console.log("err", err);
-          toast.error(`${err.message}`, {
+          toast.error(`${err.response.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -134,7 +134,7 @@ export default {
           }
         })
         .catch((err) => {
-          toast.error(`${err.message}`, {
+          toast.error(`${err.response.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -171,7 +171,7 @@ export default {
           }
         })
         .catch((err) => {
-          toast.error(`${err.message}`, {
+          toast.error(`${err.response.data.message}`, {
             position: "top-right",
             transition: "slide",
             hideProgressBar: false,
@@ -268,7 +268,7 @@ export default {
     store.dispatch('changeLoadingScreen', true);
     let isLoggedIn = store.getters['Auth/isAuthenticated'];
     if (isLoggedIn) {
-      return globalAxios.delete(`cart/items/pluck-delete`, { data: { ids: data } }, {
+      return globalAxios.post(`cart/items/pluck-delete`, { ids: data }, {
         headers: {
           'Accept': 'application/json',
           Authorization: `Bearer ${JSON.parse(localStorage.getItem('EGate-userInfo')).token}`
@@ -300,7 +300,7 @@ export default {
         store.dispatch('changeLoadingScreen', false)
       })
     } else {
-      return globalAxios.delete(`cart/items/pluck-delete`, { data: { ids: data } }, {
+      return globalAxios.post(`cart/items/pluck-delete`, { ids: data }, {
         headers: {
           'Accept': 'application/json',
           'guest-token-uuid': localStorage.getItem('guest-token')
