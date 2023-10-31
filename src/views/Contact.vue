@@ -14,7 +14,7 @@
                     </v-breadcrumbs>
 
                     <h1 class="text-center">CONTACT US</h1>
-                    <div class="row h-100 w-100">
+                    <div class="row h-100 w-100 styleAllDivsMobile">
                         <div class="col-md-6 styleBackDiv">
                             <h3 class="text-white text-center">Contact Info</h3>
                             <br>
@@ -213,6 +213,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.styleAllDivsMobile {
+    position: relative;
+    bottom: 45px;
+}
+
 .StyleSendButton {
     width: 25%;
 }
@@ -334,11 +339,23 @@ img.img-responsive {
     }
 
     .styleBackDiv {
-        height: 42%;
+        height: 39%;
     }
 
     .StyleSendButton {
         width: 50%;
+    }
+
+    .styleAllDivsMobile {
+        position: relative;
+        left: 10px;
+        bottom: 0px;
+    }
+
+    .styleBackDivTwo {
+        height: 53%;
+        position: relative;
+        bottom: 51px;
     }
 }
 
@@ -353,6 +370,25 @@ img.img-responsive {
 
     .styleBackDiv {
         height: 89%;
+    }
+
+    .styleAllDivsMobile {
+        position: relative;
+        bottom: 30px;
+    }
+}
+
+@media only screen and (width: 820px) {
+    .styleAllDivsMobile {
+        position: relative;
+        top: 30px;
+    }
+}
+
+@media only screen and (width: 912px) {
+    .styleAllDivsMobile {
+        position: relative;
+        top: 30px;
     }
 }
 </style>
