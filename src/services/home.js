@@ -1,35 +1,34 @@
 import globalAxios from "./global-axios";
-import globaAxios from "./global-axios";
 export default {
     getBanners() {
-        return globaAxios.get('client/banners')
+        return globalAxios.get('client/banners')
     },
     getCategories() {
-        return globaAxios.get('client/categories?isParent=true')
+        return globalAxios.get('client/categories?isParent=true')
     },
     homeProducts() {
-        return globaAxios.get(`client/products?hasOffer=true`)
+        return globalAxios.get(`client/products?hasOffer=true`)
     },
     homeProductsFeatured() {
-        return globaAxios.get(`client/products?featured=true`)
+        return globalAxios.get(`client/products?featured=true`)
     },
     homeProductsTopRated() {
-        return globaAxios.get(`client/products?top_rated=true`)
+        return globalAxios.get(`client/products?top_rated=true`)
     },
     homeProductsTopReviewed() {
-        return globaAxios.get(`client/products?top_reviewed=true`)
+        return globalAxios.get(`client/products?top_reviewed=true`)
     },
     getFeaturedCategories() {
-        return globaAxios.get(`client/categories/featured`)
+        return globalAxios.get(`client/categories/featured`)
     },
     getProductsSpecial() {
-        return globaAxios.get(`client/special-offers`)
+        return globalAxios.get(`client/special-offers`)
     },
     getSettings() {
-        return globaAxios.get(`settings`);
+        return globalAxios.get(`settings`);
     },
     getFaqs() {
-        return globaAxios.get(`settings/faqs`);
+        return globalAxios.get(`settings/faqs`);
     },
     storeContactUsForm(payload) {
         return globalAxios.post(`contact`, payload);
