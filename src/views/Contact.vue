@@ -86,35 +86,41 @@
                             <h3 class="text-center" style="color:#0048D9">Send Us A Message</h3>
                             <p class="text-center" style="color: #6A6A6A;">We Are Always Here To Help You</p>
 
-                            <form id="submitForm" @submit.prevent="storeContactForm" class="styleForm">
+                            <Form id="submitForm" @submit="storeContactForm" class="styleForm">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Your Name<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" v-model="contact.name">
+                                        <Field type="text" name="name" class="form-control" :rules="isRequired" />
+                                        <ErrorMessage class="text-danger" name="name" />
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Your Email<span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" v-model="contact.email">
+                                        <Field type="email" name="email" class="form-control" :rules="validateEmail" />
+                                        <ErrorMessage style="font-size: 12px;" class="text-danger" name="email" />
                                     </div>
                                 </div>
                                 <div class="row d-flex justify-content-start">
                                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
                                         <label>Phone Number<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" v-model="contact.phone">
+                                        <Field type="text" name="phone" class="form-control" :rules="isRequired" />
+                                        <ErrorMessage class="text-danger" name="phone" />
                                     </div>
                                 </div>
                                 <div class="col mb-3">
                                     <label>Subject<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" v-model="contact.subject">
+                                    <Field type="text" class="form-control" name="subject" :rules="isRequired" />
+                                    <ErrorMessage class="text-danger" name="subject" />
                                 </div>
                                 <div class="col mb-4">
-                                    <textarea id="message" cols="30" rows="10" class="form-control" style="resize: none;"
-                                        placeholder="Write Your Message Here ..." v-model="contact.message"></textarea>
+                                    <Field id="message" name="message" as="textarea" cols="30" rows="10"
+                                        class="form-control" style="resize: none;" placeholder="Write Your Message Here ..."
+                                        :rules="isRequired" />
+                                    <ErrorMessage class="text-danger" name="message" />
                                 </div>
                                 <div class="col mb-3">
-                                    <button class="btn btn-primary StyleSendButton" id="sendData">Send</button>
+                                    <button class="btn btn-primary StyleSendButton">Send</button>
                                 </div>
-                            </form>
+                            </Form>
                         </div>
                     </div>
                 </div>
@@ -127,6 +133,7 @@
 import home from "@/services/home";
 import { useMeta } from "vue-meta";
 import { useToast } from "vue-toastification";
+import { Form, Field, ErrorMessage } from 'vee-validate';
 export default {
     setup() {
         useMeta({
@@ -145,21 +152,13 @@ export default {
                     href: "contact",
                 },
             ],
-            contact: {
-                name: null,
-                email: null,
-                phone: null,
-                subject: null,
-                message: null
-            }
         };
     },
     methods: {
-        async storeContactForm() {
-            document.getElementById('sendData').style.disabled = true;
+        async storeContactForm(values, { resetForm }) {
             const toast = useToast();
             try {
-                const response = await home.storeContactUsForm(this.contact);
+                const response = await home.storeContactUsForm(values);
                 if (response.status == 200) {
                     toast.success(`${response.data.message}`, {
                         position: "top-right",
@@ -170,10 +169,10 @@ export default {
                         showCloseButton: true,
                         swipeClose: true,
                     });
-                    this.resetForm();
-                    document.getElementById('sendData').style.disabled = false;
+                    resetForm();
                 }
             } catch (e) {
+                console.log(e);
                 toast.error(`${e.response.data.message}`, {
                     position: "top-right",
                     transition: "slide",
@@ -183,16 +182,31 @@ export default {
                     showCloseButton: true,
                     swipeClose: true,
                 });
-                document.getElementById('sendData').style.disabled = false;
             }
         },
-        resetForm() {
-            this.contact.name = '';
-            this.contact.email = '';
-            this.contact.phone = '';
-            this.contact.subject = '';
-            this.contact.message = '';
-        }
+        isRequired(value) {
+            if (value) {
+                return true;
+            }
+            return 'This field is required';
+        },
+        validateEmail(value) {
+            if (!value) {
+                return 'This field is required';
+            }
+
+            const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+            if (!regex.test(value)) {
+                return 'This field must be a valid email';
+            }
+
+            return true;
+        },
+    },
+    components: {
+        Form,
+        Field,
+        ErrorMessage
     }
 
 };

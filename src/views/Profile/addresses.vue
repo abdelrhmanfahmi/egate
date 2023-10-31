@@ -121,7 +121,7 @@ export default {
         return true;
       }
 
-      return 'this field is required ..';
+      return 'This field is required';
     },
     async getCountriesData() {
       try {
@@ -142,7 +142,7 @@ export default {
       this.cities = response.data.items;
     },
 
-    async submitForm(values) {
+    async submitForm(values, { resetForm }) {
       const toast = useToast();
       try {
         const response = await globalAxios.post('client/address-books', values);
@@ -156,10 +156,8 @@ export default {
             showCloseButton: true,
             swipeClose: true,
           });
+          resetForm();
         }
-        setTimeout(() => {
-          this.clearForm();
-        }, 1000);
       } catch (e) {
         toast.error(`${e.response.data.message}`, {
           position: "top-right",
@@ -171,15 +169,6 @@ export default {
           swipeClose: true,
         });
       }
-    },
-    async clearForm() {
-      this.form.first_name = '';
-      this.form.last_name = '';
-      this.form.mobile = '';
-      this.form.address = '';
-      this.form.country_id = null;
-      this.form.city_id = null;
-      this.form.governorate_id = null
     }
   },
   components: {
