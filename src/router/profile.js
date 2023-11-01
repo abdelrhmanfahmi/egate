@@ -1,4 +1,4 @@
-import  loggedGuard  from "./loggedGuard";
+import loggedGuard from "./loggedGuard";
 export default [
     {
         path: "/profile",
@@ -33,6 +33,12 @@ export default [
                 path: '/profile/addresses',
                 name: 'addresses',
                 component: () => import("../views/Profile/addresses.vue"),
+                beforeEnter: loggedGuard,
+            },
+            {
+                path: '/profile/edit/address/:id',
+                name: 'editAddress',
+                component: () => import("../views/Profile/EditAddress.vue"),
                 beforeEnter: loggedGuard,
             },
             {

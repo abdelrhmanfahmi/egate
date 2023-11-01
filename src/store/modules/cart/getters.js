@@ -1,6 +1,5 @@
 export const cartItemCount = (state) => {
     try {
-        console.log(state.cart);
         return JSON.parse(state.cart).length;
     } catch (e) {
         console.log(e);
