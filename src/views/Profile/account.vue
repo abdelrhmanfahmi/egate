@@ -128,7 +128,6 @@ export default {
   methods: {
     async getAddressBooksData() {
       const response = await account.getAdressBooks();
-      console.log(response);
       this.address_books = response.data.items.data;
     }
   },
