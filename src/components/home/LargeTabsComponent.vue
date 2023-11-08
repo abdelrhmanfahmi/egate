@@ -3,7 +3,7 @@
     <div class="wrapper tabs-component mb-5">
       <v-container fluid>
         <v-row justify="center">
-          <v-col cols="12" xl="3" lg="3" md="3" sm="12">
+          <v-col cols="12" xl="3" lg="3" md="3" sm="12" v-if="specialOffer">
             <div class="sidePromotionHolder">
               <v-row justify="space-between" align="center" class="mb-2">
                 <v-col cols="12" md="6">
@@ -12,18 +12,19 @@
                 <v-col cols="12" md="6">
                   <div class="saveMony">
                     <p class="m-0">Save</p>
-                    <p class="m-0"><b>EGP {{ specialOffer?.product?.price - specialOffer?.product?.product_price }}</b>
+                    <p class="m-0" v-if="specialOffer"><b>EGP {{ specialOffer?.product?.price -
+                      specialOffer?.product?.product_price }}</b>
                     </p>
                   </div>
                 </v-col>
               </v-row>
-              <div class="imageHolder mb-3">
+              <div class="imageHolder mb-3" v-if="specialOffer">
                 <v-img :src="specialOffer.bannar" @click="goToSpecialOfferPage(specialOffer.id)"
                   class="image-fluid"></v-img>
               </div>
               <div class="description mb-3">
                 <h4>{{ specialOffer?.product?.name }}</h4>
-                <v-row class="aligned-row mt-1 mb-3">
+                <v-row class="aligned-row mt-1 mb-3" v-if="specialOffer">
                   <v-col cols="lg" sm="6" md="12">
                     <p class="price-after-desc">Egp {{ specialOffer?.product?.price }}</p>
                   </v-col>

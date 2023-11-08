@@ -98,7 +98,7 @@ import checkoutCartStep from "@/components/Checkout/Steps/Step1/CheckoutCartStep
 import checkoutInformationStep from "@/components/Checkout/Steps/Step2/CheckoutInformationStep.vue";
 import checkoutCompleteOrderStep from "@/components/Checkout/Steps/Step3/CheckoutCompleteOrderStep.vue";
 export default {
-  setup() {},
+  setup() { },
   methods: {
     changeActiveStep(activeTo) {
       this.activeStep = activeTo;
@@ -121,8 +121,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+p {
+  color: #969696;
+}
+
 .step-wrapper {
   min-height: 50vh;
+
   .stepper-holder {
     .breadcrumb-pagination {
       width: 100%;
@@ -146,6 +151,7 @@ export default {
 
     .active {
       position: relative;
+
       .arrow-down {
         position: absolute;
         //bottom: 0;
@@ -154,11 +160,12 @@ export default {
         transform: translateX(-50%);
       }
     }
+
     .active p {
-      //border-bottom: 2px solid #eb6841;
+      //border-bottom: 2px solid #3399FF;
 
       margin-bottom: 0px !important;
-      color: #eb6841;
+      color: #3399FF;
       font-weight: 700;
     }
   }
@@ -168,12 +175,11 @@ export default {
     height: 0;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 15px solid #eb6841;
+    border-top: 15px solid #3399FF;
   }
+
   .active-p {
     margin-top: 22px;
   }
 }
-
-
 </style>
