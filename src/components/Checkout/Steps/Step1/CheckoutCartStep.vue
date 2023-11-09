@@ -80,7 +80,7 @@
               </v-btn>
             </v-col>
             <v-col cols="12" md="6" sm="12" class="text-black">
-              <v-btn class="bg-main text-black" @click="changeActiveStep(2)">Continue To Checkout <v-icon
+              <v-btn class="bg-main text-white" @click="changeActiveStep(2)">Continue To Checkout <v-icon
                   icon="mdi-chevron-right"></v-icon></v-btn>
             </v-col>
           </v-row>
@@ -128,6 +128,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.return-btn {
+  background-color: inherit;
+}
+
+.mdi-chevron-left::before {
+  color: #003399;
+}
+
+.mdi-chevron-right::before i {
+  color: #fff;
+}
+
 p {
   color: #6E6C5A;
 }

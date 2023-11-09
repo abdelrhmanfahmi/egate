@@ -106,7 +106,7 @@
   
 <script>
 import ChangePassModal from "@/components/shared/Modals/Profile/ChangePassModal.vue";
-import account from '@/services/account';
+import globalAxios from '@/services/global-axios';
 import { useMeta } from "vue-meta";
 export default {
   setup() {
@@ -127,7 +127,11 @@ export default {
   },
   methods: {
     async getAddressBooksData() {
-      const response = await account.getAdressBooks();
+      const response = await globalAxios.get('client/address-books', {
+        headers: {
+          Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+        }
+      });
       this.address_books = response.data.items.data;
     }
   },

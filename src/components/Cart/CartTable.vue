@@ -15,15 +15,21 @@
           <td class="border-0">
             <div class="productImage-actions">
               <div class="product-image">
-                <div class="removeProduct" role=button @click="removeFromCart(product)">x</div>
-                <Favorite :product="product" />
-                <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
-
-                  <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
-                    width="100"></v-img>
-                  <v-img v-else :src="require('@/assets/images/logo.png')" :lazy-src="product.product.image"
-                    width="100"></v-img>
-                </router-link>
+                <div class="d-flex w-100">
+                  <div class="removeProduct" role=button @click="removeFromCart(product)">x</div>
+                  <Favorite :product="product" />
+                </div>
+                <div>
+                  <router-link :to="{ name: 'productPage', params: { id: product.product.id } }">
+                    <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
+                      width="100"></v-img>
+                    <v-img v-else :src="require('@/assets/images/logo.png')" :lazy-src="product.product.image"
+                      width="100"></v-img>
+                  </router-link>
+                </div>
+              </div>
+              <div class="d-flex align-items-end justify-content-between ml-5 w-50">
+                <p>{{ product.product.name }}</p>
               </div>
             </div>
           </td>
@@ -102,23 +108,31 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+p {
+  color: #33322D;
+}
+
 .styleCart {
   padding: 10px;
 }
 
 .productImage-actions {
+
+  display: flex;
+  justify-content: center;
+
   .product-image {
     position: relative;
     max-width: 60%;
     text-align: center;
-    margin: auto;
+    // margin: auto;
 
     .removeProduct {
       position: absolute;
       top: 0;
       left: 0;
-      width: 20px;
-      height: 20px;
+      width: 19px;
+      height: 19px;
       background: #b5140e;
       color: #fff;
       text-align: center;

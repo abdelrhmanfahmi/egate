@@ -121,8 +121,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.mdi-chevron-right::before {
+  color: #969696;
+}
+
 p {
   color: #969696;
+  font-weight: bold;
 }
 
 .step-wrapper {
