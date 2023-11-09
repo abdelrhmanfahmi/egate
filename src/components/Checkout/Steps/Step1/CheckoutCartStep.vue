@@ -87,7 +87,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-        <CartExistData />
+        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" />
       </v-col>
     </v-row>
   </div>
@@ -117,12 +117,49 @@ export default {
         nextTime: false,
         textOffers: false,
       },
+      cartItems: [],
+      cartTotalPrice: 0
     };
   },
   methods: {
     changeActiveStep(index) {
       this.$emit("changeSteper", index);
     },
+  },
+  computed: {
+    count() {
+      try {
+        return this.$store.getters['cart/cartItemCount'];
+      } catch (e) {
+        console.log(e);
+      }
+
+    },
+    cartItems() {
+      try {
+        return this.$store.getters['cart/cartItems'];
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    cartTotalPrice() {
+      try {
+        return this.$store.getters['cart/cartTotalPrice'];
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  },
+  watch: {
+    count(newCount, oldCount) {
+      console.log(`We have ${newCount} fruits now, yay!`)
+    },
+    cartItems(newCartItems, oldCartItems) {
+      console.log(newCartItems);
+    },
+    cartTotalPrice(newCartTotalPrice, oldCartTotalPrice) {
+      console.log(newCartTotalPrice);
+    }
   },
 };
 </script>
