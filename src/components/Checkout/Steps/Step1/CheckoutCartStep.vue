@@ -1,159 +1,77 @@
 <template>
   <div class="checkoutStep">
     <v-row>
-      <v-col cols="12" md="7" lg="7" sm="12" class="myCol">
-        <div class="form-holder">
-          <Form @submit="submitDataForm">
-            <div class="shipping-address-data">
-              <h4 class="my-5">Address Book</h4>
-              <v-row>
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field @change="getCountryId" class="form-control styleSelects mb-3" name="country_id"
-                    :rules="isRequired" as="select" v-model="form.country_id">
-                    <option disabled value="">Country</option>
-                    <option v-for="(country, idx) in countries" :key="idx" :value="country.id">{{ country.name_en }}
-                    </option>
-                  </Field>
-                  <ErrorMessage class="text-danger" name="country_id" />
-                </v-col>
 
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field @change="getCityId" id="governorate_id" class="form-control styleSelects mb-3"
-                    name="governorate_id" :rules="isRequired" as="select" v-model="form.governorate_id">
-                    <option disabled selected value="">State</option>
-                    <option v-for="(state, idx) in states" :key="idx" :value="state.id">{{ state.name_en }}</option>
-                  </Field>
-                  <ErrorMessage class="text-danger" name="governorate_id" />
-                </v-col>
-
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field class="form-control styleSelects mb-3" name="city_id" :rules="isRequired" as="select"
-                    v-model="form.city_id">
-                    <option disabled selected value="">City</option>
-                    <option v-for="(city, idx) in cities" :key="idx" :value="city.id">{{ city.name_en }}</option>
-                  </Field>
-                  <ErrorMessage class="text-danger" name="city_id" />
-                </v-col>
-
-                <v-col cols="12" lg="12" md="12" sm="12">
-                  <Field name="address" id="address" hide-details="true" v-model="form.address"
-                    class="w-100 form-control styleSelects mb-3" placeholder="Address" type="text" :rules="isRequired" />
-                  <ErrorMessage class="text-danger" name="address" />
-                </v-col>
-
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field name="first_name" id="firstName" hide-details="true" placeholder="First Name"
-                    class="w-100 form-control styleSelects mb-3" :rules="isRequired" v-model="form.first_name" />
-                  <ErrorMessage class="text-danger" name="first_name" />
-                </v-col>
-
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field name="last_name" id="lastName" hide-details="true" placeholder="Last Name"
-                    class="w-100 form-control styleSelects mb-3" :rules="isRequired" v-model="form.last_name" />
-                  <ErrorMessage class="text-danger" name="last_name" />
-                </v-col>
-
-                <v-col cols="12" lg="4" md="4" sm="12">
-                  <Field name="mobile" id="phone" hide-details="true" placeholder="Mobile Number"
-                    class="w-100 form-control styleSelects mb-3" type="number" :rules="isRequired"
-                    v-model="form.mobile" />
-                  <ErrorMessage class="text-danger" name="mobile" />
-                </v-col>
-              </v-row>
-            </div>
-            <v-row class="mt-11">
-              <v-col cols="12" md="6" sm="12">
-                <v-btn to="/cart" class="return-btn">
-                  <v-icon icon="mdi-chevron-left"></v-icon>Return To Cart
-                </v-btn>
-              </v-col>
-              <v-col cols="12" md="6" sm="12" class="text-black">
-                <v-btn class="bg-main text-white" type="submit">Continue To Checkout <v-icon
-                    icon="mdi-chevron-right"></v-icon></v-btn>
-              </v-col>
-            </v-row>
-          </Form>
-        </div>
+      <!-- address book  -->
+      <v-col cols="12" md="7" lg="7" sm="12" class="myCol" v-if="isAuthenticated">
+        <CardAddressBookComponent :addressBooks="addressBooks" :countries="countries" />
       </v-col>
+
+      <v-col v-else>
+        <CardAddressBookGuestComponent />
+      </v-col>
+
+      <!-- cart section -->
       <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" />
+        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="newCartTotalPrice > 0" />
+        <EmptyCart v-else />
       </v-col>
+
     </v-row>
   </div>
 </template>
 
 <script>
+import globalAxios from "@/services/global-axios";
 import globalApis from "@/services/globalApis";
 import CartExistData from "./CartExistData.vue";
-import { useToast } from "vue-toastification";
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import globalAxios from "@/services/global-axios";
+import EmptyCart from "@/components/shared/Checkout/EmptyCart.vue";
+import CardAddressBookComponent from './CardAddressBookComponent.vue';
+import CardAddressBookGuestComponent from './CardAddressBookGuestComponent.vue';
 export default {
   components: {
     CartExistData,
     Field,
     Form,
-    ErrorMessage
+    ErrorMessage,
+    EmptyCart,
+    CardAddressBookComponent,
+    CardAddressBookGuestComponent
   },
   mounted() {
     this.getCountriesData();
+    if (this.isAuthenticated) {
+      this.getAddressBooks();
+    }
   },
   data() {
     return {
       countries: [],
-      states: [],
-      cities: [],
-      form: {
-        country_id: null,
-        city_id: null,
-        governorate_id: null,
-        address: null,
-        first_name: null,
-        last_name: null,
-        mobile: null,
-      },
+      addressBooks: [],
       cartItems: [],
-      cartTotalPrice: 0
+      cartTotalPrice: 0,
+      orderCheckout: {
+        address_book_id: null,
+        payment_type: null,
+        coupoun: null
+      }
     };
   },
   methods: {
-    isRequired(value) {
-      if (value) {
-        return true;
-      }
+    changeActiveStep(index) {
+      this.$emit("changeSteper", index);
+    },
 
-      return 'This field is required';
-    },
-    async submitDataForm(values, { resetForm }) {
-      console.log(values);
-      const toast = useToast();
+    async getAddressBooks() {
       try {
-        const response = await globalAxios.post('client/address-books', values);
-        if (response.data.code == 200) {
-          toast.success(`Address Book Stores Successfully`, {
-            position: "top-right",
-            transition: "slide",
-            hideProgressBar: false,
-            showIcon: true,
-            timeout: 3000,
-            showCloseButton: true,
-            swipeClose: true,
-          });
-          resetForm();
-          this.$emit("changeSteper", 2);
-        }
+        const response = await globalAxios.get('client/address-books');
+        this.addressBooks = response.data.items.data;
       } catch (e) {
-        toast.error(`${e.response.data.message}`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
-        });
+        console.log(e);
       }
     },
+
     async getCountriesData() {
       try {
         const response = await globalApis.getCountries();
@@ -161,16 +79,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    },
-    async getCountryId(e) {
-      let countryId = e.target.value;
-      const response = await globalApis.getStates(countryId);
-      this.states = response.data.items;
-    },
-    async getCityId(e) {
-      let stateId = e.target.value;
-      const response = await globalApis.getCities(stateId);
-      this.cities = response.data.items;
     },
   },
   computed: {
@@ -215,6 +123,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.styleCardAddress {
+  background: inherit;
+}
+
+.styleCardAddress p {
+  color: #000;
+}
+
+.styleContainer {
+  padding: 3rem;
+}
+
 .styleSelects {
   padding: 1rem;
   border: 1px solid #999;
