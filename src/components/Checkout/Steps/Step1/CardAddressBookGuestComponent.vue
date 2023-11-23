@@ -134,7 +134,11 @@ export default {
             values.type = 'client';
             values.country_code = 'EG';
             try {
-                const response = await globalAxios.post("auth/register", values);
+                const response = await globalAxios.post("auth/register", values, {
+                    headers: {
+                        'guest-token-uuid': localStorage.getItem('guest-token')
+                    }
+                });
                 if (response.data.code == 200) {
                     toast.success(`User Added Successfully`, {
                         position: "top-right",

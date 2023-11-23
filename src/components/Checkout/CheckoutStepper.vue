@@ -7,19 +7,13 @@
             <!--    muchos disgustimos   -->
             <div class="breadcrumb-pagination">
               <div class="active">
-                <p class="active-p">Cart</p>
+                <p class="active-p">Shipping</p>
                 <div class="">
                   <div class="arrow-down"></div>
                 </div>
               </div>
               <span>
-                <v-icon icon="mdi-chevron-right" size="x-large" class="stepDone"></v-icon>
-              </span>
-              <div class="completed">
-                <p>Information</p>
-              </div>
-              <span>
-                <v-icon icon="mdi-chevron-right" size="x-large"></v-icon>
+                <v-icon icon="mdi-chevron-right" size="x-large" class="styleArrowAfterActive"></v-icon>
               </span>
               <div class="todo">
                 <p>Payment</p>
@@ -31,51 +25,15 @@
           </div>
         </div>
       </div>
-      <div class="2nd-step" v-if="activeStep == 2">
+      <div class="3rd-step" v-if="activeStep == 2">
         <div class="step-wrapper">
           <div class="stepper-holder">
             <div class="breadcrumb-pagination">
-              <div class="completed">
-                <p class="stepDone">Cart</p>
-              </div>
-              <span>
-                <v-icon icon="mdi-chevron-right" size="x-large" class="stepDone"></v-icon>
-              </span>
               <div class="active">
-                <p class="active-p">Information</p>
-                <div class="">
-                  <div class="arrow-down"></div>
-                </div>
+                <p class="active-p">Shipping</p>
               </div>
               <span>
-                <v-icon icon="mdi-chevron-right" size="x-large" class="stepDone"></v-icon>
-              </span>
-              <div class="todo">
-                <p>Payment</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="checkoutInformationStep my-11">
-            <checkoutInformationStep @changeSteper="changeActiveStep" />
-          </div>
-        </div>
-      </div>
-      <div class="3rd-step" v-if="activeStep == 3">
-        <div class="step-wrapper">
-          <div class="stepper-holder">
-            <div class="breadcrumb-pagination">
-              <div class="completed">
-                <p class="stepDone">Cart</p>
-              </div>
-              <span>
-                <v-icon icon="mdi-chevron-right" size="x-large" class="stepDone"></v-icon>
-              </span>
-              <div class="completed">
-                <p class="stepDone">Information</p>
-              </div>
-              <span>
-                <v-icon icon="mdi-chevron-right" size="x-large" class="stepDone"></v-icon>
+                <v-icon icon="mdi-chevron-right" size="x-large" class="styleArrowAfterActive"></v-icon>
               </span>
               <div class="active">
                 <p class="active-p">Payment</p>
@@ -95,7 +53,6 @@
 </template>
 <script>
 import checkoutCartStep from "@/components/Checkout/Steps/Step1/CheckoutCartStep.vue";
-import checkoutInformationStep from "@/components/Checkout/Steps/Step2/CheckoutInformationStep.vue";
 import checkoutCompleteOrderStep from "@/components/Checkout/Steps/Step3/CheckoutCompleteOrderStep.vue";
 export default {
   setup() { },
@@ -115,14 +72,17 @@ export default {
   },
   components: {
     checkoutCartStep,
-    checkoutInformationStep,
     checkoutCompleteOrderStep,
   },
 };
 </script>
 <style lang="scss" scoped>
+.styleArrowAfterActive {
+  font-size: 50px;
+}
+
 .mdi-chevron-right::before {
-  color: #969696;
+  color: #3399FF !important;
 }
 
 p {

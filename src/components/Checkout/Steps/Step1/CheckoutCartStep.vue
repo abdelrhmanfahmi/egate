@@ -3,8 +3,20 @@
     <v-row>
 
       <!-- address book  -->
-      <v-col cols="12" md="7" lg="7" sm="12" class="myCol" v-if="isAuthenticated">
-        <CardAddressBookComponent :addressBooks="addressBooks" :countries="countries" />
+      <v-col cols="12" md="7" lg="7" sm="12" class="myCol styleCardHere" v-if="isAuthenticated">
+        <CardAddressBookComponent :addressBooks="addressBooks" :countries="countries" :sailPoints="sailPoints" />
+
+        <v-row class="mt-11">
+          <v-col cols="12" md="6" sm="12">
+            <v-btn to="/cart" class="return-btn"><v-icon icon="mdi-chevron-left"></v-icon>Return To Cart</v-btn>
+          </v-col>
+          <v-col cols="12" md="6" sm="12" class="text-black">
+            <v-btn class="bg-main text-white" id="checkoutBtn" style="pointer-events: none;"
+              @click="changeActiveStep(2)">Continue To Checkout
+              <v-icon icon="mdi-chevron-right"></v-icon></v-btn>
+          </v-col>
+        </v-row>
+
       </v-col>
 
       <v-col v-else>
@@ -13,7 +25,7 @@
 
       <!-- cart section -->
       <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="newCartTotalPrice > 0" />
+        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
         <EmptyCart v-else />
       </v-col>
 
@@ -24,7 +36,7 @@
 <script>
 import globalAxios from "@/services/global-axios";
 import globalApis from "@/services/globalApis";
-import CartExistData from "./CartExistData.vue";
+import CartExistData from "../../CartExistData.vue";
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import EmptyCart from "@/components/shared/Checkout/EmptyCart.vue";
 import CardAddressBookComponent from './CardAddressBookComponent.vue';
@@ -43,26 +55,22 @@ export default {
     this.getCountriesData();
     if (this.isAuthenticated) {
       this.getAddressBooks();
+      this.getSailPointsData();
     }
   },
   data() {
     return {
       countries: [],
       addressBooks: [],
+      sailPoints: [],
       cartItems: [],
-      cartTotalPrice: 0,
-      orderCheckout: {
-        address_book_id: null,
-        payment_type: null,
-        coupoun: null
-      }
+      cartTotalPrice: 0
     };
   },
   methods: {
     changeActiveStep(index) {
       this.$emit("changeSteper", index);
     },
-
     async getAddressBooks() {
       try {
         const response = await globalAxios.get('client/address-books');
@@ -80,6 +88,15 @@ export default {
         console.log(e);
       }
     },
+
+    async getSailPointsData() {
+      try {
+        const response = await globalApis.getSailPoints();
+        this.sailPoints = response.data.items.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
   },
   computed: {
     count() {
@@ -107,22 +124,33 @@ export default {
     isAuthenticated: function () {
       return this.$store.getters['Auth/isAuthenticated'];
     },
+    orderCheckoutObject: function () {
+      return this.$store.getters['Order/orderCheckoutObject'];
+    }
   },
   watch: {
     count(newCount, oldCount) {
       console.log(`We have ${newCount} fruits now, yay!`)
     },
     cartItems(newCartItems, oldCartItems) {
-      console.log(newCartItems);
+      // console.log(newCartItems);
     },
     cartTotalPrice(newCartTotalPrice, oldCartTotalPrice) {
-      console.log(newCartTotalPrice);
+      // console.log(newCartTotalPrice);
+    },
+    orderCheckoutObject(newOrderCheckoutObject, oldOrderCheckoutObject) {
+      // console.log(newOrderCheckoutObject);
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.styleCardHere {
+  position: relative;
+  bottom: 14px;
+}
+
 .styleCardAddress {
   background: inherit;
 }

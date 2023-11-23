@@ -17,10 +17,10 @@
               </div>
               <div class="name-address">
                 <div class="name">
-                  <p>{{ info.full_name }}</p>
+                  <p>{{ info?.full_name }}</p>
                 </div>
                 <div class="address">
-                  <p>{{ info.email }}</p>
+                  <p>{{ info?.email }}</p>
                 </div>
               </div>
               <div class="">

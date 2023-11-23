@@ -8,5 +8,8 @@ export default {
     },
     getCities(cityId) {
         return globalAxios.get(`cities?governorate_id=${cityId}&paginate=0`);
+    },
+    getSailPoints() {
+        return globalAxios.get(`client/sail-points`);
     }
 }
