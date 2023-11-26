@@ -54,9 +54,9 @@
                 <div class="shipping-method">
                   <v-row class="aligned-row">
                     <v-col cols="12" sm="12" lg="10" md="10">
-                      <v-radio-group hide-details="true" v-model="paymentMethod">
-                        <v-radio label="Pay Via (Debit/Credit Cards/Wallets/Installments)" color="orange"
-                          value="Pay Via (Debit/Credit Cards/Wallets/Installments)"></v-radio>
+                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
+                        <v-radio label="Pay Via (Debit/Credit Cards)" color="orange"
+                          value="Pay Via (Debit/Credit Cards)"></v-radio>
                       </v-radio-group>
                     </v-col>
                     <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row">
@@ -69,10 +69,27 @@
               <div class="shipping-methods">
                 <div class="shipping-method">
                   <v-row class="aligned-row">
-                    <v-col cols="12">
-                      <v-radio-group hide-details="true" v-model="paymentMethod">
-                        <v-radio label="Cash On Delivery (COD)" color="orange" value="Cash On Delivery (COD)"></v-radio>
+                    <v-col cols="12" sm="12" lg="10" md="10">
+                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
+                        <v-radio label="Bank Transfer" color="orange" value="Bank Transfer"></v-radio>
                       </v-radio-group>
+                    </v-col>
+                    <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center">
+                      <v-icon icon="mdi-bank-outline" color="orange"></v-icon>
+                    </v-col>
+                  </v-row>
+                </div>
+              </div>
+              <div class="shipping-methods">
+                <div class="shipping-method">
+                  <v-row class="aligned-row">
+                    <v-col cols="12" sm="12" lg="10" md="10">
+                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
+                        <v-radio label="Wallet" color="orange" value="Wallet"></v-radio>
+                      </v-radio-group>
+                    </v-col>
+                    <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center">
+                      <v-icon icon="mdi-wallet-outline" color="orange"></v-icon>
                     </v-col>
                   </v-row>
                 </div>
@@ -80,7 +97,7 @@
               <div class="coupon">
                 <form>
                   <div class="form-holder" :class="$i18n.locale">
-                    <input type="text" placeholder="Have A Promocode?">
+                    <input type="text" placeholder="Have A Promocode?" v-model="orderCheckout.coupoun">
                     <button class="submit-btn">Apply</button>
                   </div>
                 </form>
@@ -118,7 +135,9 @@
                   </div>
                   &nbsp;&nbsp;
                   <div>
-                    <p>{{ addressBook.address }}</p>
+                    <p>{{ addressBook.country_name }}, {{ addressBook.governorate_name }}, {{
+                      addressBook.city_name }},
+                      {{ addressBook.address }}</p>
                   </div>
                 </div>
                 <div class="d-flex w-100">
@@ -148,7 +167,8 @@
                   </div>
                   &nbsp;&nbsp;
                   <div>
-                    <p>{{ sailPoint.address }}</p>
+                    <p>{{ sailPoint.country_name }}, {{ sailPoint.governorate_name }}, {{ sailPoint.city_name }},
+                      {{ sailPoint.address }}</p>
                   </div>
                 </div>
                 <div class="d-flex w-100">
@@ -204,7 +224,6 @@ export default {
       dialogAddressBook: false,
       dialogSailPoint: false,
       addressName: null,
-      sailPointAddress: null,
       orderCheckout: {
         address_book_id: null,
         sail_point_id: null,
@@ -221,8 +240,7 @@ export default {
     async getAddressName() {
       try {
         const response = await globalAxios.get(`client/address-books?paginate=0&id=${this.orderCheckoutObject.address_book_id}`);
-        console.log(response.data.items.data);
-        this.addressName = response.data.items.data[0].address;
+        this.addressName = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;;
       } catch (e) {
         console.log(e);
       }
@@ -231,7 +249,7 @@ export default {
     async getSailPointName() {
       try {
         const response = await globalAxios.get(`client/sail-points?id=${this.orderCheckoutObject.sail_point_id}`);
-        this.sailPointAddress = response.data.items.data[0].address;
+        this.sailPointAddress = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;
       } catch (e) {
         console.log(e);
       }
@@ -290,7 +308,7 @@ export default {
         try {
           await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
           const response = await globalAxios.get(`client/address-books?paginate=0&id=${this.orderCheckout.address_book_id}`);
-          this.addressName = response.data.items.data[0].address;
+          this.addressName = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;
           toast.success(`Address Book Of Order Updated Successfully`, {
             position: "top-right",
             transition: "slide",
@@ -313,7 +331,7 @@ export default {
         try {
           await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
           const response = await globalAxios.get(`client/sail-points?id=${this.orderCheckout.sail_point_id}`);
-          this.sailPointAddress = response.data.items.data[0].address;
+          this.sailPointAddress = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;
           toast.success(`Sail Point Of Order Updated Successfully`, {
             position: "top-right",
             transition: "slide",
@@ -330,9 +348,15 @@ export default {
       }
     },
 
-    checkout() {
+    async checkout() {
       // alert("checkout completed");
-      this.$router.push('/checkoutConfirmation')
+      try {
+        await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
+        // console.log(this.orderCheckoutObject);
+        this.$router.push('/checkoutConfirmation');
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 

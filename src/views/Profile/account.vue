@@ -78,7 +78,9 @@
               </div>
               <div class="name-address">
                 <div class="name">
-                  <p>{{ addressBook.address }}</p>
+                  <p>{{ addressBook.country_name }}, {{ addressBook.governorate_name }}, {{
+                    addressBook.city_name }},
+                    {{ addressBook.address }}</p>
                 </div>
               </div>
               <div class="">

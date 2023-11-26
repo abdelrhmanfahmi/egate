@@ -73,7 +73,11 @@ export default {
     },
     async getAddressBooks() {
       try {
-        const response = await globalAxios.get('client/address-books');
+        const response = await globalAxios.get('client/address-books', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         this.addressBooks = response.data.items.data;
       } catch (e) {
         console.log(e);
@@ -91,7 +95,11 @@ export default {
 
     async getSailPointsData() {
       try {
-        const response = await globalApis.getSailPoints();
+        const response = await globalAxios.get('client/sail-points', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         this.sailPoints = response.data.items.data;
       } catch (e) {
         console.log(e);

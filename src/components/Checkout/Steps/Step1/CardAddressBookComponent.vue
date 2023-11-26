@@ -52,7 +52,9 @@
                             </div>
                             &nbsp;&nbsp;
                             <div>
-                                <p>{{ sailPoint.address }}</p>
+                                <div>{{ sailPoint.country_name }}, {{ sailPoint.governorate_name }}, {{ sailPoint.city_name
+                                }},
+                                    {{ sailPoint.address }}</div>
                             </div>
                         </div>
                     </div>
@@ -84,7 +86,9 @@
                             </div>
                             &nbsp;&nbsp;
                             <div>
-                                <p>{{ addressBook.address }}</p>
+                                <p>{{ addressBook.country_name }}, {{ addressBook.governorate_name }}, {{
+                                    addressBook.city_name }},
+                                    {{ addressBook.address }}</p>
                             </div>
                         </div>
                     </div>
@@ -267,11 +271,8 @@
                             </div>
 
                             <div class="d-flex w-100">
-                                <div class="w-50 d-flex justify-content-center">
-                                    <button class="btn btn-success w-75" type="submit">Update Contact</button>
-                                </div>
-                                <div class="w-50 d-flex justify-content-center">
-                                    <button class="btn btn-danger w-75" @click="closeDialogContact">Cancel</button>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button class="btn btn-success w-100" type="submit">Update Contact</button>
                                 </div>
                             </div>
                         </Form>
@@ -359,7 +360,11 @@ export default {
 
         async getAddressBooks() {
             try {
-                const response = await globalAxios.get('client/address-books');
+                const response = await globalAxios.get('client/address-books', {
+                    headers: {
+                        Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+                    }
+                });
                 this.addressBooks = response.data.items.data;
             } catch (e) {
                 console.log(e);
@@ -494,7 +499,7 @@ export default {
     },
     watch: {
         orderCheckoutObject(newOrderCheckoutObject, oldOrderCheckoutObject) {
-            console.log(newOrderCheckoutObject);
+            // console.log(newOrderCheckoutObject);
         },
         user(newUser, oldUser) {
             console.log(newUser);
