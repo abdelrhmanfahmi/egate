@@ -1,4 +1,5 @@
 import globalAxios from "./global-axios";
+
 export default {
     getBanners() {
         return globalAxios.get('client/banners')

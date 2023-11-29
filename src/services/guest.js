@@ -6,6 +6,7 @@ const guestToken = axios.create({
 
 guestToken.interceptors.response.use(
     (response) => {
+        console.log(response);
         if (response.status == 200) {
             localStorage.setItem("guest-token", response.data.items.uuid);
         }

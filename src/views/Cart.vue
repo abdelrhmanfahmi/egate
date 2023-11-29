@@ -71,7 +71,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-
     },
     cartTotalPrice() {
       try {

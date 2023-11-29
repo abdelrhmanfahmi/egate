@@ -1,4 +1,5 @@
 import globalAxios from "./global-axios";
+
 export default {
     getAdressBooks() {
         return globalAxios.get('client/address-books');

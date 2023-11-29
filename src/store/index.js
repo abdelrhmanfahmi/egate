@@ -2,8 +2,9 @@ import { createStore } from "vuex";
 import cart from "./modules/cart";
 import wishlist from "./modules/wishlist";
 //add products as module
-import  Auth  from "./modules/Auth/auth";
+import Auth from "./modules/Auth/auth";
 import { Products } from "./modules/Products/products";
+import { Order } from "./modules/Order/order";
 import { Categories } from "./modules/Categories/categories";
 export default createStore({
   state: {
@@ -47,6 +48,7 @@ export default createStore({
     cart,
     wishlist,
     Products,
+    Order,
     Categories,
     Auth
   },

@@ -22,6 +22,7 @@ if (lang === "ar") {
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import flatpickr from "flatpickr";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 
@@ -77,7 +78,7 @@ onMessage(messaging, (payload) => {
     new Notification(payload.notification.title, {
       body: payload.notification.body,
       // icon: payload.notification.icon ? payload.notification.icon : iconUrl,
-       icon: '@/src/assets/logo.png',
+      icon: '@/src/assets/logo.png',
     });
   }
   store.dispatch('notification/getNotifications')
@@ -93,6 +94,7 @@ const app = createApp(App)
   .use(router)
   .use(i18n)
   .use(store)
+  .use(flatpickr)
   .use(vuetify)
   .use(Toast)
   .use(createMetaManager());

@@ -1,5 +1,5 @@
 <template>
-    <div class="new-wishlist-method">
+    <div class="new-wishlist-method d-flex w-100 justify-content-end">
         <div class="addProductToFav">
             <a class="button one active animate mobile button--secondary wishlist-btn" :title="`product in favourite`"
                 v-if="product.product.is_saved == true">
@@ -37,8 +37,8 @@
                 </div>
             </a>
             <!-- add product to favorite if not added to favorite  -->
-            <a class="button one inactive mobile button--secondary wishlist-btn mx-1" @click="moveProductToWishList(product)"
-                v-else>
+            <a class="button one inactive mobile button--secondary wishlist-btn mx-1"
+                @click="moveProductToWishList(product)" v-else>
                 <div class="btn__effect">
                     <svg class="heart-stroke icon-svg icon-svg--size-4 icon-svg--color-silver" viewBox="20 18 29 28"
                         aria-hidden="true" focusable="false">
@@ -105,9 +105,11 @@ export default {
     .button--secondary,
     .button--secondary:visited {
         border-radius: 3px;
+        position: relative;
+        left: 8px;
         cursor: pointer;
         display: inline-block;
-        min-width: 64px;
+        // min-width: 48px;
         font-family: inherit;
         font-size: inherit;
         line-height: 15px;
@@ -121,7 +123,8 @@ export default {
         background: #fff;
 
         box-shadow: none;
-        padding: 15px 15px;
+        font-size: 32px !important;
+        // padding: 15px 15px;
         transition-property: border;
         transition-timing-function: ease-in-out;
         transition-duration: 0.15s;

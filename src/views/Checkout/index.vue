@@ -21,13 +21,12 @@ export default {
       htmlAttrs: { lang: "en", amp: true },
     });
   },
-  mounted(){
+  mounted() {
     this.$nextTick(() => {
       document.dispatchEvent(new Event("render-complete"));
     });
-  }
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

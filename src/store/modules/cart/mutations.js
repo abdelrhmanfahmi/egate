@@ -8,7 +8,7 @@ export const ADD_TO_CART = (state, { product, quantity }) => {
         return;
     }
 
-    state.cart.push({
+    state?.cart?.push({
         product,
         quantity
     })

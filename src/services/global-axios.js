@@ -35,10 +35,11 @@ globalAxios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (
-      (error.response.status == 403) ||
-      (error.response.status == 401)
+      (error?.response?.status == 403) ||
+      (error?.response?.status == 401)
     ) {
-      router.push(`/auth/login`)
+      localStorage.removeItem('EGate-userInfo');
+      router.push(`/auth/login`);
     }
 
     return Promise.reject(error);

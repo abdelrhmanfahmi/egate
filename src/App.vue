@@ -10,6 +10,7 @@
 <script>
 import LoadingDataFetch from "@/components/shared/LoadingDataFetch.vue";
 import MainLayout from "@/layouts/MainLayout";
+import guest from '@/services/guest';
 // import myMixin from "@/mixins.js";
 import { useMeta } from "vue-meta";
 export default {

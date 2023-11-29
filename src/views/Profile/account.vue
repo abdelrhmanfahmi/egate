@@ -17,10 +17,10 @@
               </div>
               <div class="name-address">
                 <div class="name">
-                  <p>{{ info.full_name }}</p>
+                  <p>{{ info?.full_name }}</p>
                 </div>
                 <div class="address">
-                  <p>{{ info.email }}</p>
+                  <p>{{ info?.email }}</p>
                 </div>
               </div>
               <div class="">
@@ -78,7 +78,9 @@
               </div>
               <div class="name-address">
                 <div class="name">
-                  <p>{{ addressBook.address }}</p>
+                  <p>{{ addressBook.country_name }}, {{ addressBook.governorate_name }}, {{
+                    addressBook.city_name }},
+                    {{ addressBook.address }}</p>
                 </div>
               </div>
               <div class="">
@@ -106,7 +108,7 @@
   
 <script>
 import ChangePassModal from "@/components/shared/Modals/Profile/ChangePassModal.vue";
-import account from '@/services/account';
+import globalAxios from '@/services/global-axios';
 import { useMeta } from "vue-meta";
 export default {
   setup() {
@@ -127,8 +129,16 @@ export default {
   },
   methods: {
     async getAddressBooksData() {
-      const response = await account.getAdressBooks();
-      this.address_books = response.data.items.data;
+      try {
+        const response = await globalAxios.get('client/address-books', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
+        this.address_books = response.data.items.data;
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
   components: {
