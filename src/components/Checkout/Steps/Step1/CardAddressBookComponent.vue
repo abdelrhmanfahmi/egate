@@ -291,8 +291,10 @@ export default {
         return {
             configOne: {
                 dateFormat: "Y-m-d",
-                disable: [
-
+                enable: [
+                    {
+                        from: '2023-12-14'
+                    }
                 ]
             },
             configTwo: {
@@ -438,17 +440,20 @@ export default {
             try {
                 if (e.target.value == 1 && e.target.checked) {
                     let date = new Date();
-                    let today = date.toISOString().split('T')[0];
+                    date.setDate(date.getDate() + 15);
+                    let afterFiftenDays = date.toISOString().split('T')[0];
+                    console.log(afterFiftenDays);
 
-                    let dateTwo = new Date();
+                    let dateTwo = new Date(afterFiftenDays);
                     dateTwo.setDate(date.getDate() + 15);
-                    let afterFiftenDays = dateTwo.toISOString().split('T')[0];
+                    let endOfMonth = dateTwo.toISOString().split('T')[0];
+                    console.log(endOfMonth);
 
                     let objOne = {};
-                    objOne.from = String(today);
-                    objOne.to = String(afterFiftenDays);
+                    objOne.from = String(afterFiftenDays);
+                    objOne.to = String(endOfMonth);
 
-                    this.configOne.disable.push(objOne);
+                    this.configOne.enable.push(objOne);
                     await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
                 } else {
                     let date = new Date();
