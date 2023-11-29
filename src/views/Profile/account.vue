@@ -129,12 +129,16 @@ export default {
   },
   methods: {
     async getAddressBooksData() {
-      const response = await globalAxios.get('client/address-books', {
-        headers: {
-          Authorization: 'Bearer ' + this.$store.state.Auth.user.token
-        }
-      });
-      this.address_books = response.data.items.data;
+      try {
+        const response = await globalAxios.get('client/address-books', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
+        this.address_books = response.data.items.data;
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
   components: {

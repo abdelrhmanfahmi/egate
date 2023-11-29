@@ -50,55 +50,36 @@
 
             <section class="shipping my-11">
               <h3 class="mb-5">Payment</h3>
-              <div class="shipping-methods">
-                <div class="shipping-method">
-                  <v-row class="aligned-row">
-                    <v-col cols="12" sm="12" lg="10" md="10">
-                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
-                        <v-radio label="Pay Via (Debit/Credit Cards)" color="orange"
-                          value="Pay Via (Debit/Credit Cards)"></v-radio>
-                      </v-radio-group>
-                    </v-col>
-                    <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row">
-                      <v-img src="@/assets/images/checkout/payment1.png" width="35"></v-img>
-                      <v-img src="@/assets/images/checkout/payment2.png" width="35"></v-img>
-                    </v-col>
-                  </v-row>
-                </div>
-              </div>
-              <div class="shipping-methods">
-                <div class="shipping-method">
-                  <v-row class="aligned-row">
-                    <v-col cols="12" sm="12" lg="10" md="10">
-                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
-                        <v-radio label="Bank Transfer" color="orange" value="Bank Transfer"></v-radio>
-                      </v-radio-group>
-                    </v-col>
-                    <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center">
-                      <v-icon icon="mdi-bank-outline" color="orange"></v-icon>
-                    </v-col>
-                  </v-row>
-                </div>
-              </div>
-              <div class="shipping-methods">
-                <div class="shipping-method">
-                  <v-row class="aligned-row">
-                    <v-col cols="12" sm="12" lg="10" md="10">
-                      <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
-                        <v-radio label="Wallet" color="orange" value="Wallet"></v-radio>
-                      </v-radio-group>
-                    </v-col>
-                    <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center">
-                      <v-icon icon="mdi-wallet-outline" color="orange"></v-icon>
-                    </v-col>
-                  </v-row>
+              <div v-for="(payment, idx) in  payments " :key="idx">
+                <div class="shipping-methods">
+                  <div class="shipping-method">
+                    <v-row class="aligned-row">
+                      <v-col cols="12" sm="12" lg="10" md="10">
+                        <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
+                          <v-radio :label="payment.name" color="orange" :value="payment.id"></v-radio>
+                        </v-radio-group>
+                      </v-col>
+                      <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center"
+                        v-if="payment.id == 1">
+                        <v-icon icon="mdi-bank-outline" color="orange"></v-icon>
+                      </v-col>
+                      <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row" v-if="payment.id == 2">
+                        <v-img src="@/assets/images/checkout/payment1.png" width="35"></v-img>
+                        <v-img src="@/assets/images/checkout/payment2.png" width="35"></v-img>
+                      </v-col>
+                      <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center"
+                        v-if="payment.id == 3">
+                        <v-icon icon="mdi-wallet-outline" color="orange"></v-icon>
+                      </v-col>
+                    </v-row>
+                  </div>
                 </div>
               </div>
               <div class="coupon">
                 <form>
                   <div class="form-holder" :class="$i18n.locale">
                     <input type="text" placeholder="Have A Promocode?" v-model="orderCheckout.coupoun">
-                    <button class="submit-btn">Apply</button>
+                    <!-- <button class="submit-btn">Apply</button> -->
                   </div>
                 </form>
               </div>
@@ -128,7 +109,7 @@
                 </v-card-title>
               </v-card-item>
               <v-card-text>
-                <div class="d-flex mb-3" v-for="(addressBook, idx) in addressBooks" :key="idx">
+                <div class="d-flex mb-3" v-for="( addressBook, idx ) in  addressBooks " :key="idx">
                   <div>
                     <input type="radio" class="addressBooksRadio" :value="addressBook.id"
                       v-model="orderCheckout.address_book_id" @change="checkIfRadioChecked" />
@@ -160,7 +141,7 @@
                 </v-card-title>
               </v-card-item>
               <v-card-text>
-                <div class="d-flex mb-3" v-for="(sailPoint, idx) in sailPoints" :key="idx">
+                <div class="d-flex mb-3" v-for="( sailPoint, idx ) in  sailPoints " :key="idx">
                   <div>
                     <input type="radio" class="sailPointsRadio" :value="sailPoint.id"
                       v-model="orderCheckout.sail_point_id" @change="checkIfRadioChecked" />
@@ -194,6 +175,7 @@
 </template>
 
 <script>
+import order from '@/services/order';
 import globalAxios from "@/services/global-axios";
 import CartExistData from "../../CartExistData.vue";
 import globalApis from "@/services/globalApis";
@@ -210,6 +192,7 @@ export default {
       this.getSailPoints();
       this.getSailPointName();
     }
+    this.getPaymentsData();
     this.orderCheckout = this.orderCheckoutObject;
   },
   data() {
@@ -221,6 +204,7 @@ export default {
       addressBookAddress: null,
       addressBooks: [],
       sailPoints: [],
+      payments: [],
       dialogAddressBook: false,
       dialogSailPoint: false,
       addressName: null,
@@ -229,17 +213,21 @@ export default {
         sail_point_id: null,
         payment_type: null,
         coupoun: null,
-        fast_charging: null,
-        regular_charging: null,
-        date_from: null,
-        date_to: null
+        shipping_type_id: null,
+        delivery_time: null,
+        email: null,
+        mobile: null
       },
     };
   },
   methods: {
     async getAddressName() {
       try {
-        const response = await globalAxios.get(`client/address-books?paginate=0&id=${this.orderCheckoutObject.address_book_id}`);
+        const response = await globalAxios.get(`client/address-books?paginate=0&id=${this.orderCheckoutObject.address_book_id}`, {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         this.addressName = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;;
       } catch (e) {
         console.log(e);
@@ -248,8 +236,21 @@ export default {
 
     async getSailPointName() {
       try {
-        const response = await globalAxios.get(`client/sail-points?id=${this.orderCheckoutObject.sail_point_id}`);
+        const response = await globalAxios.get(`client/sail-points?id=${this.orderCheckoutObject.sail_point_id}`, {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         this.sailPointAddress = response.data.items.data[0].country_name + ', ' + response.data.items.data[0].governorate_name + ', ' + response.data.items.data[0].city_name + ', ' + response.data.items.data[0].address;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async getPaymentsData() {
+      try {
+        const response = await globalAxios.get('payments');
+        this.payments = response.data.items;
       } catch (e) {
         console.log(e);
       }
@@ -349,10 +350,21 @@ export default {
     },
 
     async checkout() {
-      // alert("checkout completed");
+      const toast = useToast();
       try {
         await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
-        // console.log(this.orderCheckoutObject);
+        const response = await order.storeOrder(this.orderCheckoutObject);
+        if (response.data.code == 200) {
+          toast.success(`Order Stored Successfully`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        }
         this.$router.push('/checkoutConfirmation');
       } catch (e) {
         console.log(e);

@@ -211,60 +211,6 @@ export default {
       }
     },
 
-    async updateInfo({ dispatch, commit }, User) {
-      try {
-        await globalAxios.patch("client/profile/update", User).then((res) => {
-          toast.success(`${res.data.message}`, {
-            position: "top-right",
-            transition: "slide",
-            hideProgressBar: false,
-            showIcon: true,
-            timeout: 3000,
-            showCloseButton: true,
-            swipeClose: true,
-          });
-
-          commit("SET_USER_DATA", res.data.items);
-
-          localStorage.removeItem('EGate-userInfo');
-
-          localStorage.setItem(
-            "EGate-userInfo",
-            JSON.stringify(res.data.items)
-          );
-        });
-        await store.dispatch("cart/getCartProducts");
-      } catch (err) {
-        if (err) {
-          console.log("error", err.response.data.message);
-          if (err.response.data.message) {
-            toast.error(`${err.response.data.message}`, {
-              position: "top-right",
-              transition: "slide",
-              hideProgressBar: false,
-              showIcon: true,
-              timeout: 3000,
-              showCloseButton: true,
-              swipeClose: true,
-            });
-          } else {
-            toast.error(`${err.response}`, {
-              position: "top-right",
-              transition: "slide",
-              hideProgressBar: false,
-              showIcon: true,
-              timeout: 3000,
-              showCloseButton: true,
-              swipeClose: true,
-            });
-          }
-
-          commit("RESET_ERRORS");
-          commit("CHECK_ERRORS", err.response.data.errors);
-        }
-      }
-    },
-
     async LogOut({ commit }) {
       try {
         const user = JSON.parse(localStorage.getItem('EGate-userInfo'));

@@ -35,7 +35,8 @@
             <v-card class="mx-auto styleCardAddress" elevation="4">
                 <v-card-item>
                     <v-card-title>
-                        <p class="text-blue">Choose Address Or Local Point</p>
+                        <p class="text-blue styleParagraph">Pick Local Point Or Choose From Your Address Book One Shipping
+                            Address</p>
                     </v-card-title>
                 </v-card-item>
 
@@ -70,7 +71,7 @@
                     <div class="mb-3" v-if="addressBooks.length > 0">
                         <div class="d-flex justify-content-between">
                             <div class="mb-3">
-                                <h6>Choose Address Book</h6>
+                                <p class="styleParagraph">Or Choose From Your Address Book One Shipping Address</p>
                             </div>
 
                             <div class="">
@@ -95,10 +96,10 @@
 
                     <div class="mb-3" v-else>
                         <div class="mb-3">
-                            <p>No Address Book Yet</p>
+                            <p>Add New Shipping Address</p>
                         </div>
                         <div>
-                            <button @click="openFormAddessBook" class="btn btn-primary">Add New Address Book</button>
+                            <button @click="openFormAddessBook" class="btn btn-primary">Add New Shipping Address</button>
                         </div>
                     </div>
 
@@ -113,8 +114,7 @@
                         <div class="d-flex">
                             <div>
                                 <input type="radio" id="regular" class="FastRegularRadio" disabled
-                                    @change="checkFastRegularButton" v-model="orderCheckout.regular_charging"
-                                    value="regular" />
+                                    @change="checkFastRegularButton" v-model="orderCheckout.shipping_type_id" value="1" />
                             </div>
                             &nbsp;&nbsp;
                             <div>
@@ -125,7 +125,7 @@
                         <div class="d-flex">
                             <div>
                                 <input type="radio" id="fast" class="FastRegularRadio" disabled
-                                    @change="checkFastRegularButton" v-model="orderCheckout.fast_charging" value="fast" />
+                                    @change="checkFastRegularButton" v-model="orderCheckout.shipping_type_id" value="2" />
                             </div>
                             &nbsp;&nbsp;
                             <div>
@@ -136,15 +136,17 @@
 
                     <div class="mb-3" v-if="sailPoints.length > 0 || addressBooks.length > 0">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label>From</label>
-                                <input type="date" @change="changeDateFrom" id="date_from" disabled
-                                    v-model="orderCheckout.date_from" class="form-control styleDate">
+                            <div class="col-md-12" v-if="orderCheckout.shipping_type_id == 1">
+                                <label class="mb-1">Order Recieve Date</label>
+                                <flatPickr id="delivery_time" disabled @on-change="changeOrderDate"
+                                    v-model="orderCheckout.delivery_time" :config="configOne" class="form-control"
+                                    placeholder="Select date" name="delivery_time" />
                             </div>
-                            <div class="col-md-6">
-                                <label>To</label>
-                                <input type="date" @change="changeDateTo" id="date_to" disabled
-                                    v-model="orderCheckout.date_to" class="form-control styleDate">
+                            <div class="col-md-12" v-else>
+                                <label class="mb-1">Order Recieve Date</label>
+                                <flatPickr id="delivery_time" disabled @on-change="changeOrderDate"
+                                    v-model="orderCheckout.delivery_time" :config="configTwo" class="form-control"
+                                    placeholder="Select date" name="delivery_time" />
                             </div>
                         </div>
                     </div>
@@ -156,7 +158,7 @@
                     <v-card-text>
                         <Form @submit="submitDataForm">
                             <div class="shipping-address-data mb-3">
-                                <h4 class="my-5">Add New Address Book</h4>
+                                <h4 class="my-5">Add New Shipping Address</h4>
                                 <v-row>
                                     <v-col cols="12" lg="4" md="4" sm="12">
                                         <Field @change="getCountryId" class="form-control styleSelects mb-3"
@@ -221,11 +223,8 @@
                             </div>
 
                             <div class="d-flex w-100">
-                                <div class="w-50 d-flex justify-content-center">
-                                    <button class="btn btn-success w-75" type="submit">Add Address Book</button>
-                                </div>
-                                <div class="w-50 d-flex justify-content-center">
-                                    <button class="btn btn-danger w-75" @click="closeDialog">Cancel</button>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button class="btn btn-success w-100" type="submit">Add Address Book</button>
                                 </div>
                             </div>
                         </Form>
@@ -236,27 +235,12 @@
             <v-dialog v-model="dialogFormContact" width="1000">
                 <v-card class="styleContainer">
                     <v-card-text>
-                        <Form @submit="submitContactForm">
+                        <Form>
                             <div class="shipping-address-data mb-3">
-                                <h4 class="my-5">Update Contact</h4>
+                                <h4 class="my-5">Update Contact In Order</h4>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <Field name="first_name" id="firstName" hide-details="true" placeholder="First Name"
-                                            class="w-100 form-control styleSelects mb-3" :rules="isRequired"
-                                            v-model="formContact.first_name" />
-                                        <ErrorMessage class="text-danger" name="first_name" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <Field name="last_name" id="lastName" hide-details="true" placeholder="Last Name"
-                                            class="w-100 form-control styleSelects mb-3" :rules="isRequired"
-                                            v-model="formContact.last_name" />
-                                        <ErrorMessage class="text-danger" name="last_name" />
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <Field name="email" id="email" hide-details="true" v-model="formContact.email"
+                                        <Field name="email" id="email" hide-details="true" v-model="orderCheckout.email"
                                             class="w-100 form-control styleSelects mb-3" :rules="isRequired"
                                             placeholder="E-mail" type="email" />
                                         <ErrorMessage class="text-danger" name="email" />
@@ -264,7 +248,7 @@
                                     <div class="col-md-6">
                                         <Field name="mobile" id="mobile" hide-details="true" placeholder="Mobile Number"
                                             class="w-100 form-control styleSelects mb-3" :rules="isRequired" type="text"
-                                            v-model="formContact.mobile" />
+                                            v-model="orderCheckout.mobile" />
                                         <ErrorMessage class="text-danger" name="mobile" />
                                     </div>
                                 </div>
@@ -272,7 +256,8 @@
 
                             <div class="d-flex w-100">
                                 <div class="w-100 d-flex justify-content-center">
-                                    <button class="btn btn-success w-100" type="submit">Update Contact</button>
+                                    <button class="btn btn-success w-100" @click.prevent="submitContactForm">Update
+                                        Contact</button>
                                 </div>
                             </div>
                         </Form>
@@ -284,31 +269,42 @@
 </template>
 
 <script>
+import moment from 'moment';
 import globalApis from "@/services/globalApis";
 import { useToast } from "vue-toastification";
 import { Form, Field, ErrorMessage } from 'vee-validate';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+import 'flatpickr/dist/themes/material_blue.css';
+
 import globalAxios from "@/services/global-axios";
-import store from '@/store';
 export default {
     props: ['addressBooks', 'countries', 'sailPoints'],
     components: {
         Field,
         Form,
-        ErrorMessage
+        ErrorMessage,
+        flatPickr
     },
     mounted() { },
     data() {
         return {
+            configOne: {
+                dateFormat: "Y-m-d",
+                disable: [
+
+                ]
+            },
+            configTwo: {
+                dateFormat: "Y-m-d",
+                enable: [
+
+                ]
+            },
             dialogForm: false,
             dialogFormContact: false,
             states: [],
             cities: [],
-            formContact: {
-                first_name: null,
-                last_name: null,
-                email: null,
-                mobile: null
-            },
             form: {
                 country_id: null,
                 city_id: null,
@@ -325,10 +321,10 @@ export default {
                 sail_point_id: null,
                 payment_type: null,
                 coupoun: null,
-                fast_charging: null,
-                regular_charging: null,
-                date_from: null,
-                date_to: null
+                shipping_type_id: null,
+                delivery_time: null,
+                email: null,
+                mobile: null
             }
         };
     },
@@ -336,10 +332,6 @@ export default {
     methods: {
         updateUserContact() {
             this.dialogFormContact = true;
-            this.formContact.first_name = this.user?.user?.first_name;
-            this.formContact.last_name = this.user?.user?.last_name;
-            this.formContact.email = this.user?.user?.email;
-            this.formContact.mobile = this.user?.user?.mobile;
         },
 
         closeDialog() {
@@ -437,7 +429,6 @@ export default {
                 }
                 document.getElementsByClassName('FastRegularRadio')[0].disabled = false;
                 document.getElementsByClassName('FastRegularRadio')[1].disabled = false;
-                document.getElementById('date_from').disabled = false;
             } catch (e) {
                 console.log(e);
             }
@@ -445,49 +436,74 @@ export default {
 
         async checkFastRegularButton(e) {
             try {
-                if (e.target.id == 'regular' && e.target.checked) {
-                    this.orderCheckout.fast_charging = null;
+                if (e.target.value == 1 && e.target.checked) {
+                    let date = new Date();
+                    let today = date.toISOString().split('T')[0];
+
+                    let dateTwo = new Date();
+                    dateTwo.setDate(date.getDate() + 15);
+                    let afterFiftenDays = dateTwo.toISOString().split('T')[0];
+
+                    let objOne = {};
+                    objOne.from = String(today);
+                    objOne.to = String(afterFiftenDays);
+
+                    this.configOne.disable.push(objOne);
                     await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
                 } else {
-                    this.orderCheckout.regular_charging = null;
+                    let date = new Date();
+                    let dateTwo = new Date();
+                    dateTwo.setDate(date.getDate() + 2);
+                    let afterTwoDays = dateTwo.toISOString().split('T')[0];
+                    // console.log(afterTwoDays);
+
+                    let dateThree = new Date(afterTwoDays);
+                    dateThree.setDate(dateTwo.getDate() + 2);
+                    let afterTwoDaysAfter = dateThree.toISOString().split('T')[0];
+                    // console.log(afterTwoDaysAfter);
+
+                    let objTwo = {};
+                    objTwo.from = String(afterTwoDays);
+                    objTwo.to = String(afterTwoDaysAfter);
+
+                    this.configTwo.enable.push(objTwo);
                     await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
                 }
+                document.getElementById('delivery_time').disabled = false;
             } catch (e) {
                 console.log(e);
             }
         },
 
-        async changeDateFrom(e) {
+        async changeOrderDate(e) {
             try {
-                this.orderCheckout.date_from = e.target.value;
-                await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
-                document.getElementById('date_to').disabled = false;
-            } catch (e) {
-                console.log(e);
-            }
-        },
-
-        async changeDateTo(e) {
-            try {
-                this.orderCheckout.date_to = e.target.value;
+                let date = moment(new Date(e)).format('YYYY-MM-DD');
+                this.orderCheckout.delivery_time = date;
                 await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
                 document.getElementById('checkoutBtn').style.pointerEvents = 'auto';
-            } catch (e) {
-                console.log(e);
+            } catch (err) {
+                console.log(err);
             }
         },
 
-        async submitContactForm(values, { resetForm }) {
+        async submitContactForm() {
             const toast = useToast();
             try {
-                this.$store.dispatch('Auth/updateInfo', values);
-                await store.dispatch("cart/getCartProducts");
-                resetForm();
+                await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
+                toast.success(`Contact In Order Updated`, {
+                    position: "top-right",
+                    transition: "slide",
+                    hideProgressBar: false,
+                    showIcon: true,
+                    timeout: 3000,
+                    showCloseButton: true,
+                    swipeClose: true,
+                });
                 this.dialogFormContact = false;
             } catch (e) {
                 console.log(e);
             }
-        }
+        },
     },
     computed: {
         orderCheckoutObject: function () {
@@ -509,6 +525,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.styleParagraph {
+    font-size: 16px;
+}
+
 .styleDate {
     background: inherit;
 }

@@ -7,10 +7,10 @@ export const Order = {
                 sail_point_id: null,
                 payment_type: null,
                 coupoun: null,
-                fast_charging: null,
-                regular_charging: null,
-                date_from: null,
-                date_to: null
+                shipping_type_id: null,
+                delivery_time: null,
+                email: null,
+                mobile: null
             }
         }
     },
