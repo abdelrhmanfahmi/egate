@@ -7,17 +7,17 @@
             <div class="addresses">
               <div class="address">
                 <v-row>
-                  <v-col cols="2" md="2" sm="2">
+                  <v-col cols="3" md="3" sm="3">
                     <div class="name">Ship To</div>
                   </v-col>
-                  <v-col cols="8" md="8" sm="8">
+                  <v-col cols="6" md="6" sm="6">
                     <div class="shipp-to">
                       <p v-if="orderCheckoutObject.sail_point_id != null">Sail Point {{
                         sailPointAddress }}</p>
                       <p v-else>Address {{ addressName }}</p>
                     </div>
                   </v-col>
-                  <v-col cols="2" md="2" sm="2">
+                  <v-col cols="3" md="3" sm="3">
                     <div class="change">
                       <div v-if="orderCheckoutObject.sail_point_id != null">
                         <p role="button" class="stepDone" @click="changeSailPointAddress">Change</p>
@@ -33,10 +33,10 @@
               <v-divider class="border-opacity-75 text-gray w-75 m-auto" inset></v-divider>
               <div class="address">
                 <v-row>
-                  <v-col cols="2" md="2" sm="2">
+                  <v-col cols="3" md="3" sm="3">
                     <div class="name">Method</div>
                   </v-col>
-                  <v-col cols="10" md="10" sm="10">
+                  <v-col cols="9" md="9" sm="9">
                     <div class="shipp-to" v-if="orderCheckoutObject.address_book_id != null">
                       <p>Delivery To My Address</p>
                     </div>
@@ -64,8 +64,8 @@
                         <v-icon icon="mdi-bank-outline" color="orange"></v-icon>
                       </v-col>
                       <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row" v-if="payment.id == 2">
-                        <v-img src="@/assets/images/checkout/payment1.png" width="35"></v-img>
-                        <v-img src="@/assets/images/checkout/payment2.png" width="35"></v-img>
+                        <v-img src="@/assets/images/checkout/payment1.png" width="35" class="imgInMobile"></v-img>
+                        <v-img src="@/assets/images/checkout/payment2.png" width="35" class="imgInMobile"></v-img>
                       </v-col>
                       <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center"
                         v-if="payment.id == 3">
@@ -297,7 +297,11 @@ export default {
 
     async getSailPoints() {
       try {
-        const response = await globalApis.getSailPoints();
+        const response = await globalAxios.get('client/sail-points', {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         this.sailPoints = response.data.items.data;
       } catch (e) {
         console.log(e);
@@ -353,7 +357,11 @@ export default {
       const toast = useToast();
       try {
         await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
-        const response = await order.storeOrder(this.orderCheckoutObject);
+        const response = await globalAxios.post('client/orders',this.orderCheckoutObject , {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
         if (response.data.code == 200) {
           toast.success(`Order Stored Successfully`, {
             position: "top-right",
@@ -489,6 +497,77 @@ p {
 
   button {
     border-radius: 5px 0 0 5px;
+  }
+}
+@media only screen and (max-width: 480px){
+  .imgInMobile{
+    width:40px;
+    height:40px;
+  }
+  .coupon{
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (width: 320px) {
+  .coupon input{
+    width: 307px;
+  }
+}
+
+@media only screen and (width: 360px) {
+  .coupon input{
+    width: 294px;
+    min-width: 0px;
+  }
+}
+
+@media only screen and (width: 375px) {
+  .coupon input{
+    width: 307px;
+  }
+}
+
+@media only screen and (width: 390px) {
+  .coupon input{
+    width: 320px;
+  }
+}
+
+@media only screen and (width: 412px) {
+  .coupon input{
+    width: 340px;
+  }
+}
+
+@media only screen and (width: 414px) {
+  .coupon input{
+    width: 342px;
+  }
+}
+
+@media only screen and (width: 430px) {
+  .coupon input{
+    width: 357px;
+  }
+}
+
+@media only screen and (width: 768px) {
+  .coupon input{
+    width: 319px;
+  }
+}
+
+@media only screen and (width: 1024){
+  .aligned-row{
+    justify-content: flex-end;
+  }
+}
+
+@media only screen and (min-width: 767px) and (max-width: 1100px) {
+  .imgInMobile{
+    width:40px;
+    height:40px;
   }
 }
 </style>

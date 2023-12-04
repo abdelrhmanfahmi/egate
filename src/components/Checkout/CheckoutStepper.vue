@@ -6,13 +6,13 @@
           <div class="stepper-holder">
             <!--    muchos disgustimos   -->
             <div class="breadcrumb-pagination">
-              <div class="active">
+              <div class="active styleActiveMobile">
                 <p class="active-p">Shipping</p>
                 <div class="">
                   <div class="arrow-down"></div>
                 </div>
               </div>
-              <span>
+              <span class="styleChvron">
                 <v-icon icon="mdi-chevron-right" size="x-large" class="styleArrowAfterActive"></v-icon>
               </span>
               <div class="todo">
@@ -29,10 +29,10 @@
         <div class="step-wrapper">
           <div class="stepper-holder">
             <div class="breadcrumb-pagination">
-              <div class="active">
+              <div class="active styleActiveMobile">
                 <p class="active-p">Shipping</p>
               </div>
-              <span>
+              <span class="styleChvron">
                 <v-icon icon="mdi-chevron-right" size="x-large" class="styleArrowAfterActive"></v-icon>
               </span>
               <div class="active">
@@ -147,4 +147,15 @@ p {
     margin-top: 22px;
   }
 }
+
+@media only screen and (max-width: 480px){
+  .styleActiveMobile{
+    bottom:8px;
+  }
+  .styleChvron{
+    position: relative;
+    bottom: 8px;
+  }
+}
+
 </style>
