@@ -1,0 +1,193 @@
+.v-slide-group__content {
+  border-bottom: 2px solid #a3a3a1;
+}
+.v-tab {
+  color: #a3a3a1 !important;
+  font-size: 17px;
+  font-weight: bold;
+  text-transform: capitalize !important;
+}
+.v-slide-group-item--active,
+.v-tab--selected {
+  color: $second-color !important;
+  font-weight: bold;
+  position: relative !important;
+  .v-tab__slider {
+    color: $second-color !important;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 15px;
+    height: 10px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background: $main-color;
+    z-index: 5;
+    display: block;
+    top: 47px;
+    transform: translateX(-50%);
+  }
+}
+.profile {
+  .v-tab--selected {
+    color: $main-color !important;
+    .v-tab__slider {
+      color: $main-color !important;
+    }
+  }
+}
+
+.v-breadcrumbs-item {
+  padding: 0 0 !important;
+  font-size: 14px !important;
+  color: #969696 !important;
+}
+
+.v-breadcrumbs-divider {
+  padding: 0 !important;
+}
+
+.v-btn--icon.v-btn--density-default {
+  width: 25px !important;
+}
+
+.v-btn__content i {
+  color: #eb6841 !important;
+}
+.filtersHolder {
+  .v-expansion-panel__shadow {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.v-field--variant-filled .v-field__outline::before,
+.v-field--variant-underlined .v-field__outline::before,
+.v-field--variant-filled .v-field__outline::after,
+.v-field--variant-underlined .v-field__outline::after {
+  border: none;
+}
+
+.v-select .v-field .v-text-field__prefix,
+.v-select .v-field .v-text-field__suffix,
+.v-select .v-field .v-field__input,
+.v-select .v-field.v-field {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.v-select__selection-text {
+  color: #000 !important;
+}
+
+.checkoutStep .v-field__outline {
+  border: 1px solid #9c9a8a;
+  border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  -ms-border-radius: 10px !important;
+  -o-border-radius: 10px !important;
+}
+
+.v-field--variant-filled .v-field__outline::before,
+.v-field--variant-underlined .v-field__outline::before,
+.v-field--variant-filled .v-field__outline::after,
+.v-field--variant-underlined .v-field__outline::after {
+  border: none !important;
+}
+
+label {
+  color: #000 !important;
+}
+
+header {
+  .v-badge__badge.bg-error {
+    background: #fae812 !important;
+    color: #000 !important;
+  }
+  .v-field__field {
+    @media (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.sideCartHolder {
+  .v-btn__content {
+    color: #000 !important;
+  }
+}
+
+.products-slider-wrapper {
+  .v-img__img,
+  .v-img__picture,
+  .v-img__gradient,
+  .v-img__placeholder,
+  .v-img__error {
+    position: relative !important;
+    // min-height: 150px !important;
+  }
+  .swiper-slide {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+}
+
+.v-application__wrap {
+  background-color: #f0f2f5;
+}
+
+.products-slider-wrapper {
+  background: #f0f2f5 !important;
+}
+
+.tabs-component {
+  .swiper-backface-hidden .swiper-slide {
+    margin-right: 5px !important;
+  }
+}
+
+.v-expansion-panel-title__overlay {
+  width: fit-content !important;
+}
+
+.custom-pagination .v-pagination__navigation {
+  height: 26px !important;
+  width: 26px !important;
+}
+
+.custom-pagination .v-pagination__navigation .v-icon {
+  font-size: 16px !important;
+}
+
+.custom-pagination .v-pagination__item {
+  height: 26px !important;
+  min-width: 26px !important;
+  font-size: 0.85rem !important;
+}
+
+.v-btn__content i {
+  color: $second-color !important;
+}
+
+.text-white .v-btn__content,
+.main-color .v-btn__content,
+.modal-wrapper .v-btn__content,
+.v-card-actions .v-btn {
+  color: #fff !important;
+}
+
+.border-main .v-btn__content {
+  color: $main-color;
+}

@@ -1,0 +1,29 @@
+<svg id="Group_56204" data-name="Group 56204" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82.191" height="82.193" viewBox="0 0 82.191 82.193">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0.532" stop-color="#ffc800"/>
+      <stop offset="0.59" stop-color="#ffd22e"/>
+      <stop offset="0.674" stop-color="#ffdf6d"/>
+      <stop offset="0.755" stop-color="#ffeaa1"/>
+      <stop offset="0.83" stop-color="#fff3c9"/>
+      <stop offset="0.898" stop-color="#fff9e7"/>
+      <stop offset="0.957" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#fff"/>
+    </radialGradient>
+  </defs>
+  <path id="Path_58908" data-name="Path 58908" d="M321.275,86.912a41.084,41.084,0,1,1-26.185-51.87A41.088,41.088,0,0,1,321.275,86.912Z" transform="translate(-241.154 -32.972)" opacity="0.6" fill="url(#radial-gradient)" style="mix-blend-mode: multiply;isolation: isolate"/>
+  <path id="Path_58909" data-name="Path 58909" d="M311.6,78.8a30.981,30.981,0,1,1-19.745-39.114A30.982,30.982,0,0,1,311.6,78.8Z" transform="translate(-236.254 -30.452)" fill="#ffc800"/>
+  <g id="Group_56203" data-name="Group 56203" transform="translate(29.78 23.701)">
+    <g id="Group_56201" data-name="Group 56201" transform="translate(0.056)">
+      <g id="Group_56199" data-name="Group 56199">
+        <path id="Path_58910" data-name="Path 58910" d="M272.289,58.329a1.2,1.2,0,0,1-.768-1.519,4.2,4.2,0,1,0-7.98-2.626,1.2,1.2,0,0,1-2.285-.752,6.608,6.608,0,0,1,12.553,4.132A1.205,1.205,0,0,1,272.289,58.329Z" transform="translate(-261.194 -48.891)" fill="#212538"/>
+      </g>
+      <g id="Group_56200" data-name="Group 56200" transform="translate(22.542 7.418)">
+        <path id="Path_58911" data-name="Path 58911" d="M287.429,63.311a1.2,1.2,0,0,1-.768-1.517,4.2,4.2,0,1,0-7.98-2.626,1.2,1.2,0,0,1-2.285-.753,6.608,6.608,0,0,1,12.553,4.132A1.205,1.205,0,0,1,287.429,63.311Z" transform="translate(-276.334 -53.873)" fill="#212538"/>
+      </g>
+    </g>
+    <g id="Group_56202" data-name="Group 56202" transform="translate(0 15.616)">
+      <path id="Path_58912" data-name="Path 58912" d="M272.09,74.543a15.967,15.967,0,0,1-10.93-13.861,1.2,1.2,0,0,1,2.4-.2A13.568,13.568,0,0,0,287.3,68.293a1.2,1.2,0,0,1,1.81,1.586,15.949,15.949,0,0,1-17.018,4.665Z" transform="translate(-261.156 -59.379)" fill="#212538"/>
+    </g>
+  </g>
+</svg>
