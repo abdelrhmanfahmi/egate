@@ -12,16 +12,16 @@
                     <div class="addresses">
                         <div class="address">
                             <v-row>
-                                <v-col cols="2" md="2" sm="2">
+                                <v-col cols="3" md="3" sm="3">
                                     <div class="name">Contact</div>
                                 </v-col>
-                                <v-col cols="8" md="8" sm="8">
+                                <v-col cols="6" md="6" sm="6">
                                     <div class="shipp-to">
                                         <p>E-mail: {{ user?.user?.email }}</p>
                                         <p>Phone: {{ user?.user?.mobile }}</p>
                                     </div>
                                 </v-col>
-                                <v-col cols="2" md="2" sm="2">
+                                <v-col cols="3" md="3" sm="3">
                                     <div class="change">
                                         <p role="button" class="stepDone" @click="updateUserContact">Change</p>
                                     </div>
@@ -35,7 +35,7 @@
             <v-card class="mx-auto styleCardAddress" elevation="4">
                 <v-card-item>
                     <v-card-title>
-                        <p class="text-blue styleParagraph">Pick Local Point Or Choose From Your Address Book One Shipping
+                        <p class="text-blue styleParagraphInMobileData">Pick Local Point Or Choose From Your Address <br> Book One Shipping
                             Address</p>
                     </v-card-title>
                 </v-card-item>
@@ -69,14 +69,15 @@
                     </div>
 
                     <div class="mb-3" v-if="addressBooks.length > 0">
-                        <div class="d-flex justify-content-between">
-                            <div class="mb-3">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-md-8 styleInMobileWidthAddress mb-3">
                                 <p class="styleParagraph">Or Choose From Your Address Book One Shipping Address</p>
                             </div>
 
-                            <div class="">
-                                <button @click="openFormAddessBook" class="btn btn-primary" style="height: 34px;">+ Add
-                                    New</button>
+                            <div class="col-md-4 mb-3 styleInMobileWidthAddressNew">
+                                <button @click="openFormAddessBook" class="btn btn-primary" style="height: 34px;">
+                                    <span class="styleSpan">+ Add New</span>
+                                </button>
                             </div>
                         </div>
 
@@ -384,7 +385,11 @@ export default {
         async submitDataForm(values, { resetForm }) {
             const toast = useToast();
             try {
-                const response = await globalAxios.post('client/address-books', values);
+                const response = await globalAxios.post('client/address-books', values , {
+                        headers: {
+                            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+                        }
+                    });
                 if (response.data.code == 200) {
                     toast.success(`Address Book Stores Successfully`, {
                         position: "top-right",
@@ -593,6 +598,24 @@ p {
 
     .v-checkbox {
         height: 40px;
+    }
+}
+
+.styleInMobileWidthAddressNew{
+    display: flex;
+    justify-content: end;
+}
+
+@media only screen and (max-width: 480px){
+    .styleInMobileWidthAddress{
+        display: flex;
+        justify-content: center;
+    }
+    .styleInMobileWidthAddressNew{
+        justify-content: center;
+    }
+    .styleParagraphInMobileData{
+        font-size:13px;
     }
 }
 </style>
