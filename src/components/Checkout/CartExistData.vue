@@ -8,7 +8,9 @@
               <div class="image-holder">
                 <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
                   width="80"></v-img>
+                  <v-img v-else :src="require('@/assets/images/logo.png')" width="80"></v-img>
               </div>
+              &nbsp;&nbsp;&nbsp;
               <div class="counter-holder">
                 <div class="counter">
                   <p class="product-name mb-3">{{ product.product.name }}</p>
