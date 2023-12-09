@@ -233,7 +233,7 @@
 
         </v-col>
         <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-          <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
+          <CartExistData :is_coupon_success="is_coupon_success" :totalPriceAfterCoupon="totalPriceAfterCoupon" :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
         </v-col>
       </v-row>
     </div>
@@ -277,6 +277,7 @@ export default {
       bankTransferDialog:false,
       addressName: null,
       totalPriceAfterCoupon:null,
+      is_coupon_success:false,
       orderCheckout: {
         address_book_id: null,
         sail_point_id: null,
@@ -401,11 +402,14 @@ export default {
             Authorization: 'Bearer ' + this.$store.state.Auth.user.token
           }
         });
-        this.totalPriceAfterCoupon = this.cartTotalPrice - response.data.items.total_discount;
-        // console.log(this.totalPriceAfterCoupon);
-        // console.log(this.cartTotalPrice);
-        await this.$store.dispatch['cart/updateCartTotalPrice' , this.totalPriceAfterCoupon];
-        console.log(this.cartTotalPrice);
+        if(response.data.message == 'Success'){
+          this.is_coupon_success = true;
+          this.totalPriceAfterCoupon = this.cartTotalPrice - response.data.items.total_discount;
+        }else{
+          this.is_coupon_success = false;
+          this.totalPriceAfterCoupon = this.cartTotalPrice;
+        }
+        
         toast.success('Coupon Code Accepted', {
           position: "top-right",
           transition: "slide",
