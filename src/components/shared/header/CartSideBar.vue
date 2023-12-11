@@ -1,7 +1,7 @@
 <template>
   <span class="iconHolder cart" role="button" @click.stop="sideVisible = !sideVisible">
     <v-badge :content="count" color="error">
-      <v-icon icon="mdi-cart-outline"></v-icon>
+      <v-icon icon="mdi-cart-outline styleCartImg"></v-icon>
     </v-badge>
   </span>
   <div class="sideCartHolder">
@@ -279,6 +279,11 @@ p {
 
   .closeMenuX {
     right: 355px;
+  }
+  .styleCartImg{
+    font-size:20px;
+    position: relative;
+    top:4px;
   }
 }
 

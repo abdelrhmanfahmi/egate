@@ -25,7 +25,7 @@
 
       <!-- cart section -->
       <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-        <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
+        <CartExistData :is_coupon_success="is_coupon_success" :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
         <EmptyCart v-else />
       </v-col>
 
@@ -64,7 +64,8 @@ export default {
       addressBooks: [],
       sailPoints: [],
       cartItems: [],
-      cartTotalPrice: 0
+      cartTotalPrice: 0,
+      is_coupon_success:false
     };
   },
   methods: {
