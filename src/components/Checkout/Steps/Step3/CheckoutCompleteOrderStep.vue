@@ -56,7 +56,7 @@
                     <v-row class="aligned-row">
                       <v-col cols="12" sm="12" lg="10" md="10">
                         <v-radio-group hide-details="true" v-model="orderCheckout.payment_type">
-                          <v-radio :label="payment.name" color="orange" :value="payment.id"></v-radio>
+                          <v-radio @change="openDialogCard(payment.id)" :label="payment.name" color="orange" class="checkRadio" :value="payment.id"></v-radio>
                         </v-radio-group>
                       </v-col>
                       <v-col cols="12" sm="12" lg="2" md="2" class="aligned-row justify-content-center"
@@ -76,10 +76,10 @@
                 </div>
               </div>
               <div class="coupon">
-                <form>
+                <form @submit.prevent="ApplyCoupon">
                   <div class="form-holder" :class="$i18n.locale">
-                    <input type="text" placeholder="Have A Promocode?" v-model="orderCheckout.coupoun">
-                    <!-- <button class="submit-btn">Apply</button> -->
+                    <input type="text" class="mb-3" placeholder="Have A Promocode?" v-model="orderCheckout.coupoun">
+                    <button class="submit-btn" type="submit">Apply</button>
                   </div>
                 </form>
               </div>
@@ -164,10 +164,76 @@
             </v-card>
           </v-dialog>
 
+          <v-dialog v-model="creditVisaDialog" width="1000" persistent>
+            <v-card class="styleContainer">
+              <v-card-item>
+                <v-card-title>
+                  <p class="text-blue mb-3">Fill Information</p>
+                </v-card-title>
+              </v-card-item>
+              <v-card-text>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <label>Card Number</label>
+                    <input type="text" v-model="card_number" class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label>CVV</label>
+                    <input type="text" v-model="cvv" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label>Expiry Date</label>
+                    <input type="date" v-model="expiry_date" class="form-control">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12 d-flex justify-content-center">
+                    <div class="w-50 d-flex justify-content-center">
+                      <button class="btn btn-success mb-3 w-75" @click="addDataPaymentCredit">Confirm</button>
+                    </div>
+                    <div class="w-50 d-flex justify-content-center">
+                      <button class="btn btn-danger mb-3 w-75" @click="closeDialogCreditCard">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog v-model="bankTransferDialog" width="1000" persistent>
+            <v-card class="styleContainer">
+              <v-card-item>
+                <v-card-title>
+                  <p class="text-blue mb-3">Uplaod Bank Transfer File</p>
+                </v-card-title>
+              </v-card-item>
+              <v-card-text>
+                <div class="row mb-3">
+                  <div class="col-md-12">
+                    <!-- <input type="file" class="form-control" id="uploadFileTrabsferBank"> -->
+                    <v-file-input label="File input" @change="uploadFileBank" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-12 d-flex justify-content-center">
+                    <div class="w-50 d-flex justify-content-center">
+                      <button class="btn btn-success w-75" @click="addFileBankTransfer">Add File</button>
+                    </div>
+                    <div class="w-50 d-flex justify-content-center">
+                      <button class="btn btn-danger w-75" @click="closeDialogBankTransferImage">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+
 
         </v-col>
         <v-col cols="12" md="5" lg="5" sm="12" class="myCol bordered-left">
-          <CartExistData :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
+          <CartExistData :is_coupon_success="is_coupon_success" :totalPriceAfterCoupon="totalPriceAfterCoupon" :cartItems="cartItems" :cartTotalPrice="cartTotalPrice" v-if="cartItems" />
         </v-col>
       </v-row>
     </div>
@@ -207,7 +273,11 @@ export default {
       payments: [],
       dialogAddressBook: false,
       dialogSailPoint: false,
+      creditVisaDialog:false,
+      bankTransferDialog:false,
       addressName: null,
+      totalPriceAfterCoupon:null,
+      is_coupon_success:false,
       orderCheckout: {
         address_book_id: null,
         sail_point_id: null,
@@ -216,11 +286,29 @@ export default {
         shipping_type_id: null,
         delivery_time: null,
         email: null,
-        mobile: null
+        mobile: null,
+        bank_transfer_image:null
       },
     };
   },
   methods: {
+    closeDialogBankTransferImage(){
+      this.bankTransferDialog = false;
+      this.orderCheckout.payment_type = null;
+    },
+    closeDialogCreditCard(){
+      this.creditVisaDialog = false;
+      this.orderCheckout.payment_type = null;
+    },
+    openDialogCard(id){
+      if(id == 1){
+        this.bankTransferDialog = true;
+      }else if(id == 2){
+        this.creditVisaDialog = true;
+      }else{
+        console.log('no dialog');
+      }
+    },
     async getAddressName() {
       try {
         const response = await globalAxios.get(`client/address-books?paginate=0&id=${this.orderCheckoutObject.address_book_id}`, {
@@ -256,6 +344,34 @@ export default {
       }
     },
 
+    uploadFileBank(e){
+      this.orderCheckout.bank_transfer_image = e.target.files[0];
+    },
+
+    async addFileBankTransfer(){
+      try{
+        const toast = useToast();
+        await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
+        toast.success(`Bank File Added Successfully`, {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+        });
+        this.bankTransferDialog = false;
+      }catch(e){
+        console.log(e);
+      }
+    },
+
+    async addDataPaymentCredit(){
+      console.log('added credit data');
+      this.creditVisaDialog = false;
+    },
+
     closeDialogAddressBook() {
       this.dialogAddressBook = false;
     },
@@ -276,6 +392,45 @@ export default {
 
     checkIfRadioChecked() {
       this.isChecked = true;
+    },
+
+    async ApplyCoupon(){
+      const toast = useToast();
+      try{
+        const response = await globalAxios.get(`coupons?code=${this.orderCheckout.coupoun}`, {
+          headers: {
+            Authorization: 'Bearer ' + this.$store.state.Auth.user.token
+          }
+        });
+        if(response.data.message == 'Success'){
+          this.is_coupon_success = true;
+          this.totalPriceAfterCoupon = this.cartTotalPrice - response.data.items.total_discount;
+        }else{
+          this.is_coupon_success = false;
+          this.totalPriceAfterCoupon = this.cartTotalPrice;
+        }
+        
+        toast.success('Coupon Code Accepted', {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+        });
+        
+      }catch(e){
+        toast.error(e.response.data.message, {
+          position: "top-right",
+          transition: "slide",
+          hideProgressBar: false,
+          showIcon: true,
+          timeout: 3000,
+          showCloseButton: true,
+          swipeClose: true,
+        });
+      }
     },
 
     changeActiveStep(index) {
@@ -356,9 +511,10 @@ export default {
     async checkout() {
       const toast = useToast();
       try {
-        await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
+        await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);      
         const response = await globalAxios.post('client/orders',this.orderCheckoutObject , {
           headers: {
+            'Content-Type': 'multipart/form-data',
             Authorization: 'Bearer ' + this.$store.state.Auth.user.token
           }
         });
@@ -507,11 +663,17 @@ p {
   .coupon{
     justify-content: flex-start;
   }
+  .coupon button{
+    width: 100%;
+  }
 }
 
 @media only screen and (width: 320px) {
   .coupon input{
     width: 307px;
+  }
+  .coupon button{
+    width: 100%;
   }
 }
 
@@ -520,11 +682,17 @@ p {
     width: 294px;
     min-width: 0px;
   }
+  .coupon button{
+    width: 100%;
+  }
 }
 
 @media only screen and (width: 375px) {
   .coupon input{
     width: 307px;
+  }
+  .coupon button{
+    width: 100%;
   }
 }
 
@@ -532,11 +700,17 @@ p {
   .coupon input{
     width: 320px;
   }
+  .coupon button{
+    width: 100%;
+  }
 }
 
 @media only screen and (width: 412px) {
   .coupon input{
     width: 340px;
+  }
+  .coupon button{
+    width: 100%;
   }
 }
 
@@ -544,17 +718,51 @@ p {
   .coupon input{
     width: 342px;
   }
+  .coupon button{
+    width: 100%;
+  }
 }
 
 @media only screen and (width: 430px) {
   .coupon input{
     width: 357px;
   }
+  .coupon button{
+    width: 100%;
+  }
+}
+
+@media only screen and (width: 540px) {
+  .imgInMobile{
+    width:40px;
+    height:40px;
+  }
 }
 
 @media only screen and (width: 768px) {
   .coupon input{
     width: 319px;
+  }
+  .coupon button{
+    width: 100%;
+  }
+}
+
+@media only screen and (width: 820px) {
+  .coupon input{
+    width: 340px;
+  }
+  .coupon button{
+    width: 100%;
+  }
+}
+
+@media only screen and (width: 912px) {
+  .coupon input{
+    width: 382px;
+  }
+  .coupon button{
+    width: 100%;
   }
 }
 

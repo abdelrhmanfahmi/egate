@@ -8,7 +8,9 @@
               <div class="image-holder">
                 <v-img v-if="product.product.image" :src="product.product.image" :lazy-src="product.product.image"
                   width="80"></v-img>
+                  <v-img v-else :src="require('@/assets/images/logo.png')" width="80"></v-img>
               </div>
+              &nbsp;&nbsp;&nbsp;
               <div class="counter-holder">
                 <div class="counter">
                   <p class="product-name mb-3">{{ product.product.name }}</p>
@@ -29,7 +31,10 @@
             <v-col cols="6">
               <p class="text-gray">SUBTOTAL</p>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="6" v-if="is_coupon_success">
+              <p class="product-price">{{ totalPriceAfterCoupon }} EGP</p>
+            </v-col>
+            <v-col cols="6" v-else>
               <p class="product-price">{{ cartTotalPrice }} EGP</p>
             </v-col>
           </v-row>
@@ -50,7 +55,10 @@
             <v-col cols="6">
               <h4><b>Total</b></h4>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="6" v-if="is_coupon_success">
+              <h4 class="product-price">{{ totalPriceAfterCoupon }} EGP</h4>
+            </v-col>
+            <v-col cols="6" v-else>
               <h4 class="product-price">{{ cartTotalPrice }} EGP</h4>
             </v-col>
           </v-row>
@@ -64,7 +72,7 @@
 import Counter from "@/components/Cart/Counter.vue";
 import { cartItems } from "@/store/modules/cart/getters";
 export default {
-  props: ['cartItems', 'cartTotalPrice'],
+  props: ['cartItems', 'cartTotalPrice','totalPriceAfterCoupon' , 'is_coupon_success'],
   methods: {
     updateValue(product, value) {
       let dataUpdated = {

@@ -7,7 +7,7 @@
           <div class="header-item item-left">
             <div class="logo">
               <router-link to="/">
-                <v-img width="100" src="@/assets/images/logo.png"></v-img>
+                <v-img width="100" src="@/assets/images/logo.png" class="styleImgLogo"></v-img>
               </router-link>
             </div>
           </div>
@@ -76,26 +76,26 @@
 
             <span class="iconHolder">
               <router-link to="/profile/wallet">
-                <v-icon icon="mdi-wallet-outline"></v-icon>
+                <v-icon icon="mdi-wallet-outline" class="styleWalletImg"></v-icon>
               </router-link>
             </span>
             |
             <span class="iconHolder">
               <router-link to="/profile/wishlist">
-                <v-badge :content="wishlistItemsCount" color="error">
-                  <v-icon icon="mdi-heart-outline"></v-icon>
+                <v-badge :content="wishlistItemsCount" color="error styleBadge">
+                  <v-icon icon="mdi-heart-outline" class="styleHeartImg"></v-icon>
                 </v-badge>
               </router-link>
             </span>
-            |
+            
             <span v-if="isLoggedIn">
               <router-link to="/profile/account" class="iconHolder profile"><v-icon
                   icon="mdi-account-outline"></v-icon></router-link>
             </span>
-            <span v-else>
+            <span v-else class="iconHolder profile">
               <AccountPop />
             </span>
-            |
+            
             <!-- cart  -->
             <cartPop />
             <!-- <theme-button /> -->
@@ -358,6 +358,20 @@ header {
   img {
     width: 25px;
     height: 25px
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .styleImgLogo{
+    width: 65% !important;
+  }
+  .styleWalletImg{
+    font-size: 20px;
+  }
+  .styleHeartImg{
+    font-size: 20px;
+    position: relative;
+    top: 3px;
   }
 }
 </style>

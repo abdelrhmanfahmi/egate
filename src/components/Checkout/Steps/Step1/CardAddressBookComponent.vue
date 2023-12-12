@@ -327,7 +327,8 @@ export default {
                 shipping_type_id: null,
                 delivery_time: null,
                 email: null,
-                mobile: null
+                mobile: null,
+                bank_transfer_image:null
             }
         };
     },
