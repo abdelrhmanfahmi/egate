@@ -124,8 +124,8 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
+  -o-object-fit: fill;
+  object-fit: fill;
   border-radius: 0;
   margin: auto;
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
       <v-container fluid>
-        <div class="d-flex justify-space-between align-center">
+        <div class="d-flex justify-space-between align-center" v-if="productsTopReviewed">
           <div class="section-title">
             <h3>{{ sectionTitle }}</h3>
           </div>
@@ -11,6 +11,7 @@
             >
           </div>
         </div>
+        <div v-else></div>
       </v-container>
       <!-- products slider  -->
       <ProductSliderHome :products="productsTopReviewed" />

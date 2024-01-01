@@ -2,7 +2,9 @@
   <div class="container-fluid mb-5">
     <div class="row">
       <div class="col-md-12" v-if="largeCoversOne.length > 0">
-        <img :src="largeCoversOne[0].image" alt="image" class="coverImage">
+        <router-link :to="'/productPage/'+largeCoversOne[0].id">
+          <img :src="largeCoversOne[0].image" alt="image" class="coverImage">
+        </router-link>
       </div>
       <div v-else></div>
     </div>
@@ -38,7 +40,7 @@ export default {
 
 .coverImage{
   height: 60vh;
-  object-fit: cover !important;
+  object-fit: fill !important;
   width: 100%;
   border-radius: 10px;
 }

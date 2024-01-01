@@ -5,34 +5,34 @@
 
     <!-- todays offers  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <offersComponentHome :sectionTitle="'Discount Products'" :products="products" />
+    <offersComponentHome :sectionTitle="'Discount Products'" v-if="products" :products="products" />
     <!-- </v-lazy> -->
 
     <!-- Promotions  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <Promotions :promotions="promotions" />
+    <Promotions v-if="promotions" :promotions="promotions" />
     <!-- </v-lazy> -->
 
     <!-- LargeCover  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <LargeCover :largeCoversOne="largeCoversOne" />
+    <LargeCover v-if="largeCoversOne" :largeCoversOne="largeCoversOne" />
     <!-- </v-lazy> -->
 
     <!-- top reviews  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <OffersComponentTopReviewed :sectionTitle="'Top Review'" :productsTopReviewed="productsTopReviewed" />
+    <OffersComponentTopReviewed v-if="productsTopReviewed" :sectionTitle="'Top Review'" :productsTopReviewed="productsTopReviewed" />
     <!-- </v-lazy> -->
 
     <!-- tabs products slider  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <LargeTabsComponent :specialOffer="specialOffer" />
+    <LargeTabsComponent v-if="specialOffer" :specialOffer="specialOffer" />
     <!-- </v-lazy> -->
 
 
 
     <!-- LargeCover  -->
     <!-- <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition"> -->
-    <SharedCover :largeCoversTwo="largeCoversTwo" />
+    <SharedCover v-if="largeCoversTwo" :largeCoversTwo="largeCoversTwo" />
     <!-- </v-lazy> -->
 
 

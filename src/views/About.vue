@@ -165,9 +165,9 @@ p {
   background-color: #F2F5F7;
 }
 
-.description {
+p.description {
   line-height: 2.5;
-  color: #fff;
+  color: #fff !important;
 }
 
 img.img-responsive {

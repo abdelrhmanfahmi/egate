@@ -4,9 +4,9 @@
       <section class="pt-5 pb-5" v-if="categoryFeatured">
         <v-row>
           <v-col cols="12" md="3" v-for="(category, idx) in categoryFeatured" :key="idx">
-            <h3 class="title mb-5">{{ category.name_en }}</h3>
+            <h6 class="title mb-5">{{ category.name_en }}</h6>
             <v-row>
-              <v-col cols="6" sm="6" class="px-1 py-1" v-for="(subCategory, index) in category.childrens.slice(0, 4)">
+              <v-col cols="6" sm="6" class="px-1 py-1" v-for="(subCategory, index) in category.childrens.slice(0, 4)" :key="index">
                 <div class="img-holder">
                   <img :src="subCategory.cover" width="100" height="100" />
                 </div>
@@ -41,6 +41,7 @@ export default {
 
   img {
     width: 100%;
+    object-fit: cover;
     border-radius: 10px !important;
   }
 }

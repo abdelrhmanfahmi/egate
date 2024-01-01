@@ -12,9 +12,16 @@
               <small>out of stock</small>
             </div>
           </div>
-          <div class="product-rating d-flex justify-center align-center flex-column">
-            <span class="icon" style="color: #0DEEFA;"><v-icon icon="mdi-star"></v-icon></span>
-            <p class="rating-number">4</p>
+          <div class="product-rating d-flex justify-center align-center">
+            <div>
+              <span class="icon" style="color: #0DEEFA;">
+                <v-icon icon="mdi-star"></v-icon>
+              </span>
+            </div>
+            &nbsp;&nbsp;
+            <div class="rating-num d-flex align-items-center">
+              <p class="rating-number">4</p>
+            </div>
           </div>
         </div>
       </router-link>
@@ -35,7 +42,8 @@
             <div class="styleCssCategories">
               <router-link v-for="(category, idx) in product.categories" :key="idx"
                 :to="{ name: 'categoryPage', params: { id: category.id } }">
-                <p class="cat-name" v-if="category != null"> {{ category.name_en }} </p>
+                <p class="cat-name" v-if="category != null && product.categories.length == 1"> {{ category.name_en }} </p>
+                <p class="cat-name" v-else-if="category != null && idx == product.categories.length-1"> {{ category.name_en }} </p>
               </router-link>
             </div>
             <p class="product-name">{{ product.name_en }}</p>
@@ -50,19 +58,28 @@
 
         <v-row class="aligned-row mt-1 mb-3 ">
           <v-col cols="6" lg="6" md="6" sm="6">
-            <p class="price-after-desc" v-if="product.product_price <= product.price">EGP {{ product.price }}</p>
-            <p class="product-price">EGP {{ product.product_price }}</p>
+            <p class="price-after-desc" v-if="product.product_price <= product.price"> {{ product.price }}<span class="superscriptCss">EGP</span></p>
+            <p class="product-price">{{ product.product_price }} <span class="superscriptCssColor">EGP</span></p>
           </v-col>
           <v-col cols="6" lg="6" md="6" sm="6">
-            <v-button class="addToCartBtn" @click="addProductToCart(product)">
-              <span class="icon">
-                <v-icon icon="mdi-cart-outline"></v-icon>
-              </span>
-              {{ $t("cart.addToCart") }}</v-button>
+            <v-row>
+              <v-col cols="3" lg="3" md="1" sm="1">
+                <span class="styleHeartIcon" :id="'styleHeart'+product.id" @click="addToFavourite(product)">
+                  <v-icon icon="mdi-heart-outline" :id="'getHeart'+product.id"></v-icon>
+                </span>
+              </v-col>
+              <v-col cols="9" lg="9" md="11" sm="11">
+                <v-button class="addToCartBtn" @click="addProductToCart(product)">
+                <span class="icon">
+                  <v-icon icon="mdi-cart-outline"></v-icon>
+                </span>
+                {{ $t("cart.addToCart") }}</v-button>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
       </div>
-      <div class="product-short-actions">
+      <!-- <div class="product-short-actions">
         <span class="myhr"></span>
         <div class="actions">
           <v-row>
@@ -82,7 +99,7 @@
             </v-col>
           </v-row>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -93,7 +110,8 @@ export default {
   data() {
     return {
       quantity: 1,
-      changeProduct: false
+      changeProduct: false,
+      isFavourite:false
     };
   },
   methods: {
@@ -110,11 +128,41 @@ export default {
         console.log(e);
       }
     },
+    addToFavourite(product){
+      if(!this.isFavourite){
+        this.isFavourite = true;
+        document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
+        document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
+        document.getElementById('styleHeart'+product.id).style.color = 'red';
+      }else{
+        this.isFavourite = false;
+        document.getElementById('getHeart'+product.id).classList.remove("mdi-heart");
+        document.getElementById('getHeart'+product.id).classList.add("mdi-heart-outline");
+        document.getElementById('styleHeart'+product.id).style.color = 'black';
+      }
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.styleHeartIcon{
+  cursor: pointer;
+}
+.superscriptCss{
+  position: relative; 
+  top: -0.5em;
+  font-size: 80%; 
+}
+.superscriptCssColor{
+  color: red;
+  position: relative; 
+  top: -0.5em;
+  font-size: 80%;
+}
+p.product-name{
+  color: #000;
+}
 .styleCssCategories {
   display: flex;
   margin-left: -7px;
@@ -162,7 +210,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-direction: column;
+    // flex-direction: column;
 
     .product-discount {
       background-color: #b5140e;
@@ -188,6 +236,10 @@ export default {
     .icon {
       color: #eb6841;
     }
+    .rating-num{
+      position: relative;
+      top: 8px;
+    }
   }
 
   .product-image-wrapper {
@@ -210,7 +262,7 @@ export default {
 
 @media screen and (max-width: 500px) {
   .addToCartBtn {
-    padding: 8px 8px;
+    padding: 5px 6px;
     font-size: 0.7rem;
   }
 
@@ -247,7 +299,7 @@ export default {
 
 @media (min-width:1100px) and (max-width:1300px) {
   .addToCartBtn {
-    padding: 8px 8px;
+    padding: 5px 6px;
     font-size: 0.6rem;
   }
 
