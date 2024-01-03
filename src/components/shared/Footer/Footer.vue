@@ -35,40 +35,10 @@
           <v-row>
             <v-col cols='6' md='6' sm='12'>
               <ul>
-                <li>
-                  <router-link class="text-gray" to="/">Laptops & Computers</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Cameras & Photography</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Smart Phones & Tablets</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Video Games & Consoles</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">TV & Audio</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Gadgets</router-link>
-                </li>
-              </ul>
-            </v-col>
-            <v-col cols='6' md='6' sm='12'>
-              <ul>
-
-                <li>
-                  <router-link class="text-gray" to="/">Car Electronic & GPS</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Software</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Office Supplies</router-link>
-                </li>
-                <li>
-                  <router-link class="text-gray" to="/">Accesories</router-link>
+                <li v-for="(category, index) in mainCategories" :key="index">
+                  <router-link :to="'/categoryPage/'+category.id" class="text-gray" >
+                   {{ $i18n.locale == "en" ? category.name_en : category.name_ar }}
+                  </router-link>
                 </li>
               </ul>
             </v-col>
@@ -81,29 +51,20 @@
           </div>
           <ul>
             <li>
-              <router-link class="text-gray" to="/">Customer Care</router-link>
+              <router-link class="text-gray" to="/profile/account">My Account</router-link>
             </li>
             <li>
-              <router-link class="text-gray" to="/">My Account</router-link>
+              <router-link class="text-gray" to="/profile/orders">Order Tracking</router-link>
             </li>
             <li>
-              <router-link class="text-gray" to="/">Order Tracking</router-link>
+              <router-link class="text-gray" to="/profile/wishlist">Wish List</router-link>
             </li>
             <li>
-              <router-link class="text-gray" to="/">Wish List</router-link>
-            </li>
-            <li>
-              <router-link class="text-gray" to="/">Customer Service</router-link>
-            </li>
-            <li>
-              <router-link class="text-gray" to="/">Returns / Exchange</router-link>
+              <router-link class="text-gray" to="/profile/returns">Returns / Exchange</router-link>
             </li>
             <li>
               <router-link class="text-gray" to="/faq">FAQs</router-link>
             </li>
-            <!-- <li>
-                <router-link class="text-gray" to="/">Product Support</router-link>
-            </li> -->
             <li>
               <router-link class="text-gray" to="/privacyPolicy">Privacy Policy</router-link>
             </li>
@@ -118,18 +79,39 @@
       </v-row>
       <div class="text-center pt-3">
         <hr />
-        <p class="text-gray pt-3">© 2023 Copyrights by E-Gate. All Rights Reserved. Designed by fabrica dev</p>
+        <p class="text-gray pt-3">© 2024 Copyrights by E-Gate. All Rights Reserved. Designed by fabrica dev</p>
       </div>
     </v-container>
   </footer>
 </template>
 
 <script>
+import home from '@/services/home';
 import TopFooter from "./TopFooter";
 export default {
+  mounted(){
+    this.getMainCategories();
+    this.getMainSettings();
+  },
+  data(){
+    return{
+      mainCategories:[],
+      settings:[]
+    }
+  },
   components: {
     TopFooter,
   },
+  methods:{
+    async getMainCategories(){
+      const res = await home.getCategories();
+      this.mainCategories = res.data.items.data;
+    },
+    async getMainSettings(){
+      const res = await home.getSettings();
+      this.settings = res.data.items.data;
+    }
+  }
 };
 </script>
 

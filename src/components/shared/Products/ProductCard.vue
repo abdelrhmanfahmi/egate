@@ -244,9 +244,9 @@ p.product-name{
 
   .product-image-wrapper {
     margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
   }
 }
 

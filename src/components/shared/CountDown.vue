@@ -80,6 +80,8 @@ export default {
     }
   },
   async mounted() {
+    console.log(this.specialOffer.end_at);
+    console.log(this.specialOffer.start_at);
     setTimeout(() => {
       const lunchDate = new Date(this.specialOffer.end_at);
       setInterval(() => {
@@ -91,7 +93,7 @@ export default {
         this.days = parseInt(this.hours / 24);
         this.years = parseInt(this.days / 365);
       }, 1000);
-    }, 2000)
+    }, 5000)
   },
   setup() {
 

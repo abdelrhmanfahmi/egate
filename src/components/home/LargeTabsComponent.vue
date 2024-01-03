@@ -12,8 +12,8 @@
                 <v-col cols="12" md="6">
                   <div class="saveMony">
                     <p class="m-0">Save</p>
-                    <p class="m-0" v-if="specialOffer"><b>EGP {{ specialOffer?.product?.price -
-                      specialOffer?.product?.product_price }}</b>
+                    <p class="m-0" v-if="specialOffer"><b>{{ specialOffer?.product?.price -
+                      specialOffer?.product?.product_price }} <span class="superscriptCss">EGP</span></b>
                     </p>
                   </div>
                 </v-col>
@@ -26,10 +26,10 @@
                 <h4>{{ specialOffer?.product?.name }}</h4>
                 <v-row class="aligned-row mt-1 mb-3" v-if="specialOffer">
                   <v-col cols="lg" sm="6" md="12">
-                    <p class="price-after-desc">Egp {{ specialOffer?.product?.price }}</p>
+                    <p class="price-after-desc">{{ specialOffer?.product?.price }} <span class="superscriptCss">EGP</span></p>
                   </v-col>
                   <v-col cols="lg" sm="6" md="12">
-                    <p class="product-price red-text">Egp {{ specialOffer?.product?.product_price }}</p>
+                    <p class="product-price red-text">{{ specialOffer?.product?.product_price }} <span class="superscriptCss">EGP</span></p>
                   </v-col>
                 </v-row>
                 <div class="row aligned-row mt-1 mb-3">
@@ -144,6 +144,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.superscriptCss{
+  position: relative; 
+  top: -0.5em;
+  font-size: 80%; 
+}
 .saveMony {
   background: $second-color;
   color: #000;
