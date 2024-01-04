@@ -43,16 +43,36 @@
 
 <script>
 import WishlistProductCard from "@/components/shared/Products/WishlistProductCard.vue";
-import { mapGetters } from "vuex";
 import EmptyWishlist from "@/components/shared/Checkout/EmptyWishlist.vue";
 import { useMeta } from "vue-meta";
 export default {
   components: {
     WishlistProductCard,
+    EmptyWishlist,
   },
   computed: {
-    ...mapGetters({ wishlistData: "wishlist/wishlistData" }),
-    ...mapGetters({ wishlistItemCount: "wishlist/wishlistItemCount" }),
+    wishlistData() {
+      try{
+        return this.$store.getters["wishlist/wishlistData"];
+      }catch(e){
+        console.log(e);
+      }
+    },
+    wishlistItemCount() {
+      try{
+        return this.$store.getters["wishlist/wishlistItemCount"];
+      }catch(e){
+        console.log(e);
+      }
+    }
+  },
+  watch: {
+    wishlistData(newCartItems, oldCartItems) {
+      // console.log(newCartItems);
+    },
+    wishlistItemCount(newCartTotalPrice, oldCartTotalPrice) {
+      // console.log(newCartTotalPrice);
+    },
   },
   methods: {
     updateWishlist() {
@@ -63,9 +83,6 @@ export default {
         }, 1200);
       });
     },
-  },
-  components: {
-    EmptyWishlist,
   },
   setup() {
     useMeta({

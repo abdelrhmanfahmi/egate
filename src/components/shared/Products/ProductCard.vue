@@ -173,7 +173,7 @@ export default {
     async addToFavourite(product){
       let arr = await this.$store.getters["wishlist/wishlistData"];
       let index = arr.findIndex(x => x.product_id == product.id);
-console.log(arr);
+
       if(index == -1){
         await this.$store.dispatch("wishlist/addProductToWishlist",product.id);
         document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
