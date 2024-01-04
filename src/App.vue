@@ -54,10 +54,7 @@ export default {
     this.getCategories();
     this.checkIfuserGuest();
     this.getCartItems();
-    // if(this.isLoggedIn == true){
-    //   this.getCartItems();
-    //   this.getWishlistItems();
-    // }
+    this.getWishlistItems();
   },
   computed: {
     isLoggedIn: function () {

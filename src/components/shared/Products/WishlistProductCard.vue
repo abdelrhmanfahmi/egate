@@ -62,11 +62,11 @@
             <p class="product-price">{{ product.product_price }} <span class="superscriptCssColor">EGP</span></p>
           </v-col>
           <v-col cols="12" lg="7" md="7" sm="12" class="m-0 ">
-            <v-button class="addToCartBtn" @click="moveProductToWishlist(product)">
-              <span class="icon">
-                <v-icon icon="mdi-cart-arrow-down"></v-icon>
-              </span>
-              {{ $t('cart.addToCart') }}</v-button>
+            <v-button class="addToCartBtn" @click="addProductToCart(product)">
+                <span class="icon">
+                  <v-icon icon="mdi-cart-outline"></v-icon>
+                </span>
+                {{ $t("cart.addToCart") }}</v-button>
           </v-col>
         </v-row>
       </div>
@@ -95,6 +95,19 @@ export default {
       //   quantity: this.quantity ? this.quantity : 1,
       // }
       this.$store.dispatch('wishlist/moveProductToWishlist', product)
+    },
+    addProductToCart(product) {
+      try {
+        let data = {
+          product: product,
+          quantity: product.min_order_quantity ? product.min_order_quantity : this.quantity,
+          guest_token_uuid: localStorage.getItem('guest-token')
+        };
+        // console.log(data);
+        this.$store.dispatch("cart/addProductToCart", data);
+      } catch (e) {
+        console.log(e);
+      }
     },
   }
 };

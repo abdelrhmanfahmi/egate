@@ -81,8 +81,13 @@
             </span>
             |
             <span class="iconHolder">
-              <router-link to="/profile/wishlist">
+              <router-link to="/profile/wishlist" v-if="isLoggedIn">
                 <v-badge :content="wishlistItemsCount" color="error styleBadge">
+                  <v-icon icon="mdi-heart-outline" class="styleHeartImg"></v-icon>
+                </v-badge>
+              </router-link>
+              <router-link to="/profile/wishlist" v-else>
+                <v-badge :content="0" color="error styleBadge">
                   <v-icon icon="mdi-heart-outline" class="styleHeartImg"></v-icon>
                 </v-badge>
               </router-link>
@@ -125,7 +130,6 @@ import NavLinks from "./NavLinks.vue";
 export default {
   // mixins:[myMixin],
   mounted() {
-    console.log(this.wishlistItemsCount);
     const menu = document.querySelector(".menu");
     const menuMain = menu.querySelector(".menu-main");
     const goBack = menu.querySelector(".go-back");
@@ -260,7 +264,11 @@ export default {
   },
   computed: {
     wishlistItemsCount() {
-      return this.$store.getters['wishlist/wishlistItemCount'];
+      try{
+        return this.$store.getters['wishlist/wishlistItemCount'];
+      }catch(e){
+        console.log(e);
+      }
     },
     categories() {
       return this.$store.getters['categories/categories'];
@@ -269,6 +277,11 @@ export default {
       return this.$store.getters['Auth/isAuthenticated'];
     },
   },
+  watch:{
+    wishlistItemsCount(newCount, oldCount) {
+      console.log(`We have ${newCount} fruits now, yay!`)
+    },
+  }
 };
 </script>
 
