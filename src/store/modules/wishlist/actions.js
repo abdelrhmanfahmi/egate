@@ -15,7 +15,7 @@ export const moveProductToWishlist = ({commit} , payload ) => {
 
 export const getWishlistItems = ({ commit }) => {
   Wishlist.all().then((response) => {
-    commit("SET_WISHLIST", response.data.data);
+    commit("SET_WISHLIST", response.data.items.data);
   });
 };
 

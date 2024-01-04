@@ -1,6 +1,6 @@
 export const ADD_TO_WISHLIST = (state, { product }) => {
   let productInWishlist = state.wishlist.find((item) => {
-    return item.product.id === product.id;
+    return item.id === product;
   });
 
   if (productInWishlist) {
@@ -19,7 +19,7 @@ export const SET_WISHLIST = (state, wishlistItems) => {
 
 export const REMOVE_PRODUCT_FROM_SET_WISHLIST = (state, product) => {
   state.wishlist = state.wishlist.filter((item) => {
-    return item.product.id !== product.id;
+    return item.id !== product;
   });
 };
 

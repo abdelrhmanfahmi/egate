@@ -12,9 +12,8 @@ export default {
   },
 
   store(payload) {
-    
     store.dispatch('changeLoadingScreen' , true)
-    return globalAxios.post(`client/wishlist/${payload.id}`).then((res)=>{
+    return globalAxios.post(`client/wishlist`,{product_id:payload}).then((res)=>{
       if (res.status == 200) {
         toast.success(`${res.data.message}`, {
           position: "top-right",
@@ -79,7 +78,7 @@ export default {
   delete(payload) {
     store.dispatch('changeLoadingScreen' , true)
     return globalAxios
-      .post(`client/wishlist/${payload.product.id}`)
+      .delete(`client/wishlist` , {product_id:payload})
       .then((res) => {
         if (res.status == 200) {
           toast.success(`${res.data.message}`, {

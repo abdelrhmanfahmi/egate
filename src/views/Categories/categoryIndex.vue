@@ -22,7 +22,9 @@
                         <div class="card">
                             <img :src="category.cover" alt="Avatar" style="width:90%;height: 75%;">
                             <div class="containersCss">
-                                <p style="color: #000;"><b>{{ category.name_en }}</b></p>
+                                <p style="color: #000;font-size:12px;">
+                                    <b>{{ category.name_en.slice(0, 30) + (category.name_en.length > 30 ? "..." : "") }}</b>
+                                </p>
                             </div>
                         </div>
                     </router-link>

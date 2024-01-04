@@ -27,8 +27,10 @@
         </v-btn>
         <v-btn variant="outlined" class="bg-main textCss mx-2"> Buy It Now </v-btn>
         <div class="wrapper">
-          <div class="icon-wishlist mx-2" @click="addToWishlist(product)"
-            :class="{ 'in-wishlist': product.is_saved == true }"></div>
+          <!-- <div class="icon-wishlist mx-2" @click="addToFavourite(product)"></div> -->
+          <div class="styleHeartIcon mx-2" :id="'styleHeart'+product.id" @click="addToFavourite(product)">
+            <v-icon icon="mdi-heart-outline" :id="'getHeart'+product.id"></v-icon>
+          </div>
         </div>
       </div>
       <div class="productColors my-3">
@@ -41,14 +43,44 @@
 
 <script>
 import ProductVariants from "./ProductVariants.vue";
+import { useToast } from "vue-toastification";
+import account from '@/services/account';
 export default {
   // mixins: [myMixin],
   props: ['product'],
+  mounted(){
+    let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+      if(user != null){
+        if(localStorage.getItem('favourites') == null){
+        console.log('jsjjssjjs');
+        this.arrFavourites = [];
+        this.arrFavourites = localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
+      }else{
+        this.arrFavourites = JSON.parse(localStorage.getItem('favourites'));
+        for(let i = 0 ; i < this.arrFavourites.length ; i++){
+          if(document.getElementById('getHeart'+this.arrFavourites[i].product_id) != null){
+            if(this.arrFavourites[i].user_id == user.user.id){
+              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart-outline");
+              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart");
+              document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'red';
+            }else{
+              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart");
+              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart-outline");
+              document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'black';
+            }
+          }else{
+            console.log('sayed');
+          }
+        }
+      }
+    }
+  },
   data: () => ({
     rating: 3.5,
     checkPower: null,
     quantity: 1,
     totalPrice: 0,
+    arrFavourites:[]
   }),
   components: {
     ProductVariants,
@@ -66,8 +98,90 @@ export default {
       // console.log(data);
       this.$store.dispatch("cart/addProductToCart", data);
     },
-    addToWishlist(product) {
-      this.$store.dispatch('wishlist/addProductToWishlist', product)
+    // addToWishlist(product) {
+    //   this.$store.dispatch('wishlist/addProductToWishlist', product)
+    // },
+    async addToFavourite(product){
+      const toast = useToast();
+      let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+      let newObj = {};
+      this.arrFavourites = JSON.parse(localStorage.getItem('favourites'));
+      if(this.arrFavourites.length == 0){
+        newObj.user_id = user.user.id;
+          newObj.product_id = product.id;
+          this.arrFavourites.push(newObj);
+          localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
+          let res = await account.addProductToFavourite({product_id: product.id});
+          if(res.data.code == 200){
+            toast.success(`Product Add To Wishlist`, {
+                position: "top-right",
+                transition: "slide",
+                hideProgressBar: false,
+                showIcon: true,
+                timeout: 3000,
+                showCloseButton: true,
+                swipeClose: true,
+            });
+            document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
+            document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
+            document.getElementById('styleHeart'+product.id).style.color = 'red';
+          }
+      }else{
+        let index = this.arrFavourites.findIndex(x => x.product_id == product.id);
+        console.log(index);
+        if (index != -1) {
+          let FavouritesProducts = JSON.parse(localStorage.getItem('favourites'));
+          const filteredData = FavouritesProducts.filter(e => {
+            return e.product_id != product.id;
+          });
+
+          // let res = await account.removeProductFromFavourite({product_id: product.id});
+          // if(res.data.code == 200){
+          //   toast.success(`Product Removed From Wishlist`, {
+          //       position: "top-right",
+          //       transition: "slide",
+          //       hideProgressBar: false,
+          //       showIcon: true,
+          //       timeout: 3000,
+          //       showCloseButton: true,
+          //       swipeClose: true,
+          //   });
+          // }
+            toast.success(`Product Removed From Wishlist`, {
+                position: "top-right",
+                transition: "slide",
+                hideProgressBar: false,
+                showIcon: true,
+                timeout: 3000,
+                showCloseButton: true,
+                swipeClose: true,
+            });
+          localStorage.setItem('favourites' , JSON.stringify(filteredData));
+          document.getElementById('getHeart'+product.id).classList.remove("mdi-heart");
+          document.getElementById('getHeart'+product.id).classList.add("mdi-heart-outline");
+          document.getElementById('styleHeart'+product.id).style.color = 'black';
+        }else{
+          newObj.user_id = user.user.id;
+          newObj.product_id = product.id;
+          this.arrFavourites.push(newObj);
+          localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
+          let res = await account.addProductToFavourite({product_id: product.id});
+          if(res.data.code == 200){
+            toast.success(`Product Add To Wishlist`, {
+                position: "top-right",
+                transition: "slide",
+                hideProgressBar: false,
+                showIcon: true,
+                timeout: 3000,
+                showCloseButton: true,
+                swipeClose: true,
+            });
+            document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
+            document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
+            document.getElementById('styleHeart'+product.id).style.color = 'red';
+          }
+        }
+      }
     },
     onUpdatePrice(newPrice) {
       this.totalPrice = newPrice;
@@ -77,6 +191,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.styleHeartIcon{
+  cursor: pointer;
+}
 .styleCssReview {
   font-size: 13px;
 }

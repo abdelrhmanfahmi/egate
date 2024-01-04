@@ -351,17 +351,30 @@ export default {
     async addFileBankTransfer(){
       try{
         const toast = useToast();
-        await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
-        toast.success(`Bank File Added Successfully`, {
-          position: "top-right",
-          transition: "slide",
-          hideProgressBar: false,
-          showIcon: true,
-          timeout: 3000,
-          showCloseButton: true,
-          swipeClose: true,
-        });
-        this.bankTransferDialog = false;
+        if(this.orderCheckout.bank_transfer_image){
+          await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
+          toast.success(`Bank File Added Successfully`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+          this.bankTransferDialog = false;
+        }else{
+          toast.warning(`Please Add File Transfer Bank`, {
+            position: "top-right",
+            transition: "slide",
+            hideProgressBar: false,
+            showIcon: true,
+            timeout: 3000,
+            showCloseButton: true,
+            swipeClose: true,
+          });
+        }
+        
       }catch(e){
         console.log(e);
       }

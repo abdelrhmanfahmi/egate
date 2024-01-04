@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     isLoggedIn: function () {
-      return this.$store.getters['Auth/isAuthenticated'];
+      return ['Auth/isAuthenticated'];
     },
     loadingPageData() {
       return this.$store.getters['Auth/LoginNow'];

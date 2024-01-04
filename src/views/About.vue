@@ -132,10 +132,6 @@ export default {
   color: blue;
 }
 
-p {
-  color: #5F5E58;
-}
-
 .styleFontOffer {
   font-size: 50px;
 }
@@ -165,9 +161,13 @@ p {
   background-color: #F2F5F7;
 }
 
-p.description {
+.description {
   line-height: 2.5;
   color: #fff !important;
+}
+
+p {
+  color: #5F5E58;
 }
 
 img.img-responsive {

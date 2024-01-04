@@ -31,7 +31,7 @@
                 <div class="buttons">
                   <v-row class="aligned-row">
                     <v-col cols="12" lg="6" md="6" sm="12">
-                      <v-btn to="/" class="conf-btn">TRACK ORDER</v-btn>
+                      <v-btn to="/profile/orders" class="conf-btn">TRACK ORDER</v-btn>
                     </v-col>
                     <v-col cols="12" lg="6" md="6" sm="12">
                       <v-btn to="/" class="conf-btn">CONTINUE EXPLORING</v-btn>
@@ -80,7 +80,7 @@
                   </div>
                   <div>
                     <h4>Contact Information</h4>
-                    <p class="text-gray-thin">Ahmedsalam2028@Gmail.Com</p>
+                    <p class="text-gray-thin">{{ user.user.email }}</p>
                   </div>
                   <div>
                     <h4>Shipping Address</h4>
@@ -100,7 +100,7 @@
                   </div>
                   <div>
                     <h4>Total Payments</h4>
-                    <p class="text-gray-thin">1150</p>
+                    <p class="text-gray-thin">{{cartTotalPrice}} <span class="superscriptCss">EGP</span></p>
                   </div>
                 </div>
               </div>
@@ -121,9 +121,30 @@ export default {
       htmlAttrs: { lang: "en", amp: true },
     });
   },
+  computed: {
+    user: function() {
+      return this.$store.getters['Auth/User'];
+    },
+    orderCheckoutObject: function () {
+      return this.$store.getters['Order/orderCheckoutObject'];
+    },
+    cartTotalPrice() {
+      try {
+        return this.$store.getters['cart/cartTotalPrice'];
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
+.superscriptCss{
+  position: relative; 
+  top: -0.5em;
+  font-size: 80%;
+  color: red;
+}
 .page-wrapper {
   background: #faf9f5;
 }

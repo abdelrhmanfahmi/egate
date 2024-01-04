@@ -125,6 +125,7 @@ import NavLinks from "./NavLinks.vue";
 export default {
   // mixins:[myMixin],
   mounted() {
+    console.log(this.wishlistItemsCount);
     const menu = document.querySelector(".menu");
     const menuMain = menu.querySelector(".menu-main");
     const goBack = menu.querySelector(".go-back");
@@ -258,7 +259,9 @@ export default {
     // ThemeButton
   },
   computed: {
-    ...mapGetters({ wishlistItemsCount: "wishlist/wishlistItemCount" }),
+    wishlistItemsCount() {
+      return this.$store.getters['wishlist/wishlistItemCount'];
+    },
     categories() {
       return this.$store.getters['categories/categories'];
     },
