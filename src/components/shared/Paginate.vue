@@ -52,6 +52,11 @@
 <script>
 export default {
   name: "pagination",
+  mounted(){
+    if(this.isLoggedIn){
+      this.putFavouritesIconData();
+    }
+  },
   /**
    * props
    */
@@ -86,6 +91,7 @@ export default {
     isInFirstPage() {
       return this.currentPage === 1;
     },
+  
     /**
      * @vuese
      * check if page is  last
@@ -144,6 +150,9 @@ export default {
         });
       }
       return range;
+    },
+    isLoggedIn: function () {
+      return this.$store.getters['Auth/isAuthenticated'];
     },
   },
   methods: {
@@ -213,6 +222,29 @@ export default {
         top: 200,
         behavior: "smooth",
       });
+    },
+    async putFavouritesIconData(){
+      try{
+        let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+        let arr = await this.$store.getters["wishlist/wishlistData"];
+        for(let i = 0 ; i < arr.length ; i++){
+        if(document.getElementById('getHeart'+arr[i].id) != null){
+          if(user){
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart-outline");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'red';
+          }else{
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart-outline");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'black';
+          }
+        }else{
+          console.log('no favourite');
+        }
+      }
+      }catch(e){
+        console.log(e);
+      }
     },
   },
 };

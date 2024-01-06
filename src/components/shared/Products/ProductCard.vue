@@ -107,48 +107,8 @@
 <script>
 export default {
   props: ["product"],
-  async mounted(){
-    let arr = await this.$store.getters["wishlist/wishlistData"];
-    for(let i = 0 ; i < arr.length ; i++){
-      if(document.getElementById('getHeart'+arr[i].product_id) != null){
-        if(arr[i].user_id == user.user.id){
-          document.getElementById('getHeart'+arr[i].product_id).classList.remove("mdi-heart-outline");
-          document.getElementById('getHeart'+arr[i].product_id).classList.add("mdi-heart");
-          document.getElementById('styleHeart'+arr[i].product_id).style.color = 'red';
-        }else{
-          document.getElementById('getHeart'+arr[i].product_id).classList.remove("mdi-heart");
-          document.getElementById('getHeart'+arr[i].product_id).classList.add("mdi-heart-outline");
-          document.getElementById('styleHeart'+arr[i].product_id).style.color = 'black';
-        }
-      }else{
-        console.log('sayed');
-      }
-    }
-
-  //   let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
-  //   if(user != null){
-  //     if(localStorage.getItem('favourites') == null){
-  //     this.arrFavourites = [];
-  //     this.arrFavourites = localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
-  //   }else{
-  //     this.arrFavourites = JSON.parse(localStorage.getItem('favourites'));
-  //     for(let i = 0 ; i < this.arrFavourites.length ; i++){
-  //       if(document.getElementById('getHeart'+this.arrFavourites[i].product_id) != null){
-  //         if(this.arrFavourites[i].user_id == user.user.id){
-  //           document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart-outline");
-  //           document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart");
-  //           document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'red';
-  //         }else{
-  //           document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart");
-  //           document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart-outline");
-  //           document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'black';
-  //         }
-  //       }else{
-  //         console.log('sayed');
-  //       }
-  //     }
-  //   }
-  // }
+  mounted(){
+    this.putFavouritesIconData();
   },
   data() {
     return {
@@ -157,6 +117,29 @@ export default {
     };
   },
   methods: {
+    async putFavouritesIconData(){
+      try{
+        let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+        let arr = await this.$store.getters["wishlist/wishlistData"];
+        for(let i = 0 ; i < arr.length ; i++){
+        if(document.getElementById('getHeart'+arr[i].id) != null){
+          if(user){
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart-outline");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'red';
+          }else{
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart-outline");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'black';
+          }
+        }else{
+          console.log('no favourite');
+        }
+      }
+      }catch(e){
+        console.log(e);
+      }
+    },
     addProductToCart(product) {
       try {
         let data = {
@@ -171,104 +154,24 @@ export default {
       }
     },
     async addToFavourite(product){
-      let arr = await this.$store.getters["wishlist/wishlistData"];
-      let index = arr.findIndex(x => x.product_id == product.id);
+      try{
+        let arr = await this.$store.getters["wishlist/wishlistData"];
+        let index = arr.findIndex(x => x.id == product.id);
 
-      if(index == -1){
-        await this.$store.dispatch("wishlist/addProductToWishlist",product.id);
-        document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
-        document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
-        document.getElementById('styleHeart'+product.id).style.color = 'red';
-      }else{
-        await this.$store.dispatch("wishlist/removeProductFromWishlist",product.id);
-        document.getElementById('getHeart'+product.id).classList.remove("mdi-heart");
-        document.getElementById('getHeart'+product.id).classList.add("mdi-heart-outline");
-        document.getElementById('styleHeart'+product.id).style.color = 'black';
+        if(index == -1){
+          await this.$store.dispatch("wishlist/addProductToWishlist",product.id);
+          document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
+          document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
+          document.getElementById('styleHeart'+product.id).style.color = 'red';
+        }else{
+          await this.$store.dispatch("wishlist/removeProductFromWishlist",product.id);
+          document.getElementById('getHeart'+product.id).classList.remove("mdi-heart");
+          document.getElementById('getHeart'+product.id).classList.add("mdi-heart-outline");
+          document.getElementById('styleHeart'+product.id).style.color = 'black';
+        }
+      }catch(e){
+        console.log(e);
       }
-      // await this.$store.dispatch("wishlist/addProductToWishlist",product.id);
-      // document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
-      // document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
-      // document.getElementById('styleHeart'+product.id).style.color = 'red';
-
-      // let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
-      // let newObj = {};
-      // this.arrFavourites = JSON.parse(localStorage.getItem('favourites'));
-      // if(this.arrFavourites.length == 0){
-      //   newObj.user_id = user.user.id;
-      //     newObj.product_id = product.id;
-      //     this.arrFavourites.push(newObj);
-      //     localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
-      //     let res = await account.addProductToFavourite({product_id: product.id});
-      //     if(res.data.code == 200){
-      //       toast.success(`Product Add To Wishlist`, {
-      //           position: "top-right",
-      //           transition: "slide",
-      //           hideProgressBar: false,
-      //           showIcon: true,
-      //           timeout: 3000,
-      //           showCloseButton: true,
-      //           swipeClose: true,
-      //       });
-      //       document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
-      //       document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
-      //       document.getElementById('styleHeart'+product.id).style.color = 'red';
-      //     }
-      // }else{
-      //     // this.arrFavourites.find(async (element) => {
-      //       let index = this.arrFavourites.findIndex(x => x.product_id == product.id);
-      //     if (index != -1) {
-      //       let FavouritesProducts = JSON.parse(localStorage.getItem('favourites'));
-      //       const filteredData = FavouritesProducts.filter(e => {
-      //         return e.product_id != product.id;
-      //       });
-
-      //       // let res = await account.removeProductFromFavourite({product_id: product.id});
-      //       // if(res.data.code == 200){
-      //       //   toast.success(`Product Removed From Wishlist`, {
-      //       //       position: "top-right",
-      //       //       transition: "slide",
-      //       //       hideProgressBar: false,
-      //       //       showIcon: true,
-      //       //       timeout: 3000,
-      //       //       showCloseButton: true,
-      //       //       swipeClose: true,
-      //       //   });
-      //       // }
-      //         toast.success(`Product Removed From Wishlist`, {
-      //             position: "top-right",
-      //             transition: "slide",
-      //             hideProgressBar: false,
-      //             showIcon: true,
-      //             timeout: 3000,
-      //             showCloseButton: true,
-      //             swipeClose: true,
-      //         });
-      //       localStorage.setItem('favourites' , JSON.stringify(filteredData));
-      //       document.getElementById('getHeart'+product.id).classList.remove("mdi-heart");
-      //       document.getElementById('getHeart'+product.id).classList.add("mdi-heart-outline");
-      //       document.getElementById('styleHeart'+product.id).style.color = 'black';
-      //     }else{
-      //       newObj.user_id = user.user.id;
-      //       newObj.product_id = product.id;
-      //       this.arrFavourites.push(newObj);
-      //       localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
-      //       let res = await account.addProductToFavourite({product_id: product.id});
-      //       if(res.data.code == 200){
-      //         toast.success(`Product Add To Wishlist`, {
-      //             position: "top-right",
-      //             transition: "slide",
-      //             hideProgressBar: false,
-      //             showIcon: true,
-      //             timeout: 3000,
-      //             showCloseButton: true,
-      //             swipeClose: true,
-      //         });
-      //         document.getElementById('getHeart'+product.id).classList.remove("mdi-heart-outline");
-      //         document.getElementById('getHeart'+product.id).classList.add("mdi-heart");
-      //         document.getElementById('styleHeart'+product.id).style.color = 'red';
-      //       }
-      //     }
-      // }
     }
   },
 };

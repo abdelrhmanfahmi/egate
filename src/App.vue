@@ -46,7 +46,7 @@ export default {
       } catch (e) {
         console.log(e.message);
       }
-    }
+    },
   },
   mounted() {
 
@@ -54,11 +54,13 @@ export default {
     this.getCategories();
     this.checkIfuserGuest();
     this.getCartItems();
-    this.getWishlistItems();
+    if(this.isLoggedIn){
+      this.getWishlistItems();
+    }
   },
   computed: {
     isLoggedIn: function () {
-      return ['Auth/isAuthenticated'];
+      return this.$store.getters['Auth/isAuthenticated'];
     },
     loadingPageData() {
       return this.$store.getters['Auth/LoginNow'];

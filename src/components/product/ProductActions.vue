@@ -49,31 +49,7 @@ export default {
   // mixins: [myMixin],
   props: ['product'],
   mounted(){
-    let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
-      if(user != null){
-        if(localStorage.getItem('favourites') == null){
-        console.log('jsjjssjjs');
-        this.arrFavourites = [];
-        this.arrFavourites = localStorage.setItem('favourites' , JSON.stringify(this.arrFavourites));
-      }else{
-        this.arrFavourites = JSON.parse(localStorage.getItem('favourites'));
-        for(let i = 0 ; i < this.arrFavourites.length ; i++){
-          if(document.getElementById('getHeart'+this.arrFavourites[i].product_id) != null){
-            if(this.arrFavourites[i].user_id == user.user.id){
-              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart-outline");
-              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart");
-              document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'red';
-            }else{
-              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.remove("mdi-heart");
-              document.getElementById('getHeart'+this.arrFavourites[i].product_id).classList.add("mdi-heart-outline");
-              document.getElementById('styleHeart'+this.arrFavourites[i].product_id).style.color = 'black';
-            }
-          }else{
-            console.log('sayed');
-          }
-        }
-      }
-    }
+    this.putFavouritesIconData();
   },
   data: () => ({
     rating: 3.5,
@@ -86,6 +62,29 @@ export default {
     ProductVariants,
   },
   methods: {
+    async putFavouritesIconData(){
+      try{
+        let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+        let arr = await this.$store.getters["wishlist/wishlistData"];
+        for(let i = 0 ; i < arr.length ; i++){
+        if(document.getElementById('getHeart'+arr[i].id) != null){
+          if(user){
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart-outline");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'red';
+          }else{
+            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart");
+            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart-outline");
+            document.getElementById('styleHeart'+arr[i].id).style.color = 'black';
+          }
+        }else{
+          console.log('no favourite');
+        }
+      }
+      }catch(e){
+        console.log(e);
+      }
+    },
     showAlert() {
       this.sucessMsg("Product Added to favorite Successfully");
     },

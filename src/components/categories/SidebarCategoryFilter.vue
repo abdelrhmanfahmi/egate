@@ -46,11 +46,19 @@ export default {
     mounted() {
         this.checkID();
         this.getCategoryProducts();
+        if(this.isLoggedIn){
+            this.putFavouritesIconData();
+        }
     },
     components: {
         sideFilters,
         CategoryProducts,
         Paginate
+    },
+    computed:{
+        isLoggedIn: function () {
+            return this.$store.getters['Auth/isAuthenticated'];
+        },
     },
     watch: {
         '$route.params.id'(newVal, oldVal) {
@@ -60,6 +68,29 @@ export default {
         }
     },
     methods: {
+        async putFavouritesIconData(){
+            try{
+                let user = JSON.parse(localStorage.getItem('EGate-userInfo'));
+                let arr = await this.$store.getters["wishlist/wishlistData"];
+                for(let i = 0 ; i < arr.length ; i++){
+                    if(document.getElementById('getHeart'+arr[i].id) != null){
+                        if(user.user.id == 9){
+                            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart-outline");
+                            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart");
+                            document.getElementById('styleHeart'+arr[i].id).style.color = 'red';
+                        }else{
+                            document.getElementById('getHeart'+arr[i].id).classList.remove("mdi-heart");
+                            document.getElementById('getHeart'+arr[i].id).classList.add("mdi-heart-outline");
+                            document.getElementById('styleHeart'+arr[i].id).style.color = 'black';
+                        }
+                    }else{
+                        console.log('no favourite');
+                    }
+                }
+            }catch(e){
+                console.log(e);
+            }
+        },
         checkID() {
             if (this.$route.params.id) {
                 this.category_id = this.$route.params.id
@@ -116,6 +147,7 @@ export default {
         onPageChange(page) {
             this.page = page;
             this.getCategoryProducts(this.page);
+            this.putFavouritesIconData();
         },
 
         onChangeRecordsPerPage() {
