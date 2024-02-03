@@ -231,4 +231,7 @@ export default{
         border-radius: 50%;
         margin: auto;
     }
+    p{
+        color:#000;
+    }
 </style>

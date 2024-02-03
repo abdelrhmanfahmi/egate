@@ -6,15 +6,15 @@
       </div>
       <section class="my-2">
         <div class="returned-orders">
-          <div class="mb-10 py-5" v-for="(x, index) in 2" :key="index">
-            <h2 class="text-gray h1">Order #012346778</h2>
+          <div class="mb-10 py-5" v-for="(returnOrder, index) in returnedOrders" :key="index">
+            <h2 class="text-gray h1">Order #{{returnOrder.id}}</h2>
             <div class="d-flex">
               <div>
-                <div class="product-img">
-                  <img
-                    src="https://drive.google.com/uc?id=1-qzpXz-6SaqM3IPlQl_d9YXaPaBPw1xi"
-                    alt=""
-                  />
+                <div class="product-img" v-if="returnOrder.image != null">
+                  <img :src="returnOrder.image" alt="" />
+                </div>
+                <div class="product-img" v-else>
+                  <img :src="require('@/assets/images/product/Image15.png')" alt="" />
                 </div>
               </div>
               <div>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="d-flex justify-end">
-              <p class="text-gray">Tracking ID: 6893838</p>
+              <p class="text-gray">Tracking ID: {{returnOrder.id}}</p>
             </div>
             <ProductTrack />
             <hr class="divider my-2" />
@@ -41,10 +41,25 @@
 
 <script>
 import { useMeta } from "vue-meta";
+import order from '@/services/order';
 import ProductTrack from "@/components/Profile/ProductTrack.vue";
 export default {
   components: {
     ProductTrack,
+  },
+  mounted(){
+    this.getOrdersReturned();
+  },
+  data(){
+    return {
+      returnedOrders:[]
+    }
+  },
+  methods:{
+    async getOrdersReturned(){
+      const res = await order.getReturnedOrders();
+      this.returnedOrders = res.data.items.data;
+    }
   },
   setup() {
     useMeta({

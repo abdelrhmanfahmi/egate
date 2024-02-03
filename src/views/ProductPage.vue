@@ -24,23 +24,31 @@ import globalAxios from "@/services/global-axios";
 
 export default {
   data: () => ({
-    items: [
-      {
-        title: "ELECTRONICS",
-        disabled: false,
-        href: "breadcrumbs_dashboard",
-      },
+    // items: [
+    //   {
+    //     title: "ELECTRONICS",
+    //     disabled: false,
+    //     href: "breadcrumbs_dashboard",
+    //   },
 
-      {
-        title: "COMPUTERS COMPONENTS & ACCESSORIES",
-        disabled: false,
-        href: "breadcrumbs_link_1",
-      },
-      {
-        title: "LAPTOPS & NOTEBOOKS",
-        disabled: true,
-        href: "breadcrumbs_link_2",
-      },
+    //   {
+    //     title: "COMPUTERS COMPONENTS & ACCESSORIES",
+    //     disabled: false,
+    //     href: "breadcrumbs_link_1",
+    //   },
+    //   {
+    //     title: "LAPTOPS & NOTEBOOKS",
+    //     disabled: true,
+    //     href: "breadcrumbs_link_2",
+    //   },
+    // ],
+
+    items:[
+        {
+            title: "",
+            disabled: false,
+            href: "",
+        },
     ],
 
     product: {},
@@ -65,12 +73,14 @@ export default {
         this.id = this.$route.query.id
       }
     },
-
     async getProduct() {
       try{
         const response = await globalAxios.get(`client/products/${this.$route.params.id}`);
         this.product = response.data.items;
         localStorage.setItem('dataProduct' , JSON.stringify(response.data.items));
+        this.items[0].title = response.data.items.name_en;
+        this.items[0].disabled = false;
+        this.items[0].href = "/productPage/"+response.data.items.id;
       }catch(e){
         console.log(e);
       }

@@ -1,5 +1,5 @@
 <template>
-    <div class="products-slider-wrapper">
+    <div class="products-slider-wrapper" v-if="products.length && products">
       <v-container fluid>
         <section class="pb-5">
           <div class="">
@@ -11,6 +11,9 @@
           </div>
         </section>
       </v-container>
+    </div>
+    <div v-else>
+      <h5>No Products</h5>
     </div>
   </template>
   

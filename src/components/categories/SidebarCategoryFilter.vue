@@ -147,7 +147,6 @@ export default {
         onPageChange(page) {
             this.page = page;
             this.getCategoryProducts(this.page);
-            this.putFavouritesIconData();
         },
 
         onChangeRecordsPerPage() {

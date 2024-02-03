@@ -57,6 +57,11 @@
               </div>
             </div>
           </v-col>
+
+          <v-col v-else>
+            <h5>No Special Offer</h5>
+          </v-col>
+          
           <v-col cols="12" xl="9" lg="9" md="9" sm="12">
             <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="center">
               <v-tab :value="1" @click.prevent="getProductsWithFilter(1)">Featured</v-tab>

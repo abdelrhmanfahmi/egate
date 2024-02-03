@@ -14,7 +14,7 @@
         <v-window v-model="tab">
           <v-window-item value="1">
             <div class="aligned-row mt-8">
-              <h4>2 Orders <span class="text-gray">Placed In</span></h4>
+              <h4>{{ this.orders.length }} Orders <span class="text-gray">Placed In</span></h4>
               <div class="mx-3">
                 <v-select
                   label="Year"
@@ -24,13 +24,15 @@
                 ></v-select>
               </div>
             </div>
-            <div class="order-info my-8">
+
+            <div class="order-info my-8" v-for="(order, idx) in orders" :key="idx">
               <v-row>
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <p class="order-number">#0123443444</p>
+                  <p class="order-number">#{{ order.id }}</p>
                 </v-col>
                 <v-col cols="12" lg="6" md="6" sm="12">
-                  <p class="order-date">April 11, 2022, 17:33</p>
+                  <!-- <p class="order-date">April 11, 2022, 17:33</p> -->
+                  <p class="order-date">{{getFormattedDate(order.created_at)}}</p>
                 </v-col>
               </v-row>
               <v-row>
@@ -46,9 +48,17 @@
                       Fresh 65Lu433Rg Smart Android Tv, 65 Inch, Frameless,…
                     </p>
                   </div>
-                  <div class="order-status">
-                    <span><v-icon icon="mdi-truck-outline"></v-icon></span>
-                    <span class="mx-3">Dispatched</span>
+                  <div class="order-status" v-if="order.status_logs[0].status == 'placed'">
+                    <span >
+                      <v-icon icon="mdi-truck-outline" style="color:#33D43B"></v-icon>
+                    </span>
+                    <span class="mx-3" style="color:#33D43B">{{order.status_logs[0].status}}</span>
+                  </div>
+                  <div v-else>
+                    <span>
+                      <v-icon icon="mdi-truck-outline"></v-icon>
+                    </span>
+                    <span class="mx-3">{{order.status_logs[0].status}}</span>
                   </div>
                 </v-col>
                 <v-col cols="12" lg="6" md="6" sm="12" class="mt-5">
@@ -151,135 +161,7 @@
                 </v-col>
               </v-row>
             </div>
-            <div class="order-info my-8">
-              <v-row>
-                <v-col cols="12" lg="6" md="6" sm="12">
-                  <p class="order-number">#012346222</p>
-                </v-col>
-                <v-col cols="12" lg="6" md="6" sm="12">
-                  <p class="order-date">January 11, 2022, 17:33</p>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" lg="6" md="6" sm="12">
-                  <div class="aligned-row">
-                    <div class="order-image">
-                      <v-img
-                        src="@/assets/images/product/Image15.png"
-                        width="100"
-                      ></v-img>
-                    </div>
-                    <p class="order-data mx-5">Canon Hd Camera</p>
-                  </div>
-                  <h4 class="text-main">ADD A REVIEW</h4>
-                  <div class="order-status">
-                    <span
-                      ><v-icon icon="mdi-truck-outline" color="success"></v-icon
-                    ></span>
-                    <span class="mx-3 text-success">Delivered</span>
-                  </div>
-                </v-col>
-                <v-col cols="12" lg="6" md="6" sm="12" class="mt-5">
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">x2</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">600 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Shipping Fees:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">80 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <!-- Estimated Shipping Time  -->
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Estimated Shipping Time:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">3 Days</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <!-- prices  -->
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Subtotal:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="product-price">600 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <!-- shipping fees  -->
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Shipping Fees:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="product-price">80 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <!-- Taxes:  -->
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Taxes:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="product-price">50 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <!-- Total::  -->
-                  <v-row class="aligned-row">
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="order-qty">Total:</p>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" lg="6" md="6" sm="12">
-                      <div class="order-date">
-                        <p class="product-price">730 Egp</p>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <v-row class="my-8">
-                <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class="buy-btn">BUY IT AGAIN</button>
-                </v-col>
-                <v-col cols="12" lg="6" md="6" sm="12">
-                  <button class="view-btn">VIEW YOUR ITEM</button>
-                </v-col>
-              </v-row>
-            </div>
+
           </v-window-item>
           <v-window-item value="2">
             <v-container fluid>
@@ -391,6 +273,8 @@
 
 <script>
 import { useMeta } from "vue-meta";
+import order from '@/services/order';
+import moment from 'moment';
 export default {
   data() {
     return {
@@ -398,7 +282,21 @@ export default {
       form: {
         Placedyear: null,
       },
+      orders:[]
     };
+  },
+  mounted(){
+    this.getOrders();
+  },
+  methods:{
+    async getOrders(){
+      const res = await order.index();
+      console.log(res.data.items.data);
+      this.orders = res.data.items.data;
+    },
+    getFormattedDate(date) {
+        return moment(date).format("MMMM D, YYYY, HH:mm");
+    }
   },
   setup() {
     useMeta({
@@ -410,6 +308,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p{
+  color:#000;
+}
 .order-info {
   background: #fff;
   padding: 20px;

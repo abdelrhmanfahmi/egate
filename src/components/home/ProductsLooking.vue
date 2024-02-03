@@ -4,7 +4,7 @@
       <section class="pt-5 pb-5" v-if="categoryFeatured">
         <v-row>
           <v-col cols="12" md="3" v-for="(category, idx) in categoryFeatured" :key="idx">
-            <h6 class="title mb-5">{{ category.name_en }}</h6>
+            <h6 class="title mb-3">{{ category.name_en }}</h6>
             <v-row>
               <v-col cols="6" sm="6" class="px-1 py-1" v-for="(subCategory, index) in category.childrens.slice(0, 4)" :key="index">
                 <div class="img-holder">
@@ -18,6 +18,9 @@
             </div>
           </v-col>
         </v-row>
+      </section>
+      <section v-else>
+        <h5>No Category Featured</h5>
       </section>
     </v-container>
   </div>

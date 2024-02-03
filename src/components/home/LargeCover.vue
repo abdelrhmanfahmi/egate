@@ -6,7 +6,9 @@
           <img :src="largeCoversOne[0].image" alt="image" class="coverImage">
         </router-link>
       </div>
-      <div v-else></div>
+      <div v-else>
+        <h5>No covers</h5>
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper mb-5">
+  <div class="wrapper mb-5" v-if="promotions.length && promotions">
     <v-container fluid>
       <v-row v-if="promotions">
         <v-col v-for="(promotion,index) in promotions.slice(0,3)" :key="index" cols="12" sm="4" >
@@ -10,6 +10,9 @@
       </v-row>
       <v-row v-else></v-row>
     </v-container>
+  </div>
+  <div v-else>
+    <h5>No Promotions</h5>
   </div>
 </template>
 

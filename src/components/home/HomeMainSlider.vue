@@ -1,5 +1,5 @@
 <template>
-  <section class="homeMainSlider">
+  <section class="homeMainSlider" v-if="banners.length && banners">
     <swiper v-bind="options" :modules="modules" class="mySwiper">
       <swiper-slide v-for="(banner, index) in banners" :key="index" class="slider-image-holder specificClassImageSlider">
         <v-img class="styleImageSpecific" :src="banner.image"></v-img>
@@ -8,6 +8,9 @@
         </div>
       </swiper-slide>
     </swiper>
+  </section>
+  <section v-else>
+    <h5 class="text-gray-dark">No Banners</h5>
   </section>
 </template>
 <script>

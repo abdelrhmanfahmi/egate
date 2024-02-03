@@ -213,7 +213,7 @@
                 <div class="row mb-3">
                   <div class="col-md-12">
                     <!-- <input type="file" class="form-control" id="uploadFileTrabsferBank"> -->
-                    <v-file-input label="File input" @change="uploadFileBank" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                    <v-file-input id="checkImageExists" label="File input" @change="uploadFileBank" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -351,7 +351,8 @@ export default {
     async addFileBankTransfer(){
       try{
         const toast = useToast();
-        if(this.orderCheckout.bank_transfer_image){
+        let fileExists = document.getElementById('checkImageExists').files.length;
+        if(fileExists > 0){
           await this.$store.dispatch('Order/updateOrderCheckoutObject', this.orderCheckout);
           toast.success(`Bank File Added Successfully`, {
             position: "top-right",

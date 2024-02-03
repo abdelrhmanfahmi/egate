@@ -102,15 +102,17 @@ $ICON_COLOR: #f3597d;
   // THE GOOD STUFF
   .progressContainer {
     position: relative;
-    padding: $SPACER_LG;
+    // padding: $SPACER_LG;
     color: $gray;
   }
 
   .progress {
     position: relative;
-    padding: 0 $SPACER 0 3.5rem;
+    padding: 2rem $SPACER 0 3.5rem;
     margin: $SPACER_LG 0 0;
     list-style: none;
+    display: block;
+    height: 100%;
   }
 
   .progress__item {
@@ -153,7 +155,7 @@ $ICON_COLOR: #f3597d;
     //Completed
     &.progress__item--completed {
       opacity: 0.6;
-      color: #fff;
+      color: $gray;
       &:after {
         //@at-rootcontent: "\2713";
         content: "";
@@ -175,6 +177,7 @@ $ICON_COLOR: #f3597d;
   }
 
   .progress__title {
+    color: #33322D;
     font-size:16px;
   }
 
